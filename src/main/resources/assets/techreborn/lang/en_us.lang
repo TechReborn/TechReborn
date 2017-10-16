@@ -633,6 +633,7 @@ techreborn.recipe.lathe=Lathe Recipe
 techreborn.recipe.platecuttingmachine=Plate Cutting Machine Recipe
 techreborn.recipe.chemicalReactor=Chemical Reactor Recipe
 techreborn.recipe.implosioncompressor=Implosion Compressor
+techreborn.recipe.distillationtower=Distillation Tower Recipe
 
 #Message
 techreborn.message.missingmultiblock=Incomplete Multiblock

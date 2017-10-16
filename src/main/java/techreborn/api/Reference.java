@@ -70,4 +70,5 @@ public class Reference {
 	public static String compressorRecipe = I18n.translateToLocal("tile.techreborn.compressor.name");
 	public static String recyclerRecipe = I18n.translateToLocal("tile.techreborn.recycler.name");
 	public static String scrapboxRecipe = I18n.translateToLocal("techreborn.recipe.scrapbox");
+	public static String distillationTowerRecipe = I18n.translateToLocal("techreborn.recipe.distillationtower");
 }

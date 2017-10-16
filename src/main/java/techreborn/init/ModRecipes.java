@@ -77,6 +77,7 @@ public class ModRecipes {
 		ScrapboxRecipes.init();
 		ChemicalReactorRecipes.init();
 		FusionReactorRecipes.init();
+		DistillationTowerRecipes.init();
 
 		addAlloySmelterRecipes();
 		addBlastFurnaceRecipes();

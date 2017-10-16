@@ -87,6 +87,7 @@ public class CraftTweakerCompat implements ICompatModule {
 		CraftTweakerAPI.registerClass(CTFluidGen.class);
 		CraftTweakerAPI.registerClass(CTRollingMachine.class);
 		CraftTweakerAPI.registerClass(CTScrapbox.class);
+		CraftTweakerAPI.registerClass(CTDistillationTower.class);
 	}
 
 	@Override

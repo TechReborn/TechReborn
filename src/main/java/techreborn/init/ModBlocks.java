@@ -283,6 +283,7 @@ public class ModBlocks {
 
 		DISTILLATION_TOWER = new BlockDistillationTower();
 		registerBlock(DISTILLATION_TOWER, "distillation_tower");
+		GameRegistry.registerTileEntity(TileDistillationTower.class, "TileDistillationTowerTR");
 
 		VACUUM_FREEZER = new BlockVacuumFreezer();
 		registerBlock(VACUUM_FREEZER, "vacuum_freezer");

@@ -155,7 +155,9 @@ public class GuiHandler implements IGuiHandler {
 			case AUTO_CRAFTING_TABLE:
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
 			case PLASMA_GENERATOR:
-				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);				
+				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);	
+			case DISTILLATION_TOWER:
+				return new GuiDistillationTower(player, (TileDistillationTower) tile);	
 			default:
 				break;
 

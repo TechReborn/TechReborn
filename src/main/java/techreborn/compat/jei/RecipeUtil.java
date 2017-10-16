@@ -41,6 +41,7 @@ import java.awt.*;
 import java.text.NumberFormat;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class RecipeUtil {
 	private static final int color = Color.darkGray.getRGB();
 
@@ -54,7 +55,6 @@ public class RecipeUtil {
 		FontRenderer fontRenderer = minecraft.fontRenderer;
 		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
-		NumberFormat formatter = NumberFormat.getInstance();
 		String startCostEU = PowerSystem.getLocaliszedPower(startCost);
 		String startCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.start.cost", startCostEU);
 		fontRenderer.drawString(startCostString, x, y, color);

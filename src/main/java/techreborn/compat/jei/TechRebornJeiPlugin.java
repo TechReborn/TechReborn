@@ -49,6 +49,7 @@ import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.api.recipe.machines.CompressorRecipe;
+import techreborn.api.recipe.machines.DistillationTowerRecipe;
 import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
@@ -71,6 +72,8 @@ import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeCategory;
 import techreborn.compat.jei.chemicalReactor.ChemicalReactorRecipeWrapper;
 import techreborn.compat.jei.compressor.CompressorRecipeCategory;
 import techreborn.compat.jei.compressor.CompressorRecipeWrapper;
+import techreborn.compat.jei.distillationTower.DistillationTowerRecipeCategory;
+import techreborn.compat.jei.distillationTower.DistillationTowerRecipeWrapper;
 import techreborn.compat.jei.extractor.ExtractorRecipeCategory;
 import techreborn.compat.jei.extractor.ExtractorRecipeWrapper;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
@@ -105,10 +108,10 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
 	
-	@SuppressWarnings("deprecation")
 	private static void addDebugRecipes(final IModRegistry registry) {
 		final ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
 		final ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
@@ -139,6 +142,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 				new BlastFurnaceRecipeCategory(guiHelper),
 				new CentrifugeRecipeCategory(guiHelper),
 				new ChemicalReactorRecipeCategory(guiHelper),
+				new DistillationTowerRecipeCategory(guiHelper),
 				new FusionReactorRecipeCategory(guiHelper),
 				new GrinderRecipeCategory(guiHelper),
 				new ImplosionCompressorRecipeCategory(guiHelper), 
@@ -160,7 +164,6 @@ public class TechRebornJeiPlugin implements IModPlugin {
 	 }	
 	    			
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void register(
 		@Nonnull
@@ -241,6 +244,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(IndustrialSawmillRecipe.class, recipe -> new IndustrialSawmillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.handleRecipes(VacuumFreezerRecipe.class, recipe -> new VacuumFreezerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.VACUUM_FREEZER);
 		registry.handleRecipes(ScrapboxRecipe.class, recipe -> new ScrapboxRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SCRAPBOX);
+		registry.handleRecipes(DistillationTowerRecipe.class, recipe -> new DistillationTowerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.addRecipeHandlers(new RollingMachineRecipeHandler());
 		
 		if (!IC2Duplicates.deduplicate()) {
@@ -298,6 +302,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeClickArea(GuiThermalGenerator.class, 150, 4, 18, 18, EFluidGenerator.THERMAL.getRecipeID());
 		registry.addRecipeClickArea(GuiAlloySmelter.class, 150, 4, 18, 18, RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipeClickArea(GuiPlasmaGenerator.class, 150, 4, 18, 18, EFluidGenerator.PLASMA.getRecipeID());
+		registry.addRecipeClickArea(GuiDistillationTower.class, 150, 4, 18, 18, RecipeCategoryUids.DISTILLATION_TOWER);
 		
 		//OLD ONES
 		registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
@@ -332,6 +337,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ROLLING_MACHINE), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLATION_TOWER), RecipeCategoryUids.DISTILLATION_TOWER);
 
 		final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
@@ -372,6 +378,9 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			new BuiltContainerTransferInfo("compressor", RecipeCategoryUids.COMPRESSOR, 36, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("industrialsawmill", RecipeCategoryUids.INDUSTRIAL_SAWMILL, 36, 2, 0, 36));
+		recipeTransferRegistry.addRecipeTransferHandler(
+				new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 36, 2, 0, 36));
+		
 
 		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_CHEST));
