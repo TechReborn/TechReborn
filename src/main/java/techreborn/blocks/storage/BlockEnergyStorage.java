@@ -107,6 +107,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 			}
 		} else if (!player.isSneaking()){
 			player.openGui(Core.INSTANCE, guiID, world, pos.getX(), pos.getY(), pos.getZ());
+			return true;
 		}
 
 		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
