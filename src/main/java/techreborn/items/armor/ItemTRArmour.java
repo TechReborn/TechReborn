@@ -34,9 +34,6 @@ import techreborn.events.TRRecipeHandler;
  */
 public class ItemTRArmour extends ItemArmor {
 
-	private ArmorMaterial material = ArmorMaterial.LEATHER;
-	private EntityEquipmentSlot slot = EntityEquipmentSlot.HEAD;
-
 	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot) {
 		super(material, material.getDamageReductionAmount(slot), slot);
 		if (slot == EntityEquipmentSlot.HEAD)
@@ -48,8 +45,6 @@ public class ItemTRArmour extends ItemArmor {
 		if (slot == EntityEquipmentSlot.FEET)
 			setUnlocalizedName(material.name().toLowerCase() + "Boots");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		this.material = material;
-		this.slot = slot;
 		TRRecipeHandler.hideEntry(this);
 	}
 }

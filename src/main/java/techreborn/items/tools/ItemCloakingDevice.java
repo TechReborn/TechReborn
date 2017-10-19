@@ -25,6 +25,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -42,16 +43,17 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.api.Reference;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.items.ItemTR;
+import techreborn.items.armor.ItemTRArmour;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class ItemCloakingDevice extends ItemTR implements IEnergyItemInfo, IEnergyInterfaceItem {
+public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo, IEnergyInterfaceItem {
 
 	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in EU)")
 	public static int usage = 10;
@@ -61,11 +63,18 @@ public class ItemCloakingDevice extends ItemTR implements IEnergyItemInfo, IEner
 	public static boolean isActive;
 
 	public ItemCloakingDevice() {
+		super(Reference.CLOAKING_ARMOR, EntityEquipmentSlot.CHEST);
 		setUnlocalizedName("techreborn.cloakingdevice");
 		setMaxStackSize(1);
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+		return "techreborn:" + "textures/models/cloaking.png";
+	}
+	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		if (PoweredItem.canUseEnergy(usage, itemStack)) {
