@@ -31,13 +31,10 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 
 public class ItemTRHoe extends ItemHoe {
-	private ToolMaterial material = ToolMaterial.WOOD;
-
 	public ItemTRHoe(ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(material.name().toLowerCase() + "Hoe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		this.material = material;
 		TRRecipeHandler.hideEntry(this);
 	}
 

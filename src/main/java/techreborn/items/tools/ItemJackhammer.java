@@ -234,4 +234,16 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo, IEne
 		                                            NBTTagCompound nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
+	
+	/**
+     * Called when the player is mining a block and the item in his hand changes.
+     * Allows to not reset blockbreaking if only NBT or similar changes.
+     * @param oldStack The old stack that was used for mining. Item in players main hand
+     * @param newStack The new stack
+     * @return True to reset block break progress
+     */
+	@Override
+	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
+		return !(newStack.isItemEqual(oldStack));
+	}
 }

@@ -29,13 +29,10 @@ import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 
 public class ItemTRSword extends ItemSword {
-	private ToolMaterial material = ToolMaterial.WOOD;
-
 	public ItemTRSword(ToolMaterial material) {
 		super(material);
 		setUnlocalizedName(material.name().toLowerCase() + "Sword");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		this.material = material;
 		TRRecipeHandler.hideEntry(this);
 	}
 }

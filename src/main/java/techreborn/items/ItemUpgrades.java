@@ -217,6 +217,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@SideOnly(Side.CLIENT)
 	public BuiltContainer getContainer(EntityPlayer player) {
 		return new ContainerBuilder("sides").create();
