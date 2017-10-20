@@ -29,6 +29,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import org.apache.commons.lang3.Range;
 import reborncore.client.gui.slots.BaseSlot;
 import techreborn.client.container.builder.slot.FilteredSlot;
+import techreborn.client.container.builder.slot.SpriteSlot;
 
 public final class ContainerPlayerInventoryBuilder {
 
@@ -95,8 +96,11 @@ public final class ContainerPlayerInventoryBuilder {
 		private ContainerPlayerArmorInventoryBuilder armor(final int index, final int xStart, final int yStart,
 		                                                   final EntityEquipmentSlot slotType) {
 
-			this.parent.parent.slots.add(new FilteredSlot(this.parent.player, index, xStart, yStart)
-				.setFilter(stack -> stack.getItem().isValidArmor(stack, slotType, this.parent.player.player)));
+//			this.parent.parent.slots.add(new FilteredSlot(this.parent.player, index, xStart, yStart)
+//				.setFilter(stack -> stack.getItem().isValidArmor(stack, slotType, this.parent.player.player)));
+			String sprite = "armour_" + slotType.getName();
+			this.parent.parent.slots.add(new SpriteSlot(this.parent.player, index, xStart, yStart, sprite, 1)
+					.setFilter(stack -> stack.getItem().isValidArmor(stack, slotType, this.parent.player.player)));
 			return this;
 		}
 

@@ -24,8 +24,26 @@
 
 package techreborn.client;
 
-//TODO recode for 1.8
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT) 
 public class IconSupplier {
+	public static TextureAtlasSprite armour_head;
+	
+	@SubscribeEvent
+	public void preTextureStitch(TextureStitchEvent.Pre event) {
+		TextureMap map  = event.getMap();
+		armour_head = map.registerSprite(new ResourceLocation("techreborn:gui/slot_sprites/armour_head"));
+
+		
+	}
+
 	// public static IIcon insulatedCopperCable;
 	// public static IIcon copperCable;
 	// public static IIcon goldCable;
