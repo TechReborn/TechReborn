@@ -24,13 +24,23 @@
 
 package techreborn.compat.crafttweaker;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
 import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+import techreborn.api.Reference;
 import techreborn.api.ScrapboxList;
+import techreborn.api.recipe.BaseRecipe;
 import techreborn.api.recipe.ScrapboxRecipe;
+import techreborn.compat.crafttweaker.CTGeneric.Remove;
 
 /**
  * Created by Mark on 02/06/2017.
@@ -44,4 +54,40 @@ public class CTScrapbox {
 		RecipeHandler.addRecipe(new ScrapboxRecipe(CraftTweakerMC.getItemStack(input)));
 	}
 
+	@ZenMethod
+	public static void removeRecipe(IItemStack output) {
+		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
+	}
+	
+	@ZenMethod
+	public static void removeAllRecipes() {
+		CraftTweakerAPI.apply(new RemoveAll(getMachineName()));
+	}
+	
+	public static String getMachineName() {
+		return Reference.scrapboxRecipe;
+	}
+
+	public static class RemoveAll implements IAction {
+		List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
+		private final String name;
+
+		public RemoveAll(String machineName) {
+			this.name = machineName;
+		}
+
+		@Override
+		public void apply() {
+			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
+				removedRecipes.add((BaseRecipe) recipeType);
+				RecipeHandler.recipeList.remove(recipeType);
+			}
+		}
+
+		@Override
+		public String describe() {
+			return "Removing all recipies for " + name;
+		}
+	
+	}
 }
