@@ -36,8 +36,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
+import techreborn.api.Reference;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
@@ -49,7 +49,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	public double transferLimit = 100000;
 
 	public ItemLapotronPack() {
-		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
+		super(Reference.CLOAKING_ARMOR, 7, EntityEquipmentSlot.CHEST);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.lapotronpack");
 		setMaxStackSize(1);

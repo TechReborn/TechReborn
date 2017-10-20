@@ -25,31 +25,32 @@
 package techreborn.items.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import java.util.List;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.items.ItemTRNoDestroy;
+import techreborn.items.armor.ItemTRArmour;
 
-public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 	public static int Teir = ConfigTechReborn.CloakingDeviceTier;
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
 	public static int Limit = 100;
 	public static boolean isActive;
-	private int armorType = 1;
 
 	public ItemCloakingDevice() {
+		super(ItemArmor.ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST);
 		setUnlocalizedName("techreborn.cloakingdevice");
 		setMaxStackSize(1);
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -65,6 +66,12 @@ public class ItemCloakingDevice extends ItemTRNoDestroy implements IEnergyItemIn
 				player.setInvisible(false);
 			}
 		}
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+		return "techreborn:" + "textures/models/cloaking.png";
 	}
 
 	@Override
