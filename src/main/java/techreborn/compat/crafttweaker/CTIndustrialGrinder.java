@@ -35,7 +35,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 
-@ZenClass("mods.techreborn.grinder")
+@ZenClass("mods.techreborn.industralGrinder")
 public class CTIndustrialGrinder extends CTGeneric {
 
 	@ZenMethod

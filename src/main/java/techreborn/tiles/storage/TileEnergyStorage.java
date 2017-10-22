@@ -37,6 +37,8 @@ import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
+import techreborn.compat.CompatManager;
+import techreborn.utils.IC2ItemCharger;
 
 /**
  * Created by Rushmead
@@ -76,6 +78,9 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 					useEnergy(item.getMaxTransfer(stack));
 					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
 				}
+			}
+			if(CompatManager.isIC2Loaded){
+				IC2ItemCharger.chargeIc2Item(this, stack);
 			}
 		}
 		if (!inventory.getStackInSlot(1).isEmpty()) {
