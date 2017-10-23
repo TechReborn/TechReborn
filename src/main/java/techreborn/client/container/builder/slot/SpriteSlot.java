@@ -28,23 +28,20 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.client.IconSupplier;
-import techreborn.lib.ModInfo;
-
 import javax.annotation.Nullable;
 
 public class SpriteSlot extends FilteredSlot {
 
-	private final String sprite;
+	private final String spriteName;
 	int stacksize;
 
-	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final String sprite, final int stacksize) {
+	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final TextureAtlasSprite sprite, final int stacksize) {
 		super(inventory, index, xPosition, yPosition);
-		this.sprite = ModInfo.MOD_ID + ":textures/gui/slot_sprites/" + sprite + ".png";
+		this.spriteName = sprite.getIconName();
 		this.stacksize = stacksize;
 	}
 
-	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final String sprite) {
+	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final TextureAtlasSprite sprite) {
 		this(inventory, index, xPosition, yPosition, sprite, 64);
 	}
 
@@ -57,6 +54,6 @@ public class SpriteSlot extends FilteredSlot {
 	@Nullable
 	@SideOnly(Side.CLIENT)
 	public String getSlotTexture() {
-		return this.sprite;
+		return this.spriteName;
 	}
 }
