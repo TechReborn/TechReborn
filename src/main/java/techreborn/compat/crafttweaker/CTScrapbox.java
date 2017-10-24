@@ -56,6 +56,7 @@ public class CTScrapbox {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
+		ScrapboxList.stacks.remove(output);
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 	
@@ -78,6 +79,7 @@ public class CTScrapbox {
 
 		@Override
 		public void apply() {
+			ScrapboxList.stacks.clear();
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
 				removedRecipes.add((BaseRecipe) recipeType);
 				RecipeHandler.recipeList.remove(recipeType);

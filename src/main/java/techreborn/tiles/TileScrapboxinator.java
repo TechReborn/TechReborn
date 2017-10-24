@@ -126,7 +126,8 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	}
 
 	public boolean canOpen() {
-		return this.getStackInSlot(this.input1) != ItemStack.EMPTY && this.getStackInSlot(this.output) == ItemStack.EMPTY;
+		return !this.getStackInSlot(this.input1).isEmpty() && this.getStackInSlot(this.output).isEmpty()
+				&& ScrapboxList.stacks.size() > 0;
 	}
 
 	public boolean isBurning() {
