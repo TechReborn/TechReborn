@@ -93,13 +93,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(ItemUpgrades.getUpgradeByName("injection"), "CHC", "PSP", "PPP", 'S', "chestWood", 'C', "circuitBasic", 'P', "plateIron", 'H', getStack(Blocks.HOPPER));
 		registerShaped(ItemUpgrades.getUpgradeByName("ejection"), "CSC", "PHP", "PPP", 'S', "chestWood", 'C', "circuitBasic", 'P', "plateIron", 'H', getStack(Blocks.HOPPER));
 		registerShaped(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P', "plankWood", 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic", 'B', "reBattery");
-		
-		if (!IC2Duplicates.deduplicate()) {
-			registerShaped(ItemUpgrades.getUpgradeByName("Overclock"), "TTT", "WCW", 'T', getMaterial("coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
-			registerShaped(ItemUpgrades.getUpgradeByName("Overclock", 2), " T ", "WCW", 'T', getMaterial("helium_coolant_triple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
-			registerShaped(ItemUpgrades.getUpgradeByName("Overclock", 2),  " T ", "WCW", 'T', getMaterial("nak_coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
-			registerShaped(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G', "blockGlass", 'W', getStack(IC2Duplicates.CABLE_IGOLD), 'C', "circuitBasic", 'T', getStack(IC2Duplicates.MVT));
-		}
+		registerShaped(ItemUpgrades.getUpgradeByName("overclock"), "TTT", "WCW", 'T', getMaterial("coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
+		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2), " T ", "WCW", 'T', getMaterial("helium_coolant_triple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
+		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2),  " T ", "WCW", 'T', getMaterial("nak_coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
+		registerShaped(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G', "blockGlass", 'W', getStack(IC2Duplicates.CABLE_IGOLD), 'C', "circuitBasic", 'T', getStack(IC2Duplicates.MVT));
 		
 		//Machines
 		registerShaped(getMaterial("standard", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', "ingotRefinedIron", 'C', "circuitBasic", 'A', "machineBlockBasic");
