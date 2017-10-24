@@ -78,8 +78,8 @@ public class ModRecipes {
 		ChemicalReactorRecipes.init();
 		FusionReactorRecipes.init();
 		DistillationTowerRecipes.init();
+		AlloySmelterRecipes.init();
 
-		addAlloySmelterRecipes();
 		addBlastFurnaceRecipes();
 		addVacuumFreezerRecipes();
 		addIc2Recipes();
@@ -270,185 +270,6 @@ public class ModRecipes {
 			
 	}
 
-	static void addAlloySmelterRecipes() {
-
-		// Bronze
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-
-		// Electrum
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemIngots.getIngotByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemDusts.getDustByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemIngots.getIngotByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemDusts.getDustByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-
-		// Invar
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemIngots.getIngotByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemIngots.getIngotByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-
-		// Brass
-		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
-			ItemStack brassStack = getOre("ingotBrass");
-			brassStack.setCount(4);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
-					brassStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
-					brassStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
-					brassStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
-					brassStack, 200, 16));
-		}
-
-		// Red Alloy
-		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
-			ItemStack redAlloyStack = getOre("ingotRedAlloy");
-			redAlloyStack.setCount(1);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), ItemIngots.getIngotByName("copper", 1),
-					redAlloyStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.IRON_INGOT, 1),
-					redAlloyStack, 200, 16));
-		}
-
-		// Blue Alloy
-		if (OreUtil.doesOreExistAndValid("ingotBlueAlloy")) {
-			ItemStack blueAlloyStack = getOre("ingotBlueAlloy");
-			blueAlloyStack.setCount(1);
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemDusts.getDustByName("teslatite", 4),
-				ItemIngots.getIngotByName("silver", 1), blueAlloyStack, 200, 16));
-		}
-
-		// Blue Alloy
-		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite")) {
-			ItemStack purpleAlloyStack = getOre("ingotPurpleAlloy");
-			purpleAlloyStack.setCount(1);
-			ItemStack infusedTeslatiteStack = getOre("ingotPurpleAlloy");
-			infusedTeslatiteStack.setCount(8);
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("redAlloy", 1),
-				ItemIngots.getIngotByName("blueAlloy", 1), purpleAlloyStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), infusedTeslatiteStack, purpleAlloyStack,
-					200, 16));
-		}
-
-		// Aluminum Brass
-		if (OreUtil.doesOreExistAndValid("ingotAluminumBrass")) {
-			ItemStack aluminumBrassStack = getOre("ingotAluminumBrass");
-			aluminumBrassStack.setCount(4);
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
-				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
-				ItemDusts.getDustByName("aluminum", 1), aluminumBrassStack, 200, 16));
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3),
-				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("aluminum", 1),
-					aluminumBrassStack, 200, 16));
-		}
-
-		// Manyullyn
-		if (OreUtil.doesOreExistAndValid("ingotManyullyn") && OreUtil.doesOreExistAndValid("ingotCobalt") && OreUtil
-			.doesOreExistAndValid("ingotArdite")) {
-			ItemStack manyullynStack = getOre("ingotManyullyn");
-			manyullynStack.setCount(1);
-			ItemStack cobaltStack = getOre("ingotCobalt");
-			cobaltStack.setCount(1);
-			ItemStack arditeStack = getOre("ingotArdite");
-			arditeStack.setCount(1);
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(cobaltStack, arditeStack, manyullynStack, 200, 16));
-		}
-
-		// Conductive Iron
-		if (OreUtil.doesOreExistAndValid("ingotConductiveIron")) {
-			ItemStack conductiveIronStack = getOre("ingotConductiveIron");
-			conductiveIronStack.setCount(1);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 1), new ItemStack(Items.IRON_INGOT, 1),
-					conductiveIronStack, 200, 16));
-		}
-
-		// Redstone Alloy
-		if (OreUtil.doesOreExistAndValid("ingotRedstoneAlloy") && OreUtil.doesOreExistAndValid("itemSilicon")) {
-			ItemStack redstoneAlloyStack = getOre("ingotRedstoneAlloy");
-			redstoneAlloyStack.setCount(1);
-			ItemStack siliconStack = getOre("itemSilicon");
-			siliconStack.setCount(1);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 1), siliconStack, redstoneAlloyStack, 200,
-					16));
-		}
-
-		// Pulsating Iron
-		if (OreUtil.doesOreExistAndValid("ingotPhasedIron")) {
-			ItemStack pulsatingIronStack = getOre("ingotPhasedIron");
-			pulsatingIronStack.setCount(1);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), new ItemStack(Items.ENDER_PEARL, 1),
-					pulsatingIronStack, 200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), ItemDusts.getDustByName("ender_pearl", 1),
-					pulsatingIronStack, 200, 16));
-		}
-
-		// Vibrant Alloy
-		if (OreUtil.doesOreExistAndValid("ingotEnergeticAlloy") && OreUtil.doesOreExistAndValid("ingotPhasedGold")) {
-			ItemStack energeticAlloyStack = getOre("ingotEnergeticAlloy");
-			energeticAlloyStack.setCount(1);
-			ItemStack vibrantAlloyStack = getOre("ingotPhasedGold");
-			vibrantAlloyStack.setCount(1);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(energeticAlloyStack, new ItemStack(Items.ENDER_PEARL, 1), vibrantAlloyStack,
-					200, 16));
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(energeticAlloyStack, ItemDusts.getDustByName("ender_pearl", 1),
-					vibrantAlloyStack, 200, 16));
-		}
-
-		// Soularium
-		if (OreUtil.doesOreExistAndValid("ingotSoularium")) {
-			ItemStack soulariumStack = getOre("ingotSoularium");
-			soulariumStack.setCount(1);
-			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(new ItemStack(Blocks.SOUL_SAND, 1), new ItemStack(Items.GOLD_INGOT, 1),
-					soulariumStack, 200, 16));
-		}
-
-	}
-
 	static void addBlastFurnaceRecipes() {
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"),
@@ -519,10 +340,6 @@ public class ModRecipes {
 		// 'L', "lapotronCrystal",
 		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
 
-		//		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.dragonEggEnergySiphoner), "CTC", "ISI", "CBC", 'I',
-		//			"plateIridium", 'C', "circuitBasic",
-		//			'B', ModItems.lithiumBattery, 'S', ModBlocks.Supercondensator, 'T', ModBlocks.extractor);
-
 		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.electricCraftingTable),
 		// "ITI", "IBI", "ICI",
@@ -546,25 +363,7 @@ public class ModRecipes {
 		// 'C', "circuitMaster",
 		// 'M', new ItemStack(ModItems.parts, 1, 39));
 
-		//		RebornCraftingHelper.addShapedOreRecipe(new ItemStack(ModBlocks.PlasmaGenerator), "PPP", "PTP", "CGC", 'P',
-		//			ItemPlates.getPlateByName("tungstensteel"), 'T', IC2Duplicates.HVT.getStackBasedOnConfig(),
-		//			'G', IC2Duplicates.GENERATOR.getStackBasedOnConfig(), 'C',
-		//			"circuitMaster");
 
-		// Smetling
-		RebornCraftingHelper
-			.addSmelting(ItemDusts.getDustByName("copper", 1), getOre("ingotCopper"),
-				1F);
-		RebornCraftingHelper
-			.addSmelting(ItemDusts.getDustByName("tin", 1), ItemIngots.getIngotByName("tin"), 1F);
-		RebornCraftingHelper
-			.addSmelting(ItemDusts.getDustByName("bronze", 1), ItemIngots.getIngotByName("bronze"),
-				1F);
-		RebornCraftingHelper
-			.addSmelting(ItemDusts.getDustByName("lead", 1), ItemIngots.getIngotByName("lead"), 1F);
-		RebornCraftingHelper
-			.addSmelting(ItemDusts.getDustByName("silver", 1), ItemIngots.getIngotByName("silver"),
-				1F);
 	}
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {

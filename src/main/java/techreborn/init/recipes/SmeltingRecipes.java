@@ -36,8 +36,7 @@ import techreborn.init.IC2Duplicates;
  */
 public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
-		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));
-		register(getMaterial("gold", Type.DUST), getStack(Items.GOLD_INGOT));
+
 		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
 		if (!IC2Duplicates.deduplicate()) {
 			register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
@@ -48,6 +47,15 @@ public class SmeltingRecipes extends RecipeMethods {
 		register(BlockOre.getOreByName("lead"), getMaterial("lead", Type.INGOT));
 		register(BlockOre.getOreByName("sheldonite"), getMaterial("platinum", Type.INGOT));
 		register(IC2Duplicates.MIXED_METAL.getStackBasedOnConfig(), getMaterial("advanced_alloy", Type.INGOT));
+		
+		// Dust smelting
+		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));
+		register(getMaterial("gold", Type.DUST), getStack(Items.GOLD_INGOT));
+		register(getMaterial("copper", Type.DUST), getMaterial("copper", Type.INGOT));
+		register(getMaterial("tin", Type.DUST), getMaterial("tin", Type.INGOT));
+		register(getMaterial("bronze", Type.DUST), getMaterial("bronze", Type.INGOT));
+		register(getMaterial("lead", Type.DUST), getMaterial("lead", Type.INGOT));
+		register(getMaterial("silver", Type.DUST), getMaterial("silver", Type.INGOT));
 		register(getMaterial("nickel", Type.DUST), getMaterial("nickel", Type.INGOT));
 		register(getMaterial("platinum", Type.DUST), getMaterial("platinum", Type.INGOT));
 		register(getMaterial("zinc", Type.DUST), getMaterial("zinc", Type.INGOT));
