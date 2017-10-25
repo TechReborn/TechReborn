@@ -59,7 +59,7 @@ public enum EGui implements IMachineGuiHandler {
 	INDUSTRIAL_ELECTROLYZER(true),
 	INDUSTRIAL_GRINDER(true),
 	IRON_FURNACE(true),
-	LESU(false),
+	LESU(true),
 	LOW_VOLTAGE_SU(true),
 	MANUAL(false),
 	MATTER_FABRICATOR(true),

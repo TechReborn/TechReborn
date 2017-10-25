@@ -24,61 +24,43 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.client.container.ContainerLESU;
 import techreborn.tiles.lesu.TileLapotronicSU;
 
-import java.awt.*;
+public class GuiLESU extends GuiBase {
 
-public class GuiLESU extends GuiContainer {
+	TileLapotronicSU tile;
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
-
-	TileLapotronicSU aesu;
-
-	ContainerLESU containerLesu;
-
-	public GuiLESU(EntityPlayer player, TileLapotronicSU tileaesu) {
-		super(new ContainerLESU(tileaesu, player));
-		this.xSize = 176;
-		this.ySize = 197;
-		aesu = tileaesu;
-		this.containerLesu = (ContainerLESU) this.inventorySlots;
+	public GuiLESU(final EntityPlayer player, final TileLapotronicSU tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
-		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(texture);
-		int k = (this.width - this.xSize) / 2;
-		int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-	}
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
 
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		this.fontRenderer.drawString(I18n.format("tile.techreborn:lapotronic_su.name"), 40, 10,
-			Color.WHITE.getRGB());
-		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.euOut) + "/t", 10, 20,
-			Color.WHITE.getRGB());
-		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.storedEu), 10, 30,
-			Color.WHITE.getRGB());
-		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.euChange) + " change", 10, 40,
-			Color.WHITE.getRGB());
-		this.fontRenderer.drawString(containerLesu.connectedBlocks + " blocks", 10, 50, Color.WHITE.getRGB());
-		this.fontRenderer.drawString(PowerSystem.getLocaliszedPower(containerLesu.euStorage) + " max", 10, 60,
-			Color.WHITE.getRGB());
+		this.drawSlot(62, 45, layer);
+		this.drawSlot(98, 45, layer);
+		this.drawArmourSlots(8, 18, layer);
 	}
 
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
-	}
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
 
+		GlStateManager.pushMatrix();
+		GlStateManager.scale(0.6, 0.6, 1);
+		this.drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.tile.getEnergy()) + "/"
+				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.tile.getMaxPower()) + " "
+				+ PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
+		GlStateManager.popMatrix();
+
+		this.builder.drawMultiEnergyBar(this, 81, 28, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(),
+				mouseX, mouseY, 0, layer);
+	}
 }

@@ -26,25 +26,26 @@ package techreborn.tiles.lesu;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.IToolDrop;
-import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockLapotronicSU;
+import techreborn.client.container.IContainerProvider;
+import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.storage.TileEnergyStorage;
 
 import java.util.ArrayList;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileLapotronicSU extends TilePowerAcceptor implements IToolDrop{// TODO wrench
+public class TileLapotronicSU extends TileEnergyStorage implements IContainerProvider{
 
-	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")
-	public static int maxInput = 8192;
+//	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")
+//	public static int maxInput = 8192;
 	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxOutput", comment = "LESU Base Output (Value in EU)")
 	public static int baseOutput = 16;
 	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block (Value in EU)")
@@ -53,16 +54,10 @@ public class TileLapotronicSU extends TilePowerAcceptor implements IToolDrop{// 
 	public static int extraIOPerBlock = 8;
 
 	public int connectedBlocks = 0;
-	public Inventory inventory = new Inventory(2, "TileAdjustableSU", 64, this);
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
-	private double euLastTick = 0;
-	private double euChange;
-	private int ticks;
-	private int output;
-	private int maxStorage;
 
 	public TileLapotronicSU() {
-		super();
+		super("LESU", 2, ModBlocks.LAPOTRONIC_SU, EnumPowerTier.INSANE, 8192, baseOutput, 1000000);
 	}
 
 	@Override
@@ -94,56 +89,8 @@ public class TileLapotronicSU extends TilePowerAcceptor implements IToolDrop{// 
 				}
 			}
 		}
-		maxStorage = ((connectedBlocks + 1) * storagePerBlock);
-		output = (connectedBlocks * extraIOPerBlock) + baseOutput;
-
-		if (ticks == 100) {
-			euChange = -1;
-			ticks = 0;
-		} else {
-			ticks++;
-			if (euChange == -1) {
-				euChange = 0;
-			}
-			euChange += getEnergy() - euLastTick;
-			if (euLastTick == getEnergy()) {
-				euChange = 0;
-			}
-		}
-
-		euLastTick = getEnergy();
-	}
-
-	public double getEuChange() {
-		if (euChange == -1) {
-			return 0;
-		}
-		return (euChange / ticks);
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxStorage;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return direction != getFacingEnum();
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return direction == getFacingEnum();
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return output;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
+		this.maxStorage = ((connectedBlocks + 1) * storagePerBlock);
+		this.maxOutput = (connectedBlocks * extraIOPerBlock) + baseOutput;
 	}
 
 	@Override
@@ -154,9 +101,28 @@ public class TileLapotronicSU extends TilePowerAcceptor implements IToolDrop{// 
 		}
 		return null;
 	}
+	
+	public int getOutputRate() {
+		return this.maxOutput;
+	}
+	
+	public void setOutputRate(int output) {
+		this.maxOutput = output;
+	}
+	
+	public int getMaxStorage() {
+		return this.maxStorage;
+	}
+	
+	public void setMaxStorage(int value) {
+		this.maxStorage = value;
+	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
-		return new ItemStack(ModBlocks.LAPOTRONIC_SU, 1);
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
+				.addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
+				.syncIntegerValue(this::getOutputRate, this::setOutputRate)
+				.syncIntegerValue(this::getMaxStorage, this::setMaxStorage).addInventory().create(this);
 	}
 }

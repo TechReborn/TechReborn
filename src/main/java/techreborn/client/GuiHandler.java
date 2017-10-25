@@ -30,7 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import techreborn.client.container.ContainerDestructoPack;
-import techreborn.client.container.ContainerLESU;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.gui.*;
 import techreborn.client.gui.autocrafting.GuiAutoCrafting;
@@ -61,8 +60,6 @@ public class GuiHandler implements IGuiHandler {
 		switch (gui) {
 			case DESTRUCTOPACK:
 				return new ContainerDestructoPack(player);
-			case LESU:
-				return new ContainerLESU((TileLapotronicSU) tile, player);
 			default:
 				break;
 		}
