@@ -219,7 +219,6 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IToo
 			if (hasStartedCrafting && this.crafingTickTime < this.finalTickTime) {
 				this.crafingTickTime++;
 				// Power gen
-
 				if (this.currentRecipe.getEuTick() > 0) {
 					// Waste power if it has no where to go
 					this.addEnergy(this.currentRecipe.getEuTick());
