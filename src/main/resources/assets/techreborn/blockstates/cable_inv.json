@@ -2,48 +2,48 @@
   "forge_marker": 1,
   "defaults": {
     "transform": "forge:default-item",
-    "model": "techreborn:item"
+    "model": "builtin/generated"
   },
   "variants": {
     "type": {
       "copper": {
         "textures": {
-          "texture": "techreborn:items/cables/copper"
+          "layer0": "techreborn:items/cables/copper"
         }
       },
       "tin": {
         "textures": {
-          "texture": "techreborn:items/cables/tin"
+          "layer0": "techreborn:items/cables/tin"
         }
       },
       "gold": {
         "textures": {
-          "texture": "techreborn:items/cables/gold"
+          "layer0": "techreborn:items/cables/gold"
         }
       },
       "hv": {
         "textures": {
-          "texture": "techreborn:items/cables/hv"
+          "layer0": "techreborn:items/cables/hv"
         }
       },
       "glassfiber": {
         "textures": {
-          "texture": "techreborn:items/cables/glassfiber"
+          "layer0": "techreborn:items/cables/glassfiber"
         }
       },
       "insulatedcopper": {
         "textures": {
-          "texture": "techreborn:items/cables/insulatedcopper"
+          "layer0": "techreborn:items/cables/insulatedcopper"
         }
       },
       "insulatedgold": {
         "textures": {
-          "texture": "techreborn:items/cables/insulatedgold"
+          "layer0": "techreborn:items/cables/insulatedgold"
         }
       },
       "insulatedhv": {
         "textures": {
-          "texture": "techreborn:items/cables/insulatedhv"
+          "layer0": "techreborn:items/cables/insulatedhv"
         }
       }
     }
