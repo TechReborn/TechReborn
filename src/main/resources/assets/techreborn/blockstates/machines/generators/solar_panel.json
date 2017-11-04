@@ -3,17 +3,19 @@
   "defaults": {
     "textures": {
       "particle": "techreborn:blocks/machines/generators/generator_bottom",
-      "down": "techreborn:blocks/machines/generators/generator_bottom"
+      "down": "techreborn:blocks/machines/generators/generator_bottom",
+      "side": "techreborn:blocks/machines/generators/solar_panel_side_off"
     },
     "transform": "forge:default-block",
     "model": "cube_bottom_top"
   },
   "variants": {
-    "inventory": {
-      "transform": "forge:default-block",
-      "model": "orientable",
-      "textures": {}
-    },
+  	"inventory": {
+		"transform": "forge:default-block",
+      	"model": "cube_bottom_top",
+		"textures": {}
+  	},
+  	"normal": [{}],
     "active": {
       "true": {
         "textures": {

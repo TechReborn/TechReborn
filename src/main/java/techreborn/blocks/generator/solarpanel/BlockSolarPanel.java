@@ -24,7 +24,6 @@
 
 package techreborn.blocks.generator.solarpanel;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -50,26 +49,23 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolarPanel;
 
-import java.util.List;
-
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 public class BlockSolarPanel extends BaseTileBlock {
 	public static final String[] panes = new String[] {
-		"Basic", "Hybrid", "Advanced", "Ultimate", "Quantum"};
-	public static final IProperty<EnumPanelType> TYPE = PropertyEnum.create("type", EnumPanelType.class);
+		"basic", "hybrid", "advanced", "ultimate", "quantum"};
 	public static PropertyBool ACTIVE = PropertyBool.create("active");
-	private static final List<String> paneList = Lists.newArrayList(panes);
+	public static final IProperty<EnumPanelType> TYPE = PropertyEnum.create("type", EnumPanelType.class);
 
 	public BlockSolarPanel() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		this.setDefaultState(this.getBlockState().getBaseState().withProperty(TYPE, EnumPanelType.Basic).withProperty(ACTIVE, false));
+		this.setDefaultState(this.getBlockState().getBaseState().withProperty(ACTIVE, false).withProperty(TYPE, EnumPanelType.Basic));
 		setHardness(2.0F);
-		this.setDefaultState(this.getStateFromMeta(0));
+		//this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < panes.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/generators").setInvVariant("type=" + panes[i] + ",active=false"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/generators").setInvVariant("active=false,type=" + panes[i]));
 		}
 	}
 
@@ -80,7 +76,7 @@ public class BlockSolarPanel extends BaseTileBlock {
 	}
 
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, TYPE, ACTIVE);
+		return new BlockStateContainer(this, ACTIVE, TYPE);
 	}
 
 	@Override
@@ -90,7 +86,7 @@ public class BlockSolarPanel extends BaseTileBlock {
 			active = true;
 			meta -= EnumPanelType.values().length;
 		}
-		return getDefaultState().withProperty(TYPE, EnumPanelType.values()[meta]).withProperty(ACTIVE, active);
+		return getDefaultState().withProperty(ACTIVE, active).withProperty(TYPE, EnumPanelType.values()[meta]);
 	}
 
 	@Override
