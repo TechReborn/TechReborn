@@ -1,0 +1,39 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "transform": "forge:default-block",
+    "model": "techreborn:lamp_led",
+    "textures": {
+      "particle": "#lamp"
+    }
+  },
+  "variants": {
+    "inventory": {
+      "transform": "forge:default-block",
+      "model": "techreborn:lamp_led",
+      "textures": {
+        "lamp": "techreborn:blocks/machines/lighting/lamp"
+      }
+    },
+    "facing": {
+      "down": { "x": 180 },
+      "up": { "transform": "forge:default-block" },
+      "north": { "x": 90 },
+      "south": { "x": 270 },
+      "west": { "x": 90, "y": 270 },
+      "east": { "x": 90, "y": 90 }
+    },
+    "active": {
+      "true": {
+        "textures": {
+          "lamp": "techreborn:blocks/machines/lighting/lamp_lit"
+        }
+      },
+      "false": {
+        "textures": {
+          "lamp": "techreborn:blocks/machines/lighting/lamp"
+        }
+      }
+    }
+  }
+}

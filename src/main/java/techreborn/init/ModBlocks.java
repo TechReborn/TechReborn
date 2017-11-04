@@ -42,6 +42,7 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.iron_machines.BlockIronAlloyFurnace;
 import techreborn.blocks.iron_machines.BlockIronFurnace;
+import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.machine.*;
 import techreborn.blocks.storage.*;
 import techreborn.blocks.tier1.*;
@@ -57,6 +58,7 @@ import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 import techreborn.tiles.lesu.TileLSUStorage;
 import techreborn.tiles.lesu.TileLapotronicSU;
+import techreborn.tiles.lighting.TileLamp;
 import techreborn.tiles.multiblock.*;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
@@ -146,6 +148,10 @@ public class ModBlocks {
 
 	public static Block COMPUTER_CUBE;
 	public static Block PLASMA_GENERATOR;
+
+	public static Block LAMP_INCANDESCENT;
+	public static Block LAMP_LED;
+	public static Block LAMP_LED_LARGE;
 
 	/**
 	 * Register blocks
@@ -412,6 +418,14 @@ public class ModBlocks {
 		PLASMA_GENERATOR = new BlockPlasmaGenerator();
 		registerBlock(PLASMA_GENERATOR, "plasma_generator");
 		GameRegistry.registerTileEntity(TilePlasmaGenerator.class, "TilePlasmalGeneratorTR");
+
+		LAMP_INCANDESCENT = new BlockLamp( 14, 4, 0.625, 0.25);
+		registerBlock(LAMP_INCANDESCENT, "lamp_incandescent");
+
+		LAMP_LED = new BlockLamp( 15, 1, 0.0625, 0.125);
+		registerBlock(LAMP_LED, "lamp_led");
+
+		GameRegistry.registerTileEntity(TileLamp.class, "TileLampTR");
 
 		//TODO enable when done
 		//		flare = new BlockFlare();
