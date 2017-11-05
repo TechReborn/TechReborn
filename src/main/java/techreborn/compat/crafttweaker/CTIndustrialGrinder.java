@@ -35,14 +35,40 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 
-@ZenClass("mods.techreborn.industralGrinder")
+/**
+ *  Craftweaker class to change Industrial Grinder recipes.
+ */
+@ZenClass("mods.techreborn.industrialGrinder")
 public class CTIndustrialGrinder extends CTGeneric {
 
+	/**
+	 *  Add recipe for Industrial Grinder
+	 *  @param output1 ItemStack First recipe output
+	 *  @param output2 ItemStack Second recipe output
+	 *  @param output3 ItemStack Third recipe output
+	 *  @param output4 ItemStack Fourth recipe output
+	 *  @param input1 First recipe input
+	 *  @param input2 Second recipe input. Not used )
+	 *  @param ticktime Amount of ticks to complete crafting
+	 *  @param euTick Amount of EU per tick consumed during crafting
+	 */
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
 	}
 
+	/**
+	 *  Add recipe for Industrial Grinder
+	 *  @param output1 ItemStack First recipe output
+	 *  @param output2 ItemStack Second recipe output
+	 *  @param output3 ItemStack Third recipe output
+	 *  @param output4 ItemStack Fourth recipe output
+	 *  @param input1 First recipe input
+	 *  @param input2 Second recipe input. Not used )
+	 *  @param fluid LiquidStack Liquid used for grinding
+	 *  @param ticktime Amount of ticks to complete crafting
+	 *  @param euTick Amount of EU per tick consumed during crafting
+	 */
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
 		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
@@ -59,16 +85,26 @@ public class CTIndustrialGrinder extends CTGeneric {
 		addRecipe(r);
 	}
 
+	/**
+	 *  Remove recipe for Industrial Grinder based on input ingredient
+	 *  @param iIngredient Recipe input for which we should remove recipe
+	 */
 	@ZenMethod
-	public static void removeInputRecipe(IIngredient iIngredient) {
-		CraftTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
-	}
+	public static void removeInputRecipe(IIngredient iIngredient) { CraftTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName())); }
 
+	/**
+	 *  Remove recipe for Industrial Grinder based on output
+	 *  @param output Recipe output for which we should remove recipe
+	 */
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 
+	/**
+	 *  Get reference machine name
+	 *  @return String Reference name for Industrial Grinder
+	 */
 	public static String getMachineName() {
 		return Reference.industrialGrinderRecipe;
 	}
