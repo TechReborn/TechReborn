@@ -85,6 +85,8 @@ tile.techreborn:rubber_leaves.name=Rubber Leaves
 tile.techreborn:rubber_sapling.name=Rubber Sapling
 
 tile.techreborn:refined_iron_fence.name=Iron Fence
+tile.techreborn:lamp_incandescent.name=Incandescent Lamp
+tile.techreborn:lamp_led.name=LED Lamp
 
 #Ores
 tile.techreborn:ore.galena.name=Galena Ore
