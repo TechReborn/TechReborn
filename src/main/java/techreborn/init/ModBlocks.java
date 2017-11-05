@@ -152,7 +152,6 @@ public class ModBlocks {
 
 	public static Block LAMP_INCANDESCENT;
 	public static Block LAMP_LED;
-	public static Block LAMP_LED_LARGE;
 
 	/**
 	 * Register blocks
