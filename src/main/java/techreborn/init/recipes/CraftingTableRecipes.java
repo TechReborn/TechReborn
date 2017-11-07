@@ -162,7 +162,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "III", "I I", "III", 'I', "ingotIron");
 			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), " I ", "I I", "IFI", 'I', "ingotIron", 'F', getStack(Blocks.FURNACE));
 			registerShaped(getStack(IC2Duplicates.EXTRACTOR), "TMT", "TCT", "   ", 'T', getStack(ModItems.TREE_TAP, true), 'M', "machineBlockBasic", 'C', "circuitBasic");
-			registerShaped(getStack(IC2Duplicates.GRINDER), "FFF", "SMS", " C ", 'F', Items.FLINT, 'S', getStack(Blocks.COBBLESTONE), 'M', "machineBlockBasic", 'C', "circuitBasic");
+			registerShaped(getStack(IC2Duplicates.GRINDER), "FFF", "SMS", " C ", 'F', Items.FLINT, 'S', getStack(Blocks.COBBLESTONE), 'M', getMaterial("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
 			registerShaped(getStack(IC2Duplicates.SOLAR_PANEL), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "blockGlass", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");		
 			registerShapeless(getStack(IC2Duplicates.FREQ_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
 		}
