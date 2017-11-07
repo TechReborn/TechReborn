@@ -29,6 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.blocks.storage.BlockLapotronicSU;
@@ -89,7 +90,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 				}
 			}
 		}
-		this.maxStorage = ((connectedBlocks + 1) * storagePerBlock);
+		setMaxStorage();
 		this.maxOutput = (connectedBlocks * extraIOPerBlock) + baseOutput;
 	}
 
@@ -110,12 +111,22 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 		this.maxOutput = output;
 	}
 	
-	public int getMaxStorage() {
-		return this.maxStorage;
+	public int getConnectedBlocksNum() {
+		return this.connectedBlocks;
 	}
 	
-	public void setMaxStorage(int value) {
-		this.maxStorage = value;
+	public void setConnectedBlocksNum(int value) {
+		this.connectedBlocks = value;
+		if (world.isRemote) {
+			setMaxStorage();
+		}
+	}
+	
+	public void setMaxStorage(){
+		this.maxStorage  = (this.connectedBlocks + 1) * storagePerBlock;
+		if (this.maxStorage < 0 || this.maxStorage > Integer.MAX_VALUE / RebornCoreConfig.euPerFU) {
+			this.maxStorage = Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
+		}
 	}
 
 	@Override
@@ -123,6 +134,6 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
 				.syncIntegerValue(this::getOutputRate, this::setOutputRate)
-				.syncIntegerValue(this::getMaxStorage, this::setMaxStorage).addInventory().create(this);
+				.syncIntegerValue(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this);
 	}
 }

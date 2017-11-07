@@ -89,7 +89,6 @@ public class Core {
 	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
 		event.getModMetadata().version = ModInfo.MOD_VERSION;
 		INSTANCE = this;
-	//	FMLCommonHandler.instance().bus().register(this);
 		MinecraftForge.EVENT_BUS.register(this);
 
 		configDir = new File(new File(event.getModConfigurationDirectory(), "teamreborn"), "techreborn");
@@ -124,7 +123,7 @@ public class Core {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
 		// Registers Chest Loot
-		ModLoot.init();
+		// ModLoot.init();
 		// Multiparts
 		ModParts.init();
 		// Sounds
@@ -133,31 +132,21 @@ public class Core {
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.init(event);
 		}
-		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
-		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
-		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
-
-		// Recipes
-		StopWatch watch = new StopWatch();
-		watch.start();
-		logHelper.all(watch + " : main recipes");
-		watch.stop();
 		// Client only init, needs to be done before parts system
 		proxy.init(event);
 		// WorldGen
 		worldGen.load();
 		GameRegistry.registerWorldGenerator(worldGen, 0);
-
-		// DungeonLoot.init();
+		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);		
 		// Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
-
-		// Multiblock events
-		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		// Event busses
+		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
+		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
+		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
+		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
-		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
@@ -178,7 +167,6 @@ public class Core {
 		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 		// RecipeHandler.scanForDupeRecipes();
-
 		// RecipeConfigManager.save();
 		//recipeCompact.saveMissingItems(configDir);
 	}
