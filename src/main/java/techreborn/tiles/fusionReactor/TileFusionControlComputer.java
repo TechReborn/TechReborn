@@ -169,6 +169,11 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IToo
 	private boolean isCoil(final int x, final int y, final int z) {
 		return this.world.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FUSION_COIL;
 	}
+	
+	@Override
+	public void onLoad() {
+		this.checkCoils();
+    }
 
 	@Override
 	public void update() {
