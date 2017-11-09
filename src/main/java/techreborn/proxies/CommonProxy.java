@@ -39,7 +39,6 @@ public class CommonProxy implements ICompatModule {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		isChiselAround = Loader.isModLoaded("chisel");
 		if (isChiselAround) {
 			Core.logHelper.info("Hello chisel, shiny things will be enabled in techreborn");
 		}

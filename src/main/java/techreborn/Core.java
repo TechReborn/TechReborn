@@ -95,9 +95,8 @@ public class Core {
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
 
+		CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		//Recheck here because things break at times
-
 		// Register ModBlocks
 		ModBlocks.init();
 		// Register Fluids
