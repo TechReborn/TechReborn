@@ -24,12 +24,8 @@
 
 package techreborn.proxies;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.text.TextFormatting;
@@ -54,6 +50,7 @@ import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.events.FluidBlockModelHandler;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.lib.ModInfo;
@@ -71,6 +68,7 @@ public class ClientProxy extends CommonProxy {
 		ModelDynamicCell.init();
 		RegisterItemJsons.registerModels();
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
+		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
 	}
 
 	@Override
@@ -84,21 +82,6 @@ public class ClientProxy extends CommonProxy {
 		ClientMultiBlocks.init();
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(ModBlocks.RUBBER_LEAVES, rubberLeavesStateMap);
-	}
-
-	@Override
-	public void registerFluidBlockRendering(Block block, String name) {
-		name = name.toLowerCase();
-		super.registerFluidBlockRendering(block, name);
-		final ModelResourceLocation fluidLocation = new ModelResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":fluids", name);
-
-		// use a custom state mapper which will ignore the LEVEL property
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				return fluidLocation;
-			}
-		});
 	}
 
 	@Override

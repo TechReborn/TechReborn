@@ -56,6 +56,7 @@ public class BlockSolarPanel extends BaseTileBlock {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		ACTIVE = PropertyBool.create("active");
 		return new BlockStateContainer(this, ACTIVE);

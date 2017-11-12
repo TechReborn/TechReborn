@@ -72,6 +72,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	/**
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * furnace burning, or 0 if the item isn't fuel
+	 * @param stack Itemstack of fuel
 	 * @return Integer Number of ticks
 	 */
 	public static int getItemBurnTime(ItemStack stack) {

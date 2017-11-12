@@ -1,12 +1,12 @@
 {
-  "forge_marker": 1,
-  "variants": {
-    "techreborn.berylium": {
-      "model": "forge:fluid",
-      "custom": {
-        "fluid": "fluidberylium"
-      }
-    },
+	"forge_marker": 1,
+	"defaults": {
+		"model": "forge:fluid"
+	},
+	"variants": {
+		"techreborn.berylium": [{
+			"custom": { "fluid": "fluidberylium" }
+		}],
     "techreborn.calcium": {
       "model": "forge:fluid",
       "custom": {
