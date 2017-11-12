@@ -232,6 +232,7 @@ public class GuiAutoCrafting extends GuiBase {
 		this.recipeSlector.slotClicked(slotIn);
 	}
 
+	@Override
 	public void onGuiClosed() {
 		this.recipeSlector.removed();
 		super.onGuiClosed();

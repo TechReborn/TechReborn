@@ -57,6 +57,7 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo, IEnergyInter
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;
 		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				if (!stack.isEmpty() && PoweredItem.getEnergy(stack) == 0.0) {
@@ -164,21 +165,25 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo, IEnergyInter
 	}
 
 
+	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 	}
 
 
+	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
 
 
+	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
+	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable

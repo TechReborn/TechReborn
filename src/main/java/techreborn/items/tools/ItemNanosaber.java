@@ -69,6 +69,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IEnergy
 		setMaxStackSize(1);
 		setUnlocalizedName("techreborn.nanosaber");
 		this.addPropertyOverride(new ResourceLocation("techreborn:active"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack,
 			                   @Nullable
@@ -299,21 +300,25 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IEnergy
 	}
 
 
+	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 	}
 
 
+	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
 
 
+	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
+	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable

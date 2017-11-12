@@ -49,6 +49,7 @@ public class BlockReinforcedGlass extends BlockGlass {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
+	@Override
 	public int quantityDropped(Random random) {
 		return 1;
 	}
@@ -58,6 +59,7 @@ public class BlockReinforcedGlass extends BlockGlass {
 		return false;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;

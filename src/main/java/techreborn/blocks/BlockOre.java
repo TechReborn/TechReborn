@@ -113,6 +113,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		return getStateFromMeta(index);
 	}
 
+	@Override
 	@Deprecated
 	public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		String variant = state.getValue(VARIANTS);
@@ -230,6 +231,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 		return oreNamesList.indexOf(state.getValue(VARIANTS));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, VARIANTS);
 	}

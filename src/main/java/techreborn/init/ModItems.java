@@ -329,7 +329,7 @@ public class ModItems {
 		registerItem(CLOAKING_DEVICE, "cloakingdevice");
 
 		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
-		registerItem(MISSING_RECIPE_PLACEHOLDER, "mssingRecipe");
+		registerItem(MISSING_RECIPE_PLACEHOLDER, "missingRecipe");
 
 		DEBUG = new ItemDebugTool();
 		registerItem(DEBUG, "debug");

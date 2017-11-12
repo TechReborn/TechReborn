@@ -353,6 +353,7 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
+	@Override
 	public void drawSlot(GuiScreen gui, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX, posY, 150, 0, 18, 18);
@@ -387,6 +388,7 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
+	@Override
 	public void drawOutputSlot(GuiScreen gui, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX, posY, 150, 18, 26, 26);

@@ -38,6 +38,7 @@ public class ItemTRHoe extends ItemHoe {
 		TRRecipeHandler.hideEntry(this);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isFull3D() {
 		return true;

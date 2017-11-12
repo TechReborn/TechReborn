@@ -109,6 +109,7 @@ public class BlockStorage extends BaseBlock {
 		return typesList.indexOf(state.getValue(TYPE));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, TYPE);
 	}

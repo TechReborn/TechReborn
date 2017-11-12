@@ -68,6 +68,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 		this.unpoweredSpeed = unpoweredSpeed;
 
 		this.addPropertyOverride(new ResourceLocation("techreborn:animated"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack,
 			                   @Nullable
@@ -205,21 +206,25 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 	}
 
 
+	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
 		return 1 - charge;
 	}
 
 
+	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
 
 
+	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
+	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable

@@ -39,10 +39,12 @@ public class ItemBlockCable extends ItemBlock {
 		setHasSubtypes(true);
 	}
 
+	@Override
 	public int getMetadata(int damage) {
 		return damage;
 	}
 
+	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return super.getUnlocalizedName() + "." + EnumCableType.values()[stack.getItemDamage()].getName();
 	}

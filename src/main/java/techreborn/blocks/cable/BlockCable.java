@@ -193,6 +193,7 @@ public class BlockCable extends BlockContainer {
 		return false;
 	}
 
+	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		state = state.getActualState(source, pos);
 		float minX = state.getValue(WEST) ? 0.0F : 0.3125F;

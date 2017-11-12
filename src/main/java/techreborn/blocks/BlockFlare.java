@@ -70,6 +70,7 @@ public class BlockFlare extends BlockContainer {
 		return null;
 	}
 
+	@Override
 	public int damageDropped(IBlockState state) {
 		return (state.getValue(COLOR)).getMetadata();
 	}
@@ -81,14 +82,17 @@ public class BlockFlare extends BlockContainer {
 		}
 	}
 
+	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		return (state.getValue(COLOR)).getMetadata();
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, COLOR);
 	}
@@ -98,6 +102,7 @@ public class BlockFlare extends BlockContainer {
 		return false;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;

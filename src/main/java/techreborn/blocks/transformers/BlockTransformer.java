@@ -76,6 +76,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		FACING = PropertyDirection.create("facing", Facings.ALL);
 		return new BlockStateContainer(this, FACING);
@@ -267,10 +268,12 @@ public abstract class BlockTransformer extends BaseTileBlock {
 			return aenumfacing[rand.nextInt(aenumfacing.length)];
 		}
 
+		@Override
 		public boolean apply(EnumFacing p_apply_1_) {
 			return p_apply_1_ != null;
 		}
 
+		@Override
 		public Iterator<EnumFacing> iterator() {
 			return Iterators.forArray(this.facings());
 		}
