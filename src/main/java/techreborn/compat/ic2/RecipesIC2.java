@@ -53,7 +53,7 @@ public class RecipesIC2 implements ICompatModule {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.MACHINE_FRAMES, 0, 1), IC2Items.getItem("resource", "machine")));
+		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0), IC2Items.getItem("resource", "machine")));
 
 		for (RecipeDuplicate duplicate : recipeDuplicateList) {
 			duplicate.add();
@@ -64,7 +64,6 @@ public class RecipesIC2 implements ICompatModule {
 	public void postInit(FMLPostInitializationEvent event) {
 		RebornCraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
 		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
-
 		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH), IC2Items.getItem("crafting", "small_power_unit"));
 	}
 
@@ -74,9 +73,7 @@ public class RecipesIC2 implements ICompatModule {
 	}
 
 	public class RecipeDuplicate {
-
 		ItemStack stack1;
-
 		ItemStack stack2;
 
 		public RecipeDuplicate(ItemStack stack1, ItemStack stack2) {
@@ -85,12 +82,8 @@ public class RecipesIC2 implements ICompatModule {
 		}
 
 		public void add() {
-
 			RebornCraftingHelper.addShapelessRecipe(stack2, stack1);
 			RebornCraftingHelper.addShapelessRecipe(stack1, stack2);
-
 		}
-
 	}
-
 }
