@@ -114,7 +114,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 						boolean hasCrafted = false;
 						if (this.inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
 							this.inventory.setInventorySlotContents(outputSlot, this.currentRecipe);
-							this.tickTime = -1;
+							this.tickTime = 0;
 							hasCrafted = true;
 						} else {
 							if (this.inventory.getStackInSlot(outputSlot).getCount() + this.currentRecipe.getCount() <= this.currentRecipe
@@ -122,7 +122,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 								final ItemStack stack = this.inventory.getStackInSlot(outputSlot);
 								stack.setCount(stack.getCount() + this.currentRecipe.getCount());
 								this.inventory.setInventorySlotContents(outputSlot, stack);
-								this.tickTime = -1;
+								this.tickTime = 0;
 								hasCrafted = true;
 							}
 						}
@@ -136,13 +136,13 @@ public class TileRollingMachine extends TilePowerAcceptor
 				}
 			}
 			if (!this.currentRecipe.isEmpty()) {
-				if (this.canUseEnergy(energyPerTick) && this.tickTime < TileRollingMachine.runTime) {
+				if (this.canUseEnergy(energyPerTick) && this.tickTime < TileRollingMachine.runTime && canMake()) {
 					this.useEnergy(energyPerTick);
 					this.tickTime++;
 				}
 			}
 			if (this.currentRecipe.isEmpty()) {
-				this.tickTime = -1;
+				this.tickTime = 0;
 			}
 		} else {
 			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
@@ -155,7 +155,15 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	public boolean canMake() {
-		return RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world) != null;
+		ItemStack stack = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
+		if(stack.isEmpty()){
+			return false;
+		}
+		ItemStack output = getStackInSlot(outputSlot);
+		if(output.isEmpty()){
+			return true;
+		}
+		return ItemUtils.isItemEqual(stack, output, true, true);
 	}
 
 	@Override
