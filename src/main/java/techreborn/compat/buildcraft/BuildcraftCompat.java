@@ -24,10 +24,16 @@
 
 package techreborn.compat.buildcraft;
 
+import buildcraft.api.fuels.IFuel;
+import buildcraft.lib.fluid.FuelRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import reborncore.common.RebornCoreConfig;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.GeneratorRecipeHelper;
+import techreborn.compat.CompatConfigs;
 import techreborn.compat.ICompatModule;
 
 /**
@@ -47,11 +53,11 @@ public class BuildcraftCompat implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-//		if (allowBCFuels) {
-//			for (IFuel fuel : FuelRegistry.INSTANCE.getFuels()) {
-//				FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / RebornCoreConfig.euPerFU);
-//			}
-//		}
+		if (CompatConfigs.allowBCFuels) {
+			for (IFuel fuel : FuelRegistry.INSTANCE.getFuels()) {
+				GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, fuel.getFluid().getFluid(), (int) (fuel.getPowerPerCycle() / RebornCoreConfig.euPerFU));
+			}
+		}
 	}
 
 	@Override
