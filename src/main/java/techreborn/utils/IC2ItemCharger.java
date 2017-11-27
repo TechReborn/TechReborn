@@ -40,4 +40,11 @@ public class IC2ItemCharger {
 		}
 	}
 
+	public static boolean isIC2PoweredItem(ItemStack stack){
+		if(stack.isEmpty()){
+			return false;
+		}
+		return stack.getItem() instanceof IElectricItem;
+	}
+
 }

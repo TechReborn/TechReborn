@@ -69,14 +69,13 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 		super.update();
 		if (!inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(0);
-			if (!(stack.getItem() instanceof IEnergyItemInfo)) {
-				return;
-			}
-			IEnergyItemInfo item = (IEnergyItemInfo) inventory.getStackInSlot(0).getItem();
-			if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)) {
-				if (canUseEnergy(item.getMaxTransfer(stack))) {
-					useEnergy(item.getMaxTransfer(stack));
-					PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
+			if (stack.getItem() instanceof IEnergyItemInfo) {
+				IEnergyItemInfo item = (IEnergyItemInfo) inventory.getStackInSlot(0).getItem();
+				if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)) {
+					if (canUseEnergy(item.getMaxTransfer(stack))) {
+						useEnergy(item.getMaxTransfer(stack));
+						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
+					}
 				}
 			}
 			if(CompatManager.isIC2Loaded){

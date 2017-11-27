@@ -44,6 +44,8 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
 import techreborn.client.container.builder.slot.UpgradeSlot;
+import techreborn.compat.CompatManager;
+import techreborn.utils.IC2ItemCharger;
 
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -89,7 +91,7 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
 			.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
-				|| stack.getItem() instanceof IEnergyInterfaceItem));
+				|| stack.getItem() instanceof IEnergyInterfaceItem || (CompatManager.isIC2Loaded && IC2ItemCharger.isIC2PoweredItem(stack))));
 		return this;
 	}
 
