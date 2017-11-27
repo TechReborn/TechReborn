@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 
 /**
  * Created by Mark on 03/04/2016.
+ * @param <T> descendant of BaseRecipe
  */
 public interface ITileRecipeHandler<T extends BaseRecipe> {
 	boolean canCraft(TileEntity tile, T recipe);

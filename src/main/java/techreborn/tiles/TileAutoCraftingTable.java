@@ -226,41 +226,44 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	}
 
 	public boolean make(IRecipe recipe) {
-		if (canMake(recipe)) {
-			if (recipe == null && customRecipe) {
+		IRecipe recipe2 = recipe;
+		if (canMake(recipe2)) {
+			if (recipe2 == null && customRecipe) {
 				if (lastCustomRecipe == null) {
 					return false;
 				}//Should be uptodate as we just set it in canMake
 				recipe = lastCustomRecipe;
 			}
-			for (int i = 0; i < recipe.getIngredients().size(); i++) {
-				Ingredient ingredient = recipe.getIngredients().get(i);
-				//Looks for the best slot to take it from
-				ItemStack bestSlot = inventory.getStackInSlot(i);
-				if (ingredient.apply(bestSlot)) {
-					handleContainerItem(bestSlot);
-					bestSlot.shrink(1);
-				} else {
-					for (int j = 0; j < 9; j++) {
-						ItemStack stack = inventory.getStackInSlot(j);
-						if (ingredient.apply(stack)) {
-							handleContainerItem(stack);
-							stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
-							break;
+			else if (recipe2 != null) {
+				for (int i = 0; i < recipe2.getIngredients().size(); i++) {
+					Ingredient ingredient = recipe2.getIngredients().get(i);
+					//Looks for the best slot to take it from
+					ItemStack bestSlot = inventory.getStackInSlot(i);
+					if (ingredient.apply(bestSlot)) {
+						handleContainerItem(bestSlot);
+						bestSlot.shrink(1);
+					} else {
+						for (int j = 0; j < 9; j++) {
+							ItemStack stack = inventory.getStackInSlot(j);
+							if (ingredient.apply(stack)) {
+								handleContainerItem(stack);
+								stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
+								break;
+							}
 						}
 					}
 				}
+				ItemStack output = inventory.getStackInSlot(9);
+				//TODO fire forge recipe event
+				ItemStack ouputStack = recipe2.getCraftingResult(getCraftingInventory());
+				if (output.isEmpty()) {
+					inventory.setInventorySlotContents(9, ouputStack.copy());
+				} else {
+					//TODO use ouputStack in someway?
+					output.grow(recipe2.getRecipeOutput().getCount());
+				}
+				return true;
 			}
-			ItemStack output = inventory.getStackInSlot(9);
-			//TODO fire forge recipe event
-			ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
-			if (output.isEmpty()) {
-				inventory.setInventorySlotContents(9, ouputStack.copy());
-			} else {
-				//TODO use ouputStack in someway?
-				output.grow(recipe.getRecipeOutput().getCount());
-			}
-			return true;
 		}
 		return false;
 	}

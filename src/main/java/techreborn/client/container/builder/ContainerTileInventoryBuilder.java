@@ -126,6 +126,7 @@ public class ContainerTileInventoryBuilder {
 	 * @param supplier The supplier must supply a variable holding inside a Short, it
 	 * will be truncated by force.
 	 * @param setter The setter to call when the variable has been updated.
+	 * @return ContainerTileInventoryBuilder Inventory which will do the sync
 	 */
 	public ContainerTileInventoryBuilder syncShortValue(final IntSupplier supplier, final IntConsumer setter) {
 		this.parent.shortValues.add(Pair.of(supplier, setter));
@@ -136,6 +137,7 @@ public class ContainerTileInventoryBuilder {
 	 * @param supplier The supplier it can supply a variable holding in an Integer it
 	 * will be split inside multiples shorts.
 	 * @param setter The setter to call when the variable has been updated.
+	 * @return ContainerTileInventoryBuilder Inventory which will do the sync
 	 */
 	public ContainerTileInventoryBuilder syncIntegerValue(final IntSupplier supplier, final IntConsumer setter) {
 		this.parent.integerValues.add(Pair.of(supplier, setter));
