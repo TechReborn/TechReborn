@@ -91,6 +91,7 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 		return euPerTick;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public boolean canCraft(TileEntity tile) {
 		if (tile instanceof ITileRecipeHandler) {
@@ -98,7 +99,8 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 		}
 		return true;
 	}
-
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public boolean onCraft(TileEntity tile) {
 		if (tile instanceof ITileRecipeHandler) {

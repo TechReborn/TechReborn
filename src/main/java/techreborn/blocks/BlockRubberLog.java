@@ -77,6 +77,7 @@ public class BlockRubberLog extends Block {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, SAP_SIDE, HAS_SAP);
 	}
@@ -127,6 +128,7 @@ public class BlockRubberLog extends Block {
 		return true;
 	}
 
+	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		int i = 4;
 		int j = i + 1;

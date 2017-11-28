@@ -29,7 +29,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.multiblock.CoordTriplet;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
@@ -68,13 +67,13 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 			throw new MultiblockValidationException("Machine is too small.");
 		}
 
-		CoordTriplet maximumCoord = getMaximumCoord();
-		CoordTriplet minimumCoord = getMinimumCoord();
+		BlockPos maximumCoord = getMaximumCoord();
+		BlockPos minimumCoord = getMinimumCoord();
 
 		// Quickly check for exceeded dimensions
-		int deltaX = maximumCoord.x - minimumCoord.x + 1;
-		int deltaY = maximumCoord.y - minimumCoord.y + 1;
-		int deltaZ = maximumCoord.z - minimumCoord.z + 1;
+		int deltaX = maximumCoord.getX() - minimumCoord.getX() + 1;
+		int deltaY = maximumCoord.getY() - minimumCoord.getY() + 1;
+		int deltaZ = maximumCoord.getZ() - minimumCoord.getZ() + 1;
 
 		int maxX = getMaximumXSize();
 		int maxY = getMaximumYSize();
@@ -127,9 +126,9 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 		RectangularMultiblockTileEntityBase part;
 		Class<? extends RectangularMultiblockControllerBase> myClass = this.getClass();
 
-		for (int x = minimumCoord.x; x <= maximumCoord.x; x++) {
-			for (int y = minimumCoord.y; y <= maximumCoord.y; y++) {
-				for (int z = minimumCoord.z; z <= maximumCoord.z; z++) {
+		for (int x = minimumCoord.getX(); x <= maximumCoord.getX(); x++) {
+			for (int y = minimumCoord.getY(); y <= maximumCoord.getY(); y++) {
+				for (int z = minimumCoord.getZ(); z <= maximumCoord.getZ(); z++) {
 					// Okay, figure out what sort of block this should be.
 
 					te = this.worldObj.getTileEntity(new BlockPos(x, y, z));
@@ -152,23 +151,23 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 					// Validate block type against both part-level and
 					// material-level validators.
 					int extremes = 0;
-					if (x == minimumCoord.x) {
+					if (x == minimumCoord.getX()) {
 						extremes++;
 					}
-					if (y == minimumCoord.y) {
+					if (y == minimumCoord.getY()) {
 						extremes++;
 					}
-					if (z == minimumCoord.z) {
+					if (z == minimumCoord.getZ()) {
 						extremes++;
 					}
 
-					if (x == maximumCoord.x) {
+					if (x == maximumCoord.getX()) {
 						extremes++;
 					}
-					if (y == maximumCoord.y) {
+					if (y == maximumCoord.getY()) {
 						extremes++;
 					}
-					if (z == maximumCoord.z) {
+					if (z == maximumCoord.getZ()) {
 						extremes++;
 					}
 
@@ -179,13 +178,13 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 							isBlockGoodForFrame(this.worldObj, x, y, z);
 						}
 					} else if (extremes == 1) {
-						if (y == maximumCoord.y) {
+						if (y == maximumCoord.getY()) {
 							if (part != null) {
 								part.isGoodForTop();
 							} else {
 								isBlockGoodForTop(this.worldObj, x, y, z);
 							}
-						} else if (y == minimumCoord.y) {
+						} else if (y == minimumCoord.getY()) {
 							if (part != null) {
 								part.isGoodForBottom();
 							} else {

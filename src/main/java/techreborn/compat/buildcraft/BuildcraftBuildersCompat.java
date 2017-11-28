@@ -24,11 +24,17 @@
 
 package techreborn.compat.buildcraft;
 
+import buildcraft.builders.BCBuildersBlocks;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import reborncore.common.util.RebornCraftingHelper;
+import reborncore.common.util.RecipeRemover;
+import techreborn.compat.CompatConfigs;
 import techreborn.compat.ICompatModule;
+import techreborn.init.ModItems;
 
 /**
  * Created by Mark on 02/06/2017.
@@ -47,16 +53,16 @@ public class BuildcraftBuildersCompat implements ICompatModule {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-//		if (expensiveQuarry) {
-//			RecipeRemover.removeAnyRecipe(new ItemStack(BCBuildersBlocks.quarry));
-//			RebornCraftingHelper.addShapedOreRecipe(new ItemStack(BCBuildersBlocks.quarry),
-//				"IAI", "GIG", "DED",
-//				'I', "gearIron",
-//				'G', "gearGold",
-//				'D', "gearDiamond",
-//				'A', "circuitAdvanced",
-//				'E', new ItemStack(ModItems.DIAMOND_DRILL));
-//		}
+		if (CompatConfigs.expensiveQuarry) {
+			RecipeRemover.removeAnyRecipe(new ItemStack(BCBuildersBlocks.quarry));
+			RebornCraftingHelper.addShapedOreRecipe(new ItemStack(BCBuildersBlocks.quarry),
+				"IAI", "GIG", "DED",
+				'I', "gearIron",
+				'G', "gearGold",
+				'D', "gearDiamond",
+				'A', "circuitAdvanced",
+				'E', new ItemStack(ModItems.DIAMOND_DRILL));
+		}
 	}
 
 	@Override

@@ -76,6 +76,7 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
 
 	}
 
+	@Override
 	public MultiBlockCasing getMultiblockController() {
 		return (MultiBlockCasing) super.getMultiblockController();
 	}

@@ -68,6 +68,7 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 		return EnumActionResult.PASS;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isFull3D() {
 		return true;

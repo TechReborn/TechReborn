@@ -42,7 +42,6 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import reborncore.common.util.ArrayUtils;
-import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
@@ -64,11 +63,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		setHardness(2F);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "standard"));
 		for (int i = 0; i < types.length; i++) {
-			if (Core.proxy.isCTMAvailable()) {
-				ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure/ctm").setInvVariant("type=" + types[i]));
-			} else {
-				ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
-			}
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
 		}
 	}
 
@@ -99,10 +94,16 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		return typesList.indexOf(state.getValue(TYPE));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, TYPE);
 	}
 
+	/**
+	 * Provides heat info per casing for Industrial Blast Furnace
+	 * @param state Machine casing type
+	 * @return Integer Heat value for casing
+	 */
 	public int getHeatFromState(IBlockState state) {
 		switch (getMetaFromState(state)) {
 			case 0:

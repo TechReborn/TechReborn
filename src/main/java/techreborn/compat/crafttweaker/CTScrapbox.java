@@ -56,7 +56,7 @@ public class CTScrapbox {
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		ScrapboxList.stacks.remove(output);
+		ScrapboxList.stacks.remove(CraftTweakerCompat.toStack(output));
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
 	

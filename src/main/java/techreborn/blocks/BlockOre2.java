@@ -151,6 +151,7 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 		return oreNamesList.indexOf(state.getValue(VARIANTS));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		VARIANTS = new PropertyString("type", oreNamesList);
 		return new BlockStateContainer(this, VARIANTS);

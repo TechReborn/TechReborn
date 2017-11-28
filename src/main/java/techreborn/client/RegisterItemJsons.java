@@ -61,6 +61,7 @@ public class RegisterItemJsons {
 		register(ModItems.MANUAL, "misc/manual");
 		register(ModItems.DEBUG, "misc/debug");
 		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
+		register(ModItems.MISSING_RECIPE_PLACEHOLDER, "misc/missing_recipe");
 
 		register(ModItems.STEEL_DRILL, "tool/steel_drill");
 		register(ModItems.DIAMOND_DRILL, "tool/diamond_drill");

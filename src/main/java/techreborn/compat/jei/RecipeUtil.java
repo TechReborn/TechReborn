@@ -38,7 +38,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.text.NumberFormat;
 import java.util.List;
 
 @SuppressWarnings("deprecation")

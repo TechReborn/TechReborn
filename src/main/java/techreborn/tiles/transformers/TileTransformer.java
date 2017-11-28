@@ -34,15 +34,22 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.transformers.BlockTransformer;
+import techreborn.lib.ModInfo;
 
 import java.util.List;
 
 /**
  * Created by Rushmead
  */
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITickable, IListInfoProvider {
+	
+	@ConfigRegistry(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
+	public static boolean IC2TransformersStyle = false;
 
 	public String name;
 	public Block wrenchDrop;
@@ -79,7 +86,9 @@ public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITi
 
 	@Override
 	public boolean canAcceptEnergy(EnumFacing direction) {
-
+		if (IC2TransformersStyle == true){
+			return getFacingEnum() == direction;
+		}
 		return getFacingEnum() != direction;
 	}
 
@@ -94,6 +103,9 @@ public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITi
 
 	@Override
 	public boolean canProvideEnergy(EnumFacing direction) {
+		if (IC2TransformersStyle == true){
+			return getFacingEnum() != direction;
+		}
 		return getFacing() == direction;
 	}
 

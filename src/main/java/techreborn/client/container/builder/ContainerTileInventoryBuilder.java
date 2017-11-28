@@ -44,6 +44,8 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
 import techreborn.client.container.builder.slot.UpgradeSlot;
+import techreborn.compat.CompatManager;
+import techreborn.utils.IC2ItemCharger;
 
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
@@ -89,7 +91,7 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
 			.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
-				|| stack.getItem() instanceof IEnergyInterfaceItem));
+				|| stack.getItem() instanceof IEnergyInterfaceItem || (CompatManager.isIC2Loaded && IC2ItemCharger.isIC2PoweredItem(stack))));
 		return this;
 	}
 
@@ -124,6 +126,7 @@ public class ContainerTileInventoryBuilder {
 	 * @param supplier The supplier must supply a variable holding inside a Short, it
 	 * will be truncated by force.
 	 * @param setter The setter to call when the variable has been updated.
+	 * @return ContainerTileInventoryBuilder Inventory which will do the sync
 	 */
 	public ContainerTileInventoryBuilder syncShortValue(final IntSupplier supplier, final IntConsumer setter) {
 		this.parent.shortValues.add(Pair.of(supplier, setter));
@@ -134,6 +137,7 @@ public class ContainerTileInventoryBuilder {
 	 * @param supplier The supplier it can supply a variable holding in an Integer it
 	 * will be split inside multiples shorts.
 	 * @param setter The setter to call when the variable has been updated.
+	 * @return ContainerTileInventoryBuilder Inventory which will do the sync
 	 */
 	public ContainerTileInventoryBuilder syncIntegerValue(final IntSupplier supplier, final IntConsumer setter) {
 		this.parent.integerValues.add(Pair.of(supplier, setter));

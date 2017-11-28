@@ -30,53 +30,72 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
-import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lesu.TileLSUStorage;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ *  Energy storage block for LESU
+ */
 public class BlockLSUStorage extends BaseTileBlock {
 
+	/**
+	 *
+	 */
 	public BlockLSUStorage() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		if (Core.proxy.isCTMAvailable()) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy/ctm"));
-		} else {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
-		}
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 	}
 
+	/**
+	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
+	 */
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack itemstack) {
 		super.onBlockPlacedBy(world, pos, state, player, itemstack);
 		if (world.getTileEntity(pos) instanceof TileLSUStorage) {
-			((TileLSUStorage) world.getTileEntity(pos)).rebuildNetwork();
+			TileLSUStorage tile = (TileLSUStorage) world.getTileEntity(pos);
+			if (tile != null) {
+				tile.rebuildNetwork();
+			}
 		}
 	}
 
+	/**
+	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
+	 */
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		if (world.getTileEntity(pos) instanceof TileLSUStorage) {
-			((TileLSUStorage) world.getTileEntity(pos)).removeFromNetwork();
+			TileLSUStorage tile = (TileLSUStorage) world.getTileEntity(pos);
+			if (tile != null) {
+				tile.removeFromNetwork();
+			}
 		}
 		super.breakBlock(world, pos, state);
 	}
 
+	/**
+	 * This gets a complete list of items dropped from this block.
+	 *
+	 * @param drops add all items this block drops to this drops list
+	 * @param world The current world
+	 * @param pos Block position in world
+	 * @param state Current state
+	 * @param fortune Breakers fortune level
+	 */
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		List<ItemStack> items = new ArrayList<>();
-		items.add(new ItemStack(this));
-		return items;
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		drops.add(new ItemStack(this));
 	}
 
 	@Override
@@ -84,7 +103,18 @@ public class BlockLSUStorage extends BaseTileBlock {
 		return new TileLSUStorage();
 	}
 
-	public boolean shouldConnectToBlock(IBlockAccess blockAccess, int x, int y, int z, Block block, int meta) {
-		return block == this;
+	/**
+	 * Determines if another block can connect to this block
+	 *
+	 * @param world The current world
+	 * @param pos The position of this block
+	 * @param facing The side the connecting block is on
+	 * @return True to allow another block to connect to this block
+	 */
+	@Override
+	public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing)
+	{
+		Block block = world.getBlockState(pos).getBlock();
+		return this == block;
 	}
 }

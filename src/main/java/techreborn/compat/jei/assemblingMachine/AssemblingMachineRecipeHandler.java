@@ -32,6 +32,7 @@ import techreborn.compat.jei.RecipeCategoryUids;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("deprecation")
 public class AssemblingMachineRecipeHandler implements IRecipeHandler<AssemblingMachineRecipe> {
 	@Nonnull
 	private final IJeiHelpers jeiHelpers;

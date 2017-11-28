@@ -143,6 +143,7 @@ public class TilePump extends TilePowerAcceptor {
 		readFromNBTWithoutCoords(tagCompound);
 	}
 
+	@Override
 	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
 		tank.readFromNBT(tagCompound);
 	}
@@ -154,6 +155,7 @@ public class TilePump extends TilePowerAcceptor {
 		return tagCompound;
 	}
 
+	@Override
 	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
 		tank.writeToNBT(tagCompound);
 		return tagCompound;

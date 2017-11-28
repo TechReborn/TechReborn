@@ -24,19 +24,10 @@
 
 package techreborn.proxies;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -59,6 +50,7 @@ import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.events.FluidBlockModelHandler;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.lib.ModInfo;
@@ -66,26 +58,6 @@ import techreborn.lib.ModInfo;
 public class ClientProxy extends CommonProxy {
 
 	public static MultiblockRenderEvent multiblockRenderEvent;
-
-	public static ResourceLocation getItemLocation(Item item) {
-		Object o = item.getRegistryName();
-		if (o == null) {
-			return null;
-		}
-		return (ResourceLocation) o;
-	}
-
-	private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
-		ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
-			@Override
-			public ModelResourceLocation getModelLocation(ItemStack stack) {
-				return new ModelResourceLocation(location, "inventory");
-			}
-		});
-		ModelLoader.registerItemVariants(item, location);
-
-		return location;
-	}
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -96,12 +68,7 @@ public class ClientProxy extends CommonProxy {
 		ModelDynamicCell.init();
 		RegisterItemJsons.registerModels();
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
-	}
-
-	@Override
-	public void registerSubItemInventoryLocation(Item item, int meta, String location, String name) {
-		ModelResourceLocation resourceLocation = new ModelResourceLocation(location, name);
-		ModelLoader.setCustomModelResourceLocation(item, meta, resourceLocation);
+		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
 	}
 
 	@Override
@@ -115,74 +82,6 @@ public class ClientProxy extends CommonProxy {
 		ClientMultiBlocks.init();
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(ModBlocks.RUBBER_LEAVES, rubberLeavesStateMap);
-	}
-
-	protected void registerItemModel(ItemStack item, String name) {
-		// tell Minecraft which textures it has to load. This is resource-domain sensitive
-		ModelLoader.registerItemVariants(item.getItem(), new ResourceLocation(name));
-		// tell the game which model to use for this item-meta combination
-		ModelLoader.setCustomModelResourceLocation(item.getItem(), item
-			.getMetadata(), new ModelResourceLocation(name, "inventory"));
-	}
-
-	public ResourceLocation registerItemModel(Item item) {
-		ResourceLocation itemLocation = getItemLocation(item);
-		if (itemLocation == null) {
-			return null;
-		}
-
-		return registerIt(item, itemLocation);
-	}
-
-	@Override
-	public void registerFluidBlockRendering(Block block, String name) {
-		name = name.toLowerCase();
-		super.registerFluidBlockRendering(block, name);
-		final ModelResourceLocation fluidLocation = new ModelResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":fluids", name);
-
-		// use a custom state mapper which will ignore the LEVEL property
-		ModelLoader.setCustomStateMapper(block, new StateMapperBase() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				return fluidLocation;
-			}
-		});
-	}
-
-	@Override
-	public void registerCustomBlockStateLocation(Block block, String resourceLocation) {
-		resourceLocation = resourceLocation.toLowerCase();
-		super.registerCustomBlockStateLocation(block, resourceLocation);
-		String finalResourceLocation = resourceLocation;
-		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
-				String propertyString = getPropertyString(state.getProperties());
-				return new ModelResourceLocation(resourceDomain + ':' + finalResourceLocation, propertyString);
-			}
-		});
-		String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
-	}
-
-	@Override
-	public void registerCustomBlockStateLocation(Block block, String resourceLocation, boolean item) {
-		resourceLocation = resourceLocation.toLowerCase();
-		super.registerCustomBlockStateLocation(block, resourceLocation, item);
-		String finalResourceLocation = resourceLocation;
-		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				String resourceDomain = Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain();
-				String propertyString = getPropertyString(state.getProperties());
-				return new ModelResourceLocation(resourceDomain + ':' + finalResourceLocation, propertyString);
-			}
-		});
-		if (item) {
-			String resourceDomain = Block.REGISTRY.getNameForObject(block).getResourceDomain();
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(resourceDomain + ':' + resourceLocation, "inventory"));
-		}
 	}
 
 	@Override

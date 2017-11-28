@@ -55,6 +55,7 @@ public class ItemFrequencyTransmitter extends ItemTR {
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		setMaxStackSize(1);
 		this.addPropertyOverride(new ResourceLocation("techreborn:coords"), new IItemPropertyGetter() {
+			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack,
 			                   @Nullable

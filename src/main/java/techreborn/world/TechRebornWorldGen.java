@@ -218,21 +218,27 @@ public class TechRebornWorldGen implements IWorldGenerator {
 						yPos = ore.minYHeight + random.nextInt(ore.maxYHeight - ore.minYHeight);
 						zPos = chunkZ * 16 + random.nextInt(16);
 						BlockPos pos = new BlockPos(xPos, yPos, zPos);
-						if (ore.blockNiceName.equalsIgnoreCase("iridium")) { //Work around for iridium
-							BlockPos iridiumPos = pos.add(8, 0, 8); // standard worldgen offset is added here like in WorldGenMinable#generate
-							IBlockState blockState = world.getBlockState(iridiumPos);
-							if (blockState.getBlock().isReplaceableOreGen(blockState, world, iridiumPos, predicate)) {
-								world.setBlockState(iridiumPos, ore.state, 2);
-							}
-
+						
+						if (ore.veinSize < 4){
+							// Workaround for small veins
+							for (int j = 1; j < ore.veinSize; j++) {
+								// standard worldgen offset is added here like in WorldGenMinable#generate
+								BlockPos smallVeinPos = pos.add(8, 0, 8);
+								smallVeinPos.add(random.nextInt(2), random.nextInt(2), random.nextInt(2));
+								IBlockState blockState = world.getBlockState(smallVeinPos);
+								if (blockState.getBlock().isReplaceableOreGen(blockState, world, smallVeinPos, predicate)) {
+									world.setBlockState(smallVeinPos, ore.state, 2);
+								}
+							}							
 						} else {
 							try {
 								worldGenMinable.generate(world, random, pos);
 							} catch (ArrayIndexOutOfBoundsException e) {
-								Core.logHelper.error("Something bad is happening during world gen the ore " + ore.blockNiceName + " caused a crash when generating. Report this to the TechReborn devs with a log");
+								Core.logHelper.error("Something bad is happening during world gen the ore "
+										+ ore.blockNiceName
+										+ " caused a crash when generating. Report this to the TechReborn devs with a log");
 							}
 						}
-
 					}
 				}
 			}
@@ -242,8 +248,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 			boolean isValidSpawn = false;
 			Biome biomeGenBase = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 72, chunkZ * 16));
 			if (BiomeDictionary.hasType(biomeGenBase, BiomeDictionary.Type.SWAMP)) {
-				// TODO check the config file for bounds on this, might cause
-				// issues
+				// TODO check the config file for bounds on this, might cause issues
 				chance -= random.nextInt(10) + 10;
 				isValidSpawn = true;
 			}

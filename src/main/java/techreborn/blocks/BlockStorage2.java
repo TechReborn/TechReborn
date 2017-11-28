@@ -133,6 +133,7 @@ public class BlockStorage2 extends BaseBlock {
 		return 30F;
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, TYPE);
 	}

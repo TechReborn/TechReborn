@@ -163,6 +163,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		return true;
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		TYPE = new PropertyString("type", types);
 		return new BlockStateContainer(this, TYPE);

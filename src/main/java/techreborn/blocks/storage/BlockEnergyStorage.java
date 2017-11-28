@@ -113,6 +113,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		FACING = PropertyDirection.create("facing", Facings.ALL);
 		return new BlockStateContainer(this, FACING);
@@ -220,10 +221,12 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 			return aenumfacing[rand.nextInt(aenumfacing.length)];
 		}
 
+		@Override
 		public boolean apply(EnumFacing p_apply_1_) {
 			return p_apply_1_ != null;
 		}
 
+		@Override
 		public Iterator<EnumFacing> iterator() {
 			return Iterators.forArray(this.facings());
 		}

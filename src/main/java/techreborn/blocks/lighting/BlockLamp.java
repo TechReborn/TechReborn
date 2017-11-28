@@ -78,6 +78,7 @@ public class BlockLamp extends BaseTileBlock {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		FACING = PropertyDirection.create("facing");
 		ACTIVE = PropertyBool.create("active");

@@ -52,13 +52,13 @@ public class RollingMachineRecipeWrapper implements IRecipeWrapper {
 			IJeiHelpers jeiHelpers, IRecipe baseRecipe) {
 		IRecipeWrapper recipeWrapper;
 		if (baseRecipe instanceof ShapelessRecipes) {
-			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers, baseRecipe);
+			recipeWrapper = new ShapelessRecipeWrapper<IRecipe>(jeiHelpers, baseRecipe);
 		} else if (baseRecipe instanceof ShapedRecipes) {
 			recipeWrapper = new ShapedRecipesWrapper(jeiHelpers, (ShapedRecipes) baseRecipe);
 		} else if (baseRecipe instanceof ShapedOreRecipe) {
 			recipeWrapper = new ShapedOreRecipeWrapper(jeiHelpers, (ShapedOreRecipe) baseRecipe);
 		} else if (baseRecipe instanceof ShapelessOreRecipe) {
-			recipeWrapper = new ShapelessRecipeWrapper(jeiHelpers, baseRecipe);
+			recipeWrapper = new ShapelessRecipeWrapper<IRecipe>(jeiHelpers, baseRecipe);
 		} else {
 			return null;
 		}
