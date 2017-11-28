@@ -34,15 +34,24 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileImplosionCompressor extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	
+	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxInput", comment = "Implosion Compressor Max Input (Value in EU)")
+	public static int maxInput = 64;
+	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxEnergy", comment = "Implosion Compressor Max Energy (Value in EU)")
+	public static int maxEnergy = 64000;
 
 	public Inventory inventory = new Inventory(5, "TileImplosionCompressor", 64, this);
 	public MultiblockChecker multiblockChecker;
@@ -119,7 +128,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxPower() {
-		return 64000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -139,7 +148,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 64;
+		return maxInput;
 	}
 
 	@Override
