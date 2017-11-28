@@ -40,6 +40,8 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -50,11 +52,18 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDrop, IInventoryProvider,
 	ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerProvider {
+	
+	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
+	public static int maxInput = 128;
+	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxEnergy", comment = "Industrial Grinder Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+	
 	public static final int TANK_CAPACITY = 16000;
-
 	public Inventory inventory;
 	public Tank tank;
 	public RecipeCrafter crafter;
@@ -63,19 +72,11 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 	public TileIndustrialGrinder() {
 		super();
-		// TODO configs
-		
-		tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
-		inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
-		ticksSinceLastChange = 0;
-		final int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		final int[] outputs = new int[4];
-		outputs[0] = 2;
-		outputs[1] = 3;
-		outputs[2] = 4;
-		outputs[3] = 5;
+		this.tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
+		this.inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
+		this.ticksSinceLastChange = 0;
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] {2, 3, 4, 5};
 		this.crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, this.inventory, inputs,
 			outputs);
 	}
@@ -192,7 +193,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -212,7 +213,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 	@Override
 	public double getBaseMaxInput() {
-		return 64;
+		return maxInput;
 	}
 
 	@Override

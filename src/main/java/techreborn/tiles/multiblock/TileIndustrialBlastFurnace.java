@@ -40,6 +40,8 @@ import reborncore.api.IToolDrop;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
@@ -49,11 +51,18 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IToolDrop, IInventoryProvider,
 	ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
+	
+	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")
+	public static int maxInput = 128;
+	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxEnergy", comment = "Industrial Blast Furnace Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
 
 	public Inventory inventory;
 	public RecipeCrafter crafter;
@@ -62,14 +71,9 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 
 	public TileIndustrialBlastFurnace() {
 		super();
-		// TODO configs
 		this.inventory = new Inventory(5, "TileIndustrialBlastFurnace", 64, this);
-		final int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		final int[] outputs = new int[2];
-		outputs[0] = 2;
-		outputs[1] = 3;
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] { 2, 3 };
 		this.crafter = new RecipeCrafter(Reference.blastFurnaceRecipe, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
@@ -194,7 +198,7 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 
 	@Override
 	public double getBaseMaxPower() {
-		return 10000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -214,7 +218,7 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 
 	@Override
 	public double getBaseMaxInput() {
-		return 128;
+		return maxInput;
 	}
 
 	@Override
