@@ -12,10 +12,9 @@
   "variants": {
   	"inventory": {
 		"transform": "forge:default-block",
-      	"model": "cube_bottom_top",
+      	"model": "orientable",
 		"textures": {}
   	},
-  	"normal": [{}],
     "active": {
       "true": {
         "textures": {

@@ -75,6 +75,7 @@ public class BlockSolarPanel extends BaseTileBlock {
 		return state.getValue(TYPE).ordinal() + active;
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, ACTIVE, TYPE);
 	}
@@ -101,7 +102,8 @@ public class BlockSolarPanel extends BaseTileBlock {
 
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(Item.getItemFromBlock(this),1,getMetaFromState(world.getBlockState(pos)));
+		//return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
+		return new ItemStack(Item.getItemFromBlock(this), 1, world.getBlockState(pos).getValue(TYPE).ordinal());
 	}
 	@Override
 	public int damageDropped(IBlockState state) {
