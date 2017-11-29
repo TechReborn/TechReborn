@@ -30,7 +30,7 @@ import techreborn.events.TRRecipeHandler;
 
 public class ItemTRAxe extends ItemAxe {
 	public ItemTRAxe(ToolMaterial material) {
-		super(material, material.getDamageVsEntity() + 5.75F, (material.getDamageVsEntity() + 6.75F) * -0.344444F);
+		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F);
 		setUnlocalizedName(material.name().toLowerCase() + "Axe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		TRRecipeHandler.hideEntry(this);

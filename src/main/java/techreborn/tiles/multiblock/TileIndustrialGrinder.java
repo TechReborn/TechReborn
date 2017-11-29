@@ -24,6 +24,8 @@
 
 package techreborn.tiles.multiblock;
 
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -34,6 +36,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
@@ -97,7 +100,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING,
 			new BlockPos(0, 1, 0));
 		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = centerBlock.getBlock() == Blocks.WATER;
+		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid || centerBlock.getBlock() instanceof IFluidBlock) && centerBlock.getBlock().getMaterial(centerBlock) == Material.WATER);
 		return down && center && blade && up;
 	}
 

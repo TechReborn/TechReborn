@@ -61,7 +61,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo, IEnerg
 
 	public ItemOmniTool() {
 		super(ToolMaterial.DIAMOND);
-		efficiencyOnProperMaterial = 13F;
+		efficiency = 13F;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(200);

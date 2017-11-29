@@ -82,8 +82,8 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
-		return super.getStrVsBlock(stack, state);
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		return super.getDestroySpeed(stack, state);
 	}
 
 	@Override
