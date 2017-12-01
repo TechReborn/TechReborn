@@ -526,9 +526,6 @@ item.techreborn.part.advanced_circuit.name=Advanced Electronic Circuit
 item.techreborn.part.coolant_simple.name=10k Coolant Cell
 item.techreborn.part.coolant_triple.name=30k Coolant Cell
 item.techreborn.part.coolant_six.name=60k Coolant Cell
-item.techreborn.part.solar_cell.name=Solar Cell
-item.techreborn.part.compact_solar_cell.name=Compact Solar Cell
-item.techreborn.part.quantum_singularity.name=Quantum Singularity
 
 item.techreborn.frequencyTransmitter.name=Frequency Transmitter
 
