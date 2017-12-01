@@ -123,7 +123,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
-		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)));
+		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, this.panel.ordinal());
 	}
 
 	@Override

@@ -24,7 +24,6 @@
 
 package techreborn.blocks.generator.solarpanel;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
@@ -44,7 +43,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import reborncore.common.BaseTileBlock;
+import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolarPanel;
@@ -52,18 +52,16 @@ import techreborn.tiles.generator.TileSolarPanel;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockSolarPanel extends BaseTileBlock {
+public class BlockSolarPanel extends BlockMachineBase {
 	public static final String[] panes = new String[] {
 		"basic", "hybrid", "advanced", "ultimate", "quantum"};
 	public static PropertyBool ACTIVE = PropertyBool.create("active");
 	public static final IProperty<EnumPanelType> TYPE = PropertyEnum.create("type", EnumPanelType.class);
 
 	public BlockSolarPanel() {
-		super(Material.IRON);
+		super(true);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getBlockState().getBaseState().withProperty(ACTIVE, false).withProperty(TYPE, EnumPanelType.Basic));
-		setHardness(2.0F);
-		//this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < panes.length; i++) {
 			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/generators").setInvVariant("active=false,type=" + panes[i]));
 		}
@@ -115,5 +113,10 @@ public class BlockSolarPanel extends BaseTileBlock {
 		for (EnumPanelType panelType : EnumPanelType.values()) {
 			list.add(new ItemStack(this, 1, panelType.ordinal()));
 		}
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return null;
 	}
 }
