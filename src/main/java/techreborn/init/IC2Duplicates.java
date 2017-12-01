@@ -41,7 +41,6 @@ public enum IC2Duplicates {
 	IRON_FURNACE(new ItemStack(ModBlocks.IRON_FURNACE)),
 	GENERATOR(new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR)),
 	EXTRACTOR(new ItemStack(ModBlocks.EXTRACTOR)),
-	SOLAR_PANEL(new ItemStack(ModBlocks.SOLAR_PANEL)),
 	RECYCLER(new ItemStack(ModBlocks.RECYCLER)),
 	COMPRESSOR(new ItemStack(ModBlocks.COMPRESSOR)),
 	BAT_BOX(new ItemStack(ModBlocks.LOW_VOLTAGE_SU)),

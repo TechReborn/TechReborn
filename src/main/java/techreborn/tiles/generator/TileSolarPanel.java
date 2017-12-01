@@ -26,79 +26,69 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.blocks.generator.BlockSolarPanel;
+import reborncore.common.util.StringUtils;
+import techreborn.Core;
+import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
+import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-/**
- * Created by modmuss50 on 25/02/2016.
- */
-
-@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
-	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxOutput", comment = "Solar Panel Max Output (Value in EU)")
-	public static int maxOutput = 32;
-	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelMaxEnergy", comment = "Solar Panel Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "solar_panel", key = "SolarPanelEnergyPerTick", comment = "Solar Panel Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 1;
-
-	boolean shouldMakePower = false;
-	boolean lastTickSate = false;
-
+	boolean canSeeSky = false;
+	boolean lastSate = false;
 	int powerToAdd;
+	EnumPanelType panel;
 
+	//This is left here to allow the world to create a new instance of it when loading, do not remove this.
 	public TileSolarPanel() {
 		super();
+	}
+
+	public TileSolarPanel(EnumPanelType panel) {
+		this.panel = panel;
 	}
 
 	@Override
 	public void update() {
 		super.update();
-		if (!this.world.isRemote) {
-			if (this.world.getTotalWorldTime() % 60 == 0) {
-				this.shouldMakePower = this.isSunOut();
-
-			}
-			if (this.shouldMakePower) {
-				this.powerToAdd = energyPerTick;
-				this.addEnergy(this.powerToAdd);
-			} else {
-				this.powerToAdd = 0;
-			}
-
-			this.world.setBlockState(this.getPos(),
-				this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
+		if (this.world.isRemote) {
+			return;
 		}
-	}
+		if (world.getTotalWorldTime() % 20 == 0) {
+			canSeeSky = this.world.canBlockSeeSky(this.pos.up());
+			if(lastSate != this.isSunOut()){
+				this.world.setBlockState(this.getPos(),
+					this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
+				lastSate = isSunOut();
+			}
 
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-		if (isRealTile) {
-			// FIXME: 25/02/2016
-			// info.add(TextFormatting.LIGHT_PURPLE + "Power gen/tick " +
-			// TextFormatting.GREEN + PowerSystem.getLocaliszedPower(
-			// powerToAdd)) ;
 		}
+		if (isSunOut()) {
+			this.powerToAdd = panel.generationRateD;
+		} else if (canSeeSky) {
+			this.powerToAdd = panel.generationRateN;
+		} else {
+			this.powerToAdd = 0;
+		}
+
+		this.addEnergy(this.powerToAdd);
 	}
 
 	public boolean isSunOut() {
-		return this.world.canBlockSeeSky(this.pos.up()) && !this.world.isRaining() && !this.world.isThundering()
-			&& this.world.isDaytime();
+		return canSeeSky && !this.world.isRaining() && !this.world.isThundering() && this.world.isDaytime();
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return panel.internalCapacity;
 	}
 
 	@Override
@@ -113,7 +103,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return panel.generationRateD;
 	}
 
 	@Override
@@ -122,7 +112,53 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
+	public EnumPowerTier getTier() {
+		return this.panel.powerTier;
+	}
+
+	@Override
+	public EnumPowerTier getBaseTier() {
+		return getTier();
+	}
+
+	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
-		return new ItemStack(ModBlocks.SOLAR_PANEL);
+		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)));
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		if(tag.hasKey("panelType")){
+			panel = EnumPanelType.values()[tag.getInteger("panelType")];
+		} else {
+			Core.logHelper.warn("A solar panel has failed to load from NBT, it will not work correctly. Please break and replace it to fix the issue. BlockPos:" + pos.toString());
+			panel = EnumPanelType.Basic;
+		}
+		super.readFromNBT(tag);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		tag.setInteger("panelType", panel.ordinal());
+		return super.writeToNBT(tag);
+	}
+
+	@Override
+	public void checkTeir() {
+		//Nope
+	}
+
+	@Override
+	public void addInfo(List<String> info, boolean isRealTile) {
+		info.add(TextFormatting.GRAY + "Internal Energy Storage: " + TextFormatting.GOLD
+			+ getLocaliszedPowerFormatted((int) getMaxPower()));
+
+		info.add(TextFormatting.GRAY + "Generation Rate Day: " + TextFormatting.GOLD
+				+ getLocaliszedPowerFormatted(panel.generationRateD));
+
+		info.add(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
+			+ getLocaliszedPowerFormatted(panel.generationRateN));
+
+		info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString()));
 	}
 }
