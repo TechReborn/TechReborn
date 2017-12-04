@@ -162,7 +162,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 	// ISidedInventory
 	@Override
 	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 1, 2, 3, 4, 5, 6 };
+		return new int[] { 1, 0, 2, 3, 4, 5, 6 };
 	}
 
 	@Override
