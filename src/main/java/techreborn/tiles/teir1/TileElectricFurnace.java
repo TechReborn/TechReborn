@@ -48,9 +48,10 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	public int capacity = 1000;
 	public int progress;
 	public int fuelScale = 100;
-	public int cost = 8;
+	public int cost = 6;
 	int input1 = 0;
 	int output = 1;
+	boolean wasBurning = false;
 
 	public TileElectricFurnace() {
 		super();
@@ -71,15 +72,14 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		boolean updateInventory = false;
 		if (this.isBurning() && this.canSmelt()) {
 			this.updateState();
-
-			this.progress++;
-			if (this.progress % 10 == 0) {
-				this.useEnergy(getEuPerTick(this.cost));
-			}
-			if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 1)) {
-				this.progress = 0;
-				this.cookItems();
-				updateInventory = true;
+			if(canUseEnergy(this.cost)){
+				this.useEnergy(this.cost);
+				this.progress++;
+				if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 2)) {
+					this.progress = 0;
+					this.cookItems();
+					updateInventory = true;
+				}
 			}
 		} else {
 			this.progress = 0;
@@ -139,12 +139,16 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.progress > 0)
-				blockMachineBase.setActive(this.progress > 0, this.world, this.pos);
+		if(wasBurning != (this.progress > 0)){
+			final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
+			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
+				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
+				if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.progress > 0)
+					blockMachineBase.setActive(this.progress > 0, this.world, this.pos);
+			}
+			wasBurning = (this.progress > 0);
 		}
+
 	}
 
 	@Override
