@@ -99,7 +99,8 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING,
 			new BlockPos(0, 1, 0));
 		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid || centerBlock.getBlock() instanceof IFluidBlock) && centerBlock.getBlock().getMaterial(centerBlock) == Material.WATER);
+		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
+				|| centerBlock.getBlock() instanceof IFluidBlock) && centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
 	}
 
@@ -142,16 +143,6 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 	}
 
 	@Override
-	public void invalidate() {
-		super.invalidate();
-	}
-
-	@Override
-	public void onChunkUnload() {
-		super.onChunkUnload();
-	}
-
-	@Override
 	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
 			return true;
@@ -179,6 +170,19 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		if (slotIndex >= 2)
 			return false;
 		return this.isItemValidForSlot(slotIndex, itemStack);
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
+		if (slotIndex == 1) {
+			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -276,8 +280,9 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
+		// fluidSlot first to support automation and shift-click
 		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).slot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
+				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
 				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}

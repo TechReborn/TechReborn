@@ -61,11 +61,15 @@ public class GuiIndustrialGrinder extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		
+		// Battery slot
 		this.drawSlot(8, 72, layer);
-		
+		// Liquid input slot
 		this.drawSlot(34, 35, layer);
+		// Liquid output slot
 		this.drawSlot(34, 55, layer);
+		// Solid material input slot
 		this.drawSlot(84, 43, layer);
+		// Output slots
 		this.drawSlot(126, 18, layer);
 		this.drawSlot(126, 36, layer);
 		this.drawSlot(126, 54, layer);
@@ -149,13 +153,11 @@ public class GuiIndustrialGrinder extends GuiBase {
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
-							//new Location(this.tile.getPos().getX(),
-						//this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
 					MultiblockRenderEvent.anchor = new BlockPos(
-						this.tile.getPos().getX()
-							- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
-						this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-						- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
+							this.tile.getPos().getX()
+									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
+							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
+									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);
