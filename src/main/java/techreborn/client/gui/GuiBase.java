@@ -33,6 +33,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgradeable;
 import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
 
 /**
@@ -45,6 +46,7 @@ public class GuiBase extends GuiContainer {
 	public TRBuilder builder = new TRBuilder();
 	public TileEntity tile;
 	public BuiltContainer container;
+	public static boolean showSlotConfig = true;
 
 	public GuiBase(EntityPlayer player, TileEntity tile, BuiltContainer container) {
 		super(container);
@@ -121,6 +123,8 @@ public class GuiBase extends GuiContainer {
 				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
 			}
 		}
+		builder.drawSlotTab(this, guiLeft, guiTop);
+
 	}
 
 	public boolean drawPlayerSlots() {
@@ -135,6 +139,9 @@ public class GuiBase extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		drawTitle();
+		if(showSlotConfig){
+			GuiSlotConfiguration.draw(this, mouseX, mouseY);
+		}
 	}
 
 	@Override

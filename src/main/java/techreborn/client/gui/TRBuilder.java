@@ -364,6 +364,11 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(posX - 27, posY + 4, 126, 151, 30, 87);
 	}
 
+	public void drawSlotTab(GuiScreen gui, int posX, int posY){
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(posX - 26, posY + 84, 157, 148, 30, 30);
+	}
+
 	public void drawScrapSlot(GuiScreen gui, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX, posY, 150, 0, 18, 18);
