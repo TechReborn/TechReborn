@@ -34,10 +34,6 @@ repositories {
 		url = "http://maven.modmuss50.me/"
 	}
 	maven {
-		name = "ModMaven"
-		url = "https://modmaven.k-4u.nl/"
-	}
-	maven {
 		name "TiC"
 		url "http://dvs1.progwml6.com/files/maven"
 	}
@@ -123,7 +119,7 @@ dependencies {
 	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.18-10"
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.7.273", withoutOldJEI
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.7-ex112', withoutOldJEI
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.26-ex112', withoutOldJEI
 	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.3.7.14:universal'
 	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.7.26:universal'
 
