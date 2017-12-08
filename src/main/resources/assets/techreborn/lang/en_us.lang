@@ -127,6 +127,7 @@ tile.techreborn:storage.nickel.name=Block of Nickel
 tile.techreborn:storage.invar.name=Block of Invar
 tile.techreborn:storage.osmium.name=Block of Osmium
 tile.techreborn:storage.iridium.name=Block of Iridium
+tile.techreborn:storage.bronze.name=Block of Bronze
 tile.techreborn:storage2.tungstensteel.name=Block of Tungstensteel
 tile.techreborn:storage2.lodestone.name=Block of Lodestone
 tile.techreborn:storage2.tellurium.name=Block of Tellurium
