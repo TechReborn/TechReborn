@@ -185,6 +185,11 @@ public class ModRecipes {
 				new ItemStack(Items.COAL),
 				ItemDusts.getDustByName("coal"),
 				230, 27));
+		
+		RecipeHandler.addRecipe(new GrinderRecipe(
+				new ItemStack(Items.COAL, 1, 1),
+				ItemDusts.getDustByName("charcoal"),
+				230, 27));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(net.minecraft.init.Items.CLAY_BALL),
