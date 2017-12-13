@@ -294,7 +294,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeClickArea(GuiChemicalReactor.class, 150, 4, 20, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.addRecipeClickArea(GuiImplosionCompressor.class, 150, 4, 20, 12, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 		registry.addRecipeClickArea(GuiIndustrialGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
-		registry.addRecipeClickArea(GuiIndustrialSawmill.class, 55, 35, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
+		registry.addRecipeClickArea(GuiIndustrialSawmill.class, 150, 4, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 150, 4, 18, 18, EFluidGenerator.SEMIFLUID.getRecipeID());
 		registry.addRecipeClickArea(GuiDieselGenerator.class, 150, 4, 18, 18, EFluidGenerator.DIESEL.getRecipeID());
@@ -383,8 +383,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		
 
 		if (CompatManager.isQuantumStorageLoaded) {
-			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_CHEST));
-			registry.getJeiHelpers().getItemBlacklist().addItemToBlacklist(new ItemStack(ModBlocks.QUANTUM_TANK));
+			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.QUANTUM_CHEST));
+			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.QUANTUM_TANK));
 		}
 
 	}

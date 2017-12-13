@@ -24,98 +24,147 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import java.io.IOException;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import reborncore.client.multiblock.Multiblock;
+import reborncore.client.multiblock.MultiblockRenderEvent;
+import reborncore.client.multiblock.MultiblockSet;
+import techreborn.blocks.BlockMachineCasing;
+import techreborn.client.gui.widget.GuiButtonHologram;
+import techreborn.init.ModBlocks;
+import techreborn.proxies.ClientProxy;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
-public class GuiIndustrialSawmill extends GuiContainer {
+public class GuiIndustrialSawmill extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/industrial_sawmill.png");
+	TileIndustrialSawmill tile;
 
-	TileIndustrialSawmill sawmill;
-
-	public GuiIndustrialSawmill(final EntityPlayer player, final TileIndustrialSawmill sawmill) {
-		super(sawmill.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.sawmill = sawmill;
+	public GuiIndustrialSawmill(final EntityPlayer player, final TileIndustrialSawmill tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
 	public void initGui() {
 		super.initGui();
+		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiIndustrialSawmill.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
+	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
+		
+		// Battery slot
+		this.drawSlot(8, 72, layer);
+		// Liquid input slot
+		this.drawSlot(34, 35, layer);
+		// Liquid output slot
+		this.drawSlot(34, 55, layer);
+		// Solid material input slot
+		this.drawSlot(84, 43, layer);
+		// Output slots
+		this.drawSlot(126, 25, layer);
+		this.drawSlot(126, 43, layer);
+		this.drawSlot(126, 61, layer);
+		
+		this.builder.drawJEIButton(this, 150, 4, layer);
+	}
 
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	@Override
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
+		
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawTank(this, 53, 25, mouseX, mouseY, this.tile.tank.getFluid(), this.tile.tank.getCapacity(), this.tile.tank.isEmpty(), layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		if (tile.getMutliBlock()) {
+			addHologramButton(6, 4, 212, layer);
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		} else {
+			builder.drawMultiblockMissingBar(this, layer);
+			addHologramButton(76, 56, 212, layer);
+			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
+		}	
+	}
+	
+	public void addHologramButton(int x, int y, int id, Layer layer) {
+		if (id == 0)
+			buttonList.clear();
+		int factorX = 0;
+		int factorY = 0;
+		if (layer == Layer.BACKGROUND) {
+			factorX = guiLeft;
+			factorY = guiTop;
+		}
+		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
+	}
+	
+	@Override
+	public void actionPerformed(final GuiButton button) throws IOException {
+		super.actionPerformed(button);
+		if (button.id == 212) {
+			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+				{
+					// This code here makes a basic multiblock and then sets to the selected one.
+					final Multiblock multiblock = new Multiblock();
+					IBlockState standardCasing = ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "standard");
+					IBlockState reinforcedCasing = ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "reinforced");
+					
+					this.addComponent(0, -1, 0, standardCasing, multiblock);
+					this.addComponent(1, -1, 0, standardCasing, multiblock);
+					this.addComponent(0, -1, 1, standardCasing, multiblock);
+					this.addComponent(-1, -1, 0, standardCasing, multiblock);
+					this.addComponent(0, -1, -1, standardCasing, multiblock);
+					this.addComponent(-1, -1, -1, standardCasing, multiblock);
+					this.addComponent(-1, -1, 1, standardCasing, multiblock);
+					this.addComponent(1, -1, -1, standardCasing, multiblock);
+					this.addComponent(1, -1, 1, standardCasing, multiblock);
 
-		final int progress = this.sawmill.getProgressScaled(24);
-		this.drawTexturedModalRect(k + 56, l + 38, 176, 14, progress - 1, 11);
+					this.addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
+					this.addComponent(1, 0, 0, reinforcedCasing, multiblock);
+					this.addComponent(0, 0, 1, reinforcedCasing, multiblock);
+					this.addComponent(-1, 0, 0, reinforcedCasing, multiblock);
+					this.addComponent(0, 0, -1, reinforcedCasing, multiblock);
+					this.addComponent(-1, 0, -1, reinforcedCasing, multiblock);
+					this.addComponent(-1, 0, 1, reinforcedCasing, multiblock);
+					this.addComponent(1, 0, -1, reinforcedCasing, multiblock);
+					this.addComponent(1, 0, 1, reinforcedCasing, multiblock);
 
-		final int energy = 13 - (int) (this.sawmill.getEnergy() / this.sawmill.getMaxPower() * 13F);
-		this.drawTexturedModalRect(k + 36, l + 66 + energy, 179, 1 + energy, 7, 13 - energy);
+					this.addComponent(0, 1, 0, standardCasing, multiblock);
+					this.addComponent(0, 1, 0, standardCasing, multiblock);
+					this.addComponent(1, 1, 0, standardCasing, multiblock);
+					this.addComponent(0, 1, 1, standardCasing, multiblock);
+					this.addComponent(-1, 1, 0, standardCasing, multiblock);
+					this.addComponent(0, 1, -1, standardCasing, multiblock);
+					this.addComponent(-1, 1, -1, standardCasing, multiblock);
+					this.addComponent(-1, 1, 1, standardCasing, multiblock);
+					this.addComponent(1, 1, -1, standardCasing, multiblock);
+					this.addComponent(1, 1, 1, standardCasing, multiblock);
 
-		if (!this.sawmill.tank.isEmpty()) {
-			this.drawFluid(this.sawmill.tank.getFluid(), k + 11, l + 66, 12, 47, this.sawmill.tank.getCapacity());
-
-			final int j = this.sawmill.getEnergyScaled(12);
-			if (j > 0) {
-				this.drawTexturedModalRect(k + 33, l + 65 + 12 - j, 176, 12 - j, 14, j + 2);
-			}
-
-			if (!this.sawmill.getMutliBlock()) {
-				//GuiUtil.drawTooltipBox(k + 30, l + 50 + 12, 114, 10);
-				this.fontRenderer.drawString(I18n.format("techreborn.message.missingmultiblock"), k + 38,
-					l + 52 + 12, -1);
+					final MultiblockSet set = new MultiblockSet(multiblock);
+					ClientProxy.multiblockRenderEvent.setMultiblock(set);
+					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
+					MultiblockRenderEvent.anchor = new BlockPos(
+							this.tile.getPos().getX()
+									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
+							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
+									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
+				}
+			} else {
+				ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			}
 		}
 	}
 
-	public void drawFluid(final FluidStack fluid, final int x, final int y, final int width, final int height, final int maxCapacity) {
-		this.mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		final ResourceLocation still = fluid.getFluid().getStill(fluid);
-		final TextureAtlasSprite sprite = this.mc.getTextureMapBlocks().getAtlasSprite(still.toString());
-
-		final int drawHeight = (int) (fluid.amount / (maxCapacity * 1F) * height);
-		final int iconHeight = sprite.getIconHeight();
-		int offsetHeight = drawHeight;
-
-		int iteration = 0;
-		while (offsetHeight != 0) {
-			final int curHeight = offsetHeight < iconHeight ? offsetHeight : iconHeight;
-			this.drawTexturedModalRect(x, y - offsetHeight, sprite, width, curHeight);
-			offsetHeight -= curHeight;
-			iteration++;
-			if (iteration > 50)
-				break;
-		}
-
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn:industrial_sawmill.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6, 4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory"), 58, this.ySize - 96 + 2, 4210752);
-	}
-
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 }
