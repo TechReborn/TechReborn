@@ -34,7 +34,7 @@ import reborncore.common.util.StringUtils;
 public class ItemCells {
 	public static ItemStack getCellByName(String name, int count) {
 		if (name.equalsIgnoreCase("empty") || name.equalsIgnoreCase("cell")) {
-			return DynamicCell.getEmptyCell(16).copy();
+			return DynamicCell.getEmptyCell(count).copy();
 		}
 		Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
 		if (fluid == null) {
