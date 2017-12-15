@@ -31,7 +31,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -48,7 +47,6 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.OreDrop;
-import reborncore.common.util.OreDropSet;
 import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
@@ -58,7 +56,6 @@ import techreborn.items.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.world.config.IOreNameProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -71,8 +68,30 @@ public class BlockOre extends Block implements IOreNameProvider {
 		"lead", "silver" };
 	private static final List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
 	public static final PropertyString VARIANTS = new PropertyString("type", oreNamesList);
-	@ConfigRegistry(category = "blocks", key = "secondaryDropChance", comment = "Secondary Gem drop chance")
-	public static double secondaryDropChance = 0.5;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "rubyMinQuatity", comment = "Minimum quantity of Ruby gems per Ruby ore")
+	public static int rubyMinQuatity = 1;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "rubyMaxQuantity", comment = "Maximum quantity of Ruby gems per Ruby ore")
+	public static int rubyMaxQuantity = 2;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "sapphireMinQuantity", comment = "Minimum quantity of Sapphire gems per Sapphire ore")
+	public static int sapphireMinQuantity = 1;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "sapphireMaxQuantity", comment = "Maximum quantity of Sapphire gems per Sapphire ore")
+	public static int sapphireMaxQuantity = 2;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "pyriteMinQuatity", comment = "Minimum quantity of Pyrite dust per Pyrite ore")
+	public static int pyriteMinQuatity = 1;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "pyriteMaxQuantity", comment = "Maximum quantity of Pyrite dust per Pyrite ore")
+	public static int pyriteMaxQuantity = 2;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "sodaliteMinQuatity", comment = "Minimum quantity of Sodalite dust per Sodalite ore")
+	public static int sodaliteMinQuatity = 1;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "sodaliteMaxQuantity", comment = "Maximum quantity of Sodalite dust per Sodalite ore")
+	public static int sodaliteMaxQuantity = 2;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "cinnabarMinQuatity", comment = "Minimum quantity of Cinnabar dust per Cinnabar ore")
+	public static int cinnabarMinQuatity = 1;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "cinnabarMaxQuantity", comment = "Maximum quantity of Cinnabar dust per Cinnabar ore")
+	public static int cinnabarMaxQuantity = 2;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "sphaleriteMinQuatity", comment = "Minimum quantity of Sphalerite dust per Sphalerite ore")
+	public static int sphaleriteMinQuatity = 1;
+	@ConfigRegistry(config = "misc", category = "blocks", key = "sphaleriteMaxQuantity", comment = "Maximum quantity of Sphalerite dust per Sphalerite ore")
+	public static int sphaleriteMaxQuantity = 2;
 
 	public BlockOre() {
 		super(Material.ROCK);
@@ -114,67 +133,41 @@ public class BlockOre extends Block implements IOreNameProvider {
 	}
 
 	@Override
-	@Deprecated
-	public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		String variant = state.getValue(VARIANTS);
 		int meta = getMetaFromState(state);
 		Random random = new Random();
-		// Ruby
+		
+		// Secondary drop, like peridot from sapphire ore added via event handler. 
 		if (variant.equalsIgnoreCase("Ruby")) {
-			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby"),
-				secondaryDropChance);
-			OreDrop redGarnet = new OreDrop(ItemGems.getGemByName("red_garnet"), 0.02);
-			OreDropSet set = new OreDropSet(ruby, redGarnet);
-			return set.drop(fortune, random);
+			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby", rubyMinQuatity), rubyMaxQuantity);
+			drops.add(ruby.getDrops(fortune, random));
 		}
-
-		// Sapphire
-		if (variant.equalsIgnoreCase("Sapphire")) {
-			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire"),
-				secondaryDropChance);
-			OreDrop peridot = new OreDrop(ItemGems.getGemByName("peridot"), 0.03);
-			OreDropSet set = new OreDropSet(sapphire, peridot);
-			return set.drop(fortune, random);
+		else if (variant.equalsIgnoreCase("Sapphire")) {
+			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire", sapphireMinQuantity), sapphireMaxQuantity);
+			drops.add(sapphire.getDrops(fortune, random));
 		}
-
-		// Pyrite
-		if (variant.equalsIgnoreCase("Pyrite")) {
-			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite"),
-				secondaryDropChance);
-			OreDropSet set = new OreDropSet(pyriteDust);
-			return set.drop(fortune, random);
+		else if (variant.equalsIgnoreCase("Pyrite")) {
+			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite", pyriteMinQuatity), pyriteMaxQuantity);
+			drops.add(pyriteDust.getDrops(fortune, random));
 		}
-
-		// Sodalite
-		if (variant.equalsIgnoreCase("Sodalite")) {
-			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", 6),
-				secondaryDropChance);
-			OreDrop aluminum = new OreDrop(ItemDusts.getDustByName("aluminum"), 0.50);
-			OreDropSet set = new OreDropSet(sodalite, aluminum);
-			return set.drop(fortune, random);
+		else if (variant.equalsIgnoreCase("Sodalite")) {
+			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", sodaliteMinQuatity), sodaliteMaxQuantity);
+			drops.add(sodalite.getDrops(fortune,  random));
 		}
-
-		// Cinnabar
-		if (variant.equalsIgnoreCase("Cinnabar")) {
-			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar"),
-				secondaryDropChance);
-			OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), 0.25);
-			OreDropSet set = new OreDropSet(cinnabar, redstone);
-			return set.drop(fortune, random);
+		else if (variant.equalsIgnoreCase("Cinnabar")) {
+			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar", cinnabarMinQuatity), cinnabarMaxQuantity);
+			drops.add(cinnabar.getDrops(fortune, random));
 		}
-
-		// Sphalerite 1, 1/8 yellow garnet
-		if (variant.equalsIgnoreCase("Sphalerite")) {
-			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite"),
-				secondaryDropChance);
-			OreDrop yellowGarnet = new OreDrop(ItemGems.getGemByName("yellowGarnet"), 0.125);
-			OreDropSet set = new OreDropSet(sphalerite, yellowGarnet);
-			return set.drop(fortune, random);
+		else if (variant.equalsIgnoreCase("Sphalerite")) {
+			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite", sphaleriteMinQuatity), sphaleriteMaxQuantity);
+			drops.add(sphalerite.getDrops(fortune, random));
 		}
-
-		ArrayList<ItemStack> block = new ArrayList<>();
-		block.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
-		return block;
+		else {
+			drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
+		}
+		
+		return;
 	}
 
 	@Override
@@ -191,27 +184,9 @@ public class BlockOre extends Block implements IOreNameProvider {
 	}
 
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
-	                              EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return new ItemStack(this, 1, getMetaFromState(state));
 	}
-
-	//	@Override
-	//	public int damageDropped(IBlockState state)
-	//	{
-	//		int meta = getMetaFromState(state);
-	//		if (meta == 2)
-	//		{
-	//			return 0;
-	//		} else if (meta == 3)
-	//		{
-	//			return 1;
-	//		} else if (meta == 5)
-	//		{
-	//			return 60;
-	//		}
-	//		return meta;
-	//	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
