@@ -196,12 +196,19 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		state = state.getActualState(source, pos);
-		float minX = state.getValue(WEST) ? 0.0F : 0.3125F;
-		float minY = state.getValue(DOWN) ? 0.0F : 0.3125F;
-		float minZ = state.getValue(NORTH) ? 0.0F : 0.3125F;
-		float maxX = state.getValue(EAST) ? 1.0F : 0.6875F;
-		float maxY = state.getValue(UP) ? 1.0F : 0.6875F;
-		float maxZ = state.getValue(SOUTH) ? 1.0F : 0.6875F;
+		float minSize = 0.3125F;
+		float maxSize =  0.6875F;
+		int thinkness = (int) state.getValue(TYPE).cableThickness;
+		if(thinkness == 6){
+			minSize = 0.35F;
+			maxSize = 0.65F;
+		}
+		float minX = state.getValue(WEST) ? 0.0F : minSize;
+		float minY = state.getValue(DOWN) ? 0.0F : minSize;
+		float minZ = state.getValue(NORTH) ? 0.0F : minSize;
+		float maxX = state.getValue(EAST) ? 1.0F : maxSize;
+		float maxY = state.getValue(UP) ? 1.0F : maxSize;
+		float maxZ = state.getValue(SOUTH) ? 1.0F : maxSize;
 		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY, (double) maxZ);
 	}
 
