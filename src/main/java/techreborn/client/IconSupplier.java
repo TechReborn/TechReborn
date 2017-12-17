@@ -32,19 +32,31 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT) 
 public class IconSupplier {
+	public static String armour_head_name = "techreborn:gui/slot_sprites/armour_head";
+	@SideOnly(Side.CLIENT)
 	public static TextureAtlasSprite armour_head;
+
+	public static String armour_chest_name = "techreborn:gui/slot_sprites/armour_chest";
+	@SideOnly(Side.CLIENT)
 	public static TextureAtlasSprite armour_chest;
+
+	public static String armour_legs_name = "techreborn:gui/slot_sprites/armour_legs";
+	@SideOnly(Side.CLIENT)
 	public static TextureAtlasSprite armour_legs;
+
+	public static String armour_feet_name = "techreborn:gui/slot_sprites/armour_feet";
+	@SideOnly(Side.CLIENT)
 	public static TextureAtlasSprite armour_feet;
-	
+
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void preTextureStitch(TextureStitchEvent.Pre event) {
 		TextureMap map  = event.getMap();
-		armour_head = map.registerSprite(new ResourceLocation("techreborn:gui/slot_sprites/armour_head"));
-		armour_chest = map.registerSprite(new ResourceLocation("techreborn:gui/slot_sprites/armour_chest"));
-		armour_legs = map.registerSprite(new ResourceLocation("techreborn:gui/slot_sprites/armour_legs"));
-		armour_feet = map.registerSprite(new ResourceLocation("techreborn:gui/slot_sprites/armour_feet"));
+		armour_head = map.registerSprite(new ResourceLocation(armour_head_name));
+		armour_chest = map.registerSprite(new ResourceLocation(armour_chest_name));
+		armour_legs = map.registerSprite(new ResourceLocation(armour_legs_name));
+		armour_feet = map.registerSprite(new ResourceLocation(armour_feet_name));
 	}
+
 }
