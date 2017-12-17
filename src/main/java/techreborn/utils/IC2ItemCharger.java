@@ -40,6 +40,15 @@ public class IC2ItemCharger {
 		}
 	}
 
+	public static void dischargeIc2Item(TilePowerAcceptor tilePowerAcceptor, ItemStack stack){
+		if(stack.isEmpty()){
+			return;
+		}
+		if(stack.getItem() instanceof IElectricItem){
+			tilePowerAcceptor.addEnergy(ElectricItem.manager.discharge(stack, tilePowerAcceptor.getFreeSpace(), 4, false, true,  false));
+		}
+	}
+
 	public static boolean isIC2PoweredItem(ItemStack stack){
 		if(stack.isEmpty()){
 			return false;
