@@ -112,12 +112,13 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	public double getBaseMaxOutput() {
 		return OUTPUT;
 	}
-	
-	public int getBaseMaxOutputInt() {
+
+
+	public int getCurrentOutput() {
 		return OUTPUT;
 	}
 	
-	public void setBaseMaxOutput(int output) {
+	public void setCurentOutput(int output) {
 		this.OUTPUT = output;
 	}
 
@@ -125,6 +126,6 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-				.syncEnergyValue().syncIntegerValue(this::getBaseMaxOutputInt, this::setBaseMaxOutput).addInventory().create(this);
+				.syncEnergyValue().syncIntegerValue(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this);
 	}
 }
