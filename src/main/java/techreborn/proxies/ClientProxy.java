@@ -41,10 +41,7 @@ import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.blocks.BlockRubberLeaves;
-import techreborn.client.ClientMultiBlocks;
-import techreborn.client.IconSupplier;
-import techreborn.client.RegisterItemJsons;
-import techreborn.client.StackToolTipEvent;
+import techreborn.client.*;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
@@ -69,6 +66,7 @@ public class ClientProxy extends CommonProxy {
 		RegisterItemJsons.registerModels();
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
+		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 
 	@Override
