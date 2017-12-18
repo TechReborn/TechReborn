@@ -107,4 +107,9 @@ public class ClientProxy extends CommonProxy {
 			return new RenderNukePrimed(manager);
 		}
 	}
+
+	@Override
+	public boolean fancyGraphics() {
+		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
+	}
 }
