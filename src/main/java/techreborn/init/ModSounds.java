@@ -43,6 +43,7 @@ public class ModSounds {
 	public static SoundEvent AUTO_CRAFTING;
 	public static SoundEvent MACHINE_RUN;
 	public static SoundEvent MACHINE_START;
+	public static SoundEvent ALARM;
 
 	public static void init() {
 		CABLE_SHOCK = getSound("cable_shock");
@@ -51,6 +52,7 @@ public class ModSounds {
 		AUTO_CRAFTING = getSound("auto_crafting");
 		MACHINE_RUN = getSound("machine_run");
 		MACHINE_START = getSound("machine_start");
+		ALARM = getSound("alarm");
 
 		RecipeCrafter.soundHanlder = new SoundHandler();
 	}
