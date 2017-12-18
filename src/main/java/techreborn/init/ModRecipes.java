@@ -219,6 +219,12 @@ public class ModRecipes {
 				new ItemStack(Items.ENDER_PEARL),
 				ItemDusts.getDustByName("ender_pearl", 2),
 				200, 22));
+		
+		RecipeHandler.addRecipe(new GrinderRecipe(
+				new ItemStack(Blocks.LAPIS_ORE),
+				new ItemStack(Items.DYE, 10, 4),
+				170, 19));
+		
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
