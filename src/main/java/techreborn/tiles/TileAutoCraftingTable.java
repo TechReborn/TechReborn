@@ -89,9 +89,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	public IRecipe getIRecipe() {
 		if (customRecipe) {
 			InventoryCrafting crafting = getCraftingInventory();
-			for (IRecipe testRecipe : CraftingManager.REGISTRY) {
-				if (testRecipe.matches(crafting, world)) {
-					return testRecipe;
+			if(!crafting.isEmpty()){
+				for (IRecipe testRecipe : CraftingManager.REGISTRY) {
+					if (testRecipe.matches(crafting, world)) {
+						return testRecipe;
+					}
 				}
 			}
 		}
