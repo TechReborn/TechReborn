@@ -225,6 +225,10 @@ public class ModRecipes {
 				new ItemStack(Items.DYE, 10, 4),
 				170, 19));
 		
+		RecipeHandler.addRecipe(new GrinderRecipe(
+				new ItemStack(Blocks.OBSIDIAN),
+				ItemDusts.getDustByName("obsidian", 4),
+				170, 19));
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
