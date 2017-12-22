@@ -87,7 +87,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.1.2555"
+	version = "1.12.2-14.23.1.2581"
 	mappings = "snapshot_20171003"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
@@ -112,16 +112,15 @@ dependencies {
 	}
 	deobfCompile "mezz.jei:jei_1.12.2:+"
 	compile "mcp.mobius.waila:Hwyla:+"
-	compile "net.darkhax.tesla:Tesla-1.12:1.0.59:deobf"
+	compile "net.darkhax.tesla:Tesla-1.12:1.0.61:deobf"
 
-	//1.11 updates
-	//deobfCompile "slimeknights:TConstruct:1.10.2-2.5.3.jenkins384"
-	//deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.0.jenkins170"
-	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.18-10"
-	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.7.273", withoutOldJEI
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.26-ex112', withoutOldJEI
-	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.3.7.14:universal'
-	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.7.26:universal'
+	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
+	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.9.289", withoutOldJEI
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.31-ex112', withoutOldJEI
+	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.3.8.15:universal'
+	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.8.33:universal'
+
+	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
 
 	compile name: 'buildcraft', version: '7.99.12', ext: 'jar'
 }
