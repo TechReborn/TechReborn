@@ -92,10 +92,10 @@ public class BlockBreakHandler {
 
 	@SubscribeEvent
 	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
-		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_CHAINSAW){
+		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_CHAINSAW && event.getOriginalSpeed() > 1.0f){
 			BlockPos pos = event.getPos();
 			World worldIn = event.getEntityPlayer().world;
-			float speed = 2F;
+			float speed = 20F;
 			int blocks = 0;
 			for (int i = 1; i < 10; i++) {
 				BlockPos nextPos = pos.up(i);
@@ -104,7 +104,7 @@ public class BlockBreakHandler {
 					blocks ++;
 				}
 			}
-			event.setNewSpeed(speed * blocks);
+			event.setNewSpeed(speed / blocks);
 		}
 	}
 }

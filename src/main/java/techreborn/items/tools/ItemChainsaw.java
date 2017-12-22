@@ -53,6 +53,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 
 	public int maxCharge = 1;
 	public int cost = 250;
+	public float poweredSpeed = 20F;
 	public float unpoweredSpeed = 2.0F;
 	public double transferLimit = 100;
 	public boolean isBreaking = false;
@@ -60,12 +61,11 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity,
 	                    float unpoweredSpeed) {
 		super(material);
-		efficiency = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setUnlocalizedName(unlocalizedName);
 		this.maxCharge = energyCapacity;
-		this.unpoweredSpeed = unpoweredSpeed;
+		this.efficiency = unpoweredSpeed;
 
 		this.addPropertyOverride(new ResourceLocation("techreborn:animated"), new IItemPropertyGetter() {
 			@Override
@@ -81,6 +81,16 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 				return 0.0F;
 			}
 		});
+	}
+	
+	@Override
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+		if (PoweredItem.canUseEnergy(cost, stack) && state.getBlock().isToolEffective("axe", state)) {
+			return this.poweredSpeed;
+		}
+		else {
+			return super.getDestroySpeed(stack, state);
+		}
 	}
 
 	@Override
