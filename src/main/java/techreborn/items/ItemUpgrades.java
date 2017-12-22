@@ -183,7 +183,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 				IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
 				for (int i = 0; i < itemHandler.getSlots(); i++) {
 					ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
-					int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
+					int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, dir.getOpposite());
 					if (amount > 0) {
 						extractedStack = itemHandler.extractItem(i, 1, false);
 						extractedStack.setCount(1);
