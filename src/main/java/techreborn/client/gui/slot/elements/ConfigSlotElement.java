@@ -24,13 +24,21 @@ public class ConfigSlotElement extends ElementBase {
 		this.inventory = slotInventory;
 		this.id = slotId;
 
-		elements.add(new SlotConfigPopupElement(this.id, x - 22, y - 22));
-		elements.add(new ButtonElement(x + 29, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> {
+		SlotConfigPopupElement popupElement;
+
+		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, this));
+		elements.add(new ButtonElement(x + 29, y - 25, Sprite.EXIT_BUTTON).addPressAction((element, gui1, provider, mouseX, mouseY) -> {
 			GuiSlotConfiguration.slectedSlot = -1;
 			return true;
 		}));
-	//	elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, false, Sprite.LIGHT_CHECK_BOX));
-	//	elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57, true, Sprite.LIGHT_CHECK_BOX));
+		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, false, Sprite.LIGHT_CHECK_BOX).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
+			popupElement.updateCheckBox();
+			return true;
+		}));
+		elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57, true, Sprite.LIGHT_CHECK_BOX).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
+			popupElement.updateCheckBox();
+			return true;
+		}));
 	}
 
 	@Override

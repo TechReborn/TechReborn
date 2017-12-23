@@ -25,9 +25,12 @@ import java.awt.*;
 public class SlotConfigPopupElement extends ElementBase {
 	int id;
 
-	public SlotConfigPopupElement(int slotId, int x, int y) {
+	ConfigSlotElement slotElement;
+
+	public SlotConfigPopupElement(int slotId, int x, int y, ConfigSlotElement slotElement) {
 		super(x, y, Sprite.SLOT_CONFIG_POPUP);
 		this.id = slotId;
+		this.slotElement = slotElement;
 	}
 
 	@Override
@@ -62,24 +65,17 @@ public class SlotConfigPopupElement extends ElementBase {
 	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		int mx = mouseX - getX() - gui.guiLeft;
 		int my = mouseY - getY() - gui.guiTop;
-		System.out.println("x:" + mx + " y:" + my);
 		if(isInBox(147 , 40, 20, 20, mx, my)){
-			System.out.println("top");
 			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
 		} else if(isInBox(147 , 60, 20, 20, mx, my)){
-			System.out.println("front");
 			cyleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
 		} else if(isInBox(128 , 60, 20, 20, mx, my)){
-			System.out.println("left");
 			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
 		} else if(isInBox(166 , 60, 20, 20, mx, my)){
-			System.out.println("right");
 			cyleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
 		} else if(isInBox(147 , 80, 20, 20, mx, my)){
-			System.out.println("bottom");
 			cyleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
 		} else if(isInBox(166 , 80, 20, 20, mx, my)){
-			System.out.println("back");
 			cyleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
@@ -90,12 +86,14 @@ public class SlotConfigPopupElement extends ElementBase {
 	public void cyleSlotConfig(EnumFacing side, GuiBase guiBase){
 		SlotConfiguration.SlotConfig currentSlot = guiBase.getMachine().slotConfiguration.getSlotDetails(id).getSideDetail(side);
 
-		System.out.println(currentSlot.getSlotIO().getIoConfig()+ " > "+  currentSlot.getSlotIO().getIoConfig().getNext());
-
-		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(currentSlot.getSlotIO().getIoConfig().getNext(), false, false);
+		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(currentSlot.getSlotIO().getIoConfig().getNext());
 		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
 		PacketSlotSave packetSlotSave = new PacketSlotSave(guiBase.tile.getPos(), newConfig);
 		NetworkManager.sendToServer(packetSlotSave);
+	}
+
+	public void updateCheckBox(){
+
 	}
 
 	private void drawSlotSateColor(TileLegacyMachineBase machineBase, EnumFacing side, int slotID, int inx, int iny, GuiBase gui){
