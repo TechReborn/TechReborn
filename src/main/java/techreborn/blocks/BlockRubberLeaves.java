@@ -40,6 +40,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
@@ -72,15 +73,17 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	@Override
 	public BlockRenderLayer getBlockLayer() {
+		if(!fancyLeaves()){
+			return super.getBlockLayer();
+		}
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	public boolean isFullCube() {
+		if(!fancyLeaves()){
+			return super.isOpaqueCube(state);
+		}
 		return false;
 	}
 
@@ -98,10 +101,10 @@ public class BlockRubberLeaves extends BlockLeaves {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int meta = 0;
-		if (!(Boolean) state.getValue(DECAYABLE)) {
+		if (!state.getValue(DECAYABLE)) {
 			meta |= 1;
 		}
-		if ((Boolean) state.getValue(CHECK_DECAY)) {
+		if (state.getValue(CHECK_DECAY)) {
 			meta |= 2;
 		}
 		return meta;
@@ -129,6 +132,13 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		if(!fancyLeaves()){
+			return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+		}
 		return true;
+	}
+
+	public boolean fancyLeaves(){
+		return Core.proxy.fancyGraphics();
 	}
 }

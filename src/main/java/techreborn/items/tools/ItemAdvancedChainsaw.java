@@ -50,10 +50,10 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	public ItemAdvancedChainsaw() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedChainsaw", ConfigTechReborn.AdvancedChainsawCharge,
-			4.0F);
+			1.0F);
 		this.cost = 250;
 	}
-
+	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
@@ -79,11 +79,6 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 			}
 		}
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
-	}
-
-	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		return super.getDestroySpeed(stack, state);
 	}
 
 	@Override

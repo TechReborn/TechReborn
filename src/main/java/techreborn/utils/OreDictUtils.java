@@ -106,7 +106,7 @@ public class OreDictUtils {
 	public static boolean isOre(
 		@Nonnull
 			ItemStack stack, String oreName) {
-		if (!stack.isEmpty() && !stack.isEmpty() && oreName != null) {
+		if (!stack.isEmpty() && oreName != null) {
 			int id = OreDictionary.getOreID(oreName);
 			int[] ids = OreDictionary.getOreIDs(stack);
 

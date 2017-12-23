@@ -50,7 +50,7 @@ import java.util.Random;
 public class BlockStorage extends BaseBlock {
 
 	public static final String[] types = new String[] { "silver", "aluminum", "titanium", "chrome", "steel", "brass",
-		"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium" };
+		"lead", "electrum", "zinc", "platinum", "tungsten", "nickel", "invar", "iridium", "bronze" };
 	public static final PropertyString TYPE = new PropertyString("type", types);
 	private static final List<String> typesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
 

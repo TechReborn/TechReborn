@@ -52,7 +52,7 @@ public class GuiAESU extends GuiBase {
 		this.drawSlot(62, 45, layer);
 		this.drawSlot(98, 45, layer);
 		this.drawArmourSlots(8, 18, layer);
-		this.builder.drawEnergyOutput(this, 171, 61, (int) this.tile.getBaseMaxOutput(), layer);
+		this.builder.drawEnergyOutput(this, 171, 61, this.tile.getCurrentOutput(), layer);
 		this.builder.drawUpDownButtons(this, 121, 79, layer);
 	}
 

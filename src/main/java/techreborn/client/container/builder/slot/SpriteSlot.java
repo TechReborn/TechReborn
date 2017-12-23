@@ -24,7 +24,6 @@
 
 package techreborn.client.container.builder.slot;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,13 +34,13 @@ public class SpriteSlot extends FilteredSlot {
 	private final String spriteName;
 	int stacksize;
 
-	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final TextureAtlasSprite sprite, final int stacksize) {
+	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final String sprite, final int stacksize) {
 		super(inventory, index, xPosition, yPosition);
-		this.spriteName = sprite.getIconName();
+		this.spriteName = sprite;
 		this.stacksize = stacksize;
 	}
 
-	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final TextureAtlasSprite sprite) {
+	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final String sprite) {
 		this(inventory, index, xPosition, yPosition, sprite, 64);
 	}
 

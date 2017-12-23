@@ -28,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
@@ -124,6 +125,11 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, this.panel.ordinal());
+	}
+	
+	@Override
+	public void rotate(Rotation rotationIn) {
+		return;
 	}
 
 	@Override

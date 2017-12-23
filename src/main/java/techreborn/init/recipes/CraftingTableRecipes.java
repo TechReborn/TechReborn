@@ -295,22 +295,22 @@ public class CraftingTableRecipes extends RecipeMethods {
 	static void registerCompressionRecipes() {
 		for (String name : BlockStorage.types) {
 			if (OreUtil.hasIngot(name)) {
-				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
-					"ingot" + StringUtils.toFirstCapital(name));
+				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A', "ingot" + StringUtils.toFirstCapital(name));
+				registerShapeless(getMaterial(name, 9, Type.INGOT), BlockStorage.getStorageBlockByName(name));
 			} else if (OreUtil.hasGem(name)) {
-				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A',
-					"gem" + StringUtils.toFirstCapital(name));
+				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A', "gem" + StringUtils.toFirstCapital(name));
+				registerShapeless(getMaterial(name, 9, Type.GEM), BlockStorage.getStorageBlockByName(name));
 			}
 		}
 		
 		for (String block : BlockStorage2.types){
 			block = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, block);
 			if (OreUtil.hasIngot(block)) {
-				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A',
-					"ingot" + StringUtils.toFirstCapital(block));
+				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A', "ingot" + StringUtils.toFirstCapital(block));
+				registerShapeless(getMaterial(block, 9, Type.INGOT), BlockStorage2.getStorageBlockByName(block));
 			} else if (OreUtil.hasGem(block)) {
-				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A',
-					"gem" + StringUtils.toFirstCapital(block));
+				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A', "gem" + StringUtils.toFirstCapital(block));
+				registerShapeless(getMaterial(block, 9, Type.GEM), BlockStorage2.getStorageBlockByName(block));
 			}
 		}
 

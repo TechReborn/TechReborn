@@ -39,32 +39,30 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 public class CTIndustrialSawmill extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
-		addRecipe(output1, output2, output3, input1, input2, fluid, ticktime, euTick, true);
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick) {
+		addRecipe(output1, output2, output3, input1, fluid, ticktime, euTick, true);
 	}
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		addRecipe(output1, output2, output3, input1, input2, null, ticktime, euTick, true);
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, int ticktime, int euTick) {
+		addRecipe(output1, output2, output3, input1, null, ticktime, euTick, true);
 	}
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, int ticktime, int euTick, boolean useOreDic) {
-		addRecipe(output1, output2, output3, input1, input2, null, ticktime, euTick, useOreDic);
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, int ticktime, int euTick, boolean useOreDic) {
+		addRecipe(output1, output2, output3, input1, null, ticktime, euTick, useOreDic);
 	}
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick, boolean useOreDic) {
+	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick, boolean useOreDic) {
 		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
-
-		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
 
 		FluidStack fluidStack = null;
 		if (fluid != null) {
 			fluidStack = CraftTweakerCompat.toFluidStack(fluid);
 		}
 
-		IndustrialSawmillRecipe r = new IndustrialSawmillRecipe(oInput1, oInput2, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), ticktime, euTick, useOreDic);
+		IndustrialSawmillRecipe r = new IndustrialSawmillRecipe(oInput1, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), ticktime, euTick, useOreDic);
 
 		addRecipe(r);
 	}

@@ -134,6 +134,11 @@
         "textures": {
           "all": "techreborn:blocks/storage/refinediron_block"
         }
+      },
+      "bronze": {
+        "textures": {
+          "all": "techreborn:blocks/storage/bronze_block"
+        }
       }
     }
   }

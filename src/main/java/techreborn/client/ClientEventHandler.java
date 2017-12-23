@@ -22,45 +22,26 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tools;
+package techreborn.client;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.powerSystem.PoweredItem;
-import techreborn.config.ConfigTechReborn;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import techreborn.init.ModItems;
 
-public class ItemSteelChainsaw extends ItemChainsaw {
+public class ClientEventHandler {
 
-	public ItemSteelChainsaw() {
-		super(ToolMaterial.IRON, "techreborn.ironChainsaw", ConfigTechReborn.IronChainsawCharge,
-			0.5F);
-		this.cost = 50;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
-			return;
+	@SubscribeEvent
+	public static void renderPlayer(RenderPlayerEvent.Pre event) {
+		EntityPlayer player = event.getEntityPlayer();
+		Item chestslot = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != ItemStack.EMPTY
+		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
+		if (chestslot != null && chestslot == ModItems.CLOAKING_DEVICE) {
+			event.setCanceled(true);
 		}
-		ItemStack stack = new ItemStack(ModItems.STEEL_CHAINSAW);
-		ItemStack uncharged = stack.copy();
-		ItemStack charged = stack.copy();
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
-
-		itemList.add(uncharged);
-		itemList.add(charged);
 	}
 
-	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		return Items.IRON_AXE.canHarvestBlock(state);
-	}
 }
