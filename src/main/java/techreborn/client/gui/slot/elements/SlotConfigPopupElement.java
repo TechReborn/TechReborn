@@ -41,6 +41,33 @@ public class SlotConfigPopupElement extends ElementBase {
 		drawState(gui, blockAccess, model, actualState, pos, dispatcher, 26, 42, 90F, 0F, 1F, 0F);
 	}
 
+	@Override
+	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+		int x = mouseX - getX() - gui.guiLeft;
+		int y = mouseY - getY() - gui.guiTop;
+		System.out.println("x:" + x + " y:" + y);
+		if(isInBox(147 , 40, 20, 20, x, y)){
+			System.out.println("top");
+		} else if(isInBox(147 , 60, 20, 20, x, y)){
+			System.out.println("front");
+		} else if(isInBox(128 , 60, 20, 20, x, y)){
+			System.out.println("left");
+		} else if(isInBox(166 , 60, 20, 20, x, y)){
+			System.out.println("right");
+		} else if(isInBox(147 , 80, 20, 20, x, y)){
+			System.out.println("bottom");
+		} else if(isInBox(166 , 80, 20, 20, x, y)){
+			System.out.println("back");
+		} else {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY){
+		return pointX >= rectX - 1 && pointX < rectX + rectWidth + 1 && pointY >= rectY - 1 && pointY < rectY + rectHeight + 1;
+	}
+
 	public void drawState(GuiBase gui,
 	                      IBlockAccess blockAccess,
 	                      IBakedModel model,

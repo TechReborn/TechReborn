@@ -184,25 +184,28 @@ public class ElementBase {
 		return this;
 	}
 
-	public void onHover(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+	public boolean onHover(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		for (ElementBase.Action action : hoverActions) {
 			action.execute(this, gui, provider, mouseX, mouseY);
 		}
+		return !hoverActions.isEmpty();
 	}
 
-	public void onDrag(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+	public boolean onDrag(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		for (ElementBase.Action action : dragActions) {
 			action.execute(this, gui, provider, mouseX, mouseY);
 		}
+		return !dragActions.isEmpty();
 	}
 
-	public void onStartPress(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+	public boolean onStartPress(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		for (ElementBase.Action action : startPressActions) {
 			action.execute(this, gui, provider, mouseX, mouseY);
 		}
+		return !startPressActions.isEmpty();
 	}
 
-	public void onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		for (ElementBase.Action action : releaseActions) {
 			action.execute(this, gui, provider, mouseX, mouseY);
 		}
@@ -211,6 +214,7 @@ public class ElementBase {
 				action.execute(this, gui, provider, mouseX, mouseY);
 			}
 		}
+		return !releaseActions.isEmpty() || !pressActions.isEmpty();
 	}
 
 	public interface Action {
@@ -272,9 +276,7 @@ public class ElementBase {
 	}
 
 	public boolean isInRect(GuiBase gui, int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
-		x = adjustX(gui, x);
-		y = adjustY(gui, y);
-		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
+		return gui.isPointInRect(x + gui.guiLeft, y + gui.guiTop, xSize, ySize, mouseX, mouseY);
 	}
 
 	public void drawString(GuiBase gui, String string, int x, int y, int color) {

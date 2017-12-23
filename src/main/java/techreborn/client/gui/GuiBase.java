@@ -49,7 +49,7 @@ public class GuiBase extends GuiContainer {
 	public TRBuilder builder = new TRBuilder();
 	public TileEntity tile;
 	public BuiltContainer container;
-	public static boolean showSlotConfig = true;
+	public static boolean showSlotConfig = false;
 
 	public GuiBase(EntityPlayer player, TileEntity tile, BuiltContainer container) {
 		super(container);
@@ -208,10 +208,20 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
+		if(isPointInRegion(-26, 84, 30, 30, mouseX, mouseY)){
+			showSlotConfig = !showSlotConfig;
+			if(!showSlotConfig){
+				GuiSlotConfiguration.reset();
+			}
+		}
 		if(showSlotConfig){
 			GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this);
 		}
 		super.mouseReleased(mouseX, mouseY, state);
+	}
+
+	public boolean isPointInRect(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
+		return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
 	public TileLegacyMachineBase getMachine(){

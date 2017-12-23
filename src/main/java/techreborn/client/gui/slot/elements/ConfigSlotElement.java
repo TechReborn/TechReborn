@@ -8,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.gui.GuiBase;
+import techreborn.client.gui.slot.GuiSlotConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ConfigSlotElement extends ElementBase {
 	SlotType type;
 	IInventory inventory;
 	int id;
-	List<ElementBase> elements = new ArrayList<>();
+	public List<ElementBase> elements = new ArrayList<>();
 
 	public ConfigSlotElement(IInventory slotInventory, int slotId, SlotType type, int x, int y, GuiBase gui) {
 		super(x, y, type.getButtonSprite());
@@ -25,7 +26,7 @@ public class ConfigSlotElement extends ElementBase {
 		this.id = slotId;
 
 		elements.add(new SlotConfigPopupElement(this.id, x - 22, y - 22));
-		elements.add(new ButtonElement(x + 29, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> System.out.println("Closing pop up")));
+		elements.add(new ButtonElement(x + 29, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> GuiSlotConfiguration.slectedSlot = -1));
 		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, false, Sprite.LIGHT_CHECK_BOX));
 		elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57, true, Sprite.LIGHT_CHECK_BOX));
 	}
@@ -56,5 +57,9 @@ public class ConfigSlotElement extends ElementBase {
 
 	public SlotType getType() {
 		return type;
+	}
+
+	public int getId() {
+		return id;
 	}
 }
