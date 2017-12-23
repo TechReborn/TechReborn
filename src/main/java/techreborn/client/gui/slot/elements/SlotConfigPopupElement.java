@@ -50,8 +50,12 @@ public class SlotConfigPopupElement extends ElementBase {
 		drawState(gui, blockAccess, model, actualState, pos, dispatcher, 26, 42, 90F, 0F, 1F, 0F); //back
 
 
-//		drawSlotSateColor(gui.getMachine(), EnumFacing.UP, id, 23, -12, gui);
-//		drawSlotSateColor(gui.getMachine(), EnumFacing.NORTH, id, 23, 23, gui);
+		drawSlotSateColor(gui.getMachine(), EnumFacing.UP, id, 22, -1, gui);
+		drawSlotSateColor(gui.getMachine(), EnumFacing.NORTH, id, 22, 18, gui);
+		drawSlotSateColor(gui.getMachine(), EnumFacing.DOWN, id, 22, 37, gui);
+		drawSlotSateColor(gui.getMachine(), EnumFacing.EAST, id, 41, 18, gui);
+		drawSlotSateColor(gui.getMachine(), EnumFacing.SOUTH, id, 41, 37, gui);
+		drawSlotSateColor(gui.getMachine(), EnumFacing.WEST, id, 3, 18, gui);
 	}
 
 	@Override
@@ -59,7 +63,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		int mx = mouseX - getX() - gui.guiLeft;
 		int my = mouseY - getY() - gui.guiTop;
 		System.out.println("x:" + mx + " y:" + my);
-		if(isInBox(147 , 40, 20, 20, mx, y)){
+		if(isInBox(147 , 40, 20, 20, mx, my)){
 			System.out.println("top");
 			cyleSlotConfig(EnumFacing.UP, gui);
 		} else if(isInBox(147 , 60, 20, 20, mx, my)){
@@ -84,7 +88,11 @@ public class SlotConfigPopupElement extends ElementBase {
 	}
 
 	public void cyleSlotConfig(EnumFacing side, GuiBase guiBase){
-		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(SlotConfiguration.ExtractConfig.INPUT, false, false);
+		SlotConfiguration.SlotConfig currentSlot = guiBase.getMachine().slotConfiguration.getSlotDetails(id).getSideDetail(side);
+
+		System.out.println(currentSlot.getSlotIO().getIoConfig()+ " > "+  currentSlot.getSlotIO().getIoConfig().getNext());
+
+		SlotConfiguration.SlotIO slotIO = new SlotConfiguration.SlotIO(currentSlot.getSlotIO().getIoConfig().getNext(), false, false);
 		SlotConfiguration.SlotConfig newConfig = new SlotConfiguration.SlotConfig(side, slotIO, id);
 		PacketSlotSave packetSlotSave = new PacketSlotSave(guiBase.tile.getPos(), newConfig);
 		NetworkManager.sendToServer(packetSlotSave);
@@ -92,7 +100,7 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	private void drawSlotSateColor(TileLegacyMachineBase machineBase, EnumFacing side, int slotID, int inx, int iny, GuiBase gui){
 		int sx = inx + getX() + gui.guiLeft;
-		int sy = iny - getY() - gui.guiTop;
+		int sy = iny - getY() + gui.guiTop;
 		SlotConfiguration.SlotConfig slotConfig = machineBase.slotConfiguration.getSlotDetails(slotID).getSideDetail(side);
 		Color color;
 		switch (slotConfig.getSlotIO().getIoConfig()){

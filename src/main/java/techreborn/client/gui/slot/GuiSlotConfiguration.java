@@ -110,7 +110,7 @@ public class GuiSlotConfiguration {
 		}
 	}
 
-	public static void mouseReleased(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) {
+	public static boolean mouseReleased(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) {
 		BuiltContainer container = guiBase.container;
 
 
@@ -130,6 +130,7 @@ public class GuiSlotConfiguration {
 							}
 						}
 						if(action)
+							clicked = true;
 							break;
 					} else {
 						element.isReleasing = false;
@@ -144,9 +145,11 @@ public class GuiSlotConfiguration {
 				}
 				if (guiBase.isPointInRect(slot.xPos, slot.yPos, 18, 18, mouseX, mouseY)) {
 					slectedSlot = slot.getSlotIndex();
+					clicked = true;
 				}
 			}
 		}
+		return clicked;
 	}
 
 }

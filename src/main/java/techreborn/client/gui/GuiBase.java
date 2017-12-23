@@ -215,7 +215,9 @@ public class GuiBase extends GuiContainer {
 			}
 		}
 		if(showSlotConfig){
-			GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this);
+			if(GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this)){
+				return;
+			}
 		}
 		super.mouseReleased(mouseX, mouseY, state);
 	}
