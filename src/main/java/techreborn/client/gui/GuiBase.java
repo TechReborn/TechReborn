@@ -32,9 +32,12 @@ import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgradeable;
+import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
+
+import java.io.IOException;
 
 /**
  * Created by Prospector
@@ -108,6 +111,7 @@ public class GuiBase extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
+		GuiSlotConfiguration.init(this);
 	}
 
 	@Override
@@ -184,6 +188,34 @@ public class GuiBase extends GuiContainer {
 			factorY = guiTop;
 		}
 		buttonList.add(new GuiButtonPowerBar(id, x + factorX, y + factorY, this, layer));
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		if(showSlotConfig){
+			GuiSlotConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this);
+		}
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+	}
+
+	@Override
+	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+		if(showSlotConfig){
+			GuiSlotConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
+		}
+		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+	}
+
+	@Override
+	protected void mouseReleased(int mouseX, int mouseY, int state) {
+		if(showSlotConfig){
+			GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this);
+		}
+		super.mouseReleased(mouseX, mouseY, state);
+	}
+
+	public TileLegacyMachineBase getMachine(){
+		return (TileLegacyMachineBase) tile;
 	}
 
 	//TODO

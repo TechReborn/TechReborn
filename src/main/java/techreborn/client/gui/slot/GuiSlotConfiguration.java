@@ -6,10 +6,33 @@ import reborncore.client.gui.GuiUtil;
 import reborncore.client.gui.slots.SlotOutput;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.GuiBase;
+import techreborn.client.gui.slot.elements.ConfigSlotElement;
+import techreborn.client.gui.slot.elements.ElementBase;
+import techreborn.client.gui.slot.elements.SlotType;
 
-import java.awt.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class GuiSlotConfiguration {
+
+	static HashMap<Integer, ConfigSlotElement> slotElementMap = new HashMap<>();
+
+	public static void init(GuiBase guiBase){
+		slotElementMap.clear();
+
+		BuiltContainer container = guiBase.container;
+		for(Slot slot : container.inventorySlots) {
+			if (guiBase.tile != slot.inventory) {
+				continue;
+			}
+			ConfigSlotElement slotElement = new ConfigSlotElement(guiBase.getMachine(), slot.getSlotIndex(), SlotType.NORMAL, slot.xPos - guiBase.guiLeft + 50, slot.yPos - guiBase.guiTop - 25, guiBase);
+			slotElementMap.put(slot.getSlotIndex(), slotElement);
+		}
+
+	}
 
 	public static void draw(GuiBase guiBase, int mouseX, int mouseY){
 		BuiltContainer container = guiBase.container;
@@ -21,29 +44,85 @@ public class GuiSlotConfiguration {
 			if(guiBase.tile != slot.inventory){
 				continue;
 			}
-			GlStateManager.color(255, 0, 0);
-			Color color = new Color(255, 0, 0, 128);
-			int extaSize = 0;
 			if(slot instanceof SlotOutput){
-				extaSize = 4;
-				color = new Color(255, 165, 0, 128);
 				slotToConfigure = slot;
 				showSideConfig = true;
 			}
-			GuiUtil.drawGradientRect(slot.xPos - 1 - extaSize, slot.yPos - 1 - extaSize, 18 + (extaSize * 2), 18 + (extaSize * 2), color.getRGB(), color.getRGB());
-			GlStateManager.color(255, 255, 255);
 		}
 
 
 		if(showSideConfig && slotToConfigure != null){
-			Color color = Color.GRAY;
-			int wPosX = slotToConfigure.xPos + 23;
-			int wPosY = slotToConfigure.yPos;
-			GuiUtil.drawGradientRect(wPosX , wPosY , 50 , 50 , color.getRGB(), color.getRGB());
-
-
+			slotElementMap.get(slotToConfigure.getSlotIndex()).draw(guiBase);
 		}
 	}
 
+	public static List<ConfigSlotElement> getVisibleElements(){
+		return slotElementMap.values().stream().filter(configSlotElement -> {
+			//TODO check that its visable
+			return true;
+		}).collect(Collectors.toList());
+	}
+
+
+	public static void mouseClicked(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) throws IOException {
+		if (mouseButton == 0) {
+			for (ElementBase element : getVisibleElements()) {
+				if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					element.isPressing = true;
+					element.onStartPress(guiBase.getMachine(), guiBase, mouseX, mouseY);
+					for (ElementBase e : getVisibleElements()) {
+						if (e != element) {
+							e.isPressing = false;
+						}
+					}
+					break;
+				} else {
+					element.isPressing = false;
+				}
+			}
+		}
+	}
+
+	public static void mouseClickMove(int mouseX, int mouseY, int mouseButton, long timeSinceLastClick, GuiBase guiBase) {
+		mouseX -= guiBase.guiLeft - 50;
+		mouseY -= guiBase.guiTop - 50;
+		if (mouseButton == 0) {
+			for (ElementBase element : getVisibleElements()) {
+				if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					element.isDragging = true;
+					element.onDrag(guiBase.getMachine(), guiBase, mouseX, mouseY);
+					for (ElementBase e : getVisibleElements()) {
+						if (e != element) {
+							e.isDragging = false;
+						}
+					}
+					break;
+				} else {
+					element.isDragging = false;
+				}
+			}
+		}
+	}
+
+	public static void mouseReleased(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) {
+		mouseX -= guiBase.guiLeft - 50;
+		mouseY -= guiBase.guiTop - 50;
+		if (mouseButton == 0) {
+			for (ElementBase element : getVisibleElements()) {
+				if (element.isInRect(guiBase, element.x, element.y, element.getWidth(guiBase.getMachine()), element.getHeight(guiBase.getMachine()), mouseX, mouseY)) {
+					element.isReleasing = true;
+					element.onRelease(guiBase.getMachine(), guiBase, mouseX, mouseY);
+					for (ElementBase e : getVisibleElements()) {
+						if (e != element) {
+							e.isReleasing = false;
+						}
+					}
+					break;
+				} else {
+					element.isReleasing = false;
+				}
+			}
+		}
+	}
 
 }
