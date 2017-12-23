@@ -207,7 +207,9 @@ public class ElementBase {
 
 	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		for (ElementBase.Action action : releaseActions) {
-			action.execute(this, gui, provider, mouseX, mouseY);
+			if(action.execute(this, gui, provider, mouseX, mouseY)){
+				return true;
+			}
 		}
 		if (isPressing) {
 			for (ElementBase.Action action : pressActions) {
@@ -218,7 +220,7 @@ public class ElementBase {
 	}
 
 	public interface Action {
-		void execute(ElementBase element, GuiBase gui, TileLegacyMachineBase provider, int mouseX, int mouseY);
+		boolean execute(ElementBase element, GuiBase gui, TileLegacyMachineBase provider, int mouseX, int mouseY);
 	}
 
 	public interface UpdateAction {

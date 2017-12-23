@@ -26,9 +26,9 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgradeable;
@@ -127,7 +127,7 @@ public class GuiBase extends GuiContainer {
 				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
 			}
 		}
-		builder.drawSlotTab(this, guiLeft, guiTop);
+		builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY);
 
 	}
 
@@ -193,7 +193,9 @@ public class GuiBase extends GuiContainer {
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if(showSlotConfig){
-			GuiSlotConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this);
+			if(GuiSlotConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this)){
+				return;
+			}
 		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
@@ -220,6 +222,12 @@ public class GuiBase extends GuiContainer {
 			}
 		}
 		super.mouseReleased(mouseX, mouseY, state);
+	}
+
+	@Override
+	public void onGuiClosed() {
+		showSlotConfig = false;
+		super.onGuiClosed();
 	}
 
 	public boolean isPointInRect(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {

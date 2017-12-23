@@ -1,7 +1,6 @@
 package techreborn.client.gui.slot.elements;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -11,13 +10,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import reborncore.RebornCore;
 import reborncore.client.gui.GuiUtil;
-import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.packet.PacketSlotSave;
 import reborncore.common.tile.SlotConfiguration;
 import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.util.MachineFacing;
 import techreborn.client.gui.GuiBase;
 
 import java.awt.*;
@@ -50,12 +50,12 @@ public class SlotConfigPopupElement extends ElementBase {
 		drawState(gui, blockAccess, model, actualState, pos, dispatcher, 26, 42, 90F, 0F, 1F, 0F); //back
 
 
-		drawSlotSateColor(gui.getMachine(), EnumFacing.UP, id, 22, -1, gui);
-		drawSlotSateColor(gui.getMachine(), EnumFacing.NORTH, id, 22, 18, gui);
-		drawSlotSateColor(gui.getMachine(), EnumFacing.DOWN, id, 22, 37, gui);
-		drawSlotSateColor(gui.getMachine(), EnumFacing.EAST, id, 41, 18, gui);
-		drawSlotSateColor(gui.getMachine(), EnumFacing.SOUTH, id, 41, 37, gui);
-		drawSlotSateColor(gui.getMachine(), EnumFacing.WEST, id, 3, 18, gui);
+		drawSlotSateColor(gui.getMachine(), MachineFacing.UP.getFacing(machine), id, 22, -1, gui);
+		drawSlotSateColor(gui.getMachine(), MachineFacing.FRONT.getFacing(machine), id, 22, 18, gui);
+		drawSlotSateColor(gui.getMachine(), MachineFacing.DOWN.getFacing(machine), id, 22, 37, gui);
+		drawSlotSateColor(gui.getMachine(), MachineFacing.RIGHT.getFacing(machine), id, 41, 18, gui);
+		drawSlotSateColor(gui.getMachine(), MachineFacing.BACK.getFacing(machine), id, 41, 37, gui);
+		drawSlotSateColor(gui.getMachine(), MachineFacing.LEFT.getFacing(machine), id, 3, 18, gui);
 	}
 
 	@Override
@@ -65,22 +65,22 @@ public class SlotConfigPopupElement extends ElementBase {
 		System.out.println("x:" + mx + " y:" + my);
 		if(isInBox(147 , 40, 20, 20, mx, my)){
 			System.out.println("top");
-			cyleSlotConfig(EnumFacing.UP, gui);
+			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
 		} else if(isInBox(147 , 60, 20, 20, mx, my)){
 			System.out.println("front");
-			cyleSlotConfig(EnumFacing.NORTH, gui);
+			cyleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
 		} else if(isInBox(128 , 60, 20, 20, mx, my)){
 			System.out.println("left");
-			cyleSlotConfig(EnumFacing.WEST, gui);
+			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
 		} else if(isInBox(166 , 60, 20, 20, mx, my)){
 			System.out.println("right");
-			cyleSlotConfig(EnumFacing.EAST, gui);
+			cyleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
 		} else if(isInBox(147 , 80, 20, 20, mx, my)){
 			System.out.println("bottom");
-			cyleSlotConfig(EnumFacing.DOWN, gui);
+			cyleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
 		} else if(isInBox(166 , 80, 20, 20, mx, my)){
 			System.out.println("back");
-			cyleSlotConfig(EnumFacing.SOUTH, gui);
+			cyleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
 		}
@@ -99,9 +99,15 @@ public class SlotConfigPopupElement extends ElementBase {
 	}
 
 	private void drawSlotSateColor(TileLegacyMachineBase machineBase, EnumFacing side, int slotID, int inx, int iny, GuiBase gui){
+		iny += 4;
 		int sx = inx + getX() + gui.guiLeft;
-		int sy = iny - getY() + gui.guiTop;
-		SlotConfiguration.SlotConfig slotConfig = machineBase.slotConfiguration.getSlotDetails(slotID).getSideDetail(side);
+		int sy = iny + getY() + gui.guiTop;
+		SlotConfiguration.SlotConfigHolder slotConfigHolder = machineBase.slotConfiguration.getSlotDetails(slotID);
+		if(slotConfigHolder == null){
+			RebornCore.logHelper.debug("Humm, this isnt suppoed to happen");
+			return;
+		}
+		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);
 		Color color;
 		switch (slotConfig.getSlotIO().getIoConfig()){
 			case NONE:

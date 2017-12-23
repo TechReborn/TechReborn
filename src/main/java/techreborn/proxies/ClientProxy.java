@@ -43,6 +43,7 @@ import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.*;
 import techreborn.client.gui.GuiBase;
+import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
@@ -74,6 +75,7 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		multiblockRenderEvent = new MultiblockRenderEvent();
+		MinecraftForge.EVENT_BUS.register(GuiSlotConfiguration.class);
 		MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);

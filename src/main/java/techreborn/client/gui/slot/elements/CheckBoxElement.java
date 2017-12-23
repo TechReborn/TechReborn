@@ -26,6 +26,7 @@ public class CheckBoxElement extends ElementBase {
 			} else {
 				element.container.setSprite(0, checkBoxSprite.getNormal());
 			}
+			return true;
 		});
 	}
 
