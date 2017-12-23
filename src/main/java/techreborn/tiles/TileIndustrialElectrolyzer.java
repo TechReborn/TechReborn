@@ -25,13 +25,12 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -48,7 +47,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -114,26 +113,6 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	// info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
 	// }
 	// }
-
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack stack, final EnumFacing side) {
-		if (slotIndex > 1)
-			return false;
-		if (slotIndex == 1)
-			return ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true);
-		return !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true);
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5;
-	}
 
 	public int getProgressScaled(final int scale) {
 		if (this.crafter.currentTickTime != 0) {

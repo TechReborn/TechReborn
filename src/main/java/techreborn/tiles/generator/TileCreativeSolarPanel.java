@@ -28,8 +28,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.common.Optional;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.IToolDrop;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.init.ModBlocks;
 

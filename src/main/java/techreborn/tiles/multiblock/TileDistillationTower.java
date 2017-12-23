@@ -141,21 +141,6 @@ public class TileDistillationTower extends TilePowerAcceptor
 		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
 	}
-
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 1, 2, 3, 4, 5 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return index == 0 || index == 1;
-	}
-
-	@Override
-	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
-		return index == 2 || index == 3 || index == 4 || index == 5;
-	}
 	
 	// IToolDrop
 	@Override

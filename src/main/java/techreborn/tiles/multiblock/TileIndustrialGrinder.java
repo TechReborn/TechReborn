@@ -37,9 +37,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -159,19 +159,6 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		return super.getCapability(capability, facing);
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 1, 0, 2, 3, 4, 5, 6 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex >= 2)
-			return false;
-		return this.isItemValidForSlot(slotIndex, itemStack);
-	}
-	
 	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
 		if (slotIndex == 1) {
@@ -183,11 +170,6 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 			}
 		}
 		return true;
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 2 || slotIndex == 3 || slotIndex == 4 || slotIndex == 5 || slotIndex == 6;
 	}
 
 	public int getProgressScaled(final int scale) {

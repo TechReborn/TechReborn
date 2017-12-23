@@ -25,12 +25,11 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -43,7 +42,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileChargeOMat extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxInput", comment = "Charge Bench Max Input (Value in EU)")
 	public static int maxInput = 512;
@@ -87,28 +86,6 @@ public class TileChargeOMat extends TilePowerAcceptor
 		return false;
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return this.isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		// if (itemStack.getItem() instanceof IElectricItem) {
-		// double CurrentCharge = ElectricItem.manager.getCharge(itemStack);
-		// double MaxCharge = ((IElectricItem)
-		// itemStack.getItem()).getMaxCharge(itemStack);
-		// if (CurrentCharge == MaxCharge)
-		// return true;
-		// }
-		return false;
-	}
 
 	@Override
 	public double getBaseMaxPower() {

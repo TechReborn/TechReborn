@@ -311,31 +311,6 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IToo
 	public ITextComponent getDisplayName() {
 		return null;
 	}
-	
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { 0, 1, 2 };
-	}
-	
-    /**
-     * Returns true if automation can insert the given item in the given slot from the given side.
-     */
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction){
-		if (index == 0 || index == 1) {
-			return true;
-		}
-		return false;
-    }
-
-    /**
-     * Returns true if automation can extract the given item in the given slot from the given side.
-     */
-	@Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction){
-		return index == 2;
-	}
-    
 
 	@Override
 	public Inventory getInventory() {

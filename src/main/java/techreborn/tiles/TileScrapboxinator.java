@@ -26,11 +26,10 @@ package techreborn.tiles;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -46,7 +45,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileScrapboxinator extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -152,25 +151,6 @@ public class TileScrapboxinator extends TilePowerAcceptor
 		return false;
 	}
 
-	// ISidedInventory
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { 0, 1};
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction){
-		if (index == 0) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction){
-		return index == 1;
-	}
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;

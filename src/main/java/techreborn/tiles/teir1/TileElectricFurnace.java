@@ -27,11 +27,9 @@ package techreborn.tiles.teir1;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
-import org.apache.commons.lang3.ArrayUtils;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -44,7 +42,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileElectricFurnace extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IMachineSlotProvider, ISidedInventory {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IMachineSlotProvider {
 
 	public Inventory inventory = new Inventory(3, "TileElectricFurnace", 64, this);
 	public int capacity = 1000;
@@ -165,31 +163,6 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public boolean isComplete() {
 		return false;
-	}
-
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		if (side.equals(EnumFacing.UP))
-			return new int[] { 0 };
-		else if (side.equals(EnumFacing.DOWN))
-			return new int[] { 1 };
-		else if (ArrayUtils.contains(EnumFacing.HORIZONTALS, side)){
-			return new int[]{0};
-		}
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return this.isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 1;
 	}
 
 	@Override

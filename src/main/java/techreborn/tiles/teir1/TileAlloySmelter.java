@@ -25,14 +25,13 @@
 package techreborn.tiles.teir1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -49,7 +48,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAlloySmelter extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -100,24 +99,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 		super.writeToNBT(tagCompound);
 		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
-	}
-
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return this.isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 2;
 	}
 
 	public int getProgressScaled(final int scale) {
