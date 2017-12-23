@@ -51,13 +51,7 @@ public class GuiSlotConfiguration {
 
 			GlStateManager.color(255, 0, 0);
 			Color color = new Color(255, 0, 0, 128);
-			int extaSize = 0;
-			if (slot instanceof SlotOutput) {
-				extaSize = 4;
-				color = new Color(255, 165, 0, 128);
-			}
-
-			GuiUtil.drawGradientRect(slot.xPos - 1 - extaSize, slot.yPos - 1 - extaSize, 18 + (extaSize * 2), 18 + (extaSize * 2), color.getRGB(), color.getRGB());
+			GuiUtil.drawGradientRect(slot.xPos - 1, slot.yPos - 1, 18, 18, color.getRGB(), color.getRGB());
 			GlStateManager.color(255, 255, 255);
 		}
 
