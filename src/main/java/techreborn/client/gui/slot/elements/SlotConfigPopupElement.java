@@ -66,19 +66,17 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	@Override
 	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
-		System.out.println("x:" + (mouseX - gui.getGuiLeft()));
-		System.out.println("y:" + (mouseY - gui.getGuiTop()));
-		if(isInBox(256 , 89, 16, 16, mouseX, mouseY, gui)){
+		if(isInBox(23 , 4, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
-		} else if(isInBox(254 , 108, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(23 , 23, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
-		} else if(isInBox(273 , 108, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(42 , 23, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
-		} else if(isInBox(235 , 108, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(4 , 23, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
-		} else if(isInBox(253 , 127, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(23 , 42, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
-		} else if(isInBox(273 , 127, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(42 , 42, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
@@ -142,6 +140,8 @@ public class SlotConfigPopupElement extends ElementBase {
 	}
 
 	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, GuiBase guiBase){
+		rectX += getX();
+		rectY += getY();
 		if(true){
 			return isInRect(guiBase, rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 		}
