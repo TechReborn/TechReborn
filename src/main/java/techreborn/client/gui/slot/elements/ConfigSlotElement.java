@@ -29,7 +29,7 @@ public class ConfigSlotElement extends ElementBase {
 		SlotConfigPopupElement popupElement;
 
 		elements.add(popupElement = new SlotConfigPopupElement(this.id, x - 22, y - 22, this));
-		elements.add(new ButtonElement(x + 29, y - 25, Sprite.EXIT_BUTTON).addPressAction((element, gui1, provider, mouseX, mouseY) -> {
+		elements.add(new ButtonElement(x + 29, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> {
 			GuiSlotConfiguration.slectedSlot = -1;
 			return true;
 		}));
