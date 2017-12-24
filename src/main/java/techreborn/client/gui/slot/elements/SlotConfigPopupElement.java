@@ -28,6 +28,7 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	ConfigSlotElement slotElement;
 
+
 	public SlotConfigPopupElement(int slotId, int x, int y, ConfigSlotElement slotElement) {
 		super(x, y, Sprite.SLOT_CONFIG_POPUP);
 		this.id = slotId;
@@ -64,19 +65,19 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	@Override
 	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
-		int mx = mouseX - getX() - gui.guiLeft;
-		int my = mouseY - getY() - gui.guiTop;
-		if(isInBox(147 , 40, 20, 20, mx, my)){
+		System.out.println("x:" + (mouseX - gui.getGuiLeft()));
+		System.out.println("y:" + (mouseY - gui.getGuiTop()));
+		if(isInBox(105 , 1, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
-		} else if(isInBox(147 , 60, 20, 20, mx, my)){
+		} else if(isInBox(105 , 20, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
-		} else if(isInBox(128 , 60, 20, 20, mx, my)){
+		} else if(isInBox(86 , 20, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
-		} else if(isInBox(166 , 60, 20, 20, mx, my)){
+		} else if(isInBox(124 , 20, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
-		} else if(isInBox(147 , 80, 20, 20, mx, my)){
+		} else if(isInBox(105 , 39, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
-		} else if(isInBox(166 , 80, 20, 20, mx, my)){
+		} else if(isInBox(124 , 39, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
@@ -139,8 +140,8 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	}
 
-	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY){
-		return pointX >= rectX - 1 && pointX < rectX + rectWidth + 1 && pointY >= rectY - 1 && pointY < rectY + rectHeight + 1;
+	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, GuiBase guiBase){
+		return (pointX - guiBase.getGuiLeft()) >= rectX - 1 && (pointX - guiBase.getGuiLeft()) < rectX + rectWidth + 1 && (pointY - guiBase.getGuiTop()) >= rectY - 1 && (pointY - guiBase.getGuiTop()) < rectY + rectHeight + 1;
 	}
 
 	public void drawState(GuiBase gui,
