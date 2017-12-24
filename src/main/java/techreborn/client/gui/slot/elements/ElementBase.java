@@ -1,10 +1,12 @@
 package techreborn.client.gui.slot.elements;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.gui.GuiBase;
 import techreborn.lib.ModInfo;
@@ -348,5 +350,14 @@ public class ElementBase {
 		if (CurrentValue == 0)
 			return 0;
 		return (int) ((CurrentValue * 100.0f) / MaxValue);
+	}
+
+	public void drawDefaultBackground(GuiScreen gui, int x, int y, int width, int height) {
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+		gui.drawTexturedModalRect(x, y, 0, 0, width / 2, height / 2);
+		gui.drawTexturedModalRect(x + width / 2, y, 150 - width / 2, 0, width / 2, height / 2);
+		gui.drawTexturedModalRect(x, y + height / 2, 0, 150 - height / 2, width / 2, height / 2);
+		gui.drawTexturedModalRect(x + width / 2, y + height / 2, 150 - width / 2, 150 - height / 2, width / 2, height / 2);
 	}
 }

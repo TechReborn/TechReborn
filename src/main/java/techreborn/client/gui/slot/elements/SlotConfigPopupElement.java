@@ -37,8 +37,9 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	@Override
 	public void draw(GuiBase gui) {
-
+		drawDefaultBackground(gui, adjustX(gui, getX() -8), adjustY(gui, getY() - 7), 84, 105);
 		super.draw(gui);
+
 		TileLegacyMachineBase machine = ((TileLegacyMachineBase) gui.tile);
 		IBlockAccess blockAccess = machine.getWorld();
 		BlockPos pos = machine.getPos();
@@ -65,19 +66,19 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	@Override
 	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
-		System.out.println("x:" + (mouseX - gui.getGuiLeft()));
-		System.out.println("y:" + (mouseY - gui.getGuiTop()));
-		if(isInBox(105 , 1, 16, 16, mouseX, mouseY, gui)){
+		System.out.println("x:" + (mouseX - gui.getGuiLeft() - getX()));
+		System.out.println("y:" + (mouseY - gui.getGuiTop() - getY()));
+		if(isInBox(256 , 89, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
-		} else if(isInBox(105 , 20, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(254 , 108, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.FRONT.getFacing(provider), gui);
-		} else if(isInBox(86 , 20, 16, 16, mouseX, mouseY, gui)){
-			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
-		} else if(isInBox(124 , 20, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(273 , 108, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.RIGHT.getFacing(provider), gui);
-		} else if(isInBox(105 , 39, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(235 , 108, 16, 16, mouseX, mouseY, gui)){
+			cyleSlotConfig(MachineFacing.LEFT.getFacing(provider), gui);
+		} else if(isInBox(253 , 127, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.DOWN.getFacing(provider), gui);
-		} else if(isInBox(124 , 39, 16, 16, mouseX, mouseY, gui)){
+		} else if(isInBox(273 , 127, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.BACK.getFacing(provider), gui);
 		} else {
 			return false;
@@ -141,7 +142,7 @@ public class SlotConfigPopupElement extends ElementBase {
 	}
 
 	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, GuiBase guiBase){
-		return (pointX - guiBase.getGuiLeft()) >= rectX - 1 && (pointX - guiBase.getGuiLeft()) < rectX + rectWidth + 1 && (pointY - guiBase.getGuiTop()) >= rectY - 1 && (pointY - guiBase.getGuiTop()) < rectY + rectHeight + 1;
+		return (pointX - guiBase.getGuiLeft()  - getX()) >= rectX - 1 && (pointX - guiBase.getGuiLeft() - getX()) < rectX + rectWidth + 1 && (pointY - guiBase.getGuiTop() - getY()) >= rectY - 1 && (pointY - guiBase.getGuiTop() - getY()) < rectY + rectHeight + 1;
 	}
 
 	public void drawState(GuiBase gui,

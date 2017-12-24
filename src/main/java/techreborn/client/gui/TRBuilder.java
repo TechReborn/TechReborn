@@ -93,6 +93,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawProgressBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -196,6 +199,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (Loader.isModLoaded("jei")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
 				x += gui.getGuiLeft();
