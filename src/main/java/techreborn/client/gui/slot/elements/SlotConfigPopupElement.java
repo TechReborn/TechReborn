@@ -14,6 +14,7 @@ import reborncore.RebornCore;
 import reborncore.client.gui.GuiUtil;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.network.packet.PacketIOSave;
 import reborncore.common.network.packet.PacketSlotSave;
 import reborncore.common.tile.SlotConfiguration;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -92,8 +93,19 @@ public class SlotConfigPopupElement extends ElementBase {
 		NetworkManager.sendToServer(packetSlotSave);
 	}
 
-	public void updateCheckBox(){
+	public void updateCheckBox(CheckBoxElement checkBoxElement, String type, GuiBase guiBase){
+		SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().slotConfiguration.getSlotDetails(id);
+		boolean input = configHolder.autoInput();
+		boolean output = configHolder.autoOutput();
+		if(type.equalsIgnoreCase("input")){
+			input = !configHolder.autoInput();
+		}
+		if(type.equalsIgnoreCase("output")){
+			output = !configHolder.autoOutput();
+		}
 
+		PacketIOSave packetSlotSave = new PacketIOSave(guiBase.tile.getPos(), id, input, output);
+		NetworkManager.sendToServer(packetSlotSave);
 	}
 
 	private void drawSlotSateColor(TileLegacyMachineBase machineBase, EnumFacing side, int slotID, int inx, int iny, GuiBase gui){

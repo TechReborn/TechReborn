@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import reborncore.common.tile.SlotConfiguration;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 
@@ -17,6 +18,7 @@ public class ConfigSlotElement extends ElementBase {
 	IInventory inventory;
 	int id;
 	public List<ElementBase> elements = new ArrayList<>();
+
 
 	public ConfigSlotElement(IInventory slotInventory, int slotId, SlotType type, int x, int y, GuiBase gui) {
 		super(x, y, type.getButtonSprite());
@@ -31,12 +33,15 @@ public class ConfigSlotElement extends ElementBase {
 			GuiSlotConfiguration.slectedSlot = -1;
 			return true;
 		}));
-		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, false, Sprite.LIGHT_CHECK_BOX).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
-			popupElement.updateCheckBox();
+
+		SlotConfiguration.SlotConfigHolder slotConfigHolder = gui.getMachine().slotConfiguration.getSlotDetails(id);
+
+		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
+			popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);
 			return true;
 		}));
-		elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57, true, Sprite.LIGHT_CHECK_BOX).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
-			popupElement.updateCheckBox();
+		elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57,"output", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
+			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
 			return true;
 		}));
 	}
