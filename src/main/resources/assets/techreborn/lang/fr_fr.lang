@@ -898,3 +898,6 @@ achievement.TechReborn:ore_Pickup=Nouveau minerai !
 achievement.TechReborn:ore_Pickup.desc=Minez un minerai techreborn
 achievement.TechReborn:centrifuge_Craft=Il est temps de tourner
 achievement.TechReborn:thermalgen_Craft=Il est temps de chauffer
+
+#Blocks
+tile.techreborn:alarm.name=Alarm

@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"transform": "forge:default-block",
+		"model": "techreborn:alarm",
+		"textures": {
+		"particle": "techreborn:blocks/machines/lighting/alarm_off"
+		}
+	},
+	"variants": {
+		"inventory": {
+			"transform": "forge:default-block",
+			"model": "techreborn:alarm",
+			"textures": {}
+		},
+		"normal": {
+			"transform": "forge:default-block",
+			"model": "techreborn:alarm",
+			"textures": {
+				"alarm": "techreborn:blocks/machines/lighting/alarm_off"
+			}
+		}
+	}
+
+}
