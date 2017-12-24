@@ -87,7 +87,7 @@ tile.techreborn:rubber_leaves.name=Листва гевеи
 tile.techreborn:rubber_sapling.name=Саженец гевеи
 
 tile.techreborn:refined_iron_fence.name=Железный забор
-tile.techreborn:alarm.name=Alarm
+tile.techreborn:alarm.name=аварийная сигнализация
 
 #Ores
 tile.techreborn:ore.galena.name=Галенитовая руда
