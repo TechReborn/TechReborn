@@ -1,7 +1,7 @@
 {
-	"ambientocclusion": false,
 	"textures": {
-		"0": "techreborn:blocks/machines/lighting/alarm_off"
+		"0": "techreborn:blocks/machines/lighting/alarm_off",
+		"particle": "techreborn:blocks/machines/lighting/alarm_off"
 	},
 	"elements": [
 		{
@@ -46,15 +46,7 @@
 					"texture": "#0"
 				},
 				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
-				"down": {
-					"uv": [
-						14.37890625,
-						6.171875,
-						15.13515625,
-						7.16875
-					],
-					"texture": "#0"
-				}
+				"down": {"uv": [5, 2, 6, 3], "texture": "#0"}
 			},
 			"type": "cube"
 		}
