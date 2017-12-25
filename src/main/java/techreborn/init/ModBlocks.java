@@ -32,7 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.RebornRegistry;
-import reborncore.common.tile.TileMachineBase;
+import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -349,7 +349,7 @@ public class ModBlocks {
 		registerBlock(WIND_MILL, "wind_mill");
 		GameRegistry.registerTileEntity(TileWindMill.class, "TileWindMillTR");
 
-		GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");
+		GameRegistry.registerTileEntity(TileLegacyMachineBase.class, "TileMachineBaseTR");
 
 		RUBBER_LOG = new BlockRubberLog();
 		registerBlock(RUBBER_LOG, "rubber_log");

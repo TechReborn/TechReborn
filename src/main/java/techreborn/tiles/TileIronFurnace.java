@@ -26,11 +26,9 @@ package techreborn.tiles;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -41,7 +39,7 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 
 public class TileIronFurnace extends TileLegacyMachineBase
-	implements IInventoryProvider, ISidedInventory, IContainerProvider {
+	implements IInventoryProvider, IContainerProvider {
 
 	private static final int[] SLOTS_TOP = new int[] { 0, 2 };
 	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
@@ -175,11 +173,6 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? TileIronFurnace.SLOTS_BOTTOM : side == EnumFacing.UP ? TileIronFurnace.SLOTS_TOP : TileIronFurnace.SLOTS_SIDES;
-	}
-
-	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		boolean isFuel = TileEntityFurnace.isItemFuel(stack);
 		if(isFuel){
@@ -189,23 +182,6 @@ public class TileIronFurnace extends TileLegacyMachineBase
 			}
 		}
 		return index != output;
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
-		boolean isFuel = TileEntityFurnace.isItemFuel(stack);
-		if(isFuel){
-			ItemStack fuelSlotStack = getStackInSlot(fuelslot);
-			if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxStackSize() != fuelSlotStack.getCount()){
-				return index == fuelslot;
-			}
-		}
-		return index != output;
-	}
-
-	@Override
-	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
-		return true;
 	}
 
 	public int getBurnTime() {

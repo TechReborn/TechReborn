@@ -27,9 +27,9 @@ package techreborn.tiles.teir1;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
@@ -70,26 +70,6 @@ public class TileCompressor extends TilePowerAcceptor implements IToolDrop, IInv
 
 	public boolean isComplete() {
 		return false;
-	}
-
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		if (side.equals(EnumFacing.UP))
-			return new int[] { 0 };
-		else if (side.equals(EnumFacing.DOWN))
-			return new int[] { 1 };
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
-		return Index == 0;
-	}
-
-	@Override
-	public boolean canExtractItem(final int Index, final ItemStack itemStack, final EnumFacing side) {
-		return Index == 1;
 	}
 
 	public int getProgressScaled(final int scale) {

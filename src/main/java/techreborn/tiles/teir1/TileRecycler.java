@@ -138,28 +138,6 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 		return false;
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		if (side.equals(EnumFacing.UP))
-			return new int[] { 0 };
-		else if (side.equals(EnumFacing.DOWN))
-			return new int[] { 1 };
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex == 1)
-			return false;
-		return this.isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 1;
-	}
-
 	@Override
 	public double getBaseMaxPower() {
 		return this.capacity;

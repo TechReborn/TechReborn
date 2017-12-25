@@ -29,9 +29,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -102,21 +102,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 		super.writeToNBT(tagCompound);
 		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
-	}
-
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 1, 2, 3 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return index == 0 || index == 1;
-	}
-
-	@Override
-	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
-		return index == 2 || index == 3;
 	}
 
 	public int getProgressScaled(final int scale) {

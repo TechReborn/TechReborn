@@ -27,22 +27,29 @@ package techreborn.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
+import org.lwjgl.opengl.GL11;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
+import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 import techreborn.proxies.ClientProxy;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.minecraft.item.ItemStack.EMPTY;
 
 /**
  * Created by Prospector
@@ -86,6 +93,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawProgressBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -189,6 +199,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (Loader.isModLoaded("jei")) {
 			if (layer == GuiBase.Layer.BACKGROUND) {
 				x += gui.getGuiLeft();
@@ -200,6 +213,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawHologramButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -299,6 +315,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawMultiblockMissingBar(GuiBase gui, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		int x = 0;
 		int y = 4;
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -362,6 +381,32 @@ public class TRBuilder extends GuiBuilder {
 	public void drawUpgrades(GuiScreen gui, IUpgradeable upgradeable, int posX, int posY) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX - 27, posY + 4, 126, 151, 30, 87);
+	}
+
+	public void drawSlotTab(GuiScreen gui, int posX, int posY, int mouseX, int mouseY){
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(posX - 26, posY + 84, 157, 148, 30, 30);
+		renderItemStack(new ItemStack(ModItems.WRENCH), posX - 19, posY + 92);
+		if (isInRect(posX - 19, posY + 92, 12, 12, mouseX, mouseY)) {
+			List<String> list = new ArrayList<>();
+			list.add("Configure slots");
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
+		}
+	}
+
+	public void renderItemStack(ItemStack stack, int x, int y) {
+		if (stack != EMPTY) {
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			RenderHelper.enableGUIStandardItemLighting();
+
+			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
+
+			GL11.glDisable(GL11.GL_LIGHTING);
+		}
 	}
 
 	public void drawScrapSlot(GuiScreen gui, int posX, int posY) {

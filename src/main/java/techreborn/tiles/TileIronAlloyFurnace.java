@@ -312,20 +312,6 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		return this.inventory;
 	}
 
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 1, 2 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return index == 0 || index == 1;
-	}
-
-	@Override
-	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
-		return index == 2;
-	}
 
 	public int getBurnTime() {
 		return this.burnTime;
