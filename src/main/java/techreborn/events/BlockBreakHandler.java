@@ -24,9 +24,6 @@
 
 package techreborn.events;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -44,6 +41,9 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
+
+import java.util.List;
+import java.util.Random;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockBreakHandler {
@@ -76,7 +76,7 @@ public class BlockBreakHandler {
 				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSodalite")) {
-				OreDrop aluminium = new OreDrop(ItemDusts.getDustByName("aluminium"), aluminiumDropChance, 1);
+				OreDrop aluminium = new OreDrop(ItemDusts.getDustByName("aluminum"), aluminiumDropChance, 1);
 				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreCinnabar")) {
