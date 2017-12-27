@@ -26,7 +26,8 @@ package techreborn.compat.jei.generators.fluid;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -38,27 +39,19 @@ import javax.annotation.Nonnull;
 
 public class FluidGeneratorRecipeWrapper implements IRecipeWrapper {
 
-	private static final int FLUID_GENERATOR_STORAGE = 100_000;
-
 	private final FluidGeneratorRecipe baseRecipe;
-	private final IDrawable energyProduced;
+	private final IDrawableAnimated progress;
 
-	public FluidGeneratorRecipeWrapper(
-		@Nonnull
-			IJeiHelpers jeiHelpers,
-		@Nonnull
-			FluidGeneratorRecipe recipe) {
-
+	public FluidGeneratorRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull FluidGeneratorRecipe recipe) {
 		this.baseRecipe = recipe;
-
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		energyProduced = guiHelper.createDrawable(FluidGeneratorRecipeCategory.texture, 176, 3,
-			(int) (25 * ((recipe.getEnergyPerMb() * 1000.0) / FLUID_GENERATOR_STORAGE)), 14);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(FluidGeneratorRecipeCategory.texture, 176, 3, 25, 14);
+		this.progress = guiHelper.createAnimatedDrawable(progressStatic, 200, IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		energyProduced.draw(minecraft, 73, 26);
+		progress.draw(minecraft, 73, 26);
 		minecraft.fontRenderer
 				.drawString(PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.getEnergyPerMb() * 1000) + " "
 						+ PowerSystem.getDisplayPower().abbreviation, 70, 13, 0x444444);
