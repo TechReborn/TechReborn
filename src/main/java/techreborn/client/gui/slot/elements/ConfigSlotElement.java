@@ -52,7 +52,7 @@ public class ConfigSlotElement extends ElementBase {
 		if(gui.getMachine() instanceof IRecipeCrafterProvider){
 			RecipeCrafter recipeCrafter = ((IRecipeCrafterProvider) gui.getMachine()).getRecipeCrafter();
 			if(Arrays.stream(recipeCrafter.inputSlots).anyMatch(value -> value == slotId)){
-				elements.add(new CheckBoxElement("Filter Inputs", 0xFFFFFFFF, x - 26, y + 72,"filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
+				elements.add(new CheckBoxElement("Filter Input", 0xFFFFFFFF, x - 26, y + 72,"filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
 					popupElement.updateCheckBox((CheckBoxElement) element, "filter", gui13);
 					return true;
 				}));
