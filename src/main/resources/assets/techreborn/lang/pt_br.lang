@@ -374,6 +374,7 @@ item.techreborn.dustsmall.diorite.name=Um Pouco de Pó de Diorito
 item.techreborn.dustsmall.granite.name=Um Pouco de Pó de Granito
 
 item.techreborn.cell.name=Célula Vazia
+item.techreborn.cell.fluid.name=Célula de $fluid$
 item.techreborn.rebattery.name=Bateria
 item.techreborn.lithiumBattery.name=Bateria de Lítio
 item.techreborn.energyCrystal.name=Cristal de Energia
