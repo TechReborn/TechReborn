@@ -141,6 +141,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawTank(GuiBase gui, int x, int y, int mouseX, int mouseY, FluidStack fluid, int maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
