@@ -5,14 +5,12 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import reborncore.RebornCore;
 import reborncore.client.gui.GuiUtil;
-import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.packet.PacketIOSave;
 import reborncore.common.network.packet.PacketSlotSave;
@@ -44,9 +42,9 @@ public class SlotConfigPopupElement extends ElementBase {
 		IBlockAccess blockAccess = machine.getWorld();
 		BlockPos pos = machine.getPos();
 		IBlockState state = blockAccess.getBlockState(pos);
-		IBlockState actualState = Blocks.DIRT.getDefaultState().getActualState(blockAccess, pos);
+		IBlockState actualState = state.getBlock().getDefaultState().getActualState(blockAccess, pos);
 		BlockRendererDispatcher dispatcher = FMLClientHandler.instance().getClient().getBlockRendererDispatcher();
-		IBakedModel model = dispatcher.getBlockModelShapes().getModelForState(state.withProperty(BlockMachineBase.FACING, EnumFacing.NORTH));
+		IBakedModel model = dispatcher.getBlockModelShapes().getModelForState(state.getBlock().getDefaultState());
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		drawState(gui, blockAccess, model, actualState, pos, dispatcher, 4, 23); //left
 		drawState(gui, blockAccess, model, actualState, pos, dispatcher, 23, -12, -90F, 1F, 0F, 0F); //top

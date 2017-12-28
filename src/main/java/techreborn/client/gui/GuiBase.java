@@ -51,10 +51,13 @@ public class GuiBase extends GuiContainer {
 	public BuiltContainer container;
 	public static boolean showSlotConfig = false;
 
+	private boolean upgrades;
+
 	public GuiBase(EntityPlayer player, TileEntity tile, BuiltContainer container) {
 		super(container);
 		this.tile = tile;
 		this.container = container;
+		showSlotConfig = false;
 	}
 
 	protected void drawSlot(int x, int y, Layer layer) {
@@ -125,9 +128,10 @@ public class GuiBase extends GuiContainer {
 			IUpgradeable upgradeable = (IUpgradeable) tile;
 			if (upgradeable.canBeUpgraded()) {
 				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
+				upgrades = true;
 			}
 		}
-		builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY);
+		builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades);
 
 	}
 
@@ -210,7 +214,11 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
-		if(isPointInRegion(-26, 84, 30, 30, mouseX, mouseY)){
+		int offset = 0;
+		if(!upgrades){
+			offset = 80;
+		}
+		if(isPointInRegion(-26, 84 - offset, 30, 30, mouseX, mouseY)){
 			showSlotConfig = !showSlotConfig;
 			if(!showSlotConfig){
 				GuiSlotConfiguration.reset();

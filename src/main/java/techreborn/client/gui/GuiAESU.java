@@ -24,8 +24,6 @@
 
 package techreborn.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,6 +33,8 @@ import techreborn.client.gui.widget.GuiButtonUpDown;
 import techreborn.packets.PacketAesu;
 import techreborn.tiles.storage.TileAdjustableSU;
 
+import java.io.IOException;
+
 public class GuiAESU extends GuiBase {
 
 	TileAdjustableSU tile;
@@ -43,7 +43,7 @@ public class GuiAESU extends GuiBase {
 		super(player, aesu, aesu.createContainer(player));
 		this.tile = aesu;
 	}
-	
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
@@ -60,13 +60,15 @@ public class GuiAESU extends GuiBase {
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
-		
-		GlStateManager.pushMatrix();
-		GlStateManager.scale(0.6, 0.6, 1);
-		this.drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.tile.getEnergy()) + "/"
+
+		if(!GuiBase.showSlotConfig){
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(0.6, 0.6, 1);
+			this.drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.tile.getEnergy()) + "/"
 				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.tile.getMaxPower()) + " "
 				+ PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
-		GlStateManager.popMatrix();
+			GlStateManager.popMatrix();
+		}
 	
 		this.builder.drawMultiEnergyBar(this, 81, 28, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		

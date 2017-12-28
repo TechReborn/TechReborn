@@ -62,6 +62,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawMultiEnergyBar(GuiBase gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY, int buttonID, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -243,6 +246,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 	
 	public void drawUpDownButtons(GuiBase gui, int x, int y, GuiBase.Layer layer){
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -255,6 +261,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 	
 	public void drawEnergyOutput(GuiBase gui, int right, int top, int maxOutput, GuiBase.Layer layer){
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		String text = PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxOutput) + " "
 				+ PowerSystem.getDisplayPower().abbreviation + "/t";
 		int width = gui.mc.fontRenderer.getStringWidth(text);
@@ -269,6 +278,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -301,6 +313,9 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawBigHeatBar(GuiBase gui, int x, int y, int value, int max, GuiBase.Layer layer) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
 			x += gui.getGuiLeft();
 			y += gui.getGuiTop();
@@ -386,11 +401,15 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(posX - 27, posY + 4, 126, 151, 30, 87);
 	}
 
-	public void drawSlotTab(GuiScreen gui, int posX, int posY, int mouseX, int mouseY){
+	public void drawSlotTab(GuiScreen gui, int posX, int posY, int mouseX, int mouseY, boolean upgrades){
+		int offset = 0;
+		if(!upgrades){
+			offset = 80;
+		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
-		gui.drawTexturedModalRect(posX - 26, posY + 84, 157, 148, 30, 30);
-		renderItemStack(new ItemStack(ModItems.WRENCH), posX - 19, posY + 92);
-		if (isInRect(posX - 19, posY + 92, 12, 12, mouseX, mouseY)) {
+		gui.drawTexturedModalRect(posX - 26, posY + 84 - offset, 157, 148, 30, 30);
+		renderItemStack(new ItemStack(ModItems.WRENCH), posX - 19, posY + 92 - offset);
+		if (isInRect(posX - 19, posY + 92 - offset, 12, 12, mouseX, mouseY)) {
 			List<String> list = new ArrayList<>();
 			list.add("Configure slots");
 			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
