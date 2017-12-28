@@ -6,11 +6,14 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.tile.SlotConfiguration;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ConfigSlotElement extends ElementBase {
@@ -18,6 +21,7 @@ public class ConfigSlotElement extends ElementBase {
 	IInventory inventory;
 	int id;
 	public List<ElementBase> elements = new ArrayList<>();
+	boolean filter = false;
 
 
 	public ConfigSlotElement(IInventory slotInventory, int slotId, SlotType type, int x, int y, GuiBase gui) {
@@ -44,6 +48,18 @@ public class ConfigSlotElement extends ElementBase {
 			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
 			return true;
 		}));
+
+		if(gui.getMachine() instanceof IRecipeCrafterProvider){
+			RecipeCrafter recipeCrafter = ((IRecipeCrafterProvider) gui.getMachine()).getRecipeCrafter();
+			if(Arrays.stream(recipeCrafter.inputSlots).anyMatch(value -> value == slotId)){
+				elements.add(new CheckBoxElement("Filter Inputs", 0xFFFFFFFF, x - 26, y + 72,"filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
+					popupElement.updateCheckBox((CheckBoxElement) element, "filter", gui13);
+					return true;
+				}));
+				filter = true;
+				popupElement.filter = true;
+			}
+		}
 	}
 
 	@Override

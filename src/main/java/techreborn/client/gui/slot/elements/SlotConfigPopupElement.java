@@ -23,6 +23,7 @@ import java.awt.*;
 
 public class SlotConfigPopupElement extends ElementBase {
 	int id;
+	public boolean filter = false;
 
 	ConfigSlotElement slotElement;
 
@@ -35,7 +36,7 @@ public class SlotConfigPopupElement extends ElementBase {
 
 	@Override
 	public void draw(GuiBase gui) {
-		drawDefaultBackground(gui, adjustX(gui, getX() -8), adjustY(gui, getY() - 7), 84, 105);
+		drawDefaultBackground(gui, adjustX(gui, getX() -8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
 		super.draw(gui);
 
 		TileLegacyMachineBase machine = ((TileLegacyMachineBase) gui.tile);
@@ -95,14 +96,18 @@ public class SlotConfigPopupElement extends ElementBase {
 		SlotConfiguration.SlotConfigHolder configHolder = guiBase.getMachine().slotConfiguration.getSlotDetails(id);
 		boolean input = configHolder.autoInput();
 		boolean output = configHolder.autoOutput();
+		boolean filter = configHolder.filter();
 		if(type.equalsIgnoreCase("input")){
 			input = !configHolder.autoInput();
 		}
 		if(type.equalsIgnoreCase("output")){
 			output = !configHolder.autoOutput();
 		}
+		if(type.equalsIgnoreCase("filter")){
+			filter = !configHolder.filter();
+		}
 
-		PacketIOSave packetSlotSave = new PacketIOSave(guiBase.tile.getPos(), id, input, output);
+		PacketIOSave packetSlotSave = new PacketIOSave(guiBase.tile.getPos(), id, input, output, filter);
 		NetworkManager.sendToServer(packetSlotSave);
 	}
 

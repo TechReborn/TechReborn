@@ -48,6 +48,9 @@ public class CheckBoxElement extends ElementBase {
 		if(type.equalsIgnoreCase("output")){
 			return machineBase.slotConfiguration.getSlotDetails(slotID).autoOutput();
 		}
+		if(type.equalsIgnoreCase("filter")){
+			return machineBase.slotConfiguration.getSlotDetails(slotID).filter();
+		}
 		return machineBase.slotConfiguration.getSlotDetails(slotID).autoInput();
 	}
 
