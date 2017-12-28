@@ -29,10 +29,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -80,6 +83,11 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 			}
 			if(CompatManager.isIC2Loaded){
 				IC2ItemCharger.chargeIc2Item(this, stack);
+			}
+			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
+				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+				int max = Math.min(maxInput, getEnergyStored(null));
+				useEnergy(energyStorage.receiveEnergy(max, false) / RebornCoreConfig.euPerFU);
 			}
 		}
 		if (!inventory.getStackInSlot(1).isEmpty()) {
