@@ -199,7 +199,7 @@ public class GuiSlotConfiguration {
 		ConfigSlotElement slotElement = slotElementMap.get(slectedSlot);
 
 		//I have no idea why this works, but it does. pls fix if you know how.
-		list.add(new Rectangle(slotElement.adjustX(guiBase, slotElement.getX()) + guiBase.getGuiLeft(), slotElement.adjustY(guiBase, 0), slotElement.getWidth() - 20, slotElement.getHeight()));
+		list.add(new Rectangle(slotElement.adjustX(guiBase, slotElement.getX()) + guiBase.getGuiLeft() - 25, slotElement.adjustY(guiBase, 0) -10, slotElement.getWidth() - 5, slotElement.getHeight() + 15));
 		return list;
 	}
 
