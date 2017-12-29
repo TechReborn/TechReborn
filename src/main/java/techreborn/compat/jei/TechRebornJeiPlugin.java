@@ -24,17 +24,27 @@
 
 package techreborn.compat.jei;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
+import mezz.jei.api.*;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
+import mezz.jei.collect.ListMultiMap;
 import mezz.jei.config.Config;
+import mezz.jei.gui.TooltipRenderer;
+import mezz.jei.gui.recipes.RecipeClickableArea;
+import mezz.jei.util.ErrorUtil;
+import mezz.jei.util.Translator;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.client.event.GuiScreenEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Mouse;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.Core;
 import techreborn.api.generator.EFluidGenerator;
@@ -43,20 +53,7 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.api.recipe.ScrapboxRecipe;
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
-import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import techreborn.api.recipe.machines.CompressorRecipe;
-import techreborn.api.recipe.machines.DistillationTowerRecipe;
-import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.api.recipe.machines.VacuumFreezerRecipe;
+import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
 import techreborn.compat.CompatManager;
@@ -111,7 +108,15 @@ import java.util.List;
 @SuppressWarnings("deprecation")
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
-	
+
+	public static final ListMultiMap<Class<? extends GuiContainer>, RecipeClickableArea> recipeClickableAreas = new ListMultiMap<>();
+
+	static IRecipesGui recipesGui;
+
+	static {
+		MinecraftForge.EVENT_BUS.register(TechRebornJeiPlugin.class);
+	}
+
 	private static void addDebugRecipes(final IModRegistry registry) {
 		final ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
 		final ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
@@ -130,39 +135,38 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		}
 		registry.addRecipes(debugRecipes);
 	}
-	
-	 @Override
-		public void registerCategories(IRecipeCategoryRegistration registry) {
-	    	final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
-	    	final IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+
+	@Override
+	public void registerCategories(IRecipeCategoryRegistration registry) {
+		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
+		final IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
 		registry.addRecipeCategories(
-				new AlloySmelterRecipeCategory(guiHelper),
-				new AssemblingMachineRecipeCategory(guiHelper), 
-				new BlastFurnaceRecipeCategory(guiHelper),
-				new CentrifugeRecipeCategory(guiHelper),
-				new ChemicalReactorRecipeCategory(guiHelper),
-				new DistillationTowerRecipeCategory(guiHelper),
-				new FusionReactorRecipeCategory(guiHelper),
-				new GrinderRecipeCategory(guiHelper),
-				new ImplosionCompressorRecipeCategory(guiHelper), 
-				new IndustrialGrinderRecipeCategory(guiHelper),
-				new IndustrialElectrolyzerRecipeCategory(guiHelper),
-				new IndustrialSawmillRecipeCategory(guiHelper),
-				new RollingMachineRecipeCategory(guiHelper),
-				new ScrapboxRecipeCategory(guiHelper), 
-				new VacuumFreezerRecipeCategory(guiHelper));
-		
+			new AlloySmelterRecipeCategory(guiHelper),
+			new AssemblingMachineRecipeCategory(guiHelper),
+			new BlastFurnaceRecipeCategory(guiHelper),
+			new CentrifugeRecipeCategory(guiHelper),
+			new ChemicalReactorRecipeCategory(guiHelper),
+			new DistillationTowerRecipeCategory(guiHelper),
+			new FusionReactorRecipeCategory(guiHelper),
+			new GrinderRecipeCategory(guiHelper),
+			new ImplosionCompressorRecipeCategory(guiHelper),
+			new IndustrialGrinderRecipeCategory(guiHelper),
+			new IndustrialElectrolyzerRecipeCategory(guiHelper),
+			new IndustrialSawmillRecipeCategory(guiHelper),
+			new RollingMachineRecipeCategory(guiHelper),
+			new ScrapboxRecipeCategory(guiHelper),
+			new VacuumFreezerRecipeCategory(guiHelper));
+
 		for (final EFluidGenerator type : EFluidGenerator.values())
 			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
-		
+
 		if (!IC2Duplicates.deduplicate()) {
 			registry.addRecipeCategories(
-					new CompressorRecipeCategory(guiHelper),
-					new ExtractorRecipeCategory(guiHelper));
+				new CompressorRecipeCategory(guiHelper),
+				new ExtractorRecipeCategory(guiHelper));
 		}
-	 }	
-	    			
+	}
 
 	@Override
 	public void register(
@@ -170,7 +174,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		final
 		IModRegistry registry) {
 		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
-		
+
 		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_BERYLLIUM));
 		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM));
 		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_CALCIUM_CARBONATE));
@@ -246,16 +250,16 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(ScrapboxRecipe.class, recipe -> new ScrapboxRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SCRAPBOX);
 		registry.handleRecipes(DistillationTowerRecipe.class, recipe -> new DistillationTowerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.addRecipeHandlers(new RollingMachineRecipeHandler());
-		
+
 		if (!IC2Duplicates.deduplicate()) {
 			registry.handleRecipes(CompressorRecipe.class, recipe -> new CompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.COMPRESSOR);
 			registry.handleRecipes(ExtractorRecipe.class, recipe -> new ExtractorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.EXTRACTOR);
 		}
-		
-		for (final EFluidGenerator type : EFluidGenerator.values()){
+
+		for (final EFluidGenerator type : EFluidGenerator.values()) {
 			registry.handleRecipes(FluidGeneratorRecipe.class, recipe -> new FluidGeneratorRecipeWrapper(jeiHelpers, recipe), type.getRecipeID());
 		}
-					
+
 		registry.addRecipes(RecipeHandler.recipeList);
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes, RecipeCategoryUids.FUSION_REACTOR);
 		GeneratorRecipeHelper.fluidRecipes.forEach((type, list) -> registry.addRecipes(list.getRecipes(), type.getRecipeID()));
@@ -283,34 +287,34 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		}
 
 		//NEW ONES
-		registry.addRecipeClickArea(GuiCentrifuge.class, 150, 4, 20, 12, RecipeCategoryUids.CENTRIFUGE);
-		registry.addRecipeClickArea(GuiElectricFurnace.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.SMELTING);
-		registry.addRecipeClickArea(GuiGenerator.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.FUEL);
-		registry.addRecipeClickArea(GuiExtractor.class, 150, 4, 20, 12, RecipeCategoryUids.EXTRACTOR);
-		registry.addRecipeClickArea(GuiCompressor.class, 150, 4, 20, 12, RecipeCategoryUids.COMPRESSOR);
-		registry.addRecipeClickArea(GuiGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.GRINDER);
-		registry.addRecipeClickArea(GuiVacuumFreezer.class, 150, 4, 20, 12, RecipeCategoryUids.VACUUM_FREEZER);
-		registry.addRecipeClickArea(GuiBlastFurnace.class, 150, 4, 20, 12, RecipeCategoryUids.BLAST_FURNACE);
-		registry.addRecipeClickArea(GuiChemicalReactor.class, 150, 4, 20, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
-		registry.addRecipeClickArea(GuiImplosionCompressor.class, 150, 4, 20, 12, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
-		registry.addRecipeClickArea(GuiIndustrialGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
-		registry.addRecipeClickArea(GuiIndustrialSawmill.class, 150, 4, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
-		registry.addRecipeClickArea(GuiIndustrialElectrolyzer.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
-		registry.addRecipeClickArea(GuiSemifluidGenerator.class, 150, 4, 18, 18, EFluidGenerator.SEMIFLUID.getRecipeID());
-		registry.addRecipeClickArea(GuiDieselGenerator.class, 150, 4, 18, 18, EFluidGenerator.DIESEL.getRecipeID());
-		registry.addRecipeClickArea(GuiGasTurbine.class, 150, 4, 18, 18, EFluidGenerator.GAS.getRecipeID());
-		registry.addRecipeClickArea(GuiThermalGenerator.class, 150, 4, 18, 18, EFluidGenerator.THERMAL.getRecipeID());
-		registry.addRecipeClickArea(GuiAlloySmelter.class, 150, 4, 18, 18, RecipeCategoryUids.ALLOY_SMELTER);
-		registry.addRecipeClickArea(GuiPlasmaGenerator.class, 150, 4, 18, 18, EFluidGenerator.PLASMA.getRecipeID());
-		registry.addRecipeClickArea(GuiDistillationTower.class, 150, 4, 18, 18, RecipeCategoryUids.DISTILLATION_TOWER);
-		
+		addRecipeClickArea(GuiCentrifuge.class, 150, 4, 20, 12, RecipeCategoryUids.CENTRIFUGE);
+		addRecipeClickArea(GuiElectricFurnace.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.SMELTING);
+		addRecipeClickArea(GuiGenerator.class, 150, 4, 20, 12, VanillaRecipeCategoryUid.FUEL);
+		addRecipeClickArea(GuiExtractor.class, 150, 4, 20, 12, RecipeCategoryUids.EXTRACTOR);
+		addRecipeClickArea(GuiCompressor.class, 150, 4, 20, 12, RecipeCategoryUids.COMPRESSOR);
+		addRecipeClickArea(GuiGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.GRINDER);
+		addRecipeClickArea(GuiVacuumFreezer.class, 150, 4, 20, 12, RecipeCategoryUids.VACUUM_FREEZER);
+		addRecipeClickArea(GuiBlastFurnace.class, 150, 4, 20, 12, RecipeCategoryUids.BLAST_FURNACE);
+		addRecipeClickArea(GuiChemicalReactor.class, 150, 4, 20, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
+		addRecipeClickArea(GuiImplosionCompressor.class, 150, 4, 20, 12, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
+		addRecipeClickArea(GuiIndustrialGrinder.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
+		addRecipeClickArea(GuiIndustrialSawmill.class, 150, 4, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
+		addRecipeClickArea(GuiIndustrialElectrolyzer.class, 150, 4, 20, 12, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
+		addRecipeClickArea(GuiSemifluidGenerator.class, 150, 4, 18, 18, EFluidGenerator.SEMIFLUID.getRecipeID());
+		addRecipeClickArea(GuiDieselGenerator.class, 150, 4, 18, 18, EFluidGenerator.DIESEL.getRecipeID());
+		addRecipeClickArea(GuiGasTurbine.class, 150, 4, 18, 18, EFluidGenerator.GAS.getRecipeID());
+		addRecipeClickArea(GuiThermalGenerator.class, 150, 4, 18, 18, EFluidGenerator.THERMAL.getRecipeID());
+		addRecipeClickArea(GuiAlloySmelter.class, 150, 4, 18, 18, RecipeCategoryUids.ALLOY_SMELTER);
+		addRecipeClickArea(GuiPlasmaGenerator.class, 150, 4, 18, 18, EFluidGenerator.PLASMA.getRecipeID());
+		addRecipeClickArea(GuiDistillationTower.class, 150, 4, 18, 18, RecipeCategoryUids.DISTILLATION_TOWER);
+
 		//OLD ONES
-		registry.addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
+		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
 			VanillaRecipeCategoryUid.FUEL);
-		registry.addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
-		registry.addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
-		registry.addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
-		registry.addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
+		addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
+		addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
+		addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
+		addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
 			VanillaRecipeCategoryUid.FUEL);
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.IRON_FURNACE), VanillaRecipeCategoryUid.SMELTING, VanillaRecipeCategoryUid.FUEL);
@@ -379,12 +383,77 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("industrialsawmill", RecipeCategoryUids.INDUSTRIAL_SAWMILL, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 36, 2, 0, 36));
-		
+			new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 36, 2, 0, 36));
 
 		if (CompatManager.isQuantumStorageLoaded) {
 			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.QUANTUM_CHEST));
 			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.QUANTUM_TANK));
+		}
+
+	}
+
+	@Override
+	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		recipesGui = jeiRuntime.getRecipesGui();
+	}
+
+	//Taken from JEI so we can have a custom impliemntation of it
+	//This is done as I didnt see an easy way to disable the show recipes button when a certain condition is met
+
+
+	public void addRecipeClickArea(Class<? extends GuiContainer> guiContainerClass, int xPos, int yPos, int width, int height, String... recipeCategoryUids) {
+		ErrorUtil.checkNotNull(guiContainerClass, "guiContainerClass");
+		ErrorUtil.checkNotEmpty(recipeCategoryUids, "recipeCategoryUids");
+
+		RecipeClickableArea recipeClickableArea = new RecipeClickableArea(yPos, yPos + height, xPos, xPos + width, recipeCategoryUids);
+		recipeClickableAreas.put(guiContainerClass, recipeClickableArea);
+	}
+
+	public static RecipeClickableArea getRecipeClickableArea(GuiContainer gui, int mouseX, int mouseY) {
+		for (RecipeClickableArea recipeClickableArea : recipeClickableAreas.toImmutable().get(gui.getClass())) {
+			if (recipeClickableArea.checkHover(mouseX, mouseY)) {
+				return recipeClickableArea;
+			}
+		}
+		return null;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void drawScreenEvent(GuiScreenEvent.DrawScreenEvent.Post event) {
+		if (GuiBase.showSlotConfig) {
+			return;
+		}
+		GuiScreen gui = event.getGui();
+		if (gui instanceof GuiContainer) {
+			GuiContainer guiContainer = (GuiContainer) gui;
+			if (getRecipeClickableArea(guiContainer, event.getMouseX() - guiContainer.getGuiLeft(), event.getMouseY() - guiContainer.getGuiTop()) != null) {
+				TooltipRenderer.drawHoveringText(guiContainer.mc, Translator.translateToLocal("jei.tooltip.show.recipes"), event.getMouseX(), event.getMouseY());
+			}
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public static void handleMouseClick(GuiScreenEvent.MouseInputEvent.Pre event) {
+		if (GuiBase.showSlotConfig) {
+			return;
+		}
+		final int eventButton = Mouse.getEventButton();
+		if (eventButton > -1) {
+			if (Mouse.getEventButtonState()) {
+				if (event.getGui() instanceof GuiContainer) {
+					int x = Mouse.getEventX() * event.getGui().width / event.getGui().mc.displayWidth;
+					int y = event.getGui().height - Mouse.getEventY() * event.getGui().height / event.getGui().mc.displayHeight - 1;
+					GuiContainer guiContainer = (GuiContainer) event.getGui();
+					RecipeClickableArea clickableArea = getRecipeClickableArea(guiContainer, x - guiContainer.getGuiLeft(), y - guiContainer.getGuiTop());
+					if (clickableArea != null) {
+						List<String> recipeCategoryUids = clickableArea.getRecipeCategoryUids();
+						recipesGui.showCategories(recipeCategoryUids);
+						event.setCanceled(true);
+					}
+				}
+			}
 		}
 
 	}
