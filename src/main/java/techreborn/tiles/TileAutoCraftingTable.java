@@ -439,4 +439,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		}
 		return super.isItemValidForSlot(index, stack);
 	}
+
+	//This machine doesnt have a facing
+	@Override
+	public EnumFacing getFacingEnum() {
+		return EnumFacing.NORTH;
+	}
 }
