@@ -68,4 +68,8 @@ public class CommonProxy implements ICompatModule {
 		return true;
 	}
 
+	public void rebuildRecipeBook(){
+
+	}
+
 }

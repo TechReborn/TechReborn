@@ -32,6 +32,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import reborncore.common.util.RebornCraftingHelper;
 import reborncore.common.util.RecipeRemover;
+import techreborn.Core;
 import techreborn.compat.CompatConfigs;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModItems;
@@ -63,6 +64,8 @@ public class BuildcraftBuildersCompat implements ICompatModule {
 				'A', "circuitAdvanced",
 				'E', new ItemStack(ModItems.DIAMOND_DRILL));
 		}
+		//The recipebook still knows about the old recipe so crashes, this should update it to have it replaced by the new recipe
+		Core.proxy.rebuildRecipeBook();
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.util.RecipeBookClient;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -113,5 +114,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public boolean fancyGraphics() {
 		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
+	}
+
+	@Override
+	public void rebuildRecipeBook() {
+		super.rebuildRecipeBook();
+		RecipeBookClient.rebuildTable();
 	}
 }
