@@ -25,6 +25,7 @@
 package techreborn.compat.jei;
 
 import mezz.jei.api.*;
+import mezz.jei.api.gui.IAdvancedGuiHandler;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
@@ -56,6 +57,7 @@ import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
+import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.compat.CompatManager;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeWrapper;
@@ -102,6 +104,8 @@ import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -390,11 +394,33 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			registry.getJeiHelpers().getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModBlocks.QUANTUM_TANK));
 		}
 
+		registry.addAdvancedGuiHandlers(new AdvancedGuiHandler());
+
 	}
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		recipesGui = jeiRuntime.getRecipesGui();
+	}
+
+	public static class AdvancedGuiHandler implements IAdvancedGuiHandler<GuiBase> {
+
+		@Override
+		public Class<GuiBase> getGuiContainerClass() {
+			return GuiBase.class;
+		}
+
+		@Nullable
+		@Override
+		public List<Rectangle> getGuiExtraAreas(GuiBase guiContainer) {
+			return GuiSlotConfiguration.getExtraSpace(guiContainer);
+		}
+
+		@Nullable
+		@Override
+		public Object getIngredientUnderMouse(GuiBase guiContainer, int mouseX, int mouseY) {
+			return null;
+		}
 	}
 
 	//Taken from JEI so we can have a custom impliemntation of it

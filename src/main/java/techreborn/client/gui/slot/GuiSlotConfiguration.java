@@ -39,6 +39,7 @@ import techreborn.client.gui.slot.elements.SlotType;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -188,6 +189,18 @@ public class GuiSlotConfiguration {
 			}
 		}
 		return clicked;
+	}
+
+	public static List<Rectangle> getExtraSpace(GuiBase guiBase){
+		if(!GuiBase.showSlotConfig || slectedSlot == -1){
+			return Collections.emptyList();
+		}
+		List<Rectangle> list = new ArrayList<>();
+		ConfigSlotElement slotElement = slotElementMap.get(slectedSlot);
+
+		//I have no idea why this works, but it does. pls fix if you know how.
+		list.add(new Rectangle(slotElement.adjustX(guiBase, slotElement.getX()) + guiBase.getGuiLeft(), slotElement.adjustY(guiBase, 0), slotElement.getWidth() - 20, slotElement.getHeight()));
+		return list;
 	}
 
 }

@@ -185,6 +185,14 @@ public class ElementBase {
 		return height;
 	}
 
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	public ElementBase addHoverAction(ElementBase.Action action) {
 		this.hoverActions.add(action);
 		return this;

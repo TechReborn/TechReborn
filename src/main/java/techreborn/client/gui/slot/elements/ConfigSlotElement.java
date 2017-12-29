@@ -84,6 +84,8 @@ public class ConfigSlotElement extends ElementBase {
 				popupElement.filter = true;
 			}
 		}
+		setWidth(85);
+		setHeight(105 + (filter ? 15 : 0));
 	}
 
 	@Override
