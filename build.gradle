@@ -122,7 +122,7 @@ dependencies {
 
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
 
-	compile name: 'buildcraft', version: '7.99.12', ext: 'jar'
+	compile name: 'buildcraft', version: '7.99.13', ext: 'jar'
 }
 
 
