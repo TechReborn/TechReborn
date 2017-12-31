@@ -102,7 +102,6 @@ license {
 
 group = 'TechReborn'
 
-
 dependencies {
 	//Some dep we use wants the older jei, so this ingores it. We grab the latest anyway, so it shoudnt cause any issues.
 	def withoutOldJEI = { exclude module: 'jei_1.12' }
