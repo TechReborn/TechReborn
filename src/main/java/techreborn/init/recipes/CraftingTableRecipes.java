@@ -157,6 +157,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 3), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', getStack(ModBlocks.REINFORCED_GLASS), 'C', "circuitAdvanced", 'P', "machineBlockAdvanced");
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 4), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', getStack(ModBlocks.REINFORCED_GLASS), 'C', "circuitMaster", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 3));
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 4), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', getStack(ModBlocks.REINFORCED_GLASS), 'C', "circuitMaster", 'P', "machineBlockElite");
+		registerShaped(getStack(ModBlocks.ALARM, 1, 0), "ICI", "SRS", "ICI", 'I', "ingotIron", 'C', getMaterial("copper", Type.CABLE), 'S', getMaterial("insulatedcopper", Type.CABLE), 'R', "blockRedstone" );
 
 		if (!IC2Duplicates.deduplicate()) {
 			registerShaped(getStack(IC2Duplicates.HVT), " H ", " M ", " H ", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));

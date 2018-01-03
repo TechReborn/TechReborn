@@ -13,6 +13,7 @@ int selectedSound;
     public void update() {
         if (!world.isRemote && world.getTotalWorldTime() % 25 == 0 && world.isBlockPowered(getPos())) {
             BlockAlarm.setActive(true, world, pos);
+            world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
             state = true;
         } else if(!world.isRemote && world.getTotalWorldTime() % 25 == 0 ) {
             BlockAlarm.setActive(false, world, pos);

@@ -46,7 +46,7 @@ public class BlockAlarm extends BaseTileBlock {
 		super(Material.ROCK);
 		setUnlocalizedName("techreborn.alarm");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
-		this.bbs = GenBoundingBoxes(0.19, 0.8);
+		this.bbs = GenBoundingBoxes(0.19, 0.81);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
 	}
