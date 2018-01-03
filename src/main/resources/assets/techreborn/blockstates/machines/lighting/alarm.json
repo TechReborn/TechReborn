@@ -2,13 +2,18 @@
   "forge_marker": 1,
   "defaults": {
   "transform": "forge:default-block",
-  "model": "techreborn:alarm"
+  "model": "techreborn:alarm",
+    "textures": {
+      "particle": "#alarm"
+    }
 },
 "variants": {
   "inventory": {
     "transform": "forge:default-block",
     "model": "techreborn:alarm",
-    "textures": {}
+    "textures": {
+      "alarm": "techreborn:blocks/machines/lighting/alarm_off"
+    }
   },
   "facing": {
     "down": {
@@ -35,7 +40,7 @@
   "active": {
     "true": {
       "textures": {
-        "alarm": "techreborn:blocks/machines/lighting/alarm_off"
+        "alarm": "techreborn:blocks/machines/lighting/alarm_on"
       }
     },
     "false": {

@@ -1,11 +1,10 @@
 {
 	"textures": {
-		"0": "techreborn:blocks/machines/lighting/alarm_off",
-		"particle": "techreborn:blocks/machines/lighting/alarm_off"
+		"0": "#alarm"
 	},
 	"elements": [
 		{
-			"name": "cube",
+			"name": "Alarm",
 			"from": [3, 0, 3],
 			"to": [13, 3, 13],
 			"faces": {

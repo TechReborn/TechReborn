@@ -30,7 +30,7 @@ public class BlockAlarm extends BaseTileBlock {
 	public static PropertyBool ACTIVE;
 
 	private static AxisAlignedBB[] GenBoundingBoxes(double depth, double width) {
-		AxisAlignedBB[] bb = {
+		AxisAlignedBB[] dimm = {
 			new AxisAlignedBB(width, 1.0 - depth, width, 1.0 - width, 1.0D, 1.0 - width),
 			new AxisAlignedBB(width, 0.0D, width, 1.0 - width, depth, 1.0 - width),
 			new AxisAlignedBB(width, width, 1.0 - depth, 1.0 - width, 1.0 - width, 1.0D),
@@ -38,16 +38,15 @@ public class BlockAlarm extends BaseTileBlock {
 			new AxisAlignedBB(1.0 - depth, width, width, 1.0D, 1.0 - width, 1.0 - width),
 			new AxisAlignedBB(0.0D, width, width, depth, 1.0 - width, 1.0 - width),
 		};
-		return bb;
+		return dimm;
 	}
 
 	private AxisAlignedBB[] bbs;
-
 	public BlockAlarm() {
 		super(Material.ROCK);
 		setUnlocalizedName("techreborn.alarm");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
-		this.bbs = GenBoundingBoxes(0.19, 0.81);
+		this.bbs = GenBoundingBoxes(0.19, 0.8);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
 	}
