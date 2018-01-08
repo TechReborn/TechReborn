@@ -128,6 +128,7 @@ tile.techreborn:storage.nickel.name=镍块
 tile.techreborn:storage.invar.name=殷钢块
 tile.techreborn:storage.osmium.name=锇块
 tile.techreborn:storage.iridium.name=铱块
+tile.techreborn:storage.bronze.name=青铜块
 tile.techreborn:storage2.tungstensteel.name=钨钢块
 tile.techreborn:storage2.lodestone.name=磁石块
 tile.techreborn:storage2.tellurium.name=碲块
@@ -375,6 +376,7 @@ item.techreborn.dustsmall.diorite.name=小堆闪长岩粉
 item.techreborn.dustsmall.granite.name=小堆花岗岩粉
 
 item.techreborn.cell.name=空单元
+item.techreborn.cell.fluid.name=$fluid$单元
 item.techreborn.rebattery.name=充电电池
 item.techreborn.lithiumBattery.name=锂电池
 item.techreborn.energyCrystal.name=能量水晶

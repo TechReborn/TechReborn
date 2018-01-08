@@ -28,6 +28,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.util.RecipeBookClient;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,6 +44,7 @@ import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.*;
 import techreborn.client.gui.GuiBase;
+import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
@@ -74,6 +76,7 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		multiblockRenderEvent = new MultiblockRenderEvent();
+		MinecraftForge.EVENT_BUS.register(GuiSlotConfiguration.class);
 		MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
@@ -106,5 +109,16 @@ public class ClientProxy extends CommonProxy {
 		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
 			return new RenderNukePrimed(manager);
 		}
+	}
+
+	@Override
+	public boolean fancyGraphics() {
+		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
+	}
+
+	@Override
+	public void rebuildRecipeBook() {
+		super.rebuildRecipeBook();
+		RecipeBookClient.rebuildTable();
 	}
 }

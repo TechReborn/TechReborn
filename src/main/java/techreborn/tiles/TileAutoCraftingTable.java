@@ -27,7 +27,6 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -55,7 +54,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-public class TileAutoCraftingTable extends TilePowerAcceptor implements IContainerProvider, IInventoryProvider, ISidedInventory {
+public class TileAutoCraftingTable extends TilePowerAcceptor implements IContainerProvider, IInventoryProvider {
 
 	ResourceLocation currentRecipe;
 
@@ -89,9 +88,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	public IRecipe getIRecipe() {
 		if (customRecipe) {
 			InventoryCrafting crafting = getCraftingInventory();
-			for (IRecipe testRecipe : CraftingManager.REGISTRY) {
-				if (testRecipe.matches(crafting, world)) {
-					return testRecipe;
+			if(!crafting.isEmpty()){
+				for (IRecipe testRecipe : CraftingManager.REGISTRY) {
+					if (testRecipe.matches(crafting, world)) {
+						return testRecipe;
+					}
 				}
 			}
 		}
@@ -439,25 +440,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 		return super.isItemValidForSlot(index, stack);
 	}
 
+	//This machine doesnt have a facing
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		if (index == 9) {
-			return false;
-		}
-		int bestSlot = findBestSlotForStack(getIRecipe(), itemStackIn);
-		if (bestSlot != -1) {
-			return index == bestSlot;
-		}
-		return false;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return index == 9 || index == 10;
+	public EnumFacing getFacingEnum() {
+		return EnumFacing.NORTH;
 	}
 }

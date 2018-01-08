@@ -29,7 +29,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -37,16 +36,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.IUpgradeHandler;
-import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.tile.IMachineSlotProvider;
 import reborncore.common.tile.TileLegacyMachineBase;
-import reborncore.common.util.InventoryHelper;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTabMisc;
@@ -62,7 +55,7 @@ import java.util.List;
 
 public class ItemUpgrades extends ItemTR implements IUpgrade {
 
-	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range", "ejection", "injection" };
+	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range" };
 
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");
@@ -130,68 +123,6 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		if (stack.getItemDamage() == 0) {
 			handler.addSpeedMulti(0.25);
 			handler.addPowerMulti(0.5);
-
-		} else if (stack.getItemDamage() == 4) {
-			EnumFacing dir = getFacing(stack);
-			TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
-			if (tileEntity instanceof IInventory) {
-				if (machineBase instanceof IRecipeCrafterProvider) {
-					RecipeCrafter crafter = ((IRecipeCrafterProvider) machineBase).getRecipeCrafter();
-					for (Integer outSlot : crafter.outputSlots) {
-						ItemStack outputStack = crafter.inventory.getStackInSlot(outSlot);
-						if (!outputStack.isEmpty()) {
-							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-							if (amount > 0) {
-								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity, outputStack);
-								crafter.inventory.decrStackSize(outSlot, amount);
-							}
-						}
-					}
-				} else if (machineBase instanceof IMachineSlotProvider) {
-					IMachineSlotProvider slotProvider = (IMachineSlotProvider) machineBase;
-					for (Integer outSlot : slotProvider.getOuputSlots()) {
-						ItemStack outputStack = slotProvider.getMachineInv().getStackInSlot(outSlot);
-						if (!outputStack.isEmpty()) {
-							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-							if (amount > 0) {
-								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity, outputStack);
-								slotProvider.getMachineInv().decrStackSize(outSlot, amount);
-							}
-						}
-					}
-				} else {
-					IInventory inventory = machineBase;
-					for (int outSlot = 0; outSlot < inventory.getSizeInventory(); outSlot++) {
-						ItemStack outputStack = inventory.getStackInSlot(outSlot);
-						if (!outputStack.isEmpty()) {
-							int amount = InventoryHelper.testInventoryInsertion((IInventory) tileEntity, outputStack, dir);
-							if (amount > 0) {
-								InventoryHelper.insertItemIntoInventory((IInventory) tileEntity, outputStack);
-								inventory.decrStackSize(outSlot, amount);
-							}
-						}
-					}
-				}
-			}
-		} else if (stack.getItemDamage() == 5) {
-			if (machineBase.getWorld().getTotalWorldTime() % 10 != 0) {
-				return;
-			}
-			EnumFacing dir = getFacing(stack);
-			TileEntity tileEntity = machineBase.getWorld().getTileEntity(machineBase.getPos().offset(dir));
-			if (tileEntity != null && tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())) {
-				IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite());
-				for (int i = 0; i < itemHandler.getSlots(); i++) {
-					ItemStack extractedStack = itemHandler.extractItem(i, 1, true);
-					int amount = InventoryHelper.testInventoryInsertion(machineBase, extractedStack, null);
-					if (amount > 0) {
-						extractedStack = itemHandler.extractItem(i, 1, false);
-						extractedStack.setCount(1);
-						InventoryHelper.insertItemIntoInventory(machineBase, extractedStack);
-					}
-
-				}
-			}
 
 		}
 		if (machineBase instanceof TilePowerAcceptor) {

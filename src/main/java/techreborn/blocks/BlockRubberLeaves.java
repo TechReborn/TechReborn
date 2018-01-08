@@ -29,7 +29,6 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,6 +40,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import techreborn.Core;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
@@ -139,6 +139,6 @@ public class BlockRubberLeaves extends BlockLeaves {
 	}
 
 	public boolean fancyLeaves(){
-		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
+		return Core.proxy.fancyGraphics();
 	}
 }

@@ -25,13 +25,12 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -43,7 +42,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileChemicalReactor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, ISidedInventory, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -97,33 +96,6 @@ public class TileChemicalReactor extends TilePowerAcceptor
 		return tagCompound;
 	}
 
-	// ISidedInventory
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		if (slotIndex == 2)
-			return false;
-		return this.isItemValidForSlot(slotIndex, itemStack);
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex == 2;
-	}
-
-	// @Override
-	// public void addWailaInfo(List<String> info)
-	// {
-	// super.addWailaInfo(info);
-	// info.add("Power Stored " + energy.getEnergyStored() +" EU");
-	// if(crafter.currentRecipe !=null){
-	// info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-	// }
-	// }
 
 	public int getProgressScaled(final int scale) {
 		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks > 0) {

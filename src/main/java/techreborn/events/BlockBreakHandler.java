@@ -24,9 +24,6 @@
 
 package techreborn.events;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -44,6 +41,9 @@ import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
+
+import java.util.List;
+import java.util.Random;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockBreakHandler {
@@ -76,7 +76,7 @@ public class BlockBreakHandler {
 				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSodalite")) {
-				OreDrop aluminium = new OreDrop(ItemDusts.getDustByName("aluminium"), aluminiumDropChance, 1);
+				OreDrop aluminium = new OreDrop(ItemDusts.getDustByName("aluminum"), aluminiumDropChance, 1);
 				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreCinnabar")) {
@@ -92,10 +92,10 @@ public class BlockBreakHandler {
 
 	@SubscribeEvent
 	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
-		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_CHAINSAW){
+		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_CHAINSAW && event.getOriginalSpeed() > 1.0f){
 			BlockPos pos = event.getPos();
 			World worldIn = event.getEntityPlayer().world;
-			float speed = 2F;
+			float speed = 20F;
 			int blocks = 0;
 			for (int i = 1; i < 10; i++) {
 				BlockPos nextPos = pos.up(i);
@@ -104,7 +104,7 @@ public class BlockBreakHandler {
 					blocks ++;
 				}
 			}
-			event.setNewSpeed(speed * blocks);
+			event.setNewSpeed(speed / blocks);
 		}
 	}
 }

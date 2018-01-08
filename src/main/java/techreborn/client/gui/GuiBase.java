@@ -26,14 +26,18 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgradeable;
+import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
+
+import java.io.IOException;
 
 /**
  * Created by Prospector
@@ -45,11 +49,15 @@ public class GuiBase extends GuiContainer {
 	public TRBuilder builder = new TRBuilder();
 	public TileEntity tile;
 	public BuiltContainer container;
+	public static boolean showSlotConfig = false;
+
+	private boolean upgrades;
 
 	public GuiBase(EntityPlayer player, TileEntity tile, BuiltContainer container) {
 		super(container);
 		this.tile = tile;
 		this.container = container;
+		showSlotConfig = false;
 	}
 
 	protected void drawSlot(int x, int y, Layer layer) {
@@ -106,6 +114,7 @@ public class GuiBase extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
+		GuiSlotConfiguration.init(this);
 	}
 
 	@Override
@@ -119,8 +128,11 @@ public class GuiBase extends GuiContainer {
 			IUpgradeable upgradeable = (IUpgradeable) tile;
 			if (upgradeable.canBeUpgraded()) {
 				builder.drawUpgrades(this, upgradeable, guiLeft, guiTop);
+				upgrades = true;
 			}
 		}
+		builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades);
+
 	}
 
 	public boolean drawPlayerSlots() {
@@ -135,6 +147,9 @@ public class GuiBase extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		drawTitle();
+		if(showSlotConfig){
+			GuiSlotConfiguration.draw(this, mouseX, mouseY);
+		}
 	}
 
 	@Override
@@ -177,6 +192,58 @@ public class GuiBase extends GuiContainer {
 			factorY = guiTop;
 		}
 		buttonList.add(new GuiButtonPowerBar(id, x + factorX, y + factorY, this, layer));
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		if(showSlotConfig){
+			if(GuiSlotConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this)){
+				return;
+			}
+		}
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+	}
+
+	@Override
+	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+		if(showSlotConfig){
+			GuiSlotConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
+		}
+		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+	}
+
+	@Override
+	protected void mouseReleased(int mouseX, int mouseY, int state) {
+		int offset = 0;
+		if(!upgrades){
+			offset = 80;
+		}
+		if(isPointInRegion(-26, 84 - offset, 30, 30, mouseX, mouseY)){
+			showSlotConfig = !showSlotConfig;
+			if(!showSlotConfig){
+				GuiSlotConfiguration.reset();
+			}
+		}
+		if(showSlotConfig){
+			if(GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this)){
+				return;
+			}
+		}
+		super.mouseReleased(mouseX, mouseY, state);
+	}
+
+	@Override
+	public void onGuiClosed() {
+		showSlotConfig = false;
+		super.onGuiClosed();
+	}
+
+	public boolean isPointInRect(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
+		return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+	}
+
+	public TileLegacyMachineBase getMachine(){
+		return (TileLegacyMachineBase) tile;
 	}
 
 	//TODO

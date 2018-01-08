@@ -31,8 +31,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.ForgeModContainer;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.api.IToolDrop;
+import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -180,16 +180,6 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 			.tile(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this);
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return TileSolidFuelGenerator.getItemBurnTime(itemStackIn) != 0;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { fuelSlot };
 	}
 
 	@Override

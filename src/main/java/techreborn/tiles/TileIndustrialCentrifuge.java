@@ -29,9 +29,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IListInfoProvider;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -42,7 +42,6 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.items.DynamicCell;
 import techreborn.lib.ModInfo;
 
 import java.util.List;
@@ -103,23 +102,6 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 		super.writeToNBT(tagCompound);
 		this.crafter.writeToNBT(tagCompound);
 		return tagCompound;
-	}
-
-	// ISidedInventory
-
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return side == EnumFacing.DOWN ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return itemStackIn.isItemEqual(DynamicCell.getEmptyCell(1).copy()) ? index == 1 : index == 0;
-	}
-
-	@Override
-	public boolean canExtractItem(final int slotIndex, final ItemStack itemStack, final EnumFacing side) {
-		return slotIndex >= 2 && slotIndex <= 5;
 	}
 
 	@Override

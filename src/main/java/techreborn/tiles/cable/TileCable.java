@@ -24,9 +24,6 @@
 
 package techreborn.tiles.cable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -44,6 +41,9 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by modmuss50 on 19/05/2017.

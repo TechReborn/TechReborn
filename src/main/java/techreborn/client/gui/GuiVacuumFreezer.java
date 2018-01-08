@@ -24,8 +24,6 @@
 
 package techreborn.client.gui;
 
-import java.io.IOException;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,6 +36,8 @@ import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.multiblock.TileVacuumFreezer;
+
+import java.io.IOException;
 
 public class GuiVacuumFreezer extends GuiBase {
 
@@ -102,7 +102,7 @@ public class GuiVacuumFreezer extends GuiBase {
 	@Override
 	public void actionPerformed(final GuiButton button) throws IOException {
 		super.actionPerformed(button);
-		if (button.id == 212) {
+		if (button.id == 212 && !GuiBase.showSlotConfig) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.

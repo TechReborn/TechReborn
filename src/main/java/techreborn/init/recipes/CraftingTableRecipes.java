@@ -40,11 +40,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.DynamicCell;
-import techreborn.items.ItemDustsSmall;
-import techreborn.items.ItemNuggets;
-import techreborn.items.ItemParts;
-import techreborn.items.ItemUpgrades;
+import techreborn.items.*;
 
 /**
  * Created by Prospector
@@ -90,8 +86,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 		}
 		
 		//Upgrades
-		registerShaped(ItemUpgrades.getUpgradeByName("injection"), "CHC", "PSP", "PPP", 'S', "chestWood", 'C', "circuitBasic", 'P', "plateIron", 'H', getStack(Blocks.HOPPER));
-		registerShaped(ItemUpgrades.getUpgradeByName("ejection"), "CSC", "PHP", "PPP", 'S', "chestWood", 'C', "circuitBasic", 'P', "plateIron", 'H', getStack(Blocks.HOPPER));
 		registerShaped(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P', "plankWood", 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic", 'B', "reBattery");
 		registerShaped(ItemUpgrades.getUpgradeByName("overclock"), "TTT", "WCW", 'T', getMaterial("coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
 		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2), " T ", "WCW", 'T', getMaterial("helium_coolant_triple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");

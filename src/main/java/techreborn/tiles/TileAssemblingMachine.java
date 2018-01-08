@@ -25,12 +25,11 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
@@ -45,7 +44,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAssemblingMachine extends TilePowerAcceptor
-	implements IToolDrop, ISidedInventory, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -136,20 +135,6 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 		return this.crafter;
 	}
 
-	@Override
-	public int[] getSlotsForFace(final EnumFacing side) {
-		return new int[] { 0, 1, 2 };
-	}
-
-	@Override
-	public boolean canInsertItem(final int index, final ItemStack itemStackIn, final EnumFacing direction) {
-		return index == 0 || index == 1;
-	}
-
-	@Override
-	public boolean canExtractItem(final int index, final ItemStack stack, final EnumFacing direction) {
-		return index == 2;
-	}
 
 	@SuppressWarnings("deprecation")
 	@Override
