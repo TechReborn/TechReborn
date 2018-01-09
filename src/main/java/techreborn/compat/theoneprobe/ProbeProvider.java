@@ -32,6 +32,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -78,6 +79,7 @@ public class ProbeProvider implements IProbeInfoProvider {
 		return "TechReborn";
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
 		euStyle = new ProgressStyle().backgroundColor(0xFF8B8B8B).borderColor(0xFF373737).alternateFilledColor(PowerSystem.getDisplayPower().altColour).filledColor(PowerSystem.getDisplayPower().colour);
@@ -102,7 +104,7 @@ public class ProbeProvider implements IProbeInfoProvider {
 			TileLegacyMachineBase legacyMachineBase = (TileLegacyMachineBase) tile;
 			if (legacyMachineBase.getInventoryForTile().isPresent()) {
 				if (player.isSneaking()) {
-					probeInfo.text("Inventory");
+					probeInfo.text(I18n.translateToLocal("techreborn.tooltip.inventory"));
 				}
 				Inventory inventory = legacyMachineBase.getInventoryForTile().get();
 				if(!inventory.isEmpty()){
@@ -116,7 +118,7 @@ public class ProbeProvider implements IProbeInfoProvider {
 			}
 			if (!legacyMachineBase.upgradeInventory.isEmpty() && player.isSneaking()) {
 				probeInfo.horizontal();
-				probeInfo.text("Upgrades");
+				probeInfo.text(I18n.translateToLocal("techreborn.tooltip.upgrades"));
 				List<ItemStack> stacks = Arrays.stream(legacyMachineBase.upgradeInventory.contents).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
 				try {
 					methodHandle_addStacks.invoke(probeInfo, world, null, stacks, player.isSneaking());
