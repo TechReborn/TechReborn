@@ -1,5 +1,5 @@
 
-item.missingRecipe.name=Faltando um Placeholde de Receita
+item.missingRecipe.name=Faltando um Marcador de Receita
 
 itemGroup.techreborn=Tech Reborn
 
@@ -34,8 +34,8 @@ tile.techreborn:chemical_reactor.name=Reator Químico
 tile.techreborn:dragon_egg_syphon.name=Dragon Egg Energy Siphon
 tile.techreborn:interdimensional_su.name=Cubo de Energia Transdimensional
 tile.techreborn:adjustable_su.name=Cubo de Energia Ajustável
-tile.techreborn:lapotronic_su.name=Controlador LESU
-tile.techreborn:lsu_storage.name=Armazenamento LESU
+tile.techreborn:lapotronic_su.name=Controlador de UAEL
+tile.techreborn:lsu_storage.name=Unidade de Armazenamento de Energia Lapotrônica (UAEL)
 tile.techreborn:distillation_tower.name=Torre de Destilação
 tile.techreborn:electric_crafting_table.name=Mesa de Auto-Fabricação Automática
 tile.techreborn:vacuum_freezer.name=Congelador à Vacuo
