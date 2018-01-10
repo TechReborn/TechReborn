@@ -32,6 +32,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -232,13 +233,15 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
         return compound;
     }
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 		if (isRealTile) {
-			info.add(TextFormatting.GRAY + "Transfer Rate: " + TextFormatting.GOLD
+			info.add(TextFormatting.GRAY + I18n.translateToLocal("techreborn.tooltip.transferRate") + ": "
+					+ TextFormatting.GOLD
 					+ PowerSystem.getLocaliszedPowerFormatted(this.transferRate / RebornCoreConfig.euPerFU) + "/t");
-			info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD
-					+ StringUtils.toFirstCapitalAllLowercase(this.cableType.tier.toString()));
+			info.add(TextFormatting.GRAY + I18n.translateToLocal("techreborn.tooltip.tier") + ": "
+					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(this.cableType.tier.toString()));
 		}
 	}
 }

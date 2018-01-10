@@ -715,6 +715,8 @@ tooltip.upBroken=Upgrades DO NOT function!
 tooltip.ingredient=Currently only a crafting ingredient
 techreborn.tooltip.inventory=Inventory
 techreborn.tooltip.upgrades=Upgrades
+techreborn.tooltip.transferRate=Transfer Rate
+techreborn.tooltip.tier=Tier
 
 #Advancements
 
