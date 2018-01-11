@@ -234,8 +234,8 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "dustDiamond", 'G', "blockGlass");
 			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "gemDiamond", 'G', "blockGlass");
 			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "dustDiamond", 'G', "blockGlass");
-			registerShapeless(getMaterial("carbon_fiber", Type.PART), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST), getMaterial("coal", Type.DUST));
-			registerShapeless(getMaterial("carbon_fiber", Type.PART), getCell("carbon"), getCell("carbon"), getCell("carbon"), getCell("carbon"), getCell("carbon"), getCell("carbon"), getCell("carbon"), getCell("carbon"), getCell("carbon"));
+			registerShaped(getMaterial("carbon_fiber", Type.PART), " C ", "C C", " C ", 'C', "dustCoal");
+			registerShaped(getMaterial("carbon_fiber", Type.PART), "CCC", "C C", "CCC", 'C', getCell("carbon"));
 			registerShapeless(getMaterial("carbon_mesh", Type.PART), getMaterial("carbon_fiber", Type.PART), getMaterial("carbon_fiber", Type.PART));
 			registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', "ingotRefinedIron", 'S', Items.REDSTONE, 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
