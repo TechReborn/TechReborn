@@ -495,6 +495,7 @@ public class ModBlocks {
 		OreUtil.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
 		OreUtil.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
 		OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
+		OreUtil.registerOre("blockBronze", BlockStorage.getStorageBlockByName("bronze"));
 		OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
 		OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
 		OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
