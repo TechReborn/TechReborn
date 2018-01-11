@@ -1,10 +1,10 @@
 
-item.missingRecipe.name=Faltando um Placeholder de Receita
+item.missingRecipe.name=Faltando um Marcador de Receita
 
 itemGroup.techreborn=Tech Reborn
 
 #machines
-tile.techreborn:pump.name=Bomba
+tile.techreborn:pump.name=Bomba de Fluidos
 tile.techreborn:gas_turbine.name=Turbina à Gás
 tile.techreborn:industrial_block.name=Industrial
 tile.techreborn:thermal_generator.name=Gerador Térmico
@@ -34,8 +34,8 @@ tile.techreborn:chemical_reactor.name=Reator Químico
 tile.techreborn:dragon_egg_syphon.name=Dragon Egg Energy Siphon
 tile.techreborn:interdimensional_su.name=Cubo de Energia Transdimensional
 tile.techreborn:adjustable_su.name=Cubo de Energia Ajustável
-tile.techreborn:lapotronic_su.name=Controlador LESU
-tile.techreborn:lsu_storage.name=Armazenamento LESU
+tile.techreborn:lapotronic_su.name=Controlador de UAEL
+tile.techreborn:lsu_storage.name=Unidade de Armazenamento de Energia Lapotrônica (UAEL)
 tile.techreborn:distillation_tower.name=Torre de Destilação
 tile.techreborn:electric_crafting_table.name=Mesa de Auto-Fabricação Automática
 tile.techreborn:vacuum_freezer.name=Congelador à Vacuo
@@ -72,14 +72,14 @@ tile.techreborn:iron_furnace.name=Fornalha de Ferro
 tile.techreborn:recycler.name=Reciclador
 tile.techreborn:scrapboxinator.name=Sucateira
 tile.techreborn:low_voltage_su.name=Caixa de Baterias
-tile.techreborn:medium_voltage_su.name=MFE
-tile.techreborn:high_voltage_su.name=MFSU
+tile.techreborn:medium_voltage_su.name=Transmissor de Energia Multi-funcional
+tile.techreborn:high_voltage_su.name=Unidade de Armazenamento Multi-funcional
 tile.techreborn:reinforced_glass.name=Vidro Reforçado
 tile.techreborn:nuke.name=Bomba Nuke
-tile.techreborn:lv_transformer.name=Transformador BV
-tile.techreborn:mv_transformer.name=Transformador MV
-tile.techreborn:hv_transformer.name=Transformador AV
-tile.techreborn:ev_transformer.name=Transformador EV
+tile.techreborn:lv_transformer.name=Transformador de Baixa Voltagem
+tile.techreborn:mv_transformer.name=Transformador de Média Voltagem
+tile.techreborn:hv_transformer.name=Transformador de Alta Voltagem
+tile.techreborn:ev_transformer.name=Transformador de Voltagem Extrema
 tile.techreborn:auto_crafting_table.name=Mesa de Auto-Fabricação
 
 
@@ -92,6 +92,8 @@ tile.techreborn:rubber_sapling.name=Muda de Seringueira
 tile.techreborn:refined_iron_fence.name=Cerca de Ferro
 tile.techreborn:lamp_incandescent.name=Lâmpada Incandescente
 tile.techreborn:lamp_led.name=Lâmpada de LED
+
+tile.techreborn:alarm.name=Alarme
 
 #Ores
 tile.techreborn:ore.galena.name=Minério de Galena
@@ -127,6 +129,7 @@ tile.techreborn:storage.nickel.name=Bloco de Níquel
 tile.techreborn:storage.invar.name=Bloco de Invar
 tile.techreborn:storage.osmium.name=Bloco de Ósmio
 tile.techreborn:storage.iridium.name=Bloco de Irídio
+tile.techreborn:storage.bronze.name=Bloco de Bronze
 tile.techreborn:storage2.tungstensteel.name=Bloco de Aço de Tungstênio
 tile.techreborn:storage2.lodestone.name=Bloco de Pedra-ímã
 tile.techreborn:storage2.tellurium.name=Bloco de Telúrio
@@ -374,7 +377,7 @@ item.techreborn.dustsmall.diorite.name=Um Pouco de Pó de Diorito
 item.techreborn.dustsmall.granite.name=Um Pouco de Pó de Granito
 
 item.techreborn.cell.name=Célula Vazia
-item.techreborn.cell.fluid.name=Célula de $fluid$
+item.techreborn.cell.fluid.name=Célula com $fluid$
 item.techreborn.rebattery.name=Bateria
 item.techreborn.lithiumBattery.name=Bateria de Lítio
 item.techreborn.energyCrystal.name=Cristal de Energia
@@ -710,6 +713,10 @@ entity.nuke.name=Bomba Nuke
 tooltip.wip=WIP Em desenvolvimento
 tooltip.upBroken=Atualizações NÃO funcionam!
 tooltip.ingredient=Atualmente, apenas um ingrediente de fabricação
+techreborn.tooltip.inventory=Inventário
+techreborn.tooltip.upgrades=Melhorias
+techreborn.tooltip.transferRate=Taxa de Tranferência
+techreborn.tooltip.tier=Nível
 
 #Advancements
 
