@@ -87,7 +87,7 @@ public class DynamicCell extends Item {
 		if (!worldIn.isRemote) {
 			RayTraceResult result = rayTrace(worldIn, playerIn, true);
 
-			if (result.typeOfHit == RayTraceResult.Type.BLOCK) {
+			if (result != null && result.typeOfHit == RayTraceResult.Type.BLOCK) {
 				BlockPos pos = result.getBlockPos();
 				IBlockState state = worldIn.getBlockState(pos);
 				Block block = state.getBlock();
