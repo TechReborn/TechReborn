@@ -172,6 +172,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor implements IToo
 	
 	@Override
 	public void onLoad() {
+		super.onLoad();
 		this.checkCoils();
     }
 
