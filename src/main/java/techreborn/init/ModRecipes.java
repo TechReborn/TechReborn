@@ -47,6 +47,7 @@ import techreborn.init.recipes.*;
 import techreborn.items.*;
 import techreborn.lib.ModInfo;
 
+import java.security.InvalidParameterException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -124,40 +125,44 @@ public class ModRecipes {
 
 	private static void addCompressorRecipes() {
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("advanced_alloy"),
-			ItemPlates.getPlateByName("advanced_alloy"), 400, 20));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig(), ItemPlates.getPlateByName("carbon"), 400,
-				2));
+				ItemPlates.getPlateByName("advanced_alloy"), 400, 20));
+		RecipeHandler.addRecipe(new CompressorRecipe(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig(),
+				ItemPlates.getPlateByName("carbon"), 400, 2));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("plankWood", 1),
+				OreUtil.getStackFromName("plateWood", 1), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 1),
+				ItemPlates.getPlateByName("lazurite", 1), 300, 4));
 
+		ItemStack plate;
 		for (String ore : OreUtil.oreNames) {
 			if (ore.equals("iridium")) {
 				continue;
 			}
-			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("ingot" + OreUtil.capitalizeFirstLetter(ore))) {
-
-				RecipeHandler.addRecipe(
-					new CompressorRecipe(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
-						4));
-			}
-			if (OreUtil.doesOreExistAndValid("plate" + OreUtil.capitalizeFirstLetter(ore)) && OreUtil.doesOreExistAndValid("gem" + OreUtil.capitalizeFirstLetter(ore))) {
-
-				RecipeHandler.addRecipe(
-					new CompressorRecipe(OreUtil.getStackFromName("gem" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1), 300,
-						4));
-			}
-
-			if (OreUtil.hasPlate(ore) && OreUtil.hasBlock(ore)) {
-				RecipeHandler.addRecipe(
-					new CompressorRecipe(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 9), 300,
-						4));
+			if (OreUtil.hasPlate(ore)) {
+				try {
+					plate = ItemPlates.getPlateByName(ore, 1);
+				} catch (InvalidParameterException e) {
+					plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1);
+				}
+				if (plate.isEmpty()) {
+					continue;				
+				}
+				if (OreUtil.hasIngot(ore)) {
+					RecipeHandler.addRecipe(new CompressorRecipe(
+							OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
+				}
+				if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
+					RecipeHandler.addRecipe(new CompressorRecipe(
+							OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
+				}
+				if (OreUtil.hasBlock(ore)) {
+					ItemStack morePlates = plate.copy();
+					morePlates.setCount(9);
+					RecipeHandler.addRecipe(new CompressorRecipe(
+							OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), morePlates, 300, 4));
+				}
 			}
 		}
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(OreUtil.getStackFromName("plankWood", 1), OreUtil.getStackFromName("plateWood", 1), 300,
-				4));
-		RecipeHandler.addRecipe(
-			new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 8), OreUtil.getStackFromName("plateLazurite", 1), 300,
-				4));
 	}
 
 	static void addGrinderRecipes() {
