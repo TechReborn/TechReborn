@@ -46,12 +46,15 @@ repositories {
 		url "http://maven.blamejared.com/"
 	}
 	maven {
+		// Tesla
 		url 'http://maven.epoxide.xyz'
 	}
 	maven {
+		// TheOneProbe
 		url "http://maven.tterrag.com/"
 	}
 	 maven {
+	 	//IC2
 	 	name = "ic2"
 	 	url = "http://maven.ic2.player.to/"
 	 }
@@ -121,7 +124,7 @@ dependencies {
 
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
 
-	compile name: 'buildcraft', version: '7.99.13', ext: 'jar'
+	compile name: 'buildcraft', version: '7.99.14', ext: 'jar'
 }
 
 
