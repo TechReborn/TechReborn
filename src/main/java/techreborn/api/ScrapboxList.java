@@ -33,6 +33,7 @@ import java.util.List;
  * Use this to add items to the scrap box and to check if an item is present
  * there
  */
+@Deprecated
 public class ScrapboxList {
 
 	/**
