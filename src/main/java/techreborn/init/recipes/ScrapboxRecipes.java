@@ -30,7 +30,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.ScrapboxList;
 import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -215,17 +214,13 @@ public class ScrapboxRecipes extends RecipeMethods {
 		registerDyable(Blocks.STAINED_GLASS);
 		registerDyable(Blocks.STAINED_GLASS_PANE);
 		registerDyable(Blocks.STAINED_HARDENED_CLAY);
-
-		for (int i = 0; i < ScrapboxList.stacks.size(); i++) {
-			RecipeHandler.addRecipe(new ScrapboxRecipe(ScrapboxList.stacks.get(i)));
-		}
 	}
 
-	static void register(ItemStack stack) {
-		if(stack == null || stack.isEmpty()){
+	static void register(ItemStack output) {
+		if(output == null || output.isEmpty()){
 			return;
 		}
-		ScrapboxList.stacks.add(stack);
+		RecipeHandler.addRecipe(new ScrapboxRecipe(output));
 	}
 
 	static void registerDyable(Item item) {

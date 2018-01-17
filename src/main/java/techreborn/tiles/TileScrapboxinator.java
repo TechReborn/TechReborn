@@ -24,18 +24,22 @@
 
 package techreborn.tiles;
 
+import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
+import reborncore.api.recipe.IBaseRecipeType;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import techreborn.api.ScrapboxList;
+import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -107,8 +111,9 @@ public class TileScrapboxinator extends TilePowerAcceptor
 
 	public void recycleItems() {
 		if (this.canOpen() && !this.world.isRemote) {
-			int random = world.rand.nextInt(ScrapboxList.stacks.size());
-			ItemStack out = ScrapboxList.stacks.get(random).copy();
+			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe);
+			int random = world.rand.nextInt(scrapboxRecipeList.size());
+			ItemStack out = scrapboxRecipeList.get(random).getOutput(0);
 			if (this.getStackInSlot(this.output).isEmpty()) {
 				this.useEnergy(cost);
 				this.setInventorySlotContents(this.output, out);
@@ -125,8 +130,9 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	}
 
 	public boolean canOpen() {
+		List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe);	
 		return !this.getStackInSlot(this.input1).isEmpty() && this.getStackInSlot(this.output).isEmpty()
-				&& ScrapboxList.stacks.size() > 0;
+				&& scrapboxRecipeList.size() > 0;
 	}
 
 	public boolean isBurning() {
