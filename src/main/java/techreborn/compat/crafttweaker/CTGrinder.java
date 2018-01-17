@@ -58,6 +58,11 @@ public class CTGrinder extends CTGeneric {
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
+	
+	@ZenMethod
+	public static void removeAll(){
+		CraftTweakerAPI.apply(new RemoveAll(getMachineName()));
+	}
 
 	public static String getMachineName() {
 		return Reference.grinderRecipe;

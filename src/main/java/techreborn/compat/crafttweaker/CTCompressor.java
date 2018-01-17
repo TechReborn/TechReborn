@@ -43,10 +43,7 @@ public class CTCompressor extends CTGeneric {
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IIngredient input1, int ticktime, int euTick) {
 		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
-
-		//public CompressorRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
 		CompressorRecipe r = new CompressorRecipe(oInput1, CraftTweakerCompat.toStack(output1), ticktime, euTick);
-
 		addRecipe(r);
 	}
 
@@ -58,6 +55,11 @@ public class CTCompressor extends CTGeneric {
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
+	}
+	
+	@ZenMethod
+	public static void removeAll(){
+		CraftTweakerAPI.apply(new RemoveAll(getMachineName()));
 	}
 
 	public static String getMachineName() {

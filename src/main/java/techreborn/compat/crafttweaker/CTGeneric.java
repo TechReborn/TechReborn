@@ -32,16 +32,12 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.ItemUtils;
-import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.BaseRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CTGeneric {
-	public static String getMachineName() {
-		return null;
-	}
 
 	public static void addRecipe(BaseRecipe recipe) {
 		CraftTweakerAPI.apply(new Add(recipe));
@@ -146,10 +142,5 @@ public class CTGeneric {
 		public String describe() {
 			return "Removing all recipes from " + name;
 		}
-	}
-
-	@ZenMethod
-	public static void removeAll(){
-		CraftTweakerAPI.apply(new RemoveAll(getMachineName()));
 	}
 }
