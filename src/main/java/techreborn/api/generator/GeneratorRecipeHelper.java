@@ -27,6 +27,7 @@ package techreborn.api.generator;
 import net.minecraftforge.fluids.Fluid;
 
 import java.util.EnumMap;
+import java.util.Optional;
 
 public class GeneratorRecipeHelper {
 
@@ -61,5 +62,19 @@ public class GeneratorRecipeHelper {
 	 */
 	public static FluidGeneratorRecipeList getFluidRecipesForGenerator(EFluidGenerator generatorType) {
 		return fluidRecipes.get(generatorType);
+	}
+	
+	/**
+	 *  Removes recipe
+	 *  
+	 * @param generatorType A value of the EFluidGenerator type for which we should remove recipe
+	 * @param fluidType Fluid to remove from generator recipes
+	 */
+	public static void removeFluidRecipe(EFluidGenerator generatorType, Fluid fluidType) {
+		FluidGeneratorRecipeList recipeList = getFluidRecipesForGenerator(generatorType);
+		Optional<FluidGeneratorRecipe> recipe = recipeList.getRecipeForFluid(fluidType);
+		if (recipe.isPresent()) {
+			recipeList.removeRecipe(recipe.get());
+		}
 	}
 }
