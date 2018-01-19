@@ -82,6 +82,8 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if(!(entityLiving instanceof EntityPlayer))
 			return false;
 		RayTraceResult raytrace= RayTracer.retrace((EntityPlayer) entityLiving);
+		if(raytrace==null)
+			return false;
 		EnumFacing enumfacing = raytrace.sideHit;
 		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
 			for (int i = -1; i < 2; i++) {
