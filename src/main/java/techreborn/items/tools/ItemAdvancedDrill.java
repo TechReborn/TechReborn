@@ -126,7 +126,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		BlockEvent.HarvestDropsEvent event = new BlockEvent.HarvestDropsEvent(world, pos, blockState, 0, 1, dropList, (EntityPlayer) entityLiving, false);
 		MinecraftForge.EVENT_BUS.post(event);
 		for (ItemStack drop : dropList) {
-			if (!drop.isEmpty() && drop.getCount() > 0) {
+			if (drop.getCount() > 0) {
 				stuff.add(drop);
 			}
 		}
