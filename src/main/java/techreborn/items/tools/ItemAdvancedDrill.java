@@ -24,7 +24,6 @@
 
 package techreborn.items.tools;
 
-import codechicken.lib.raytracer.RayTracer;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -81,7 +80,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
 		if(!(entityLiving instanceof EntityPlayer))
 			return false;
-		RayTraceResult raytrace= RayTracer.retrace((EntityPlayer) entityLiving);
+		RayTraceResult raytrace= rayTrace(worldIn,  (EntityPlayer) entityLiving, false);
 		if(raytrace==null)
 			return false;
 		EnumFacing enumfacing = raytrace.sideHit;
