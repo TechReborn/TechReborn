@@ -38,7 +38,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.Reference;
 import techreborn.api.recipe.BaseRecipe;
-import techreborn.api.recipe.ScrapboxRecipe;
+import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.compat.crafttweaker.CTGeneric.Remove;
 
 /**
@@ -49,7 +49,7 @@ public class CTScrapbox {
 
 	@ZenMethod
 	public static void addScrapboxDrop(IIngredient input) {
-		RecipeHandler.addRecipe(new ScrapboxRecipe(CraftTweakerMC.getItemStack(input)));
+		RecipeHandler.addRecipe(new ScrapboxRecipe(CraftTweakerMC.getItemStack(input), 20, 2));
 	}
 
 	@ZenMethod

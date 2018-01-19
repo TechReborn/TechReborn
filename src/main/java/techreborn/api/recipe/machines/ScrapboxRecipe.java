@@ -22,18 +22,21 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe;
+package techreborn.api.recipe.machines;
 
 import net.minecraft.item.ItemStack;
 import techreborn.api.Reference;
 import techreborn.api.TechRebornAPI;
+import techreborn.api.recipe.BaseRecipe;
 
 public class ScrapboxRecipe extends BaseRecipe {
 
-	public ScrapboxRecipe(ItemStack output) {
-		super(Reference.scrapboxRecipe, 0, 0);
-		addInput(new ItemStack(TechRebornAPI.getItem("SCRAP_BOX")));
-		addOutput(output);
+	public ScrapboxRecipe(ItemStack output, int tickTime, int euPerTick) {
+		super(Reference.scrapboxRecipe, tickTime, euPerTick);
+		if (output != null) {
+			addInput(new ItemStack(TechRebornAPI.getItem("SCRAP_BOX")));
+			addOutput(output);
+		}
 	}
 
 	@Override

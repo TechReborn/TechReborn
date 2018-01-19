@@ -53,7 +53,6 @@ import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.api.recipe.ScrapboxRecipe;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
@@ -311,6 +310,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiAlloySmelter.class, 150, 4, 18, 18, RecipeCategoryUids.ALLOY_SMELTER);
 		addRecipeClickArea(GuiPlasmaGenerator.class, 150, 4, 18, 18, EFluidGenerator.PLASMA.getRecipeID());
 		addRecipeClickArea(GuiDistillationTower.class, 150, 4, 18, 18, RecipeCategoryUids.DISTILLATION_TOWER);
+		addRecipeClickArea(GuiScrapboxinator.class, 150, 4, 18, 18, RecipeCategoryUids.SCRAPBOX);
 
 		//OLD ONES
 		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,

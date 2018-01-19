@@ -24,22 +24,19 @@
 
 package techreborn.tiles;
 
-import java.util.List;
-
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
+import techreborn.api.recipe.ScrapboxRecipeCrafter;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -49,127 +46,55 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileScrapboxinator extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
 
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxEnergy", comment = "Scrapboxinator Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorEnergyCost", comment = "Scrapboxinator Energy Cost (Value in EU)")
-	public static int cost = 20;
-	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorRunTime", comment = "Scrapboxinator Run Time")
-	public static int runTime = 10;
-	//  @ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorWrenchDropRate", comment = "Scrapboxinator Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
 
-	public Inventory inventory = new Inventory(6, "TileScrapboxinator", 64, this);
-
-	public int progress;
-	public int input1 = 0;
-	public int output = 1;
+	public Inventory inventory = new Inventory(3, "TileScrapboxinator", 64, this);
+	public RecipeCrafter crafter;
 
 	public TileScrapboxinator() {
 		super();
+		final int[] inputs = new int[] { 0 };
+		final int[] outputs = new int[] { 1 };
+		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
-
-	public int gaugeProgressScaled(final int scale) {
-		return this.progress * scale / runTime;
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks > 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
 	}
-
+	
+	// TilePowerAcceptor
 	@Override
 	public void update() {
-		final boolean burning = this.isBurning();
-		boolean updateInventory = false;
-		if (this.getEnergy() <= cost && this.canOpen()) {
-			if (this.getEnergy() > cost) {
-				updateInventory = true;
-			}
-		}
-		if (this.isBurning() && this.canOpen() && !this.isEmpty()) {
-			this.updateState();
-
-			this.progress++;
-			if (this.progress >= runTime) {
-				this.progress = 0;
-				this.recycleItems();
-				updateInventory = true;
-			}
-		} else {
-			if(this.isEmpty()) {
-				progress = 0;
-			}
-			this.updateState();
-		}
-
-		if (burning != this.isBurning()) {
-			updateInventory = true;
-		}
-		if (updateInventory) {
-			this.markDirty();
-		}
+		if (!this.world.isRemote) {
+			super.update();
+			this.charge(2);
+		}	
 	}
-
-	public void recycleItems() {
-		if (this.canOpen() && !this.world.isRemote) {
-			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe);
-			int random = world.rand.nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).getOutput(0);
-			if (this.getStackInSlot(this.output).isEmpty()) {
-				this.useEnergy(cost);
-				this.setInventorySlotContents(this.output, out);
-			}
-
-			if (this.getStackInSlot(this.input1).getCount() > 1) {
-				this.useEnergy(cost);
-				this.decrStackSize(this.input1, 1);
-			} else {
-				this.useEnergy(cost);
-				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
-			}
-		}
-	}
-
-	public boolean canOpen() {
-		List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe);	
-		return !this.getStackInSlot(this.input1).isEmpty() && this.getStackInSlot(this.output).isEmpty()
-				&& scrapboxRecipeList.size() > 0;
-	}
-
-	public boolean isBurning() {
-		return this.getEnergy() > cost;
-	}
-
-	public void updateState() {
-		final IBlockState blockState = this.world.getBlockState(this.pos);
-		if (blockState.getBlock() instanceof BlockMachineBase) {
-			final BlockMachineBase blockMachineBase = (BlockMachineBase) blockState.getBlock();
-			if (blockState.getValue(BlockMachineBase.ACTIVE) != this.progress > 0)
-				blockMachineBase.setActive(this.progress > 0, this.world, this.pos);
-		}
+	
+	@Override
+	public void readFromNBT(final NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		this.crafter.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.SCRAPBOXINATOR, 1);
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		this.crafter.writeToNBT(tagCompound);
+		return tagCompound;
 	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
 	}
 
 	@Override
@@ -181,30 +106,46 @@ public class TileScrapboxinator extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
+	
+	@Override
+	public boolean canAcceptEnergy(final EnumFacing direction) {
+		return true;
+	}
 
+	@Override
+	public boolean canProvideEnergy(final EnumFacing direction) {
+		return false;
+	}
+	
+	// TileLegacyMachineBase
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.SCRAPBOXINATOR, 1);
+	}
+
+	//IInvetoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
-	}
-
-	public int getProgress() {
-		return this.progress;
-	}
-
-	public void setProgress(final int progress) {
-		this.progress = progress;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).filterSlot(0, 56, 34, stack -> stack.getItem() == ModItems.SCRAP_BOX)
-			.outputSlot(1, 116, 35).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
-			.addInventory().create(this);
+		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).filterSlot(0, 55, 45, stack -> stack.getItem() == ModItems.SCRAP_BOX).outputSlot(1, 101, 45)
+				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
+	}
+
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 }
