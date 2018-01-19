@@ -24,6 +24,7 @@
 
 package techreborn.items.tools;
 
+import codechicken.lib.raytracer.RayTracer;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,6 +36,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
@@ -77,13 +79,10 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		//TODO raytrace
-		EnumFacing enumfacing = entityLiving.getHorizontalFacing().getOpposite();
-		if (entityLiving.rotationPitch < -50) {
-			enumfacing = EnumFacing.DOWN;
-		} else if (entityLiving.rotationPitch > 50) {
-			enumfacing = EnumFacing.UP;
-		}
+		if(!(entityLiving instanceof EntityPlayer))
+			return false;
+		RayTraceResult raytrace= RayTracer.retrace((EntityPlayer) entityLiving);
+		EnumFacing enumfacing = raytrace.sideHit;
 		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
