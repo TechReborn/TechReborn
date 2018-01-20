@@ -30,9 +30,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -47,7 +45,10 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ItemAdvancedDrill extends ItemDrill {
 
@@ -122,7 +123,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		for(BlockPos newPos :getTargetBlocks(worldIn, pos, entityLiving)) {
+		for(BlockPos newPos : getTargetBlocks(worldIn, pos, entityLiving)) {
 			breakBlock(newPos, stack, worldIn, entityLiving, pos);
 		}
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
