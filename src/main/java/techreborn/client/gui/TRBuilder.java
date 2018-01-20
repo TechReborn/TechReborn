@@ -409,13 +409,6 @@ public class TRBuilder extends GuiBuilder {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX - 26, posY + 84 - offset, 157, 148, 30, 30);
 		renderItemStack(new ItemStack(ModItems.WRENCH), posX - 19, posY + 92 - offset);
-		if (isInRect(posX - 19, posY + 92 - offset, 12, 12, mouseX, mouseY)) {
-			List<String> list = new ArrayList<>();
-			list.add("Configure slots");
-			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
-			GlStateManager.disableLighting();
-			GlStateManager.color(1, 1, 1, 1);
-		}
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {

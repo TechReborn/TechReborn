@@ -29,6 +29,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgradeable;
@@ -38,6 +39,8 @@ import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Prospector
@@ -149,6 +152,18 @@ public class GuiBase extends GuiContainer {
 		drawTitle();
 		if(showSlotConfig){
 			GuiSlotConfiguration.draw(this, mouseX, mouseY);
+		}
+
+		int offset = 0;
+		if(!upgrades){
+			offset = 80;
+		}
+		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset, 12, 12, mouseX, mouseY)) {
+			List<String> list = new ArrayList<>();
+			list.add("Configure slots");
+			GuiUtils.drawHoveringText(list,-5,  guiTop + 70 - offset, width, height, -1, mc.fontRenderer);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
 		}
 	}
 
