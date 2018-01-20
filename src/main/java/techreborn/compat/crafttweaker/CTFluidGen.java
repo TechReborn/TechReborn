@@ -58,7 +58,36 @@ public class CTFluidGen {
 		addFluid(EFluidGenerator.PLASMA, fluid, energyPerMb);
 	}
 	
+	@ZenMethod
+	public static void removeThermalFluid(ILiquidStack fluid) {
+		removeFluid(EFluidGenerator.THERMAL, fluid);
+	}
+
+	@ZenMethod
+	public static void removeGasFluid(ILiquidStack fluid) {
+		removeFluid(EFluidGenerator.GAS, fluid);
+	}
+
+	@ZenMethod
+	public static void removeSemiFluid(ILiquidStack fluid) {
+		removeFluid(EFluidGenerator.SEMIFLUID, fluid);
+	}
+
+	@ZenMethod
+	public static void removeDieselFluid(ILiquidStack fluid) {
+		removeFluid(EFluidGenerator.DIESEL, fluid);
+	}
+
+	@ZenMethod
+	public static void removePlasmaFluid(ILiquidStack fluid) {
+		removeFluid(EFluidGenerator.PLASMA, fluid);
+	}
+	
 	private static void addFluid(EFluidGenerator type, ILiquidStack fluid, int energyPerMb) {
 		GeneratorRecipeHelper.registerFluidRecipe(type, CraftTweakerCompat.toFluidStack(fluid).getFluid(), energyPerMb);
+	}
+	
+	private static void removeFluid(EFluidGenerator type, ILiquidStack fluid) {
+		GeneratorRecipeHelper.removeFluidRecipe(type, CraftTweakerCompat.toFluidStack(fluid).getFluid());
 	}
 }

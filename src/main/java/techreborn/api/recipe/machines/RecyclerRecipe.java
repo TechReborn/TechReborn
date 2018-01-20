@@ -22,11 +22,12 @@
  * SOFTWARE.
  */
 
-package techreborn.api.recipe;
+package techreborn.api.recipe.machines;
 
 import net.minecraft.item.ItemStack;
 import techreborn.api.Reference;
 import techreborn.api.TechRebornAPI;
+import techreborn.api.recipe.BaseRecipe;
 
 //THIS is only here to trick JEI into showing recipes for the recycler
 public class RecyclerRecipe extends BaseRecipe {
