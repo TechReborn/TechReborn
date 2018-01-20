@@ -77,6 +77,10 @@ public class ItemAdvancedDrill extends ItemDrill {
 		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
 	}
 
+	public boolean isGoodAOEBlock(IBlockState state) {
+		return !state.getMaterial().isToolNotRequired() || state.getBlock().isToolEffective("pickaxe",state) || state.getBlock().isToolEffective("shovel",state);
+	}
+
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
 		if(!(entityLiving instanceof EntityPlayer))
@@ -84,23 +88,31 @@ public class ItemAdvancedDrill extends ItemDrill {
 		RayTraceResult raytrace= RayTracer.retrace((EntityPlayer) entityLiving);
 		if(raytrace==null)
 			return false;
+		if(!isGoodAOEBlock(worldIn.getBlockState(pos)))
+			return false;
 		EnumFacing enumfacing = raytrace.sideHit;
 		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(i, j, 0), stack, worldIn, entityLiving, pos);
+					BlockPos newPos = pos.add(i,j,0);
+					IBlockState state = worldIn.getBlockState(newPos);
+					breakBlock(newPos, stack, worldIn, entityLiving, pos);
 				}
 			}
 		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(0, j, i), stack, worldIn, entityLiving, pos);
+					BlockPos newPos = pos.add(0, j, i);
+					IBlockState state = worldIn.getBlockState(newPos);
+					breakBlock(newPos, stack, worldIn, entityLiving, pos);
 				}
 			}
 		} else if (enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(j, 0, i), stack, worldIn, entityLiving, pos);
+					BlockPos newPos = pos.add(j, 0, i);
+					IBlockState state = worldIn.getBlockState(newPos);
+					breakBlock(newPos, stack, worldIn, entityLiving, pos);
 				}
 			}
 		}
