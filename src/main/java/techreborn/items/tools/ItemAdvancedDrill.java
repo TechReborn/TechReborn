@@ -30,7 +30,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -45,8 +47,7 @@ import reborncore.common.powerSystem.PoweredItem;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ItemAdvancedDrill extends ItemDrill {
 
@@ -75,35 +76,55 @@ public class ItemAdvancedDrill extends ItemDrill {
 	public boolean canHarvestBlock(IBlockState blockIn) {
 		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
 	}
-
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+	
+	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, EntityLivingBase entityLiving) {
+		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
 		if(!(entityLiving instanceof EntityPlayer))
-			return false;
+			return new HashSet<BlockPos>();
 		RayTraceResult raytrace= rayTrace(worldIn,  (EntityPlayer) entityLiving, false);
-		if(raytrace==null)
-			return false;
 		EnumFacing enumfacing = raytrace.sideHit;
 		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(i, j, 0), stack, worldIn, entityLiving, pos);
+					BlockPos newPos = pos.add(i,j,0);
+					targetBlocks.add(newPos);
 				}
 			}
 		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(0, j, i), stack, worldIn, entityLiving, pos);
+					BlockPos newPos = pos.add(0,j,i);
+					targetBlocks.add(newPos);
 				}
 			}
 		} else if (enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(j, 0, i), stack, worldIn, entityLiving, pos);
+					BlockPos newPos = pos.add(j,0,i);
+					targetBlocks.add(newPos);
 				}
 			}
 		}
+		return targetBlocks;
+	}
 
+	public float getMinSpeed(World worldIn, BlockPos pos, EntityLivingBase entityLiving, ItemStack stack) {
+		Set<BlockPos> positions = getTargetBlocks(worldIn,pos,entityLiving);
+		float min = Short.MAX_VALUE;  //Hopefully this is big enough
+		for(BlockPos position : positions) {
+			IBlockState state = worldIn.getBlockState(pos);
+			float breakSpeed = super.getDestroySpeed(stack,state);
+			if(breakSpeed < min && breakSpeed > 0)
+				min = breakSpeed;
+		}
+		return min;
+	}
+
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+		for(BlockPos newPos :getTargetBlocks(worldIn, pos, entityLiving)) {
+			breakBlock(newPos, stack, worldIn, entityLiving, pos);
+		}
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
