@@ -112,7 +112,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		Set<BlockPos> positions = getTargetBlocks(worldIn,pos,entityLiving);
 		float min = Short.MAX_VALUE;  //Hopefully this is big enough
 		for(BlockPos position : positions) {
-			IBlockState state = worldIn.getBlockState(pos);
+			IBlockState state = worldIn.getBlockState(position);
 			float breakSpeed = super.getDestroySpeed(stack,state);
 			if(breakSpeed < min && breakSpeed > 0)
 				min = breakSpeed;

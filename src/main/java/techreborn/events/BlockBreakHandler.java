@@ -107,7 +107,7 @@ public class BlockBreakHandler {
 			}
 			event.setNewSpeed(speed / blocks);
 		}
-		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_DRILL) {
+		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_DRILL && event.getOriginalSpeed() > 1.0f) {
 			BlockPos pos = event.getPos();
 			World worldIn = event.getEntityPlayer().world;
 			ItemAdvancedDrill drill = new ItemAdvancedDrill();
