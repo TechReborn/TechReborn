@@ -75,7 +75,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		this.ticksSinceLastChange++;
 
 		// Check cells input slot 2 time per second
-		if (this.ticksSinceLastChange >= 10) {
+		if (!world.isRemote && this.ticksSinceLastChange >= 10) {
 			if (!this.inventory.getStackInSlot(0).isEmpty()) {
 				FluidUtils.drainContainers(this.tank, this.inventory, 0, 1);
 				FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType());
