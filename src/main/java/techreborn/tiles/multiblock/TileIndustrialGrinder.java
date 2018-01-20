@@ -114,7 +114,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		
 		this.ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
-		if (this.ticksSinceLastChange >= 10) {
+		if (!world.isRemote && this.ticksSinceLastChange >= 10) {
 			if (!this.inventory.getStackInSlot(1).isEmpty()) {
 				FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
 				FluidUtils.fillContainers(this.tank, this.inventory, 1, 6, this.tank.getFluidType());
@@ -125,6 +125,8 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		if (!world.isRemote && this.getMutliBlock()) {
 			this.charge(7);
 		}
+
+		tank.compareAndUpdate();
 	}
 
 	@Override

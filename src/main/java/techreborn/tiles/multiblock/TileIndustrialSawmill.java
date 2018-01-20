@@ -119,7 +119,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 
 		this.ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
-		if (this.ticksSinceLastChange >= 10) {
+		if (!world.isRemote && this.ticksSinceLastChange >= 10) {
 			if (!this.inventory.getStackInSlot(1).isEmpty()) {
 				FluidUtils.drainContainers(this.tank, this.inventory, 1, 5);
 				FluidUtils.fillContainers(this.tank, this.inventory, 1, 5, this.tank.getFluidType());
@@ -130,6 +130,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 		if (!world.isRemote && this.getMutliBlock()) {
 			this.charge(6);
 		}
+
+		tank.compareAndUpdate();
 	}
 
 	@Override
