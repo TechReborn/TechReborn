@@ -37,7 +37,6 @@ import reborncore.common.IWrenchable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-import slimeknights.tconstruct.plugin.jei.CraftingStationRecipeTransferInfo;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.client.container.IContainerProvider;
