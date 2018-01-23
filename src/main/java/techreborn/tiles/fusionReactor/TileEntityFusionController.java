@@ -87,6 +87,14 @@ public class TileEntityFusionController extends TilePowerAcceptor
 		return false;
 	}
 
+	/**
+	 * Checks if block is fusion coil
+	 * 
+	 * @param x int X coordinate for block
+	 * @param y int Y coordinate for block
+	 * @param z int Z coordinate for block
+	 * @return boolean Returns true if block is fusion coil
+	 */
 	private boolean isCoil(final int x, final int y, final int z) {
 		return this.world.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FUSION_COIL;
 	}
@@ -244,12 +252,17 @@ public class TileEntityFusionController extends TilePowerAcceptor
 		}
 		
 		if (this.currentRecipe != null) {
+			if (this.inventory.hasChanged && !validateReactorRecipe(this.currentRecipe)) {
+				resetCrafter();
+				return;
+			}
+			
 			if (!this.hasStartedCrafting) {
 				if (this.canUseEnergy(this.currentRecipe.getStartEU())) {
 					this.useEnergy(this.currentRecipe.getStartEU());
 					this.hasStartedCrafting = true;
 				}
-			}
+			}	
 
 			if (this.hasStartedCrafting && this.crafingTickTime < this.finalTickTime) {
 				// Power gen
