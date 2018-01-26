@@ -38,6 +38,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
+
+import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -45,6 +47,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
+import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 
 import javax.annotation.Nullable;
@@ -54,7 +57,8 @@ import java.util.List;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-public class TileAutoCraftingTable extends TilePowerAcceptor implements IContainerProvider, IInventoryProvider {
+public class TileAutoCraftingTable extends TilePowerAcceptor
+		implements IContainerProvider, IInventoryProvider, IToolDrop {
 
 	ResourceLocation currentRecipe;
 
@@ -444,5 +448,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor implements IContain
 	@Override
 	public EnumFacing getFacingEnum() {
 		return EnumFacing.NORTH;
+	}
+
+	@Override
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
+		return new ItemStack(ModBlocks.AUTO_CRAFTING_TABLE, 1);
 	}
 }

@@ -30,6 +30,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -47,6 +48,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.IToolDrop;
+import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.PropertyString;
@@ -140,22 +143,51 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityPlayer,
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+			
+		if (tileEntity == null) {
+			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+		}
+		
 		String type = state.getValue(TYPE);
 		String newType = type;
 		TextFormatting color = TextFormatting.GREEN;
-		if (type.equals("all")) {
-			newType = "others";
-			color = TextFormatting.RED;
-		} else if (type.equals("others")) {
-			newType = "you";
-			color = TextFormatting.BLUE;
-		} else if (type.equals("you")) {
-			newType = "all";
+		
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, side, false)) {
+				if (playerIn.isSneaking()) {
+					if (tileEntity instanceof IToolDrop) {
+						ItemStack drop = ((IToolDrop) tileEntity).getToolDrop(playerIn);
+						if (drop == null) {
+							return false;
+						}
+						if (!drop.isEmpty()) {
+							spawnAsEntity(worldIn, pos, drop);
+						}
+						if (!worldIn.isRemote) {
+							worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+						}
+						return true;
+					}
+				} else {
+					if (type.equals("all")) {
+						newType = "others";
+						color = TextFormatting.RED;
+					} else if (type.equals("others")) {
+						newType = "you";
+						color = TextFormatting.BLUE;
+					} else if (type.equals("you")) {
+						newType = "all";
+					}
+					worldIn.setBlockState(pos, state.withProperty(TYPE, newType));
+				}
+			}
 		}
-		world.setBlockState(pos, state.withProperty(TYPE, newType));
-		if (world.isRemote) {
+
+		if (worldIn.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
 				TextFormatting.GRAY + I18n.format("techreborn.message.detects") + " " + color
 					+ StringUtils.toFirstCapital(newType)));

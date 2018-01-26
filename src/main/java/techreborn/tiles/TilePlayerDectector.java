@@ -25,19 +25,22 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.WorldUtils;
+import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TilePlayerDectector extends TilePowerAcceptor {
+public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -127,5 +130,10 @@ public class TilePlayerDectector extends TilePowerAcceptor {
 		super.writeToNBT(tag);
 		tag.setString("ownerID", owenerUdid);
 		return tag;
+	}
+
+	@Override
+	public ItemStack getToolDrop(EntityPlayer p0) {
+		return new ItemStack(ModBlocks.PLAYER_DETECTOR, 1, 0);
 	}
 }
