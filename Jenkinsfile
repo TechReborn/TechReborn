@@ -8,7 +8,7 @@ node {
    sh "rm -rf build/libs/"
    sh "rm -rf .gradle/asmInjector/"
    sh "chmod +x gradlew"
-   sh "./gradlew build uploadArchive curseTools --refresh-dependencies --stacktrace"
+   sh "./gradlew build mtDocGen uploadArchive curseTools --refresh-dependencies --stacktrace"
 
    stage "Archive artifacts"
 
