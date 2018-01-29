@@ -198,6 +198,10 @@ public class GuiSlotConfiguration {
 		List<Rectangle> list = new ArrayList<>();
 		ConfigSlotElement slotElement = slotElementMap.get(slectedSlot);
 
+		if(slotElement == null || guiBase == null){
+			return Collections.emptyList();
+		}
+
 		//I have no idea why this works, but it does. pls fix if you know how.
 		list.add(new Rectangle(slotElement.adjustX(guiBase, slotElement.getX()) + guiBase.getGuiLeft() - 25, slotElement.adjustY(guiBase, 0) -10, slotElement.getWidth() - 5, slotElement.getHeight() + 15));
 		return list;
