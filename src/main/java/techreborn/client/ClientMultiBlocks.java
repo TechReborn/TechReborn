@@ -42,6 +42,7 @@ public class ClientMultiBlocks {
 		checkMachine();
 	}
 
+	@Deprecated
 	public static void checkCoils() {
 		if ((isCoil(3, 0, 1)) && (isCoil(3, 0, 0)) && (isCoil(3, 0, 0 - 1)) && (isCoil(0 - 3, 0, 1))
 			&& (isCoil(0 - 3, 0, 0)) && (isCoil(0 - 3, 0, 0 - 1)) && (isCoil(2, 0, 2)) && (isCoil(2, 0, 1))
@@ -52,6 +53,7 @@ public class ClientMultiBlocks {
 		}
 	}
 
+	@Deprecated
 	private static boolean isCoil(int x, int y, int z) {
 		reactor.addComponent(new BlockPos(x, y, z), ModBlocks.FUSION_COIL.getDefaultState());
 		return true;

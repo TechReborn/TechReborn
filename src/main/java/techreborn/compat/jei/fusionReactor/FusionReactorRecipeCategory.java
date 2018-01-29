@@ -31,8 +31,8 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiFusionReactor;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.lib.ModInfo;
 
@@ -40,7 +40,8 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings("deprecation")
 public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReactorRecipeWrapper> {
-
+	
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int inputSlotTop = 0;
 	private static final int inputSlotBottom = 1;
 	private static final int outputSlot = 2;
@@ -51,7 +52,7 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 	private final String title;
 
 	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiFusionReactor.texture, 86, 16, 85, 64, 0, 40, 20, 20);
+		background = guiHelper.createDrawable(texture, 0, 172, 116, 64, 0, 40, 20, 20);
 		title = I18n.translateToLocal("tile.techreborn:fusion_control_computer.name");
 	}
 
@@ -87,9 +88,9 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 		@Nonnull
 			IIngredients ingredients) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
-		itemStacks.init(inputSlotTop, true, 21, 0);
-		itemStacks.init(inputSlotBottom, true, 21, 36);
-		itemStacks.init(outputSlot, false, 81, 18);
+		itemStacks.init(inputSlotTop, true, 23, 7);
+		itemStacks.init(inputSlotBottom, true, 115, 7);
+		itemStacks.init(outputSlot, false, 69, 7);
 
 		itemStacks.set(inputSlotTop, recipeWrapper.getTopInput());
 		itemStacks.set(inputSlotBottom, recipeWrapper.getBottomInput());

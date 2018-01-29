@@ -311,12 +311,12 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiPlasmaGenerator.class, 150, 4, 18, 18, EFluidGenerator.PLASMA.getRecipeID());
 		addRecipeClickArea(GuiDistillationTower.class, 150, 4, 18, 18, RecipeCategoryUids.DISTILLATION_TOWER);
 		addRecipeClickArea(GuiScrapboxinator.class, 150, 4, 18, 18, RecipeCategoryUids.SCRAPBOX);
+		addRecipeClickArea(GuiFusionReactor.class, 150, 4, 18, 18, RecipeCategoryUids.FUSION_REACTOR);
 
 		//OLD ONES
 		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
 			VanillaRecipeCategoryUid.FUEL);
 		addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
-		addRecipeClickArea(GuiFusionReactor.class, 111, 34, 27, 19, RecipeCategoryUids.FUSION_REACTOR);
 		addRecipeClickArea(GuiRollingMachine.class, 89, 32, 26, 25, RecipeCategoryUids.ROLLING_MACHINE);
 		addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
 			VanillaRecipeCategoryUid.FUEL);
