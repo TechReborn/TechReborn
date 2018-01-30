@@ -35,8 +35,6 @@ public class ConfigTechReborn {
 
 	@ConfigRegistry(config = "recipes", category = "ic2", key = "deduplicate", comment = "Changes a lot of recipes and hides blocks to integrate TechReborn into IC2")
 	public static boolean REMOVE_DUPLICATES = false;
-	@ConfigRegistry(config = "client", category = "hud", key = "showChargeHud", comment = "Show the charge hud")
-	public static boolean ShowChargeHud = true;
 
 	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
