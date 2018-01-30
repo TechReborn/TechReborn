@@ -122,8 +122,6 @@ public class Core {
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
 		// Registers Chest Loot
 		// ModLoot.init();
-		// Multiparts
-		ModParts.init();
 		// Sounds
 		ModSounds.init();
 		// Compat
