@@ -24,9 +24,14 @@
 
 package techreborn.compat;
 
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.impl.ConfigRegistryFactory;
 import techreborn.compat.buildcraft.BuildcraftBuildersCompat;
 import techreborn.compat.buildcraft.BuildcraftCompat;
 import techreborn.compat.crafttweaker.CraftTweakerCompat;
@@ -34,7 +39,9 @@ import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.theoneprobe.TheOneProbeCompat;
 import techreborn.compat.thermalexpansion.RecipeThermalExpansion;
 import techreborn.compat.tinkers.CompatModuleTinkers;
+import techreborn.lib.ModInfo;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 
 public class CompatManager {
@@ -62,14 +69,11 @@ public class CompatManager {
 	}
 
 	public void registerCompact(Class<? extends ICompatModule> moduleClass, boolean config, Object... objs) {
-		//boolean shouldLoad = true;
-		//TODO config
-		//		if (config) {
-		//			shouldLoad = ConfigTechReborn.config
-		//				.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true,
-		//					"Should the " + moduleClass.getSimpleName() + " be loaded?")
-		//				.getBoolean(true);
-		//		}
+		if(config){
+			if(!shouldLoad(moduleClass.getSimpleName())){
+				return;
+			}
+		}
 		for (Object obj : objs) {
 			if (obj instanceof String) {
 				String modid = (String) obj;
@@ -103,4 +107,52 @@ public class CompatManager {
 			e.printStackTrace();
 		}
 	}
+
+	//This is a hack, and is bad. Dont do this.
+	public boolean shouldLoad(String name){
+		ConfigRegistry configRegistry = new ConfigRegistry(){
+			@Override
+			public Class<? extends Annotation> annotationType() {
+				return null;
+			}
+
+			@Override
+			public String category() {
+				return "modules";
+			}
+
+			@Override
+			public String key() {
+				return name;
+			}
+
+			@Override
+			public String comment() {
+				return "Should the compat module '" + name + "' be loaded";
+			}
+
+			@Override
+			public String config() {
+				return "compat";
+			}
+		};
+
+		RebornRegistry rebornRegistry = new RebornRegistry(){
+
+			@Override
+			public Class<? extends Annotation> annotationType() {
+				return null;
+			}
+
+			@Override
+			public String modID() {
+				return ModInfo.MOD_ID;
+			}
+		};
+		Configuration configuration = ConfigRegistryFactory.getOrCreateConfig(configRegistry, rebornRegistry);
+		Property property = ConfigRegistryFactory.get(configRegistry.category(), configRegistry.key(), true, configRegistry.comment(), boolean.class, configuration);
+		configuration.save();
+		return property.getBoolean();
+	}
+
 }
