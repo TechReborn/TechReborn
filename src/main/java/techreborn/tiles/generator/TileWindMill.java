@@ -47,7 +47,7 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	public static int maxEnergy = 10000;
 	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Energy Per Tick (Value in EU)")
 	public static int baseEnergy = 2;
-	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Thunder Multiplier")
+	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillThunderMultiplier", comment = "Wind Mill Thunder Multiplier")
 	public static double thunderMultiplier = 1.25;
 
 	int basePower = 16;
