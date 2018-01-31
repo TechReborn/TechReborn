@@ -138,6 +138,11 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public void updateState() {
 		if(wasBurning != (this.progress > 0)){
+			//skips updating the block state for 1 tick, to prevent the machine from turning on/off rapidly causing fps drops
+			if(wasBurning && this.progress == 0 && canSmelt()){
+				wasBurning = true;
+				return;
+			}
 			final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
