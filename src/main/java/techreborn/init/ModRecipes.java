@@ -39,7 +39,10 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.Core;
-import techreborn.api.recipe.machines.*;
+import techreborn.api.recipe.machines.BlastFurnaceRecipe;
+import techreborn.api.recipe.machines.CompressorRecipe;
+import techreborn.api.recipe.machines.GrinderRecipe;
+import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.blocks.BlockOre;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
@@ -260,7 +263,12 @@ public class ModRecipes {
 				if (ore) {
 					dust.setCount(2);
 				}
-				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22));
+				boolean useOreDict = true;
+				//Disables the ore dict for lapis, this is becuase it is oredict with dye. This may cause some other lapis ores to not be grindable, but we can fix that when that arrises.
+				if(data[1].equalsIgnoreCase("lapis")){
+					useOreDict = false;
+				}
+				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22, useOreDict));
 			}
 		}
 	}
