@@ -145,6 +145,16 @@ public class RollingMachineRecipe {
 		return ItemStack.EMPTY;
 	}
 
+	public IRecipe findMatchingRecipeObj(InventoryCrafting inv, World world) {
+		for (IRecipe irecipe : recipes.values()) {
+			if (irecipe.matches(inv, world)) {
+				return irecipe;
+			}
+		}
+
+		return null;
+	}
+
 	public HashMap<ResourceLocation, IRecipe> getRecipeList() {
 		return recipes;
 	}

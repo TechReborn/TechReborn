@@ -28,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
@@ -44,7 +45,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 //TODO add tick and power bars.
 
@@ -67,9 +68,14 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public Inventory inventory = new Inventory(3, "TileRollingMachine", 64, this);
 	public boolean isRunning;
 	public int tickTime;
-	@Nonnull
-	public ItemStack currentRecipe;
+	@Nullable
+	public IRecipe currentRecipe;
 	private int outputSlot;
+
+	//TODO make this per machine and set in the gui.
+	//Set this to true to lock the recipe
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "lockRecipe", comment = "This locks 1 of each ingredient in the crafting matrix, this may allow for some automation.")
+	public static boolean lockRecipe = false;
 
 	public TileRollingMachine() {
 		super();
@@ -106,21 +112,20 @@ public class TileRollingMachine extends TilePowerAcceptor
 		super.update();
 		this.charge(2);
 		if (!this.world.isRemote) {
-			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
-			if (!this.currentRecipe.isEmpty() && this.canMake()) {
+			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipeObj(this.craftMatrix, this.world);
+			if (!this.currentRecipe.getRecipeOutput().isEmpty() && this.canMake()) {
 				if (this.tickTime >= TileRollingMachine.runTime) {
-					this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
-					if (!this.currentRecipe.isEmpty()) {
+					if (!this.currentRecipe.getRecipeOutput().isEmpty()) {
 						boolean hasCrafted = false;
 						if (this.inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
-							this.inventory.setInventorySlotContents(outputSlot, this.currentRecipe);
+							this.inventory.setInventorySlotContents(outputSlot, this.currentRecipe.getRecipeOutput());
 							this.tickTime = 0;
 							hasCrafted = true;
 						} else {
-							if (this.inventory.getStackInSlot(outputSlot).getCount() + this.currentRecipe.getCount() <= this.currentRecipe
+							if (this.inventory.getStackInSlot(outputSlot).getCount() + this.currentRecipe.getRecipeOutput().getCount() <= this.currentRecipe.getRecipeOutput()
 								.getMaxStackSize()) {
 								final ItemStack stack = this.inventory.getStackInSlot(outputSlot);
-								stack.setCount(stack.getCount() + this.currentRecipe.getCount());
+								stack.setCount(stack.getCount() + this.currentRecipe.getRecipeOutput().getCount());
 								this.inventory.setInventorySlotContents(outputSlot, stack);
 								this.tickTime = 0;
 								hasCrafted = true;
@@ -130,24 +135,24 @@ public class TileRollingMachine extends TilePowerAcceptor
 							for (int i = 0; i < this.craftMatrix.getSizeInventory(); i++) {
 								this.craftMatrix.decrStackSize(i, 1);
 							}
-							this.currentRecipe = ItemStack.EMPTY;
+							this.currentRecipe = null;
 						}
 					}
 				}
 			}
-			if (!this.currentRecipe.isEmpty()) {
+			if (this.currentRecipe != null) {
 				if (this.canUseEnergy(energyPerTick) && this.tickTime < TileRollingMachine.runTime && canMake()) {
 					this.useEnergy(energyPerTick);
 					this.tickTime++;
 				}
 			}
-			if (this.currentRecipe.isEmpty()) {
+			if (this.currentRecipe == null) {
 				this.tickTime = 0;
 			}
 		} else {
-			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
-			if (!this.currentRecipe.isEmpty()) {
-				this.inventory.setInventorySlotContents(1, this.currentRecipe);
+			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipeObj(this.craftMatrix, this.world);
+			if (this.currentRecipe == null) {
+				this.inventory.setInventorySlotContents(1, this.currentRecipe.getRecipeOutput());
 			} else {
 				this.inventory.setInventorySlotContents(1, ItemStack.EMPTY);
 			}
@@ -155,9 +160,19 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	public boolean canMake() {
-		ItemStack stack = RollingMachineRecipe.instance.findMatchingRecipe(this.craftMatrix, this.world);
+		ItemStack stack = currentRecipe.getRecipeOutput();
 		if(stack.isEmpty()){
 			return false;
+		}
+		if(lockRecipe){
+			for (int i = 0; i < 9; i++) {
+				ItemStack ingredient = craftMatrix.getStackInSlot(i);
+				if(!ingredient.isEmpty()) {
+					if(ingredient.getCount() == 1){
+						return false;
+					}
+				}
+			}
 		}
 		ItemStack output = getStackInSlot(outputSlot);
 		if(output.isEmpty()){
@@ -241,4 +256,5 @@ public class TileRollingMachine extends TilePowerAcceptor
 		}
 
 	}
+
 }
