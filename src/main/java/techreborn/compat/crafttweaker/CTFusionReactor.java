@@ -35,7 +35,6 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,9 +54,19 @@ public class CTFusionReactor {
 
 	@ZenMethod
 	public static void removeBottomInputRecipe(IIngredient iIngredient) {
-		CraftTweakerAPI.apply(new RemoveTopInput(iIngredient));
+		CraftTweakerAPI.apply(new RemoveBottomInput(iIngredient));
 	}
 
+	@ZenMethod
+	public static void removeRecipe(IItemStack output) {
+		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output)));
+	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		CraftTweakerAPI.apply(new RemoveAll());
+	}
+	
 	private static class Add implements IAction {
 		private final FusionReactorRecipe recipe;
 
@@ -76,11 +85,6 @@ public class CTFusionReactor {
 		}
 	}
 
-	@ZenMethod
-	public static void removeRecipe(IItemStack output) {
-		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output)));
-	}
-
 	private static class Remove implements IAction {
 		private final ItemStack output;
 		List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
@@ -97,7 +101,6 @@ public class CTFusionReactor {
 					FusionReactorRecipeHelper.reactorRecipes.remove(recipeType);
 					break;
 				}
-
 			}
 		}
 
@@ -133,7 +136,6 @@ public class CTFusionReactor {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private static class RemoveBottomInput implements IAction {
 		private final IIngredient output;
 		List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
@@ -156,6 +158,19 @@ public class CTFusionReactor {
 		@Override
 		public String describe() {
 			return "Removing Fusion Reactor recipe";
+		}
+	}
+	
+	private static class RemoveAll implements IAction {
+
+		@Override
+		public void apply() {
+				FusionReactorRecipeHelper.reactorRecipes.clear();
+		}
+
+		@Override
+		public String describe() {
+			return "Removing all Fusion Reactor recipes";
 		}
 	}
 }

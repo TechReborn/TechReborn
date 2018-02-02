@@ -24,6 +24,8 @@
 
 package techreborn.compat.crafttweaker;
 
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import gnu.trove.set.TCharSet;
@@ -63,6 +65,24 @@ public class CTRollingMachine {
 		}
 		for (ResourceLocation resourceLocation : toRemove) {
 			RollingMachineRecipe.instance.getRecipeList().remove(resourceLocation);
+		}
+	}
+	
+	@ZenMethod
+	public static void removeAll() {
+		CraftTweakerAPI.apply(new RemoveAll());
+	}
+	
+	private static class RemoveAll implements IAction{
+
+		@Override
+		public void apply() {
+			RollingMachineRecipe.instance.getRecipeList().clear();
+		}
+
+		@Override
+		public String describe() {
+			return "Removing all Rolling Machine recipes";
 		}
 	}
 
