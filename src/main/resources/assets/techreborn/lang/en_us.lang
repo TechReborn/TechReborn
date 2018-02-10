@@ -654,6 +654,7 @@ techreborn.message.noCoordsSet=No Coordinates Set
 techreborn.message.coordsHaveBeen=Coordinates have been
 techreborn.message.cleared=Cleared
 techreborn.message.detects=Detects
+techreborn.message.alarm=Switched to:
 techreborn.message.allPlayers=All Players
 techreborn.message.onlyOtherPlayers=Only Other Players
 techreborn.message.onlyYou=Only You
