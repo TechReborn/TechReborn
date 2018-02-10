@@ -24,7 +24,6 @@
 
 package techreborn.blocks;
 
-import ic2.core.energy.grid.Tile;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
