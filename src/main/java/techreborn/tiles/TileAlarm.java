@@ -42,7 +42,6 @@ public class TileAlarm extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		if (!world.isRemote && world.getTotalWorldTime() % 25 == 0 && world.isBlockPowered(getPos())) {
-			System.out.println(selectedSound);
 			BlockAlarm.setActive(true, world, pos);
 			switch(selectedSound){
 					case 1:
