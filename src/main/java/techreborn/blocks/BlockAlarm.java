@@ -30,6 +30,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -79,6 +80,21 @@ public class BlockAlarm extends BaseTileBlock {
 		FACING = PropertyDirection.create("facing");
 		ACTIVE = PropertyBool.create("active");
 		return new BlockStateContainer(this, FACING, ACTIVE);
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		TileAlarm tileEntity = (TileAlarm)worldIn.getTileEntity(pos);
+		if (tileEntity == null) {
+			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+		}else {
+			if(!worldIn.isRemote) {
+				if(playerIn.isSneaking()) {
+					tileEntity.rightClick();
+				}
+			}
+		}
+		return true;
 	}
 
 	@Override
