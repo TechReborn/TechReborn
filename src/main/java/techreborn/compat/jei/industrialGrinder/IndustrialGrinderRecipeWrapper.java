@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,9 +32,10 @@ import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.compat.jei.BaseRecipeWrapper;
-import reborncore.common.powerSystem.PowerSystem;
+
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;

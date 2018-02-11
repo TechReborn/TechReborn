@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,6 @@
 
 package techreborn.dispenser;
 
-import java.util.List;
-import java.util.Random;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
@@ -41,6 +38,9 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.api.Reference;
 import techreborn.lib.ModInfo;
+
+import java.util.List;
+import java.util.Random;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {

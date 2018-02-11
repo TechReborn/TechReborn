@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,6 @@
 
 package techreborn.items;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -37,6 +35,8 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.WorldUtils;
 import techreborn.api.Reference;
 import techreborn.client.TechRebornCreativeTabMisc;
+
+import java.util.List;
 
 public class ItemScrapBox extends ItemTR {
 

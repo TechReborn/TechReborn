@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,13 +24,13 @@
 
 package techreborn.init.recipes;
 
-import java.security.InvalidParameterException;
-
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.DistillationTowerRecipe;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemCells;
+
+import java.security.InvalidParameterException;
 
 /**
  * @author drcrazy

@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +35,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.generator.FluidGeneratorRecipe;
+
 import javax.annotation.Nonnull;
 
 public class FluidGeneratorRecipeWrapper implements IRecipeWrapper {

@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,10 +61,10 @@ import techreborn.tiles.lesu.TileLSUStorage;
 import techreborn.tiles.lesu.TileLapotronicSU;
 import techreborn.tiles.lighting.TileLamp;
 import techreborn.tiles.multiblock.*;
+import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.teir1.*;
 import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;

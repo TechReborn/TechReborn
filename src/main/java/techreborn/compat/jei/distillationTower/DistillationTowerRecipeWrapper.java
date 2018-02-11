@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2017 TechReborn
+ * Copyright (c) 2018 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,6 @@
 
 package techreborn.compat.jei.distillationTower;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -35,6 +33,8 @@ import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.DistillationTowerRecipe;
 import techreborn.client.gui.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author drcrazy
