@@ -718,6 +718,13 @@ techreborn.tooltip.inventory=Inventory
 techreborn.tooltip.upgrades=Upgrades
 techreborn.tooltip.transferRate=Transfer Rate
 techreborn.tooltip.tier=Tier
+techreborn.tooltip.alarm=Shift rightclick to change sound
+
+#ManualUI
+techreborn.manual.wiki=Online wikipedia
+techreborn.manual.discord=Our discord
+techreborn.manual.wikibtn=Open
+techreborn.manual.discordbtn=Join
 
 #Advancements
 
