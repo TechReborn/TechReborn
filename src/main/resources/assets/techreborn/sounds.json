@@ -40,5 +40,17 @@
     "sounds": [
       "techreborn:alarm"
     ]
+  },
+  "alarm_2": {
+    "category": "block",
+    "sounds": [
+      "techreborn:alarm_2"
+    ]
+  },
+  "alarm_3": {
+    "category": "block",
+    "sounds": [
+      "techreborn:alarm_3"
+    ]
   }
 }

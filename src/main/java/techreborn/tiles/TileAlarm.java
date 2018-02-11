@@ -24,25 +24,67 @@
 
 package techreborn.tiles;
 
+import net.minecraft.client.resources.I18n;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import reborncore.common.util.ChatUtils;
 import techreborn.blocks.BlockAlarm;
 import techreborn.init.ModSounds;
+import techreborn.lib.MessageIDs;
 
 public class TileAlarm extends TileEntity implements ITickable {
-	boolean state = false;
-	int selectedSound;
+	private int selectedSound = 1;
 
 	@Override
 	public void update() {
 		if (!world.isRemote && world.getTotalWorldTime() % 25 == 0 && world.isBlockPowered(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
-			world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
-			state = true;
+			switch (selectedSound) {
+				case 1:
+					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
+					break;
+				case 2:
+					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_2, SoundCategory.BLOCKS, 4F, 1F);
+					break;
+				case 3:
+					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
+					break;
+			}
+
 		} else if (!world.isRemote && world.getTotalWorldTime() % 25 == 0) {
 			BlockAlarm.setActive(false, world, pos);
-			state = false;
+		}
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		if (compound == null) {
+			compound = new NBTTagCompound();
+		}
+		compound.setInteger("selectedSound", this.selectedSound);
+		return super.writeToNBT(compound);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		if (compound != null && compound.hasKey("selectedSound")) {
+			this.selectedSound = compound.getInteger("selectedSound");
+		}
+		super.readFromNBT(compound);
+	}
+
+	public void rightClick() {
+		if (!world.isRemote) {
+			if (selectedSound < 3) {
+				selectedSound++;
+			} else {
+				selectedSound = 1;
+			}
+			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
 		}
 	}
 }

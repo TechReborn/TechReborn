@@ -29,13 +29,18 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
@@ -46,7 +51,7 @@ import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAlarm;
 
 import javax.annotation.Nullable;
-
+import java.util.List;
 
 public class BlockAlarm extends BaseTileBlock {
 	public static PropertyDirection FACING;
@@ -65,6 +70,7 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	private AxisAlignedBB[] bbs;
+
 	public BlockAlarm() {
 		super(Material.ROCK);
 		setUnlocalizedName("techreborn.alarm");
@@ -82,6 +88,21 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		TileAlarm tileEntity = (TileAlarm) worldIn.getTileEntity(pos);
+		if (tileEntity == null) {
+			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+		} else {
+			if (!worldIn.isRemote) {
+				if (playerIn.isSneaking()) {
+					tileEntity.rightClick();
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		int facingInt = state.getValue(FACING).getIndex();
 		int activeInt = state.getValue(ACTIVE) ? 8 : 0;
@@ -90,8 +111,8 @@ public class BlockAlarm extends BaseTileBlock {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		Boolean active = (meta&8)==8;
-		EnumFacing facing = EnumFacing.getFront(meta&7);
+		Boolean active = (meta & 8) == 8;
+		EnumFacing facing = EnumFacing.getFront(meta & 7);
 		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
 	}
 
@@ -100,7 +121,7 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	public static EnumFacing getFacing(IBlockState state) {
-		return (EnumFacing)state.getValue(FACING);
+		return (EnumFacing) state.getValue(FACING);
 	}
 
 	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
@@ -145,8 +166,13 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	@Override
+
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return this.bbs[getFacing(state).getIndex()];
+	}
+	@Override
+	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, ITooltipFlag flag) {
+		tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.tooltip.alarm"));
 	}
 
 }
