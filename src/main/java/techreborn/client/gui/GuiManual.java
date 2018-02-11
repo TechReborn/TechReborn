@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,20 +77,41 @@ public class GuiManual extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 			case 1:
-				try {
-					Desktop.getDesktop().browse(new java.net.URI("http://wiki.techreborn.ovh"));
-				} catch (Exception e) {
-					System.err.print(e);
-				}
+				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://wiki.techreborn.ovh", 1, false));
 				break;
 			case 2:
-				try {
-					Desktop.getDesktop().browse(new java.net.URI("http://discord.gg/0tCDWb77cvetwm0e"));
-				} catch (Exception e) {
-					System.err.print(e);
-				}
+				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://discord.gg/0tCDWb77cvetwm0e", 2, false));
 				break;
 		}
 	}
-}
+
+	@Override
+	public void confirmClicked(boolean result, int id) {
+		switch(id) {
+			case 1:
+				if(result == true) {
+					try {
+						Desktop.getDesktop().browse(new java.net.URI("http://wiki.techreborn.ovh"));
+					} catch (Exception e) {
+						System.err.print(e);
+					}
+				}else {
+					this.mc.displayGuiScreen(this);
+				}
+				break;
+			case 2:
+				if(result == true) {
+					try {
+						Desktop.getDesktop().browse(new java.net.URI("http://discord.gg/0tCDWb77cvetwm0e"));
+					} catch (Exception e) {
+						System.err.print(e);
+					}
+				}else {
+					this.mc.displayGuiScreen(this);
+				}
+				break;
+		}
+		}
+	}
+
 

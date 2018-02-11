@@ -721,7 +721,7 @@ techreborn.tooltip.tier=Tier
 techreborn.tooltip.alarm=Shift rightclick to change sound
 
 #ManualUI
-techreborn.manual.wiki=Online wikipedia
+techreborn.manual.wiki=Online wiki
 techreborn.manual.discord=Our discord
 techreborn.manual.wikibtn=Open
 techreborn.manual.discordbtn=Join
