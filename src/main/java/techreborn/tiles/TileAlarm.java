@@ -43,15 +43,15 @@ public class TileAlarm extends TileEntity implements ITickable {
 	public void update() {
 		if (!world.isRemote && world.getTotalWorldTime() % 25 == 0 && world.isBlockPowered(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
-			switch(selectedSound){
-					case 1:
-						world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
+			switch (selectedSound) {
+				case 1:
+					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
 					break;
-					case 2:
-						world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_2, SoundCategory.BLOCKS, 4F, 1F);
+				case 2:
+					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_2, SoundCategory.BLOCKS, 4F, 1F);
 					break;
-					case 3:
-						world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
+				case 3:
+					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
 					break;
 			}
 
@@ -62,7 +62,7 @@ public class TileAlarm extends TileEntity implements ITickable {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		if(compound == null){
+		if (compound == null) {
 			compound = new NBTTagCompound();
 		}
 		compound.setInteger("selectedSound", this.selectedSound);
@@ -71,20 +71,20 @@ public class TileAlarm extends TileEntity implements ITickable {
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
-		if(compound != null && compound.hasKey("selectedSound")){
+		if (compound != null && compound.hasKey("selectedSound")) {
 			this.selectedSound = compound.getInteger("selectedSound");
 		}
 		super.readFromNBT(compound);
 	}
 
 	public void rightClick() {
-		if (!world.isRemote){
-			if(selectedSound < 3){
+		if (!world.isRemote) {
+			if (selectedSound < 3) {
 				selectedSound++;
-			}else{
+			} else {
 				selectedSound = 1;
 			}
-		ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
-	}
+			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+		}
 	}
 }

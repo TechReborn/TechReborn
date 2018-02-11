@@ -33,6 +33,7 @@ import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.gui.*;
 import techreborn.client.gui.autocrafting.GuiAutoCrafting;
+import techreborn.items.tools.ItemTechManual;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.*;
@@ -152,9 +153,11 @@ public class GuiHandler implements IGuiHandler {
 			case AUTO_CRAFTING_TABLE:
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
 			case PLASMA_GENERATOR:
-				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);	
+				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
 			case DISTILLATION_TOWER:
-				return new GuiDistillationTower(player, (TileDistillationTower) tile);	
+				return new GuiDistillationTower(player, (TileDistillationTower) tile);
+			case MANUAL:
+				return new GuiManual(player);
 			default:
 				break;
 
