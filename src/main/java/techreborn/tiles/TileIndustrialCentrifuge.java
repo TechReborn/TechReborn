@@ -37,11 +37,13 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.items.DynamicCell;
 import techreborn.lib.ModInfo;
 
 import java.util.List;
@@ -54,8 +56,6 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	//  @ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeWrenchDropRate", comment = "Centrifuge Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileIndustrialCentrifuge", 64, this);
@@ -63,7 +63,7 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 
 	public TileIndustrialCentrifuge() {
 		super();
-		// Input slots
+
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[4];
 		outputs[0] = 2;
@@ -85,10 +85,6 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
 	}
 
 	@Override
@@ -155,7 +151,10 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 40, 34).slot(1, 40, 54).outputSlot(2, 82, 44).outputSlot(3, 101, 25)
+			.addInventory().tile(this)
+			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
 			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
 			.syncCrafterValue().addInventory().create(this);
 	}
