@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -51,6 +52,9 @@ public class TRRecipeHandler {
 
 	@SubscribeEvent
 	public void pickupEvent(EntityItemPickupEvent entityItemPickupEvent) {
+		if(entityItemPickupEvent.getEntityPlayer() instanceof FakePlayer){
+			return;
+		}
 		if (entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP) {
 			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)) {
 				for (IRecipe recipe : CraftingManager.REGISTRY) {
