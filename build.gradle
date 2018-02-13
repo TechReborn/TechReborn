@@ -78,6 +78,10 @@ repositories {
 		name "BuildCraft"
 		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
 	}
+	maven {
+		name "OpenComputer"
+		url "http://maven.cil.li/"
+	}
 }
 
 configurations {
@@ -126,6 +130,7 @@ dependencies {
 	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.3.9.3:universal', withoutOldJEI
 	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.9.9:universal', withoutOldJEI
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
+	deobfCompile "li.cil.oc:OpenComputers:MC1.12.1-1.7.1+"
 }
 
 
