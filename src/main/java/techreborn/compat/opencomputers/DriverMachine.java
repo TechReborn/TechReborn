@@ -12,8 +12,12 @@ import li.cil.oc.api.prefab.AbstractManagedEnvironment;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+
+import java.util.Arrays;
+import java.util.function.IntFunction;
 
 public class DriverMachine implements DriverBlock {
 	@Override
@@ -65,6 +69,49 @@ public class DriverMachine implements DriverBlock {
 			return getObjects(machine instanceof IUpgradeable && machine.canBeUpgraded());
 		}
 
+		@Callback(value = "hasRecipeCrafter", getter = true, doc = "Returns true if the machine has a recipe crafter")
+		public Object[] hasRecipeCrafter(Context context, Arguments arguments) throws Exception{
+			return getObjects(machine instanceof IRecipeCrafterProvider);
+		}
+
+		@Callback(value = "getRecipeName", getter = true, doc = "Gets the name of the recipe that the machine crafts")
+		public Object[] getRecipeName(Context context, Arguments arguments) throws Exception{
+			if(!(machine instanceof IRecipeCrafterProvider)){
+				return null;
+			}
+			return getObjects(((IRecipeCrafterProvider) machine).getRecipeCrafter().recipeName);
+		}
+
+		@Callback(value = "getInputSlots", getter = true, doc = "Gets the slot ids that the crafter uses to look for inputs")
+		public Object[] getInputSlots(Context context, Arguments arguments) throws Exception{
+			if(!(machine instanceof IRecipeCrafterProvider)){
+				return null;
+			}
+			return Arrays.stream(((IRecipeCrafterProvider) machine).getRecipeCrafter().inputSlots).mapToObj((IntFunction<Object>) value -> value).toArray();
+		}
+
+		@Callback(value = "getOutputSlots", getter = true, doc = "Gets the slot ids that the crafter uses for outputs")
+		public Object[] getOutputSlots(Context context, Arguments arguments) throws Exception{
+			if(!(machine instanceof IRecipeCrafterProvider)){
+				return null;
+			}
+			return Arrays.stream(((IRecipeCrafterProvider) machine).getRecipeCrafter().outputSlots).mapToObj((IntFunction<Object>) value -> value).toArray();
+		}
+
+		@Callback(value = "isActive", getter = true, doc = "Returns a boolean if the machine is actice")
+		public Object[] isActive(Context context, Arguments arguments) throws Exception{
+			return getObjects(machine.isActive());
+		}
+
+		@Callback(value = "getFacing", getter = true, doc = "Gets the facing for the machine")
+		public Object[] getFacing(Context context, Arguments arguments) throws Exception{
+			EnumFacing facing = machine.getFacing();
+			if(facing == null){
+				return null;
+			}
+			return getObjects(facing.getName());
+		}
+
 		private Object[] getObjects(Object... objects){
 			return objects;
 		}
@@ -76,7 +123,7 @@ public class DriverMachine implements DriverBlock {
 
 		@Override
 		public int priority() {
-			return Integer.MAX_VALUE;
+			return 10;
 		}
 	}
 }
