@@ -39,6 +39,9 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 
+	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable jetpacks")
+	public static boolean enableJetpacks = true;
+
 	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill")
 	public static int IronDrillCharge = 10000;
 

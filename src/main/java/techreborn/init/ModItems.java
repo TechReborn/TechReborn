@@ -41,6 +41,9 @@ import techreborn.items.*;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
+import techreborn.items.armor.jetpacks.ItemJetpackT1;
+import techreborn.items.armor.jetpacks.ItemJetpackT2;
+import techreborn.items.armor.jetpacks.ItemJetpackT3;
 import techreborn.items.battery.*;
 import techreborn.items.tools.*;
 
@@ -64,6 +67,9 @@ public class ModItems {
 	public static Item MANUAL;
 	public static Item UU_MATTER;
 	public static Item PLATES;
+	public static Item JETPACK_T1;
+	public static Item JETPACK_T2;
+	public static Item JETPACK_T3;
 	public static Item CLOAKING_DEVICE;
 	public static Item RE_BATTERY;
 	public static Item TREE_TAP;
@@ -227,6 +233,17 @@ public class ModItems {
 		registerItem(DIAMOND_JACKHAMMER, "diamondjackhammer");
 		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
 		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");
+
+		if (ConfigTechReborn.enableJetpacks) {
+			JETPACK_T1 = new ItemJetpackT1();
+			registerItem(JETPACK_T1, "jetpackt1");
+
+			JETPACK_T2 = new ItemJetpackT2();
+			registerItem(JETPACK_T2, "jetpackt2");
+
+			JETPACK_T3 = new ItemJetpackT3();
+			registerItem(JETPACK_T3, "jetpackt3");
+		}
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE);
