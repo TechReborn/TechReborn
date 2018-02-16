@@ -32,11 +32,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
 import techreborn.client.TechRebornCreativeTab;
 
 public class ItemJetpackT1 extends ItemArmor {
 
+	private  boolean inFlight = false;
+	private float fallDist = 0;
 	public ItemJetpackT1() {
 		super(ArmorMaterial.LEATHER, 7, EntityEquipmentSlot.FEET);
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -46,51 +51,27 @@ public class ItemJetpackT1 extends ItemArmor {
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (!player.onGround) {
-			player.capabilities.allowFlying = true;
-			if (player.motionY > -0.5D)
-			{
-				player.fallDistance = 1.0F;
-			}
-			Vec3d vec3d = player.getLookVec();
-			float f = player.rotationPitch * 0.017453292F;
-			double d6 = Math.sqrt(vec3d.x * vec3d.x + vec3d.z * vec3d.z);
-			double d8 = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ);
-			double d1 = vec3d.lengthVector();
-			float f4 = MathHelper.cos(f);
-			f4 = (float)((double)f4 * (double)f4 * Math.min(1.0D, d1 / 0.4D));
-			player.motionY += -0.08D + (double)f4 * 0.06D;
 
-			if (player.motionY < 0.0D && d6 > 0.0D)
-			{
-				double d2 = player.motionY * -0.1D * (double)f4;
-				player.motionY += d2;
-				player.motionX += vec3d.x * d2 / d6;
-				player.motionZ += vec3d.z * d2 / d6;
-				player.move(MoverType.SELF, player.motionX, player.motionY, player.motionZ);
+		if(player.onGround && !inFlight && Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+				player.motionY = 3;
+				inFlight = true;
 			}
-
-			if (f < 0.0F)
-			{
-				double d10 = d8 * (double)(-MathHelper.sin(f)) * 0.04D;
-				player.motionY += d10 * 3.2D;
-				player.motionX -= vec3d.x * d10 / d6;
-				player.motionZ -= vec3d.z * d10 / d6;
-			}
-
-			if (d6 > 0.0D)
-			{
-				player.motionX += (vec3d.x / d6 * d8 - player.motionX) * 0.1D;
-				player.motionZ += (vec3d.z / d6 * d8 - player.motionZ) * 0.1D;
-			}
-
-			player.motionX *= 0.9900000095367432D;
-			player.motionY *= 0.9800000190734863D;
-			player.motionZ *= 0.9900000095367432D;
-		}else{
-			player.capabilities.allowFlying = false;
+			//TODO Figure out why this isn't triggering randomly ^
+		if(inFlight && player.isSneaking()){
+			player.motionY = 1;
+			player.motionX = 2;
 		}
-	}
-
+		if(player.fallDistance > 1 && inFlight) {
+			fallDist += player.fallDistance;
+			player.fallDistance = 0;
+		}
+		if(fallDist > 0.5 && player.onGround) {
+			inFlight = false;
+			player.motionY = 0.5;
+			player.fallDistance = 0;
+			fallDist = 0;
+		}
+		player.sendMessage(new TextComponentString(("falldist: " + fallDist + " inFlight: " + inFlight + " playerdist: " + player.fallDistance + " Player: " + player.motionY)));
+		}
 	}
 
