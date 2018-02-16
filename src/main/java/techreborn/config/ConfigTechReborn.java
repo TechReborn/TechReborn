@@ -40,49 +40,79 @@ public class ConfigTechReborn {
 	public static boolean enableGemArmorAndTools = true;
 
 	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill")
-	public static int IronDrillCharge = 10000;
+	public static int IronDrillCharge = 10_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "diamondDrillCharge", comment = "Energy Capacity for Diamond Drill")
-	public static int DiamondDrillCharge = 100000;
+	public static int DiamondDrillCharge = 100_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill")
-	public static int AdvancedDrillCharge = 1000000;
+	public static int AdvancedDrillCharge = 1_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "ironChainsawCharge", comment = "Energy Capacity for Iron Chainsaw")
-	public static int IronChainsawCharge = 10000;
+	public static int IronChainsawCharge = 10_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "diamondChainsawCharge", comment = "Energy Capacity for Diamond Chainsaw")
-	public static int DiamondChainsawCharge = 100000;
+	public static int DiamondChainsawCharge = 100_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw")
-	public static int AdvancedChainsawCharge = 1000000;
+	public static int AdvancedChainsawCharge = 1_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "steelJackhammerCharge", comment = "Energy Capacity for Steel Jackhammer")
-	public static int SteelJackhammerCharge = 10000;
+	public static int SteelJackhammerCharge = 10_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "diamondJackhammerCharge", comment = "Energy Capacity for Diamond Jackhammer")
-	public static int DiamondJackhammerCharge = 100000;
+	public static int DiamondJackhammerCharge = 100_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jachammer")
-	public static int AdvancedJackhammerCharge = 1000000;
+	public static int AdvancedJackhammerCharge = 1_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool")
-	public static int OmniToolCharge = 20000;
+	public static int OmniToolCharge = 20_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter")
-	public static int RockCutterCharge = 10000;
+	public static int RockCutterCharge = 10_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack")
-	public static int LapotronPackCharge = 100000000;
+	public static int LapotronPackCharge = 100_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack")
-	public static int LithiumBatpackCharge = 4000000;
+	public static int LithiumBatpackCharge = 4_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb")
-	public static int LapotronicOrbMaxCharge = 100000000;
+	public static int LapotronicOrbMaxCharge = 100_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "CloakingDeviceCharge", comment = "Energy Capacity for Clocking Device")
-	public static int CloakingDeviceCharge = 10000000;
+	public static int CloakingDeviceCharge = 10_000_000;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in EU)")
+	public static int basicGenerationRateD = 1;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicNightRate", comment = "Generation rate during night for Basic Solar Panel (Value in EU)")
+	public static int basicGenerationRateN = 0;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelHybrid", key = "hybridDayRate", comment = "Generation rate during day for Hybrid Solar Panel (Value in EU)")
+	public static int hybridGenerationRateD = 16;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelHybrid", key = "hybridNightRate", comment = "Generation rate during night for Hybrid Solar Panel (Value in EU)")
+	public static int hybridGenerationRateN = 0;	
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Value in EU)")
+	public static int advancedGenerationRateD = 64;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Value in EU)")
+	public static int advancedGenerationRateN = 2;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelUltimate", key = "ultimateDayRate", comment = "Generation rate during day for Ultimate Solar Panel (Value in EU)")
+	public static int ultimateGenerationRateD = 256;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelUltimate", key = "ultimateNightRate", comment = "Generation rate during night for Ultimate Solar Panel (Value in EU)")
+	public static int ultimateGenerationRateN = 16;	
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in EU)")
+	public static int quantumGenerationRateD = 1024;
+	
+	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in EU)")
+	public static int quantumGenerationRateN = 64;	
 
 
 }

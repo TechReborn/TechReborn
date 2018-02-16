@@ -26,30 +26,56 @@ package techreborn.blocks.generator.solarpanel;
 
 import net.minecraft.util.IStringSerializable;
 import reborncore.api.power.EnumPowerTier;
+import techreborn.config.ConfigTechReborn;
 
 public enum EnumPanelType implements IStringSerializable {
-	Basic("basic", 1, 0, EnumPowerTier.MICRO),
-	Hybrid("hybrid", 16, 0, EnumPowerTier.LOW),
-	Advanced("advanced", 64, 2,  EnumPowerTier.MEDIUM),
-	Ultimate("ultimate", 256, 16, EnumPowerTier.HIGH),
-	Quantum("quantum", 1024, 64, EnumPowerTier.EXTREME);
 
+	Basic("basic", EnumPowerTier.MICRO),
+	Hybrid("hybrid", EnumPowerTier.LOW),
+	Advanced("advanced", EnumPowerTier.MEDIUM),
+	Ultimate("ultimate", EnumPowerTier.HIGH),
+	Quantum("quantum", EnumPowerTier.EXTREME);
+	
 	private String friendlyName;
 	// Generation of EU during Day
-	public int generationRateD = 10;
+	public int generationRateD = 1;
 	// Generation of EU during Night
 	public int generationRateN = 0;
 	// Internal EU storage of solar panel
 	public int internalCapacity = 1000;
 	public EnumPowerTier powerTier;
 
-
-	EnumPanelType(String friendlyName, int generationRateD, int generationRateN,  EnumPowerTier tier) {
+	EnumPanelType(String friendlyName, EnumPowerTier tier) {
 		this.friendlyName = friendlyName;
-		this.generationRateD = generationRateD;
-		this.generationRateN = generationRateN;
-		this.internalCapacity = (generationRateD * 1000);
 		this.powerTier = tier;
+		switch (friendlyName) {
+		case "basic":
+			this.generationRateD = ConfigTechReborn.basicGenerationRateD;
+			this.generationRateN = ConfigTechReborn.basicGenerationRateN;
+			break;
+
+		case "hybrid":
+			this.generationRateD = ConfigTechReborn.hybridGenerationRateD;
+			this.generationRateN = ConfigTechReborn.hybridGenerationRateN;
+			break;
+
+		case "advanced":
+			this.generationRateD = ConfigTechReborn.advancedGenerationRateD;
+			this.generationRateN = ConfigTechReborn.advancedGenerationRateN;
+			break;
+
+		case "ultimate":
+			this.generationRateD = ConfigTechReborn.ultimateGenerationRateD;
+			this.generationRateN = ConfigTechReborn.ultimateGenerationRateN;
+			break;
+
+		case "quantum":
+			this.generationRateD = ConfigTechReborn.quantumGenerationRateD;
+			this.generationRateN = ConfigTechReborn.quantumGenerationRateN;
+			break;
+		}
+
+		this.internalCapacity = (this.generationRateD * 1000);
 	}
 
 	@Override
