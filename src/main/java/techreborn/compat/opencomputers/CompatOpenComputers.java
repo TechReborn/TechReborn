@@ -15,12 +15,12 @@ public class CompatOpenComputers implements ICompatModule {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-
+		Driver.add(new DriverMachine());
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		Driver.add(new DriverMachine());
+
 	}
 
 	@Override
