@@ -216,6 +216,7 @@ publishing {
 				classifier "sources"
 			}
 
+
 			//Removes all of the dependencies from the maven pom, fixes issues when other projects try to depend on tr
 			pom.withXml {
 				asNode().remove(asNode().get('dependencies'))
@@ -225,9 +226,11 @@ publishing {
 	repositories {
 		maven {
 			url "http://mavenupload.modmuss50.me/"
-			credentials {
-				username 'buildslave'
-				password project.getProperty('mavenPass')
+			if (project.hasProperty('mavenPass')) {
+				credentials {
+					username 'buildslave'
+					password project.getProperty('mavenPass')
+				}
 			}
 		}
 	}
