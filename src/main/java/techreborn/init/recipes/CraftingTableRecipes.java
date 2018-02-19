@@ -121,7 +121,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'H', "craftingDiamondGrinder", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'G', getStack(IC2Duplicates.GRINDER));
 		registerShaped(getStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A', getMaterialObject("advancedAlloy", Type.INGOT), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'P', getStack(IC2Duplicates.COMPRESSOR));
 		registerShaped(getStack(ModBlocks.VACUUM_FREEZER), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C', "circuitAdvanced", 'G', "glassReinforced", 'P', getStack(IC2Duplicates.EXTRACTOR));		
-		registerShaped(getStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'M', "circuitMaster", 'B', "machineBlockAdvanced", 'C', getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), 'P', getStack(IC2Duplicates.EXTRACTOR));
+		registerShaped(getStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'M', "circuitMaster", 'B', "machineBlockElite", 'C', getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), 'P', getStack(IC2Duplicates.EXTRACTOR));
 		registerShaped(getStack(ModBlocks.CHEMICAL_REACTOR), "IMI", "CPC", "IEI", 'I', "plateInvar", 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.EXTRACTOR), 'P', getStack(IC2Duplicates.COMPRESSOR), 'E', getStack(IC2Duplicates.EXTRACTOR));
 		registerShaped(getStack(ModBlocks.ROLLING_MACHINE),  "PCP", "MBM", "PCP", 'P', getStack(Blocks.PISTON), 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.COMPRESSOR), 'B', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.AUTO_CRAFTING_TABLE), "MPM", "PCP", "MPM", 'M', "circuitAdvanced", 'C', "workbench", 'P', "plateIron");
@@ -141,7 +141,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', getMaterial("data_storage_circuit", Type.PART), 'C', "circuitAdvanced", 'F',  getStack(ModBlocks.COMPUTER_CUBE));
 		registerShaped(getStack(ModBlocks.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(IC2Duplicates.MFE), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(ModItems.LAPOTRONIC_ORB));
 		registerShaped(getStack(ModBlocks.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(IC2Duplicates.HVT), 'C', "circuitMaster", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.DISTILLATION_TOWER), "ICI", "PFP", "ECE", 'I', getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), 'C', "circuitMaster", 'P', "plateAluminum", 'F', "machineBlockElite", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER));
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 0), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "paneGlass", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 0));
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', "machineBlockBasic");
