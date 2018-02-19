@@ -193,76 +193,46 @@ task apiJar(type: Jar) {
 
 apiJar.mustRunAfter deobfJar
 
-artifacts {
-	archives deobfJar
-	archives apiJar
-}
-
 build.dependsOn deobfJar, apiJar
 
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId 'TechReborn'
+			artifactId project.archivesBaseName
+			version project.version
 
+			from components.java
 
-uploadArchives {
-	repositories {
-		mavenDeployer {
-			//This is used when the build is done on a slave node
-			if (project.hasProperty('mavenPass')) {
-				println 'Uploading to remote Maven Repo'
-				repository(url: "http://mavenupload.modmuss50.me/") {
-					authentication(userName: "buildslave", password: project.getProperty('mavenPass'))
-				}
-			} else {
-				//this is when the build is executed on the master node
-				println 'Uploading to local Maven Repo'
-				repository(url: "file:///var/www/maven/")
+			artifact apiJar {
+				classifier "api"
 			}
-			pom {
-				groupId = "TechReborn"
-				version = project.version
-				artifactId = project.archivesBaseName
-				project {
-					name project.archivesBaseName
-					packaging 'jar'
-					description 'TechReborn'
-					url 'https://github.com/TechReborn/TechReborn'
-					scm {
-						url 'https://github.com/TechReborn/TechReborn'
-						connection 'scm:git:git@github.com:TechReborn/TechReborn.git'
-						developerConnection 'scm:git:git@github.com:TechReborn/TechReborn.git'
-					}
-					issueManagement {
-						system 'github'
-						url 'https://github.com/TechReborn/TechReborn/issues'
-					}
-					licenses {
-						license {
-							name 'License'
-							url 'https://raw.githubusercontent.com/TechReborn/TechReborn/master/LICENSE.md'
-							distribution 'repo'
-						}
-					}
-					developers {
-						developer {
-							id 'modmuss50'
-							name 'modmuss50'
-							roles {role 'developer'}
-						}
-						developer {
-							id 'Gigabit101'
-							name 'Gigabit101'
-							roles {role 'developer'}
-						}
-					}
-				}
+
+			artifact deobfJar {
+				classifier "dev"
+			}
+
+			artifact sourceJar {
+				classifier "sources"
+			}
+
+			//Removes all of the dependencies from the maven pom, fixes issues when other projects try to depend on tr
+			pom.withXml {
+				asNode().remove(asNode().get('dependencies'))
+			}
+		}
+	}
+	repositories {
+		maven {
+			url "http://mavenupload.modmuss50.me/"
+			credentials {
+				username 'buildslave'
+				password project.getProperty('mavenPass')
 			}
 		}
 	}
 }
 
-task wrapper(type: Wrapper) {
-	//To update the wrapper change the version bellow then run: gradle wrapper
-	gradleVersion = '2.13'
-}
 
 //Thanks Matthew from #ForgeGradle https://gist.github.com/matthewprenger/108265e3efc83181bd2cc2d2fc31a853
 task updateMappings(dependsOn: sourceJar) {
@@ -357,6 +327,7 @@ task curseTools {
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import org.apache.commons.io.IOUtils
+
 import java.util.zip.ZipFile
 
 //Reads the new fml_cache_annotation file built into the jar file, to find all crafttweaker methods, and saves the data to a file
