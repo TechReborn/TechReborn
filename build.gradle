@@ -122,7 +122,7 @@ dependencies {
 	compile "mcp.mobius.waila:Hwyla:+"
 	compile "net.darkhax.tesla:Tesla-1.12:1.0.61:deobf"
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
-	compile name: 'buildcraft', version: '7.99.14', ext: 'jar'
+	compile name: 'buildcraft', version: '7.99.15', ext: 'jar'
 		
 	deobfCompile "mezz.jei:jei_1.12.2:+"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
