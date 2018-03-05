@@ -66,7 +66,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public int maxProgress = 120;
 	public int euTick = 10;
 	public Pair<ResourceLocation, IRecipe> cachedRecipe;
-	public boolean customRecipe = true;
+	public boolean customRecipe = false;
 	InventoryCrafting inventoryCrafting = null;
 	IRecipe lastCustomRecipe = null;
 
@@ -77,13 +77,17 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			currentRecipe = null;
 		}
 
-		this.customRecipe = customRecipe;
+		// Disabled due to performance issues
+		//this.customRecipe = customRecipe;
+		this.customRecipe = false;
 		cachedRecipe = null;
 	}
 
 	public void setCurrentRecipe(ResourceLocation recipe, boolean customRecipe) {
 		currentRecipe = recipe;
-		this.customRecipe = customRecipe;
+		// Disabled due to performance issues
+		//this.customRecipe = customRecipe;
+		this.customRecipe = false;
 		cachedRecipe = null;
 	}
 
@@ -373,7 +377,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		if (currentRecipe != null) {
 			tag.setString("currentRecipe", currentRecipe.toString());
 		}
-		tag.setBoolean("customRecipe", customRecipe);
+		// Disable due to performance issues
+		// tag.setBoolean("customRecipe", customRecipe);
+		tag.setBoolean("customRecipe", false);
 		return super.writeToNBT(tag);
 	}
 
@@ -382,7 +388,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		if (tag.hasKey("currentRecipe")) {
 			currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
 		}
-		customRecipe = tag.getBoolean("customRecipe");
+		// Disabled due to performance issues
+		//customRecipe = tag.getBoolean("customRecipe");
+		customRecipe = false;
 		super.readFromNBT(tag);
 	}
 
