@@ -28,14 +28,11 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.EnumHelper;
 
 /**
  * This contains some static stuff used in recipes and other things
  */
-//TODO move this out of the api, and make it nicer
-@SuppressWarnings("deprecation")
 public class Reference {
 
 	private static final Class<?>[] ARMOR_PARAMETERS = { String.class, int.class, int[].class, int.class, SoundEvent.class, float.class };
@@ -55,22 +52,20 @@ public class Reference {
 	public static ToolMaterial SAPPHIRE = EnumHelper.addToolMaterial("SAPPHIRE", 2, 620, 5.0F, 2F, 8);
 	public static ToolMaterial PERIDOT = EnumHelper.addToolMaterial("PERIDOT", 2, 400, 7.0F, 2.4F, 16);
 
-	public static String alloySmelterRecipe = I18n.translateToLocal("techreborn.recipe.alloysmelter");
-	public static String assemblingMachineRecipe = I18n.translateToLocal("techreborn.recipe.assemblingmachine");
-	public static String blastFurnaceRecipe = I18n.translateToLocal("techreborn.recipe.blastfurnace");
-	public static String centrifugeRecipe = I18n.translateToLocal("techreborn.recipe.centrifuge");
-	public static String chemicalReactorRecipe = I18n.translateToLocal("techreborn.recipe.chemicalReactor");
-	public static String industrialGrinderRecipe = I18n.translateToLocal("techreborn.recipe.grinder");
-	public static String implosionCompressorRecipe = I18n.translateToLocal("techreborn.recipe.implosioncompressor");
-	public static String industrialElectrolyzerRecipe = I18n.translateToLocal("techreborn.recipe.industrialelectrolyzer");
-	public static String industrialSawmillRecipe = I18n.translateToLocal("techreborn.recipe.industrialsawmill");
-	public static String latheRecipe = I18n.translateToLocal("techreborn.recipe.lathe");
-	public static String plateCuttingMachineRecipe = I18n.translateToLocal("techreborn.recipe.platecuttingmachine");
-	public static String vacuumFreezerRecipe = I18n.translateToLocal("tile.techreborn.vacuumfreezer.name");
-	public static String grinderRecipe = I18n.translateToLocal("tile.techreborn.grinder.name");
-	public static String extractorRecipe = I18n.translateToLocal("tile.techreborn.extractor.name");
-	public static String compressorRecipe = I18n.translateToLocal("tile.techreborn.compressor.name");
-	public static String recyclerRecipe = I18n.translateToLocal("tile.techreborn.recycler.name");
-	public static String scrapboxRecipe = I18n.translateToLocal("techreborn.recipe.scrapbox");
-	public static String distillationTowerRecipe = I18n.translateToLocal("techreborn.recipe.distillationtower");
+	public static String ALLOY_SMELTER_RECIPE = "ALLOY_SMELTER_RECIPE";
+	public static String ASSEMBLING_MACHINE_RECIPE = "ASSEMBLING_MACHINE_RECIPE";
+	public static String BLAST_FURNACE_RECIPE = "BLAST_FURNACE_RECIPE";
+	public static String CENTRIFUGE_RECIPE = "CENTRIFUGE_RECIPE";
+	public static String CHEMICAL_REACTOR_RECIPE = "CHEMICAL_REACTOR_RECIPE";
+	public static String COMPRESSOR_RECIPE = "COMPRESSOR_RECIPE";
+	public static String DISTILLATION_TOWER_RECIPE = "DISTILLATION_TOWER_RECIPE";
+	public static String EXTRACTOR_RECIPE = "EXTRACTOR_RECIPE";
+	public static String GRINDER_RECIPE = "GRINDER_RECIPE";
+	public static String IMPLOSION_COMPRESSOR_RECIPE = "IMPLOSION_COMPRESSOR_RECIPE";
+	public static String INDUSTRIAL_ELECTROLYZER_RECIPE = "INDUSTRIAL_ELECTROLYZER_RECIPE";
+	public static String INDUSTRIAL_GRINDER_RECIPE = "INDUSTRIAL_GRINDER_RECIPE"; 
+	public static String INDUSTRIAL_SAWMILL_RECIPE = "INDUSTRIAL_SAWMILL_RECIPE";
+	public static String RECYCLER_RECIPE = "RECYCLER_RECIPE"; 
+	public static String SCRAPBOX_RECIPE = "SCRAPBOX_RECIPE";
+	public static String VACUUM_FREEZER_RECIPE = "VACUUM_FREEZER_RECIPE";
 }

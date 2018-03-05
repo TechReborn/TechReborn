@@ -111,6 +111,6 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @return String Reference name for Industrial Grinder
 	 */
 	public static String getMachineName() {
-		return Reference.industrialGrinderRecipe;
+		return Reference.INDUSTRIAL_GRINDER_RECIPE;
 	}
 }

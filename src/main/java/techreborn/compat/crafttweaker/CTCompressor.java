@@ -63,6 +63,6 @@ public class CTCompressor extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.compressorRecipe;
+		return Reference.COMPRESSOR_RECIPE;
 	}
 }

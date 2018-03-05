@@ -62,6 +62,6 @@ public class CTChemicalReactor extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.chemicalReactorRecipe;
+		return Reference.CHEMICAL_REACTOR_RECIPE;
 	}
 }

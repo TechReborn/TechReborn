@@ -51,7 +51,7 @@ public class TileCompressor extends TilePowerAcceptor implements IToolDrop, IInv
 		super();
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.crafter = new RecipeCrafter(Reference.compressorRecipe, this, 2, 1, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.COMPRESSOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 
 	}
 

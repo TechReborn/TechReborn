@@ -79,7 +79,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		this.ticksSinceLastChange = 0;
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
-		this.crafter = new RecipeCrafter(Reference.industrialGrinderRecipe, this, 1, 4, this.inventory, inputs,
+		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_GRINDER_RECIPE, this, 1, 4, this.inventory, inputs,
 			outputs);
 	}
 

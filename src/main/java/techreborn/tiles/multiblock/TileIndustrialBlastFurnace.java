@@ -74,7 +74,7 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 		this.inventory = new Inventory(5, "TileIndustrialBlastFurnace", 64, this);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
-		this.crafter = new RecipeCrafter(Reference.blastFurnaceRecipe, this, 2, 2, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.BLAST_FURNACE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
 	public boolean getMutliBlock() {

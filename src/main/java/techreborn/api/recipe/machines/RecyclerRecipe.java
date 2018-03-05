@@ -33,7 +33,7 @@ import techreborn.api.recipe.BaseRecipe;
 public class RecyclerRecipe extends BaseRecipe {
 
 	public RecyclerRecipe(ItemStack input) {
-		super(Reference.recyclerRecipe, 0, 0);
+		super(Reference.RECYCLER_RECIPE, 0, 0);
 		addInput(input);
 		addOutput(TechRebornAPI.subItemRetriever.getPartByName("scrap"));
 	}

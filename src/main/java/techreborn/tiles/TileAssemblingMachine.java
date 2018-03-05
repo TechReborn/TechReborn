@@ -65,7 +65,7 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 		inputs[1] = 1;
 		final int[] outputs = new int[1];
 		outputs[0] = 2;
-		this.crafter = new RecipeCrafter(Reference.assemblingMachineRecipe, this, 2, 2, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.ASSEMBLING_MACHINE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 
 	@Override

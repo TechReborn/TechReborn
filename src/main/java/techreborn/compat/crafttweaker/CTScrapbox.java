@@ -58,14 +58,14 @@ public class CTScrapbox {
 	}
 	
 	public static String getMachineName() {
-		return Reference.scrapboxRecipe;
+		return Reference.SCRAPBOX_RECIPE;
 	}
 
 	public static class RemoveAll implements IAction {
 
 		@Override
 		public void apply() {
-			RecipeHandler.recipeList.removeAll(RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe));
+			RecipeHandler.recipeList.removeAll(RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE));
 		}
 
 		@Override

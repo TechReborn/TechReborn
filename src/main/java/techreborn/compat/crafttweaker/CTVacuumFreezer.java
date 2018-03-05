@@ -60,6 +60,6 @@ public class CTVacuumFreezer extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.vacuumFreezerRecipe;
+		return Reference.VACUUM_FREEZER_RECIPE;
 	}
 }

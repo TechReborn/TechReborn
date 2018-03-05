@@ -54,6 +54,7 @@ import techreborn.init.ModItems;
 /**
  * Created by modmuss50 on 17/05/2016.
  */
+@SuppressWarnings("deprecation")
 public class DynamicCell extends Item {
 
 	public static final int CAPACITY = Fluid.BUCKET_VOLUME;
@@ -158,7 +159,6 @@ public class DynamicCell extends Item {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
 		FluidStack fluidStack = getFluidHandler(stack).getFluid();

@@ -51,7 +51,7 @@ public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 	@Override
 	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		if (dispenseScrapboxes) {
-			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe);
+			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE);
 			int random = new Random().nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutput(0);
 			stack.splitStack(1);

@@ -63,7 +63,7 @@ public class TileChemicalReactor extends TilePowerAcceptor
 		inputs[1] = 1;
 		final int[] outputs = new int[1];
 		outputs[0] = 2;
-		this.crafter = new RecipeCrafter(Reference.chemicalReactorRecipe, this, 2, 2, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.CHEMICAL_REACTOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 
 	@Override

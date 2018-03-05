@@ -140,6 +140,7 @@ public class BlockAlarm extends BaseTileBlock {
 		return new TileAlarm();
 	}
 
+	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 	                                        float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 		return this.getDefaultState().withProperty(FACING, facing);

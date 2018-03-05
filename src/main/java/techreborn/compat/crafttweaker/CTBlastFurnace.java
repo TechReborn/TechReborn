@@ -62,6 +62,6 @@ public class CTBlastFurnace extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.blastFurnaceRecipe;
+		return Reference.BLAST_FURNACE_RECIPE;
 	}
 }

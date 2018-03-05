@@ -66,7 +66,7 @@ public class CTDistillationTower extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.distillationTowerRecipe;
+		return Reference.DISTILLATION_TOWER_RECIPE;
 	}
 
 }

@@ -72,7 +72,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 		outputs[1] = 3;
 		outputs[2] = 4;
 		outputs[3] = 5;
-		this.crafter = new RecipeCrafter(Reference.industrialElectrolyzerRecipe, this, 2, 4, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 
 	@Override

@@ -65,6 +65,6 @@ public class CTGrinder extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.grinderRecipe;
+		return Reference.GRINDER_RECIPE;
 	}
 }

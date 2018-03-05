@@ -71,7 +71,7 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 		outputs[2] = 4;
 		outputs[3] = 5;
 
-		this.crafter = new RecipeCrafter(Reference.centrifugeRecipe, this, 2, 4, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.CENTRIFUGE_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 
 	@Override

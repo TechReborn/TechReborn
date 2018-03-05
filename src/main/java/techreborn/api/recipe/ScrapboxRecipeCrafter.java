@@ -46,12 +46,12 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	 * @param outputSlots Slot IDs for output
 	 */
 	public ScrapboxRecipeCrafter(TileEntity parentTile, Inventory inventory, int[] inputSlots, int[] outputSlots) {
-		super(Reference.scrapboxRecipe, parentTile, 1, 1, inventory, inputSlots, outputSlots);
+		super(Reference.SCRAPBOX_RECIPE, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 
 	@Override
 	public void updateCurrentRecipe(){
-		List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.scrapboxRecipe);
+		List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE);
 		int random = parentTile.getWorld().rand.nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));

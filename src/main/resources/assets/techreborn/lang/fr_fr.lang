@@ -848,18 +848,7 @@ tr.configgui.category.tremc.tooltip=EMC
 tr.configgui.category.treinter.tooltip=Intégration de mod
 
 #Recipe Handlers
-techreborn.recipe.alloysmelter=Recette de four électrique d'alliage
 techreborn.recipe.ironalloysmelter=Recette de four en fer d'alliage
-techreborn.recipe.assemblingmachine=Recette d'assembleur
-techreborn.recipe.blastfurnace=Recette de haut fourneau ind.
-techreborn.recipe.centrifuge=Recette de centrifugeuse
-techreborn.recipe.grinder=Recette de broyeur ind.
-techreborn.recipe.industrialelectrolyzer=Recette d'électrolyseur ind.
-techreborn.recipe.industrialsawmill=Recette de scierie
-techreborn.recipe.lathe=Recette de tour ind.
-techreborn.recipe.platecuttingmachine=Recette de guillotine ind.
-techreborn.recipe.chemicalReactor=Recette de réacteur chimique
-techreborn.recipe.implosioncompressor=Recette de compresseur à implosion
 
 #Message
 techreborn.message.missingmultiblock=MULTIBLOC MANQUANT

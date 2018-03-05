@@ -69,7 +69,7 @@ public class TileAlloySmelter extends TilePowerAcceptor
 		inputs[1] = 1;
 		final int[] outputs = new int[1];
 		outputs[0] = 2;
-		this.crafter = new RecipeCrafter(Reference.alloySmelterRecipe, this, 2, 1, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.ALLOY_SMELTER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 
 	@Override

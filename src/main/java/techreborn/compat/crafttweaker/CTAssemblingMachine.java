@@ -62,7 +62,7 @@ public class CTAssemblingMachine extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.assemblingMachineRecipe;
+		return Reference.ASSEMBLING_MACHINE_RECIPE;
 	}
 
 }

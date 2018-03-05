@@ -631,21 +631,6 @@ item.techreborn.uuMatter.name=Matéria UU
 item.techreborn.manual.name=Manual Tech Reborn
 item.techreborn.debug.name=Ferramenta de Debug
 
-#Recipe Handlers
-techreborn.recipe.alloysmelter=Receita de Fundidora de Ligas
-techreborn.recipe.ironalloysmelter=Receita de Fundidora de Ligas de Ferro
-techreborn.recipe.assemblingmachine=Receita de Máquina de Montagem
-techreborn.recipe.blastfurnace=Receita de Fornalha Industrial
-techreborn.recipe.centrifuge=Receita de Centrífuga
-techreborn.recipe.grinder=Receita de Triturador Industrial
-techreborn.recipe.industrialelectrolyzer=Receita de Eletrolizador Industrial
-techreborn.recipe.industrialsawmill=Receita de Serraria Industrial
-techreborn.recipe.lathe=Receita de Torneador
-techreborn.recipe.platecuttingmachine=Receita de Máquina de Cortar Placas
-techreborn.recipe.chemicalReactor=Receita de Reator Químico
-techreborn.recipe.implosioncompressor=Receita de Compressor à Implosão
-techreborn.recipe.distillationtower=Receita de Torre de Destilação
-
 #Message
 techreborn.message.missingmultiblock=Estrutura Incompleta
 techreborn.message.setTo=Marcado em

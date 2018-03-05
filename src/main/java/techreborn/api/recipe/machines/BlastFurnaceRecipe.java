@@ -34,7 +34,7 @@ public class BlastFurnaceRecipe extends BaseRecipe {
 
 	public BlastFurnaceRecipe(ItemStack input1, ItemStack input2, ItemStack output1, ItemStack output2, int tickTime,
 	                          int euPerTick, int neededHeat) {
-		super(Reference.blastFurnaceRecipe, tickTime, euPerTick);
+		super(Reference.BLAST_FURNACE_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);
 		if (input2 != null)

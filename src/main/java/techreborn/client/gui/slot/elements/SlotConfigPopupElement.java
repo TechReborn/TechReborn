@@ -169,10 +169,8 @@ public class SlotConfigPopupElement extends ElementBase {
 	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, GuiBase guiBase){
 		rectX += getX();
 		rectY += getY();
-		if(true){
-			return isInRect(guiBase, rectX, rectY, rectWidth, rectHeight, pointX, pointY);
-		}
-		return (pointX - guiBase.getGuiLeft()) >= rectX - 1 && (pointX - guiBase.getGuiLeft()) < rectX + rectWidth + 1 && (pointY - guiBase.getGuiTop()) >= rectY - 1 && (pointY - guiBase.getGuiTop()) < rectY + rectHeight + 1;
+		return isInRect(guiBase, rectX, rectY, rectWidth, rectHeight, pointX, pointY);
+		//return (pointX - guiBase.getGuiLeft()) >= rectX - 1 && (pointX - guiBase.getGuiLeft()) < rectX + rectWidth + 1 && (pointY - guiBase.getGuiTop()) >= rectY - 1 && (pointY - guiBase.getGuiTop()) < rectY + rectHeight + 1;
 	}
 
 	public void drawState(GuiBase gui,

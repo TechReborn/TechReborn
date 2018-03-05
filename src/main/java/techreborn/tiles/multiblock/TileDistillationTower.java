@@ -64,7 +64,7 @@ public class TileDistillationTower extends TilePowerAcceptor
 		super();
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.crafter = new RecipeCrafter(Reference.distillationTowerRecipe, this, 2, 4, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.DISTILLATION_TOWER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
 	public boolean getMutliBlock() {

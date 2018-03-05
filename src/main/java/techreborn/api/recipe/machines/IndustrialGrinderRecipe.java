@@ -36,7 +36,7 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 
 	public IndustrialGrinderRecipe(ItemStack input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
-		super(Reference.industrialGrinderRecipe, tickTime, euPerTick);
+		super(Reference.INDUSTRIAL_GRINDER_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);
 		if (output1 != null)

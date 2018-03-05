@@ -62,6 +62,6 @@ public class CTIndustrialElectrolyzer extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.industrialElectrolyzerRecipe;
+		return Reference.INDUSTRIAL_ELECTROLYZER_RECIPE;
 	}
 }

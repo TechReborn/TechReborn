@@ -34,7 +34,7 @@ public class CentrifugeRecipe extends BaseRecipe {
 
 	public CentrifugeRecipe(Object input1, ItemStack input2, ItemStack output1, ItemStack output2, ItemStack output3,
 	                        ItemStack output4, int tickTime, int euPerTick) {
-		super(Reference.centrifugeRecipe, tickTime, euPerTick);
+		super(Reference.CENTRIFUGE_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);
 		if (input2 != null)

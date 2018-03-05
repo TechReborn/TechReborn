@@ -82,7 +82,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 		this.ticksSinceLastChange = 0;
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
-		this.crafter = new RecipeCrafter(Reference.industrialSawmillRecipe, this, 1, 3, this.inventory, inputs,
+		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs,
 				outputs);
 	}
 

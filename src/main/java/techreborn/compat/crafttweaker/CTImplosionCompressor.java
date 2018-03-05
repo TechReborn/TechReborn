@@ -62,6 +62,6 @@ public class CTImplosionCompressor extends CTGeneric {
 	}
 	
 	public static String getMachineName() {
-		return Reference.implosionCompressorRecipe;
+		return Reference.IMPLOSION_COMPRESSOR_RECIPE;
 	}
 }

@@ -48,7 +48,7 @@ public class DistillationTowerRecipe extends BaseRecipe {
 	 */
 	public DistillationTowerRecipe(ItemStack inputCells, ItemStack input2, ItemStack output1, ItemStack output2,
             ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
-		super(Reference.distillationTowerRecipe, tickTime, euPerTick);
+		super(Reference.DISTILLATION_TOWER_RECIPE, tickTime, euPerTick);
 		if (inputCells != null)
 			addInput(inputCells);
 		if (input2 != null)

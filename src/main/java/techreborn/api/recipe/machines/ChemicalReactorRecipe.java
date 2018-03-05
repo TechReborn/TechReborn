@@ -31,7 +31,7 @@ import techreborn.api.recipe.BaseRecipe;
 public class ChemicalReactorRecipe extends BaseRecipe {
 
 	public ChemicalReactorRecipe(ItemStack input1, ItemStack input2, ItemStack output1, int tickTime, int euPerTick) {
-		super(Reference.chemicalReactorRecipe, tickTime, euPerTick);
+		super(Reference.CHEMICAL_REACTOR_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);
 		if (input2 != null)

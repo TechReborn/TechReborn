@@ -52,6 +52,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Mark on 04/06/2016.
  */
+@SuppressWarnings("deprecation")
 public class ProbeProvider implements IProbeInfoProvider {
 
 	ProgressStyle euStyle = new ProgressStyle().backgroundColor(0xFF8B8B8B).borderColor(0xFF373737).alternateFilledColor(PowerSystem.getDisplayPower().altColour).filledColor(PowerSystem.getDisplayPower().colour);
@@ -79,7 +80,6 @@ public class ProbeProvider implements IProbeInfoProvider {
 		return "TechReborn";
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
 		euStyle = new ProgressStyle().backgroundColor(0xFF8B8B8B).borderColor(0xFF373737).alternateFilledColor(PowerSystem.getDisplayPower().altColour).filledColor(PowerSystem.getDisplayPower().colour);

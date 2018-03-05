@@ -55,7 +55,7 @@ public class TileGrinder extends TilePowerAcceptor
 		inputs[0] = 0;
 		final int[] outputs = new int[1];
 		outputs[0] = 1;
-		this.crafter = new RecipeCrafter(Reference.grinderRecipe, this, 2, 1, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.GRINDER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 
 	@Override

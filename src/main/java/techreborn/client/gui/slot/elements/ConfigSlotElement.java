@@ -32,7 +32,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.tile.SlotConfiguration;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 
@@ -61,8 +60,6 @@ public class ConfigSlotElement extends ElementBase {
 			GuiSlotConfiguration.slectedSlot = -1;
 			return true;
 		}));
-
-		SlotConfiguration.SlotConfigHolder slotConfigHolder = gui.getMachine().slotConfiguration.getSlotDetails(id);
 
 		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
 			popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);

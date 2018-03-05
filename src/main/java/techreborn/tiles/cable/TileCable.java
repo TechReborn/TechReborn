@@ -49,6 +49,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
+@SuppressWarnings("deprecation")
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider {
 	public int power = 0;
 	private int transferRate = 0;
@@ -233,7 +234,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
         return compound;
     }
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 		if (isRealTile) {

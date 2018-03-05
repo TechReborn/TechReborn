@@ -62,6 +62,6 @@ public class CTCentrifuge extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.centrifugeRecipe;
+		return Reference.CENTRIFUGE_RECIPE;
 	}
 }

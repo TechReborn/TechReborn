@@ -31,7 +31,7 @@ import techreborn.api.recipe.BaseRecipe;
 public class CompressorRecipe extends BaseRecipe {
 
 	public CompressorRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
-		super(Reference.compressorRecipe, tickTime, euPerTick);
+		super(Reference.COMPRESSOR_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);
 		if (output1 != null)

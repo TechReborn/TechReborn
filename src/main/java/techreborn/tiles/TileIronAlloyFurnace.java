@@ -198,7 +198,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 			return false;
 		} else {
 			ItemStack itemstack = null;
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelterRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
 					break;
@@ -230,7 +230,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	public void smeltItem() {
 		if (this.canSmelt()) {
 			ItemStack itemstack = ItemStack.EMPTY;
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelterRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutput(0);
 					break;
@@ -246,7 +246,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 				this.decrStackSize(this.output, -itemstack.getCount());
 			}
 
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelterRecipe)) {
+			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
 				boolean hasAllRecipes = true;
 				if (this.hasAllInputs(recipeType)) {
 

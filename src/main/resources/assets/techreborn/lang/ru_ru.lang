@@ -640,21 +640,6 @@ item.techreborn.uuMatter.name=Материя
 item.techreborn.manual.name=Техническое руководство
 item.techreborn.debug.name=Инструмент отладки
 
-#Recipe Handlers
-techreborn.recipe.alloysmelter=Рецепт электрической плавильной печи
-techreborn.recipe.ironalloysmelter=Рецепт железной плавильной печи
-techreborn.recipe.assemblingmachine=Рецепт сборочной машины
-techreborn.recipe.blastfurnace=Рецепт доменной печи
-techreborn.recipe.centrifuge=Рецепт центрифуги
-techreborn.recipe.grinder=Рецепт промышленной дробилки
-techreborn.recipe.industrialelectrolyzer=Рецепт промышленного электролизера
-techreborn.recipe.industrialsawmill=Рецепт промышленной лесопилки
-techreborn.recipe.lathe=Рецепт токарного станка
-techreborn.recipe.platecuttingmachine=Рецепт резака для резки пластин
-techreborn.recipe.chemicalReactor=Рецепт химического реактора
-techreborn.recipe.implosioncompressor=Рецепт компрессора внутреннего взрыва
-techreborn.recipe.distillationtower=Рецепт дистиляционной колонны
-
 #Message
 techreborn.message.missingmultiblock=Мультиблочная структура не закончена
 techreborn.message.setTo=Set to

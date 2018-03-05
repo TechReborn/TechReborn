@@ -631,21 +631,6 @@ item.techreborn.uuMatter.name=UU-物质
 item.techreborn.manual.name=科技手册
 item.techreborn.debug.name=调试工具
 
-#Recipe Handlers
-techreborn.recipe.alloysmelter=合金炉
-techreborn.recipe.ironalloysmelter=铁质合金炉
-techreborn.recipe.assemblingmachine=装配机
-techreborn.recipe.blastfurnace=高炉
-techreborn.recipe.centrifuge=离心机
-techreborn.recipe.grinder=工业磨粉机
-techreborn.recipe.industrialelectrolyzer=工业电解器
-techreborn.recipe.industrialsawmill=工业锯木机
-techreborn.recipe.lathe=车床
-techreborn.recipe.platecuttingmachine=板材切割机
-techreborn.recipe.chemicalReactor=化学反应器
-techreborn.recipe.implosioncompressor=聚爆压缩机
-techreborn.recipe.distillationtower=蒸馏塔
-
 #Message
 techreborn.message.missingmultiblock=多方块结构缺失
 techreborn.message.setTo=设置为

@@ -83,6 +83,6 @@ public class CTIndustrialSawmill extends CTGeneric {
 	}
 
 	public static String getMachineName() {
-		return Reference.industrialSawmillRecipe;
+		return Reference.INDUSTRIAL_SAWMILL_RECIPE;
 	}
 }

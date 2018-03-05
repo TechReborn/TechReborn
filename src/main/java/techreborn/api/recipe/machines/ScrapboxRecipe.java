@@ -32,7 +32,7 @@ import techreborn.api.recipe.BaseRecipe;
 public class ScrapboxRecipe extends BaseRecipe {
 
 	public ScrapboxRecipe(ItemStack output, int tickTime, int euPerTick) {
-		super(Reference.scrapboxRecipe, tickTime, euPerTick);
+		super(Reference.SCRAPBOX_RECIPE, tickTime, euPerTick);
 		if (output != null) {
 			addInput(new ItemStack(TechRebornAPI.getItem("SCRAP_BOX")));
 			addOutput(output);
