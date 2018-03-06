@@ -239,43 +239,44 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', "ingotRefinedIron", 'S', Items.REDSTONE, 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
 		}
-		
+
 		//UU-Matter
-		registerShaped(getStack(Blocks.LOG, 8), 				" U ", "   ", "   ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.STONE, 16), 				"   ", " U ", "   ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.SNOW, 16), 				"U U", "   ", "   ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.GRASS, 16), 				"   ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.OBSIDIAN, 12), 			"U U", "U U", "   ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.GLASS, 32), 				" U ", "U U", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.DYE, 32, 3), 				"UU ", "  U", "UU ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.GLOWSTONE, 8), 			" U ", "U U", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.CACTUS, 48), 			" U ", "UUU", "U U", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.REEDS, 48), 				"U U", "U U", "U U", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.VINE, 24), 				"U  ", "U  ", "U  ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.SNOWBALL, 16), 			"   ", "   ", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.CLAY_BALL, 48), 			"UU ", "U  ", "UU ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.WATERLILY, 64), 			"U U", " U ", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.GUNPOWDER, 15), 			"UUU", "U  ", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.BONE, 32), 				"U  ", "UU ", "U  ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.FEATHER, 32), 			" U ", " U ", "U U", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.DYE, 48), 				" UU", " UU", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.ENDER_PEARL, 1), 			"UUU", "U U", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.COAL, 5), 				"  U", "U  ", "  U", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.IRON_ORE, 2), 			"U U", " U ", "U U", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.GOLD_ORE, 2), 			" U ", "UUU", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.REDSTONE, 24), 			"   ", " U ", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.DYE, 9, 4), 				" U ", " U ", " UU", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Blocks.EMERALD_ORE, 1), 		"UU ", "U U", " UU", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.EMERALD, 2), 				"UUU", "UUU", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getStack(Items.DIAMOND, 1), 				"UUU", "UUU", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("tin", 10, Type.DUST), 		"   ", "U U", "  U", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("copper", 10, Type.DUST), 	"  U", "U U", "   ", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("lead", 14, Type.DUST), 		"UUU", "UUU", "U  ", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("platinum", Type.DUST), 		"  U", "UUU", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("tungsten", Type.DUST), 		"U  ", "UUU", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("titanium", 2, Type.DUST), 	"UUU", " U ", " U ", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("aluminum", 16, Type.DUST), 	" U ", " U ", "UUU", 'U', ModItems.UU_MATTER);
-		registerShaped(getMaterial("iridium", 1, Type.ORE), 	"UUU", " U ", "UUU", 'U', ModItems.UU_MATTER);
+		ItemStack uuStack = new ItemStack(ModItems.UU_MATTER);
+		registerShaped(getStack(Blocks.LOG, 8), 				" U ", "   ", "   ", 'U', uuStack);
+		registerShaped(getStack(Blocks.STONE, 16), 				"   ", " U ", "   ", 'U', uuStack);
+		registerShaped(getStack(Blocks.SNOW, 16), 				"U U", "   ", "   ", 'U', uuStack);
+		registerShaped(getStack(Blocks.GRASS, 16), 				"   ", "U  ", "U  ", 'U', uuStack);
+		registerShaped(getStack(Blocks.OBSIDIAN, 12), 			"U U", "U U", "   ", 'U', uuStack);
+		registerShaped(getStack(Blocks.GLASS, 32), 				" U ", "U U", " U ", 'U', uuStack);
+		registerShaped(getStack(Items.DYE, 32, 3), 				"UU ", "  U", "UU ", 'U', uuStack);
+		registerShaped(getStack(Blocks.GLOWSTONE, 8), 			" U ", "U U", "UUU", 'U', uuStack);
+		registerShaped(getStack(Blocks.CACTUS, 48), 			" U ", "UUU", "U U", 'U', uuStack);
+		registerShaped(getStack(Items.REEDS, 48), 				"U U", "U U", "U U", 'U', uuStack);
+		registerShaped(getStack(Blocks.VINE, 24), 				"U  ", "U  ", "U  ", 'U', uuStack);
+		registerShaped(getStack(Items.SNOWBALL, 16), 			"   ", "   ", "UUU", 'U', uuStack);
+		registerShaped(getStack(Items.CLAY_BALL, 48), 			"UU ", "U  ", "UU ", 'U', uuStack);
+		registerShaped(getStack(Blocks.WATERLILY, 64), 			"U U", " U ", " U ", 'U', uuStack);
+		registerShaped(getStack(Items.GUNPOWDER, 15), 			"UUU", "U  ", "UUU", 'U', uuStack);
+		registerShaped(getStack(Items.BONE, 32), 				"U  ", "UU ", "U  ", 'U', uuStack);
+		registerShaped(getStack(Items.FEATHER, 32), 			" U ", " U ", "U U", 'U', uuStack);
+		registerShaped(getStack(Items.DYE, 48), 				" UU", " UU", " U ", 'U', uuStack);
+		registerShaped(getStack(Items.ENDER_PEARL, 1), 			"UUU", "U U", " U ", 'U', uuStack);
+		registerShaped(getStack(Items.COAL, 5), 				"  U", "U  ", "  U", 'U', uuStack);
+		registerShaped(getStack(Blocks.IRON_ORE, 2), 			"U U", " U ", "U U", 'U', uuStack);
+		registerShaped(getStack(Blocks.GOLD_ORE, 2), 			" U ", "UUU", " U ", 'U', uuStack);
+		registerShaped(getStack(Items.REDSTONE, 24), 			"   ", " U ", "UUU", 'U', uuStack);
+		registerShaped(getStack(Items.DYE, 9, 4), 				" U ", " U ", " UU", 'U', uuStack);
+		registerShaped(getStack(Blocks.EMERALD_ORE, 1), 		"UU ", "U U", " UU", 'U', uuStack);
+		registerShaped(getStack(Items.EMERALD, 2), 				"UUU", "UUU", " U ", 'U', uuStack);
+		registerShaped(getStack(Items.DIAMOND, 1), 				"UUU", "UUU", "UUU", 'U', uuStack);
+		registerShaped(getMaterial("tin", 10, Type.DUST), 		"   ", "U U", "  U", 'U', uuStack);
+		registerShaped(getMaterial("copper", 10, Type.DUST), 	"  U", "U U", "   ", 'U', uuStack);
+		registerShaped(getMaterial("lead", 14, Type.DUST), 		"UUU", "UUU", "U  ", 'U', uuStack);
+		registerShaped(getMaterial("platinum", Type.DUST), 		"  U", "UUU", "UUU", 'U', uuStack);
+		registerShaped(getMaterial("tungsten", Type.DUST), 		"U  ", "UUU", "UUU", 'U', uuStack);
+		registerShaped(getMaterial("titanium", 2, Type.DUST), 	"UUU", " U ", " U ", 'U', uuStack);
+		registerShaped(getMaterial("aluminum", 16, Type.DUST), 	" U ", " U ", "UUU", 'U', uuStack);
+		registerShaped(getMaterial("iridium", 1, Type.ORE), 	"UUU", " U ", "UUU", 'U', uuStack);
 		
 		for (String part : ItemParts.types) {
 			if (part.endsWith("Gear")) {
