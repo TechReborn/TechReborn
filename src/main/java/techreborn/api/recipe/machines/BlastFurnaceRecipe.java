@@ -32,7 +32,7 @@ public class BlastFurnaceRecipe extends BaseRecipe {
 
 	public int neededHeat;
 
-	public BlastFurnaceRecipe(ItemStack input1, ItemStack input2, ItemStack output1, ItemStack output2, int tickTime,
+	public BlastFurnaceRecipe(Object input1, Object input2, ItemStack output1, ItemStack output2, int tickTime,
 	                          int euPerTick, int neededHeat) {
 		super(Reference.BLAST_FURNACE_RECIPE, tickTime, euPerTick);
 		if (input1 != null)

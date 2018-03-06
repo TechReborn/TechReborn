@@ -48,7 +48,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
 		this.fluidStack = fluidStack;
 	}
 
-	public IndustrialSawmillRecipe(ItemStack input1, FluidStack fluidStack, ItemStack output1,
+	public IndustrialSawmillRecipe(Object input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, int tickTime, int euPerTick, boolean canUseOreDict) {
 		super(Reference.INDUSTRIAL_SAWMILL_RECIPE, tickTime, euPerTick);
 		if (input1 != null)

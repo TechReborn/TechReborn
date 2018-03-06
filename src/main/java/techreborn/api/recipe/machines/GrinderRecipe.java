@@ -32,7 +32,7 @@ public class GrinderRecipe extends BaseRecipe {
 
 	public boolean useOreDict = true;
 
-	public GrinderRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick) {
+	public GrinderRecipe(Object input1, ItemStack output1, int tickTime, int euPerTick) {
 		super(Reference.GRINDER_RECIPE, tickTime, euPerTick / 10); //Done to buff energy usage to be more in line with ic2
 		if (input1 != null)
 			addInput(input1);
@@ -40,7 +40,7 @@ public class GrinderRecipe extends BaseRecipe {
 			addOutput(output1);
 	}
 
-	public GrinderRecipe(ItemStack input1, ItemStack output1, int tickTime, int euPerTick, boolean useOreDict) {
+	public GrinderRecipe(Object input1, ItemStack output1, int tickTime, int euPerTick, boolean useOreDict) {
 		super(Reference.GRINDER_RECIPE, tickTime, euPerTick / 10); //Done to buff energy usage to be more in line with ic2
 		this.useOreDict = useOreDict;
 		if (input1 != null)

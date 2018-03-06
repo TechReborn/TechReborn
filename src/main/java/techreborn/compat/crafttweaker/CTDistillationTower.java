@@ -42,8 +42,8 @@ public class CTDistillationTower extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
-		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
+		Object oInput1 = CraftTweakerCompat.toObject(input1);
+		Object oInput2 = CraftTweakerCompat.toObject(input2);
 
 		DistillationTowerRecipe r = new DistillationTowerRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 

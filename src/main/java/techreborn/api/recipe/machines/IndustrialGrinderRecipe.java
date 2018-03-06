@@ -34,7 +34,7 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 	public FluidStack fluidStack;
 	boolean useOreDic = true;
 
-	public IndustrialGrinderRecipe(ItemStack input1, FluidStack fluidStack, ItemStack output1,
+	public IndustrialGrinderRecipe(Object input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.INDUSTRIAL_GRINDER_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
@@ -50,7 +50,7 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 		this.fluidStack = fluidStack;
 	}
 
-	public IndustrialGrinderRecipe(ItemStack input1, FluidStack fluidStack, ItemStack output1,
+	public IndustrialGrinderRecipe(Object input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick, boolean useOreDict) {
 		this(input1, fluidStack, output1, output2, output3, output4, tickTime, euPerTick);
 		this.useOreDic = useOreDict;

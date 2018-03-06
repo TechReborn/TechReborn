@@ -30,7 +30,7 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class AssemblingMachineRecipe extends BaseRecipe {
 
-	public AssemblingMachineRecipe(ItemStack input1, ItemStack input2, ItemStack output1, int tickTime, int euPerTick) {
+	public AssemblingMachineRecipe(Object input1, Object input2, ItemStack output1, int tickTime, int euPerTick) {
 		super(Reference.ASSEMBLING_MACHINE_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
 			addInput(input1);

@@ -30,7 +30,7 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class ImplosionCompressorRecipe extends BaseRecipe {
 
-	public ImplosionCompressorRecipe(ItemStack input1, ItemStack input2, ItemStack output1, ItemStack output2,
+	public ImplosionCompressorRecipe(Object input1, Object input2, ItemStack output1, ItemStack output2,
 	                                 int tickTime, int euPerTick) {
 		super(Reference.IMPLOSION_COMPRESSOR_RECIPE, tickTime, euPerTick);
 		if (input1 != null)

@@ -38,7 +38,7 @@ public class CTVacuumFreezer extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input);
+		Object oInput1 = CraftTweakerCompat.toObject(input);
 
 		VacuumFreezerRecipe r = new VacuumFreezerRecipe(oInput1, CraftTweakerCompat.toStack(output), ticktime, euTick);
 		addRecipe(r);

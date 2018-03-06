@@ -71,7 +71,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 */
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
+		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		
 		// There is only one input slot in Industrial Grinder
 		//ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);

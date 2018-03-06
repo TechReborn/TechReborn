@@ -42,7 +42,7 @@ public class CTGrinder extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
+		Object oInput1 = CraftTweakerCompat.toObject(input1);
 
 		GrinderRecipe r = new GrinderRecipe(oInput1, CraftTweakerCompat.toStack(output), ticktime, euTick);
 

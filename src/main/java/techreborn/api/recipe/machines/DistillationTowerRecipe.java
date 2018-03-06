@@ -46,7 +46,7 @@ public class DistillationTowerRecipe extends BaseRecipe {
 	 * @param tickTime Number of ticks for recipe to complete
 	 * @param euPerTick Amount of EU consumed per tick
 	 */
-	public DistillationTowerRecipe(ItemStack inputCells, ItemStack input2, ItemStack output1, ItemStack output2,
+	public DistillationTowerRecipe(Object inputCells, Object input2, ItemStack output1, ItemStack output2,
             ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.DISTILLATION_TOWER_RECIPE, tickTime, euPerTick);
 		if (inputCells != null)
@@ -63,7 +63,7 @@ public class DistillationTowerRecipe extends BaseRecipe {
 			addOutput(output4);
 	}
 	
-	public DistillationTowerRecipe(ItemStack inputCells, ItemStack input2, ItemStack output1, ItemStack output2,
+	public DistillationTowerRecipe(Object inputCells, Object input2, ItemStack output1, ItemStack output2,
             ItemStack output3, ItemStack output4, int tickTime, int euPerTick, boolean oreDict) {
 		this(inputCells, input2, output1, output2, output3, output4, tickTime, euPerTick);
 		this.useOreDictionary = oreDict;

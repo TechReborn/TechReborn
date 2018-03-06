@@ -32,7 +32,7 @@ public class CentrifugeRecipe extends BaseRecipe {
 
 	boolean useOreDic = false;
 
-	public CentrifugeRecipe(Object input1, ItemStack input2, ItemStack output1, ItemStack output2, ItemStack output3,
+	public CentrifugeRecipe(Object input1, Object input2, ItemStack output1, ItemStack output2, ItemStack output3,
 	                        ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.CENTRIFUGE_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
@@ -49,7 +49,7 @@ public class CentrifugeRecipe extends BaseRecipe {
 			addOutput(output4);
 	}
 
-	public CentrifugeRecipe(Object input1, ItemStack input2, ItemStack output1, ItemStack output2, ItemStack output3,
+	public CentrifugeRecipe(Object input1, Object input2, ItemStack output1, ItemStack output2, ItemStack output3,
 	                        ItemStack output4, int tickTime, int euPerTick, boolean useOreDic) {
 		this(input1, input2, output1, output2, output3, output4, tickTime, euPerTick);
 		this.useOreDic = useOreDic;

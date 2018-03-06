@@ -30,7 +30,7 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class VacuumFreezerRecipe extends BaseRecipe {
 
-	public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick) {
+	public VacuumFreezerRecipe(Object input, ItemStack output, int tickTime, int euPerTick) {
 		super(Reference.VACUUM_FREEZER_RECIPE, tickTime, euPerTick);
 		if (input != null)
 			addInput(input);

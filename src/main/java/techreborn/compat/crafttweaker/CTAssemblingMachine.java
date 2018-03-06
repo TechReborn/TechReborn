@@ -38,8 +38,8 @@ public class CTAssemblingMachine extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
-		ItemStack oInput2 = (ItemStack) CraftTweakerCompat.toObject(input2);
+		Object oInput1 = CraftTweakerCompat.toObject(input1);
+		Object oInput2 = CraftTweakerCompat.toObject(input2);
 
 		AssemblingMachineRecipe r = new AssemblingMachineRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output), ticktime, euTick);
 

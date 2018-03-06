@@ -55,7 +55,7 @@ public class CTIndustrialSawmill extends CTGeneric {
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick, boolean useOreDic) {
-		ItemStack oInput1 = (ItemStack) CraftTweakerCompat.toObject(input1);
+		Object oInput1 = CraftTweakerCompat.toObject(input1);
 
 		FluidStack fluidStack = null;
 		if (fluid != null) {
