@@ -58,6 +58,7 @@ import techreborn.world.config.IOreNameProvider;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockOre extends Block implements IOreNameProvider {
@@ -66,8 +67,8 @@ public class BlockOre extends Block implements IOreNameProvider {
 		"galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
 		"cinnabar", "sphalerite", "tungsten", "sheldonite", "peridot", "sodalite",
 		"lead", "silver" };
-	private static final List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
-	public static final PropertyString VARIANTS = new PropertyString("type", oreNamesList);
+	public static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
+	public static final PropertyString VARIANTS = getVarients();
 	@ConfigRegistry(config = "misc", category = "blocks", key = "rubyMinQuatity", comment = "Minimum quantity of Ruby gems per Ruby ore")
 	public static int rubyMinQuatity = 1;
 	@ConfigRegistry(config = "misc", category = "blocks", key = "rubyMaxQuantity", comment = "Maximum quantity of Ruby gems per Ruby ore")
@@ -100,12 +101,13 @@ public class BlockOre extends Block implements IOreNameProvider {
 		setHarvestLevel("pickaxe", 2);
 		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < ores.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + ores[i]).setFileName("ores"));
+			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + OreBlockStateManager.convert(ores[i])).setFileName("ores"));
 		}
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	public static ItemStack getOreByName(String name, int count) {
+		name = OreBlockStateManager.invert(name);
 		for (int i = 0; i < ores.length; i++) {
 			if (ores[i].equalsIgnoreCase(name)) {
 				return new ItemStack(ModBlocks.ORE, count, i);
@@ -119,6 +121,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 	}
 
 	public IBlockState getBlockStateFromName(String name) {
+		name = OreBlockStateManager.invert(name);
 		int index = -1;
 		for (int i = 0; i < ores.length; i++) {
 			if (ores[i].equalsIgnoreCase(name)) {
@@ -137,36 +140,30 @@ public class BlockOre extends Block implements IOreNameProvider {
 		String variant = state.getValue(VARIANTS);
 		int meta = getMetaFromState(state);
 		Random random = new Random();
-		
+
 		// Secondary drop, like peridot from sapphire ore added via event handler. 
 		if (variant.equalsIgnoreCase("Ruby")) {
 			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby", rubyMinQuatity), rubyMaxQuantity);
 			drops.add(ruby.getDrops(fortune, random));
-		}
-		else if (variant.equalsIgnoreCase("Sapphire")) {
+		} else if (variant.equalsIgnoreCase("Sapphire")) {
 			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire", sapphireMinQuantity), sapphireMaxQuantity);
 			drops.add(sapphire.getDrops(fortune, random));
-		}
-		else if (variant.equalsIgnoreCase("Pyrite")) {
+		} else if (variant.equalsIgnoreCase("Pyrite")) {
 			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite", pyriteMinQuatity), pyriteMaxQuantity);
 			drops.add(pyriteDust.getDrops(fortune, random));
-		}
-		else if (variant.equalsIgnoreCase("Sodalite")) {
+		} else if (variant.equalsIgnoreCase("Sodalite")) {
 			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", sodaliteMinQuatity), sodaliteMaxQuantity);
-			drops.add(sodalite.getDrops(fortune,  random));
-		}
-		else if (variant.equalsIgnoreCase("Cinnabar")) {
+			drops.add(sodalite.getDrops(fortune, random));
+		} else if (variant.equalsIgnoreCase("Cinnabar")) {
 			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar", cinnabarMinQuatity), cinnabarMaxQuantity);
 			drops.add(cinnabar.getDrops(fortune, random));
-		}
-		else if (variant.equalsIgnoreCase("Sphalerite")) {
+		} else if (variant.equalsIgnoreCase("Sphalerite")) {
 			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite", sphaleriteMinQuatity), sphaleriteMaxQuantity);
 			drops.add(sphalerite.getDrops(fortune, random));
-		}
-		else {
+		} else {
 			drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));
 		}
-		
+
 		return;
 	}
 
@@ -214,6 +211,15 @@ public class BlockOre extends Block implements IOreNameProvider {
 	@Override
 	public String getUserLoclisedName(IBlockState state) {
 		return StringUtils.toFirstCapital(oreNamesList.get(getMetaFromState(state)));
+	}
+
+	public static PropertyString getVarients() {
+		if (OreBlockStateManager.endOreStone) {
+			oreNamesList = BlockOre.oreNamesList.stream().map(OreBlockStateManager::convert).collect(Collectors.toList());
+			return new PropertyString("type", oreNamesList);
+		} else {
+			return new PropertyString("type", BlockOre.oreNamesList);
+		}
 	}
 
 }

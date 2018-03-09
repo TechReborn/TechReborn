@@ -55,6 +55,11 @@
           "all": "techreborn:blocks/ore/tungsten_ore"
         }
       },
+      "tungsten_stone": {
+        "textures": {
+          "all": "techreborn:blocks/ore/tungsten_ore_stone"
+        }
+      },
       "sheldonite": {
         "textures": {
           "all": "techreborn:blocks/ore/sheldonite_ore"
