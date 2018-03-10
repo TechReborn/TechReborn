@@ -150,6 +150,16 @@ public class CompatManager {
 			public String modID() {
 				return ModInfo.MOD_ID;
 			}
+
+			@Override
+			public int priority() {
+				return 0;
+			}
+
+			@Override
+			public boolean earlyReg() {
+				return false;
+			}
 		};
 		Configuration configuration = ConfigRegistryFactory.getOrCreateConfig(configRegistry, rebornRegistry);
 		Property property = ConfigRegistryFactory.get(configRegistry.category(), configRegistry.key(), true, configRegistry.comment(), boolean.class, configuration);
