@@ -65,14 +65,29 @@
           "all": "techreborn:blocks/ore/sheldonite_ore"
         }
       },
+      "sheldonite_stone": {
+        "textures": {
+          "all": "techreborn:blocks/ore/sheldonite_ore_stone"
+        }
+      },
       "peridot": {
         "textures": {
           "all": "techreborn:blocks/ore/peridot_ore"
         }
       },
+      "peridot_stone": {
+        "textures": {
+          "all": "techreborn:blocks/ore/peridot_ore_stone"
+        }
+      },
       "sodalite": {
         "textures": {
           "all": "techreborn:blocks/ore/sodalite_ore"
+        }
+      },
+      "sodalite_stone": {
+        "textures": {
+          "all": "techreborn:blocks/ore/sodalite_ore_stone"
         }
       },
       "lead": {

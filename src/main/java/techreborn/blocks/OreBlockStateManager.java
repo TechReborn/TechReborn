@@ -16,12 +16,30 @@ public class OreBlockStateManager {
 		if (OreBlockStateManager.endOreStone && name.equals("tungsten")) {
 			name = "tungsten_stone";
 		}
+		if (OreBlockStateManager.endOreStone && name.equals("peridot")) {
+			name = "peridot_stone";
+		}
+		if (OreBlockStateManager.endOreStone && name.equals("sheldonite")) {
+			name = "sheldonite_stone";
+		}
+		if (OreBlockStateManager.endOreStone && name.equals("sodalite")) {
+			name = "sodalite_stone";
+		}
 		return name;
 	}
 
 	public static String invert(String name){
 		if (name.equals("tungsten_stone")) {
 			name = "tungsten";
+		}
+		if (name.equals("peridot_stone")) {
+			name = "peridot";
+		}
+		if (name.equals("sheldonite_stone")) {
+			name = "sheldonite";
+		}
+		if (name.equals("sodalite_stone")) {
+			name = "sodalite";
 		}
 		return name;
 	}
