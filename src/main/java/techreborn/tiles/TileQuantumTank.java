@@ -104,6 +104,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 				this.setInventorySlotContents(2, ItemStack.EMPTY);
 			}
 		}
+		tank.compareAndUpdate();
 	}
 
 	@Override
