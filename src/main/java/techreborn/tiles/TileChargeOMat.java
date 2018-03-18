@@ -67,12 +67,15 @@ public class TileChargeOMat extends TilePowerAcceptor
 	public void update() {
 		super.update();
 
+		if(world.isRemote){
+			return;
+		}
 		for (int i = 0; i < 6; i++) {
 			if (this.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
 				if (this.getEnergy() > 0) {
 					final ItemStack stack = this.inventory.getStackInSlot(i);
 					if (stack.getItem() instanceof IEnergyItemInfo) {
-						IEnergyItemInfo item = (IEnergyItemInfo) inventory.getStackInSlot(0).getItem();
+						IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
 						if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)) {
 							if (canUseEnergy(item.getMaxTransfer(stack))) {
 								useEnergy(item.getMaxTransfer(stack));
