@@ -310,6 +310,13 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		this.finalTickTime = tagCompound.getInteger("finalTickTime");
 		this.neededPower = tagCompound.getInteger("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
+		if(tagCompound.hasKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
+			for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
+				if (validateReactorRecipe(reactorRecipe)) {
+					this.currentRecipe = reactorRecipe;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -319,6 +326,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		tagCompound.setInteger("finalTickTime", this.finalTickTime);
 		tagCompound.setInteger("neededPower", this.neededPower);
 		tagCompound.setBoolean("hasStartedCrafting", this.hasStartedCrafting);
+		tagCompound.setBoolean("hasActiveRecipe", this.currentRecipe != null);
 		return tagCompound;
 	}
 
