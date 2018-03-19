@@ -32,7 +32,6 @@ import techreborn.api.recipe.BaseRecipe;
 public class IndustrialGrinderRecipe extends BaseRecipe {
 
 	public FluidStack fluidStack;
-	boolean useOreDic = true;
 
 	public IndustrialGrinderRecipe(Object input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
@@ -48,12 +47,13 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 		if (output4 != null)
 			addOutput(output4);
 		this.fluidStack = fluidStack;
+		setOreDict(true);
 	}
 
 	public IndustrialGrinderRecipe(Object input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, ItemStack output4, int tickTime, int euPerTick, boolean useOreDict) {
 		this(input1, fluidStack, output1, output2, output3, output4, tickTime, euPerTick);
-		this.useOreDic = useOreDict;
+		setOreDict(useOreDict);
 	}
 
 	@Override
@@ -61,8 +61,4 @@ public class IndustrialGrinderRecipe extends BaseRecipe {
 		return "IndustrialGrinder";
 	}
 
-	@Override
-	public boolean useOreDic() {
-		return useOreDic;
-	}
 }

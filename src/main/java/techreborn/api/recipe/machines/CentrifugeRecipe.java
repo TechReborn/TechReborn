@@ -30,8 +30,6 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class CentrifugeRecipe extends BaseRecipe {
 
-	boolean useOreDic = false;
-
 	public CentrifugeRecipe(Object input1, Object input2, ItemStack output1, ItemStack output2, ItemStack output3,
 	                        ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.CENTRIFUGE_RECIPE, tickTime, euPerTick);
@@ -47,12 +45,13 @@ public class CentrifugeRecipe extends BaseRecipe {
 			addOutput(output3);
 		if (output4 != null)
 			addOutput(output4);
+		setOreDict(false);
 	}
 
 	public CentrifugeRecipe(Object input1, Object input2, ItemStack output1, ItemStack output2, ItemStack output3,
 	                        ItemStack output4, int tickTime, int euPerTick, boolean useOreDic) {
 		this(input1, input2, output1, output2, output3, output4, tickTime, euPerTick);
-		this.useOreDic = useOreDic;
+		setOreDict(useOreDic);
 	}
 
 	@Override
@@ -60,8 +59,4 @@ public class CentrifugeRecipe extends BaseRecipe {
 		return "Centrifuge";
 	}
 
-	@Override
-	public boolean useOreDic() {
-		return useOreDic;
-	}
 }

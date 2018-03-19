@@ -33,8 +33,6 @@ import techreborn.api.recipe.BaseRecipe;
  *
  */
 public class DistillationTowerRecipe extends BaseRecipe {
-	
-	private boolean useOreDictionary = true;
 
 	/**
 	 * @param inputCells Cells with to-be-distilled ingredient
@@ -66,7 +64,7 @@ public class DistillationTowerRecipe extends BaseRecipe {
 	public DistillationTowerRecipe(Object inputCells, Object input2, ItemStack output1, ItemStack output2,
             ItemStack output3, ItemStack output4, int tickTime, int euPerTick, boolean oreDict) {
 		this(inputCells, input2, output1, output2, output3, output4, tickTime, euPerTick);
-		this.useOreDictionary = oreDict;
+		setOreDict(oreDict);
 	}
 
 	/* (non-Javadoc)
@@ -76,9 +74,5 @@ public class DistillationTowerRecipe extends BaseRecipe {
 	public String getUserFreindlyName() {
 		return "Distillation Tower";
 	}
-	
-	@Override
-	public boolean useOreDic() {
-		return useOreDictionary;
-	}
+
 }

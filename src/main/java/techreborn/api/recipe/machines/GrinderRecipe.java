@@ -30,7 +30,6 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class GrinderRecipe extends BaseRecipe {
 
-	public boolean useOreDict = true;
 
 	public GrinderRecipe(Object input1, ItemStack output1, int tickTime, int euPerTick) {
 		super(Reference.GRINDER_RECIPE, tickTime, euPerTick / 10); //Done to buff energy usage to be more in line with ic2
@@ -42,16 +41,11 @@ public class GrinderRecipe extends BaseRecipe {
 
 	public GrinderRecipe(Object input1, ItemStack output1, int tickTime, int euPerTick, boolean useOreDict) {
 		super(Reference.GRINDER_RECIPE, tickTime, euPerTick / 10); //Done to buff energy usage to be more in line with ic2
-		this.useOreDict = useOreDict;
+		setOreDict(useOreDict);
 		if (input1 != null)
 			addInput(input1);
 		if (output1 != null)
 			addOutput(output1);
-	}
-
-	@Override
-	public boolean useOreDic() {
-		return useOreDict;
 	}
 
 	@Override

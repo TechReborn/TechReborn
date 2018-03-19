@@ -30,8 +30,6 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 
-	private boolean useOreDictionary = true;
-
 	public IndustrialElectrolyzerRecipe(Object inputCells, Object input2, ItemStack output1, ItemStack output2,
 	                                    ItemStack output3, ItemStack output4, int tickTime, int euPerTick) {
 		super(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, tickTime, euPerTick);
@@ -52,7 +50,7 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 	public IndustrialElectrolyzerRecipe(ItemStack inputCells, ItemStack input2, ItemStack output1, ItemStack output2,
 	                                    ItemStack output3, ItemStack output4, int tickTime, int euPerTick, boolean oreDict) {
 		this(inputCells, input2, output1, output2, output3, output4, tickTime, euPerTick);
-		this.useOreDictionary = oreDict;
+		setOreDict(oreDict);
 	}
 
 	@Override
@@ -60,8 +58,4 @@ public class IndustrialElectrolyzerRecipe extends BaseRecipe {
 		return "Industrial Electrolyzer";
 	}
 
-	@Override
-	public boolean useOreDic() {
-		return useOreDictionary;
-	}
 }

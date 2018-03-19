@@ -32,7 +32,6 @@ import techreborn.api.recipe.BaseRecipe;
 public class IndustrialSawmillRecipe extends BaseRecipe {
 
 	public FluidStack fluidStack;
-	public boolean canUseOreDict = false;
 
 	public IndustrialSawmillRecipe(ItemStack input1, FluidStack fluidStack, ItemStack output1,
 	                               ItemStack output2, ItemStack output3, int tickTime, int euPerTick) {
@@ -46,6 +45,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
 		if (output3 != null)
 			addOutput(output3);
 		this.fluidStack = fluidStack;
+		setOreDict(false);
 	}
 
 	public IndustrialSawmillRecipe(Object input1, FluidStack fluidStack, ItemStack output1,
@@ -60,7 +60,7 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
 		if (output3 != null)
 			addOutput(output3);
 		this.fluidStack = fluidStack;
-		this.canUseOreDict = canUseOreDict;
+		setOreDict(canUseOreDict);
 	}
 
 	@Override
@@ -68,8 +68,4 @@ public class IndustrialSawmillRecipe extends BaseRecipe {
 		return "Industrial Sawmill";
 	}
 
-	@Override
-	public boolean useOreDic() {
-		return canUseOreDict;
-	}
 }

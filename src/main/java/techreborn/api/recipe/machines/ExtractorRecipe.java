@@ -30,8 +30,6 @@ import techreborn.api.recipe.BaseRecipe;
 
 public class ExtractorRecipe extends BaseRecipe {
 
-	boolean useOreDic = true;
-
 	public ExtractorRecipe(Object input1, ItemStack output1, int tickTime, int euPerTick) {
 		super(Reference.EXTRACTOR_RECIPE, tickTime, euPerTick);
 		if (input1 != null)
@@ -42,7 +40,7 @@ public class ExtractorRecipe extends BaseRecipe {
 
 	public ExtractorRecipe(Object input1, ItemStack output1, int tickTime, int euPerTick, boolean useOreDic) {
 		this(input1, output1, tickTime, euPerTick);
-		this.useOreDic = useOreDic;
+		setOreDict(useOreDic);
 	}
 
 	@Override
@@ -50,8 +48,4 @@ public class ExtractorRecipe extends BaseRecipe {
 		return "Extractor";
 	}
 
-	@Override
-	public boolean useOreDic() {
-		return useOreDic;
-	}
 }
