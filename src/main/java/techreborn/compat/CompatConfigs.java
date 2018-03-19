@@ -38,5 +38,8 @@ public class CompatConfigs {
 
 	@ConfigRegistry(config = "compat", category = "theoneprobe", key = "EnableTOPSupport", comment = "Display machine info in The One Probe's HUD")
 	public static boolean enableTOP = true;
+	
+	@ConfigRegistry(config = "compat", category = "jei", key = "ShowScrabpox", comment = "Show Scrapbox loot in JEI")
+	public static boolean showScrapbox = false;
 
 }

@@ -57,6 +57,7 @@ import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
+import techreborn.compat.CompatConfigs;
 import techreborn.compat.CompatManager;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeCategory;
 import techreborn.compat.jei.alloySmelter.AlloySmelterRecipeWrapper;
@@ -158,8 +159,11 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			new IndustrialElectrolyzerRecipeCategory(guiHelper),
 			new IndustrialSawmillRecipeCategory(guiHelper),
 			new RollingMachineRecipeCategory(guiHelper),
-			new ScrapboxRecipeCategory(guiHelper),
 			new VacuumFreezerRecipeCategory(guiHelper));
+		
+		if (CompatConfigs.showScrapbox) {
+			registry.addRecipeCategories(new ScrapboxRecipeCategory(guiHelper));
+		}
 
 		for (final EFluidGenerator type : EFluidGenerator.values())
 			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
@@ -250,9 +254,12 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(IndustrialGrinderRecipe.class, recipe -> new IndustrialGrinderRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.handleRecipes(IndustrialSawmillRecipe.class, recipe -> new IndustrialSawmillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.handleRecipes(VacuumFreezerRecipe.class, recipe -> new VacuumFreezerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.VACUUM_FREEZER);
-		registry.handleRecipes(ScrapboxRecipe.class, recipe -> new ScrapboxRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SCRAPBOX);
 		registry.handleRecipes(DistillationTowerRecipe.class, recipe -> new DistillationTowerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.addRecipeHandlers(new RollingMachineRecipeHandler());
+		
+		if (CompatConfigs.showScrapbox) {
+			registry.handleRecipes(ScrapboxRecipe.class, recipe -> new ScrapboxRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SCRAPBOX);
+		}
 
 		if (!IC2Duplicates.deduplicate()) {
 			registry.handleRecipes(CompressorRecipe.class, recipe -> new CompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.COMPRESSOR);
@@ -279,14 +286,11 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			TechRebornJeiPlugin.addDebugRecipes(registry);
 		}
 
-		registry.addDescription(ItemParts.getPartByName("rubberSap"),
-			I18n.translateToLocal("techreborn.desc.rubberSap"));
+		registry.addIngredientInfo(ItemParts.getPartByName("rubberSap"), ItemStack.class, I18n.translateToLocal("techreborn.desc.rubberSap"));
 		if (!BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			registry.addDescription(new ItemStack(ModItems.SCRAP_BOX),
-				I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
+			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
 		} else {
-			registry.addDescription(new ItemStack(ModItems.SCRAP_BOX),
-				I18n.translateToLocal("techreborn.desc.scrapBox"));
+			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, I18n.translateToLocal("techreborn.desc.scrapBox"));
 		}
 
 		//NEW ONES
@@ -344,8 +348,11 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ROLLING_MACHINE), RecipeCategoryUids.ROLLING_MACHINE);
-		registry.addRecipeCatalyst(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLATION_TOWER), RecipeCategoryUids.DISTILLATION_TOWER);
+		
+		if (CompatConfigs.showScrapbox) {
+			registry.addRecipeCatalyst(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);
+		}
 
 		final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
