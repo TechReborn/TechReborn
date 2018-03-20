@@ -61,7 +61,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		setUnlocalizedName("techreborn.upgrade");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
-		setMaxStackSize(1);
+		setMaxStackSize(16);
 	}
 
 	public static ItemStack getUpgradeByName(String name, int count) {

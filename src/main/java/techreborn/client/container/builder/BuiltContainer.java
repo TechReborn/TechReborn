@@ -277,7 +277,7 @@ public class BuiltContainer extends Container {
 					final int max = Math.min(stackToShift.getMaxStackSize(), slot.getSlotStackLimit());
 					stackInSlot = stackToShift.copy();
 					stackInSlot.setCount(Math.min(stackToShift.getCount(), max));
-					stackToShift.setCount(-stackInSlot.getCount());
+					stackToShift.shrink(stackInSlot.getCount());
 					slot.putStack(stackInSlot);
 					slot.onSlotChanged();
 					changed = true;
