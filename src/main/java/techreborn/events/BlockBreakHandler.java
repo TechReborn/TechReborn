@@ -39,7 +39,6 @@ import reborncore.common.util.OreDrop;
 import techreborn.init.ModItems;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
-import techreborn.items.tools.ItemAdvancedDrill;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
@@ -106,13 +105,6 @@ public class BlockBreakHandler {
 				}
 			}
 			event.setNewSpeed(speed / blocks);
-		}
-		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.ADVANCED_DRILL && event.getOriginalSpeed() > 1.0f) {
-			BlockPos pos = event.getPos();
-			World worldIn = event.getEntityPlayer().world;
-			ItemAdvancedDrill drill = new ItemAdvancedDrill();
-			ItemStack stack = new ItemStack(drill);
-			event.setNewSpeed(drill.getMinSpeed(worldIn,pos,event.getEntityLiving(),stack));
 		}
 	}
 }
