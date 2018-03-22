@@ -121,8 +121,8 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 			ItemStack stack) {
 
 		if (stack.getItemDamage() == 0) {
-			handler.addSpeedMulti(0.25);
-			handler.addPowerMulti(0.5);
+			handler.addSpeedMulti(0.5);
+			handler.addPowerMulti(0.75);
 
 		}
 		if (machineBase instanceof TilePowerAcceptor) {
