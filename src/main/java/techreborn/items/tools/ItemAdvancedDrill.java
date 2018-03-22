@@ -24,11 +24,9 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -42,20 +40,101 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ItemAdvancedDrill extends ItemDrill {
 
 	public ItemAdvancedDrill() {
-		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge,
-			4.0F, 10F);
+		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, 4.0F, 10F);
 		this.cost = 250;
 	}
 
+	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, EntityLivingBase entityLiving) {
+		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
+		if (!(entityLiving instanceof EntityPlayer)) {
+			return new HashSet<BlockPos>();
+		}
+		RayTraceResult raytrace = rayTrace(worldIn, (EntityPlayer) entityLiving, false);
+		EnumFacing enumfacing = raytrace.sideHit;
+		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					BlockPos newPos = pos.add(i, j, 0);
+					targetBlocks.add(newPos);
+				}
+			}
+		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					BlockPos newPos = pos.add(0, j, i);
+					targetBlocks.add(newPos);
+				}
+			}
+		} else if (enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) {
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					BlockPos newPos = pos.add(j, 0, i);
+					targetBlocks.add(newPos);
+				}
+			}
+		}
+		return targetBlocks;
+	}
+
+	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, BlockPos originalPos, float originalHardness) {
+		if (originalPos == pos) {
+			return;
+		}
+		IBlockState blockState = world.getBlockState(pos);
+		float blockHardness = world.getBlockState(pos).getPlayerRelativeBlockHardness(playerIn, world, pos);
+		if (blockHardness == -1.0F) {
+			return;
+		}
+		if ((blockHardness / originalHardness) > 20.0F) {
+			return;
+		}
+		NonNullList<ItemStack> stuff = NonNullList.create();
+		blockState.getBlock().getDrops(stuff, world, pos, blockState, 0);
+		List<ItemStack> drops = new ArrayList<>();
+		BlockEvent.HarvestDropsEvent event = new BlockEvent.HarvestDropsEvent(world, pos, blockState, 0, 1, drops, playerIn, false);
+		MinecraftForge.EVENT_BUS.post(event);
+		for (ItemStack drop : drops) {
+			if (drop.getCount() > 0) {
+				stuff.add(drop);
+			}
+		}
+		WorldUtils.dropItems(stuff, world, pos);
+		world.setBlockToAir(pos);
+	}
+
+	// ItemDrill
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+		if (PoweredItem.canUseEnergy(cost, stack)) {
+			EntityPlayer playerIn = (EntityPlayer) entityLiving;
+			float originalHardness = blockIn.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
+			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
+				breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness);
+				PoweredItem.useEnergy(cost, stack);
+			}
+		}
+		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
+	}
+
+	// ItemPickaxe
+	@Override
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
+	}
+
+	// Item
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
@@ -69,77 +148,5 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 		itemList.add(uncharged);
 		itemList.add(charged);
-	}
-
-	@Override
-	public boolean canHarvestBlock(IBlockState blockIn) {
-		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
-	}
-
-	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		if(!(entityLiving instanceof EntityPlayer))
-			return false;
-		RayTraceResult raytrace= rayTrace(worldIn,  (EntityPlayer) entityLiving, false);
-		if(raytrace==null)
-			return false;
-		EnumFacing enumfacing = raytrace.sideHit;
-		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(i, j, 0), stack, worldIn, entityLiving, pos);
-				}
-			}
-		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(0, j, i), stack, worldIn, entityLiving, pos);
-				}
-			}
-		} else if (enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					breakBlock(pos.add(j, 0, i), stack, worldIn, entityLiving, pos);
-				}
-			}
-		}
-
-		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
-	}
-
-	@SuppressWarnings("deprecation")
-	public void breakBlock(BlockPos pos, ItemStack stack, World world, EntityLivingBase entityLiving, BlockPos oldPos) {
-		if (oldPos == pos) {
-			return;
-		}
-		if (!PoweredItem.canUseEnergy(cost, stack)) {
-			return;
-		}
-		IBlockState blockState = world.getBlockState(pos);
-		Block block = blockState.getBlock();
-		if (blockState.getBlockHardness(world, pos) == -1.0F) {
-			return;
-		}
-		List<ItemStack> stuff = block.getDrops(world, pos, blockState, 0);
-		List<ItemStack> dropList = new ArrayList<>();
-		BlockEvent.HarvestDropsEvent event = new BlockEvent.HarvestDropsEvent(world, pos, blockState, 0, 1, dropList, (EntityPlayer) entityLiving, false);
-		MinecraftForge.EVENT_BUS.post(event);
-		for (ItemStack drop : dropList) {
-			if (drop.getCount() > 0) {
-				stuff.add(drop);
-			}
-		}
-		for (ItemStack drop : stuff) {
-			if (world.isRemote) {
-				continue;
-			}
-			final EntityItem entityitem = new EntityItem(world, oldPos.getX(), oldPos.getY(), oldPos.getZ(), drop);
-			entityitem.motionX = (oldPos.getX() - oldPos.getX()) / 10.0f;
-			entityitem.motionY = 0.15000000596046448;
-			entityitem.motionZ = (oldPos.getZ() - oldPos.getZ()) / 10.0f;
-			world.spawnEntity(entityitem);
-		}
-		PoweredItem.useEnergy(cost, stack);
-		world.setBlockToAir(pos);
 	}
 }
