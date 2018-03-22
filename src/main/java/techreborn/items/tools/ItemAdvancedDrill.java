@@ -28,6 +28,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -67,21 +68,28 @@ public class ItemAdvancedDrill extends ItemDrill {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(i, j, 0);
-					targetBlocks.add(newPos);
+					if (worldIn.getBlockState(pos).getBlock() != Blocks.AIR) {
+						targetBlocks.add(newPos);
+					}
+
 				}
 			}
 		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(0, j, i);
-					targetBlocks.add(newPos);
+					if (worldIn.getBlockState(pos).getBlock() != Blocks.AIR) {
+						targetBlocks.add(newPos);
+					}
 				}
 			}
 		} else if (enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(j, 0, i);
-					targetBlocks.add(newPos);
+					if (worldIn.getBlockState(pos).getBlock() != Blocks.AIR) {
+						targetBlocks.add(newPos);
+					}
 				}
 			}
 		}
@@ -97,7 +105,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if (blockHardness == -1.0F) {
 			return;
 		}
-		if ((blockHardness / originalHardness) > 20.0F) {
+		if ((originalHardness / blockHardness) > 10.0F) {
 			return;
 		}
 		NonNullList<ItemStack> stuff = NonNullList.create();
@@ -122,16 +130,16 @@ public class ItemAdvancedDrill extends ItemDrill {
 			float originalHardness = blockIn.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
 			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
 				breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness);
-				PoweredItem.useEnergy(cost, stack);
 			}
 		}
+		// Use energy only once no matter how many blocks were broken, e.g. energy used per application of a drill
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
 	// ItemPickaxe
 	@Override
 	public boolean canHarvestBlock(IBlockState blockIn) {
-		return Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn);
+		return (Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn)) && !Items.DIAMOND_AXE.canHarvestBlock(blockIn);
 	}
 
 	// Item
