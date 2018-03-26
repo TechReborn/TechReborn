@@ -52,7 +52,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxEnergy", comment = "Industrial Electrolyzer Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
+	public static int maxEnergy = 10000;
 	//  @ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerWrenchDropRate", comment = "Industrial Electrolyzer Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
