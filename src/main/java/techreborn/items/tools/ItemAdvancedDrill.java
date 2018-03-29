@@ -49,7 +49,7 @@ import java.util.Set;
 public class ItemAdvancedDrill extends ItemDrill {
 
 	public ItemAdvancedDrill() {
-		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, 4.0F, 10F);
+		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, 2.0F, 10F);
 		this.cost = 250;
 	}
 
@@ -110,6 +110,10 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if(blockState.getMaterial() == Material.AIR){
 			return;
 		}
+		if(!PoweredItem.canUseEnergy(cost, drill)){
+			return;
+		}
+		PoweredItem.useEnergy(cost, drill);
 		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
@@ -118,12 +122,10 @@ public class ItemAdvancedDrill extends ItemDrill {
 	// ItemDrill
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		if (PoweredItem.canUseEnergy(cost, stack)) {
-			EntityPlayer playerIn = (EntityPlayer) entityLiving;
-			float originalHardness = blockIn.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
-			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
-				breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness, stack);
-			}
+		EntityPlayer playerIn = (EntityPlayer) entityLiving;
+		float originalHardness = blockIn.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
+		for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
+			breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness, stack);
 		}
 		// Use energy only once no matter how many blocks were broken, e.g. energy used per application of a drill
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);

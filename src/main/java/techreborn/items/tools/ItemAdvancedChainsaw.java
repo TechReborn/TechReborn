@@ -79,7 +79,6 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		return Items.DIAMOND_AXE.canHarvestBlock(blockIn);
 	}
 
-
 	@SuppressWarnings("deprecation")
 	public void breakBlock(BlockPos pos, ItemStack stack, World world, EntityLivingBase entityLiving, BlockPos oldPos) {
 		if (oldPos == pos) {
@@ -95,6 +94,10 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if(!(entityLiving instanceof EntityPlayer)){
 			return;
 		}
+		if(!PoweredItem.canUseEnergy(cost, stack)){
+			return;
+		}
+		PoweredItem.useEnergy(cost, stack);
 		blockState.getBlock().harvestBlock(world, (EntityPlayer) entityLiving, pos, blockState, world.getTileEntity(pos), stack);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
