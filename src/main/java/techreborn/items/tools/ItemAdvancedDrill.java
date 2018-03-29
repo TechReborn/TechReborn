@@ -105,6 +105,9 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if (blockHardness == -1.0F) {
 			return;
 		}
+		if(blockState.getMaterial().isLiquid()){
+			return;
+		}
 		if ((originalHardness / blockHardness) > 10.0F) {
 			return;
 		}
