@@ -24,6 +24,7 @@
 
 package techreborn.items.tools;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -85,7 +86,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 	
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if (PoweredItem.canUseEnergy(cost, stack) && state.getBlock().isToolEffective("axe", state)) {
+		if (PoweredItem.canUseEnergy(cost, stack) && (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		}
 		else {
