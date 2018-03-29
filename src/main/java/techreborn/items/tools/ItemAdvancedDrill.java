@@ -24,6 +24,7 @@
 
 package techreborn.items.tools;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -36,18 +37,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PoweredItem;
-import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ItemAdvancedDrill extends ItemDrill {
@@ -96,7 +92,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		return targetBlocks;
 	}
 
-	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, BlockPos originalPos, float originalHardness) {
+	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, BlockPos originalPos, float originalHardness, ItemStack drill) {
 		if (originalPos == pos) {
 			return;
 		}
@@ -111,18 +107,12 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if ((originalHardness / blockHardness) > 10.0F) {
 			return;
 		}
-		NonNullList<ItemStack> stuff = NonNullList.create();
-		blockState.getBlock().getDrops(stuff, world, pos, blockState, 0);
-		List<ItemStack> drops = new ArrayList<>();
-		BlockEvent.HarvestDropsEvent event = new BlockEvent.HarvestDropsEvent(world, pos, blockState, 0, 1, drops, playerIn, false);
-		MinecraftForge.EVENT_BUS.post(event);
-		for (ItemStack drop : drops) {
-			if (drop.getCount() > 0) {
-				stuff.add(drop);
-			}
+		if(blockState.getMaterial() == Material.AIR){
+			return;
 		}
-		WorldUtils.dropItems(stuff, world, pos);
+		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 		world.setBlockToAir(pos);
+		world.removeTileEntity(pos);
 	}
 
 	// ItemDrill
@@ -132,7 +122,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 			EntityPlayer playerIn = (EntityPlayer) entityLiving;
 			float originalHardness = blockIn.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
 			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
-				breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness);
+				breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness, stack);
 			}
 		}
 		// Use energy only once no matter how many blocks were broken, e.g. energy used per application of a drill

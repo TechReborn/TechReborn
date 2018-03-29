@@ -24,27 +24,20 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PoweredItem;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemAdvancedChainsaw extends ItemChainsaw {
 
@@ -96,30 +89,14 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 			return;
 		}
 		IBlockState blockState = world.getBlockState(pos);
-		Block block = blockState.getBlock();
 		if (blockState.getBlockHardness(world, pos) == -1.0F) {
 			return;
 		}
-		List<ItemStack> stuff = block.getDrops(world, pos, blockState, 0);
-		List<ItemStack> dropList = new ArrayList<>();
-		BlockEvent.HarvestDropsEvent event = new BlockEvent.HarvestDropsEvent(world, pos, blockState, 0, 1, dropList, (EntityPlayer) entityLiving, false);
-		MinecraftForge.EVENT_BUS.post(event);
-		for (ItemStack drop : dropList) {
-			if (!drop.isEmpty() && drop.getCount() > 0) {
-				stuff.add(drop);
-			}
+		if(!(entityLiving instanceof EntityPlayer)){
+			return;
 		}
-		for (ItemStack drop : stuff) {
-			if (world.isRemote) {
-				continue;
-			}
-			final EntityItem entityitem = new EntityItem(world, oldPos.getX(), oldPos.getY(), oldPos.getZ(), drop);
-			entityitem.motionX = (oldPos.getX() - oldPos.getX()) / 10.0f;
-			entityitem.motionY = 0.15000000596046448;
-			entityitem.motionZ = (oldPos.getZ() - oldPos.getZ()) / 10.0f;
-			world.spawnEntity(entityitem);
-		}
-		PoweredItem.useEnergy(cost, stack);
+		blockState.getBlock().harvestBlock(world, (EntityPlayer) entityLiving, pos, blockState, world.getTileEntity(pos), stack);
 		world.setBlockToAir(pos);
+		world.removeTileEntity(pos);
 	}
 }
