@@ -24,67 +24,40 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 import techreborn.tiles.TileRollingMachine;
 
-public class GuiRollingMachine extends GuiContainer {
+public class GuiRollingMachine extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/rolling_machine.png");
 	TileRollingMachine rollingMachine;
 
 	public GuiRollingMachine(final EntityPlayer player, final TileRollingMachine tileRollingmachine) {
-		super(tileRollingmachine.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
+		super(player, tileRollingmachine,  tileRollingmachine.createContainer(player));
 		this.rollingMachine = tileRollingmachine;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiRollingMachine.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		int j = this.rollingMachine.getBurnTimeRemainingScaled(24);
-		this.drawTexturedModalRect(k + 91, l + 34, 176, 14, j + 1, 19);
+		int gridYPos = 22;
+		this.drawSlot(30, gridYPos, layer);         this.drawSlot(48, gridYPos, layer);         this.drawSlot(66, gridYPos, layer);
+		this.drawSlot(30, gridYPos + 18, layer); this.drawSlot(48, gridYPos + 18, layer); this.drawSlot(66, gridYPos + 18, layer);
+		this.drawSlot(30, gridYPos + 36, layer); this.drawSlot(48, gridYPos + 36, layer); this.drawSlot(66, gridYPos + 36, layer);
 
-		j = this.rollingMachine.getEnergyScaled(12);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 7, l + 33 + 12 - j, 176, 12 - j, 14, j + 2);
-		}
+		this.drawSlot(8, 70, layer);
+		this.drawOutputSlot(124, gridYPos + 18, layer);
+
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn:rolling_machine.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-	}
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-	@Override
-	public void initGui() {
-		this.buttonList.clear();
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.buttonList.add(new GuiButton(0, k + 4, l + 4, 20, 20, "R"));
-		super.initGui();
+		this.builder.drawProgressBar(this, this.rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 17, (int) this.rollingMachine.getEnergy(), (int) this.rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
-
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
-	}
-
 }

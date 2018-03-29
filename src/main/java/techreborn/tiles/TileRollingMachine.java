@@ -224,13 +224,24 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("rollingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this.craftMatrix).slot(0, 30, 17).slot(1, 48, 17).slot(2, 66, 17).slot(3, 30, 35)
-			.slot(4, 48, 35).slot(5, 66, 35).slot(6, 30, 53).slot(7, 48, 53).slot(8, 66, 53)
-			.onCraft(inv -> this.inventory.setInventorySlotContents(1,
-				RollingMachineRecipe.instance.findMatchingRecipe(inv, this.world)))
-			.addInventory().tile(this).outputSlot(0, 124, 35).energySlot(2, 8, 51).syncEnergyValue()
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+		return new ContainerBuilder("rollingmachine").player(player.inventory)
+			.inventory().hotbar()
+			.addInventory().tile(this.craftMatrix)
+			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
+			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
+			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
+			.onCraft(inv -> this.inventory.setInventorySlotContents(1, RollingMachineRecipe.instance.findMatchingRecipe(inv, this.world)))
+			.addInventory().tile(this)
+			.outputSlot(0, 124, 40)
+			.energySlot(2, 8, 70)
+			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+	}
+
+	public int getProgressScaled(final int scale) {
+		if (tickTime != 0 && runTime != 0) {
+			return tickTime * scale / runTime;
+		}
+		return 0;
 	}
 
 	private static class RollingTileContainer extends Container {
@@ -240,5 +251,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 			return true;
 		}
 
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
 	}
 }

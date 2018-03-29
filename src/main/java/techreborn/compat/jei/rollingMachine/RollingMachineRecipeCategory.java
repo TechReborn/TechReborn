@@ -30,8 +30,8 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
-import techreborn.client.gui.GuiRollingMachine;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.lib.ModInfo;
 
@@ -47,11 +47,13 @@ public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMach
 	private final ICraftingGridHelper craftingGridHelper;
 	private final String title;
 
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/rolling_machine.png");
+
 	public RollingMachineRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(GuiRollingMachine.texture, 29, 16, 116, 54);
+		background = guiHelper.createDrawable(texture, 29, 16, 116, 54);
 		title = I18n.translateToLocal("tile.techreborn:rolling_machine.name");
 
-		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiRollingMachine.texture, 176, 14, 20, 18);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 20, 18);
 		progress = guiHelper.createAnimatedDrawable(progressStatic, 250, IDrawableAnimated.StartDirection.LEFT, false);
 
 		craftingGridHelper = guiHelper.createCraftingGridHelper(INPUT_SLOTS[0], OUTPUT_SLOTS[0]);
