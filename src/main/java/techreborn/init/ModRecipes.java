@@ -311,7 +311,7 @@ public class ModRecipes {
 			ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(ItemDusts.getDustByName("tungsten"), null, ItemIngots.getIngotByName("tungsten"),
-				null, 18000, 120, 2500));
+				null, 1800, 120, 2500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("tungsten", 4), null,
 			ItemIngots.getIngotByName("tungsten"), null, 1800, 120, 2500));
 		RecipeHandler.addRecipe(
