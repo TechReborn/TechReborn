@@ -29,7 +29,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -46,6 +45,8 @@ import techreborn.init.ModItems;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 public class ItemAdvancedDrill extends ItemDrill {
 
 	public ItemAdvancedDrill() {
@@ -53,28 +54,27 @@ public class ItemAdvancedDrill extends ItemDrill {
 		this.cost = 250;
 	}
 
-	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, EntityLivingBase entityLiving) {
+	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable EntityPlayer playerIn) {
 		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
-		if (!(entityLiving instanceof EntityPlayer)) {
+		if (!(playerIn instanceof EntityPlayer)) {
 			return new HashSet<BlockPos>();
 		}
-		RayTraceResult raytrace = rayTrace(worldIn, (EntityPlayer) entityLiving, false);
+		RayTraceResult raytrace = rayTrace(worldIn, playerIn, false);
 		EnumFacing enumfacing = raytrace.sideHit;
 		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(i, j, 0);
-					if (worldIn.getBlockState(pos).getBlock() != Blocks.AIR) {
+					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
 						targetBlocks.add(newPos);
 					}
-
 				}
 			}
 		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(0, j, i);
-					if (worldIn.getBlockState(pos).getBlock() != Blocks.AIR) {
+					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
 						targetBlocks.add(newPos);
 					}
 				}
@@ -83,7 +83,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(j, 0, i);
-					if (worldIn.getBlockState(pos).getBlock() != Blocks.AIR) {
+					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
 						targetBlocks.add(newPos);
 					}
 				}
@@ -92,42 +92,47 @@ public class ItemAdvancedDrill extends ItemDrill {
 		return targetBlocks;
 	}
 
-	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, BlockPos originalPos, float originalHardness, ItemStack drill) {
-		if (originalPos == pos) {
-			return;
-		}
+	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, ItemStack drill) {
 		IBlockState blockState = world.getBlockState(pos);
-		float blockHardness = world.getBlockState(pos).getPlayerRelativeBlockHardness(playerIn, world, pos);
-		if (blockHardness == -1.0F) {
-			return;
-		}
-		if(blockState.getMaterial().isLiquid()){
-			return;
-		}
-		if ((originalHardness / blockHardness) > 10.0F) {
-			return;
-		}
-		if(blockState.getMaterial() == Material.AIR){
-			return;
-		}
-		if(!PoweredItem.canUseEnergy(cost, drill)){
-			return;
-		}
 		PoweredItem.useEnergy(cost, drill);
 		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
 	}
+	
+	private boolean shouldBreak(EntityPlayer playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
+		if (originalPos.equals(pos)) {
+			return false;
+		}
+		IBlockState blockState = worldIn.getBlockState(pos);
+		if (blockState.getMaterial() == Material.AIR) {
+			return false;
+		}
+		if (blockState.getMaterial().isLiquid()) {
+			return false;
+		}
+		float blockHardness = blockState.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
+		if (blockHardness == -1.0F) {
+			return false;
+		}
+		float originalHardness = worldIn.getBlockState(originalPos).getPlayerRelativeBlockHardness(playerIn, worldIn, originalPos);
+		if ((originalHardness / blockHardness) > 10.0F) {
+			return false;
+		}
+		
+		return true;	
+	}
 
 	// ItemDrill
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		EntityPlayer playerIn = (EntityPlayer) entityLiving;
-		float originalHardness = blockIn.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
-		for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
-			breakBlock(additionalPos, worldIn, playerIn, pos, originalHardness, stack);
+		EntityPlayer playerIn = null;
+		if ((entityLiving instanceof EntityPlayer)) {
+			playerIn = (EntityPlayer) entityLiving;
 		}
-		// Use energy only once no matter how many blocks were broken, e.g. energy used per application of a drill
+		for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
+			breakBlock(additionalPos, worldIn, playerIn, stack);
+		}
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
