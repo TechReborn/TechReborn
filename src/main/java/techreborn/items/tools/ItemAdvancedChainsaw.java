@@ -79,7 +79,6 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		return Items.DIAMOND_AXE.canHarvestBlock(blockIn);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void breakBlock(BlockPos pos, ItemStack stack, World world, EntityLivingBase entityLiving, BlockPos oldPos) {
 		if (oldPos == pos) {
 			return;
