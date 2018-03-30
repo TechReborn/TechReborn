@@ -313,7 +313,7 @@ public class ModRecipes {
 			new BlastFurnaceRecipe(ItemDusts.getDustByName("tungsten"), null, ItemIngots.getIngotByName("tungsten"),
 				null, 18000, 120, 2500));
 		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("tungsten", 4), null,
-			ItemIngots.getIngotByName("tungsten"), null, 18000, 120, 2500));
+			ItemIngots.getIngotByName("tungsten"), null, 1800, 120, 2500));
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(ItemDusts.getDustByName("chrome"), null, ItemIngots.getIngotByName("chrome"),
 				null, 4420, 120, 1700));
