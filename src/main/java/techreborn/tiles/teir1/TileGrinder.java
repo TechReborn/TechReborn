@@ -33,6 +33,7 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
@@ -41,13 +42,15 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileGrinder extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+
+	@ConfigRegistry(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "grinder", key = "GrinderMaxEnergy", comment = "Grinder Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
 
 	public Inventory inventory = new Inventory(3, "TileGrinder", 64, this);
-
 	public RecipeCrafter crafter;
-
-	public int capacity = 1000;
 
 	public TileGrinder() {
 		super();
@@ -58,21 +61,20 @@ public class TileGrinder extends TilePowerAcceptor
 		this.crafter = new RecipeCrafter(Reference.GRINDER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
+	}
+
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
 			this.charge(2);
 		}
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.GRINDER, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
 	}
 
 	@Override
@@ -89,16 +91,9 @@ public class TileGrinder extends TilePowerAcceptor
 		return tagCompound;
 	}
 
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
 	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -118,19 +113,22 @@ public class TileGrinder extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.GRINDER, 1);
+	}
+
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("grinder").player(player.inventory).inventory().hotbar().addInventory().tile(this)
@@ -138,8 +136,9 @@ public class TileGrinder extends TilePowerAcceptor
 				.addInventory().create(this);
 	}
 
+	// IRecipeCrafterProvider
 	@Override
-	public boolean canBeUpgraded() {
-		return true;
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 }

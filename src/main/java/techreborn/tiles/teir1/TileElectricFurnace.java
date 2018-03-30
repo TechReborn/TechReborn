@@ -33,6 +33,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
@@ -40,10 +41,14 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileElectricFurnace extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, IInventoryProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceInput", comment = "Electric Furnace Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
 
 	public Inventory inventory = new Inventory(3, "TileElectricFurnace", 64, this);
-	public int capacity = 1000;
 	public int progress;
 	public int fuelScale = 100;
 	public int cost = 6;
@@ -57,39 +62,6 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public int gaugeProgressScaled(final int scale) {
 		return this.progress * scale / this.fuelScale;
-	}
-
-	@Override
-	public void update() {
-		if (world.isRemote){ return; }
-		
-		super.update();
-		this.charge(2);
-
-		final boolean burning = this.isBurning();
-		boolean updateInventory = false;
-		if (this.isBurning() && this.canSmelt()) {
-			this.updateState();
-			if(canUseEnergy(this.cost)){
-				this.useEnergy(this.cost);
-				this.progress++;
-				if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 2)) {
-					this.progress = 0;
-					this.cookItems();
-					updateInventory = true;
-				}
-			}
-		} else {
-			this.progress = 0;
-			this.updateState();
-		}
-		if (burning != this.isBurning()) {
-			updateInventory = true;
-		}
-		if (updateInventory) {
-			this.markDirty();
-		}
-		
 	}
 
 	public void cookItems() {
@@ -137,9 +109,10 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public void updateState() {
-		if(wasBurning != (this.progress > 0)){
-			//skips updating the block state for 1 tick, to prevent the machine from turning on/off rapidly causing fps drops
-			if(wasBurning && this.progress == 0 && canSmelt()){
+		if (wasBurning != (this.progress > 0)) {
+			// skips updating the block state for 1 tick, to prevent the machine from
+			// turning on/off rapidly causing fps drops
+			if (wasBurning && this.progress == 0 && canSmelt()) {
 				wasBurning = true;
 				return;
 			}
@@ -154,23 +127,53 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	}
 
-	@Override
-	public EnumFacing getFacing() {
-		return this.getFacingEnum();
+	public int getBurnTime() {
+		return this.progress;
 	}
 
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ELECTRIC_FURNACE, 1);
+	public void setBurnTime(final int burnTime) {
+		this.progress = burnTime;
 	}
 
-	public boolean isComplete() {
-		return false;
+	// TilePowerAcceptor
+	@Override
+	public void update() {
+		if (world.isRemote) {
+			return;
+		}
+
+		super.update();
+		this.charge(2);
+
+		final boolean burning = this.isBurning();
+		boolean updateInventory = false;
+		if (this.isBurning() && this.canSmelt()) {
+			this.updateState();
+			if (canUseEnergy(this.cost)) {
+				this.useEnergy(this.cost);
+				this.progress++;
+				if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 2)) {
+					this.progress = 0;
+					this.cookItems();
+					updateInventory = true;
+				}
+			}
+		} else {
+			this.progress = 0;
+			this.updateState();
+		}
+		if (burning != this.isBurning()) {
+			updateInventory = true;
+		}
+		if (updateInventory) {
+			this.markDirty();
+		}
+
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -190,31 +193,26 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.ELECTRIC_FURNACE, 1);
+	}
+
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	public int getBurnTime() {
-		return this.progress;
-	}
-
-	public void setBurnTime(final int burnTime) {
-		this.progress = burnTime;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
-	}
-
-	@Override
-	public boolean canBeUpgraded() {
-		return true;
 	}
 }

@@ -32,6 +32,7 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
@@ -39,22 +40,32 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
-public class TileCompressor extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+public class TileCompressor extends TilePowerAcceptor 
+		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+	
+	@ConfigRegistry(config = "machines", category = "compressor", key = "CompressorInput", comment = "Compressor Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "compressor", key = "CompressorMaxEnergy", comment = "Compressor Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
 
 	public Inventory inventory = new Inventory(3, "TileCompressor", 64, this);
-
 	public RecipeCrafter crafter;
-
-	public int capacity = 1000;
 
 	public TileCompressor() {
 		super();
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.crafter = new RecipeCrafter(Reference.COMPRESSOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
-
 	}
-
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
+	}
+	
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		if (!this.world.isRemote) {
@@ -64,24 +75,8 @@ public class TileCompressor extends TilePowerAcceptor implements IToolDrop, IInv
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.COMPRESSOR, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -101,23 +96,32 @@ public class TileCompressor extends TilePowerAcceptor implements IToolDrop, IInv
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
-
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.COMPRESSOR, 1);
+	}
+	
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("compressor").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 }

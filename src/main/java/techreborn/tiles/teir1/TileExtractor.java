@@ -33,6 +33,7 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
@@ -41,13 +42,15 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileExtractor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+	
+	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
 
 	public Inventory inventory = new Inventory(3, "TileExtractor", 64, this);
-
 	public RecipeCrafter crafter;
-
-	public int capacity = 1000;
 
 	public TileExtractor() {
 		super();
@@ -57,6 +60,13 @@ public class TileExtractor extends TilePowerAcceptor
 		outputs[0] = 1;
 		this.crafter = new RecipeCrafter(Reference.EXTRACTOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
+	}
 
 	@Override
 	public void update() {
@@ -64,15 +74,6 @@ public class TileExtractor extends TilePowerAcceptor
 			super.update();
 			this.charge(2);
 		}
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.EXTRACTOR, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
 	}
 
 	@Override
@@ -88,16 +89,9 @@ public class TileExtractor extends TilePowerAcceptor
 		return tagCompound;
 	}
 
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
 	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -117,24 +111,32 @@ public class TileExtractor extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.EXTRACTOR, 1);
 	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().tile(this)
 				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this);
 	}
-
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
+	}
 }
