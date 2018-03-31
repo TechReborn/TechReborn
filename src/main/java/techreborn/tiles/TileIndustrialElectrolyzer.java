@@ -26,7 +26,6 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -47,16 +46,13 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialElectrolyzer extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
 
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxEnergy", comment = "Industrial Electrolyzer Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
-	//  @ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerWrenchDropRate", comment = "Industrial Electrolyzer Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
+	public static int maxEnergy = 10_000;
 
-	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileIndustrialElectrolyzer", 64, this);
 	public RecipeCrafter crafter;
 
@@ -74,51 +70,20 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 		outputs[3] = 5;
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
-
-	@Override
-	public void update() {
-		if (this.world.isRemote) { return; }
-		super.update();
-		this.charge(6);
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	// @Override
-	// public void addWailaInfo(List<String> info)
-	// {
-	// super.addWailaInfo(info);
-	// info.add("Power Stored " + energy.getEnergyStored() +" EU");
-	// if(crafter.currentRecipe !=null){
-	// info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-	// }
-	// }
-
+	
 	public int getProgressScaled(final int scale) {
 		if (this.crafter.currentTickTime != 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
+	}
+
+	// TilePowerAcceptor
+	@Override
+	public void update() {
+		if (this.world.isRemote) { return; }
+		super.update();
+		this.charge(6);
 	}
 
 	@Override
@@ -145,17 +110,20 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER, 1);
+	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory().hotbar()
@@ -164,5 +132,11 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 			.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
 			.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 }

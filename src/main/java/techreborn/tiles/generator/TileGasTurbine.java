@@ -38,13 +38,13 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileGasTurbine extends TileBaseFluidGenerator implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorMaxOutput", comment = "Gas Generator Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorMaxOutput", comment = "Gas Generator Max Output (Value in EU)")
 	public static int maxOutput = 128;
-	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorMaxEnergy", comment = "Gas Generator Max Energy (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorMaxEnergy", comment = "Gas Generator Max Energy (Value in EU)")
 	public static int maxEnergy = 1000000;
-	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorTankCapacity", comment = "Gas Generator Tank Capacity")
+	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorTankCapacity", comment = "Gas Generator Tank Capacity")
 	public static int tankCapacity = 10000;
-	@ConfigRegistry(config = "machines", category = "gas_generator", key = "GasGeneratorEnergyPerTick", comment = "Gas Generator Energy Per Tick (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorEnergyPerTick", comment = "Gas Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 16;
 
 	public TileGasTurbine() {

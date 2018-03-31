@@ -26,7 +26,6 @@ package techreborn.tiles.teir1;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -75,20 +74,6 @@ public class TileGrinder extends TilePowerAcceptor
 			super.update();
 			this.charge(2);
 		}
-	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.inventory.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
 	}
 
 	@Override

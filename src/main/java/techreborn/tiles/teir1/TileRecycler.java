@@ -32,6 +32,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
@@ -39,10 +40,15 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemParts;
 
-public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
+public class TileRecycler extends TilePowerAcceptor 
+		implements IToolDrop, IInventoryProvider, IContainerProvider {
+	
+	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
 
 	private final Inventory inventory = new Inventory(3, "TileRecycler", 64, this);
-	private final int capacity = 1000;
 	private final int cost = 2;
 	private final int time = 15;
 	private final int chance = 6;
@@ -56,36 +62,15 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 	public int gaugeProgressScaled(final int scale) {
 		return this.progress * scale / this.time;
 	}
-
-	@Override
-	public void update() {
-		super.update();
-		if (this.world.isRemote)
-			return;
-
-		boolean updateInventory = false;
-		if (this.canRecycle() && !this.isBurning() && this.getEnergy() != 0)
-			this.setBurning(true);
-		else if (this.isBurning()) {
-			if (this.useEnergy(this.cost) != this.cost)
-				this.setBurning(false);
-			this.progress++;
-			if (this.progress >= this.time) {
-				this.progress = 0;
-				this.recycleItems();
-				updateInventory = true;
-				this.setBurning(false);
-			}
-		}
-
-		this.updateState();
-		this.charge(2);
-
-		if (updateInventory) {
-			this.markDirty();
-		}
+	
+	public int getProgress() {
+		return this.progress;
 	}
 
+	public void setProgress(final int progress) {
+		this.progress = progress;
+	}
+	
 	public void recycleItems() {
 		final ItemStack itemstack = ItemParts.getPartByName("scrap");
 		final int randomchance = this.world.rand.nextInt(this.chance);
@@ -129,18 +114,39 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 		}
 	}
 
+	// TilePowerAcceptor
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.RECYCLER, 1);
-	}
+	public void update() {
+		super.update();
+		if (this.world.isRemote)
+			return;
 
-	public boolean isComplete() {
-		return false;
+		boolean updateInventory = false;
+		if (this.canRecycle() && !this.isBurning() && this.getEnergy() != 0)
+			this.setBurning(true);
+		else if (this.isBurning()) {
+			if (this.useEnergy(this.cost) != this.cost)
+				this.setBurning(false);
+			this.progress++;
+			if (this.progress >= this.time) {
+				this.progress = 0;
+				this.recycleItems();
+				updateInventory = true;
+				this.setBurning(false);
+			}
+		}
+
+		this.updateState();
+		this.charge(2);
+
+		if (updateInventory) {
+			this.markDirty();
+		}
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return this.capacity;
+		return maxEnergy;
 	}
 
 	@Override
@@ -160,32 +166,32 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
+	}
+	
+	// TileLegacyMachineBase
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.RECYCLER, 1);
 	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	public int getProgress() {
-		return this.progress;
-	}
-
-	public void setProgress(final int progress) {
-		this.progress = progress;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
-	}
-
-	//TODO make this so
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
 	}
 }

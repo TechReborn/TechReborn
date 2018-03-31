@@ -47,11 +47,11 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
 	public static int maxOutput = 32;
-	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorMaxEnergy", comment = "Solid Fuel Generator Max Energy (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorMaxEnergy", comment = "Solid Fuel Generator Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
 	public static int outputAmount = 10;
 
 	public Inventory inventory = new Inventory(2, "TileSolidFuelGenerator", 64, this);

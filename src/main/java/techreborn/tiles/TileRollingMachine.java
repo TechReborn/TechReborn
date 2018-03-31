@@ -60,8 +60,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public static int runTime = 250;
 	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
-	//  @ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineWrenchDropRate", comment = "Rolling Machi Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
 
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(new RollingTileContainer(), 3, 3);
 	public Inventory inventory = new Inventory(3, "TileRollingMachine", 64, this);

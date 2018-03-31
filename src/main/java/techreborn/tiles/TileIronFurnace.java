@@ -39,11 +39,7 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 
 public class TileIronFurnace extends TileLegacyMachineBase
-	implements IInventoryProvider, IContainerProvider {
-
-	private static final int[] SLOTS_TOP = new int[] { 0, 2 };
-	private static final int[] SLOTS_BOTTOM = new int[] { 1 };
-	private static final int[] SLOTS_SIDES = new int[] { 0, 1 };
+		implements IInventoryProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(3, "TileIronFurnace", 64, this);

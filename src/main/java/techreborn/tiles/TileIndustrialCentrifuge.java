@@ -26,7 +26,6 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -50,14 +49,13 @@ import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialCentrifuge extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IListInfoProvider, IRecipeCrafterProvider, IContainerProvider {
+		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider, IListInfoProvider {
 
 	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
 
-	public int tickTime;
 	public Inventory inventory = new Inventory(11, "TileIndustrialCentrifuge", 64, this);
 	public RecipeCrafter crafter;
 
@@ -73,44 +71,21 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 
 		this.crafter = new RecipeCrafter(Reference.CENTRIFUGE_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
+	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
 			this.charge(6);
 		}
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE, 1);
-	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-		info.add("Round and round it goes");
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
 	}
 
 	@Override
@@ -137,17 +112,20 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.INDUSTRIAL_CENTRIFUGE, 1);
+	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
@@ -158,5 +136,17 @@ public class TileIndustrialCentrifuge extends TilePowerAcceptor
 			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
 			.syncCrafterValue().addInventory().create(this);
 	}
-
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
+	}
+	
+	// IListInfoProvider
+	@Override
+	public void addInfo(final List<String> info, final boolean isRealTile) {
+		super.addInfo(info, isRealTile);
+		info.add("Round and round it goes");
+	}
 }

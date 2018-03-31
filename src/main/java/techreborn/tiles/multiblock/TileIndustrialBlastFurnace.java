@@ -28,7 +28,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -56,13 +55,13 @@ import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileMachineCasing;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements IToolDrop, IInventoryProvider,
-	ITileRecipeHandler<BlastFurnaceRecipe>, IRecipeCrafterProvider, IContainerProvider {
+public class TileIndustrialBlastFurnace extends TilePowerAcceptor 
+		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider, ITileRecipeHandler<BlastFurnaceRecipe>  {
 	
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxEnergy", comment = "Industrial Blast Furnace Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
+	public static int maxEnergy = 10_000;
 
 	public Inventory inventory;
 	public RecipeCrafter crafter;
@@ -77,38 +76,6 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 		this.crafter = new RecipeCrafter(Reference.BLAST_FURNACE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
-	public boolean getMutliBlock() {
-		final boolean layer0 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, MultiblockChecker.ZERO_OFFSET);
-		final boolean layer1 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
-		final boolean layer2 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
-		final boolean layer3 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 3, 0));
-		final Block centerBlock1 = this.multiblockChecker.getBlock(0, 1, 0).getBlock();
-		final Block centerBlock2 = this.multiblockChecker.getBlock(0, 2, 0).getBlock();
-		final boolean center1 = (centerBlock1 == Blocks.AIR || centerBlock1 == Blocks.LAVA);
-		final boolean center2 = (centerBlock2 == Blocks.AIR || centerBlock2 == Blocks.LAVA);
-		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
-	}
-
-	@Override
-	public void update() {
-		if (world.isRemote){ return; }
-		
-		if (this.multiblockChecker == null) {
-			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
-			this.multiblockChecker = new MultiblockChecker(this.world, pos);
-		}
-		
-		if (this.getMutliBlock()) {
-			super.update();
-			this.charge(4);
-		}	
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE, 1);
-	}
-
 	public int getHeat() {
 		if (!this.getMutliBlock()){
 			return 0;
@@ -150,32 +117,48 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 
 		return 0;
 	}
-
-	@Override
-	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
-		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX(),
-			this.getPos().getY(), this.getPos().getZ());
-		this.readFromNBT(packet.getNbtCompound());
+	
+	public boolean getMutliBlock() {
+		final boolean layer0 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, MultiblockChecker.ZERO_OFFSET);
+		final boolean layer1 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
+		final boolean layer2 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
+		final boolean layer3 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 3, 0));
+		final Block centerBlock1 = this.multiblockChecker.getBlock(0, 1, 0).getBlock();
+		final Block centerBlock2 = this.multiblockChecker.getBlock(0, 2, 0).getBlock();
+		final boolean center1 = (centerBlock1 == Blocks.AIR || centerBlock1 == Blocks.LAVA);
+		final boolean center2 = (centerBlock2 == Blocks.AIR || centerBlock2 == Blocks.LAVA);
+		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
 	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
+	
 	public int getProgressScaled(final int scale) {
 		if (this.crafter.currentTickTime != 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
+	}
+
+	public void setHeat(final int heat) {
+		this.cachedHeat = heat;
+	}
+
+	public int getCachedHeat() {
+		return this.cachedHeat;
+	}
+	
+	// TilePowerAcceptor
+	@Override
+	public void update() {
+		if (world.isRemote){ return; }
+		
+		if (this.multiblockChecker == null) {
+			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
+			this.multiblockChecker = new MultiblockChecker(this.world, pos);
+		}
+		
+		if (this.getMutliBlock()) {
+			super.update();
+			this.charge(4);
+		}	
 	}
 
 	@Override
@@ -202,7 +185,43 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
+	
+	// TileLegacyMachineBase
+	@Override
+	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
+		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX(),
+			this.getPos().getY(), this.getPos().getZ());
+		this.readFromNBT(packet.getNbtCompound());
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE, 1);
+	}
+	
+	// IInventoryProvider
+	@Override
+	public Inventory getInventory() {
+		return this.inventory;
+	}
 
+	// IContainerProvider
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
+				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
+				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
+	}
+	
+	// ITileRecipeHandler
 	@Override
 	public boolean canCraft(final TileEntity tile, final BlastFurnaceRecipe recipe) {
 		if (tile instanceof TileIndustrialBlastFurnace) {
@@ -215,31 +234,5 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor implements ITo
 	@Override
 	public boolean onCraft(final TileEntity tile, final BlastFurnaceRecipe recipe) {
 		return true;
-	}
-
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
-	public void setHeat(final int heat) {
-		this.cachedHeat = heat;
-	}
-
-	public int getCachedHeat() {
-		return this.cachedHeat;
-	}
-
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
-				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
 	}
 }

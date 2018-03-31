@@ -26,13 +26,13 @@ package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
@@ -41,11 +41,17 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileVacuumFreezer extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+	
+	@ConfigRegistry(config = "machines", category = "vacuumfreezer", key = "VacuumFreezerInput", comment = "Vacuum Freezer Max Input (Value in EU)")
+	public static int maxInput = 64;
+	@ConfigRegistry(config = "machines", category = "vacuumfreezer", key = "VacuumFreezerMaxEnergy", comment = "Vacuum Freezer Max Energy (Value in EU)")
+	public static int maxEnergy = 64000;
 
 	public Inventory inventory = new Inventory(3, "TileVacuumFreezer", 64, this);
-	public MultiblockChecker multiblockChecker;
 	public RecipeCrafter crafter;
+	public MultiblockChecker multiblockChecker;
+
 
 	public TileVacuumFreezer() {
 		super();
@@ -53,13 +59,19 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 		final int[] outputs = new int[] { 1 };
 		this.crafter = new RecipeCrafter(Reference.VACUUM_FREEZER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
-
-	@Override
-	public void validate() {
-		super.validate();
-		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down());
+	
+	public boolean getMultiBlock() {
+		return this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
+	}
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
 	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		if (world.isRemote){ return; }
@@ -69,13 +81,9 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 		}
 	}
 
-	public boolean getMultiBlock() {
-		return this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
-	}
-
 	@Override
 	public double getBaseMaxPower() {
-		return 64000;
+		return maxEnergy;
 	}
 
 	@Override
@@ -95,49 +103,40 @@ public class TileVacuumFreezer extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		return 64;
+		return maxInput;
+	}
+	
+	// TileEntity
+	@Override
+	public void validate() {
+		super.validate();
+		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down());
 	}
 
+	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.VACUUM_FREEZER, 1);
 	}
 
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 
 }

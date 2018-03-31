@@ -38,13 +38,13 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileThermalGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "thermal_generator", key = "ThermalGeneratorMaxOutput", comment = "Thermal Generator Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxOutput", comment = "Thermal Generator Max Output (Value in EU)")
 	public static int maxOutput = 128;
-	@ConfigRegistry(config = "machines", category = "thermal_generator", key = "ThermalGeneratorMaxEnergy", comment = "Thermal Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1000000;
-	@ConfigRegistry(config = "machines", category = "thermal_generator", key = "ThermalGeneratorTankCapacity", comment = "Thermal Generator Tank Capacity")
-	public static int tankCapacity = 10000;
-	@ConfigRegistry(config = "machines", category = "thermal_generator", key = "ThermalGeneratorEnergyPerTick", comment = "Thermal Generator Energy Per Tick (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxEnergy", comment = "Thermal Generator Max Energy (Value in EU)")
+	public static int maxEnergy = 1_000_000;
+	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorTankCapacity", comment = "Thermal Generator Tank Capacity")
+	public static int tankCapacity = 10_000;
+	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorEnergyPerTick", comment = "Thermal Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 10;
 
 	public TileThermalGenerator() {

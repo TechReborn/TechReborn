@@ -38,13 +38,13 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileDieselGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
 	public static int maxOutput = 128;
-	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1000000;
-	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
-	public static int tankCapacity = 10000;
-	@ConfigRegistry(config = "machines", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
+	public static int maxEnergy = 1_000_000;
+	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
+	public static int tankCapacity = 10_000;
+	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 20;
 
 	public TileDieselGenerator() {

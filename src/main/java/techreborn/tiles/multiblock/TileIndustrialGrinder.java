@@ -57,13 +57,13 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDrop, IInventoryProvider,
-	ITileRecipeHandler<IndustrialGrinderRecipe>, IRecipeCrafterProvider, IContainerProvider {
+public class TileIndustrialGrinder extends TilePowerAcceptor 
+		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider, ITileRecipeHandler<IndustrialGrinderRecipe> {
 	
 	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxEnergy", comment = "Industrial Grinder Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
+	public static int maxEnergy = 10_000;
 	
 	public static final int TANK_CAPACITY = 16000;
 	public Inventory inventory;
@@ -83,11 +83,6 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 			outputs);
 	}
 
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_GRINDER, 1);
-	}
-
 	public boolean getMutliBlock() {
 		if (multiblockChecker == null) {
 			return false;
@@ -103,7 +98,15 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 				|| centerBlock.getBlock() instanceof IFluidBlock) && centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
 	}
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
+	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
@@ -128,59 +131,7 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 
 		tank.compareAndUpdate();
 	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.tank.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.tank.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	@Override
-	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) this.tank;
-		}
-		return super.getCapability(capability, facing);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 1) {
-			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -206,6 +157,79 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		return maxInput;
 	}
 
+	@Override
+	public void readFromNBT(final NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		this.tank.readFromNBT(tagCompound);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		this.tank.writeToNBT(tagCompound);
+		return tagCompound;
+	}
+
+	@Override
+	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return true;
+		}
+		return super.hasCapability(capability, facing);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return (T) this.tank;
+		}
+		return super.getCapability(capability, facing);
+	}
+
+	// TileLegacyMachineBase
+	@Override
+	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
+		if (slotIndex == 1) {
+			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.INDUSTRIAL_GRINDER, 1);
+	}
+	
+	// IInventoryProvider
+	@Override
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+
+	// IContainerProvider
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		// fluidSlot first to support automation and shift-click
+		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
+				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
+				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
+	}	
+	
+	// ITileRecipeHandler
 	@Override
 	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
 		if (!getMutliBlock()) {
@@ -251,24 +275,4 @@ public class TileIndustrialGrinder extends TilePowerAcceptor implements IToolDro
 		}
 		return false;
 	}
-
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		// fluidSlot first to support automation and shift-click
-		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
-				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
-				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
-	}
-
 }

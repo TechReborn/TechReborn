@@ -50,59 +50,20 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxInput", comment = "Matter Fabricator Max Input (Value in EU)")
 	public static int maxInput = 8192;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxEnergy", comment = "Matter Fabricator Max Energy (Value in EU)")
-	public static int maxEnergy = 100000000;
+	public static int maxEnergy = 100_000_000;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate, amount of amplifier units per UUM")
-	public static int fabricationRate = 10000;
+	public static int fabricationRate = 10_000;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
 	public static int energyPerAmp = 1666;
-	//  @ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorWrenchDropRate", comment = "Matter Fabricator Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
+
 
 	public Inventory inventory = new Inventory(12, "TileMatterFabricator", 64, this);
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
 		super();
-		// TODO configs
 	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
-	@Override
-	public void update() {
-		if (world.isRemote){ return; }
-		
-		super.update();
-		this.charge(11);
-
-		for (int i = 0; i < 6; i++) {
-			final ItemStack stack = this.inventory.getStackInSlot(i);
-			if (!stack.isEmpty() && spaceForOutput()) {
-				final int amp = this.getValue(stack);
-				final int euNeeded = amp * energyPerAmp;
-				if (amp != 0 && this.canUseEnergy(euNeeded)) {
-					this.useEnergy(euNeeded);
-					this.amplifier += amp;
-					this.inventory.decrStackSize(i, 1);
-				}
-			}
-		}
-
-		if (amplifier >= fabricationRate) {
-			if (spaceForOutput()) {
-				this.addOutputProducts();
-				amplifier -= fabricationRate;
-			}
-		}
-	}
-
+	
 	private boolean spaceForOutput() {
 		for (int i = 6; i < 11; i++) {
 			if (spaceForOutput(i)) {
@@ -148,7 +109,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				return true;
 			}
 		}
-
 	}
 
 	public int getValue(final ItemStack itemStack) {
@@ -163,6 +123,50 @@ public class TileMatterFabricator extends TilePowerAcceptor
 			}
 		}
 		return 0;
+	}
+	
+	public int getProgress() {
+		return this.amplifier;
+	}
+
+	public void setProgress(final int progress) {
+		this.amplifier = progress;
+	}
+
+	public int getProgressScaled(final int scale) {
+		if (this.amplifier != 0) {
+			return Math.min(this.amplifier * scale / fabricationRate, 100);
+		}
+		return 0;
+	}
+
+	// TilePowerAcceptor
+	@Override
+	public void update() {
+		if (world.isRemote){ return; }
+		
+		super.update();
+		this.charge(11);
+
+		for (int i = 0; i < 6; i++) {
+			final ItemStack stack = this.inventory.getStackInSlot(i);
+			if (!stack.isEmpty() && spaceForOutput()) {
+				final int amp = this.getValue(stack);
+				final int euNeeded = amp * energyPerAmp;
+				if (amp != 0 && this.canUseEnergy(euNeeded)) {
+					this.useEnergy(euNeeded);
+					this.amplifier += amp;
+					this.inventory.decrStackSize(i, 1);
+				}
+			}
+		}
+
+		if (amplifier >= fabricationRate) {
+			if (spaceForOutput()) {
+				this.addOutputProducts();
+				amplifier -= fabricationRate;
+			}
+		}
 	}
 
 	@Override
@@ -189,27 +193,26 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
+	
+	//TileLegacyMachineBase
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
+	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	public int getProgress() {
-		return this.amplifier;
-	}
-
-	public void setProgress(final int progress) {
-		this.amplifier = progress;
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.amplifier != 0) {
-			return Math.min(this.amplifier * scale / fabricationRate, 100);
-		}
-		return 0;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar().addInventory()
@@ -217,10 +220,5 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
 				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
-	}
-
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
 	}
 }

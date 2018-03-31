@@ -26,7 +26,6 @@ package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.IToolDrop;
@@ -46,16 +45,16 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileImplosionCompressor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
 	
 	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxInput", comment = "Implosion Compressor Max Input (Value in EU)")
 	public static int maxInput = 64;
 	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxEnergy", comment = "Implosion Compressor Max Energy (Value in EU)")
-	public static int maxEnergy = 64000;
+	public static int maxEnergy = 64_000;
 
 	public Inventory inventory = new Inventory(5, "TileImplosionCompressor", 64, this);
-	public MultiblockChecker multiblockChecker;
 	public RecipeCrafter crafter;
+	public MultiblockChecker multiblockChecker;
 
 	public TileImplosionCompressor() {
 		super();
@@ -63,16 +62,12 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 		final int[] outputs = new int[] { 2, 3 };
 		this.crafter = new RecipeCrafter(Reference.IMPLOSION_COMPRESSOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
-
-	@Override
-	public void validate() {
-		super.validate();
-		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down(3));
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR, 1);
+	
+	public int getProgressScaled(final int scale) {
+		if (this.crafter.currentTickTime != 0) {
+			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		}
+		return 0;
 	}
 
 	public boolean getMutliBlock() {
@@ -82,6 +77,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 		return down && chamber && up;
 	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		if (this.world.isRemote) { return; }
@@ -89,26 +85,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 			super.update();
 			this.charge(4);
 		}
-	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
 	}
 
 	@Override
@@ -135,22 +111,37 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
+	
+	// TileEntity
+	@Override
+	public void validate() {
+		super.validate();
+		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down(3));
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR, 1);
+	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
-
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
+	}
 }

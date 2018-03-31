@@ -52,9 +52,6 @@ import techreborn.lib.ModInfo;
 public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	implements IToolDrop, IInventoryProvider, IContainerProvider {
 
-	//	@ConfigRegistry(config = "machines", category = "alloy_furnace", key = "AlloyFurnaceWrenchDropRate", comment = "Alloy Furnace Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
-
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileIronAlloyFurnace", 64, this);
 	public int burnTime;

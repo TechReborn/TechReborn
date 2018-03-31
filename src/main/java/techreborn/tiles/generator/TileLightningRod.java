@@ -42,13 +42,13 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 
-	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
 	public static int maxOutput = 2048;
-	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodMaxEnergy", comment = "Lightning Rod Max Energy (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxEnergy", comment = "Lightning Rod Max Energy (Value in EU)")
 	public static int maxEnergy = 1000000;
-	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodChanceOfStrike", comment = "Chance of lightning striking a rod (Range: 0-70)")
+	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodChanceOfStrike", comment = "Chance of lightning striking a rod (Range: 0-70)")
 	public static int chanceOfStrike = 24;
-	@ConfigRegistry(config = "machines", category = "lightning_rod", key = "LightningRodBaseStrikeEnergy", comment = "Base amount of energy per strike (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodBaseStrikeEnergy", comment = "Base amount of energy per strike (Value in EU)")
 	public static int baseEnergyStrike = 2048;
 
 	private int onStatusHoldTicks = -1;

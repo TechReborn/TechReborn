@@ -57,13 +57,13 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDrop,
-		ITileRecipeHandler<IndustrialSawmillRecipe>, IRecipeCrafterProvider, IInventoryProvider, IContainerProvider {
+public class TileIndustrialSawmill extends TilePowerAcceptor 
+		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
 
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxEnergy", comment = "Industrial Sawmill Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
+	public static int maxEnergy = 10_000;
 
 	public static final int TANK_CAPACITY = 16000;
 	public Inventory inventory;
@@ -71,9 +71,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
 	int ticksSinceLastChange;
-
-	//int tickTime;
-	//IndustrialSawmillRecipe smRecipe;
 
 	public TileIndustrialSawmill() {
 		super();
@@ -109,6 +106,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 		return 0;
 	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
@@ -133,41 +131,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 
 		tank.compareAndUpdate();
 	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.tank.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.tank.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	@Override
-	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			if (this.tank != null) {
-				return (T) this.tank;
-			}
-		}
-		return super.getCapability(capability, facing);
-	}
-
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -194,6 +158,39 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 	}
 
 	@Override
+	public void readFromNBT(final NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		this.tank.readFromNBT(tagCompound);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		this.tank.writeToNBT(tagCompound);
+		return tagCompound;
+	}
+
+	@Override
+	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return true;
+		}
+		return super.hasCapability(capability, facing);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
+		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			if (this.tank != null) {
+				return (T) this.tank;
+			}
+		}
+		return super.getCapability(capability, facing);
+	}
+
+	// TileLegacyMachineBase
+	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
 		if (slotIndex == 1) {
 			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
@@ -209,6 +206,27 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL, 1);
+	}
+	
+	// IInventoryProvider
+	@Override
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+
+	// IContainerProvider
+	@Override
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
+				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
+				.addInventory().create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 
 	// ITileRecipeHandler
@@ -255,26 +273,5 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IToolDro
 			}
 		}
 		return false;
-	}
-
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
-	// IContainerProvider
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
-				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
 	}
 }

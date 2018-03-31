@@ -26,7 +26,6 @@ package techreborn.tiles.teir1;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -54,8 +53,6 @@ public class TileAlloySmelter extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-	//	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterWrenchDropRate", comment = "Alloy Smelter Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64, this);
@@ -72,40 +69,18 @@ public class TileAlloySmelter extends TilePowerAcceptor
 		this.crafter = new RecipeCrafter(Reference.ALLOY_SMELTER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 
-	@Override
-	public void update() {
-		super.update();
-		this.charge(3);
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.inventory.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
 	public int getProgressScaled(final int scale) {
 		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks != 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
+	}
+
+	// TilePowerAcceptor
+	@Override
+	public void update() {
+		super.update();
+		this.charge(3);
 	}
 
 	@Override
@@ -133,16 +108,19 @@ public class TileAlloySmelter extends TilePowerAcceptor
 		return maxInput;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
+	}
+	
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
@@ -157,5 +135,11 @@ public class TileAlloySmelter extends TilePowerAcceptor
 						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
 			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 			.create(this);
+	}
+	
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
 	}
 }

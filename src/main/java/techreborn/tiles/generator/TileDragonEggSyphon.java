@@ -42,11 +42,11 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileDragonEggSyphon extends TilePowerAcceptor implements IToolDrop, IInventoryProvider {
 
-	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
 	public static int maxOutput = 128;
-	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxEnergy", comment = "Dragon Egg Siphoner Max Energy (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxEnergy", comment = "Dragon Egg Siphoner Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 4;
 
 	public Inventory inventory = new Inventory(3, "TileDragonEggSyphon", 64, this);

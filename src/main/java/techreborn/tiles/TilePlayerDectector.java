@@ -46,6 +46,8 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxEnergy", comment = "Player Detector Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
+	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorEUPerSecond", comment = "Player Detector Energy Consumption per second (Value in EU)")
+	public static int euPerTick = 10;
 
 	public String owenerUdid = "";
 	boolean redstone = false;
@@ -53,7 +55,48 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	public TilePlayerDectector() {
 		super();
 	}
+	
+	public boolean isProvidingPower() {
+		return redstone;
+	}
 
+	// TilePowerAcceptor
+	@Override
+	public void update() {
+		super.update();
+		if (!world.isRemote && world.getWorldTime() % 20 == 0) {
+			boolean lastRedstone = redstone;
+			redstone = false;
+			if (canUseEnergy(euPerTick)) {
+				Iterator<EntityPlayer> tIterator = super.world.playerEntities.iterator();
+				while (tIterator.hasNext()) {
+					EntityPlayer player = (EntityPlayer) tIterator.next();
+					if (player.getDistanceSq((double) super.getPos().getX() + 0.5D,
+						(double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
+						BlockMachineBase blockMachineBase = (BlockMachineBase) world.getBlockState(pos).getBlock();
+						int meta = blockMachineBase.getMetaFromState(world.getBlockState(pos));
+						if (meta == 0) {// ALL
+							redstone = true;
+						} else if (meta == 1) {// Others
+							if (!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())) {
+								redstone = true;
+							}
+						} else {// You
+							if (!owenerUdid.isEmpty() && owenerUdid.equals(player.getUniqueID().toString())) {
+								redstone = true;
+							}
+						}
+					}
+				}
+				useEnergy(euPerTick);
+			}
+			if (lastRedstone != redstone) {
+				WorldUtils.updateBlock(world, getPos());
+				world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(getPos()).getBlock(), true);
+			}
+		}
+	}
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -80,46 +123,6 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		if (!world.isRemote && world.getWorldTime() % 20 == 0) {
-			boolean lastRedstone = redstone;
-			redstone = false;
-			if (canUseEnergy(10)) {
-				Iterator<EntityPlayer> tIterator = super.world.playerEntities.iterator();
-				while (tIterator.hasNext()) {
-					EntityPlayer player = (EntityPlayer) tIterator.next();
-					if (player.getDistanceSq((double) super.getPos().getX() + 0.5D,
-						(double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
-						BlockMachineBase blockMachineBase = (BlockMachineBase) world.getBlockState(pos).getBlock();
-						int meta = blockMachineBase.getMetaFromState(world.getBlockState(pos));
-						if (meta == 0) {// ALL
-							redstone = true;
-						} else if (meta == 1) {// Others
-							if (!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())) {
-								redstone = true;
-							}
-						} else {// You
-							if (!owenerUdid.isEmpty() && owenerUdid.equals(player.getUniqueID().toString())) {
-								redstone = true;
-							}
-						}
-					}
-				}
-				useEnergy(10);
-			}
-			if (lastRedstone != redstone) {
-				WorldUtils.updateBlock(world, getPos());
-				world.notifyNeighborsOfStateChange(getPos(), world.getBlockState(getPos()).getBlock(), true);
-			}
-		}
-	}
-
-	public boolean isProvidingPower() {
-		return redstone;
-	}
-
-	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
 		owenerUdid = tag.getString("ownerID");
@@ -132,6 +135,7 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 		return tag;
 	}
 
+	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer p0) {
 		return new ItemStack(ModBlocks.PLAYER_DETECTOR, 1, 0);

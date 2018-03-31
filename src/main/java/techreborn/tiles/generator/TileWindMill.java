@@ -41,16 +41,14 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 
-	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")
 	public static int maxOutput = 128;
-	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillMaxEnergy", comment = "Wind Mill Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Energy Per Tick (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillMaxEnergy", comment = "Wind Mill Max Energy (Value in EU)")
+	public static int maxEnergy = 10_000;
+	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Energy Per Tick (Value in EU)")
 	public static int baseEnergy = 2;
-	@ConfigRegistry(config = "machines", category = "wind_mill", key = "WindMillThunderMultiplier", comment = "Wind Mill Thunder Multiplier")
+	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillThunderMultiplier", comment = "Wind Mill Thunder Multiplier")
 	public static double thunderMultiplier = 1.25;
-
-	int basePower = 16;
 
 	public TileWindMill() {
 		super();
@@ -60,7 +58,7 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	public void update() {
 		super.update();
 		if (this.pos.getY() > 64) {
-			int actualPower = this.basePower;
+			int actualPower = baseEnergy;
 			if (this.world.isThundering()) {
 				actualPower *= thunderMultiplier;
 			}

@@ -26,7 +26,6 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -42,16 +41,13 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 public class TileChemicalReactor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
 
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
-	//  @ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorWrenchDropRate", comment = "Chemical Reactor Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
+	public static int maxEnergy = 10_000;
 
-	public int tickTime;
 	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64, this);
 	public RecipeCrafter crafter;
 
@@ -65,38 +61,7 @@ public class TileChemicalReactor extends TilePowerAcceptor
 		outputs[0] = 2;
 		this.crafter = new RecipeCrafter(Reference.CHEMICAL_REACTOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
-
-	@Override
-	public void update() {
-		if (!this.world.isRemote) {
-			super.update();
-			this.charge(3);
-		}
-	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.CHEMICAL_REACTOR, 1);
-	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafter.readFromNBT(tagCompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		this.crafter.writeToNBT(tagCompound);
-		return tagCompound;
-	}
-
-
+	
 	public int getProgressScaled(final int scale) {
 		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks > 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
@@ -104,6 +69,15 @@ public class TileChemicalReactor extends TilePowerAcceptor
 		return 0;
 	}
 
+	// TilePowerAcceptor 
+	@Override
+	public void update() {
+		if (!this.world.isRemote) {
+			super.update();
+			this.charge(3);
+		}
+	}
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -129,20 +103,30 @@ public class TileChemicalReactor extends TilePowerAcceptor
 		return maxInput;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.CHEMICAL_REACTOR, 1);
+	}
+
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
 			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
+
+	// IRecipeCrafterProvider
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return this.crafter;
+	}
+
 }

@@ -51,9 +51,9 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Value in EU)")
 	public static int maxInput = 8192;
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxOutput", comment = "Fusion Reactor Max Output (Value in EU)")
-	public static int maxOutput = 1000000;
+	public static int maxOutput = 1_000_000;
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxEnergy", comment = "Fusion Reactor Max Energy (Value in EU)")
-	public static int maxEnergy = 100000000;
+	public static int maxEnergy = 100_000_000;
 
 	public Inventory inventory;
 
@@ -341,21 +341,6 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public boolean canBeUpgraded() {
 		return false;
 	}
-
-	// @Override
-	// public String getName() {
-	// return null;
-	// }
-	//
-	// @Override
-	// public boolean hasCustomName() {
-	// return false;
-	// }
-	//
-	// @Override
-	// public ITextComponent getDisplayName() {
-	// return null;
-	// }
 
 	// IToolDrop
 	@Override

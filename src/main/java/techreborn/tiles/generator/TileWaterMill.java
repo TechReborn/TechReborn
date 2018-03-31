@@ -42,11 +42,11 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 
-	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")
 	public static int maxOutput = 32;
-	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillMaxEnergy", comment = "Water Mill Max Energy (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxEnergy", comment = "Water Mill Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
+	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
 	public static double energyMultiplier = 0.1;
 
 	int waterblocks = 0;

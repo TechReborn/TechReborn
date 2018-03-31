@@ -35,13 +35,13 @@ import techreborn.init.ModBlocks;
 
 public class TilePlasmaGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "plasma_generator", key = "PlasmaGeneratorMaxOutput", comment = "Plasma Generator Max Output (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxOutput", comment = "Plasma Generator Max Output (Value in EU)")
 	public static int maxOutput = 2048;
-	@ConfigRegistry(config = "machines", category = "plasma_generator", key = "PlasmaGeneratorMaxEnergy", comment = "Plasma Generator Max Energy (Value in EU)")
-	public static double maxEnergy = 500000000;
-	@ConfigRegistry(config = "machines", category = "plasma_generator", key = "PlasmaGeneratorTankCapacity", comment = "Plasma Generator Tank Capacity")
-	public static int tankCapacity = 10000;
-	@ConfigRegistry(config = "machines", category = "plasma_generator", key = "PlasmaGeneratorEnergyPerTick", comment = "Plasma Generator Energy Per Tick (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxEnergy", comment = "Plasma Generator Max Energy (Value in EU)")
+	public static double maxEnergy = 500_000_000;
+	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorTankCapacity", comment = "Plasma Generator Tank Capacity")
+	public static int tankCapacity = 10_000;
+	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorEnergyPerTick", comment = "Plasma Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 400;
 
 	public TilePlasmaGenerator() {
