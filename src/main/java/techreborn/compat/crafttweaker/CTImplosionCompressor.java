@@ -36,13 +36,14 @@ import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 public class CTImplosionCompressor extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		Object oInput2 = CraftTweakerCompat.toObject(input2);
 
 		ImplosionCompressorRecipe r = new ImplosionCompressorRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), ticktime, euTick);
 
 		addRecipe(r);
+		return new RecipeSettings(r);
 	}
 
 	@ZenMethod

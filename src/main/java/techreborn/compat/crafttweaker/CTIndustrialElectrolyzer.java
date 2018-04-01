@@ -36,13 +36,14 @@ import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 public class CTIndustrialElectrolyzer extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient cells, IIngredient input2, int ticktime, int euTick) {
+	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient cells, IIngredient input2, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(cells);
 		Object oInput2 = CraftTweakerCompat.toObject(input2);
 
 		IndustrialElectrolyzerRecipe r = new IndustrialElectrolyzerRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 
 		addRecipe(r);
+		return new RecipeSettings(r);
 	}
 
 	@ZenMethod

@@ -52,8 +52,8 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param euTick Amount of EU per tick consumed during crafting
 	 */
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
-		addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
+	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+		return addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param euTick Amount of EU per tick consumed during crafting
 	 */
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
+	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		
 		// There is only one input slot in Industrial Grinder
@@ -82,6 +82,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 
 		IndustrialGrinderRecipe r = new IndustrialGrinderRecipe(oInput1, fluidStack, CraftTweakerCompat.toStack(output1), CraftTweakerCompat.toStack(output2), CraftTweakerCompat.toStack(output3), CraftTweakerCompat.toStack(output4), ticktime, euTick);
 		addRecipe(r);
+		return new RecipeSettings(r);
 	}
 
 	/**

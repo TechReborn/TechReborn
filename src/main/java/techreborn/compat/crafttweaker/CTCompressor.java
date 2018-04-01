@@ -40,10 +40,11 @@ import techreborn.api.recipe.machines.CompressorRecipe;
 public class CTCompressor extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output1, IIngredient input1, int ticktime, int euTick) {
+	public static RecipeSettings addRecipe(IItemStack output1, IIngredient input1, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		CompressorRecipe r = new CompressorRecipe(oInput1, CraftTweakerCompat.toStack(output1), ticktime, euTick);
 		addRecipe(r);
+		return new RecipeSettings(r);
 	}
 
 	@ZenMethod

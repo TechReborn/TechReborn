@@ -36,11 +36,12 @@ import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 public class CTVacuumFreezer extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick) {
+	public static RecipeSettings addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input);
 
 		VacuumFreezerRecipe r = new VacuumFreezerRecipe(oInput1, CraftTweakerCompat.toStack(output), ticktime, euTick);
 		addRecipe(r);
+		return new RecipeSettings(r);
 	}
 
 	@ZenMethod

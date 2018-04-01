@@ -34,19 +34,21 @@ import techreborn.api.recipe.machines.AlloySmelterRecipe;
 
 /**
  * mods.techreborn.alloySmelter.addRecipe(<minecraft:gold_ingot>, <minecraft:iron_ingot>, <minecraft:diamond>, 20, 100);
+ * mods.techreborn.alloySmelter.addRecipe(<minecraft:gold_ingot>, <minecraft:iron_ingot>, <minecraft:diamond>, 20, 100).setUseOreDict(false);
  */
 
 @ZenClass("mods.techreborn.alloySmelter")
 public class CTAlloySmelter extends CTGeneric {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
+	public static RecipeSettings addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		Object oInput2 = CraftTweakerCompat.toObject(input2);
 
 		AlloySmelterRecipe r = new AlloySmelterRecipe(oInput1, oInput2, CraftTweakerCompat.toStack(output), ticktime, euTick);
 
 		addRecipe(r);
+		return new RecipeSettings(r);
 	}
 
 	@ZenMethod
