@@ -43,6 +43,7 @@ import java.util.List;
 public class CTFusionReactor {
 
 	@ZenMethod
+	@ZenDocumentation("IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime")
 	public static void addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime) {
 		FusionReactorRecipe reactorRecipe = new FusionReactorRecipe((ItemStack) CraftTweakerCompat.toObject(topInput), (ItemStack) CraftTweakerCompat.toObject(bottomInput), CraftTweakerCompat.toStack(output), startEU, euTick, tickTime);
 		CraftTweakerAPI.apply(new Add(reactorRecipe));

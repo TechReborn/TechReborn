@@ -38,6 +38,7 @@ import techreborn.api.recipe.machines.ExtractorRecipe;
 @ZenClass("mods.techreborn.extractor")
 public class CTExtractor extends CTGeneric {
 	@ZenMethod
+	@ZenDocumentation("IItemStack output, IIngredient input1, int ticktime, int euTick")
 	public static RecipeSettings addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 

@@ -36,6 +36,7 @@ import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 public class CTBlastFurnace extends CTGeneric {
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick, int neededHeat")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick, int neededHeat) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		Object oInput2 = CraftTweakerCompat.toObject(input2);

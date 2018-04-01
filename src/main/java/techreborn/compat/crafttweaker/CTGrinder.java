@@ -40,6 +40,7 @@ import techreborn.api.recipe.machines.GrinderRecipe;
 public class CTGrinder extends CTGeneric {
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output, IIngredient input1, int ticktime, int euTick")
 	public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 

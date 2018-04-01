@@ -36,6 +36,7 @@ import techreborn.api.recipe.machines.CentrifugeRecipe;
 public class CTCentrifuge extends CTGeneric {
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		Object oInput2 = CraftTweakerCompat.toObject(input2);

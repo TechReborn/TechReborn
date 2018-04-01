@@ -38,21 +38,25 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 public class CTIndustrialSawmill extends CTGeneric {
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick) {
 		return addRecipe(output1, output2, output3, input1, fluid, ticktime, euTick, true);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, int ticktime, int euTick")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, int ticktime, int euTick) {
 		return addRecipe(output1, output2, output3, input1, null, ticktime, euTick, true);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, int ticktime, int euTick, boolean useOreDic")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, int ticktime, int euTick, boolean useOreDic) {
 		return addRecipe(output1, output2, output3, input1, null, ticktime, euTick, useOreDic);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick, boolean useOreDic")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IIngredient input1, ILiquidStack fluid, int ticktime, int euTick, boolean useOreDic) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 

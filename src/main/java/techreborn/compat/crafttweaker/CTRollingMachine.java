@@ -46,11 +46,13 @@ import java.util.Map;
 public class CTRollingMachine {
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output, IIngredient[][] ingredients")
 	public static void addShaped(IItemStack output, IIngredient[][] ingredients) {
 		TechRebornAPI.addRollingOreMachinceRecipe(RollingMachineRecipe.getNameForRecipe(CraftTweakerCompat.toStack(output)), CraftTweakerCompat.toStack(output), toShapedObjects(ingredients));
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output, IIngredient[] ingredients")
 	public static void addShapeless(IItemStack output, IIngredient[] ingredients) {
 		TechRebornAPI.addShapelessOreRollingMachinceRecipe(RollingMachineRecipe.getNameForRecipe(CraftTweakerCompat.toStack(output)), CraftTweakerCompat.toStack(output), toObjects(ingredients));
 	}

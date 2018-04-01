@@ -52,6 +52,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param euTick Amount of EU per tick consumed during crafting
 	 */
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick) {
 		return addRecipe(output1, output2, output3, output4, input1, input2, null, ticktime, euTick);
 	}
@@ -69,6 +70,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param euTick Amount of EU per tick consumed during crafting
 	 */
 	@ZenMethod
+	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick")
 	public static RecipeSettings addRecipe(IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick) {
 		Object oInput1 = CraftTweakerCompat.toObject(input1);
 		

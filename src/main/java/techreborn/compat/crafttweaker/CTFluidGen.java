@@ -34,26 +34,31 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 public class CTFluidGen {
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid, int energyPerMb")
 	public static void addThermalFluid(ILiquidStack fluid, int energyPerMb) {
 		addFluid(EFluidGenerator.THERMAL, fluid, energyPerMb);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid, int energyPerMb")
 	public static void addGasFluid(ILiquidStack fluid, int energyPerMb) {
 		addFluid(EFluidGenerator.GAS, fluid, energyPerMb);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid, int energyPerMb")
 	public static void addSemiFluid(ILiquidStack fluid, int energyPerMb) {
 		addFluid(EFluidGenerator.SEMIFLUID, fluid, energyPerMb);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid, int energyPerMb")
 	public static void addDieselFluid(ILiquidStack fluid, int energyPerMb) {
 		addFluid(EFluidGenerator.DIESEL, fluid, energyPerMb);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid, int energyPerMb")
 	public static void addPlasmaFluid(ILiquidStack fluid, int energyPerMb) {
 		addFluid(EFluidGenerator.PLASMA, fluid, energyPerMb);
 	}
