@@ -25,13 +25,7 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -42,34 +36,26 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileImplosionCompressor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+public class TileImplosionCompressor extends TileGenericMachine	implements IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxInput", comment = "Implosion Compressor Max Input (Value in EU)")
 	public static int maxInput = 64;
 	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxEnergy", comment = "Implosion Compressor Max Energy (Value in EU)")
 	public static int maxEnergy = 64_000;
 
-	public Inventory inventory = new Inventory(5, "TileImplosionCompressor", 64, this);
-	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
 
 	public TileImplosionCompressor() {
-		super();
+		super("ImplosionCompressor", maxInput, maxEnergy, ModBlocks.IMPLOSION_COMPRESSOR, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
+		this.inventory = new Inventory(5, "TileImplosionCompressor", 64, this);
 		this.crafter = new RecipeCrafter(Reference.IMPLOSION_COMPRESSOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
 	public boolean getMutliBlock() {
 		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
 		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 2, 0));
@@ -77,39 +63,17 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 		return down && chamber && up;
 	}
 
-	// TilePowerAcceptor
+	// TileGenericMachine
 	@Override
 	public void update() {
-		if (this.world.isRemote) { return; }
-		if (this.getMutliBlock()) {
-			super.update();
-			this.charge(4);
+		if (this.multiblockChecker == null) {
+			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
+			this.multiblockChecker = new MultiblockChecker(this.world, pos);
 		}
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
+		
+		if (!world.isRemote && getMutliBlock()){ 
+			super.update();
+		}	
 	}
 	
 	// TileEntity
@@ -118,18 +82,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 		super.validate();
 		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down(3));
 	}
-	
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR, 1);
-	}
-
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
 
 	// IContainerProvider
 	@Override
@@ -137,11 +89,5 @@ public class TileImplosionCompressor extends TilePowerAcceptor
 		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
-	}
-	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
 	}
 }
