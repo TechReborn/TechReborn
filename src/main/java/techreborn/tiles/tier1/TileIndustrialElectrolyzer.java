@@ -22,15 +22,9 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -43,86 +37,24 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialElectrolyzer extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+public class TileIndustrialElectrolyzer extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxEnergy", comment = "Industrial Electrolyzer Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	public Inventory inventory = new Inventory(8, "TileIndustrialElectrolyzer", 64, this);
-	public RecipeCrafter crafter;
-
 	public TileIndustrialElectrolyzer() {
-		super();
-		// Input slots
-		final int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		// Output slots
-		final int[] outputs = new int[4];
-		outputs[0] = 2;
-		outputs[1] = 3;
-		outputs[2] = 4;
-		outputs[3] = 5;
+		super("IndustrialElectrolyzer", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_ELECTROLYZER, 6);
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] { 2, 3, 4, 5 };
+		this.inventory = new Inventory(7, "TileIndustrialElectrolyzer", 64, this);
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	// TilePowerAcceptor
-	@Override
-	public void update() {
-		if (this.world.isRemote) { return; }
-		super.update();
-		this.charge(6);
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-	
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER, 1);
-	}
-
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
@@ -132,11 +64,5 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor
 			.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
 			.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
-	}
-	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
 	}
 }

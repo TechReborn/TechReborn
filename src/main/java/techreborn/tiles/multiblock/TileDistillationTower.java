@@ -27,14 +27,7 @@ package techreborn.tiles.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -45,24 +38,23 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileDistillationTower extends TilePowerAcceptor
-		implements IToolDrop, IRecipeCrafterProvider, IInventoryProvider, IContainerProvider {
+public class TileDistillationTower extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "distillation_tower", key = "DistillationTowerMaxInput", comment = "Distillation Tower Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "distillation_tower", key = "DistillationTowerMaxEnergy", comment = "Distillation Tower Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
+	public static int maxEnergy = 10_000;
 	
-	public Inventory inventory = new Inventory(11, "TileDistillationTower", 64, this);
 	public MultiblockChecker multiblockChecker;
-	public RecipeCrafter crafter;
 
 	public TileDistillationTower() {
-		super();
+		super("DistillationTower", maxInput, maxEnergy, ModBlocks.DISTILLATION_TOWER, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
+		this.inventory = new Inventory(7, "TileDistillationTower", 64, this);
 		this.crafter = new RecipeCrafter(Reference.DISTILLATION_TOWER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
@@ -80,14 +72,8 @@ public class TileDistillationTower extends TilePowerAcceptor
 		final boolean center2 = (centerBlock2 == Blocks.AIR);
 		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
 	}
-	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-	
+
+	// TileGenericMachine
 	@Override
 	public void update() {
 		if (this.multiblockChecker == null) {
@@ -95,55 +81,9 @@ public class TileDistillationTower extends TilePowerAcceptor
 			this.multiblockChecker = new MultiblockChecker(this.world, pos);
 		}
 		
-		if (world.isRemote){ return; }
-		
-		if (this.getMutliBlock()) {
+		if (!world.isRemote && getMutliBlock()){ 
 			super.update();
-			this.charge(6);
 		}	
-	}
-
-	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
-		return new ItemStack(ModBlocks.DISTILLATION_TOWER, 1);
-	}
-
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
-	// IInventoryProvider
-	@Override
-	public IInventory getInventory() {
-		return this.inventory;
 	}
 
 	// IContainerProvider
@@ -154,5 +94,4 @@ public class TileDistillationTower extends TilePowerAcceptor
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this);
 	}
-
 }

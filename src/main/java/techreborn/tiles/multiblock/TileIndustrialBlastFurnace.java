@@ -27,17 +27,12 @@ package techreborn.tiles.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.multiblock.IMultiblockPart;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -52,27 +47,25 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.multiblocks.MultiBlockCasing;
+import techreborn.tiles.TileGenericMachine;
 import techreborn.tiles.TileMachineCasing;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialBlastFurnace extends TilePowerAcceptor 
-		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider, ITileRecipeHandler<BlastFurnaceRecipe>  {
+public class TileIndustrialBlastFurnace extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<BlastFurnaceRecipe>  {
 	
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxEnergy", comment = "Industrial Blast Furnace Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	public Inventory inventory;
-	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
 	private int cachedHeat;
 
 	public TileIndustrialBlastFurnace() {
-		super();
-		this.inventory = new Inventory(5, "TileIndustrialBlastFurnace", 64, this);
+		super("IndustrialBlastFurnace", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_BLAST_FURNACE, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
+		this.inventory = new Inventory(5, "TileIndustrialBlastFurnace", 64, this);
 		this.crafter = new RecipeCrafter(Reference.BLAST_FURNACE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
@@ -102,7 +95,6 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor
 					final BlockMachineCasing casing1 = (BlockMachineCasing) this.world.getBlockState(part.getPos())
 							.getBlock();
 					heat += casing1.getHeatFromState(this.world.getBlockState(part.getPos()));
-					// TODO meta fix
 				}
 
 				if (this.world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName()
@@ -130,13 +122,6 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor
 		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
 	}
 	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
 	public void setHeat(final int heat) {
 		this.cachedHeat = heat;
 	}
@@ -145,47 +130,19 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor
 		return this.cachedHeat;
 	}
 	
-	// TilePowerAcceptor
+	// TileGenericMachine
 	@Override
 	public void update() {
-		if (world.isRemote){ return; }
-		
 		if (this.multiblockChecker == null) {
 			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
 			this.multiblockChecker = new MultiblockChecker(this.world, pos);
 		}
 		
-		if (this.getMutliBlock()) {
+		if (!world.isRemote && getMutliBlock()){ 
 			super.update();
-			this.charge(4);
-		}	
+		}		
 	}
 
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-	
 	// TileLegacyMachineBase
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
@@ -194,18 +151,6 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor
 		this.readFromNBT(packet.getNbtCompound());
 	}
 	
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE, 1);
-	}
-	
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
@@ -213,12 +158,6 @@ public class TileIndustrialBlastFurnace extends TilePowerAcceptor
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
 				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
-	}
-	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
 	}
 	
 	// ITileRecipeHandler

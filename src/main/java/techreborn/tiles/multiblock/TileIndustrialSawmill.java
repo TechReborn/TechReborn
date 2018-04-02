@@ -37,10 +37,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -55,32 +51,29 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialSawmill extends TilePowerAcceptor 
-		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
+public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
 
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxEnergy", comment = "Industrial Sawmill Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	public static final int TANK_CAPACITY = 16000;
-	public Inventory inventory;
+	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
-	public RecipeCrafter crafter;
 	public MultiblockChecker multiblockChecker;
 	int ticksSinceLastChange;
 
 	public TileIndustrialSawmill() {
-		super();
-		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
-		this.inventory = new Inventory(7, "TileSawmill", 64, this);
-		this.ticksSinceLastChange = 0;
+		super("IndustrialSawmill", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_SAWMILL, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
-		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs,
-				outputs);
+		this.inventory = new Inventory(7, "TileSawmill", 64, this);
+		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs, outputs);
+		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
+		this.ticksSinceLastChange = 0;
 	}
 
 	public boolean getMutliBlock() {
@@ -99,17 +92,9 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 		return down && center && blade && up;
 	}
 
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	// TilePowerAcceptor
+	// TileGenericMachine
 	@Override
 	public void update() {
-		super.update();
 		if (this.multiblockChecker == null) {
 			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2).down();
 			this.multiblockChecker = new MultiblockChecker(this.world, pos);
@@ -125,38 +110,13 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 			this.ticksSinceLastChange = 0;
 		}
 
-		if (!world.isRemote && this.getMutliBlock()) {
-			this.charge(6);
+		if (!world.isRemote && getMutliBlock()) {
+			super.update();
 		}
 
 		tank.compareAndUpdate();
 	}
 	
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
@@ -202,18 +162,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 		return true;
 	}
 
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL, 1);
-	}
-	
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
@@ -223,12 +171,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor
 				.addInventory().create(this);
 	}
 	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
 	// ITileRecipeHandler
 	@Override
 	public boolean canCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {

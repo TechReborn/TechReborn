@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.teir1.TileAlloySmelter;
+import techreborn.tiles.tier1.TileAlloySmelter;
 
 public class GuiAlloySmelter extends GuiBase {
 

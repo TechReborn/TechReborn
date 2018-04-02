@@ -28,7 +28,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
@@ -46,7 +45,8 @@ import techreborn.utils.IC2ItemCharger;
 /**
  * Created by Rushmead
  */
-public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, ITickable, IInventoryProvider {
+public class TileEnergyStorage extends TilePowerAcceptor 
+		implements IToolDrop, IInventoryProvider {
 
 	public Inventory inventory;
 	public String name;
@@ -67,6 +67,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 		this.maxStorage = maxStorage;
 	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
@@ -106,18 +107,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 			}
 		}
 	}
-
-	@Override
-	public void setFacing(EnumFacing enumFacing) {
-		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
-	}
-
-
-	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(wrenchDrop);
-	}
-
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxStorage;
@@ -127,16 +117,7 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 	public boolean canAcceptEnergy(EnumFacing direction) {
 		return getFacing() != direction;
 	}
-
-	@Override
-	public EnumFacing getFacingEnum() {
-		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof BlockEnergyStorage) {
-			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));
-		}
-		return null;
-	}
-
+	
 	@Override
 	public boolean canProvideEnergy(EnumFacing direction) {
 		return getFacing() == direction;
@@ -157,13 +138,35 @@ public class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, I
 		return tier;
 	}
 
+	// TileLegacyMachineBase
 	@Override
-	public Inventory getInventory() {
-		return inventory;
+	public void setFacing(EnumFacing enumFacing) {
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));
 	}
-
+	
+	@Override
+	public EnumFacing getFacingEnum() {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockEnergyStorage) {
+			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));
+		}
+		return null;
+	}
+	
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
+	}
+
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(wrenchDrop);
+	}
+	
+	// IInventoryProvider
+	@Override
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

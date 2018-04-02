@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.teir1.TileElectricFurnace;
+import techreborn.tiles.tier1.TileElectricFurnace;
 
 public class GuiElectricFurnace extends GuiBase {
 
