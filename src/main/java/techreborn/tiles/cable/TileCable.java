@@ -82,7 +82,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 				}
 			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
 				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-				if (energyTile.canReceive()){
+				if (energyTile != null && energyTile.canReceive()){
 					acceptors.add(energyTile);
 				}
 				
