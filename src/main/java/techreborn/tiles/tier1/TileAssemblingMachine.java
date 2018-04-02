@@ -22,15 +22,9 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -41,81 +35,24 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileAssemblingMachine extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+public class TileAssemblingMachine extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxEnergy", comment = "Assembling Machine Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
-
-	public Inventory inventory = new Inventory(8, "TileAssemblingMachine", 64, this);
-	public RecipeCrafter crafter;
-	public int tickTime;
+	public static int maxEnergy = 10_000;
 
 	public TileAssemblingMachine() {
-		super();
-		final int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		final int[] outputs = new int[1];
-		outputs[0] = 2;
+		super("AssemblingMachine", maxInput, maxEnergy, ModBlocks.ASSEMBLY_MACHINE, 3);
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] { 2 };
+		this.inventory = new Inventory(4, "TileAssemblingMachine", 64, this);
 		this.crafter = new RecipeCrafter(Reference.ASSEMBLING_MACHINE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	// TilePowerAcceptor
-	@Override
-	public void update() {
-		super.update();
-		this.charge(3);
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ASSEMBLY_MACHINE, 1);
-	}
-
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
@@ -123,11 +60,4 @@ public class TileAssemblingMachine extends TilePowerAcceptor
 			.addInventory().tile(this).slot(0, 47, 17).slot(1, 65, 17).outputSlot(2, 116, 35).energySlot(3, 56, 53)
 			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
-	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-	
 }

@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.TileIndustrialElectrolyzer;
+import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
 
 public class GuiIndustrialElectrolyzer extends GuiBase {
 	

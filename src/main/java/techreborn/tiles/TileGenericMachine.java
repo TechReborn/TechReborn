@@ -50,6 +50,13 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	public Inventory inventory;
 	public RecipeCrafter crafter;
 	
+	/**
+	 * @param name String Name for a tile. Do we need it at all?
+	 * @param maxInput int Maximum energy input, value in EU
+	 * @param maxEnergy int Maximum energy buffer, value in EU
+	 * @param toolDrop Block Block to drop with wrench
+	 * @param energySlot int Energy slot to use to charge machine from battery
+	 */
 	public TileGenericMachine(String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
 		this.name = "Tile" + name;
 		this.maxInput = maxInput;
@@ -116,8 +123,4 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	public RecipeCrafter getRecipeCrafter() {
 		return crafter;
 	}
-
-
-
-
 }

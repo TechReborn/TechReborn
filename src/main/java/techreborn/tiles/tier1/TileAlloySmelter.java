@@ -25,13 +25,7 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -44,80 +38,22 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileAlloySmelter extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+public class TileAlloySmelter extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-
-	public int tickTime;
-	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64, this);
-	public RecipeCrafter crafter;
+	public static int maxEnergy = 1_000;
 
 	public TileAlloySmelter() {
-		super();
-		// Input slots
-		final int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		final int[] outputs = new int[1];
-		outputs[0] = 2;
+		super("AlloySmelter", maxInput, maxEnergy, ModBlocks.ALLOY_SMELTER, 3);
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] { 2 };
+		this.inventory = new Inventory(4, "TileAlloySmelter", 64, this);
 		this.crafter = new RecipeCrafter(Reference.ALLOY_SMELTER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
-	}
-
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	// TilePowerAcceptor
-	@Override
-	public void update() {
-		super.update();
-		this.charge(3);
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
-	}
-	
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
 	}
 
 	// IContainerProvider
@@ -135,11 +71,5 @@ public class TileAlloySmelter extends TilePowerAcceptor
 						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
 			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 			.create(this);
-	}
-	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
 	}
 }

@@ -29,7 +29,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import techreborn.tiles.TileAssemblingMachine;
+import techreborn.tiles.tier1.TileAssemblingMachine;
 
 public class GuiAssemblingMachine extends GuiContainer {
 

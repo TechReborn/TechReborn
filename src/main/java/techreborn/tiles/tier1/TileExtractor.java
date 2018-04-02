@@ -25,12 +25,6 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
@@ -39,90 +33,28 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.tiles.TileGenericMachine;
 
-public class TileExtractor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+public class TileExtractor extends TileGenericMachine implements IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-
-	public Inventory inventory = new Inventory(3, "TileExtractor", 64, this);
-	public RecipeCrafter crafter;
+	public static int maxEnergy = 1_000;
 
 	public TileExtractor() {
-		super();
-		final int[] inputs = new int[1];
-		inputs[0] = 0;
-		final int[] outputs = new int[1];
-		outputs[0] = 1;
+		super("Extractor", maxInput, maxEnergy, ModBlocks.EXTRACTOR, 2);
+		final int[] inputs = new int[] { 0 };
+		final int[] outputs = new int[] { 1 };
+		this.inventory = new Inventory(3, "TileExtractor", 64, this);
 		this.crafter = new RecipeCrafter(Reference.EXTRACTOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	@Override
-	public void update() {
-		if (!this.world.isRemote) {
-			super.update();
-			this.charge(2);
-		}
-	}
-
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-	
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.EXTRACTOR, 1);
-	}
-
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().tile(this)
 				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this);
-	}
-	
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
 	}
 }

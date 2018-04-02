@@ -22,15 +22,9 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
@@ -39,80 +33,21 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.tiles.TileGenericMachine;
 
-public class TileChemicalReactor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+public class TileChemicalReactor extends TileGenericMachine	implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	public Inventory inventory = new Inventory(8, "TileChemicalReactor", 64, this);
-	public RecipeCrafter crafter;
-
 	public TileChemicalReactor() {
-		super();
-		// Input slots
-		final int[] inputs = new int[2];
-		inputs[0] = 0;
-		inputs[1] = 1;
-		final int[] outputs = new int[1];
-		outputs[0] = 2;
+		super("ChemicalReactor", maxInput, maxEnergy, ModBlocks.CHEMICAL_REACTOR, 3);
+		final int[] inputs = new int[] { 0, 1 };
+		final int[] outputs = new int[] { 2 };
+		this.inventory = new Inventory(4, "TileChemicalReactor", 64, this);
 		this.crafter = new RecipeCrafter(Reference.CHEMICAL_REACTOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
-	}
-	
-	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks > 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
-		}
-		return 0;
-	}
-
-	// TilePowerAcceptor 
-	@Override
-	public void update() {
-		if (!this.world.isRemote) {
-			super.update();
-			this.charge(3);
-		}
-	}
-	
-	@Override
-	public double getBaseMaxPower() {
-		return maxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return maxInput;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.CHEMICAL_REACTOR, 1);
-	}
-
-	// IInventoryProvider
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
 	}
 
 	// IContainerProvider
@@ -122,11 +57,4 @@ public class TileChemicalReactor extends TilePowerAcceptor
 			.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
 			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
-
-	// IRecipeCrafterProvider
-	@Override
-	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
-	}
-
 }
