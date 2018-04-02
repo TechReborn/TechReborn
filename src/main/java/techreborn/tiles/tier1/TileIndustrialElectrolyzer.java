@@ -25,9 +25,6 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -43,8 +40,7 @@ import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialElectrolyzer extends TileGenericMachine
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+public class TileIndustrialElectrolyzer extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
 	public static int maxInput = 128;
