@@ -28,7 +28,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -46,7 +45,8 @@ import java.util.List;
  * Created by Rushmead
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITickable, IListInfoProvider {
+public class TileTransformer extends TilePowerAcceptor 
+		implements IToolDrop, IListInfoProvider {
 	
 	@ConfigRegistry(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = false;
@@ -73,12 +73,8 @@ public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITi
 		this.maxOutput = tier.getMaxOutput();
 		this.maxStorage = tier.getMaxInput() * 2;
 	}
-
-	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
-		return new ItemStack(wrenchDrop);
-	}
-
+	
+	// TilePowerAcceptor
 	@Override
 	public double getBaseMaxPower() {
 		return maxStorage;
@@ -91,16 +87,7 @@ public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITi
 		}
 		return getFacingEnum() != direction;
 	}
-
-	@Override
-	public EnumFacing getFacingEnum() {
-		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof BlockTransformer) {
-			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
-		}
-		return null;
-	}
-
+	
 	@Override
 	public boolean canProvideEnergy(EnumFacing direction) {
 		if (IC2TransformersStyle == true){
@@ -118,7 +105,7 @@ public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITi
 	public double getBaseMaxInput() {
 		return inputTier.getMaxInput();
 	}
-
+	
 	@Override
 	public EnumPowerTier getBaseTier() {
 		return inputTier;
@@ -133,7 +120,24 @@ public class TileTransformer extends TilePowerAcceptor implements IToolDrop, ITi
 	public void checkTeir() {
 		//Nope
 	}
+	
+	// TileLegacyMachineBase
+	@Override
+	public EnumFacing getFacingEnum() {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockTransformer) {
+			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
+		}
+		return null;
+	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(EntityPlayer p0) {
+		return new ItemStack(wrenchDrop);
+	}
+
+	// IListInfoProvider
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 		info.add(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getBaseMaxInput()));
