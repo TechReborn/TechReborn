@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.teir1.TileCompressor;
+import techreborn.tiles.tier1.TileCompressor;
 
 public class GuiCompressor extends GuiBase {
 

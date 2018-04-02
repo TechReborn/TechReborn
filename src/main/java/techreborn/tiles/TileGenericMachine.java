@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.teir1;
+package techreborn.tiles;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -32,36 +33,33 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
 
-public class TileGrinder extends TilePowerAcceptor
-		implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
+/**
+ * @author drcrazy
+ *
+ */
+public abstract class TileGenericMachine extends TilePowerAcceptor
+		implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider{
 
-	@ConfigRegistry(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "grinder", key = "GrinderMaxEnergy", comment = "Grinder Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-
-	public Inventory inventory = new Inventory(3, "TileGrinder", 64, this);
+	public String name;
+	public int maxInput;
+	public int maxEnergy;
+	public Block toolDrop;
+	public int energySlot;
+	public Inventory inventory;
 	public RecipeCrafter crafter;
-
-	public TileGrinder() {
-		super();
-		final int[] inputs = new int[1];
-		inputs[0] = 0;
-		final int[] outputs = new int[1];
-		outputs[0] = 1;
-		this.crafter = new RecipeCrafter(Reference.GRINDER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
+	
+	public TileGenericMachine(String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+		this.name = "Tile" + name;
+		this.maxInput = maxInput;
+		this.maxEnergy = maxEnergy;
+		this.toolDrop = toolDrop;
+		this.energySlot = energySlot;
 	}
-
+	
 	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks != 0) {
+		if (this.crafter != null && this.crafter.currentTickTime != 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
@@ -72,10 +70,10 @@ public class TileGrinder extends TilePowerAcceptor
 	public void update() {
 		if (!this.world.isRemote) {
 			super.update();
-			this.charge(2);
+			this.charge(energySlot);
 		}
 	}
-
+	
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -100,30 +98,26 @@ public class TileGrinder extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
-
+	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.GRINDER, 1);
+	public ItemStack getToolDrop(EntityPlayer p0) {
+		return new ItemStack(toolDrop, 1);
 	}
-
+	
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
-
-	// IContainerProvider
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("grinder").player(player.inventory).inventory().hotbar().addInventory().tile(this)
-				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
-	}
-
+	
 	// IRecipeCrafterProvider
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return this.crafter;
+		return crafter;
 	}
+
+
+
+
 }

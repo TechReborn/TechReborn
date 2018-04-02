@@ -33,7 +33,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.teir1.TileAlloySmelter;
+import techreborn.tiles.tier1.TileAlloySmelter;
 
 public class BlockAlloySmelter extends BlockMachineBase {
 

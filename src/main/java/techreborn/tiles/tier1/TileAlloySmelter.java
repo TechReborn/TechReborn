@@ -22,57 +22,65 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.teir1;
+package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;
+import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
-public class TileExtractor extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider, IRecipeCrafterProvider {
-	
-	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
+@RebornRegistry(modID = ModInfo.MOD_ID)
+public class TileAlloySmelter extends TilePowerAcceptor
+	implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
 	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
+	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
 
-	public Inventory inventory = new Inventory(3, "TileExtractor", 64, this);
+	public int tickTime;
+	public Inventory inventory = new Inventory(8, "TileAlloySmelter", 64, this);
 	public RecipeCrafter crafter;
 
-	public TileExtractor() {
+	public TileAlloySmelter() {
 		super();
-		final int[] inputs = new int[1];
+		// Input slots
+		final int[] inputs = new int[2];
 		inputs[0] = 0;
+		inputs[1] = 1;
 		final int[] outputs = new int[1];
-		outputs[0] = 1;
-		this.crafter = new RecipeCrafter(Reference.EXTRACTOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
+		outputs[0] = 2;
+		this.crafter = new RecipeCrafter(Reference.ALLOY_SMELTER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
-	
+
 	public int getProgressScaled(final int scale) {
-		if (this.crafter.currentTickTime != 0) {
+		if (this.crafter.currentTickTime != 0 && this.crafter.currentNeededTicks != 0) {
 			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
-		if (!this.world.isRemote) {
-			super.update();
-			this.charge(2);
-		}
+		super.update();
+		this.charge(3);
 	}
 
 	@Override
@@ -99,13 +107,13 @@ public class TileExtractor extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.EXTRACTOR, 1);
+		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
 	}
-
+	
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
@@ -115,9 +123,18 @@ public class TileExtractor extends TilePowerAcceptor
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().tile(this)
-				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
+		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this)
+			.filterSlot(0, 34, 47,
+				stack -> RecipeHandler.recipeList.stream()
+					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+			.filterSlot(1, 126, 47,
+				stack -> RecipeHandler.recipeList.stream()
+					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
+			.create(this);
 	}
 	
 	// IRecipeCrafterProvider

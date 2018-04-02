@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.tier0;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

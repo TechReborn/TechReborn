@@ -43,7 +43,8 @@ import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.teir1.*;
+import techreborn.tiles.tier0.*;
+import techreborn.tiles.tier1.*;
 
 public class GuiHandler implements IGuiHandler {
 

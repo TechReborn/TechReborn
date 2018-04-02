@@ -22,14 +22,18 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.iron_machines;
+package techreborn.blocks.tier0;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
@@ -37,27 +41,64 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileIronAlloyFurnace;
+import techreborn.tiles.tier0.TileIronFurnace;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class BlockIronAlloyFurnace extends BlockMachineBase {
+public class BlockIronFurnace extends BlockMachineBase {
 
-	public BlockIronAlloyFurnace() {
+	public BlockIronFurnace() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier0_machines"));
 	}
 
+	@SideOnly(Side.CLIENT)
+	@SuppressWarnings("incomplete-switch")
+	public void randomDisplayTick(final World worldIn, final BlockPos pos, final IBlockState state, final Random rand) {
+		if (this.isActive(state)) {
+			final EnumFacing enumfacing = state.getValue(BlockMachineBase.FACING);
+			final double d0 = pos.getX() + 0.5D;
+			final double d1 = pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
+			final double d2 = pos.getZ() + 0.5D;
+			final double d3 = 0.52D;
+			final double d4 = rand.nextDouble() * 0.6D - 0.3D;
+
+			switch (enumfacing) {
+			case WEST:
+				worldIn.spawnParticle(	EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D,
+										new int[0]);
+				worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+				break;
+			case EAST:
+				worldIn.spawnParticle(	EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D,
+										new int[0]);
+				worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D, new int[0]);
+				break;
+			case NORTH:
+				worldIn.spawnParticle(	EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D,
+										new int[0]);
+				worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D, new int[0]);
+				break;
+			case SOUTH:
+				worldIn.spawnParticle(	EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D,
+										new int[0]);
+				worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D, new int[0]);
+			}
+		}
+	}
+	
+	// BlockMachineBase
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
-		return new TileIronAlloyFurnace();
+		return new TileIronFurnace();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.ALLOY_FURNACE;
+		return EGui.IRON_FURNACE;
 	}
 
 	@Override

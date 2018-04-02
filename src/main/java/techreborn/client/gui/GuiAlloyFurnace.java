@@ -29,7 +29,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import techreborn.tiles.TileIronAlloyFurnace;
+import techreborn.tiles.tier0.TileIronAlloyFurnace;
 
 public class GuiAlloyFurnace extends GuiContainer {
 
