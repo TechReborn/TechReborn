@@ -63,6 +63,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 		this.maxEnergy = maxEnergy;
 		this.toolDrop = toolDrop;
 		this.energySlot = energySlot;
+		checkTeir();
 	}
 	
 	public int getProgressScaled(final int scale) {
