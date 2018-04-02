@@ -45,7 +45,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxOutput", comment = "AESU Max Output (Value in EU)")
 	public static int maxOutput = 8192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
-	public static int maxEnergy = 100000000;
+	public static int maxEnergy = 100_000_000;
 
 	public Inventory inventory = new Inventory(4, "TileAdjustableSU", 64, this);
 	private int OUTPUT = 64; // The current output
@@ -53,16 +53,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	public TileAdjustableSU() {
 		super("ADJUSTABLE_SU", 4, ModBlocks.ADJUSTABLE_SU, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
-
-	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return getDropWithNBT();
-	}
-
-	public boolean isComplete() {
-		return false;
-	}
-
+	
 	public void handleGuiInputFromClient(int id) {
 		if (id == 300) {
 			OUTPUT += 256;
@@ -92,7 +83,27 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
 		return dropStack;
 	}
+	
+	public int getCurrentOutput() {
+		return OUTPUT;
+	}
+	
+	public void setCurentOutput(int output) {
+		this.OUTPUT = output;
+	}
+	
+	// TileEnergyStorage
+	@Override
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+		return getDropWithNBT();
+	}
+	
+	@Override
+	public double getBaseMaxOutput() {
+		return OUTPUT;
+	}
 
+	// TilePowerAcceptor
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
@@ -108,20 +119,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		inventory.readFromNBT(nbttagcompound);
 	}
 
-	@Override
-	public double getBaseMaxOutput() {
-		return OUTPUT;
-	}
-
-
-	public int getCurrentOutput() {
-		return OUTPUT;
-	}
-	
-	public void setCurentOutput(int output) {
-		this.OUTPUT = output;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
