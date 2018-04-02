@@ -58,6 +58,7 @@ public class CTRollingMachine {
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output")
 	public static void removeRecipe(IItemStack output) {
 		List<ResourceLocation> toRemove = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, IRecipe> recipe : RollingMachineRecipe.instance.getRecipeList().entrySet()) {

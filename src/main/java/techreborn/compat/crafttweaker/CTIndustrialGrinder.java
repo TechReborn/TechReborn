@@ -92,6 +92,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param iIngredient Recipe input for which we should remove recipe
 	 */
 	@ZenMethod
+	@ZenDocumentation("IIngredient iIngredient")
 	public static void removeInputRecipe(IIngredient iIngredient) { CraftTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName())); }
 
 	/**
@@ -99,6 +100,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param output Recipe output for which we should remove recipe
 	 */
 	@ZenMethod
+	@ZenDocumentation("IItemStack output")
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}

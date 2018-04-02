@@ -14,6 +14,7 @@ public class RecipeSettings {
 	}
 
 	@ZenMethod
+	@ZenDocumentation("boolean useOreDict")
 	public void setUseOreDict(boolean useOreDict){
 		baseRecipe.setOreDict(useOreDict);
 	}

@@ -46,11 +46,13 @@ public class CTVacuumFreezer extends CTGeneric {
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IIngredient iIngredient")
 	public static void removeInputRecipe(IIngredient iIngredient) {
 		CraftTweakerAPI.apply(new RemoveInput(iIngredient, getMachineName()));
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output")
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}

@@ -295,6 +295,7 @@ build.dependsOn signJar
 
 apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
+import com.google.gson.JsonArray
 import groovy.util.XmlSlurper
 import org.apache.commons.io.FileUtils
 
@@ -356,6 +357,9 @@ task mtDocGen {
 			for(annotation in annoations.toList()){
 				if(annotation.asJsonObject.get("type").asString.equals("METHOD") && annotation.asJsonObject.get("name").asString.equals("Lstanhebben/zenscript/annotations/ZenMethod;")){
 					def	method = sanitsiseMethodName(annotation.asJsonObject.get("target").asString)
+					if(hasZenDoc(annotation, annoations)){
+						method = getZenDoc(annotation, annoations)
+					}
 					def zen_name = getZenMetName(clzz)
 					builder.append(zen_name + "." + method)
 					builder.append("\n")
@@ -369,6 +373,32 @@ task mtDocGen {
 
 		println("Crafttweaker documentation saved to " + outputFile.name)
 	}
+}
+
+boolean hasZenDoc(JsonObject currentAnnotation, JsonArray annoations){
+	for(annotation in annoations.toList()){
+		if(annotation.asJsonObject.get("target").asString.equals(currentAnnotation.get("target").asString) && annotation.asJsonObject.get("name").asString.equals("Ltechreborn/compat/crafttweaker/ZenDocumentation;")){
+			return true
+		}
+	}
+	return false
+}
+
+String getZenDoc(JsonObject currentAnnotation, JsonArray annoations){
+	for(annotation in annoations.toList()){
+		if(annotation.asJsonObject.get("target").asString.equals(currentAnnotation.get("target").asString) && annotation.asJsonObject.get("name").asString.equals("Ltechreborn/compat/crafttweaker/ZenDocumentation;")){
+			def methodName = annotation.asJsonObject.get("target").asString.split("\\(")[0]
+			def methodParams = annotation.asJsonObject.get("value").asJsonObject.get("value").asString
+			if(!methodParams.startsWith("(")){
+				methodParams = "(" + methodParams
+			}
+			if(!methodParams.endsWith(")")){
+				methodParams = methodParams + ")"
+			}
+			return methodName + methodParams
+		}
+	}
+	return ""
 }
 
 //Gets the zenMethod class name from the class json object

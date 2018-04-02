@@ -50,16 +50,19 @@ public class CTFusionReactor {
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IIngredient iIngredient")
 	public static void removeTopInputRecipe(IIngredient iIngredient) {
 		CraftTweakerAPI.apply(new RemoveTopInput(iIngredient));
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IIngredient iIngredient")
 	public static void removeBottomInputRecipe(IIngredient iIngredient) {
 		CraftTweakerAPI.apply(new RemoveBottomInput(iIngredient));
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output")
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output)));
 	}

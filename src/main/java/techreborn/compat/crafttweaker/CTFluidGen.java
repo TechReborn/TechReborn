@@ -64,26 +64,31 @@ public class CTFluidGen {
 	}
 	
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid")
 	public static void removeThermalFluid(ILiquidStack fluid) {
 		removeFluid(EFluidGenerator.THERMAL, fluid);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid")
 	public static void removeGasFluid(ILiquidStack fluid) {
 		removeFluid(EFluidGenerator.GAS, fluid);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid")
 	public static void removeSemiFluid(ILiquidStack fluid) {
 		removeFluid(EFluidGenerator.SEMIFLUID, fluid);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid")
 	public static void removeDieselFluid(ILiquidStack fluid) {
 		removeFluid(EFluidGenerator.DIESEL, fluid);
 	}
 
 	@ZenMethod
+	@ZenDocumentation("ILiquidStack fluid")
 	public static void removePlasmaFluid(ILiquidStack fluid) {
 		removeFluid(EFluidGenerator.PLASMA, fluid);
 	}

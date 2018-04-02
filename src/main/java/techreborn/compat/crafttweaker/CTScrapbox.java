@@ -43,11 +43,13 @@ import techreborn.compat.crafttweaker.CTGeneric.Remove;
 public class CTScrapbox {
 
 	@ZenMethod
+	@ZenDocumentation("IIngredient input")
 	public static void addScrapboxDrop(IIngredient input) {
 		RecipeHandler.addRecipe(new ScrapboxRecipe(CraftTweakerMC.getItemStack(input), 20, 2));
 	}
 
 	@ZenMethod
+	@ZenDocumentation("IItemStack output")
 	public static void removeRecipe(IItemStack output) {
 		CraftTweakerAPI.apply(new Remove(CraftTweakerCompat.toStack(output), getMachineName()));
 	}
