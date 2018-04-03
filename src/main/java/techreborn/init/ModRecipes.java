@@ -277,24 +277,24 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
 			new ItemStack(Blocks.ICE, 2),
 			new ItemStack(Blocks.PACKED_ICE),
-			60, 100
+			60, 64
 		));
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
 			ItemIngots.getIngotByName("hot_tungstensteel"),
 			ItemIngots.getIngotByName("tungstensteel"),
-			440, 120));
+			440, 64));
 
 		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
 			ItemCells.getCellByName("heliumplasma"),
 			ItemCells.getCellByName("helium"),
-			440, 128));
+			440, 64));
 
 		RecipeHandler.addRecipe(
 			new VacuumFreezerRecipe(
 				ItemCells.getCellByName("water"),
 				ItemCells.getCellByName("cell"),
-				60, 87));
+				60, 64));
 			
 	}
 
