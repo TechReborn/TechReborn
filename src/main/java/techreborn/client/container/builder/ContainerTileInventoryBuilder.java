@@ -149,7 +149,9 @@ public class ContainerTileInventoryBuilder {
 			return this.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getEnergy(),
 				((TilePowerAcceptor) this.tile)::setEnergy)
 				.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).extraPowerStoage,
-					((TilePowerAcceptor) this.tile)::setExtraPowerStoage);
+					((TilePowerAcceptor) this.tile)::setExtraPowerStoage)
+				.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getPowerChange(),
+					((TilePowerAcceptor) this.tile)::setPowerChange);
 		Core.logHelper.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
 		return this;
 	}
