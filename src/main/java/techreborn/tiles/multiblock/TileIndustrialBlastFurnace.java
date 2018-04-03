@@ -56,7 +56,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxEnergy", comment = "Industrial Blast Furnace Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
+	public static int maxEnergy = 40_000;
 
 	public MultiblockChecker multiblockChecker;
 	private int cachedHeat;
