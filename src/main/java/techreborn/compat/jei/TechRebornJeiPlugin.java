@@ -108,6 +108,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
 @mezz.jei.api.JEIPlugin
@@ -270,7 +271,13 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			registry.handleRecipes(FluidGeneratorRecipe.class, recipe -> new FluidGeneratorRecipeWrapper(jeiHelpers, recipe), type.getRecipeID());
 		}
 
-		registry.addRecipes(RecipeHandler.recipeList);
+		registry.addRecipes(RecipeHandler.recipeList.stream().filter(recipe -> {
+			if(recipe instanceof ScrapboxRecipe){
+				return CompatConfigs.showScrapbox;
+			}
+			return true;
+		}).collect(Collectors.toList()));
+
 		registry.addRecipes(FusionReactorRecipeHelper.reactorRecipes, RecipeCategoryUids.FUSION_REACTOR);
 		GeneratorRecipeHelper.fluidRecipes.forEach((type, list) -> registry.addRecipes(list.getRecipes(), type.getRecipeID()));
 
