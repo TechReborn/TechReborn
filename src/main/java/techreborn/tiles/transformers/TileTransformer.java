@@ -140,9 +140,9 @@ public class TileTransformer extends TilePowerAcceptor
 	// IListInfoProvider
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
-		info.add(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getBaseMaxInput()));
+		info.add(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getMaxInput()));
 		info.add(TextFormatting.GRAY + "Input Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString()));
-		info.add(TextFormatting.GRAY + "Output Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getBaseMaxOutput()));
+		info.add(TextFormatting.GRAY + "Output Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getMaxOutput()));
 		info.add(TextFormatting.GRAY + "Output Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString()));
 	}
 
