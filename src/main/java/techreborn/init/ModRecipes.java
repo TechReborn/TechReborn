@@ -135,7 +135,21 @@ public class ModRecipes {
 				OreUtil.getStackFromName("plateWood", 1), 300, 4));
 		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 1),
 				ItemPlates.getPlateByName("lazurite", 1), 300, 4));
-
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("obsidian", 1),
+				ItemPlates.getPlateByName("obsidian", 9), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("dustObsidian", 1),
+				ItemPlates.getPlateByName("obsidian", 1), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("dustYellowGarnet", 1),
+				ItemPlates.getPlateByName("YellowGarnet"), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("blockYellowGarnet", 1),
+				ItemPlates.getPlateByName("YellowGarnet", 9), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("dustRedGarnet", 1),
+				ItemPlates.getPlateByName("RedGarnet"), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("blockRedGarnet", 1),
+				ItemPlates.getPlateByName("RedGarnet", 9), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("ingotRefinedIron", 1),
+				ItemPlates.getPlateByName("RefinedIron"), 300, 4));
+		
 		ItemStack plate;
 		for (String ore : OreUtil.oreNames) {
 			if (ore.equals("iridium")) {
