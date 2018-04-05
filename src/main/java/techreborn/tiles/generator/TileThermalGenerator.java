@@ -70,6 +70,8 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("thermalgenerator").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
+			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
+			.syncIntegerValue(this::getTankAmount, this::setTankAmount)
 			.addInventory().create(this);
 	}
 }
