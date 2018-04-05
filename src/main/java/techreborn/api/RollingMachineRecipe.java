@@ -135,15 +135,24 @@ public class RollingMachineRecipe {
 		recipes.put(resourceLocation, new ShapelessRecipes("", output, ingredients));
 	}
 
-	public ItemStack findMatchingRecipe(InventoryCrafting inv, World world) {
+	public ItemStack findMatchingRecipeOutput(InventoryCrafting inv, World world) {
 		for (IRecipe irecipe : recipes.values()) {
 			if (irecipe.matches(inv, world)) {
 				return irecipe.getCraftingResult(inv);
 			}
 		}
-
 		return ItemStack.EMPTY;
 	}
+
+	public IRecipe findMatchingRecipe(InventoryCrafting inv, World world) {
+		for (IRecipe irecipe : recipes.values()) {
+			if (irecipe.matches(inv, world)) {
+				return irecipe;
+			}
+		}
+		return null;
+	}
+
 
 	public HashMap<ResourceLocation, IRecipe> getRecipeList() {
 		return recipes;
