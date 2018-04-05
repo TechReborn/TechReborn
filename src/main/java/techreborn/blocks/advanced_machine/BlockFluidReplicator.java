@@ -22,28 +22,39 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.advanced_machine;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import reborncore.common.BaseTileBlock;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
+import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
-import techreborn.tiles.TilePump;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.multiblock.TileFluidReplicator;
 
-/**
- * Created by modmuss50 on 08/05/2016.
- */
-public class BlockPump extends BaseTileBlock {
-	public BlockPump() {
-		super(Material.IRON);
-		setHardness(2f);
-		setUnlocalizedName("techreborn.pump");
+public class BlockFluidReplicator extends BlockMachineBase {
+	
+	public BlockFluidReplicator() {
+		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TilePump();
+		return new TileFluidReplicator();
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return EGui.FLUID_REPLICATOR;
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

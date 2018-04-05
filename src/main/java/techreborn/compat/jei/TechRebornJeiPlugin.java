@@ -146,33 +146,31 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 		final IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
-		registry.addRecipeCategories(
-			new AlloySmelterRecipeCategory(guiHelper),
-			new AssemblingMachineRecipeCategory(guiHelper),
-			new BlastFurnaceRecipeCategory(guiHelper),
-			new CentrifugeRecipeCategory(guiHelper),
-			new ChemicalReactorRecipeCategory(guiHelper),
-			new DistillationTowerRecipeCategory(guiHelper),
-			new FusionReactorRecipeCategory(guiHelper),
-			new GrinderRecipeCategory(guiHelper),
-			new ImplosionCompressorRecipeCategory(guiHelper),
-			new IndustrialGrinderRecipeCategory(guiHelper),
-			new IndustrialElectrolyzerRecipeCategory(guiHelper),
-			new IndustrialSawmillRecipeCategory(guiHelper),
-			new RollingMachineRecipeCategory(guiHelper),
-			new VacuumFreezerRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new AssemblingMachineRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new BlastFurnaceRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new CentrifugeRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new ChemicalReactorRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new DistillationTowerRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new FusionReactorRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new GrinderRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new ImplosionCompressorRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new IndustrialGrinderRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new IndustrialElectrolyzerRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new IndustrialSawmillRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new RollingMachineRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new VacuumFreezerRecipeCategory(guiHelper));
+
+		for (final EFluidGenerator type : EFluidGenerator.values())
+			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
 		
 		if (CompatConfigs.showScrapbox) {
 			registry.addRecipeCategories(new ScrapboxRecipeCategory(guiHelper));
 		}
 
-		for (final EFluidGenerator type : EFluidGenerator.values())
-			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
-
 		if (!IC2Duplicates.deduplicate()) {
-			registry.addRecipeCategories(
-				new CompressorRecipeCategory(guiHelper),
-				new ExtractorRecipeCategory(guiHelper));
+			registry.addRecipeCategories(new CompressorRecipeCategory(guiHelper));
+			registry.addRecipeCategories(new ExtractorRecipeCategory(guiHelper));
 		}
 	}
 
@@ -324,7 +322,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiScrapboxinator.class, 150, 4, 18, 18, RecipeCategoryUids.SCRAPBOX);
 		addRecipeClickArea(GuiFusionReactor.class, 150, 4, 18, 18, RecipeCategoryUids.FUSION_REACTOR);
 		addRecipeClickArea(GuiRollingMachine.class, 150, 4, 20, 12, RecipeCategoryUids.ROLLING_MACHINE);
-
+		addRecipeClickArea(GuiFluidReplicator.class, 150, 4, 20, 12, RecipeCategoryUids.FLUID_REPLICATOR);
+		
 		//OLD ONES
 		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
 			VanillaRecipeCategoryUid.FUEL);
@@ -356,6 +355,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ROLLING_MACHINE), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLATION_TOWER), RecipeCategoryUids.DISTILLATION_TOWER);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_REPLICATOR), RecipeCategoryUids.FLUID_REPLICATOR);
 		
 		if (CompatConfigs.showScrapbox) {
 			registry.addRecipeCatalyst(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);

@@ -68,4 +68,5 @@ public class Reference {
 	public static String RECYCLER_RECIPE = "RECYCLER_RECIPE"; 
 	public static String SCRAPBOX_RECIPE = "SCRAPBOX_RECIPE";
 	public static String VACUUM_FREEZER_RECIPE = "VACUUM_FREEZER_RECIPE";
+	public static String FLUID_REPLICATOR_RECIPE = "FLUID_REPLICATOR_RECIPE";
 }

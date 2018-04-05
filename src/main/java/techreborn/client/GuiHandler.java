@@ -158,6 +158,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiDistillationTower(player, (TileDistillationTower) tile);
 			case MANUAL:
 				return new GuiManual(player);
+			case FLUID_REPLICATOR:
+				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
 			default:
 				break;
 
