@@ -21,7 +21,7 @@ Versions we determine are stable enough can always be found on our CurseForge pa
 
 If you're looking for the latest bleeding edge build, these are found on our Jenkins page. Use these with caution, and please do not put these in modpacks: 
 
-1.12.2 - [![Build Status](hhttps://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
+1.12.2 - [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
 
 1.11.2 - [![Build Status](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.11.2/)
 
