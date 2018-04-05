@@ -228,6 +228,30 @@ public class TRBuilder extends GuiBuilder {
 		}
 	}
 
+	public void drawLockButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer, boolean locked) {
+		if(GuiBase.showSlotConfig){
+			return;
+		}
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		gui.drawTexturedModalRect(x, y, 204, 70 + (locked ? 12 : 0) , 20, 12);
+		if (isInRect(x, y, 20, 12, mouseX, mouseY)) {
+			List<String> list = new ArrayList<>();
+			if(locked){
+				list.add("Unlock items");
+			} else {
+				list.add("Lock Items");
+			}
+
+			GlStateManager.pushMatrix();
+			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, 80, gui.mc.fontRenderer);
+			GlStateManager.popMatrix();
+		}
+	}
+
 	public void drawHologramButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
 		if(GuiBase.showSlotConfig){
 			return;

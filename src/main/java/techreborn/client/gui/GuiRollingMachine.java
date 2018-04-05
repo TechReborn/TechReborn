@@ -25,7 +25,11 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.common.network.NetworkManager;
+import techreborn.packets.PacketRollingMachineLock;
 import techreborn.tiles.TileRollingMachine;
+
+import java.io.IOException;
 
 public class GuiRollingMachine extends GuiBase {
 
@@ -50,6 +54,7 @@ public class GuiRollingMachine extends GuiBase {
 		this.drawOutputSlot(124, gridYPos + 18, layer);
 
 		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
 	}
 
 	@Override
@@ -59,5 +64,14 @@ public class GuiRollingMachine extends GuiBase {
 
 		this.builder.drawProgressBar(this, this.rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawMultiEnergyBar(this, 9, 17, (int) this.rollingMachine.getEnergy(), (int) this.rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		if(this.builder.isInRect(130 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)){
+			NetworkManager.sendToServer(new PacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
+			return;
+		}
+		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 }

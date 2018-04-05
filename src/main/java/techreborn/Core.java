@@ -55,10 +55,7 @@ import techreborn.events.TRRecipeHandler;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
-import techreborn.packets.PacketAesu;
-import techreborn.packets.PacketIdsu;
-import techreborn.packets.PacketSetRecipe;
-import techreborn.packets.PacketSyncSideConfig;
+import techreborn.packets.*;
 import techreborn.proxies.CommonProxy;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.OilLakeGenerator;
@@ -181,6 +178,7 @@ public class Core {
 		event.registerPacket(PacketAesu.class, Side.SERVER);
 		event.registerPacket(PacketIdsu.class, Side.SERVER);
 		event.registerPacket(PacketSetRecipe.class, Side.SERVER);
+		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler

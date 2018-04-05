@@ -68,6 +68,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	@Nonnull
 	public ItemStack currentRecipe;
 	private int outputSlot;
+	public boolean locked = false;
 
 	public TileRollingMachine() {
 		super();
@@ -175,19 +176,17 @@ public class TileRollingMachine extends TilePowerAcceptor
 		ItemUtils.readInvFromNBT(this.craftMatrix, "Crafting", tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInteger("tickTime");
+		this.locked = tagCompound.getBoolean("locked");
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		ItemUtils.writeInvToNBT(this.craftMatrix, "Crafting", tagCompound);
-		this.writeUpdateToNBT(tagCompound);
-		return tagCompound;
-	}
-
-	public void writeUpdateToNBT(final NBTTagCompound tagCompound) {
 		tagCompound.setBoolean("isRunning", this.isRunning);
 		tagCompound.setInteger("tickTime", this.tickTime);
+		tagCompound.setBoolean("locked", locked);
+		return tagCompound;
 	}
 
 	@Override
@@ -232,7 +231,16 @@ public class TileRollingMachine extends TilePowerAcceptor
 			.addInventory().tile(this)
 			.outputSlot(0, 124, 40)
 			.energySlot(2, 8, 70)
-			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);
+	}
+
+	//Easyest way to sync back to the client
+	public int getLockedInt(){
+		return locked ? 1 : 0;
+	}
+
+	public void setLockedInt(int lockedInt){
+		locked = lockedInt == 1;
 	}
 
 	public int getProgressScaled(final int scale) {
