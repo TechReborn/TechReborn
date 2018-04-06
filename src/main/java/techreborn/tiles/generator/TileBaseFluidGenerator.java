@@ -25,8 +25,6 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
@@ -74,17 +72,20 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super.update();
 		this.ticksSinceLastChange++;
 
+		if(world.isRemote){
+			return;
+		}
+
 		// Check cells input slot 2 time per second
 		// Please, keep ticks counting on client also to report progress to GUI
 		if (this.ticksSinceLastChange >= 10) {
-			if (!world.isRemote) {
-				if (!this.inventory.getStackInSlot(0).isEmpty()) {
-					FluidUtils.drainContainers(this.tank, this.inventory, 0, 1);
-					FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType());
-				}
-				tank.setTileEntity(this);
-				tank.compareAndUpdate();
+			if (!this.inventory.getStackInSlot(0).isEmpty()) {
+				FluidUtils.drainContainers(this.tank, this.inventory, 0, 1);
+				FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType());
 			}
+			tank.setTileEntity(this);
+			tank.compareAndUpdate();
+
 			this.ticksSinceLastChange = 0;
 		}
 
@@ -105,13 +106,12 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 				}
 			}
 		}
-		
-		if (!this.world.isRemote) {
-			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
-				this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
-			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
-				this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
-		}
+
+		if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
+			this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
+		else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
+			this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
+
 
 	}
 	
@@ -130,6 +130,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 			addEnergy(this.getMaxPower() - this.getEnergy());
 			return true;
 		}
+
 		return false;
 	}
 
@@ -202,14 +203,23 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
-			getPos().getY(), getPos().getZ());
-		readFromNBT(packet.getNbtCompound());
-	}
-
-	@Override
 	public boolean canBeUpgraded() {
 		return false;
+	}
+
+	public int getTicksSinceLastChange() {
+		return ticksSinceLastChange;
+	}
+
+	public void setTicksSinceLastChange(int ticksSinceLastChange) {
+		this.ticksSinceLastChange = ticksSinceLastChange;
+	}
+
+	public int getTankAmount(){
+		return tank.getFluidAmount();
+	}
+
+	public void setTankAmount(int amount){
+		tank.setFluidAmount(amount);
 	}
 }
