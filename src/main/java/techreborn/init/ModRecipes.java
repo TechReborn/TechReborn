@@ -83,7 +83,6 @@ public class ModRecipes {
 		FusionReactorRecipes.init();
 		DistillationTowerRecipes.init();
 		AlloySmelterRecipes.init();
-		IndustrialSawmillRecipes.init();
 		FluidReplicatorRecipes.init();
 
 		addBlastFurnaceRecipes();
@@ -109,6 +108,8 @@ public class ModRecipes {
 				}
 			}
 		}
+		
+		IndustrialSawmillRecipes.init();
 	}
 
 	private static void addCompressorRecipes() {

@@ -27,6 +27,8 @@ package techreborn.api.fluidreplicator;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.apache.commons.lang3.Validate;
+
 import net.minecraftforge.fluids.Fluid;
 
 /**
@@ -46,18 +48,11 @@ public class FluidReplicatorRecipeList {
 	 * @param recipe FluidReplicatorRecipe The recipe you want to add
 	 */
 	public static void addRecipe(FluidReplicatorRecipe recipe) {
-		if (recipe == null) {
-			return;
-		}
-		if (recipes.contains(recipe)) {
-			return;
-		}
-		if (recipe.getInput() < 1 ) {
-			return;
-		}
-		if (getRecipeForFluid(recipe.getFluid()) != null) {
-			return;
-		}
+		Validate.notNull(recipe);
+		Validate.isTrue(!recipes.contains(recipe));
+		Validate.validState(recipe.getInput() >= 1);
+		Validate.validState(getRecipeForFluid(recipe.getFluid()) == null);
+
 		recipes.add(recipe);
 	}
 	

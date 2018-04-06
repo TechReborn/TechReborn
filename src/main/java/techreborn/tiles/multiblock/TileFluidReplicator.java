@@ -98,7 +98,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 			ticksSinceLastChange = 0;
 		}
 
-		if (!world.isRemote && getMultiBlock()) {
+		if (getMultiBlock()) {
 			super.update();
 		}
 

@@ -24,6 +24,8 @@
 
 package techreborn.api.fluidreplicator;
 
+import javax.annotation.Nonnull;
+
 import net.minecraftforge.fluids.Fluid;
 
 /**
@@ -33,10 +35,11 @@ import net.minecraftforge.fluids.Fluid;
 public class FluidReplicatorRecipe {
 	
 	/**
-	 * This is the UU matter stack that is required as input
+	 * This is the UU matter amount that is required as input
 	 * <p>
 	 * This cannot be null
 	 */
+	@Nonnull
 	private final int input;
 	
 	/**
@@ -44,6 +47,7 @@ public class FluidReplicatorRecipe {
 	 * <p>
 	 * This cannot be null
 	 */
+	@Nonnull
 	private final Fluid output;
 
 	/**
