@@ -24,8 +24,6 @@
 
 package techreborn.api.fluidreplicator;
 
-import java.util.ArrayList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.Fluid;
@@ -58,10 +56,10 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 		super(Reference.FLUID_REPLICATOR_RECIPE, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 	
-	@Override
 	/**
 	 * Call this on the tile tick
 	 */
+	@Override
 	public void updateEntity() {
 		if (parentTile.getWorld().isRemote) {
 			return;
@@ -114,8 +112,6 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 			}
 		}
 		setInvDirty(false);
-		
-		
 	}
 	
 	@Override
