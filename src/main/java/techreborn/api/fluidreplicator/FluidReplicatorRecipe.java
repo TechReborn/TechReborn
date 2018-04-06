@@ -24,15 +24,23 @@
 
 package techreborn.api.fluidreplicator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import techreborn.init.ModItems;
+import techreborn.tiles.multiblock.TileFluidReplicator;
 
 /**
  * @author drcrazy
  *
  */
-public class FluidReplicatorRecipe {
+public class FluidReplicatorRecipe implements Cloneable {
 	
 	/**
 	 * This is the UU matter amount that is required as input
@@ -87,5 +95,45 @@ public class FluidReplicatorRecipe {
 	
 	public int getEuTick() {
 		return euPerTick;
+	}
+	
+	public List<Object> getInputs() {
+		ArrayList<Object> inputs = new ArrayList<>();
+		inputs.add(new ItemStack(ModItems.UU_MATTER, input));
+		return inputs;
+	}
+	
+	public boolean useOreDic() {
+		return false;
+	}
+	
+	public boolean canCraft(TileFluidReplicator tile) {
+		if (!tile.getMultiBlock()) {
+			return false;
+		}
+		final BlockPos hole = tile.getPos().offset(tile.getFacing().getOpposite(), 2);
+		final Fluid fluid = FluidRegistry.lookupFluidForBlock(tile.getWorld().getBlockState(hole).getBlock());
+		if (fluid == null) {
+			return false;
+		}
+		if (!fluid.equals(output)) {
+			return false;
+		}
+		final Fluid tankFluid = tile.tank.getFluidType();
+		if (tankFluid != null && !tankFluid.equals(output)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public boolean onCraft(TileFluidReplicator tile) {
+		return true;
+	}
+	
+	// Cloneable
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }
