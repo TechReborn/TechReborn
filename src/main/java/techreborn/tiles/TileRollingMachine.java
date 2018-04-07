@@ -50,6 +50,7 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //TODO add tick and power bars.
 
@@ -66,7 +67,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
 	public static int maxEnergy = 10000;
 
-	public int[] craftingSlots = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	private InventoryCrafting craftCache;
 	public Inventory inventory = new Inventory(12, "TileRollingMachine", 64, this);
 	public boolean isRunning;
@@ -76,6 +77,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public IRecipe currentRecipe;
 	private int outputSlot;
 	public boolean locked = false;
+	public int balanceSlot = 0;
 
 	public TileRollingMachine() {
 		super();
@@ -114,7 +116,13 @@ public class TileRollingMachine extends TilePowerAcceptor
 		if (!this.world.isRemote) {
 			InventoryCrafting craftMatrix = getCraftingMatrix();
 			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, this.world);
-			if(this.currentRecipe != null){
+			if (this.currentRecipe != null) {
+				if (world.getTotalWorldTime() % 2 == 0) {
+					Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
+					if (balanceResult.isPresent()) {
+						craftMatrix = balanceResult.get();
+					}
+				}
 				this.currentRecipeOutput = currentRecipe.getCraftingResult(craftMatrix);
 			} else {
 				this.currentRecipeOutput = ItemStack.EMPTY;
@@ -164,11 +172,73 @@ public class TileRollingMachine extends TilePowerAcceptor
 		}
 	}
 
-	private InventoryCrafting getCraftingMatrix(){
-		if(craftCache == null){
+	public Optional<InventoryCrafting> balanceRecipe(InventoryCrafting craftCache) {
+		if (currentRecipe == null) {
+			return Optional.empty();
+		}
+		if (world.isRemote) {
+			return Optional.empty();
+		}
+		if (!locked) {
+			return Optional.empty();
+		}
+		if (craftCache.isEmpty()) {
+			return Optional.empty();
+		}
+		balanceSlot++;
+		if (balanceSlot > craftCache.getSizeInventory()) {
+			balanceSlot = 0;
+		}
+		//Find the best slot for each item in a recipe, and move it if needed
+		ItemStack sourceStack = inventory.getStackInSlot(balanceSlot);
+		if (sourceStack.isEmpty()) {
+			return Optional.empty();
+		}
+		List<Integer> possibleSlots = new ArrayList<>();
+		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
+			ItemStack stackInSlot = inventory.getStackInSlot(s);
+			Ingredient ingredient = currentRecipe.getIngredients().get(s);
+			if (ingredient != Ingredient.EMPTY && ingredient.apply(sourceStack)) {
+				if (stackInSlot.isEmpty()) {
+					possibleSlots.add(s);
+				} else if (stackInSlot.getItem() == sourceStack.getItem() && stackInSlot.getItemDamage() == sourceStack.getItemDamage()) {
+					possibleSlots.add(s);
+				}
+			}
+		}
+
+		//Slot, count
+		Pair<Integer, Integer> bestSlot = null;
+		for (Integer slot : possibleSlots) {
+			ItemStack slotStack = inventory.getStackInSlot(slot);
+			if (slotStack.isEmpty()) {
+				bestSlot = Pair.of(slot, 0);
+			}
+			if (bestSlot == null) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			} else if (bestSlot.getRight() >= slotStack.getCount()) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			}
+		}
+		if (bestSlot == null
+			|| bestSlot.getLeft() == balanceSlot
+			|| bestSlot.getRight() == sourceStack.getCount()
+			|| inventory.getStackInSlot(bestSlot.getLeft()).isEmpty()
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStackInSlot(bestSlot.getLeft()), true, true, true)) {
+			return Optional.empty();
+		}
+		sourceStack.shrink(1);
+		inventory.getStackInSlot(bestSlot.getLeft()).grow(1);
+		inventory.hasChanged = true;
+
+		return Optional.of(getCraftingMatrix());
+	}
+
+	private InventoryCrafting getCraftingMatrix() {
+		if (craftCache == null) {
 			craftCache = new InventoryCrafting(new RollingTileContainer(), 3, 3);
 		}
-		if(inventory.hasChanged){
+		if (inventory.hasChanged) {
 			for (int i = 0; i < 9; i++) {
 				craftCache.setInventorySlotContents(i, inventory.getStackInSlot(i).copy());
 			}
@@ -179,19 +249,19 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	public boolean canMake(InventoryCrafting craftMatrix) {
 		ItemStack stack = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, this.world);
-		if(locked){
+		if (locked) {
 			for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
 				ItemStack stack1 = craftMatrix.getStackInSlot(i);
-				if(!stack1.isEmpty() && stack1.getCount() < 2){
+				if (!stack1.isEmpty() && stack1.getCount() < 2) {
 					return false;
 				}
 			}
 		}
-		if(stack.isEmpty()){
+		if (stack.isEmpty()) {
 			return false;
 		}
 		ItemStack output = getStackInSlot(outputSlot);
-		if(output.isEmpty()){
+		if (output.isEmpty()) {
 			return true;
 		}
 		return ItemUtils.isItemEqual(stack, output, true, true);
@@ -264,11 +334,11 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	//Easyest way to sync back to the client
-	public int getLockedInt(){
+	public int getLockedInt() {
 		return locked ? 1 : 0;
 	}
 
-	public void setLockedInt(int lockedInt){
+	public void setLockedInt(int lockedInt) {
 		locked = lockedInt == 1;
 	}
 
@@ -277,65 +347,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 			return tickTime * scale / runTime;
 		}
 		return 0;
-	}
-
-	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID) {
-		if (recipe == null) {
-			return true;
-		}
-		int bestSlot = findBestSlotForStack(recipe, stack);
-		if (bestSlot != -1) {
-			return bestSlot == slotID;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if(locked && currentRecipe != null){
-			int bestSlot = findBestSlotForStack(currentRecipe, stack);
-			if (bestSlot != -1) {
-				return index == bestSlot;
-			}
-		}
-		return super.isItemValidForSlot(index, stack);
-	}
-
-	public int findBestSlotForStack(IRecipe recipe, ItemStack stack) {
-		if (recipe == null) {
-			return -1;
-		}
-		List<Integer> possibleSlots = new ArrayList<>();
-		for (int i = 0; i < recipe.getIngredients().size(); i++) {
-			ItemStack stackInSlot = inventory.getStackInSlot(i);
-			Ingredient ingredient = recipe.getIngredients().get(i);
-			if (ingredient != Ingredient.EMPTY && ingredient.apply(stack)) {
-				if (stackInSlot.isEmpty()) {
-					possibleSlots.add(i);
-				} else if (stackInSlot.getItem() == stack.getItem() && stackInSlot.getItemDamage() == stack.getItemDamage()) {
-					if (stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()) {
-						possibleSlots.add(i);
-					}
-				}
-			}
-		}
-		//Slot, count
-		Pair<Integer, Integer> smallestCount = null;
-		for (Integer slot : possibleSlots) {
-			ItemStack slotStack = inventory.getStackInSlot(slot);
-			if (slotStack.isEmpty()) {
-				return slot;
-			}
-			if (smallestCount == null) {
-				smallestCount = Pair.of(slot, slotStack.getCount());
-			} else if (smallestCount.getRight() >= slotStack.getCount()) {
-				smallestCount = Pair.of(slot, slotStack.getCount());
-			}
-		}
-		if (smallestCount != null) {
-			return smallestCount.getLeft();
-		}
-		return -1;
 	}
 
 	private static class RollingTileContainer extends Container {
