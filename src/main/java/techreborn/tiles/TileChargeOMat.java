@@ -53,7 +53,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxInput", comment = "Charge Bench Max Input (Value in EU)")
 	public static int maxInput = 512;
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
-	public static int maxEnergy = 100000;
+	public static int maxEnergy = 100_000_000;
 
 	public Inventory inventory = new Inventory(6, "TileChargeOMat", 64, this);
 
