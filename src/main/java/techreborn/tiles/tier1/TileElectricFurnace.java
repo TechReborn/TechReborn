@@ -149,8 +149,8 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		boolean updateInventory = false;
 		if (this.isBurning() && this.canSmelt()) {
 			this.updateState();
-			if (canUseEnergy(this.cost)) {
-				this.useEnergy(this.cost);
+			if (canUseEnergy(getEuPerTick(this.cost))) {
+				this.useEnergy(getEuPerTick(this.cost));
 				this.progress++;
 				if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 2)) {
 					this.progress = 0;
