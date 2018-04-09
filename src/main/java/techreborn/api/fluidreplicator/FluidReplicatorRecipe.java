@@ -69,8 +69,8 @@ public class FluidReplicatorRecipe implements Cloneable {
 	private final int euPerTick;
 
 	/**
-	 * @param input Amount of UU-matter per bucket
-	 * @param output FluidStack Fluid to replicate
+	 * @param input int Amount of UU-matter per bucket
+	 * @param output Fluid Fluid to replicate
 	 * @param tickTime int Production time for recipe
 	 * @param euPerTick int EU amount per tick 
 	 */

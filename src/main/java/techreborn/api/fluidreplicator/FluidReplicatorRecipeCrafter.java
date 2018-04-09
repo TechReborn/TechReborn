@@ -57,8 +57,39 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	}
 	
 	/**
-	 * Call this on the tile tick
+	 * FluidReplicatorRecipe version of hasAllInputs
 	 */
+	private boolean hasAllInputs(FluidReplicatorRecipe recipe) {
+		if (recipe == null) {
+			return false;
+		}
+		ItemStack inputStack = inventory.getStackInSlot(inputSlots[0]);
+		if (!inputStack.isItemEqual(new ItemStack(ModItems.UU_MATTER))) {
+			return false;
+		}
+		if (inputStack.getCount() < recipe.getInput()) {
+			return false;
+		}
+
+		return true;
+	}
+	
+	private boolean canFit(Fluid fluid, Tank tank) {
+		if (tank.fill(new FluidStack(fluid, Fluid.BUCKET_VOLUME), false) != Fluid.BUCKET_VOLUME) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void setCurrentRecipe(FluidReplicatorRecipe recipe) {
+		try {
+			this.currentRecipe = (FluidReplicatorRecipe) recipe.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// RecipeCrafter
 	@Override
 	public void updateEntity() {
 		if (parentTile.getWorld().isRemote) {
@@ -144,34 +175,30 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 		}
 	}
 	
-	private boolean hasAllInputs(FluidReplicatorRecipe recipe) {
-		if (recipe == null) {
-			return false;
+	@Override
+	public void useAllInputs() {
+		if (currentRecipe == null) {
+			return;
 		}
-		ItemStack inputStack = inventory.getStackInSlot(inputSlots[0]);
-		if (!inputStack.isItemEqual(new ItemStack(ModItems.UU_MATTER))) {
-			return false;
-		}
-		if (inputStack.getCount() < recipe.getInput()) {
-			return false;
-		}
-
-		return true;
-	}
-	
-	private boolean canFit(Fluid fluid, Tank tank) {
-		if (tank.fill(new FluidStack(fluid, Fluid.BUCKET_VOLUME), false) != Fluid.BUCKET_VOLUME) {
-			return false;
-		}
-		return true;
-	}
-	
-	public void setCurrentRecipe(FluidReplicatorRecipe recipe) {
-		try {
-			this.currentRecipe = (FluidReplicatorRecipe) recipe.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+		if (hasAllInputs(currentRecipe)) {
+			inventory.decrStackSize(inputSlots[0], currentRecipe.getInput());	
 		}
 	}
 	
+	@Override
+	public boolean canCraftAgain() {
+		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) parentTile;
+		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
+			if (recipe.canCraft(tileFluidReplicator) && hasAllInputs(recipe)) {
+				if (!canFit(recipe.getFluid(), tileFluidReplicator.tank)) {
+					return false;
+				}
+				if (energy.getEnergy() < recipe.getEuTick()) {
+					return false;
+				}
+				return true;
+			}
+		}
+		return false;
+	}	
 }

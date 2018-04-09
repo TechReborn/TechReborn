@@ -51,7 +51,7 @@ public class FluidReplicatorRecipeList {
 		Validate.notNull(recipe);
 		Validate.isTrue(!recipes.contains(recipe));
 		Validate.validState(recipe.getInput() >= 1);
-		Validate.validState(getRecipeForFluid(recipe.getFluid()) == null);
+		Validate.validState(!getRecipeForFluid(recipe.getFluid()).isPresent());
 
 		recipes.add(recipe);
 	}

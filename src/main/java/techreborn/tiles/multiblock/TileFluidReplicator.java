@@ -37,7 +37,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-import techreborn.api.Reference;
+import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
@@ -63,12 +63,13 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
 	int ticksSinceLastChange;
+	public FluidReplicatorRecipeCrafter crafter;
 
 	public TileFluidReplicator() {
 		super("FluidReplicator", maxInput, maxEnergy, ModBlocks.FLUID_REPLICATOR, 3);
-		final int[] inputs = new int[] { 0, 1 };
+		final int[] inputs = new int[] { 0 };
 		this.inventory = new Inventory(4, "TileFluidReplicator", 64, this);
-		this.crafter = new RecipeCrafter(Reference.FLUID_REPLICATOR_RECIPE, this, 1, 1, this.inventory, inputs, null);
+		this.crafter = new FluidReplicatorRecipeCrafter(this, this.inventory, inputs, null);
 		this.tank = new Tank("TileFluidReplicator", TileFluidReplicator.TANK_CAPACITY, this);
 	}
 
@@ -103,6 +104,11 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 		}
 
 		tank.compareAndUpdate();
+	}
+	
+	@Override
+	public RecipeCrafter getRecipeCrafter() {
+		return (RecipeCrafter) crafter;
 	}
 
 	// TilePowerAcceptor
@@ -153,8 +159,8 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 34, 35).filterSlot(0, 55, 45, stack -> stack.getItem() == ModItems.UU_MATTER)
-				.outputSlot(2, 34, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
+				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.getItem() == ModItems.UU_MATTER)
+				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
 	}
 }
