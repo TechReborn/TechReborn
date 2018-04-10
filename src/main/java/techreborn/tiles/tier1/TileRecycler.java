@@ -94,7 +94,7 @@ public class TileRecycler extends TilePowerAcceptor
 		} else if (this.getStackInSlot(slot).getCount() < this.getStackInSlot(slot).getMaxStackSize()) {
 			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean isBurning() {
@@ -125,10 +125,10 @@ public class TileRecycler extends TilePowerAcceptor
 		if (this.canRecycle() && !this.isBurning() && this.getEnergy() != 0)
 			this.setBurning(true);
 		else if (this.isBurning()) {
-			if (this.useEnergy(this.cost) != this.cost)
+			if (this.useEnergy(getEuPerTick(this.cost)) != getEuPerTick(this.cost))
 				this.setBurning(false);
 			this.progress++;
-			if (this.progress >= this.time) {
+			if (this.progress >= Math.max((int) (this.time* (1.0 - getSpeedMultiplier())), 1)) {
 				this.progress = 0;
 				this.recycleItems();
 				updateInventory = true;
@@ -172,7 +172,7 @@ public class TileRecycler extends TilePowerAcceptor
 	// TileLegacyMachineBase
 	@Override
 	public boolean canBeUpgraded() {
-		return false;
+		return true;
 	}
 	
 	// IToolDrop
