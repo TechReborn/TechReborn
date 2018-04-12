@@ -24,8 +24,6 @@
 
 package techreborn.compat.jei.fluidReplicator;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
@@ -38,6 +36,8 @@ import net.minecraft.util.text.translation.I18n;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author drcrazy
@@ -81,9 +81,9 @@ public class FluidReplicatorRecipeCategory implements IRecipeCategory<FluidRepli
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, FluidReplicatorRecipeWrapper recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 2, 21);
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
-		guiFluidStacks.init(OUTPUT_TANKS[0], false, 49, 8, 12, 47, 10_000, true, tankOverlay);
+		guiFluidStacks.init(OUTPUT_TANKS[0], false, 52, 6, 12, 47, 10_000, true, tankOverlay);
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, null, null, OUTPUT_TANKS);
 	}
 

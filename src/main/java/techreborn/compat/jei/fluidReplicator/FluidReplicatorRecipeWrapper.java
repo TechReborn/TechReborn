@@ -24,8 +24,6 @@
 
 package techreborn.compat.jei.fluidReplicator;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -39,6 +37,8 @@ import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
 import techreborn.client.gui.TRBuilder;
 import techreborn.init.ModItems;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author drcrazy
@@ -68,6 +68,6 @@ public class FluidReplicatorRecipeWrapper implements IRecipeWrapper {
 	
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		progress.draw(minecraft, 25, 11);
+		progress.draw(minecraft, 25, 25);
 	}
 }
