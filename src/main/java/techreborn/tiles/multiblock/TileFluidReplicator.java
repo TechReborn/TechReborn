@@ -55,9 +55,9 @@ import techreborn.tiles.TileGenericMachine;
 public class TileFluidReplicator extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxInput", comment = "Fluid Replicator Max Input (Value in EU)")
-	public static int maxInput = 128;
+	public static int maxInput = 256;
 	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxEnergy", comment = "Fluid Replicator Max Energy (Value in EU)")
-	public static int maxEnergy = 40_000;
+	public static int maxEnergy = 400_000;
 
 	public MultiblockChecker multiblockChecker;
 	public static final int TANK_CAPACITY = 16_000;

@@ -65,11 +65,11 @@ public class GuiFluidReplicator extends GuiBase {
 		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
 	}
 
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState,
-			final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 
+	// GuiBase
 	@Override
 	public void initGui() {
 		super.initGui();
@@ -97,12 +97,9 @@ public class GuiFluidReplicator extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0,
-				layer);
-		builder.drawTank(this, 99, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(),
-				tile.tank.isEmpty(), layer);
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY,
-				TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawTank(this, 99, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 		if (tile.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
@@ -113,6 +110,7 @@ public class GuiFluidReplicator extends GuiBase {
 		}
 	}
 
+	// GuiScreen
 	@Override
 	public void actionPerformed(final GuiButton button) throws IOException {
 		super.actionPerformed(button);

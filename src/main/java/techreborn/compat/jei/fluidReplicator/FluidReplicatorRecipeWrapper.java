@@ -24,20 +24,37 @@
 
 package techreborn.compat.jei.fluidReplicator;
 
+import javax.annotation.Nonnull;
+
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
+import techreborn.client.gui.TRBuilder;
+import techreborn.init.ModItems;
 
 /**
  * @author drcrazy
  *
  */
 public class FluidReplicatorRecipeWrapper implements IRecipeWrapper {
+	private final FluidReplicatorRecipe recipe;
+	private final IDrawableAnimated progress;
 
-	/**
-	 * 
-	 */
-	public FluidReplicatorRecipeWrapper() {
-		// TODO Auto-generated constructor stub
+	public FluidReplicatorRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull FluidReplicatorRecipe recipe) {
+		this.recipe = recipe;
+		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		int ticksPerCycle = recipe.getTickTime();
+		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
+				IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	/* (non-Javadoc)
@@ -45,8 +62,12 @@ public class FluidReplicatorRecipeWrapper implements IRecipeWrapper {
 	 */
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		// TODO Auto-generated method stub
-
+		ingredients.setInput(ItemStack.class, new ItemStack(ModItems.UU_MATTER, recipe.getInput()));
+		ingredients.setOutput(FluidStack.class, new FluidStack(recipe.getFluid(), Fluid.BUCKET_VOLUME));
 	}
-
+	
+	@Override
+	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+		progress.draw(minecraft, 25, 11);
+	}
 }

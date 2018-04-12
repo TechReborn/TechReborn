@@ -39,7 +39,12 @@ public class FluidReplicatorRecipes {
 	public static void init() {
 		register(1, FluidRegistry.WATER, 40, 2);
 		register(1, FluidRegistry.LAVA, 80, 2);
-		register(2, ModFluids.COMPRESSED_AIR, 80, 2);
+		register(2, ModFluids.COMPRESSED_AIR, 100, 20);
+		register(2, ModFluids.CARBON, 100, 20);
+		register(2, ModFluids.CARBON_FIBER, 100, 20);
+		register(4, ModFluids.MERCURY, 200, 20);
+		register(4, ModFluids.METHANE, 200, 20);
+	
 	}
 	
 	static void register(int input, Fluid output, int ticks, int euPerTick) {

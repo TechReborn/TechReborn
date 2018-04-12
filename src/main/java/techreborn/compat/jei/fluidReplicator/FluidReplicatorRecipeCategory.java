@@ -24,53 +24,67 @@
 
 package techreborn.compat.jei.fluidReplicator;
 
+import javax.annotation.Nonnull;
+
+import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IGuiFluidStackGroup;
+import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
+import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
 
 /**
  * @author drcrazy
  *
  */
+@SuppressWarnings("deprecation")
 public class FluidReplicatorRecipeCategory implements IRecipeCategory<FluidReplicatorRecipeWrapper> {
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
+	private static final int[] OUTPUT_TANKS = { 0 };
+	private static final int[] INPUT_SLOTS = { 0 };
+	private final IDrawable background;
+	private final IDrawable tankOverlay;
+	private final String title;
 
-	/**
-	 * 
-	 */
-	public FluidReplicatorRecipeCategory() {
-		// TODO Auto-generated constructor stub
+	public FluidReplicatorRecipeCategory(@Nonnull IGuiHelper guiHelper) {
+		this.background = guiHelper.createDrawable(texture, 125, 0, 72, 60);
+		this.tankOverlay = guiHelper.createDrawable(texture, 196, 0, 12, 47);
+		this.title = I18n.translateToLocal("tile.techreborn:fluid_replicator.name");
 	}
 
 	@Override
 	public String getUid() {
-		// TODO Auto-generated method stub
-		return null;
+		return RecipeCategoryUids.FLUID_REPLICATOR;
 	}
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
+		return title;
 	}
 
 	@Override
 	public String getModName() {
-		// TODO Auto-generated method stub
-		return null;
+		return ModInfo.MOD_NAME;
 	}
 
 	@Override
 	public IDrawable getBackground() {
-		// TODO Auto-generated method stub
-		return null;
+		return background;
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, FluidReplicatorRecipeWrapper recipeWrapper,
-			IIngredients ingredients) {
-		// TODO Auto-generated method stub
-		
+	public void setRecipe(IRecipeLayout recipeLayout, FluidReplicatorRecipeWrapper recipeWrapper, IIngredients ingredients) {
+		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
+		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
+		guiFluidStacks.init(OUTPUT_TANKS[0], false, 49, 8, 12, 47, 10_000, true, tankOverlay);
+		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, null, null, OUTPUT_TANKS);
 	}
 
 }

@@ -30,7 +30,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.RebornCraftingHelper;
+import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -65,6 +67,10 @@ public class RecipesIC2 implements ICompatModule {
 		RebornCraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
 		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
 		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH), IC2Items.getItem("crafting", "small_power_unit"));
+
+		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "carbon_mesh"),
+			IC2Items.getItem("crafting", "carbon_plate"), 300, 4));
+
 	}
 
 	@Override

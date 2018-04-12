@@ -129,7 +129,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			}
 
 			if (!this.currentRecipeOutput.isEmpty() && this.canMake(craftMatrix)) {
-				if (this.tickTime >= TileRollingMachine.runTime) {
+				if (this.tickTime >= Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1)) {
 					this.currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, this.world);
 					if (!this.currentRecipeOutput.isEmpty()) {
 						boolean hasCrafted = false;
@@ -160,8 +160,8 @@ public class TileRollingMachine extends TilePowerAcceptor
 				this.tickTime = 0;
 			}
 			if (!this.currentRecipeOutput.isEmpty()) {
-				if (this.canUseEnergy(energyPerTick) && this.tickTime < TileRollingMachine.runTime && canMake(craftMatrix)) {
-					this.useEnergy(energyPerTick);
+				if (this.canUseEnergy(getEuPerTick(energyPerTick)) && this.tickTime < Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) && canMake(craftMatrix)) {
+					this.useEnergy(getEuPerTick(energyPerTick));
 					this.tickTime++;
 				}
 			}
@@ -313,10 +313,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (this.tickTime == 0 || TileRollingMachine.runTime == 0) {
+		if (this.tickTime == 0 || Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
 			return 0;
 		}
-		return this.tickTime * scale / TileRollingMachine.runTime;
+		return this.tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	@Override
@@ -343,8 +343,8 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (tickTime != 0 && runTime != 0) {
-			return tickTime * scale / runTime;
+		if (tickTime != 0 && Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) != 0) {
+			return tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
 		}
 		return 0;
 	}
@@ -360,6 +360,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public boolean canBeUpgraded() {
-		return false;
+		return true;
 	}
 }

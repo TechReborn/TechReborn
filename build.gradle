@@ -89,7 +89,11 @@ configurations {
 	compile.extendsFrom shade
 }
 
+<<<<<<< HEAD
 version = "2.13.3"
+=======
+version = "2.13.4"
+>>>>>>> refs/remotes/upstream/1.12
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {

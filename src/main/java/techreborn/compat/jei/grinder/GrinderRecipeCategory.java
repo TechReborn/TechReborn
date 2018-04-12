@@ -76,13 +76,7 @@ public class GrinderRecipeCategory implements IRecipeCategory<GrinderRecipeWrapp
 	}
 
 	@Override
-	public void setRecipe(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			GrinderRecipeWrapper recipeWrapper,
-		@Nonnull
-			IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull GrinderRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 49, 7);
