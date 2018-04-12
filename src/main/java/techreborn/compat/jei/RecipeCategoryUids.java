@@ -42,6 +42,7 @@ public class RecipeCategoryUids {
 	public static final String SCRAPBOX = "TechReborn.Scrapbox";
 	public static final String INDUSTRIAL_SAWMILL = "TechReborn.IndustrialSawmill";
 	public static final String DISTILLATION_TOWER = "TechReborn.DistillationTower";
+	public static final String FLUID_REPLICATOR = "TechReborn.FluidReplicator";
 
 	private RecipeCategoryUids() {
 	}

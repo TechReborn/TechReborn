@@ -83,6 +83,7 @@ public class ModRecipes {
 		FusionReactorRecipes.init();
 		DistillationTowerRecipes.init();
 		AlloySmelterRecipes.init();
+		FluidReplicatorRecipes.init();
 
 		addBlastFurnaceRecipes();
 		addVacuumFreezerRecipes();
@@ -107,23 +108,8 @@ public class ModRecipes {
 				}
 			}
 		}
+		
 		IndustrialSawmillRecipes.init();
-
-		//Let it be in postInit to be sure that oredict already there
-		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
-			ItemStack marbleStack = getOre("stoneMarble");
-			marbleStack.setCount(1);
-			RecipeHandler.addRecipe(new GrinderRecipe(
-					marbleStack, ItemDusts.getDustByName("marble"), 
-					120, 10));
-		}
-		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
-			ItemStack marbleStack = getOre("stoneBasalt");
-			marbleStack.setCount(1);
-			RecipeHandler.addRecipe(new GrinderRecipe(
-					marbleStack, ItemDusts.getDustByName("basalt"), 
-					120, 10));
-		}
 	}
 
 	private static void addCompressorRecipes() {
@@ -251,6 +237,21 @@ public class ModRecipes {
 				new ItemStack(Blocks.OBSIDIAN),
 				ItemDusts.getDustByName("obsidian", 4),
 				170, 19));
+
+		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
+			ItemStack marbleStack = getOre("stoneMarble");
+			marbleStack.setCount(1);
+			RecipeHandler.addRecipe(new GrinderRecipe(
+					marbleStack, ItemDusts.getDustByName("marble"), 
+					120, 10));
+		}
+		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
+			ItemStack marbleStack = getOre("stoneBasalt");
+			marbleStack.setCount(1);
+			RecipeHandler.addRecipe(new GrinderRecipe(
+					marbleStack, ItemDusts.getDustByName("basalt"), 
+					120, 10));
+		}
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
@@ -418,5 +419,4 @@ public class ModRecipes {
 		}
 		return OreDictionary.getOres(name).get(0).copy();
 	}
-
 }

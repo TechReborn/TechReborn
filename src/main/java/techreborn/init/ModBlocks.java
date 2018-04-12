@@ -153,6 +153,7 @@ public class ModBlocks {
 	public static Block LAMP_INCANDESCENT;
 	public static Block LAMP_LED;
 	public static Block ALARM;
+	public static Block FLUID_REPLICATOR;
 
 	/**
 	 * Register blocks
@@ -431,6 +432,10 @@ public class ModBlocks {
 		ALARM = new BlockAlarm();
 		registerBlock(ALARM, "alarm");
 		GameRegistry.registerTileEntity(TileAlarm.class, "TileAlarmTR");
+		
+		FLUID_REPLICATOR = new BlockFluidReplicator();
+		registerBlock(FLUID_REPLICATOR, "fluid_replicator");
+		GameRegistry.registerTileEntity(TileFluidReplicator.class, "TileFluidReplicatorTR");
 
 		//TODO enable when done
 		//		flare = new BlockFlare();

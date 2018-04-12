@@ -22,10 +22,11 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.jei.grinder;
+package techreborn.compat.jei.fluidReplicator;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
@@ -38,18 +39,33 @@ import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
+/**
+ * @author drcrazy
+ *
+ */
 @SuppressWarnings("deprecation")
-public class GrinderRecipeCategory implements IRecipeCategory<GrinderRecipeWrapper> {
+public class FluidReplicatorRecipeCategory implements IRecipeCategory<FluidReplicatorRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
+	private static final int[] OUTPUT_TANKS = { 0 };
 	private static final int[] INPUT_SLOTS = { 0 };
-	private static final int[] OUTPUT_SLOTS = { 1 };
-
 	private final IDrawable background;
+	private final IDrawable tankOverlay;
 	private final String title;
 
-	public GrinderRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn:grinder.name");
+	public FluidReplicatorRecipeCategory(@Nonnull IGuiHelper guiHelper) {
+		this.background = guiHelper.createDrawable(texture, 125, 0, 72, 60);
+		this.tankOverlay = guiHelper.createDrawable(texture, 196, 0, 12, 47);
+		this.title = I18n.translateToLocal("tile.techreborn:fluid_replicator.name");
+	}
+
+	@Override
+	public String getUid() {
+		return RecipeCategoryUids.FLUID_REPLICATOR;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
 	}
 
 	@Override
@@ -57,29 +73,18 @@ public class GrinderRecipeCategory implements IRecipeCategory<GrinderRecipeWrapp
 		return ModInfo.MOD_NAME;
 	}
 
-	@Nonnull
-	@Override
-	public String getUid() {
-		return RecipeCategoryUids.GRINDER;
-	}
-
-	@Nonnull
-	@Override
-	public String getTitle() {
-		return title;
-	}
-
-	@Nonnull
 	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull GrinderRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, FluidReplicatorRecipeWrapper recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 49, 7);
-		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 2, 21);
+		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
+		guiFluidStacks.init(OUTPUT_TANKS[0], false, 52, 6, 12, 47, 10_000, true, tankOverlay);
+		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, null, null, OUTPUT_TANKS);
 	}
+
 }

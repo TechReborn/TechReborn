@@ -73,7 +73,8 @@ public enum EGui implements IMachineGuiHandler {
 	SCRAPBOXINATOR(true),
 	SEMIFLUID_GENERATOR(true),
 	THERMAL_GENERATOR(true),
-	VACUUM_FREEZER(true);
+	VACUUM_FREEZER(true),
+	FLUID_REPLICATOR(true);
 
 	private final boolean containerBuilder;
 

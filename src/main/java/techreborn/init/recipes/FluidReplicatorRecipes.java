@@ -22,20 +22,35 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.crafttweaker;
+package techreborn.init.recipes;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
+import techreborn.api.fluidreplicator.FluidReplicatorRecipeList;
+import techreborn.init.ModFluids;
 
 /**
- * This is used to give better detail for a method's parameters when generating the crafttweaker documentation.
+ * @author drcrazy
+ *
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface ZenDocumentation {
+public class FluidReplicatorRecipes {
 
-	String value();
-
+	public static void init() {
+		register(1, FluidRegistry.WATER, 40, 2);
+		register(1, FluidRegistry.LAVA, 80, 2);
+		register(2, ModFluids.COMPRESSED_AIR, 100, 20);
+		register(2, ModFluids.CARBON, 100, 20);
+		register(2, ModFluids.CARBON_FIBER, 100, 20);
+		register(4, ModFluids.MERCURY, 200, 20);
+		register(4, ModFluids.METHANE, 200, 20);
+	
+	}
+	
+	static void register(int input, Fluid output, int ticks, int euPerTick) {
+		if(output == null || input < 1 || ticks < 1 || euPerTick < 1){
+			return;
+		}
+		FluidReplicatorRecipeList.addRecipe(new FluidReplicatorRecipe(input, output, ticks, euPerTick));
+	}
 }

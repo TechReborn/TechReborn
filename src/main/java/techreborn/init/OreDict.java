@@ -66,7 +66,7 @@ public class OreDict {
 		OreUtil.registerOre("lapotronCrystal", ModItems.LAPOTRONIC_CRYSTAL);
 		OreUtil.registerOre("energyCrystal", ModItems.ENERGY_CRYSTAL);
 
-		OreUtil.registerOre("drillBasic", ModItems.DIAMOND_DRILL);
+		OreUtil.registerOre("drillBasic", ModItems.STEEL_DRILL);
 		OreUtil.registerOre("drillDiamond", ModItems.DIAMOND_DRILL);
 
 		OreUtil.registerOre("industrialTnt", Blocks.TNT);

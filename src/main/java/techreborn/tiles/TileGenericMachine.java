@@ -67,8 +67,8 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	}
 	
 	public int getProgressScaled(final int scale) {
-		if (this.crafter != null && this.crafter.currentTickTime != 0) {
-			return this.crafter.currentTickTime * scale / this.crafter.currentNeededTicks;
+		if (getRecipeCrafter() != null && getRecipeCrafter().currentTickTime != 0) {
+			return getRecipeCrafter().currentTickTime * scale / getRecipeCrafter().currentNeededTicks;
 		}
 		return 0;
 	}
