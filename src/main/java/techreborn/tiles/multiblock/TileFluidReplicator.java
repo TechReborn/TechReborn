@@ -63,7 +63,6 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
 	int ticksSinceLastChange;
-	public FluidReplicatorRecipeCrafter crafter;
 
 	public TileFluidReplicator() {
 		super("FluidReplicator", maxInput, maxEnergy, ModBlocks.FLUID_REPLICATOR, 3);
