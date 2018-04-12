@@ -36,15 +36,22 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.items.ItemDusts;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 import java.security.InvalidParameterException;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class IndustrialSawmillRecipes extends RecipeMethods {
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
+
+	@ConfigRegistry(config = "recipes", category = "sawmill", key = "plankCount", comment = "Number of planks the saw mill will ouput")
+	public static int plankCount = 4;
 
 	public static void init() {
 		InventoryCrafting inventoryCrafting = new InventoryCrafting(new Container() {
@@ -94,6 +101,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 	}
 
 	public static void addRecipe(ItemStack log, ItemStack plank) {
+		plank.setCount(plankCount);
 		register(log, WATER, 100, 128, plank, ItemDusts.getDustByName("sawDust", 3), getStack(Items.PAPER, 1));
 	}
 
