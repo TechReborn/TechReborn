@@ -59,6 +59,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 
 	public TileLapotronicSU() {
 		super("LESU", 2, ModBlocks.LAPOTRONIC_SU, EnumPowerTier.INSANE, 8192, baseOutput, 1000000);
+		checkOverfill = false;
 	}
 
 	@Override
