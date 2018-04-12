@@ -26,6 +26,7 @@ package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.api.Reference;
@@ -33,8 +34,10 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileCompressor extends TileGenericMachine implements IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "compressor", key = "CompressorInput", comment = "Compressor Max Input (Value in EU)")
