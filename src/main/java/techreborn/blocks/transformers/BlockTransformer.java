@@ -133,12 +133,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 					TileEntity tileEntity = world.getTileEntity(pos);
 					if (tileEntity instanceof IToolDrop) {
 						ItemStack drop = ((IToolDrop) tileEntity).getToolDrop(player);
-						if (drop == null) {
-							return false;
-						}
-						if (!drop.isEmpty()) {
-							spawnAsEntity(world, pos, drop);
-						}
+						dropInventory(world, pos, drop);
 						world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.BLOCK_DISMANTLE,
 								SoundCategory.BLOCKS, 0.6F, 1F);
 						if (!world.isRemote) {
@@ -164,14 +159,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	
 	protected List<ItemStack> dropInventory(IBlockAccess world, BlockPos pos, ItemStack itemToDrop) {
 		TileEntity tileEntity = world.getTileEntity(pos);
-
-		if (tileEntity == null) {
-			System.out.print("Null");
-			return null;
-		}
 		if (!(tileEntity instanceof IInventory)) {
-
-			System.out.print("Not INstance");
 			return null;
 		}
 
@@ -196,7 +184,9 @@ public abstract class BlockTransformer extends BaseTileBlock {
 			}
 			items.add(itemStack.copy());
 		}
-		items.add(itemToDrop.copy());
+		if(!itemToDrop.isEmpty()){
+			items.add(itemToDrop.copy());
+		}
 		return items;
 
 	}
