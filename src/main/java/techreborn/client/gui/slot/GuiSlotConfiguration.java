@@ -25,18 +25,25 @@
 package techreborn.client.gui.slot;
 
 import com.google.common.collect.Lists;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Slot;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import reborncore.client.gui.GuiUtil;
+import reborncore.common.network.NetworkManager;
+import reborncore.common.network.packet.PacketConfigSave;
+import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.elements.ConfigSlotElement;
 import techreborn.client.gui.slot.elements.ElementBase;
 import techreborn.client.gui.slot.elements.SlotType;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -103,6 +110,44 @@ public class GuiSlotConfiguration {
 			slectedSlot = -1;
 			event.setCanceled(true);
 		}
+	}
+
+	public static void copyToClipboard(){
+		TileLegacyMachineBase machine = getMachine();
+		if(machine == null || machine.slotConfiguration == null){
+			return;
+		}
+		String json = machine.slotConfiguration.toJson(machine.getClass().getCanonicalName());
+		GuiScreen.setClipboardString(json);
+		Minecraft.getMinecraft().player.sendMessage(new TextComponentString("Slot configuration copyied to clipboard"));
+	}
+
+	public static void pasteFromClipboard(){
+		TileLegacyMachineBase machine = getMachine();
+		if(machine == null || machine.slotConfiguration == null){
+			return;
+		}
+		String json = GuiScreen.getClipboardString();
+		try {
+			machine.slotConfiguration.readJson(json, machine.getClass().getCanonicalName());
+			NetworkManager.sendToServer(new PacketConfigSave(machine.getPos(), machine.slotConfiguration));
+			Minecraft.getMinecraft().player.sendMessage(new TextComponentString("Slot configuration loaded from clipboard"));
+		} catch (UnsupportedOperationException e) {
+			Minecraft.getMinecraft().player.sendMessage(new TextComponentString(e.getMessage()));
+		}
+	}
+
+	@Nullable
+	private static TileLegacyMachineBase getMachine(){
+		if(!(Minecraft.getMinecraft().currentScreen instanceof GuiBase)){
+			return null;
+		}
+		GuiBase base = (GuiBase) Minecraft.getMinecraft().currentScreen;
+		if(!(base.tile instanceof TileLegacyMachineBase)){
+			return null;
+		}
+		TileLegacyMachineBase machineBase = (TileLegacyMachineBase) base.tile;
+		return machineBase;
 	}
 
 	public static boolean mouseClicked(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) throws IOException {

@@ -32,6 +32,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
@@ -245,6 +246,20 @@ public class GuiBase extends GuiContainer {
 			}
 		}
 		super.mouseReleased(mouseX, mouseY, state);
+	}
+
+	@Override
+	protected void keyTyped(char typedChar, int keyCode) throws IOException {
+		if(showSlotConfig){
+			if(isCtrlKeyDown() && keyCode == Keyboard.KEY_C){
+				GuiSlotConfiguration.copyToClipboard();
+				return;
+			} else if(isCtrlKeyDown() && keyCode == Keyboard.KEY_V){
+				GuiSlotConfiguration.pasteFromClipboard();
+				return;
+			}
+		}
+		super.keyTyped(typedChar, keyCode);
 	}
 
 	@Override
