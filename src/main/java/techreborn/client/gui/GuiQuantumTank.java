@@ -24,46 +24,53 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import techreborn.tiles.TileQuantumTank;
 
-public class GuiQuantumTank extends GuiContainer {
+public class GuiQuantumTank extends GuiBase {
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/thermal_generator.png");
+
 
 	TileQuantumTank quantumTank;
 
 	public GuiQuantumTank(final EntityPlayer player, final TileQuantumTank quantumTank) {
-		super(quantumTank.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
+		super(player, quantumTank, quantumTank.createContainer(player));
 		this.quantumTank = quantumTank;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiQuantumTank.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+
+
+		this.drawSlot(80, 17, layer);
+		this.drawSlot(80, 53, layer);
+
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+
 		final String name = I18n.format("tile.techreborn:quantum_tank.name");
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
 			4210752);
 		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
-		this.fontRenderer.drawString("Liquid Amount", 10, 20, 16448255);
-		this.fontRenderer.drawString(this.quantumTank.tank.getFluidAmount() + "", 10, 30, 16448255);
+
+		FluidStack fluid = this.quantumTank.tank.getFluid();
+		if(fluid != null){
+			this.fontRenderer.drawString( "Fluid Type:", 10, 20, 4210752);
+			this.fontRenderer.drawString(fluid.getLocalizedName() + "", 10, 30, 4210752);
+
+			this.fontRenderer.drawString("Fluid Amount:", 10, 50, 4210752);
+			this.fontRenderer.drawString(this.quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);
+		}
+
 	}
 
 	@Override

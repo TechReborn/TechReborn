@@ -97,12 +97,6 @@ public class TileQuantumTank extends TileLegacyMachineBase
 			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
 				|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
 				this.syncWithAll();
-
-			if (this.tank.getFluidType() != null && this.getStackInSlot(2) == ItemStack.EMPTY) {
-				this.inventory.setInventorySlotContents(2, new ItemStack(this.tank.getFluidType().getBlock()));
-			} else if (this.tank.getFluidType() == null && this.getStackInSlot(2) != ItemStack.EMPTY) {
-				this.setInventorySlotContents(2, ItemStack.EMPTY);
-			}
 		}
 		tank.compareAndUpdate();
 	}
@@ -158,8 +152,13 @@ public class TileQuantumTank extends TileLegacyMachineBase
 
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("quantumtank").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).fakeSlot(2, 59, 42).addInventory()
+		return new ContainerBuilder("quantumtank").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).addInventory()
 			.create(this);
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
 	}
 }
