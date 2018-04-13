@@ -105,7 +105,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 	}
 	@Override
 	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
+		return state.getValue(TYPE).ordinal();
 	}
 
 	@Override
