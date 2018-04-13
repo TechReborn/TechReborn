@@ -52,10 +52,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxEnergy", comment = "Matter Fabricator Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate, amount of amplifier units per UUM")
-	public static int fabricationRate = 10_000;
+	public static int fabricationRate = 6_000;
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
-	public static int energyPerAmp = 1666;
-
+	public static int energyPerAmp = 5;
 
 	public Inventory inventory = new Inventory(12, "TileMatterFabricator", 64, this);
 	private int amplifier = 0;
@@ -89,7 +88,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private void addOutputProducts(int slot) {
-
 		if (this.inventory.getStackInSlot(slot).isEmpty()) {
 			this.inventory.setInventorySlotContents(slot, new ItemStack(ModItems.UU_MATTER));
 		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)) {
