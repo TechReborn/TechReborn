@@ -64,7 +64,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 		NonNullList<ItemStack> logs = OreDictionary.getOres("logWood");
 		for (ItemStack logStack : logs) {
-			if (logStack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
+			if (logStack.getItemDamage() == OreDictionary.WILDCARD_VALUE && logStack.getHasSubtypes()) {
 				for (int i = 0; i < 16; i++) {
 					ItemStack newStack = logStack.copy();
 					newStack.setItemDamage(i);
@@ -77,6 +77,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 					}
 				}
 			} else {
+				logStack.setItemDamage(0); //Done to remove the wildcard value if the item doesnt have subtypes
 				inventoryCrafting.setInventorySlotContents(0, logStack.copy());
 				ItemStack output = findMatchingRecipe(inventoryCrafting);
 				if (!output.isEmpty()) {
