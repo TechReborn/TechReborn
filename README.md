@@ -4,7 +4,7 @@
 
 # Tech Reborn for 1.12 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
 
-*Tech Reborn is a completely standalone tech mod designed by the ideals of GregTech 2 and Industrial Craft 2 pre-experimental. The mod includes tools and machines to gather resources, process materials, and progression throughout the mod.*
+*Tech Reborn is a completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.*
 
 # Downloads
 
@@ -55,5 +55,3 @@ To report an issue or make a suggestion, please head up to the `Issues` tab up a
 # License
 
 Tech Reborn is licensed under the MIT license. Full license is  in **LICENSE.md**.
-
-### No code was borrowed or taken from IndustrialCraft2 or GregTech to make this mod possible. We do, however, thank the makers of both of these mods for the majority of the ideas that make up this mod.
