@@ -57,6 +57,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public static int maxOutput = 1_000_000;
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxEnergy", comment = "Fusion Reactor Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
+	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxCoilSize", comment = "Fusion Reactor Max Coil size (Radius)")
+	public static int maxCoilSize = 50;
 
 	public Inventory inventory;
 
@@ -352,6 +354,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
 				.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
 				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
+				.syncIntegerValue(this::getSize, this::setSize)
 				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this);
 	}
 
@@ -385,5 +388,18 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	public void setNeededPower(final int neededPower) {
 		this.neededPower = neededPower;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public void changeSize(int sizeDelta){
+		int newSize = size + sizeDelta;
+		this.size = Math.max(6, Math.min(maxCoilSize, newSize));
 	}
 }

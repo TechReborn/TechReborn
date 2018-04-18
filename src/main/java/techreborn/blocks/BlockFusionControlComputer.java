@@ -69,7 +69,9 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 				}
 				if(world.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
 					world.setBlockState(coil, ModBlocks.FUSION_COIL.getDefaultState());
-					player.getHeldItem(hand).shrink(1);
+					if(!player.isCreative()){
+						player.getHeldItem(hand).shrink(1);
+					}
 					placed = true;
 				}
 			}

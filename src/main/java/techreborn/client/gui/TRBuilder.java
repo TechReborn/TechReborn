@@ -293,6 +293,21 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(x + 24, y, 150, 94, 12, 12);
 		gui.drawTexturedModalRect(x + 36, y, 150, 106, 12, 12);
 	}
+
+	public void drawUpDownButtonsSmall(GuiBase gui, int x, int y, GuiBase.Layer layer){
+		if(GuiBase.showSlotConfig){
+			return;
+		}
+		if (layer == GuiBase.Layer.BACKGROUND) {
+			x += gui.getGuiLeft();
+			y += gui.getGuiTop();
+		}
+		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
+		//gui.drawTexturedModalRect(x, y, 150, 70, 12, 12);
+		gui.drawTexturedModalRect(x + 12, y, 150, 82, 12, 12);
+		gui.drawTexturedModalRect(x + 24, y, 150, 94, 12, 12);
+		//gui.drawTexturedModalRect(x + 36, y, 150, 106, 12, 12);
+	}
 	
 	public void drawEnergyOutput(GuiBase gui, int right, int top, int maxOutput, GuiBase.Layer layer){
 		if(GuiBase.showSlotConfig){

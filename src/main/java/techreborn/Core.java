@@ -179,6 +179,7 @@ public class Core {
 		event.registerPacket(PacketIdsu.class, Side.SERVER);
 		event.registerPacket(PacketSetRecipe.class, Side.SERVER);
 		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
+		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler

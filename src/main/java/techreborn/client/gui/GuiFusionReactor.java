@@ -31,9 +31,12 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.util.Torus;
 import techreborn.client.gui.widget.GuiButtonHologram;
+import techreborn.client.gui.widget.GuiButtonUpDown;
 import techreborn.init.ModBlocks;
+import techreborn.packets.PacketFusionControlSize;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
@@ -47,7 +50,13 @@ public class GuiFusionReactor extends GuiBase {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
-	
+
+	@Override
+	public void initGui() {
+		super.initGui();
+
+	}
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -58,6 +67,7 @@ public class GuiFusionReactor extends GuiBase {
 		this.drawOutputSlot(80, 47, layer);
 
 		this.builder.drawJEIButton(this, 150, 4, layer);
+
 	}
 	
 	@Override
@@ -76,6 +86,13 @@ public class GuiFusionReactor extends GuiBase {
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
+		this.builder.drawUpDownButtons(this, 121, 79, layer);
+		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
+
+		buttonList.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
+		buttonList.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
+		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, GuiBase.Layer.FOREGROUND));
+		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, GuiBase.Layer.FOREGROUND));
 	}
 	
 	public void addHologramButton(int x, int y, int id, Layer layer) {
@@ -110,7 +127,21 @@ public class GuiFusionReactor extends GuiBase {
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			}
+		} else if (button.id == 300){
+			sendSizeChange(5);
+		} else if (button.id == 301){
+			sendSizeChange(1);
+		} else if (button.id == 302){
+			sendSizeChange(-1);
+		} else if (button.id == 303){
+			sendSizeChange(-5);
 		}
+	}
+
+	private void sendSizeChange(int sizeDelta){
+		NetworkManager.sendToServer(new PacketFusionControlSize(sizeDelta, tile.getPos()));
+		//Reset the multiblock as it will be wrong now.
+		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 	
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
