@@ -190,10 +190,12 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, IEnergy
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean("isActive") && !PoweredItem.canUseEnergy(cost, stack)) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-				TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
-					+ TextFormatting.GOLD + I18n
-					.format("techreborn.message.nanosaberDeactivating")));
+			if(worldIn.isRemote){
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
+						+ TextFormatting.GOLD + I18n
+						.format("techreborn.message.nanosaberDeactivating")));
+			}
 			stack.getTagCompound().setBoolean("isActive", false);
 		}
 	}
