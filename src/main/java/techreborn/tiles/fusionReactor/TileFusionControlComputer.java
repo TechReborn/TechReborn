@@ -99,7 +99,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @param pos coordinate for block
 	 * @return boolean Returns true if block is fusion coil
 	 */
-	private boolean isCoil(final BlockPos pos) {
+	public boolean isCoil(final BlockPos pos) {
 		return this.world.getBlockState(pos).getBlock() == ModBlocks.FUSION_COIL;
 	}
 

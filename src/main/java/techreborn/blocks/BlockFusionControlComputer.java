@@ -27,6 +27,7 @@ package techreborn.blocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -36,11 +37,15 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.Torus;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.damageSources.FusionDamageSource;
+
+import java.util.List;
 
 public class BlockFusionControlComputer extends BlockMachineBase {
 
@@ -55,6 +60,24 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
 									final float hitX, final float hitY, final float hitZ) {
 		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world.getTileEntity(pos);
+		if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == Item.getItemFromBlock(ModBlocks.FUSION_COIL)){
+			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
+			boolean placed = false;
+			for(BlockPos coil : coils){
+				if(player.getHeldItem(hand).isEmpty()){
+					return true;
+				}
+				if(world.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
+					world.setBlockState(coil, ModBlocks.FUSION_COIL.getDefaultState());
+					player.getHeldItem(hand).shrink(1);
+					placed = true;
+				}
+			}
+			if(placed){
+				return true;
+			}
+
+		}
 		tileFusionControlComputer.checkCoils();
 		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
