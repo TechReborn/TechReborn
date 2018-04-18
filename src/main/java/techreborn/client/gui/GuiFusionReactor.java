@@ -40,6 +40,7 @@ import techreborn.packets.PacketFusionControlSize;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -81,6 +82,10 @@ public class GuiFusionReactor extends GuiBase {
 		if (tile.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
+			if(tile.state == 2){
+				drawCentredString( tile.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
+			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
@@ -88,6 +93,7 @@ public class GuiFusionReactor extends GuiBase {
 		}
 		this.builder.drawUpDownButtons(this, 121, 79, layer);
 		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
+		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
 		buttonList.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
 		buttonList.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
@@ -112,18 +118,7 @@ public class GuiFusionReactor extends GuiBase {
 		super.actionPerformed(button);
 		if (button.id == 212 && !GuiBase.showSlotConfig) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
-				// This code here makes a basic multiblock and then sets to the selected one.
-				final Multiblock multiblock = new Multiblock();
-				IBlockState coil = ModBlocks.FUSION_COIL.getDefaultState();
-
-				List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
-				coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
-
-				final MultiblockSet set = new MultiblockSet(multiblock);
-				ClientProxy.multiblockRenderEvent.setMultiblock(set);
-				ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
-				MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY() - 1,
-						this.tile.getPos().getZ());
+				updateMultiBlockRender();
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			}
@@ -141,7 +136,23 @@ public class GuiFusionReactor extends GuiBase {
 	private void sendSizeChange(int sizeDelta){
 		NetworkManager.sendToServer(new PacketFusionControlSize(sizeDelta, tile.getPos()));
 		//Reset the multiblock as it will be wrong now.
-		ClientProxy.multiblockRenderEvent.setMultiblock(null);
+		if(ClientProxy.multiblockRenderEvent.currentMultiblock != null){
+			updateMultiBlockRender();
+		}
+	}
+
+	private void updateMultiBlockRender(){
+		final Multiblock multiblock = new Multiblock();
+		IBlockState coil = ModBlocks.FUSION_COIL.getDefaultState();
+
+		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
+		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
+
+		final MultiblockSet set = new MultiblockSet(multiblock);
+		ClientProxy.multiblockRenderEvent.setMultiblock(set);
+		ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
+		MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY() - 1,
+			this.tile.getPos().getZ());
 	}
 	
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {

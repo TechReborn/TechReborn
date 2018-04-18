@@ -31,6 +31,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -67,6 +68,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public int finalTickTime = 0;
 	public int neededPower = 0;
 	public int size = 6;
+	public int state = -1;
 	int topStackSlot = 0;
 	int bottomStackSlot = 1;
 	int outputStackSlot = 2;
@@ -75,6 +77,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	public TileFusionControlComputer() {
 		super();
+		checkOverfill = false;
 		this.inventory = new Inventory(3, "TileFusionControlComputer", 64, this);
 	}
 
@@ -232,7 +235,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				// Power gen
 				if (this.currentRecipe.getEuTick() > 0) {
 					// Waste power if it has no where to go
-					this.addEnergy(this.currentRecipe.getEuTick());
+					this.addEnergy(this.currentRecipe.getEuTick() * getPowerMultiplier());
+					this.powerChange = this.currentRecipe.getEuTick() * getPowerMultiplier();
 				} else { // Power user
 					if (this.canUseEnergy(this.currentRecipe.getEuTick() * -1)) {
 						this.setEnergy(this.getEnergy() - this.currentRecipe.getEuTick() * -1);
@@ -264,9 +268,15 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		}
 	}
 
+
+	@Override
+	public double getPowerMultiplier() {
+		return Math.round(Math.pow(size - 5, 2));
+	}
+
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return Math.min(maxEnergy * getPowerMultiplier(), Integer.MAX_VALUE / RebornCoreConfig.euPerFU);
 	}
 
 	@Override
@@ -284,7 +294,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		if (!this.hasStartedCrafting) {
 			return 0;
 		}
-		return maxOutput;
+		return Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
 	}
 
 	@Override
@@ -309,6 +319,10 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				}
 			}
 		}
+		if(tagCompound.hasKey("size")){
+			this.size = tagCompound.getInteger("size");
+		}
+		this.size = Math.min(size, maxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
 	}
 
 	@Override
@@ -319,6 +333,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		tagCompound.setInteger("neededPower", this.neededPower);
 		tagCompound.setBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		tagCompound.setBoolean("hasActiveRecipe", this.currentRecipe != null);
+		tagCompound.setInteger("size", size);
 		return tagCompound;
 	}
 
@@ -355,6 +370,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
 				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
 				.syncIntegerValue(this::getSize, this::setSize)
+				.syncIntegerValue(this::getState, this::setState)
 				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this);
 	}
 
@@ -401,5 +417,35 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public void changeSize(int sizeDelta){
 		int newSize = size + sizeDelta;
 		this.size = Math.max(6, Math.min(maxCoilSize, newSize));
+	}
+
+	public int getState(){
+		if(currentRecipe == null ){
+			return 0; //No Recipe
+		}
+		if(!hasStartedCrafting){
+			return 1; //Waiting on power
+		}
+		if(hasStartedCrafting){
+			return 2; //Crafting
+		}
+		return -1;
+	}
+
+	public void setState(int state){
+		this.state = state;
+	}
+
+	public String getStateString(){
+		if(state == -1){
+			return "";
+		} else if (state == 0){
+			return "No recipe";
+		} else if (state == 1){
+			return "Charging";
+		} else if (state == 2){
+			return "Crafting";
+		}
+		return "";
 	}
 }
