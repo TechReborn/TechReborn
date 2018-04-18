@@ -78,7 +78,6 @@ public class GuiFusionReactor extends GuiBase {
 
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, TRBuilder.ProgressDirection.LEFT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
@@ -99,6 +98,8 @@ public class GuiFusionReactor extends GuiBase {
 		buttonList.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
 		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, GuiBase.Layer.FOREGROUND));
 		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, GuiBase.Layer.FOREGROUND));
+
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 	
 	public void addHologramButton(int x, int y, int id, Layer layer) {

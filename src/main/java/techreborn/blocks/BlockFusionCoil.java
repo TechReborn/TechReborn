@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,9 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class BlockFusionCoil extends Block {
 
@@ -74,5 +78,11 @@ public class BlockFusionCoil extends Block {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		super.addInformation(stack, player, tooltip, advanced);
+		tooltip.add("Right click Fusion Control computer to auto place");
 	}
 }
