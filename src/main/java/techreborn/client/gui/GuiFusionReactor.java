@@ -31,12 +31,14 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
+import reborncore.common.util.Torus;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
 import java.io.IOException;
+import java.util.List;
 
 public class GuiFusionReactor extends GuiBase {
 	TileFusionControlComputer tile;
@@ -66,7 +68,7 @@ public class GuiFusionReactor extends GuiBase {
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, TRBuilder.ProgressDirection.LEFT, layer);
 		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
-		if (tile.checkCoils()) {
+		if (tile.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
@@ -96,32 +98,10 @@ public class GuiFusionReactor extends GuiBase {
 				// This code here makes a basic multiblock and then sets to the selected one.
 				final Multiblock multiblock = new Multiblock();
 				IBlockState coil = ModBlocks.FUSION_COIL.getDefaultState();
-				
-				this.addComponent(3, 0, 1, coil, multiblock);
-				this.addComponent(3, 0, 0, coil, multiblock);
-				this.addComponent(3, 0, -1, coil, multiblock);
-				this.addComponent(-3, 0, 1, coil, multiblock);
-				this.addComponent(-3, 0, 0, coil, multiblock);
-				this.addComponent(-3, 0, -1, coil, multiblock);
-				this.addComponent(2, 0, 2, coil, multiblock);
-				this.addComponent(2, 0, 1, coil, multiblock);
-				this.addComponent(2, 0, -1, coil, multiblock);
-				this.addComponent(2, 0, -2, coil, multiblock);
-				this.addComponent(-2, 0, 2, coil, multiblock);
-				this.addComponent(-2, 0, 1, coil, multiblock);
-				this.addComponent(-2, 0, -1, coil, multiblock);
-				this.addComponent(-2, 0, -2, coil, multiblock);
-				this.addComponent(1, 0, 3, coil, multiblock);
-				this.addComponent(1, 0, 2, coil, multiblock);
-				this.addComponent(1, 0, -2, coil, multiblock);
-				this.addComponent(1, 0, -3, coil, multiblock);
-				this.addComponent(-1, 0, 3, coil, multiblock);
-				this.addComponent(-1, 0, 2, coil, multiblock);
-				this.addComponent(-1, 0, -2, coil, multiblock);
-				this.addComponent(-1, 0, -3, coil, multiblock);
-				this.addComponent(0, 0, 3, coil, multiblock);
-				this.addComponent(0, 0, -3, coil, multiblock);
-				
+
+				List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
+				coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
+
 				final MultiblockSet set = new MultiblockSet(multiblock);
 				ClientProxy.multiblockRenderEvent.setMultiblock(set);
 				ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();

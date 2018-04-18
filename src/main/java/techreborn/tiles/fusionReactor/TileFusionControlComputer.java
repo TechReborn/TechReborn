@@ -36,6 +36,7 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.Torus;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.client.container.IContainerProvider;
@@ -43,6 +44,8 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+
+import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileFusionControlComputer extends TilePowerAcceptor
@@ -57,11 +60,11 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	public Inventory inventory;
 
-	// 0= no coils, 1 = coils
-	public int coilStatus = 0;
+	public int coilCount = 0;
 	public int crafingTickTime = 0;
 	public int finalTickTime = 0;
 	public int neededPower = 0;
+	public int size = 6;
 	int topStackSlot = 0;
 	int bottomStackSlot = 1;
 	int outputStackSlot = 2;
@@ -79,38 +82,25 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean Return true if coils are present
 	 */
 	public boolean checkCoils() {
-		int posX = this.getPos().getX();
-		int posY = this.getPos().getY();
-		int posZ = this.getPos().getZ();
-
-		if (isCoil(posX + 3, posY, posZ + 1) && isCoil(posX + 3, posY, posZ) && isCoil(posX + 3, posY, posZ - 1)
-				&& isCoil(posX - 3, posY, posZ + 1) && isCoil(posX - 3, posY, posZ) && isCoil(posX - 3, posY, posZ - 1)
-				&& isCoil(posX + 2, posY, posZ + 2) && isCoil(posX + 2, posY, posZ + 1)
-				&& isCoil(posX + 2, posY, posZ - 1) && isCoil(posX + 2, posY, posZ - 2)
-				&& isCoil(posX - 2, posY, posZ + 2) && isCoil(posX - 2, posY, posZ + 1)
-				&& isCoil(posX - 2, posY, posZ - 1) && isCoil(posX - 2, posY, posZ - 2)
-				&& isCoil(posX + 1, posY, posZ + 3) && isCoil(posX + 1, posY, posZ + 2)
-				&& isCoil(posX + 1, posY, posZ - 2) && isCoil(posX + 1, posY, posZ - 3)
-				&& isCoil(posX - 1, posY, posZ + 3) && isCoil(posX - 1, posY, posZ + 2)
-				&& isCoil(posX - 1, posY, posZ - 2) && isCoil(posX - 1, posY, posZ - 3) && isCoil(posX, posY, posZ + 3)
-				&& isCoil(posX, posY, posZ - 3)) {
-			coilStatus = 1;
-			return true;
+		List<BlockPos> coils = Torus.generate(getPos(), size);
+		for(BlockPos coilPos : coils){
+			if (!isCoil(coilPos)) {
+				coilCount = 0;
+				return false;
+			}
 		}
-		coilStatus = 0;
-		return false;
+		coilCount = coils.size();
+		return true;
 	}
 
 	/**
 	 * Checks if block is fusion coil
 	 * 
-	 * @param x int X coordinate for block
-	 * @param y int Y coordinate for block
-	 * @param z int Z coordinate for block
+	 * @param pos coordinate for block
 	 * @return boolean Returns true if block is fusion coil
 	 */
-	private boolean isCoil(final int x, final int y, final int z) {
-		return this.world.getBlockState(new BlockPos(x, y, z)).getBlock() == ModBlocks.FUSION_COIL;
+	private boolean isCoil(final BlockPos pos) {
+		return this.world.getBlockState(pos).getBlock() == ModBlocks.FUSION_COIL;
 	}
 
 	/**
@@ -213,7 +203,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 			this.inventory.hasChanged = true;
 		}
 
-		if (this.coilStatus == 0) {
+		if (this.coilCount == 0) {
 			this.resetCrafter();
 			return;
 		}
@@ -366,11 +356,11 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	public int getCoilStatus() {
-		return this.coilStatus;
+		return this.coilCount;
 	}
 
 	public void setCoilStatus(final int coilStatus) {
-		this.coilStatus = coilStatus;
+		this.coilCount = coilStatus;
 	}
 
 	public int getCrafingTickTime() {
