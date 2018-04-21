@@ -112,7 +112,8 @@ public class TileRecycler extends TilePowerAcceptor
 		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.isBurning)
+			boolean shouldBurn = this.isBurning || (this.canRecycle() && this.canUseEnergy(getEuPerTick(this.cost)));
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != shouldBurn)
 				blockMachineBase.setActive(this.isBurning, this.world, this.pos);
 		}
 	}
