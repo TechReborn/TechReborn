@@ -39,6 +39,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.IUpgradeHandler;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.Core;
@@ -47,13 +49,24 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.client.gui.upgrades.GuiSideConfig;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class ItemUpgrades extends ItemTR implements IUpgrade {
+
+	@ConfigRegistry(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker upgrade speed multipiler")
+	public static double overclockerSpeed = 0.25;
+
+	@ConfigRegistry(config = "items", category = "upgrades", key = "overclcoker_power", comment = "Overclocker upgrade power multipiler")
+	public static double overclockerPower = 0.75;
+
+	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage upgrade extra power")
+	public static double energyStoragePower = 40000;
 
 	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range" };
 
@@ -121,8 +134,8 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 			ItemStack stack) {
 
 		if (stack.getItemDamage() == 0) {
-			handler.addSpeedMulti(0.25);
-			handler.addPowerMulti(0.75);
+			handler.addSpeedMulti(overclockerSpeed);
+			handler.addPowerMulti(overclockerPower);
 			if(machineBase instanceof TilePowerAcceptor){
 				TilePowerAcceptor powerAcceptor = (TilePowerAcceptor) machineBase;
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput();
@@ -132,7 +145,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		if (machineBase instanceof TilePowerAcceptor) {
 			if (stack.getItemDamage() == 2) {
 				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
-				acceptor.extraPowerStoage += 40000;
+				acceptor.extraPowerStoage += energyStoragePower;
 			}
 			if (stack.getItemDamage() == 1) {
 				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
