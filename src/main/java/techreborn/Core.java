@@ -174,7 +174,6 @@ public class Core {
 
 	@SubscribeEvent
 	public void LoadPackets(RegisterPacketEvent event) {
-		event.registerPacket(PacketSyncSideConfig.class, Side.SERVER);
 		event.registerPacket(PacketAesu.class, Side.SERVER);
 		event.registerPacket(PacketIdsu.class, Side.SERVER);
 		event.registerPacket(PacketSetRecipe.class, Side.SERVER);

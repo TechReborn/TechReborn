@@ -24,7 +24,6 @@
 
 package techreborn.items;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +46,6 @@ import techreborn.Core;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.client.gui.upgrades.GuiSideConfig;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
@@ -157,12 +155,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
-		if (tile.getWorld().isRemote) {
-			if (stack.getItemDamage() == 4 || stack.getItemDamage() == 5) {
-				//TODO use the full gui handler
-				Minecraft.getMinecraft().displayGuiScreen(new GuiSideConfig(Minecraft.getMinecraft().player, tile, getContainer(Minecraft.getMinecraft().player), slotID));
-			}
-		}
+
 	}
 
 	@SuppressWarnings("deprecation")
