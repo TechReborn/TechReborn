@@ -26,8 +26,12 @@ package techreborn.blocks.cable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.registration.impl.ConfigRegistryFactory;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 public enum EnumCableType implements IStringSerializable {
 	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.MEDIUM),
@@ -41,8 +45,10 @@ public enum EnumCableType implements IStringSerializable {
 
 	public String textureName = "minecraft:blocks/iron_block";
 	public int transferRate = 128;
+	public int defaultTransferRate = 128;
 	public double cableThickness = 3.0;
 	public boolean canKill = false;
+	public boolean defaultCanKill = false;
 	public EnumPowerTier tier;
 	private String friendlyName;
 
@@ -51,8 +57,10 @@ public enum EnumCableType implements IStringSerializable {
 		this.friendlyName = friendlyName;
 		this.textureName = textureName;
 		this.transferRate = transferRate;
+		this.defaultTransferRate = transferRate;
 		this.cableThickness = cableThickness / 2;
 		this.canKill = canKill;
+		this.defaultCanKill = canKill;
 		this.tier = tier;
 	}
 
@@ -63,5 +71,14 @@ public enum EnumCableType implements IStringSerializable {
 
 	public ItemStack getStack() {
 		return new ItemStack(ModBlocks.CABLE, 1, this.ordinal());
+	}
+
+	@SubscribeEvent
+	public static void handleConfig(ConfigRegistryFactory.RebornRegistryEvent event){
+		Configuration config = event.getConfiguration(ModInfo.MOD_ID, "misc");
+		for(EnumCableType cableType : values()){
+			cableType.transferRate = config.getInt(cableType.friendlyName + "_transfer_rate", "cable", cableType.defaultTransferRate, 0, Integer.MAX_VALUE, "Cable transfer rate");
+			cableType.canKill = config.getBoolean(cableType.friendlyName + "_do_damage", "cable", cableType.defaultCanKill,  "Set to true to allow cable to do damge to enties that come in contact with it");
+		}
 	}
 }
