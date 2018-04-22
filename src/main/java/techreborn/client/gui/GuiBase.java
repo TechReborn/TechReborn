@@ -150,6 +150,7 @@ public class GuiBase extends GuiContainer {
 	@SideOnly(Side.CLIENT)
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		this.buttonList.clear();
 		drawTitle();
 		if(showSlotConfig){
 			GuiSlotConfiguration.draw(this, mouseX, mouseY);
@@ -199,8 +200,6 @@ public class GuiBase extends GuiContainer {
 	}
 
 	public void addPowerButton(int x, int y, int id, Layer layer) {
-		if (id == 0)
-			buttonList.clear();
 		int factorX = 0;
 		int factorY = 0;
 		if (layer == Layer.BACKGROUND) {

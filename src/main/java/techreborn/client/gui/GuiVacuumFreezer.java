@@ -88,8 +88,6 @@ public class GuiVacuumFreezer extends GuiBase {
 	}
 
 	public void addHologramButton(int x, int y, int id, Layer layer) {
-		if (id == 0)
-			buttonList.clear();
 		int factorX = 0;
 		int factorY = 0;
 		if (layer == Layer.BACKGROUND) {
