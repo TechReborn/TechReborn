@@ -110,6 +110,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(stack, world, tooltip, flag);
