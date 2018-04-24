@@ -30,7 +30,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.capabilities.Capability;
@@ -54,124 +53,20 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	public int power = 0;
 	private int transferRate = 0;
 	private EnumCableType cableType = null;
+	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
 	
-	@Override
-	public void update() {
-		if (world.isRemote) {
-			return;
-		}
-		
-		if (this.cableType == null ){
-			this.cableType = getCableType();
-			this.transferRate = this.cableType.transferRate * RebornCoreConfig.euPerFU; 
-		}
-		
-		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-		ArrayList<TileCable> cables = new ArrayList<TileCable>();
-		
-		for (EnumFacing face : EnumFacing.VALUES) {
-			BlockPos offPos = getPos().offset(face);
-			TileEntity tile = getWorld().getTileEntity(offPos);
-
-			if (tile == null) {
-				continue;
-			} else if (tile instanceof TileCable) {
-				TileCable cable = (TileCable) tile;
-				if (power > cable.power) {
-					cables.add(cable);
-				}
-			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-				if (energyTile != null && energyTile.canReceive()){
-					acceptors.add(energyTile);
-				}
-				
-			}
-		}
-		
-		if (cables.size() > 0){
-			int drain  = Math.min(power, transferRate);
-			int energyShare = drain / cables.size();
-			int remainingEnergy = drain;
-			
-			if (energyShare > 0) {
-				for (TileCable cable : cables) {
-					// Push energy to connected cables
-					int move = cable.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
-					if (move > 0) {
-						remainingEnergy -= move;
-					}
-				}
-				extractEnergy(drain - remainingEnergy, false);
-			}
-		}
-		
-		if (acceptors.size() > 0){
-			int drain = Math.min(power, transferRate);
-			int energyShare = drain / acceptors.size();
-			int remainingEnergy = drain;
-			
-			if (energyShare > 0) {
-				for (IEnergyStorage tile : acceptors){
-					// Push energy to connected tile acceptors
-					int move = tile.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
-					if (move > 0) {
-						remainingEnergy -= move;
-					}
-				}
-				extractEnergy(drain - remainingEnergy, false);
-			}
-		}
-	}
-
 	private EnumCableType getCableType() {
 		return world.getBlockState(pos).getValue(BlockCable.TYPE);
 	}
-
-	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate) {
-		if (!canReceive()) {
-			return 0;
+	
+	public boolean canReceiveFromFace(EnumFacing face) {
+		if (sendingFace.contains(face)) {
+			return false;
 		}
-
-		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
-		if (!simulate)
-			power += energyReceived;
-		return energyReceived;
-	}
-
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate) {
-		if (!canExtract()) {
-			return 0;
-		}
-
-		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
-		if (!simulate)
-			power -= energyExtracted;
-		return energyExtracted;
-	}
-
-	@Override
-	public int getEnergyStored() {
-		return this.power;
-	}
-
-	@Override
-	public int getMaxEnergyStored() {
-		return this.transferRate * 6;
-	}
-
-	@Override
-	public boolean canExtract() {
 		return true;
 	}
-
-	@Override
-	public boolean canReceive() {
-		return true;
-	}
-
+	
+	// TileEntity
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY) {
@@ -233,7 +128,122 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
         }
         return compound;
     }
+	
+	// ITickable
+	@Override
+	public void update() {
+		if (world.isRemote) {
+			return;
+		}
+		
+		if (this.cableType == null ){
+			this.cableType = getCableType();
+			this.transferRate = this.cableType.transferRate * RebornCoreConfig.euPerFU; 
+		}
+		
+		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
+		ArrayList<TileCable> cables = new ArrayList<TileCable>();
+		
+		for (EnumFacing face : EnumFacing.VALUES) {
+			TileEntity tile = world.getTileEntity(pos.offset(face));
 
+			if (tile == null) {
+				continue;
+			} else if (tile instanceof TileCable) {
+				TileCable cable = (TileCable) tile;
+				if (power > cable.power && cable.canReceiveFromFace(face.getOpposite())) {
+					cables.add(cable);
+					sendingFace.add(face);
+				}
+			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
+				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+				if (energyTile != null && energyTile.canReceive()){
+					acceptors.add(energyTile);
+				}
+			}
+		}
+		
+		if (cables.size() > 0){
+			int drain  = Math.min(power, transferRate);
+			int energyShare = drain / cables.size();
+			int remainingEnergy = drain;
+			
+			if (energyShare > 0) {
+				for (TileCable cable : cables) {
+					// Push energy to connected cables
+					int move = cable.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
+					if (move > 0) {
+						remainingEnergy -= move;
+					}
+				}
+				extractEnergy(drain - remainingEnergy, false);
+			}
+		}
+		
+		if (acceptors.size() > 0){
+			int drain = Math.min(power, transferRate);
+			int energyShare = drain / acceptors.size();
+			int remainingEnergy = drain;
+			
+			if (energyShare > 0) {
+				for (IEnergyStorage tile : acceptors){
+					// Push energy to connected tile acceptors
+					int move = tile.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
+					if (move > 0) {
+						remainingEnergy -= move;
+					}
+				}
+				extractEnergy(drain - remainingEnergy, false);
+			}
+		}
+	}
+
+	// IEnergyStorage
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		if (!canReceive()) {
+			return 0;
+		}
+
+		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
+		if (!simulate)
+			power += energyReceived;
+		return energyReceived;
+	}
+
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		if (!canExtract()) {
+			return 0;
+		}
+
+		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
+		if (!simulate)
+			power -= energyExtracted;
+		return energyExtracted;
+	}
+
+	@Override
+	public int getEnergyStored() {
+		return this.power;
+	}
+
+	@Override
+	public int getMaxEnergyStored() {
+		return this.transferRate * 6;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return true;
+	}
+
+	@Override
+	public boolean canReceive() {
+		return true;
+	}
+
+    // IListInfoProvider
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 		if (isRealTile) {
