@@ -41,7 +41,7 @@ public class FusionReactorRecipes extends RecipeMethods {
 					ItemCells.getCellByName("heliumplasma"), 40000000, 32768, 1024));
 			FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
-					ItemCells.getCellByName("helium3"), 60000000, 32768, 2048));
+					ItemCells.getCellByName("helium3"), 60000000, 16384, 2048));
 			FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"),
 					ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
