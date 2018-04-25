@@ -143,6 +143,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 		
 		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
 		ArrayList<TileCable> cables = new ArrayList<TileCable>();
+		sendingFace.clear();
 		
 		for (EnumFacing face : EnumFacing.VALUES) {
 			TileEntity tile = world.getTileEntity(pos.offset(face));
