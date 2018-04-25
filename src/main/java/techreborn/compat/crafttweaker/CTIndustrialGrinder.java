@@ -50,6 +50,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param input2 Second recipe input. Not used )
 	 *  @param ticktime Amount of ticks to complete crafting
 	 *  @param euTick Amount of EU per tick consumed during crafting
+	 *  @return RecipeSettings RecipeSettings for this recipe
 	 */
 	@ZenMethod
 	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, int ticktime, int euTick")
@@ -68,6 +69,7 @@ public class CTIndustrialGrinder extends CTGeneric {
 	 *  @param fluid LiquidStack Liquid used for grinding
 	 *  @param ticktime Amount of ticks to complete crafting
 	 *  @param euTick Amount of EU per tick consumed during crafting
+	 *  @return RecipeSettings RecipeSettings for this recipe
 	 */
 	@ZenMethod
 	@ZenDocumentation("IItemStack output1, IItemStack output2, IItemStack output3, IItemStack output4, IIngredient input1, IIngredient input2, ILiquidStack fluid, int ticktime, int euTick")

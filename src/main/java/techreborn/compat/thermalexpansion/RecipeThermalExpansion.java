@@ -37,7 +37,6 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeList;
 import techreborn.api.generator.EFluidGenerator;
-import techreborn.api.generator.FluidGeneratorRecipeList;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModItems;
