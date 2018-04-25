@@ -80,6 +80,7 @@ public class RecipeThermalExpansion implements ICompatModule {
 		ThermalExpansionHelper.addSmelterRecipe(4000, new ItemStack(Items.IRON_INGOT, 2), new ItemStack(Blocks.SAND), RecipeMethods.getMaterial("refined_iron", 2, RecipeMethods.Type.INGOT), ItemMaterial.crystalSlag.copy(), 25);
 
 		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, TFFluids.fluidPyrotheum, 80);
+		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, TFFluids.fluidCreosote, 40);
 		
 		FluidReplicatorRecipeList.addRecipe(new FluidReplicatorRecipe(4, TFFluids.fluidCoal, 100, 20));
 	}
