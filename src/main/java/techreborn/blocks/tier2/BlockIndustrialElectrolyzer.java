@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.advanced_machine;
+package techreborn.blocks.tier2;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,11 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
+import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
 
-public class BlockIndustrialBlastFurnace extends BlockMachineBase {
+public class BlockIndustrialElectrolyzer extends BlockMachineBase {
 
-	public BlockIndustrialBlastFurnace() {
+	public BlockIndustrialElectrolyzer() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
@@ -45,16 +45,11 @@ public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileIndustrialBlastFurnace();
+		return new TileIndustrialElectrolyzer();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.BLAST_FURNACE;
-	}
-
-	@Override
-	public boolean isAdvanced() {
-		return true;
+		return EGui.INDUSTRIAL_ELECTROLYZER;
 	}
 }

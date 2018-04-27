@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.advanced_machine;
+package techreborn.blocks.tier3;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,28 +33,24 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.multiblock.TileFluidReplicator;
+import techreborn.tiles.TileQuantumTank;
 
-public class BlockFluidReplicator extends BlockMachineBase {
-	
-	public BlockFluidReplicator() {
+public class BlockQuantumTank extends BlockMachineBase {
+
+	public BlockQuantumTank() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setHardness(2.0F);
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileFluidReplicator();
+		return new TileQuantumTank();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.FLUID_REPLICATOR;
-	}
-	
-	@Override
-	public boolean isAdvanced() {
-		return true;
+		return EGui.QUANTUM_TANK;
 	}
 }

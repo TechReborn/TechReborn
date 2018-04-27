@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.machine;
+package techreborn.blocks.tier2;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,24 +33,23 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileScrapboxinator;
+import techreborn.tiles.tier1.TileChemicalReactor;
 
-public class BlockScrapboxinator extends BlockMachineBase {
+public class BlockChemicalReactor extends BlockMachineBase {
 
-	public BlockScrapboxinator() {
+	public BlockChemicalReactor() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileScrapboxinator();
+		return new TileChemicalReactor();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.SCRAPBOXINATOR;
+		return EGui.CHEMICAL_REACTOR;
 	}
-
 }

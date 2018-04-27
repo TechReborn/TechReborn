@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.machine;
+package techreborn.blocks.tier2;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

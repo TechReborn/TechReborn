@@ -22,10 +22,8 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.tier2;
 
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
@@ -35,39 +33,23 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileAutoCraftingTable;
+import techreborn.tiles.TileChargeOMat;
 
-public class BlockAutoCraftingTable extends BlockMachineBase {
+public class BlockChargeOMat extends BlockMachineBase {
 
-	public BlockAutoCraftingTable() {
-		super(true);
-		setUnlocalizedName("techreborn.electriccraftingtable");
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState();
+	public BlockChargeOMat() {
+		super();
+		this.setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileAutoCraftingTable();
+		return new TileChargeOMat();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.AUTO_CRAFTING_TABLE;
+		return EGui.CHARGEBENCH;
 	}
 }

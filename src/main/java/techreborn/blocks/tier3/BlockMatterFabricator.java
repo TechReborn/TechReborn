@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.advanced_machine;
+package techreborn.blocks.tier3;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,23 +33,28 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.multiblock.TileIndustrialGrinder;
+import techreborn.tiles.TileMatterFabricator;
 
-public class BlockIndustrialGrinder extends BlockMachineBase {
+public class BlockMatterFabricator extends BlockMachineBase {
 
-	public BlockIndustrialGrinder() {
+	public BlockMatterFabricator() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileIndustrialGrinder();
+		return new TileMatterFabricator();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.INDUSTRIAL_GRINDER;
+		return EGui.MATTER_FABRICATOR;
+	}
+
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

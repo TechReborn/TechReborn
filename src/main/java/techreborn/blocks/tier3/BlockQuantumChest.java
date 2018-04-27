@@ -22,34 +22,68 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.advanced_machine;
+package techreborn.blocks.tier3;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
+import techreborn.tiles.TileQuantumChest;
+import techreborn.tiles.TileTechStorageBase;
 
-public class BlockIndustrialElectrolyzer extends BlockMachineBase {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-	public BlockIndustrialElectrolyzer() {
+public class BlockQuantumChest extends BlockMachineBase {
+
+	public BlockQuantumChest() {
 		super();
+		this.setUnlocalizedName("techreborn.quantumChest");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+		this.setHardness(2.0F);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
+	}
+
+	@Override
+	protected void dropInventory(final World world, final BlockPos pos) {
+		final TileEntity tileEntity = world.getTileEntity(pos);
+		if (!(tileEntity instanceof TileTechStorageBase)) {
+			return;
+		}
+		final TileTechStorageBase inventory = (TileTechStorageBase) tileEntity;
+		final List<ItemStack> items = new ArrayList<>();
+		items.add(inventory.getDropWithNBT());
+		WorldUtils.dropItems(items, world, pos);
+	}
+
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		return Collections.emptyList();
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileIndustrialElectrolyzer();
+		return new TileQuantumChest();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.INDUSTRIAL_ELECTROLYZER;
+		return EGui.QUANTUM_CHEST;
 	}
 }

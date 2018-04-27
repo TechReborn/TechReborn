@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.tier1;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.BlockStateContainer;

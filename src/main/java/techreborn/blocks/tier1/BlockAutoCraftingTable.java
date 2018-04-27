@@ -22,62 +22,52 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.tier1;
 
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileTechStorageBase;
+import techreborn.tiles.TileAutoCraftingTable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+public class BlockAutoCraftingTable extends BlockMachineBase {
 
-public class BlockDigitalChest extends BlockMachineBase {
-
-	public BlockDigitalChest() {
-		super();
-		this.setUnlocalizedName("techreborn.digitalChest");
-		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+	public BlockAutoCraftingTable() {
+		super(true);
+		setUnlocalizedName("techreborn.electriccraftingtable");
+		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override
-	protected void dropInventory(final World world, final BlockPos pos) {
-		final TileEntity tileEntity = world.getTileEntity(pos);
-		if (!(tileEntity instanceof TileTechStorageBase)) {
-			return;
-		}
-		final TileTechStorageBase inventory = (TileTechStorageBase) tileEntity;
-		final List<ItemStack> items = new ArrayList<>();
-		items.add(inventory.getDropWithNBT());
-		WorldUtils.dropItems(items, world, pos);
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this);
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		return Collections.emptyList();
+	public int getMetaFromState(IBlockState state) {
+		return 0;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState();
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileDigitalChest();
+		return new TileAutoCraftingTable();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.DIGITAL_CHEST;
+		return EGui.AUTO_CRAFTING_TABLE;
 	}
 }

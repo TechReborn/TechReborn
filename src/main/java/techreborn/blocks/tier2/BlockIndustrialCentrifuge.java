@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.advanced_machine;
+package techreborn.blocks.tier2;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,28 +33,23 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.multiblock.TileDistillationTower;
+import techreborn.tiles.TileIndustrialCentrifuge;
 
-public class BlockDistillationTower extends BlockMachineBase {
+public class BlockIndustrialCentrifuge extends BlockMachineBase {
 
-	public BlockDistillationTower() {
+	public BlockIndustrialCentrifuge() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileDistillationTower();
+		return new TileIndustrialCentrifuge();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.DISTILLATION_TOWER;
-	}
-	
-	@Override
-	public boolean isAdvanced() {
-		return true;
+		return EGui.CENTRIFUGE;
 	}
 }

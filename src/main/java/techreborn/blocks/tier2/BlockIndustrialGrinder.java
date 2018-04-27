@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.machine;
+package techreborn.blocks.tier2;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,23 +33,23 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileAssemblingMachine;
+import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
-public class BlockAssemblingMachine extends BlockMachineBase {
+public class BlockIndustrialGrinder extends BlockMachineBase {
 
-	public BlockAssemblingMachine() {
+	public BlockIndustrialGrinder() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileAssemblingMachine();
+		return new TileIndustrialGrinder();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.ASSEMBLING_MACHINE;
+		return EGui.INDUSTRIAL_GRINDER;
 	}
 }

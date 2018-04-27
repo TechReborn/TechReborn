@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.machine;
+package techreborn.blocks.tier1;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -33,23 +33,24 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileChargeOMat;
+import techreborn.tiles.tier1.TileScrapboxinator;
 
-public class BlockChargeOMat extends BlockMachineBase {
+public class BlockScrapboxinator extends BlockMachineBase {
 
-	public BlockChargeOMat() {
+	public BlockScrapboxinator() {
 		super();
 		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileChargeOMat();
+		return new TileScrapboxinator();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.CHARGEBENCH;
+		return EGui.SCRAPBOXINATOR;
 	}
+
 }
