@@ -44,7 +44,7 @@ import reborncore.common.network.NetworkManager;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.TRBuilder;
 import techreborn.packets.PacketSetRecipe;
-import techreborn.tiles.TileAutoCraftingTable;
+import techreborn.tiles.tier1.TileAutoCraftingTable;
 
 import java.io.IOException;
 import java.util.ArrayList;

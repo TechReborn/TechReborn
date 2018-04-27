@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

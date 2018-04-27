@@ -29,7 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
-import techreborn.tiles.TileRollingMachine;
+import techreborn.tiles.tier1.TileRollingMachine;
 
 import java.io.IOException;
 

@@ -60,7 +60,7 @@ import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TilePlayerDectector;
+import techreborn.tiles.tier1.TilePlayerDectector;
 
 import java.util.List;
 import java.util.Random;
