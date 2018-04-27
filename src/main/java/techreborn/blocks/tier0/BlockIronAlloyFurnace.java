@@ -51,7 +51,7 @@ public class BlockIronAlloyFurnace extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileIronAlloyFurnace();
 	}
 

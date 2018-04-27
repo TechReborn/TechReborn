@@ -42,7 +42,6 @@ public class BlockWindMill extends BlockMachineBase {
 	public BlockWindMill() {
 		super(false);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setHardness(2.0F);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
@@ -50,7 +49,6 @@ public class BlockWindMill extends BlockMachineBase {
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileWindMill();
 	}
-
 
 	@Override
 	public IMachineGuiHandler getGui() {

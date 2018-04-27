@@ -44,7 +44,7 @@ public class BlockFluidReplicator extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
+	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileFluidReplicator();
 	}
 

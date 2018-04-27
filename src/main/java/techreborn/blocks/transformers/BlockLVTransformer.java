@@ -38,7 +38,7 @@ public class BlockLVTransformer extends BlockTransformer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileLVTransformer();
 	}
 }

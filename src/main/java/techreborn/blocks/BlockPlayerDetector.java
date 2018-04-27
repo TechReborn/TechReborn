@@ -100,7 +100,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TilePlayerDectector();
 	}
 

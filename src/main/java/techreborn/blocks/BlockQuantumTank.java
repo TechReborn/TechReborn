@@ -45,7 +45,7 @@ public class BlockQuantumTank extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World p_149915_1_, final int p_149915_2_) {
+	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileQuantumTank();
 	}
 

@@ -43,7 +43,7 @@ public class BlockLightningRod extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldObj, int meta) {
+	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileLightningRod();
 	}
 
