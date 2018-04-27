@@ -26,7 +26,7 @@ package techreborn.compat.crafttweaker;
 
 import java.util.Optional;
 
-import net.minecraftforge.fluids.Fluid;
+import crafttweaker.api.liquid.ILiquidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
@@ -41,16 +41,18 @@ public class CTFluidReplicator {
 
 	@ZenMethod
 	@ZenDocumentation("int input, ILiquidStack output, int ticks, int euPerTick")
-	public static void addRecipe(int input, Fluid output, int ticks, int euPerTick) {
-		if(input > 0 || ticks > 0 || euPerTick > 0){
-			FluidReplicatorRecipeList.addRecipe(new FluidReplicatorRecipe(input, output, ticks, euPerTick));
+	public static void addRecipe(int input, ILiquidStack output, int ticks, int euPerTick) {
+		if (input > 0 || ticks > 0 || euPerTick > 0) {
+			FluidReplicatorRecipeList.addRecipe(new FluidReplicatorRecipe(input,
+					CraftTweakerCompat.toFluidStack(output).getFluid(), ticks, euPerTick));
 		}
 	}
-	
+
 	@ZenMethod
 	@ZenDocumentation("ILiquidStack fluid")
-	public static void removeRecipe(Fluid output) {
-		Optional<FluidReplicatorRecipe> recipe = FluidReplicatorRecipeList.getRecipeForFluid(output);
+	public static void removeRecipe(ILiquidStack output) {
+		Optional<FluidReplicatorRecipe> recipe = FluidReplicatorRecipeList
+				.getRecipeForFluid(CraftTweakerCompat.toFluidStack(output).getFluid());
 		if (recipe.isPresent()) {
 			FluidReplicatorRecipeList.removeRecipe(recipe.get());
 		}
