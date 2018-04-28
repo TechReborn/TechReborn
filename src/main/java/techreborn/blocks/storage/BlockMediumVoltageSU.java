@@ -42,6 +42,7 @@ import java.util.List;
  * Created by modmuss50 on 14/03/2016.
  */
 public class BlockMediumVoltageSU extends BlockEnergyStorage {
+	
 	public BlockMediumVoltageSU() {
 		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU.ordinal());
 	}

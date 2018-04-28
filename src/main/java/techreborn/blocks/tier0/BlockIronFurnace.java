@@ -51,7 +51,7 @@ public class BlockIronFurnace extends BlockMachineBase {
 
 	public BlockIronFurnace() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier0_machines"));
 	}
 

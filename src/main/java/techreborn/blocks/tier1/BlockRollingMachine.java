@@ -39,7 +39,7 @@ public class BlockRollingMachine extends BlockMachineBase {
 
 	public BlockRollingMachine() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 

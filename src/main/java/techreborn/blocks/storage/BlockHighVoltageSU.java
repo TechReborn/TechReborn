@@ -42,9 +42,9 @@ import java.util.List;
  * Created by modmuss50 on 14/03/2016.
  */
 public class BlockHighVoltageSU extends BlockEnergyStorage {
+	
 	public BlockHighVoltageSU() {
 		super("high_voltage_su", EGui.HIGH_VOLTAGE_SU.ordinal());
-		this.setHardness(2f);
 	}
 
 	@Override

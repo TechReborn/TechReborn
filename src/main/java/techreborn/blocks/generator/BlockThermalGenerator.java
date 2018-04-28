@@ -39,7 +39,7 @@ public class BlockThermalGenerator extends BlockMachineBase {
 
 	public BlockThermalGenerator() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 

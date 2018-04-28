@@ -39,7 +39,7 @@ public class BlockGasTurbine extends BlockMachineBase {
 
 	public BlockGasTurbine() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
@@ -52,5 +52,4 @@ public class BlockGasTurbine extends BlockMachineBase {
 	public IMachineGuiHandler getGui() {
 		return EGui.GAS_TURBINE;
 	}
-
 }

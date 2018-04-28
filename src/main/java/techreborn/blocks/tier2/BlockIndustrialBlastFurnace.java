@@ -39,7 +39,7 @@ public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 
 	public BlockIndustrialBlastFurnace() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 

@@ -52,4 +52,9 @@ public class BlockVacuumFreezer extends BlockMachineBase {
 	public IMachineGuiHandler getGui() {
 		return EGui.VACUUM_FREEZER;
 	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
+	}
 }

@@ -40,12 +40,9 @@ import techreborn.tiles.generator.TileDieselGenerator;
  */
 public class BlockDieselGenerator extends BlockMachineBase {
 
-	/**
-	 * 
-	 */
 	public BlockDieselGenerator() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 

@@ -74,64 +74,18 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public BlockPlayerDetector() {
 		super(true);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setHardness(2f);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "all"));
 		for (int i = 0; i < types.length; i++) {
 			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
 		}
 	}
 
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(ModBlocks.PLAYER_DETECTOR, 1, typeNamesList.indexOf(state.getValue(TYPE)));
-	}
-
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(this);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		for (int meta = 0; meta < types.length; meta++) {
-			list.add(new ItemStack(this, 1, meta));
-		}
-	}
-
+	// BlockMachineBase
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TilePlayerDectector();
 	}
-
-	@Override
-	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvidePower(IBlockState state) {
-		return true;
-	}
-
-	@Override
-	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-		TileEntity entity = blockAccess.getTileEntity(pos);
-		if (entity instanceof TilePlayerDectector) {
-			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
-		}
-		return 0;
-	}
-
-	@Override
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-		TileEntity entity = blockAccess.getTileEntity(pos);
-		if (entity instanceof TilePlayerDectector) {
-			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
-		}
-		return 0;
-	}
-
+	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 	                            ItemStack stack) {
@@ -141,7 +95,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 			((TilePlayerDectector) tile).owenerUdid = placer.getUniqueID().toString();
 		}
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -194,7 +148,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		}
 		return true;
 	}
-
+	
 	@Override
 	protected BlockStateContainer createBlockState() {
 		TYPE = new PropertyString("type", types);
@@ -217,5 +171,52 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return null;
+	}
+	
+	// Block
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(ModBlocks.PLAYER_DETECTOR, 1, typeNamesList.indexOf(state.getValue(TYPE)));
+	}
+
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return Item.getItemFromBlock(this);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
+		for (int meta = 0; meta < types.length; meta++) {
+			list.add(new ItemStack(this, 1, meta));
+		}
+	}
+
+	@Override
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+
+	@Override
+	public boolean canProvidePower(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		TileEntity entity = blockAccess.getTileEntity(pos);
+		if (entity instanceof TilePlayerDectector) {
+			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
+		}
+		return 0;
+	}
+
+	@Override
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		TileEntity entity = blockAccess.getTileEntity(pos);
+		if (entity instanceof TilePlayerDectector) {
+			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
+		}
+		return 0;
 	}
 }

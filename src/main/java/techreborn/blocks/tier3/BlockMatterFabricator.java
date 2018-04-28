@@ -39,7 +39,7 @@ public class BlockMatterFabricator extends BlockMachineBase {
 
 	public BlockMatterFabricator() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 

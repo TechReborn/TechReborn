@@ -30,6 +30,7 @@ import techreborn.client.EGui;
 import techreborn.tiles.lesu.TileLapotronicSU;
 
 public class BlockLapotronicSU extends BlockEnergyStorage {
+	
 	public BlockLapotronicSU() {
 		super("LESU", EGui.LESU.ordinal());
 	}

@@ -40,9 +40,6 @@ import techreborn.tiles.generator.TilePlasmaGenerator;
  */
 public class BlockPlasmaGenerator extends BlockMachineBase {
 
-	/**
-	 * 
-	 */
 	public BlockPlasmaGenerator() {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);

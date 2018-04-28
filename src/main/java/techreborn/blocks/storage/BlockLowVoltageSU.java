@@ -33,6 +33,7 @@ import techreborn.tiles.storage.TileLowVoltageSU;
  * Created by modmuss50 on 14/03/2016.
  */
 public class BlockLowVoltageSU extends BlockEnergyStorage {
+	
 	public BlockLowVoltageSU() {
 		super("low_voltage_su", EGui.LOW_VOLTAGE_SU.ordinal());
 	}

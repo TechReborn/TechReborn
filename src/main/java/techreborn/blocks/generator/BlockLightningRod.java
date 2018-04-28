@@ -47,7 +47,6 @@ public class BlockLightningRod extends BlockMachineBase {
 		return new TileLightningRod();
 	}
 
-
 	@Override
 	public IMachineGuiHandler getGui() {
 		return null;

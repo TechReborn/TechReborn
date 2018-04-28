@@ -39,7 +39,7 @@ public class BlockAlloySmelter extends BlockMachineBase {
 
 	public BlockAlloySmelter() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 

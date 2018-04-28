@@ -50,7 +50,7 @@ public class BlockDigitalChest extends BlockMachineBase {
 	public BlockDigitalChest() {
 		super();
 		this.setUnlocalizedName("techreborn.digitalChest");
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
@@ -79,5 +79,10 @@ public class BlockDigitalChest extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return EGui.DIGITAL_CHEST;
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

@@ -39,7 +39,7 @@ public class BlockScrapboxinator extends BlockMachineBase {
 
 	public BlockScrapboxinator() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
@@ -52,5 +52,4 @@ public class BlockScrapboxinator extends BlockMachineBase {
 	public IMachineGuiHandler getGui() {
 		return EGui.SCRAPBOXINATOR;
 	}
-
 }

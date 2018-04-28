@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockAdjustableSU extends BlockEnergyStorage {
+	
 	public BlockAdjustableSU() {
 		super("AESU", EGui.AESU.ordinal());
 	}

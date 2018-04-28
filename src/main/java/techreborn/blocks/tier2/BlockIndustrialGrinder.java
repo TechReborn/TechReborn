@@ -39,7 +39,7 @@ public class BlockIndustrialGrinder extends BlockMachineBase {
 
 	public BlockIndustrialGrinder() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
@@ -51,5 +51,10 @@ public class BlockIndustrialGrinder extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return EGui.INDUSTRIAL_GRINDER;
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

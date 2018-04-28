@@ -39,8 +39,7 @@ public class BlockQuantumTank extends BlockMachineBase {
 
 	public BlockQuantumTank() {
 		super();
-		this.setHardness(2.0F);
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
@@ -52,5 +51,10 @@ public class BlockQuantumTank extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return EGui.QUANTUM_TANK;
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

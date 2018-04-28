@@ -51,7 +51,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 
 	public BlockFusionControlComputer() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
@@ -103,5 +103,10 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileFusionControlComputer();
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

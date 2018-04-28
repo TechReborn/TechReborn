@@ -39,7 +39,7 @@ public class BlockChunkLoader extends BlockMachineBase {
 
 	public BlockChunkLoader() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
@@ -51,5 +51,10 @@ public class BlockChunkLoader extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return EGui.CHUNK_LOADER;
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

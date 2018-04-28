@@ -35,6 +35,7 @@ import techreborn.client.EGui;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 
 public class BlockInterdimensionalSU extends BlockEnergyStorage {
+	
 	public BlockInterdimensionalSU() {
 		super("IDSU", EGui.IDSU.ordinal());
 	}

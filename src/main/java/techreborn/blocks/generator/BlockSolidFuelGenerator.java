@@ -39,7 +39,7 @@ public class BlockSolidFuelGenerator extends BlockMachineBase {
 
 	public BlockSolidFuelGenerator() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 

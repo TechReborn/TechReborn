@@ -56,5 +56,4 @@ public class BlockMagicEnergyAbsorber extends BlockMachineBase {
 	public IMachineGuiHandler getGui() {
 		return null;
 	}
-
 }

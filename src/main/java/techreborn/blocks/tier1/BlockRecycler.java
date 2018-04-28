@@ -39,7 +39,7 @@ public class BlockRecycler extends BlockMachineBase {
 
 	public BlockRecycler() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
@@ -51,6 +51,5 @@ public class BlockRecycler extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return EGui.RECYCLER;
-	}
-	
+	}	
 }

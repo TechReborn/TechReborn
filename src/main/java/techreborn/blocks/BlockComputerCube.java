@@ -48,7 +48,7 @@ public class BlockComputerCube extends BlockMachineBase {
 	public BlockComputerCube() {
 		super();
 		this.setUnlocalizedName("techreborn.computercube");
-		this.setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
