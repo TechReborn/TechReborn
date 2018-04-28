@@ -39,7 +39,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import org.lwjgl.opengl.GL11;
 import reborncore.common.network.NetworkManager;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.TRBuilder;
@@ -77,14 +76,14 @@ public class GuiAutoCrafting extends GuiBase {
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
 		if (stack != EMPTY) {
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 			RenderHelper.enableGUIStandardItemLighting();
 
 			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
 
-			GL11.glDisable(GL11.GL_LIGHTING);
+			GlStateManager.disableLighting();
 		}
 	}
 
