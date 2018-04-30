@@ -210,6 +210,10 @@ public class DynamicCell extends Item {
 
 		@Override
 		public int fill(FluidStack resource, boolean doFill) {
+			//Done to allow mods that try to move max int of fluid, allows the cells to work with thermal tanks.
+			if(resource.amount > capacity){
+				resource.amount = capacity;
+			}
 			if (resource.amount != capacity)
 				return 0;
 			return super.fill(resource, doFill);
@@ -217,6 +221,10 @@ public class DynamicCell extends Item {
 
 		@Override
 		public FluidStack drain(int maxDrain, boolean doDrain) {
+			//Done to allow mods that try to move max int of fluid, allows the cells to work with thermal tanks.
+			if(maxDrain > capacity){
+				maxDrain = capacity;
+			}
 			if (maxDrain != capacity)
 				return null;
 			return super.drain(maxDrain, doDrain);
