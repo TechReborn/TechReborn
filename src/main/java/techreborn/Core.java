@@ -26,6 +26,7 @@ package techreborn;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
@@ -36,6 +37,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
@@ -61,6 +63,9 @@ import techreborn.proxies.CommonProxy;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.OilLakeGenerator;
 import techreborn.world.TechRebornWorldGen;
+import techreborn.world.village.ModLootTables;
+import techreborn.world.village.VillageComponentRubberPlantaion;
+import techreborn.world.village.VillagePlantaionHandler;
 
 import java.io.File;
 
@@ -144,6 +149,10 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
+		//Village stuff
+		VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
+		MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(ModInfo.MOD_ID, "rubberplantation").toString());
+		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());

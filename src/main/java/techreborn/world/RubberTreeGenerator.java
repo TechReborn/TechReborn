@@ -130,7 +130,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 								|| block.canBeReplacedByLeaves(state1, world,
 								new BlockPos(xOffset, yOffset, zOffset)))) {
 								this.setBlockAndNotifyAdequately(world, new BlockPos(xOffset, yOffset, zOffset),
-									ModBlocks.RUBBER_LEAVES.getDefaultState());
+									ModBlocks.RUBBER_LEAVES.getDefaultState().withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
 								hasPlacedBlock = true;
 							}
 						}
@@ -164,7 +164,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 					for (int i = 0; i < Core.worldGen.config.rubberTreeConfig.spireHeight; i++) {
 						BlockPos spikePos = topLogPos.up(i);
 						this.setBlockAndNotifyAdequately(world, spikePos, ModBlocks.RUBBER_LEAVES.getDefaultState()
-							.withProperty(BlockRubberLeaves.DECAYABLE, true));
+							.withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
 					}
 				}
 			}
