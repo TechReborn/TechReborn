@@ -159,7 +159,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 				return false;
 			}
 		}
-		return true;
+		return super.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	// IContainerProvider
