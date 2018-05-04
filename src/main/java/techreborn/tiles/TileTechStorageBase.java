@@ -143,6 +143,8 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		if (!this.storedItem.isEmpty()) {
 			this.storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
 		}
+
+		inventory.readFromNBT(tagCompound);
 	}
 
 	@Override
@@ -163,7 +165,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		} else {
 			tagCompound.setInteger("storedQuantity", 0);
 		}
-
+		inventory.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 

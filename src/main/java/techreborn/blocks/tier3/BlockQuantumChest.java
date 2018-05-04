@@ -27,6 +27,7 @@ package techreborn.blocks.tier3;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -59,8 +60,7 @@ public class BlockQuantumChest extends BlockMachineBase {
 		return true;
 	}
 
-	@Override
-	protected void dropInventory(final World world, final BlockPos pos) {
+	protected void dropChest(final World world, final BlockPos pos) {
 		final TileEntity tileEntity = world.getTileEntity(pos);
 		if (!(tileEntity instanceof TileTechStorageBase)) {
 			return;
@@ -69,6 +69,30 @@ public class BlockQuantumChest extends BlockMachineBase {
 		final List<ItemStack> items = new ArrayList<>();
 		items.add(inventory.getDropWithNBT());
 		WorldUtils.dropItems(items, world, pos);
+	}
+
+	@Override
+	protected void dropInventory(World world, BlockPos pos) {
+
+	}
+
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		final TileEntity tileEntity = world.getTileEntity(pos);
+		if (!(tileEntity instanceof TileTechStorageBase)) {
+			super.getDrops(drops, world, pos, state, fortune);
+		} else {
+			final TileTechStorageBase tileEntity1 = (TileTechStorageBase) tileEntity;
+			drops.add(tileEntity1.getDropWithNBT());
+		}
+	}
+
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		if(worldIn.getTileEntity(pos) != null){
+			dropChest(worldIn, pos);
+		}
+		worldIn.removeTileEntity(pos);
 	}
 
 	@Override
