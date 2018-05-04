@@ -48,10 +48,6 @@ repositories {
 		url "http://maven.blamejared.com/"
 	}
 	maven {
-		// Tesla
-		url 'https://maven.mcmoddev.com/'
-	}
-	maven {
 		// TheOneProbe
 		url "http://maven.tterrag.com/"
 	}
@@ -120,7 +116,6 @@ dependencies {
 		transitive = false
 	}
 	compile "mcp.mobius.waila:Hwyla:+"
-	compile "net.darkhax.tesla:Tesla-1.12:1.0.61:deobf"
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
 	compile name: 'buildcraft', version: '7.99.16', ext: 'jar'
 		
