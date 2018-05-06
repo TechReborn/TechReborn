@@ -93,7 +93,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.2.2641"
+	version = "1.12.2-14.23.3.2678"
 	mappings = "snapshot_20171003"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
@@ -126,6 +126,7 @@ dependencies {
 	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.9.9:universal', withoutOldJEI
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
 	deobfCompile "li.cil.oc:OpenComputers:MC1.12.1-1.7.1+"
+	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
 }
 
 
