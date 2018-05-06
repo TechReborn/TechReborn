@@ -25,6 +25,7 @@
 package techreborn.compat.ic2;
 
 import ic2.api.item.IC2Items;
+import ic2.core.ref.ItemName;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -33,9 +34,12 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.api.recipe.machines.CompressorRecipe;
+import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.init.recipes.RecipeMethods;
 import techreborn.items.ItemParts;
 
 import java.util.ArrayList;
@@ -70,6 +74,12 @@ public class RecipesIC2 implements ICompatModule {
 
 		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "carbon_mesh"),
 			IC2Items.getItem("crafting", "carbon_plate"), 300, 4));
+
+		RecipeHandler.addRecipe(new GrinderRecipe(ItemName.crafting.getItemStack("tin_can"),
+			RecipeMethods.getOre("dustTin", 2), 300, 16));
+
+		RecipeHandler.addRecipe(new ExtractorRecipe(ItemName.filled_tin_can.getItemStack(),
+			ItemName.crafting.getItemStack("tin_can"), 300, 16));
 
 	}
 
