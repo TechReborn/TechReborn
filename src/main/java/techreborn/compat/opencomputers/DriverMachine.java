@@ -88,8 +88,8 @@ public class DriverMachine implements DriverBlock {
 			return getObjects(machine.getMaxOutput());
 		}
 
-		@Callback(value = "canBeUprgaded", getter = true, doc = "Returns true if the machine can be upgraded")
-		public Object[] canBeUprgaded(Context context, Arguments arguments) throws Exception {
+		@Callback(value = "canBeUprgraded", getter = true, doc = "Returns true if the machine can be upgraded")
+		public Object[] canBeUprgraded(Context context, Arguments arguments) throws Exception {
 			return getObjects(machine instanceof IUpgradeable && machine.canBeUpgraded());
 		}
 
