@@ -48,9 +48,9 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 	public static void init() {
 		//Vanilla ores
 		if (oresExist("dustSmallThorium")) {
-			register(getOre("oreCoal"), WATER, 100, 64, getMaterial("coal", 2, Type.DUST), getOre("dustSmallThorium"));
+			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 2), getOre("dustSmallThorium"));
 		} else {
-			register(getOre("oreCoal"), WATER, 100, 64, getMaterial("coal", 2, Type.DUST));
+			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 2));
 		}
 
 		register(getOre("oreIron"), WATER, 100, 64, getMaterial("iron", 2, Type.DUST), getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", 1, Type.DUST));
