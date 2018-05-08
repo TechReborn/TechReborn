@@ -24,66 +24,41 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 import techreborn.tiles.tier1.TileAssemblingMachine;
 
-public class GuiAssemblingMachine extends GuiContainer {
+public class GuiAssemblingMachine extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("techreborn",
-		"textures/gui/assembling_machine.png");
+	TileAssemblingMachine tile;
 
-	TileAssemblingMachine assemblingmachine;
-
-	public GuiAssemblingMachine(final EntityPlayer player, final TileAssemblingMachine assemblingMachine) {
-		super(assemblingMachine.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
-		this.assemblingmachine = assemblingMachine;
+	public GuiAssemblingMachine(final EntityPlayer player, final TileAssemblingMachine tile) {
+		super(player, tile, tile.createContainer(player));
+		this.tile = tile;
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+
+		// Battery slot
+		this.drawSlot(8, 72, layer);
+
+		// Input slots
+		this.drawSlot(55, 35, layer);
+		this.drawSlot(55, 55, layer);
+		
+		this.drawOutputSlot(101, 45, layer);
+
+		this.builder.drawJEIButton(this, 150, 4, layer);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiAssemblingMachine.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		int j = 0;
-
-		j = this.assemblingmachine.getProgressScaled(20);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 86, l + 34, 176, 14, j + 1, 16);
-		}
-
-		j = this.assemblingmachine.getEnergyScaled(12);
-		if (j > 0) {
-			this.drawTexturedModalRect(k + 56, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
-		}
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn:assembly_machine.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
-	}
-
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);		
 	}
 }

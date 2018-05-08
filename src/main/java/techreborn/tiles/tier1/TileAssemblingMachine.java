@@ -56,8 +56,8 @@ public class TileAssemblingMachine extends TileGenericMachine implements IContai
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this).slot(0, 47, 17).slot(1, 65, 17).outputSlot(2, 116, 35).energySlot(3, 56, 53)
+		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
+			.addInventory().tile(this).slot(0, 55, 35).slot(1, 55, 55).outputSlot(2, 101, 45).energySlot(3, 8, 72)
 			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 }

@@ -332,11 +332,11 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiFusionReactor.class, 150, 4, 18, 18, RecipeCategoryUids.FUSION_REACTOR);
 		addRecipeClickArea(GuiRollingMachine.class, 150, 4, 20, 12, RecipeCategoryUids.ROLLING_MACHINE);
 		addRecipeClickArea(GuiFluidReplicator.class, 150, 4, 20, 12, RecipeCategoryUids.FLUID_REPLICATOR);
+		addRecipeClickArea(GuiAssemblingMachine.class, 150, 4, 20, 12, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		
 		//OLD ONES
 		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
 			VanillaRecipeCategoryUid.FUEL);
-		addRecipeClickArea(GuiAssemblingMachine.class, 85, 34, 24, 20, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		addRecipeClickArea(GuiIronFurnace.class, 78, 36, 24, 16, VanillaRecipeCategoryUid.SMELTING,
 			VanillaRecipeCategoryUid.FUEL);
 
