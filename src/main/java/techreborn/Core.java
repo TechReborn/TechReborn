@@ -118,13 +118,13 @@ public class Core {
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
-		//Register ModRecipes
-		ModRecipes.init();
 		logHelper.info("PreInitialization Complete");
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
+		//Register ModRecipes
+		ModRecipes.init();
 		// Registers Chest Loot
 		// ModLoot.init();
 		// Sounds
