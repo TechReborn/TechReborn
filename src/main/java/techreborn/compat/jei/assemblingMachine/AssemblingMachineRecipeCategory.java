@@ -46,9 +46,8 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 	private final String title;
 
 	public AssemblingMachineRecipeCategory(IGuiHelper guiHelper) {
-		// TO-DO add texture to JEI
-		background = guiHelper.createDrawable(texture, 0, 94, 120, 78);
-		title = I18n.translateToLocal("tile.techreborn.assemblingmachine.name");
+		background = guiHelper.createDrawable(texture, 125, 65, 74, 42);
+		title = I18n.translateToLocal("tile.techreborn:assembly_machine.name");
 	}
 
 	@Override
@@ -78,10 +77,9 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull AssemblingMachineRecipeWrapper recipeWrapper,
 			@Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		// TODO: fix slots
-		guiItemStacks.init(INPUT_SLOTS[0], true, 0, 0);
-		guiItemStacks.init(INPUT_SLOTS[1], true, 18, 0);
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 69, 18);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 2);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 3, 22);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 49, 12);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}
