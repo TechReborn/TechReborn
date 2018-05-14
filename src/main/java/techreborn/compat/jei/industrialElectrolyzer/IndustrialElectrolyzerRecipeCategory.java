@@ -31,14 +31,13 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory<IndustrialElectrolyzerRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
@@ -51,7 +50,7 @@ public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory<Ind
 
 	public IndustrialElectrolyzerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 49, 18, 78, 50);
-		title = I18n.translateToLocal("tile.techreborn:industrial_electrolyzer.name");
+		title = StringUtils.t("tile.techreborn:industrial_electrolyzer.name");
 	}
 
 	@Override

@@ -31,8 +31,8 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.util.Translator;
 import net.minecraft.util.ResourceLocation;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
@@ -52,7 +52,7 @@ public class IndustrialSawmillRecipeCategory implements IRecipeCategory<Industri
 	private static final int[] INPUT_TANKS = { 0 };
 
 	public IndustrialSawmillRecipeCategory(IGuiHelper guiHelper) {
-		title = Translator.translateToLocal("tile.techreborn:industrial_sawmill.name");
+		title = StringUtils.t("tile.techreborn:industrial_sawmill.name");
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
 	}

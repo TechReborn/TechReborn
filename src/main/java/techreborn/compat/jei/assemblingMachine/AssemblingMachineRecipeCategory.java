@@ -29,14 +29,13 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class AssemblingMachineRecipeCategory implements IRecipeCategory<AssemblingMachineRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
@@ -47,7 +46,7 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 
 	public AssemblingMachineRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 125, 65, 74, 42);
-		title = I18n.translateToLocal("tile.techreborn:assembly_machine.name");
+		title = StringUtils.t("tile.techreborn:assembly_machine.name");
 	}
 
 	@Override

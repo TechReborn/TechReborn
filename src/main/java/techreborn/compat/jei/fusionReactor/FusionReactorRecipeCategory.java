@@ -32,13 +32,12 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReactorRecipeWrapper> {
 	
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
@@ -53,7 +52,7 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 
 	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 64, 0, 40, 20, 20);
-		title = I18n.translateToLocal("tile.techreborn:fusion_control_computer.name");
+		title = StringUtils.t("tile.techreborn:fusion_control_computer.name");
 	}
 
 	@Override

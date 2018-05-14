@@ -31,13 +31,12 @@ import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMachineRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	private static final int[] OUTPUT_SLOTS = { 10 };
@@ -51,7 +50,7 @@ public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMach
 
 	public RollingMachineRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 29, 16, 116, 54);
-		title = I18n.translateToLocal("tile.techreborn:rolling_machine.name");
+		title = StringUtils.t("tile.techreborn:rolling_machine.name");
 
 		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 20, 18);
 		progress = guiHelper.createAnimatedDrawable(progressStatic, 250, IDrawableAnimated.StartDirection.LEFT, false);

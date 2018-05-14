@@ -31,14 +31,13 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
@@ -49,7 +48,7 @@ public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterR
 
 	public AlloySmelterRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
-		title = I18n.translateToLocal("tile.techreborn:alloy_smelter.name");
+		title = StringUtils.t("tile.techreborn:alloy_smelter.name");
 	}
 
 	@Override
