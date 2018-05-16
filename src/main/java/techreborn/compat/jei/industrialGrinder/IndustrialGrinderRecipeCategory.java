@@ -33,7 +33,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
@@ -41,7 +41,6 @@ import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class IndustrialGrinderRecipeCategory implements IRecipeCategory<IndustrialGrinderRecipeWrapper> {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn",
@@ -50,8 +49,8 @@ public class IndustrialGrinderRecipeCategory implements IRecipeCategory<Industri
 	private static final int[] OUTPUT_SLOTS = { 2, 3, 4, 5 };
 	private static final int[] INPUT_TANKS = { 0 };
 	private final IDrawable background;
-	private final IDrawable blankArea; // for covering the lightning power
-	// symbol
+	// for covering the lightning power symbol
+	private final IDrawable blankArea; 
 	private final IDrawable tankOverlay;
 	private final String title;
 
@@ -59,7 +58,7 @@ public class IndustrialGrinderRecipeCategory implements IRecipeCategory<Industri
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		blankArea = guiHelper.createDrawable(texture, 50, 45, 6, 6);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
-		title = I18n.translateToLocal("tile.techreborn:industrial_grinder.name");
+		title = StringUtils.t("tile.techreborn:industrial_grinder.name");
 	}
 
 	@Override

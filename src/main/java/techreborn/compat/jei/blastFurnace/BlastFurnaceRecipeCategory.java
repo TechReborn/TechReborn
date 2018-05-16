@@ -31,14 +31,13 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class BlastFurnaceRecipeCategory implements IRecipeCategory<BlastFurnaceRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
@@ -49,7 +48,7 @@ public class BlastFurnaceRecipeCategory implements IRecipeCategory<BlastFurnaceR
 
 	public BlastFurnaceRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 94, 120, 78);
-		title = I18n.translateToLocal("tile.techreborn:industrial_blast_furnace.name");
+		title = StringUtils.t("tile.techreborn:industrial_blast_furnace.name");
 	}
 
 	@Override
@@ -76,13 +75,8 @@ public class BlastFurnaceRecipeCategory implements IRecipeCategory<BlastFurnaceR
 	}
 
 	@Override
-	public void setRecipe(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			BlastFurnaceRecipeWrapper recipeWrapper,
-		@Nonnull
-			IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull BlastFurnaceRecipeWrapper recipeWrapper,
+			@Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 21, 3);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 21, 23);

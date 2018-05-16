@@ -31,18 +31,19 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
+
 /**
  * @author drcrazy
  *
  */
-@SuppressWarnings("deprecation")
+
 public class DistillationTowerRecipeCategory implements IRecipeCategory<DistillationTowerRecipeWrapper> {
 
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
@@ -53,7 +54,7 @@ public class DistillationTowerRecipeCategory implements IRecipeCategory<Distilla
 
 	public DistillationTowerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 0, 104, 62);
-		title = I18n.translateToLocal("tile.techreborn:distillation_tower.name");
+		title = StringUtils.t("tile.techreborn:distillation_tower.name");
 	}
 
 	@Override

@@ -31,16 +31,16 @@ import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
+
 public class RecipeUtil {
 	private static final int color = Color.darkGray.getRGB();
 
@@ -55,7 +55,8 @@ public class RecipeUtil {
 		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
 		String startCostEU = PowerSystem.getLocaliszedPower(startCost);
-		String startCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.start.cost", startCostEU);
+		//String startCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.start.cost", startCostEU);
+		String startCostString = StringUtils.t("techreborn.jei.recipe.start.cost", startCostEU);
 		fontRenderer.drawString(startCostString, x, y, color);
 		y += lineSpacing;
 
@@ -68,18 +69,19 @@ public class RecipeUtil {
 		FontRenderer fontRenderer = minecraft.fontRenderer;
 		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
-		String runningCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.running.cost",PowerSystem.getDisplayPower().abbreviation.toUpperCase(),  PowerSystem.getLocaliszedPowerFormattedNoSuffix(euPerTick));
+		String runningCostString = StringUtils.t("techreborn.jei.recipe.running.cost", PowerSystem.getDisplayPower().abbreviation.toUpperCase(),  PowerSystem.getLocaliszedPowerFormattedNoSuffix(euPerTick));
+		//String runningCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.running.cost",PowerSystem.getDisplayPower().abbreviation.toUpperCase(),  PowerSystem.getLocaliszedPowerFormattedNoSuffix(euPerTick));
 		fontRenderer.drawString(runningCostString, x, y, color);
 		y += lineSpacing;
 
-		String processingTimeString1 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.1",
-			tickTime);
+		// String processingTimeString1 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.1", tickTime);
+		String processingTimeString1 = StringUtils.t("techreborn.jei.recipe.processing.time.1", tickTime);
 		fontRenderer.drawString(processingTimeString1, x, y, color);
 		y += lineSpacing;
 
 		int seconds = tickTime / 20;
-		String processingTimeString2 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.2",
-			seconds);
+		//String processingTimeString2 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.2", seconds);
+		String processingTimeString2 = StringUtils.t("techreborn.jei.recipe.processing.time.2", seconds);
 		fontRenderer.drawString(processingTimeString2, x + 10, y, color);
 	}
 

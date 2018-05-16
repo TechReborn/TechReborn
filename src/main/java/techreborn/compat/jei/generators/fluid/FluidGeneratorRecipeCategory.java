@@ -32,12 +32,11 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
-@SuppressWarnings("deprecation")
 public class FluidGeneratorRecipeCategory implements IRecipeCategory<FluidGeneratorRecipeWrapper> {
 	public static ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei_fluid_generator.png");
 
@@ -53,7 +52,7 @@ public class FluidGeneratorRecipeCategory implements IRecipeCategory<FluidGenera
 	public FluidGeneratorRecipeCategory(EFluidGenerator generatorType, IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 42, 16, 102, 60);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 72, 12, 47);
-		title = I18n.translateToLocal("techreborn.jei.category.generator." + generatorType.name().toLowerCase());
+		title = StringUtils.t("techreborn.jei.category.generator." + generatorType.name().toLowerCase());
 		this.generatorType = generatorType;
 	}
 

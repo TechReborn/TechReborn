@@ -32,7 +32,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
@@ -43,7 +43,6 @@ import javax.annotation.Nonnull;
  * @author drcrazy
  *
  */
-@SuppressWarnings("deprecation")
 public class FluidReplicatorRecipeCategory implements IRecipeCategory<FluidReplicatorRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] OUTPUT_TANKS = { 0 };
@@ -55,7 +54,7 @@ public class FluidReplicatorRecipeCategory implements IRecipeCategory<FluidRepli
 	public FluidReplicatorRecipeCategory(@Nonnull IGuiHelper guiHelper) {
 		this.background = guiHelper.createDrawable(texture, 125, 0, 72, 60);
 		this.tankOverlay = guiHelper.createDrawable(texture, 196, 0, 12, 47);
-		this.title = I18n.translateToLocal("tile.techreborn:fluid_replicator.name");
+		this.title = StringUtils.t("tile.techreborn:fluid_replicator.name");
 	}
 
 	@Override

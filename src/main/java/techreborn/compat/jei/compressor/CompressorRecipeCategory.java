@@ -31,14 +31,13 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class CompressorRecipeCategory implements IRecipeCategory<CompressorRecipeWrapper> {
 	private static final int[] INPUT_SLOTS = { 0 };
 	private static final int[] OUTPUT_SLOTS = { 1 };
@@ -49,7 +48,7 @@ public class CompressorRecipeCategory implements IRecipeCategory<CompressorRecip
 
 	public CompressorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn:compressor.name");
+		title = StringUtils.t("tile.techreborn:compressor.name");
 	}
 
 	@Override

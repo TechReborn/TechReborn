@@ -40,12 +40,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import reborncore.common.util.StringUtils;
+
 import org.apache.commons.lang3.Validate;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
@@ -54,7 +55,6 @@ import techreborn.init.ModItems;
 /**
  * Created by modmuss50 on 17/05/2016.
  */
-@SuppressWarnings("deprecation")
 public class DynamicCell extends Item {
 
 	public static final int CAPACITY = Fluid.BUCKET_VOLUME;
@@ -164,7 +164,7 @@ public class DynamicCell extends Item {
 		FluidStack fluidStack = getFluidHandler(stack).getFluid();
 		if (fluidStack == null)
 			return super.getItemStackDisplayName(stack);
-		return I18n.translateToLocal("item.techreborn.cell.fluid.name").replaceAll("\\$fluid\\$", fluidStack.getLocalizedName());
+		return StringUtils.t("item.techreborn.cell.fluid.name").replaceAll("\\$fluid\\$", fluidStack.getLocalizedName());
 	}
 
 	@Override

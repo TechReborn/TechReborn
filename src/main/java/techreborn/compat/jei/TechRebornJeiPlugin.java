@@ -39,7 +39,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -47,6 +46,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeList;
@@ -300,11 +300,11 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			TechRebornJeiPlugin.addDebugRecipes(registry);
 		}
 
-		registry.addIngredientInfo(ItemParts.getPartByName("rubberSap"), ItemStack.class, I18n.translateToLocal("techreborn.desc.rubberSap"));
+		registry.addIngredientInfo(ItemParts.getPartByName("rubberSap"), ItemStack.class, StringUtils.t("techreborn.desc.rubberSap"));
 		if (!BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, I18n.translateToLocal("techreborn.desc.scrapBoxNoDispenser"));
+			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, StringUtils.t("techreborn.desc.scrapBoxNoDispenser"));
 		} else {
-			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, I18n.translateToLocal("techreborn.desc.scrapBox"));
+			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, StringUtils.t("techreborn.desc.scrapBox"));
 		}
 
 		//NEW ONES

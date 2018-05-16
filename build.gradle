@@ -117,11 +117,11 @@ dependencies {
 	}
 	compile "mcp.mobius.waila:Hwyla:+"
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
-	compile name: 'buildcraft', version: '7.99.16', ext: 'jar'
+	compile name: 'buildcraft', version: '7.99.17', ext: 'jar'
 		
 	deobfCompile "mezz.jei:jei_1.12.2:+"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.39-ex112'
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.+'
 	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.3.9.3:universal', withoutOldJEI
 	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.9.9:universal', withoutOldJEI
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'

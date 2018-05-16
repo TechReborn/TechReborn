@@ -32,7 +32,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -40,6 +39,7 @@ import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.StringUtils;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -52,7 +52,6 @@ import java.util.stream.Collectors;
 /**
  * Created by Mark on 04/06/2016.
  */
-@SuppressWarnings("deprecation")
 public class ProbeProvider implements IProbeInfoProvider {
 
 	ProgressStyle euStyle = new ProgressStyle().backgroundColor(0xFF8B8B8B).borderColor(0xFF373737).alternateFilledColor(PowerSystem.getDisplayPower().altColour).filledColor(PowerSystem.getDisplayPower().colour);
@@ -104,7 +103,7 @@ public class ProbeProvider implements IProbeInfoProvider {
 			TileLegacyMachineBase legacyMachineBase = (TileLegacyMachineBase) tile;
 			if (legacyMachineBase.getInventoryForTile().isPresent()) {
 				if (player.isSneaking()) {
-					probeInfo.text(I18n.translateToLocal("techreborn.tooltip.inventory"));
+					probeInfo.text(StringUtils.t("techreborn.tooltip.inventory"));
 				}
 				Inventory inventory = legacyMachineBase.getInventoryForTile().get();
 				if(!inventory.isEmpty()){
@@ -118,7 +117,7 @@ public class ProbeProvider implements IProbeInfoProvider {
 			}
 			if (!legacyMachineBase.upgradeInventory.isEmpty() && player.isSneaking()) {
 				probeInfo.horizontal();
-				probeInfo.text(I18n.translateToLocal("techreborn.tooltip.upgrades"));
+				probeInfo.text(StringUtils.t("techreborn.tooltip.upgrades"));
 				List<ItemStack> stacks = Arrays.stream(legacyMachineBase.upgradeInventory.contents).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
 				try {
 					methodHandle_addStacks.invoke(probeInfo, world, null, stacks, player.isSneaking());

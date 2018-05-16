@@ -31,14 +31,13 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("deprecation")
 public class VacuumFreezerRecipeCategory implements IRecipeCategory<VacuumFreezerRecipeWrapper> {
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0 };
@@ -49,7 +48,7 @@ public class VacuumFreezerRecipeCategory implements IRecipeCategory<VacuumFreeze
 
 	public VacuumFreezerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = I18n.translateToLocal("tile.techreborn:vacuum_freezer.name");
+		title = StringUtils.t("tile.techreborn:vacuum_freezer.name");
 	}
 
 	@Override
