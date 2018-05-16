@@ -53,7 +53,13 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 	@ConfigRegistry(config = "recipes", category = "sawmill", key = "plankCount", comment = "Number of planks the saw mill will ouput")
 	public static int plankCount = 4;
 
+	@ConfigRegistry(config = "recipes", category = "sawmill", key = "disableRecipes", comment = "Set to true to disable sawmill recipes from loading.")
+	public static boolean disableRecipes = false;
+
 	public static void init() {
+		if(disableRecipes){
+			return;
+		}
 		InventoryCrafting inventoryCrafting = new InventoryCrafting(new Container() {
 			@Override
 			public boolean canInteractWith(EntityPlayer playerIn) {
