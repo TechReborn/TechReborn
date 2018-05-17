@@ -74,11 +74,11 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 		return super.hasCapability(capability, facing);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY) {
-			return (T) this;
+			return CapabilityEnergy.ENERGY.cast(this);
 		}
 		return super.getCapability(capability, facing);
 	}
