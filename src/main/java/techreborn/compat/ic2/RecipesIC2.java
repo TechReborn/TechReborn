@@ -75,6 +75,9 @@ public class RecipesIC2 implements ICompatModule {
 		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "carbon_mesh"),
 			IC2Items.getItem("crafting", "carbon_plate"), 300, 4));
 
+		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "coal_ball"),
+			IC2Items.getItem("crafting", "coal_block"), 300, 4));
+
 		RecipeHandler.addRecipe(new GrinderRecipe(ItemName.crafting.getItemStack("tin_can"),
 			RecipeMethods.getOre("dustTin", 2), 300, 16));
 
