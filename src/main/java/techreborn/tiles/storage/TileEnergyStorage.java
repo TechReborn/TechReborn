@@ -79,7 +79,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
 				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
 				int max = Math.min(maxOutput, (int) getEnergy()) * RebornCoreConfig.euPerFU;
-				useEnergy(energyStorage.receiveEnergy(max, false) * RebornCoreConfig.euPerFU);
+				useEnergy(energyStorage.receiveEnergy(max, false) / RebornCoreConfig.euPerFU);
 			}
 		}
 		if (!inventory.getStackInSlot(1).isEmpty()) {
