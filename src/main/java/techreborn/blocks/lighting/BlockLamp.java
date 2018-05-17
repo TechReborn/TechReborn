@@ -154,7 +154,10 @@ public class BlockLamp extends BaseTileBlock {
 	}
 
 	public static EnumFacing getFacing(IBlockState state) {
-		return (EnumFacing)state.getValue(FACING);
+		if(!state.getProperties().containsKey(FACING)){
+			return EnumFacing.NORTH;
+		}
+		return state.getValue(FACING);
 	}
 
 	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
