@@ -56,7 +56,7 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
+		if (!world.isRemote && !PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
 			return EnumActionResult.PASS;
 		}
 		if (CompatManager.isIC2Loaded) {
