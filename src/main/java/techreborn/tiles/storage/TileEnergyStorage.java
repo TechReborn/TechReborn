@@ -76,7 +76,14 @@ public class TileEnergyStorage extends TilePowerAcceptor
 			if(CompatManager.isIC2Loaded){
 				IC2ItemCharger.chargeIc2Item(this, stack);
 			}
-			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
+			
+			// Ugly fix to distinguish TR powered items
+			if (stack.getItem() instanceof IEnergyItemInfo) {
+				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+				int max = Math.min(maxOutput, (int) getEnergy());
+				useEnergy(energyStorage.receiveEnergy(max, false));
+			}
+			else if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
 				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
 				int max = Math.min(maxOutput, (int) getEnergy()) * RebornCoreConfig.euPerFU;
 				useEnergy(energyStorage.receiveEnergy(max, false) / RebornCoreConfig.euPerFU);
