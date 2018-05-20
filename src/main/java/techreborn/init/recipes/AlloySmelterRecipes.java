@@ -113,10 +113,10 @@ public class AlloySmelterRecipes extends RecipeMethods {
 		}
 
 		// Blue Alloy
-		if (OreUtil.doesOreExistAndValid("ingotBlueAlloy")) {
+		if (oresExist("ingotBlueAlloy", "dustTeslatite")) {
 			ItemStack blueAlloyStack = getOre("ingotBlueAlloy");
 			blueAlloyStack.setCount(1);
-			RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemDusts.getDustByName("teslatite", 4),
+			RecipeHandler.addRecipe(new AlloySmelterRecipe(getOre("dustTeslatite", 4),
 				ItemIngots.getIngotByName("silver", 1), blueAlloyStack, 200, 16));
 		}
 
