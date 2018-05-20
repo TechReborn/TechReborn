@@ -45,9 +45,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
-import reborncore.common.util.StringUtils;
-
 import org.apache.commons.lang3.Validate;
+import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
@@ -210,6 +209,8 @@ public class DynamicCell extends Item {
 
 		@Override
 		public int fill(FluidStack resource, boolean doFill) {
+			if(resource == null)
+				return 0;
 			//Done to allow mods that try to move max int of fluid, allows the cells to work with thermal tanks.
 			if(resource.amount > capacity){
 				resource.amount = capacity;
