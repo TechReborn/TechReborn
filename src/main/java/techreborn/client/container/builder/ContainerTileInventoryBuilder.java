@@ -33,7 +33,6 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgrade;
 import reborncore.api.tile.IUpgradeable;
@@ -91,7 +90,7 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
 			.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
-				|| stack.getItem() instanceof IEnergyInterfaceItem || (CompatManager.isIC2Loaded && IC2ItemCharger.isIC2PoweredItem(stack))));
+				|| (CompatManager.isIC2Loaded && IC2ItemCharger.isIC2PoweredItem(stack))));
 		return this;
 	}
 

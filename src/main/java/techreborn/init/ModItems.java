@@ -28,8 +28,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
-import reborncore.api.power.IEnergyInterfaceItem;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
 import reborncore.common.util.OreUtil;
@@ -350,12 +348,6 @@ public class ModItems {
 	public static void registerItem(Item item, String name) {
 		item.setRegistryName(name);
 		RebornRegistry.registerItem(item);
-		if (item.getClass().isInstance(IEnergyItemInfo.class)) {
-			if (!item.getClass().isInstance(IEnergyInterfaceItem.class)) {
-				Core.logHelper.error(name + " was not patched with the power mixin. This is a error, the item may not work as intended.");
-				Core.logHelper.error("Please check that the reborn core loading plugin has been registerd.");
-			}
-		}
 	}
 
 }

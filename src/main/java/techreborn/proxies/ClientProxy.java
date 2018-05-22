@@ -50,6 +50,7 @@ import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.FluidBlockModelHandler;
+import techreborn.events.StackToolTipEvent;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.lib.ModInfo;

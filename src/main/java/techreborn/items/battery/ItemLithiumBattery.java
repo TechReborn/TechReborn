@@ -27,9 +27,10 @@ package techreborn.items.battery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.init.ModItems;
 
 public class ItemLithiumBattery extends ItemBattery {
@@ -48,7 +49,8 @@ public class ItemLithiumBattery extends ItemBattery {
 		ItemStack stack = new ItemStack(ModItems.LITHIUM_BATTERY);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
 		itemList.add(charged);

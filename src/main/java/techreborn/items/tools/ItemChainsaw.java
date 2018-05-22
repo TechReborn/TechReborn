@@ -38,19 +38,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.api.power.IEnergyInterfaceItem;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import techreborn.client.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInterfaceItem {
+public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
 	public int maxCharge = 1;
 	public int cost = 250;
@@ -59,8 +59,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 	public double transferLimit = 100;
 	public boolean isBreaking = false;
 
-	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity,
-	                    float unpoweredSpeed) {
+	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed) {
 		super(material);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
@@ -71,12 +70,9 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 		this.addPropertyOverride(new ResourceLocation("techreborn:animated"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack,
-			                   @Nullable
-				                   World worldIn,
-			                   @Nullable
-				                   EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && PoweredItem.canUseEnergy(cost, stack) && entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+				if (!stack.isEmpty() && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost
+						&& entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -84,22 +80,23 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 		});
 	}
 	
+	// ItemAxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if (PoweredItem.canUseEnergy(cost, stack) && (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
+		if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost
+				&& (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
-		}
-		else {
+		} else {
 			return super.getDestroySpeed(stack, state);
 		}
 	}
-
+	
+	// ItemTool
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos,
-	                                EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			PoweredItem.useEnergy(cost, stack);
+			stack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
 		}
 		return true;
 	}
@@ -109,11 +106,46 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 		return true;
 	}
 
+	// Item
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+		return super.onBlockStartBreak(itemstack, pos, player);
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		double charge = (capEnergy.getEnergyStored() / capEnergy.getMaxEnergyStored());
+		return 1 - charge;
+	}
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
+	}
+
+	@Override
+	@Nullable
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+		return new PoweredItemContainerProvider(stack);
+	}
+
+	@Override
+	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
+		return !(newStack.isItemEqual(oldStack));
+	}
+
 	@Override
 	public boolean isRepairable() {
 		return false;
 	}
 
+	// IEnergyItemInfo
 	@Override
 	public double getMaxPower(ItemStack stack) {
 		return maxCharge;
@@ -128,130 +160,10 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo, IEnergyInt
 	public boolean canProvideEnergy(ItemStack stack) {
 		return false;
 	}
-
-	@Override
-	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-
-		return super.onBlockStartBreak(itemstack, pos, player);
-	}
-
+	
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
 	}
 
-	@Override
-	public double getEnergy(ItemStack stack) {
-		NBTTagCompound tagCompound = getOrCreateNbtData(stack);
-		if (tagCompound.hasKey("charge")) {
-			return tagCompound.getDouble("charge");
-		}
-		return 0;
-	}
-
-	@Override
-	public void setEnergy(double energy, ItemStack stack) {
-		NBTTagCompound tagCompound = getOrCreateNbtData(stack);
-		tagCompound.setDouble("charge", energy);
-
-		if (this.getEnergy(stack) > getMaxPower(stack)) {
-			this.setEnergy(getMaxPower(stack), stack);
-		} else if (this.getEnergy(stack) < 0) {
-			this.setEnergy(0, stack);
-		}
-	}
-
-	@Override
-	public double addEnergy(double energy, ItemStack stack) {
-		return addEnergy(energy, false, stack);
-	}
-
-	@Override
-	public double addEnergy(double energy, boolean simulate, ItemStack stack) {
-		double energyReceived = Math.min(getMaxPower(stack) - energy, Math.min(this.getMaxPower(stack), energy));
-
-		if (!simulate) {
-			setEnergy(energy + energyReceived, stack);
-		}
-		return energyReceived;
-	}
-
-
-	@Override
-	public boolean canUseEnergy(double input, ItemStack stack) {
-		return input <= getEnergy(stack);
-	}
-
-
-	@Override
-	public double useEnergy(double energy, ItemStack stack) {
-		return useEnergy(energy, false, stack);
-	}
-
-
-	@Override
-	public double useEnergy(double extract, boolean simulate, ItemStack stack) {
-		double energyExtracted = Math.min(extract, Math.min(this.getMaxTransfer(stack), extract));
-
-		if (!simulate) {
-			setEnergy(getEnergy(stack) - energyExtracted, stack);
-		}
-		return energyExtracted;
-	}
-
-
-	@Override
-	public boolean canAddEnergy(double energy, ItemStack stack) {
-		return this.getEnergy(stack) + energy <= getMaxPower(stack);
-	}
-
-
-	public NBTTagCompound getOrCreateNbtData(ItemStack itemStack) {
-		NBTTagCompound tagCompound = itemStack.getTagCompound();
-		if (tagCompound == null) {
-			tagCompound = new NBTTagCompound();
-			itemStack.setTagCompound(tagCompound);
-		}
-
-		return tagCompound;
-	}
-
-
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
-		return 1 - charge;
-	}
-
-
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return true;
-	}
-
-
-	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack,
-	                                            @Nullable
-		                                            NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
-	}
-	
-	/**
-     * Called when the player is mining a block and the item in his hand changes.
-     * Allows to not reset blockbreaking if only NBT or similar changes.
-     * @param oldStack The old stack that was used for mining. Item in players main hand
-     * @param newStack The new stack
-     * @return True to reset block break progress
-     */
-	@Override
-	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isItemEqual(oldStack));
-	}
 }

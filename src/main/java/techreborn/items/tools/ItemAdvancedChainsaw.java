@@ -33,9 +33,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
@@ -56,7 +58,8 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_CHAINSAW);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
 		itemList.add(charged);
@@ -83,7 +86,8 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if (oldPos == pos) {
 			return;
 		}
-		if (!PoweredItem.canUseEnergy(cost, stack)) {
+		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		if (capEnergy.getEnergyStored() < cost) {
 			return;
 		}
 		IBlockState blockState = world.getBlockState(pos);
@@ -93,10 +97,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if(!(entityLiving instanceof EntityPlayer)){
 			return;
 		}
-		if(!PoweredItem.canUseEnergy(cost, stack)){
-			return;
-		}
-		PoweredItem.useEnergy(cost, stack);
+		capEnergy.extractEnergy(cost, false);
 		blockState.getBlock().harvestBlock(world, (EntityPlayer) entityLiving, pos, blockState, world.getTileEntity(pos), stack);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
