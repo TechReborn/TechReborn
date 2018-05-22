@@ -53,6 +53,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ChatUtils;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
@@ -177,9 +178,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
-		double charge = (capEnergy.getEnergyStored() / capEnergy.getMaxEnergyStored());
-		return 1 - charge;
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override

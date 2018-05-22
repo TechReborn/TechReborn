@@ -37,10 +37,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.utils.OreDictUtils;
 
@@ -103,9 +103,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
-		double charge = (capEnergy.getEnergyStored() / capEnergy.getMaxEnergyStored());
-		return 1 - charge;
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override

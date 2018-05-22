@@ -46,6 +46,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModItems;
@@ -84,9 +85,7 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
-		double charge = (capEnergy.getEnergyStored() / capEnergy.getMaxEnergyStored());
-		return 1 - charge;
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
