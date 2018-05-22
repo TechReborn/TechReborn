@@ -36,9 +36,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
@@ -94,7 +95,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, ItemStack drill) {
 		IBlockState blockState = world.getBlockState(pos);
-		PoweredItem.useEnergy(cost, drill);
+		drill.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
 		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
@@ -152,7 +153,8 @@ public class ItemAdvancedDrill extends ItemDrill {
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_DRILL);
 		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
-		PoweredItem.setEnergy(getMaxPower(charged), charged);
+		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
 		itemList.add(charged);
