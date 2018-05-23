@@ -37,10 +37,10 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.Core;
 
@@ -58,8 +58,8 @@ public class StackToolTipEvent {
 		} else if (event.getItemStack().getItem() instanceof IEnergyItemInfo) {
 			IEnergyStorage capEnergy = event.getItemStack().getCapability(CapabilityEnergy.ENERGY, null);
 			event.getToolTip().add(1,
-					TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored())
-					+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored())
+					TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU)
+					+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored() / RebornCoreConfig.euPerFU)
 					+ " " + PowerSystem.getDisplayPower().abbreviation);
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 				int percentage = percentage(capEnergy.getMaxEnergyStored(), capEnergy.getEnergyStored());
