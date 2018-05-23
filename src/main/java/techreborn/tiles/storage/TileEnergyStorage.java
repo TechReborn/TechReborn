@@ -32,10 +32,8 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.RebornCoreConfig;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
@@ -73,31 +71,22 @@ public class TileEnergyStorage extends TilePowerAcceptor
 		super.update();
 		if (!inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(0);
+			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
+				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+				if(getEnergy() > 0 && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()){
+					energyStorage.receiveEnergy((int) useEnergy(getMaxOutput() / RebornCoreConfig.euPerFU), false);
+				}
+			}
 			if(CompatManager.isIC2Loaded){
 				IC2ItemCharger.chargeIc2Item(this, stack);
-			}
-			
-			// Ugly fix to distinguish TR powered items
-			if (stack.getItem() instanceof IEnergyItemInfo) {
-				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-				int max = Math.min(maxOutput, (int) getEnergy());
-				useEnergy(energyStorage.receiveEnergy(max, false));
-			}
-			else if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
-				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-				int max = Math.min(maxOutput, (int) getEnergy()) * RebornCoreConfig.euPerFU;
-				useEnergy(energyStorage.receiveEnergy(max, false) / RebornCoreConfig.euPerFU);
 			}
 		}
 		if (!inventory.getStackInSlot(1).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(1);
-			if (stack.getItem() instanceof IEnergyItemInfo) {
-				IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-				if (item.canProvideEnergy(stack)) {
-					if (getEnergy() != getMaxPower() && PoweredItem.getEnergy(stack) > 0) {
-						addEnergy(item.getMaxTransfer(stack));
-						PoweredItem.setEnergy(PoweredItem.getEnergy(stack) - item.getMaxTransfer(stack), stack);
-					}
+			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
+				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
+				if(getEnergy() != getMaxPower() && energyStorage.getEnergyStored() > 0){
+					addEnergy(energyStorage.extractEnergy((int) (getMaxInput() * RebornCoreConfig.euPerFU), false));
 				}
 			}
 			if(CompatManager.isIC2Loaded){
