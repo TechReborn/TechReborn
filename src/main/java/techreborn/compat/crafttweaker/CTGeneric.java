@@ -91,25 +91,31 @@ public class CTGeneric {
 	}
 
 	public static class RemoveInput implements IAction {
-		private final IIngredient output;
+		private final IIngredient ingredient;
 		List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
 		private final String name;
 
-		public RemoveInput(IIngredient output, String machineName) {
-			this.output = output;
+		public RemoveInput(IIngredient ingredient, String machineName) {
+			this.ingredient = ingredient;
 			this.name = machineName;
 		}
 
 		@Override
 		public void apply() {
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
-				for (Object stack : recipeType.getInputs()) {
-					if (stack instanceof ItemStack) {
-						if (output.matches(CraftTweakerMC.getIItemStack((ItemStack) stack))) {
+				for (Object recipeInput : recipeType.getInputs()) {
+					ItemStack ingredientStack = CraftTweakerMC.getItemStack(ingredient);
+					if (!ingredientStack.isEmpty()) {
+						if (ItemUtils.isInputEqual(recipeInput, ingredientStack, true, false, true)) {
 							removedRecipes.add((BaseRecipe) recipeType);
 							RecipeHandler.recipeList.remove(recipeType);
 							break;
 						}
+						//Old method of checking, just in case
+					} else if(recipeInput instanceof ItemStack && ingredient.matches(CraftTweakerMC.getIItemStack((ItemStack) recipeInput))){
+						removedRecipes.add((BaseRecipe) recipeType);
+						RecipeHandler.recipeList.remove(recipeType);
+						break;
 					}
 				}
 			}
