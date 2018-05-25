@@ -39,50 +39,50 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 
-	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill")
-	public static int IronDrillCharge = 10_000;
+	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill (FE)")
+	public static int IronDrillCharge = 40_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "diamondDrillCharge", comment = "Energy Capacity for Diamond Drill")
-	public static int DiamondDrillCharge = 100_000;
+	@ConfigRegistry(config = "items", category = "power", key = "diamondDrillCharge", comment = "Energy Capacity for Diamond Drill (FE)")
+	public static int DiamondDrillCharge = 400_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill")
-	public static int AdvancedDrillCharge = 1_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill (FE)")
+	public static int AdvancedDrillCharge = 4_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "ironChainsawCharge", comment = "Energy Capacity for Iron Chainsaw")
-	public static int IronChainsawCharge = 10_000;
+	@ConfigRegistry(config = "items", category = "power", key = "ironChainsawCharge", comment = "Energy Capacity for Iron Chainsaw (FE)")
+	public static int IronChainsawCharge = 40_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "diamondChainsawCharge", comment = "Energy Capacity for Diamond Chainsaw")
-	public static int DiamondChainsawCharge = 100_000;
+	@ConfigRegistry(config = "items", category = "power", key = "diamondChainsawCharge", comment = "Energy Capacity for Diamond Chainsaw (FE)")
+	public static int DiamondChainsawCharge = 400_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw")
-	public static int AdvancedChainsawCharge = 1_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw (FE)")
+	public static int AdvancedChainsawCharge = 4_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "steelJackhammerCharge", comment = "Energy Capacity for Steel Jackhammer")
-	public static int SteelJackhammerCharge = 10_000;
+	@ConfigRegistry(config = "items", category = "power", key = "steelJackhammerCharge", comment = "Energy Capacity for Steel Jackhammer (FE)")
+	public static int SteelJackhammerCharge = 40_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "diamondJackhammerCharge", comment = "Energy Capacity for Diamond Jackhammer")
-	public static int DiamondJackhammerCharge = 100_000;
+	@ConfigRegistry(config = "items", category = "power", key = "diamondJackhammerCharge", comment = "Energy Capacity for Diamond Jackhammer (FE)")
+	public static int DiamondJackhammerCharge = 400_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jachammer")
-	public static int AdvancedJackhammerCharge = 1_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jachammer (FE)")
+	public static int AdvancedJackhammerCharge = 4_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool")
+	@ConfigRegistry(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool (FE)")
 	public static int OmniToolCharge = 20_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter")
-	public static int RockCutterCharge = 10_000;
+	@ConfigRegistry(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter (FE)")
+	public static int RockCutterCharge = 400_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack")
-	public static int LapotronPackCharge = 100_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack (FE)")
+	public static int LapotronPackCharge = 400_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack")
-	public static int LithiumBatpackCharge = 4_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack (FE)")
+	public static int LithiumBatpackCharge = 16_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb")
-	public static int LapotronicOrbMaxCharge = 100_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb (FE)")
+	public static int LapotronicOrbMaxCharge = 400_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "CloakingDeviceCharge", comment = "Energy Capacity for Clocking Device")
-	public static int CloakingDeviceCharge = 10_000_000;
+	@ConfigRegistry(config = "items", category = "power", key = "CloakingDeviceCharge", comment = "Energy Capacity for Clocking Device (FE)")
+	public static int CloakingDeviceCharge = 40_000_000;
 	
 	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in EU)")
 	public static int basicGenerationRateD = 1;
