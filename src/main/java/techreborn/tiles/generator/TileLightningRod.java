@@ -45,11 +45,11 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
 	public static int maxOutput = 2048;
 	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxEnergy", comment = "Lightning Rod Max Energy (Value in EU)")
-	public static int maxEnergy = 1000000;
+	public static int maxEnergy = 100_000_000;
 	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodChanceOfStrike", comment = "Chance of lightning striking a rod (Range: 0-70)")
 	public static int chanceOfStrike = 24;
 	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodBaseStrikeEnergy", comment = "Base amount of energy per strike (Value in EU)")
-	public static int baseEnergyStrike = 2048;
+	public static int baseEnergyStrike = 262_144;
 
 	private int onStatusHoldTicks = -1;
 
@@ -76,7 +76,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * this.getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (this.world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
-				if (world.getBlockState(pos.up()).getBlock() != ModBlocks.REFINED_IRON_FENCE) {
+				if (!isValidIronFence(pos.up().getY())) {
 					this.onStatusHoldTicks = 400;
 					return;
 				}
