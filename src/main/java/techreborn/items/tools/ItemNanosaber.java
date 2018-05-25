@@ -55,6 +55,7 @@ import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTab;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
 
@@ -62,6 +63,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
+	public static final int maxCharge = ConfigTechReborn.nanoSaberCharge;
 	public int cost = 250;
 
 	public ItemNanosaber() {
@@ -74,7 +76,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				if (isActive(stack)) {
+				if (ItemUtils.isActive(stack)) {
 					ForgePowerItemManager capEnergy = (ForgePowerItemManager) stack.getCapability(CapabilityEnergy.ENERGY, null);
 					if (capEnergy.getMaxEnergyStored() - capEnergy.getEnergyStored() >= 0.9	* capEnergy.getMaxEnergyStored()) {
 						return 0.5F;
@@ -84,13 +86,6 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 				return 0.0F;
 			}
 		});
-	}
-	
-	private boolean isActive(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getTagCompound() != null && stack.getTagCompound().getBoolean("isActive")) {
-			return true;
-		}
-		return false;
 	}
 	
 	// ItemSword
@@ -110,7 +105,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 		int modifier = 0;
-		if (isActive(stack)) {
+		if (ItemUtils.isActive(stack)) {
 			modifier = 9;
 		}
 		if (slot == EntityEquipmentSlot.MAINHAND) {
@@ -132,7 +127,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 						+ TextFormatting.GOLD + I18n
 						.format("techreborn.message.nanosaberActivate")));
 			} else {
-				if (!isActive(stack)) {
+				if (!ItemUtils.isActive(stack)) {
 					if (stack.getTagCompound() == null) {
 						stack.setTagCompound(new NBTTagCompound());
 					}
@@ -160,7 +155,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (isActive(stack) && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
 			if(worldIn.isRemote){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
@@ -228,7 +223,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if (!isActive(stack)) {
+		if (!ItemUtils.isActive(stack)) {
 			tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberInactive"));
 		} else {
 			tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberActive"));
@@ -238,7 +233,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	// IEnergyItemInfo
 	@Override
 	public double getMaxPower(ItemStack stack) {
-		return 160_000;
+		return maxCharge;
 	}
 
 	@Override

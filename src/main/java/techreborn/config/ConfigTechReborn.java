@@ -39,6 +39,9 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 
+	@ConfigRegistry(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")
+	public static int nanoSaberCharge = 640_000;
+	
 	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill (FE)")
 	public static int IronDrillCharge = 40_000;
 
