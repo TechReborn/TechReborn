@@ -138,11 +138,10 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		return super.hasCapability(capability, facing);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) this.tank;
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
 		}
 		return super.getCapability(capability, facing);
 	}

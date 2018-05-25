@@ -180,11 +180,10 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		return super.hasCapability(capability, facing);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return (T) tank;
+			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
 		}
 		return super.getCapability(capability, facing);
 	}

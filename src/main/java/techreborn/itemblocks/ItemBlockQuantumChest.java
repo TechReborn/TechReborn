@@ -45,10 +45,9 @@ public class ItemBlockQuantumChest extends ItemBlock {
 		super(p_i45328_1_);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, World world, List list, ITooltipFlag flag) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flag) {
 		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
 				list.add(stack.getTagCompound().getCompoundTag("tileEntity").getInteger("storedQuantity") + " items");

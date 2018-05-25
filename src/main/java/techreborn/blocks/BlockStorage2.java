@@ -93,10 +93,9 @@ public class BlockStorage2 extends BaseBlock {
 		return Item.getItemFromBlock(this);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(this, 1, meta));
 		}

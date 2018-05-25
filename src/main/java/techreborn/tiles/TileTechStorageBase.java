@@ -256,11 +256,11 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		return this.inventory;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-			return (T) this.getInvWrapper();
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvWrapper());
+		}
 		return super.getCapability(capability, facing);
 	}
 

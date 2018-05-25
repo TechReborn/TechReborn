@@ -34,6 +34,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -50,10 +51,9 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 		super(p_i45328_1_);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, World world, List list, ITooltipFlag flag) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flag) {
 		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			if (stack.getTagCompound().getCompoundTag("tileEntity") != null)
 				list.add(PowerSystem
@@ -77,9 +77,8 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 		return true;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		itemList.add(getDropWithNBT(0));
 		itemList.add(getDropWithNBT(1000000000));
 	}
