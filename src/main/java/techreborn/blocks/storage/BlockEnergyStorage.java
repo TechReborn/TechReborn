@@ -51,6 +51,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.BaseTileBlock;
+import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WorldUtils;
 import techreborn.Core;
 import techreborn.client.TechRebornCreativeTab;
@@ -78,12 +79,13 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		this.name = name;
 		this.guiID = guiID;
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 	                                EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack heldStack = player.getHeldItem(hand);
+		ItemStack heldStack = player.getHeldItem(EnumHand.MAIN_HAND);
 		if(ToolManager.INSTANCE.canHandleTool(heldStack)){
 			if(ToolManager.INSTANCE.handleTool(heldStack, pos, world, player, side, true)){
 				if (player.isSneaking()) {
