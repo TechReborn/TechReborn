@@ -29,8 +29,10 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -106,12 +108,17 @@ public class Core {
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		// Register ModBlocks
 		ModBlocks.init();
+		//Register Tile's
+		ModTileEntities.init();
 		// Register Fluids
 		ModFluids.init();
 		// Register ModItems
 		ModItems.init();
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+
+		ModFixs dataFixes = FMLCommonHandler.instance().getDataFixer().init(ModInfo.MOD_ID, 1);
+		ModTileEntities.initDataFixer(dataFixes);
 
 		CompatManager.isIC2Loaded = Loader.isModLoaded("ic2");
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {

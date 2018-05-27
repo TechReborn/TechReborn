@@ -29,10 +29,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.RebornRegistry;
-import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -42,7 +40,8 @@ import techreborn.blocks.generator.*;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.storage.*;
-import techreborn.blocks.tier0.*;
+import techreborn.blocks.tier0.BlockIronAlloyFurnace;
+import techreborn.blocks.tier0.BlockIronFurnace;
 import techreborn.blocks.tier1.*;
 import techreborn.blocks.tier2.*;
 import techreborn.blocks.tier3.*;
@@ -51,24 +50,6 @@ import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.itemblocks.*;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.*;
-import techreborn.tiles.cable.TileCable;
-import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.tiles.generator.*;
-import techreborn.tiles.idsu.TileInterdimensionalSU;
-import techreborn.tiles.lesu.TileLSUStorage;
-import techreborn.tiles.lesu.TileLapotronicSU;
-import techreborn.tiles.lighting.TileLamp;
-import techreborn.tiles.multiblock.*;
-import techreborn.tiles.storage.TileAdjustableSU;
-import techreborn.tiles.storage.TileHighVoltageSU;
-import techreborn.tiles.storage.TileLowVoltageSU;
-import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.tier0.*;
-import techreborn.tiles.tier1.*;
-import techreborn.tiles.transformers.TileHVTransformer;
-import techreborn.tiles.transformers.TileLVTransformer;
-import techreborn.tiles.transformers.TileMVTransformer;
 
 /**
  * Registers all TR blocks
@@ -161,67 +142,51 @@ public class ModBlocks {
 	public static void init() {
 		THERMAL_GENERATOR = new BlockThermalGenerator();
 		registerBlock(THERMAL_GENERATOR, "thermal_generator");
-		GameRegistry.registerTileEntity(TileThermalGenerator.class, "TileThermalGeneratorTR");
 
 		QUANTUM_TANK = new BlockQuantumTank();
 		registerBlock(QUANTUM_TANK, ItemBlockQuantumTank.class, "quantum_tank");
-		GameRegistry.registerTileEntity(TileQuantumTank.class, "TileQuantumTankTR");
 
 		QUANTUM_CHEST = new BlockQuantumChest();
 		registerBlock(QUANTUM_CHEST, ItemBlockQuantumChest.class, "quantum_chest");
-		GameRegistry.registerTileEntity(TileQuantumChest.class, "TileQuantumChestTR");
 
 		DIGITAL_CHEST = new BlockDigitalChest();
 		registerBlock(DIGITAL_CHEST, ItemBlockDigitalChest.class, "digital_chest");
-		GameRegistry.registerTileEntity(TileDigitalChest.class, "TileDigitalChestTR");
 
 		INDUSTRIAL_CENTRIFUGE = new BlockIndustrialCentrifuge();
 		registerBlock(INDUSTRIAL_CENTRIFUGE, "industrial_centrifuge");
-		GameRegistry.registerTileEntity(TileIndustrialCentrifuge.class, "TileIndustrialCentrifugeTR");
 
 		ROLLING_MACHINE = new BlockRollingMachine();
 		registerBlock(ROLLING_MACHINE, "rolling_machine");
-		GameRegistry.registerTileEntity(TileRollingMachine.class, "TileRollingMachineTR");
 
 		INDUSTRIAL_BLAST_FURNACE = new BlockIndustrialBlastFurnace();
 		registerBlock(INDUSTRIAL_BLAST_FURNACE, "industrial_blast_furnace");
-		GameRegistry.registerTileEntity(TileIndustrialBlastFurnace.class, "TileIndustrialBlastFurnaceTR");
 
 		ALLOY_SMELTER = new BlockAlloySmelter();
 		registerBlock(ALLOY_SMELTER, "alloy_smelter");
-		GameRegistry.registerTileEntity(TileAlloySmelter.class, "TileAlloySmalterTR");
 
 		INDUSTRIAL_GRINDER = new BlockIndustrialGrinder();
 		registerBlock(INDUSTRIAL_GRINDER, "industrial_grinder");
-		GameRegistry.registerTileEntity(TileIndustrialGrinder.class, "TileIndustrialGrinderTR");
 
 		IMPLOSION_COMPRESSOR = new BlockImplosionCompressor();
 		registerBlock(IMPLOSION_COMPRESSOR, "implosion_compressor");
-		GameRegistry.registerTileEntity(TileImplosionCompressor.class, "TileImplosionCompressorTR");
 
 		MATTER_FABRICATOR = new BlockMatterFabricator();
 		registerBlock(MATTER_FABRICATOR, "matter_fabricator");
-		GameRegistry.registerTileEntity(TileMatterFabricator.class, "TileMatterFabricatorTR");
 
 		CHUNK_LOADER = new BlockChunkLoader();
 		registerBlock(CHUNK_LOADER, "chunk_loader");
-		GameRegistry.registerTileEntity(TileChunkLoader.class, "TileChunkLoaderTR");
 
 		CHARGE_O_MAT = new BlockChargeOMat();
 		registerBlock(CHARGE_O_MAT, "charge_o_mat");
-		GameRegistry.registerTileEntity(TileChargeOMat.class, "TileChargeOMatTR");
 
 		PLAYER_DETECTOR = new BlockPlayerDetector();
 		registerBlock(PLAYER_DETECTOR, ItemBlockPlayerDetector.class, "player_detector");
-		GameRegistry.registerTileEntity(TilePlayerDectector.class, "TilePlayerDectectorTR");
 
 		CABLE = new BlockCable();
 		registerBlock(CABLE, ItemBlockCable.class, "cable");
-		GameRegistry.registerTileEntity(TileCable.class, "TileCableTR");
 
 		MACHINE_CASINGS = new BlockMachineCasing();
 		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machine_casing");
-		GameRegistry.registerTileEntity(TileMachineCasing.class, "TileMachineCasingTR");
 
 		ORE = new BlockOre();
 		registerBlock(ORE, ItemBlockOre.class, "ore");
@@ -237,121 +202,93 @@ public class ModBlocks {
 
 		DRAGON_EGG_SYPHON = new BlockDragonEggSyphon();
 		registerBlock(DRAGON_EGG_SYPHON, "dragon_egg_syphon");
-		GameRegistry.registerTileEntity(TileDragonEggSyphon.class, "TileDragonEggSyphonTR");
 
 		MAGIC_ENERGY_CONVERTER = new BlockMagicEnergyConverter();
 		registerBlock(MAGIC_ENERGY_CONVERTER, "magic_energy_converter");
 
 		ASSEMBLY_MACHINE = new BlockAssemblingMachine();
 		registerBlock(ASSEMBLY_MACHINE, "assembly_machine");
-		GameRegistry.registerTileEntity(TileAssemblingMachine.class, "TileAssemblyMachineTR");
 
 		DIESEL_GENERATOR = new BlockDieselGenerator();
 		registerBlock(DIESEL_GENERATOR, "diesel_generator");
-		GameRegistry.registerTileEntity(TileDieselGenerator.class, "TileDieselGeneratorTR");
 
 		INDUSTRIAL_ELECTROLYZER = new BlockIndustrialElectrolyzer();
 		registerBlock(INDUSTRIAL_ELECTROLYZER, "industrial_electrolyzer");
-		GameRegistry.registerTileEntity(TileIndustrialElectrolyzer.class, "TileIndustrialElectrolyzerTR");
 
 		MAGICAL_ABSORBER = new BlockMagicEnergyAbsorber();
 		registerBlock(MAGICAL_ABSORBER, "magic_energy_absorber");
 
 		SEMI_FLUID_GENERATOR = new BlockSemiFluidGenerator();
 		registerBlock(SEMI_FLUID_GENERATOR, "semi_fluid_generator");
-		GameRegistry.registerTileEntity(TileSemiFluidGenerator.class, "TileSemiFluidGeneratorTR");
 
 		GAS_TURBINE = new BlockGasTurbine();
 		registerBlock(GAS_TURBINE, "gas_turbine");
-		GameRegistry.registerTileEntity(TileGasTurbine.class, "TileGasTurbineTR");
 
 		IRON_ALLOY_FURNACE = new BlockIronAlloyFurnace();
 		registerBlock(IRON_ALLOY_FURNACE, "iron_alloy_furnace");
-		GameRegistry.registerTileEntity(TileIronAlloyFurnace.class, "TileIronAlloyFurnaceTR");
 
 		CHEMICAL_REACTOR = new BlockChemicalReactor();
 		registerBlock(CHEMICAL_REACTOR, "chemical_reactor");
-		GameRegistry.registerTileEntity(TileChemicalReactor.class, "TileChemicalReactorTR");
 
 		INTERDIMENSIONAL_SU = new BlockInterdimensionalSU();
 		registerBlock(INTERDIMENSIONAL_SU, "interdimensional_su");
-		GameRegistry.registerTileEntity(TileInterdimensionalSU.class, "TileInterdimensionalSUTR");
 
 		ADJUSTABLE_SU = new BlockAdjustableSU();
 		registerBlock(ADJUSTABLE_SU, ItemBlockAdjustableSU.class, "adjustable_su");
-		GameRegistry.registerTileEntity(TileAdjustableSU.class, "TileAdjustableSUTR");
 
 		LAPOTRONIC_SU = new BlockLapotronicSU();
 		registerBlock(LAPOTRONIC_SU, "lapotronic_su");
-		GameRegistry.registerTileEntity(TileLapotronicSU.class, "TileLapotronicSUTR");
 
 		LSU_STORAGE = new BlockLSUStorage();
 		registerBlock(LSU_STORAGE, "lsu_storage");
-		GameRegistry.registerTileEntity(TileLSUStorage.class, "TileLSUStorageTR");
 
 		DISTILLATION_TOWER = new BlockDistillationTower();
 		registerBlock(DISTILLATION_TOWER, "distillation_tower");
-		GameRegistry.registerTileEntity(TileDistillationTower.class, "TileDistillationTowerTR");
 
 		VACUUM_FREEZER = new BlockVacuumFreezer();
 		registerBlock(VACUUM_FREEZER, "vacuum_freezer");
-		GameRegistry.registerTileEntity(TileVacuumFreezer.class, "TileVacuumFreezerTR");
 
 		FUSION_CONTROL_COMPUTER = new BlockFusionControlComputer();
 		registerBlock(FUSION_CONTROL_COMPUTER, "fusion_control_computer");
-		GameRegistry.registerTileEntity(TileFusionControlComputer.class, "TileFusionControlComputerTR");
 
 		FUSION_COIL = new BlockFusionCoil();
 		registerBlock(FUSION_COIL, "fusion_coil");
 
 		LIGHTNING_ROD = new BlockLightningRod();
 		registerBlock(LIGHTNING_ROD, "lightning_rod");
-		GameRegistry.registerTileEntity(TileLightningRod.class, "TileLightningRodTR");
 
 		INDUSTRIAL_SAWMILL = new BlockIndustrialSawmill();
 		registerBlock(INDUSTRIAL_SAWMILL, "industrial_sawmill");
-		GameRegistry.registerTileEntity(TileIndustrialSawmill.class, "TileIndustrialSawmillTR");
 
 		MACHINE_FRAMES = new BlockMachineFrames();
 		registerBlock(MACHINE_FRAMES, ItemBlockMachineFrames.class, "machine_frame");
 
 		GRINDER = new BlockGrinder();
 		registerBlock(GRINDER, "grinder");
-		GameRegistry.registerTileEntity(TileGrinder.class, "TileGrinderTR");
 
 		SOLID_FUEL_GENEREATOR = new BlockSolidFuelGenerator();
 		registerBlock(SOLID_FUEL_GENEREATOR, "solid_fuel_generator");
-		GameRegistry.registerTileEntity(TileSolidFuelGenerator.class, "TileSolidFuelGeneratorTR");
 
 		EXTRACTOR = new BlockExtractor();
 		registerBlock(EXTRACTOR, "extractor");
-		GameRegistry.registerTileEntity(TileExtractor.class, "TileExtractorTR");
 
 		COMPRESSOR = new BlockCompressor();
 		registerBlock(COMPRESSOR, "compressor");
-		GameRegistry.registerTileEntity(TileCompressor.class, "TileCompressorTR");
 
 		ELECTRIC_FURNACE = new BlockElectricFurnace();
 		registerBlock(ELECTRIC_FURNACE, "electric_furnace");
-		GameRegistry.registerTileEntity(TileElectricFurnace.class, "TileElectricFurnaceTR");
 
 		SOLAR_PANEL = new BlockSolarPanel();
 		registerBlock(SOLAR_PANEL, ItemBlockSolarPanel.class,  "solar_panel");
-		GameRegistry.registerTileEntity(TileSolarPanel.class, "TileSolarPanelTR");
 
 		CREATIVE_SOLAR_PANEL = new BlockCreativeSolarPanel();
 		registerBlock(CREATIVE_SOLAR_PANEL, "creative_solar_panel");
-		GameRegistry.registerTileEntity(TileCreativeSolarPanel.class, "TileCreativeSolarPanelTR");
 
 		WATER_MILL = new BlockWaterMill();
 		registerBlock(WATER_MILL, "water_mill");
-		GameRegistry.registerTileEntity(TileWaterMill.class, "TileWaterMillTR");
 
 		WIND_MILL = new BlockWindMill();
 		registerBlock(WIND_MILL, "wind_mill");
-		GameRegistry.registerTileEntity(TileWindMill.class, "TileWindMillTR");
-
-		GameRegistry.registerTileEntity(TileLegacyMachineBase.class, "TileMachineBaseTR");
 
 		RUBBER_LOG = new BlockRubberLog();
 		registerBlock(RUBBER_LOG, "rubber_log");
@@ -373,53 +310,42 @@ public class ModBlocks {
 
 		RECYCLER = new BlockRecycler();
 		registerBlock(RECYCLER, "recycler");
-		GameRegistry.registerTileEntity(TileRecycler.class, "TileRecyclerTR");
 
 		LOW_VOLTAGE_SU = new BlockLowVoltageSU();
 		registerBlock(LOW_VOLTAGE_SU, "low_voltage_su");
-		GameRegistry.registerTileEntity(TileLowVoltageSU.class, "TileLowVoltageSUTR");
 
 		MEDIUM_VOLTAGE_SU = new BlockMediumVoltageSU();
 		registerBlock(MEDIUM_VOLTAGE_SU, "medium_voltage_su");
-		GameRegistry.registerTileEntity(TileMediumVoltageSU.class, "TileMediumVoltageSUTR");
 
 		HIGH_VOLTAGE_SU = new BlockHighVoltageSU();
 		registerBlock(HIGH_VOLTAGE_SU, "high_voltage_su");
-		GameRegistry.registerTileEntity(TileHighVoltageSU.class, "TileHighVoltageSUTR");
 
 		LV_TRANSFORMER = new BlockLVTransformer();
 		registerBlock(LV_TRANSFORMER, "lv_transformer");
-		GameRegistry.registerTileEntity(TileLVTransformer.class, "TileLVTransformerTR");
 
 		MV_TRANSFORMER = new BlockMVTransformer();
 		registerBlock(MV_TRANSFORMER, "mv_transformer");
-		GameRegistry.registerTileEntity(TileMVTransformer.class, "TileMVTransformerTR");
 
 		HV_TRANSFORMER = new BlockHVTransformer();
 		registerBlock(HV_TRANSFORMER, "hv_transformer");
-		GameRegistry.registerTileEntity(TileHVTransformer.class, "TileHVTransformerTR");
 
 		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
 		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
-		GameRegistry.registerTileEntity(TileAutoCraftingTable.class, "TileAutoCraftingTableTR");
 
 		IRON_FURNACE = new BlockIronFurnace();
 		registerBlock(IRON_FURNACE, "iron_furnace");
-		GameRegistry.registerTileEntity(TileIronFurnace.class, "TileIronFurnaceTR");
 
 		NUKE = new BlockNuke();
 		registerBlock(NUKE, "nuke");
 
 		SCRAPBOXINATOR = new BlockScrapboxinator();
 		registerBlock(SCRAPBOXINATOR, "scrapboxinator");
-		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
 
 		COMPUTER_CUBE = new BlockComputerCube();
 		registerBlock(COMPUTER_CUBE, "computer_cube");
 		
 		PLASMA_GENERATOR = new BlockPlasmaGenerator();
 		registerBlock(PLASMA_GENERATOR, "plasma_generator");
-		GameRegistry.registerTileEntity(TilePlasmaGenerator.class, "TilePlasmalGeneratorTR");
 
 		LAMP_INCANDESCENT = new BlockLamp( 14, 4, 0.625, 0.25);
 		registerBlock(LAMP_INCANDESCENT, "lamp_incandescent");
@@ -427,15 +353,11 @@ public class ModBlocks {
 		LAMP_LED = new BlockLamp( 15, 1, 0.0625, 0.125);
 		registerBlock(LAMP_LED, "lamp_led");
 
-		GameRegistry.registerTileEntity(TileLamp.class, "TileLampTR");
-
 		ALARM = new BlockAlarm();
 		registerBlock(ALARM, "alarm");
-		GameRegistry.registerTileEntity(TileAlarm.class, "TileAlarmTR");
 		
 		FLUID_REPLICATOR = new BlockFluidReplicator();
 		registerBlock(FLUID_REPLICATOR, "fluid_replicator");
-		GameRegistry.registerTileEntity(TileFluidReplicator.class, "TileFluidReplicatorTR");
 
 		//TODO enable when done
 		//		flare = new BlockFlare();
