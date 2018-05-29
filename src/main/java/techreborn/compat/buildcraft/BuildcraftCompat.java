@@ -55,7 +55,8 @@ public class BuildcraftCompat implements ICompatModule {
 	public void postInit(FMLPostInitializationEvent event) {
 		if (CompatConfigs.allowBCFuels) {
 			for (IFuel fuel : FuelRegistry.INSTANCE.getFuels()) {
-				GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, fuel.getFluid().getFluid(), (int) (fuel.getPowerPerCycle() / RebornCoreConfig.euPerFU));
+				// getPowerPerCycle returns micro mj values
+				GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.THERMAL, fuel.getFluid().getFluid(), (int) (fuel.getPowerPerCycle() / RebornCoreConfig.euPerFU * 1000));
 			}
 		}
 	}
