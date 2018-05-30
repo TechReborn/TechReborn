@@ -93,7 +93,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.3.2678"
+	version = "1.12.2-14.23.4.2705"
 	mappings = "snapshot_20171003"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
@@ -122,8 +122,8 @@ dependencies {
 	deobfCompile "mezz.jei:jei_1.12.2:+"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
 	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.+'
-	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.3.9.3:universal', withoutOldJEI
-	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.3.9.9:universal', withoutOldJEI
+	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.5+:universal'
+	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.5+:universal'
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
 	deobfCompile "li.cil.oc:OpenComputers:MC1.12.1-1.7.1+"
 	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
