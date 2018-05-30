@@ -31,8 +31,6 @@ import techreborn.tiles.TileQuantumTank;
 
 public class GuiQuantumTank extends GuiBase {
 
-
-
 	TileQuantumTank quantumTank;
 
 	public GuiQuantumTank(final EntityPlayer player, final TileQuantumTank quantumTank) {
@@ -45,7 +43,6 @@ public class GuiQuantumTank extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-
 		this.drawSlot(80, 17, layer);
 		this.drawSlot(80, 53, layer);
 
@@ -54,7 +51,6 @@ public class GuiQuantumTank extends GuiBase {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		final String name = I18n.format("tile.techreborn:quantum_tank.name");
 		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
