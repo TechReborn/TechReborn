@@ -145,7 +145,7 @@ public enum ModTileEntities {
 
 	public static void init(){
 		Arrays.stream(ModTileEntities.values())
-			.forEach(modTileEntities -> GameRegistry.registerTileEntity(modTileEntities.tileClass, modTileEntities.name.toString()));
+			.forEach(modTileEntities -> GameRegistry.registerTileEntity(modTileEntities.tileClass, modTileEntities.name));
 	}
 
 	public static Optional<ModTileEntities> getFromOldName(String name){
