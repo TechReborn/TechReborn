@@ -67,10 +67,7 @@ public class RollingMachineRecipeWrapper implements IRecipeWrapper {
 	}
 
 	@Override
-	public void getIngredients(
-		@Nonnull
-			IIngredients ingredients) {
+	public void getIngredients(@Nonnull IIngredients ingredients) {
 		baseRecipe.getIngredients(ingredients);
 	}
-
 }

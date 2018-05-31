@@ -82,20 +82,13 @@ public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMach
 	}
 
 	@Override
-	public void drawExtras(
-		@Nonnull
-			Minecraft minecraft) {
+	public void drawExtras(@Nonnull Minecraft minecraft) {
 		progress.draw(minecraft, 62, 18);
 	}
 
 	@Override
-	public void setRecipe(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			RollingMachineRecipeWrapper recipeWrapper,
-		@Nonnull
-			IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RollingMachineRecipeWrapper recipeWrapper,
+			@Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		for (int l = 0; l < 3; l++) {
 			for (int k1 = 0; k1 < 3; k1++) {
@@ -103,10 +96,9 @@ public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMach
 				guiItemStacks.init(INPUT_SLOTS[i], true, k1 * 18, l * 18);
 			}
 		}
-
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 94, 18);
 
-		craftingGridHelper.setInputStacks(guiItemStacks, ingredients.getInputs(ItemStack.class));
-		craftingGridHelper.setOutput(guiItemStacks, ingredients.getOutputs(ItemStack.class).get(0));
+		craftingGridHelper.setInputs(guiItemStacks, ingredients.getInputs(ItemStack.class));
+		guiItemStacks.set(OUTPUT_SLOTS[0], ingredients.getOutputs(ItemStack.class).get(0));
 	}
 }

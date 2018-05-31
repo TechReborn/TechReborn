@@ -27,6 +27,7 @@ package techreborn.compat.jei;
 import mezz.jei.api.*;
 import mezz.jei.api.gui.IAdvancedGuiHandler;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import mezz.jei.collect.ListMultiMap;
@@ -39,11 +40,16 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
 import org.lwjgl.input.Mouse;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.StringUtils;
@@ -94,8 +100,8 @@ import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeWrapper;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeWrapper;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
-import techreborn.compat.jei.rollingMachine.RollingMachineRecipeHandler;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
+import techreborn.compat.jei.rollingMachine.RollingMachineRecipeWrapper;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeWrapper;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
@@ -114,7 +120,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("deprecation")
 @mezz.jei.api.JEIPlugin
 public class TechRebornJeiPlugin implements IModPlugin {
 
@@ -136,13 +141,15 @@ public class TechRebornJeiPlugin implements IModPlugin {
 				dirtBlock, time, 120);
 			debugRecipes.add(assemblingMachineRecipe);
 		}
+		registry.addRecipes(debugRecipes, RecipeCategoryUids.ASSEMBLING_MACHINE);
+		debugRecipes.clear();
 		for (int i = 0; i < 10; i++) {
 			final int time = (int) Math.round(200 + Math.random() * 100);
 			final ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock,
 				dirtBlock, time, 120);
 			debugRecipes.add(recipe);
 		}
-		registry.addRecipes(debugRecipes);
+		registry.addRecipes(debugRecipes, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 	}
 
 	@Override
@@ -179,6 +186,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void register(@Nonnull final IModRegistry registry) {
 		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
@@ -262,7 +270,10 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(VacuumFreezerRecipe.class, recipe -> new VacuumFreezerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.VACUUM_FREEZER);
 		registry.handleRecipes(DistillationTowerRecipe.class, recipe -> new DistillationTowerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.handleRecipes(FluidReplicatorRecipe.class, recipe -> new FluidReplicatorRecipeWrapper(jeiHelpers,recipe), RecipeCategoryUids.FLUID_REPLICATOR);
-		registry.addRecipeHandlers(new RollingMachineRecipeHandler());
+		registry.handleRecipes(ShapelessRecipes.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
+		registry.handleRecipes(ShapedRecipes.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
+		registry.handleRecipes(ShapedOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
+		registry.handleRecipes(ShapelessOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		
 		for (final EFluidGenerator type : EFluidGenerator.values()) {
 			registry.handleRecipes(FluidGeneratorRecipe.class, recipe -> new FluidGeneratorRecipeWrapper(jeiHelpers, recipe), type.getRecipeID());
