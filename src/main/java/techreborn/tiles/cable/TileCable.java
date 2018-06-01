@@ -235,11 +235,17 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 
 	@Override
 	public boolean canExtract() {
+		if (getEnergyStored() == 0 ) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public boolean canReceive() {
+		if (getMaxEnergyStored() == getEnergyStored()) {
+			return false;
+		}
 		return true;
 	}
 
