@@ -53,6 +53,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	private int transferRate = 0;
 	private EnumCableType cableType = null;
 	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
+	int ticksSinceLastChange = 0;
 	
 	private EnumCableType getCableType() {
 		return world.getBlockState(pos).getValue(BlockCable.TYPE);
@@ -62,9 +63,9 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 		if (sendingFace.contains(face)) {
 			return false;
 		}
-		return true;
+		return canReceive();
 	}
-	
+		
 	// TileEntity
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -73,7 +74,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 		}
 		return super.hasCapability(capability, facing);
 	}
-
 	
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
@@ -85,19 +85,11 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	
 	@Override
     public NBTTagCompound getUpdateTag() {
-        // getUpdateTag() is called whenever the chunkdata is sent to the
-        // client. In contrast getUpdatePacket() is called when the tile entity
-        // itself wants to sync to the client. In many cases you want to send
-        // over the same information in getUpdateTag() as in getUpdatePacket().
         return writeToNBT(new NBTTagCompound());
     }
 
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
-        // Prepare a packet for syncing our TE to the client. Since we only have to sync the stack
-        // and that's all we have we just write our entire NBT here. If you have a complex
-        // tile entity that doesn't need to have all information on the client you can write
-        // a more optimal NBT here.
         NBTTagCompound nbtTag = new NBTTagCompound();
         this.writeToNBT(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
@@ -105,7 +97,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        // Here we get the packet from the server and read it into our client side tile entity
         this.readFromNBT(packet.getNbtCompound());
     }
 
@@ -140,10 +131,17 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 			this.transferRate = this.cableType.transferRate * RebornCoreConfig.euPerFU; 
 		}
 		
-		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-		ArrayList<TileCable> cables = new ArrayList<TileCable>();
-		sendingFace.clear();
+		ticksSinceLastChange++;
+		if (ticksSinceLastChange >= 10) {
+			sendingFace.clear();
+			ticksSinceLastChange = 0;		
+		}
 		
+		if (!canExtract()) {
+			return;
+		}
+
+		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
 		for (EnumFacing face : EnumFacing.VALUES) {
 			TileEntity tile = world.getTileEntity(pos.offset(face));
 
@@ -152,48 +150,26 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 			} else if (tile instanceof TileCable) {
 				TileCable cable = (TileCable) tile;
 				if (power > cable.power && cable.canReceiveFromFace(face.getOpposite())) {
-					cables.add(cable);
-					sendingFace.add(face);
+					acceptors.add((IEnergyStorage) tile);
+					if (!sendingFace.contains(face)) {
+						sendingFace.add(face);
+					}					
 				}
 			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
 				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-				if (energyTile != null && energyTile.canReceive()){
+				if (energyTile != null && energyTile.canReceive()) {
 					acceptors.add(energyTile);
 				}
 			}
 		}
-		
-		if (cables.size() > 0){
-			int drain  = Math.min(power, transferRate);
-			int energyShare = drain / cables.size();
-			int remainingEnergy = drain;
 			
-			if (energyShare > 0) {
-				for (TileCable cable : cables) {
-					// Push energy to connected cables
-					int move = cable.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
-					if (move > 0) {
-						remainingEnergy -= move;
-					}
+		if (acceptors.size() > 0 ) {
+			for (IEnergyStorage tile : acceptors) {
+				int drain = Math.min(power, transferRate);
+				if (drain > 0 && tile.receiveEnergy(drain, true) > 0) {
+					int move = tile.receiveEnergy(drain, false);
+					extractEnergy(move, false);
 				}
-				extractEnergy(drain - remainingEnergy, false);
-			}
-		}
-		
-		if (acceptors.size() > 0){
-			int drain = Math.min(power, transferRate);
-			int energyShare = drain / acceptors.size();
-			int remainingEnergy = drain;
-			
-			if (energyShare > 0) {
-				for (IEnergyStorage tile : acceptors){
-					// Push energy to connected tile acceptors
-					int move = tile.receiveEnergy(Math.min(energyShare, remainingEnergy), false);
-					if (move > 0) {
-						remainingEnergy -= move;
-					}
-				}
-				extractEnergy(drain - remainingEnergy, false);
 			}
 		}
 	}
@@ -230,7 +206,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 
 	@Override
 	public int getMaxEnergyStored() {
-		return this.transferRate * 6;
+		return this.transferRate * 5;
 	}
 
 	@Override
