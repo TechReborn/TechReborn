@@ -24,14 +24,13 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import techreborn.tiles.tier0.TileIronFurnace;
 
-public class GuiIronFurnace extends GuiContainer {
+public class GuiIronFurnace extends GuiBase {
 
 	public static final ResourceLocation texture = new ResourceLocation("minecraft",
 		"textures/gui/container/furnace.png");
@@ -39,7 +38,7 @@ public class GuiIronFurnace extends GuiContainer {
 	TileIronFurnace furnace;
 
 	public GuiIronFurnace(final EntityPlayer player, final TileIronFurnace furnace) {
-		super(furnace.createContainer(player));
+		super(player, furnace,  furnace.createContainer(player));
 		this.xSize = 176;
 		this.ySize = 167;
 		this.furnace = furnace;
@@ -49,6 +48,7 @@ public class GuiIronFurnace extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades);
 		this.mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
 		final int k = (this.width - this.xSize) / 2;
 		final int l = (this.height - this.ySize) / 2;
@@ -74,6 +74,8 @@ public class GuiIronFurnace extends GuiContainer {
 			4210752);
 		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
 			this.ySize - 96 + 2, 4210752);
+
+		super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
 	}
 
 	@Override

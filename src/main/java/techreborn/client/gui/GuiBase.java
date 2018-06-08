@@ -55,7 +55,7 @@ public class GuiBase extends GuiContainer {
 	public BuiltContainer container;
 	public static boolean showSlotConfig = false;
 
-	private boolean upgrades;
+	public boolean upgrades;
 
 	public GuiBase(EntityPlayer player, TileEntity tile, BuiltContainer container) {
 		super(container);
