@@ -25,8 +25,10 @@
 package techreborn.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
@@ -120,6 +122,9 @@ public class ModBlocks {
 	public static Block NUKE;
 
 	public static Block RUBBER_LOG;
+	public static Block RUBBER_LOG_SLAB_HALF;
+	public static Block RUBBER_LOG_SLAB_DOUBLE;
+	public static Block RUBBER_LOG_STAIR;
 	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_SAPLING;
 	public static Block RUBBER_PLANKS;
@@ -296,6 +301,15 @@ public class ModBlocks {
 		RUBBER_PLANKS = new BlockRubberPlank();
 		registerBlock(RUBBER_PLANKS, "rubber_planks");
 
+		RUBBER_LOG_SLAB_HALF = new BlockRubberPlankSlab.BlockHalf("rubber_log");
+		registerBlockNoItem(RUBBER_LOG_SLAB_HALF, "rubber_plank_slab");
+
+		RUBBER_LOG_SLAB_DOUBLE = new BlockRubberPlankSlab.BlockDouble("rubber_plank", RUBBER_LOG_SLAB_HALF);
+		registerBlock(RUBBER_LOG_SLAB_DOUBLE, new ItemSlab(RUBBER_LOG_SLAB_HALF, (BlockSlab) RUBBER_LOG_SLAB_HALF, (BlockSlab) RUBBER_LOG_SLAB_DOUBLE) , "rubber_plank_double_slab");
+
+		RUBBER_LOG_STAIR = new BlockRubberPlankStair(RUBBER_LOG.getDefaultState(), "rubber_plank");
+		registerBlock(RUBBER_LOG_STAIR, "rubber_plank_stair");
+
 		RUBBER_LEAVES = new BlockRubberLeaves();
 		registerBlock(RUBBER_LEAVES, "rubber_leaves");
 
@@ -395,6 +409,18 @@ public class ModBlocks {
 		RebornRegistry.registerBlock(block, itemclass, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
+	public static void registerBlock(Block block, ItemBlock itemBlock, String name) {
+		name = name.toLowerCase();
+		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
+		RebornRegistry.registerBlock(block, itemBlock, new ResourceLocation(ModInfo.MOD_ID, name));
+	}
+
+	public static void registerBlockNoItem(Block block, String name) {
+		name = name.toLowerCase();
+		block.setUnlocalizedName(ModInfo.MOD_ID + ":" + name);
+		RebornRegistry.registerBlockNoItem(block,  new ResourceLocation(ModInfo.MOD_ID, name));
+	}
+
 	/**
 	 * Register ores and ore blocks
 	 */
@@ -442,6 +468,7 @@ public class ModBlocks {
 		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("slabWood", new ItemStack(RUBBER_LOG_SLAB_HALF, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));

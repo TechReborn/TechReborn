@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    "textures": {
+      "all": "techreborn:blocks/rubber_planks"
+    }
+
+  },
+  "variants": {
+    "inventory": { "transform": "forge:default-block" },
+    "variant": {
+      "default": {}
+    }
+  }
+}
