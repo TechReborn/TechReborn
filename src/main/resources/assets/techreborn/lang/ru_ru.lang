@@ -83,11 +83,13 @@ tile.techreborn:auto_crafting_table.name=Автоверстак
 #Blocks
 tile.techreborn:rubber_log.name=Древесина гевеи
 tile.techreborn:rubber_planks.name=Доски из древесины гевеи
+tile.techreborn:rubber_plank_slab.name=Плита из древесины гевеи
+tile.techreborn:rubber_plank_stair.name=Ступеньки из древесины гевеи
 tile.techreborn:rubber_leaves.name=Листва гевеи
 tile.techreborn:rubber_sapling.name=Саженец гевеи
 
 tile.techreborn:refined_iron_fence.name=Железный забор
-tile.techreborn:alarm.name=аварийная сигнализация
+tile.techreborn:alarm.name=Сирена
 
 #Ores
 tile.techreborn:ore.galena.name=Галенитовая руда
