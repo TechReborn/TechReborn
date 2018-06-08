@@ -227,84 +227,84 @@ public class ModItems {
 		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
-			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE);
+			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");
 			registerItem(BRONZE_SWORD, "bronzeSword");
-			BRONZE_PICKAXE = new ItemTRPickaxe(Reference.BRONZE);
+			BRONZE_PICKAXE = new ItemTRPickaxe(Reference.BRONZE, "ingotBronze");
 			registerItem(BRONZE_PICKAXE, "bronzePickaxe");
-			BRONZE_SPADE = new ItemTRSpade(Reference.BRONZE);
+			BRONZE_SPADE = new ItemTRSpade(Reference.BRONZE, "ingotBronze");
 			registerItem(BRONZE_SPADE, "bronzeSpade");
-			BRONZE_AXE = new ItemTRAxe(Reference.BRONZE);
+			BRONZE_AXE = new ItemTRAxe(Reference.BRONZE, "ingotBronze");
 			registerItem(BRONZE_AXE, "bronzeAxe");
-			BRONZE_HOE = new ItemTRHoe(Reference.BRONZE);
+			BRONZE_HOE = new ItemTRHoe(Reference.BRONZE, "ingotBronze");
 			registerItem(BRONZE_HOE, "bronzeHoe");
 
-			BRONZE_HELMET = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD);
+			BRONZE_HELMET = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD, "ingotBronze");
 			registerItem(BRONZE_HELMET, "bronzeHelmet");
-			BRONZE_CHESTPLATE = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST);
+			BRONZE_CHESTPLATE = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST, "ingotBronze");
 			registerItem(BRONZE_CHESTPLATE, "bronzeChestplate");
-			BRONZE_LEGGINGS = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS);
+			BRONZE_LEGGINGS = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS, "ingotBronze");
 			registerItem(BRONZE_LEGGINGS, "bronzeLeggings");
-			BRONZE_BOOTS = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET);
+			BRONZE_BOOTS = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET, "ingotBronze");
 			registerItem(BRONZE_BOOTS, "bronzeBoots");
 
-			RUBY_SWORD = new ItemTRSword(Reference.RUBY);
+			RUBY_SWORD = new ItemTRSword(Reference.RUBY, "gemRuby");
 			registerItem(RUBY_SWORD, "rubySword");
-			RUBY_PICKAXE = new ItemTRPickaxe(Reference.RUBY);
+			RUBY_PICKAXE = new ItemTRPickaxe(Reference.RUBY, "gemRuby");
 			registerItem(RUBY_PICKAXE, "rubyPickaxe");
-			RUBY_SPADE = new ItemTRSpade(Reference.RUBY);
+			RUBY_SPADE = new ItemTRSpade(Reference.RUBY, "gemRuby");
 			registerItem(RUBY_SPADE, "rubySpade");
-			RUBY_AXE = new ItemTRAxe(Reference.RUBY);
+			RUBY_AXE = new ItemTRAxe(Reference.RUBY, "gemRuby");
 			registerItem(RUBY_AXE, "rubyAxe");
-			RUBY_HOE = new ItemTRHoe(Reference.RUBY);
+			RUBY_HOE = new ItemTRHoe(Reference.RUBY, "gemRuby");
 			registerItem(RUBY_HOE, "rubyHoe");
 
-			RUBY_HELMET = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD);
+			RUBY_HELMET = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD, "gemRuby");
 			registerItem(RUBY_HELMET, "rubyHelmet");
-			RUBY_CHESTPLATE = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST);
+			RUBY_CHESTPLATE = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST, "gemRuby");
 			registerItem(RUBY_CHESTPLATE, "rubyChestplate");
-			RUBY_LEGGINGS = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS);
+			RUBY_LEGGINGS = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS, "gemRuby");
 			registerItem(RUBY_LEGGINGS, "rubyLeggings");
-			RUBY_BOOTS = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET);
+			RUBY_BOOTS = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET, "gemRuby");
 			registerItem(RUBY_BOOTS, "rubyBoots");
 
-			SAPPHIRE_SWORD = new ItemTRSword(Reference.SAPPHIRE);
+			SAPPHIRE_SWORD = new ItemTRSword(Reference.SAPPHIRE, "gemSapphire");
 			registerItem(SAPPHIRE_SWORD, "sapphireSword");
-			SAPPHIRE_PICKAXE = new ItemTRPickaxe(Reference.SAPPHIRE);
+			SAPPHIRE_PICKAXE = new ItemTRPickaxe(Reference.SAPPHIRE, "gemSapphire");
 			registerItem(SAPPHIRE_PICKAXE, "sapphirePickaxe");
-			SAPPHIRE_SPADE = new ItemTRSpade(Reference.SAPPHIRE);
+			SAPPHIRE_SPADE = new ItemTRSpade(Reference.SAPPHIRE, "gemSapphire");
 			registerItem(SAPPHIRE_SPADE, "sapphireSpade");
-			SAPPHIRE_AXE = new ItemTRAxe(Reference.SAPPHIRE);
+			SAPPHIRE_AXE = new ItemTRAxe(Reference.SAPPHIRE, "gemSapphire");
 			registerItem(SAPPHIRE_AXE, "sapphireAxe");
-			SAPPHIRE_HOE = new ItemTRHoe(Reference.SAPPHIRE);
+			SAPPHIRE_HOE = new ItemTRHoe(Reference.SAPPHIRE, "gemSapphire");
 			registerItem(SAPPHIRE_HOE, "sapphireHoe");
 
-			SAPPHIRE_HELMET = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD);
+			SAPPHIRE_HELMET = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD, "gemSapphire");
 			registerItem(SAPPHIRE_HELMET, "sapphireHelmet");
-			SAPPHIRE_CHSTPLATE = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST);
+			SAPPHIRE_CHSTPLATE = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST, "gemSapphire");
 			registerItem(SAPPHIRE_CHSTPLATE, "sapphireChestplate");
-			SAPPHIRE_LEGGINGS = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS);
+			SAPPHIRE_LEGGINGS = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS, "gemSapphire");
 			registerItem(SAPPHIRE_LEGGINGS, "sapphireLeggings");
-			SAPPHIRE_BOOTS = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET);
+			SAPPHIRE_BOOTS = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET, "gemSapphire");
 			registerItem(SAPPHIRE_BOOTS, "sapphireBoots");
 
-			PERIDOT_SWORD = new ItemTRSword(Reference.PERIDOT);
+			PERIDOT_SWORD = new ItemTRSword(Reference.PERIDOT, "gemPeridot");
 			registerItem(PERIDOT_SWORD, "peridotSword");
-			PERIDOT_PICKAXE = new ItemTRPickaxe(Reference.PERIDOT);
+			PERIDOT_PICKAXE = new ItemTRPickaxe(Reference.PERIDOT, "gemPeridot");
 			registerItem(PERIDOT_PICKAXE, "peridotPickaxe");
-			PERIDOT_SAPPHIRE = new ItemTRSpade(Reference.PERIDOT);
+			PERIDOT_SAPPHIRE = new ItemTRSpade(Reference.PERIDOT, "gemPeridot");
 			registerItem(PERIDOT_SAPPHIRE, "peridotSpade");
-			PERIDOT_AXE = new ItemTRAxe(Reference.PERIDOT);
+			PERIDOT_AXE = new ItemTRAxe(Reference.PERIDOT, "gemPeridot");
 			registerItem(PERIDOT_AXE, "peridotAxe");
-			PERIDOT_HOE = new ItemTRHoe(Reference.PERIDOT);
+			PERIDOT_HOE = new ItemTRHoe(Reference.PERIDOT, "gemPeridot");
 			registerItem(PERIDOT_HOE, "peridotHoe");
 
-			PERIDOT_HELMET = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD);
+			PERIDOT_HELMET = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD, "gemPeridot");
 			registerItem(PERIDOT_HELMET, "peridotHelmet");
-			PERIDOT_CHESTPLATE = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST);
+			PERIDOT_CHESTPLATE = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST, "gemPeridot");
 			registerItem(PERIDOT_CHESTPLATE, "peridotChestplate");
-			PERIDOT_LEGGINGS = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS);
+			PERIDOT_LEGGINGS = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS, "gemPeridot");
 			registerItem(PERIDOT_LEGGINGS, "peridotLeggings");
-			PERIDOT_BOOTS = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET);
+			PERIDOT_BOOTS = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET, "gemPeridot");
 			registerItem(PERIDOT_BOOTS, "peridotBoots");
 		}
 

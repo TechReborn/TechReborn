@@ -26,6 +26,8 @@ package techreborn.items.armor;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 
@@ -34,8 +36,15 @@ import techreborn.events.TRRecipeHandler;
  */
 public class ItemTRArmour extends ItemArmor {
 
+	String repairOreDict = "";
+
 	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot) {
+		this(material, slot, "");
+	}
+
+	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot, String repairOreDict) {
 		super(material, material.getDamageReductionAmount(slot), slot);
+		this.repairOreDict = repairOreDict;
 		if (slot == EntityEquipmentSlot.HEAD)
 			setUnlocalizedName(material.name().toLowerCase() + "Helmet");
 		if (slot == EntityEquipmentSlot.CHEST)
@@ -46,5 +55,13 @@ public class ItemTRArmour extends ItemArmor {
 			setUnlocalizedName(material.name().toLowerCase() + "Boots");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		TRRecipeHandler.hideEntry(this);
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		if(toRepair.getItem() == this && !repairOreDict.isEmpty()){
+			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
+		}
+		return super.getIsRepairable(toRepair, repair);
 	}
 }

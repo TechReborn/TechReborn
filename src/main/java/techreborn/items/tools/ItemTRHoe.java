@@ -25,14 +25,24 @@
 package techreborn.items.tools;
 
 import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 
 public class ItemTRHoe extends ItemHoe {
+
+	String repairOreDict = "";
+
 	public ItemTRHoe(ToolMaterial material) {
+		this(material, "");
+	}
+
+	public ItemTRHoe(ToolMaterial material, String repairOreDict) {
 		super(material);
+		this.repairOreDict = repairOreDict;
 		setUnlocalizedName(material.name().toLowerCase() + "Hoe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		TRRecipeHandler.hideEntry(this);
@@ -42,5 +52,13 @@ public class ItemTRHoe extends ItemHoe {
 	@SideOnly(Side.CLIENT)
 	public boolean isFull3D() {
 		return true;
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		if(toRepair.getItem() == this && !repairOreDict.isEmpty()){
+			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
+		}
+		return super.getIsRepairable(toRepair, repair);
 	}
 }
