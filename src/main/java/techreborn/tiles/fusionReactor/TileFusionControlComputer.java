@@ -271,7 +271,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	@Override
 	public double getPowerMultiplier() {
-		return size -5;
+		double calc = (1F/2F) * Math.pow(size -5, 1.8);
+		return Math.max(Math.round(calc * 100D) / 100D, 1D);
 	}
 
 	@Override
