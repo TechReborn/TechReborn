@@ -41,4 +41,6 @@ public class RubberTreeConfig {
 	public int spireHeight = 4;
 
 	public int treeBaseHeight = 5;
+
+	public String[] rubberTreeBiomeBlacklist = new String[]{};
 }

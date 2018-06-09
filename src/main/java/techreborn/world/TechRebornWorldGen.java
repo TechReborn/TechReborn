@@ -49,6 +49,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -247,6 +248,9 @@ public class TechRebornWorldGen implements IWorldGenerator {
 			int chance = config.rubberTreeConfig.chance;
 			boolean isValidSpawn = false;
 			Biome biomeGenBase = world.getBiomeForCoordsBody(new BlockPos(chunkX * 16, 72, chunkZ * 16));
+			if(biomeGenBase.getRegistryName() != null && Arrays.asList(config.rubberTreeConfig.rubberTreeBiomeBlacklist).contains(biomeGenBase.getRegistryName().toString())){
+				return;
+			}
 			if (BiomeDictionary.hasType(biomeGenBase, BiomeDictionary.Type.SWAMP)) {
 				// TODO check the config file for bounds on this, might cause issues
 				chance -= random.nextInt(10) + 10;
