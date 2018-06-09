@@ -83,7 +83,8 @@ public class StackToolTipEvent {
 				Block block = Block.getBlockFromItem(item);
 				if (block != null && (block instanceof BlockContainer || block instanceof ITileEntityProvider)
 					&& block.getRegistryName().getResourceDomain().contains("techreborn")) {
-					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().world, block.getDefaultState());
+					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().world, 
+						block.getStateFromMeta(event.getItemStack().getItemDamage()));
 					if (tile instanceof IListInfoProvider) {
 						((IListInfoProvider) tile).addInfo(event.getToolTip(), false);
 					}
