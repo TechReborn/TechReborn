@@ -301,7 +301,7 @@ public class ModBlocks {
 		RUBBER_PLANKS = new BlockRubberPlank();
 		registerBlock(RUBBER_PLANKS, "rubber_planks");
 
-		RUBBER_LOG_SLAB_HALF = new BlockRubberPlankSlab.BlockHalf("rubber_log");
+		RUBBER_LOG_SLAB_HALF = new BlockRubberPlankSlab.BlockHalf("rubber_plank");
 		registerBlockNoItem(RUBBER_LOG_SLAB_HALF, "rubber_plank_slab");
 
 		RUBBER_LOG_SLAB_DOUBLE = new BlockRubberPlankSlab.BlockDouble("rubber_plank", RUBBER_LOG_SLAB_HALF);
@@ -469,6 +469,7 @@ public class ModBlocks {
 		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("slabWood", new ItemStack(RUBBER_LOG_SLAB_HALF, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("stairWood", new ItemStack(RUBBER_LOG_STAIR, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
 		OreUtil.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));

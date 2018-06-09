@@ -8,7 +8,15 @@
 
   },
   "variants": {
-    "inventory": { "transform": "forge:default-block" },
+    "inventory": {
+      "transform": "forge:default-block",
+      "model": "half_slab",
+      "textures": {
+        "top": "techreborn:blocks/rubber_planks",
+        "bottom": "techreborn:blocks/rubber_planks",
+        "side": "techreborn:blocks/rubber_planks"
+      }
+    },
     "variant": {
       "default": {}
     }

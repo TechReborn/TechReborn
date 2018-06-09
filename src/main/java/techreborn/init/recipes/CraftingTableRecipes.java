@@ -284,7 +284,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 				registerShaped(getMaterial(part, Type.PART), " O ", "OIO", " O ", 'I', getStack(Items.IRON_INGOT), 'O', "ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
 			}
 		}
-		
+
+		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_SLAB_HALF),  "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
+		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_STAIR),  "W  ", "WW ", "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
+
 		Core.logHelper.info("Crafting Table Recipes Added");
 	}
 
