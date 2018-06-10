@@ -151,7 +151,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return int Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (this.crafingTickTime != 0) {
+		if (this.crafingTickTime != 0 && this.finalTickTime != 0) {
 			return this.crafingTickTime * scale / this.finalTickTime;
 		}
 		return 0;
