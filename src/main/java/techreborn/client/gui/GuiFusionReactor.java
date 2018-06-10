@@ -28,6 +28,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import org.apache.commons.lang3.tuple.Pair;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
@@ -43,6 +44,7 @@ import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class GuiFusionReactor extends GuiBase {
 	TileFusionControlComputer tile;
@@ -89,6 +91,16 @@ public class GuiFusionReactor extends GuiBase {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
+
+			Optional<Pair<Integer, Integer>> stackSize = getCoilStackCount();
+			if(stackSize.isPresent()){
+				if(stackSize.get().getLeft() > 0){
+					drawCentredString("Required Coils: " + stackSize.get().getLeft() + "x64 +" + stackSize.get().getRight(), 25, 0xFFFFFF,  layer);
+				} else {
+					drawCentredString("Required Coils: " + stackSize.get().getRight(), 25, 0xFFFFFF, layer);
+				}
+
+			}
 		}
 		this.builder.drawUpDownButtons(this, 121, 79, layer);
 		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
@@ -157,5 +169,13 @@ public class GuiFusionReactor extends GuiBase {
 	
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
+	}
+
+	public Optional<Pair<Integer, Integer>> getCoilStackCount(){
+		if(!Torus.TORUS_SIZE_MAP.containsKey(tile.size)){
+			return Optional.empty();
+		}
+		int count = Torus.TORUS_SIZE_MAP.get(tile.size);
+		return Optional.of(Pair.of(count / 64, count % 64));
 	}
 }

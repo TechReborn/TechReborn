@@ -50,6 +50,7 @@ import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.util.LogHelper;
+import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
@@ -65,6 +66,7 @@ import techreborn.init.*;
 import techreborn.lib.ModInfo;
 import techreborn.packets.*;
 import techreborn.proxies.CommonProxy;
+import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.OilLakeGenerator;
 import techreborn.world.TechRebornWorldGen;
@@ -172,6 +174,9 @@ public class Core {
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
+
+		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
+
 		logHelper.info("Initialization Complete");
 	}
 
