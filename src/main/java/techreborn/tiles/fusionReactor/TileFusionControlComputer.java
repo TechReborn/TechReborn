@@ -180,9 +180,13 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean True if reactor can execute recipe provided 
 	 */
 	private boolean validateReactorRecipe(FusionReactorRecipe recipe) {
-		if (ItemUtils.isItemEqual(this.getStackInSlot(topStackSlot), recipe.getTopInput(), true, true, true)) {
+		return validateReactorRecipeInputs(recipe, getStackInSlot(topStackSlot), getStackInSlot(bottomStackSlot)) || validateReactorRecipeInputs(recipe, getStackInSlot(bottomStackSlot), getStackInSlot(topStackSlot));
+	}
+
+	private boolean validateReactorRecipeInputs(FusionReactorRecipe recipe, ItemStack slot1, ItemStack slot2) {
+		if (ItemUtils.isItemEqual(slot1, recipe.getTopInput(), true, true, true)) {
 			if (recipe.getBottomInput() != null) {
-				if (!ItemUtils.isItemEqual(this.getStackInSlot(bottomStackSlot), recipe.getBottomInput(), true, true, true)) {
+				if (!ItemUtils.isItemEqual(slot2, recipe.getBottomInput(), true, true, true)) {
 					return false;
 				}
 			}
