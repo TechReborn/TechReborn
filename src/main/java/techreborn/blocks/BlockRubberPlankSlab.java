@@ -75,14 +75,17 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 		return true;
 	}
 
+	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(halfslab);
 	}
 
+	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
 		return new ItemStack(halfslab);
 	}
 
+	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT);
 
@@ -93,6 +96,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 		return iblockstate;
 	}
 
+	@Override
 	public int getMetaFromState(IBlockState state) {
 		int i = 0;
 
@@ -103,18 +107,22 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 		return i;
 	}
 
+	@Override
 	protected BlockStateContainer createBlockState() {
 		return this.isDouble() ? new BlockStateContainer(this, new IProperty[] { VARIANT }) : new BlockStateContainer(this, new IProperty[] { HALF, VARIANT });
 	}
 
+	@Override
 	public String getUnlocalizedName(int meta) {
 		return super.getUnlocalizedName();
 	}
 
+	@Override
 	public IProperty<?> getVariantProperty() {
 		return VARIANT;
 	}
 
+	@Override
 	public Comparable<?> getTypeForItem(ItemStack stack) {
 		return BlockRubberPlankSlab.Variant.DEFAULT;
 	}
@@ -122,6 +130,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 	public static enum Variant implements IStringSerializable {
 		DEFAULT;
 
+		@Override
 		public String getName() {
 			return "default";
 		}
@@ -133,6 +142,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 			this.halfslab = half;
 		}
 
+		@Override
 		public boolean isDouble() {
 			return true;
 		}
@@ -143,6 +153,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 			super(name);
 		}
 
+		@Override
 		public boolean isDouble() {
 			return false;
 		}

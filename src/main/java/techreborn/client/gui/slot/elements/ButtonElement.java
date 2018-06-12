@@ -25,6 +25,7 @@
 package techreborn.client.gui.slot.elements;
 
 public class ButtonElement extends ElementBase {
+	@SuppressWarnings("unused")
 	private Sprite.Button buttonSprite;
 
 	public ButtonElement(int x, int y, Sprite.Button buttonSprite) {
