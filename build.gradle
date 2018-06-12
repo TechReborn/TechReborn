@@ -456,3 +456,7 @@ String humanizeArg(String arg){
 	return builder.toString().substring(0, builder.toString().length() - 1)
 }
 
+task copyToLib(type: Copy) {
+    into "$buildDir/output/lib"
+    from configurations.runtime
+}
