@@ -28,14 +28,14 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockRubberPlankStair extends BlockStairs {
 
 	public BlockRubberPlankStair(IBlockState modelState, String name) {
 		super(modelState);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		useNeighborBrightness = true;
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}

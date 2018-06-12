@@ -29,7 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
@@ -42,7 +42,7 @@ public class ItemIngots extends ItemTR {
 		"iridium_alloy" };
 
 	public ItemIngots() {
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.ingot");
 		TRRecipeHandler.hideEntry(this);

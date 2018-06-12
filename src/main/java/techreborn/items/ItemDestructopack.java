@@ -32,13 +32,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemDestructopack extends ItemTR {
 
 	public ItemDestructopack() {
 		this.setUnlocalizedName("techreborn.destructopack");
-		this.setCreativeTab(TechRebornCreativeTabMisc.instance);
+		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

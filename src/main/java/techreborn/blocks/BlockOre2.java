@@ -43,7 +43,7 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
@@ -60,7 +60,7 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 
 	public BlockOre2() {
 		super(Material.ROCK);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 1);
 		this.setDefaultState(this.getStateFromMeta(0));

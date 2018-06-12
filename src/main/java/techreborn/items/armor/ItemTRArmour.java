@@ -28,7 +28,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 
 /**
@@ -53,13 +53,13 @@ public class ItemTRArmour extends ItemArmor {
 			setUnlocalizedName(material.name().toLowerCase() + "Leggings");
 		if (slot == EntityEquipmentSlot.FEET)
 			setUnlocalizedName(material.name().toLowerCase() + "Boots");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		if(toRepair.getItem() == this && !repairOreDict.isEmpty()){
+		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
 			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
 		}
 		return super.getIsRepairable(toRepair, repair);

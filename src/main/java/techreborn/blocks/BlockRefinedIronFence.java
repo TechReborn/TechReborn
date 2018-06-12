@@ -27,13 +27,13 @@ package techreborn.blocks;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockRefinedIronFence extends BlockFence {
 
 	public BlockRefinedIronFence() {
 		super(Material.IRON, BlockPlanks.EnumType.OAK.getMapColor());
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
 		setHarvestLevel("pickaxe", 2);
 		//ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));

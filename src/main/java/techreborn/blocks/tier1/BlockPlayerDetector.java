@@ -56,7 +56,7 @@ import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
 import techreborn.lib.ModInfo;

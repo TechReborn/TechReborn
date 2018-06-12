@@ -30,7 +30,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
 /**
@@ -40,7 +40,7 @@ public class BlockRubberPlank extends Block {
 
 	public BlockRubberPlank() {
 		super(Material.WOOD);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setHardness(2.0F);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 20);

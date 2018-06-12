@@ -31,7 +31,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
 

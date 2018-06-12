@@ -42,7 +42,7 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import reborncore.common.util.ArrayUtils;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileMachineCasing;

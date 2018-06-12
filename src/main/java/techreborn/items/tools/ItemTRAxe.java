@@ -27,7 +27,7 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 
 public class ItemTRAxe extends ItemAxe {
@@ -42,13 +42,13 @@ public class ItemTRAxe extends ItemAxe {
 		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F);
 		this.repairOreDict = repairOreDict;
 		setUnlocalizedName(material.name().toLowerCase() + "Axe");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		if(toRepair.getItem() == this && !repairOreDict.isEmpty()){
+		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
 			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
 		}
 		return super.getIsRepairable(toRepair, repair);

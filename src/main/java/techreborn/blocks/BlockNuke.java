@@ -41,7 +41,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.lib.ModInfo;
 
@@ -54,7 +54,7 @@ public class BlockNuke extends BaseBlock {
 	public BlockNuke() {
 		super(Material.TNT);
 		setUnlocalizedName("techreborn.nuke");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}

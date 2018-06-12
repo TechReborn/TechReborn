@@ -48,7 +48,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.OreDrop;
 import reborncore.common.util.StringUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDusts;
@@ -96,7 +96,7 @@ public class BlockOre extends Block implements IOreNameProvider {
 
 	public BlockOre() {
 		super(Material.ROCK);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 2);
 		this.setDefaultState(this.getStateFromMeta(0));

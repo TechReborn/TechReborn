@@ -38,7 +38,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseTileBlock;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lesu.TileLSUStorage;
 

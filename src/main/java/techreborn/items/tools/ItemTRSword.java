@@ -27,7 +27,7 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import reborncore.common.util.ItemUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 
 public class ItemTRSword extends ItemSword {
@@ -42,13 +42,13 @@ public class ItemTRSword extends ItemSword {
 		super(material);
 		this.repairOreDict = repairOreDict;
 		setUnlocalizedName(material.name().toLowerCase() + "Sword");
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		if(toRepair.getItem() == this && !repairOreDict.isEmpty()){
+		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
 			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
 		}
 		return super.getIsRepairable(toRepair, repair);

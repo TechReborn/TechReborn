@@ -54,7 +54,7 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WorldUtils;
 import techreborn.Core;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 

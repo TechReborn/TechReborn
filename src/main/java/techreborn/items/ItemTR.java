@@ -25,7 +25,7 @@
 package techreborn.items;
 
 import net.minecraft.item.Item;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTR extends Item {
 

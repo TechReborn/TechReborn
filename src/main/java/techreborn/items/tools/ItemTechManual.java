@@ -32,7 +32,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.items.ItemTR;
 
 public class ItemTechManual extends ItemTR {

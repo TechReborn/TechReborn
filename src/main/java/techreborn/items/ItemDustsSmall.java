@@ -28,7 +28,7 @@ import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
@@ -48,7 +48,7 @@ public class ItemDustsSmall extends ItemTR {
 	public ItemDustsSmall() {
 		setUnlocalizedName("techreborn.dustsmall");
 		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 

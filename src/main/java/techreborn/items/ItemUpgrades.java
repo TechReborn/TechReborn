@@ -43,7 +43,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.Core;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModItems;
@@ -71,7 +71,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");
 		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(16);
 	}
 

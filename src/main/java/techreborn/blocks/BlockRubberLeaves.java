@@ -41,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import techreborn.Core;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -52,7 +52,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	public BlockRubberLeaves() {
 		super();
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 			.withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);

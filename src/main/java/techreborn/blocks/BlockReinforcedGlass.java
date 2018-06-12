@@ -33,7 +33,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
 import java.util.Random;
@@ -42,7 +42,7 @@ public class BlockReinforcedGlass extends BlockGlass {
 
 	public BlockReinforcedGlass() {
 		super(Material.GLASS, false);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setSoundType(SoundType.STONE);
 		setHardness(4.0F);
 		setResistance(60F);

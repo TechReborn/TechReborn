@@ -41,8 +41,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Random;
 
@@ -60,7 +60,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 			iblockstate = iblockstate.withProperty(HALF, EnumBlockHalf.BOTTOM);
 			halfslab = this;
 		}
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHarvestLevel("axe", 0);
 		setHardness(2.0F);
 		setResistance(15);

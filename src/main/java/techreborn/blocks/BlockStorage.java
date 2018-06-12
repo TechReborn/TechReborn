@@ -39,7 +39,7 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
@@ -56,7 +56,7 @@ public class BlockStorage extends BaseBlock {
 
 	public BlockStorage() {
 		super(Material.IRON);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2f);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "silver"));
 		for (int i = 0; i < types.length; i++) {

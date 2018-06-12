@@ -28,7 +28,7 @@ import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
@@ -42,7 +42,7 @@ public class ItemNuggets extends ItemTR {
 		ModItems.META_PLACEHOLDER, "iron", "diamond" };
 
 	public ItemNuggets() {
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setHasSubtypes(true);
 		setUnlocalizedName("techreborn.nuggets");
 		TRRecipeHandler.hideEntry(this);

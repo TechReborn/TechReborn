@@ -29,7 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import reborncore.common.util.OreUtil;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
@@ -45,7 +45,7 @@ public class ItemPlates extends ItemTR {
 	public ItemPlates() {
 		setUnlocalizedName("techreborn.plate");
 		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 

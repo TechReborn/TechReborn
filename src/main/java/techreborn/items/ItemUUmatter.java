@@ -24,12 +24,12 @@
 
 package techreborn.items;
 
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemUUmatter extends ItemTR {
 
 	public ItemUUmatter() {
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.uuMatter");
 	}
 }

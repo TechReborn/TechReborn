@@ -41,7 +41,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.tiles.TileEntityFlare;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class BlockFlare extends BlockContainer {
 
 	public BlockFlare() {
 		super(Material.REDSTONE_LIGHT);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.flare");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
 	}

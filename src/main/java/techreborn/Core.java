@@ -79,6 +79,8 @@ import java.io.File;
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, acceptedMinecraftVersions = "[1.12,1.12.2]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b", guiFactory = "techreborn.client.TechRebornGuiFactory")
 public class Core {
 
+	//enable dev featues with -Dtechreborn.devFeatues=true
+	public static final boolean DEV_FEATURES = Boolean.parseBoolean(System.getProperty("techreborn.devFeatues", "false"));
 	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	@Mod.Instance
@@ -86,8 +88,6 @@ public class Core {
 	public static LogHelper logHelper = new LogHelper(new ModInfo());
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
-	//enable dev featues with -Dtechreborn.devFeatues=true
-	public static final boolean DEV_FEATURES = Boolean.parseBoolean(System.getProperty("techreborn.devFeatues", "false"));
 
 	public Core() {
 		//Forge says to call it here, so yeah
@@ -134,11 +134,10 @@ public class Core {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
-	public void registerRecipes(RegistryEvent.Register<IRecipe> event){
+	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		//Register ModRecipes
 		ModRecipes.init();
 	}
-
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
@@ -155,7 +154,7 @@ public class Core {
 		// WorldGen
 		worldGen.load();
 		GameRegistry.registerWorldGenerator(worldGen, 0);
-		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);		
+		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		// Event busses

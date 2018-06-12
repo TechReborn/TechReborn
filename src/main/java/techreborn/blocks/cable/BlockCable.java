@@ -50,7 +50,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.ToolManager;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.client.TechRebornCreativeTab;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;

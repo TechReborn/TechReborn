@@ -46,13 +46,13 @@ import net.minecraftforge.energy.IEnergyStorage;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.util.WorldUtils;
-import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.items.ItemParts;
 import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.items.tools.ItemTreeTap;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class BlockRubberLog extends Block {
 
 	public BlockRubberLog() {
 		super(Material.WOOD);
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setHardness(2.0F);
 		this.setDefaultState(
 			this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
@@ -164,7 +164,7 @@ public class BlockRubberLog extends Block {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		if (stack.isEmpty()) {
@@ -177,9 +177,9 @@ public class BlockRubberLog extends Block {
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {
 				worldIn.setBlockState(pos,
-						state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
+					state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
-						0.6F, 1F);
+					0.6F, 1F);
 				if (!worldIn.isRemote) {
 					if (capEnergy != null) {
 						capEnergy.extractEnergy(20, false);

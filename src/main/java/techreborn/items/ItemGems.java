@@ -28,7 +28,7 @@ import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
 
@@ -36,10 +36,10 @@ import java.security.InvalidParameterException;
 
 public class ItemGems extends ItemTR {
 
-	public static final String[] types = new String[] { "ruby", "sapphire", "peridot", "red_garnet", "yellow_garnet" };
+	public static final String[] types = new String[] { "ruby", "sapphire", "peridot", "red_garnet", "yellow_garnet", "refined_diamond" };
 
 	public ItemGems() {
-		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.gem");
 		setHasSubtypes(true);
 		TRRecipeHandler.hideEntry(this);

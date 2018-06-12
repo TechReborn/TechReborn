@@ -22,23 +22,22 @@
  * SOFTWARE.
  */
 
-package techreborn.client;
+package techreborn.utils;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import techreborn.init.ModItems;
+import techreborn.items.ItemParts;
 
-public class TechRebornCreativeTabMisc extends CreativeTabs {
+public class TechRebornCreativeTab extends CreativeTabs {
 
-	public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
+	public static TechRebornCreativeTab instance = new TechRebornCreativeTab();
 
-	public TechRebornCreativeTabMisc() {
+	public TechRebornCreativeTab() {
 		super("techreborn");
 	}
 
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(ModItems.CELL);
+		return ItemParts.getPartByName("machine_parts");
 	}
-
 }
