@@ -31,7 +31,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -45,6 +44,9 @@ import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class IndustrialSawmillRecipes extends RecipeMethods {
@@ -68,7 +70,11 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 		}, 1, 1);
 		inventoryCrafting.setInventorySlotContents(0, ItemStack.EMPTY);
 
-		NonNullList<ItemStack> logs = OreDictionary.getOres("logWood");
+		List<ItemStack> logs = OreDictionary.getOres("logWood").stream()
+			.filter(Objects::nonNull)
+			.map(ItemStack::copy)
+			.collect(Collectors.toList());
+
 		for (ItemStack logStack : logs) {
 			if (logStack.getItemDamage() == OreDictionary.WILDCARD_VALUE && logStack.getHasSubtypes()) {
 				for (int i = 0; i < 16; i++) {

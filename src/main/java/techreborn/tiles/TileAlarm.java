@@ -24,13 +24,16 @@
 
 package techreborn.tiles;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import reborncore.common.util.ChatUtils;
 import techreborn.blocks.BlockAlarm;
 import techreborn.init.ModSounds;
@@ -86,5 +89,10 @@ public class TileAlarm extends TileEntity implements ITickable {
 			}
 			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
 		}
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		return false;
 	}
 }

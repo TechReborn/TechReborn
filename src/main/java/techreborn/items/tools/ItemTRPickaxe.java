@@ -25,14 +25,33 @@
 package techreborn.items.tools;
 
 import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 
 public class ItemTRPickaxe extends ItemPickaxe {
+
+	String repairOreDict = "";
+
+
 	public ItemTRPickaxe(ToolMaterial material) {
+		this(material, "");
+	}
+
+	public ItemTRPickaxe(ToolMaterial material, String repairOreDict) {
 		super(material);
+		this.repairOreDict = repairOreDict;
 		setUnlocalizedName(material.name().toLowerCase() + "Pickaxe");
 		setCreativeTab(TechRebornCreativeTabMisc.instance);
 		TRRecipeHandler.hideEntry(this);
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		if(toRepair.getItem() == this && !repairOreDict.isEmpty()){
+			return ItemUtils.isInputEqual(repairOreDict, repair, true, false, true);
+		}
+		return super.getIsRepairable(toRepair, repair);
 	}
 }

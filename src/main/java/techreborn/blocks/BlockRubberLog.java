@@ -31,7 +31,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -42,9 +41,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import reborncore.common.powerSystem.PoweredItem;
+import reborncore.common.util.WorldUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
@@ -94,7 +95,6 @@ public class BlockRubberLog extends Block {
 		return this.getDefaultState().withProperty(SAP_SIDE, facing).withProperty(HAS_SAP, hasSap);
 	}
 
-	@SuppressWarnings({ "incomplete-switch" })
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int tempMeta = 0;
@@ -111,6 +111,12 @@ public class BlockRubberLog extends Block {
 				break;
 			case EAST:
 				tempMeta = 3;
+				break;
+			case UP:
+				tempMeta = 0;
+				break;
+			case DOWN:
+				tempMeta = 0;
 		}
 		if (state.getValue(HAS_SAP)) {
 			tempMeta += 4;
@@ -158,42 +164,38 @@ public class BlockRubberLog extends Block {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		if (!stack.isEmpty())
-			if ((stack.getItem() instanceof ItemElectricTreetap && PoweredItem.canUseEnergy(20, stack)) || stack.getItem() instanceof ItemTreeTap)
-				if (state.getValue(HAS_SAP)) {
-					if (state.getValue(SAP_SIDE) == side) {
-						worldIn.setBlockState(pos,
-							state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
-						worldIn.playSound(null, pos.getX(), pos.getY(),
-							pos.getZ(), ModSounds.SAP_EXTRACT,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-						if (!worldIn.isRemote) {
-							if (stack.getItem() instanceof ItemElectricTreetap) {
-								PoweredItem.useEnergy(20, stack);
-							} else {
-								playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
-							}
-							if (!playerIn.inventory.addItemStackToInventory(ItemParts.getPartByName("rubberSap").copy())) {
-								Random rand = new Random();
-								BlockPos itemPos = pos.offset(side);
-								EntityItem item = new EntityItem(worldIn, itemPos.getX(), itemPos.getY(), itemPos.getZ(),
-									ItemParts.getPartByName("rubberSap").copy());
-								float factor = 0.05F;
-								item.motionX = rand.nextGaussian() * factor;
-								item.motionY = rand.nextGaussian() * factor + 0.2F;
-								item.motionZ = rand.nextGaussian() * factor;
-								worldIn.spawnEntity(item);
-							}
-							if (playerIn instanceof EntityPlayerMP) {
-								TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
-							}
-						}
-						return true;
+		if (stack.isEmpty()) {
+			return false;
+		}
+		IEnergyStorage capEnergy = null;
+		if (stack.getItem() instanceof ItemElectricTreetap) {
+			capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		}
+		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
+			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {
+				worldIn.setBlockState(pos,
+						state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
+				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
+						0.6F, 1F);
+				if (!worldIn.isRemote) {
+					if (capEnergy != null) {
+						capEnergy.extractEnergy(20, false);
+					} else {
+						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
+					}
+					if (!playerIn.inventory.addItemStackToInventory(ItemParts.getPartByName("rubberSap").copy())) {
+						WorldUtils.dropItem(ItemParts.getPartByName("rubberSap").copy(), worldIn, pos.offset(side));
+					}
+					if (playerIn instanceof EntityPlayerMP) {
+						TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
 					}
 				}
+				return true;
+			}
+		}
 		return false;
 	}
 

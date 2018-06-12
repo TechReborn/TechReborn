@@ -22,21 +22,21 @@
  * SOFTWARE.
  */
 
-package techreborn.client.gui.slot.elements;
+package techreborn.blocks;
 
-public class ButtonElement extends ElementBase {
-	@SuppressWarnings("unused")
-	private Sprite.Button buttonSprite;
+import net.minecraft.block.BlockStairs;
+import net.minecraft.block.state.IBlockState;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
+import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.lib.ModInfo;
 
-	public ButtonElement(int x, int y, Sprite.Button buttonSprite) {
-		super(x, y, buttonSprite.getNormal());
-		this.buttonSprite = buttonSprite;
-		this.addUpdateAction((gui, element) -> {
-			if (isHovering) {
-				element.container.setSprite(0, buttonSprite.getHovered());
-			} else {
-				element.container.setSprite(0, buttonSprite.getNormal());
-			}
-		});
+public class BlockRubberPlankStair extends BlockStairs {
+
+	public BlockRubberPlankStair(IBlockState modelState, String name) {
+		super(modelState);
+		setCreativeTab(TechRebornCreativeTabMisc.instance);
+		useNeighborBrightness = true;
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 }

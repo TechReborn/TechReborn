@@ -151,7 +151,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return int Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (this.crafingTickTime != 0) {
+		if (this.crafingTickTime != 0 && this.finalTickTime != 0) {
 			return this.crafingTickTime * scale / this.finalTickTime;
 		}
 		return 0;
@@ -180,9 +180,13 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean True if reactor can execute recipe provided 
 	 */
 	private boolean validateReactorRecipe(FusionReactorRecipe recipe) {
-		if (ItemUtils.isItemEqual(this.getStackInSlot(topStackSlot), recipe.getTopInput(), true, true, true)) {
+		return validateReactorRecipeInputs(recipe, getStackInSlot(topStackSlot), getStackInSlot(bottomStackSlot)) || validateReactorRecipeInputs(recipe, getStackInSlot(bottomStackSlot), getStackInSlot(topStackSlot));
+	}
+
+	private boolean validateReactorRecipeInputs(FusionReactorRecipe recipe, ItemStack slot1, ItemStack slot2) {
+		if (ItemUtils.isItemEqual(slot1, recipe.getTopInput(), true, true, true)) {
 			if (recipe.getBottomInput() != null) {
-				if (!ItemUtils.isItemEqual(this.getStackInSlot(bottomStackSlot), recipe.getBottomInput(), true, true, true)) {
+				if (!ItemUtils.isItemEqual(slot2, recipe.getBottomInput(), true, true, true)) {
 					return false;
 				}
 			}
@@ -218,7 +222,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		}
 
 		if (this.currentRecipe != null) {
-			if (this.inventory.hasChanged && !validateReactorRecipe(this.currentRecipe)) {
+			if (!hasStartedCrafting && this.inventory.hasChanged && !validateReactorRecipe(this.currentRecipe)) {
 				resetCrafter();
 				return;
 			}
@@ -228,6 +232,10 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				if (this.canUseEnergy(this.currentRecipe.getStartEU())) {
 					this.useEnergy(this.currentRecipe.getStartEU());
 					this.hasStartedCrafting = true;
+					this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
+					if (!this.currentRecipe.getBottomInput().isEmpty()) {
+						this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
+					}
 				}
 			}
 			if (hasStartedCrafting && this.crafingTickTime < this.finalTickTime) {
@@ -249,10 +257,6 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 					} else {
 						this.decrStackSize(this.outputStackSlot, -this.currentRecipe.getOutput().getCount());
 					}
-					this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
-					if (!this.currentRecipe.getBottomInput().isEmpty()) {
-						this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
-					}
 					if (this.validateReactorRecipe(this.currentRecipe)) {
 						this.crafingTickTime = 0;
 					} else {
@@ -271,7 +275,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	@Override
 	public double getPowerMultiplier() {
-		return size -5;
+		double calc = (1F/2F) * Math.pow(size -5, 1.8);
+		return Math.max(Math.round(calc * 100D) / 100D, 1D);
 	}
 
 	@Override
