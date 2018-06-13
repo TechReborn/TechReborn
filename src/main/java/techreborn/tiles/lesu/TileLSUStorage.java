@@ -24,38 +24,28 @@
 
 package techreborn.tiles.lesu;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.api.IToolDrop;
 import reborncore.common.tile.TileLegacyMachineBase;
+import techreborn.init.ModBlocks;
 
-public class TileLSUStorage extends TileLegacyMachineBase {
+public class TileLSUStorage extends TileLegacyMachineBase 
+	implements IToolDrop {
 
 	public LesuNetwork network;
-
-	@Override
-	public void update() {
-		super.update();
-		if (network == null) {
-			findAndJoinNetwork(world, getPos().getX(), getPos().getY(), getPos().getZ());
-		} else {
-			if (network.master != null
-				&& network.master.getWorld().getTileEntity(new BlockPos(network.master.getPos().getX(),
-				network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
-				network.master = null;
-			}
-		}
-	}
 
 	public final void findAndJoinNetwork(World world, int x, int y, int z) {
 		network = new LesuNetwork();
 		network.addElement(this);
 		for (EnumFacing direction : EnumFacing.values()) {
 			if (world.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(), y + direction.getFrontOffsetY(),
-				z + direction.getFrontOffsetZ())) instanceof TileLSUStorage) {
-				TileLSUStorage lesu = (TileLSUStorage) world
-					.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(), y + direction.getFrontOffsetY(),
-						z + direction.getFrontOffsetZ()));
+					z + direction.getFrontOffsetZ())) instanceof TileLSUStorage) {
+				TileLSUStorage lesu = (TileLSUStorage) world.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(),
+						y + direction.getFrontOffsetY(), z + direction.getFrontOffsetZ()));
 				if (lesu.network != null) {
 					lesu.network.merge(network);
 				}
@@ -85,5 +75,26 @@ public class TileLSUStorage extends TileLegacyMachineBase {
 		this.removeFromNetwork();
 		this.resetNetwork();
 		this.findAndJoinNetwork(world, getPos().getX(), getPos().getY(), getPos().getZ());
+	}
+
+	// TileLegacyMachineBase
+	@Override
+	public void update() {
+		super.update();
+		if (network == null) {
+			findAndJoinNetwork(world, getPos().getX(), getPos().getY(), getPos().getZ());
+		} else {
+			if (network.master != null
+					&& network.master.getWorld().getTileEntity(new BlockPos(network.master.getPos().getX(),
+							network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
+				network.master = null;
+			}
+		}
+	}
+
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.LSU_STORAGE, 1);
 	}
 }

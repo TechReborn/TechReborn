@@ -35,16 +35,11 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileDigitalChest;
 import techreborn.tiles.TileTechStorageBase;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class BlockDigitalChest extends BlockMachineBase {
 
@@ -53,46 +48,6 @@ public class BlockDigitalChest extends BlockMachineBase {
 		this.setUnlocalizedName("techreborn.digitalChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
-	}
-
-	protected void dropChest(final World world, final BlockPos pos) {
-		final TileEntity tileEntity = world.getTileEntity(pos);
-		if (!(tileEntity instanceof TileTechStorageBase)) {
-			return;
-		}
-		final TileTechStorageBase inventory = (TileTechStorageBase) tileEntity;
-		final List<ItemStack> items = new ArrayList<>();
-		items.add(inventory.getDropWithNBT());
-		WorldUtils.dropItems(items, world, pos);
-	}
-
-	@Override
-	protected void dropInventory(World world, BlockPos pos) {
-
-	}
-
-	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		final TileEntity tileEntity = world.getTileEntity(pos);
-		if (!(tileEntity instanceof TileTechStorageBase)) {
-			super.getDrops(drops, world, pos, state, fortune);
-		} else {
-			final TileTechStorageBase tileEntity1 = (TileTechStorageBase) tileEntity;
-			drops.add(tileEntity1.getDropWithNBT());
-		}
-	}
-
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		if(worldIn.getTileEntity(pos) != null){
-			dropChest(worldIn, pos);
-		}
-		worldIn.removeTileEntity(pos);
-	}
-
-	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		return Collections.emptyList();
 	}
 
 	@Override
@@ -108,5 +63,21 @@ public class BlockDigitalChest extends BlockMachineBase {
 	@Override
 	public boolean isAdvanced() {
 		return true;
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {	
+/*		if (RebornCoreConfig.wrenchRequired){
+			drops.add(isAdvanced() ? advancedFrameStack.copy() : basicFrameStack.copy());
+		}
+		else {
+			super.getDrops(drops, world, pos, state, fortune);
+		}*/
+		
+		TileEntity storageTile = world.getTileEntity(pos);
+		if (storageTile != null && storageTile instanceof TileTechStorageBase) {
+			drops.addAll( ( (TileTechStorageBase) storageTile).getContentDrops() );
+		}
+		super.getDrops(drops, world, pos, state, fortune);
 	}
 }
