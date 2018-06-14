@@ -24,21 +24,29 @@
 
 package techreborn.blocks.storage;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
-import techreborn.utils.TechRebornCreativeTab;
+import reborncore.common.RebornCoreConfig;
+import reborncore.common.items.WrenchHelper;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lesu.TileLSUStorage;
 
@@ -47,18 +55,30 @@ import techreborn.tiles.lesu.TileLSUStorage;
  */
 public class BlockLSUStorage extends BaseTileBlock {
 
-	/**
-	 *
-	 */
 	public BlockLSUStorage() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 	}
-
-	/**
-	 * Called by ItemBlocks after a block is set in the world, to allow post-place logic
-	 */
+	
+	// BaseTileBlock
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		if (world.getTileEntity(pos) instanceof TileLSUStorage) {
+			TileLSUStorage tile = (TileLSUStorage) world.getTileEntity(pos);
+			if (tile != null) {
+				tile.removeFromNetwork();
+			}
+		}
+		super.breakBlock(world, pos, state);
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		return new TileLSUStorage();
+	}
+	
+	// Block
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack itemstack) {
 		super.onBlockPlacedBy(world, pos, state, player, itemstack);
@@ -70,47 +90,40 @@ public class BlockLSUStorage extends BaseTileBlock {
 		}
 	}
 
-	/**
-	 * Called serverside after this block is replaced with another in Chunk, but before the Tile Entity is updated
-	 */
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		if (world.getTileEntity(pos) instanceof TileLSUStorage) {
-			TileLSUStorage tile = (TileLSUStorage) world.getTileEntity(pos);
-			if (tile != null) {
-				tile.removeFromNetwork();
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
+	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
+		if (tileEntity == null) {
+			return false;
+		}
+	
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+				return true;
 			}
 		}
-		super.breakBlock(world, pos, state);
-	}
 
-	/**
-	 * This gets a complete list of items dropped from this block.
-	 *
-	 * @param drops add all items this block drops to this drops list
-	 * @param world The current world
-	 * @param pos Block position in world
-	 * @param state Current state
-	 * @param fortune Breakers fortune level
-	 */
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+	}
+	
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		drops.add(new ItemStack(this));
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		NonNullList<ItemStack> items = NonNullList.create();
+				
+		if (RebornCoreConfig.wrenchRequired){
+			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
+		}
+		else {
+			super.getDrops(items, world, pos, state, fortune);
+		}
+		
+		return items;
 	}
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileLSUStorage();
-	}
-
-	/**
-	 * Determines if another block can connect to this block
-	 *
-	 * @param world The current world
-	 * @param pos The position of this block
-	 * @param facing The side the connecting block is on
-	 * @return True to allow another block to connect to this block
-	 */
 	@Override
 	public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing)
 	{

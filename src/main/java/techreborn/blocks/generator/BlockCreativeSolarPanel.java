@@ -24,13 +24,28 @@
 
 package techreborn.blocks.generator;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
-import techreborn.utils.TechRebornCreativeTab;
+import reborncore.common.RebornCoreConfig;
+import reborncore.common.blocks.BlockWrenchEventHandler;
+import reborncore.common.items.WrenchHelper;
+import techreborn.client.TechRebornCreativeTab;
+import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileCreativeSolarPanel;
 
@@ -44,6 +59,41 @@ public class BlockCreativeSolarPanel extends BaseTileBlock {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
+	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
+		if (tileEntity == null) {
+			return false;
+		}
+	
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+				return true;
+			}
+		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		NonNullList<ItemStack> items = NonNullList.create();
+				
+		if (RebornCoreConfig.wrenchRequired){
+			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+		}
+		else {
+			super.getDrops(items, world, pos, state, fortune);
+		}
+		
+		return items;
 	}
 
 	@Override

@@ -26,41 +26,31 @@ package techreborn.blocks.storage;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import net.minecraft.block.BlockDynamicLiquid;
-import net.minecraft.block.BlockStaticLiquid;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.BlockFluidBase;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
-import reborncore.api.tile.IUpgradeable;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
-import reborncore.common.util.WorldUtils;
+import reborncore.common.items.WrenchHelper;
 import techreborn.Core;
-import techreborn.utils.TechRebornCreativeTab;
-import techreborn.init.ModSounds;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -80,119 +70,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		this.guiID = guiID;
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-	                                EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack heldStack = player.getHeldItem(EnumHand.MAIN_HAND);
-		if(ToolManager.INSTANCE.canHandleTool(heldStack)){
-			if(ToolManager.INSTANCE.handleTool(heldStack, pos, world, player, side, true)){
-				if (player.isSneaking()) {
-					TileEntity tileEntity = world.getTileEntity(pos);
-					if (tileEntity instanceof IToolDrop) {
-						dropInventory(world, pos);
-						ItemStack drop = ((IToolDrop) tileEntity).getToolDrop(player);
-						if (drop == null) {
-							return false;
-						}
-						if (!drop.isEmpty()) {
-							spawnAsEntity(world, pos, drop);
-						}
-						world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.BLOCK_DISMANTLE,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-						if (!world.isRemote) {
-							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-						}
-						return true;
-					}
-				} else {
-					EnumFacing facing2 = state.getValue(BlockEnergyStorage.FACING);
-					if (facing2.getOpposite() == side) {
-						facing2 = side;
-					} else {
-						facing2 = side.getOpposite();
-					}
-					world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing2));
-					return true;
-				}
-			}
-		} else if (!player.isSneaking()){
-			player.openGui(Core.INSTANCE, guiID, world, pos.getX(), pos.getY(), pos.getZ());
-			return true;
-		}
-
-		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
-	}
-
-	protected void dropInventory(World world, BlockPos pos) {
-		TileEntity tileEntity = world.getTileEntity(pos);
-
-		if (tileEntity == null) {
-			return;
-		}
-		if (!(tileEntity instanceof IInventory)) {
-			return;
-		}
-
-		IInventory inventory = (IInventory) tileEntity;
-		List<ItemStack> items = new ArrayList<ItemStack>();
-		addItemsToList(inventory, items);
-		if (tileEntity instanceof IUpgradeable) {
-			addItemsToList(((IUpgradeable) tileEntity).getUpgradeInvetory(), items);
-		}
-		WorldUtils.dropItems(items, world, pos);
-	}
-
-	private void addItemsToList(IInventory inventory, List<ItemStack> items) {
-		for (int i = 0; i < inventory.getSizeInventory(); i++) {
-			ItemStack itemStack = inventory.getStackInSlot(i);
-
-			if (itemStack == ItemStack.EMPTY) {
-				continue;
-			}
-			if (itemStack != ItemStack.EMPTY && itemStack.getCount() > 0) {
-				if (itemStack.getItem() instanceof ItemBlock) {
-					if (((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockFluidBase
-						|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockStaticLiquid
-						|| ((ItemBlock) itemStack.getItem()).getBlock() instanceof BlockDynamicLiquid) {
-						continue;
-					}
-				}
-			}
-			items.add(itemStack.copy());
-		}
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		FACING = PropertyDirection.create("facing", Facings.ALL);
-		return new BlockStateContainer(this, FACING);
-	}
-
-	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-	                            ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		EnumFacing facing = placer.getHorizontalFacing().getOpposite();
-		if (placer.rotationPitch < -50) {
-			facing = EnumFacing.DOWN;
-		} else if (placer.rotationPitch > 50) {
-			facing = EnumFacing.UP;
-		}
-		setFacing(facing, worldIn, pos);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int facingInt = getSideFromEnum(state.getValue(FACING));
-		return facingInt;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing facing = getSideFromint(meta);
-		return this.getDefaultState().withProperty(FACING, facing);
 	}
 
 	public void setFacing(EnumFacing facing, World world, BlockPos pos) {
@@ -257,6 +134,81 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 			return "ev_multi";
 		}
 		return fullName.toLowerCase();
+	}
+	
+	// Block
+	@Override
+	public boolean rotateBlock(World world, BlockPos pos, EnumFacing side) {
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		if (block instanceof BlockEnergyStorage) {
+			EnumFacing facing = state.getValue(BlockEnergyStorage.FACING);
+			if (facing.getOpposite() == side) {
+				facing = side;
+			} else {
+				facing = side.getOpposite();
+			}
+			world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing));
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
+	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We extended BlockTileBase. Thus we should always have tile entity. I hope.
+		if (tileEntity == null) {
+			return false;
+		}
+		
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+				return true;
+			}
+		}
+		
+		if (!playerIn.isSneaking()) {
+			playerIn.openGui(Core.INSTANCE, guiID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			return true;
+		}
+		
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		FACING = PropertyDirection.create("facing", Facings.ALL);
+		return new BlockStateContainer(this, FACING);
+	}
+
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+	                            ItemStack stack) {
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+		EnumFacing facing = placer.getHorizontalFacing().getOpposite();
+		if (placer.rotationPitch < -50) {
+			facing = EnumFacing.DOWN;
+		} else if (placer.rotationPitch > 50) {
+			facing = EnumFacing.UP;
+		}
+		setFacing(facing, worldIn, pos);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		int facingInt = getSideFromEnum(state.getValue(FACING));
+		return facingInt;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		EnumFacing facing = getSideFromint(meta);
+		return this.getDefaultState().withProperty(FACING, facing);
 	}
 
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {

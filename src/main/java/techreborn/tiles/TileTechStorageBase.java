@@ -57,7 +57,82 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		storedItem = ItemStack.EMPTY;
 		inventory = new Inventory(3, name, maxCapacity, this);
 	}
+	
+	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
 
+		storedItem = ItemStack.EMPTY;
+
+		if (tagCompound.hasKey("storedStack")) {
+			this.storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
+		}
+
+		if (!this.storedItem.isEmpty()) {
+			this.storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
+		}
+
+		inventory.readFromNBT(tagCompound);
+	}
+	
+	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
+		if (!this.storedItem.isEmpty()) {
+			ItemStack temp = this.storedItem.copy();
+			if (this.storedItem.getCount() > storedItem.getMaxStackSize()){
+				temp.setCount(storedItem.getMaxStackSize());
+			}
+			tagCompound.setTag("storedStack", temp.writeToNBT(new NBTTagCompound()));
+			tagCompound.setInteger("storedQuantity", Math.min(this.storedItem.getCount(), this.maxCapacity));
+		} else {
+			tagCompound.setInteger("storedQuantity", 0);
+		}
+		inventory.writeToNBT(tagCompound);
+		return tagCompound;
+	}
+	
+	public ItemStack getDropWithNBT() {
+		NBTTagCompound tileEntity = new NBTTagCompound();
+		ItemStack dropStack = new ItemStack(this.getBlockType(), 1);
+		writeToNBTWithoutCoords(tileEntity);
+		dropStack.setTagCompound(new NBTTagCompound());
+		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+		this.storedItem.setCount(0);
+		setInventorySlotContents(1, ItemStack.EMPTY);
+		syncWithAll();
+		
+		return dropStack;
+	}
+	
+	public InvWrapper getInvWrapper() {
+		if (this.invWrapper == null)
+			this.invWrapper = new InvWrapper(this);
+		return this.invWrapper;
+	}
+	
+	public int getStoredCount() {
+		return this.storedItem.getCount();
+	}
+	
+	public List<ItemStack> getContentDrops() {
+		ArrayList<ItemStack> stacks = new ArrayList<>();
+
+		if (!this.getStoredItemType().isEmpty()) {
+			if (!this.getStackInSlot(1).isEmpty())
+				stacks.add(this.getStackInSlot(1));
+			for (int i = 0; i < this.getStoredCount() / 64; i++) {
+				ItemStack droped = this.storedItem.copy();
+				droped.setCount(64);
+				stacks.add(droped);
+			}
+			if (this.getStoredCount() % 64 != 0) {
+				ItemStack droped = this.storedItem.copy();
+				droped.setCount(this.getStoredCount() % 64);
+				stacks.add(droped);
+			}
+		}
+
+		return stacks;
+	}
+	
+	// TileLegacyMachineBase
 	@Override
 	public void update() {
 		super.update();
@@ -132,81 +207,59 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		readFromNBTWithoutCoords(tagCompound);
 	}
 
-	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
-
-		storedItem = ItemStack.EMPTY;
-
-		if (tagCompound.hasKey("storedStack")) {
-			this.storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
-		}
-
-		if (!this.storedItem.isEmpty()) {
-			this.storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
-		}
-
-		inventory.readFromNBT(tagCompound);
-	}
-
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
 		writeToNBTWithoutCoords(tagCompound);
 		return tagCompound;
 	}
-
-	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		if (!this.storedItem.isEmpty()) {
-			ItemStack temp = this.storedItem.copy();
-			if (this.storedItem.getCount() > storedItem.getMaxStackSize()){
-				temp.setCount(storedItem.getMaxStackSize());
-			}
-			tagCompound.setTag("storedStack", temp.writeToNBT(new NBTTagCompound()));
-			tagCompound.setInteger("storedQuantity", Math.min(this.storedItem.getCount(), this.maxCapacity));
-		} else {
-			tagCompound.setInteger("storedQuantity", 0);
+	
+	@Override
+	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvWrapper());
 		}
-		inventory.writeToNBT(tagCompound);
-		return tagCompound;
+		return super.getCapability(capability, facing);
 	}
 
+	@Override
+	public boolean hasCapability(final net.minecraftforge.common.capabilities.Capability<?> capability,
+	                             @javax.annotation.Nullable
+	                             final net.minecraft.util.EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+
+	// IInventoryProvider
+	@Override
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+	
+	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return getDropWithNBT();
 	}
 
-	public ItemStack getDropWithNBT() {
-		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(this.getBlockType(), 1);
-		writeToNBTWithoutCoords(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
-		this.storedItem.setCount(0);
-		this.syncWithAll();
-		
-		return dropStack;
-	}
-
-	public List<ItemStack> getContentDrops() {
-		ArrayList<ItemStack> stacks = new ArrayList<>();
-
-		if (!this.getStoredItemType().isEmpty()) {
-			if (!this.getStackInSlot(1).isEmpty())
-				stacks.add(this.getStackInSlot(1));
-			for (int i = 0; i < this.getStoredCount() / 64; i++) {
-				ItemStack droped = this.storedItem.copy();
-				droped.setCount(64);
-				stacks.add(droped);
+	// IListInfoProvider
+	@Override
+	public void addInfo(List<String> info, boolean isRealTile) {
+		if (isRealTile) {
+			int size = 0;
+			String name = "of nothing";
+			if (!storedItem.isEmpty()) {
+				name = storedItem.getDisplayName();
+				size += storedItem.getCount();
 			}
-			if (this.getStoredCount() % 64 != 0) {
-				ItemStack droped = this.storedItem.copy();
-				droped.setCount(this.getStoredCount() % 64);
-				stacks.add(droped);
+			if (getStackInSlot(1) != ItemStack.EMPTY) {
+				name = getStackInSlot(1).getDisplayName();
+				size += getStackInSlot(1).getCount();
 			}
+			info.add(size + " " + name);
 		}
-
-		return stacks;
 	}
 
+	// IDeepStorageUnit
 	@Override
 	public ItemStack getStoredItemType() {
 		return this.storedItem.isEmpty() ? this.getStackInSlot(1) : this.storedItem;
@@ -228,52 +281,5 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	@Override
 	public int getMaxStoredCount() {
 		return this.maxCapacity;
-	}
-
-	public int getStoredCount() {
-		return this.storedItem.getCount();
-	}
-
-	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
-		if (isRealTile) {
-			int size = 0;
-			String name = "of nothing";
-			if (!storedItem.isEmpty()) {
-				name = storedItem.getDisplayName();
-				size += storedItem.getCount();
-			}
-			if (getStackInSlot(1) != ItemStack.EMPTY) {
-				name = getStackInSlot(1).getDisplayName();
-				size += getStackInSlot(1).getCount();
-			}
-			info.add(size + " " + name);
-		}
-	}
-
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
-	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvWrapper());
-		}
-		return super.getCapability(capability, facing);
-	}
-
-	@Override
-	public boolean hasCapability(final net.minecraftforge.common.capabilities.Capability<?> capability,
-	                             @javax.annotation.Nullable
-	                             final net.minecraft.util.EnumFacing facing) {
-		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
-	}
-
-	public InvWrapper getInvWrapper() {
-		if (this.invWrapper == null)
-			this.invWrapper = new InvWrapper(this);
-		return this.invWrapper;
 	}
 }

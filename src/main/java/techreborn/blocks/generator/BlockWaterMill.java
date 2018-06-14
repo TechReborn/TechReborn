@@ -24,30 +24,34 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
-import reborncore.common.BaseTileBlock;
-import techreborn.utils.TechRebornCreativeTab;
+import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
+import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileWaterMill;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockWaterMill extends BaseTileBlock {
+public class BlockWaterMill extends BlockMachineBase {
 
 	public BlockWaterMill() {
-		super(Material.IRON);
+		super(false);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setHardness(2.0F);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileWaterMill();
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return null;
 	}
 }
