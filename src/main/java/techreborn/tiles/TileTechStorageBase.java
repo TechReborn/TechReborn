@@ -115,8 +115,9 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		ArrayList<ItemStack> stacks = new ArrayList<>();
 
 		if (!this.getStoredItemType().isEmpty()) {
-			if (!this.getStackInSlot(1).isEmpty())
+			if (!this.getStackInSlot(1).isEmpty()) {
 				stacks.add(this.getStackInSlot(1));
+			}
 			for (int i = 0; i < this.getStoredCount() / 64; i++) {
 				ItemStack droped = this.storedItem.copy();
 				droped.setCount(64);
