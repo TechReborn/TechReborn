@@ -1,4 +1,4 @@
-![](http://i.imgur.com/XKMokQu.png "Tech Reborn")
+![](https://i.imgur.com/evHOtQl.png "Tech Reborn")
 
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/teamreborn)
 
