@@ -26,6 +26,8 @@ package techreborn.tiles;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
@@ -34,14 +36,52 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import techreborn.blocks.BlockAlarm;
+import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.MessageIDs;
 
-public class TileAlarm extends TileEntity implements ITickable {
+public class TileAlarm extends TileEntity 
+	implements ITickable, IToolDrop {
 	private int selectedSound = 1;
+	
+	public void rightClick() {
+		if (!world.isRemote) {
+			if (selectedSound < 3) {
+				selectedSound++;
+			} else {
+				selectedSound = 1;
+			}
+			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+		}
+	}
+	
+	// TileEntity
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		if (compound == null) {
+			compound = new NBTTagCompound();
+		}
+		compound.setInteger("selectedSound", this.selectedSound);
+		return super.writeToNBT(compound);
+	}
 
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		if (compound != null && compound.hasKey("selectedSound")) {
+			this.selectedSound = compound.getInteger("selectedSound");
+		}
+		super.readFromNBT(compound);
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		return false;
+	}
+
+	// ITickable
 	@Override
 	public void update() {
 		if (!world.isRemote && world.getTotalWorldTime() % 25 == 0 && world.isBlockPowered(getPos())) {
@@ -63,36 +103,9 @@ public class TileAlarm extends TileEntity implements ITickable {
 		}
 	}
 
+	// IToolDrop
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		if (compound == null) {
-			compound = new NBTTagCompound();
-		}
-		compound.setInteger("selectedSound", this.selectedSound);
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound) {
-		if (compound != null && compound.hasKey("selectedSound")) {
-			this.selectedSound = compound.getInteger("selectedSound");
-		}
-		super.readFromNBT(compound);
-	}
-
-	public void rightClick() {
-		if (!world.isRemote) {
-			if (selectedSound < 3) {
-				selectedSound++;
-			} else {
-				selectedSound = 1;
-			}
-			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
-		}
-	}
-
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
-		return false;
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.ALARM, 1);
 	}
 }

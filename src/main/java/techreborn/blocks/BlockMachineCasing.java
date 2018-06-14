@@ -34,11 +34,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import reborncore.common.util.ArrayUtils;
@@ -80,6 +83,33 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public static ItemStack getStackByName(String name) {
 		return getStackByName(name, 1);
 	}
+	
+	/**
+	 * Provides heat info per casing for Industrial Blast Furnace
+	 * @param state Machine casing type
+	 * @return Integer Heat value for casing
+	 */
+	public int getHeatFromState(IBlockState state) {
+		switch (getMetaFromState(state)) {
+			case 0:
+				return 1020 / 25;
+			case 1:
+				return 1700 / 25;
+			case 2:
+				return 2380 / 25;
+		}
+		return 0;
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		if (RebornCoreConfig.wrenchRequired){
+			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+		}
+		else {
+			super.getDrops(drops, world, pos, state, fortune);
+		}
+	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
@@ -97,23 +127,6 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, TYPE);
-	}
-
-	/**
-	 * Provides heat info per casing for Industrial Blast Furnace
-	 * @param state Machine casing type
-	 * @return Integer Heat value for casing
-	 */
-	public int getHeatFromState(IBlockState state) {
-		switch (getMetaFromState(state)) {
-			case 0:
-				return 1020 / 25;
-			case 1:
-				return 1700 / 25;
-			case 2:
-				return 2380 / 25;
-		}
-		return 0;
 	}
 
 	@Override

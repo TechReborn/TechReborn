@@ -26,16 +26,20 @@ package techreborn.tiles.lighting;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.lighting.BlockLamp;
+import techreborn.init.ModBlocks;
 
-public class TileLamp extends TilePowerAcceptor
-	implements ITickable {
+public class TileLamp extends TilePowerAcceptor	
+	implements IToolDrop {
 
 	private static int capacity = 33;
 
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
@@ -79,6 +83,12 @@ public class TileLamp extends TilePowerAcceptor
 	@Override
 	public double getBaseMaxInput() {
 		return 32;
+	}
+
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.LAMP_LED, 1);
 	}
 
 

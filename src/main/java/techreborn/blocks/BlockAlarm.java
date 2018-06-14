@@ -45,7 +45,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
+import reborncore.common.items.WrenchHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAlarm;
@@ -88,18 +90,29 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		TileAlarm tileEntity = (TileAlarm) worldIn.getTileEntity(pos);
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
 		if (tileEntity == null) {
-			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-		} else {
-			if (!worldIn.isRemote) {
-				if (playerIn.isSneaking()) {
-					tileEntity.rightClick();
-				}
+			return false;
+		}
+
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+				return true;
 			}
 		}
-		return true;
+
+		if (!worldIn.isRemote && playerIn.isSneaking()) {
+			((TileAlarm) tileEntity).rightClick();
+			return true;
+
+		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override
@@ -167,10 +180,10 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	@Override
-
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return this.bbs[getFacing(state).getIndex()];
 	}
+	
 	@Override
 	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, ITooltipFlag flag) {
 		tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.tooltip.alarm"));
