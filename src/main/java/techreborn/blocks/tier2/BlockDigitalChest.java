@@ -24,17 +24,18 @@
 
 package techreborn.blocks.tier2;
 
+import java.util.List;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
@@ -66,18 +67,12 @@ public class BlockDigitalChest extends BlockMachineBase {
 	}
 	
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {	
-/*		if (RebornCoreConfig.wrenchRequired){
-			drops.add(isAdvanced() ? advancedFrameStack.copy() : basicFrameStack.copy());
-		}
-		else {
-			super.getDrops(drops, world, pos, state, fortune);
-		}*/
-		
-		TileEntity storageTile = world.getTileEntity(pos);
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		TileEntity storageTile = worldIn.getTileEntity(pos);
 		if (storageTile != null && storageTile instanceof TileTechStorageBase) {
-			drops.addAll( ( (TileTechStorageBase) storageTile).getContentDrops() );
+			List<ItemStack> stacks = ((TileTechStorageBase) storageTile).getContentDrops();
+			WorldUtils.dropItems(stacks, worldIn, pos);
 		}
-		super.getDrops(drops, world, pos, state, fortune);
+		super.breakBlock(worldIn, pos, state);
 	}
 }

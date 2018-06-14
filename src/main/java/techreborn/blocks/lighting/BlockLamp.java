@@ -77,17 +77,44 @@ public class BlockLamp extends BaseTileBlock {
 		this.brightness = brightness;
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
 	}
+	
+	public static boolean isActive(IBlockState state) {
+		return state.getValue(ACTIVE);
+	}
 
+	public static EnumFacing getFacing(IBlockState state) {
+		if(!state.getProperties().containsKey(FACING)){
+			return EnumFacing.NORTH;
+		}
+		return state.getValue(FACING);
+	}
+
+	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
+	}
+
+	public static void setActive(Boolean active, World world, BlockPos pos) {
+		EnumFacing facing = (EnumFacing)world.getBlockState(pos).getValue(FACING);
+		IBlockState state = world.getBlockState(pos).withProperty(ACTIVE, active).withProperty(FACING, facing);
+		world.setBlockState(pos, state, 3);
+	}
+
+	public int getCost() {
+		return cost;
+	}
+	
+	// BaseTileBlock
+	@Override
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		return new TileLamp();
+	}	
+
+	// Block
 	@Override
 	protected BlockStateContainer createBlockState() {
 		FACING = PropertyDirection.create("facing");
 		ACTIVE = PropertyBool.create("active");
 		return new BlockStateContainer(this, FACING, ACTIVE);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileLamp();
 	}
 
 	@Override
@@ -147,30 +174,5 @@ public class BlockLamp extends BaseTileBlock {
 		Boolean active = (meta&8)==8;
 		EnumFacing facing = EnumFacing.getFront(meta&7);
 		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
-	}
-
-	public static boolean isActive(IBlockState state) {
-		return state.getValue(ACTIVE);
-	}
-
-	public static EnumFacing getFacing(IBlockState state) {
-		if(!state.getProperties().containsKey(FACING)){
-			return EnumFacing.NORTH;
-		}
-		return state.getValue(FACING);
-	}
-
-	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
-	}
-
-	public static void setActive(Boolean active, World world, BlockPos pos) {
-		EnumFacing facing = (EnumFacing)world.getBlockState(pos).getValue(FACING);
-		IBlockState state = world.getBlockState(pos).withProperty(ACTIVE, active).withProperty(FACING, facing);
-		world.setBlockState(pos, state, 3);
-	}
-
-	public int getCost() {
-		return cost;
 	}
 }

@@ -232,5 +232,4 @@ public abstract class BlockTransformer extends BaseTileBlock {
 			return Iterators.forArray(this.facings());
 		}
 	}
-
 }
