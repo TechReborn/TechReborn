@@ -24,6 +24,8 @@
 
 package techreborn.tiles.cable;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -35,6 +37,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IListInfoProvider;
+import reborncore.api.IToolDrop;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
@@ -48,7 +51,9 @@ import java.util.List;
  * Created by modmuss50 on 19/05/2017.
  */
 
-public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider {
+public class TileCable extends TileEntity 
+	implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop {
+	
 	public int power = 0;
 	private int transferRate = 0;
 	private EnumCableType cableType = null;
@@ -235,5 +240,11 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
 					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(this.cableType.tier.toString()));
 		}
+	}
+
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
+		return getCableType().getStack();
 	}
 }

@@ -35,7 +35,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -48,6 +47,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.ToolManager;
+import reborncore.common.RebornCoreConfig;
+import reborncore.common.blocks.BlockWrenchEventHandler;
+import reborncore.common.items.WrenchHelper;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.utils.TechRebornCreativeTab;
@@ -89,6 +91,7 @@ public class BlockCable extends BlockContainer {
 		setResistance(8F);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false).withProperty(TYPE, EnumCableType.COPPER));
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	public static ItemStack getCableByName(String name, int count) {
@@ -104,28 +107,85 @@ public class BlockCable extends BlockContainer {
 	public static ItemStack getCableByName(String name) {
 		return getCableByName(name, 1);
 	}
+	
+	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
+	public TileEntity getTileEntitySafely(IBlockAccess blockAccess, BlockPos pos) {
+		if (blockAccess instanceof ChunkCache) {
+			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
+		} else {
+			return blockAccess.getTileEntity(pos);
+		}
+	}
 
+	public IProperty<Boolean> getProperty(EnumFacing facing) {
+		switch (facing) {
+			case EAST:
+				return EAST;
+			case WEST:
+				return WEST;
+			case NORTH:
+				return NORTH;
+			case SOUTH:
+				return SOUTH;
+			case UP:
+				return UP;
+			case DOWN:
+				return DOWN;
+			default:
+				return EAST;
+		}
+	}
+	
+	// BlockContainer
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
+	
+	@Nullable
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TileCable();
+	}
+
+	// Block
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack) && playerIn.isSneaking()) {
-			if (ToolManager.INSTANCE.handleTool(stack, pos, world, playerIn, facing, false)) {
-				ItemStack drop = state.getValue(TYPE).getStack();
-				if (drop == null) {
-					return false;
-				}
-				if (!drop.isEmpty()) {
-					spawnAsEntity(world, pos, drop);
-				}
-				world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
-					SoundCategory.BLOCKS, 0.6F, 1F);
-				if (!world.isRemote) {
-					world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-				}
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We should always have tile entity. I hope.
+		if (tileEntity == null) {
+			return false;
+		}
+		
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
 				return true;
 			}
 		}
-		return super.onBlockActivated(world, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {	
+		if (RebornCoreConfig.wrenchRequired){
+			if (state.getValue(TYPE) == EnumCableType.ICOPPER) {
+				drops.add(getCableByName("copper", 1));				
+			}
+			else if (state.getValue(TYPE) == EnumCableType.IGOLD) {
+				drops.add(getCableByName("gold", 1));			
+			}
+			else if (state.getValue(TYPE) == EnumCableType.IHV) {
+				drops.add(getCableByName("hv", 1));
+			}
+			else {
+				super.getDrops(drops, world, pos, state, fortune);
+			}
+		}
+		else {
+			super.getDrops(drops, world, pos, state, fortune);
+		}
 	}
 
 	@Override
@@ -222,45 +282,6 @@ public class BlockCable extends BlockContainer {
 			}
 		}
 		return actualState;
-	}
-
-	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
-	public TileEntity getTileEntitySafely(IBlockAccess blockAccess, BlockPos pos) {
-		if (blockAccess instanceof ChunkCache) {
-			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-		} else {
-			return blockAccess.getTileEntity(pos);
-		}
-	}
-
-	public IProperty<Boolean> getProperty(EnumFacing facing) {
-		switch (facing) {
-			case EAST:
-				return EAST;
-			case WEST:
-				return WEST;
-			case NORTH:
-				return NORTH;
-			case SOUTH:
-				return SOUTH;
-			case UP:
-				return UP;
-			case DOWN:
-				return DOWN;
-			default:
-				return EAST;
-		}
-	}
-
-	@Nullable
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileCable();
-	}
-
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
 	}
 
 	@Override
