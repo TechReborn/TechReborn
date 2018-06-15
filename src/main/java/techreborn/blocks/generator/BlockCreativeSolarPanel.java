@@ -24,8 +24,6 @@
 
 package techreborn.blocks.generator;
 
-import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,10 +42,12 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileCreativeSolarPanel;
+import techreborn.utils.TechRebornCreativeTab;
+
+import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -61,7 +61,7 @@ public class BlockCreativeSolarPanel extends BaseTileBlock {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
 	                                EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -72,7 +72,7 @@ public class BlockCreativeSolarPanel extends BaseTileBlock {
 		if (tileEntity == null) {
 			return false;
 		}
-	
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
 				return true;
@@ -81,18 +81,17 @@ public class BlockCreativeSolarPanel extends BaseTileBlock {
 
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		NonNullList<ItemStack> items = NonNullList.create();
-				
-		if (RebornCoreConfig.wrenchRequired){
+
+		if (RebornCoreConfig.wrenchRequired) {
 			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
-		}
-		else {
+		} else {
 			super.getDrops(items, world, pos, state, fortune);
 		}
-		
+
 		return items;
 	}
 

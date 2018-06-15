@@ -48,9 +48,9 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.items.WrenchHelper;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAlarm;
+import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -58,6 +58,16 @@ import java.util.List;
 public class BlockAlarm extends BaseTileBlock {
 	public static PropertyDirection FACING;
 	public static PropertyBool ACTIVE;
+	private AxisAlignedBB[] bbs;
+
+	public BlockAlarm() {
+		super(Material.ROCK);
+		setUnlocalizedName("techreborn.alarm");
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
+		this.bbs = GenBoundingBoxes(0.19, 0.81);
+		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
+	}
 
 	private static AxisAlignedBB[] GenBoundingBoxes(double depth, double width) {
 		AxisAlignedBB[] dimm = {
@@ -71,15 +81,22 @@ public class BlockAlarm extends BaseTileBlock {
 		return dimm;
 	}
 
-	private AxisAlignedBB[] bbs;
+	public static boolean isActive(IBlockState state) {
+		return state.getValue(ACTIVE);
+	}
 
-	public BlockAlarm() {
-		super(Material.ROCK);
-		setUnlocalizedName("techreborn.alarm");
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
-		this.bbs = GenBoundingBoxes(0.19, 0.81);
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
+	public static EnumFacing getFacing(IBlockState state) {
+		return (EnumFacing) state.getValue(FACING);
+	}
+
+	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
+	}
+
+	public static void setActive(boolean active, World world, BlockPos pos) {
+		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
+		IBlockState state = world.getBlockState(pos).withProperty(ACTIVE, active).withProperty(FACING, facing);
+		world.setBlockState(pos, state, 3);
 	}
 
 	@Override
@@ -91,7 +108,7 @@ public class BlockAlarm extends BaseTileBlock {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 
@@ -127,24 +144,6 @@ public class BlockAlarm extends BaseTileBlock {
 		Boolean active = (meta & 8) == 8;
 		EnumFacing facing = EnumFacing.getFront(meta & 7);
 		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
-	}
-
-	public static boolean isActive(IBlockState state) {
-		return state.getValue(ACTIVE);
-	}
-
-	public static EnumFacing getFacing(IBlockState state) {
-		return (EnumFacing) state.getValue(FACING);
-	}
-
-	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
-	}
-
-	public static void setActive(boolean active, World world, BlockPos pos) {
-		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
-		IBlockState state = world.getBlockState(pos).withProperty(ACTIVE, active).withProperty(FACING, facing);
-		world.setBlockState(pos, state, 3);
 	}
 
 	@Nullable
@@ -183,7 +182,7 @@ public class BlockAlarm extends BaseTileBlock {
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return this.bbs[getFacing(state).getIndex()];
 	}
-	
+
 	@Override
 	public void addInformation(final ItemStack stack, final World world, final List<String> tooltip, ITooltipFlag flag) {
 		tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.tooltip.alarm"));

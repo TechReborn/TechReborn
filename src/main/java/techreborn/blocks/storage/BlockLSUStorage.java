@@ -24,8 +24,6 @@
 
 package techreborn.blocks.storage;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -45,13 +43,15 @@ import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.items.WrenchHelper;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lesu.TileLSUStorage;
+import techreborn.utils.TechRebornCreativeTab;
+
+import java.util.List;
 
 /**
- *  Energy storage block for LESU
+ * Energy storage block for LESU
  */
 public class BlockLSUStorage extends BaseTileBlock {
 
@@ -60,7 +60,7 @@ public class BlockLSUStorage extends BaseTileBlock {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
 	}
-	
+
 	// BaseTileBlock
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
@@ -72,12 +72,12 @@ public class BlockLSUStorage extends BaseTileBlock {
 		}
 		super.breakBlock(world, pos, state);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileLSUStorage();
 	}
-	
+
 	// Block
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack itemstack) {
@@ -100,7 +100,7 @@ public class BlockLSUStorage extends BaseTileBlock {
 		if (tileEntity == null) {
 			return false;
 		}
-	
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
 				return true;
@@ -109,24 +109,22 @@ public class BlockLSUStorage extends BaseTileBlock {
 
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
-	
+
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		NonNullList<ItemStack> items = NonNullList.create();
-				
-		if (RebornCoreConfig.wrenchRequired){
+
+		if (RebornCoreConfig.wrenchRequired) {
 			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
-		}
-		else {
+		} else {
 			super.getDrops(items, world, pos, state, fortune);
 		}
-		
+
 		return items;
 	}
 
 	@Override
-	public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing)
-	{
+	public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
 		Block block = world.getBlockState(pos).getBlock();
 		return this == block;
 	}

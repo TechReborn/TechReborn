@@ -26,7 +26,6 @@ package techreborn.blocks.storage;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -47,8 +46,8 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.Core;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -135,7 +134,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		}
 		return fullName.toLowerCase();
 	}
-	
+
 	// Block
 	@Override
 	public boolean rotateBlock(World world, BlockPos pos, EnumFacing side) {
@@ -165,21 +164,21 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		if (tileEntity == null) {
 			return false;
 		}
-		
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
 				return true;
 			}
 		}
-		
+
 		if (!playerIn.isSneaking()) {
 			playerIn.openGui(Core.INSTANCE, guiID, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;
 		}
-		
+
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
-	
+
 	@Override
 	protected BlockStateContainer createBlockState() {
 		FACING = PropertyDirection.create("facing", Facings.ALL);

@@ -26,7 +26,6 @@ package techreborn.blocks.transformers;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -46,8 +45,8 @@ import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Iterator;
 import java.util.Random;
