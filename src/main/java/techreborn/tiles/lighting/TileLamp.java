@@ -32,7 +32,6 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.lighting.BlockLamp;
-import techreborn.init.ModBlocks;
 
 public class TileLamp extends TilePowerAcceptor	
 	implements IToolDrop {
@@ -88,7 +87,7 @@ public class TileLamp extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.LAMP_LED, 1);
+		return new ItemStack(world.getBlockState(pos).getBlock());
 	}
 
 
