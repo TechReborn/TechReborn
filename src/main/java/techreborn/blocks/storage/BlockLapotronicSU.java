@@ -24,9 +24,16 @@
 
 package techreborn.blocks.storage;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.lesu.TileLapotronicSU;
 
 public class BlockLapotronicSU extends BlockEnergyStorage {
@@ -38,5 +45,14 @@ public class BlockLapotronicSU extends BlockEnergyStorage {
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TileLapotronicSU();
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		if (RebornCoreConfig.wrenchRequired) {
+			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+		} else {
+			super.getDrops(drops, world, pos, state, fortune);
+		}
 	}
 }

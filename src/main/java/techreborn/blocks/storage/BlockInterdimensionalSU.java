@@ -29,9 +29,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
+import techreborn.init.ModBlocks;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 
 public class BlockInterdimensionalSU extends BlockEnergyStorage {
@@ -61,6 +65,15 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof TileInterdimensionalSU) {
 			((TileInterdimensionalSU) tile).ownerUdid = placer.getUniqueID().toString();
+		}
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		if (RebornCoreConfig.wrenchRequired) {
+			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+		} else {
+			super.getDrops(drops, world, pos, state, fortune);
 		}
 	}
 }
