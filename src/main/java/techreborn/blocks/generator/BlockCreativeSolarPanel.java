@@ -47,8 +47,6 @@ import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileCreativeSolarPanel;
 import techreborn.utils.TechRebornCreativeTab;
 
-import java.util.List;
-
 /**
  * Created by modmuss50 on 25/02/2016.
  */
@@ -83,16 +81,12 @@ public class BlockCreativeSolarPanel extends BaseTileBlock {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		NonNullList<ItemStack> items = NonNullList.create();
-
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
-			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
 		} else {
-			super.getDrops(items, world, pos, state, fortune);
+			super.getDrops(drops, world, pos, state, fortune);
 		}
-
-		return items;
 	}
 
 	@Override

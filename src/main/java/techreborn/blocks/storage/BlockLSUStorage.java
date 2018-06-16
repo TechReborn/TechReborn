@@ -42,13 +42,12 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lesu.TileLSUStorage;
 import techreborn.utils.TechRebornCreativeTab;
-
-import java.util.List;
 
 /**
  * Energy storage block for LESU
@@ -59,6 +58,7 @@ public class BlockLSUStorage extends BaseTileBlock {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	// BaseTileBlock
@@ -111,16 +111,12 @@ public class BlockLSUStorage extends BaseTileBlock {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		NonNullList<ItemStack> items = NonNullList.create();
-
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
-			items.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
+			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
 		} else {
-			super.getDrops(items, world, pos, state, fortune);
+			super.getDrops(drops, world, pos, state, fortune);
 		}
-
-		return items;
 	}
 
 	@Override

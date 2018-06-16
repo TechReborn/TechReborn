@@ -31,6 +31,8 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -41,7 +43,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
+import reborncore.common.blocks.BlockWrenchEventHandler;
+import reborncore.common.items.WrenchHelper;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lighting.TileLamp;
@@ -50,19 +55,6 @@ public class BlockLamp extends BaseTileBlock {
 
 	public static PropertyDirection FACING;
 	public static PropertyBool ACTIVE;
-
-	private static AxisAlignedBB[] GenBoundingBoxes(double depth, double width) {
-		AxisAlignedBB[] bb = {
-			new AxisAlignedBB(width, 1.0 - depth, width, 1.0 - width, 1.0D, 1.0 - width),
-			new AxisAlignedBB(width, 0.0D, width, 1.0 - width, depth, 1.0 - width),
-			new AxisAlignedBB(width, width, 1.0 - depth, 1.0 - width, 1.0 - width, 1.0D),
-			new AxisAlignedBB(width, width, 0.0D, 1.0 - width, 1.0 - width, depth),
-			new AxisAlignedBB(1.0 - depth, width, width, 1.0D, 1.0 - width, 1.0 - width),
-			new AxisAlignedBB(0.0D, width, width, depth, 1.0 - width, 1.0 - width),
-		};
-		return bb;
-	}
-
 	private AxisAlignedBB[] bbs;
 
 	private int cost;
@@ -76,6 +68,19 @@ public class BlockLamp extends BaseTileBlock {
 		this.cost = cost;
 		this.brightness = brightness;
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
+	}
+	
+	private static AxisAlignedBB[] GenBoundingBoxes(double depth, double width) {
+		AxisAlignedBB[] bb = {
+			new AxisAlignedBB(width, 1.0 - depth, width, 1.0 - width, 1.0D, 1.0 - width),
+			new AxisAlignedBB(width, 0.0D, width, 1.0 - width, depth, 1.0 - width),
+			new AxisAlignedBB(width, width, 1.0 - depth, 1.0 - width, 1.0 - width, 1.0D),
+			new AxisAlignedBB(width, width, 0.0D, 1.0 - width, 1.0 - width, depth),
+			new AxisAlignedBB(1.0 - depth, width, width, 1.0D, 1.0 - width, 1.0 - width),
+			new AxisAlignedBB(0.0D, width, width, depth, 1.0 - width, 1.0 - width),
+		};
+		return bb;
 	}
 	
 	public static boolean isActive(IBlockState state) {
@@ -160,6 +165,26 @@ public class BlockLamp extends BaseTileBlock {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return this.bbs[getFacing(state).getIndex()];
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
+		if (tileEntity == null) {
+			return false;
+		}
+
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+				return true;
+			}
+		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override

@@ -30,9 +30,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -41,8 +44,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.ToolManager;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.blocks.PropertyString;
+import reborncore.common.items.WrenchHelper;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import reborncore.common.util.ArrayUtils;
 import techreborn.utils.TechRebornCreativeTab;
@@ -68,6 +74,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		for (int i = 0; i < types.length; i++) {
 			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
 		}
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	public static ItemStack getStackByName(String name, int count) {
@@ -104,11 +111,39 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired){
-			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+			if (state.getValue(TYPE) == "reinforced") {
+				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));				
+			}
+			else if (state.getValue(TYPE) == "advanced") {
+				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 2));
+			}
+			else {
+				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
+			}
 		}
 		else {
 			super.getDrops(drops, world, pos, state, fortune);
 		}
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
+	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
+		if (tileEntity == null) {
+			return false;
+		}
+
+		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+				return true;
+			}
+		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override

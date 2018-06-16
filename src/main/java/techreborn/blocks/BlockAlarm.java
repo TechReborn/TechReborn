@@ -47,6 +47,7 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseTileBlock;
+import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAlarm;
@@ -67,6 +68,7 @@ public class BlockAlarm extends BaseTileBlock {
 		this.bbs = GenBoundingBoxes(0.19, 0.81);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
+		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	private static AxisAlignedBB[] GenBoundingBoxes(double depth, double width) {
