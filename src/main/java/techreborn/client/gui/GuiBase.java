@@ -163,7 +163,7 @@ public class GuiBase extends GuiContainer {
 		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset, 12, 12, mouseX, mouseY)) {
 			List<String> list = new ArrayList<>();
 			list.add("Configure slots");
-			GuiUtils.drawHoveringText(list,-5,  guiTop + 70 - offset, width, height, -1, mc.fontRenderer);
+			GuiUtils.drawHoveringText(list, mouseX - guiLeft  ,  mouseY - guiTop , width, height, -1, mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
