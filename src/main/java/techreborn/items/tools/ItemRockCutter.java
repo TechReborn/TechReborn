@@ -26,7 +26,6 @@ package techreborn.items.tools;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,9 +46,9 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
+import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -66,7 +65,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		setMaxStackSize(1);
 		efficiency = 16F;
 	}
-	
+
 	// ItemPickaxe
 	@Override
 	public boolean canHarvestBlock(IBlockState state) {
@@ -75,7 +74,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
@@ -96,9 +95,14 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+	public int getHarvestLevel(ItemStack stack,
+	                           String toolClass,
+	                           @Nullable
+		                           EntityPlayer player,
+	                           @Nullable
+		                           IBlockState blockState) {
 		if (!stack.isItemEnchanted()) {
-			stack.addEnchantment(Enchantment.getEnchantmentByID(33), 1);
+			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
 		return super.getHarvestLevel(stack, toolClass, player, blockState);
 	}
@@ -131,10 +135,12 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack,
+	                                            @Nullable
+		                                            NBTTagCompound nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
-	
+
 	@Override
 	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
 		return !(newStack.isItemEqual(oldStack));
@@ -147,7 +153,9 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.ROCK_CUTTER);
+		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		ItemStack charged = new ItemStack(ModItems.ROCK_CUTTER);
+		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
