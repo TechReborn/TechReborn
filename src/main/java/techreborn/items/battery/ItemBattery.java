@@ -110,7 +110,4 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 	public double getMaxTransfer(ItemStack stack) {
 		return maxTransfer;
 	}
-
-
-
 }

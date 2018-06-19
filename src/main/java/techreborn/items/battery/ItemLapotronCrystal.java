@@ -31,28 +31,28 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
 public class ItemLapotronCrystal extends ItemBattery {
 
+	// 40M FE capacity with 40k FE\t charge rate
 	public ItemLapotronCrystal() {
-		super("lapotronCrystal", 10000000, 2048);
+		super("lapotronCrystal", ConfigTechReborn.LapotronCrystalMaxCharge, 40_000);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_CRYSTAL);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 }

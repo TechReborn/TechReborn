@@ -31,12 +31,14 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
 public class ItemEnergyCrystal extends ItemBattery {
 
+	// 4M FE storage with 10k charge rate
 	public ItemEnergyCrystal() {
-		super("energyCrystal", 100000, 512);
+		super("energyCrystal", ConfigTechReborn.EnergyCrystalMaxCharge, 10_000);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -46,12 +48,11 @@ public class ItemEnergyCrystal extends ItemBattery {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.ENERGY_CRYSTAL);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 }

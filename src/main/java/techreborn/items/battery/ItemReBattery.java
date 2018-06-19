@@ -35,24 +35,23 @@ import techreborn.init.ModItems;
 
 public class ItemReBattery extends ItemBattery {
 
+	// 40k FE capacity with 100 FE\t charge rate
 	public ItemReBattery() {
-		super("rebattery", 10000, 64);
+		super("rebattery", 40_000, 100);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.RE_BATTERY);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 }

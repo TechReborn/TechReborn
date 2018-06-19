@@ -36,24 +36,23 @@ import techreborn.init.ModItems;
 
 public class ItemLapotronicOrb extends ItemBattery {
 
+	// 400M capacity with 40k FE\t charge rate
 	public ItemLapotronicOrb() {
-		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 10000);
+		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 40_000);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_ORB);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 }
