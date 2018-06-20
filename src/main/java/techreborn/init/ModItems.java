@@ -224,7 +224,7 @@ public class ModItems {
 		DIAMOND_JACKHAMMER = new ItemDiamondJackhammer();
 		registerItem(DIAMOND_JACKHAMMER, "diamondjackhammer");
 		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
-		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");
+		registerItem(ADVANCED_JACKHAMMER, "advancedjackhammer");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");
