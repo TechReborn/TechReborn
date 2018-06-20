@@ -57,7 +57,7 @@ import javax.annotation.Nullable;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
-	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in EU)")
+	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in FE)")
 	public static int usage = 10;
 
 	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;

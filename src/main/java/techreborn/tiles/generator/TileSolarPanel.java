@@ -32,6 +32,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
@@ -157,13 +158,13 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 		info.add(TextFormatting.GRAY + "Internal Energy Storage: " + TextFormatting.GOLD
-			+ getLocaliszedPowerFormatted((int) getMaxPower()));
+			+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower()));
 
 		info.add(TextFormatting.GRAY + "Generation Rate Day: " + TextFormatting.GOLD
-				+ getLocaliszedPowerFormatted(panel.generationRateD));
+				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD));
 
 		info.add(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
-			+ getLocaliszedPowerFormatted(panel.generationRateN));
+			+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN));
 
 		info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString()));
 	}

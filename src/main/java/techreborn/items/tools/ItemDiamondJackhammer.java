@@ -49,12 +49,11 @@ public class ItemDiamondJackhammer extends ItemJackhammer {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.DIAMOND_JACKHAMMER);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 }

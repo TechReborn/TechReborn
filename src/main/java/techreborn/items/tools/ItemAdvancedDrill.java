@@ -151,12 +151,11 @@ public class ItemAdvancedDrill extends ItemDrill {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_DRILL);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 }

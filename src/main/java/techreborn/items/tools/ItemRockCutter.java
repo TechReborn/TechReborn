@@ -95,12 +95,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getHarvestLevel(ItemStack stack,
-	                           String toolClass,
-	                           @Nullable
-		                           EntityPlayer player,
-	                           @Nullable
-		                           IBlockState blockState) {
+	public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
 		if (!stack.isItemEnchanted()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
@@ -135,9 +130,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack,
-	                                            @Nullable
-		                                            NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 

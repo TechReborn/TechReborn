@@ -32,6 +32,7 @@ import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -140,9 +141,9 @@ public class TileTransformer extends TilePowerAcceptor
 	// IListInfoProvider
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
-		info.add(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getMaxInput()));
+		info.add(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput()));
 		info.add(TextFormatting.GRAY + "Input Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString()));
-		info.add(TextFormatting.GRAY + "Output Rate: " + TextFormatting.GOLD + getLocaliszedPowerFormatted((int) getMaxOutput()));
+		info.add(TextFormatting.GRAY + "Output Rate: " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput()));
 		info.add(TextFormatting.GRAY + "Output Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString()));
 	}
 

@@ -56,12 +56,11 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_CHAINSAW);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 

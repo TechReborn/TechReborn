@@ -39,8 +39,7 @@ import techreborn.init.ModItems;
 public class ItemSteelDrill extends ItemDrill {
 
 	public ItemSteelDrill() {
-		super(ToolMaterial.IRON, "techreborn.ironDrill", ConfigTechReborn.IronDrillCharge,
-			0.5F, 10F);
+		super(ToolMaterial.IRON, "techreborn.ironDrill", ConfigTechReborn.IronDrillCharge, 0.5F, 10F);
 		this.cost = 50;
 	}
 
@@ -52,12 +51,11 @@ public class ItemSteelDrill extends ItemDrill {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.STEEL_DRILL);
-		ItemStack uncharged = stack.copy();
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
-		itemList.add(uncharged);
+		itemList.add(stack);
 		itemList.add(charged);
 	}
 

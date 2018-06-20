@@ -33,6 +33,7 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.client.gui.widget.GuiButtonUpDown;
@@ -85,7 +86,7 @@ public class GuiFusionReactor extends GuiBase {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
 			if(tile.state == 2){
-				drawCentredString( tile.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
+				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);

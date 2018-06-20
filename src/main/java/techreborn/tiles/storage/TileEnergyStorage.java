@@ -32,6 +32,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -71,27 +72,20 @@ public class TileEnergyStorage extends TilePowerAcceptor
 		super.update();
 		if (!inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(0);
-			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
-				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-				if(getEnergy() > 0 && energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()){
-					energyStorage.receiveEnergy((int) useEnergy(getMaxOutput()) * RebornCoreConfig.euPerFU, false);
+			if (stack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+				IEnergyStorage powerItem = stack.getCapability(CapabilityEnergy.ENERGY, null);
+				int maxReceive = Math.min((powerItem.getMaxEnergyStored() - powerItem.getEnergyStored()),
+						(int) ((IEnergyItemInfo) stack.getItem()).getMaxTransfer(stack));
+				double maxUse = Math.min((double) (maxReceive / RebornCoreConfig.euPerFU), getMaxOutput());
+				if (getEnergy() >= 0.0 && maxReceive > 0) {
+					powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
 				}
-			}
-			if(CompatManager.isIC2Loaded){
+			} else if (CompatManager.isIC2Loaded) {
 				IC2ItemCharger.chargeIc2Item(this, stack);
 			}
 		}
 		if (!inventory.getStackInSlot(1).isEmpty()) {
-			ItemStack stack = inventory.getStackInSlot(1);
-			if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
-				IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-				if(getEnergy() != getMaxPower() && energyStorage.getEnergyStored() > 0){
-					addEnergy(energyStorage.extractEnergy((int) (getMaxInput() * RebornCoreConfig.euPerFU), false) / RebornCoreConfig.euPerFU);
-				}
-			}
-			if(CompatManager.isIC2Loaded){
-				IC2ItemCharger.dischargeIc2Item(this, stack);
-			}
+			charge(1);
 		}
 	}
 	

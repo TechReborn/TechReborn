@@ -59,7 +59,7 @@ import javax.annotation.Nullable;
  */
 public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 
-	public static final int maxCharge = 10000;
+	public static final int maxCharge = 10_000;
 	public static final int tier = 1;
 	public int cost = 20;
 
