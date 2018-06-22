@@ -32,6 +32,7 @@ import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.blocks.generator.BlockWindMill;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -58,19 +59,23 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void update() {
 		super.update();
-		if (this.world.getTotalWorldTime() % 20 == 0) {
-			this.checkForWater();
+		if (world.getTotalWorldTime() % 20 == 0) {
+			checkForWater();
 		}
-		if (this.waterblocks > 0) {
-			this.addEnergy(this.waterblocks * energyMultiplier);
+		if (waterblocks > 0) {
+			addEnergy(waterblocks * energyMultiplier);
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.ACTIVE, true));
+		}
+		else {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.ACTIVE, false));
 		}
 	}
 
 	public void checkForWater() {
-		this.waterblocks = 0;
-		for (final EnumFacing facing : EnumFacing.HORIZONTALS) {
-			if (this.world.getBlockState(this.getPos().offset(facing)).getBlock() == Blocks.WATER) {
-				this.waterblocks++;
+		waterblocks = 0;
+		for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+			if (world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
+				waterblocks++;
 			}
 		}
 	}
@@ -81,12 +86,12 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return true;
 	}
 
@@ -101,7 +106,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.WATER_MILL);
 	}
 }
