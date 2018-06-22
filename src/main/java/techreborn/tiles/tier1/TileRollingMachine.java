@@ -112,64 +112,69 @@ public class TileRollingMachine extends TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
-		this.charge(2);
-		if (!this.world.isRemote) {
-			InventoryCrafting craftMatrix = getCraftingMatrix();
-			this.currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, this.world);
-			if (this.currentRecipe != null) {
-				if (world.getTotalWorldTime() % 2 == 0) {
-					Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
-					if (balanceResult.isPresent()) {
-						craftMatrix = balanceResult.get();
-					}
-				}
-				this.currentRecipeOutput = currentRecipe.getCraftingResult(craftMatrix);
-			} else {
-				this.currentRecipeOutput = ItemStack.EMPTY;
-			}
+		if (world.isRemote) {
+			return;
+		}
+		charge(2);
 
-			if (!this.currentRecipeOutput.isEmpty() && this.canMake(craftMatrix)) {
-				if (this.tickTime >= Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1)) {
-					this.currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, this.world);
-					if (!this.currentRecipeOutput.isEmpty()) {
-						boolean hasCrafted = false;
-						if (this.inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
-							this.inventory.setInventorySlotContents(outputSlot, this.currentRecipeOutput);
-							this.tickTime = 0;
+		InventoryCrafting craftMatrix = getCraftingMatrix();
+		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
+		if (currentRecipe != null) {
+			if (world.getTotalWorldTime() % 2 == 0) {
+				Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
+				if (balanceResult.isPresent()) {
+					craftMatrix = balanceResult.get();
+				}
+			}
+			currentRecipeOutput = currentRecipe.getCraftingResult(craftMatrix);
+		} else {
+			currentRecipeOutput = ItemStack.EMPTY;
+		}
+
+		if (!currentRecipeOutput.isEmpty() && canMake(craftMatrix)) {
+			if (tickTime >= Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)) {
+				currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, world);
+				if (!currentRecipeOutput.isEmpty()) {
+					boolean hasCrafted = false;
+					if (inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
+						inventory.setInventorySlotContents(outputSlot, currentRecipeOutput);
+						tickTime = 0;
+						hasCrafted = true;
+					} else {
+						if (inventory.getStackInSlot(outputSlot).getCount()
+								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxStackSize()) {
+							final ItemStack stack = inventory.getStackInSlot(outputSlot);
+							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
+							inventory.setInventorySlotContents(outputSlot, stack);
+							tickTime = 0;
 							hasCrafted = true;
-						} else {
-							if (this.inventory.getStackInSlot(outputSlot).getCount() + this.currentRecipeOutput.getCount() <= this.currentRecipeOutput
-								.getMaxStackSize()) {
-								final ItemStack stack = this.inventory.getStackInSlot(outputSlot);
-								stack.setCount(stack.getCount() + this.currentRecipeOutput.getCount());
-								this.inventory.setInventorySlotContents(outputSlot, stack);
-								this.tickTime = 0;
-								hasCrafted = true;
-							}
-						}
-						if (hasCrafted) {
-							for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
-								inventory.decrStackSize(i, 1);
-							}
-							this.currentRecipeOutput = ItemStack.EMPTY;
-							this.currentRecipe = null;
 						}
 					}
+					if (hasCrafted) {
+						for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
+							inventory.decrStackSize(i, 1);
+						}
+						currentRecipeOutput = ItemStack.EMPTY;
+						currentRecipe = null;
+					}
 				}
-			} else {
-				this.tickTime = 0;
 			}
-			if (!this.currentRecipeOutput.isEmpty()) {
-				if (this.canUseEnergy(getEuPerTick(energyPerTick)) && this.tickTime < Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) && canMake(craftMatrix)) {
-					this.useEnergy(getEuPerTick(energyPerTick));
-					this.tickTime++;
-				}
-			}
-			if (this.currentRecipeOutput.isEmpty()) {
-				this.tickTime = 0;
-				this.currentRecipe = null;
+		} else {
+			tickTime = 0;
+		}
+		if (!currentRecipeOutput.isEmpty()) {
+			if (canUseEnergy(getEuPerTick(energyPerTick))
+					&& tickTime < Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)
+					&& canMake(craftMatrix)) {
+				useEnergy(getEuPerTick(energyPerTick));
+				tickTime++;
 			}
 		}
+		if (currentRecipeOutput.isEmpty()) {
+			tickTime = 0;
+			currentRecipe = null;
+		}
+
 	}
 
 	public Optional<InventoryCrafting> balanceRecipe(InventoryCrafting craftCache) {
@@ -301,11 +306,11 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	public int getBurnTime() {
-		return this.tickTime;
+		return tickTime;
 	}
 
 	public void setBurnTime(final int burnTime) {
@@ -313,10 +318,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (this.tickTime == 0 || Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
+		if (tickTime == 0 || Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
 			return 0;
 		}
-		return this.tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
+		return tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	@Override

@@ -62,59 +62,62 @@ public class TileRecycler extends TilePowerAcceptor
 		super();
 	}
 
-	public int gaugeProgressScaled(final int scale) {
-		return this.progress * scale / this.time;
+	public int gaugeProgressScaled(int scale) {
+		return progress * scale / time;
 	}
 	
 	public int getProgress() {
-		return this.progress;
+		return progress;
 	}
 
-	public void setProgress(final int progress) {
+	public void setProgress(int progress) {
 		this.progress = progress;
 	}
 	
 	public void recycleItems() {
 		final ItemStack itemstack = ItemParts.getPartByName("scrap");
-		final int randomchance = this.world.rand.nextInt(this.chance);
+		final int randomchance = this.world.rand.nextInt(chance);
 
 		if (randomchance == 1) {
-			if (this.getStackInSlot(1).isEmpty())
-				this.setInventorySlotContents(1, itemstack.copy());
-			else
+			if (getStackInSlot(1).isEmpty()) {
+				setInventorySlotContents(1, itemstack.copy());
+			}
+			else {
 				this.getStackInSlot(1).grow(itemstack.getCount());
+			}
 		}
-		this.decrStackSize(0, 1);
+		decrStackSize(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return this.getStackInSlot(0) != ItemStack.EMPTY && this.hasSlotGotSpace(1);
+		return getStackInSlot(0) != ItemStack.EMPTY && hasSlotGotSpace(1);
 	}
 
-	public boolean hasSlotGotSpace(final int slot) {
-		if (this.getStackInSlot(slot) == ItemStack.EMPTY) {
+	public boolean hasSlotGotSpace(int slot) {
+		if (getStackInSlot(slot) == ItemStack.EMPTY) {
 			return true;
-		} else if (this.getStackInSlot(slot).getCount() < this.getStackInSlot(slot).getMaxStackSize()) {
+		} else if (getStackInSlot(slot).getCount() < getStackInSlot(slot).getMaxStackSize()) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean isBurning() {
-		return this.isBurning;
+		return isBurning;
 	}
 
-	public void setBurning(final boolean burning) {
+	public void setBurning(boolean burning) {
 		this.isBurning = burning;
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
+		final IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			boolean shouldBurn = this.isBurning || (this.canRecycle() && this.canUseEnergy(getEuPerTick(this.cost)));
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != shouldBurn)
-				blockMachineBase.setActive(this.isBurning, this.world, this.pos);
+			boolean shouldBurn = isBurning || (canRecycle() && canUseEnergy(getEuPerTick(cost)));
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != shouldBurn) {
+				blockMachineBase.setActive(isBurning, world, pos);
+			}
 		}
 	}
 
@@ -122,29 +125,32 @@ public class TileRecycler extends TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
-		if (this.world.isRemote)
+		if (world.isRemote) {
 			return;
+		}
+		charge(2);
 
 		boolean updateInventory = false;
-		if (this.canRecycle() && !this.isBurning() && this.getEnergy() != 0)
-			this.setBurning(true);
-		else if (this.isBurning()) {
-			if (this.useEnergy(getEuPerTick(this.cost)) != getEuPerTick(this.cost))
+		if (canRecycle() && !isBurning() && getEnergy() != 0) {
+			setBurning(true);
+		}
+		else if (isBurning()) {
+			if (useEnergy(getEuPerTick(cost)) != getEuPerTick(cost)) {
 				this.setBurning(false);
-			this.progress++;
-			if (this.progress >= Math.max((int) (this.time* (1.0 - getSpeedMultiplier())), 1)) {
-				this.progress = 0;
-				this.recycleItems();
+			}
+			progress++;
+			if (progress >= Math.max((int) (time* (1.0 - getSpeedMultiplier())), 1)) {
+				progress = 0;
+				recycleItems();
 				updateInventory = true;
-				this.setBurning(false);
+				setBurning(false);
 			}
 		}
 
-		this.updateState();
-		this.charge(2);
-
+		updateState();
+		
 		if (updateInventory) {
-			this.markDirty();
+			markDirty();
 		}
 	}
 
@@ -154,12 +160,12 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return false;
 	}
 
@@ -181,7 +187,7 @@ public class TileRecycler extends TilePowerAcceptor
 	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.RECYCLER, 1);
 	}
 
@@ -193,7 +199,7 @@ public class TileRecycler extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);

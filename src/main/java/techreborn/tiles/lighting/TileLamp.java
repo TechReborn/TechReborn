@@ -42,20 +42,21 @@ public class TileLamp extends TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
-		if (world != null && !world.isRemote) {
-			IBlockState state = world.getBlockState(pos);
-			Block b = state.getBlock();
-			if (b instanceof BlockLamp) {
-				double cost = getEuPerTick(((BlockLamp)b).getCost());
-				if (this.getEnergy() > cost) {
-					useEnergy(getEuPerTick(cost));
-					if (!BlockLamp.isActive(state))
-						BlockLamp.setActive(true, world, pos);
-				} else if (BlockLamp.isActive(state)) {
-					BlockLamp.setActive(false, world, pos);
-				}
-			}
+		if (world == null || world.isRemote) {
+			return;
 		}
+		IBlockState state = world.getBlockState(pos);
+		Block b = state.getBlock();
+		if (b instanceof BlockLamp) {
+			double cost = getEuPerTick(((BlockLamp) b).getCost());
+			if (getEnergy() > cost) {
+				useEnergy(getEuPerTick(cost));
+				if (!BlockLamp.isActive(state))
+					BlockLamp.setActive(true, world, pos);
+			} else if (BlockLamp.isActive(state)) {
+				BlockLamp.setActive(false, world, pos);
+			}
+		}	
 	}
 
 	@Override

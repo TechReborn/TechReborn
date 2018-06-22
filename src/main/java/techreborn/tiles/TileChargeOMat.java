@@ -33,7 +33,6 @@ import reborncore.api.IToolDrop;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.RebornCoreConfig;
-import reborncore.common.powerSystem.PoweredItem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -70,26 +69,18 @@ public class TileChargeOMat extends TilePowerAcceptor
 			return;
 		}
 		for (int i = 0; i < 6; i++) {
-			if (this.inventory.getStackInSlot(i) != ItemStack.EMPTY) {
-				if (this.getEnergy() > 0) {
-					final ItemStack stack = this.inventory.getStackInSlot(i);
-					if (stack.getItem() instanceof IEnergyItemInfo) {
-						IEnergyItemInfo item = (IEnergyItemInfo) stack.getItem();
-						if (PoweredItem.getEnergy(stack) != PoweredItem.getMaxPower(stack)) {
-							if (canUseEnergy(item.getMaxTransfer(stack))) {
-								useEnergy(item.getMaxTransfer(stack));
-								PoweredItem.setEnergy(PoweredItem.getEnergy(stack) + item.getMaxTransfer(stack), stack);
-							}
-						}
+			if (!inventory.getStackInSlot(i).isEmpty()) {
+				final ItemStack stack = inventory.getStackInSlot(i);
+				if (stack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+					IEnergyStorage powerItem = stack.getCapability(CapabilityEnergy.ENERGY, null);
+					int maxReceive = Math.min((powerItem.getMaxEnergyStored() - powerItem.getEnergyStored()),
+							(int) ((IEnergyItemInfo) stack.getItem()).getMaxTransfer(stack));
+					double maxUse = Math.min((double) (maxReceive / RebornCoreConfig.euPerFU), getMaxInput());
+					if (getEnergy() >= 0.0 && maxReceive > 0) {
+						powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
 					}
-					if(CompatManager.isIC2Loaded){
-						IC2ItemCharger.chargeIc2Item(this, stack);
-					}
-					if(stack.hasCapability(CapabilityEnergy.ENERGY, null)){
-						IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-						int max = Math.min(maxInput, (int) getEnergy()) * RebornCoreConfig.euPerFU;
-						useEnergy(energyStorage.receiveEnergy(max, false) / RebornCoreConfig.euPerFU);
-					}
+				} else if (CompatManager.isIC2Loaded) {
+					IC2ItemCharger.chargeIc2Item(this, stack);
 				}
 			}
 		}
@@ -135,7 +126,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	// IContainerProvider

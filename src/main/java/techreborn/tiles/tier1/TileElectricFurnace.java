@@ -63,47 +63,50 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		super();
 	}
 
-	public int gaugeProgressScaled(final int scale) {
-		return this.progress * scale / this.fuelScale;
+	public int gaugeProgressScaled(int scale) {
+		return progress * scale / fuelScale;
 	}
 
 	public void cookItems() {
-		if (this.canSmelt()) {
-			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
+		if (canSmelt()) {
+			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
-				this.setInventorySlotContents(this.output, itemstack.copy());
-			} else if (this.getStackInSlot(this.output).isItemEqual(itemstack)) {
-				this.getStackInSlot(this.output).grow(itemstack.getCount());
+			if (getStackInSlot(output) == ItemStack.EMPTY) {
+				setInventorySlotContents(output, itemstack.copy());
+			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
+				getStackInSlot(output).grow(itemstack.getCount());
 			}
-			if (this.getStackInSlot(this.input1).getCount() > 1) {
-				this.decrStackSize(this.input1, 1);
+			if (getStackInSlot(input1).getCount() > 1) {
+				decrStackSize(input1, 1);
 			} else {
-				this.setInventorySlotContents(this.input1, ItemStack.EMPTY);
+				setInventorySlotContents(input1, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	public boolean canSmelt() {
-		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY) {
+		if (getStackInSlot(input1) == ItemStack.EMPTY) {
 			return false;
 		}
-		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
-		if (itemstack.isEmpty())
+		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
+		if (itemstack.isEmpty()) {
 			return false;
-		if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+		}
+		if (getStackInSlot(output) == ItemStack.EMPTY) {
 			return true;
-		if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
+		}
+		if (!getStackInSlot(output).isItemEqual(itemstack)) {
 			return false;
-		final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
+		}
+		final int result = getStackInSlot(output).getCount() + itemstack.getCount();
 		return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
 	}
 
 	public boolean isBurning() {
-		return this.getEnergy() > getEuPerTick(this.cost);
+		return getEnergy() > getEuPerTick(cost);
 	}
 
-	public ItemStack getResultFor(final ItemStack stack) {
+	public ItemStack getResultFor(ItemStack stack) {
 		final ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
 		if (!result.isEmpty()) {
 			return result.copy();
@@ -112,26 +115,26 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public void updateState() {
-		if (wasBurning != (this.progress > 0)) {
+		if (wasBurning != (progress > 0)) {
 			// skips updating the block state for 1 tick, to prevent the machine from
 			// turning on/off rapidly causing fps drops
-			if (wasBurning && this.progress == 0 && canSmelt()) {
+			if (wasBurning && progress == 0 && canSmelt()) {
 				wasBurning = true;
 				return;
 			}
-			final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
+			final IBlockState BlockStateContainer = world.getBlockState(pos);
 			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-				if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.progress > 0)
-					blockMachineBase.setActive(this.progress > 0, this.world, this.pos);
+				if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
+					blockMachineBase.setActive(progress > 0, world, pos);
 			}
-			wasBurning = (this.progress > 0);
+			wasBurning = (progress > 0);
 		}
 
 	}
 
 	public int getBurnTime() {
-		return this.progress;
+		return progress;
 	}
 
 	public void setBurnTime(final int burnTime) {
@@ -146,32 +149,31 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		}
 
 		super.update();
-		this.charge(2);
+		charge(2);
 
-		final boolean burning = this.isBurning();
+		final boolean burning = isBurning();
 		boolean updateInventory = false;
-		if (this.isBurning() && this.canSmelt()) {
-			this.updateState();
-			if (canUseEnergy(getEuPerTick(this.cost))) {
-				this.useEnergy(getEuPerTick(this.cost));
-				this.progress++;
-				if (this.progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 5)) {
-					this.progress = 0;
-					this.cookItems();
+		if (isBurning() && canSmelt()) {
+			updateState();
+			if (canUseEnergy(getEuPerTick(cost))) {
+				useEnergy(getEuPerTick(cost));
+				progress++;
+				if (progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 5)) {
+					progress = 0;
+					cookItems();
 					updateInventory = true;
 				}
 			}
 		} else {
-			this.progress = 0;
-			this.updateState();
+			progress = 0;
+			updateState();
 		}
-		if (burning != this.isBurning()) {
+		if (burning != isBurning()) {
 			updateInventory = true;
 		}
 		if (updateInventory) {
-			this.markDirty();
+			markDirty();
 		}
-
 	}
 
 	@Override
@@ -208,7 +210,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	// IContainerProvider

@@ -59,15 +59,15 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 	}
 	
 	public boolean getMutliBlock() {
-		if (this.multiblockChecker == null) {
+		if (multiblockChecker == null) {
 			return false;
 		}
-		final boolean layer0 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean layer1 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
-		final boolean layer2 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean layer3 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 3, 0));
-		final Block centerBlock1 = this.multiblockChecker.getBlock(0, 1, 0).getBlock();
-		final Block centerBlock2 = this.multiblockChecker.getBlock(0, 2, 0).getBlock();
+		final boolean layer0 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
+		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
+		final boolean layer2 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
+		final boolean layer3 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 3, 0));
+		final Block centerBlock1 = multiblockChecker.getBlock(0, 1, 0).getBlock();
+		final Block centerBlock2 = multiblockChecker.getBlock(0, 2, 0).getBlock();
 		final boolean center1 = (centerBlock1 == Blocks.AIR);
 		final boolean center2 = (centerBlock2 == Blocks.AIR);
 		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
@@ -76,9 +76,9 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 	// TileGenericMachine
 	@Override
 	public void update() {
-		if (this.multiblockChecker == null) {
-			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
-			this.multiblockChecker = new MultiblockChecker(this.world, pos);
+		if (multiblockChecker == null) {
+			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
+			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		
 		if (!world.isRemote && getMutliBlock()){ 

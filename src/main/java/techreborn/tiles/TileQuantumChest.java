@@ -47,9 +47,4 @@ public class TileQuantumChest extends TileTechStorageBase implements IContainerP
 		return new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this);
 	}
-
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
-	}
 }

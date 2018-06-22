@@ -80,34 +80,32 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		if (multiblockChecker == null) {
 			return false;
 		}
-		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING,
-			MultiblockChecker.ZERO_OFFSET);
-		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING,
-			new BlockPos(0, 2, 0));
-		final boolean blade = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING,
-			new BlockPos(0, 1, 0));
-		final IBlockState centerBlock = this.multiblockChecker.getBlock(0, 1, 0);
+		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
+		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
+		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
+		final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
-				|| centerBlock.getBlock() instanceof IFluidBlock) && centerBlock.getMaterial() == Material.WATER);
+				|| centerBlock.getBlock() instanceof IFluidBlock) 
+				&& centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
 	}
 	
 	// TilePowerAcceptor
 	@Override
 	public void update() {
-		if (this.multiblockChecker == null) {
-			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2).down();
-			this.multiblockChecker = new MultiblockChecker(this.world, pos);
+		if (multiblockChecker == null) {
+			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
+			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		
-		this.ticksSinceLastChange++;
+		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
-		if (!world.isRemote && this.ticksSinceLastChange >= 10) {
-			if (!this.inventory.getStackInSlot(1).isEmpty()) {
-				FluidUtils.drainContainers(this.tank, this.inventory, 1, 6);
-				FluidUtils.fillContainers(this.tank, this.inventory, 1, 6, this.tank.getFluidType());
+		if (!world.isRemote && ticksSinceLastChange >= 10) {
+			if (!inventory.getStackInSlot(1).isEmpty()) {
+				FluidUtils.drainContainers(tank, inventory, 1, 6);
+				FluidUtils.fillContainers(tank, inventory, 1, 6, tank.getFluidType());
 			}
-			this.ticksSinceLastChange = 0;
+			ticksSinceLastChange = 0;
 		}
 		
 		if (!world.isRemote && getMutliBlock()) {
@@ -120,13 +118,13 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		this.tank.readFromNBT(tagCompound);
+		tank.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		this.tank.writeToNBT(tagCompound);
+		tank.writeToNBT(tagCompound);
 		return tagCompound;
 	}
 
@@ -177,7 +175,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 			return false;
 		}
 		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = this.tank.getFluid();
+		final FluidStack tankFluid = tank.getFluid();
 		if (recipe.fluidStack == null) {
 			return true;
 		}
@@ -195,7 +193,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	@Override
 	public boolean onCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
 		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = this.tank.getFluid();
+		final FluidStack tankFluid = tank.getFluid();
 		if (recipe.fluidStack == null) {
 			return true;
 		}
@@ -205,12 +203,12 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		if (tankFluid.isFluidEqual(recipeFluid)) {
 			if (tankFluid.amount >= recipeFluid.amount) {
 				if (tankFluid.amount == recipeFluid.amount) {
-					this.tank.setFluid(null);
+					tank.setFluid(null);
 				}
 				else {
 					tankFluid.amount -= recipeFluid.amount;
 				}
-				this.syncWithAll();
+				syncWithAll();
 				return true;
 			}
 		}

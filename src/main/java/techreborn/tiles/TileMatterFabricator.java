@@ -45,7 +45,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxInput", comment = "Matter Fabricator Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -62,7 +62,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	public TileMatterFabricator() {
 		super();
 	}
-	
+
 	private boolean spaceForOutput() {
 		for (int i = 6; i < 11; i++) {
 			if (spaceForOutput(i)) {
@@ -73,9 +73,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private boolean spaceForOutput(int slot) {
-		return this.inventory.getStackInSlot(slot).isEmpty()
-			|| ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)
-			&& this.inventory.getStackInSlot(slot).getCount() < 64;
+		return inventory.getStackInSlot(slot).isEmpty()
+				|| ItemUtils.isItemEqual(inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)
+						&& inventory.getStackInSlot(slot).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
@@ -88,20 +88,21 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private void addOutputProducts(int slot) {
-		if (this.inventory.getStackInSlot(slot).isEmpty()) {
-			this.inventory.setInventorySlotContents(slot, new ItemStack(ModItems.UU_MATTER));
-		} else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)) {
-			this.inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + this.inventory.getStackInSlot(slot).getCount())));
+		if (inventory.getStackInSlot(slot).isEmpty()) {
+			inventory.setInventorySlotContents(slot, new ItemStack(ModItems.UU_MATTER));
+		} 
+		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)) {
+			inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + inventory.getStackInSlot(slot).getCount())));
 		}
 	}
 
-	public boolean decreaseStoredEnergy(final double aEnergy, final boolean aIgnoreTooLessEnergy) {
-		if (this.getEnergy() - aEnergy < 0 && !aIgnoreTooLessEnergy) {
+	public boolean decreaseStoredEnergy(double aEnergy, boolean aIgnoreTooLessEnergy) {
+		if (getEnergy() - aEnergy < 0 && !aIgnoreTooLessEnergy) {
 			return false;
 		} else {
-			this.setEnergy(this.getEnergy() - aEnergy);
-			if (this.getEnergy() < 0) {
-				this.setEnergy(0);
+			setEnergy(getEnergy() - aEnergy);
+			if (getEnergy() < 0) {
+				setEnergy(0);
 				return false;
 			} else {
 				return true;
@@ -109,8 +110,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		}
 	}
 
-	public int getValue(final ItemStack itemStack) {
-		if (itemStack.getItem() == ModItems.PARTS && itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
+	public int getValue(ItemStack itemStack) {
+		if (itemStack.getItem() == ModItems.PARTS
+				&& itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
 			return 200;
 		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 			return 2000;
@@ -122,18 +124,18 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		}
 		return 0;
 	}
-	
+
 	public int getProgress() {
-		return this.amplifier;
+		return amplifier;
 	}
 
-	public void setProgress(final int progress) {
-		this.amplifier = progress;
+	public void setProgress(int progress) {
+		amplifier = progress;
 	}
 
-	public int getProgressScaled(final int scale) {
-		if (this.amplifier != 0) {
-			return Math.min(this.amplifier * scale / fabricationRate, 100);
+	public int getProgressScaled(int scale) {
+		if (amplifier != 0) {
+			return Math.min(amplifier * scale / fabricationRate, 100);
 		}
 		return 0;
 	}
@@ -141,27 +143,29 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	// TilePowerAcceptor
 	@Override
 	public void update() {
-		if (world.isRemote){ return; }
-		
+		if (world.isRemote) {
+			return;
+		}
+
 		super.update();
 		this.charge(11);
 
 		for (int i = 0; i < 6; i++) {
-			final ItemStack stack = this.inventory.getStackInSlot(i);
+			final ItemStack stack = inventory.getStackInSlot(i);
 			if (!stack.isEmpty() && spaceForOutput()) {
-				final int amp = this.getValue(stack);
+				final int amp = getValue(stack);
 				final int euNeeded = amp * energyPerAmp;
 				if (amp != 0 && this.canUseEnergy(euNeeded)) {
-					this.useEnergy(euNeeded);
-					this.amplifier += amp;
-					this.inventory.decrStackSize(i, 1);
+					useEnergy(euNeeded);
+					amplifier += amp;
+					inventory.decrStackSize(i, 1);
 				}
 			}
 		}
 
 		if (amplifier >= fabricationRate) {
 			if (spaceForOutput()) {
-				this.addOutputProducts();
+				addOutputProducts();
 				amplifier -= fabricationRate;
 			}
 		}
@@ -173,12 +177,12 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return false;
 	}
 
@@ -191,28 +195,28 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
-	
-	//TileLegacyMachineBase
+
+	// TileLegacyMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
 	}
-	
+
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
 	}
 
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)

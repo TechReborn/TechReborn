@@ -70,13 +70,13 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	}
 	
 	public int getHeat() {
-		if (!this.getMutliBlock()){
+		if (!getMutliBlock()){
 			return 0;
 		}
 		
 		// Bottom center of multiblock
-		final BlockPos location = this.getPos().offset(this.getFacing().getOpposite(), 2);
-		final TileEntity tileEntity = this.world.getTileEntity(location);
+		final BlockPos location = pos.offset(getFacing().getOpposite(), 2);
+		final TileEntity tileEntity = world.getTileEntity(location);
 
 		if (tileEntity instanceof TileMachineCasing) {
 			if (((TileMachineCasing) tileEntity).isConnected()
@@ -86,21 +86,18 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 				int heat = 0;
 
 				// Bottom center shouldn't have any tile entities below it
-				if (this.world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
+				if (world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
 						.getBlock() == tileEntity.getBlockType()) {
 					return 0;
 				}
 
 				for (final IMultiblockPart part : casing.connectedParts) {
-					final BlockMachineCasing casing1 = (BlockMachineCasing) this.world.getBlockState(part.getPos())
-							.getBlock();
-					heat += casing1.getHeatFromState(this.world.getBlockState(part.getPos()));
+					final BlockMachineCasing casing1 = (BlockMachineCasing) world.getBlockState(part.getPos()).getBlock();
+					heat += casing1.getHeatFromState(world.getBlockState(part.getPos()));
 				}
 
-				if (this.world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName()
-						.equals("tile.lava")
-						&& this.world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getUnlocalizedName()
-								.equals("tile.lava")) {
+				if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName().equals("tile.lava")
+						&& world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getUnlocalizedName().equals("tile.lava")) {
 					heat += 500;
 				}
 				return heat;
@@ -111,31 +108,31 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	}
 	
 	public boolean getMutliBlock() {
-		final boolean layer0 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, MultiblockChecker.ZERO_OFFSET);
-		final boolean layer1 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
-		final boolean layer2 = this.multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
-		final boolean layer3 = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 3, 0));
-		final Block centerBlock1 = this.multiblockChecker.getBlock(0, 1, 0).getBlock();
-		final Block centerBlock2 = this.multiblockChecker.getBlock(0, 2, 0).getBlock();
+		final boolean layer0 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, MultiblockChecker.ZERO_OFFSET);
+		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
+		final boolean layer2 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
+		final boolean layer3 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 3, 0));
+		final Block centerBlock1 = multiblockChecker.getBlock(0, 1, 0).getBlock();
+		final Block centerBlock2 = multiblockChecker.getBlock(0, 2, 0).getBlock();
 		final boolean center1 = (centerBlock1 == Blocks.AIR || centerBlock1 == Blocks.LAVA);
 		final boolean center2 = (centerBlock2 == Blocks.AIR || centerBlock2 == Blocks.LAVA);
 		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
 	}
 	
 	public void setHeat(final int heat) {
-		this.cachedHeat = heat;
+		cachedHeat = heat;
 	}
 
 	public int getCachedHeat() {
-		return this.cachedHeat;
+		return cachedHeat;
 	}
 	
 	// TileGenericMachine
 	@Override
 	public void update() {
-		if (this.multiblockChecker == null) {
-			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
-			this.multiblockChecker = new MultiblockChecker(this.world, pos);
+		if (multiblockChecker == null) {
+			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
+			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		
 		if (!world.isRemote && getMutliBlock()){ 
@@ -146,9 +143,8 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	// TileLegacyMachineBase
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
-		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getPos().getX(),
-			this.getPos().getY(), this.getPos().getZ());
-		this.readFromNBT(packet.getNbtCompound());
+		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
+		readFromNBT(packet.getNbtCompound());
 	}
 	
 	// IContainerProvider

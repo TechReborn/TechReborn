@@ -55,50 +55,62 @@ public class TileQuantumTank extends TileLegacyMachineBase
 
 	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
 	public static int maxStorage = Integer.MAX_VALUE;
-	//  @ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankWrenchDropRate", comment = "Quantum Tank Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
 
 	public Tank tank = new Tank("TileQuantumTank", maxStorage, this);
 	public Inventory inventory = new Inventory(3, "TileQuantumTank", 64, this);
 
+	public void readFromNBTWithoutCoords(final NBTTagCompound tagCompound) {
+		tank.readFromNBT(tagCompound);
+	}
+	
+	public NBTTagCompound writeToNBTWithoutCoords(final NBTTagCompound tagCompound) {
+		tank.writeToNBT(tagCompound);
+		return tagCompound;
+	}
+	
+	public ItemStack getDropWithNBT() {
+		final NBTTagCompound tileEntity = new NBTTagCompound();
+		final ItemStack dropStack = new ItemStack(ModBlocks.QUANTUM_TANK, 1);
+		this.writeToNBTWithoutCoords(tileEntity);
+		dropStack.setTagCompound(new NBTTagCompound());
+		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+		return dropStack;
+	}
+	
+	// TileLegacyMachineBase
+	@Override
+	public void update() {
+		super.update();
+		if (!world.isRemote) {
+			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
+				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
+				this.syncWithAll();
+		}
+		tank.compareAndUpdate();
+	}
+	
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+	
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
-		this.readFromNBTWithoutCoords(tagCompound);
-	}
-
-	public void readFromNBTWithoutCoords(final NBTTagCompound tagCompound) {
-		this.tank.readFromNBT(tagCompound);
+		readFromNBTWithoutCoords(tagCompound);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
 		super.writeToNBT(tagCompound);
-		this.writeToNBTWithoutCoords(tagCompound);
-		return tagCompound;
-	}
-
-	public NBTTagCompound writeToNBTWithoutCoords(final NBTTagCompound tagCompound) {
-		this.tank.writeToNBT(tagCompound);
+		writeToNBTWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
-		this.world.markBlockRangeForRenderUpdate(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(),
-			this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
-		this.readFromNBT(packet.getNbtCompound());
-	}
-
-	@Override
-	public void update() {
-		super.update();
-		if (!this.world.isRemote) {
-			if (FluidUtils.drainContainers(this.tank, this.inventory, 0, 1)
-				|| FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType()))
-				this.syncWithAll();
-		}
-		tank.compareAndUpdate();
+		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
+		readFromNBT(packet.getNbtCompound());
 	}
 
 	@Override
@@ -117,20 +129,19 @@ public class TileQuantumTank extends TileLegacyMachineBase
 		return super.getCapability(capability, facing);
 	}
 
+	// IInventoryProvider
+	@Override
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+	
+	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
 		return this.getDropWithNBT();
 	}
-
-	public ItemStack getDropWithNBT() {
-		final NBTTagCompound tileEntity = new NBTTagCompound();
-		final ItemStack dropStack = new ItemStack(ModBlocks.QUANTUM_TANK, 1);
-		this.writeToNBTWithoutCoords(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
-		return dropStack;
-	}
-
+	
+	// IListInfoProvider
 	@Override
 	public void addInfo(final List<String> info, final boolean isRealTile) {
 		if (isRealTile) {
@@ -141,23 +152,13 @@ public class TileQuantumTank extends TileLegacyMachineBase
 			}
 		}
 		info.add("Capacity " + this.tank.getCapacity() + " mb");
-
 	}
 
-	@Override
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).addInventory()
 			.create(this);
-	}
-
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
 	}
 }

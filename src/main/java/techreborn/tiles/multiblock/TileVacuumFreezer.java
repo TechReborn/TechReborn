@@ -56,7 +56,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	}
 	
 	public boolean getMultiBlock() {
-		return this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
+		return multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
 	}
 	
 	// TileGenericMachine
@@ -71,7 +71,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	@Override
 	public void validate() {
 		super.validate();
-		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down());
+		multiblockChecker = new MultiblockChecker(world, pos.down());
 	}
 
 	// IContainerProvider

@@ -45,7 +45,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, IIn
 	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxInput", comment = "Chunk Loader Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxEnergy", comment = "Chunk Loader Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
+	public static int maxEnergy = 10_000;
 	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 

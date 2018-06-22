@@ -71,7 +71,7 @@ public class TileAlarm extends TileEntity
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		if (compound != null && compound.hasKey("selectedSound")) {
-			this.selectedSound = compound.getInteger("selectedSound");
+			selectedSound = compound.getInteger("selectedSound");
 		}
 		super.readFromNBT(compound);
 	}
@@ -88,13 +88,13 @@ public class TileAlarm extends TileEntity
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {
 				case 1:
-					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
+					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM, SoundCategory.BLOCKS, 4F, 1F);
 					break;
 				case 2:
-					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_2, SoundCategory.BLOCKS, 4F, 1F);
+					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_2, SoundCategory.BLOCKS, 4F, 1F);
 					break;
 				case 3:
-					world.playSound(null, getPos().getX(), getPos().getY(), getPos().getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
+					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
 					break;
 			}
 

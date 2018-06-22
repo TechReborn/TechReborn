@@ -70,7 +70,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	@Override
 	public void update() {
 		super.update();
-		this.ticksSinceLastChange++;
+		ticksSinceLastChange++;
 
 		if(world.isRemote){
 			return;
@@ -78,56 +78,56 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 		// Check cells input slot 2 time per second
 		// Please, keep ticks counting on client also to report progress to GUI
-		if (this.ticksSinceLastChange >= 10) {
-			if (!this.inventory.getStackInSlot(0).isEmpty()) {
-				FluidUtils.drainContainers(this.tank, this.inventory, 0, 1);
-				FluidUtils.fillContainers(this.tank, this.inventory, 0, 1, this.tank.getFluidType());
+		if (ticksSinceLastChange >= 10) {
+			if (!inventory.getStackInSlot(0).isEmpty()) {
+				FluidUtils.drainContainers(tank, inventory, 0, 1);
+				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
 			}
 			tank.setTileEntity(this);
 			tank.compareAndUpdate();
 
-			this.ticksSinceLastChange = 0;
+			ticksSinceLastChange = 0;
 		}
 
-		if (this.tank.getFluidAmount() > 0) {
-			if (this.currentRecipe == null || !this.currentRecipe.getFluid().equals(this.tank.getFluidType()))
-				this.currentRecipe = this.getRecipes().getRecipeForFluid(this.tank.getFluidType()).orElse(null);
+		if (tank.getFluidAmount() > 0) {
+			if (currentRecipe == null || !currentRecipe.getFluid().equals(tank.getFluidType()))
+				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluidType()).orElse(null);
 
-			if (this.currentRecipe != null) {
-				final Integer euPerBucket = this.currentRecipe.getEnergyPerMb() * 1000;
-				final float millibucketsPerTick = this.euTick * 1000 / (float) euPerBucket;
+			if (currentRecipe != null) {
+				final Integer euPerBucket = currentRecipe.getEnergyPerMb() * 1000;
+				final float millibucketsPerTick = euTick * 1000 / (float) euPerBucket;
 
-				if (this.tryAddingEnergy(this.euTick)) {
-					this.pendingWithdraw += millibucketsPerTick;
-					final int currentWithdraw = (int) this.pendingWithdraw;
-					this.pendingWithdraw -= currentWithdraw;
-					this.tank.drain(currentWithdraw, true);
-					this.lastOutput = this.world.getTotalWorldTime();
+				if (tryAddingEnergy(euTick)) {
+					pendingWithdraw += millibucketsPerTick;
+					final int currentWithdraw = (int) pendingWithdraw;
+					pendingWithdraw -= currentWithdraw;
+					tank.drain(currentWithdraw, true);
+					lastOutput = world.getTotalWorldTime();
 				}
 			}
 		}
 
-		if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
-			this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
-		else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
-			this.world.setBlockState(this.getPos(), this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
-
-
+		if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, true));
+		}
+		else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, false));
+		}
 	}
 	
-	public int getProgressScaled(final int scale) {
-		if (this.isActive()){
-			return this.ticksSinceLastChange * scale;
+	public int getProgressScaled(int scale) {
+		if (isActive()){
+			return ticksSinceLastChange * scale;
 		}
 		return 0;
 	}
 
 	protected boolean tryAddingEnergy(int amount) {
-		if (this.getMaxPower() - this.getEnergy() >= amount) {
+		if (getMaxPower() - getEnergy() >= amount) {
 			addEnergy(amount);
 			return true;
-		} else if (this.getMaxPower() - this.getEnergy() > 0) {
-			addEnergy(this.getMaxPower() - this.getEnergy());
+		} else if (getMaxPower() - getEnergy() > 0) {
+			addEnergy(getMaxPower() - getEnergy());
 			return true;
 		}
 
@@ -135,8 +135,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	protected boolean acceptFluid() {
-		if (!this.getStackInSlot(0).isEmpty()) {
-			FluidStack stack = FluidUtils.getFluidStackInContainer(this.getStackInSlot(0));
+		if (!getStackInSlot(0).isEmpty()) {
+			FluidStack stack = FluidUtils.getFluidStackInContainer(getStackInSlot(0));
 			if (stack != null)
 				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
 		}

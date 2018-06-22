@@ -48,7 +48,7 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 	@Override
 	public void update() {
 		super.update();
-		this.setEnergy(getMaxPower());
+		setEnergy(getMaxPower());
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 
 	@Override
 	public double getBaseMaxPower() {
-		return 1000000;
+		return 1_000_000;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 16192;
+		return 16_192;
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxOutput", comment = "IDSU Max Output (Value in EU)")
 	public static int maxOutput = 8192;
 	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy (Value in EU)")
-	public static int maxEnergy = 100000000;
+	public static int maxEnergy = 100_000_000;
 
 	public String ownerUdid;
 

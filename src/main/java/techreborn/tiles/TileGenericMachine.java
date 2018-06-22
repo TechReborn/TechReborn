@@ -77,8 +77,8 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
-		if (!this.world.isRemote) {
-			this.charge(energySlot);
+		if (!world.isRemote) {
+			charge(energySlot);
 		}
 	}
 	

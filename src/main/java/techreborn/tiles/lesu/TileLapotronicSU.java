@@ -26,6 +26,7 @@ package techreborn.tiles.lesu;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
@@ -50,7 +51,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxOutput", comment = "LESU Base Output (Value in EU)")
 	public static int baseOutput = 16;
 	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block (Value in EU)")
-	public static int storagePerBlock = 1000000;
+	public static int storagePerBlock = 1_000_000;
 	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuExtraIO", comment = "LESU Extra I/O Multiplier")
 	public static int extraIOPerBlock = 8;
 
@@ -58,7 +59,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public TileLapotronicSU() {
-		super("LESU", 2, ModBlocks.LAPOTRONIC_SU, EnumPowerTier.INSANE, 8192, baseOutput, 1000000);
+		super("LESU", 2, ModBlocks.LAPOTRONIC_SU, EnumPowerTier.INSANE, 8192, baseOutput, 1_000_000);
 		checkOverfill = false;
 	}
 
@@ -71,28 +72,28 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 		countedNetworks.clear();
 		connectedBlocks = 0;
 		for (EnumFacing dir : EnumFacing.values()) {
-			if (world.getTileEntity(
-				new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-					getPos().getZ() + dir.getFrontOffsetZ())) instanceof TileLSUStorage) {
-				if (((TileLSUStorage) world.getTileEntity(
-					new BlockPos(getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-						getPos().getZ() + dir.getFrontOffsetZ()))).network != null) {
-					LesuNetwork network = ((TileLSUStorage) world.getTileEntity(new BlockPos(
-						getPos().getX() + dir.getFrontOffsetX(), getPos().getY() + dir.getFrontOffsetY(),
-						getPos().getZ() + dir.getFrontOffsetZ()))).network;
-					if (!countedNetworks.contains(network)) {
-						if (network.master == null || network.master == this) {
-							connectedBlocks += network.storages.size();
-							countedNetworks.add(network);
-							network.master = this;
-							break;
-						}
-					}
+			BlockPos adjucentBlockPos = new BlockPos(pos.getX() + dir.getFrontOffsetX(),
+					pos.getY() + dir.getFrontOffsetY(), pos.getZ() + dir.getFrontOffsetZ());
+			TileEntity adjucentTile = world.getTileEntity(adjucentBlockPos);
+			if (adjucentTile == null || !(adjucentTile instanceof TileLSUStorage)) {
+				continue;
+			}
+			if (((TileLSUStorage) adjucentTile).network == null) {
+				continue;
+			}
+			LesuNetwork network = ((TileLSUStorage) adjucentTile).network;
+			if (!countedNetworks.contains(network)) {
+				if (network.master == null || network.master == this) {
+					connectedBlocks += network.storages.size();
+					countedNetworks.add(network);
+					network.master = this;
+					break;
 				}
 			}
+
 		}
 		setMaxStorage();
-		this.maxOutput = (connectedBlocks * extraIOPerBlock) + baseOutput;
+		maxOutput = (connectedBlocks * extraIOPerBlock) + baseOutput;
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	}
 	
 	public int getOutputRate() {
-		return this.maxOutput;
+		return maxOutput;
 	}
 	
 	public void setOutputRate(int output) {
@@ -113,7 +114,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	}
 	
 	public int getConnectedBlocksNum() {
-		return this.connectedBlocks;
+		return connectedBlocks;
 	}
 	
 	public void setConnectedBlocksNum(int value) {
@@ -124,9 +125,9 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	}
 	
 	public void setMaxStorage(){
-		this.maxStorage  = (this.connectedBlocks + 1) * storagePerBlock;
-		if (this.maxStorage < 0 || this.maxStorage > Integer.MAX_VALUE / RebornCoreConfig.euPerFU) {
-			this.maxStorage = Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
+		maxStorage  = (connectedBlocks + 1) * storagePerBlock;
+		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE / RebornCoreConfig.euPerFU) {
+			maxStorage = Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
 		}
 	}
 

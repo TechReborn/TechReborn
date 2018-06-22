@@ -365,10 +365,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				if (canMake(recipe)) {
 					if (canUseEnergy(euTick)) {
 						progress++;
-						if(progress == 1){
-							world.playSound(null, pos.getX(), pos.getY(),
-								pos.getZ(), ModSounds.AUTO_CRAFTING,
-								SoundCategory.BLOCKS, 0.3F, 0.8F);
+						if (progress == 1) {
+							world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
+									SoundCategory.BLOCKS, 0.3F, 0.8F);
 						}
 						useEnergy(euTick);
 					}

@@ -44,8 +44,10 @@ import reborncore.common.util.ItemUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class TileTechStorageBase extends TileLegacyMachineBase
-	implements IInventoryProvider, IToolDrop, IListInfoProvider, IDeepStorageUnit {
+		implements IInventoryProvider, IToolDrop, IListInfoProvider, IDeepStorageUnit {
 
 	public final int maxCapacity;
 	public final Inventory inventory;
@@ -57,148 +59,153 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		storedItem = ItemStack.EMPTY;
 		inventory = new Inventory(3, name, maxCapacity, this);
 	}
-	
+
 	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
 
 		storedItem = ItemStack.EMPTY;
 
 		if (tagCompound.hasKey("storedStack")) {
-			this.storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
+			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
 		}
 
-		if (!this.storedItem.isEmpty()) {
-			this.storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
+		if (!storedItem.isEmpty()) {
+			storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
 		}
 
 		inventory.readFromNBT(tagCompound);
 	}
-	
+
 	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		if (!this.storedItem.isEmpty()) {
-			ItemStack temp = this.storedItem.copy();
-			if (this.storedItem.getCount() > storedItem.getMaxStackSize()){
+		if (!storedItem.isEmpty()) {
+			ItemStack temp = storedItem.copy();
+			if (storedItem.getCount() > storedItem.getMaxStackSize()) {
 				temp.setCount(storedItem.getMaxStackSize());
 			}
 			tagCompound.setTag("storedStack", temp.writeToNBT(new NBTTagCompound()));
-			tagCompound.setInteger("storedQuantity", Math.min(this.storedItem.getCount(), this.maxCapacity));
+			tagCompound.setInteger("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
 		} else {
 			tagCompound.setInteger("storedQuantity", 0);
 		}
 		inventory.writeToNBT(tagCompound);
 		return tagCompound;
 	}
-	
+
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(this.getBlockType(), 1);
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
-		this.storedItem.setCount(0);
+		storedItem.setCount(0);
 		setInventorySlotContents(1, ItemStack.EMPTY);
 		syncWithAll();
-		
+
 		return dropStack;
 	}
-	
+
 	public InvWrapper getInvWrapper() {
-		if (this.invWrapper == null)
-			this.invWrapper = new InvWrapper(this);
-		return this.invWrapper;
+		if (invWrapper == null)
+			invWrapper = new InvWrapper(this);
+		return invWrapper;
 	}
-	
+
 	public int getStoredCount() {
-		return this.storedItem.getCount();
+		return storedItem.getCount();
 	}
-	
+
 	public List<ItemStack> getContentDrops() {
 		ArrayList<ItemStack> stacks = new ArrayList<>();
 
-		if (!this.getStoredItemType().isEmpty()) {
-			if (!this.getStackInSlot(1).isEmpty()) {
-				stacks.add(this.getStackInSlot(1));
+		if (!getStoredItemType().isEmpty()) {
+			if (!getStackInSlot(1).isEmpty()) {
+				stacks.add(getStackInSlot(1));
 			}
-			for (int i = 0; i < this.getStoredCount() / 64; i++) {
-				ItemStack droped = this.storedItem.copy();
+			for (int i = 0; i < getStoredCount() / 64; i++) {
+				ItemStack droped = storedItem.copy();
 				droped.setCount(64);
 				stacks.add(droped);
 			}
-			if (this.getStoredCount() % 64 != 0) {
-				ItemStack droped = this.storedItem.copy();
-				droped.setCount(this.getStoredCount() % 64);
+			if (getStoredCount() % 64 != 0) {
+				ItemStack droped = storedItem.copy();
+				droped.setCount(getStoredCount() % 64);
 				stacks.add(droped);
 			}
 		}
 
 		return stacks;
 	}
-	
+
 	// TileLegacyMachineBase
 	@Override
 	public void update() {
 		super.update();
 		if (!world.isRemote) {
 			ItemStack outputStack = ItemStack.EMPTY;
-			if (!this.getStackInSlot(1).isEmpty()){
-				outputStack  = this.getStackInSlot(1);
+			if (!getStackInSlot(1).isEmpty()) {
+				outputStack = getStackInSlot(1);
 			}
-			if (this.getStackInSlot(0) != ItemStack.EMPTY
-					&& (this.storedItem.getCount() + outputStack.getCount()) < this.maxCapacity) {
-				ItemStack inputStack = this.getStackInSlot(0);
-				if (this.getStoredItemType().isEmpty() || (this.storedItem.isEmpty()
-						&& ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
+			if (getStackInSlot(0) != ItemStack.EMPTY
+					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
+				ItemStack inputStack = getStackInSlot(0);
+				if (getStoredItemType().isEmpty()
+						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
 
-					this.storedItem = inputStack;
-					this.setInventorySlotContents(0, ItemStack.EMPTY);
-				} else if (ItemUtils.isItemEqual(this.getStoredItemType(), inputStack, true, true)) {
-					int reminder = this.maxCapacity - this.storedItem.getCount() - outputStack.getCount();
+					storedItem = inputStack;
+					setInventorySlotContents(0, ItemStack.EMPTY);
+				} else if (ItemUtils.isItemEqual(getStoredItemType(), inputStack, true, true)) {
+					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
 					if (inputStack.getCount() <= reminder) {
-						this.setStoredItemCount(inputStack.getCount());
-						this.setInventorySlotContents(0, ItemStack.EMPTY);
+						setStoredItemCount(inputStack.getCount());
+						setInventorySlotContents(0, ItemStack.EMPTY);
 					} else {
-						this.setStoredItemCount(this.maxCapacity - outputStack.getCount());
-						this.getStackInSlot(0).shrink(reminder);
+						setStoredItemCount(maxCapacity - outputStack.getCount());
+						getStackInSlot(0).shrink(reminder);
 					}
 				}
-				this.markDirty();
-				this.syncWithAll();
+				markDirty();
+				syncWithAll();
 			}
 
-			if (!this.storedItem.isEmpty()) {
+			if (!storedItem.isEmpty()) {
 				if (outputStack == ItemStack.EMPTY) {
 
-					ItemStack delivered = this.storedItem.copy();
-					delivered.setCount(Math.min(this.storedItem.getCount(), delivered.getMaxStackSize()));
-					this.storedItem.shrink(delivered.getCount());
+					ItemStack delivered = storedItem.copy();
+					delivered.setCount(Math.min(storedItem.getCount(), delivered.getMaxStackSize()));
+					storedItem.shrink(delivered.getCount());
 
-					if (this.storedItem.isEmpty())
-						this.storedItem = ItemStack.EMPTY;
+					if (storedItem.isEmpty()) {
+						storedItem = ItemStack.EMPTY;
+					}
 
-					this.setInventorySlotContents(1, delivered);
-					this.markDirty();
-					this.syncWithAll();
-				} else if (ItemUtils.isItemEqual(this.storedItem, outputStack, true, true)
-					&& outputStack.getCount() < outputStack.getMaxStackSize()) {
+					setInventorySlotContents(1, delivered);
+					markDirty();
+					syncWithAll();
+				} else if (ItemUtils.isItemEqual(storedItem, outputStack, true, true)
+						&& outputStack.getCount() < outputStack.getMaxStackSize()) {
 
-					int wanted = Math.min(this.storedItem.getCount(),
+					int wanted = Math.min(storedItem.getCount(),
 							outputStack.getMaxStackSize() - outputStack.getCount());
-
 					outputStack.setCount(outputStack.getCount() + wanted);
-					this.storedItem.shrink(wanted);
+					storedItem.shrink(wanted);
 
-					if (this.storedItem.isEmpty())
-						this.storedItem = ItemStack.EMPTY;
-					this.markDirty();
-					this.syncWithAll();
+					if (storedItem.isEmpty()) {
+						storedItem = ItemStack.EMPTY;
+					}
+					markDirty();
+					syncWithAll();
 				}
 			}
 		}
 	}
 
 	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
+	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		world.markBlockRangeForRenderUpdate(getPos().getX(), getPos().getY(), getPos().getZ(), getPos().getX(),
-			getPos().getY(), getPos().getZ());
+		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
 		readFromNBT(packet.getNbtCompound());
 	}
 
@@ -214,9 +221,9 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		writeToNBTWithoutCoords(tagCompound);
 		return tagCompound;
 	}
-	
+
 	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvWrapper());
 		}
@@ -224,18 +231,16 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	}
 
 	@Override
-	public boolean hasCapability(final net.minecraftforge.common.capabilities.Capability<?> capability,
-	                             @javax.annotation.Nullable
-	                             final net.minecraft.util.EnumFacing facing) {
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
@@ -263,24 +268,24 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	// IDeepStorageUnit
 	@Override
 	public ItemStack getStoredItemType() {
-		return this.storedItem.isEmpty() ? this.getStackInSlot(1) : this.storedItem;
+		return storedItem.isEmpty() ? getStackInSlot(1) : storedItem;
 	}
 
 	@Override
 	public void setStoredItemCount(int amount) {
 		storedItem.grow(amount);
-		this.markDirty();
+		markDirty();
 	}
 
 	@Override
 	public void setStoredItemType(ItemStack type, int amount) {
-		this.storedItem = type;
+		storedItem = type;
 		storedItem.setCount(amount);
-		this.markDirty();
+		markDirty();
 	}
 
 	@Override
 	public int getMaxStoredCount() {
-		return this.maxCapacity;
+		return maxCapacity;
 	}
 }

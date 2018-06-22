@@ -134,7 +134,7 @@ public class TileTransformer extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(wrenchDrop);
 	}
 

@@ -40,7 +40,8 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileDragonEggSyphon extends TilePowerAcceptor implements IToolDrop, IInventoryProvider {
+public class TileDragonEggSyphon extends TilePowerAcceptor 
+	implements IToolDrop, IInventoryProvider {
 
 	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
 	public static int maxOutput = 128;
@@ -55,27 +56,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor implements IToolDrop,
 	public TileDragonEggSyphon() {
 		super();
 	}
-
-	@Override
-	public void update() {
-		super.update();
-
-		if (!world.isRemote) {
-			if (world.getBlockState(new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ()))
-				.getBlock() == Blocks.DRAGON_EGG) {
-				if (tryAddingEnergy(energyPerTick))
-					this.lastOutput = this.world.getTotalWorldTime();
-			}
-
-			if (this.world.getTotalWorldTime() - this.lastOutput < 30 && !this.isActive())
-				this.world.setBlockState(this.getPos(),
-					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, true));
-			else if (this.world.getTotalWorldTime() - this.lastOutput > 30 && this.isActive())
-				this.world.setBlockState(this.getPos(),
-					this.world.getBlockState(this.getPos()).withProperty(BlockMachineBase.ACTIVE, false));
-		}
-	}
-
+	
 	private boolean tryAddingEnergy(int amount) {
 		if (this.getMaxPower() - this.getEnergy() >= amount) {
 			addEnergy(amount);
@@ -86,14 +67,25 @@ public class TileDragonEggSyphon extends TilePowerAcceptor implements IToolDrop,
 		}
 		return false;
 	}
-
+	
+	// TilePowerAcceptor
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.DRAGON_EGG_SYPHON, 1);
-	}
+	public void update() {
+		super.update();
 
-	public boolean isComplete() {
-		return false;
+		if (!world.isRemote) {
+			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
+					.getBlock() == Blocks.DRAGON_EGG) {
+				if (tryAddingEnergy(energyPerTick))
+					lastOutput = world.getTotalWorldTime();
+			}
+
+			if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, true));
+			} else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
+				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, false));
+			}
+		}
 	}
 
 	@Override
@@ -120,7 +112,14 @@ public class TileDragonEggSyphon extends TilePowerAcceptor implements IToolDrop,
 	public double getBaseMaxInput() {
 		return 0;
 	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(ModBlocks.DRAGON_EGG_SYPHON, 1);
+	}
 
+	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;

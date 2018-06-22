@@ -57,18 +57,18 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 	}
 	
 	public boolean getMutliBlock() {
-		final boolean down = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = this.multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 2, 0));
-		final boolean chamber = this.multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
+		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
+		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 2, 0));
+		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
 		return down && chamber && up;
 	}
 
 	// TileGenericMachine
 	@Override
 	public void update() {
-		if (this.multiblockChecker == null) {
-			final BlockPos pos = this.getPos().offset(this.getFacing().getOpposite(), 2);
-			this.multiblockChecker = new MultiblockChecker(this.world, pos);
+		if (multiblockChecker == null) {
+			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
+			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		
 		if (!world.isRemote && getMutliBlock()){ 
@@ -80,7 +80,7 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 	@Override
 	public void validate() {
 		super.validate();
-		this.multiblockChecker = new MultiblockChecker(this.world, this.getPos().down(3));
+		multiblockChecker = new MultiblockChecker(world, pos.down(3));
 	}
 
 	// IContainerProvider

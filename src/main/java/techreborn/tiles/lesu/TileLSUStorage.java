@@ -72,9 +72,9 @@ public class TileLSUStorage extends TileLegacyMachineBase
 	}
 
 	public final void rebuildNetwork() {
-		this.removeFromNetwork();
-		this.resetNetwork();
-		this.findAndJoinNetwork(world, getPos().getX(), getPos().getY(), getPos().getZ());
+		removeFromNetwork();
+		resetNetwork();
+		findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	// TileLegacyMachineBase
@@ -82,7 +82,7 @@ public class TileLSUStorage extends TileLegacyMachineBase
 	public void update() {
 		super.update();
 		if (network == null) {
-			findAndJoinNetwork(world, getPos().getX(), getPos().getY(), getPos().getZ());
+			findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
 		} else {
 			if (network.master != null
 					&& network.master.getWorld().getTileEntity(new BlockPos(network.master.getPos().getX(),
@@ -94,7 +94,7 @@ public class TileLSUStorage extends TileLegacyMachineBase
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.LSU_STORAGE, 1);
 	}
 }
