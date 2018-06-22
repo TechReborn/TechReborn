@@ -125,7 +125,7 @@ dependencies {
 	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.5+:universal'
 	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.5+:universal'
 	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
-	deobfCompile "li.cil.oc:OpenComputers:MC1.12.1-1.7.1+"
+	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
 	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
 }
 
