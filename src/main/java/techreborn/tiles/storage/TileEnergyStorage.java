@@ -74,13 +74,9 @@ public class TileEnergyStorage extends TilePowerAcceptor
 			ItemStack stack = inventory.getStackInSlot(0);
 			if (stack.hasCapability(CapabilityEnergy.ENERGY, null)) {
 				IEnergyStorage powerItem = stack.getCapability(CapabilityEnergy.ENERGY, null);
-				int maxReceive;
-				try {
-					maxReceive = Math.min((powerItem.getMaxEnergyStored() - powerItem.getEnergyStored()),
-							(int) ((IEnergyItemInfo) stack.getItem()).getMaxTransfer(stack));
-				} catch (ClassCastException e) {
-					return;
-				}
+				int maxReceive = Math.min((powerItem.getMaxEnergyStored() - powerItem.getEnergyStored()),
+                        //(int) ((IEnergyItemInfo) stack.getItem()).getMaxTransfer(stack));
+                        maxOutput);
 				double maxUse = Math.min((double) (maxReceive / RebornCoreConfig.euPerFU), getMaxOutput());
 				if (getEnergy() >= 0.0 && maxReceive > 0) {
 					powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
