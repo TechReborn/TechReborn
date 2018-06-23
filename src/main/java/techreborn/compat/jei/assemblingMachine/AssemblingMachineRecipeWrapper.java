@@ -49,6 +49,6 @@ public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<Assembling
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 25, 11);
+		progress.draw(minecraft, 25, 16);
 	}
 }
