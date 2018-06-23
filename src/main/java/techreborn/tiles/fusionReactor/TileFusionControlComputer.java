@@ -259,6 +259,10 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 					}
 					if (this.validateReactorRecipe(this.currentRecipe)) {
 						this.crafingTickTime = 0;
+						this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
+						if (!this.currentRecipe.getBottomInput().isEmpty()) {
+							this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
+						}
 					} else {
 						this.resetCrafter();
 					}
