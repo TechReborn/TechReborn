@@ -57,12 +57,12 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void update() {
 		super.update();
-		if (this.pos.getY() > 64) {
+		if (pos.getY() > 64) {
 			int actualPower = baseEnergy;
-			if (this.world.isThundering()) {
+			if (world.isThundering()) {
 				actualPower *= thunderMultiplier;
 			}
-			this.addEnergy(actualPower); // Value taken from
+			addEnergy(actualPower); // Value taken from
 			// http://wiki.industrial-craft.net/?title=Wind_Mill
 			// Not worth making more complicated
 		}
@@ -74,12 +74,12 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return true;
 	}
 
@@ -94,7 +94,7 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.WIND_MILL);
 	}
 }

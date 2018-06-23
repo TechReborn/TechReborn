@@ -87,7 +87,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean Return true if coils are present
 	 */
 	public boolean checkCoils() {
-		List<BlockPos> coils = Torus.generate(getPos(), size);
+		List<BlockPos> coils = Torus.generate(pos, size);
 		for(BlockPos coilPos : coils){
 			if (!isCoil(coilPos)) {
 				coilCount = 0;
@@ -104,19 +104,19 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @param pos coordinate for block
 	 * @return boolean Returns true if block is fusion coil
 	 */
-	public boolean isCoil(final BlockPos pos) {
-		return this.world.getBlockState(pos).getBlock() == ModBlocks.FUSION_COIL;
+	public boolean isCoil(BlockPos pos) {
+		return world.getBlockState(pos).getBlock() == ModBlocks.FUSION_COIL;
 	}
 
 	/**
 	 * Resets crafter progress and recipe
 	 */
 	private void resetCrafter() {
-		this.currentRecipe = null;
-		this.crafingTickTime = 0;
-		this.finalTickTime = 0;
-		this.neededPower = 0;
-		this.hasStartedCrafting = false;
+		currentRecipe = null;
+		crafingTickTime = 0;
+		finalTickTime = 0;
+		neededPower = 0;
+		hasStartedCrafting = false;
 	}
 
 	/**
@@ -128,16 +128,16 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @param oreDic boolean Should we use ore dictionary
 	 * @return boolean Returns true if ItemStack will fit into slot
 	 */
-	public boolean canFitStack(final ItemStack stack, final int slot, final boolean oreDic) {// Checks to see if it can
+	public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {// Checks to see if it can
 																								// fit the stack
 		if (stack.isEmpty()) {
 			return true;
 		}
-		if (this.inventory.getStackInSlot(slot).isEmpty()) {
+		if (inventory.getStackInSlot(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
-			if (stack.getCount() + this.inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
+			if (stack.getCount() + inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {
 				return true;
 			}
 		}
@@ -151,8 +151,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return int Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (this.crafingTickTime != 0 && this.finalTickTime != 0) {
-			return this.crafingTickTime * scale / this.finalTickTime;
+		if (crafingTickTime != 0 && finalTickTime != 0) {
+			return crafingTickTime * scale / finalTickTime;
 		}
 		return 0;
 	}
@@ -163,11 +163,11 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	private void updateCurrentRecipe() {
 		for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
 			if (validateReactorRecipe(reactorRecipe)) {
-				this.currentRecipe = reactorRecipe;
-				this.crafingTickTime = 0;
-				this.finalTickTime = this.currentRecipe.getTickTime();
-				this.neededPower = (int) this.currentRecipe.getStartEU();
-				this.hasStartedCrafting = false;
+				currentRecipe = reactorRecipe;
+				crafingTickTime = 0;
+				finalTickTime = currentRecipe.getTickTime();
+				neededPower = (int) currentRecipe.getStartEU();
+				hasStartedCrafting = false;
 				break;
 			}
 		}
@@ -190,7 +190,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 					return false;
 				}
 			}
-			if (this.canFitStack(recipe.getOutput(), outputStackSlot, true)) {
+			if (canFitStack(recipe.getOutput(), outputStackSlot, true)) {
 				return true;
 			}
 		}
@@ -202,77 +202,77 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public void update() {
 		super.update();
 
-		if (this.world.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 
 		// Force check every second
-		if (this.world.getTotalWorldTime() % 20 == 0) {
-			this.checkCoils();
-			this.inventory.hasChanged = true;
+		if (world.getTotalWorldTime() % 20 == 0) {
+			checkCoils();
+			inventory.hasChanged = true;
 		}
 
-		if (this.coilCount == 0) {
-			this.resetCrafter();
+		if (coilCount == 0) {
+			resetCrafter();
 			return;
 		}
 
-		if (this.currentRecipe == null && this.inventory.hasChanged == true) {
+		if (currentRecipe == null && inventory.hasChanged == true) {
 			updateCurrentRecipe();
 		}
 
-		if (this.currentRecipe != null) {
-			if (!hasStartedCrafting && this.inventory.hasChanged && !validateReactorRecipe(this.currentRecipe)) {
+		if (currentRecipe != null) {
+			if (!hasStartedCrafting && inventory.hasChanged && !validateReactorRecipe(currentRecipe)) {
 				resetCrafter();
 				return;
 			}
 
-			if (!this.hasStartedCrafting) {
+			if (!hasStartedCrafting) {
 				// Ignition!
-				if (this.canUseEnergy(this.currentRecipe.getStartEU())) {
-					this.useEnergy(this.currentRecipe.getStartEU());
-					this.hasStartedCrafting = true;
-					this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
-					if (!this.currentRecipe.getBottomInput().isEmpty()) {
-						this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
+				if (canUseEnergy(currentRecipe.getStartEU())) {
+					useEnergy(currentRecipe.getStartEU());
+					hasStartedCrafting = true;
+					decrStackSize(topStackSlot, currentRecipe.getTopInput().getCount());
+					if (!currentRecipe.getBottomInput().isEmpty()) {
+						decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().getCount());
 					}
 				}
 			}
-			if (hasStartedCrafting && this.crafingTickTime < this.finalTickTime) {
-				this.crafingTickTime++;
+			if (hasStartedCrafting && crafingTickTime < finalTickTime) {
+				crafingTickTime++;
 				// Power gen
-				if (this.currentRecipe.getEuTick() > 0) {
+				if (currentRecipe.getEuTick() > 0) {
 					// Waste power if it has no where to go
-					this.addEnergy(this.currentRecipe.getEuTick() * getPowerMultiplier());
-					this.powerChange = this.currentRecipe.getEuTick() * getPowerMultiplier();
+					addEnergy(currentRecipe.getEuTick() * getPowerMultiplier());
+					powerChange = currentRecipe.getEuTick() * getPowerMultiplier();
 				} else { // Power user
-					if (this.canUseEnergy(this.currentRecipe.getEuTick() * -1)) {
-						this.setEnergy(this.getEnergy() - this.currentRecipe.getEuTick() * -1);
+					if (canUseEnergy(currentRecipe.getEuTick() * -1)) {
+						setEnergy(getEnergy() - currentRecipe.getEuTick() * -1);
 					}
 				}
-			} else if (this.crafingTickTime >= this.finalTickTime) {
-				if (this.canFitStack(this.currentRecipe.getOutput(), this.outputStackSlot, true)) {
-					if (this.getStackInSlot(this.outputStackSlot).isEmpty()) {
-						this.setInventorySlotContents(this.outputStackSlot, this.currentRecipe.getOutput().copy());
+			} else if (crafingTickTime >= finalTickTime) {
+				if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
+					if (getStackInSlot(outputStackSlot).isEmpty()) {
+						setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
 					} else {
-						this.decrStackSize(this.outputStackSlot, -this.currentRecipe.getOutput().getCount());
+						decrStackSize(outputStackSlot, -currentRecipe.getOutput().getCount());
 					}
-					if (this.validateReactorRecipe(this.currentRecipe)) {
-						this.crafingTickTime = 0;
-						this.decrStackSize(this.topStackSlot, this.currentRecipe.getTopInput().getCount());
-						if (!this.currentRecipe.getBottomInput().isEmpty()) {
-							this.decrStackSize(this.bottomStackSlot, this.currentRecipe.getBottomInput().getCount());
+					if (validateReactorRecipe(this.currentRecipe)) {
+						crafingTickTime = 0;
+						decrStackSize(topStackSlot, currentRecipe.getTopInput().getCount());
+						if (!currentRecipe.getBottomInput().isEmpty()) {
+							decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().getCount());
 						}
 					} else {
-						this.resetCrafter();
+						resetCrafter();
 					}
 				}
 			}
-			this.markDirty();
+			markDirty();
 		}
 
-		if (this.inventory.hasChanged) {
-			this.inventory.hasChanged = false;
+		if (inventory.hasChanged) {
+			inventory.hasChanged = false;
 		}
 	}
 
@@ -289,18 +289,18 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return !(direction == EnumFacing.DOWN || direction == EnumFacing.UP);
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return direction == EnumFacing.DOWN || direction == EnumFacing.UP;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		if (!this.hasStartedCrafting) {
+		if (!hasStartedCrafting) {
 			return 0;
 		}
 		return Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
@@ -308,7 +308,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxInput() {
-		if (this.hasStartedCrafting) {
+		if (hasStartedCrafting) {
 			return 0;
 		}
 		return maxInput;
@@ -360,14 +360,14 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER, 1);
 	}
 
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	// IContainerProvider
@@ -384,34 +384,34 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	public int getCoilStatus() {
-		return this.coilCount;
+		return coilCount;
 	}
 
-	public void setCoilStatus(final int coilStatus) {
+	public void setCoilStatus(int coilStatus) {
 		this.coilCount = coilStatus;
 	}
 
 	public int getCrafingTickTime() {
-		return this.crafingTickTime;
+		return crafingTickTime;
 	}
 
-	public void setCrafingTickTime(final int crafingTickTime) {
+	public void setCrafingTickTime(int crafingTickTime) {
 		this.crafingTickTime = crafingTickTime;
 	}
 
 	public int getFinalTickTime() {
-		return this.finalTickTime;
+		return finalTickTime;
 	}
 
-	public void setFinalTickTime(final int finalTickTime) {
+	public void setFinalTickTime(int finalTickTime) {
 		this.finalTickTime = finalTickTime;
 	}
 
 	public int getNeededPower() {
-		return this.neededPower;
+		return neededPower;
 	}
 
-	public void setNeededPower(final int neededPower) {
+	public void setNeededPower(int neededPower) {
 		this.neededPower = neededPower;
 	}
 

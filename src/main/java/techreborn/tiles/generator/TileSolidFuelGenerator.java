@@ -50,7 +50,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
 	public static int maxOutput = 32;
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorMaxEnergy", comment = "Solid Fuel Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
+	public static int maxEnergy = 10_000;
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
 	public static int outputAmount = 10;
 
@@ -68,54 +68,55 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 		super();
 	}
 
-	public static int getItemBurnTime(final ItemStack stack) {
+	public static int getItemBurnTime(ItemStack stack) {
 		return TileEntityFurnace.getItemBurnTime(stack) / 4;
 	}
 
 	@Override
 	public void update() {
 		super.update();
-		if (this.world.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
-		if (this.getEnergy() < this.getMaxPower()) {
-			if (this.burnTime > 0) {
-				this.burnTime--;
-				this.addEnergy(TileSolidFuelGenerator.outputAmount);
-				this.isBurning = true;
+		if (getEnergy() < getMaxPower()) {
+			if (burnTime > 0) {
+				burnTime--;
+				addEnergy(TileSolidFuelGenerator.outputAmount);
+				isBurning = true;
 			}
 		} else {
-			this.isBurning = false;
+			isBurning = false;
 		}
 
-		if (this.burnTime == 0) {
-			this.updateState();
-			this.burnTime = this.totalBurnTime = TileSolidFuelGenerator.getItemBurnTime(this.getStackInSlot(this.fuelSlot));
-			if (this.burnTime > 0) {
-				this.updateState();
-				this.burnItem = this.getStackInSlot(this.fuelSlot);
-				if (this.getStackInSlot(this.fuelSlot).getCount() == 1) {
-					if (this.getStackInSlot(this.fuelSlot).getItem() == Items.LAVA_BUCKET || this.getStackInSlot(this.fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
-						this.setInventorySlotContents(this.fuelSlot, new ItemStack(Items.BUCKET));
+		if (burnTime == 0) {
+			updateState();
+			burnTime = totalBurnTime = TileSolidFuelGenerator.getItemBurnTime(getStackInSlot(fuelSlot));
+			if (burnTime > 0) {
+				updateState();
+				burnItem = getStackInSlot(fuelSlot);
+				if (getStackInSlot(fuelSlot).getCount() == 1) {
+					if (getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
+						setInventorySlotContents(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
-						this.setInventorySlotContents(this.fuelSlot, ItemStack.EMPTY);
+						setInventorySlotContents(fuelSlot, ItemStack.EMPTY);
 					}
 
 				} else {
-					this.decrStackSize(this.fuelSlot, 1);
+					decrStackSize(fuelSlot, 1);
 				}
 			}
 		}
 
-		this.lastTickBurning = this.isBurning;
+		lastTickBurning = isBurning;
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
+		final IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.burnTime > 0)
-				blockMachineBase.setActive(this.burnTime > 0, this.world, this.pos);
+			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != burnTime > 0) {
+				blockMachineBase.setActive(burnTime > 0, world, pos);
+			}
 		}
 	}
 
@@ -125,12 +126,12 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(EnumFacing direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(EnumFacing direction) {
 		return true;
 	}
 
@@ -145,17 +146,17 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR);
 	}
 
 	@Override
 	public Inventory getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	public int getBurnTime() {
-		return this.burnTime;
+		return burnTime;
 	}
 
 	public void setBurnTime(final int burnTime) {
@@ -163,7 +164,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	public int getTotalBurnTime() {
-		return this.totalBurnTime;
+		return totalBurnTime;
 	}
 
 	public void setTotalBurnTime(final int totalBurnTime) {
@@ -171,7 +172,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	public int getScaledBurnTime(final int i) {
-		return (int) ((float) this.burnTime / (float) this.totalBurnTime * i);
+		return (int) ((float) burnTime / (float) totalBurnTime * i);
 	}
 
 	@Override

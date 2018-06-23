@@ -61,31 +61,31 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void update() {
 		super.update();
-		if (this.world.isRemote) {
+		if (world.isRemote) {
 			return;
 		}
 		if (world.getTotalWorldTime() % 20 == 0) {
-			canSeeSky = this.world.canBlockSeeSky(this.pos.up());
-			if(lastSate != this.isSunOut()){
-				this.world.setBlockState(this.getPos(),
-					this.world.getBlockState(this.getPos()).withProperty(BlockSolarPanel.ACTIVE, this.isSunOut()));
+			canSeeSky = world.canBlockSeeSky(pos.up());
+			if(lastSate != isSunOut()){
+				world.setBlockState(pos,
+					world.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
 				lastSate = isSunOut();
 			}
 
 		}
 		if (isSunOut()) {
-			this.powerToAdd = panel.generationRateD;
+			powerToAdd = panel.generationRateD;
 		} else if (canSeeSky) {
-			this.powerToAdd = panel.generationRateN;
+			powerToAdd = panel.generationRateN;
 		} else {
-			this.powerToAdd = 0;
+			powerToAdd = 0;
 		}
 
-		this.addEnergy(this.powerToAdd);
+		addEnergy(powerToAdd);
 	}
 
 	public boolean isSunOut() {
-		return canSeeSky && !this.world.isRaining() && !this.world.isThundering() && this.world.isDaytime();
+		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaytime();
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public EnumPowerTier getTier() {
-		return this.panel.powerTier;
+		return panel.powerTier;
 	}
 
 	@Override
@@ -124,8 +124,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer p0) {
-		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, this.panel.ordinal());
+	public ItemStack getToolDrop(final EntityPlayer playerIn) {
+		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, panel.ordinal());
 	}
 	
 	@Override

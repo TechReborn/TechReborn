@@ -52,7 +52,7 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(ModBlocks.THERMAL_GENERATOR, 1);
 	}
 

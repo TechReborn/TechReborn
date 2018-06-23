@@ -96,13 +96,13 @@ public class TileCable extends TileEntity
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
-        this.writeToNBT(nbtTag);
+        writeToNBT(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        this.readFromNBT(packet.getNbtCompound());
+        readFromNBT(packet.getNbtCompound());
     }
 
     @Override
@@ -131,9 +131,9 @@ public class TileCable extends TileEntity
 			return;
 		}
 		
-		if (this.cableType == null ){
-			this.cableType = getCableType();
-			this.transferRate = this.cableType.transferRate * RebornCoreConfig.euPerFU; 
+		if (cableType == null ){
+			cableType = getCableType();
+			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU; 
 		}
 		
 		ticksSinceLastChange++;
@@ -206,12 +206,12 @@ public class TileCable extends TileEntity
 
 	@Override
 	public int getEnergyStored() {
-		return this.power;
+		return power;
 	}
 
 	@Override
 	public int getMaxEnergyStored() {
-		return this.transferRate * 5;
+		return transferRate * 5;
 	}
 
 	@Override

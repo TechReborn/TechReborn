@@ -61,44 +61,44 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	public void update() {
 		super.update();
 
-		if (this.onStatusHoldTicks > 0)
-			--this.onStatusHoldTicks;
+		if (onStatusHoldTicks > 0)
+			--onStatusHoldTicks;
 
-		if (this.onStatusHoldTicks == 0 || this.getEnergy() <= 0) {
-			if (this.getBlockType() instanceof BlockMachineBase)
-				((BlockMachineBase) this.getBlockType()).setActive(false, this.world, this.pos);
-			this.onStatusHoldTicks = -1;
+		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
+			if (getBlockType() instanceof BlockMachineBase)
+				((BlockMachineBase) getBlockType()).setActive(false, world, pos);
+			onStatusHoldTicks = -1;
 		}
 
-		final float weatherStrength = this.world.getThunderStrength(1.0F);
+		final float weatherStrength = world.getThunderStrength(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
 			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
-			final float totalChance = lightStrikeChance * this.getLightningStrikeMultiplier() * (1.1F - weatherStrength);
-			if (this.world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
+			final float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * (1.1F - weatherStrength);
+			if (world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
 				if (!isValidIronFence(pos.up().getY())) {
-					this.onStatusHoldTicks = 400;
+					onStatusHoldTicks = 400;
 					return;
 				}
-				final EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world,
-					this.pos.getX() + 0.5F,
-					this.world.provider.getAverageGroundLevel(),
-					this.pos.getZ() + 0.5F, false);
-				this.world.addWeatherEffect(lightningBolt);
-				this.world.spawnEntity(lightningBolt);
-				this.addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
-				((BlockMachineBase) this.getBlockType()).setActive(true, this.world, this.pos);
-				this.onStatusHoldTicks = 400;
+				final EntityLightningBolt lightningBolt = new EntityLightningBolt(world,
+					pos.getX() + 0.5F,
+					world.provider.getAverageGroundLevel(),
+					pos.getZ() + 0.5F, false);
+				world.addWeatherEffect(lightningBolt);
+				world.spawnEntity(lightningBolt);
+				addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
+				((BlockMachineBase) getBlockType()).setActive(true, world, pos);
+				onStatusHoldTicks = 400;
 			}
 		}
 
 	}
 
 	public float getLightningStrikeMultiplier() {
-		final float actualHeight = this.world.provider.getActualHeight();
-		final float groundLevel = this.world.provider.getAverageGroundLevel();
-		for (int i = this.pos.getY() + 1; i < actualHeight; i++) {
-			if (!this.isValidIronFence(i)) {
+		final float actualHeight = world.provider.getActualHeight();
+		final float groundLevel = world.provider.getAverageGroundLevel();
+		for (int i = pos.getY() + 1; i < actualHeight; i++) {
+			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)
 					return 4.3F;
 				final float max = actualHeight - groundLevel;
@@ -109,8 +109,8 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 		return 4F;
 	}
 
-	public boolean isValidIronFence(final int y) {
-		final Item itemBlock = Item.getItemFromBlock(this.world.getBlockState(new BlockPos(this.pos.getX(), y, this.pos.getZ())).getBlock());
+	public boolean isValidIronFence(int y) {
+		final Item itemBlock = Item.getItemFromBlock(this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock());
 		for (final ItemStack fence : OreDictionary.getOres("fenceIron")) {
 			if (fence.getItem() == itemBlock)
 				return true;
@@ -144,7 +144,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer p0) {
+	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.LIGHTNING_ROD);
 	}
 }
