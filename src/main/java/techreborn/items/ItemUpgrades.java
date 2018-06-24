@@ -66,7 +66,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage upgrade extra power")
 	public static double energyStoragePower = 40000;
 
-	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "range" };
+	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage"};
 
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");
