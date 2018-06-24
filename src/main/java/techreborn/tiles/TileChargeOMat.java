@@ -30,7 +30,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -73,8 +72,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 				final ItemStack stack = inventory.getStackInSlot(i);
 				if (stack.hasCapability(CapabilityEnergy.ENERGY, null)) {
 					IEnergyStorage powerItem = stack.getCapability(CapabilityEnergy.ENERGY, null);
-					int maxReceive = Math.min((powerItem.getMaxEnergyStored() - powerItem.getEnergyStored()),
-							(int) ((IEnergyItemInfo) stack.getItem()).getMaxTransfer(stack));
+					int maxReceive = powerItem.receiveEnergy((int)getMaxOutput(), true);
 					double maxUse = Math.min((double) (maxReceive / RebornCoreConfig.euPerFU), getMaxInput());
 					if (getEnergy() >= 0.0 && maxReceive > 0) {
 						powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
