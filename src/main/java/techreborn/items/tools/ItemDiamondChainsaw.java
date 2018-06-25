@@ -41,6 +41,7 @@ public class ItemDiamondChainsaw extends ItemChainsaw {
 	public ItemDiamondChainsaw() {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondChainsaw", ConfigTechReborn.DiamondChainsawCharge, 1.0F);
 		this.cost = 250;
+		this.transferLimit = 1000;
 	}
 
 	@SideOnly(Side.CLIENT)

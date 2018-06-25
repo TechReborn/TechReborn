@@ -53,6 +53,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 	public ItemAdvancedDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, 2.0F, 10F);
 		this.cost = 250;
+		this.transferLimit = 1000;
 	}
 
 	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable EntityPlayer playerIn) {
