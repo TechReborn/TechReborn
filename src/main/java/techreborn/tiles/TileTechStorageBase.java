@@ -144,7 +144,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 			if (!getStackInSlot(1).isEmpty()) {
 				outputStack = getStackInSlot(1);
 			}
-			if (getStackInSlot(0) != ItemStack.EMPTY
+			if (!getStackInSlot(0).isEmpty()
 					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
 				ItemStack inputStack = getStackInSlot(0);
 				if (getStoredItemType().isEmpty()
@@ -167,7 +167,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 			}
 
 			if (!storedItem.isEmpty()) {
-				if (outputStack == ItemStack.EMPTY) {
+				if (outputStack.isEmpty()) {
 
 					ItemStack delivered = storedItem.copy();
 					delivered.setCount(Math.min(storedItem.getCount(), delivered.getMaxStackSize()));
@@ -257,7 +257,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 				name = storedItem.getDisplayName();
 				size += storedItem.getCount();
 			}
-			if (getStackInSlot(1) != ItemStack.EMPTY) {
+			if (!getStackInSlot(1).isEmpty()) {
 				name = getStackInSlot(1).getDisplayName();
 				size += getStackInSlot(1).getCount();
 			}

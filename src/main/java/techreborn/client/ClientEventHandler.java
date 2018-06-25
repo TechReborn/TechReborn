@@ -37,7 +37,7 @@ public class ClientEventHandler {
 	@SubscribeEvent
 	public static void renderPlayer(RenderPlayerEvent.Pre event) {
 		EntityPlayer player = event.getEntityPlayer();
-		Item chestslot = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != ItemStack.EMPTY
+		Item chestslot = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty()
 		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
 		if (chestslot != null && chestslot == ModItems.CLOAKING_DEVICE) {
 			event.setCanceled(true);

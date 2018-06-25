@@ -87,7 +87,7 @@ public class TechRebornDevCommand extends CommandBase {
 			}
 		} else if ("getname".equals(args[0])) {
 			EntityPlayer player = (EntityPlayer) sender;
-			if (player.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY) {
+			if (!player.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
 				sender.sendMessage(new TextComponentString(player.getHeldItem(EnumHand.MAIN_HAND).getItem().getRegistryName() + ":" + player.getHeldItem(EnumHand.MAIN_HAND).getItemDamage()));
 			} else {
 				sender.sendMessage(new TextComponentString("hold an item!"));

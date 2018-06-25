@@ -115,7 +115,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 		if (this.canSmelt()) {
 			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
 
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
+			if (this.getStackInSlot(this.output).isEmpty()) {
 				this.setInventorySlotContents(this.output, itemstack.copy());
 			} else if (this.getStackInSlot(this.output).isItemEqual(itemstack)) {
 				this.getStackInSlot(this.output).grow(itemstack.getCount());
@@ -129,12 +129,12 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	public boolean canSmelt() {
-		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY)
+		if (this.getStackInSlot(this.input1).isEmpty())
 			return false;
 		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.getStackInSlot(this.input1));
 		if (itemstack.isEmpty())
 			return false;
-		if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+		if (this.getStackInSlot(this.output).isEmpty())
 			return true;
 		if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
 			return false;

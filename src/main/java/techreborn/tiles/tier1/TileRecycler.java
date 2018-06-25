@@ -90,11 +90,11 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 
 	public boolean canRecycle() {
-		return getStackInSlot(0) != ItemStack.EMPTY && hasSlotGotSpace(1);
+		return !getStackInSlot(0) .isEmpty() && hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(int slot) {
-		if (getStackInSlot(slot) == ItemStack.EMPTY) {
+		if (getStackInSlot(slot).isEmpty()) {
 			return true;
 		} else if (getStackInSlot(slot).getCount() < getStackInSlot(slot).getMaxStackSize()) {
 			return true;

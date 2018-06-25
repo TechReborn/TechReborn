@@ -71,7 +71,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (canSmelt()) {
 			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 
-			if (getStackInSlot(output) == ItemStack.EMPTY) {
+			if (getStackInSlot(output).isEmpty()) {
 				setInventorySlotContents(output, itemstack.copy());
 			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
 				getStackInSlot(output).grow(itemstack.getCount());
@@ -85,14 +85,14 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public boolean canSmelt() {
-		if (getStackInSlot(input1) == ItemStack.EMPTY) {
+		if (getStackInSlot(input1).isEmpty()) {
 			return false;
 		}
 		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
 		if (itemstack.isEmpty()) {
 			return false;
 		}
-		if (getStackInSlot(output) == ItemStack.EMPTY) {
+		if (getStackInSlot(output).isEmpty()) {
 			return true;
 		}
 		if (!getStackInSlot(output).isItemEqual(itemstack)) {

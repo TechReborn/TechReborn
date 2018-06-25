@@ -136,12 +136,12 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 			--this.burnTime;
 		}
 		if (!this.world.isRemote) {
-			if (this.burnTime != 0 || this.getStackInSlot(this.input1) != ItemStack.EMPTY && this.getStackInSlot(this.fuel) != ItemStack.EMPTY) {
+			if (this.burnTime != 0 || !this.getStackInSlot(this.input1).isEmpty()&& !this.getStackInSlot(this.fuel).isEmpty()) {
 				if (this.burnTime == 0 && this.canSmelt()) {
 					this.currentItemBurnTime = this.burnTime = TileIronAlloyFurnace.getItemBurnTime(this.getStackInSlot(this.fuel));
 					if (this.burnTime > 0) {
 						flag1 = true;
-						if (this.getStackInSlot(this.fuel) != ItemStack.EMPTY) {
+						if (!this.getStackInSlot(this.fuel).isEmpty()) {
 							this.decrStackSize(this.fuel, 1);
 						}
 					}
@@ -191,7 +191,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	}
 
 	private boolean canSmelt() {
-		if (this.getStackInSlot(this.input1) == ItemStack.EMPTY || this.getStackInSlot(this.input2) == ItemStack.EMPTY) {
+		if (this.getStackInSlot(this.input1).isEmpty() || this.getStackInSlot(this.input2).isEmpty()) {
 			return false;
 		} else {
 			ItemStack itemstack = null;
@@ -204,7 +204,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 
 			if (itemstack == null)
 				return false;
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY)
+			if (this.getStackInSlot(this.output).isEmpty())
 				return true;
 			if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
 				return false;
@@ -237,7 +237,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 				}
 			}
 
-			if (this.getStackInSlot(this.output) == ItemStack.EMPTY) {
+			if (this.getStackInSlot(this.output).isEmpty()) {
 				this.setInventorySlotContents(this.output, itemstack.copy());
 			} else if (this.getStackInSlot(this.output).getItem() == itemstack.getItem()) {
 				this.decrStackSize(this.output, -itemstack.getCount());

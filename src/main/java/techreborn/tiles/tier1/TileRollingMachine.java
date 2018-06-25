@@ -136,7 +136,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 				currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, world);
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
-					if (inventory.getStackInSlot(outputSlot) == ItemStack.EMPTY) {
+					if (inventory.getStackInSlot(outputSlot).isEmpty()) {
 						inventory.setInventorySlotContents(outputSlot, currentRecipeOutput);
 						tickTime = 0;
 						hasCrafted = true;
