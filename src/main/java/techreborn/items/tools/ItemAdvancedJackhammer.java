@@ -40,6 +40,7 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 		super(ToolMaterial.IRON, "techreborn.advancedJackhammer", ConfigTechReborn.AdvancedJackhammerCharge);
 		this.cost = 250;
 		this.efficiency = 60F;
+		this.transferLimit = 1000;
 	}
 
 	@SideOnly(Side.CLIENT)

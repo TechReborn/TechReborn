@@ -40,6 +40,7 @@ public class ItemDiamondJackhammer extends ItemJackhammer {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondJackhammer", ConfigTechReborn.DiamondJackhammerCharge);
 		this.cost = 100;
 		this.efficiency = 16F;
+		this.transferLimit = 1000;
 	}
 
 	@SideOnly(Side.CLIENT)

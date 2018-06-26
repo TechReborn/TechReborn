@@ -41,6 +41,7 @@ public class ItemDiamondDrill extends ItemDrill {
 	public ItemDiamondDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.diamondDrill", ConfigTechReborn.DiamondDrillCharge, 0.5F, 15F);
 		this.cost = 250;
+		this.transferLimit = 1000;
 	}
 
 	@SideOnly(Side.CLIENT)
