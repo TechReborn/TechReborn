@@ -129,7 +129,6 @@ public class Core {
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
-		MinecraftForge.EVENT_BUS.register(new RecipesIC2());
 		logHelper.info("PreInitialization Complete");
 	}
 

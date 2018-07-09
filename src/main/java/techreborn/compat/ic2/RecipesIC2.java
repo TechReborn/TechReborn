@@ -28,6 +28,7 @@ import ic2.api.item.IC2Items;
 import ic2.core.ref.ItemName;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -58,7 +59,7 @@ public class RecipesIC2 implements ICompatModule {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
