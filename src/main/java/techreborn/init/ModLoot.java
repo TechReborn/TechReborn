@@ -24,46 +24,62 @@
 
 package techreborn.init;
 
-//TODO 1.9 nope
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootEntry;
+import net.minecraft.world.storage.loot.LootEntryTable;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.RandomValueRange;
+import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import techreborn.Core;
+import techreborn.lib.ModInfo;
+
 public class ModLoot {
-	//
-	// public static WeightedRandomChestContent rubberSaplingLoot = new
-	// WeightedRandomChestContent(new ItemStack(ModBlocks.rubberSapling), 1, 3,
-	// 25);
-	// public static WeightedRandomChestContent copperIngotLoot = new
-	// WeightedRandomChestContent(ItemIngots.getIngotByName("copper"), 1, 4,
-	// 20);
-	// public static WeightedRandomChestContent tinIngotLoot = new
-	// WeightedRandomChestContent(ItemIngots.getIngotByName("tin"), 1, 4, 20);
-	// public static WeightedRandomChestContent steelIngotLoot = new
-	// WeightedRandomChestContent(ItemIngots.getIngotByName("steel"), 1, 3, 5);
+	
+	public static List<ResourceLocation> lootTables = new ArrayList<ResourceLocation>();
 
 	public static void init() {
-		// if(ConfigTechReborn.RubberSaplingLoot){
-		// generate(rubberSaplingLoot);
-		// }
-		// if(ConfigTechReborn.CopperIngotsLoot){
-		// generate(copperIngotLoot);
-		// }
-		// if(ConfigTechReborn.TinIngotsLoot){
-		// generate(tinIngotLoot);
-		// }
-		// if(ConfigTechReborn.SteelIngotsLoot){
-		// generate(steelIngotLoot);
-		// }
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/abandoned_mineshaft"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/desert_pyramid"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/igloo_chest"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/jungle_temple"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/simple_dungeon"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/village_blacksmith"));
+		
+		for (ResourceLocation lootTable : lootTables) {
+			LootTableList.register(lootTable);
+		}
 	}
 
-	//	public static void generate(WeightedRandomChestContent chestContent)
-	//	{
-	// for (String category :
-	// Arrays.asList(ChestGenHooks.VILLAGE_BLACKSMITH,
-	// ChestGenHooks.MINESHAFT_CORRIDOR, ChestGenHooks.PYRAMID_DESERT_CHEST,
-	// ChestGenHooks.PYRAMID_JUNGLE_CHEST,
-	// ChestGenHooks.PYRAMID_JUNGLE_DISPENSER,
-	// ChestGenHooks.STRONGHOLD_CORRIDOR, ChestGenHooks.STRONGHOLD_LIBRARY,
-	// ChestGenHooks.STRONGHOLD_CROSSING, ChestGenHooks.BONUS_CHEST,
-	// ChestGenHooks.DUNGEON_CHEST)) {
-	// ChestGenHooks.addItem(category, chestContent);
-	// }
-	//	}
+	@SubscribeEvent
+	public void lootLoad(LootTableLoadEvent event) {
+		if(!event.getName().getResourceDomain().equals("minecraft")) {
+			return;
+		}
+		for (ResourceLocation lootTable : lootTables) {
+			if (event.getName().getResourcePath().equals(lootTable.getResourcePath())) {
+				event.getTable().addPool(getLootPool(lootTable));
+				if (Core.DEV_FEATURES) {
+					Core.logHelper.info("Loot pool injected into " + lootTable.getResourcePath());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Generates loot pool to be injected into vanilla loot pools
+	 * 
+	 * @param lootTable ResourceLocation Loot table to inject
+	 * @return LootPool Loot pool to inject
+	 */
+	private LootPool getLootPool(ResourceLocation lootTable) {
+		LootEntry entry = new LootEntryTable(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString()); 
+		LootPool pool = new LootPool(new LootEntry[] {entry}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "lootPool_"+lootTable.toString()); 
+		return pool;
+	}
 }

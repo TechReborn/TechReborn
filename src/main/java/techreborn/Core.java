@@ -142,7 +142,8 @@ public class Core {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
 		// Registers Chest Loot
-		// ModLoot.init();
+		ModLoot.init();
+		MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
 		ModSounds.init();
 		// Compat

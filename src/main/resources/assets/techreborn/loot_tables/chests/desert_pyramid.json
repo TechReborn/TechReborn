@@ -1,0 +1,193 @@
+{
+	"pools": [
+		{
+			"name": "techreborn",
+			"rolls": {
+				"min": 1,
+				"max": 3
+			},
+			"entries": [
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "bronze_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 2
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "copper_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 4
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "lead_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 8
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "silver_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 11
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "tin_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 13
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "refined_iron_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 19
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "advanced_alloy_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 20
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:ingot",
+					"entryName": "mixed_metal_ingot",
+					"weight": 10,
+					"functions": [
+						{
+							"function": "set_count",
+							"count": {
+								"min": 1,
+								"max": 2
+							}
+						},
+						{
+							"function": "set_data",
+							"data": 21
+						}
+					]
+				},								
+				{
+					"type": "item",
+					"name": "techreborn:machine_frame",
+					"entryName": "basic_frame",
+					"weight": 30,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 0
+						}
+					]
+				},
+				{
+					"type": "item",
+					"name": "techreborn:machine_frame",
+					"entryName": "basic_circuit",
+					"weight": 30,
+					"functions": [
+						{
+							"function": "set_data",
+							"data": 29
+						}
+					]
+				},
+				{
+					"type": "empty",
+					"weight": 20
+				}
+			]
+		}
+	]
+}
