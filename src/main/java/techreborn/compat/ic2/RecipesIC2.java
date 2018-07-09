@@ -27,10 +27,14 @@ package techreborn.compat.ic2;
 import ic2.api.item.IC2Items;
 import ic2.core.ref.ItemName;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.api.recipe.machines.CompressorRecipe;
@@ -59,36 +63,46 @@ public class RecipesIC2 implements ICompatModule {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0), IC2Items.getItem("resource", "machine")));
 
-		for (RecipeDuplicate duplicate : recipeDuplicateList) {
-			duplicate.add();
-		}
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		RebornCraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"), IC2Items.getItem("crafting", "rubber"));
-		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"), ItemParts.getPartByName("rubber"));
-		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH), IC2Items.getItem("crafting", "small_power_unit"));
-
-		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "carbon_mesh"),
-			IC2Items.getItem("crafting", "carbon_plate"), 300, 4));
-
-		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "coal_ball"),
-			IC2Items.getItem("crafting", "coal_block"), 300, 4));
-
-		RecipeHandler.addRecipe(new GrinderRecipe(ItemName.crafting.getItemStack("tin_can"),
-			RecipeMethods.getOre("dustTin", 2), 300, 16));
-
-		RecipeHandler.addRecipe(new ExtractorRecipe(ItemName.filled_tin_can.getItemStack(),
-			ItemName.crafting.getItemStack("tin_can"), 300, 16));
 
 	}
 
 	@Override
 	public void serverStarting(FMLServerStartingEvent event) {
 
+	}
+
+	// LOW is used as we want it to load as late as possible, but before crafttweaker
+	@SubscribeEvent(priority = EventPriority.LOW)
+	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0),
+				IC2Items.getItem("resource", "machine")));
+
+		for (RecipeDuplicate duplicate : recipeDuplicateList) {
+			duplicate.add();
+		}
+
+		RebornCraftingHelper.addShapelessRecipe(ItemParts.getPartByName("rubber"),
+				IC2Items.getItem("crafting", "rubber"));
+		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("crafting", "rubber"),
+				ItemParts.getPartByName("rubber"));
+		RebornCraftingHelper.addShapelessRecipe(IC2Items.getItem("electric_wrench"), new ItemStack(ModItems.WRENCH),
+				IC2Items.getItem("crafting", "small_power_unit"));
+
+		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "carbon_mesh"),
+				IC2Items.getItem("crafting", "carbon_plate"), 300, 4));
+		RecipeHandler.addRecipe(new CompressorRecipe(IC2Items.getItem("crafting", "coal_ball"),
+				IC2Items.getItem("crafting", "coal_block"), 300, 4));
+
+		RecipeHandler.addRecipe(new GrinderRecipe(ItemName.crafting.getItemStack("tin_can"),
+				RecipeMethods.getOre("dustTin", 2), 300, 16));
+
+		RecipeHandler.addRecipe(new ExtractorRecipe(ItemName.filled_tin_can.getItemStack(),
+				ItemName.crafting.getItemStack("tin_can"), 300, 16));
 	}
 
 	public class RecipeDuplicate {

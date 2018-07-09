@@ -57,6 +57,7 @@ import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
+import techreborn.compat.ic2.RecipesIC2;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
@@ -108,14 +109,12 @@ public class Core {
 
 		CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		// Register ModBlocks
+		// Registration 
 		ModBlocks.init();
-		//Register Tile's
 		ModTileEntities.init();
-		// Register Fluids
 		ModFluids.init();
-		// Register ModItems
 		ModItems.init();
+
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
@@ -130,6 +129,7 @@ public class Core {
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
+		MinecraftForge.EVENT_BUS.register(new RecipesIC2());
 		logHelper.info("PreInitialization Complete");
 	}
 
