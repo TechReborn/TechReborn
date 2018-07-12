@@ -46,10 +46,16 @@ public class ModLoot {
 	public static void init() {
 		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/abandoned_mineshaft"));
 		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/desert_pyramid"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/end_city_treasure"));
 		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/igloo_chest"));
 		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/jungle_temple"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/nether_bridge"));		
 		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/simple_dungeon"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/stronghold_corridor"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/stronghold_crossing"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/stronghold_library"));	
 		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/village_blacksmith"));
+		lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/woodland_mansion"));
 		
 		for (ResourceLocation lootTable : lootTables) {
 			LootTableList.register(lootTable);

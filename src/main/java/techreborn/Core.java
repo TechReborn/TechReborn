@@ -57,7 +57,6 @@ import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
-import techreborn.compat.ic2.RecipesIC2;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
