@@ -81,7 +81,6 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
-		ClientMultiBlocks.init();
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(ModBlocks.RUBBER_LEAVES, rubberLeavesStateMap);
 	}
