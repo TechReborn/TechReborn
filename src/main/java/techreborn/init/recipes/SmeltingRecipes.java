@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
-import techreborn.init.IC2Duplicates;
+import techreborn.items.ItemIngots;
 
 /**
  * Created by Prospector
@@ -38,15 +38,14 @@ public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
 		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
-		if (!IC2Duplicates.deduplicate()) {
-			register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
-		}
+		register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
+
 		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
 		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
 		register(BlockOre.getOreByName("silver"), getMaterial("silver", Type.INGOT));
 		register(BlockOre.getOreByName("lead"), getMaterial("lead", Type.INGOT));
 		register(BlockOre.getOreByName("sheldonite"), getMaterial("platinum", Type.INGOT));
-		register(IC2Duplicates.MIXED_METAL.getStackBasedOnConfig(), getMaterial("advanced_alloy", Type.INGOT));
+		register(ItemIngots.getIngotByName("mixed_metal"), getMaterial("advanced_alloy", Type.INGOT));
 		
 		// Dust smelting
 		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));

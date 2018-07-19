@@ -46,11 +46,6 @@ public class OreDict {
 	);
 
 	public static void init() {
-		if (Loader.isModLoaded("ic2")) {
-			Core.logHelper.info("IC2 installed, enabling integration");
-			IC2Dict.init();
-		}
-
 		OreUtil.registerOre("reBattery", ModItems.RE_BATTERY);
 
 		OreUtil.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
@@ -74,20 +69,12 @@ public class OreDict {
 		OreUtil.registerOre("insulatedGoldCableItem", BlockCable.getCableByName("insulatedgold"));
 		OreUtil.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
 
-		OreUtil.registerOre("ic2Generator", ModBlocks.SOLID_FUEL_GENEREATOR);
-		OreUtil.registerOre("ic2SolarPanel", ModBlocks.SOLAR_PANEL);
-		OreUtil.registerOre("ic2Macerator", ModBlocks.GRINDER);
-		OreUtil.registerOre("ic2Extractor", ModBlocks.EXTRACTOR);
-		OreUtil.registerOre("ic2Windmill", ModBlocks.WIND_MILL);
-		OreUtil.registerOre("ic2Watermill", ModBlocks.WATER_MILL);
-
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
 
 		OreUtil.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
-		//TODO ic2 bug? Disabled as it crashes with this line
-		//OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
+		OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
 		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
 		OreUtil.registerOre("craftingDiamondGrinder", ItemParts.getPartByName("diamondGrindingHead"));

@@ -31,7 +31,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegistry;
@@ -44,7 +43,6 @@ import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.blocks.BlockOre;
-import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
@@ -66,8 +64,6 @@ public class ModRecipes {
 	public static void init() {
 		//Gonna rescan to make sure we have an uptodate list
 		OreUtil.scanForOres();
-		//Done again incase we loaded before QuantumStorage
-		CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 
 		CraftingTableRecipes.init();
 		SmeltingRecipes.init();
@@ -87,7 +83,6 @@ public class ModRecipes {
 
 		addBlastFurnaceRecipes();
 		addVacuumFreezerRecipes();
-		addIc2Recipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
 	}
@@ -115,7 +110,7 @@ public class ModRecipes {
 	private static void addCompressorRecipes() {
 		RecipeHandler.addRecipe(new CompressorRecipe(ItemIngots.getIngotByName("advanced_alloy"),
 				ItemPlates.getPlateByName("advanced_alloy"), 400, 20));
-		RecipeHandler.addRecipe(new CompressorRecipe(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig(),
+		RecipeHandler.addRecipe(new CompressorRecipe(ItemParts.getPartByName("carbon_mesh"),
 				ItemPlates.getPlateByName("carbon"), 400, 2));
 		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("plankWood", 1),
 				OreUtil.getStackFromName("plateWood", 1), 300, 4));
@@ -385,57 +380,7 @@ public class ModRecipes {
 				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
 	}
 
-	static void addIc2Recipes() {
-		RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(),
-			Items.BOOK);
 
-//		RebornCraftingHelper
-//			.addShapedOreRecipe(ItemParts.getPartByName("machineParts", 16), "CSC", "SCS", "CSC", 'S', "ingotSteel",
-//				'C', "circuitBasic");
-//
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.magicalAbsorber),
-		// "CSC", "IBI", "CAC",
-		// 'C', "circuitMaster",
-		// 'S', "craftingSuperconductor",
-		// 'B', Blocks.beacon,
-		// 'A', ModBlocks.magicEnergeyConverter,
-		// 'I', "plateIridium");
-		//
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.magicEnergeyConverter),
-		// "CTC", "PBP", "CLC",
-		// 'C', "circuitAdvanced",
-		// 'P', "platePlatinum",
-		// 'B', Blocks.beacon,
-		// 'L', "lapotronCrystal",
-		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
-
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.electricCraftingTable),
-		// "ITI", "IBI", "ICI",
-		// 'I', "plateIron",
-		// 'C', "circuitAdvanced",
-		// 'T', "crafterWood",
-		// 'B', "machineBlockBasic");
-
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.electricCraftingTable),
-		// "ATA", "ABA", "ACA",
-		// 'A', "plateAluminum",
-		// 'C', "circuitAdvanced",
-		// 'T', "crafterWood",
-		// 'B', "machineBlockBasic");
-
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.chunkLoader),
-		// "SCS", "CMC", "SCS",
-		// 'S', "plateSteel",
-		// 'C', "circuitMaster",
-		// 'M', new ItemStack(ModItems.parts, 1, 39));
-
-
-	}
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {
 		return FluidUtil.getFilledBucket(new FluidStack(fluid, Fluid.BUCKET_VOLUME));

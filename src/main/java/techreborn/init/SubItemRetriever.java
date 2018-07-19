@@ -45,11 +45,6 @@ public class SubItemRetriever implements ISubItemRetriever {
 	}
 
 	@Override
-	public ItemStack getCellByName(String name, int count, boolean lookForIC2) {
-		return ItemCells.getCellByName(name, count);
-	}
-
-	@Override
 	public ItemStack getDustByName(String name) {
 		return ItemDusts.getDustByName(name);
 	}

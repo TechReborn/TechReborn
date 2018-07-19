@@ -55,8 +55,6 @@ import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
-import techreborn.compat.CompatManager;
-import techreborn.compat.ICompatModule;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
@@ -120,11 +118,6 @@ public class Core {
 		ModFixs dataFixes = FMLCommonHandler.instance().getDataFixer().init(ModInfo.MOD_ID, 1);
 		ModTileEntities.initDataFixer(dataFixes);
 
-		CompatManager.isIC2Loaded = Loader.isModLoaded("ic2");
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.preInit(event);
-		}
-
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
@@ -144,10 +137,6 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
 		ModSounds.init();
-		// Compat
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.init(event);
-		}
 		// Client only init, needs to be done before parts system
 		proxy.init(event);
 		// WorldGen
@@ -180,10 +169,6 @@ public class Core {
 
 	@Mod.EventHandler
 	public void postinit(FMLPostInitializationEvent event) throws Exception {
-		// Has to be done here as Buildcraft registers their recipes late
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.postInit(event);
-		}
 		proxy.postInit(event);
 
 		ModRecipes.postInit();
@@ -197,9 +182,6 @@ public class Core {
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(new TechRebornDevCommand());
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.serverStarting(event);
-		}
 	}
 
 	@SubscribeEvent

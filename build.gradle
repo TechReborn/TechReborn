@@ -33,56 +33,6 @@ repositories {
 		name = "Modmuss50"
 		url = "http://maven.modmuss50.me/"
 	}
-	maven {
-		// JEI, TiC
-		name "TiC"
-		url "http://dvs1.progwml6.com/files/maven"
-	}
-	maven {
-		name = "Amadornes"
-		url "http://maven.amadornes.com/"
-	}
-	maven {
-		// CraftTweaker2
-		name "Jared"
-		url "http://maven.blamejared.com/"
-	}
-	maven {
-		// TheOneProbe
-		url "http://maven.tterrag.com/"
-	}
-	 maven {
-	 	// IC2
-	 	name = "ic2"
-	 	url = "http://maven.ic2.player.to/"
-	 }
-	maven {
-		// HWYLA
-		name "TehNut"
-		url "http://tehnut.info/maven/"
-	}
-	maven {
-		name 'CB Repo'
-		url "http://chickenbones.net/maven/"
-	}
-	maven {
-		// CoFH
-		name 'Covers'
-		url "http://maven.covers1624.net/"
-	}
-	ivy {
-		name "BuildCraft"
-		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
-	}
-	maven {
-		name "OpenComputer"
-		url "http://maven.cil.li/"
-	}
-}
-
-configurations {
-	shade
-	compile.extendsFrom shade
 }
 
 version = "2.16.0"
@@ -109,26 +59,10 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	//Some dep we use wants the older jei, so this ingores it. We grab the latest anyway, so it shoudnt cause any issues.
-	def withoutOldJEI = { exclude module: 'jei_1.12.2' }
-
 	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
-	compile "mcp.mobius.waila:Hwyla:+"
-	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
-	compile name: 'buildcraft', version: '7.99.17', ext: 'jar'
-		
-	deobfCompile "mezz.jei:jei_1.12.2:+"
-	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.+'
-	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.5+:universal'
-	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.5+:universal'
-	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
-	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
-	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
 }
-
 
 processResources
 	{

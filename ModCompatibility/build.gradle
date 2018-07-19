@@ -1,0 +1,153 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+		maven {
+			name = "sonatype"
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
+	}
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+	maven {
+		name = "Modmuss50"
+		url = "http://maven.modmuss50.me/"
+	}
+	maven {
+		// JEI, TiC
+		name "TiC"
+		url "http://dvs1.progwml6.com/files/maven"
+	}
+	maven {
+		name = "Amadornes"
+		url "http://maven.amadornes.com/"
+	}
+	maven {
+		// CraftTweaker2
+		name "Jared"
+		url "http://maven.blamejared.com/"
+	}
+	maven {
+		// TheOneProbe
+		url "http://maven.tterrag.com/"
+	}
+	 maven {
+	 	// IC2
+	 	name = "ic2"
+	 	url = "http://maven.ic2.player.to/"
+	 }
+	maven {
+		// HWYLA
+		name "TehNut"
+		url "http://tehnut.info/maven/"
+	}
+	maven {
+		name 'CB Repo'
+		url "http://chickenbones.net/maven/"
+	}
+	maven {
+		// CoFH
+		name 'Covers'
+		url "http://maven.covers1624.net/"
+	}
+	ivy {
+		name "BuildCraft"
+		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
+	}
+	maven {
+		name "OpenComputer"
+		url "http://maven.cil.li/"
+	}
+}
+
+version = "2.16.0"
+
+def ENV = System.getenv()
+if (ENV.BUILD_NUMBER) {
+	version = version + "." + "${System.getenv().BUILD_NUMBER}"
+}
+
+minecraft {
+	version = "1.12.2-14.23.4.2705"
+	mappings = "snapshot_20171003"
+	replace "@MODVERSION@", project.version
+	useDepAts = true
+	runDir = "run"
+}
+
+group = 'TechRebornModCompatibility'
+
+dependencies {
+	//Some dep we use wants the older jei, so this ingores it. We grab the latest anyway, so it shoudnt cause any issues.
+	def withoutOldJEI = { exclude module: 'jei_1.12.2' }
+
+	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
+		transitive = false
+	}
+	compile "mcp.mobius.waila:Hwyla:+"
+	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
+	compile name: 'buildcraft', version: '7.99.17', ext: 'jar'
+		
+	deobfCompile "mezz.jei:jei_1.12.2:+"
+	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
+	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.+'
+	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.5+:universal'
+	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.5+:universal'
+	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
+	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
+	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
+}
+
+
+task deobfJar(type: Jar) {
+	from sourceSets.main.output
+	exclude "**/*.psd"
+	classifier = 'dev'
+}
+
+
+jar {
+	exclude "**/*.psd"
+	classifier = 'universal'
+}
+
+build.dependsOn deobfJar
+
+task signJar(type: SignJar, dependsOn: reobfJar) {
+	onlyIf {
+		project.hasProperty('keyStore')
+	}
+
+	if (project.hasProperty('keyStore')) {
+		keyStore = project.keyStore
+		alias = project.keyStoreAlias
+		storePass = project.keyStorePass
+		keyPass = project.keyStoreKeyPass
+		inputFile = jar.archivePath
+		outputFile = jar.archivePath
+	}
+
+}
+
+build.dependsOn signJar
+
+apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'

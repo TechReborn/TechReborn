@@ -36,9 +36,8 @@ import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
-import techreborn.compat.CompatManager;
+import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.*;
@@ -89,11 +88,11 @@ public class CraftingTableRecipes extends RecipeMethods {
 		}
 		
 		//Upgrades
-		registerShaped(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P', "plankWood", 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic", 'B', "reBattery");
-		registerShaped(ItemUpgrades.getUpgradeByName("overclock"), "TTT", "WCW", 'T', getMaterial("coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
-		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2), " T ", "WCW", 'T', getMaterial("helium_coolant_triple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
-		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2),  " T ", "WCW", 'T', getMaterial("nak_coolant_simple", Type.PART), 'W', getStack(IC2Duplicates.CABLE_ICOPPER), 'C', "circuitBasic");
-		registerShaped(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G', "blockGlass", 'W', getStack(IC2Duplicates.CABLE_IGOLD), 'C', "circuitBasic", 'T', getStack(IC2Duplicates.MVT));
+		registerShaped(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P', "plankWood", 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic", 'B', "reBattery");
+		registerShaped(ItemUpgrades.getUpgradeByName("overclock"), "TTT", "WCW", 'T', getMaterial("coolant_simple", Type.PART), 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic");
+		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2), " T ", "WCW", 'T', getMaterial("helium_coolant_triple", Type.PART), 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic");
+		registerShaped(ItemUpgrades.getUpgradeByName("overclock", 2),  " T ", "WCW", 'T', getMaterial("nak_coolant_simple", Type.PART), 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic");
+		registerShaped(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G', "blockGlass", 'W', EnumCableType.IGOLD.getStack(), 'C', "circuitBasic", 'T', getStack(ModBlocks.MV_TRANSFORMER));
 		
 		//Machines
 		registerShaped(getMaterial("standard", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', "ingotRefinedIron", 'C', "circuitBasic", 'A', "machineBlockBasic");
@@ -103,48 +102,48 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getMaterial("reinforced", 1, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R', "plateSteel", 'C', "circuitAdvanced", 'A', getMaterial("standard", Type.MACHINE_CASING));
 		registerShaped(getMaterial("advanced", 4, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R',  "plateChrome", 'C', "circuitElite", 'A', "machineBlockElite");
 		registerShaped(getMaterial("advanced", 1, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R',  "plateChrome", 'C', "circuitElite", 'A', getMaterial("reinforced", Type.MACHINE_CASING));		
-		registerShapeless(getStack(IC2Duplicates.GENERATOR), "reBattery", "machineBlockBasic", getStack(Blocks.FURNACE));
-		registerShaped(getStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateAluminum", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "ingotRefinedIron", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateAluminum", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
+		registerShapeless(getStack(ModBlocks.SOLID_FUEL_GENEREATOR), "reBattery", "machineBlockBasic", getStack(Blocks.FURNACE));
+		registerShaped(getStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
+		registerShaped(getStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateAluminum", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
+		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "ingotRefinedIron", 'C', "circuitBasic", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
+		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateAluminum", 'C', "circuitBasic", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
 		registerShaped(getStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateInvar", 'A', "circuitAdvanced", 'W', getStack(ModBlocks.WIND_MILL), 'G', "glassReinforced");
 		registerShaped(getStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateAluminum", 'A', "circuitAdvanced", 'W', getStack(ModBlocks.WIND_MILL), 'G', "glassReinforced");
-		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "plateInvar", 'R', "glassReinforced", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
-		registerShaped(getStack(ModBlocks.WIND_MILL), " I ", " G ", " I ", 'I', "plateMagnalium", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.WIND_MILL), "IGI", 'I', "plateMagnalium", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(IC2Duplicates.GENERATOR));
+		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "plateInvar", 'R', "glassReinforced", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR), 'C', "circuitBasic");
+		registerShaped(getStack(ModBlocks.WIND_MILL), " I ", " G ", " I ", 'I', "plateMagnalium", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
+		registerShaped(getStack(ModBlocks.WIND_MILL), "IGI", 'I', "plateMagnalium", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
+		registerShaped(getStack(ModBlocks.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
 		registerShaped(getStack(ModBlocks.LIGHTNING_ROD), "CAC", "ACA", "CAC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'C', "circuitMaster");
-		registerShaped(getStack(ModBlocks.IRON_ALLOY_FURNACE), "III", "F F", "III", 'I', "ingotRefinedIron", 'F', getStack(IC2Duplicates.IRON_FURNACE));
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CFC", "RER", 'R', "plateIron", 'E', getStack(IC2Duplicates.EXTRACTOR), 'C', "circuitAdvanced", 'F', "machineBlockAdvanced");
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "ingotRefinedIron", 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "plateAluminum", 'E', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
+		registerShaped(getStack(ModBlocks.IRON_ALLOY_FURNACE), "III", "F F", "III", 'I', "ingotRefinedIron", 'F', getStack(ModBlocks.IRON_FURNACE));
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CFC", "RER", 'R', "plateIron", 'E', getStack(ModBlocks.EXTRACTOR), 'C', "circuitAdvanced", 'F', "machineBlockAdvanced");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "ingotRefinedIron", 'E', getStack(ModBlocks.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "plateAluminum", 'E', getStack(ModBlocks.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_SAWMILL), "PAP", "SSS", "ACA", 'P', "ingotRefinedIron", 'A', "circuitAdvanced", 'S', getMaterial("diamond_saw_blade", Type.PART), 'C', "machineBlockAdvanced");
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H', getMaterial("cupronickelHeatingCoil", Type.PART), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'F', getStack(IC2Duplicates.ELECTRICAL_FURNACE));
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'H', "craftingDiamondGrinder", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'G', getStack(IC2Duplicates.GRINDER));
-		registerShaped(getStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A', getMaterialObject("advancedAlloy", Type.INGOT), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'P', getStack(IC2Duplicates.COMPRESSOR));
-		registerShaped(getStack(ModBlocks.VACUUM_FREEZER), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C', "circuitAdvanced", 'G', "glassReinforced", 'P', getStack(IC2Duplicates.EXTRACTOR));		
-		registerShaped(getStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'M', "circuitMaster", 'B', "machineBlockElite", 'C', getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), 'P', getStack(IC2Duplicates.EXTRACTOR));
-		registerShaped(getStack(ModBlocks.CHEMICAL_REACTOR), "IMI", "CPC", "IEI", 'I', "plateInvar", 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.EXTRACTOR), 'P', getStack(IC2Duplicates.COMPRESSOR), 'E', getStack(IC2Duplicates.EXTRACTOR));
-		registerShaped(getStack(ModBlocks.ROLLING_MACHINE),  "PCP", "MBM", "PCP", 'P', getStack(Blocks.PISTON), 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.COMPRESSOR), 'B', "machineBlockBasic");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H', getMaterial("cupronickelHeatingCoil", Type.PART), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'F', getStack(ModBlocks.ELECTRIC_FURNACE));
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'H', "craftingDiamondGrinder", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'G', getStack(ModBlocks.GRINDER));
+		registerShaped(getStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A', getMaterialObject("advancedAlloy", Type.INGOT), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'P', getStack(ModBlocks.COMPRESSOR));
+		registerShaped(getStack(ModBlocks.VACUUM_FREEZER), "SPS", "CGC", "SPS", 'S', "plateSteel", 'C', "circuitAdvanced", 'G', "glassReinforced", 'P', getStack(ModBlocks.EXTRACTOR));		
+		registerShaped(getStack(ModBlocks.DISTILLATION_TOWER), "CMC", "PBP", "EME", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'M', "circuitMaster", 'B', "machineBlockElite", 'C', getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), 'P', getStack(ModBlocks.EXTRACTOR));
+		registerShaped(getStack(ModBlocks.CHEMICAL_REACTOR), "IMI", "CPC", "IEI", 'I', "plateInvar", 'C', "circuitAdvanced", 'M', getStack(ModBlocks.EXTRACTOR), 'P', getStack(ModBlocks.COMPRESSOR), 'E', getStack(ModBlocks.EXTRACTOR));
+		registerShaped(getStack(ModBlocks.ROLLING_MACHINE),  "PCP", "MBM", "PCP", 'P', getStack(Blocks.PISTON), 'C', "circuitAdvanced", 'M', getStack(ModBlocks.COMPRESSOR), 'B', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.AUTO_CRAFTING_TABLE), "MPM", "PCP", "MPM", 'M', "circuitAdvanced", 'C', "workbench", 'P', "plateIron");
 		registerShaped(getStack(ModBlocks.CHARGE_O_MAT),  "ETE", "COC", "EAE", 'E', "circuitMaster", 'T', "energyCrystal", 'C', "chest", 'O', getStack(ModItems.LAPOTRONIC_ORB), 'A', "machineBlockAdvanced");
-		registerShaped(getStack(ModBlocks.ALLOY_SMELTER), " C ", "FMF", "   ", 'C', "circuitBasic", 'F', getStack(IC2Duplicates.ELECTRICAL_FURNACE), 'M', "machineBlockBasic");
+		registerShaped(getStack(ModBlocks.ALLOY_SMELTER), " C ", "FMF", "   ", 'C', "circuitBasic", 'F', getStack(ModBlocks.ELECTRIC_FURNACE), 'M', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P', "plateIridiumAlloy", 'C', "chestEnder", 'A', getStack(ModBlocks.ADJUSTABLE_SU));
 		registerShaped(getStack(ModBlocks.ADJUSTABLE_SU), "LLL", "LCL", "LLL", 'L', getStack(ModItems.LAPOTRONIC_ORB), 'C', "energyCrystal");
-		registerShaped(getStack(ModBlocks.LAPOTRONIC_SU),  " L ", "CBC", " M ", 'L', getStack(IC2Duplicates.LVT), 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.MVT), 'B', getStack(ModBlocks.LSU_STORAGE));
+		registerShaped(getStack(ModBlocks.LAPOTRONIC_SU),  " L ", "CBC", " M ", 'L', getStack(ModBlocks.LV_TRANSFORMER), 'C', "circuitAdvanced", 'M', getStack(ModBlocks.MV_TRANSFORMER), 'B', getStack(ModBlocks.LSU_STORAGE));
 		registerShaped(getStack(ModBlocks.LSU_STORAGE), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C', "circuitBasic");
 		registerShaped(getStack(ModBlocks.SCRAPBOXINATOR), "ICI", "DSD", "ICI", 'S', getStack(ModItems.SCRAP_BOX), 'C', "circuitBasic", 'I', "plateIron", 'D', "dirt");
 		registerShaped(getStack(ModBlocks.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P', "energyCrystal", 'T', getStack(ModBlocks.FUSION_COIL), 'C', "circuitMaster");
 		registerShaped(getStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', getMaterial("nichromeHeatingCoil", Type.PART), 'C', "circuitMaster", 'S', "craftingSuperconductor", 'R', getMaterial("iridiumNeutronReflector", Type.PART));
 		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', getMaterial("data_orb", Type.PART), 'C', getMaterial("computer_monitor", Type.PART));
 		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', getMaterial("data_orb", Type.PART), 'C', getMaterial("computer_monitor", Type.PART));
-		registerShaped(getStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(IC2Duplicates.EXTRACTOR), 'A', "machineBlockElite", 'O', getStack(ModItems.LAPOTRONIC_ORB));
+		registerShaped(getStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(ModBlocks.EXTRACTOR), 'A', "machineBlockElite", 'O', getStack(ModItems.LAPOTRONIC_ORB));
 		registerShaped(getStack(ModBlocks.COMPUTER_CUBE), "OMC", "MFM", "CMO", 'O', getMaterial("data_orb", Type.PART), 'M', getMaterial("computer_monitor", Type.PART), 'C', "circuitMaster", 'F', "machineBlockAdvanced");
 		registerShaped(getStack(ModBlocks.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', "circuitStorage", 'C', "circuitAdvanced", 'F',  getStack(ModBlocks.COMPUTER_CUBE));
-		registerShaped(getStack(ModBlocks.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(IC2Duplicates.MFE), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(ModItems.LAPOTRONIC_ORB));
-		registerShaped(getStack(ModBlocks.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(IC2Duplicates.HVT), 'C', "circuitMaster", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 0), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "paneGlass", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
+		registerShaped(getStack(ModBlocks.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(ModBlocks.MEDIUM_VOLTAGE_SU), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(ModItems.LAPOTRONIC_ORB));
+		registerShaped(getStack(ModBlocks.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(ModBlocks.HV_TRANSFORMER), 'C', "circuitMaster", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
+		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 0), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "paneGlass", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR), 'C', "circuitBasic");
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 0));
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 2), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 1));
@@ -156,27 +155,23 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.ALARM, 1, 0), "ICI", "SRS", "ICI", 'I', "ingotIron", 'C', getMaterial("copper", Type.CABLE), 'S', getMaterial("insulatedcopper", Type.CABLE), 'R', "blockRedstone" );
 		registerShaped(getStack(ModBlocks.FLUID_REPLICATOR), "PCP", "CFC", "ESR", 'P', "plateTungstensteel", 'F', "machineBlockElite", 'C', "circuitMaster", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'S', "craftingSuperconductor",'R', getStack(ModBlocks.CHEMICAL_REACTOR));
 
-		if (!IC2Duplicates.deduplicate()) {
-			registerShaped(getStack(IC2Duplicates.HVT), " H ", " M ", " H ", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));
-			registerShaped(getStack(IC2Duplicates.MVT), " G ", " M ", " G ", 'M', "machineBlockBasic", 'G', getStack(IC2Duplicates.CABLE_IGOLD));
-			registerShaped(getStack(IC2Duplicates.LVT), "PWP", "CCC", "PPP", 'P', "plankWood", 'C', "ingotCopper", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
-			registerShaped(getStack(IC2Duplicates.BAT_BOX), "WCW", "BBB", "WWW", 'W', "plankWood", 'B', "reBattery", 'C', getStack(IC2Duplicates.CABLE_ICOPPER));
-			registerShaped(getStack(IC2Duplicates.MFE), "GEG", "EME", "GEG", 'M', "machineBlockBasic", 'E', "energyCrystal", 'G', getStack(IC2Duplicates.CABLE_IGOLD));
-			registerShaped(getStack(IC2Duplicates.MFSU), "LAL", "LML", "LOL", 'A', "circuitAdvanced", 'L', "lapotronCrystal", 'M', getStack(IC2Duplicates.MFE), 'O', "machineBlockAdvanced");
-			registerShaped(getStack(IC2Duplicates.COMPRESSOR), "S S", "SCS", "SMS", 'C', "circuitBasic", 'M', "machineBlockBasic", 'S', "stone");
-			registerShaped(getStack(IC2Duplicates.ELECTRICAL_FURNACE), " C ", "RFR", "   ", 'C', "circuitBasic", 'F', getStack(IC2Duplicates.IRON_FURNACE), 'R', "dustRedstone");
-			registerShaped(getStack(IC2Duplicates.RECYCLER), " E ", "DCD", "GDG", 'D', "dirt", 'C', getStack(IC2Duplicates.COMPRESSOR), 'G', "dustGlowstone", 'E', "circuitBasic");
-			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), "III", "I I", "III", 'I', "ingotIron");
-			registerShaped(getStack(IC2Duplicates.IRON_FURNACE), " I ", "I I", "IFI", 'I', "ingotIron", 'F', getStack(Blocks.FURNACE));
-			registerShaped(getStack(IC2Duplicates.EXTRACTOR), "TMT", "TCT", "   ", 'T', getStack(ModItems.TREE_TAP, true), 'M', "machineBlockBasic", 'C', "circuitBasic");
-			registerShaped(getStack(IC2Duplicates.GRINDER), "FFF", "SMS", " C ", 'F', Items.FLINT, 'S', getStack(Blocks.COBBLESTONE), 'M', getMaterial("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
-			registerShapeless(getStack(IC2Duplicates.FREQ_TRANSMITTER), getStack(IC2Duplicates.CABLE_ICOPPER), "circuitBasic");
-		}
 
-		if (!CompatManager.isQuantumStorageLoaded) {
-			registerShaped(getStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', getMaterial("dataOrb", Type.PART), 'C', getMaterial("computerMonitor", Type.PART), 'A', "machineBlockElite", 'Q', getStack(ModBlocks.DIGITAL_CHEST), 'T', getStack(IC2Duplicates.COMPRESSOR));
-			registerShaped(getStack(ModBlocks.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "platePlatinum", 'E', "circuitAdvanced", 'C', getStack(ModBlocks.QUANTUM_CHEST));
-		}	
+		registerShaped(getStack(ModBlocks.HV_TRANSFORMER), " H ", " M ", " H ", 'M', getStack(ModBlocks.MV_TRANSFORMER), 'H', EnumCableType.IHV.getStack());
+		registerShaped(getStack(ModBlocks.MV_TRANSFORMER), " G ", " M ", " G ", 'M', "machineBlockBasic", 'G', EnumCableType.IGOLD.getStack());
+		registerShaped(getStack(ModBlocks.LV_TRANSFORMER), "PWP", "CCC", "PPP", 'P', "plankWood", 'C', "ingotCopper", 'W', EnumCableType.ICOPPER.getStack());
+		registerShaped(getStack(ModBlocks.LOW_VOLTAGE_SU), "WCW", "BBB", "WWW", 'W', "plankWood", 'B', "reBattery", 'C', EnumCableType.ICOPPER.getStack());
+		registerShaped(getStack(ModBlocks.MEDIUM_VOLTAGE_SU), "GEG", "EME", "GEG", 'M', "machineBlockBasic", 'E', "energyCrystal", 'G', EnumCableType.IGOLD.getStack());
+		registerShaped(getStack(ModBlocks.HIGH_VOLTAGE_SU), "LAL", "LML", "LOL", 'A', "circuitAdvanced", 'L', "lapotronCrystal", 'M', getStack(ModBlocks.MEDIUM_VOLTAGE_SU), 'O', "machineBlockAdvanced");
+		registerShaped(getStack(ModBlocks.COMPRESSOR), "S S", "SCS", "SMS", 'C', "circuitBasic", 'M', "machineBlockBasic", 'S', "stone");
+		registerShaped(getStack(ModBlocks.ELECTRIC_FURNACE), " C ", "RFR", "   ", 'C', "circuitBasic", 'F', getStack(ModBlocks.IRON_FURNACE), 'R', "dustRedstone");
+		registerShaped(getStack(ModBlocks.RECYCLER), " E ", "DCD", "GDG", 'D', "dirt", 'C', getStack(ModBlocks.COMPRESSOR), 'G', "dustGlowstone", 'E', "circuitBasic");
+		registerShaped(getStack(ModBlocks.IRON_FURNACE), "III", "I I", "III", 'I', "ingotIron");
+		registerShaped(getStack(ModBlocks.IRON_FURNACE), " I ", "I I", "IFI", 'I', "ingotIron", 'F', getStack(Blocks.FURNACE));
+		registerShaped(getStack(ModBlocks.EXTRACTOR), "TMT", "TCT", "   ", 'T', getStack(ModItems.TREE_TAP, true), 'M', "machineBlockBasic", 'C', "circuitBasic");
+		registerShaped(getStack(ModBlocks.GRINDER), "FFF", "SMS", " C ", 'F', Items.FLINT, 'S', getStack(Blocks.COBBLESTONE), 'M', getMaterial("machine", Type.MACHINE_FRAME), 'C', "circuitBasic");
+		registerShapeless(getStack(ModItems.FREQUENCY_TRANSMITTER), EnumCableType.ICOPPER.getStack(), "circuitBasic");
+		registerShaped(getStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', getMaterial("dataOrb", Type.PART), 'C', getMaterial("computerMonitor", Type.PART), 'A', "machineBlockElite", 'Q', getStack(ModBlocks.DIGITAL_CHEST), 'T', getStack(ModBlocks.COMPRESSOR));
+		registerShaped(getStack(ModBlocks.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "platePlatinum", 'E', "circuitAdvanced", 'C', getStack(ModBlocks.QUANTUM_CHEST));
 
 		//Lighting
 		registerShaped(getStack(ModBlocks.LAMP_INCANDESCENT), "GGG", "TCT", "GGG", 'G', "paneGlass", 'T', getMaterial("copper", Type.CABLE), 'C', getMaterial("carbon_fiber", Type.PART));
@@ -184,8 +179,8 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		//Parts
 		registerShaped(getMaterial("iridium_alloy", Type.INGOT), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'D', "dustDiamond", 'A', "plateAdvancedAlloy");
-		registerShaped(getStack(ModItems.RE_BATTERY), " W ", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
-		registerShaped(getStack(ModItems.LITHIUM_BATTERY), " C ", "PFP", "PFP", 'F', getCell("lithium"), 'P', "plateAluminum", 'C', getStack(IC2Duplicates.CABLE_IGOLD));
+		registerShaped(getStack(ModItems.RE_BATTERY), " W ", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', EnumCableType.ICOPPER.getStack());
+		registerShaped(getStack(ModItems.LITHIUM_BATTERY), " C ", "PFP", "PFP", 'F', getCell("lithium"), 'P', "plateAluminum", 'C', EnumCableType.IGOLD.getStack());
 		registerShaped(getStack(ModItems.LITHIUM_BATTERY_PACK),	"BCB", "BPB", "B B", 'B', getStack(ModItems.LITHIUM_BATTERY), 'P', "plateAluminum", 'C', "circuitAdvanced");	
 		registerShaped(getStack(ModItems.ENERGY_CRYSTAL), "RRR", "RDR", "RRR", 'R', "dustRedstone", 'D', "gemDiamond");
 		registerShaped(getStack(ModItems.LAPOTRONIC_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
@@ -217,32 +212,32 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getMaterial("neutron_reflector", Type.PART), "TCT", "CPC", "TCT", 'T', "dustTin", 'C', "dustCoal", 'P', "plateCopper");
 		registerShaped(getMaterial("super_conductor", 4, Type.PART), "CCC", "TIT", "EEE", 'E', "circuitMaster", 'C', getMaterial("heliumCoolantSimple", Type.PART), 'T', "ingotTungsten", 'I', "plateIridiumAlloy");
 		
-		if (!IC2Duplicates.deduplicate()) {
-			registerShaped(getMaterial("copper", 6, Type.CABLE), "CCC", 'C', "ingotCopper");
-			registerShaped(getMaterial("tin", 9, Type.CABLE), "TTT", 'T', "ingotTin");
-			registerShaped(getMaterial("gold", 12, Type.CABLE), "GGG", 'G', "ingotGold");
-			registerShaped(getMaterial("hv", 12, Type.CABLE), "RRR", 'R', "ingotRefinedIron");
-			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RRR", "CCC", "RRR", 'R', "itemRubber", 'C', "ingotCopper");
-			registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RCR", "RCR", "RCR", 'R', "itemRubber", 'C', "ingotCopper");
-			registerShapeless(getMaterial("insulatedcopper", Type.CABLE), "itemRubber", getMaterial("copper", Type.CABLE));
-			registerShaped(getMaterial("insulatedgold", 4, Type.CABLE), "RRR", "RGR", "RRR", 'R', "itemRubber", 'G', "ingotGold");
-			registerShapeless(getMaterial("insulatedgold", Type.CABLE), "itemRubber", "itemRubber", getMaterial("gold", Type.CABLE));
-			registerShaped(getMaterial("insulatedhv", 4, Type.CABLE), "RRR", "RIR", "RRR", 'R', "itemRubber", 'I', "ingotRefinedIron");
-			registerShapeless(getMaterial("insulatedhv", Type.CABLE), "itemRubber", "itemRubber", getMaterial("hv", Type.CABLE));
-			registerShaped(getMaterial("glassfiber", 4, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "gemDiamond", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 4, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "dustDiamond", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 3, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "gemRuby", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 3, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "dustRuby", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "gemDiamond", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "dustDiamond", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "gemDiamond", 'G', "blockGlass");
-			registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "dustDiamond", 'G', "blockGlass");
-			registerShaped(getMaterial("carbon_fiber", Type.PART), " C ", "C C", " C ", 'C', "dustCoal");
-			registerShaped(getMaterial("carbon_fiber", Type.PART), "CCC", "C C", "CCC", 'C', getCell("carbon"));
-			registerShapeless(getMaterial("carbon_mesh", Type.PART), getMaterial("carbon_fiber", Type.PART), getMaterial("carbon_fiber", Type.PART));
-			registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', "ingotRefinedIron", 'S', Items.REDSTONE, 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
-			registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
-		}
+
+		registerShaped(getMaterial("copper", 6, Type.CABLE), "CCC", 'C', "ingotCopper");
+		registerShaped(getMaterial("tin", 9, Type.CABLE), "TTT", 'T', "ingotTin");
+		registerShaped(getMaterial("gold", 12, Type.CABLE), "GGG", 'G', "ingotGold");
+		registerShaped(getMaterial("hv", 12, Type.CABLE), "RRR", 'R', "ingotRefinedIron");
+		registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RRR", "CCC", "RRR", 'R', "itemRubber", 'C', "ingotCopper");
+		registerShaped(getMaterial("insulatedcopper", 6, Type.CABLE), "RCR", "RCR", "RCR", 'R', "itemRubber", 'C', "ingotCopper");
+		registerShapeless(getMaterial("insulatedcopper", Type.CABLE), "itemRubber", getMaterial("copper", Type.CABLE));
+		registerShaped(getMaterial("insulatedgold", 4, Type.CABLE), "RRR", "RGR", "RRR", 'R', "itemRubber", 'G', "ingotGold");
+		registerShapeless(getMaterial("insulatedgold", Type.CABLE), "itemRubber", "itemRubber", getMaterial("gold", Type.CABLE));
+		registerShaped(getMaterial("insulatedhv", 4, Type.CABLE), "RRR", "RIR", "RRR", 'R', "itemRubber", 'I', "ingotRefinedIron");
+		registerShapeless(getMaterial("insulatedhv", Type.CABLE), "itemRubber", "itemRubber", getMaterial("hv", Type.CABLE));
+		registerShaped(getMaterial("glassfiber", 4, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "gemDiamond", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 4, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "dustDiamond", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 3, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "gemRuby", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 3, Type.CABLE), "GGG", "RDR", "GGG", 'R', "dustRedstone", 'D', "dustRuby", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "gemDiamond", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 6, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotSilver", 'D', "dustDiamond", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "gemDiamond", 'G', "blockGlass");
+		registerShaped(getMaterial("glassfiber", 8, Type.CABLE), "GGG", "RDR", "GGG", 'R', "ingotElectrum", 'D', "dustDiamond", 'G', "blockGlass");
+		registerShaped(getMaterial("carbon_fiber", Type.PART), " C ", "C C", " C ", 'C', "dustCoal");
+		registerShaped(getMaterial("carbon_fiber", Type.PART), "CCC", "C C", "CCC", 'C', getCell("carbon"));
+		registerShapeless(getMaterial("carbon_mesh", Type.PART), getMaterial("carbon_fiber", Type.PART), getMaterial("carbon_fiber", Type.PART));
+		registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', "ingotRefinedIron", 'S', Items.REDSTONE, 'W', EnumCableType.ICOPPER.getStack());
+		registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
+
 
 		//UU-Matter
 		ItemStack uuStack = new ItemStack(ModItems.UU_MATTER);
@@ -291,6 +286,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_SLAB_HALF),  "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
 		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_STAIR),  "W  ", "WW ", "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
 
+		RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), "ingotRefinedIron",
+			Items.BOOK);
+
+
 		Core.logHelper.info("Crafting Table Recipes Added");
 	}
 
@@ -336,31 +335,29 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerMixedMetalIngotRecipes() {
-		if (!IC2Duplicates.deduplicate()) {
-			registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotTin", 2);
-			registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotZinc", 2);
+		registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotTin", 2);
+		registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotZinc", 2);
 
-			registerMixedMetal("ingotNickel", "ingotBronze", "ingotTin", 3);
-			registerMixedMetal("ingotNickel", "ingotBronze", "ingotZinc", 3);
+		registerMixedMetal("ingotNickel", "ingotBronze", "ingotTin", 3);
+		registerMixedMetal("ingotNickel", "ingotBronze", "ingotZinc", 3);
 
-			registerMixedMetal("ingotNickel", "ingotBronze", "ingotAluminum", 4);
-			registerMixedMetal("ingotInvar", "ingotBronze", "ingotTin", 4);
-			registerMixedMetal("ingotInvar", "ingotBronze", "ingotZinc", 4);
+		registerMixedMetal("ingotNickel", "ingotBronze", "ingotAluminum", 4);
+		registerMixedMetal("ingotInvar", "ingotBronze", "ingotTin", 4);
+		registerMixedMetal("ingotInvar", "ingotBronze", "ingotZinc", 4);
 
-			registerMixedMetal("ingotInvar", "ingotBronze", "ingotAluminum", 5);
-			registerMixedMetal("ingotTitanium", "ingotBronze", "ingotTin", 5);
-			registerMixedMetal("ingotTitanium", "ingotBronze", "ingotZinc", 5);
-			registerMixedMetal("ingotTungsten", "ingotBronze", "ingotTin", 5);
-			registerMixedMetal("ingotTungsten", "ingotBronze", "ingotZinc", 5);
+		registerMixedMetal("ingotInvar", "ingotBronze", "ingotAluminum", 5);
+		registerMixedMetal("ingotTitanium", "ingotBronze", "ingotTin", 5);
+		registerMixedMetal("ingotTitanium", "ingotBronze", "ingotZinc", 5);
+		registerMixedMetal("ingotTungsten", "ingotBronze", "ingotTin", 5);
+		registerMixedMetal("ingotTungsten", "ingotBronze", "ingotZinc", 5);
 
-			registerMixedMetal("ingotTitanium", "ingotBronze", "ingotAluminum", 6);
-			registerMixedMetal("ingotTungsten", "ingotBronze", "ingotAluminum", 6);
+		registerMixedMetal("ingotTitanium", "ingotBronze", "ingotAluminum", 6);
+		registerMixedMetal("ingotTungsten", "ingotBronze", "ingotAluminum", 6);
 
-			registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotTin", 8);
-			registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotZinc", 8);
+		registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotTin", 8);
+		registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotZinc", 8);
 
-			registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotAluminum", 9);
-		}
+		registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotAluminum", 9);
 	}
 
 	static void registerMixedMetal(String top, String middle, String bottom, int amount) {
@@ -373,8 +370,8 @@ public class CraftingTableRecipes extends RecipeMethods {
 		if (!OreDictionary.doesOreNameExist(bottom)) {
 			return;
 		}
-		if (top.equals("ingotRefinedIron") && IC2Duplicates.deduplicate()) {
-			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', getStack(IC2Duplicates.REFINED_IRON), 'M', middle, 'B', bottom);
+		if (top.equals("ingotRefinedIron")) {
+			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', "ingotRefinedIron", 'M', middle, 'B', bottom);
 		} else {
 			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', top, 'M', middle, 'B', bottom);
 		}

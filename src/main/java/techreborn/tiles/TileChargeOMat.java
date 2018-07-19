@@ -39,10 +39,8 @@ import reborncore.common.util.Inventory;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.compat.CompatManager;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-import techreborn.utils.IC2ItemCharger;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileChargeOMat extends TilePowerAcceptor
@@ -77,8 +75,6 @@ public class TileChargeOMat extends TilePowerAcceptor
 					if (getEnergy() >= 0.0 && maxReceive > 0) {
 						powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
 					}
-				} else if (CompatManager.isIC2Loaded) {
-					IC2ItemCharger.chargeIc2Item(this, stack);
 				}
 			}
 		}

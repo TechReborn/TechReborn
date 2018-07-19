@@ -29,29 +29,24 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.Core;
-import techreborn.compat.ICompatModule;
 
-public class CommonProxy implements ICompatModule {
+public class CommonProxy {
 	public static boolean isChiselAround;
 
-	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		if (isChiselAround) {
 			Core.logHelper.info("Hello chisel, shiny things will be enabled in techreborn");
 		}
 	}
 
-	@Override
 	public void init(FMLInitializationEvent event) {
 
 	}
 
-	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 
 	}
 
-	@Override
 	public void serverStarting(FMLServerStartingEvent event) {
 
 	}

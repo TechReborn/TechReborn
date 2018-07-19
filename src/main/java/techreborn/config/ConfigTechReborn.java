@@ -33,9 +33,6 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "recipes", category = "railcraft", key = "disableRailcraftNugget", comment = "When true TechReborn will remove Railcraft's Iron Nugget to steel nugget recipe.")
 	public static boolean disableRailcraftSteelNuggetRecipe = false;
 
-	@ConfigRegistry(config = "recipes", category = "ic2", key = "deduplicate", comment = "Changes a lot of recipes and hides blocks to integrate TechReborn into IC2")
-	public static boolean REMOVE_DUPLICATES = false;
-
 	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 

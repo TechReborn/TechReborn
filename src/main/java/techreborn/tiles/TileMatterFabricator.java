@@ -37,7 +37,6 @@ import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ItemParts;
@@ -116,11 +115,6 @@ public class TileMatterFabricator extends TilePowerAcceptor
 			return 200;
 		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 			return 2000;
-		}
-		if (IC2Duplicates.SCRAP.hasIC2Stack()) {
-			if (ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP.getIc2Stack(), true, true, true)) {
-				return 200;
-			}
 		}
 		return 0;
 	}

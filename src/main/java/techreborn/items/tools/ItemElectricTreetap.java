@@ -24,9 +24,6 @@
 
 package techreborn.items.tools;
 
-import ic2.core.item.tool.ItemTreetap;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -45,10 +42,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
-import techreborn.compat.CompatManager;
 import techreborn.init.ModItems;
 import techreborn.items.ItemTR;
 
@@ -67,20 +62,6 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 		setUnlocalizedName("techreborn.electric_treetap");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-	}
-
-	// Item
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		IBlockState state = worldIn.getBlockState(pos);
-		Block block = state.getBlock();
-		IEnergyStorage capEnergy = playerIn.getHeldItem(hand).getCapability(CapabilityEnergy.ENERGY, null);
-		if (CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood") && capEnergy.getEnergyStored() >= cost)
-			if (ItemTreetap.attemptExtract(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote) {
-				capEnergy.extractEnergy(cost, false);
-				return EnumActionResult.SUCCESS;
-			}
-		return EnumActionResult.PASS;
 	}
 
 	@Override

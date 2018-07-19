@@ -35,7 +35,6 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.init.IC2Duplicates;
 import techreborn.items.*;
 
 /**
@@ -168,16 +167,6 @@ public abstract class RecipeMethods {
 
 	public static ItemStack getStack(Block block, int count, int metadata) {
 		return getStack(Item.getItemFromBlock(block), count, metadata);
-	}
-
-	public static ItemStack getStack(IC2Duplicates ic2Duplicates) {
-		return getStack(ic2Duplicates, 1);
-	}
-
-	public static ItemStack getStack(IC2Duplicates ic2Duplicates, int count) {
-		ItemStack stack = ic2Duplicates.getStackBasedOnConfig();
-		stack.setCount(count);
-		return stack;
 	}
 
 	public static Ingredient getCell(String name, int count){

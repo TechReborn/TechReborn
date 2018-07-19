@@ -32,8 +32,6 @@ public interface ISubItemRetriever {
 
 	ItemStack getCellByName(String name, int count);
 
-	ItemStack getCellByName(String name, int count, boolean lookForIC2);
-
 	ItemStack getDustByName(String name);
 
 	ItemStack getDustByName(String name, int count);

@@ -38,9 +38,7 @@ import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.api.IToolHandler;
 import reborncore.common.util.RebornPermissions;
 import techreborn.utils.TechRebornCreativeTab;
-import techreborn.compat.CompatManager;
 import techreborn.items.ItemTR;
-import techreborn.utils.IC2WrenchHelper;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -58,12 +56,6 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!world.isRemote && !PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
 			return EnumActionResult.PASS;
-		}
-		if (CompatManager.isIC2Loaded) {
-			EnumActionResult result = IC2WrenchHelper.onItemUse(player.getHeldItem(hand), player, world, pos, hand, facing, hitX, hitY, hitZ);
-			if (result == EnumActionResult.SUCCESS) {
-				return result;
-			}
 		}
 		return EnumActionResult.PASS;
 	}

@@ -1,0 +1,15 @@
+/bin
+/out
+/run/*
+/build
+/eclipse
+/.gradle
+*.iml
+*.ipr
+*.iws
+/.metadata
+/.settings
+/classpath
+.idea/*
+/logs/
+/classes/

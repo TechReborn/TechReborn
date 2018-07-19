@@ -91,13 +91,6 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 		return new ItemStack(ModBlocks.SOLAR_PANEL);
 	}
 
-	//Done to prevent ic2 from exploding the adjacent blocks
-	@Override
-	@Optional.Method(modid = "ic2")
-	public int getSourceTier() {
-		return 0;
-	}
-
 	@Override
 	public boolean handleTierWithPower() {
 		return false;
