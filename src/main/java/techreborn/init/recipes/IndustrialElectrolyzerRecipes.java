@@ -28,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemCells;
@@ -133,7 +134,7 @@ public class IndustrialElectrolyzerRecipes extends RecipeMethods {
 			}
 			cells = DynamicCell.getEmptyCell(cellCount);
 		}
-		RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
+		RecipeHandler.addRecipe(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, new IndustrialElectrolyzerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
 	}
 
 	static void register(ItemStack input, int ticks, int euPerTick, ItemStack... outputs) {

@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.blocks.BlockOre;
 import techreborn.init.ModFluids;
@@ -198,16 +199,16 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 
 	static void register(ItemStack output, FluidStack fluid, int ticks, int euPerTick, ItemStack... inputs) {
 		if (inputs.length == 3)
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(output,
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_GRINDER_RECIPE, new IndustrialGrinderRecipe(output,
 				fluid, inputs[0], inputs[1], inputs[2], null, ticks, euPerTick));
 		else if (inputs.length == 2)
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(output,
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_GRINDER_RECIPE, new IndustrialGrinderRecipe(output,
 				fluid, inputs[0], inputs[1], null, null, ticks, euPerTick));
 		else if (inputs.length == 1)
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(output,
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_GRINDER_RECIPE, new IndustrialGrinderRecipe(output,
 				fluid, inputs[0], null, null, null, ticks, euPerTick));
 		else if (inputs.length == 4) {
-			RecipeHandler.addRecipe(new IndustrialGrinderRecipe(output,
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_GRINDER_RECIPE, new IndustrialGrinderRecipe(output,
 				fluid, inputs[0], inputs[1], inputs[2], inputs[3], ticks, euPerTick));
 		} else {
 			throw new InvalidParameterException("Invalid industrial grinder inputs: " + inputs);

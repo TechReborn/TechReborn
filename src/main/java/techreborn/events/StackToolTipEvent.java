@@ -72,10 +72,11 @@ public class StackToolTipEvent {
 					color = TextFormatting.YELLOW;
 				}
 				event.getToolTip().add(2, color + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
+// TODO: show both input and output rates
 				event.getToolTip().add(3,
 						TextFormatting.GRAY + "I/O Rate: " 
 						+ TextFormatting.GOLD
-						+ PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyItemInfo) item).getMaxTransfer(event.getItemStack())));
+						+ PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyItemInfo) item).getMaxInput()));
 			}
 		}
 		else {

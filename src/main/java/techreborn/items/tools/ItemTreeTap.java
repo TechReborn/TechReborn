@@ -24,18 +24,8 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import techreborn.utils.TechRebornCreativeTab;
-import techreborn.events.TRRecipeHandler;
 import techreborn.items.ItemTR;
 
 public class ItemTreeTap extends ItemTR {

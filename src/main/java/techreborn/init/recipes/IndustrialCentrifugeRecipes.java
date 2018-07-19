@@ -28,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
@@ -171,7 +172,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 			}
 			cells = DynamicCell.getEmptyCell(cellCount);
 		}
-		RecipeHandler.addRecipe(new CentrifugeRecipe(input, cells, output1, output2, output3, output4, ticks, 5, oreDict));
+		RecipeHandler.addRecipe(Reference.CENTRIFUGE_RECIPE, new CentrifugeRecipe(input, cells, output1, output2, output3, output4, ticks, 5, oreDict));
 	}
 
 	static void register(Object input, int ticks, ItemStack... outputs) {

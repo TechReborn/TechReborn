@@ -30,6 +30,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
@@ -220,7 +221,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		if(output == null || output.isEmpty()){
 			return;
 		}
-		RecipeHandler.addRecipe(new ScrapboxRecipe(output, 20, 2));
+		RecipeHandler.addRecipe(Reference.SCRAPBOX_RECIPE, new ScrapboxRecipe(output, 20, 2));
 	}
 
 	static void registerDyable(Item item) {

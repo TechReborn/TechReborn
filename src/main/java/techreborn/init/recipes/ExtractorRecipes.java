@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
@@ -74,6 +75,6 @@ public class ExtractorRecipes extends RecipeMethods {
 	}
 
 	static void register(ItemStack input, ItemStack output, boolean oreDict) {
-		RecipeHandler.addRecipe(new ExtractorRecipe(input, output, 400, 2, oreDict));
+		RecipeHandler.addRecipe(Reference.EXTRACTOR_RECIPE, new ExtractorRecipe(input, output, 400, 2, oreDict));
 	}
 }

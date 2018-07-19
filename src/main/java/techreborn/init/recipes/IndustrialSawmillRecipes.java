@@ -38,6 +38,7 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.items.ItemDusts;
 import techreborn.lib.ModInfo;
@@ -120,11 +121,11 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	static void register(ItemStack input1, FluidStack fluid, int ticks, int euPerTick, ItemStack... outputs) {
 		if (outputs.length == 3) {
-			RecipeHandler.addRecipe(new IndustrialSawmillRecipe(input1, fluid, outputs[0], outputs[1], outputs[2], ticks, euPerTick, false));
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_SAWMILL_RECIPE, new IndustrialSawmillRecipe(input1, fluid, outputs[0], outputs[1], outputs[2], ticks, euPerTick, false));
 		} else if (outputs.length == 2) {
-			RecipeHandler.addRecipe(new IndustrialSawmillRecipe(input1, fluid, outputs[0], outputs[1], null, ticks, euPerTick, false));
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_SAWMILL_RECIPE, new IndustrialSawmillRecipe(input1, fluid, outputs[0], outputs[1], null, ticks, euPerTick, false));
 		} else if (outputs.length == 1) {
-			RecipeHandler.addRecipe(new IndustrialSawmillRecipe(input1, fluid, outputs[0], null, null, ticks, euPerTick, false));
+			RecipeHandler.addRecipe(Reference.INDUSTRIAL_SAWMILL_RECIPE, new IndustrialSawmillRecipe(input1, fluid, outputs[0], null, null, ticks, euPerTick, false));
 		} else {
 			throw new InvalidParameterException("Invalid industrial sawmill outputs: " + outputs);
 		}

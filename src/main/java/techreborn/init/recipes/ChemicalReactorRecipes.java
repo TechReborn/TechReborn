@@ -28,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
+import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 
 /**
@@ -59,7 +60,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 	}
 	
 	static void register(ItemStack in1, ItemStack in2,  ItemStack out, int tickTime, int euPerTick){
-		RecipeHandler.addRecipe(new ChemicalReactorRecipe(in1, in2, out, tickTime, euPerTick));
+		RecipeHandler.addRecipe(Reference.CHEMICAL_REACTOR_RECIPE, new ChemicalReactorRecipe(in1, in2, out, tickTime, euPerTick));
 	}
 	
 	static void register (ItemStack in1, ItemStack in2,  ItemStack out, int tickTime){
