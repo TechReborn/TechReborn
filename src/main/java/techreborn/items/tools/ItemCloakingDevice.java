@@ -40,8 +40,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
@@ -60,8 +59,8 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in FE)")
 	public static int usage = 10;
 
-	public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
-	public static int Limit = 100;
+	public static int maxCharge = ConfigTechReborn.CloakingDeviceCharge;
+	public static int transferLimit = 100;
 	public static boolean isActive;
 
 	public ItemCloakingDevice() {
@@ -98,11 +97,11 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);
-		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+//		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
+//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
-		itemList.add(charged);
+//		itemList.add(charged);
 	}
 
 	@Override
@@ -123,27 +122,22 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 	
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
-		return MaxCharge;
+	public int getCapacity() {
+		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
+	public int getMaxInput() {
+		return transferLimit;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack itemStack) {
-		return false;
-	}
-
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
-		return Limit;
+	public int getMaxOutput() {
+		return 0;
 	}
 }

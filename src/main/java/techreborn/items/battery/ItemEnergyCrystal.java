@@ -48,11 +48,11 @@ public class ItemEnergyCrystal extends ItemBattery {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.ENERGY_CRYSTAL);
-		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+	//	ItemStack charged = stack.copy();
+	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-		itemList.add(charged);
+	//	itemList.add(charged);
 	}
 }

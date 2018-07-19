@@ -43,7 +43,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -56,7 +56,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public int cost = 250;
 	public float poweredSpeed = 20F;
 	public float unpoweredSpeed = 2.0F;
-	public double transferLimit = 100;
+	public int transferLimit = 100;
 	public boolean isBreaking = false;
 
 	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed) {
@@ -130,7 +130,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 
 	@Override
@@ -145,23 +145,18 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public int getCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
+	public int getMaxInput() {
+		return transferLimit;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack) {
-		return false;
-	}
-	
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
-		return transferLimit;
+	public int getMaxOutput() {
+		return 0;
 	}
 
 }

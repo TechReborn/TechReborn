@@ -36,7 +36,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.items.ItemTR;
 
@@ -87,27 +87,22 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public int getCapacity() {
 		return maxEnergy;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
+	public int getMaxInput() {
+		return maxTransfer;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
+	public int getMaxOutput() {
 		return maxTransfer;
 	}
 }

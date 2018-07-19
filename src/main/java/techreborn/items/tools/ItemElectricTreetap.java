@@ -25,23 +25,15 @@
 package techreborn.items.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModItems;
@@ -55,7 +47,6 @@ import javax.annotation.Nullable;
 public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 
 	public static final int maxCharge = 10_000;
-	public static final int tier = 1;
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
@@ -82,7 +73,7 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -92,32 +83,27 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
-		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+//		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
+//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
-		itemList.add(charged);
+//		itemList.add(charged);
 	}
 
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public int getCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(ItemStack stack) {
-		return false;
-	}
-
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
+	public int getMaxInput() {
 		return 200;
+	}
+
+	@Override
+	public int getMaxOutput() {
+		return 0;
 	}
 }

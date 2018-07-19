@@ -27,10 +27,8 @@ package techreborn.items.tools;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
@@ -49,11 +47,11 @@ public class ItemSteelJackhammer extends ItemJackhammer {
 			return;
 		}
 		ItemStack stack = new ItemStack(ModItems.STEEL_JACKHAMMER);
-		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+//		ItemStack charged = stack.copy();
+//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-		itemList.add(charged);
+//		itemList.add(charged);
 	}
 }

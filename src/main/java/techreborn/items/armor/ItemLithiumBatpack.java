@@ -40,8 +40,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
@@ -52,7 +51,7 @@ import javax.annotation.Nullable;
 public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
-	public double transferLimit = 10_000;
+	public int transferLimit = 10_000;
 
 	public ItemLithiumBatpack() {
 		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
@@ -106,7 +105,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 
 	@Override
@@ -122,31 +121,26 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
-		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+	//	ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
+	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
-		itemList.add(charged);
+	//	itemList.add(charged);
 	}
 
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public int getCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
+	public int getMaxInput() {
+		return transferLimit;
 	}
 
 	@Override
-	public boolean canProvideEnergy(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
+	public int getMaxOutput() {
 		return transferLimit;
 	}
 }

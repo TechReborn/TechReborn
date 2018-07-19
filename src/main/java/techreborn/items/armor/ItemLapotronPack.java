@@ -34,13 +34,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
@@ -51,7 +49,7 @@ import javax.annotation.Nullable;
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
-	public double transferLimit = 100_000;
+	public int transferLimit = 100_000;
 
 	public ItemLapotronPack() {
 		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
@@ -68,11 +66,11 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
-		ItemStack charged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+	//	ItemStack charged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
+	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
-		itemList.add(charged);
+	//	itemList.add(charged);
 	}
 	
 	@Override
@@ -98,7 +96,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 
 	@Override
@@ -109,22 +107,17 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public int getCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(ItemStack itemStack) {
-		return true;
-	}
-
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
+	public int getMaxInput() {
 		return transferLimit;
 	}
+
+	@Override
+	public int getMaxOutput() {
+		return transferLimit;
+	}	
 }

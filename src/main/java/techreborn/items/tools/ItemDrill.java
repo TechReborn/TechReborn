@@ -38,7 +38,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -50,7 +50,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public int maxCharge = 1;
 	public int cost = 250;
 	public float unpoweredSpeed = 2.0F;
-	public double transferLimit = 100;
+	public int transferLimit = 100;
 
 	public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
 		super(material);
@@ -115,7 +115,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemContainerProvider(stack);
+		return new PoweredItemCapabilityProvider(stack);
 	}
 
 	@Override
@@ -125,22 +125,17 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 
 	// IEnergyItemInfo
 	@Override
-	public double getMaxPower(ItemStack stack) {
+	public int getCapacity() {
 		return maxCharge;
 	}
 
 	@Override
-	public boolean canAcceptEnergy(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(ItemStack stack) {
-		return false;
-	}
-
-	@Override
-	public double getMaxTransfer(ItemStack stack) {
+	public int getMaxInput() {
 		return transferLimit;
+	}
+
+	@Override
+	public int getMaxOutput() {
+		return 0;
 	}
 }
