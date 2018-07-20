@@ -40,10 +40,9 @@ import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class TileTechStorageBase extends TileLegacyMachineBase
 		implements IInventoryProvider, IToolDrop, IListInfoProvider {

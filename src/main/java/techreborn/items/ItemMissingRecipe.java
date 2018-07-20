@@ -24,8 +24,8 @@
 
 package techreborn.items;
 
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemMissingRecipe extends ItemTR {
 	public ItemMissingRecipe() {

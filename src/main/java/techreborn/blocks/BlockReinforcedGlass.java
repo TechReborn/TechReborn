@@ -31,10 +31,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
-import techreborn.utils.TechRebornCreativeTab;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Random;
 
@@ -46,7 +46,7 @@ public class BlockReinforcedGlass extends BlockGlass {
 		setSoundType(SoundType.STONE);
 		setHardness(4.0F);
 		setResistance(60F);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	@Override

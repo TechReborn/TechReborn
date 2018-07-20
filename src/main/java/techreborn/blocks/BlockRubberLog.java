@@ -43,8 +43,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.util.WorldUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
@@ -75,7 +75,7 @@ public class BlockRubberLog extends Block {
 		this.setTickRandomly(true);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 5);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	@Override

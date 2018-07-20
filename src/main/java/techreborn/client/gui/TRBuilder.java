@@ -39,7 +39,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
 import reborncore.api.tile.IUpgradeable;
-import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.init.ModItems;

@@ -29,8 +29,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRHoe extends ItemHoe {
 

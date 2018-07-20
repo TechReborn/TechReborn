@@ -41,9 +41,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
+import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.List;

@@ -32,8 +32,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.items.ItemTR;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTechManual extends ItemTR {
 

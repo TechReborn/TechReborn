@@ -42,19 +42,19 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.items.WrenchHelper;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import reborncore.common.util.ArrayUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileMachineCasing;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -72,7 +72,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		setHardness(2F);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "standard"));
 		for (int i = 0; i < types.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
+			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
 		}
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

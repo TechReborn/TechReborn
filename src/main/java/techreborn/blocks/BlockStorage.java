@@ -34,15 +34,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseBlock;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
 import java.util.Random;
@@ -60,7 +60,7 @@ public class BlockStorage extends BaseBlock {
 		setHardness(2f);
 		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "silver"));
 		for (int i = 0; i < types.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i]).setFileName("storage"));
+			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + types[i]).setFileName("storage"));
 		}
 		TRRecipeHandler.hideEntry(this);
 	}

@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.gui.GuiBase;
 import techreborn.lib.ModInfo;

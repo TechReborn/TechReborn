@@ -32,8 +32,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModItems;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.security.InvalidParameterException;
 

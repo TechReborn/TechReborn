@@ -27,8 +27,8 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRAxe extends ItemAxe {
 

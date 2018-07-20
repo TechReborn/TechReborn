@@ -41,15 +41,15 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.lighting.TileLamp;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockLamp extends BaseTileBlock {
 
@@ -67,7 +67,7 @@ public class BlockLamp extends BaseTileBlock {
 		this.bbs = GenBoundingBoxes(depth, width);
 		this.cost = cost;
 		this.brightness = brightness;
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	

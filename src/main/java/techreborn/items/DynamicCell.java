@@ -47,9 +47,9 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 17/05/2016.

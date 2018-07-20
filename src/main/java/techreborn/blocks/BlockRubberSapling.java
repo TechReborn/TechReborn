@@ -32,10 +32,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
-import techreborn.utils.TechRebornCreativeTab;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.world.RubberTreeGenerator;
 
 import java.util.Random;
@@ -49,7 +49,7 @@ public class BlockRubberSapling extends BlockSapling {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getDefaultState().withProperty(STAGE, 0));
 		setSoundType(SoundType.PLANT);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	@Override

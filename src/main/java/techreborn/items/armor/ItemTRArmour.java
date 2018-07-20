@@ -28,8 +28,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 26/02/2016.

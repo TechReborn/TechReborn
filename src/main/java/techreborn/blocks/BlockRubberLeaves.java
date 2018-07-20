@@ -38,12 +38,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import techreborn.Core;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
 import java.util.Random;
@@ -56,7 +56,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 			.withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, CHECK_DECAY, DECAYABLE));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, CHECK_DECAY, DECAYABLE));
 	}
 
 	@Override

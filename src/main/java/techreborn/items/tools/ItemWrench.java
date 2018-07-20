@@ -37,8 +37,8 @@ import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.api.IToolHandler;
 import reborncore.common.util.RebornPermissions;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.items.ItemTR;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 26/02/2016.

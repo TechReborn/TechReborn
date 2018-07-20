@@ -42,10 +42,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.annotation.Nullable;
 
 public class ItemAdvancedDrill extends ItemDrill {
 

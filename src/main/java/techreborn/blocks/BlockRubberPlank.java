@@ -28,10 +28,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
-import techreborn.utils.TechRebornCreativeTab;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -44,6 +44,6 @@ public class BlockRubberPlank extends Block {
 		this.setHardness(2.0F);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 20);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 }

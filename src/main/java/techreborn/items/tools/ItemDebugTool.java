@@ -36,8 +36,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.items.ItemTR;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by Mark on 20/03/2016.

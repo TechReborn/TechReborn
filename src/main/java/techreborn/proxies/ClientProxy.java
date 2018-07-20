@@ -37,12 +37,14 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import prospector.shootingstar.ShootingStar;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.blocks.BlockRubberLeaves;
-import techreborn.client.*;
+import techreborn.client.ClientEventHandler;
+import techreborn.client.IconSupplier;
+import techreborn.client.RegisterItemJsons;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.keybindings.KeyBindings;
@@ -62,7 +64,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		ShootingStar.registerModels(ModInfo.MOD_ID);
+		RebornModelRegistry.registerModels(ModInfo.MOD_ID);
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		ModelDynamicCell.init();

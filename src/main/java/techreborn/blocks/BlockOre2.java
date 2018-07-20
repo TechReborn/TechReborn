@@ -38,15 +38,15 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.world.config.IOreNameProvider;
 
 import java.security.InvalidParameterException;
@@ -65,7 +65,7 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 		setHarvestLevel("pickaxe", 1);
 		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < ores.length; i++) {
-			ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + ores[i]).setFileName("ores"));
+			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + ores[i]).setFileName("ores"));
 		}
 		TRRecipeHandler.hideEntry(this);
 	}

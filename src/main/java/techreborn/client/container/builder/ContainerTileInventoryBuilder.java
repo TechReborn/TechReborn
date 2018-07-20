@@ -34,7 +34,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IUpgrade;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;

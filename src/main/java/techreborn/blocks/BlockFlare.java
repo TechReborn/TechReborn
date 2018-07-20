@@ -41,8 +41,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.tiles.TileEntityFlare;
+import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
 

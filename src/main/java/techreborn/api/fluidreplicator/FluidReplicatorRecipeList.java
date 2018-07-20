@@ -24,12 +24,11 @@
 
 package techreborn.api.fluidreplicator;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
+import net.minecraftforge.fluids.Fluid;
 import org.apache.commons.lang3.Validate;
 
-import net.minecraftforge.fluids.Fluid;
+import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * @author drcrazy

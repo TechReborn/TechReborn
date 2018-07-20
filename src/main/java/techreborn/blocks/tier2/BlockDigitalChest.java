@@ -24,23 +24,23 @@
 
 package techreborn.blocks.tier2;
 
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileDigitalChest;
 import techreborn.tiles.TileTechStorageBase;
+import techreborn.utils.TechRebornCreativeTab;
+
+import java.util.List;
 
 public class BlockDigitalChest extends BlockMachineBase {
 
@@ -48,7 +48,7 @@ public class BlockDigitalChest extends BlockMachineBase {
 		super();
 		this.setUnlocalizedName("techreborn.digitalChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override

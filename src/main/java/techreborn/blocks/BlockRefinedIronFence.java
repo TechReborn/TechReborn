@@ -36,7 +36,7 @@ public class BlockRefinedIronFence extends BlockFence {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
 		setHarvestLevel("pickaxe", 2);
-		//ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		//RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 }

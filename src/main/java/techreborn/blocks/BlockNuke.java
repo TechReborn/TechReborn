@@ -38,12 +38,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseBlock;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -56,7 +56,7 @@ public class BlockNuke extends BaseBlock {
 		setUnlocalizedName("techreborn.nuke");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {

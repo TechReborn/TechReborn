@@ -39,8 +39,8 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -67,7 +67,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 		setSoundType(SoundType.WOOD);
 		this.setDefaultState(iblockstate.withProperty(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT));
 		useNeighborBrightness = true;
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 	@Override

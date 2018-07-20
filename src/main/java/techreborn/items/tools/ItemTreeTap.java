@@ -25,8 +25,8 @@
 package techreborn.items.tools;
 
 import net.minecraft.item.ItemStack;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.items.ItemTR;
+import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTreeTap extends ItemTR {
 

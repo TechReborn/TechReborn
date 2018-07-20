@@ -26,8 +26,8 @@ package techreborn.blocks;
 
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -37,6 +37,6 @@ public class BlockRubberPlankStair extends BlockStairs {
 		super(modelState);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		useNeighborBrightness = true;
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 }
