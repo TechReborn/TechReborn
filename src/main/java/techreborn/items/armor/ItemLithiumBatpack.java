@@ -50,8 +50,9 @@ import javax.annotation.Nullable;
 
 public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 
-	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
-	public int transferLimit = 10_000;
+	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
+	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;	
+	public int transferLimit = 2_000;
 
 	public ItemLithiumBatpack() {
 		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);

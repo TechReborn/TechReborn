@@ -48,6 +48,7 @@ import javax.annotation.Nullable;
 
 public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 
+	// 400M FE maxCharge and 100k FE\t charge rate. Fully charged in 3 mins.
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
 	public int transferLimit = 100_000;
 

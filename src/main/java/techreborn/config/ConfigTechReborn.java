@@ -76,7 +76,7 @@ public class ConfigTechReborn {
 	public static int LapotronPackCharge = 400_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack (FE)")
-	public static int LithiumBatpackCharge = 16_000_000;
+	public static int LithiumBatpackCharge = 8_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "energyCrystalMaxCharge", comment = "Energy Capacity for Energy Crystal (FE)")
 	public static int EnergyCrystalMaxCharge = 4_000_000;
