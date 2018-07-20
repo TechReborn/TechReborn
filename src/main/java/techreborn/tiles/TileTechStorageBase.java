@@ -33,7 +33,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
@@ -47,7 +46,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 public class TileTechStorageBase extends TileLegacyMachineBase
-		implements IInventoryProvider, IToolDrop, IListInfoProvider, IDeepStorageUnit {
+		implements IInventoryProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;
 	public final Inventory inventory;
@@ -265,26 +264,22 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		}
 	}
 
-	// IDeepStorageUnit
-	@Override
 	public ItemStack getStoredItemType() {
 		return storedItem.isEmpty() ? getStackInSlot(1) : storedItem;
 	}
 
-	@Override
+
 	public void setStoredItemCount(int amount) {
 		storedItem.grow(amount);
 		markDirty();
 	}
 
-	@Override
 	public void setStoredItemType(ItemStack type, int amount) {
 		storedItem = type;
 		storedItem.setCount(amount);
 		markDirty();
 	}
 
-	@Override
 	public int getMaxStoredCount() {
 		return maxCapacity;
 	}

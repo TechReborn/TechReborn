@@ -102,13 +102,6 @@ public class ContainerTileInventoryBuilder {
 		return this;
 	}
 
-	@Deprecated
-	public ContainerTileInventoryBuilder upgradeSlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
-			.setFilter(stack -> stack.getItem() instanceof IUpgrade));
-		return this;
-	}
-
 	private ContainerTileInventoryBuilder upgradeSlots(IUpgradeable upgradeable) {
 		if (upgradeable.canBeUpgraded()) {
 			for (int i = 0; i < upgradeable.getUpgradeSlotCount(); i++) {

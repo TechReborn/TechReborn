@@ -89,28 +89,6 @@ public class ContainerBuilder {
 		this.tileInventoryRanges.add(range);
 	}
 
-	@Deprecated
-	/**
-	 * The container have to know if the tile is still available (the block was not destroyed)
-	 * and if the player is not to far from him to close the GUI if necessary
-	 */
-	public BuiltContainer create() {
-		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract,
-			this.playerInventoryRanges,
-			this.tileInventoryRanges, null);
-		if (!this.shortValues.isEmpty())
-			built.addShortSync(this.shortValues);
-		if (!this.integerValues.isEmpty())
-			built.addIntegerSync(this.integerValues);
-		if (!this.craftEvents.isEmpty())
-			built.addCraftEvents(this.craftEvents);
-
-		this.slots.forEach(built::addSlot);
-
-		this.slots.clear();
-		return built;
-	}
-
 	public BuiltContainer create(final TileLegacyMachineBase tile) {
 		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract,
 				this.playerInventoryRanges,

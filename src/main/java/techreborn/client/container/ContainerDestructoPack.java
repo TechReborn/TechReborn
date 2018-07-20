@@ -38,6 +38,7 @@ public class ContainerDestructoPack extends RebornContainer {
 	private Inventory inv;
 
 	public ContainerDestructoPack(EntityPlayer player) {
+		super(null);
 		this.player = player;
 		inv = new Inventory(1, "destructopack", 64, null);
 		buildContainer();

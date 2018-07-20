@@ -159,12 +159,6 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	@SideOnly(Side.CLIENT)
-	public BuiltContainer getContainer(EntityPlayer player) {
-		return new ContainerBuilder("sides").create();
-	}
-
 	public EnumFacing getFacing(ItemStack stack) {
 		return EnumFacing.VALUES[ItemNBTHelper.getInt(stack, "side", 0)];
 	}
