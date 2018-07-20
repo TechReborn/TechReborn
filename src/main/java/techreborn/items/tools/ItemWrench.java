@@ -33,10 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.server.permission.PermissionAPI;
-import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.api.IToolHandler;
-import reborncore.common.util.RebornPermissions;
 import techreborn.items.ItemTR;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -54,7 +51,7 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote && !PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
+		if (!world.isRemote) {
 			return EnumActionResult.PASS;
 		}
 		return EnumActionResult.PASS;
