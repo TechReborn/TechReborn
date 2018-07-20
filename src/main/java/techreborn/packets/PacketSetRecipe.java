@@ -58,14 +58,14 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 	}
 
 	@Override
-	public void writeData(ExtendedPacketBuffer buffer) throws IOException {
+	public void writeData(ExtendedPacketBuffer buffer) {
 		buffer.writeBlockPos(pos);
 		buffer.writeResourceLocation(recipe);
 		buffer.writeBoolean(custom);
 	}
 
 	@Override
-	public void readData(ExtendedPacketBuffer buffer) throws IOException {
+	public void readData(ExtendedPacketBuffer buffer) {
 		pos = buffer.readBlockPos();
 		recipe = buffer.readResourceLocation();
 		custom = buffer.readBoolean();

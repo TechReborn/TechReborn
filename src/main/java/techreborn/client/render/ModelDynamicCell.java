@@ -133,7 +133,7 @@ public class ModelDynamicCell implements IModel {
 		}
 
 		@Override
-		public IModel loadModel(ResourceLocation modelLocation) throws Exception {
+		public IModel loadModel(ResourceLocation modelLocation) {
 			return MODEL;
 		}
 

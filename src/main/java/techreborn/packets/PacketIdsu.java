@@ -46,13 +46,13 @@ public class PacketIdsu implements INetworkPacket<PacketIdsu> {
 	}
 
 	@Override
-	public void writeData(ExtendedPacketBuffer out) throws IOException {
+	public void writeData(ExtendedPacketBuffer out) {
 		out.writeBlockPos(pos);
 		out.writeInt(buttonID);
 	}
 
 	@Override
-	public void readData(ExtendedPacketBuffer in) throws IOException {
+	public void readData(ExtendedPacketBuffer in) {
 		this.pos = in.readBlockPos();
 		buttonID = in.readInt();
 	}

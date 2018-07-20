@@ -158,7 +158,7 @@ public class ModItems {
 	public static Item DEBUG;
 	public static DynamicCell CELL;
 
-	public static void init() throws InstantiationException, IllegalAccessException {
+	public static void init() {
 		GEMS = new ItemGems();
 		registerItem(GEMS, "gem");
 		INGOTS = new ItemIngots();

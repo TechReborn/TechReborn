@@ -150,7 +150,7 @@ public class GuiSlotConfiguration {
 		return machineBase;
 	}
 
-	public static boolean mouseClicked(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) throws IOException {
+	public static boolean mouseClicked(int mouseX, int mouseY, int mouseButton, GuiBase guiBase) {
 		if (mouseButton == 0) {
 			for (ConfigSlotElement configSlotElement : getVisibleElements()) {
 				for (ElementBase element : configSlotElement.elements) {

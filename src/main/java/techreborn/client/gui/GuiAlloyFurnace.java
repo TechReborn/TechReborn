@@ -46,11 +46,6 @@ public class GuiAlloyFurnace extends GuiContainer {
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
-	}
-
-	@Override
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

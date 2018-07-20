@@ -295,16 +295,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public void invalidate() {
-		super.invalidate();
-	}
-
-	@Override
-	public void onChunkUnload() {
-		super.onChunkUnload();
-	}
-
-	@Override
 	public Inventory getInventory() {
 		return inventory;
 	}

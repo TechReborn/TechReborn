@@ -59,7 +59,7 @@ public class TechRebornDevCommand extends CommandBase {
 	}
 
 	@Override
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
 		if (args.length == 0) {
 			sender.sendMessage(new TextComponentString("You need to use arguments, see /trdev help"));
 		} else if ("help".equals(args[0])) {

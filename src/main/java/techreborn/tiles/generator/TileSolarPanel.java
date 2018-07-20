@@ -127,11 +127,6 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	public ItemStack getToolDrop(final EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, panel.ordinal());
 	}
-	
-	@Override
-	public void rotate(Rotation rotationIn) {
-		return;
-	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {

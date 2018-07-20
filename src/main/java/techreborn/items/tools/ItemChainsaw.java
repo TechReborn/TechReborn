@@ -106,12 +106,6 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 		return true;
 	}
 
-	// Item
-	@Override
-	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-		return super.onBlockStartBreak(itemstack, pos, player);
-	}
-
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);

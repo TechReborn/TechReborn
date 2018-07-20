@@ -47,13 +47,13 @@ public class PacketFusionControlSize implements INetworkPacket<PacketFusionContr
 	}
 
 	@Override
-	public void writeData(ExtendedPacketBuffer buffer) throws IOException {
+	public void writeData(ExtendedPacketBuffer buffer) {
 		buffer.writeInt(sizeDelta);
 		buffer.writeBlockPos(pos);
 	}
 
 	@Override
-	public void readData(ExtendedPacketBuffer buffer) throws IOException {
+	public void readData(ExtendedPacketBuffer buffer) {
 		sizeDelta = buffer.readInt();
 		pos = buffer.readBlockPos();
 	}

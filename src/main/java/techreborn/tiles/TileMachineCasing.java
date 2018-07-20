@@ -57,27 +57,27 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase
 	}
 
 	@Override
-	public void isGoodForFrame() throws MultiblockValidationException {
+	public void isGoodForFrame() {
 
 	}
 
 	@Override
-	public void isGoodForSides() throws MultiblockValidationException {
+	public void isGoodForSides() {
 
 	}
 
 	@Override
-	public void isGoodForTop() throws MultiblockValidationException {
+	public void isGoodForTop() {
 
 	}
 
 	@Override
-	public void isGoodForBottom() throws MultiblockValidationException {
+	public void isGoodForBottom() {
 
 	}
 
 	@Override
-	public void isGoodForInterior() throws MultiblockValidationException {
+	public void isGoodForInterior() {
 
 	}
 

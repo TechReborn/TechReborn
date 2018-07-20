@@ -51,11 +51,6 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-	}
-
-	@Override
 	public double getBaseMaxPower() {
 		return 1_000_000;
 	}

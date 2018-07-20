@@ -131,7 +131,7 @@ public class Core {
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
+	public void init(FMLInitializationEvent event) {
 		// Registers Chest Loot
 		ModLoot.init();
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
@@ -168,7 +168,7 @@ public class Core {
 	}
 
 	@Mod.EventHandler
-	public void postinit(FMLPostInitializationEvent event) throws Exception {
+	public void postinit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 
 		ModRecipes.postInit();

@@ -56,12 +56,6 @@ public class GuiFusionReactor extends GuiBase {
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
-
-	}
-
-	@Override
 	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;

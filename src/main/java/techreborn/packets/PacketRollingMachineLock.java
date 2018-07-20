@@ -47,13 +47,13 @@ public class PacketRollingMachineLock implements INetworkPacket<PacketRollingMac
 	}
 
 	@Override
-	public void writeData(ExtendedPacketBuffer buffer) throws IOException {
+	public void writeData(ExtendedPacketBuffer buffer) {
 		buffer.writeBlockPos(machinePos);
 		buffer.writeBoolean(locked);
 	}
 
 	@Override
-	public void readData(ExtendedPacketBuffer buffer) throws IOException {
+	public void readData(ExtendedPacketBuffer buffer) {
 		machinePos = buffer.readBlockPos();
 		locked = buffer.readBoolean();
 	}
