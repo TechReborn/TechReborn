@@ -43,7 +43,7 @@ public class ItemTRHoe extends ItemHoe {
 	public ItemTRHoe(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setUnlocalizedName(material.name().toLowerCase() + "Hoe");
+		setTranslationKey(material.name().toLowerCase() + "Hoe");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}

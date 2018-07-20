@@ -65,7 +65,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	public ItemCloakingDevice() {
 		super(Reference.CLOAKING_ARMOR, EntityEquipmentSlot.CHEST);
-		setUnlocalizedName("techreborn.cloakingdevice");
+		setTranslationKey("techreborn.cloakingdevice");
 		setMaxStackSize(1);
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}

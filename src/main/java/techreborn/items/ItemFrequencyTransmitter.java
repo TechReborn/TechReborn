@@ -51,7 +51,7 @@ import java.util.List;
 public class ItemFrequencyTransmitter extends ItemTR {
 
 	public ItemFrequencyTransmitter() {
-		setUnlocalizedName("techreborn.frequencyTransmitter");
+		setTranslationKey("techreborn.frequencyTransmitter");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		this.addPropertyOverride(new ResourceLocation("techreborn:coords"), new IItemPropertyGetter() {

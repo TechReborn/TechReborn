@@ -204,7 +204,7 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -285,8 +285,8 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
-		super.onEntityCollidedWithBlock(worldIn, pos, state, entity);
+	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
+		super.onEntityCollision(worldIn, pos, state, entity);
 		if (state.getValue(TYPE).canKill && entity instanceof EntityLivingBase) {
 			TileEntity tileEntity = worldIn.getTileEntity(pos);
 			if (tileEntity != null && tileEntity instanceof TileCable) {

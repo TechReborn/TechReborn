@@ -72,9 +72,9 @@ public class BlockRubberLeaves extends BlockLeaves {
 	}
 
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		if(!fancyLeaves()){
-			return super.getBlockLayer();
+			return super.getRenderLayer();
 		}
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}

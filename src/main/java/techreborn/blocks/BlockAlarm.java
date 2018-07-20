@@ -63,7 +63,7 @@ public class BlockAlarm extends BaseTileBlock {
 
 	public BlockAlarm() {
 		super(Material.ROCK);
-		setUnlocalizedName("techreborn.alarm");
+		setTranslationKey("techreborn.alarm");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
 		this.bbs = GenBoundingBoxes(0.19, 0.81);
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -144,7 +144,7 @@ public class BlockAlarm extends BaseTileBlock {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		Boolean active = (meta & 8) == 8;
-		EnumFacing facing = EnumFacing.getFront(meta & 7);
+		EnumFacing facing = EnumFacing.byIndex(meta & 7);
 		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
 	}
 

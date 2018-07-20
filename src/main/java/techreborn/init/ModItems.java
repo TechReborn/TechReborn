@@ -154,7 +154,6 @@ public class ModItems {
 	@Nullable
 	public static Item PERIDOT_BOOTS;
 	public static Item UPGRADES;
-	public static Item MISSING_RECIPE_PLACEHOLDER;
 	public static Item DEBUG;
 	public static DynamicCell CELL;
 
@@ -325,9 +324,6 @@ public class ModItems {
 
 		CLOAKING_DEVICE = new ItemCloakingDevice();
 		registerItem(CLOAKING_DEVICE, "cloakingdevice");
-
-		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
-		registerItem(MISSING_RECIPE_PLACEHOLDER, "missingRecipe");
 
 		DEBUG = new ItemDebugTool();
 		registerItem(DEBUG, "debug");

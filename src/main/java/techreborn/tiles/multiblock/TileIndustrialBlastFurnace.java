@@ -95,8 +95,8 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 					heat += casing1.getHeatFromState(world.getBlockState(part.getPos()));
 				}
 
-				if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName().equals("tile.lava")
-						&& world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getUnlocalizedName().equals("tile.lava")) {
+				if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getTranslationKey().equals("tile.lava")
+						&& world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getTranslationKey().equals("tile.lava")) {
 					heat += 500;
 				}
 				return heat;

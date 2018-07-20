@@ -41,7 +41,7 @@ import java.util.List;
 public class ItemScrapBox extends ItemTR {
 
 	public ItemScrapBox() {
-		setUnlocalizedName("techreborn.scrapbox");
+		setTranslationKey("techreborn.scrapbox");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 

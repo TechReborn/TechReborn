@@ -152,9 +152,9 @@ public class GuiIndustrialSawmill extends GuiBase {
 					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
 							this.tile.getPos().getX()
-									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
+									- EnumFacing.byIndex(this.tile.getFacingInt()).getYOffset() * 2,
 							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
+									- EnumFacing.byIndex(this.tile.getFacingInt()).getYOffset() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

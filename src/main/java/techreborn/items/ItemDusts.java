@@ -46,7 +46,7 @@ public class ItemDusts extends ItemTR {
 		ModItems.META_PLACEHOLDER, "andesite", "diorite", "granite" };
 
 	public ItemDusts() {
-		setUnlocalizedName("techreborn.dust");
+		setTranslationKey("techreborn.dust");
 		setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
@@ -91,13 +91,13 @@ public class ItemDusts extends ItemTR {
 
 	@Override
 	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(ItemStack itemStack) {
+	public String getTranslationKey(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
 		if (meta < 0 || meta >= types.length) {
 			meta = 0;
 		}
 
-		return super.getUnlocalizedName() + "." + types[meta];
+		return super.getTranslationKey() + "." + types[meta];
 	}
 
 	// Adds Dusts SubItems To Creative Tab

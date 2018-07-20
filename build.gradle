@@ -43,8 +43,8 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.4.2705"
-	mappings = "snapshot_20171003"
+	version = "1.12.2-14.23.4.2739"
+	mappings = "snapshot_20180720"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
 	runDir = "run"

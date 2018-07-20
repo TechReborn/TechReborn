@@ -47,7 +47,7 @@ public class BlockComputerCube extends BlockMachineBase {
 
 	public BlockComputerCube() {
 		super();
-		this.setUnlocalizedName("techreborn.computercube");
+		this.setTranslationKey("techreborn.computercube");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}

@@ -59,7 +59,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(240);
-		setUnlocalizedName(unlocalizedName);
+		setTranslationKey(unlocalizedName);
 		this.maxCharge = energyCapacity;
 	}
 	

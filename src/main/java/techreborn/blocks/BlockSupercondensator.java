@@ -38,7 +38,7 @@ import java.util.List;
 public class BlockSupercondensator extends BlockMachineBase {
 	public BlockSupercondensator(Material material) {
 		super();
-		setUnlocalizedName("techreborn.supercondensator");
+		setTranslationKey("techreborn.supercondensator");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 

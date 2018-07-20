@@ -41,7 +41,7 @@ public class ItemTRSword extends ItemSword {
 	public ItemTRSword(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setUnlocalizedName(material.name().toLowerCase() + "Sword");
+		setTranslationKey(material.name().toLowerCase() + "Sword");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}

@@ -61,7 +61,7 @@ public class DynamicCell extends Item {
 	public DynamicCell() {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.cell");
+		setTranslationKey("techreborn.cell");
 		setMaxStackSize(64);
 		TRRecipeHandler.hideEntry(this);
 	}

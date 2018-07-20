@@ -53,7 +53,7 @@ public class OreConfig {
 	public OreConfig(IBlockState blockSate, int veinSize, int veinsPerChunk, int minYHeight, int maxYHeight) {
 		this.meta = blockSate.getBlock().getMetaFromState(blockSate);
 		this.state = blockSate;
-		this.blockName = blockSate.getBlock().getUnlocalizedName();
+		this.blockName = blockSate.getBlock().getTranslationKey();
 		if (blockSate.getBlock() instanceof IOreNameProvider) {
 			this.blockNiceName = ((IOreNameProvider) blockSate.getBlock()).getUserLoclisedName(blockSate);
 		} else {

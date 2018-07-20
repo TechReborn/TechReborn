@@ -44,7 +44,7 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 
 	public ItemWrench() {
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.wrench");
+		setTranslationKey("techreborn.wrench");
 		setMaxStackSize(1);
 	}
 

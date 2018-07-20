@@ -46,7 +46,7 @@ public class BlockDigitalChest extends BlockMachineBase {
 
 	public BlockDigitalChest() {
 		super();
-		this.setUnlocalizedName("techreborn.digitalChest");
+		this.setTranslationKey("techreborn.digitalChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
 	}

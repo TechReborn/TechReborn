@@ -53,7 +53,7 @@ public class BlockNuke extends BaseBlock {
 
 	public BlockNuke() {
 		super(Material.TNT);
-		setUnlocalizedName("techreborn.nuke");
+		setTranslationKey("techreborn.nuke");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
 		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
@@ -70,7 +70,7 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
+	public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
 		if (!worldIn.isRemote) {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
 				(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy());
@@ -80,7 +80,7 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
 			EntityArrow entityarrow = (EntityArrow) entityIn;
 

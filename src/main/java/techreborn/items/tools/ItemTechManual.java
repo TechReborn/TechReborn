@@ -39,7 +39,7 @@ public class ItemTechManual extends ItemTR {
 
 	public ItemTechManual() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);
-		this.setUnlocalizedName("techreborn.manual");
+		this.setTranslationKey("techreborn.manual");
 		this.setMaxStackSize(1);
 	}
 

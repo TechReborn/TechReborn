@@ -33,7 +33,7 @@ public class ItemTreeTap extends ItemTR {
 	public ItemTreeTap() {
 		setMaxStackSize(1);
 		setMaxDamage(20);
-		setUnlocalizedName("techreborn.treetap");
+		setTranslationKey("techreborn.treetap");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 

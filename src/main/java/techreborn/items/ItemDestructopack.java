@@ -37,7 +37,7 @@ import techreborn.utils.TechRebornCreativeTab;
 public class ItemDestructopack extends ItemTR {
 
 	public ItemDestructopack() {
-		this.setUnlocalizedName("techreborn.destructopack");
+		this.setTranslationKey("techreborn.destructopack");
 		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 

@@ -46,7 +46,7 @@ public class ItemDebugTool extends ItemTR {
 
 	public ItemDebugTool() {
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.debug");
+		setTranslationKey("techreborn.debug");
 	}
 
 	@Override

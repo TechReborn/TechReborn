@@ -30,6 +30,6 @@ public class ItemUUmatter extends ItemTR {
 
 	public ItemUUmatter() {
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.uuMatter");
+		setTranslationKey("techreborn.uuMatter");
 	}
 }

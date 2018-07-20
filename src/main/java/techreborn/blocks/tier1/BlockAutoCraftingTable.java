@@ -41,7 +41,7 @@ public class BlockAutoCraftingTable extends BlockMachineBase {
 
 	public BlockAutoCraftingTable() {
 		super(true);
-		setUnlocalizedName("techreborn.electriccraftingtable");
+		setTranslationKey("techreborn.electriccraftingtable");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}

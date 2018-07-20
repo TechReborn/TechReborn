@@ -41,7 +41,7 @@ public class ItemTRSpade extends ItemSpade {
 	public ItemTRSpade(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setUnlocalizedName(material.name().toLowerCase() + "Spade");
+		setTranslationKey(material.name().toLowerCase() + "Spade");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}

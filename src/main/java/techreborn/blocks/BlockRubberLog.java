@@ -91,7 +91,7 @@ public class BlockRubberLog extends Block {
 			hasSap = true;
 			tempMeta -= 3;
 		}
-		EnumFacing facing = EnumFacing.getHorizontal(tempMeta);
+		EnumFacing facing = EnumFacing.byHorizontalIndex(tempMeta);
 		return this.getDefaultState().withProperty(SAP_SIDE, facing).withProperty(HAS_SAP, hasSap);
 	}
 
@@ -153,7 +153,7 @@ public class BlockRubberLog extends Block {
 		super.updateTick(worldIn, pos, state, rand);
 		if (!state.getValue(HAS_SAP)) {
 			if (rand.nextInt(50) == 0) {
-				EnumFacing facing = EnumFacing.getHorizontal(rand.nextInt(4));
+				EnumFacing facing = EnumFacing.byHorizontalIndex(rand.nextInt(4));
 				if (worldIn.getBlockState(pos.down()).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
 					worldIn.setBlockState(pos, state.withProperty(HAS_SAP, true).withProperty(SAP_SIDE, facing));
@@ -177,7 +177,7 @@ public class BlockRubberLog extends Block {
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {
 				worldIn.setBlockState(pos,
-					state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.getHorizontal(0)));
+					state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.byHorizontalIndex(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
 					0.6F, 1F);
 				if (!worldIn.isRemote) {

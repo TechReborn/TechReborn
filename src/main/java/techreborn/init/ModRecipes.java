@@ -381,7 +381,7 @@ public class ModRecipes {
 
 	public static ItemStack getOre(String name) {
 		if (OreDictionary.getOres(name).isEmpty()) {
-			return new ItemStack(ModItems.MISSING_RECIPE_PLACEHOLDER);
+			throw new RuntimeException("Failed to get ore: " + name);
 		}
 		return OreDictionary.getOres(name).get(0).copy();
 	}
