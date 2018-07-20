@@ -39,8 +39,7 @@ public class OreDict {
 	private static final ImmutableList<String> plateGenIgnores = ImmutableList.of(
 		"hot", //Hot ingots
 		"mixed_metal", //Mixed metal has own version of plate
-		"iridium_alloy", //Iridium alloy is plate itself
-		ModItems.META_PLACEHOLDER //...
+		"iridium_alloy" //Iridium alloy is plate itself
 	);
 
 	public static void init() {
@@ -86,8 +85,6 @@ public class OreDict {
 		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 
 		for (String type : ItemGems.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
@@ -98,8 +95,6 @@ public class OreDict {
 		}
 
 		for (String type : ItemIngots.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
 			boolean ignoreIt = false;
 			for (String ignore : plateGenIgnores)
@@ -110,8 +105,6 @@ public class OreDict {
 		}
 
 		for (String type : ItemPlates.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
 		
@@ -123,20 +116,14 @@ public class OreDict {
 		
 
 		for (String type : ItemDusts.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
 		}
 
 		for (String type : ItemDustsSmall.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
 		}
 
 		for (String type : ItemNuggets.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
 		}
 

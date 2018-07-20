@@ -316,15 +316,12 @@ public class CraftingTableRecipes extends RecipeMethods {
 		}
 
 		for (String name : ItemDustsSmall.types) {
-			if (name.equals(ModItems.META_PLACEHOLDER)) {
-				continue;
-			}
 			registerShapeless(getMaterial(name, 4, Type.SMALL_DUST), getMaterialObject(name, Type.DUST));
 			registerShapeless(getMaterial(name, Type.DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST));
 		}
 
 		for (String nuggets : ItemNuggets.types) {
-			if (nuggets.equals(ModItems.META_PLACEHOLDER) || nuggets.equalsIgnoreCase("diamond"))
+			if (nuggets.equalsIgnoreCase("diamond"))
 				continue;
 			registerShapeless(getMaterial(nuggets, 9, Type.NUGGET), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
 			registerShaped(getMaterial(nuggets, Type.INGOT), "NNN", "NNN", "NNN", 'N', CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets));

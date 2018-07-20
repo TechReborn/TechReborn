@@ -41,7 +41,7 @@ public class ItemParts extends ItemTR {
 	public static final String[] types = new String[] { "energy_flow_circuit", "data_control_circuit", "data_storage_circuit",
 		"data_orb", "diamond_grinding_head", "diamond_saw_blade", "tungsten_grinding_head", "helium_coolant_simple",
 		"helium_coolant_triple", "helium_coolant_six", "nak_coolant_simple", "nak_coolant_triple", "nak_coolant_six",
-		"cupronickel_heating_coil", "nichrome_heating_coil", "kanthal_heating_coil", ModItems.META_PLACEHOLDER, "super_conductor",
+		"cupronickel_heating_coil", "nichrome_heating_coil", "kanthal_heating_coil", "super_conductor",
 		"thorium_cell", "double_thorium_cell", "quad_thorium_cell", "plutonium_cell", "double_plutonium_cell",
 		"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", "iridium_neutron_reflector",
 		"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
@@ -100,9 +100,7 @@ public class ItemParts extends ItemTR {
 			return;
 		}
 		for (int meta = 0; meta < ItemParts.types.length; ++meta) {
-			if (!ItemParts.types[meta].equals(ModItems.META_PLACEHOLDER)) {
-				list.add(new ItemStack(this, 1, meta));
-			}
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 

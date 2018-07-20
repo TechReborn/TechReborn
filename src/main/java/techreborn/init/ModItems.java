@@ -46,7 +46,6 @@ import javax.annotation.Nullable;
 
 public class ModItems {
 
-	public static final String META_PLACEHOLDER = "PLACEHOLDER_ITEM";
 	public static Item GEMS;
 	public static Item INGOTS;
 	public static Item NUGGETS;

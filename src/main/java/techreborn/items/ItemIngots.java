@@ -86,9 +86,7 @@ public class ItemIngots extends ItemTR {
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {
-			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
-				list.add(new ItemStack(this, 1, meta));
-			}
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 }

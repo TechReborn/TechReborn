@@ -38,8 +38,7 @@ public class ItemNuggets extends ItemTR {
 
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
-		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", ModItems.META_PLACEHOLDER, ModItems.META_PLACEHOLDER,
-		ModItems.META_PLACEHOLDER, "iron", "diamond" };
+		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", "iron", "diamond" };
 
 	public ItemNuggets() {
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -80,9 +79,7 @@ public class ItemNuggets extends ItemTR {
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {
-			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
-				list.add(new ItemStack(this, 1, meta));
-			}
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 

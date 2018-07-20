@@ -192,21 +192,15 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(ModBlocks.RUBBER_SAPLING));
 
 		for (String i : ItemDusts.types) {
-			if (!i.equals(ModItems.META_PLACEHOLDER)) {
-				register(ItemDusts.getDustByName(i));
-			}
+			register(ItemDusts.getDustByName(i));
 		}
 
 		for (String i : ItemNuggets.types) {
-			if (!i.equals(ModItems.META_PLACEHOLDER)) {
-				register(ItemNuggets.getNuggetByName(i));
-			}
+			register(ItemNuggets.getNuggetByName(i));
 		}
 
 		for (String i : ItemGems.types) {
-			if (!i.equals(ModItems.META_PLACEHOLDER)) {
-				register(ItemGems.getGemByName(i));
-			}
+			register(ItemGems.getGemByName(i));
 		}
 
 		registerDyable(Items.DYE);

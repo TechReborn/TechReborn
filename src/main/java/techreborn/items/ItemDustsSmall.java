@@ -40,10 +40,10 @@ public class ItemDustsSmall extends ItemTR {
 		"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
 		"dark_ashes", "diamond", "electrum", "emerald", "ender_eye", "ender_pearl", "endstone", "flint", "galena",
 		"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
-		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "red_garnet", ModItems.META_PLACEHOLDER,
+		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "red_garnet",
 		"ruby", "saltpeter", "sapphire", "saw_dust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-		"sulfur", "tin", "titanium", "tungsten", "uvarovite", ModItems.META_PLACEHOLDER, "yellow_garnet", "zinc",
-		ModItems.META_PLACEHOLDER, "redstone", "glowstone", "andesite", "diorite", "granite" };
+		"sulfur", "tin", "titanium", "tungsten", "uvarovite", "yellow_garnet", "zinc",
+		"redstone", "glowstone", "andesite", "diorite", "granite" };
 
 	public ItemDustsSmall() {
 		setTranslationKey("techreborn.dustsmall");
@@ -56,9 +56,6 @@ public class ItemDustsSmall extends ItemTR {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
-					throw new InvalidParameterException("The small dust " + name + " could not be found.");
-				}
 				return new ItemStack(ModItems.SMALL_DUSTS, count, i);
 			}
 		}
@@ -87,9 +84,7 @@ public class ItemDustsSmall extends ItemTR {
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {
-			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
-				list.add(new ItemStack(this, 1, meta));
-			}
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 

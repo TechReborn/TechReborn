@@ -133,37 +133,27 @@ public class RegisterItemJsons {
 		
 		name = ItemPlates.types.clone();
 		for (int i = 0; i < ItemPlates.types.length; ++i) {
-			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
-				registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
-			}
+			registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
 		}
 
 		name = ItemNuggets.types.clone();
 		for (int i = 0; i < ItemNuggets.types.length; ++i) {
-			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
-				registerBlockstate(ModItems.NUGGETS, i, name[i], "items/materials/");
-			}
+			registerBlockstate(ModItems.NUGGETS, i, name[i], "items/materials/");
 		}
 
 		name = ItemDusts.types.clone();
 		for (int i = 0; i < ItemDusts.types.length; ++i) {
-			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
-				registerBlockstate(ModItems.DUSTS, i, name[i], "items/materials/");
-			}
+			registerBlockstate(ModItems.DUSTS, i, name[i], "items/materials/");
 		}
 
 		name = ItemDustsSmall.types.clone();
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
-			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
-				registerBlockstate(ModItems.SMALL_DUSTS, i, name[i], "items/materials/");
-			}
+			registerBlockstate(ModItems.SMALL_DUSTS, i, name[i], "items/materials/");
 		}
 
 		name = ItemParts.types.clone();
 		for (int i = 0; i < ItemParts.types.length; ++i) {
-			if (!name[i].equals(ModItems.META_PLACEHOLDER)) {
-				registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
-			}
+			registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
 		}
 
 		name = ItemUpgrades.types.clone();

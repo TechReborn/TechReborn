@@ -39,7 +39,7 @@ public class ItemPlates extends ItemTR {
 
 	//Vanilla plates or plates not from ingots or gems
 	public static String[] types = new String[] {
-		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", ModItems.META_PLACEHOLDER, "coal", "obsidian", "lazurite"
+		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "coal", "obsidian", "lazurite"
 	};
 
 	public ItemPlates() {
@@ -53,9 +53,6 @@ public class ItemPlates extends ItemTR {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				if (types[i].equals(ModItems.META_PLACEHOLDER)) {
-					throw new InvalidParameterException("The plate " + name + " could not be found.");
-				}
 				return new ItemStack(ModItems.PLATES, count, i);
 			}
 		}
@@ -98,9 +95,7 @@ public class ItemPlates extends ItemTR {
 			return;
 		}
 		for (int meta = 0; meta < types.length; ++meta) {
-			if (!types[meta].equals(ModItems.META_PLACEHOLDER)) {
-				list.add(new ItemStack(this, 1, meta));
-			}
+			list.add(new ItemStack(this, 1, meta));
 		}
 	}
 }
