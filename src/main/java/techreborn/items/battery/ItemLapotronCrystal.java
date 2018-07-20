@@ -34,9 +34,9 @@ import techreborn.init.ModItems;
 
 public class ItemLapotronCrystal extends ItemBattery {
 
-	// 40M FE capacity with 40k FE\t charge rate
+	// 40M FE capacity with 10k FE\t charge rate
 	public ItemLapotronCrystal() {
-		super("lapotronCrystal", ConfigTechReborn.LapotronCrystalMaxCharge, 40_000);
+		super("lapotronCrystal", ConfigTechReborn.LapotronCrystalMaxCharge, 10_000);
 	}
 
 	@SideOnly(Side.CLIENT)

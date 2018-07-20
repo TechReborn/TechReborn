@@ -49,6 +49,7 @@ import javax.annotation.Nullable;
 
 public class ItemAdvancedDrill extends ItemDrill {
 
+	// 4M FE max charge with 1k charge rate
 	public ItemAdvancedDrill() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedDrill", ConfigTechReborn.AdvancedDrillCharge, 2.0F, 10F);
 		this.cost = 250;

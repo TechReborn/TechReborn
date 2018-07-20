@@ -37,7 +37,7 @@ import techreborn.init.ModItems;
 public class ItemSteelDrill extends ItemDrill {
 
 	public ItemSteelDrill() {
-		super(ToolMaterial.IRON, "techreborn.ironDrill", ConfigTechReborn.IronDrillCharge, 0.5F, 10F);
+		super(ToolMaterial.IRON, "techreborn.steelDrill", ConfigTechReborn.SteelDrillCharge, 0.5F, 10F);
 		this.cost = 50;
 	}
 

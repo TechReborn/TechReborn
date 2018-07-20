@@ -34,9 +34,9 @@ import techreborn.init.ModItems;
 
 public class ItemLapotronicOrb extends ItemBattery {
 
-	// 400M capacity with 40k FE\t charge rate
+	// 400M capacity with 100k FE\t charge rate
 	public ItemLapotronicOrb() {
-		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 40_000);
+		super("lapotronicorb", ConfigTechReborn.LapotronicOrbMaxCharge, 100_000);
 	}
 
 	@SideOnly(Side.CLIENT)

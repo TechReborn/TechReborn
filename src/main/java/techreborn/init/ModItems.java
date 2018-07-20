@@ -206,25 +206,25 @@ public class ModItems {
 		registerItem(ELECTRIC_TREE_TAP, "electricTreetap");
 
 		STEEL_DRILL = new ItemSteelDrill();
-		registerItem(STEEL_DRILL, "irondrill");
+		registerItem(STEEL_DRILL, "steelDrill");
 		DIAMOND_DRILL = new ItemDiamondDrill();
-		registerItem(DIAMOND_DRILL, "diamonddrill");
+		registerItem(DIAMOND_DRILL, "diamondDrill");
 		ADVANCED_DRILL = new ItemAdvancedDrill();
-		registerItem(ADVANCED_DRILL, "advanceddrill");
+		registerItem(ADVANCED_DRILL, "advancedDrill");
 
 		STEEL_CHAINSAW = new ItemSteelChainsaw();
-		registerItem(STEEL_CHAINSAW, "ironchainsaw");
+		registerItem(STEEL_CHAINSAW, "steelChainsaw");
 		DIAMOND_CHAINSAW = new ItemDiamondChainsaw();
-		registerItem(DIAMOND_CHAINSAW, "diamondchainsaw");
+		registerItem(DIAMOND_CHAINSAW, "diamondChainsaw");
 		ADVANCED_CHAINSAW = new ItemAdvancedChainsaw();
-		registerItem(ADVANCED_CHAINSAW, "advancedchainsaw");
+		registerItem(ADVANCED_CHAINSAW, "advancedChainsaw");
 
 		STEEL_JACKHAMMER = new ItemSteelJackhammer();
-		registerItem(STEEL_JACKHAMMER, "steeljackhammer");
+		registerItem(STEEL_JACKHAMMER, "steelJackhammer");
 		DIAMOND_JACKHAMMER = new ItemDiamondJackhammer();
-		registerItem(DIAMOND_JACKHAMMER, "diamondjackhammer");
+		registerItem(DIAMOND_JACKHAMMER, "diamondJackhammer");
 		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
-		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");
+		registerItem(ADVANCED_JACKHAMMER, "advancedJackhammer");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");

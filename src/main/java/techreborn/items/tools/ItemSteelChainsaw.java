@@ -37,7 +37,7 @@ import techreborn.init.ModItems;
 public class ItemSteelChainsaw extends ItemChainsaw {
 
 	public ItemSteelChainsaw() {
-		super(ToolMaterial.IRON, "techreborn.ironChainsaw", ConfigTechReborn.IronChainsawCharge, 0.5F);
+		super(ToolMaterial.IRON, "techreborn.steelChainsaw", ConfigTechReborn.SteelChainsawCharge, 0.5F);
 		this.cost = 50;
 	}
 

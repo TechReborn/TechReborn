@@ -39,8 +39,8 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")
 	public static int nanoSaberCharge = 640_000;
 	
-	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill (FE)")
-	public static int IronDrillCharge = 40_000;
+	@ConfigRegistry(config = "items", category = "power", key = "steelDrillCharge", comment = "Energy Capacity for Steel Drill (FE)")
+	public static int SteelDrillCharge = 40_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "diamondDrillCharge", comment = "Energy Capacity for Diamond Drill (FE)")
 	public static int DiamondDrillCharge = 400_000;
@@ -48,8 +48,8 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill (FE)")
 	public static int AdvancedDrillCharge = 4_000_000;
 
-	@ConfigRegistry(config = "items", category = "power", key = "ironChainsawCharge", comment = "Energy Capacity for Iron Chainsaw (FE)")
-	public static int IronChainsawCharge = 40_000;
+	@ConfigRegistry(config = "items", category = "power", key = "steelChainsawCharge", comment = "Energy Capacity for Steel Chainsaw (FE)")
+	public static int SteelChainsawCharge = 40_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "diamondChainsawCharge", comment = "Energy Capacity for Diamond Chainsaw (FE)")
 	public static int DiamondChainsawCharge = 400_000;

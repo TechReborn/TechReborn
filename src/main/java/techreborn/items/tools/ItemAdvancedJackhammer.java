@@ -34,6 +34,7 @@ import techreborn.init.ModItems;
 
 public class ItemAdvancedJackhammer extends ItemJackhammer {
 
+	// 4M FE max charge with 1k charge rate
 	public ItemAdvancedJackhammer() {
 		super(ToolMaterial.IRON, "techreborn.advancedJackhammer", ConfigTechReborn.AdvancedJackhammerCharge);
 		this.cost = 250;

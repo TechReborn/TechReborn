@@ -42,6 +42,7 @@ import techreborn.init.ModItems;
 
 public class ItemAdvancedChainsaw extends ItemChainsaw {
 
+	// 4M FE max charge with 1k charge rate
 	public ItemAdvancedChainsaw() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedChainsaw", ConfigTechReborn.AdvancedChainsawCharge,
 			1.0F);

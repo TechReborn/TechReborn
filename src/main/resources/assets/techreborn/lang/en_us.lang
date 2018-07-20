@@ -64,7 +64,6 @@ tile.techreborn:solar_panel.hybrid.name=Hybrid Solar Panel
 tile.techreborn:solar_panel.advanced.name=Advanced Solar Panel
 tile.techreborn:solar_panel.ultimate.name=Ultimate Solar Panel
 tile.techreborn:solar_panel.quantum.name=Quantum Solar Panel
-
 tile.techreborn:creative_solar_panel.name=Creative Panel
 tile.techreborn:water_mill.name=Water Mill
 tile.techreborn:wind_mill.name=Wind Mill
@@ -91,11 +90,9 @@ tile.techreborn:rubber_plank_slab.name=Rubber Plank Slab
 tile.techreborn:rubber_plank_stair.name=Rubber Plank Stair
 tile.techreborn:rubber_leaves.name=Rubber Leaves
 tile.techreborn:rubber_sapling.name=Rubber Sapling
-
 tile.techreborn:refined_iron_fence.name=Iron Fence
 tile.techreborn:lamp_incandescent.name=Incandescent Lamp
 tile.techreborn:lamp_led.name=LED Lamp
-
 tile.techreborn:alarm.name=Alarm
 
 #Ores
@@ -299,19 +296,6 @@ item.techreborn.dust.andesite.name=Andesite Dust
 item.techreborn.dust.diorite.name=Diorite Dust
 item.techreborn.dust.granite.name=Granite Dust
 
-item.techreborn.wrench.name=Wrench
-tile.techreborn:cable.copper.name=Copper Cable
-tile.techreborn:cable.tin.name=Tin Cable
-tile.techreborn:cable.gold.name=Gold Cable
-tile.techreborn:cable.hv.name=HV Cable
-tile.techreborn:cable.glassfiber.name=Glass Fiber Cable
-tile.techreborn:cable.insulatedcopper.name=Insulated Copper Cable
-tile.techreborn:cable.insulatedgold.name=Insulated Gold Cable
-tile.techreborn:cable.insulatedhv.name=Insulated HV Cable
-item.techreborn.scrapbox.name=Scrap Box
-item.techreborn.part.carbon_mesh.name=Carbon Mesh
-item.techreborn.part.carbon_fiber.name=Carbon Fiber
-
 #Small Dusts
 item.techreborn.dustsmall.almandine.name=Small Pile of Almandine Dust
 item.techreborn.dustsmall.aluminum.name=Small Pile of Aluminium Dust
@@ -378,21 +362,6 @@ item.techreborn.dustsmall.olivine.name=Small Pile of Olivine Dust
 item.techreborn.dustsmall.andesite.name=Small Pile of Andesite Dust
 item.techreborn.dustsmall.diorite.name=Small Pile of Diorite Dust
 item.techreborn.dustsmall.granite.name=Small Pile of Granite Dust
-
-item.techreborn.cell.name=Empty Cell
-item.techreborn.cell.fluid.name=$fluid$ Cell
-item.techreborn.rebattery.name=Battery
-item.techreborn.lithiumBattery.name=Lithium Battery
-item.techreborn.energyCrystal.name=Energy Crystal
-item.techreborn.lapotronCrystal.name=Lapotron Crystal
-item.techreborn.treetap.name=Treetap
-item.techreborn.nanosaber.name=Nanosaber
-item.techreborn.upgrade.overclock.name=Overclocker Upgrade
-item.techreborn.upgrade.transformer.name=Transformer Upgrade
-item.techreborn.upgrade.energy_storage.name=Energy Storage Upgrade
-item.techreborn.upgrade.ejection.name=Ejector Upgrade
-item.techreborn.upgrade.injection.name=Importer Upgrade
-item.techreborn.electric_treetap.name=Electric Treetap
 
 #Gems
 item.techreborn.gem.ruby.name=Ruby
@@ -496,10 +465,6 @@ item.techreborn.plate.magnalium.name=Magnalium Plate
 item.techreborn.plate.iridium_alloy.name=Iridium Alloy Plate
 
 #Parts
-item.techreborn.part.energy_flow_circuit.name=Energy Flow Circuit
-item.techreborn.part.data_control_circuit.name=Data Control Circuit
-item.techreborn.part.data_orb.name=Data Orb
-item.techreborn.part.data_storage_circuit.name=Data Storage Circuit
 item.techreborn.part.diamond_grinding_head.name=Diamond Grinding Head
 item.techreborn.part.diamond_saw_blade.name=Diamond Saw Blade
 item.techreborn.part.tungsten_grinding_head.name=Tungsten Grinding Head
@@ -529,21 +494,25 @@ item.techreborn.part.rubber.name=Rubber
 item.techreborn.part.scrap.name=Scrap
 item.techreborn.part.electronic_circuit.name=Electronic Circuit
 item.techreborn.part.advanced_circuit.name=Advanced Electronic Circuit
+item.techreborn.part.energy_flow_circuit.name=Energy Flow Circuit
+item.techreborn.part.data_control_circuit.name=Data Control Circuit
+item.techreborn.part.data_orb.name=Data Orb
+item.techreborn.part.data_storage_circuit.name=Data Storage Circuit
 item.techreborn.part.coolant_simple.name=10k Coolant Cell
 item.techreborn.part.coolant_triple.name=30k Coolant Cell
 item.techreborn.part.coolant_six.name=60k Coolant Cell
-
-item.techreborn.frequencyTransmitter.name=Frequency Transmitter
+item.techreborn.part.carbon_mesh.name=Carbon Mesh
+item.techreborn.part.carbon_fiber.name=Carbon Fiber
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
 item.techreborn.lithiumbatpack.name=Lithium Batpack
 item.techreborn.lapotronpack.name=Lapotronic Orbpack
 item.techreborn.omniTool.name=Omni-Tool
-item.techreborn.ironDrill.name=Steel Drill
+item.techreborn.steelDrill.name=Steel Drill
 item.techreborn.diamondDrill.name=Diamond Drill
 item.techreborn.advancedDrill.name=Advanced Drill
-item.techreborn.ironChainsaw.name=Steel Chainsaw
+item.techreborn.steelChainsaw.name=Steel Chainsaw
 item.techreborn.diamondChainsaw.name=Diamond Chainsaw
 item.techreborn.advancedChainsaw.name=Advanced Chainsaw
 item.techreborn.lapotronicorb.name=Lapotronic Energy Orb
@@ -551,6 +520,9 @@ item.techreborn.cloakingdevice.name=Cloaking Device
 item.techreborn.steelJackhammer.name=Steel Jackhammer
 item.techreborn.diamondJackhammer.name=Diamond Jackhammer
 item.techreborn.advancedJackhammer.name=Advanced Jackhammer
+item.techreborn.treetap.name=Treetap
+item.techreborn.electric_treetap.name=Electric Treetap
+item.techreborn.nanosaber.name=Nanosaber
 
 item.bronzeSword.name=Bronze Sword
 item.bronzePickaxe.name=Bronze Pickaxe
@@ -632,6 +604,28 @@ fluid.fluidwolframium=Wolframium
 item.techreborn.uuMatter.name=UU-Matter
 item.techreborn.manual.name=Tech Manual
 item.techreborn.debug.name=Debug Tool
+item.techreborn.frequencyTransmitter.name=Frequency Transmitter
+item.techreborn.upgrade.overclock.name=Overclocker Upgrade
+item.techreborn.upgrade.transformer.name=Transformer Upgrade
+item.techreborn.upgrade.energy_storage.name=Energy Storage Upgrade
+item.techreborn.upgrade.ejection.name=Ejector Upgrade
+item.techreborn.upgrade.injection.name=Importer Upgrade
+item.techreborn.cell.name=Empty Cell
+item.techreborn.cell.fluid.name=$fluid$ Cell
+item.techreborn.rebattery.name=Battery
+item.techreborn.lithiumBattery.name=Lithium Battery
+item.techreborn.energyCrystal.name=Energy Crystal
+item.techreborn.lapotronCrystal.name=Lapotron Crystal
+item.techreborn.wrench.name=Wrench
+tile.techreborn:cable.copper.name=Copper Cable
+tile.techreborn:cable.tin.name=Tin Cable
+tile.techreborn:cable.gold.name=Gold Cable
+tile.techreborn:cable.hv.name=HV Cable
+tile.techreborn:cable.glassfiber.name=Glass Fiber Cable
+tile.techreborn:cable.insulatedcopper.name=Insulated Copper Cable
+tile.techreborn:cable.insulatedgold.name=Insulated Gold Cable
+tile.techreborn:cable.insulatedhv.name=Insulated HV Cable
+item.techreborn.scrapbox.name=Scrap Box
 
 #Message
 techreborn.message.missingmultiblock=Incomplete Multiblock
