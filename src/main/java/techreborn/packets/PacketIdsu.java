@@ -30,8 +30,6 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 
-import java.io.IOException;
-
 public class PacketIdsu implements INetworkPacket<PacketIdsu> {
 
 	int buttonID;

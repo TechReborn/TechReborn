@@ -33,7 +33,6 @@ import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModItems;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;

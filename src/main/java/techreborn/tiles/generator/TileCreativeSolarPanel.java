@@ -32,8 +32,6 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.init.ModBlocks;
 
-import java.util.List;
-
 /**
  * Created by modmuss50 on 25/02/2016.
  */

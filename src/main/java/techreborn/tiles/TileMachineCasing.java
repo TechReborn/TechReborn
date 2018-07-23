@@ -28,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import reborncore.api.IToolDrop;
 import reborncore.common.multiblock.MultiblockControllerBase;
-import reborncore.common.multiblock.MultiblockValidationException;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.multiblocks.MultiBlockCasing;

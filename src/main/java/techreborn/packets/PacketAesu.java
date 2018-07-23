@@ -31,8 +31,6 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.storage.TileAdjustableSU;
 
-import java.io.IOException;
-
 public class PacketAesu implements INetworkPacket<PacketAesu> {
 
 	int buttonID;

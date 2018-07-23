@@ -31,8 +31,6 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
-import java.io.IOException;
-
 public class PacketFusionControlSize implements INetworkPacket<PacketFusionControlSize> {
 
 	int sizeDelta;

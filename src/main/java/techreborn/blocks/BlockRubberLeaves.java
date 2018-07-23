@@ -82,7 +82,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		if(!fancyLeaves()){
-			return super.isOpaqueCube(state);
+			return state.isOpaqueCube();
 		}
 		return false;
 	}
@@ -133,7 +133,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 	@Override
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		if(!fancyLeaves()){
-			return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+			blockState.shouldSideBeRendered(blockAccess, pos, side);
 		}
 		return true;
 	}

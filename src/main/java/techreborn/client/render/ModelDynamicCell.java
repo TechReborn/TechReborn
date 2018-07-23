@@ -112,8 +112,8 @@ public class ModelDynamicCell implements IModel {
 		TextureAtlasSprite fluidSprite = bakedTextureGetter.apply(sprite);
 		if (fluid != null) {
 			if (fluidSprite != null) {
-				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, EnumFacing.NORTH, color));
-				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, SOUTH_Z_FLUID, fluidSprite, EnumFacing.SOUTH, color));
+				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, EnumFacing.NORTH, color, -1));
+				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, SOUTH_Z_FLUID, fluidSprite, EnumFacing.SOUTH, color, -1));
 			}
 		}
 

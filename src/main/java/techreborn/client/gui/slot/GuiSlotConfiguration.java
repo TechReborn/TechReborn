@@ -45,7 +45,6 @@ import techreborn.client.gui.slot.elements.SlotType;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

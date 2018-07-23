@@ -31,8 +31,6 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.tier1.TileRollingMachine;
 
-import java.io.IOException;
-
 public class PacketRollingMachineLock implements INetworkPacket<PacketRollingMachineLock> {
 
 	BlockPos machinePos;

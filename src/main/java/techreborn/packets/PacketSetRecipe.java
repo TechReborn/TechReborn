@@ -33,8 +33,6 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.tier1.TileAutoCraftingTable;
 
-import java.io.IOException;
-
 /**
  * Created by modmuss50 on 20/06/2017.
  */
