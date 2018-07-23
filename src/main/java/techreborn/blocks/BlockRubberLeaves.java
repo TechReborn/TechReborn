@@ -133,7 +133,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 	@Override
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		if(!fancyLeaves()){
-			blockState.shouldSideBeRendered(blockAccess, pos, side);
+			return blockState.shouldSideBeRendered(blockAccess, pos, side);
 		}
 		return true;
 	}
