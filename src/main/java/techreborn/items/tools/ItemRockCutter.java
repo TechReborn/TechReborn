@@ -55,8 +55,10 @@ import java.util.Random;
 public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
+	public int transferLimit = 1_000;
 	public int cost = 500;
 
+	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
 		super(ToolMaterial.DIAMOND);
 		setTranslationKey("techreborn.rockcutter");
@@ -163,7 +165,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public int getMaxInput() {
-		return 1_000;
+		return transferLimit;
 	}
 
 	@Override

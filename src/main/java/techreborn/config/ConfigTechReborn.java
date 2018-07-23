@@ -37,7 +37,7 @@ public class ConfigTechReborn {
 	public static boolean enableGemArmorAndTools = true;
 
 	@ConfigRegistry(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")
-	public static int nanoSaberCharge = 640_000;
+	public static int nanoSaberCharge = 4_000_000;
 	
 	@ConfigRegistry(config = "items", category = "power", key = "steelDrillCharge", comment = "Energy Capacity for Steel Drill (FE)")
 	public static int SteelDrillCharge = 40_000;
@@ -67,7 +67,7 @@ public class ConfigTechReborn {
 	public static int AdvancedJackhammerCharge = 4_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool (FE)")
-	public static int OmniToolCharge = 20_000;
+	public static int OmniToolCharge = 4_000_000;
 
 	@ConfigRegistry(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter (FE)")
 	public static int RockCutterCharge = 400_000;
