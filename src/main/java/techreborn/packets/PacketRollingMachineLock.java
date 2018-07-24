@@ -31,7 +31,7 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.tier1.TileRollingMachine;
 
-public class PacketRollingMachineLock implements INetworkPacket<PacketRollingMachineLock> {
+public class PacketRollingMachineLock implements INetworkPacket {
 
 	BlockPos machinePos;
 	boolean locked;
@@ -57,7 +57,7 @@ public class PacketRollingMachineLock implements INetworkPacket<PacketRollingMac
 	}
 
 	@Override
-	public void processData(PacketRollingMachineLock message, MessageContext context) {
+	public void processData(MessageContext context) {
 		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(machinePos);
 		if(tileEntity instanceof TileRollingMachine){
 			((TileRollingMachine) tileEntity).locked = locked;

@@ -31,7 +31,7 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.storage.TileAdjustableSU;
 
-public class PacketAesu implements INetworkPacket<PacketAesu> {
+public class PacketAesu implements INetworkPacket {
 
 	int buttonID;
 	BlockPos pos;
@@ -57,10 +57,10 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 	}
 
 	@Override
-	public void processData(PacketAesu message, MessageContext context) {
-		TileEntity tile = context.getServerHandler().player.world.getTileEntity(message.pos);
+	public void processData(MessageContext context) {
+		TileEntity tile = context.getServerHandler().player.world.getTileEntity(pos);
 		if (tile instanceof TileAdjustableSU){
-			((TileAdjustableSU) tile).handleGuiInputFromClient(message.buttonID);
+			((TileAdjustableSU) tile).handleGuiInputFromClient(buttonID);
 		}
 	}
 }

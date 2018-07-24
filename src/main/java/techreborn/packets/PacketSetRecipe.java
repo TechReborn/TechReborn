@@ -36,7 +36,7 @@ import techreborn.tiles.tier1.TileAutoCraftingTable;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
+public class PacketSetRecipe implements INetworkPacket {
 
 	BlockPos pos;
 	ResourceLocation recipe;
@@ -70,10 +70,10 @@ public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
 	}
 
 	@Override
-	public void processData(PacketSetRecipe message, MessageContext context) {
-		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(message.pos);
+	public void processData(MessageContext context) {
+		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(pos);
 		if (tileEntity instanceof TileAutoCraftingTable) {
-			((TileAutoCraftingTable) tileEntity).setCurrentRecipe(message.recipe, message.custom);
+			((TileAutoCraftingTable) tileEntity).setCurrentRecipe(recipe, custom);
 		}
 	}
 }

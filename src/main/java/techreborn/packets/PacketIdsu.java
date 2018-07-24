@@ -30,7 +30,7 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 
-public class PacketIdsu implements INetworkPacket<PacketIdsu> {
+public class PacketIdsu implements INetworkPacket {
 
 	int buttonID;
 	BlockPos pos;
@@ -56,7 +56,7 @@ public class PacketIdsu implements INetworkPacket<PacketIdsu> {
 	}
 
 	@Override
-	public void processData(PacketIdsu message, MessageContext context) {
+	public void processData(MessageContext context) {
 		//		if (!pos.getWorld().isRemote) {
 		//			pos.handleGuiInputFromClient(buttonID);
 		//		}

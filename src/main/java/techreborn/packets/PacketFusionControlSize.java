@@ -31,7 +31,7 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
-public class PacketFusionControlSize implements INetworkPacket<PacketFusionControlSize> {
+public class PacketFusionControlSize implements INetworkPacket {
 
 	int sizeDelta;
 	BlockPos pos;
@@ -57,8 +57,8 @@ public class PacketFusionControlSize implements INetworkPacket<PacketFusionContr
 	}
 
 	@Override
-	public void processData(PacketFusionControlSize message, MessageContext context) {
-		TileEntity tile = context.getServerHandler().player.world.getTileEntity(message.pos);
+	public void processData(MessageContext context) {
+		TileEntity tile = context.getServerHandler().player.world.getTileEntity(pos);
 		if(tile instanceof TileFusionControlComputer){
 			((TileFusionControlComputer) tile).changeSize(sizeDelta);
 		}
