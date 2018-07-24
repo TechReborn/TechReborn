@@ -63,8 +63,10 @@ import java.util.List;
 
 public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	public static final int maxCharge = ConfigTechReborn.nanoSaberCharge;
+	public int transferLimit = 1_000;
 	public int cost = 250;
 
+	// 4M FE max charge with 1k charge rate
 	public ItemNanosaber() {
 		super(ToolMaterial.DIAMOND);
 		setNoRepair();
@@ -237,7 +239,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@Override
 	public int getMaxInput() {
-		return 1_000;
+		return transferLimit;
 	}
 
 	@Override

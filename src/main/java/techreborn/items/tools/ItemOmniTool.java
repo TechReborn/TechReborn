@@ -57,9 +57,11 @@ import java.util.List;
 public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
+	public int transferLimit = 1_000;
 	public int cost = 100;
 	public int hitCost = 125;
 
+	// 4M FE max charge with 1k charge rate
 	public ItemOmniTool() {
 		super(ToolMaterial.DIAMOND);
 		efficiency = 13F;
@@ -177,7 +179,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public int getMaxInput() {
-		return 1_000;
+		return transferLimit;
 	}
 
 	@Override

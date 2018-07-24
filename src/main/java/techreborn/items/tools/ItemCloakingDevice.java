@@ -60,9 +60,10 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	public static int usage = 10;
 
 	public static int maxCharge = ConfigTechReborn.CloakingDeviceCharge;
-	public static int transferLimit = 100;
+	public static int transferLimit = 10_000;
 	public static boolean isActive;
 
+	// 40M FE capacity with 10k FE\t charge rate
 	public ItemCloakingDevice() {
 		super(Reference.CLOAKING_ARMOR, EntityEquipmentSlot.CHEST);
 		setTranslationKey("techreborn.cloakingdevice");
