@@ -115,9 +115,6 @@ public class Core {
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
-		ModFixs dataFixes = FMLCommonHandler.instance().getDataFixer().init(ModInfo.MOD_ID, 1);
-		ModTileEntities.initDataFixer(dataFixes);
-
 		//Ore Dictionary
 		OreDict.init();
 		proxy.preInit(event);
