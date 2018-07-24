@@ -35,106 +35,106 @@ import techreborn.lib.ModInfo;
 
 public class ModFluids {
 
-	public static Fluid BERYLLIUM = new TechRebornFluid("fluidberylium");
+	public static Fluid BERYLLIUM = new TechRebornFluid("berylium");
 	public static BlockFluidTechReborn BLOCK_BERYLLIUM;
 
-	public static Fluid CALCIUM = new TechRebornFluid("fluidcalcium");
+	public static Fluid CALCIUM = new TechRebornFluid("calcium");
 	public static BlockFluidTechReborn BLOCK_CALCIUM;
 
-	public static Fluid CALCIUM_CARBONATE = new TechRebornFluid("fluidcalciumcarbonate");
+	public static Fluid CALCIUM_CARBONATE = new TechRebornFluid("calciumcarbonate");
 	public static BlockFluidTechReborn BLOCK_CALCIUM_CARBONATE;
 
-	public static Fluid CHLORITE = new TechRebornFluid("fluidchlorite");
+	public static Fluid CHLORITE = new TechRebornFluid("chlorite");
 	public static BlockFluidTechReborn BLOCK_CHLORITE;
 
-	public static Fluid DEUTERIUM = new TechRebornFluid("fluiddeuterium");
+	public static Fluid DEUTERIUM = new TechRebornFluid("deuterium");
 	public static BlockFluidTechReborn BLOCK_DEUTERIUM;
 
-	public static Fluid GLYCERYL = new TechRebornFluid("fluidglyceryl");
+	public static Fluid GLYCERYL = new TechRebornFluid("glyceryl");
 	public static BlockFluidTechReborn BLOCK_GLYCERYL;
 
-	public static Fluid HELIUM = new TechRebornFluid("fluidhelium");
+	public static Fluid HELIUM = new TechRebornFluid("helium");
 	public static BlockFluidTechReborn BLOCK_HELIUM;
 
-	public static Fluid HELIUM_3 = new TechRebornFluid("fluidhelium3");
+	public static Fluid HELIUM_3 = new TechRebornFluid("helium3");
 	public static BlockFluidTechReborn BLOCK_HELIUM_3;
 
-	public static Fluid HELIUMPLASMA = new TechRebornFluid("fluidheliumplasma");
+	public static Fluid HELIUMPLASMA = new TechRebornFluid("heliumplasma");
 	public static BlockFluidTechReborn BLOCK_HELIUMPLASMA;
 
-	public static Fluid HYDROGEN = new TechRebornFluid("fluidhydrogen");
+	public static Fluid HYDROGEN = new TechRebornFluid("hydrogen");
 	public static BlockFluidTechReborn BLOCK_HYDROGEN;
 
-	public static Fluid LITHIUM = new TechRebornFluid("fluidlithium");
+	public static Fluid LITHIUM = new TechRebornFluid("lithium");
 	public static BlockFluidTechReborn BLOCK_LITHIUM;
 
-	public static Fluid MERCURY = new TechRebornFluid("fluidmercury");
+	public static Fluid MERCURY = new TechRebornFluid("mercury");
 	public static BlockFluidTechReborn BLOCK_MERCURY;
 
-	public static Fluid METHANE = new TechRebornFluid("fluidmethane");
+	public static Fluid METHANE = new TechRebornFluid("methane");
 	public static BlockFluidTechReborn BLOCK_METHANE;
 
-	public static Fluid NITROCOAL_FUEL = new TechRebornFluid("fluidnitrocoalfuel");
+	public static Fluid NITROCOAL_FUEL = new TechRebornFluid("nitrocoalfuel");
 	public static BlockFluidTechReborn BLOCK_NITROCOAL_FUEL;
 
-	public static Fluid NITROFUEL = new TechRebornFluid("fluidnitrofuel");
+	public static Fluid NITROFUEL = new TechRebornFluid("nitrofuel");
 	public static BlockFluidTechReborn BLOCK_NITROFUEL;
 
-	public static Fluid NITROGEN = new TechRebornFluid("fluidnitrogen");
+	public static Fluid NITROGEN = new TechRebornFluid("nitrogen");
 	public static BlockFluidTechReborn BLOCK_NITROGEN;
 
-	public static Fluid NITROGENDIOXIDE = new TechRebornFluid("fluidnitrogendioxide");
+	public static Fluid NITROGENDIOXIDE = new TechRebornFluid("nitrogendioxide");
 	public static BlockFluidTechReborn BLOCK_NITROGENDIOXIDE;
 
-	public static Fluid POTASSIUM = new TechRebornFluid("fluidpotassium");
+	public static Fluid POTASSIUM = new TechRebornFluid("potassium");
 	public static BlockFluidTechReborn BLOCK_POTASSIUM;
 
-	public static Fluid SILICON = new TechRebornFluid("fluidsilicon");
+	public static Fluid SILICON = new TechRebornFluid("silicon");
 	public static BlockFluidTechReborn BLOCK_SILICON;
 
-	public static Fluid SODIUM = new TechRebornFluid("fluidsodium");
+	public static Fluid SODIUM = new TechRebornFluid("sodium");
 	public static BlockFluidTechReborn BLOCK_SODIUM;
 
-	public static Fluid SODIUMPERSULFATE = new TechRebornFluid("fluidsodiumpersulfate");
+	public static Fluid SODIUMPERSULFATE = new TechRebornFluid("sodiumpersulfate");
 	public static BlockFluidTechReborn BLOCK_SODIUMPERSULFATE;
 
-	public static Fluid TRITIUM = new TechRebornFluid("fluidtritium");
+	public static Fluid TRITIUM = new TechRebornFluid("tritium");
 	public static BlockFluidTechReborn BLOCK_TRITIUM;
 
-	public static Fluid WOLFRAMIUM = new TechRebornFluid("fluidwolframium");
+	public static Fluid WOLFRAMIUM = new TechRebornFluid("wolframium");
 	public static BlockFluidTechReborn BLOCK_WOLFRAMIUM;
 
-	public static Fluid CARBON = new TechRebornFluid("fluidcarbon");
+	public static Fluid CARBON = new TechRebornFluid("carbon");
 	public static BlockFluidTechReborn BLOCK_CARBON;
 
-	public static Fluid CARBON_FIBER = new TechRebornFluid("fluidcarbonfiber");
+	public static Fluid CARBON_FIBER = new TechRebornFluid("carbonfiber");
 	public static BlockFluidTechReborn BLOCK_CARBON_FIBER;
 
-	public static Fluid NITRO_CARBON = new TechRebornFluid("fluidnitrocarbon");
+	public static Fluid NITRO_CARBON = new TechRebornFluid("nitrocarbon");
 	public static BlockFluidTechReborn BLOCK_NITRO_CARBON;
 
-	public static Fluid SULFUR = new TechRebornFluid("fluidSulfur");
+	public static Fluid SULFUR = new TechRebornFluid("Sulfur");
 	public static BlockFluidTechReborn BLOCK_SULFUR;
 
-	public static Fluid SODIUM_SULFIDE = new TechRebornFluid("fluidsodiumSulfide");
+	public static Fluid SODIUM_SULFIDE = new TechRebornFluid("sodiumSulfide");
 	public static BlockFluidTechReborn BLOCK_SODIUM_SULFIDE;
 
-	public static Fluid DIESEL = new TechRebornFluid("fluiddiesel");
+	public static Fluid DIESEL = new TechRebornFluid("diesel");
 	public static BlockFluidTechReborn BLOCK_DIESEL;
 
-	public static Fluid NITRO_DIESEL = new TechRebornFluid("fluidnitrodiesel");
+	public static Fluid NITRO_DIESEL = new TechRebornFluid("nitrodiesel");
 	public static BlockFluidTechReborn BLOCK_NITRO_DIESEL;
 
-	public static Fluid OIL = new TechRebornFluid("fluidoil");
+	public static Fluid OIL = new TechRebornFluid("oil");
 	public static BlockFluidTechReborn BLOCK_OIL;
 
-	public static Fluid SULFURIC_ACID = new TechRebornFluid("fluidsulfuricacid");
+	public static Fluid SULFURIC_ACID = new TechRebornFluid("sulfuricacid");
 	public static BlockFluidTechReborn BLOCK_SULFURIC_ACID;
 
-	public static Fluid COMPRESSED_AIR = new TechRebornFluid("fluidcompressedair");
+	public static Fluid COMPRESSED_AIR = new TechRebornFluid("compressedair");
 	public static BlockFluidTechReborn BLOCK_COMPRESSED_AIR;
 
-	public static Fluid ELECTROLYZED_WATER = new TechRebornFluid("fluidelectrolyzedwater");
+	public static Fluid ELECTROLYZED_WATER = new TechRebornFluid("electrolyzedwater");
 	public static BlockFluidTechReborn BLOCK_ELECTROLYZED_WATER;
 
 	public static void init() {

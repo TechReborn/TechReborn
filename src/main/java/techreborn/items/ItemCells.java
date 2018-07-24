@@ -40,7 +40,7 @@ public class ItemCells {
 		if (fluid == null) {
 			fluid = FluidRegistry.getFluid(name.toLowerCase());
 			if (fluid == null) {
-				fluid = FluidRegistry.getFluid("fluid" + StringUtils.toFirstCapital(name.toLowerCase()));
+				fluid = FluidRegistry.getFluid(name.toLowerCase());
 			}
 		}
 		Validate.notNull(fluid, "The fluid " + name + " could not be found");

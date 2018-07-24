@@ -5,204 +5,204 @@
 	},
 	"variants": {
 		"techreborn.berylium": [{
-			"custom": { "fluid": "fluidberylium" }
+			"custom": { "fluid": "berylium" }
 		}],
     "techreborn.calcium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidcalcium"
+        "fluid": "calcium"
       }
     },
     "techreborn.calciumcarbonate": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidcalciumcarbonate"
+        "fluid": "calciumcarbonate"
       }
     },
     "techreborn.carbon": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidcarbon"
+        "fluid": "carbon"
       }
     },
     "techreborn.carbonfiber": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidcarbonfiber"
+        "fluid": "carbonfiber"
       }
     },
     "techreborn.chlorite": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidchlorite"
+        "fluid": "chlorite"
       }
     },
     "techreborn.compressedair": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidcompressedair"
+        "fluid": "compressedair"
       }
     },
     "techreborn.deuterium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluiddeuterium"
+        "fluid": "deuterium"
       }
     },
     "techreborn.diesel": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluiddiesel"
+        "fluid": "diesel"
       }
     },
     "techreborn.electrolyzedwater": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidelectrolyzedwater"
+        "fluid": "electrolyzedwater"
       }
     },
     "techreborn.glyceryl": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidglyceryl"
+        "fluid": "glyceryl"
       }
     },
     "techreborn.helium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidhelium"
+        "fluid": "helium"
       }
     },
     "techreborn.helium3": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidhelium3"
+        "fluid": "helium3"
       }
     },
     "techreborn.heliumplasma": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidheliumplasma"
+        "fluid": "heliumplasma"
       }
     },
     "techreborn.hydrogen": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidhydrogen"
+        "fluid": "hydrogen"
       }
     },
     "techreborn.lithium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidlithium"
+        "fluid": "lithium"
       }
     },
     "techreborn.mercury": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidmercury"
+        "fluid": "mercury"
       }
     },
     "techreborn.methane": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidmethane"
+        "fluid": "methane"
       }
     },
     "techreborn.nitrocarbon": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidnitrocarbon"
+        "fluid": "nitrocarbon"
       }
     },
     "techreborn.nitrocoalfuel": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidnitrocoalfuel"
+        "fluid": "nitrocoalfuel"
       }
     },
     "techreborn.nitrodiesel": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidnitrodiesel"
+        "fluid": "nitrodiesel"
       }
     },
     "techreborn.nitrofuel": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidnitrofuel"
+        "fluid": "nitrofuel"
       }
     },
     "techreborn.nitrogen": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidnitrogen"
+        "fluid": "nitrogen"
       }
     },
     "techreborn.nitrogendioxide": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidnitrogendioxide"
+        "fluid": "nitrogendioxide"
       }
     },
     "techreborn.oil": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidoil"
+        "fluid": "oil"
       }
     },
     "techreborn.potassium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidpotassium"
+        "fluid": "potassium"
       }
     },
     "techreborn.silicon": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidsilicon"
+        "fluid": "silicon"
       }
     },
     "techreborn.sodium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidsodium"
+        "fluid": "sodium"
       }
     },
     "techreborn.sodiumpersulfate": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidsodiumpersulfate"
+        "fluid": "sodiumpersulfate"
       }
     },
     "techreborn.sodiumsulfide": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidsodiumsulfide"
+        "fluid": "sodiumsulfide"
       }
     },
     "techreborn.sulfur": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidsulfur"
+        "fluid": "sulfur"
       }
     },
     "techreborn.sulfuricacid": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidsulfuricacid"
+        "fluid": "sulfuricacid"
       }
     },
     "techreborn.tritium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidtritium"
+        "fluid": "tritium"
       }
     },
     "techreborn.wolframium": {
       "model": "forge:fluid",
       "custom": {
-        "fluid": "fluidwolframium"
+        "fluid": "wolframium"
       }
     }
   }
