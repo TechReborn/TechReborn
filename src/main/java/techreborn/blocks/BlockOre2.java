@@ -56,7 +56,7 @@ public class BlockOre2 extends Block implements IOreNameProvider {
 
 	public static final String[] ores = new String[] { "copper", "tin" };
 	static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
-	public PropertyString VARIANTS = new PropertyString("type", oreNamesList);
+	public PropertyString VARIANTS;
 
 	public BlockOre2() {
 		super(Material.ROCK);
