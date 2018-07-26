@@ -131,22 +131,22 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		MinecraftForge.EVENT_BUS.register(TechRebornJeiPlugin.class);
 	}
 
-	private static void addDebugRecipes(final IModRegistry registry) {
-		final ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
-		final ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
-		final List<Object> debugRecipes = new ArrayList<>();
+	private static void addDebugRecipes(IModRegistry registry) {
+		ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
+		ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
+		List<Object> debugRecipes = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
-			final int time = (int) Math.round(200 + Math.random() * 100);
-			final AssemblingMachineRecipe assemblingMachineRecipe = new AssemblingMachineRecipe(diamondBlock, diamondBlock,
-				dirtBlock, time, 120);
+			int time = (int) Math.round(200 + Math.random() * 100);
+			AssemblingMachineRecipe assemblingMachineRecipe = new AssemblingMachineRecipe(diamondBlock, diamondBlock,
+					dirtBlock, time, 120);
 			debugRecipes.add(assemblingMachineRecipe);
 		}
 		registry.addRecipes(debugRecipes, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		debugRecipes.clear();
 		for (int i = 0; i < 10; i++) {
-			final int time = (int) Math.round(200 + Math.random() * 100);
-			final ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock,
-				dirtBlock, time, 120);
+			int time = (int) Math.round(200 + Math.random() * 100);
+			ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock,
+					dirtBlock, time, 120);
 			debugRecipes.add(recipe);
 		}
 		registry.addRecipes(debugRecipes, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
@@ -173,7 +173,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCategories(new VacuumFreezerRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new FluidReplicatorRecipeCategory(guiHelper));
 
-		for (final EFluidGenerator type : EFluidGenerator.values())
+		for (EFluidGenerator type : EFluidGenerator.values())
 			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
 		
 		if (CompatConfigs.showScrapbox) {
@@ -188,7 +188,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void register(@Nonnull final IModRegistry registry) {
+	public void register(@Nonnull IModRegistry registry) {
 		final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 
 		jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(new ItemStack(ModFluids.BLOCK_BERYLLIUM));
@@ -233,7 +233,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		}
 
 		if (IC2Duplicates.deduplicate()) {
-			for (final IC2Duplicates duplicate : IC2Duplicates.values()) {
+			for (IC2Duplicates duplicate : IC2Duplicates.values()) {
 				if (duplicate.hasIC2Stack()) {
 					jeiHelpers.getIngredientBlacklist().addIngredientToBlacklist(duplicate.getTrStack());
 				}
@@ -275,7 +275,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(ShapedOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapelessOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		
-		for (final EFluidGenerator type : EFluidGenerator.values()) {
+		for (EFluidGenerator type : EFluidGenerator.values()) {
 			registry.handleRecipes(FluidGeneratorRecipe.class, recipe -> new FluidGeneratorRecipeWrapper(jeiHelpers, recipe), type.getRecipeID());
 		}
 		

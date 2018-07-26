@@ -24,9 +24,8 @@
 
 package techreborn.tiles.multiblock;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -112,10 +111,10 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
 		final boolean layer2 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
 		final boolean layer3 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 3, 0));
-		final Block centerBlock1 = multiblockChecker.getBlock(0, 1, 0).getBlock();
-		final Block centerBlock2 = multiblockChecker.getBlock(0, 2, 0).getBlock();
-		final boolean center1 = (centerBlock1 == Blocks.AIR || centerBlock1 == Blocks.LAVA);
-		final boolean center2 = (centerBlock2 == Blocks.AIR || centerBlock2 == Blocks.LAVA);
+		final Material centerBlock1 = multiblockChecker.getBlock(0, 1, 0).getMaterial();
+		final Material centerBlock2 = multiblockChecker.getBlock(0, 2, 0).getMaterial();
+		final boolean center1 = (centerBlock1 == Material.AIR || centerBlock1 == Material.LAVA);
+		final boolean center2 = (centerBlock2 == Material.AIR || centerBlock2 == Material.LAVA);
 		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
 	}
 	
