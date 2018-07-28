@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
-  "transform": "forge:default-block",
   "defaults": {
+    "transform": "forge:default-block",
     "model": "techreborn:lamp_led",
     "textures": {
       "particle": "#lamp"

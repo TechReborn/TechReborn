@@ -1,6 +1,5 @@
 {
   "forge_marker": 1,
-  "transform": "forge:default-block",
   "defaults": {
   "model": "techreborn:alarm",
     "textures": {
