@@ -26,12 +26,15 @@ package techreborn.compat.immersiveengineering;
 
 
 import blusunrize.immersiveengineering.common.IEContent;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
+import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.compat.ICompatModule;
 
 public class RecipeImmersiveEngineering implements ICompatModule {
@@ -43,6 +46,9 @@ public class RecipeImmersiveEngineering implements ICompatModule {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		GeneratorRecipeHelper.registerFluidRecipe(EFluidGenerator.SEMIFLUID, IEContent.fluidCreosote, 40);
+		// dust_coke to dust_hop_graphite
+		RecipeHandler.addRecipe(new CompressorRecipe(new ItemStack(IEContent.itemMaterial, 8, 17),
+				new ItemStack(IEContent.itemMaterial, 1, 18), 300, 4));
 	}
 
 	@Override
