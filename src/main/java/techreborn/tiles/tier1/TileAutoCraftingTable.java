@@ -450,7 +450,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
-		return new ContainerBuilder("autocraftingTable").player(player.inventory).inventory().hotbar()
+		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)

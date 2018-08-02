@@ -417,6 +417,9 @@ public class TechRebornJeiPlugin implements IModPlugin {
 				new BuiltContainerTransferInfo("industrialsawmill", RecipeCategoryUids.INDUSTRIAL_SAWMILL, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 				new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 36, 2, 0, 36));
+		recipeTransferRegistry.addRecipeTransferHandler(
+			new BuiltContainerTransferInfo("autocraftingtable", VanillaRecipeCategoryUid.CRAFTING, 36, 9, 0, 36));
+
 
 		registry.addAdvancedGuiHandlers(new AdvancedGuiHandler());
 	}
