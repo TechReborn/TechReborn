@@ -206,9 +206,9 @@ public class Core {
 	public void LoadPackets(RegisterPacketEvent event) {
 		event.registerPacket(PacketAesu.class, Side.SERVER);
 		event.registerPacket(PacketIdsu.class, Side.SERVER);
-		event.registerPacket(PacketSetRecipe.class, Side.SERVER);
 		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
 		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
+		event.registerPacket(PacketAutoCraftingTableLock.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler

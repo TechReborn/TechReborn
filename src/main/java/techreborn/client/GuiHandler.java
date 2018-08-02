@@ -32,7 +32,7 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.gui.*;
-import techreborn.client.gui.autocrafting.GuiAutoCrafting;
+import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.*;

@@ -24,58 +24,46 @@
 
 package techreborn.packets;
 
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.tier1.TileAutoCraftingTable;
+import techreborn.tiles.tier1.TileRollingMachine;
 
 import java.io.IOException;
 
-/**
- * Created by modmuss50 on 20/06/2017.
- */
-public class PacketSetRecipe implements INetworkPacket<PacketSetRecipe> {
+public class PacketAutoCraftingTableLock implements INetworkPacket<PacketAutoCraftingTableLock> {
 
-	BlockPos pos;
-	ResourceLocation recipe;
-	boolean custom;
+	BlockPos machinePos;
+	boolean locked;
 
-	public PacketSetRecipe(TileAutoCraftingTable tile, IRecipe recipe, boolean custom) {
-		this.pos = tile.getPos();
-		if (recipe == null) {
-			this.recipe = new ResourceLocation("");
-		} else {
-			this.recipe = recipe.getRegistryName();
-		}
-		this.custom = custom;
+	public PacketAutoCraftingTableLock(TileAutoCraftingTable machine, boolean locked) {
+		this.machinePos = machine.getPos();
+		this.locked = locked;
 	}
 
-	public PacketSetRecipe() {
+	public PacketAutoCraftingTableLock() {
 	}
 
 	@Override
 	public void writeData(ExtendedPacketBuffer buffer) throws IOException {
-		buffer.writeBlockPos(pos);
-		buffer.writeResourceLocation(recipe);
-		buffer.writeBoolean(custom);
+		buffer.writeBlockPos(machinePos);
+		buffer.writeBoolean(locked);
 	}
 
 	@Override
 	public void readData(ExtendedPacketBuffer buffer) throws IOException {
-		pos = buffer.readBlockPos();
-		recipe = buffer.readResourceLocation();
-		custom = buffer.readBoolean();
+		machinePos = buffer.readBlockPos();
+		locked = buffer.readBoolean();
 	}
 
 	@Override
-	public void processData(PacketSetRecipe message, MessageContext context) {
-		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(message.pos);
-		if (tileEntity instanceof TileAutoCraftingTable) {
-			((TileAutoCraftingTable) tileEntity).setCurrentRecipe(message.recipe, message.custom);
+	public void processData(PacketAutoCraftingTableLock message, MessageContext context) {
+		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(machinePos);
+		if(tileEntity instanceof TileAutoCraftingTable){
+			((TileAutoCraftingTable) tileEntity).locked = locked;
 		}
 	}
 }

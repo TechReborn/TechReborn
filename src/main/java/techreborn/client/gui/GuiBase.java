@@ -35,6 +35,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.tile.TileLegacyMachineBase;
+import sun.plugin.javascript.navig4.Layer;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
@@ -135,8 +136,9 @@ public class GuiBase extends GuiContainer {
 				upgrades = true;
 			}
 		}
-		builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades);
-
+		if(getMachine().hasSlotConfig()){
+			builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades);
+		}
 	}
 
 	public boolean drawPlayerSlots() {
@@ -152,7 +154,7 @@ public class GuiBase extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.buttonList.clear();
 		drawTitle();
-		if(showSlotConfig){
+		if(showSlotConfig && getMachine().hasSlotConfig()){
 			GuiSlotConfiguration.draw(this, mouseX, mouseY);
 		}
 
@@ -160,7 +162,7 @@ public class GuiBase extends GuiContainer {
 		if(!upgrades){
 			offset = 80;
 		}
-		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset, 12, 12, mouseX, mouseY)) {
+		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset, 12, 12, mouseX, mouseY) && getMachine().hasSlotConfig()) {
 			List<String> list = new ArrayList<>();
 			list.add("Configure slots");
 			GuiUtils.drawHoveringText(list, mouseX - guiLeft  ,  mouseY - guiTop , width, height, -1, mc.fontRenderer);
@@ -211,7 +213,7 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(showSlotConfig){
+		if(showSlotConfig && getMachine().hasSlotConfig()){
 			if(GuiSlotConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this)){
 				return;
 			}
@@ -221,7 +223,7 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-		if(showSlotConfig){
+		if(showSlotConfig && getMachine().hasSlotConfig()){
 			GuiSlotConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
 		}
 		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
@@ -233,13 +235,13 @@ public class GuiBase extends GuiContainer {
 		if(!upgrades){
 			offset = 80;
 		}
-		if(isPointInRegion(-26, 84 - offset, 30, 30, mouseX, mouseY)){
+		if(isPointInRegion(-26, 84 - offset, 30, 30, mouseX, mouseY) && getMachine().hasSlotConfig()){
 			showSlotConfig = !showSlotConfig;
 			if(!showSlotConfig){
 				GuiSlotConfiguration.reset();
 			}
 		}
-		if(showSlotConfig){
+		if(showSlotConfig && getMachine().hasSlotConfig()){
 			if(GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this)){
 				return;
 			}
