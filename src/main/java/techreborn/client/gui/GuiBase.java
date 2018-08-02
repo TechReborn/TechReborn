@@ -35,7 +35,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.tile.TileLegacyMachineBase;
-import sun.plugin.javascript.navig4.Layer;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
