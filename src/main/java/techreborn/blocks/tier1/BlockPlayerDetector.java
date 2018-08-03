@@ -74,7 +74,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public BlockPlayerDetector() {
 		super(true);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "all"));
+		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < types.length; i++) {
 			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
 		}

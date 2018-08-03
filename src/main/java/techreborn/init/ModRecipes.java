@@ -233,6 +233,11 @@ public class ModRecipes {
 				ItemDusts.getDustByName("obsidian", 4),
 				170, 19));
 
+		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+				new ItemStack(Items.BLAZE_ROD),
+				new ItemStack(Items.BLAZE_POWDER, 4),
+				170, 19));
+
 		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
 			ItemStack marbleStack = getOre("stoneMarble");
 			marbleStack.setCount(1);
@@ -248,7 +253,7 @@ public class ModRecipes {
 					120, 10));
 		}
 
-		//See comments bellow, this allows the ore to go to the product when it sometimes goes stright to dust.
+		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
 		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 			"oreCoal", new ItemStack(Items.COAL, 2),
 			270, 31));

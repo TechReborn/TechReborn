@@ -118,14 +118,15 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 			if (!getStackInSlot(1).isEmpty()) {
 				stacks.add(getStackInSlot(1));
 			}
-			for (int i = 0; i < getStoredCount() / 64; i++) {
+			int size = storedItem.getMaxStackSize();
+			for (int i = 0; i < getStoredCount() / size; i++) {
 				ItemStack droped = storedItem.copy();
-				droped.setCount(64);
+				droped.setCount(size);
 				stacks.add(droped);
 			}
-			if (getStoredCount() % 64 != 0) {
+			if (getStoredCount() % size != 0) {
 				ItemStack droped = storedItem.copy();
-				droped.setCount(getStoredCount() % 64);
+				droped.setCount(getStoredCount() % size);
 				stacks.add(droped);
 			}
 		}

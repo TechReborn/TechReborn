@@ -36,13 +36,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.tile.SlotConfiguration;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
@@ -55,80 +55,52 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by modmuss50 on 20/06/2017.
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAutoCraftingTable extends TilePowerAcceptor
-		implements IToolDrop, IInventoryProvider, IContainerProvider {
-	
+	implements IToolDrop, IInventoryProvider, IContainerProvider {
+
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterInput", comment = "AutoCrafting Table Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterMaxEnergy", comment = "AutoCrafting Table Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	ResourceLocation currentRecipe;
-
 	public Inventory inventory = new Inventory(11, "TileAutoCraftingTable", 64, this);
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
-	public Pair<ResourceLocation, IRecipe> cachedRecipe;
-	public boolean customRecipe = false;
+
 	InventoryCrafting inventoryCrafting = null;
 	IRecipe lastCustomRecipe = null;
-	
+	IRecipe lastRecipe = null;
+
+	public boolean locked = true;
+
 	public TileAutoCraftingTable() {
 		super();
 	}
 
-	public void setCurrentRecipe(IRecipe recipe, boolean customRecipe) {
-		if (recipe != null) {
-			currentRecipe = recipe.getRegistryName();
-		} else {
-			currentRecipe = null;
-		}
-
-		// Disabled due to performance issues
-		//this.customRecipe = customRecipe;
-		this.customRecipe = false;
-		cachedRecipe = null;
-	}
-
-	public void setCurrentRecipe(ResourceLocation recipe, boolean customRecipe) {
-		currentRecipe = recipe;
-		// Disabled due to performance issues
-		//this.customRecipe = customRecipe;
-		this.customRecipe = false;
-		cachedRecipe = null;
-	}
-
 	@Nullable
 	public IRecipe getIRecipe() {
-		if (customRecipe) {
-			InventoryCrafting crafting = getCraftingInventory();
-			if(!crafting.isEmpty()){
-				for (IRecipe testRecipe : CraftingManager.REGISTRY) {
-					if (testRecipe.matches(crafting, world)) {
-						return testRecipe;
-					}
+		InventoryCrafting crafting = getCraftingInventory();
+		if (!crafting.isEmpty()) {
+			if(lastRecipe != null){
+				if(lastRecipe.matches(crafting, world)){
+					return lastRecipe;
+				}
+			}
+			for (IRecipe testRecipe : CraftingManager.REGISTRY) {
+				if (testRecipe.matches(crafting, world)) {
+					lastRecipe = testRecipe;
+					return testRecipe;
 				}
 			}
 		}
-		if (currentRecipe == null) {
-			return null;
-		}
-		if (cachedRecipe == null || !cachedRecipe.getLeft().equals(currentRecipe)) {
-			IRecipe recipe = ForgeRegistries.RECIPES.getValue(currentRecipe);
-			if (recipe != null) {
-				cachedRecipe = Pair.of(currentRecipe, recipe);
-				return recipe;
-			}
-			cachedRecipe = null;
-			return null;
-		}
-		return cachedRecipe.getRight();
+		return null;
 	}
 
 	public InventoryCrafting getCraftingInventory() {
@@ -145,11 +117,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		}
 		return inventoryCrafting;
 	}
-	
+
 	public boolean canMake(IRecipe recipe) {
-		if (customRecipe) {
-			recipe = getIRecipe();
-		}
 		if (recipe != null && recipe.canFit(3, 3)) {
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
@@ -161,14 +130,14 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
 						ItemStack stack = inventory.getStackInSlot(i);
-						int requiredSize = customRecipe ? 1 : 0;
-						if(stack.getMaxStackSize() == 1){
+						int requiredSize = locked ? 1 : 0;
+						if (stack.getMaxStackSize() == 1) {
 							requiredSize = 0;
 						}
 						if (stacksInSlots[i] > requiredSize) {
 							if (ingredient.apply(stack)) {
-								if(stack.getItem().getContainerItem() != null){
-									if(!hasRoomForExtraItem(stack.getItem().getContainerItem(stack))){
+								if (stack.getItem().getContainerItem() != null) {
+									if (!hasRoomForExtraItem(stack.getItem().getContainerItem(stack))) {
 										continue;
 									}
 								}
@@ -193,9 +162,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return false;
 	}
 
-	boolean hasRoomForExtraItem(ItemStack stack){
+	boolean hasRoomForExtraItem(ItemStack stack) {
 		ItemStack extraOutputSlot = getStackInSlot(10);
-		if(extraOutputSlot.isEmpty()){
+		if (extraOutputSlot.isEmpty()) {
 			return true;
 		}
 		return hasOutputSpace(stack, 10);
@@ -215,17 +184,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	public boolean make(IRecipe recipe) {
-		IRecipe recipe2 = recipe;
-		if (canMake(recipe2)) {
-			if (recipe2 == null && customRecipe) {
-				if (lastCustomRecipe == null) {
-					return false;
-				}//Should be uptodate as we just set it in canMake
-				recipe = lastCustomRecipe;
-			}
-			else if (recipe2 != null) {
-				for (int i = 0; i < recipe2.getIngredients().size(); i++) {
-					Ingredient ingredient = recipe2.getIngredients().get(i);
+		if (canMake(recipe)) {
+			if (recipe == null) {
+				return false;
+			} else if (recipe != null) {
+				for (int i = 0; i < recipe.getIngredients().size(); i++) {
+					Ingredient ingredient = recipe.getIngredients().get(i);
 					//Looks for the best slot to take it from
 					ItemStack bestSlot = inventory.getStackInSlot(i);
 					if (ingredient.apply(bestSlot)) {
@@ -244,12 +208,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				}
 				ItemStack output = inventory.getStackInSlot(9);
 				//TODO fire forge recipe event
-				ItemStack ouputStack = recipe2.getCraftingResult(getCraftingInventory());
+				ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
 				if (output.isEmpty()) {
 					inventory.setInventorySlotContents(9, ouputStack.copy());
 				} else {
 					//TODO use ouputStack in someway?
-					output.grow(recipe2.getRecipeOutput().getCount());
+					output.grow(recipe.getRecipeOutput().getCount());
 				}
 				return true;
 			}
@@ -257,14 +221,14 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return false;
 	}
 
-	private void handleContainerItem(ItemStack stack){
-		if(stack.getItem().hasContainerItem(stack)){
+	private void handleContainerItem(ItemStack stack) {
+		if (stack.getItem().hasContainerItem(stack)) {
 			ItemStack containerItem = stack.getItem().getContainerItem(stack);
 			ItemStack extraOutputSlot = getStackInSlot(10);
-			if(hasOutputSpace(containerItem, 10)){
-				if(extraOutputSlot.isEmpty()){
+			if (hasOutputSpace(containerItem, 10)) {
+				if (extraOutputSlot.isEmpty()) {
 					setInventorySlotContents(10, containerItem.copy());
-				} else if(ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true) && extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
+				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true) && extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
 					extraOutputSlot.grow(1);
 				}
 			}
@@ -280,7 +244,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		}
 		return false;
 	}
-	
+
 	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID) {
 		if (recipe == null) {
 			return true;
@@ -328,7 +292,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		}
 		return -1;
 	}
-	
+
 	public int getProgress() {
 		return progress;
 	}
@@ -356,7 +320,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			return;
 		}
 		IRecipe recipe = getIRecipe();
-		if (recipe != null || customRecipe) {
+		if (recipe != null) {
 			if (progress >= maxProgress) {
 				if (make(recipe)) {
 					progress = 0;
@@ -367,16 +331,27 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 						progress++;
 						if (progress == 1) {
 							world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
-									SoundCategory.BLOCKS, 0.3F, 0.8F);
+								SoundCategory.BLOCKS, 0.3F, 0.8F);
 						}
 						useEnergy(euTick);
 					}
+				} else {
+					progress = 0;
 				}
 			}
 		}
 		if (recipe == null) {
 			progress = 0;
 		}
+	}
+
+	//Easyest way to sync back to the client
+	public int getLockedInt() {
+		return locked ? 1 : 0;
+	}
+
+	public void setLockedInt(int lockedInt) {
+		locked = lockedInt == 1;
 	}
 
 	@Override
@@ -403,35 +378,27 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public boolean canProvideEnergy(EnumFacing enumFacing) {
 		return false;
 	}
-	
+
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-		if (currentRecipe != null) {
-			tag.setString("currentRecipe", currentRecipe.toString());
-		}
-		// Disable due to performance issues
-		// tag.setBoolean("customRecipe", customRecipe);
-		tag.setBoolean("customRecipe", false);
+		tag.setBoolean("locked", locked);
 		return super.writeToNBT(tag);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
-		if (tag.hasKey("currentRecipe")) {
-			currentRecipe = new ResourceLocation(tag.getString("currentRecipe"));
+		if(tag.hasKey("locked")){
+			locked = tag.getBoolean("locked");
 		}
-		// Disabled due to performance issues
-		//customRecipe = tag.getBoolean("customRecipe");
-		customRecipe = false;
 		super.readFromNBT(tag);
 	}
-	
+
 	// TileLegacyMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
@@ -441,28 +408,53 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return super.isItemValidForSlot(index, stack);
 	}
 
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
+		if(index > 8){
+			return false;
+		}
+		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
+		if (bestSlot != -1) {
+			return index == bestSlot;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+		if(index > 8){
+			return true;
+		}
+		return false;
+	}
+
 	//This machine doesnt have a facing
 	@Override
 	public EnumFacing getFacingEnum() {
 		return EnumFacing.NORTH;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return new ItemStack(ModBlocks.AUTO_CRAFTING_TABLE, 1);
 	}
-	
+
 	// IInventoryProvider
 	@Override
 	public IInventory getInventory() {
 		return inventory;
-	}	
+	}
 
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
-		return new ContainerBuilder("autocraftingTable").player(player.inventory).inventory().hotbar()
+		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
 			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
@@ -470,6 +462,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			.outputSlot(9, 145, 42).outputSlot(10, 145, 70).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress)
 			.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
+			.syncIntegerValue(this::getLockedInt, this::setLockedInt)
 			.addInventory().create(this);
+	}
+
+	@Override
+	public boolean hasSlotConfig() {
+		return false;
 	}
 }

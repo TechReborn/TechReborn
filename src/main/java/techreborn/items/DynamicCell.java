@@ -242,7 +242,10 @@ public class DynamicCell extends Item {
 			}
 			return cell;
 		}
-
+		
+		@Override
+		protected void setContainerToEmpty() {
+			container = new ItemStack(ModItems.CELL, 1);
+		}
 	}
-
 }
