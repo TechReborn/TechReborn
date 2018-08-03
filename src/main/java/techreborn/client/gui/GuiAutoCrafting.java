@@ -64,6 +64,16 @@ public class GuiAutoCrafting extends GuiBase {
 			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
 
 			GlStateManager.disableLighting();
+
+			GlStateManager.pushMatrix();
+			GlStateManager.disableDepth();
+			GlStateManager.color(1, 1, 1, 1F / 3F);
+			drawRect(x - 4, y- 4, x + 20, y + 20, -2139062144);
+			GlStateManager.enableDepth();
+			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.enableBlend();
+			GlStateManager.popMatrix();
+
 		}
 	}
 
