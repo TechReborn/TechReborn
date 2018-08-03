@@ -381,11 +381,15 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		tag.setBoolean("locked", locked);
 		return super.writeToNBT(tag);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
+		if(tag.hasKey("locked")){
+			locked = tag.getBoolean("locked");
+		}
 		super.readFromNBT(tag);
 	}
 
