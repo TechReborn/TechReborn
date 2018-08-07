@@ -80,8 +80,8 @@ public class ModItems {
 	public static Item ENERGY_CRYSTAL;
 	public static Item SCRAP_BOX;
 	public static Item FREQUENCY_TRANSMITTER;
-	public static @Nullable
-	Item BRONZE_SWORD;
+	@Nullable
+	public static Item BRONZE_SWORD;
 	@Nullable
 	public static Item BRONZE_PICKAXE;
 	@Nullable
@@ -165,8 +165,8 @@ public class ModItems {
 		registerItem(DUSTS, "dust");
 		SMALL_DUSTS = new ItemDustsSmall();
 		registerItem(SMALL_DUSTS, "smallDust");
-		PLATES = new ItemPlates();
-		registerItem(PLATES, "plates");
+//		PLATES = new ItemPlates();
+//		registerItem(PLATES, "plates");
 		NUGGETS = new ItemNuggets();
 		registerItem(NUGGETS, "nuggets");
 		// purifiedCrushedOre = new ItemPurifiedCrushedOre();

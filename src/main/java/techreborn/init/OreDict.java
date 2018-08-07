@@ -90,8 +90,8 @@ public class OreDict {
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
 					ignoreIt = true;
-			if (!ignoreIt)
-				ItemPlates.registerType(type);
+			// if (!ignoreIt)
+			//	ItemPlates.registerType(type);
 		}
 
 		for (String type : ItemIngots.types) {
@@ -100,19 +100,21 @@ public class OreDict {
 			for (String ignore : plateGenIgnores)
 				if (type.startsWith(ignore))
 					ignoreIt = true;
-			if (!ignoreIt)
-				ItemPlates.registerType(type);
+			// if (!ignoreIt)
+			//	ItemPlates.registerType(type);
 		}
 
 		for (String type : ItemPlates.types) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
+			// TODO: fix recipe
+			// OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
 		
 		//Late registration of additional plates to keep meta
-		ItemPlates.registerType("magnalium");
-		OreUtil.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
-		ItemPlates.registerType("iridium_alloy");
-		OreUtil.registerOre("plateIridiumAlloy", ItemPlates.getPlateByName("iridiumAlloy"));
+	//	ItemPlates.registerType("magnalium");
+	//	OreUtil.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
+	// TODO: Fix recipe
+	//	ItemPlates.registerType("iridium_alloy");
+	//	OreUtil.registerOre("plateIridiumAlloy", ItemPlates.getPlateByName("iridiumAlloy"));
 		
 
 		for (String type : ItemDusts.types) {

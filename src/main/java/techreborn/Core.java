@@ -25,6 +25,7 @@
 package techreborn;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -44,6 +45,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.IForgeRegistry;
 import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
@@ -73,6 +75,7 @@ import techreborn.world.village.VillageComponentRubberPlantaion;
 import techreborn.world.village.VillagePlantaionHandler;
 
 import java.io.File;
+import java.util.Arrays;
 
 @Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, acceptedMinecraftVersions = "[1.12,1.12.2]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b", guiFactory = "techreborn.client.TechRebornGuiFactory")
 public class Core {
@@ -126,6 +129,12 @@ public class Core {
 		//Register ModRecipes
 		ModRecipes.init();
 	}
+	
+	@SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> event) {
+		IForgeRegistry<Item> itemRegistry = event.getRegistry();
+		Arrays.stream(ModPlates.values()).forEach(modPlate -> itemRegistry.register(modPlate.item));
+    }
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {

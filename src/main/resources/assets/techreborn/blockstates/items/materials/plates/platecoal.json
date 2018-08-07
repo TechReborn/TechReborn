@@ -1,0 +1,14 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "builtin/generated",
+		"transform": "forge:default-item",
+		"textures": {
+			"layer0": "techreborn:items/plate/coal_plate"
+		}
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

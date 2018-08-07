@@ -38,7 +38,9 @@ import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.init.ModPlates;
 import techreborn.items.*;
+import techreborn.lib.ModInfo;
 
 import java.util.Map;
 
@@ -131,11 +133,20 @@ public class RegisterItemJsons {
 			registerBlockstate(ModItems.GEMS, i, name[i], "items/materials/");
 		}
 		
-		name = ItemPlates.types.clone();
+/*		name = ItemPlates.types.clone();
 		for (int i = 0; i < ItemPlates.types.length; ++i) {
 			registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
-		}
+		}*/
+		
+		
 
+		for (ModPlates plate : ModPlates.values()){
+			ResourceLocation platesJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates/" + plate.name.getPath());
+			ModelLoader.setCustomModelResourceLocation(plate.item, 0, new ModelResourceLocation(platesJson, "inventory"));
+			
+			//registerBlockstateMultiItem(plate.item, plate.name.getPath(), "items/materials/plates");
+		}
+		
 		name = ItemNuggets.types.clone();
 		for (int i = 0; i < ItemNuggets.types.length; ++i) {
 			registerBlockstate(ModItems.NUGGETS, i, name[i], "items/materials/");

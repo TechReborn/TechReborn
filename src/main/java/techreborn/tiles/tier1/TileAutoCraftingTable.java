@@ -34,7 +34,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
@@ -42,7 +41,6 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.tile.SlotConfiguration;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
@@ -55,7 +53,6 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by modmuss50 on 20/06/2017.

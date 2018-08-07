@@ -43,41 +43,40 @@ public class ItemPlates extends ItemTR {
 	};
 
 	public ItemPlates() {
-		setTranslationKey("techreborn.plate");
-		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
+		//setTranslationKey("techreborn.plate");
+		//setHasSubtypes(true);
 		TRRecipeHandler.hideEntry(this);
 	}
 
-	public static ItemStack getPlateByName(String name, int count) {
-		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.PLATES, count, i);
-			}
-		}
-		throw new InvalidParameterException("The plate " + name + " could not be found.");
-	}
+//	public static ItemStack getPlateByName(String name, int count) {
+//		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
+//		for (int i = 0; i < types.length; i++) {
+//			if (types[i].equalsIgnoreCase(name)) {
+//				return new ItemStack(ModItems.PLATES, count, i);
+//			}
+//		}
+//		throw new InvalidParameterException("The plate " + name + " could not be found.");
+//	}
+//
+//	public static ItemStack getPlateByName(String name) {
+//		return getPlateByName(name, 1);
+//	}
+//
+//	public static void registerType(String plateType) {
+//		for (String type : types) {
+//			if (type.equals(plateType))
+//				return;
+//		}
+//		int plateIndex = types.length;
+//		String[] newTypes = new String[plateIndex + 1];
+//		System.arraycopy(types, 0, newTypes, 0, types.length);
+//		types = newTypes;
+//		newTypes[plateIndex] = plateType;
+//		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
+//		OreUtil.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
+//	}
 
-	public static ItemStack getPlateByName(String name) {
-		return getPlateByName(name, 1);
-	}
-
-	public static void registerType(String plateType) {
-		for (String type : types) {
-			if (type.equals(plateType))
-				return;
-		}
-		int plateIndex = types.length;
-		String[] newTypes = new String[plateIndex + 1];
-		System.arraycopy(types, 0, newTypes, 0, types.length);
-		types = newTypes;
-		newTypes[plateIndex] = plateType;
-		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
-		OreUtil.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
-	}
-
-	@Override
+/*	@Override
 	// gets Unlocalized Name depending on meta data
 	public String getTranslationKey(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
@@ -86,9 +85,9 @@ public class ItemPlates extends ItemTR {
 		}
 
 		return super.getTranslationKey() + "." + types[meta];
-	}
+	}*/
 
-	// Adds Dusts SubItems To Creative Tab
+/*	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		if (!isInCreativeTab(creativeTabs)) {
@@ -97,5 +96,5 @@ public class ItemPlates extends ItemTR {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(this, 1, meta));
 		}
-	}
+	}*/
 }
