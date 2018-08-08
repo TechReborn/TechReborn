@@ -36,6 +36,8 @@ public class WorldGenConfig {
 	public boolean generateOres = true;
 
 	public boolean retroGenOres = false;
+	
+	public boolean overworldOresInModdedDims = true;
 
 	public List<OreConfig> overworldOres;
 

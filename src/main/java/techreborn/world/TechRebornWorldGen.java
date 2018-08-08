@@ -114,8 +114,8 @@ public class TechRebornWorldGen implements IWorldGenerator {
 			for (OreConfig ore : config) {
 				if (ore.blockName.equals(defaultOre.blockName) && ore.meta == defaultOre.meta) {
 					hasFoundOre = true;
-					ore.state = defaultOre.state; // Should allow for states to
-					// be saved/loaded
+					// Should allow for states to be saved/loaded
+					ore.state = defaultOre.state;
 				}
 			}
 			if (!hasFoundOre) {
@@ -194,51 +194,52 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		boolean genTree = false;
 		List<OreConfig> list = new ArrayList<>();
 		Predicate<IBlockState> predicate = BlockMatcher.forBlock(Blocks.STONE);
-		if (world.provider.isSurfaceWorld()) {
-			list.addAll(getAllGenOresFromList(config.overworldOres));
-			genTree = true;
-		} else if (world.provider.getDimension() == -1) {
+		if (world.provider.getDimension() == -1) {
 			list.addAll(getAllGenOresFromList(config.neatherOres));
 			predicate = BlockMatcher.forBlock(Blocks.NETHERRACK);
 		} else if (world.provider.getDimension() == 1) {
 			list.addAll(getAllGenOresFromList(config.endOres));
-
 			predicate = BlockMatcher.forBlock(Blocks.END_STONE);
 		}
-
+		else if (config.overworldOresInModdedDims || world.provider.getDimension() == 0) {
+			list.addAll(getAllGenOresFromList(config.overworldOres));
+			genTree = true;				
+		}
+		
 		if (!list.isEmpty() && config.generateOres) {
 			int xPos, yPos, zPos;
 			for (OreConfig ore : list) {
 				WorldGenMinable worldGenMinable = new WorldGenMinable(ore.state, ore.veinSize, predicate);
-				if (ore.state != null) {
-					for (int i = 0; i < ore.veinsPerChunk; i++) {
-						xPos = chunkX * 16 + random.nextInt(16);
-						if (ore.maxYHeight == -1 || ore.minYHeight == -1) {
-							continue;
-						}
-						yPos = ore.minYHeight + random.nextInt(ore.maxYHeight - ore.minYHeight);
-						zPos = chunkZ * 16 + random.nextInt(16);
-						BlockPos pos = new BlockPos(xPos, yPos, zPos);
-						
-						if (ore.veinSize < 4){
-							// Workaround for small veins
-							for (int j = 1; j < ore.veinSize; j++) {
-								// standard worldgen offset is added here like in WorldGenMinable#generate
-								BlockPos smallVeinPos = pos.add(8, 0, 8);
-								smallVeinPos.add(random.nextInt(2), random.nextInt(2), random.nextInt(2));
-								IBlockState blockState = world.getBlockState(smallVeinPos);
-								if (blockState.getBlock().isReplaceableOreGen(blockState, world, smallVeinPos, predicate)) {
-									world.setBlockState(smallVeinPos, ore.state, 2);
-								}
-							}							
-						} else {
-							try {
-								worldGenMinable.generate(world, random, pos);
-							} catch (ArrayIndexOutOfBoundsException e) {
-								Core.logHelper.error("Something bad is happening during world gen the ore "
-										+ ore.blockNiceName
-										+ " caused a crash when generating. Report this to the TechReborn devs with a log");
+				if (ore.state == null) {
+					continue;
+				}
+				for (int i = 0; i < ore.veinsPerChunk; i++) {
+					xPos = chunkX * 16 + random.nextInt(16);
+					if (ore.maxYHeight == -1 || ore.minYHeight == -1) {
+						continue;
+					}
+					yPos = ore.minYHeight + random.nextInt(ore.maxYHeight - ore.minYHeight);
+					zPos = chunkZ * 16 + random.nextInt(16);
+					BlockPos pos = new BlockPos(xPos, yPos, zPos);
+
+					if (ore.veinSize < 4) {
+						// Workaround for small veins
+						for (int j = 1; j < ore.veinSize; j++) {
+							// standard worldgen offset is added here like in WorldGenMinable#generate
+							BlockPos smallVeinPos = pos.add(8, 0, 8);
+							smallVeinPos.add(random.nextInt(2), random.nextInt(2), random.nextInt(2));
+							IBlockState blockState = world.getBlockState(smallVeinPos);
+							if (blockState.getBlock().isReplaceableOreGen(blockState, world, smallVeinPos, predicate)) {
+								world.setBlockState(smallVeinPos, ore.state, 2);
 							}
+						}
+					} else {
+						try {
+							worldGenMinable.generate(world, random, pos);
+						} catch (ArrayIndexOutOfBoundsException e) {
+							Core.logHelper.error("Something bad is happening during world gen the ore "
+									+ ore.blockNiceName
+									+ " caused a crash when generating. Report this to the TechReborn devs with a log");
 						}
 					}
 				}
