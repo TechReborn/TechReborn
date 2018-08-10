@@ -30,8 +30,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.tier1.TileAutoCraftingTable;
-import techreborn.tiles.tier1.TileRollingMachine;
-
 import java.io.IOException;
 
 public class PacketAutoCraftingTableLock implements INetworkPacket<PacketAutoCraftingTableLock> {
