@@ -61,11 +61,13 @@ public class ConfigSlotElement extends ElementBase {
 			return true;
 		}));
 
-		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
+		elements.add(new CheckBoxElement("Auto Input", 0xFFFFFFFF, x - 26, y + 42, "input", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+			checkBoxElement -> checkBoxElement.machineBase.slotConfiguration.getSlotDetails(checkBoxElement.slotID).autoInput()).addPressAction((element, gui12, provider, mouseX, mouseY) -> {
 			popupElement.updateCheckBox((CheckBoxElement) element, "input", gui12);
 			return true;
 		}));
-		elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57,"output", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
+		elements.add(new CheckBoxElement("Auto Output", 0xFFFFFFFF, x - 26, y + 57, "output", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+			checkBoxElement -> checkBoxElement.machineBase.slotConfiguration.getSlotDetails(checkBoxElement.slotID).autoOutput()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
 			popupElement.updateCheckBox((CheckBoxElement) element, "output", gui13);
 			return true;
 		}));
@@ -73,7 +75,8 @@ public class ConfigSlotElement extends ElementBase {
 		if(gui.getMachine() instanceof IRecipeCrafterProvider){
 			RecipeCrafter recipeCrafter = ((IRecipeCrafterProvider) gui.getMachine()).getRecipeCrafter();
 			if(Arrays.stream(recipeCrafter.inputSlots).anyMatch(value -> value == slotId)){
-				elements.add(new CheckBoxElement("Filter Input", 0xFFFFFFFF, x - 26, y + 72,"filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
+				elements.add(new CheckBoxElement("Filter Input", 0xFFFFFFFF, x - 26, y + 72, "filter", slotId, Sprite.LIGHT_CHECK_BOX, gui.getMachine(),
+					checkBoxElement -> checkBoxElement.machineBase.slotConfiguration.getSlotDetails(checkBoxElement.slotID).filter()).addPressAction((element, gui13, provider, mouseX, mouseY) -> {
 					popupElement.updateCheckBox((CheckBoxElement) element, "filter", gui13);
 					return true;
 				}));

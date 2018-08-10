@@ -27,7 +27,9 @@ package techreborn.client.gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import techreborn.init.ModItems;
 import techreborn.tiles.tier0.TileIronFurnace;
 
 public class GuiIronFurnace extends GuiBase {
@@ -48,7 +50,7 @@ public class GuiIronFurnace extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades);
+		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades, new ItemStack(ModItems.WRENCH));
 		this.mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
 		final int k = (this.width - this.xSize) / 2;
 		final int l = (this.height - this.ySize) / 2;

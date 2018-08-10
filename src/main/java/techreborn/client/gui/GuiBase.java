@@ -28,7 +28,9 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,8 +38,11 @@ import org.lwjgl.input.Keyboard;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
+import techreborn.client.gui.slot.GuiFluidConfiguration;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
+import techreborn.init.ModItems;
+import techreborn.items.DynamicCell;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,7 +58,7 @@ public class GuiBase extends GuiContainer {
 	public TRBuilder builder = new TRBuilder();
 	public TileEntity tile;
 	public BuiltContainer container;
-	public static boolean showSlotConfig = false;
+	public static SlotConfigType slotConfigType = SlotConfigType.NONE;
 
 	public boolean upgrades;
 
@@ -61,7 +66,7 @@ public class GuiBase extends GuiContainer {
 		super(container);
 		this.tile = tile;
 		this.container = container;
-		showSlotConfig = false;
+		slotConfigType = SlotConfigType.NONE;
 	}
 
 	protected void drawSlot(int x, int y, Layer layer) {
@@ -119,6 +124,7 @@ public class GuiBase extends GuiContainer {
 	public void initGui() {
 		super.initGui();
 		GuiSlotConfiguration.init(this);
+		GuiFluidConfiguration.init(this);
 	}
 
 	@Override
@@ -136,7 +142,10 @@ public class GuiBase extends GuiContainer {
 			}
 		}
 		if(getMachine().hasSlotConfig()){
-			builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades);
+			builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades, new ItemStack(ModItems.WRENCH));
+		}
+		if(getMachine().showTankConfig()){
+			builder.drawSlotTab(this, guiLeft, guiTop + 27, mouseX, mouseY, upgrades, DynamicCell.getCellWithFluid(FluidRegistry.LAVA));
 		}
 	}
 
@@ -153,8 +162,12 @@ public class GuiBase extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.buttonList.clear();
 		drawTitle();
-		if(showSlotConfig && getMachine().hasSlotConfig()){
+		if(slotConfigType == SlotConfigType.ITEMS && getMachine().hasSlotConfig()){
 			GuiSlotConfiguration.draw(this, mouseX, mouseY);
+		}
+
+		if(slotConfigType == SlotConfigType.FLUIDS && getMachine().showTankConfig()){
+			GuiFluidConfiguration.draw(this, mouseX, mouseY);
 		}
 
 		int offset = 0;
@@ -164,6 +177,13 @@ public class GuiBase extends GuiContainer {
 		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset, 12, 12, mouseX, mouseY) && getMachine().hasSlotConfig()) {
 			List<String> list = new ArrayList<>();
 			list.add("Configure slots");
+			GuiUtils.drawHoveringText(list, mouseX - guiLeft  ,  mouseY - guiTop , width, height, -1, mc.fontRenderer);
+			GlStateManager.disableLighting();
+			GlStateManager.color(1, 1, 1, 1);
+		}
+		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset + 27, 12, 12, mouseX, mouseY) && getMachine().hasSlotConfig()) {
+			List<String> list = new ArrayList<>();
+			list.add("Configure Fluids");
 			GuiUtils.drawHoveringText(list, mouseX - guiLeft  ,  mouseY - guiTop , width, height, -1, mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
@@ -212,8 +232,13 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(showSlotConfig && getMachine().hasSlotConfig()){
+		if(slotConfigType == SlotConfigType.ITEMS && getMachine().hasSlotConfig()){
 			if(GuiSlotConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this)){
+				return;
+			}
+		}
+		if(slotConfigType == SlotConfigType.FLUIDS && getMachine().showTankConfig()){
+			if(GuiFluidConfiguration.mouseClicked(mouseX, mouseY, mouseButton, this)){
 				return;
 			}
 		}
@@ -222,8 +247,11 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-		if(showSlotConfig && getMachine().hasSlotConfig()){
+		if(slotConfigType == SlotConfigType.ITEMS && getMachine().hasSlotConfig()){
 			GuiSlotConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
+		}
+		if(slotConfigType == SlotConfigType.FLUIDS && getMachine().showTankConfig()){
+			GuiFluidConfiguration.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, this);
 		}
 		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
 	}
@@ -235,13 +263,29 @@ public class GuiBase extends GuiContainer {
 			offset = 80;
 		}
 		if(isPointInRegion(-26, 84 - offset, 30, 30, mouseX, mouseY) && getMachine().hasSlotConfig()){
-			showSlotConfig = !showSlotConfig;
-			if(!showSlotConfig){
+			if(slotConfigType != SlotConfigType.ITEMS){
+				slotConfigType = SlotConfigType.ITEMS;
+			} else {
+				slotConfigType = SlotConfigType.NONE;
+			}
+			if(slotConfigType == SlotConfigType.ITEMS){
 				GuiSlotConfiguration.reset();
 			}
 		}
-		if(showSlotConfig && getMachine().hasSlotConfig()){
+		if(isPointInRegion(-26, 84 - offset + 27, 30, 30, mouseX, mouseY) && getMachine().hasSlotConfig()){
+			if(slotConfigType != SlotConfigType.FLUIDS){
+				slotConfigType = SlotConfigType.FLUIDS;
+			} else {
+				slotConfigType = SlotConfigType.NONE;
+			}
+		}
+		if(slotConfigType == SlotConfigType.ITEMS && getMachine().hasSlotConfig()){
 			if(GuiSlotConfiguration.mouseReleased(mouseX, mouseY, state, this)){
+				return;
+			}
+		}
+		if(slotConfigType == SlotConfigType.FLUIDS && getMachine().showTankConfig()){
+			if(GuiFluidConfiguration.mouseReleased(mouseX, mouseY, state, this)){
 				return;
 			}
 		}
@@ -250,7 +294,7 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		if(showSlotConfig){
+		if(slotConfigType == SlotConfigType.ITEMS){
 			if(isCtrlKeyDown() && keyCode == Keyboard.KEY_C){
 				GuiSlotConfiguration.copyToClipboard();
 				return;
@@ -264,7 +308,7 @@ public class GuiBase extends GuiContainer {
 
 	@Override
 	public void onGuiClosed() {
-		showSlotConfig = false;
+		slotConfigType = SlotConfigType.NONE;
 		super.onGuiClosed();
 	}
 
@@ -276,13 +320,14 @@ public class GuiBase extends GuiContainer {
 		return (TileLegacyMachineBase) tile;
 	}
 
-	//TODO
-	public enum SlotRender {
-		STANDARD, OUTPUT, NONE, SPRITE;
-
-	}
 
 	public enum Layer {
 		BACKGROUND, FOREGROUND
+	}
+
+	public enum SlotConfigType{
+		NONE,
+		ITEMS,
+		FLUIDS
 	}
 }

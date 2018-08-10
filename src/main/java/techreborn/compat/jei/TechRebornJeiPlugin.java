@@ -49,7 +49,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
 import org.lwjgl.input.Mouse;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.StringUtils;
@@ -471,7 +470,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void drawScreenEvent(GuiScreenEvent.DrawScreenEvent.Post event) {
-		if (GuiBase.showSlotConfig) {
+		if (GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE) {
 			return;
 		}
 		GuiScreen gui = event.getGui();
@@ -486,7 +485,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void handleMouseClick(GuiScreenEvent.MouseInputEvent.Pre event) {
-		if (GuiBase.showSlotConfig) {
+		if (GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE) {
 			return;
 		}
 		final int eventButton = Mouse.getEventButton();

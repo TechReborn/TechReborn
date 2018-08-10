@@ -24,7 +24,6 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.tiles.TileQuantumTank;
@@ -51,12 +50,6 @@ public class GuiQuantumTank extends GuiBase {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-
-		final String name = I18n.format("tile.techreborn:quantum_tank.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
 
 		FluidStack fluid = this.quantumTank.tank.getFluid();
 		if(fluid != null){
