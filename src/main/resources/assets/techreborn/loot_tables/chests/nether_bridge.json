@@ -166,7 +166,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:machine_frame",
+					"name": "techreborn:part",
 					"entryName": "data_storage_circuit",
 					"weight": 15,
 					"functions": [

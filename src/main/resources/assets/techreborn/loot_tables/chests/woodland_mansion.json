@@ -173,7 +173,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:machine_frame",
+					"name": "techreborn:part",
 					"entryName": "energy_flow_circuit",
 					"weight": 30,
 					"functions": [
