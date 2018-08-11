@@ -26,7 +26,6 @@ package techreborn.client.gui.slot.elements;
 
 import reborncore.common.util.Tank;
 import techreborn.client.gui.GuiBase;
-import techreborn.client.gui.slot.GuiSlotConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class ConfigFluidElement extends ElementBase {
 
 		elements.add(popupElement = new FluidConfigPopupElement(x - 22, y - 22, this));
 		elements.add(new ButtonElement(x + 37, y - 25, Sprite.EXIT_BUTTON).addReleaseAction((element, gui1, provider, mouseX, mouseY) -> {
-			GuiSlotConfiguration.slectedSlot = -1;
+			GuiBase.slotConfigType = GuiBase.SlotConfigType.NONE;
 			return true;
 		}));
 

@@ -49,6 +49,7 @@ public class FluidConfigPopupElement extends ElementBase {
 	public boolean filter = false;
 
 	ConfigFluidElement fluidElement;
+	int lastMousex, lastMousey;
 
 	public FluidConfigPopupElement(int x, int y, ConfigFluidElement fluidElement) {
 		super(x, y, Sprite.SLOT_CONFIG_POPUP);
@@ -106,7 +107,7 @@ public class FluidConfigPopupElement extends ElementBase {
 	public void cyleConfig(EnumFacing side, GuiBase guiBase) {
 		FluidConfiguration.FluidConfig config = guiBase.getMachine().fluidConfiguration.getSideDetail(side);
 
-		FluidConfiguration.FluidIO fluidIO = new FluidConfiguration.FluidIO(config.getFluidIO().getIoConfig().getNext());
+		FluidConfiguration.ExtractConfig fluidIO = config.getIoConfig().getNext();
 		FluidConfiguration.FluidConfig newConfig = new FluidConfiguration.FluidConfig(side, fluidIO);
 
 		PacketFluidConfigSave packetSave = new PacketFluidConfigSave(guiBase.tile.getPos(), newConfig);
@@ -128,6 +129,13 @@ public class FluidConfigPopupElement extends ElementBase {
 		NetworkManager.sendToServer(packetFluidIOSave);
 	}
 
+	@Override
+	public boolean onHover(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+		lastMousex = mouseX;
+		lastMousey = mouseY;
+		return super.onHover(provider, gui, mouseX, mouseY);
+	}
+
 	private void drawSateColor(TileLegacyMachineBase machineBase, EnumFacing side, int inx, int iny, GuiBase gui) {
 		iny += 4;
 		int sx = inx + getX() + gui.guiLeft;
@@ -137,9 +145,9 @@ public class FluidConfigPopupElement extends ElementBase {
 			RebornCore.logHelper.debug("Humm, this isnt suppoed to happen");
 			return;
 		}
-		FluidConfiguration.FluidConfig slotConfig = fluidConfiguration.getSideDetail(side);
+		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);
 		Color color;
-		switch (slotConfig.getFluidIO().getIoConfig()) {
+		switch (fluidConfig.getIoConfig()) {
 			case NONE:
 				color = new Color(0, 0, 0, 0);
 				break;
@@ -149,6 +157,9 @@ public class FluidConfigPopupElement extends ElementBase {
 			case OUTPUT:
 				color = new Color(255, 69, 0, 128);
 				break;
+			case ALL:
+				color = new Color(52, 255, 30, 128);
+				break;
 			default:
 				color = new Color(0, 0, 0, 0);
 				break;
@@ -156,7 +167,6 @@ public class FluidConfigPopupElement extends ElementBase {
 		GlStateManager.color(255, 255, 255);
 		GuiUtil.drawGradientRect(sx, sy, 18, 18, color.getRGB(), color.getRGB());
 		GlStateManager.color(255, 255, 255);
-
 	}
 
 	private boolean isInBox(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, GuiBase guiBase) {
