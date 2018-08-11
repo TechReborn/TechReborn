@@ -90,7 +90,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		}
 
 		if (tank.getFluidAmount() > 0) {
-			if (currentRecipe == null || !currentRecipe.getFluid().equals(tank.getFluidType()))
+			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluidType()))
 				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluidType()).orElse(null);
 
 			if (currentRecipe != null) {

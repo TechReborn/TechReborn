@@ -24,17 +24,17 @@
 
 package techreborn.api.fluidreplicator;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import reborncore.common.util.FluidUtils;
 import techreborn.init.ModItems;
 import techreborn.tiles.multiblock.TileFluidReplicator;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author drcrazy
@@ -116,11 +116,11 @@ public class FluidReplicatorRecipe implements Cloneable {
 		if (fluid == null) {
 			return false;
 		}
-		if (!fluid.equals(output)) {
+		if (!FluidUtils.fluidEquals(fluid, output)) {
 			return false;
 		}
 		final Fluid tankFluid = tile.tank.getFluidType();
-		if (tankFluid != null && !tankFluid.equals(output)) {
+		if (tankFluid != null && !FluidUtils.fluidEquals(tankFluid, fluid)) {
 			return false;
 		}
 		

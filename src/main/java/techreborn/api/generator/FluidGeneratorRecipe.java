@@ -25,6 +25,7 @@
 package techreborn.api.generator;
 
 import net.minecraftforge.fluids.Fluid;
+import reborncore.common.util.FluidUtils;
 
 public class FluidGeneratorRecipe {
 	private final EFluidGenerator generatorType;
@@ -79,7 +80,7 @@ public class FluidGeneratorRecipe {
 		if (fluid == null) {
 			if (other.fluid != null)
 				return false;
-		} else if (!fluid.equals(other.fluid))
+		} else if (!FluidUtils.fluidEquals(other.fluid, fluid))
 			return false;
 		if (generatorType != other.generatorType)
 			return false;

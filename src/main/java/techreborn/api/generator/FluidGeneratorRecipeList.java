@@ -26,6 +26,7 @@ package techreborn.api.generator;
 
 import com.google.common.collect.Sets;
 import net.minecraftforge.fluids.Fluid;
+import reborncore.common.util.FluidUtils;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class FluidGeneratorRecipeList {
 	}
 
 	public Optional<FluidGeneratorRecipe> getRecipeForFluid(Fluid fluid) {
-		return this.recipes.stream().filter(recipe -> recipe.getFluid().equals(fluid)).findAny();
+		return this.recipes.stream().filter(recipe -> FluidUtils.fluidEquals(recipe.getFluid(), fluid)).findAny();
 	}
 
 	public HashSet<FluidGeneratorRecipe> getRecipes() {
