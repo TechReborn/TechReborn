@@ -60,7 +60,9 @@ public enum ModTileEntities {
 
 	THERMAL_GEN(TileThermalGenerator.class,  "thermal_generator", "TileThermalGeneratorTR"),
 	QUANTUM_TANK(TileQuantumTank.class,  "quantum_tank", "TileQuantumTankTR"),
+	CREATIVE_QUANTUM_TANK(TileCreativeQuantumTank.class,  "creative_quantum_tank"),
 	QUANTUM_CHEST(TileQuantumChest.class,  "quantum_chest", "TileQuantumChestTR"),
+	CREATIVE_QUANTUM_CHEST(TileCreativeQuantumChest.class,  "creative_quantum_chest"),
 	DIGITAL_CHEST(TileDigitalChest.class,  "digital_chest", "TileDigitalChestTR"),
 	INDUSTRIAL_CENTRIFUGE(TileIndustrialCentrifuge.class,  "industrial_centrifuge", "TileIndustrialCentrifugeTR"),
 	ROLLING_MACHINE(TileRollingMachine.class,  "rolling_machine", "TileRollingMachineTR"),

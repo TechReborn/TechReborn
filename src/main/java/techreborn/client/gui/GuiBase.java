@@ -124,7 +124,9 @@ public class GuiBase extends GuiContainer {
 	public void initGui() {
 		super.initGui();
 		GuiSlotConfiguration.init(this);
-		GuiFluidConfiguration.init(this);
+		if(getMachine().getTank() != null && getMachine().showTankConfig()){
+			GuiFluidConfiguration.init(this);
+		}
 	}
 
 	@Override
