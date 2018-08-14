@@ -131,6 +131,7 @@ public enum ModTileEntities {
 	ModTileEntities(Class<? extends TileEntity> tileClass, ResourceLocation name) {
 		this.tileClass = tileClass;
 		this.name = name;
+		this.oldName = Optional.empty();
 	}
 
 	ModTileEntities(Class<? extends TileEntity> tileClass, String name, String oldName) {
