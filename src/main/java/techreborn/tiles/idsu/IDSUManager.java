@@ -70,7 +70,7 @@ public class IDSUManager {
         }
     }
 
-    
+
     public class IDSUWorldSaveData {
 
         public TreeMap<String, IDSUValueSaveData> idsuValues = new TreeMap<String, IDSUValueSaveData>();

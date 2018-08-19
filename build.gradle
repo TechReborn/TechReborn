@@ -53,17 +53,13 @@ repositories {
         url "http://dvs1.progwml6.com/files/maven"
     }
     ivy {
-        name = 'ThaumCraft 4 API'
-        artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module](-[classifier])-1.7.10-[revision](.[ext])'
-    }
-    ivy {
         name "MineTweaker3"
         artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
     }
-    ivy {
-        name "OpenComputers"
-        artifactPattern "http://maven.cil.li/li/cil/oc/[module]/[revision]/[module]-[revision]-[classifier].[ext]"
-    }
+	maven {
+		name "CurseForge"
+		url "https://www.curseforge.com/api/maven/"
+	}
 }
 
 configurations {
@@ -110,12 +106,12 @@ dependencies {
     compile "net.sengir.forestry:forestry_1.7.10:4.2.16.64:dev"
     shade "net.sengir.forestry:forestry_1.7.10:4.2.16.64:api"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
-    compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
-    compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
+	deobfCompile "baubles:Baubles:1.7.10:1.0.1.10"
+	deobfCompile "thaumcraft:Thaumcraft:1.7.10:4.2.3.5"
     compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
     compile 'li.cil.oc:OpenComputers:MC1.7.10-1.6.0.840-dev:dev'
     compile 'RebornCore:RebornCore:1.1.0.+:dev'
-    compile name: "OpenComputers", version: "MC1.7.10-1.6.0.840-dev", classifier: "dev"
+	deobfCompile "opencomputers:OpenComputers-MC1.7.10:1.7.2.1166:universal"
 
 	testCompile 'junit:junit:4.12'
 }
