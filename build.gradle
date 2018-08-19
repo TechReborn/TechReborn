@@ -42,7 +42,7 @@ repositories {
 	}
 	maven {
 		name "CurseForge"
-		url "https://www.curseforge.com/api/maven/"
+		url "https://minecraft.curseforge.com/api/maven/"
 	}
 	ivy {
 		name "BuildCraft"
