@@ -40,26 +40,22 @@ repositories {
         name = "Modmuss50"
         url = "http://maven.modmuss50.me/"
     }
-    maven {
-        name = "Qmunity"
-        url = "http://maven.bluepowermod.com/"
-    }
+	maven {
+		name "CurseForge"
+		url "https://www.curseforge.com/api/maven/"
+	}
+	maven {
+		name "TiC"
+		url "http://dvs1.progwml6.com/files/maven"
+	}
     ivy {
         name "BuildCraft"
         artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
-    }
-    maven {
-        name "TiC"
-        url "http://dvs1.progwml6.com/files/maven"
     }
     ivy {
         name "MineTweaker3"
         artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
     }
-	maven {
-		name "CurseForge"
-		url "https://www.curseforge.com/api/maven/"
-	}
 }
 
 configurations {
