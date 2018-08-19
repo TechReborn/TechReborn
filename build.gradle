@@ -40,6 +40,10 @@ repositories {
 		name = "Modmuss50"
 		url = "http://maven.modmuss50.me/"
 	}
+	maven {
+		name "CurseForge"
+		url "https://www.curseforge.com/api/maven/"
+	}
 	ivy {
 		name "BuildCraft"
 		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
@@ -106,11 +110,11 @@ dependencies {
 	compile "net.sengir.forestry:forestry_1.7.10:4.2.16.64:dev"
 	shade "net.sengir.forestry:forestry_1.7.10:4.2.16.64:api"
 	compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
-	compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
-	compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
+	compile "baubles:Baubles:1.7.10:1.0.1.10"
+	compile "thaumcraft:Thaumcraft:1.7.10:4.2.3.5"
+	compile "thaumcraft:Thaumcraft:1.7.10:4.2.3.5"
 	compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
 	compile 'RebornCore:RebornCore:1.1.0.+:dev'
-	compile name: "OpenComputers", version: "MC1.7.10-1.6.0.840-dev", classifier: "dev"
 
 	testCompile 'junit:junit:4.12'
 }
