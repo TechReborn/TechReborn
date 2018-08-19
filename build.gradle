@@ -106,12 +106,12 @@ dependencies {
     compile "net.sengir.forestry:forestry_1.7.10:4.2.16.64:dev"
     shade "net.sengir.forestry:forestry_1.7.10:4.2.16.64:api"
     compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
-	deobfCompile "baubles:Baubles:1.7.10:1.0.1.10"
-	deobfCompile "thaumcraft:Thaumcraft:1.7.10:4.2.3.5"
+	compile "baubles:Baubles:1.7.10:1.0.1.10"
+	compile "thaumcraft:Thaumcraft:1.7.10:4.2.3.5"
     compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
     compile 'li.cil.oc:OpenComputers:MC1.7.10-1.6.0.840-dev:dev'
     compile 'RebornCore:RebornCore:1.1.0.+:dev'
-	deobfCompile "opencomputers:OpenComputers-MC1.7.10:1.7.2.1166:universal"
+	compile "opencomputers:OpenComputers-MC1.7.10:1.7.2.1166:universal"
 
 	testCompile 'junit:junit:4.12'
 }
