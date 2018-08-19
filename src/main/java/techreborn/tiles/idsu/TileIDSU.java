@@ -19,7 +19,11 @@ public class TileIDSU extends TilePowerAcceptor {
         if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return 0.0;
         }
-        return IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower;
+	    IDSUManager.IDSUValueSaveData data = IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid);
+        if(data == null){
+        	return 0;
+        }
+        return data.storedPower;
     }
 
     @Override
@@ -27,7 +31,11 @@ public class TileIDSU extends TilePowerAcceptor {
         if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return;
         }
-        IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid).storedPower = energy;
+	    IDSUManager.IDSUValueSaveData data = IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid);
+        if(data == null){
+        	return;
+        }
+	    data.storedPower = energy;
     }
 
     @Override

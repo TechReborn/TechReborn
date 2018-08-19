@@ -57,6 +57,9 @@ public class IDSUManager {
     }
 
     public IDSUValueSaveData getSaveDataForWorld(World world, String channel) {
+    	if(worldData == null){
+    		return null;
+	    }
         if (worldData.containsKey(world)) {
             return worldData.get(world).getSaves(channel);
         } else {
@@ -67,38 +70,7 @@ public class IDSUManager {
         }
     }
 
-
-    public IDSUWorldSaveData getWorldDataFormWorld(World world) {
-        if (worldData.containsKey(world)) {
-            return worldData.get(world);
-        } else {
-            IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(world);
-            worldData.put(world, worldSaveData);
-            worldSaveData.load();
-            return worldSaveData;
-        }
-    }
-
-
-    public void loadFromString(String json, World world) {
-        if (json.equals("EMPTY")) {
-            return;
-        }
-        IDSUWorldSaveData worldSaveData;
-        if (worldData.containsKey(world)) {
-            worldSaveData = worldData.get(world);
-        } else {
-            worldSaveData = new IDSUWorldSaveData(world);
-            worldData.put(world, worldSaveData);
-        }
-        Gson gson = new Gson();
-        Type typeOfHashMap = new TypeToken<TreeMap<Integer, IDSUValueSaveData>>() {
-        }.getType();
-        worldSaveData.idsuValues.clear();
-        worldSaveData.idsuValues = gson.fromJson(json, typeOfHashMap);
-    }
-
-
+    
     public class IDSUWorldSaveData {
 
         public TreeMap<String, IDSUValueSaveData> idsuValues = new TreeMap<String, IDSUValueSaveData>();
@@ -119,7 +91,7 @@ public class IDSUManager {
         }
 
         public IDSUValueSaveData getSaves(String udid) {
-            if (udid == null) {
+            if (udid == null || idsuValues == null) {
                 return null;
             }
             if (idsuValues.containsKey(udid)) {
@@ -148,7 +120,7 @@ public class IDSUManager {
         }
 
         public void save() {
-            if (idsuValues.isEmpty()) {
+            if (idsuValues == null || idsuValues.isEmpty()) {
                 return;
             }
             if (!file.exists()) {
