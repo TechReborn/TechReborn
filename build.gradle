@@ -1,18 +1,18 @@
 buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-    }
+	repositories {
+		mavenCentral()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+		maven {
+			name = "sonatype"
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+	}
 }
 
 apply plugin: 'forge'
@@ -24,209 +24,213 @@ targetCompatibility = 1.7
 
 
 repositories {
-    maven {
-        name = "ic2"
-        url = "http://maven.ic2.player.to/"
-    }
-    maven {
-        name "Mobius Repo"
-        url "http://mobiusstrip.eu/maven"
-    }
-    maven {
-        name 'CB Repo'
-        url "http://chickenbones.net/maven/"
-    }
-    maven {
-        name = "Modmuss50"
-        url = "http://maven.modmuss50.me/"
-    }
 	maven {
-		name "CurseForge"
-		url "https://www.curseforge.com/api/maven/"
+		name = "ic2"
+		url = "http://maven.ic2.player.to/"
+	}
+	maven {
+		name "Mobius Repo"
+		url "http://mobiusstrip.eu/maven"
+	}
+	maven {
+		name 'CB Repo'
+		url "http://chickenbones.net/maven/"
+	}
+	maven {
+		name = "Modmuss50"
+		url = "http://maven.modmuss50.me/"
+	}
+	ivy {
+		name "BuildCraft"
+		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
 	}
 	maven {
 		name "TiC"
 		url "http://dvs1.progwml6.com/files/maven"
 	}
-    ivy {
-        name "BuildCraft"
-        artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
-    }
-    ivy {
-        name "MineTweaker3"
-        artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
-    }
+	ivy {
+		name = 'ThaumCraft 4 API'
+		artifactPattern 'https://dl.dropboxusercontent.com/u/47135879/[module](-[classifier])-1.7.10-[revision](.[ext])'
+	}
+	ivy {
+		name "MineTweaker3"
+		artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[classifier]-[revision].[ext]"
+	}
+	ivy {
+		name "OpenComputers"
+		artifactPattern "http://maven.cil.li/li/cil/oc/[module]/[revision]/[module]-[revision]-[classifier].[ext]"
+	}
 }
 
 configurations {
-    shade
-    compile.extendsFrom shade
+	shade
+	compile.extendsFrom shade
 }
 
 version = "0.7.20"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
-    version = version + "." + "${System.getenv().BUILD_NUMBER}"
+	version = version + "." + "${System.getenv().BUILD_NUMBER}"
 }
 
 minecraft {
-    version = "1.7.10-10.13.4.1614-1.7.10"
-    replace "@MODVERSION@", project.version
+	version = "1.7.10-10.13.4.1614-1.7.10"
+	replace "@MODVERSION@", project.version
 }
 
 group = 'TechReborn'
 
 task deleteOldArtifacts(type: Delete) {
-    delete 'build/libs'
+	delete 'build/libs'
 }
 
 classes.dependsOn deleteOldArtifacts
 
 def grabDep(name, url) {
-    ant.get(src: url, dest: 'dep')
-    file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
+	ant.get(src: url, dest: 'dep')
+	file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
 }
 
 dependencies {
-    def f = new File('dep/')
-    if (!f.exists()) {
-        f.mkdirs()
-    }
-    if (!f.exists()) {
-        f.mkdir()
-    }
-    compile 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev'
-    shade 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:api'
-    compile name: 'buildcraft', version: '7.1.19', classifier: "dev", ext: 'jar'
-    compile "net.sengir.forestry:forestry_1.7.10:4.2.16.64:dev"
-    shade "net.sengir.forestry:forestry_1.7.10:4.2.16.64:api"
-    compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
-	compile "baubles:Baubles:1.7.10:1.0.1.10"
-	compile "thaumcraft:Thaumcraft:1.7.10:4.2.3.5"
-    compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
-    compile 'li.cil.oc:OpenComputers:MC1.7.10-1.6.0.840-dev:dev'
-    compile 'RebornCore:RebornCore:1.1.0.+:dev'
-	compile "opencomputers:OpenComputers-MC1.7.10:1.7.2.1166:universal"
+	def f = new File('dep/')
+	if (!f.exists()) {
+		f.mkdirs()
+	}
+	if (!f.exists()) {
+		f.mkdir()
+	}
+	compile 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev'
+	shade 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:api'
+	compile name: 'buildcraft', version: '7.1.19', classifier: "dev", ext: 'jar'
+	compile "net.sengir.forestry:forestry_1.7.10:4.2.16.64:dev"
+	shade "net.sengir.forestry:forestry_1.7.10:4.2.16.64:api"
+	compile "com.github.glitchfiend.biomesoplenty:BiomesOPlenty:1.7.10-2.1.0.1465:deobf"
+	compile 'Azanor:Thaumcraft:4.2.3.5:deobf@jar'
+	compile "com.github.azanor:baubles:1.0.1.10:deobf@jar"
+	compile name: "MineTweaker3", version: "1.7.10-3.0.9C", classifier: "Dev"
+	compile 'li.cil.oc:OpenComputers:MC1.7.10-1.6.0.840-dev:dev'
+	compile 'RebornCore:RebornCore:1.1.0.+:dev'
+	compile name: "OpenComputers", version: "MC1.7.10-1.6.0.840-dev", classifier: "dev"
 
 	testCompile 'junit:junit:4.12'
 }
 
 
 processResources
-        {
-            // replace stuff in mcmod.info, nothing else
-            from(sourceSets.main.resources.srcDirs) {
-                include 'mcmod.info'
+	{
+		// replace stuff in mcmod.info, nothing else
+		from(sourceSets.main.resources.srcDirs) {
+			include 'mcmod.info'
 
-                // replace version and mcversion
-                // ${version}   and    ${mcversion}    are the exact strings being replaced
-                expand 'version':project.version, 'mcversion':project.minecraft.version
-            }
+			// replace version and mcversion
+			// ${version}   and    ${mcversion}    are the exact strings being replaced
+			expand 'version':project.version, 'mcversion':project.minecraft.version
+		}
 
-            // copy everything else, that's not the mcmod.info
-            from(sourceSets.main.resources.srcDirs) {
-                exclude 'mcmod.info'
-            }
-        }
+		// copy everything else, that's not the mcmod.info
+		from(sourceSets.main.resources.srcDirs) {
+			exclude 'mcmod.info'
+		}
+	}
 
 task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'src'
+	from sourceSets.main.allSource
+	classifier = 'src'
 }
 
 task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    exclude "**/*.psd"
-    classifier = 'dev'
+	from sourceSets.main.output
+	exclude "**/*.psd"
+	classifier = 'dev'
 }
 
 jar {
-    exclude "**/*.psd"
-    classifier = 'universal'
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)){
-            include 'ic2/api/'
-            include 'forestry/api/fuels/'
-            exclude 'META-INF', 'META-INF/**', '**/*.java'
-        }
-    }
+	exclude "**/*.psd"
+	classifier = 'universal'
+	configurations.shade.each { dep ->
+		from(project.zipTree(dep)){
+			include 'ic2/api/'
+			include 'forestry/api/fuels/'
+			exclude 'META-INF', 'META-INF/**', '**/*.java'
+		}
+	}
 }
 
 task apiJar(type: Jar) {
-    from sourceSets.main.allSource
-    from sourceSets.main.output
-        include 'techreborn/api/**/*'
+	from sourceSets.main.allSource
+	from sourceSets.main.output
+	include 'techreborn/api/**/*'
 
-    classifier = "api"
+	classifier = "api"
 }
 
 javadoc {
-    source += sourceSets.api.allSource
-    include 'techreborn/api/**/*'
+	source += sourceSets.api.allSource
+	include 'techreborn/api/**/*'
 }
 
 
 apiJar.mustRunAfter deobfJar
 
 artifacts {
-    archives sourceJar
-    archives deobfJar
-    archives apiJar
+	archives sourceJar
+	archives deobfJar
+	archives apiJar
 }
 
 build.dependsOn sourceJar, deobfJar, apiJar
 
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file:///var/www/maven/")
-            pom {
-                groupId = "TechReborn"
-                version = project.version
-                artifactId = project.archivesBaseName
-                project {
-                    name project.archivesBaseName
-                    packaging 'jar'
-                    description 'TechReborn'
-                    url 'https://github.com/TechReborn/TechReborn'
-                    scm {
-                        url 'https://github.com/TechReborn/TechReborn'
-                        connection 'scm:git:git@github.com:TechReborn/TechReborn.git'
-                        developerConnection 'scm:git:git@github.com:TechReborn/TechReborn.git'
-                    }
-                    issueManagement {
-                        system 'github'
-                        url 'https://github.com/TechReborn/TechReborn/issues'
-                    }
-                    licenses {
-                        license {
-                            name 'License'
-                            url 'https://raw.githubusercontent.com/TechReborn/TechReborn/master/LICENSE.md'
-                            distribution 'repo'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id 'modmuss50'
-                            name 'modmuss50'
-                            roles { role 'developer' }
-                        }
-                        developer {
-                            id 'Gigabit101'
-                            name 'Gigabit101'
-                            roles { role 'developer' }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	repositories {
+		mavenDeployer {
+			repository(url: "file:///var/www/maven/")
+			pom {
+				groupId = "TechReborn"
+				version = project.version
+				artifactId = project.archivesBaseName
+				project {
+					name project.archivesBaseName
+					packaging 'jar'
+					description 'TechReborn'
+					url 'https://github.com/TechReborn/TechReborn'
+					scm {
+						url 'https://github.com/TechReborn/TechReborn'
+						connection 'scm:git:git@github.com:TechReborn/TechReborn.git'
+						developerConnection 'scm:git:git@github.com:TechReborn/TechReborn.git'
+					}
+					issueManagement {
+						system 'github'
+						url 'https://github.com/TechReborn/TechReborn/issues'
+					}
+					licenses {
+						license {
+							name 'License'
+							url 'https://raw.githubusercontent.com/TechReborn/TechReborn/master/LICENSE.md'
+							distribution 'repo'
+						}
+					}
+					developers {
+						developer {
+							id 'modmuss50'
+							name 'modmuss50'
+							roles { role 'developer' }
+						}
+						developer {
+							id 'Gigabit101'
+							name 'Gigabit101'
+							roles { role 'developer' }
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 task wrapper(type: Wrapper) {
-    //To update the wrapper change the version bellow then run: gradle wrapper
-    gradleVersion = '2.9'
+	//To update the wrapper change the version bellow then run: gradle wrapper
+	gradleVersion = '2.9'
 }
 
 import org.apache.commons.io.FileUtils;
@@ -255,6 +259,6 @@ task curseTools << {
 		arg(value: jar.archivePath.getAbsolutePath())
 		arg(value: deobfJar.archivePath.getAbsolutePath())
 		arg(value: apiJar.archivePath.getAbsolutePath())
-        arg(value: sourceJar.archivePath.getAbsolutePath())
+		arg(value: sourceJar.archivePath.getAbsolutePath())
 	}
 }
