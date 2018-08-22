@@ -44,7 +44,8 @@ public class RollingMachineRecipes extends RecipeMethods {
 		if (oresExist("ingotAluminium")) {
 			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil2"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
 		}
-		register(new ResourceLocation(ModInfo.MOD_ID, "plateMagnalium"), getMaterial("magnalium", 3, Type.PLATE), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");
+	// TODO: fix recipe
+		//	register(new ResourceLocation(ModInfo.MOD_ID, "plateMagnalium"), getMaterial("magnalium", 3, Type.PLATE), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");
 		register(new ResourceLocation(ModInfo.MOD_ID, "rail"), getStack(Blocks.RAIL, 24), "I I", "ISI", "I I", 'I', "ingotIron", 'S', "stickWood");
 		register(new ResourceLocation(ModInfo.MOD_ID, "gold_rail"), getStack(Blocks.GOLDEN_RAIL, 8), "I I", "ISI", "IRI", 'I', "ingotGold", 'S', "stickWood", 'R', "dustRedstone");
 		register(new ResourceLocation(ModInfo.MOD_ID, "detector_rail"), getStack(Blocks.DETECTOR_RAIL, 8), "I I", "IPI", "IRI", 'I', "ingotIron", 'P', getStack(Blocks.STONE_PRESSURE_PLATE), 'R', "dustRedstone");

@@ -42,7 +42,7 @@ public class ItemNuggets extends ItemTR {
 
 	public ItemNuggets() {
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setHasSubtypes(true);
+		//setHasSubtypes(true);
 		setTranslationKey("techreborn.nuggets");
 		TRRecipeHandler.hideEntry(this);
 	}
@@ -61,7 +61,7 @@ public class ItemNuggets extends ItemTR {
 		return getNuggetByName(name, 1);
 	}
 
-	@Override
+/*	@Override
 	// gets Unlocalized Name depending on meta data
 	public String getTranslationKey(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
@@ -70,9 +70,9 @@ public class ItemNuggets extends ItemTR {
 		}
 
 		return super.getTranslationKey() + "." + types[meta];
-	}
+	}*/
 
-	// Adds Dusts SubItems To Creative Tab
+/*	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		if (!isInCreativeTab(creativeTabs)) {
@@ -81,6 +81,6 @@ public class ItemNuggets extends ItemTR {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(this, 1, meta));
 		}
-	}
+	}*/
 
 }

@@ -104,15 +104,15 @@ public class SubItemRetriever implements ISubItemRetriever {
 		return ItemParts.getPartByName(name, count);
 	}
 
-	@Override
-	public ItemStack getPlateByName(String name) {
-		return ItemPlates.getPlateByName(name);
-	}
+//	@Override
+//	public ItemStack getPlateByName(String name) {
+//		return ItemPlates.getPlateByName(name);
+//	}
 
-	@Override
-	public ItemStack getPlateByName(String name, int count) {
-		return ItemPlates.getPlateByName(name, count);
-	}
+//	@Override
+//	public ItemStack getPlateByName(String name, int count) {
+//		return ItemPlates.getPlateByName(name, count);
+//	}
 
 	@Override
 	public ItemStack getUpgradeByName(String name) {
@@ -142,5 +142,17 @@ public class SubItemRetriever implements ISubItemRetriever {
 	@Override
 	public ItemStack getStorageBlockByName(String name, int count) {
 		return BlockStorage.getStorageBlockByName(name, count);
+	}
+
+	@Override
+	public ItemStack getPlateByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ItemStack getPlateByName(String name, int count) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

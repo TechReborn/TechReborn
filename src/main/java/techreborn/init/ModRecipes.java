@@ -108,59 +108,59 @@ public class ModRecipes {
 	}
 
 	private static void addCompressorRecipes() {
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(ItemIngots.getIngotByName("advanced_alloy"),
-				ItemPlates.getPlateByName("advanced_alloy"), 400, 20));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(ItemParts.getPartByName("carbon_mesh"),
-				ItemPlates.getPlateByName("carbon"), 400, 2));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("plankWood", 1),
-				OreUtil.getStackFromName("plateWood", 1), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 1),
-				ItemPlates.getPlateByName("lazurite", 1), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("obsidian", 1),
-				ItemPlates.getPlateByName("obsidian", 9), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustObsidian", 1),
-				ItemPlates.getPlateByName("obsidian", 1), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustYellowGarnet", 1),
-				ItemPlates.getPlateByName("YellowGarnet"), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("blockYellowGarnet", 1),
-				ItemPlates.getPlateByName("YellowGarnet", 9), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustRedGarnet", 1),
-				ItemPlates.getPlateByName("RedGarnet"), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("blockRedGarnet", 1),
-				ItemPlates.getPlateByName("RedGarnet", 9), 300, 4));
-		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("ingotRefinedIron", 1),
-				ItemPlates.getPlateByName("RefinedIron"), 300, 4));
-		
-		ItemStack plate;
-		for (String ore : OreUtil.oreNames) {
-			if (ore.equals("iridium")) {
-				continue;
-			}
-			if (OreUtil.hasPlate(ore)) {
-				try {
-					plate = ItemPlates.getPlateByName(ore, 1);
-				} catch (InvalidParameterException e) {
-					plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1);
-				}
-				if (plate.isEmpty()) {
-					continue;				
-				}
-				if (OreUtil.hasIngot(ore)) {
-					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
-							OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
-				}
-				if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
-					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
-							OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
-				}
-				if (OreUtil.hasBlock(ore)) {
-					ItemStack morePlates = plate.copy();
-					morePlates.setCount(9);
-					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
-							OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), morePlates, 300, 4));
-				}
-			}
-		}
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(ItemIngots.getIngotByName("advanced_alloy"),
+//				ItemPlates.getPlateByName("advanced_alloy"), 400, 20));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(ItemParts.getPartByName("carbon_mesh"),
+//				ItemPlates.getPlateByName("carbon"), 400, 2));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("plankWood", 1),
+//				OreUtil.getStackFromName("plateWood", 1), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustLazurite", 1),
+//				ItemPlates.getPlateByName("lazurite", 1), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("obsidian", 1),
+//				ItemPlates.getPlateByName("obsidian", 9), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustObsidian", 1),
+//				ItemPlates.getPlateByName("obsidian", 1), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustYellowGarnet", 1),
+//				ItemPlates.getPlateByName("YellowGarnet"), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("blockYellowGarnet", 1),
+//				ItemPlates.getPlateByName("YellowGarnet", 9), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("dustRedGarnet", 1),
+//				ItemPlates.getPlateByName("RedGarnet"), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("blockRedGarnet", 1),
+//				ItemPlates.getPlateByName("RedGarnet", 9), 300, 4));
+//		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("ingotRefinedIron", 1),
+//				ItemPlates.getPlateByName("RefinedIron"), 300, 4));
+//		
+//		ItemStack plate;
+//		for (String ore : OreUtil.oreNames) {
+//			if (ore.equals("iridium")) {
+//				continue;
+//			}
+//			if (OreUtil.hasPlate(ore)) {
+//				try {
+//					plate = ItemPlates.getPlateByName(ore, 1);
+//				} catch (InvalidParameterException e) {
+//					plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1);
+//				}
+//				if (plate.isEmpty()) {
+//					continue;				
+//				}
+//				if (OreUtil.hasIngot(ore)) {
+//					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
+//							OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
+//				}
+//				if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
+//					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
+//							OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
+//				}
+//				if (OreUtil.hasBlock(ore)) {
+//					ItemStack morePlates = plate.copy();
+//					morePlates.setCount(9);
+//					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
+//							OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), morePlates, 300, 4));
+//				}
+//			}
+//		}
 	}
 
 	static void addGrinderRecipes() {

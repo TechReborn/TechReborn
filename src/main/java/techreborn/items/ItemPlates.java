@@ -24,78 +24,39 @@
 
 package techreborn.items;
 
-import com.google.common.base.CaseFormat;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import reborncore.common.util.OreUtil;
 import techreborn.events.TRRecipeHandler;
-import techreborn.init.ModItems;
-import techreborn.utils.TechRebornCreativeTab;
-
-import java.security.InvalidParameterException;
 
 public class ItemPlates extends ItemTR {
 
-	//Vanilla plates or plates not from ingots or gems
-	public static String[] types = new String[] {
-		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "coal", "obsidian", "lazurite"
-	};
-
 	public ItemPlates() {
-		setTranslationKey("techreborn.plate");
-		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 
-	public static ItemStack getPlateByName(String name, int count) {
-		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.PLATES, count, i);
-			}
-		}
-		throw new InvalidParameterException("The plate " + name + " could not be found.");
-	}
-
-	public static ItemStack getPlateByName(String name) {
-		return getPlateByName(name, 1);
-	}
-
-	public static void registerType(String plateType) {
-		for (String type : types) {
-			if (type.equals(plateType))
-				return;
-		}
-		int plateIndex = types.length;
-		String[] newTypes = new String[plateIndex + 1];
-		System.arraycopy(types, 0, newTypes, 0, types.length);
-		types = newTypes;
-		newTypes[plateIndex] = plateType;
-		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
-		OreUtil.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
-	}
-
-	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getTranslationKey(ItemStack itemStack) {
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length) {
-			meta = 0;
-		}
-
-		return super.getTranslationKey() + "." + types[meta];
-	}
-
-	// Adds Dusts SubItems To Creative Tab
-	@Override
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		if (!isInCreativeTab(creativeTabs)) {
-			return;
-		}
-		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(this, 1, meta));
-		}
-	}
+//	public static ItemStack getPlateByName(String name, int count) {
+//		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
+//		for (int i = 0; i < types.length; i++) {
+//			if (types[i].equalsIgnoreCase(name)) {
+//				return new ItemStack(ModItems.PLATES, count, i);
+//			}
+//		}
+//		throw new InvalidParameterException("The plate " + name + " could not be found.");
+//	}
+//
+//	public static ItemStack getPlateByName(String name) {
+//		return getPlateByName(name, 1);
+//	}
+//
+//	public static void registerType(String plateType) {
+//		for (String type : types) {
+//			if (type.equals(plateType))
+//				return;
+//		}
+//		int plateIndex = types.length;
+//		String[] newTypes = new String[plateIndex + 1];
+//		System.arraycopy(types, 0, newTypes, 0, types.length);
+//		types = newTypes;
+//		newTypes[plateIndex] = plateType;
+//		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
+//		OreUtil.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
+//	}
 }

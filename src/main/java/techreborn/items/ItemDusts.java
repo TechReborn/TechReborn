@@ -47,7 +47,7 @@ public class ItemDusts extends ItemTR {
 
 	public ItemDusts() {
 		setTranslationKey("techreborn.dust");
-		setHasSubtypes(true);
+		//setHasSubtypes(true);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
@@ -86,7 +86,7 @@ public class ItemDusts extends ItemTR {
 	}
 
 
-	@Override
+/*	@Override
 	// gets Unlocalized Name depending on meta data
 	public String getTranslationKey(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
@@ -95,9 +95,9 @@ public class ItemDusts extends ItemTR {
 		}
 
 		return super.getTranslationKey() + "." + types[meta];
-	}
+	}*/
 
-	// Adds Dusts SubItems To Creative Tab
+/*	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		if (!isInCreativeTab(creativeTabs)) {
@@ -106,6 +106,6 @@ public class ItemDusts extends ItemTR {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(this, 1, meta));
 		}
-	}
+	}*/
 
 }
