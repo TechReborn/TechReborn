@@ -28,9 +28,11 @@ import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import reborncore.common.util.OreUtil;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
+import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.security.InvalidParameterException;
@@ -42,10 +44,12 @@ public class ItemPlates extends ItemTR {
 		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "coal", "obsidian", "lazurite"
 	};
 
-	public ItemPlates() {
+	public ItemPlates(ResourceLocation name) {
+		setRegistryName(name);
+		setTranslationKey(ModInfo.MOD_ID + "." + name.getPath());
+		TRRecipeHandler.hideEntry(this);
 		//setTranslationKey("techreborn.plate");
 		//setHasSubtypes(true);
-		TRRecipeHandler.hideEntry(this);
 	}
 
 //	public static ItemStack getPlateByName(String name, int count) {
@@ -75,26 +79,4 @@ public class ItemPlates extends ItemTR {
 //		String oreName = "plate" + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, plateType);
 //		OreUtil.registerOre(oreName, new ItemStack(ModItems.PLATES, 1, plateIndex));
 //	}
-
-/*	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getTranslationKey(ItemStack itemStack) {
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length) {
-			meta = 0;
-		}
-
-		return super.getTranslationKey() + "." + types[meta];
-	}*/
-
-/*	// Adds Dusts SubItems To Creative Tab
-	@Override
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		if (!isInCreativeTab(creativeTabs)) {
-			return;
-		}
-		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(this, 1, meta));
-		}
-	}*/
 }

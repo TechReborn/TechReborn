@@ -30,10 +30,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -133,7 +131,7 @@ public class Core {
 	@SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> itemRegistry = event.getRegistry();
-		Arrays.stream(ModPlates.values()).forEach(modPlate -> itemRegistry.register(modPlate.item));
+		Arrays.stream(ModPlates.values()).forEach(plate -> itemRegistry.register(plate.item));
     }
 
 	@Mod.EventHandler

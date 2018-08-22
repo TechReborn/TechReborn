@@ -1,136 +1,151 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "builtin/generated",
-    "transform": "forge:default-item"
-  },
-  "variants": {
-    "type": {
-      "chrome": {
-        "textures": {
-          "layer0": "techreborn:items/plate/chrome_plate"
-        }
-      },
-      "electrum": {
-        "textures": {
-          "layer0": "techreborn:items/plate/electrum_plate"
-        }
-      },
-      "invar": {
-        "textures": {
-          "layer0": "techreborn:items/plate/invar_plate"
-        }
-      },
-      "iridium": {
-        "textures": {
-          "layer0": "techreborn:items/plate/iridium_plate"
-        }
-      },
-      "lead": {
-        "textures": {
-          "layer0": "techreborn:items/plate/lead_plate"
-        }
-      },
-      "nickel": {
-        "textures": {
-          "layer0": "techreborn:items/plate/nickel_plate"
-        }
-      },
-      "platinum": {
-        "textures": {
-          "layer0": "techreborn:items/plate/platinum_plate"
-        }
-      },
-      "silver": {
-        "textures": {
-          "layer0": "techreborn:items/plate/silver_plate"
-        }
-      },
-      "steel": {
-        "textures": {
-          "layer0": "techreborn:items/plate/steel_plate"
-        }
-      },
-      "tin": {
-        "textures": {
-          "layer0": "techreborn:items/plate/tin_plate"
-        }
-      },
-      "titanium": {
-        "textures": {
-          "layer0": "techreborn:items/plate/titanium_plate"
-        }
-      },
-      "tungsten": {
-        "textures": {
-          "layer0": "techreborn:items/plate/tungsten_plate"
-        }
-      },
-      "hot_tungstensteel": {
-        "textures": {
-          "layer0": "techreborn:items/plate/hot_tungstensteel_plate"
-        }
-      },
-      "tungstensteel": {
-        "textures": {
-          "layer0": "techreborn:items/plate/tungstensteel_plate"
-        }
-      },
-      "zinc": {
-        "textures": {
-          "layer0": "techreborn:items/plate/zinc_plate"
-        }
-      },
-      "refined_iron": {
-        "textures": {
-          "layer0": "techreborn:items/plate/refined_iron_plate"
-        }
-      },
-      "mixed_metal": {
-        "textures": {
-          "layer0": "techreborn:items/plate/mixed_metal_plate"
-        }
-      },
-      "iridium_alloy": {
-        "textures": {
-          "layer0": "techreborn:items/plate/iridium_alloy_plate"
-        }
-      },
-      "lapis": {
-        "textures": {
-          "layer0": "techreborn:items/plate/lapis_plate"
-        }
-      },
-      "ruby": {
-        "textures": {
-          "layer0": "techreborn:items/plate/ruby_plate"
-        }
-      },
-      "sapphire": {
-        "textures": {
-          "layer0": "techreborn:items/plate/sapphire_plate"
-        }
-      },
-      "peridot": {
-        "textures": {
-          "layer0": "techreborn:items/plate/peridot_plate"
-        }
-      },
-      "red_garnet": {
-        "textures": {
-          "layer0": "techreborn:items/plate/red_garnet_plate"
-        }
-      },
-      "yellow_garnet": {
-        "textures": {
-          "layer0": "techreborn:items/plate/yellow_garnet_plate"
-        }
-      },
-       "magnalium": {
-        "textures": {
-          "layer0": "techreborn:items/plate/magnalium_plate"
-        }
-      }
-    }
-  }
+	"forge_marker": 1,
+	"defaults": {
+		"model": "builtin/generated",
+		"transform": "forge:default-item"
+	},
+	"variants": {
+		"type": {
+			"plateadvancedalloy": {
+				"textures": {
+					"layer0": "techreborn:items/plate/advanced_alloy_plate"
+				}
+			},
+			"platealuminum": {
+				"textures": {
+					"layer0": "techreborn:items/plate/aluminum_plate"
+				}
+			},
+			"platelazurite": {
+				"textures": {
+					"layer0": "techreborn:items/plate/lazurite_plate"
+				}
+			},			
+			"chrome": {
+				"textures": {
+					"layer0": "techreborn:items/plate/chrome_plate"
+				}
+			},
+			"electrum": {
+				"textures": {
+					"layer0": "techreborn:items/plate/electrum_plate"
+				}
+			},
+			"invar": {
+				"textures": {
+					"layer0": "techreborn:items/plate/invar_plate"
+				}
+			},
+			"iridium": {
+				"textures": {
+					"layer0": "techreborn:items/plate/iridium_plate"
+				}
+			},
+			"lead": {
+				"textures": {
+					"layer0": "techreborn:items/plate/lead_plate"
+				}
+			},
+			"nickel": {
+				"textures": {
+					"layer0": "techreborn:items/plate/nickel_plate"
+				}
+			},
+			"platinum": {
+				"textures": {
+					"layer0": "techreborn:items/plate/platinum_plate"
+				}
+			},
+			"silver": {
+				"textures": {
+					"layer0": "techreborn:items/plate/silver_plate"
+				}
+			},
+			"steel": {
+				"textures": {
+					"layer0": "techreborn:items/plate/steel_plate"
+				}
+			},
+			"tin": {
+				"textures": {
+					"layer0": "techreborn:items/plate/tin_plate"
+				}
+			},
+			"titanium": {
+				"textures": {
+					"layer0": "techreborn:items/plate/titanium_plate"
+				}
+			},
+			"tungsten": {
+				"textures": {
+					"layer0": "techreborn:items/plate/tungsten_plate"
+				}
+			},
+			"hot_tungstensteel": {
+				"textures": {
+					"layer0": "techreborn:items/plate/hot_tungstensteel_plate"
+				}
+			},
+			"tungstensteel": {
+				"textures": {
+					"layer0": "techreborn:items/plate/tungstensteel_plate"
+				}
+			},
+			"zinc": {
+				"textures": {
+					"layer0": "techreborn:items/plate/zinc_plate"
+				}
+			},
+			"refined_iron": {
+				"textures": {
+					"layer0": "techreborn:items/plate/refined_iron_plate"
+				}
+			},
+			"mixed_metal": {
+				"textures": {
+					"layer0": "techreborn:items/plate/mixed_metal_plate"
+				}
+			},
+			"iridium_alloy": {
+				"textures": {
+					"layer0": "techreborn:items/plate/iridium_alloy_plate"
+				}
+			},
+			"lapis": {
+				"textures": {
+					"layer0": "techreborn:items/plate/lapis_plate"
+				}
+			},
+			"ruby": {
+				"textures": {
+					"layer0": "techreborn:items/plate/ruby_plate"
+				}
+			},
+			"sapphire": {
+				"textures": {
+					"layer0": "techreborn:items/plate/sapphire_plate"
+				}
+			},
+			"peridot": {
+				"textures": {
+					"layer0": "techreborn:items/plate/peridot_plate"
+				}
+			},
+			"red_garnet": {
+				"textures": {
+					"layer0": "techreborn:items/plate/red_garnet_plate"
+				}
+			},
+			"yellow_garnet": {
+				"textures": {
+					"layer0": "techreborn:items/plate/yellow_garnet_plate"
+				}
+			},
+			"magnalium": {
+				"textures": {
+					"layer0": "techreborn:items/plate/magnalium_plate"
+				}
+			}
+		}
+	}
 }

@@ -139,12 +139,9 @@ public class RegisterItemJsons {
 		}*/
 		
 		
-
+		ResourceLocation platesBlockstateJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates");
 		for (ModPlates plate : ModPlates.values()){
-			ResourceLocation platesJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates/" + plate.name.getPath());
-			ModelLoader.setCustomModelResourceLocation(plate.item, 0, new ModelResourceLocation(platesJson, "inventory"));
-			
-			//registerBlockstateMultiItem(plate.item, plate.name.getPath(), "items/materials/plates");
+			ModelLoader.setCustomModelResourceLocation(plate.item, 0, new ModelResourceLocation(platesBlockstateJson, "type=" + plate.getName()));
 		}
 		
 		name = ItemNuggets.types.clone();

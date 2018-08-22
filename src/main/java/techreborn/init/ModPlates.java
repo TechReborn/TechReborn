@@ -24,6 +24,8 @@
 
 package techreborn.init;
 
+import net.minecraft.item.Item;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import techreborn.lib.ModInfo;
 import techreborn.items.ItemPlates;
@@ -33,33 +35,37 @@ import techreborn.items.ItemPlates;
  * @author drcrazy
  *
  */
-public enum ModPlates {
+public enum ModPlates implements IStringSerializable {
 	ADVANCED_ALLOY_PLATE("plateAdvancedAlloy"),
 	ALUMINUM_PLATE("plateAluminum"),
-	BRASS_PLATE("plateBrass"),
-	BRONZE_PLATE("plateBronze"),
-	CARBON_PLATE("plateCarbon"),
-	COAL_PLATE("plateCoal"),
-	COPPER_PLATE("plateCopper"),
-	DIAMOND_PLATE("plateDiamond"),
-	
-	IRON_PLATE("plateIron"),
-	GOLD_PLATE("plateGold"),
-	
-	WOOD_PLATE("plateWood"),
-	REDSTONE_PLATE("plateRedstone"),
-	
-	EMERALD_PLATE("plateEmerald"),
-	
-	OBSIDIAN_PLATE("plateObsidian"),
+//	BRASS_PLATE("plateBrass"),
+//	BRONZE_PLATE("plateBronze"),
+//	CARBON_PLATE("plateCarbon"),
+//	COAL_PLATE("plateCoal"),
+//	COPPER_PLATE("plateCopper"),
+//	DIAMOND_PLATE("plateDiamond"),
+//	
+//	IRON_PLATE("plateIron"),
+//	GOLD_PLATE("plateGold"),
+//	
+//	WOOD_PLATE("plateWood"),
+//	REDSTONE_PLATE("plateRedstone"),
+//	
+//	EMERALD_PLATE("plateEmerald"),
+//	
+//	OBSIDIAN_PLATE("plateObsidian"),
 	LAZURITE_PLATE("plateLazurite");
 	
-	public ResourceLocation name;
-	public ItemPlates item;
+	public final ResourceLocation name;
+	public final Item item;
 	
-	ModPlates(String name) {
+	private ModPlates(String name) {
 		this.name = new ResourceLocation(ModInfo.MOD_ID, name);
-		this.item = new ItemPlates();
-		this.item.setRegistryName(this.name);
+		this.item = new ItemPlates(this.name);
+	}
+
+	@Override
+	public String getName() {
+		return name.getPath();
 	}
 }
