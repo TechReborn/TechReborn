@@ -133,15 +133,8 @@ public class RegisterItemJsons {
 			registerBlockstate(ModItems.GEMS, i, name[i], "items/materials/");
 		}
 		
-/*		name = ItemPlates.types.clone();
-		for (int i = 0; i < ItemPlates.types.length; ++i) {
-			registerBlockstate(ModItems.PLATES, i, name[i], "items/materials/");
-		}*/
-		
-		
-		ResourceLocation platesBlockstateJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates");
 		for (ModPlates plate : ModPlates.values()){
-			ModelLoader.setCustomModelResourceLocation(plate.item, 0, new ModelResourceLocation(platesBlockstateJson, "type=" + plate.getName()));
+			registerBlockstateMultiItem(plate.item, plate.name, "items/materials/plates");
 		}
 		
 		name = ItemNuggets.types.clone();
@@ -204,8 +197,9 @@ public class RegisterItemJsons {
 	}
 
 	private static void register(Item item, int meta, String name) {
+		ResourceLocation loc = new ResourceLocation(ModInfo.MOD_ID, name);
 		ModelLoader.setCustomModelResourceLocation(item, meta,
-			new ModelResourceLocation("techreborn:" + name, "inventory"));
+			new ModelResourceLocation(loc, "inventory"));
 	}
 
 	private static void register(Item item, String name) {
@@ -227,7 +221,7 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlockstate(Item i, int meta, String variant, String dir) {
-		ResourceLocation loc = new ResourceLocation("techreborn", dir + i.getRegistryName().getPath());
+		ResourceLocation loc = new ResourceLocation(ModInfo.MOD_ID, dir + i.getRegistryName().getPath());
 		ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "type=" + variant));
 	}
 
@@ -241,12 +235,12 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlockstateMultiItem(Item item, String variantName, String path) {
-		ResourceLocation loc = new ResourceLocation("techreborn", path);
+		ResourceLocation loc = new ResourceLocation(ModInfo.MOD_ID, path);
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "type=" + variantName));
 	}
 
 	private static void registerBlockstateMultiItem(Item item, int meta, String variantName, String path) {
-		ResourceLocation loc = new ResourceLocation("techreborn", path);
+		ResourceLocation loc = new ResourceLocation(ModInfo.MOD_ID, path);
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(loc, "type=" + variantName));
 	}
 }

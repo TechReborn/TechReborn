@@ -24,32 +24,12 @@
 
 package techreborn.items;
 
-import com.google.common.base.CaseFormat;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import reborncore.common.util.OreUtil;
 import techreborn.events.TRRecipeHandler;
-import techreborn.init.ModItems;
-import techreborn.lib.ModInfo;
-import techreborn.utils.TechRebornCreativeTab;
-
-import java.security.InvalidParameterException;
 
 public class ItemPlates extends ItemTR {
 
-	//Vanilla plates or plates not from ingots or gems
-	public static String[] types = new String[] {
-		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", "coal", "obsidian", "lazurite"
-	};
-
-	public ItemPlates(ResourceLocation name) {
-		setRegistryName(name);
-		setTranslationKey(ModInfo.MOD_ID + "." + name.getPath());
+	public ItemPlates() {
 		TRRecipeHandler.hideEntry(this);
-		//setTranslationKey("techreborn.plate");
-		//setHasSubtypes(true);
 	}
 
 //	public static ItemStack getPlateByName(String name, int count) {

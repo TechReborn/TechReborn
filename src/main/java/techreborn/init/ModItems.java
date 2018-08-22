@@ -41,7 +41,6 @@ import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
 import techreborn.items.tools.*;
-
 import javax.annotation.Nullable;
 
 public class ModItems {
@@ -60,7 +59,7 @@ public class ModItems {
 	public static Item LAPOTRONIC_ORB;
 	public static Item MANUAL;
 	public static Item UU_MATTER;
-	public static Item PLATES;
+	
 	public static Item CLOAKING_DEVICE;
 	public static Item RE_BATTERY;
 	public static Item TREE_TAP;
@@ -165,8 +164,11 @@ public class ModItems {
 		registerItem(DUSTS, "dust");
 		SMALL_DUSTS = new ItemDustsSmall();
 		registerItem(SMALL_DUSTS, "smallDust");
-//		PLATES = new ItemPlates();
-//		registerItem(PLATES, "plates");
+
+		for (ModPlates plate : ModPlates.values()){
+			registerItem(plate.item,  plate.name);
+		}
+				
 		NUGGETS = new ItemNuggets();
 		registerItem(NUGGETS, "nuggets");
 		// purifiedCrushedOre = new ItemPurifiedCrushedOre();

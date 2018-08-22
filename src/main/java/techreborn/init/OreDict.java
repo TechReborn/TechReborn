@@ -104,19 +104,11 @@ public class OreDict {
 			//	ItemPlates.registerType(type);
 		}
 
-		for (String type : ItemPlates.types) {
-			// TODO: fix recipe
-			// OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
-		}
+//		for (String type : ItemPlates.types) {
+//			// TODO: fix recipe
+//			 OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
+//		}
 		
-		//Late registration of additional plates to keep meta
-	//	ItemPlates.registerType("magnalium");
-	//	OreUtil.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
-	// TODO: Fix recipe
-	//	ItemPlates.registerType("iridium_alloy");
-	//	OreUtil.registerOre("plateIridiumAlloy", ItemPlates.getPlateByName("iridiumAlloy"));
-		
-
 		for (String type : ItemDusts.types) {
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
 		}
