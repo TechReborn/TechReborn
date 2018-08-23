@@ -166,7 +166,7 @@ public class ModItems {
 		registerItem(SMALL_DUSTS, "smallDust");
 
 		for (ModPlates plate : ModPlates.values()){
-			registerItem(plate.item,  plate.name);
+			plate.register();
 		}
 				
 		NUGGETS = new ItemNuggets();

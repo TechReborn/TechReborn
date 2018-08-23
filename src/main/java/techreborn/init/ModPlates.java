@@ -24,8 +24,17 @@
 
 package techreborn.init;
 
+import com.google.common.base.CaseFormat;
+
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.RebornRegistry;
 import techreborn.lib.ModInfo;
 import techreborn.items.ItemPlates;
 
@@ -35,56 +44,69 @@ import techreborn.items.ItemPlates;
  *
  */
 public enum ModPlates implements IStringSerializable {
-	ADVANCED_ALLOY_PLATE("plateAdvancedAlloy"),
-	ALUMINUM_PLATE("plateAluminum"),
-	BRASS_PLATE("plateBrass"),
-	BRONZE_PLATE("plateBronze"),
-	CARBON_PLATE("plateCarbon"),
-	COAL_PLATE("plateCoal"),
-	COPPER_PLATE("plateCopper"),
-	DIAMOND_PLATE("plateDiamond"),
-	ELECTRUM_PLATE("plateElectrum"),
-	EMERALD_PLATE("plateEmerald"),
-	GOLD_PLATE("plateGold"),
-	INVAR_PLATE("plateInvar"),
-	IRIDIUM_ALLOY_PLATE("plateIridiumAlloy"),
-	IRIDIUM_PLATE("plateIridium"),
-	IRON_PLATE("plateIron"),
-	LAPIS_PLATE("plateLapis"),
-	LAZURITE_PLATE("plateLazurite"),
-	LEAD_PLATE("plateLead"),
-	MAGNALIUM_PLATE("plateMagnalium"),
-	NICKEL_PLATE("plateNickel"),
-	OBSIDIAN_PLATE("plateObsidian"),
-	PERIDOT_PLATE("platePeridot"),
-	PLATINUM_PLATE("platePlatinum"),
-	RED_GARNET_PLATE("plateRedGarnet"),
-	REDSTONE_PLATE("plateRedstone"),
-	REFINED_IRON_PLATE("plateRefinedIron"),
-	RUBY_PLATE("plateRuby"),
-	SAPPHIRE_PLATE("plateSapphire"),
-	SILICON_PLATE("plateSilicon"),
-	SILVER_PLATE("plateSilver"),
-	STEEL_PLATE("plateSteel"),
-	TIN_PLATE("plateTin"),
-	TITANIUM_PLATE("plateTitanium"),
-	TUNGSTEN_PLATE("plateTungsten"),
-	TUNGSTENSTEEL_PLATE("plateTungstensteel"),
-	WOOD_PLATE("plateWood"),
-	YELLOW_GARNET_PLATE("plateYellowGarnet"),
-	ZINC_PLATE("plateZinc");
+	ADVANCED_ALLOY,
+	ALUMINUM,
+	BRASS,
+	BRONZE,
+	CARBON,
+	COAL,
+	COPPER,
+	DIAMOND,
+	ELECTRUM,
+	EMERALD,
+	GOLD,
+	INVAR,
+	IRIDIUM_ALLOY,
+	IRIDIUM,
+	IRON,
+	LAPIS,
+	LAZURITE,
+	LEAD,
+	MAGNALIUM,
+	NICKEL,
+	OBSIDIAN,
+	PERIDOT,
+	PLATINUM,
+	RED_GARNET,
+	REDSTONE,
+	REFINED_IRON,
+	RUBY,
+	SAPPHIRE,
+	SILICON,
+	SILVER,
+	STEEL,
+	TIN,
+	TITANIUM,
+	TUNGSTEN,
+	TUNGSTENSTEEL,
+	WOOD,
+	YELLOW_GARNET,
+	ZINC;
 	
 	public final String name;
 	public final Item item;
 	
-	private ModPlates(String name) {
-		this.name = name;
-		this.item = new ItemPlates();
-		// ModItems will take care about setRegistryName
-		//this.item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-		this.item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+	private ModPlates() {
+		name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "PLATE_" + this.toString());
+		item = new ItemPlates();
+		item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
+		item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+	}
+	
+	public ItemStack getStack() {
+		return new ItemStack(item);
 	}
 
+	public void register() {
+		RebornRegistry.registerItem(item);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void registerModel() {
+		ResourceLocation blockstateJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates");
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(blockstateJson, "type=" + name));
+	}
+	
 	@Override
 	public String getName() {
 		return name;

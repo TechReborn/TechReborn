@@ -134,7 +134,7 @@ public class RegisterItemJsons {
 		}
 		
 		for (ModPlates plate : ModPlates.values()){
-			registerBlockstateMultiItem(plate.item, plate.name, "items/materials/plates");
+			plate.registerModel();
 		}
 		
 		name = ItemNuggets.types.clone();
