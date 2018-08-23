@@ -38,15 +38,15 @@ import java.security.InvalidParameterException;
  */
 public class ImplosionCompressorRecipes extends RecipeMethods {
 	public static void init() {
-		// TODO: fix recipe
-		// register(getOre("ingotIridiumAlloy"), getMaterial("iridium_alloy", Type.PLATE), 4);
 		register(getOre("dustDiamond", 4), getStack(Items.DIAMOND, 3), 16);
 		register(getOre("dustEmerald", 4), getStack(Items.EMERALD, 3), 12);
-		register(getOre("dustRuby", 4), getMaterial("ruby", 3, Type.GEM), 12);
-		register(getOre("dustSapphire", 4), getMaterial("sapphire", 3, Type.GEM), 12);
-		register(getOre("dustPeridot", 4), getMaterial("peridot", 3, Type.GEM), 12);
-		register(getOre("dustRedGarnet", 4), getMaterial("red_garnet", 3, Type.GEM), 8);
-		register(getOre("dustYellowGarnet", 4), getMaterial("yellow_garnet", 3, Type.GEM), 8);
+		// TODO: fix recipe
+		// register(getOre("ingotIridiumAlloy"), getMaterial("iridium_alloy", Type.PLATE), 4);
+//		register(getOre("dustRuby", 4), getMaterial("ruby", 3, Type.GEM), 12);
+//		register(getOre("dustSapphire", 4), getMaterial("sapphire", 3, Type.GEM), 12);
+//		register(getOre("dustPeridot", 4), getMaterial("peridot", 3, Type.GEM), 12);
+//		register(getOre("dustRedGarnet", 4), getMaterial("red_garnet", 3, Type.GEM), 8);
+//		register(getOre("dustYellowGarnet", 4), getMaterial("yellow_garnet", 3, Type.GEM), 8);
 		if (oresExist("dustApatite", "gemApatite")) {
 			register(getOre("dustApatite", 4), getOre("gemApatite", 3), 12);
 		}

@@ -66,12 +66,16 @@ public class SubItemRetriever implements ISubItemRetriever {
 
 	@Override
 	public ItemStack getGemByName(String name) {
-		return ItemGems.getGemByName(name);
+		// TODO: Fix recipe
+		//return ItemGems.getGemByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getGemByName(String name, int count) {
-		return ItemGems.getGemByName(name, count);
+		// TODO: Fix recipe
+		//return ItemGems.getGemByName(name, count);
+		return null;
 	}
 
 	@Override

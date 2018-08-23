@@ -63,6 +63,10 @@ public enum ModPlates implements IStringSerializable {
 	public ItemStack getStack() {
 		return new ItemStack(item);
 	}
+	
+	public ItemStack getStack(int amount) {
+		return new ItemStack(item, amount);
+	}
 
 	public static void register() {
 		Arrays.stream(ModPlates.values()).forEach(plate -> RebornRegistry.registerItem(plate.item));

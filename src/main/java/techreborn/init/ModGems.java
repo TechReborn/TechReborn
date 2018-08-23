@@ -36,23 +36,22 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornRegistry;
-import techreborn.items.ItemNuggets;
+import techreborn.items.ItemGems;
 import techreborn.lib.ModInfo;
 
 /**
  * @author drcrazy
  *
  */
-public enum ModNuggets implements IStringSerializable {
-	ALUMINUM, BRASS, BRONZE, CHROME, COPPER, DIAMOND, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
-	PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
+public enum ModGems implements IStringSerializable {
+	PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
 	public final String name;
 	public final Item item;
 	
-	private ModNuggets() {
-		name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "NUGGET_" + this.toString());
-		item = new ItemNuggets();
+	private ModGems() {
+		name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "GEM_" + this.toString());
+		item = new ItemGems();
 		item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 		item.setTranslationKey(ModInfo.MOD_ID + "." + name);
 	}
@@ -66,14 +65,14 @@ public enum ModNuggets implements IStringSerializable {
 	}
 
 	public static void register() {
-		Arrays.stream(ModNuggets.values()).forEach(nugget -> RebornRegistry.registerItem(nugget.item));
+		Arrays.stream(ModGems.values()).forEach(gem -> RebornRegistry.registerItem(gem.item));
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static void registerModel() {
-		ResourceLocation blockstateJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/nuggets");
-		Arrays.stream(ModNuggets.values()).forEach(nugget -> ModelLoader.setCustomModelResourceLocation(nugget.item, 0,
-				new ModelResourceLocation(blockstateJson, "type=" + nugget.name)));
+		ResourceLocation blockstateJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/gems");
+		Arrays.stream(ModGems.values()).forEach(gem -> ModelLoader.setCustomModelResourceLocation(gem.item, 0,
+				new ModelResourceLocation(blockstateJson, "type=" + gem.name)));
 	}
 
 	@Override

@@ -48,8 +48,8 @@ public abstract class RecipeMethods {
 			return ItemDustsSmall.getSmallDustByName(name, count);
 		} else if (type == Type.INGOT) {
 			return ItemIngots.getIngotByName(name, count);
-		} else if (type == Type.GEM) {
-			return ItemGems.getGemByName(name, count);
+//		} else if (type == Type.GEM) {
+//			return ItemGems.getGemByName(name, count);
 //			TODO: fix recipe
 //		} else if (type == Type.PLATE) {
 //			return ItemPlates.getPlateByName(name, count);

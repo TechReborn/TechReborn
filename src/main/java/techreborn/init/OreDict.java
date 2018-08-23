@@ -84,15 +84,16 @@ public class OreDict {
 		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
 		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 
-		for (String type : ItemGems.types) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
-			boolean ignoreIt = false;
-			for (String ignore : plateGenIgnores)
-				if (type.startsWith(ignore))
-					ignoreIt = true;
-			// if (!ignoreIt)
-			//	ItemPlates.registerType(type);
-		}
+//		TODO: fix recipe		
+//		for (String type : ItemGems.types) {
+//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
+//			boolean ignoreIt = false;
+//			for (String ignore : plateGenIgnores)
+//				if (type.startsWith(ignore))
+//					ignoreIt = true;
+//			 if (!ignoreIt)
+//				ItemPlates.registerType(type);
+//		}
 
 		for (String type : ItemIngots.types) {
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));

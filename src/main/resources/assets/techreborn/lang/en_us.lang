@@ -364,11 +364,11 @@ item.techreborn.dustsmall.diorite.name=Small Pile of Diorite Dust
 item.techreborn.dustsmall.granite.name=Small Pile of Granite Dust
 
 #Gems
-item.techreborn.gem.ruby.name=Ruby
-item.techreborn.gem.sapphire.name=Sapphire
-item.techreborn.gem.peridot.name=Peridot
-item.techreborn.gem.red_garnet.name=Red Garnet
-item.techreborn.gem.yellow_garnet.name=Yellow Garnet
+item.techreborn.gemPeridot.name=Peridot
+item.techreborn.gemRedGarnet.name=Red Garnet
+item.techreborn.gemRuby.name=Ruby
+item.techreborn.gemSapphire.name=Sapphire
+item.techreborn.gemYellowGarnet.name=Yellow Garnet
 
 #Ingots
 item.techreborn.ingot.aluminum.name=Aluminium Ingot
@@ -417,8 +417,6 @@ item.techreborn.nuggetTitanium.name=Titanium Nugget
 item.techreborn.nuggetTungsten.name=Tungsten Nugget
 item.techreborn.nuggetTungstensteel.name=Tungstensteel Nugget
 item.techreborn.nuggetZinc.name=Zinc Nugget
-
-
 
 #Plates
 item.techreborn.plateAdvancedAlloy.name=Advanced Alloy Plate

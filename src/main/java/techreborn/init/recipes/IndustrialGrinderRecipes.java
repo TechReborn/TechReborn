@@ -100,9 +100,7 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 			register(getOre("orePitchblende"), WATER, 100, 64, getOre("uran238", 8), getOre("smallUran235", 2));
 		}
 
-		register(getOre("oreRuby"), WATER, 100, 64, getMaterial("ruby", Type.GEM), getMaterial("ruby", 6, Type.SMALL_DUST), getMaterial("red_garnet", 2, Type.SMALL_DUST));
-		
-		register(getOre("oreSapphire"), WATER, 100, 64, getMaterial("sapphire", Type.GEM), getMaterial("sapphire", 6, Type.SMALL_DUST), getMaterial("peridot", 2, Type.SMALL_DUST));
+
 		
 		register(getOre("oreQuartz"), WATER, 100, 64, getStack(Items.QUARTZ, 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
 		
@@ -118,8 +116,9 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 //		TODO: Fix recipe
 //		register(getOre("oreSheldonite"), WATER, 100, 64, getMaterial("platinum", 2, Type.DUST), getMaterial("nickel", Type.DUST), getMaterial("iridium", 2, Type.NUGGET));
 //		register(getOre("oreSheldonite"), MERCURY, 100, 64, getMaterial("platinum", 3, Type.DUST), getMaterial("nickel", Type.DUST), getMaterial("iridium", 2, Type.NUGGET));
-
-		register(getOre("orePeridot"), WATER, 100, 64, getMaterial("peridot", Type.GEM), getMaterial("peridot", 6, Type.SMALL_DUST), getMaterial("emerald", 2, Type.SMALL_DUST));
+//		register(getOre("orePeridot"), WATER, 100, 64, getMaterial("peridot", Type.GEM), getMaterial("peridot", 6, Type.SMALL_DUST), getMaterial("emerald", 2, Type.SMALL_DUST));
+//		register(getOre("oreRuby"), WATER, 100, 64, getMaterial("ruby", Type.GEM), getMaterial("ruby", 6, Type.SMALL_DUST), getMaterial("red_garnet", 2, Type.SMALL_DUST));
+//		register(getOre("oreSapphire"), WATER, 100, 64, getMaterial("sapphire", Type.GEM), getMaterial("sapphire", 6, Type.SMALL_DUST), getMaterial("peridot", 2, Type.SMALL_DUST));
 		
 		register(getOre("oreSodalite"), WATER, 100, 64, getMaterial("sodalite", 12, Type.DUST), getMaterial("aluminum", 3, Type.DUST));
 

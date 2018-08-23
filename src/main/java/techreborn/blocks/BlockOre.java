@@ -50,8 +50,8 @@ import reborncore.common.util.OreDrop;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModGems;
 import techreborn.items.ItemDusts;
-import techreborn.items.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.world.config.IOreNameProvider;
@@ -143,10 +143,10 @@ public class BlockOre extends Block implements IOreNameProvider {
 
 		// Secondary drop, like peridot from sapphire ore added via event handler. 
 		if (variant.equalsIgnoreCase("Ruby")) {
-			OreDrop ruby = new OreDrop(ItemGems.getGemByName("ruby", rubyMinQuatity), rubyMaxQuantity);
+			OreDrop ruby = new OreDrop(ModGems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
 			drops.add(ruby.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sapphire")) {
-			OreDrop sapphire = new OreDrop(ItemGems.getGemByName("sapphire", sapphireMinQuantity), sapphireMaxQuantity);
+			OreDrop sapphire = new OreDrop(ModGems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
 			drops.add(sapphire.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Pyrite")) {
 			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite", pyriteMinQuatity), pyriteMaxQuantity);
