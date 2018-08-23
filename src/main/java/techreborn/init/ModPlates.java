@@ -24,6 +24,8 @@
 
 package techreborn.init;
 
+import java.util.Arrays;
+
 import com.google.common.base.CaseFormat;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -38,75 +40,42 @@ import reborncore.RebornRegistry;
 import techreborn.lib.ModInfo;
 import techreborn.items.ItemPlates;
 
-
 /**
  * @author drcrazy
  *
  */
 public enum ModPlates implements IStringSerializable {
-	ADVANCED_ALLOY,
-	ALUMINUM,
-	BRASS,
-	BRONZE,
-	CARBON,
-	COAL,
-	COPPER,
-	DIAMOND,
-	ELECTRUM,
-	EMERALD,
-	GOLD,
-	INVAR,
-	IRIDIUM_ALLOY,
-	IRIDIUM,
-	IRON,
-	LAPIS,
-	LAZURITE,
-	LEAD,
-	MAGNALIUM,
-	NICKEL,
-	OBSIDIAN,
-	PERIDOT,
-	PLATINUM,
-	RED_GARNET,
-	REDSTONE,
-	REFINED_IRON,
-	RUBY,
-	SAPPHIRE,
-	SILICON,
-	SILVER,
-	STEEL,
-	TIN,
-	TITANIUM,
-	TUNGSTEN,
-	TUNGSTENSTEEL,
-	WOOD,
-	YELLOW_GARNET,
-	ZINC;
-	
+	ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
+	IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, RED_GARNET,
+	REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
+	YELLOW_GARNET, ZINC;
+
 	public final String name;
 	public final Item item;
-	
+
 	private ModPlates() {
 		name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "PLATE_" + this.toString());
 		item = new ItemPlates();
 		item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 		item.setTranslationKey(ModInfo.MOD_ID + "." + name);
 	}
-	
+
 	public ItemStack getStack() {
 		return new ItemStack(item);
 	}
 
-	public void register() {
-		RebornRegistry.registerItem(item);
+	public static void register() {
+		Arrays.stream(ModPlates.values()).forEach(plate -> RebornRegistry.registerItem(plate.item));
+
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public void registerModel() {
+	public static void registerModel() {
 		ResourceLocation blockstateJson = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates");
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(blockstateJson, "type=" + name));
+		Arrays.stream(ModPlates.values()).forEach(plate -> ModelLoader.setCustomModelResourceLocation(plate.item, 0,
+				new ModelResourceLocation(blockstateJson, "type=" + plate.name)));
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;

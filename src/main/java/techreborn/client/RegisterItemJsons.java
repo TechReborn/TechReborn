@@ -132,10 +132,8 @@ public class RegisterItemJsons {
 		for (int i = 0; i < ItemGems.types.length; ++i) {
 			registerBlockstate(ModItems.GEMS, i, name[i], "items/materials/");
 		}
-		
-		for (ModPlates plate : ModPlates.values()){
-			plate.registerModel();
-		}
+			
+		ModPlates.registerModel();
 		
 		name = ItemNuggets.types.clone();
 		for (int i = 0; i < ItemNuggets.types.length; ++i) {
