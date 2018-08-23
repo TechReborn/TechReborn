@@ -103,9 +103,8 @@ public class OreDict {
 			// if (!ignoreIt)
 			//	ItemPlates.registerType(type);
 		}
-
+//		TODO: fix recipe
 //		for (String type : ItemPlates.types) {
-//			// TODO: fix recipe
 //			 OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 //		}
 		
@@ -116,10 +115,10 @@ public class OreDict {
 		for (String type : ItemDustsSmall.types) {
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
 		}
-
-		for (String type : ItemNuggets.types) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
-		}
+//		TODO: fix recipe
+//		for (String type : ItemNuggets.types) {
+//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
+//		}
 
 	}
 

@@ -46,8 +46,9 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Blocks.MYCELIUM, 8), 1640, getStack(Blocks.SAND, 4), getStack(Items.CLAY_BALL), getStack(Blocks.BROWN_MUSHROOM, 2), getStack(Blocks.RED_MUSHROOM, 2));
 		register(getStack(Items.GOLDEN_APPLE), 5000, getStack(Items.GOLD_INGOT, 6), getMaterial("methane", Type.CELL));
 		register(getStack(Items.GOLDEN_APPLE, 1, 1), 5000, getStack(Items.GOLD_INGOT, 64), getMaterial("methane", Type.CELL));
-		register(getStack(Items.GOLDEN_CARROT), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
-		register(getStack(Items.SPECKLED_MELON, 8), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
+//		TODO: Fix recipe		
+//		register(getStack(Items.GOLDEN_CARROT), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
+//		register(getStack(Items.SPECKLED_MELON, 8), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
 		register(getStack(Items.APPLE, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.MUSHROOM_STEW, 16), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.BREAD, 64), 5000, getMaterial("methane", Type.CELL));
@@ -89,7 +90,8 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getOre("dustElectrum"), 960, getMaterial("gold", 2, Type.SMALL_DUST), getMaterial("silver", 2, Type.SMALL_DUST));
 		register(getOre("dustZinc"), 1040, getMaterial("tin", Type.SMALL_DUST));
 		register(getOre("dustBrass"), 1500, getMaterial("copper", 3, Type.SMALL_DUST), getMaterial("zinc", Type.SMALL_DUST));
-		register(getOre("dustPlatinum", 2), 3000, getMaterial("iridium", 2, Type.NUGGET), getMaterial("nickel", Type.SMALL_DUST));
+//		TODO: Fix recipe		
+//		register(getOre("dustPlatinum", 2), 3000, getMaterial("iridium", 2, Type.NUGGET), getMaterial("nickel", Type.SMALL_DUST));
 		register(getOre("dustNickel", 3), 3440, getMaterial("iron", Type.SMALL_DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("copper", Type.SMALL_DUST));
 		register(getOre("dustGold", 3), 2400, getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
 		register(getOre("dustCopper", 3), 2400, getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
@@ -97,7 +99,8 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getOre("dustGlowstone", 16), 2500, getStack(Items.REDSTONE, 8), getMaterial("sulfur", Type.CELL), getMaterial("helium", Type.CELL));
 		register(getStack(Items.DYE, 4, 4), 1500, false, getMaterial("lazurite", 3, Type.DUST), getMaterial("pyrite", Type.SMALL_DUST), getMaterial("calcite", Type.SMALL_DUST), getMaterial("sodalite", 2, Type.SMALL_DUST));
 		register(getOre("dustEnderEye", 2), 1840, getMaterial("ender_pearl", 2, Type.DUST), getStack(Items.BLAZE_POWDER));
-		register(getOre("dustNetherrack", 16), 2400, getStack(Items.REDSTONE), getMaterial("sulfur", Type.CELL), getMaterial("coal", Type.DUST), getStack(Items.GOLD_NUGGET));
+//		TODO: Fix recipe		
+//		register(getOre("dustNetherrack", 16), 2400, getStack(Items.REDSTONE), getMaterial("sulfur", Type.CELL), getMaterial("coal", Type.DUST), getStack(Items.GOLD_NUGGET));
 		register(getOre("dustEndstone", 16), 4800, getMaterial("helium3", Type.CELL), getMaterial("helium", Type.CELL), getMaterial("tungsten", Type.SMALL_DUST), getStack(Blocks.SAND, 12));
 		register(getOre("dustRedGarnet", 16), 3000, getMaterial("pyrope", 3, Type.DUST), getMaterial("almandine", 5, Type.DUST), getMaterial("spessartine", 8, Type.DUST));
 		register(getOre("dustYellowGarnet", 16), 3500, getMaterial("andradite", 5, Type.DUST), getMaterial("grossular", 8, Type.DUST), getMaterial("uvarovite", 3, Type.DUST));

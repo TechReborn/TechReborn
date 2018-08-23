@@ -320,15 +320,16 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShapeless(getMaterial(name, Type.DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST));
 		}
 
-		for (String nuggets : ItemNuggets.types) {
-			if (nuggets.equalsIgnoreCase("diamond"))
-				continue;
-			registerShapeless(getMaterial(nuggets, 9, Type.NUGGET), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
-			registerShaped(getMaterial(nuggets, Type.INGOT), "NNN", "NNN", "NNN", 'N', CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets));
-		}
-
-		registerShapeless(getMaterial("diamond", 9, Type.NUGGET), "gemDiamond");
-		registerShaped(getStack(Items.DIAMOND), "NNN", "NNN", "NNN", 'N', "nuggetDiamond");
+// TODO: fix recipe
+//		for (String nuggets : ItemNuggets.types) {
+//			if (nuggets.equalsIgnoreCase("diamond"))
+//				continue;
+//			registerShapeless(getMaterial(nuggets, 9, Type.NUGGET), CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + nuggets));
+//			registerShaped(getMaterial(nuggets, Type.INGOT), "NNN", "NNN", "NNN", 'N', CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + nuggets));
+//		}
+//
+//		registerShapeless(getMaterial("diamond", 9, Type.NUGGET), "gemDiamond");
+//		registerShaped(getStack(Items.DIAMOND), "NNN", "NNN", "NNN", 'N', "nuggetDiamond");
 	}
 
 	static void registerMixedMetalIngotRecipes() {

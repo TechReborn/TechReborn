@@ -24,63 +24,26 @@
 
 package techreborn.items;
 
-import com.google.common.base.CaseFormat;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import techreborn.events.TRRecipeHandler;
-import techreborn.init.ModItems;
-import techreborn.utils.TechRebornCreativeTab;
-
-import java.security.InvalidParameterException;
 
 public class ItemNuggets extends ItemTR {
 
-	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
-		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
-		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", "iron", "diamond" };
-
 	public ItemNuggets() {
-		setCreativeTab(TechRebornCreativeTab.instance);
-		//setHasSubtypes(true);
-		setTranslationKey("techreborn.nuggets");
 		TRRecipeHandler.hideEntry(this);
 	}
 
-	public static ItemStack getNuggetByName(String name, int count) {
-		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.NUGGETS, count, i);
-			}
-		}
-		throw new InvalidParameterException("The nugget " + name + " could not be found.");
-	}
-
-	public static ItemStack getNuggetByName(String name) {
-		return getNuggetByName(name, 1);
-	}
-
-/*	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getTranslationKey(ItemStack itemStack) {
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length) {
-			meta = 0;
-		}
-
-		return super.getTranslationKey() + "." + types[meta];
-	}*/
-
-/*	// Adds Dusts SubItems To Creative Tab
-	@Override
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		if (!isInCreativeTab(creativeTabs)) {
-			return;
-		}
-		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(this, 1, meta));
-		}
-	}*/
+//	public static ItemStack getNuggetByName(String name, int count) {
+//		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
+//		for (int i = 0; i < types.length; i++) {
+//			if (types[i].equalsIgnoreCase(name)) {
+//				return new ItemStack(ModItems.NUGGETS, count, i);
+//			}
+//		}
+//		throw new InvalidParameterException("The nugget " + name + " could not be found.");
+//	}
+//
+//	public static ItemStack getNuggetByName(String name) {
+//		return getNuggetByName(name, 1);
+//	}
 
 }

@@ -36,7 +36,6 @@ import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemDusts;
 import techreborn.items.ItemGems;
-import techreborn.items.ItemNuggets;
 import techreborn.utils.StackWIPHandler;
 
 /**
@@ -193,10 +192,10 @@ public class ScrapboxRecipes extends RecipeMethods {
 		for (String i : ItemDusts.types) {
 			register(ItemDusts.getDustByName(i));
 		}
-
-		for (String i : ItemNuggets.types) {
-			register(ItemNuggets.getNuggetByName(i));
-		}
+//		TODO: fix recipe
+//		for (String i : ItemNuggets.types) {
+//			register(ItemNuggets.getNuggetByName(i));
+//		}
 
 		for (String i : ItemGems.types) {
 			register(ItemGems.getGemByName(i));

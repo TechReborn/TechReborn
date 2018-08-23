@@ -84,14 +84,19 @@ public class SubItemRetriever implements ISubItemRetriever {
 		return ItemIngots.getIngotByName(name, count);
 	}
 
+
 	@Override
 	public ItemStack getNuggetByName(String name) {
-		return ItemNuggets.getNuggetByName(name);
+//		TODO: fix recipe			
+//		return ItemNuggets.getNuggetByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getNuggetByName(String name, int count) {
-		return ItemNuggets.getNuggetByName(name, count);
+//		TODO: fix recipe			
+//		return ItemNuggets.getNuggetByName(name, count);
+		return null;
 	}
 
 	@Override
@@ -104,15 +109,19 @@ public class SubItemRetriever implements ISubItemRetriever {
 		return ItemParts.getPartByName(name, count);
 	}
 
-//	@Override
-//	public ItemStack getPlateByName(String name) {
+	@Override
+	public ItemStack getPlateByName(String name) {
+//		TODO: fix recipe		
 //		return ItemPlates.getPlateByName(name);
-//	}
+		return null;
+	}
 
-//	@Override
-//	public ItemStack getPlateByName(String name, int count) {
+	@Override
+	public ItemStack getPlateByName(String name, int count) {
+//		TODO: fix recipe			
 //		return ItemPlates.getPlateByName(name, count);
-//	}
+		return null;
+	}
 
 	@Override
 	public ItemStack getUpgradeByName(String name) {
@@ -142,17 +151,5 @@ public class SubItemRetriever implements ISubItemRetriever {
 	@Override
 	public ItemStack getStorageBlockByName(String name, int count) {
 		return BlockStorage.getStorageBlockByName(name, count);
-	}
-
-	@Override
-	public ItemStack getPlateByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemStack getPlateByName(String name, int count) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

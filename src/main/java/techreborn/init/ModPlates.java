@@ -66,7 +66,6 @@ public enum ModPlates implements IStringSerializable {
 
 	public static void register() {
 		Arrays.stream(ModPlates.values()).forEach(plate -> RebornRegistry.registerItem(plate.item));
-
 	}
 
 	@SideOnly(Side.CLIENT)

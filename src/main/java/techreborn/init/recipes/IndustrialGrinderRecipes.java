@@ -115,8 +115,9 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 
 		register(getOre("oreTungsten"), WATER, 100, 64, getMaterial("tungsten", 2, Type.DUST), getMaterial("iron", 3, Type.SMALL_DUST), getMaterial("manganese", 3, Type.SMALL_DUST));
 
-		register(getOre("oreSheldonite"), WATER, 100, 64, getMaterial("platinum", 2, Type.DUST), getMaterial("nickel", Type.DUST), getMaterial("iridium", 2, Type.NUGGET));
-		register(getOre("oreSheldonite"), MERCURY, 100, 64, getMaterial("platinum", 3, Type.DUST), getMaterial("nickel", Type.DUST), getMaterial("iridium", 2, Type.NUGGET));
+//		TODO: Fix recipe
+//		register(getOre("oreSheldonite"), WATER, 100, 64, getMaterial("platinum", 2, Type.DUST), getMaterial("nickel", Type.DUST), getMaterial("iridium", 2, Type.NUGGET));
+//		register(getOre("oreSheldonite"), MERCURY, 100, 64, getMaterial("platinum", 3, Type.DUST), getMaterial("nickel", Type.DUST), getMaterial("iridium", 2, Type.NUGGET));
 
 		register(getOre("orePeridot"), WATER, 100, 64, getMaterial("peridot", Type.GEM), getMaterial("peridot", 6, Type.SMALL_DUST), getMaterial("emerald", 2, Type.SMALL_DUST));
 		

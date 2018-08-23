@@ -50,10 +50,11 @@ public abstract class RecipeMethods {
 			return ItemIngots.getIngotByName(name, count);
 		} else if (type == Type.GEM) {
 			return ItemGems.getGemByName(name, count);
+//			TODO: fix recipe
 //		} else if (type == Type.PLATE) {
 //			return ItemPlates.getPlateByName(name, count);
-		} else if (type == Type.NUGGET) {
-			return ItemNuggets.getNuggetByName(name, count);
+//		} else if (type == Type.NUGGET) {
+//			return ItemNuggets.getNuggetByName(name, count);
 		} else if (type == Type.CELL) {
 			return ItemCells.getCellByName(name, count);
 		} else if (type == Type.PART) {

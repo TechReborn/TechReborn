@@ -6,114 +6,109 @@
   },
   "variants": {
     "type": {
-      "aluminum": {
+      "nuggetaluminum": {
         "textures": {
           "layer0": "techreborn:items/nugget/aluminum_nugget"
         }
       },
-      "brass": {
+      "nuggetbrass": {
         "textures": {
           "layer0": "techreborn:items/nugget/brass_nugget"
         }
       },
-      "bronze": {
+      "nuggetbronze": {
         "textures": {
           "layer0": "techreborn:items/nugget/bronze_nugget"
         }
       },
-      "chrome": {
+      "nuggetchrome": {
         "textures": {
           "layer0": "techreborn:items/nugget/chrome_nugget"
         }
       },
-      "copper": {
+      "nuggetcopper": {
         "textures": {
           "layer0": "techreborn:items/nugget/copper_nugget"
         }
       },
-      "electrum": {
+      "nuggetdiamond": {
+        "textures": {
+          "layer0": "techreborn:items/nugget/diamond_nugget"
+        }
+      },      
+      "nuggetelectrum": {
         "textures": {
           "layer0": "techreborn:items/nugget/electrum_nugget"
         }
       },
-      "invar": {
+      "nuggethottungstensteel": {
+        "textures": {
+          "layer0": "techreborn:items/nugget/hot_tungstensteel_nugget"
+        }
+      },      
+      "nuggetinvar": {
         "textures": {
           "layer0": "techreborn:items/nugget/invar_nugget"
         }
       },
-      "iridium": {
+      "nuggetiridium": {
         "textures": {
           "layer0": "techreborn:items/nugget/iridium_nugget"
         }
       },
-      "lead": {
+      "nuggetlead": {
         "textures": {
           "layer0": "techreborn:items/nugget/lead_nugget"
         }
       },
-      "nickel": {
+      "nuggetnickel": {
         "textures": {
           "layer0": "techreborn:items/nugget/nickel_nugget"
         }
       },
-      "platinum": {
+      "nuggetplatinum": {
         "textures": {
           "layer0": "techreborn:items/nugget/platinum_nugget"
         }
       },
-      "silver": {
+      "nuggetrefinediron": {
+        "textures": {
+          "layer0": "techreborn:items/nugget/refined_iron_nugget"
+        }
+      },      
+      "nuggetsilver": {
         "textures": {
           "layer0": "techreborn:items/nugget/silver_nugget"
         }
       },
-      "steel": {
+      "nuggetsteel": {
         "textures": {
           "layer0": "techreborn:items/nugget/steel_nugget"
         }
       },
-      "tin": {
+      "nuggettin": {
         "textures": {
           "layer0": "techreborn:items/nugget/tin_nugget"
         }
       },
-      "titanium": {
+      "nuggettitanium": {
         "textures": {
           "layer0": "techreborn:items/nugget/titanium_nugget"
         }
       },
-      "tungsten": {
+      "nuggettungsten": {
         "textures": {
           "layer0": "techreborn:items/nugget/tungsten_nugget"
         }
       },
-      "hot_tungstensteel": {
-        "textures": {
-          "layer0": "techreborn:items/nugget/hot_tungstensteel_nugget"
-        }
-      },
-      "tungstensteel": {
+      "nuggettungstensteel": {
         "textures": {
           "layer0": "techreborn:items/nugget/tungstensteel_nugget"
         }
       },
-      "zinc": {
+      "nuggetzinc": {
         "textures": {
           "layer0": "techreborn:items/nugget/zinc_nugget"
-        }
-      },
-      "refined_iron": {
-        "textures": {
-          "layer0": "techreborn:items/nugget/refined_iron_nugget"
-        }
-      },
-      "iron": {
-        "textures": {
-          "layer0": "techreborn:items/nugget/iron_nugget"
-        }
-      },
-      "diamond": {
-        "textures": {
-          "layer0": "techreborn:items/nugget/diamond_nugget"
         }
       }
     }

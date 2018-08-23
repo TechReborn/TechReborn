@@ -47,7 +47,7 @@ public class ModItems {
 
 	public static Item GEMS;
 	public static Item INGOTS;
-	public static Item NUGGETS;
+
 	public static Item DUSTS;
 	public static Item SMALL_DUSTS;
 	public static Item PARTS;
@@ -166,9 +166,9 @@ public class ModItems {
 		registerItem(SMALL_DUSTS, "smallDust");
 
 		ModPlates.register();
+		ModNuggets.register();
 				
-		NUGGETS = new ItemNuggets();
-		registerItem(NUGGETS, "nuggets");
+
 		// purifiedCrushedOre = new ItemPurifiedCrushedOre();
 		// registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 		PARTS = new ItemParts();
