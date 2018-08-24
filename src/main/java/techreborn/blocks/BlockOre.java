@@ -50,6 +50,7 @@ import reborncore.common.util.OreDrop;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModDusts;
 import techreborn.init.ModGems;
 import techreborn.items.ItemDusts;
 import techreborn.lib.ModInfo;
@@ -149,16 +150,16 @@ public class BlockOre extends Block implements IOreNameProvider {
 			OreDrop sapphire = new OreDrop(ModGems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
 			drops.add(sapphire.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Pyrite")) {
-			OreDrop pyriteDust = new OreDrop(ItemDusts.getDustByName("pyrite", pyriteMinQuatity), pyriteMaxQuantity);
+			OreDrop pyriteDust = new OreDrop(ModDusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
 			drops.add(pyriteDust.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sodalite")) {
-			OreDrop sodalite = new OreDrop(ItemDusts.getDustByName("sodalite", sodaliteMinQuatity), sodaliteMaxQuantity);
+			OreDrop sodalite = new OreDrop(ModDusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
 			drops.add(sodalite.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Cinnabar")) {
-			OreDrop cinnabar = new OreDrop(ItemDusts.getDustByName("cinnabar", cinnabarMinQuatity), cinnabarMaxQuantity);
+			OreDrop cinnabar = new OreDrop(ModDusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
 			drops.add(cinnabar.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sphalerite")) {
-			OreDrop sphalerite = new OreDrop(ItemDusts.getDustByName("sphalerite", sphaleriteMinQuatity), sphaleriteMaxQuantity);
+			OreDrop sphalerite = new OreDrop(ModDusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
 			drops.add(sphalerite.getDrops(fortune, random));
 		} else {
 			drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));

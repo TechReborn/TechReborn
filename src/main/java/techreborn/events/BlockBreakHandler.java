@@ -36,6 +36,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
+import techreborn.init.ModDusts;
 import techreborn.init.ModGems;
 import techreborn.init.ModItems;
 import techreborn.items.ItemDusts;
@@ -76,7 +77,7 @@ public class BlockBreakHandler {
 				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSodalite")) {
-				OreDrop aluminium = new OreDrop(ItemDusts.getDustByName("aluminum"), aluminiumDropChance, 1);
+				OreDrop aluminium = new OreDrop(ModDusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
 				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreCinnabar")) {

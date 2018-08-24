@@ -45,7 +45,6 @@ import javax.annotation.Nullable;
 
 public class ModItems {
 
-	public static Item DUSTS;
 	public static Item SMALL_DUSTS;
 	public static Item PARTS;
 	public static Item ROCK_CUTTER;
@@ -154,11 +153,10 @@ public class ModItems {
 
 	public static void init() {
 
-		DUSTS = new ItemDusts();
-		registerItem(DUSTS, "dust");
 		SMALL_DUSTS = new ItemDustsSmall();
 		registerItem(SMALL_DUSTS, "smallDust");
 
+		ModDusts.register();
 		ModIngots.register();
 		ModGems.register();
 		ModPlates.register();

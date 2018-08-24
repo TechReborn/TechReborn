@@ -81,8 +81,8 @@ public class OreDict {
 		OreUtil.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
 		OreUtil.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
 		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
-		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
-		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
+//		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
+//		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 
 //		TODO: fix recipe		
 //		for (String type : ItemGems.types) {

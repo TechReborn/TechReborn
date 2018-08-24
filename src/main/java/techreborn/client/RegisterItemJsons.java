@@ -37,6 +37,7 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModDusts;
 import techreborn.init.ModGems;
 import techreborn.init.ModIngots;
 import techreborn.init.ModItems;
@@ -130,13 +131,10 @@ public class RegisterItemJsons {
 		ModGems.registerModel();
 		ModPlates.registerModel();
 		ModNuggets.registerModel();
+		ModDusts.registerModel();
 
-		String[] name = ItemDusts.types.clone();
-		for (int i = 0; i < ItemDusts.types.length; ++i) {
-			registerBlockstate(ModItems.DUSTS, i, name[i], "items/materials/");
-		}
 
-		name = ItemDustsSmall.types.clone();
+		String[] name = ItemDustsSmall.types.clone();
 		for (int i = 0; i < ItemDustsSmall.types.length; ++i) {
 			registerBlockstate(ModItems.SMALL_DUSTS, i, name[i], "items/materials/");
 		}

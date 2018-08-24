@@ -9,7 +9,7 @@
 			"entries": [
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotaluminum",
 					"entryName": "aluminium_ingot",
 					"weight": 10,
 					"functions": [
@@ -19,16 +19,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 0
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotbrass",
 					"entryName": "brass_ingot",
 					"weight": 10,
 					"functions": [
@@ -38,16 +34,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 1
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotelectrum",
 					"entryName": "electrum_ingot",
 					"weight": 10,
 					"functions": [
@@ -57,16 +49,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 5
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotinvar",
 					"entryName": "invar_ingot",
 					"weight": 10,
 					"functions": [
@@ -76,16 +64,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 6
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotnickel",
 					"entryName": "nickel_ingot",
 					"weight": 10,
 					"functions": [
@@ -95,16 +79,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 9
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotsteel",
 					"entryName": "steel_ingot",
 					"weight": 10,
 					"functions": [
@@ -114,16 +94,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 12
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotzinc",
 					"entryName": "zinc_ingot",
 					"weight": 10,
 					"functions": [
@@ -133,10 +109,6 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 18
 						}
 					]
 				},								

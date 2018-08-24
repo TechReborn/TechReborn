@@ -9,7 +9,7 @@
 			"entries": [
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotchrome",
 					"entryName": "chrome_ingot",
 					"weight": 10,
 					"functions": [
@@ -19,16 +19,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 3
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotiridium",
 					"entryName": "iridium_ingot",
 					"weight": 10,
 					"functions": [
@@ -38,16 +34,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 7
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingotplatinum",
 					"entryName": "platinum_ingot",
 					"weight": 10,
 					"functions": [
@@ -57,16 +49,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 10
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingottitanium",
 					"entryName": "titanium_ingot",
 					"weight": 10,
 					"functions": [
@@ -76,16 +64,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 14
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingottungsten",
 					"entryName": "tungsten_ingot",
 					"weight": 10,
 					"functions": [
@@ -95,35 +79,12 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 15
 						}
 					]
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingot",
-					"entryName": "hot_tungstensteel_iron_ingot",
-					"weight": 10,
-					"functions": [
-						{
-							"function": "set_count",
-							"count": {
-								"min": 1,
-								"max": 2
-							}
-						},
-						{
-							"function": "set_data",
-							"data": 16
-						}
-					]
-				},
-				{
-					"type": "item",
-					"name": "techreborn:ingot",
+					"name": "techreborn:ingottungstensteel",
 					"entryName": "tungstensteel_ingot",
 					"weight": 10,
 					"functions": [
@@ -133,29 +94,6 @@
 								"min": 1,
 								"max": 2
 							}
-						},
-						{
-							"function": "set_data",
-							"data": 17
-						}
-					]
-				},
-				{
-					"type": "item",
-					"name": "techreborn:ingot",
-					"entryName": "iridium_alloy_ingot",
-					"weight": 10,
-					"functions": [
-						{
-							"function": "set_count",
-							"count": {
-								"min": 1,
-								"max": 2
-							}
-						},
-						{
-							"function": "set_data",
-							"data": 22
 						}
 					]
 				},								
