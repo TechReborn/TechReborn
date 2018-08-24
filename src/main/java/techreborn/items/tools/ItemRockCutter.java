@@ -110,7 +110,9 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+		if (!stack.isItemEnchanted()) {
+			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+		}
 	}
 
 	@Override
