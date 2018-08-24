@@ -45,7 +45,6 @@ import javax.annotation.Nullable;
 
 public class ModItems {
 
-	public static Item SMALL_DUSTS;
 	public static Item PARTS;
 	public static Item ROCK_CUTTER;
 	public static Item LITHIUM_BATTERY_PACK;
@@ -153,18 +152,13 @@ public class ModItems {
 
 	public static void init() {
 
-		SMALL_DUSTS = new ItemDustsSmall();
-		registerItem(SMALL_DUSTS, "smallDust");
-
 		ModDusts.register();
+		ModDustsSmall.register();
 		ModIngots.register();
 		ModGems.register();
 		ModPlates.register();
 		ModNuggets.register();
-				
 
-		// purifiedCrushedOre = new ItemPurifiedCrushedOre();
-		// registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 		PARTS = new ItemParts();
 		registerItem(PARTS, "part");
 

@@ -24,68 +24,26 @@
 
 package techreborn.items;
 
-import com.google.common.base.CaseFormat;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import techreborn.events.TRRecipeHandler;
-import techreborn.init.ModItems;
-import techreborn.utils.TechRebornCreativeTab;
-
-import java.security.InvalidParameterException;
 
 public class ItemDustsSmall extends ItemTR {
 
-	public static final String[] types = new String[] { "almandine", "aluminum", "andradite", "ashes", "basalt",
-		"bauxite", "brass", "bronze", "calcite", "charcoal", "chrome", "cinnabar", "clay", "coal", "copper",
-		"dark_ashes", "diamond", "electrum", "emerald", "ender_eye", "ender_pearl", "endstone", "flint", "galena",
-		"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
-		"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "red_garnet",
-		"ruby", "saltpeter", "sapphire", "saw_dust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-		"sulfur", "tin", "titanium", "tungsten", "uvarovite", "yellow_garnet", "zinc",
-		"redstone", "glowstone", "andesite", "diorite", "granite" };
-
 	public ItemDustsSmall() {
-		setTranslationKey("techreborn.dustsmall");
-		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 
-	public static ItemStack getSmallDustByName(String name, int count) {
-		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.SMALL_DUSTS, count, i);
-			}
-		}
-		throw new InvalidParameterException("The small dust " + name + " could not be found.");
-	}
-
-	public static ItemStack getSmallDustByName(String name) {
-		return getSmallDustByName(name, 1);
-	}
-
-	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getTranslationKey(ItemStack itemStack) {
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length) {
-			meta = 0;
-		}
-
-		return super.getTranslationKey() + "." + types[meta];
-	}
-
-	// Adds Dusts SubItems To Creative Tab
-	@Override
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		if (!isInCreativeTab(creativeTabs)) {
-			return;
-		}
-		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(this, 1, meta));
-		}
-	}
+//	public static ItemStack getSmallDustByName(String name, int count) {
+//		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
+//		for (int i = 0; i < types.length; i++) {
+//			if (types[i].equalsIgnoreCase(name)) {
+//				return new ItemStack(ModItems.SMALL_DUSTS, count, i);
+//			}
+//		}
+//		throw new InvalidParameterException("The small dust " + name + " could not be found.");
+//	}
+//
+//	public static ItemStack getSmallDustByName(String name) {
+//		return getSmallDustByName(name, 1);
+//	}
 
 }
