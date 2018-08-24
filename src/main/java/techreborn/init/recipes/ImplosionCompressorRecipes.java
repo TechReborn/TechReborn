@@ -38,10 +38,10 @@ import java.security.InvalidParameterException;
  */
 public class ImplosionCompressorRecipes extends RecipeMethods {
 	public static void init() {
-		register(getOre("dustDiamond", 4), getStack(Items.DIAMOND, 3), 16);
-		register(getOre("dustEmerald", 4), getStack(Items.EMERALD, 3), 12);
-		// TODO: fix recipe
-		// register(getOre("ingotIridiumAlloy"), getMaterial("iridium_alloy", Type.PLATE), 4);
+// 		TODO: fix recipe		
+//		register(getOre("dustDiamond", 4), getStack(Items.DIAMOND, 3), 16);
+//		register(getOre("dustEmerald", 4), getStack(Items.EMERALD, 3), 12);
+//		register(getOre("ingotIridiumAlloy"), getMaterial("iridium_alloy", Type.PLATE), 4);
 //		register(getOre("dustRuby", 4), getMaterial("ruby", 3, Type.GEM), 12);
 //		register(getOre("dustSapphire", 4), getMaterial("sapphire", 3, Type.GEM), 12);
 //		register(getOre("dustPeridot", 4), getMaterial("peridot", 3, Type.GEM), 12);
@@ -70,7 +70,7 @@ public class ImplosionCompressorRecipes extends RecipeMethods {
 			register(getOre("dustMalachite", 4), getOre("gemMalachite", 3), 12);
 		}
 
-		register(getOre("blockRedstone", 9), getOre("dustRedGarnet", 4), 4);
+//		register(getOre("blockRedstone", 9), getOre("dustRedGarnet", 4), 4);
 	}
 
 	static void register(ItemStack input, ItemStack output, int darkAshes) {

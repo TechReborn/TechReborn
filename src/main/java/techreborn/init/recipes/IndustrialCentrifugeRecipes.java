@@ -81,39 +81,37 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Items.NETHER_WART, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART));
 		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));		
-		register(getStack(Blocks.SOUL_SAND, 16), 2500, getStack(Blocks.SAND, 10), getMaterial("saltpeter", 4, Type.DUST), getMaterial("coal", Type.DUST), getMaterial("oil", Type.CELL));
-		register(getOre("dustBronze"), 1500, getMaterial("copper", 6, Type.SMALL_DUST), getMaterial("tin", 2, Type.SMALL_DUST));
-		register(getOre("dustIron", 2), 1500, getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-		register(getOre("dustSilver", 2), 2400, getMaterial("lead", Type.SMALL_DUST));
-		register(getOre("dustLead", 2), 2400, getMaterial("silver", Type.SMALL_DUST));
-		register(getOre("dustTin", 2), 210, getMaterial("zinc", Type.SMALL_DUST), getMaterial("iron", Type.SMALL_DUST));
-		register(getOre("dustElectrum"), 960, getMaterial("gold", 2, Type.SMALL_DUST), getMaterial("silver", 2, Type.SMALL_DUST));
-		register(getOre("dustZinc"), 1040, getMaterial("tin", Type.SMALL_DUST));
-		register(getOre("dustBrass"), 1500, getMaterial("copper", 3, Type.SMALL_DUST), getMaterial("zinc", Type.SMALL_DUST));
-//		TODO: Fix recipe		
+//		register(getStack(Blocks.SOUL_SAND, 16), 2500, getStack(Blocks.SAND, 10), getMaterial("saltpeter", 4, Type.DUST), getMaterial("coal", Type.DUST), getMaterial("oil", Type.CELL));
+//		register(getOre("dustBronze"), 1500, getMaterial("copper", 6, Type.SMALL_DUST), getMaterial("tin", 2, Type.SMALL_DUST));
+//		register(getOre("dustIron", 2), 1500, getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
+//		register(getOre("dustSilver", 2), 2400, getMaterial("lead", Type.SMALL_DUST));
+//		register(getOre("dustLead", 2), 2400, getMaterial("silver", Type.SMALL_DUST));
+//		register(getOre("dustTin", 2), 210, getMaterial("zinc", Type.SMALL_DUST), getMaterial("iron", Type.SMALL_DUST));
+//		register(getOre("dustElectrum"), 960, getMaterial("gold", 2, Type.SMALL_DUST), getMaterial("silver", 2, Type.SMALL_DUST));
+//		register(getOre("dustZinc"), 1040, getMaterial("tin", Type.SMALL_DUST));
+//		register(getOre("dustBrass"), 1500, getMaterial("copper", 3, Type.SMALL_DUST), getMaterial("zinc", Type.SMALL_DUST));
 //		register(getOre("dustPlatinum", 2), 3000, getMaterial("iridium", 2, Type.NUGGET), getMaterial("nickel", Type.SMALL_DUST));
-		register(getOre("dustNickel", 3), 3440, getMaterial("iron", Type.SMALL_DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("copper", Type.SMALL_DUST));
-		register(getOre("dustGold", 3), 2400, getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-		register(getOre("dustCopper", 3), 2400, getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-		register(getOre("dustRedstone", 32), 2200, getMaterial("silicon", 3, Type.CELL), getMaterial("pyrite", 16, Type.DUST), getMaterial("ruby", 3, Type.DUST), getMaterial("mercury", 10, Type.CELL));
-		register(getOre("dustGlowstone", 16), 2500, getStack(Items.REDSTONE, 8), getMaterial("sulfur", Type.CELL), getMaterial("helium", Type.CELL));
-		register(getStack(Items.DYE, 4, 4), 1500, false, getMaterial("lazurite", 3, Type.DUST), getMaterial("pyrite", Type.SMALL_DUST), getMaterial("calcite", Type.SMALL_DUST), getMaterial("sodalite", 2, Type.SMALL_DUST));
-		register(getOre("dustEnderEye", 2), 1840, getMaterial("ender_pearl", 2, Type.DUST), getStack(Items.BLAZE_POWDER));
-//		TODO: Fix recipe		
+//		register(getOre("dustNickel", 3), 3440, getMaterial("iron", Type.SMALL_DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("copper", Type.SMALL_DUST));
+//		register(getOre("dustGold", 3), 2400, getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
+//		register(getOre("dustCopper", 3), 2400, getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
+//		register(getOre("dustRedstone", 32), 2200, getMaterial("silicon", 3, Type.CELL), getMaterial("pyrite", 16, Type.DUST), getMaterial("ruby", 3, Type.DUST), getMaterial("mercury", 10, Type.CELL));
+//		register(getOre("dustGlowstone", 16), 2500, getStack(Items.REDSTONE, 8), getMaterial("sulfur", Type.CELL), getMaterial("helium", Type.CELL));
+//		register(getStack(Items.DYE, 4, 4), 1500, false, getMaterial("lazurite", 3, Type.DUST), getMaterial("pyrite", Type.SMALL_DUST), getMaterial("calcite", Type.SMALL_DUST), getMaterial("sodalite", 2, Type.SMALL_DUST));
+//		register(getOre("dustEnderEye", 2), 1840, getMaterial("ender_pearl", 2, Type.DUST), getStack(Items.BLAZE_POWDER));
 //		register(getOre("dustNetherrack", 16), 2400, getStack(Items.REDSTONE), getMaterial("sulfur", Type.CELL), getMaterial("coal", Type.DUST), getStack(Items.GOLD_NUGGET));
-		register(getOre("dustEndstone", 16), 4800, getMaterial("helium3", Type.CELL), getMaterial("helium", Type.CELL), getMaterial("tungsten", Type.SMALL_DUST), getStack(Blocks.SAND, 12));
-		register(getOre("dustRedGarnet", 16), 3000, getMaterial("pyrope", 3, Type.DUST), getMaterial("almandine", 5, Type.DUST), getMaterial("spessartine", 8, Type.DUST));
-		register(getOre("dustYellowGarnet", 16), 3500, getMaterial("andradite", 5, Type.DUST), getMaterial("grossular", 8, Type.DUST), getMaterial("uvarovite", 3, Type.DUST));
-		register(getOre("dustDarkAshes", 2), 240, getMaterial("ashes", 1, Type.DUST));
-		register(getOre("dustAshes", 2), 240, getMaterial("carbon", Type.CELL));
-		register(getOre("dustMarble"), 1040, getMaterial("magnesium", Type.DUST), getMaterial("calcite", 7, Type.DUST));
-		register(getOre("dustBasalt", 16), 2040, getMaterial("peridot", Type.DUST), getMaterial("calcite", 3, Type.DUST), getMaterial("flint", 8, Type.DUST), getMaterial("dark_ashes", 4, Type.DUST));
-		register(getMaterial("lava", 16, Type.CELL), 1500, getMaterial("tin", 6, Type.INGOT), getMaterial("copper", 4, Type.INGOT), getMaterial("electrum", Type.INGOT), getMaterial("tungsten", Type.SMALL_DUST));
+//		register(getOre("dustEndstone", 16), 4800, getMaterial("helium3", Type.CELL), getMaterial("helium", Type.CELL), getMaterial("tungsten", Type.SMALL_DUST), getStack(Blocks.SAND, 12));
+//		register(getOre("dustRedGarnet", 16), 3000, getMaterial("pyrope", 3, Type.DUST), getMaterial("almandine", 5, Type.DUST), getMaterial("spessartine", 8, Type.DUST));
+//		register(getOre("dustYellowGarnet", 16), 3500, getMaterial("andradite", 5, Type.DUST), getMaterial("grossular", 8, Type.DUST), getMaterial("uvarovite", 3, Type.DUST));
+//		register(getOre("dustDarkAshes", 2), 240, getMaterial("ashes", 1, Type.DUST));
+//		register(getOre("dustAshes", 2), 240, getMaterial("carbon", Type.CELL));
+//		register(getOre("dustMarble"), 1040, getMaterial("magnesium", Type.DUST), getMaterial("calcite", 7, Type.DUST));
+//		register(getOre("dustBasalt", 16), 2040, getMaterial("peridot", Type.DUST), getMaterial("calcite", 3, Type.DUST), getMaterial("flint", 8, Type.DUST), getMaterial("dark_ashes", 4, Type.DUST));
+//		register(getMaterial("lava", 16, Type.CELL), 1500, getMaterial("tin", 6, Type.INGOT), getMaterial("copper", 4, Type.INGOT), getMaterial("electrum", Type.INGOT), getMaterial("tungsten", Type.SMALL_DUST));
 		register(getMaterial("hydrogen", 4, Type.CELL), 3000, getMaterial("deuterium", Type.CELL));
 		register(getMaterial("deuterium", 4, Type.CELL), 3000, getMaterial("tritium", Type.CELL));
 		register(getMaterial("helium", 16, Type.CELL), 5000, getMaterial("helium3", Type.CELL));
-		register(getMaterial("calciumcarbonate", Type.CELL), 40, getMaterial("calcite", Type.DUST));
-		register(getMaterial("sulfur", Type.CELL), 40, getMaterial("sulfur", Type.DUST));
+//		register(getMaterial("calciumcarbonate", Type.CELL), 40, getMaterial("calcite", Type.DUST));
+//		register(getMaterial("sulfur", Type.CELL), 40, getMaterial("sulfur", Type.DUST));
 	}
 
 	static void register(Object input, int ticks, boolean oreDict, ItemStack... outputs) {

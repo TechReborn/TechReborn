@@ -38,29 +38,29 @@ public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
 		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
-		register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
-
-		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
-		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
-		register(BlockOre.getOreByName("silver"), getMaterial("silver", Type.INGOT));
-		register(BlockOre.getOreByName("lead"), getMaterial("lead", Type.INGOT));
-		register(BlockOre.getOreByName("sheldonite"), getMaterial("platinum", Type.INGOT));
-		register(ItemIngots.getIngotByName("mixed_metal"), getMaterial("advanced_alloy", Type.INGOT));
+//		TODO: Fix recipe		
+//		register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
+//		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
+//		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
+//		register(BlockOre.getOreByName("silver"), getMaterial("silver", Type.INGOT));
+//		register(BlockOre.getOreByName("lead"), getMaterial("lead", Type.INGOT));
+//		register(BlockOre.getOreByName("sheldonite"), getMaterial("platinum", Type.INGOT));
+//		register(ItemIngots.getIngotByName("mixed_metal"), getMaterial("advanced_alloy", Type.INGOT));
 		
 		// Dust smelting
-		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));
-		register(getMaterial("gold", Type.DUST), getStack(Items.GOLD_INGOT));
-		register(getMaterial("copper", Type.DUST), getMaterial("copper", Type.INGOT));
-		register(getMaterial("tin", Type.DUST), getMaterial("tin", Type.INGOT));
-		register(getMaterial("bronze", Type.DUST), getMaterial("bronze", Type.INGOT));
-		register(getMaterial("lead", Type.DUST), getMaterial("lead", Type.INGOT));
-		register(getMaterial("silver", Type.DUST), getMaterial("silver", Type.INGOT));
-		register(getMaterial("nickel", Type.DUST), getMaterial("nickel", Type.INGOT));
-		register(getMaterial("platinum", Type.DUST), getMaterial("platinum", Type.INGOT));
-		register(getMaterial("zinc", Type.DUST), getMaterial("zinc", Type.INGOT));
-		register(getMaterial("brass", Type.DUST), getMaterial("brass", Type.INGOT));
-		register(getMaterial("electrum", Type.DUST), getMaterial("electrum", Type.INGOT));
-		register(getMaterial("invar", Type.DUST), getMaterial("invar", Type.INGOT));
+//		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));
+//		register(getMaterial("gold", Type.DUST), getStack(Items.GOLD_INGOT));
+//		register(getMaterial("copper", Type.DUST), getMaterial("copper", Type.INGOT));
+//		register(getMaterial("tin", Type.DUST), getMaterial("tin", Type.INGOT));
+//		register(getMaterial("bronze", Type.DUST), getMaterial("bronze", Type.INGOT));
+//		register(getMaterial("lead", Type.DUST), getMaterial("lead", Type.INGOT));
+//		register(getMaterial("silver", Type.DUST), getMaterial("silver", Type.INGOT));
+//		register(getMaterial("nickel", Type.DUST), getMaterial("nickel", Type.INGOT));
+//		register(getMaterial("platinum", Type.DUST), getMaterial("platinum", Type.INGOT));
+//		register(getMaterial("zinc", Type.DUST), getMaterial("zinc", Type.INGOT));
+//		register(getMaterial("brass", Type.DUST), getMaterial("brass", Type.INGOT));
+//		register(getMaterial("electrum", Type.DUST), getMaterial("electrum", Type.INGOT));
+//		register(getMaterial("invar", Type.DUST), getMaterial("invar", Type.INGOT));
 		
 		
 		

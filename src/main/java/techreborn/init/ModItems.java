@@ -45,8 +45,6 @@ import javax.annotation.Nullable;
 
 public class ModItems {
 
-	public static Item INGOTS;
-
 	public static Item DUSTS;
 	public static Item SMALL_DUSTS;
 	public static Item PARTS;
@@ -155,13 +153,13 @@ public class ModItems {
 	public static DynamicCell CELL;
 
 	public static void init() {
-		INGOTS = new ItemIngots();
-		registerItem(INGOTS, "ingot");
+
 		DUSTS = new ItemDusts();
 		registerItem(DUSTS, "dust");
 		SMALL_DUSTS = new ItemDustsSmall();
 		registerItem(SMALL_DUSTS, "smallDust");
 
+		ModIngots.register();
 		ModGems.register();
 		ModPlates.register();
 		ModNuggets.register();

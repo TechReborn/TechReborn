@@ -188,9 +188,9 @@ public class ScrapboxRecipes extends RecipeMethods {
 
 		register(getStack(ModBlocks.RUBBER_SAPLING));
 
-		for (String i : ItemDusts.types) {
-			register(ItemDusts.getDustByName(i));
-		}
+//		for (String i : ItemDusts.types) {
+//			register(ItemDusts.getDustByName(i));
+//		}
 //		TODO: fix recipe
 //		for (String i : ItemNuggets.types) {
 //			register(ItemNuggets.getNuggetByName(i));

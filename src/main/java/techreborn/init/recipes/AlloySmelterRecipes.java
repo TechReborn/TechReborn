@@ -42,72 +42,73 @@ public class AlloySmelterRecipes extends RecipeMethods {
 
 	public static void init() {
 		// Bronze
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
-						ItemIngots.getIngotByName("bronze", 4), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("tin", 1),
-				ItemIngots.getIngotByName("bronze", 4), 200, 16));
+//		TODO: Fix Recipe		
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
+//						ItemIngots.getIngotByName("bronze", 4), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("tin", 1),
+//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
+//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("tin", 1),
+//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 
 		// Electrum
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemIngots.getIngotByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemDusts.getDustByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemIngots.getIngotByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemDusts.getDustByName("silver", 1),
-				ItemIngots.getIngotByName("electrum", 2), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemIngots.getIngotByName("silver", 1),
+//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemDusts.getDustByName("silver", 1),
+//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemIngots.getIngotByName("silver", 1),
+//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemDusts.getDustByName("silver", 1),
+//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
 
 		// Invar
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemIngots.getIngotByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemIngots.getIngotByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
-		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1),
-				ItemIngots.getIngotByName("invar", 3), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemIngots.getIngotByName("nickel", 1),
+//				ItemIngots.getIngotByName("invar", 3), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("nickel", 1),
+//				ItemIngots.getIngotByName("invar", 3), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemIngots.getIngotByName("nickel", 1),
+//				ItemIngots.getIngotByName("invar", 3), 200, 16));
+//		RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1),
+//				ItemIngots.getIngotByName("invar", 3), 200, 16));
 
 		// Brass
-		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
-			ItemStack brassStack = getOre("ingotBrass");
-			brassStack.setCount(4);
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
-					brassStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
-					brassStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
-					brassStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
-					brassStack, 200, 16));
-		}
+//		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
+//			ItemStack brassStack = getOre("ingotBrass");
+//			brassStack.setCount(4);
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
+//					brassStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
+//					brassStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
+//					brassStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
+//					brassStack, 200, 16));
+//		}
 
 		// Red Alloy
 		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
 			ItemStack redAlloyStack = getOre("ingotRedAlloy");
 			redAlloyStack.setCount(1);
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), ItemIngots.getIngotByName("copper", 1),
-					redAlloyStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), ItemIngots.getIngotByName("copper", 1),
+//					redAlloyStack, 200, 16));
 			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
 				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.IRON_INGOT, 1),
 					redAlloyStack, 200, 16));
@@ -115,38 +116,38 @@ public class AlloySmelterRecipes extends RecipeMethods {
 
 		// Blue Alloy
 		if (oresExist("ingotBlueAlloy", "dustTeslatite")) {
-			ItemStack blueAlloyStack = getOre("ingotBlueAlloy");
-			blueAlloyStack.setCount(1);
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(getOre("dustTeslatite", 4),
-				ItemIngots.getIngotByName("silver", 1), blueAlloyStack, 200, 16));
+//			ItemStack blueAlloyStack = getOre("ingotBlueAlloy");
+//			blueAlloyStack.setCount(1);
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(getOre("dustTeslatite", 4),
+//				ItemIngots.getIngotByName("silver", 1), blueAlloyStack, 200, 16));
 		}
 
 		// Blue Alloy
 		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite")) {
-			ItemStack purpleAlloyStack = getOre("ingotPurpleAlloy");
-			purpleAlloyStack.setCount(1);
-			ItemStack infusedTeslatiteStack = getOre("ingotPurpleAlloy");
-			infusedTeslatiteStack.setCount(8);
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemIngots.getIngotByName("redAlloy", 1),
-				ItemIngots.getIngotByName("blueAlloy", 1), purpleAlloyStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), infusedTeslatiteStack, purpleAlloyStack,
-					200, 16));
+//			ItemStack purpleAlloyStack = getOre("ingotPurpleAlloy");
+//			purpleAlloyStack.setCount(1);
+//			ItemStack infusedTeslatiteStack = getOre("ingotPurpleAlloy");
+//			infusedTeslatiteStack.setCount(8);
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemIngots.getIngotByName("redAlloy", 1),
+//				ItemIngots.getIngotByName("blueAlloy", 1), purpleAlloyStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), infusedTeslatiteStack, purpleAlloyStack,
+//					200, 16));
 		}
 
 		// Aluminum Brass
 		if (OreUtil.doesOreExistAndValid("ingotAluminumBrass")) {
-			ItemStack aluminumBrassStack = getOre("ingotAluminumBrass");
-			aluminumBrassStack.setCount(4);
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
-				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
-				ItemDusts.getDustByName("aluminum", 1), aluminumBrassStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3),
-				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("aluminum", 1),
-					aluminumBrassStack, 200, 16));
+//			ItemStack aluminumBrassStack = getOre("ingotAluminumBrass");
+//			aluminumBrassStack.setCount(4);
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
+//				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3),
+//				ItemDusts.getDustByName("aluminum", 1), aluminumBrassStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3),
+//				ItemIngots.getIngotByName("aluminum", 1), aluminumBrassStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("aluminum", 1),
+//					aluminumBrassStack, 200, 16));
 		}
 
 		// Manyullyn
@@ -188,9 +189,9 @@ public class AlloySmelterRecipes extends RecipeMethods {
 			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
 				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), new ItemStack(Items.ENDER_PEARL, 1),
 					pulsatingIronStack, 200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), ItemDusts.getDustByName("ender_pearl", 1),
-					pulsatingIronStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 1), ItemDusts.getDustByName("ender_pearl", 1),
+//					pulsatingIronStack, 200, 16));
 		}
 
 		// Vibrant Alloy
@@ -202,9 +203,9 @@ public class AlloySmelterRecipes extends RecipeMethods {
 			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
 				new AlloySmelterRecipe(energeticAlloyStack, new ItemStack(Items.ENDER_PEARL, 1), vibrantAlloyStack,
 					200, 16));
-			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
-				new AlloySmelterRecipe(energeticAlloyStack, ItemDusts.getDustByName("ender_pearl", 1),
-					vibrantAlloyStack, 200, 16));
+//			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
+//				new AlloySmelterRecipe(energeticAlloyStack, ItemDusts.getDustByName("ender_pearl", 1),
+//					vibrantAlloyStack, 200, 16));
 		}
 
 		// Soularium

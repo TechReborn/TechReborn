@@ -42,9 +42,10 @@ public class FusionReactorRecipes extends RecipeMethods {
 			FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
 					ItemCells.getCellByName("helium3"), 60000000, 16384, 2048));
-			FusionReactorRecipeHelper.registerRecipe(
-				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"),
-					ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
+//			TODO: Fix Recipe			
+//			FusionReactorRecipeHelper.registerRecipe(
+//				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"),
+//					ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
 			FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("lithium"),
 					BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));

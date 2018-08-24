@@ -95,28 +95,28 @@ public class OreDict {
 //				ItemPlates.registerType(type);
 //		}
 
-		for (String type : ItemIngots.types) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
-			boolean ignoreIt = false;
-			for (String ignore : plateGenIgnores)
-				if (type.startsWith(ignore))
-					ignoreIt = true;
-			// if (!ignoreIt)
-			//	ItemPlates.registerType(type);
-		}
-//		TODO: fix recipe
+//		for (String type : ItemIngots.types) {
+//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
+//			boolean ignoreIt = false;
+//			for (String ignore : plateGenIgnores)
+//				if (type.startsWith(ignore))
+//					ignoreIt = true;
+//			 if (!ignoreIt)
+//				ItemPlates.registerType(type);
+//		}
+
 //		for (String type : ItemPlates.types) {
 //			 OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 //		}
 		
-		for (String type : ItemDusts.types) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
-		}
+//		for (String type : ItemDusts.types) {
+//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
+//		}
+//
+//		for (String type : ItemDustsSmall.types) {
+//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
+//		}
 
-		for (String type : ItemDustsSmall.types) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
-		}
-//		TODO: fix recipe
 //		for (String type : ItemNuggets.types) {
 //			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
 //		}

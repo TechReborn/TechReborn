@@ -80,12 +80,14 @@ public class SubItemRetriever implements ISubItemRetriever {
 
 	@Override
 	public ItemStack getIngotByName(String name) {
-		return ItemIngots.getIngotByName(name);
+		//return ItemIngots.getIngotByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getIngotByName(String name, int count) {
-		return ItemIngots.getIngotByName(name, count);
+		//return ItemIngots.getIngotByName(name, count);
+		return null;
 	}
 
 

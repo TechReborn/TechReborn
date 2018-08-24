@@ -42,12 +42,12 @@ import techreborn.items.*;
  */
 public abstract class RecipeMethods {
 	public static ItemStack getMaterial(String name, int count, Type type) {
-		if (type == Type.DUST) {
-			return ItemDusts.getDustByName(name, count);
-		} else if (type == Type.SMALL_DUST) {
-			return ItemDustsSmall.getSmallDustByName(name, count);
-		} else if (type == Type.INGOT) {
-			return ItemIngots.getIngotByName(name, count);
+//		if (type == Type.DUST) {
+//			return ItemDusts.getDustByName(name, count);
+//		} else if (type == Type.SMALL_DUST) {
+//			return ItemDustsSmall.getSmallDustByName(name, count);
+//		} else if (type == Type.INGOT) {
+//			return ItemIngots.getIngotByName(name, count);
 //		} else if (type == Type.GEM) {
 //			return ItemGems.getGemByName(name, count);
 //			TODO: fix recipe
@@ -55,7 +55,8 @@ public abstract class RecipeMethods {
 //			return ItemPlates.getPlateByName(name, count);
 //		} else if (type == Type.NUGGET) {
 //			return ItemNuggets.getNuggetByName(name, count);
-		} else if (type == Type.CELL) {
+//		} else 
+			if (type == Type.CELL) {
 			return ItemCells.getCellByName(name, count);
 		} else if (type == Type.PART) {
 			return ItemParts.getPartByName(name, count);
