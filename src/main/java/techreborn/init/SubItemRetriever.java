@@ -111,12 +111,14 @@ public class SubItemRetriever implements ISubItemRetriever {
 
 	@Override
 	public ItemStack getPartByName(String name) {
-		return ItemParts.getPartByName(name);
+//		return ItemParts.getPartByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getPartByName(String name, int count) {
-		return ItemParts.getPartByName(name, count);
+//		return ItemParts.getPartByName(name, count);
+		return null;
 	}
 
 	@Override

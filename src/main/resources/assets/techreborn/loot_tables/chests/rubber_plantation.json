@@ -46,13 +46,9 @@
         },
         {
           "type": "item",
-          "name": "techreborn:part",
+          "name": "techreborn:sap",
           "weight": 10,
           "functions": [
-            {
-              "function": "set_data",
-              "data": 31
-            },
             {
               "function": "set_count",
               "count" : {

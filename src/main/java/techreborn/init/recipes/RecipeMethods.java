@@ -58,8 +58,8 @@ public abstract class RecipeMethods {
 //		} else 
 			if (type == Type.CELL) {
 			return ItemCells.getCellByName(name, count);
-		} else if (type == Type.PART) {
-			return ItemParts.getPartByName(name, count);
+//		} else if (type == Type.PART) {
+//			return ItemParts.getPartByName(name, count);
 		} else if (type == Type.CABLE) {
 			return BlockCable.getCableByName(name, count);
 		} else if (type == Type.MACHINE_FRAME) {

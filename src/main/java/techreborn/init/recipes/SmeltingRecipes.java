@@ -37,7 +37,7 @@ import techreborn.items.ItemIngots;
 public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
-		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
+//		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
 //		TODO: Fix recipe		
 //		register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
 //		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));

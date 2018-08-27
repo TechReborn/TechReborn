@@ -45,11 +45,11 @@ public class OreDict {
 	public static void init() {
 		OreUtil.registerOre("reBattery", ModItems.RE_BATTERY);
 
-		OreUtil.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
-		OreUtil.registerOre("circuitAdvanced", ItemParts.getPartByName("advancedCircuit"));
-		OreUtil.registerOre("circuitStorage", ItemParts.getPartByName("dataStorageCircuit"));
-		OreUtil.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
-		OreUtil.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
+//		OreUtil.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
+//		OreUtil.registerOre("circuitAdvanced", ItemParts.getPartByName("advancedCircuit"));
+//		OreUtil.registerOre("circuitStorage", ItemParts.getPartByName("dataStorageCircuit"));
+//		OreUtil.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
+//		OreUtil.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
 
 		OreUtil.registerOre("machineBlockBasic", BlockMachineFrames.getFrameByName("machine", 1));
 		OreUtil.registerOre("machineBlockAdvanced", BlockMachineFrames.getFrameByName("advancedMachine", 1));
@@ -74,13 +74,15 @@ public class OreDict {
 		OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
 		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
-		OreUtil.registerOre("craftingDiamondGrinder", ItemParts.getPartByName("diamondGrindingHead"));
-		OreUtil.registerOre("craftingTungstenGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
-		OreUtil.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
+//		OreUtil.registerOre("craftingDiamondGrinder", ItemParts.getPartByName("diamondGrindingHead"));
+//		OreUtil.registerOre("craftingTungstenGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
+//		OreUtil.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
 
-		OreUtil.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
-		OreUtil.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
-		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
+//		OreUtil.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
+//		OreUtil.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
+//		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
+		
+
 //		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
 //		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
 

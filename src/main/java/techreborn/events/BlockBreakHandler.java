@@ -39,7 +39,6 @@ import reborncore.common.util.OreDrop;
 import techreborn.init.ModDusts;
 import techreborn.init.ModGems;
 import techreborn.init.ModItems;
-import techreborn.items.ItemDusts;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 

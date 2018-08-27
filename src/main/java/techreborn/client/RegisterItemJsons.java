@@ -43,6 +43,7 @@ import techreborn.init.ModGems;
 import techreborn.init.ModIngots;
 import techreborn.init.ModItems;
 import techreborn.init.ModNuggets;
+import techreborn.init.ModParts;
 import techreborn.init.ModPlates;
 import techreborn.items.*;
 import techreborn.lib.ModInfo;
@@ -128,19 +129,16 @@ public class RegisterItemJsons {
 			registerBlockstateMultiItem(ModItems.BRONZE_HOE, "bronze_hoe", "items/tool/tool");
 		}
 
-		ModIngots.registerModel();
-		ModGems.registerModel();
-		ModPlates.registerModel();
-		ModNuggets.registerModel();
 		ModDusts.registerModel();
 		ModDustsSmall.registerModel();
+		ModGems.registerModel();
+		ModIngots.registerModel();
+		ModNuggets.registerModel();
+		ModParts.registerModel();
+		ModPlates.registerModel();
 
-		String[] name = ItemParts.types.clone();
-		for (int i = 0; i < ItemParts.types.length; ++i) {
-			registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
-		}
 
-		name = ItemUpgrades.types.clone();
+		String[] name = ItemUpgrades.types.clone();
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
 			registerBlockstate(ModItems.UPGRADES, i, name[i], "items/misc/");
 		}

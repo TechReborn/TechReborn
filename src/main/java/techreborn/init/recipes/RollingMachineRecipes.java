@@ -36,13 +36,13 @@ import techreborn.lib.ModInfo;
  */
 public class RollingMachineRecipes extends RecipeMethods {
 	public static void init() {
-		register(new ResourceLocation(ModInfo.MOD_ID, "cupronickel_heating_coil"), getMaterial("cupronickel_heating_coil", 3, Type.PART), "NCN", "C C", "NCN", 'N', "ingotNickel", 'C', "ingotCopper");
-		register(new ResourceLocation(ModInfo.MOD_ID, "nichrome_heating_coil"), getMaterial("nichrome_heating_coil", 2, Type.PART), " N ", "NCN", " N ", 'N', "ingotNickel", 'C', "ingotChrome");
+//		register(new ResourceLocation(ModInfo.MOD_ID, "cupronickel_heating_coil"), getMaterial("cupronickel_heating_coil", 3, Type.PART), "NCN", "C C", "NCN", 'N', "ingotNickel", 'C', "ingotCopper");
+//		register(new ResourceLocation(ModInfo.MOD_ID, "nichrome_heating_coil"), getMaterial("nichrome_heating_coil", 2, Type.PART), " N ", "NCN", " N ", 'N', "ingotNickel", 'C', "ingotChrome");
 		if (oresExist("ingotAluminum")) {
-			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminum");
+//			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminum");
 		}
 		if (oresExist("ingotAluminium")) {
-			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil2"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
+//			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil2"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
 		}
 	// TODO: fix recipe
 		//	register(new ResourceLocation(ModInfo.MOD_ID, "plateMagnalium"), getMaterial("magnalium", 3, Type.PLATE), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");

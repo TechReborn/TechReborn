@@ -28,7 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.apache.commons.lang3.Validate;
-import reborncore.common.util.StringUtils;
 
 
 public class ItemCells {

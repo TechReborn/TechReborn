@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:part",
-      "data": 31
+      "item": "techreborn:sap"
     },
     "title": {
       "translate": "advancements.techreborn.sap"
@@ -18,8 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:part",
-            "data": 31
+            "item": "techreborn:sap"
           }
         ]
       }

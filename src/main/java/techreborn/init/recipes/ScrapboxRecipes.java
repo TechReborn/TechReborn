@@ -116,8 +116,8 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(DynamicCell.getEmptyCell(1));
 		register(getMaterial("water", Type.CELL));
 		register(getMaterial("compressedair", Type.CELL));
-		register(getMaterial("sap", Type.PART));
-		register(getMaterial("rubber", Type.PART));
+//		register(getMaterial("sap", Type.PART));
+//		register(getMaterial("rubber", Type.PART));
 
 		register(getStack(Blocks.TRAPDOOR));
 		register(getStack(Blocks.STONE_BUTTON));

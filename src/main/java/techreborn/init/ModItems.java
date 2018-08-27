@@ -154,13 +154,12 @@ public class ModItems {
 
 		ModDusts.register();
 		ModDustsSmall.register();
+		ModGems.register();		
 		ModIngots.register();
-		ModGems.register();
-		ModPlates.register();
 		ModNuggets.register();
+		ModParts.register();
+		ModPlates.register();
 
-		PARTS = new ItemParts();
-		registerItem(PARTS, "part");
 
 		ROCK_CUTTER = new ItemRockCutter();
 		registerItem(ROCK_CUTTER, "rockCutter");
@@ -325,7 +324,6 @@ public class ModItems {
 		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
 		BlockMachineBase.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
 
-		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
 	public static void registerItem(Item item, String name) {

@@ -40,10 +40,11 @@ import techreborn.items.DynamicCell;
  */
 public class ExtractorRecipes extends RecipeMethods {
 	public static void init() {
-		register(getStack(ModBlocks.RUBBER_SAPLING), getMaterial("rubber", Type.PART), false);
-		register(getStack(ModBlocks.RUBBER_LOG),  getMaterial("rubber", Type.PART), false);
-		register(getStack(Items.SLIME_BALL), getMaterial("rubber", 2, Type.PART));
-		register(getMaterial("sap", Type.PART), getMaterial("rubber", 3, Type.PART));
+//		TODO: Fix Recipe
+//		register(getStack(ModBlocks.RUBBER_SAPLING), getMaterial("rubber", Type.PART), false);
+//		register(getStack(ModBlocks.RUBBER_LOG),  getMaterial("rubber", Type.PART), false);
+//		register(getStack(Items.SLIME_BALL), getMaterial("rubber", 2, Type.PART));
+//		register(getMaterial("sap", Type.PART), getMaterial("rubber", 3, Type.PART));
 		register(getStack(Blocks.RED_FLOWER), getStack(Items.DYE, 2, 1), false);
 		register(getStack(Blocks.YELLOW_FLOWER), getStack(Items.DYE, 2, 11), false);
 		register(getStack(Blocks.RED_FLOWER, 1, 1), getStack(Items.DYE, 2, 12), false);

@@ -39,7 +39,7 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.items.ItemParts;
+import techreborn.init.ModParts;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
@@ -75,7 +75,7 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 	
 	public void recycleItems() {
-		final ItemStack itemstack = ItemParts.getPartByName("scrap");
+		final ItemStack itemstack = ModParts.SCRAP.getStack();
 		final int randomchance = this.world.rand.nextInt(chance);
 
 		if (randomchance == 1) {

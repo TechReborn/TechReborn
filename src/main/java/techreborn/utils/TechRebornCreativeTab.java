@@ -26,7 +26,7 @@ package techreborn.utils;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import techreborn.items.ItemParts;
+import techreborn.init.ModParts;
 
 public class TechRebornCreativeTab extends CreativeTabs {
 
@@ -38,6 +38,6 @@ public class TechRebornCreativeTab extends CreativeTabs {
 
 	@Override
 	public ItemStack createIcon() {
-		return ItemParts.getPartByName("machine_parts");
+		return ModParts.MACHINE_PARTS.getStack();
 	}
 }

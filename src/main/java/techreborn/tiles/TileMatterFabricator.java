@@ -39,7 +39,7 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.ItemParts;
+import techreborn.init.ModParts;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
@@ -110,8 +110,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.getItem() == ModItems.PARTS
-				&& itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
+		if (itemStack.isItemEqual(ModParts.SCRAP.getStack())) {
 			return 200;
 		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 			return 2000;
