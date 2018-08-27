@@ -43,49 +43,48 @@ public class OreDict {
 	);
 
 	public static void init() {
-		OreUtil.registerOre("reBattery", ModItems.RE_BATTERY);
+		// Blocks
+		OreUtil.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
+		OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
+		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
-//		OreUtil.registerOre("circuitBasic", ItemParts.getPartByName("electronicCircuit"));
-//		OreUtil.registerOre("circuitAdvanced", ItemParts.getPartByName("advancedCircuit"));
-//		OreUtil.registerOre("circuitStorage", ItemParts.getPartByName("dataStorageCircuit"));
-//		OreUtil.registerOre("circuitElite", ItemParts.getPartByName("dataControlCircuit"));
-//		OreUtil.registerOre("circuitMaster", ItemParts.getPartByName("energyFlowCircuit"));
+		// Parts
+		OreUtil.registerOre("circuitBasic", ModParts.CIRCUIT_BASIC.getStack());
+		OreUtil.registerOre("circuitAdvanced", ModParts.CIRCUIT_ADVANCED.getStack());
+		OreUtil.registerOre("circuitElite", ModParts.CIRCUIT_ELITE.getStack());
+		OreUtil.registerOre("circuitStorage", ModParts.DATA_STORAGE_CIRCUIT.getStack());
+		OreUtil.registerOre("circuitMaster", ModParts.ENERGY_FLOW_CIRCUIT.getStack());
+		OreUtil.registerOre("craftingDiamondGrinder", ModParts.DIAMOND_GRINDING_HEAD.getStack());
+		OreUtil.registerOre("craftingTungstenGrinder", ModParts.TUNGSTEN_GRINDING_HEAD.getStack());
+		OreUtil.registerOre("craftingSuperconductor", ModParts.SUPER_CONDUCTOR.getStack());
+		OreUtil.registerOre("materialResin", ModParts.SAP.getStack());
+		OreUtil.registerOre("materialRubber", ModParts.RUBBER.getStack());
+		OreUtil.registerOre("itemRubber", ModParts.RUBBER.getStack());
 
+		// Frames
 		OreUtil.registerOre("machineBlockBasic", BlockMachineFrames.getFrameByName("machine", 1));
 		OreUtil.registerOre("machineBlockAdvanced", BlockMachineFrames.getFrameByName("advancedMachine", 1));
 		OreUtil.registerOre("machineBlockElite", BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1));
 
+		// Tools&Armor
+		OreUtil.registerOre("reBattery", ModItems.RE_BATTERY);
 		OreUtil.registerOre("lapotronCrystal", ModItems.LAPOTRONIC_CRYSTAL);
 		OreUtil.registerOre("energyCrystal", ModItems.ENERGY_CRYSTAL);
-
 		OreUtil.registerOre("drillBasic", ModItems.STEEL_DRILL);
 		OreUtil.registerOre("drillDiamond", ModItems.DIAMOND_DRILL);
 
+		// Misc
 		OreUtil.registerOre("industrialTnt", Blocks.TNT);
 		OreUtil.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
 		OreUtil.registerOre("insulatedGoldCableItem", BlockCable.getCableByName("insulatedgold"));
 		OreUtil.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
+		OreUtil.registerOre("pulpWood", ModDusts.SAW.getStack());
 
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
 
-		OreUtil.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
-		OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
-		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
-
-//		OreUtil.registerOre("craftingDiamondGrinder", ItemParts.getPartByName("diamondGrindingHead"));
-//		OreUtil.registerOre("craftingTungstenGrinder", ItemParts.getPartByName("tungstenGrindingHead"));
-//		OreUtil.registerOre("craftingSuperconductor", ItemParts.getPartByName("superconductor"));
-
-//		OreUtil.registerOre("materialResin", ItemParts.getPartByName("rubberSap"));
-//		OreUtil.registerOre("materialRubber", ItemParts.getPartByName("rubber"));
-//		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 		
-
-//		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
-//		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
-
 //		TODO: fix recipe		
 //		for (String type : ItemGems.types) {
 //			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
