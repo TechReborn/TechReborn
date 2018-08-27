@@ -52,11 +52,11 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.cable.TileCable;
+import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
@@ -228,7 +228,7 @@ public class BlockCable extends BlockContainer {
 
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getStateFromMeta(placer.getHeldItem(hand).getItemDamage());
+		return getStateFromMeta(meta);
 	}
 
 	@Override
