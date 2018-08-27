@@ -225,7 +225,12 @@
 				"textures": {
 					"layer0": "techreborn:items/part/uranium_cell"
 				}
-			}
+			},
+			"uumatter": {
+				"textures": {
+					"layer0": "techreborn:items/part/uu_matter"
+				}
+			}			
 		}
 	}
 }

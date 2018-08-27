@@ -243,7 +243,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 
 		//UU-Matter
-		ItemStack uuStack = new ItemStack(ModItems.UU_MATTER);
+		ItemStack uuStack = ModParts.UU_MATTER.getStack();
 		registerShaped(getStack(Blocks.LOG, 8), 				" U ", "   ", "   ", 'U', uuStack);
 		registerShaped(getStack(Blocks.STONE, 16), 				"   ", " U ", "   ", 'U', uuStack);
 		registerShaped(getStack(Blocks.SNOW, 16), 				"U U", "   ", "   ", 'U', uuStack);

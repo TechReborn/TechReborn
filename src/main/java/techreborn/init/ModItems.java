@@ -45,7 +45,6 @@ import javax.annotation.Nullable;
 
 public class ModItems {
 
-	public static Item PARTS;
 	public static Item ROCK_CUTTER;
 	public static Item LITHIUM_BATTERY_PACK;
 	public static Item LAPOTRONIC_ORB_PACK;
@@ -53,8 +52,6 @@ public class ModItems {
 	public static Item OMNI_TOOL;
 	public static Item LAPOTRONIC_ORB;
 	public static Item MANUAL;
-	public static Item UU_MATTER;
-	
 	public static Item CLOAKING_DEVICE;
 	public static Item RE_BATTERY;
 	public static Item TREE_TAP;
@@ -180,8 +177,6 @@ public class ModItems {
 
 		MANUAL = new ItemTechManual();
 		registerItem(MANUAL, "techmanuel");
-		UU_MATTER = new ItemUUmatter();
-		registerItem(UU_MATTER, "uumatter");
 		RE_BATTERY = new ItemReBattery();
 		registerItem(RE_BATTERY, "rebattery");
 		TREE_TAP = new ItemTreeTap();

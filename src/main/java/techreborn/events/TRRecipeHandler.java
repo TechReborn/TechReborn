@@ -35,6 +35,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModItems;
+import techreborn.init.ModParts;
 import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class TRRecipeHandler {
 		}
 		//Hide uu recipes
 		for (Ingredient ingredient : recipe.getIngredients()) {
-			if (ingredient.apply(new ItemStack(ModItems.UU_MATTER))) {
+			if (ingredient.apply(ModParts.UU_MATTER.getStack())) {
 				return false;
 			}
 		}

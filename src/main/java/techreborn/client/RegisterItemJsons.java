@@ -64,7 +64,6 @@ public class RegisterItemJsons {
 		register(ModItems.LAPOTRONIC_ORB, "battery/lapotronic_orb");
 
 		register(ModItems.FREQUENCY_TRANSMITTER, "misc/frequency_transmitter");
-		register(ModItems.UU_MATTER, "misc/uu_matter");
 		register(ModItems.SCRAP_BOX, "misc/scrapbox");
 		register(ModItems.MANUAL, "misc/manual");
 		register(ModItems.DEBUG, "misc/debug");

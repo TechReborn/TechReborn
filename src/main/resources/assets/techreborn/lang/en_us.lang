@@ -484,6 +484,7 @@ item.techreborn.thickneutronreflector.name=Thick Neutron Reflector
 item.techreborn.thoriumcell.name=Fuel Rod (Thorium)
 item.techreborn.tungstengrindinghead.name=Tungsten Grinding Head
 item.techreborn.uraniumcell.name=Fuel Rod (Uranium)
+item.techreborn.uumatter.name=UU-Matter
 
 #Tools
 item.techreborn.rockcutter.name=Rockcutter
@@ -582,7 +583,6 @@ fluid.fluidtritium=Tritium
 fluid.fluidwolframium=Wolframium
 
 #Items
-item.techreborn.uuMatter.name=UU-Matter
 item.techreborn.manual.name=Tech Manual
 item.techreborn.debug.name=Debug Tool
 item.techreborn.frequencyTransmitter.name=Frequency Transmitter
