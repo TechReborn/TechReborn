@@ -39,7 +39,7 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 
 public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReactorRecipeWrapper> {
-	
+
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int inputSlotTop = 0;
 	private static final int inputSlotBottom = 1;
@@ -51,7 +51,7 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 	private final String title;
 
 	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(texture, 0, 172, 116, 64, 0, 40, 20, 20);
+		background = guiHelper.createDrawable(texture, 0, 172, 116, 84);
 		title = StringUtils.t("tile.techreborn:fusion_control_computer.name");
 	}
 
@@ -79,17 +79,12 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 	}
 
 	@Override
-	public void setRecipe(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			FusionReactorRecipeWrapper recipeWrapper,
-		@Nonnull
-			IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull FusionReactorRecipeWrapper recipeWrapper,
+			@Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
-		itemStacks.init(inputSlotTop, true, 23, 7);
-		itemStacks.init(inputSlotBottom, true, 115, 7);
-		itemStacks.init(outputSlot, false, 69, 7);
+		itemStacks.init(inputSlotTop, true, 3, 7);
+		itemStacks.init(inputSlotBottom, true, 95, 7);
+		itemStacks.init(outputSlot, false, 49, 7);
 
 		itemStacks.set(inputSlotTop, recipeWrapper.getTopInput());
 		itemStacks.set(inputSlotBottom, recipeWrapper.getBottomInput());

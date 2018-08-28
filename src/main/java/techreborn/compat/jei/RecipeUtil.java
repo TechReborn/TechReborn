@@ -40,22 +40,18 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.List;
 
-
 public class RecipeUtil {
 	private static final int color = Color.darkGray.getRGB();
 
 	private RecipeUtil() {
 	}
 
-	public static void drawInfo(
-		@Nonnull
-			Minecraft minecraft, int x, int y, final double startCost,
-		final double euPerTick, final int tickTime) {
+	public static void drawInfo(@Nonnull Minecraft minecraft, int x, int y, double startCost, double euPerTick,
+			int tickTime) {
 		FontRenderer fontRenderer = minecraft.fontRenderer;
 		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
 		String startCostEU = PowerSystem.getLocaliszedPower(startCost);
-		//String startCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.start.cost", startCostEU);
 		String startCostString = StringUtils.t("techreborn.jei.recipe.start.cost", startCostEU);
 		fontRenderer.drawString(startCostString, x, y, color);
 		y += lineSpacing;
@@ -63,92 +59,26 @@ public class RecipeUtil {
 		drawInfo(minecraft, x, y, euPerTick, tickTime);
 	}
 
-	public static void drawInfo(
-		@Nonnull
-			Minecraft minecraft, int x, int y, final double euPerTick, final int tickTime) {
+	public static void drawInfo(@Nonnull Minecraft minecraft, int x, int y, double euPerTick, int tickTime) {
 		FontRenderer fontRenderer = minecraft.fontRenderer;
 		int lineSpacing = fontRenderer.FONT_HEIGHT + 1;
 
-		String runningCostString = StringUtils.t("techreborn.jei.recipe.running.cost", PowerSystem.getDisplayPower().abbreviation.toUpperCase(),  PowerSystem.getLocaliszedPowerFormattedNoSuffix(euPerTick));
-		//String runningCostString = I18n.translateToLocalFormatted("techreborn.jei.recipe.running.cost",PowerSystem.getDisplayPower().abbreviation.toUpperCase(),  PowerSystem.getLocaliszedPowerFormattedNoSuffix(euPerTick));
+		String runningCostString = StringUtils.t("techreborn.jei.recipe.running.cost",
+				PowerSystem.getDisplayPower().abbreviation.toUpperCase(),
+				PowerSystem.getLocaliszedPowerFormattedNoSuffix(euPerTick));
 		fontRenderer.drawString(runningCostString, x, y, color);
 		y += lineSpacing;
 
-		// String processingTimeString1 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.1", tickTime);
 		String processingTimeString1 = StringUtils.t("techreborn.jei.recipe.processing.time.1", tickTime);
+		String processingTimeString2 = StringUtils.t("techreborn.jei.recipe.processing.time.2", tickTime / 20);
 		fontRenderer.drawString(processingTimeString1, x, y, color);
 		y += lineSpacing;
-
-		int seconds = tickTime / 20;
-		//String processingTimeString2 = I18n.translateToLocalFormatted("techreborn.jei.recipe.processing.time.2", seconds);
-		String processingTimeString2 = StringUtils.t("techreborn.jei.recipe.processing.time.2", seconds);
 		fontRenderer.drawString(processingTimeString2, x + 10, y, color);
 	}
 
-	@Deprecated
-	public static void setRecipeItems(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			BaseRecipeWrapper<?> recipe,
-		@Nullable
-			int[] itemInputSlots,
-		@Nullable
-			int[] itemOutputSlots,
-		@Nullable
-			int[] fluidInputSlots,
-		@Nullable
-			int[] fluidOutputSlots) {
-		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
-
-		if (itemInputSlots != null) {
-			List<List<ItemStack>> inputs = recipe.getInputs();
-			for (int i = 0; i < inputs.size() && i < itemInputSlots.length; i++) {
-				int inputSlot = itemInputSlots[i];
-				guiItemStacks.set(inputSlot, inputs.get(i));
-			}
-		}
-
-		if (itemOutputSlots != null) {
-			List<ItemStack> outputs = recipe.getOutputs();
-			for (int i = 0; i < outputs.size() && i < itemOutputSlots.length; i++) {
-				int outputSlot = itemOutputSlots[i];
-				guiItemStacks.set(outputSlot, outputs.get(i));
-			}
-		}
-
-		if (fluidInputSlots != null) {
-			List<FluidStack> fluidInputs = recipe.getFluidInputs();
-			for (int i = 0; i < fluidInputs.size() && i < fluidInputSlots.length; i++) {
-				int inputTank = fluidInputSlots[i];
-				guiFluidStacks.set(inputTank, fluidInputs.get(i));
-			}
-		}
-
-		//TODO 1.11
-		//		if (fluidOutputSlots != null) {
-		//			List<FluidStack> fluidOutputs = recipe.getFluidOutputs();
-		//			for (int i = 0; i < fluidOutputs.size() && i < fluidOutputSlots.length; i++) {
-		//				int outputTank = fluidOutputSlots[i];
-		//				guiFluidStacks.set(outputTank, fluidOutputs.get(i));
-		//			}
-		//		}
-	}
-
-	public static void setRecipeItems(
-		@Nonnull
-			IRecipeLayout recipeLayout,
-		@Nonnull
-			IIngredients ingredients,
-		@Nullable
-			int[] itemInputSlots,
-		@Nullable
-			int[] itemOutputSlots,
-		@Nullable
-			int[] fluidInputSlots,
-		@Nullable
-			int[] fluidOutputSlots) {
+	public static void setRecipeItems(@Nonnull IRecipeLayout recipeLayout, @Nonnull IIngredients ingredients,
+			@Nullable int[] itemInputSlots, @Nullable int[] itemOutputSlots, @Nullable int[] fluidInputSlots,
+			@Nullable int[] fluidOutputSlots) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 
