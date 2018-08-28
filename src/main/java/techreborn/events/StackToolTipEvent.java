@@ -46,6 +46,7 @@ import techreborn.Core;
 
 public class StackToolTipEvent {
 
+	@SuppressWarnings("deprecation")
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void handleItemTooltipEvent(ItemTooltipEvent event) {

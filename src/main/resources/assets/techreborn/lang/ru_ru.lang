@@ -1,90 +1,99 @@
 #ru_ru.lang file [TechReborn-1.12.2-2.17.1.786-universal].Translated by EnGinners, AlekseiVoronin, Ivan Petrov, SkyFire55, Justin Vitale, Yaroslavik, drcrazy, Modmuss50
-item.missingRecipe.name=Отсутствует заменитель рецепта
+item.missingRecipe.name=Рецепт отсутствует
 
 itemGroup.techreborn=Tech Reborn
 
 #machines
-tile.techreborn:pump.name=Насос
-tile.techreborn:gas_turbine.name=Газовая турбина
-tile.techreborn:industrial_block.name=Промышленный
-tile.techreborn:thermal_generator.name=Теплогенератор
-tile.techreborn:quantum_tank.name=Квантовый резервуар
-tile.techreborn:creative_quantum_tank.name=Квантовый резервуар для творческого режима
-tile.techreborn:quantum_chest.name=Квантовый сундук
+tile.techreborn:adjustable_su.name=Регулируемое SU
+tile.techreborn:alarm.name=Сирена
+tile.techreborn:alloy_smelter.name=Электрическая плавильная печь
+tile.techreborn:auto_crafting_table.name=Автоверстак
+tile.techreborn:assembly_machine.name=Сборочная машина
+tile.techreborn:charge_o_mat.name=Зарядник
+tile.techreborn:chemical_reactor.name=Химический реактор
+tile.techreborn:chunk_loader.name=Промышленный загрузчик чанков
+tile.techreborn:compressor.name=Компрессор
+tile.techreborn:computer_cube.name=Компьютерный куб «Tech Reborn»
+tile.techreborn:creative_solar_panel.name=Солнечная батарея для творческого режима
 tile.techreborn:creative_quantum_chest.name=Квантовый сундук для творческого режима
+tile.techreborn:creative_quantum_tank.name=Квантовый резервуар для творческого режима
+tile.techreborn:diesel_generator.name=Дизельный генератор
 tile.techreborn:digital_chest.name=Цифровой сундук
+tile.techreborn:distillation_tower.name=Дистилляционная колонна
+tile.techreborn:dragon_egg_syphon.name=Выкачиватель энергии из драконьего яйца
+tile.techreborn:electric_crafting_table.name=Электрический верстак
+tile.techreborn:electric_furnace.name=Электропечь
+tile.techreborn:ev_transformer.name=Трансформатор EV
+tile.techreborn:extractor.name=Экстрактор
+tile.techreborn:farm.name=Ферма
+tile.techreborn:fluid_replicator.name=Жидкостной репликатор
+tile.techreborn:fusion_coil.name=Термоядерная катушка
+tile.techreborn:fusion_control_computer.name=Контроллер термоядерного реактора
+tile.techreborn:gas_turbine.name=Газовая турбина
+tile.techreborn:grinder.name=Дробилка
+tile.techreborn:heat_generator.name=Теплогенератор
+tile.techreborn:high_voltage_su.name=МФСУ
+tile.techreborn:hv_transformer.name=Трансформатор HV
+tile.techreborn:implosion_compressor.name=Компрессор внутреннего взрыва
+tile.techreborn:industrial_blast_furnace.name=Промышленная доменная печь
+tile.techreborn:industrial_block.name=Промышленный
 tile.techreborn:industrial_centrifuge.name=Промышленная центрифуга
-tile.techreborn:rolling_machine.name=Прокатный станок
+tile.techreborn:industrial_electrolyzer.name=Промышленный электролизер
+tile.techreborn:industrial_grinder.name=Промышленная дробилка
+tile.techreborn:industrial_sawmill.name=Лесопилка
+tile.techreborn:interdimensional_su.name=Межпространственное SU
+tile.techreborn:iron_alloy_furnace.name=Железная плавильная печь
+tile.techreborn:iron_furnace.name=Железная печь
+tile.techreborn:lamp_incandescent.name=Лампа накаливания
+tile.techreborn:lamp_led.name=Светодиодная лампа
+tile.techreborn:lapotronic_su.name=LESU Контроллер
+tile.techreborn:lightning_rod.name=Молниеотвод
+tile.techreborn:low_voltage_su.name=Энергохранитель
+tile.techreborn:lsu_storage.name=LESU Хранилще
+tile.techreborn:lv_transformer.name=Трансформатор LV
 tile.techreborn:machine_casing.standard.name=Стандартная обшивка машины
 tile.techreborn:machine_casing.reinforced.name=Усиленная обшивка машины
 tile.techreborn:machine_casing.advanced.name=Улучшенная обшивка машины
-tile.techreborn:industrial_blast_furnace.name=Промышленная доменная печь
-tile.techreborn:alloy_smelter.name=Электрическая плавильная печь
-tile.techreborn:matter_fabricator.name=Генератор материи
-tile.techreborn:implosion_compressor.name=Компрессор внутреннего взрыва
-tile.techreborn:industrial_grinder.name=Промышленная дробилка
-tile.techreborn:chunk_loader.name=Промышленный загрузчик чанков
-tile.techreborn:magic_energy_converter.name=Магический преобразователь энергии
-tile.techreborn:diesel_generator.name=Дизельный генератор
-tile.techreborn:heat_generator.name=Теплогенератор
-tile.techreborn:industrial_electrolyzer.name=Промышленный электролизер
-tile.techreborn:magic_energy_absorber.name=Магический поглотитель энергии
-tile.techreborn:assembly_machine.name=Сборочная машина
-tile.techreborn:semi_fluid_generator.name=Генератор полужидкости
-tile.techreborn:iron_alloy_furnace.name=Железная плавильная печь
-tile.techreborn:chemical_reactor.name=Химический реактор
-tile.techreborn:dragon_egg_syphon.name=Выкачиватель энергии из драконьего яйца
-tile.techreborn:interdimensional_su.name=Межпространственное SU
-tile.techreborn:adjustable_su.name=Регулируемое SU
-tile.techreborn:lapotronic_su.name=LESU Контроллер
-tile.techreborn:lsu_storage.name=LESU Хранилще
-tile.techreborn:distillation_tower.name=Дистилляционная колонна
-tile.techreborn:electric_crafting_table.name=Автоматический автоверстак
-tile.techreborn:vacuum_freezer.name=Вакуумная морозилка
-tile.techreborn:plasma_generator.name=Плазменный генератор
-tile.techreborn:fusion_control_computer.name=Термоядерный компьютер управления
-tile.techreborn:computer_cube.name=Компьютерный куб «Tech Reborn»
-tile.techreborn:fusion_coil.name=Термоядерная катушка
-tile.techreborn:lightning_rod.name=Молниеотвод
-tile.techreborn:industrial_sawmill.name=Лесопилка
-tile.techreborn:charge_o_mat.name=Зарядник
-tile.techreborn:player_detector.all.name=Индикатор игрока (Все)
-tile.techreborn:player_detector.others.name=Индикатор игрока (Другие)
-tile.techreborn:player_detector.you.name=Индикатор игрока (Ты)
-tile.techreborn:solid_fuel_generator.name=Генератор
-tile.techreborn:extractor.name=Экстрактор
-tile.techreborn:grinder.name=Дробилка
-tile.techreborn:compressor.name=Компрессор
-tile.techreborn:electric_furnace.name=Электропечь
+tile.techreborn:magic_energy_absorber.name=Поглотитель магической энергии
+tile.techreborn:magic_energy_converter.name=Преобразователь магической энергии
+tile.techreborn:matter_fabricator.name=Изготовитель материи
 tile.techreborn:machine_frame.highly_advanced.name=Чрезвычайно улучшенный машинный корпус
 tile.techreborn:machine_frame.advanced.name=Улучшенный машинный корпус
 tile.techreborn:machine_frame.basic.name=Основной машинный корпус
-tile.techreborn:ore2.copper.name=Медная руда
-tile.techreborn:ore2.tin.name=Оловянная Руда
-tile.techreborn:solar_panel.basic.name=Основная солнечная батарея
+tile.techreborn:medium_voltage_su.name=МФЭ
+tile.techreborn:mv_transformer.name=Трансформатор MV
+tile.techreborn:nuke.name=Ядерное оружие
+tile.techreborn:plasma_generator.name=Плазменный генератор
+tile.techreborn:player_detector.all.name=Детектор (Любой игрок)
+tile.techreborn:player_detector.others.name=Детектор (Другие игроки)
+tile.techreborn:player_detector.you.name=Детектор (Игрок)
+tile.techreborn:pump.name=Насос
+tile.techreborn:quantum_chest.name=Квантовый сундук
+tile.techreborn:quantum_tank.name=Квантовый резервуар
+tile.techreborn:recycler.name=Переработчик
+tile.techreborn:rolling_machine.name=Прокатный станок
+tile.techreborn:scrapboxinator.name=Шкатулка
+tile.techreborn:semi_fluid_generator.name=Полужидкостной генератор 
+tile.techreborn:solar_panel.basic.name=Базовая солнечная батарея
 tile.techreborn:solar_panel.hybrid.name=Гибридная солнечная батарея
 tile.techreborn:solar_panel.advanced.name=Улучшенная солнечная батарея
 tile.techreborn:solar_panel.ultimate.name=Совершенная солнечная батарея
 tile.techreborn:solar_panel.quantum.name=Квантовая солнечная батарея
-
-tile.techreborn:creative_solar_panel.name=Солнечная батарея для творческого режима
+tile.techreborn:solid_fuel_generator.name=Твердотопливный генератор
+tile.techreborn:thermal_generator.name=Теплогенератор
+tile.techreborn:vacuum_freezer.name=Вакуумная морозильник
 tile.techreborn:water_mill.name=Водяная мельница
 tile.techreborn:wind_mill.name=Ветряная мельница
-tile.techreborn:iron_furnace.name=Железная печь
-tile.techreborn:recycler.name=Переработчик
-tile.techreborn:scrapboxinator.name=Шкатулка
-tile.techreborn:low_voltage_su.name=Энергохранитель
-tile.techreborn:medium_voltage_su.name=МФЭ
-tile.techreborn:high_voltage_su.name=МФСУ
-tile.techreborn:reinforced_glass.name=Усиленное стекло
-tile.techreborn:nuke.name=Ядерное оружие
-tile.techreborn:lv_transformer.name=Преобразователь LV
-tile.techreborn:mv_transformer.name=Преобразователь MV
-tile.techreborn:hv_transformer.name=Преобразователь HV
-tile.techreborn:ev_transformer.name=Преобразователь EV
-tile.techreborn:auto_crafting_table.name=Автоверстак
-tile.techreborn:fluid_replicator.name=Жидкостный репликатор
 
+#Cables
+tile.techreborn:cable.copper.name=Медный кабель
+tile.techreborn:cable.tin.name=Оловянный кабель
+tile.techreborn:cable.gold.name=Золотой кабель
+tile.techreborn:cable.hv.name=Кабель высокого напряжения
+tile.techreborn:cable.glassfiber.name=Кабель из Оптоволокна
+tile.techreborn:cable.insulatedcopper.name=Изолированный медный кабель
+tile.techreborn:cable.insulatedgold.name=Изолированный золотой кабель
+tile.techreborn:cable.insulatedhv.name=Изолированный кабель высокого напряжения
 
 #Blocks
 tile.techreborn:rubber_log.name=Каучуковая древесина
@@ -93,12 +102,8 @@ tile.techreborn:rubber_plank_slab.name=Каучуковая плита
 tile.techreborn:rubber_plank_stair.name=Каучуковые ступеньки
 tile.techreborn:rubber_leaves.name=Каучуковые листья
 tile.techreborn:rubber_sapling.name=Каучуковый саженец
-
 tile.techreborn:refined_iron_fence.name=Железный забор
-tile.techreborn:lamp_incandescent.name=Лампа накаливания
-tile.techreborn:lamp_led.name=LED лампа
-
-tile.techreborn:alarm.name=Сирена
+tile.techreborn:reinforced_glass.name=Усиленное стекло
 
 #Ores
 tile.techreborn:ore.galena.name=Галенитовая руда
@@ -117,6 +122,8 @@ tile.techreborn:ore.tetrahedrite.name=Тетраэдритовая руда
 tile.techreborn:ore.cassiterite.name=Касситеритовая руда
 tile.techreborn:ore.lead.name=Свинцовая руда
 tile.techreborn:ore.silver.name=Серебряная руда
+tile.techreborn:ore2.copper.name=Медная руда
+tile.techreborn:ore2.tin.name=Оловянная Руда
 
 #Storage
 tile.techreborn:storage.silver.name=Серебряный блок
@@ -132,12 +139,9 @@ tile.techreborn:storage.platinum.name=Платиновый блок
 tile.techreborn:storage.tungsten.name=Вольфрамовый блок
 tile.techreborn:storage.nickel.name=Никелевый блок
 tile.techreborn:storage.invar.name=Инваровый блок
-tile.techreborn:storage.osmium.name=Осмиевый блок
 tile.techreborn:storage.iridium.name=Иридиевый блок
 tile.techreborn:storage.bronze.name=Бронзовый блок
 tile.techreborn:storage2.tungstensteel.name=Блок из Вольфрамовой стали
-tile.techreborn:storage2.lodestone.name=Магнетитовый блок
-tile.techreborn:storage2.tellurium.name=Теллуровый блок
 tile.techreborn:storage2.iridium_reinforced_tungstensteel.name=Блок вольфрамовой стали, укреплённый иридием
 tile.techreborn:storage2.iridium_reinforced_stone.name=Камень, укреплённый иридием
 tile.techreborn:storage2.ruby.name=Рубиновый блок
@@ -148,8 +152,6 @@ tile.techreborn:storage2.red_garnet.name=Блок красного гранат�
 tile.techreborn:storage2.refined_iron.name=Блок переработанного железа
 tile.techreborn:storage2.copper.name=Медный блок
 tile.techreborn:storage2.tin.name=Оловянный блок
-tile.techreborn:farm.name=Ферма
-
 
 #Fluids
 tile.techreborn:berylium.name=Происхождение бериллия
@@ -177,7 +179,6 @@ tile.techreborn:tritium.name=Происхождение трития
 tile.techreborn:wolframium.name=Происхождение вольфрама
 tile.techreborn:compressedair.name=Происхождение сжатого воздуха
 tile.techreborn:electrolyzedwater.name=Происхождение электризованной воды
-tile.techreborn:supercondensator.name=Ионистор
 fluid.fluid.fluidberylium=Бериллий
 fluid.fluid.fluidcalcium=Кальций
 fluid.fluid.fluidcalciumcarbonate=Карбонат кальция
@@ -301,19 +302,6 @@ item.techreborn.dust.andesite.name=Андезитовая пыль
 item.techreborn.dust.diorite.name=Диоритовая пыль
 item.techreborn.dust.granite.name=Гранитовая пыль
 
-item.techreborn.wrench.name=Гаечный ключ
-tile.techreborn:cable.copper.name=Медный кабель
-tile.techreborn:cable.tin.name=Оловянный кабель
-tile.techreborn:cable.gold.name=Золотой кабель
-tile.techreborn:cable.hv.name=Кабель высокого напряжения
-tile.techreborn:cable.glassfiber.name=Кабель из Оптоволокна
-tile.techreborn:cable.insulatedcopper.name=Изолированный медный кабель
-tile.techreborn:cable.insulatedgold.name=Изолированный золотой кабель
-tile.techreborn:cable.insulatedhv.name=Изолированный кабель высокого напряжения
-item.techreborn.scrapbox.name=Коробка утильсырья
-item.techreborn.part.carbon_mesh.name=Углеродная сетка
-item.techreborn.part.carbon_fiber.name=Углеродное волокно
-
 #Small Dusts
 item.techreborn.dustsmall.almandine.name=Малая кучка из Альмандиновой пыли
 item.techreborn.dustsmall.aluminum.name=Малая кучка из Алюминиевой пыли
@@ -380,21 +368,15 @@ item.techreborn.dustsmall.olivine.name=Малая кучка из Оливино
 item.techreborn.dustsmall.andesite.name=Малая кучка из Андезитовой пыли
 item.techreborn.dustsmall.diorite.name=Малая кучка из Диоритовой пыли
 item.techreborn.dustsmall.granite.name=Малая кучка из Гранитовой пыли
-
 item.techreborn.cell.name=Пустая капсула
 item.techreborn.cell.fluid.name=Капсула с $жидкостью$
-item.techreborn.rebattery.name=Батарея
-item.techreborn.lithiumBattery.name=Литиевая батарея
-item.techreborn.energyCrystal.name=Энергетический кристалл
-item.techreborn.lapotronCrystal.name=Лапотроновый кристалл
-item.techreborn.treetap.name=Деревянный краник
-item.techreborn.nanosaber.name=Нано сабля
+
+#Upgrades
 item.techreborn.upgrade.overclock.name=Улучшение «Ускоритель»
 item.techreborn.upgrade.transformer.name=Улучшение «Трансформатор»
 item.techreborn.upgrade.energy_storage.name=Улучшение «Энергохранитель»
 item.techreborn.upgrade.ejection.name=Улучшение «Инъектор»
 item.techreborn.upgrade.injection.name=Улучшение «Инжектор»
-item.techreborn.electric_treetap.name=Электрокраник
 
 #Gems
 item.techreborn.gem.ruby.name=Рубин
@@ -426,7 +408,7 @@ item.techreborn.ingot.zinc.name=Цинковый слиток
 item.techreborn.ingot.advanced_alloy.name=Слиток из Улучшенного сплава
 item.techreborn.ingot.mixed_metal.name=Слиток из Смешанного металла
 item.techreborn.ingot.iridium_alloy.name=Слиток из Сплава иридия
-item.techreborn.ingot.refined_iron.name=Слиток из Обработанного железа
+item.techreborn.ingot.refined_iron.name=Слиток из Переработанного железа
 
 #Nuggets
 item.techreborn.nuggets.aluminum.name=Алюминиевый самородок
@@ -502,18 +484,18 @@ item.techreborn.part.energy_flow_circuit.name=Микросхема энерго�
 item.techreborn.part.data_control_circuit.name=Микросхема управления данными
 item.techreborn.part.data_orb.name=Сфера данных
 item.techreborn.part.data_storage_circuit.name=Микросхема хранения данных
-item.techreborn.part.diamond_grinding_head.name=Алмазная шлифовальная головка
+item.techreborn.part.diamond_grinding_head.name=Алмазная дробильная головка
 item.techreborn.part.diamond_saw_blade.name=Алмазное лезвие пилы
-item.techreborn.part.tungsten_grinding_head.name=Вольфрамовая шлифовальная головка
+item.techreborn.part.tungsten_grinding_head.name=Вольфрамовая дробильная головка
 item.techreborn.part.helium_coolant_simple.name=60к Гелиевая охлаждающая ячейка
 item.techreborn.part.helium_coolant_triple.name=180к Гелиевая охлаждающая ячейка
 item.techreborn.part.helium_coolant_six.name=360к Гелиевая охлаждающая ячейка
 item.techreborn.part.nak_coolant_simple.name=60к nak охлаждающая ячейка
 item.techreborn.part.nak_coolant_triple.name=180к nak охлаждающая ячейка
 item.techreborn.part.nak_coolant_six.name=360к nak охлаждающая ячейка
-item.techreborn.part.cupronickel_heating_coil.name=Купроникелевая нагревающая катушка
+item.techreborn.part.cupronickel_heating_coil.name=Мельхиоровая нагревающая катушка
 item.techreborn.part.nichrome_heating_coil.name=Нихромовая нагревающая катушка
-item.techreborn.part.kanthal_heating_coil.name=Канталовая нагревающая катушка
+item.techreborn.part.kanthal_heating_coil.name=Фехральная нагревающая катушка
 item.techreborn.part.super_conductor.name=Сверхпроводник
 item.techreborn.part.thorium_cell.name=Топливный стержень (Торий)
 item.techreborn.part.double_thorium_cell.name=Двойной топливный стержень (Торий)
@@ -534,14 +516,14 @@ item.techreborn.part.advanced_circuit.name=Улучшенная электрон
 item.techreborn.part.coolant_simple.name=10к Охлаждающая ячейка
 item.techreborn.part.coolant_triple.name=30к Охлаждающая ячейка
 item.techreborn.part.coolant_six.name=60к Охлаждающая ячейка
-
-item.techreborn.frequencyTransmitter.name=Частотный преобразователь
+item.techreborn.part.carbon_mesh.name=Углеродная сетка
+item.techreborn.part.carbon_fiber.name=Углеродное волокно
 
 #Tools
-item.techreborn.rockcutter.name=Каменный резак
-item.techreborn.lithiumbatpack.name=Литий-реактивный ранец
-item.techreborn.lapotronpack.name=Лапотронный пак
-item.techreborn.omniTool.name=Омни-инструмент
+item.techreborn.rockcutter.name=Камнерез
+item.techreborn.lithiumbatpack.name=Литиевый энергоранец
+item.techreborn.lapotronpack.name=Лапотронный энергоранец
+item.techreborn.omniTool.name=Мульти-инструмент
 item.techreborn.ironDrill.name=Стальной бур
 item.techreborn.diamondDrill.name=Алмазный бур
 item.techreborn.advancedDrill.name=Улучшенный бур
@@ -553,6 +535,9 @@ item.techreborn.cloakingdevice.name=Маскировочное устройст�
 item.techreborn.steelJackhammer.name=Стальной отбойный молоток
 item.techreborn.diamondJackhammer.name=Алмазный отбойный молоток
 item.techreborn.advancedJackhammer.name=Улучшенный отбойный молоток
+item.techreborn.electric_treetap.name=Электрокраник
+item.techreborn.treetap.name=Деревянный краник
+item.techreborn.nanosaber.name=Нано сабля
 
 item.bronzeSword.name=Бронзовый меч
 item.bronzePickaxe.name=Бронзовая кирка
@@ -568,7 +553,7 @@ item.rubySword.name=Рубиновый меч
 item.rubyPickaxe.name=Рубиновая кирка
 item.rubySpade.name=Рубиновая лопата
 item.rubyAxe.name=Рубиновый топор
-item.rubyHoe.name=Рубиновая кирка
+item.rubyHoe.name=Рубиновая мотыга
 item.rubyHelmet.name=Рубиновый шлем
 item.rubyChestplate.name=Рубиновый нагрудник
 item.rubyLeggings.name=Рубиновые штаны
@@ -634,6 +619,13 @@ fluid.fluidwolframium=Вольфрам
 item.techreborn.uuMatter.name=UU-Материя
 item.techreborn.manual.name=Техническое руководство
 item.techreborn.debug.name=Инструмент отладки
+item.techreborn.wrench.name=Гаечный ключ
+item.techreborn.scrapbox.name=Коробка утильсырья
+item.techreborn.frequencyTransmitter.name=Частотный преобразователь
+item.techreborn.rebattery.name=Батарея
+item.techreborn.lithiumBattery.name=Литиевая батарея
+item.techreborn.energyCrystal.name=Энергетический кристалл
+item.techreborn.lapotronCrystal.name=Лапотроновый кристалл
 
 #Message
 techreborn.message.missingmultiblock=Мультиблочная структура не закончена
@@ -654,20 +646,6 @@ techreborn.message.nanosaberInactive=Неработает
 techreborn.message.nanosaberEnergyErrorTo=Недостаточно энергии для
 techreborn.message.nanosaberEnergyError=Недостаточно энергии:
 
-#Cables
-Cable.copperCable.name=Медный кабель
-Cable.insulatedCopperCable.name=Изолированный медный кабель
-Cable.goldCable.name=Золотой кабель
-Cable.insulatedGoldCable.name=Изолированный золотой кабель
-Cable.doubleInsulatedGoldCable.name=Золотой кабель двойной изоляции
-Cable.ironCable.name=Железный кабель
-Cable.copperCable.name=Медный кабель
-Cable.insulatedIronCable.name=Изолированный железный кабель
-Cable.doubleInsulatedIronCable.name=Железный кабель двойной изоляции
-Cable.trippleInsulatedIronCable.name=Железный кабель тройной изоляции
-Cable.glassFiberCable.name=Кабель из Оптоволокна
-Cable.tinCable.name=Оловянный кабель
-
 desc.uninsulatedCable=Наносит урон существам!
 desc.transfer=Передача энергии:
 desc.tier=Уровень:
@@ -687,14 +665,13 @@ techreborn.desc.scrapBoxNoDispenser=Коробки с утильсырьем м�
 
 techreborn.jei.category.alloy.furnace=Плавильная печь
 techreborn.jei.category.generator.gas=Газогенератор
-techreborn.jei.category.generator.semifluid=Полужидкостный генератор
+techreborn.jei.category.generator.semifluid=Полужидкостной генератор
 techreborn.jei.category.generator.diesel=Дизельный генератор
 techreborn.jei.category.generator.thermal=Теплогенератор
-techreborn.jei.category.generator.plasma=Генератор плазмы
+techreborn.jei.category.generator.plasma=Плазменный генератор
 
 #Death Messages
 death.attack.shock=%s убило током
-
 
 #Entitys
 entity.nuke.name=Ядерное оружие
@@ -716,9 +693,8 @@ techreborn.manual.wikibtn=Открыть
 techreborn.manual.discordbtn=Присоединиться
 
 #Advancements
-
-advancements.techreborn.root.desc=Теперь, когда ты приобрёл Techreborn руду, ты можешь найти полезный Деревянный краник.
+advancements.techreborn.root.desc=Теперь, когда ты приобрёл TechReborn руду, ты можешь найти полезный Деревянный краник.
 advancements.techreborn.treetap=Деревянный краник
 advancements.techreborn.treetap.desc=Теперь, когда ты изготовил Деревянный краник, тебе нужно использовать его на жёлтом пятне на Каучуковом дереве.
 advancements.techreborn.sap=Каучук
-advancements.techreborn.sap.desc=Отличная работа, теперь у тебя есть Каучуковый сок. В следующий момент, тебе нужно расплавить его в печи, чтобы изготовить резину.
+advancements.techreborn.sap.desc=Отличная работа, теперь у тебя есть Каучуковый сок. Переплавь его в печи, чтобы изготовить резину.

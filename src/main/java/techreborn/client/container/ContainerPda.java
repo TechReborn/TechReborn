@@ -31,6 +31,7 @@ public class ContainerPda extends RebornContainer {
 
 	EntityPlayer player;
 
+	@SuppressWarnings("deprecation")
 	public ContainerPda(EntityPlayer player) {
 
 	}
