@@ -75,7 +75,8 @@ public class CTGeneric {
 		public void apply() {
 			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(name)) {
 				for (ItemStack stack : recipeType.getOutputs()) {
-					if (ItemUtils.isItemEqual(stack, output, true, false)) {
+					boolean matchNBT = output.hasTagCompound();
+					if (ItemUtils.isItemEqual(stack, output, true, matchNBT)) {
 						removedRecipes.add((BaseRecipe) recipeType);
 						RecipeHandler.recipeList.remove(recipeType);
 						break;
@@ -106,7 +107,8 @@ public class CTGeneric {
 				for (Object recipeInput : recipeType.getInputs()) {
 					ItemStack ingredientStack = CraftTweakerMC.getItemStack(ingredient);
 					if (!ingredientStack.isEmpty()) {
-						if (ItemUtils.isInputEqual(recipeInput, ingredientStack, true, false, true)) {
+						boolean matchNBT = ingredientStack.hasTagCompound();
+						if (ItemUtils.isInputEqual(recipeInput, ingredientStack, true, matchNBT, true)) {
 							removedRecipes.add((BaseRecipe) recipeType);
 							RecipeHandler.recipeList.remove(recipeType);
 							break;

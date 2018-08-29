@@ -101,7 +101,8 @@ public class CTFusionReactor {
 		@Override
 		public void apply() {
 			for (FusionReactorRecipe recipeType : FusionReactorRecipeHelper.reactorRecipes) {
-				if (ItemUtils.isItemEqual(recipeType.getOutput(), output, true, false)) {
+				boolean matchNBT = output.hasTagCompound();
+				if (ItemUtils.isItemEqual(recipeType.getOutput(), output, true, matchNBT)) {
 					removedRecipes.add(recipeType);
 					FusionReactorRecipeHelper.reactorRecipes.remove(recipeType);
 					break;
