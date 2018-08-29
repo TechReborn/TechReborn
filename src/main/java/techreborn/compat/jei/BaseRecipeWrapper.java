@@ -25,6 +25,7 @@
 package techreborn.compat.jei;
 
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -93,11 +94,9 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> implements IRecipe
 	}
 
 	@Override
-	public void getIngredients(
-		@Nonnull
-			IIngredients ingredients) {
-		ingredients.setInputLists(ItemStack.class, inputs);
-		ingredients.setOutputs(ItemStack.class, baseRecipe.getOutputs());
+	public void getIngredients(@Nonnull IIngredients ingredients) {
+		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
+		ingredients.setOutputs(VanillaTypes.ITEM, baseRecipe.getOutputs());
 	}
 
 	@Nonnull
