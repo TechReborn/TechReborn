@@ -1,6 +1,6 @@
 ![](https://i.imgur.com/evHOtQl.png "Tech Reborn")
 
-[![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/teamreborn)
+[![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/teamreborn) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/techreborn/localized.svg)](https://translate.techreborn.ovh/project/techreborn)
 
 # Tech Reborn for 1.12 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
 
@@ -30,6 +30,10 @@ If you're looking for the latest bleeding edge build, these are found on our Jen
 # Issues and Suggestions
 
 To report an issue or make a suggestion, please head up to the `Issues` tab up above, and open a new issue. You will need a GitHub account for this (it's free!). **It is very important that you include the version of Tech Reborn you are using in your issue report.**
+
+# Translation
+
+Techreborn is available in a range of diffrent languages, if you want to help out translate the mod please see our crowdin project at [https://translate.techreborn.ovh/](https://translate.techreborn.ovh/) The translations are automaticly included in the jar files at build time.
 
 # Screenshots
 
