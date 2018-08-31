@@ -197,14 +197,14 @@ build.dependsOn deobfJar, apiJar
 //Triggers crowdin to export the latest translations
 task crowdinExport() {
 	onlyIf {
-		hasProperty('crowdinKey')
+		project.hasProperty('crowdinKey')
 	}
 	doLast{
 		def apiKey = project.crowdinKey
 		def projectId = 'techreborn'
-		def response = new URL(sprintf('https://api.crowdin.com/api/project/$s/export?key=$s', [projectId, apiKey])).text
-		def metadata = new XmlSlurper().parseText(response)
-		project.logger.lifecycle("crowdin export status: " + metadata.@success)
+		def response = new URL(sprintf('https://api.crowdin.com/api/project/%1$s/export?key=%2$s', [projectId, apiKey])).text
+		def metadata = new XmlParser().parseText(response)
+		project.logger.lifecycle("crowdin export status: " + metadata.@status)
 	}
 }
 
