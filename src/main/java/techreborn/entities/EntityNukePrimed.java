@@ -31,13 +31,24 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.lib.ModInfo;
 
 /**
  * Created by Mark on 13/03/2016.
  */
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class EntityNukePrimed extends EntityTNTPrimed {
 
-	public int fuse = 400;
+	@ConfigRegistry(config = "misc", category = "nuke", key = "fuse", comment = "Nuke fuse time (ticks)")
+	public static int fuse = 400;
+
+	@ConfigRegistry(config = "misc", category = "nuke", key = "radius", comment = "Nuke explision radius")
+	public static int radius = 40;
+
+	@ConfigRegistry(config = "misc", category = "nuke", key = "enabled", comment = "Should the nuke explode, set to false to prevent block damage")
+	public static boolean enabled = true;
 
 	public EntityNukePrimed(World world) {
 		super(world);
@@ -76,8 +87,11 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 	}
 
 	public void explodeNuke() {
+		if(!enabled){
+			return;
+		}
 		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(this.posX, this.posY, this.posZ), world,
-			40);
+			radius);
 		nukeExplosion.setLivingBase(getTntPlacedBy());
 		nukeExplosion.explode();
 	}
