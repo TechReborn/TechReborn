@@ -48,7 +48,7 @@ public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterR
 
 	public AlloySmelterRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
-		title = StringUtils.t("tile.techreborn:alloy_smelter.name");
+		title = StringUtils.t("tile.techreborn.alloy_smelter.name");
 	}
 
 	@Override

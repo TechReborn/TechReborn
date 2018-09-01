@@ -54,7 +54,7 @@ public class DistillationTowerRecipeCategory implements IRecipeCategory<Distilla
 
 	public DistillationTowerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 0, 104, 62);
-		title = StringUtils.t("tile.techreborn:distillation_tower.name");
+		title = StringUtils.t("tile.techreborn.distillation_tower.name");
 	}
 
 	@Override

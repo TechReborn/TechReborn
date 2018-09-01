@@ -47,7 +47,7 @@ public class CentrifugeRecipeCategory implements IRecipeCategory<CentrifugeRecip
 
 	public CentrifugeRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 0, 104, 62);
-		title = StringUtils.t("tile.techreborn:industrial_centrifuge.name");
+		title = StringUtils.t("tile.techreborn.industrial_centrifuge.name");
 	}
 
 	@Override

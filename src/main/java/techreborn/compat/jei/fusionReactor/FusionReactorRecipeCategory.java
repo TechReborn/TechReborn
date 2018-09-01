@@ -52,7 +52,7 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 
 	public FusionReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 84);
-		title = StringUtils.t("tile.techreborn:fusion_control_computer.name");
+		title = StringUtils.t("tile.techreborn.fusion_control_computer.name");
 	}
 
 	@Override

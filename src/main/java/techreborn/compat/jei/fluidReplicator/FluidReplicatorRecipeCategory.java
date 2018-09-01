@@ -54,7 +54,7 @@ public class FluidReplicatorRecipeCategory implements IRecipeCategory<FluidRepli
 	public FluidReplicatorRecipeCategory(@Nonnull IGuiHelper guiHelper) {
 		this.background = guiHelper.createDrawable(texture, 125, 0, 72, 60);
 		this.tankOverlay = guiHelper.createDrawable(texture, 196, 0, 12, 47);
-		this.title = StringUtils.t("tile.techreborn:fluid_replicator.name");
+		this.title = StringUtils.t("tile.techreborn.fluid_replicator.name");
 	}
 
 	@Override

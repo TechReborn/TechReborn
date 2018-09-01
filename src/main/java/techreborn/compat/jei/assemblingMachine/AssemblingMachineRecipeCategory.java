@@ -46,7 +46,7 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 
 	public AssemblingMachineRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 125, 65, 74, 42);
-		title = StringUtils.t("tile.techreborn:assembly_machine.name");
+		title = StringUtils.t("tile.techreborn.assembly_machine.name");
 	}
 
 	@Override

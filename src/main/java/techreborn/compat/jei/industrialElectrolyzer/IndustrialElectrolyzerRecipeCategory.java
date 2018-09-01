@@ -50,7 +50,7 @@ public class IndustrialElectrolyzerRecipeCategory implements IRecipeCategory<Ind
 
 	public IndustrialElectrolyzerRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 49, 18, 78, 50);
-		title = StringUtils.t("tile.techreborn:industrial_electrolyzer.name");
+		title = StringUtils.t("tile.techreborn.industrial_electrolyzer.name");
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class CompressorRecipeCategory implements IRecipeCategory<CompressorRecip
 
 	public CompressorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = StringUtils.t("tile.techreborn:compressor.name");
+		title = StringUtils.t("tile.techreborn.compressor.name");
 	}
 
 	@Override

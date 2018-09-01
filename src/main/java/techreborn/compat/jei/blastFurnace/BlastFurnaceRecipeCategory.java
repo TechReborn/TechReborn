@@ -48,7 +48,7 @@ public class BlastFurnaceRecipeCategory implements IRecipeCategory<BlastFurnaceR
 
 	public BlastFurnaceRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 94, 120, 78);
-		title = StringUtils.t("tile.techreborn:industrial_blast_furnace.name");
+		title = StringUtils.t("tile.techreborn.industrial_blast_furnace.name");
 	}
 
 	@Override

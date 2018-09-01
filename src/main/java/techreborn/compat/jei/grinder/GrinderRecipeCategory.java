@@ -48,7 +48,7 @@ public class GrinderRecipeCategory implements IRecipeCategory<GrinderRecipeWrapp
 
 	public GrinderRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = StringUtils.t("tile.techreborn:grinder.name");
+		title = StringUtils.t("tile.techreborn.grinder.name");
 	}
 
 	@Override

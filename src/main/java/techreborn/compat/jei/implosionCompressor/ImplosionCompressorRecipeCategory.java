@@ -48,7 +48,7 @@ public class ImplosionCompressorRecipeCategory implements IRecipeCategory<Implos
 
 	public ImplosionCompressorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 95, 120, 42);
-		title = StringUtils.t("tile.techreborn:implosion_compressor.name");
+		title = StringUtils.t("tile.techreborn.implosion_compressor.name");
 	}
 
 	@Override

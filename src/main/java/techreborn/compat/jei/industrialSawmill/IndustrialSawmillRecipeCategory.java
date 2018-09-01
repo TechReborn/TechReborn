@@ -52,7 +52,7 @@ public class IndustrialSawmillRecipeCategory implements IRecipeCategory<Industri
 	private static final int[] INPUT_TANKS = { 0 };
 
 	public IndustrialSawmillRecipeCategory(IGuiHelper guiHelper) {
-		title = StringUtils.t("tile.techreborn:industrial_sawmill.name");
+		title = StringUtils.t("tile.techreborn.industrial_sawmill.name");
 		background = guiHelper.createDrawable(texture, 7, 15, 141, 55);
 		tankOverlay = guiHelper.createDrawable(texture, 176, 86, 12, 47);
 	}

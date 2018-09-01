@@ -49,7 +49,7 @@ public class ChemicalReactorRecipeCategory implements IRecipeCategory<ChemicalRe
 
 	public ChemicalReactorRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
-		title = StringUtils.t("tile.techreborn:chemical_reactor.name");
+		title = StringUtils.t("tile.techreborn.chemical_reactor.name");
 	}
 
 	@Override
