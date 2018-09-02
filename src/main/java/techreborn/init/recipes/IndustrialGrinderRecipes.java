@@ -50,7 +50,8 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		if (oresExist("dustSmallThorium")) {
 			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 2), getOre("dustSmallThorium"));
 		} else {
-			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 2));
+			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 3));
+			register(getOre("oreCoal"), MERCURY, 100, 64, getStack(Items.COAL, 4));
 		}
 
 		register(getOre("oreIron"), WATER, 100, 64, getMaterial("iron", 2, Type.DUST), getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", 1, Type.DUST));
@@ -64,7 +65,7 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		register(getOre("oreRedstone"), WATER, 100, 64, getStack(Items.REDSTONE, 10), getMaterial("glowstone", 2, Type.SMALL_DUST));
 
 		register(getOre("oreDiamond"), WATER, 100, 64, getStack(Items.DIAMOND), getMaterial("diamond", 6, Type.SMALL_DUST), getMaterial("coal", Type.DUST));
-
+		
 		register(getOre("oreEmerald"), WATER, 100, 64, getStack(Items.EMERALD), getMaterial("emerald", 6, Type.SMALL_DUST));
 
 		//TR ores
