@@ -1,6 +1,7 @@
 buildscript {
 	repositories {
 		mavenCentral()
+		jcenter()
 		maven {
 			name = "forge"
 			url = "http://files.minecraftforge.net/maven"
@@ -16,6 +17,7 @@ buildscript {
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
+		classpath 'de.undercouch:gradle-download-task:3.4.3'
 	}
 }
 
@@ -23,6 +25,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: net.minecrell.gradle.licenser.Licenser
+apply plugin: 'de.undercouch.download'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -208,20 +211,22 @@ task crowdinExport() {
 	}
 }
 
-//Taken from forge build script
-task crowdin(type: CrowdinDownload, dependsOn: 'crowdinExport'){
-	output = "build/translations.crowdin"
-	projectId = 'techreborn'
-	extract = true
-	if (project.hasProperty('crowdinKey'))
-		apiKey = project.crowdinKey
+
+task crowdin(type: Download, dependsOn: 'crowdinExport'){
+	src 'https://crowdin.com/backend/download/project/techreborn.zip'
+	dest file("build/translations.zip")
+	overwrite true
+}
+
+task cleanCrowdin(type: Delete){
+	delete 'build/translations'
 }
 
 //Renames the translation files to be all lower case
-task renameCrowdin(type: Copy, dependsOn: 'crowdin'){
+task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 	mustRunAfter 'crowdin'
-	from crowdin.output
-	into 'build/translations'
+	from zipTree(file("build/translations.zip"))
+	into file('build/translations')
 	rename {
 		String filename -> return filename.toLowerCase()
 	}
