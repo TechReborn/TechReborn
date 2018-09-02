@@ -29,8 +29,8 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
@@ -88,7 +88,7 @@ public class FusionReactorRecipeCategory implements IRecipeCategory<FusionReacto
 
 		itemStacks.set(inputSlotTop, recipeWrapper.getTopInput());
 		itemStacks.set(inputSlotBottom, recipeWrapper.getBottomInput());
-		itemStacks.set(outputSlot, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+		itemStacks.set(outputSlot, ingredients.getOutputs(ItemStack.class).get(0));
 	}
 
 }

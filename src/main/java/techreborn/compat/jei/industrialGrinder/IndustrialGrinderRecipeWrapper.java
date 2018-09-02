@@ -29,7 +29,6 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -42,22 +41,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<IndustrialGrinderRecipe> {
-	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_grinder.png");
+	public static final ResourceLocation texture = new ResourceLocation("techreborn",
+		"textures/gui/industrial_grinder.png");
 	private final IDrawableAnimated progress;
 
-	public IndustrialGrinderRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull IndustrialGrinderRecipe baseRecipe) {
+	public IndustrialGrinderRecipeWrapper(
+		@Nonnull
+			IJeiHelpers jeiHelpers,
+		@Nonnull
+			IndustrialGrinderRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 24, 17);
 
 		int ticksPerCycle = baseRecipe.tickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-				IDrawableAnimated.StartDirection.LEFT, false);
+			IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
-	public void getIngredients(@Nonnull final IIngredients ingredients) {
-		ingredients.setInput(VanillaTypes.FLUID, this.baseRecipe.fluidStack);
+	public void getIngredients(
+		@Nonnull
+		final IIngredients ingredients) {
+		ingredients.setInput(FluidStack.class, this.baseRecipe.fluidStack);
 		super.getIngredients(ingredients);
 	}
 
@@ -79,10 +85,8 @@ public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<Industrial
 		int x = 70;
 		int y = 40;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
-
+		
 		minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-		minecraft.fontRenderer
-				.drawString("Energy: " + PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.euPerTick) + " "
-						+ PowerSystem.getDisplayPower().abbreviation + "/t", x, y += lineHeight, 0x444444);
+		minecraft.fontRenderer.drawString("Energy: " + PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.euPerTick) + " " + PowerSystem.getDisplayPower().abbreviation + "/t", x, y += lineHeight, 0x444444);
 	}
 }

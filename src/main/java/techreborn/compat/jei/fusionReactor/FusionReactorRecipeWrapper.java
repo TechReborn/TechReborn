@@ -25,7 +25,6 @@
 package techreborn.compat.jei.fusionReactor;
 
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -44,8 +43,8 @@ public class FusionReactorRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputs(VanillaTypes.ITEM, Arrays.asList(baseRecipe.getTopInput(), baseRecipe.getBottomInput()));
-		ingredients.setOutput(VanillaTypes.ITEM, baseRecipe.getOutput());
+		ingredients.setInputs(ItemStack.class, Arrays.asList(baseRecipe.getTopInput(), baseRecipe.getBottomInput()));
+		ingredients.setOutput(ItemStack.class, baseRecipe.getOutput());
 	}
 
 	public ItemStack getTopInput() {

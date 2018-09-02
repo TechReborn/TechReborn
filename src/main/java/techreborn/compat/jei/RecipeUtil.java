@@ -28,7 +28,6 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -84,7 +83,7 @@ public class RecipeUtil {
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 
 		if (itemInputSlots != null) {
-			List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
+			List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
 			for (int i = 0; i < inputs.size() && i < itemInputSlots.length; i++) {
 				int inputSlot = itemInputSlots[i];
 				guiItemStacks.set(inputSlot, inputs.get(i));
@@ -92,7 +91,7 @@ public class RecipeUtil {
 		}
 
 		if (itemOutputSlots != null) {
-			List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
+			List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
 			for (int i = 0; i < outputs.size() && i < itemOutputSlots.length; i++) {
 				int outputSlot = itemOutputSlots[i];
 				guiItemStacks.set(outputSlot, outputs.get(i));
@@ -100,7 +99,7 @@ public class RecipeUtil {
 		}
 
 		if (fluidInputSlots != null) {
-			List<List<FluidStack>> fluidInputs = ingredients.getInputs(VanillaTypes.FLUID);
+			List<List<FluidStack>> fluidInputs = ingredients.getInputs(FluidStack.class);
 			for (int i = 0; i < fluidInputs.size() && i < fluidInputSlots.length; i++) {
 				int inputTank = fluidInputSlots[i];
 				guiFluidStacks.set(inputTank, fluidInputs.get(i));
@@ -108,7 +107,7 @@ public class RecipeUtil {
 		}
 
 		if (fluidOutputSlots != null) {
-			List<List<FluidStack>> fluidOutputs = ingredients.getOutputs(VanillaTypes.FLUID);
+			List<List<FluidStack>> fluidOutputs = ingredients.getOutputs(FluidStack.class);
 			for (int i = 0; i < fluidOutputs.size() && i < fluidOutputSlots.length; i++) {
 				int outputTank = fluidOutputSlots[i];
 				guiFluidStacks.set(outputTank, fluidOutputs.get(i));

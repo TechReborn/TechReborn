@@ -29,7 +29,6 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -44,21 +43,28 @@ import java.util.List;
  * @author drcrazy
  */
 public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<IndustrialSawmillRecipe> {
-	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_sawmill.png");
+	public static final ResourceLocation texture = new ResourceLocation("techreborn",
+		"textures/gui/industrial_sawmill.png");
 	private final IDrawableAnimated progress;
 
-	public IndustrialSawmillRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull IndustrialSawmillRecipe baseRecipe) {
+	public IndustrialSawmillRecipeWrapper(
+		@Nonnull
+			IJeiHelpers jeiHelpers,
+		@Nonnull
+			IndustrialSawmillRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		IDrawableStatic progressStatic = guiHelper.createDrawable(texture, 176, 14, 20, 13);
 		int ticksPerCycle = baseRecipe.tickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-				IDrawableAnimated.StartDirection.LEFT, false);
+			IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
-	public void getIngredients(@Nonnull final IIngredients ingredients) {
-		ingredients.setInput(VanillaTypes.FLUID, this.baseRecipe.fluidStack);
+	public void getIngredients(
+		@Nonnull
+		final IIngredients ingredients) {
+		ingredients.setInput(FluidStack.class, this.baseRecipe.fluidStack);
 		super.getIngredients(ingredients);
 	}
 

@@ -27,9 +27,9 @@ package techreborn.compat.jei.rollingMachine;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import reborncore.common.util.StringUtils;
 import techreborn.compat.jei.RecipeCategoryUids;
@@ -98,7 +98,7 @@ public class RollingMachineRecipeCategory implements IRecipeCategory<RollingMach
 		}
 		guiItemStacks.init(OUTPUT_SLOTS[0], false, 94, 18);
 
-		craftingGridHelper.setInputs(guiItemStacks, ingredients.getInputs(VanillaTypes.ITEM));
-		guiItemStacks.set(OUTPUT_SLOTS[0], ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+		craftingGridHelper.setInputs(guiItemStacks, ingredients.getInputs(ItemStack.class));
+		guiItemStacks.set(OUTPUT_SLOTS[0], ingredients.getOutputs(ItemStack.class).get(0));
 	}
 }

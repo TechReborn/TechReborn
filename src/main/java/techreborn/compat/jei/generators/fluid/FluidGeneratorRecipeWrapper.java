@@ -29,7 +29,6 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.Fluid;
@@ -61,6 +60,6 @@ public class FluidGeneratorRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(final IIngredients ingredients) {
-		ingredients.setInput(VanillaTypes.FLUID, new FluidStack(this.baseRecipe.getFluid(), Fluid.BUCKET_VOLUME));
+		ingredients.setInput(FluidStack.class, new FluidStack(this.baseRecipe.getFluid(), Fluid.BUCKET_VOLUME));
 	}
 }
