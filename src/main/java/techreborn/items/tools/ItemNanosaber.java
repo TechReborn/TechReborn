@@ -54,7 +54,7 @@ import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.lib.MessageIDs;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -200,7 +200,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack inactiveUncharged = new ItemStack(ModItems.NANOSABER);
+		ItemStack inactiveUncharged = new ItemStack(TRItems.NANOSABER);
 		inactiveUncharged.setTagCompound(new NBTTagCompound());
 		inactiveUncharged.getTagCompound().setBoolean("isActive", false);
 

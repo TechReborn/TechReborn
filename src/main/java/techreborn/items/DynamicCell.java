@@ -48,7 +48,7 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**
@@ -177,14 +177,14 @@ public class DynamicCell extends Item {
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
-		ItemStack stack = new ItemStack(ModItems.CELL);
+		ItemStack stack = new ItemStack(TRItems.CELL);
 		getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
 		stack.setCount(stackSize);
 		return stack;
 	}
 
 	public static ItemStack getEmptyCell(int amount) {
-		return new ItemStack(ModItems.CELL, amount);
+		return new ItemStack(TRItems.CELL, amount);
 	}
 
 	public static ItemStack getCellWithFluid(Fluid fluid) {
@@ -238,14 +238,14 @@ public class DynamicCell extends Item {
 				cell = super.getContainer();
 			}
 			else {
-				cell = new ItemStack(ModItems.CELL, 1);
+				cell = new ItemStack(TRItems.CELL, 1);
 			}
 			return cell;
 		}
 		
 		@Override
 		protected void setContainerToEmpty() {
-			container = new ItemStack(ModItems.CELL, 1);
+			container = new ItemStack(TRItems.CELL, 1);
 		}
 	}
 }

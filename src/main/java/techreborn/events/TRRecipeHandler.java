@@ -33,7 +33,7 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import reborncore.common.util.ItemUtils;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 
@@ -58,7 +58,7 @@ public class TRRecipeHandler {
 		if (entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP) {
 			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)) {
 				for (IRecipe recipe : CraftingManager.REGISTRY) {
-					if (recipe.getRecipeOutput().getItem() == ModItems.TREE_TAP) {
+					if (recipe.getRecipeOutput().getItem() == TRItems.TREE_TAP) {
 						entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
 					}
 				}

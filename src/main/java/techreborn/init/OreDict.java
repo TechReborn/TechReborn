@@ -65,11 +65,11 @@ public class OreDict {
 		OreUtil.registerOre("machineBlockElite", BlockMachineFrames.getFrameByName("highlyAdvancedMachine", 1));
 
 		// Tools&Armor
-		OreUtil.registerOre("reBattery", ModItems.RE_BATTERY);
-		OreUtil.registerOre("lapotronCrystal", ModItems.LAPOTRONIC_CRYSTAL);
-		OreUtil.registerOre("energyCrystal", ModItems.ENERGY_CRYSTAL);
-		OreUtil.registerOre("drillBasic", ModItems.STEEL_DRILL);
-		OreUtil.registerOre("drillDiamond", ModItems.DIAMOND_DRILL);
+		OreUtil.registerOre("reBattery", TRItems.RE_BATTERY);
+		OreUtil.registerOre("lapotronCrystal", TRItems.LAPOTRONIC_CRYSTAL);
+		OreUtil.registerOre("energyCrystal", TRItems.ENERGY_CRYSTAL);
+		OreUtil.registerOre("drillBasic", TRItems.STEEL_DRILL);
+		OreUtil.registerOre("drillDiamond", TRItems.DIAMOND_DRILL);
 
 		// Misc
 		OreUtil.registerOre("industrialTnt", Blocks.TNT);

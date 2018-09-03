@@ -32,7 +32,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 
 public class ItemSteelDrill extends ItemDrill {
 
@@ -48,7 +48,7 @@ public class ItemSteelDrill extends ItemDrill {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(ModItems.STEEL_DRILL);
+		ItemStack stack = new ItemStack(TRItems.STEEL_DRILL);
 	//	ItemStack charged = stack.copy();
 	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

@@ -40,7 +40,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -150,7 +150,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(ModItems.ADVANCED_DRILL);
+		ItemStack stack = new ItemStack(TRItems.ADVANCED_DRILL);
 	//	ItemStack charged = stack.copy();
 	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

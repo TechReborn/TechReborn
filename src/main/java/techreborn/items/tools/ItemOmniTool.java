@@ -48,7 +48,7 @@ import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
@@ -162,7 +162,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(ModItems.OMNI_TOOL);
+		ItemStack uncharged = new ItemStack(TRItems.OMNI_TOOL);
 //		ItemStack charged = new ItemStack(ModItems.OMNI_TOOL);
 //		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 //		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

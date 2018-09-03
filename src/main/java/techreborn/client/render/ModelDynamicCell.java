@@ -44,7 +44,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.items.DynamicCell;
 
 import javax.annotation.Nullable;
@@ -69,8 +69,8 @@ public class ModelDynamicCell implements IModel {
 	private static final float SOUTH_Z_FLUID = 8.4f / 16f;
 
 	public static void init() {
-		ModelLoader.setCustomMeshDefinition(ModItems.CELL, stack -> MODEL_LOCATION);
-		ModelBakery.registerItemVariants(ModItems.CELL, MODEL_LOCATION);
+		ModelLoader.setCustomMeshDefinition(TRItems.CELL, stack -> MODEL_LOCATION);
+		ModelBakery.registerItemVariants(TRItems.CELL, MODEL_LOCATION);
 		ModelLoaderRegistry.registerLoader(new DynamicCellLoader());
 	}
 

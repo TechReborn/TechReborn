@@ -30,7 +30,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 
 public class ItemDiamondJackhammer extends ItemJackhammer {
 
@@ -48,7 +48,7 @@ public class ItemDiamondJackhammer extends ItemJackhammer {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(ModItems.DIAMOND_JACKHAMMER);
+		ItemStack stack = new ItemStack(TRItems.DIAMOND_JACKHAMMER);
 //		ItemStack charged = stack.copy();
 //		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 //		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

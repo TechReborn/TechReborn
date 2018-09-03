@@ -29,7 +29,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 
 public class ClientEventHandler {
 
@@ -38,7 +38,7 @@ public class ClientEventHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		Item chestslot = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty()
 		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
-		if (chestslot != null && chestslot == ModItems.CLOAKING_DEVICE) {
+		if (chestslot != null && chestslot == TRItems.CLOAKING_DEVICE) {
 			event.setCanceled(true);
 		}
 	}

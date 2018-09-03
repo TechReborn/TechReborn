@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 
 public class ItemReBattery extends ItemBattery {
 
@@ -44,7 +44,7 @@ public class ItemReBattery extends ItemBattery {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(ModItems.RE_BATTERY);
+		ItemStack stack = new ItemStack(TRItems.RE_BATTERY);
 	//	ItemStack charged = stack.copy();
 		//IEnergyStorage capEnergy = charged.getCapability(CapabilityEnergy.ENERGY, null);
 		//capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

@@ -34,6 +34,7 @@ public class ScrapboxRecipe extends BaseRecipe {
 	public ScrapboxRecipe(ItemStack output, int tickTime, int euPerTick) {
 		super(Reference.SCRAPBOX_RECIPE, tickTime, euPerTick);
 		if (output != null) {
+			// TODO: Fix recipe
 			addInput(new ItemStack(TechRebornAPI.getItem("SCRAP_BOX")));
 			addOutput(output);
 		}

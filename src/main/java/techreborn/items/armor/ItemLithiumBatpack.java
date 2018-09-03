@@ -43,7 +43,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
@@ -121,7 +121,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
+		ItemStack uncharged = new ItemStack(TRItems.LITHIUM_BATTERY_PACK);
 	//	ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

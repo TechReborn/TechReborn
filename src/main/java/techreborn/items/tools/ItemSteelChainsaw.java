@@ -32,7 +32,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 
 public class ItemSteelChainsaw extends ItemChainsaw {
 
@@ -48,7 +48,7 @@ public class ItemSteelChainsaw extends ItemChainsaw {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(ModItems.STEEL_CHAINSAW);
+		ItemStack stack = new ItemStack(TRItems.STEEL_CHAINSAW);
 	//	ItemStack charged = stack.copy();
 	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

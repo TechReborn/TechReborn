@@ -42,7 +42,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.Core;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -75,7 +75,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	public static ItemStack getUpgradeByName(String name, int count) {
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.UPGRADES, count, i);
+				return new ItemStack(TRItems.UPGRADES, count, i);
 			}
 		}
 		throw new InvalidParameterException("The upgrade " + name + " could not be found.");

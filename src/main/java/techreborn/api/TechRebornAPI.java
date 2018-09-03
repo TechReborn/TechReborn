@@ -56,7 +56,7 @@ public final class TechRebornAPI {
 	}
 
 	/**
-	 * Use this to get an item from techrebonrn, @see <a href=
+	 * Use this to get an item from Tech Reborn, @see <a href=
 	 * "https://github.com/TechReborn/TechReborn/blob/1.9/src/main/java/techreborn/init/ModItems.java">
 	 * ModItems.java</a> for the full list
 	 *
@@ -65,7 +65,31 @@ public final class TechRebornAPI {
 	 */
 	public static Item getItem(String name) {
 		try {
-			Object e = Class.forName("techreborn.init.ModItems").getField(name).get(null);
+			Object e = Class.forName("techreborn.init.TRItems").getField(name).get(null);
+			return e instanceof Item ? (Item) e : null;
+		} catch (NoSuchFieldException e1) {
+			e1.printStackTrace();
+			return null;
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Use this to get an ingredient item from Tech Reborn, @see <a href=
+	 * "https://github.com/TechReborn/TechReborn/blob/1.9/src/main/java/techreborn/init/ModItems.java">
+	 * ModItems.java</a> for the full list
+	 *
+	 * @param name
+	 * @return
+	 */
+	public static Item getIngredient(String name) {
+		try {
+			Object e = Class.forName("techreborn.init.TRIngredient").getField(name).get(null);
 			return e instanceof Item ? (Item) e : null;
 		} catch (NoSuchFieldException e1) {
 			e1.printStackTrace();

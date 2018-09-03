@@ -46,7 +46,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
@@ -146,7 +146,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(ModItems.ROCK_CUTTER);
+		ItemStack uncharged = new ItemStack(TRItems.ROCK_CUTTER);
 		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 //		ItemStack charged = new ItemStack(ModItems.ROCK_CUTTER);
 //		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);

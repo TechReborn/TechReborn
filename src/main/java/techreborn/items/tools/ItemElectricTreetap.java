@@ -35,7 +35,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.items.ItemTR;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -82,7 +82,7 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
+		ItemStack uncharged = new ItemStack(TRItems.ELECTRIC_TREE_TAP);
 //		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
 //		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 //		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

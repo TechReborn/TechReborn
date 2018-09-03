@@ -108,7 +108,7 @@ public class Core {
 		ModBlocks.init();
 		ModTileEntities.init();
 		ModFluids.init();
-		ModItems.init();
+		TRItems.init();
 
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
@@ -154,7 +154,7 @@ public class Core {
 		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());
+			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRItems.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);

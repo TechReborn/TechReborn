@@ -33,7 +33,7 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
@@ -63,7 +63,7 @@ public class TileScrapboxinator extends TileGenericMachine implements IContainer
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).filterSlot(0, 55, 45, stack -> stack.getItem() == ModItems.SCRAP_BOX).outputSlot(1, 101, 45)
+				.tile(this).filterSlot(0, 55, 45, stack -> stack.getItem() == TRItems.SCRAP_BOX).outputSlot(1, 101, 45)
 				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
 }

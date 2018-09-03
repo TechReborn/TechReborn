@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tools;
+package techreborn.items.armor;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -46,7 +46,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
@@ -97,7 +97,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);
+		ItemStack uncharged = new ItemStack(TRItems.CLOAKING_DEVICE);
 //		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
 //		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 //		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
