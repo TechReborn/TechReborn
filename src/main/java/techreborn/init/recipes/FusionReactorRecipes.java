@@ -27,27 +27,22 @@ package techreborn.init.recipes;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.blocks.BlockOre;
+import techreborn.init.TRIngredients;
 import techreborn.items.ItemCells;
-import techreborn.items.ItemDusts;
 
 /**
  * @author drcrazy
  *
  */
 public class FusionReactorRecipes extends RecipeMethods {
-	public static void init(){
-		FusionReactorRecipeHelper.registerRecipe(
-				new FusionReactorRecipe(ItemCells.getCellByName("helium3"), ItemCells.getCellByName("deuterium"),
-					ItemCells.getCellByName("heliumplasma"), 40000000, 32768, 1024));
-			FusionReactorRecipeHelper.registerRecipe(
-				new FusionReactorRecipe(ItemCells.getCellByName("tritium"), ItemCells.getCellByName("deuterium"),
-					ItemCells.getCellByName("helium3"), 60000000, 16384, 2048));
-//			TODO: Fix Recipe			
-//			FusionReactorRecipeHelper.registerRecipe(
-//				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("Berylium"),
-//					ItemDusts.getDustByName("platinum"), 80000000, -2048, 1024));
-			FusionReactorRecipeHelper.registerRecipe(
-				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("lithium"),
-					BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
+	public static void init() {
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("helium3"),
+				ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("heliumplasma"), 40000000, 32768, 1024));
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"),
+				ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium3"), 60000000, 16384, 2048));
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"),
+				ItemCells.getCellByName("Berylium"), TRIngredients.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"),
+				ItemCells.getCellByName("lithium"), BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
 	}
 }

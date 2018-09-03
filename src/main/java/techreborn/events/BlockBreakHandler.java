@@ -36,9 +36,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
-import techreborn.init.ModDusts;
-import techreborn.init.ModGems;
 import techreborn.init.ModItems;
+import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
@@ -68,15 +67,15 @@ public class BlockBreakHandler {
 			List<ItemStack> drops = event.getDrops();
 			Random random = new Random();
 			if (OreDictUtils.isOre(state, "oreRuby")) {
-				OreDrop redGarnet = new OreDrop(ModGems.RED_GARNET.getStack(), redGarnetDropChance, 1);
+				OreDrop redGarnet = new OreDrop(TRIngredients.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
 				drops.add(redGarnet.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSapphire")) {
-				OreDrop peridot = new OreDrop(ModGems.PERIDOT.getStack(), peridotDropChance, 1);
+				OreDrop peridot = new OreDrop(TRIngredients.Gems.PERIDOT.getStack(), peridotDropChance, 1);
 				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSodalite")) {
-				OreDrop aluminium = new OreDrop(ModDusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
+				OreDrop aluminium = new OreDrop(TRIngredients.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
 				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreCinnabar")) {
@@ -84,7 +83,7 @@ public class BlockBreakHandler {
 				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSphalerite")) {
-				OreDrop yellowGarnet = new OreDrop(ModGems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
+				OreDrop yellowGarnet = new OreDrop(TRIngredients.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
 				drops.add(yellowGarnet.getDrops(event.getFortuneLevel(), random));
 			}	
 		}

@@ -32,7 +32,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
 
 /**

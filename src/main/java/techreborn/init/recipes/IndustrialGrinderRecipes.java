@@ -24,7 +24,6 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -32,7 +31,6 @@ import net.minecraftforge.fluids.FluidStack;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.blocks.BlockOre;
 import techreborn.init.ModFluids;
 
 import java.security.InvalidParameterException;

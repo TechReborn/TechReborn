@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockOre2;
-import techreborn.items.ItemIngots;
+import techreborn.init.TRIngredients;
 
 /**
  * Created by Prospector
@@ -37,15 +37,16 @@ import techreborn.items.ItemIngots;
 public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
-//		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
+		register(getStack(Items.IRON_INGOT), TRIngredients.Ingots.REFINED_IRON.getStack());
+		register(TRIngredients.Parts.SAP.getStack(), TRIngredients.Parts.RUBBER.getStack());
+		register(TRIngredients.Ingots.MIXED_METAL.getStack(), TRIngredients.Ingots.ADVANCED_ALLOY.getStack());
+		register(BlockOre.getOreByName("silver"), TRIngredients.Ingots.SILVER.getStack());
+		register(BlockOre2.getOreByName("tin"), TRIngredients.Ingots.TIN.getStack());
+				
 //		TODO: Fix recipe		
-//		register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
 //		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
-//		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
-//		register(BlockOre.getOreByName("silver"), getMaterial("silver", Type.INGOT));
 //		register(BlockOre.getOreByName("lead"), getMaterial("lead", Type.INGOT));
 //		register(BlockOre.getOreByName("sheldonite"), getMaterial("platinum", Type.INGOT));
-//		register(ItemIngots.getIngotByName("mixed_metal"), getMaterial("advanced_alloy", Type.INGOT));
 		
 		// Dust smelting
 //		register(getMaterial("iron", Type.DUST), getStack(Items.IRON_INGOT));

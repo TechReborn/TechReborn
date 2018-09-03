@@ -50,8 +50,7 @@ import reborncore.common.util.OreDrop;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModDusts;
-import techreborn.init.ModGems;
+import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.world.config.IOreNameProvider;
@@ -143,22 +142,22 @@ public class BlockOre extends Block implements IOreNameProvider {
 
 		// Secondary drop, like peridot from sapphire ore added via event handler. 
 		if (variant.equalsIgnoreCase("Ruby")) {
-			OreDrop ruby = new OreDrop(ModGems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
+			OreDrop ruby = new OreDrop(TRIngredients.Gems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
 			drops.add(ruby.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sapphire")) {
-			OreDrop sapphire = new OreDrop(ModGems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
+			OreDrop sapphire = new OreDrop(TRIngredients.Gems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
 			drops.add(sapphire.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Pyrite")) {
-			OreDrop pyriteDust = new OreDrop(ModDusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
+			OreDrop pyriteDust = new OreDrop(TRIngredients.Dusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
 			drops.add(pyriteDust.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sodalite")) {
-			OreDrop sodalite = new OreDrop(ModDusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
+			OreDrop sodalite = new OreDrop(TRIngredients.Dusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
 			drops.add(sodalite.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Cinnabar")) {
-			OreDrop cinnabar = new OreDrop(ModDusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
+			OreDrop cinnabar = new OreDrop(TRIngredients.Dusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
 			drops.add(cinnabar.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sphalerite")) {
-			OreDrop sphalerite = new OreDrop(ModDusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
+			OreDrop sphalerite = new OreDrop(TRIngredients.Dusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
 			drops.add(sphalerite.getDrops(fortune, random));
 		} else {
 			drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));

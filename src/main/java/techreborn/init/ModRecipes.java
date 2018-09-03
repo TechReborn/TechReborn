@@ -38,17 +38,13 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
-import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.blocks.BlockOre;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
 import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;

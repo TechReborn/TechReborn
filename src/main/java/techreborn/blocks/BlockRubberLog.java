@@ -47,8 +47,8 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.util.WorldUtils;
 import techreborn.events.TRRecipeHandler;
-import techreborn.init.ModParts;
 import techreborn.init.ModSounds;
+import techreborn.init.TRIngredients;
 import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.items.tools.ItemTreeTap;
 import techreborn.lib.ModInfo;
@@ -186,8 +186,8 @@ public class BlockRubberLog extends Block {
 					} else {
 						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
 					}
-					if (!playerIn.inventory.addItemStackToInventory(ModParts.SAP.getStack())) {
-						WorldUtils.dropItem(ModParts.SAP.getStack(), worldIn, pos.offset(side));
+					if (!playerIn.inventory.addItemStackToInventory(TRIngredients.Parts.SAP.getStack())) {
+						WorldUtils.dropItem(TRIngredients.Parts.SAP.getStack(), worldIn, pos.offset(side));
 					}
 					if (playerIn instanceof EntityPlayerMP) {
 						TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
@@ -210,7 +210,7 @@ public class BlockRubberLog extends Block {
 		drops.add(new ItemStack(this));
 		if (state.getValue(HAS_SAP)) {
 			if (new Random().nextInt(4) == 0) {
-				drops.add(ModParts.SAP.getStack());
+				drops.add(TRIngredients.Parts.SAP.getStack());
 			}
 		}
 		return drops;

@@ -39,7 +39,7 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.init.ModParts;
+import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
@@ -73,7 +73,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private boolean spaceForOutput(int slot) {
 		return inventory.getStackInSlot(slot).isEmpty()
-				|| ItemUtils.isItemEqual(inventory.getStackInSlot(slot), ModParts.UU_MATTER.getStack(), true, true)
+				|| ItemUtils.isItemEqual(inventory.getStackInSlot(slot), TRIngredients.Parts.UU_MATTER.getStack(), true, true)
 						&& inventory.getStackInSlot(slot).getCount() < 64;
 	}
 
@@ -88,9 +88,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private void addOutputProducts(int slot) {
 		if (inventory.getStackInSlot(slot).isEmpty()) {
-			inventory.setInventorySlotContents(slot, ModParts.UU_MATTER.getStack());
+			inventory.setInventorySlotContents(slot, TRIngredients.Parts.UU_MATTER.getStack());
 		} 
-		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), ModParts.UU_MATTER.getStack(), true, true)) {
+		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), TRIngredients.Parts.UU_MATTER.getStack(), true, true)) {
 			inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + inventory.getStackInSlot(slot).getCount())));
 		}
 	}
@@ -110,7 +110,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.isItemEqual(ModParts.SCRAP.getStack())) {
+		if (itemStack.isItemEqual(TRIngredients.Parts.SCRAP.getStack())) {
 			return 200;
 		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
 			return 2000;

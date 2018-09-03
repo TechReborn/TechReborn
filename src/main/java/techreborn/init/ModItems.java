@@ -30,7 +30,6 @@ import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
-import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrames;
@@ -149,14 +148,7 @@ public class ModItems {
 
 	public static void init() {
 
-		ModDusts.register();
-		ModDustsSmall.register();
-		ModGems.register();		
-		ModIngots.register();
-		ModNuggets.register();
-		ModParts.register();
-		ModPlates.register();
-
+		TRIngredients.register();
 
 		ROCK_CUTTER = new ItemRockCutter();
 		registerItem(ROCK_CUTTER, "rockCutter");

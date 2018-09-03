@@ -31,8 +31,6 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemIngots;
 
 /**
  * @author drcrazy

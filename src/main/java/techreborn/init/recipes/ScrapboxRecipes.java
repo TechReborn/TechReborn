@@ -34,7 +34,6 @@ import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
-import techreborn.items.ItemDusts;
 import techreborn.utils.StackWIPHandler;
 
 /**

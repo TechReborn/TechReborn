@@ -42,8 +42,7 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModItems;
-import techreborn.init.ModParts;
+import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
@@ -145,7 +144,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
 		if (slotIndex == 0) {
-			if (itemStack.isItemEqual(ModParts.UU_MATTER.getStack())) {
+			if (itemStack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack())) {
 				return true;
 			} else {
 				return false;
@@ -158,7 +157,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(ModParts.UU_MATTER.getStack()))
+				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
 	}

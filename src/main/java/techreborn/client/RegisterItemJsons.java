@@ -37,14 +37,8 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.init.ModDusts;
-import techreborn.init.ModDustsSmall;
-import techreborn.init.ModGems;
-import techreborn.init.ModIngots;
 import techreborn.init.ModItems;
-import techreborn.init.ModNuggets;
-import techreborn.init.ModParts;
-import techreborn.init.ModPlates;
+import techreborn.init.TRIngredients;
 import techreborn.items.*;
 import techreborn.lib.ModInfo;
 
@@ -128,14 +122,7 @@ public class RegisterItemJsons {
 			registerBlockstateMultiItem(ModItems.BRONZE_HOE, "bronze_hoe", "items/tool/tool");
 		}
 
-		ModDusts.registerModel();
-		ModDustsSmall.registerModel();
-		ModGems.registerModel();
-		ModIngots.registerModel();
-		ModNuggets.registerModel();
-		ModParts.registerModel();
-		ModPlates.registerModel();
-
+		TRIngredients.registerModel();
 
 		String[] name = ItemUpgrades.types.clone();
 		for (int i = 0; i < ItemUpgrades.types.length; ++i) {

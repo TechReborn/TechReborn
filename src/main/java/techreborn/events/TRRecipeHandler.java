@@ -25,7 +25,6 @@
 package techreborn.events;
 
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -35,7 +34,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModItems;
-import techreborn.init.ModParts;
+import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
@@ -92,7 +91,7 @@ public class TRRecipeHandler {
 		}
 		//Hide uu recipes
 		for (Ingredient ingredient : recipe.getIngredients()) {
-			if (ingredient.apply(ModParts.UU_MATTER.getStack())) {
+			if (ingredient.apply(TRIngredients.Parts.UU_MATTER.getStack())) {
 				return false;
 			}
 		}
