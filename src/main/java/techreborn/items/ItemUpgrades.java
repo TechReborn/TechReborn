@@ -24,14 +24,9 @@
 
 package techreborn.items;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgrade;
@@ -40,16 +35,10 @@ import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
-import reborncore.common.util.ItemNBTHelper;
-import techreborn.Core;
 import techreborn.init.TRItems;
 import techreborn.lib.ModInfo;
-import techreborn.utils.TechRebornCreativeTab;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.security.InvalidParameterException;
-import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class ItemUpgrades extends ItemTR implements IUpgrade {
@@ -61,91 +50,32 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	public static double overclockerPower = 0.75;
 
 	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage upgrade extra power")
-	public static double energyStoragePower = 40000;
-
-	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage"};
+	public static double energyStoragePower = 40_000;
 
 	public ItemUpgrades() {
-		setTranslationKey("techreborn.upgrade");
-		setHasSubtypes(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(16);
 	}
 
-	public static ItemStack getUpgradeByName(String name, int count) {
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(TRItems.UPGRADES, count, i);
-			}
-		}
-		throw new InvalidParameterException("The upgrade " + name + " could not be found.");
-	}
-
-	public static ItemStack getUpgradeByName(String name) {
-		return getUpgradeByName(name, 1);
-	}
-
 	@Override
-	// gets Unlocalized Name depending on meta data
-	public String getTranslationKey(ItemStack itemStack) {
-		int meta = itemStack.getItemDamage();
-		if (meta < 0 || meta >= types.length) {
-			meta = 0;
+	public void process(@Nonnull TileLegacyMachineBase tile, @Nullable IUpgradeHandler handler, @Nonnull ItemStack stack) {
+		TilePowerAcceptor powerAcceptor = null;
+		if (tile instanceof TilePowerAcceptor) {
+			powerAcceptor = (TilePowerAcceptor) tile;
 		}
-
-		return super.getTranslationKey() + "." + types[meta];
-	}
-
-	// Adds Dusts SubItems To Creative Tab
-	@Override
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
-		if (!isInCreativeTab(creativeTabs)) {
-			return;
-		}
-		for (int meta = 0; meta < types.length; ++meta) {
-			list.add(new ItemStack(this, 1, meta));
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		super.addInformation(stack, world, tooltip, flag);
-		if (stack.getItemDamage() == 4 || stack.getItemDamage() == 5) {
-			tooltip.add("Facing: " + getFacing(stack).getName());
-			String text = Core.proxy.getUpgradeConfigText();
-			if (!text.isEmpty()) {
-				tooltip.add(text);
-			}
-		}
-	}
-
-	@Override
-	public void process(
-		@Nonnull
-			TileLegacyMachineBase machineBase,
-		@Nullable
-			IUpgradeHandler handler,
-		@Nonnull
-			ItemStack stack) {
-
-		if (stack.getItemDamage() == 0) {
+		if (stack.isItemEqual(new ItemStack(TRItems.UPGRADE_OVERCLOCKER))) {
 			handler.addSpeedMulti(overclockerSpeed);
 			handler.addPowerMulti(overclockerPower);
-			if(machineBase instanceof TilePowerAcceptor){
-				TilePowerAcceptor powerAcceptor = (TilePowerAcceptor) machineBase;
+			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput();
 				powerAcceptor.extraPowerStoage += powerAcceptor.getBaseMaxPower();
-			}
+			}			
 		}
-		if (machineBase instanceof TilePowerAcceptor) {
-			if (stack.getItemDamage() == 2) {
-				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
-				acceptor.extraPowerStoage += energyStoragePower;
+		if (powerAcceptor != null) {
+			if (stack.isItemEqual(new ItemStack(TRItems.UPGRADE_TRANSFORMER))) {
+				powerAcceptor.extraTeir += 1;				
 			}
-			if (stack.getItemDamage() == 1) {
-				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
-				acceptor.extraTeir += 1;
+			if (stack.isItemEqual(new ItemStack(TRItems.UPGRADE_ENERGY_STORAGE))) {
+				powerAcceptor.extraPowerStoage += energyStoragePower;			
 			}
 		}
 	}
@@ -154,9 +84,5 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	@SideOnly(Side.CLIENT)
 	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
 
-	}
-
-	public EnumFacing getFacing(ItemStack stack) {
-		return EnumFacing.VALUES[ItemNBTHelper.getInt(stack, "side", 0)];
 	}
 }

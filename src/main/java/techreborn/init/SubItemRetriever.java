@@ -137,12 +137,14 @@ public class SubItemRetriever implements ISubItemRetriever {
 
 	@Override
 	public ItemStack getUpgradeByName(String name) {
-		return ItemUpgrades.getUpgradeByName(name);
+//		return ItemUpgrades.getUpgradeByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getUpgradeByName(String name, int count) {
-		return ItemUpgrades.getUpgradeByName(name, count);
+//		return ItemUpgrades.getUpgradeByName(name, count);
+		return null;
 	}
 
 	@Override

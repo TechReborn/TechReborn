@@ -30,7 +30,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import techreborn.items.tools.ItemTechManual;
+import techreborn.items.ItemTechManual;
 
 import java.awt.*;
 

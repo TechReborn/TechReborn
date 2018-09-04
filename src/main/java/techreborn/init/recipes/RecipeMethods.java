@@ -66,8 +66,8 @@ public abstract class RecipeMethods {
 			return BlockMachineFrames.getFrameByName(name, count);
 		} else if (type == Type.MACHINE_CASING) {
 			return BlockMachineCasing.getStackByName(name, count);
-		} else if (type == Type.UPGRADE) {
-			return ItemUpgrades.getUpgradeByName(name, count);
+//		} else if (type == Type.UPGRADE) {
+//			return ItemUpgrades.getUpgradeByName(name, count);
 		} else if (type == Type.ORE) {
 			return BlockOre.getOreByName(name, count);
 		}

@@ -34,10 +34,13 @@ import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.config.ConfigTechReborn;
+import techreborn.events.TRRecipeHandler;
 import techreborn.items.*;
 import techreborn.items.armor.*;
 import techreborn.items.battery.*;
 import techreborn.items.tools.*;
+import techreborn.lib.ModInfo;
+
 import javax.annotation.Nullable;
 
 public class TRItems {
@@ -69,7 +72,6 @@ public class TRItems {
 	public static Item STEEL_CHAINSAW;
 	public static Item STEEL_DRILL;
 	public static Item STEEL_JACKHAMMER;
-	public static Item MANUAL;
 	public static Item TREE_TAP;
 	public static Item WRENCH;
 
@@ -77,7 +79,10 @@ public class TRItems {
 	public static DynamicCell CELL;
 	public static Item FREQUENCY_TRANSMITTER;
 	public static Item SCRAP_BOX;
-	public static Item UPGRADES;
+	public static Item MANUAL;
+	public static Item UPGRADE_OVERCLOCKER;
+	public static Item UPGRADE_TRANSFORMER;
+	public static Item UPGRADE_ENERGY_STORAGE;
 	
 	// Gem armor & tools
 	@Nullable
@@ -221,9 +226,13 @@ public class TRItems {
 		registerItem(FREQUENCY_TRANSMITTER, "frequencyTransmitter");	
 		SCRAP_BOX = new ItemScrapBox();
 		registerItem(SCRAP_BOX, "scrapbox");
-		UPGRADES = new ItemUpgrades();
-		registerItem(UPGRADES, "upgrades");		
-		
+		UPGRADE_OVERCLOCKER = new ItemUpgrades();
+		registerItem(UPGRADE_OVERCLOCKER, "upgrade_overclocker");		
+		UPGRADE_TRANSFORMER = new ItemUpgrades();
+		registerItem(UPGRADE_TRANSFORMER, "upgrade_transformer");		
+		UPGRADE_ENERGY_STORAGE = new ItemUpgrades();
+		registerItem(UPGRADE_ENERGY_STORAGE, "upgrade_energystorage");		
+		 
 		// Gem armor & tools
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");
@@ -314,6 +323,8 @@ public class TRItems {
 
 	public static void registerItem(Item item, String name) {
 		item.setRegistryName(name);
+		item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+		TRRecipeHandler.hideEntry(item);
 		RebornRegistry.registerItem(item);
 	}
 

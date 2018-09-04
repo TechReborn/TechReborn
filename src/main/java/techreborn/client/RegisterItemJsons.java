@@ -39,7 +39,6 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.TRItems;
 import techreborn.init.TRIngredients;
-import techreborn.items.*;
 import techreborn.lib.ModInfo;
 
 import java.util.Map;
@@ -51,37 +50,47 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerItems() {
+		TRIngredients.registerModel();
+		
+		// Armor
+		register(TRItems.CLOAKING_DEVICE, "tool/cloaking_device");
+		register(TRItems.LAPOTRONIC_ORB_PACK, "tool/lapotronic_orbpack");
+		register(TRItems.LITHIUM_BATTERY_PACK, "tool/lithium_batpack");
+		
+		// Battery
 		register(TRItems.RE_BATTERY, "battery/re_battery");
 		register(TRItems.LITHIUM_BATTERY, "battery/lithium_battery");
 		register(TRItems.ENERGY_CRYSTAL, "battery/energy_crystal");
 		register(TRItems.LAPOTRONIC_CRYSTAL, "battery/lapotron_crystal");
 		register(TRItems.LAPOTRONIC_ORB, "battery/lapotronic_orb");
-
+		
+		// Tools
+		register(TRItems.ADVANCED_CHAINSAW, "tool/advanced_chainsaw");
+		register(TRItems.ADVANCED_DRILL, "tool/advanced_drill");
+		register(TRItems.ADVANCED_JACKHAMMER, "tool/advanced_jackhammer");
+		register(TRItems.DEBUG, "misc/debug");
+		register(TRItems.DIAMOND_CHAINSAW, "tool/diamond_chainsaw");
+		register(TRItems.DIAMOND_DRILL, "tool/diamond_drill");
+		register(TRItems.DIAMOND_JACKHAMMER, "tool/diamond_jackhammer");
+		register(TRItems.ELECTRIC_TREE_TAP, "tool/electric_treetap");
+		register(TRItems.NANOSABER, "tool/nanosaber");
+		register(TRItems.OMNI_TOOL, "tool/omni_tool");
+		register(TRItems.ROCK_CUTTER, "tool/rock_cutter");
+		register(TRItems.STEEL_CHAINSAW, "tool/steel_chainsaw");
+		register(TRItems.STEEL_DRILL, "tool/steel_drill");
+		register(TRItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");		
+		register(TRItems.TREE_TAP, "tool/treetap");
+		register(TRItems.WRENCH, "tool/wrench");		
+		
+		// Other
 		register(TRItems.FREQUENCY_TRANSMITTER, "misc/frequency_transmitter");
 		register(TRItems.SCRAP_BOX, "misc/scrapbox");
 		register(TRItems.MANUAL, "misc/manual");
-		register(TRItems.DEBUG, "misc/debug");
-		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
-
-		register(TRItems.STEEL_DRILL, "tool/steel_drill");
-		register(TRItems.DIAMOND_DRILL, "tool/diamond_drill");
-		register(TRItems.ADVANCED_DRILL, "tool/advanced_drill");
-		register(TRItems.STEEL_CHAINSAW, "tool/steel_chainsaw");
-		register(TRItems.DIAMOND_CHAINSAW, "tool/diamond_chainsaw");
-		register(TRItems.ADVANCED_CHAINSAW, "tool/advanced_chainsaw");
-		register(TRItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");
-		register(TRItems.DIAMOND_JACKHAMMER, "tool/diamond_jackhammer");
-		register(TRItems.ADVANCED_JACKHAMMER, "tool/advanced_jackhammer");
-		register(TRItems.NANOSABER, "tool/nanosaber");
-		register(TRItems.TREE_TAP, "tool/treetap");
-		register(TRItems.ELECTRIC_TREE_TAP, "tool/electric_treetap");
-		register(TRItems.CLOAKING_DEVICE, "tool/cloaking_device");
-		register(TRItems.OMNI_TOOL, "tool/omni_tool");
-		register(TRItems.ROCK_CUTTER, "tool/rock_cutter");
-		register(TRItems.WRENCH, "tool/wrench");
-		register(TRItems.LAPOTRONIC_ORB_PACK, "tool/lapotronic_orbpack");
-		register(TRItems.LITHIUM_BATTERY_PACK, "tool/lithium_batpack");
-
+		registerBlockstateMultiItem(TRItems.UPGRADE_OVERCLOCKER, 0, "overclock", "items/misc/upgrades");
+		registerBlockstateMultiItem(TRItems.UPGRADE_TRANSFORMER, 0, "transformer", "items/misc/upgrades");
+		registerBlockstateMultiItem(TRItems.UPGRADE_ENERGY_STORAGE, 0, "energy_storage", "items/misc/upgrades");
+		
+		// Gem armor & tools
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			registerBlockstateMultiItem(TRItems.RUBY_HELMET, "ruby_helmet", "items/tool/armour");
 			registerBlockstateMultiItem(TRItems.RUBY_CHESTPLATE, "ruby_chestplate", "items/tool/armour");
@@ -122,12 +131,8 @@ public class RegisterItemJsons {
 			registerBlockstateMultiItem(TRItems.BRONZE_HOE, "bronze_hoe", "items/tool/tool");
 		}
 
-		TRIngredients.registerModel();
-
-		String[] name = ItemUpgrades.types.clone();
-		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
-			registerBlockstate(TRItems.UPGRADES, i, name[i], "items/misc/");
-		}
+		
+		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
 
 		for (EnumCableType cableType : EnumCableType.values()) {
 			registerBlockstateMultiItem(Item.getItemFromBlock(ModBlocks.CABLE), cableType.ordinal(), cableType.getName().toLowerCase(), "cable_inv");
