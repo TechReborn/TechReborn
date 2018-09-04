@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import reborncore.common.util.ItemUtils;
-import techreborn.events.TRRecipeHandler;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRSword extends ItemSword {
@@ -41,9 +40,7 @@ public class ItemTRSword extends ItemSword {
 	public ItemTRSword(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setTranslationKey(material.name().toLowerCase() + "Sword");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override

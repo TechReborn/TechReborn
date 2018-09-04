@@ -38,7 +38,7 @@ public class ItemDiamondChainsaw extends ItemChainsaw {
 
 	// 400k max charge with 1k charge rate
 	public ItemDiamondChainsaw() {
-		super(ToolMaterial.DIAMOND, "techreborn.diamondChainsaw", ConfigTechReborn.DiamondChainsawCharge, 1.0F);
+		super(ToolMaterial.DIAMOND, ConfigTechReborn.DiamondChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

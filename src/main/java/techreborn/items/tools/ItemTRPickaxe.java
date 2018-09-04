@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.events.TRRecipeHandler;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRPickaxe extends ItemPickaxe {
@@ -41,9 +40,7 @@ public class ItemTRPickaxe extends ItemPickaxe {
 	public ItemTRPickaxe(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setTranslationKey(material.name().toLowerCase() + "Pickaxe");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override

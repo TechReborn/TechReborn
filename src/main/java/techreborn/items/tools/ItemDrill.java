@@ -52,12 +52,11 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public float unpoweredSpeed = 2.0F;
 	public int transferLimit = 100;
 
-	public ItemDrill(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
+	public ItemDrill(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
 		super(material);
 		this.efficiency = efficiencyOnProperMaterial;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setTranslationKey(unlocalizedName);
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}

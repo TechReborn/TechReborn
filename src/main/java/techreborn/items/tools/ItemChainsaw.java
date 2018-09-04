@@ -58,11 +58,10 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public int transferLimit = 100;
 	public boolean isBreaking = false;
 
-	public ItemChainsaw(ToolMaterial material, String unlocalizedName, int energyCapacity, float unpoweredSpeed) {
+	public ItemChainsaw(ToolMaterial material, int energyCapacity, float unpoweredSpeed) {
 		super(material);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setTranslationKey(unlocalizedName);
 		this.maxCharge = energyCapacity;
 		this.efficiency = unpoweredSpeed;
 

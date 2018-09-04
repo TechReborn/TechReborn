@@ -26,16 +26,13 @@ package techreborn.items.tools;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.IToolHandler;
 import techreborn.items.ItemTR;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -43,18 +40,7 @@ import techreborn.utils.TechRebornCreativeTab;
 public class ItemWrench extends ItemTR implements IToolHandler {
 
 	public ItemWrench() {
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setTranslationKey("techreborn.wrench");
 		setMaxStackSize(1);
-	}
-
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
-	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) {
-			return EnumActionResult.PASS;
-		}
-		return EnumActionResult.PASS;
 	}
 
 	@Override

@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.events.TRRecipeHandler;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRAxe extends ItemAxe {
@@ -41,9 +40,7 @@ public class ItemTRAxe extends ItemAxe {
 	public ItemTRAxe(ToolMaterial material, String repairOreDict) {
 		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F);
 		this.repairOreDict = repairOreDict;
-		setTranslationKey(material.name().toLowerCase() + "Axe");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override

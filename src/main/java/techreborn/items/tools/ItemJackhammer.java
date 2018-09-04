@@ -53,13 +53,12 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	public int cost = 250;
 	public int transferLimit = 100;
 
-	public ItemJackhammer(ToolMaterial material, String unlocalizedName, int energyCapacity) {
+	public ItemJackhammer(ToolMaterial material, int energyCapacity) {
 		super(material);
 		efficiency = 20F;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(240);
-		setTranslationKey(unlocalizedName);
 		this.maxCharge = energyCapacity;
 	}
 	

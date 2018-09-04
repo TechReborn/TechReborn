@@ -61,7 +61,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
 		super(ToolMaterial.DIAMOND);
-		setTranslationKey("techreborn.rockcutter");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		efficiency = 16F;

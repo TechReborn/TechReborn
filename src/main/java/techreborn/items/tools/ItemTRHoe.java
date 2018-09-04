@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.util.ItemUtils;
-import techreborn.events.TRRecipeHandler;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRHoe extends ItemHoe {
@@ -43,9 +42,7 @@ public class ItemTRHoe extends ItemHoe {
 	public ItemTRHoe(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setTranslationKey(material.name().toLowerCase() + "Hoe");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override

@@ -26,15 +26,12 @@ package techreborn.items.tools;
 
 import net.minecraft.item.ItemStack;
 import techreborn.items.ItemTR;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTreeTap extends ItemTR {
 
 	public ItemTreeTap() {
 		setMaxStackSize(1);
 		setMaxDamage(20);
-		setTranslationKey("techreborn.treetap");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 

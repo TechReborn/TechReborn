@@ -37,8 +37,6 @@ import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRItems;
 import techreborn.items.ItemTR;
-import techreborn.utils.TechRebornCreativeTab;
-
 import javax.annotation.Nullable;
 
 /**
@@ -50,8 +48,6 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
-		setTranslationKey("techreborn.electric_treetap");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 	}
 

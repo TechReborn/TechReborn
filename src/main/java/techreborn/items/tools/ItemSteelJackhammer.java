@@ -35,7 +35,7 @@ import techreborn.init.TRItems;
 public class ItemSteelJackhammer extends ItemJackhammer {
 
 	public ItemSteelJackhammer() {
-		super(ToolMaterial.DIAMOND, "techreborn.steelJackhammer", ConfigTechReborn.SteelJackhammerCharge);
+		super(ToolMaterial.DIAMOND, ConfigTechReborn.SteelJackhammerCharge);
 		this.cost = 50;
 		this.efficiency = 12F;
 	}
