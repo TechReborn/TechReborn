@@ -41,8 +41,8 @@ import java.util.List;
 
 public class ItemBlockDigitalChest extends ItemBlock {
 
-	public ItemBlockDigitalChest(Block p_i45328_1_) {
-		super(p_i45328_1_);
+	public ItemBlockDigitalChest(Block block) {
+		super(block);
 	}
 
 	@Override
@@ -62,8 +62,6 @@ public class ItemBlockDigitalChest extends ItemBlock {
 		}
 		if (world.getBlockState(pos).getBlock() == block) {
 			world.getBlockState(pos).getBlock().onBlockPlacedBy(world, pos, newState, player, stack);
-			// world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x,
-			// y, z, metadata);
 		}
 		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			((TileDigitalChest) world.getTileEntity(pos))

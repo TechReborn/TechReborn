@@ -48,8 +48,6 @@ public class ItemBlockQuantumTank extends ItemBlock {
 		}
 		if (world.getBlockState(pos).getBlock() == block) {
 			world.getBlockState(pos).getBlock().onBlockPlacedBy(world, pos, newState, player, stack);
-			// world.getBlockState(pos).getBlock().onPostBlockPlaced(world, x,
-			// y, z, metadata);
 		}
 		if (!stack.isEmpty() && stack.hasTagCompound()) {
 			((TileQuantumTank) world.getTileEntity(pos))
