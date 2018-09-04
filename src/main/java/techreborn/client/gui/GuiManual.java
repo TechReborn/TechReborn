@@ -80,7 +80,7 @@ public class GuiManual extends GuiScreen {
 				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://wiki.techreborn.ovh", 1, false));
 				break;
 			case 2:
-				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://discord.gg/0tCDWb77cvetwm0e", 2, false));
+				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "https://discord.gg/teamreborn", 2, false));
 				break;
 		}
 	}
@@ -102,7 +102,7 @@ public class GuiManual extends GuiScreen {
 			case 2:
 				if(result == true) {
 					try {
-						Desktop.getDesktop().browse(new java.net.URI("http://discord.gg/0tCDWb77cvetwm0e"));
+						Desktop.getDesktop().browse(new java.net.URI("https://discord.gg/teamreborn"));
 					} catch (Exception e) {
 						System.err.print(e);
 					}

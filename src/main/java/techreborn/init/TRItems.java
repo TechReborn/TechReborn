@@ -164,7 +164,7 @@ public class TRItems {
 
 		// Armor
 		CLOAKING_DEVICE = new ItemCloakingDevice();
-		registerItem(CLOAKING_DEVICE, "cloakingdevice");
+		registerItem(CLOAKING_DEVICE, "cloakingDevice");
 		LAPOTRONIC_ORB_PACK = new ItemLapotronPack();
 		registerItem(LAPOTRONIC_ORB_PACK, "lapotronPack");
 		LITHIUM_BATTERY_PACK = new ItemLithiumBatpack();
@@ -172,9 +172,9 @@ public class TRItems {
 		
 		// Battery
 		ENERGY_CRYSTAL = new ItemEnergyCrystal();
-		registerItem(ENERGY_CRYSTAL, "energycrystal");
+		registerItem(ENERGY_CRYSTAL, "energyCrystal");
 		LAPOTRONIC_CRYSTAL = new ItemLapotronCrystal();
-		registerItem(LAPOTRONIC_CRYSTAL, "lapotroncrystal");
+		registerItem(LAPOTRONIC_CRYSTAL, "lapotronCrystal");
 		LAPOTRONIC_ORB = new ItemLapotronicOrb();
 		registerItem(LAPOTRONIC_ORB, "lapotronicOrb");
 		LITHIUM_BATTERY = new ItemLithiumBattery();
@@ -211,8 +211,6 @@ public class TRItems {
 		registerItem(STEEL_DRILL, "steelDrill");
 		STEEL_JACKHAMMER = new ItemSteelJackhammer();
 		registerItem(STEEL_JACKHAMMER, "steelJackhammer");
-		MANUAL = new ItemTechManual();
-		registerItem(MANUAL, "techmanuel");
 		TREE_TAP = new ItemTreeTap();
 		registerItem(TREE_TAP, "treetap");
 		WRENCH = new ItemWrench();
@@ -226,6 +224,8 @@ public class TRItems {
 		registerItem(FREQUENCY_TRANSMITTER, "frequencyTransmitter");	
 		SCRAP_BOX = new ItemScrapBox();
 		registerItem(SCRAP_BOX, "scrapbox");
+		MANUAL = new ItemTechManual();
+		registerItem(MANUAL, "techManual");
 		UPGRADE_OVERCLOCKER = new ItemUpgrades();
 		registerItem(UPGRADE_OVERCLOCKER, "upgrade_overclocker");		
 		UPGRADE_TRANSFORMER = new ItemUpgrades();
