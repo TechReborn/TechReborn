@@ -41,7 +41,7 @@ import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.slot.GuiFluidConfiguration;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.gui.widget.GuiButtonPowerBar;
-import techreborn.init.ModItems;
+import techreborn.init.TRItems;
 import techreborn.items.DynamicCell;
 
 import java.io.IOException;
@@ -144,7 +144,7 @@ public class GuiBase extends GuiContainer {
 			}
 		}
 		if(getMachine().hasSlotConfig()){
-			builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades, new ItemStack(ModItems.WRENCH));
+			builder.drawSlotTab(this, guiLeft, guiTop, mouseX, mouseY, upgrades, new ItemStack(TRItems.WRENCH));
 		}
 		if(getMachine().showTankConfig()){
 			builder.drawSlotTab(this, guiLeft, guiTop + 27, mouseX, mouseY, upgrades, DynamicCell.getCellWithFluid(FluidRegistry.LAVA));

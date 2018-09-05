@@ -26,9 +26,9 @@ package techreborn.blocks.tier3;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
@@ -40,7 +40,7 @@ public class BlockCreativeQuantumTank extends BlockMachineBase {
 	public BlockCreativeQuantumTank() {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override

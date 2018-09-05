@@ -28,9 +28,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
@@ -41,9 +42,9 @@ public class BlockCreativeQuantumChest extends BlockMachineBase {
 
 	public BlockCreativeQuantumChest() {
 		super();
-		this.setUnlocalizedName("techreborn.creativeQuantumChest");
+		this.setTranslationKey("techreborn.creativeQuantumChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
+		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
