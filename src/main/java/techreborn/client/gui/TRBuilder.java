@@ -62,7 +62,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawMultiEnergyBar(GuiBase gui, int x, int y, int energyStored, int maxEnergyStored, int mouseX, int mouseY, int buttonID, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -104,7 +104,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawProgressBar(GuiBase gui, int progress, int maxProgress, int x, int y, int mouseX, int mouseY, ProgressDirection direction, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -152,7 +152,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawTank(GuiBase gui, int x, int y, int mouseX, int mouseY, FluidStack fluid, int maxCapacity, boolean isTankEmpty, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -213,7 +213,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawJEIButton(GuiBase gui, int x, int y, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (Loader.isModLoaded("jei")) {
@@ -227,7 +227,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawLockButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer, boolean locked) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -251,7 +251,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawHologramButton(GuiBase gui, int x, int y, int mouseX, int mouseY, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -278,7 +278,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 	
 	public void drawUpDownButtons(GuiBase gui, int x, int y, GuiBase.Layer layer){
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -293,7 +293,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawUpDownButtonsSmall(GuiBase gui, int x, int y, GuiBase.Layer layer){
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -308,7 +308,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 	
 	public void drawEnergyOutput(GuiBase gui, int right, int top, int maxOutput, GuiBase.Layer layer){
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		String text = PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxOutput) + " "
@@ -325,7 +325,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawBigBlueBar(GuiBase gui, int x, int y, int value, int max, int mouseX, int mouseY, String suffix, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -360,7 +360,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawBigHeatBar(GuiBase gui, int x, int y, int value, int max, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		if (layer == GuiBase.Layer.BACKGROUND) {
@@ -380,7 +380,7 @@ public class TRBuilder extends GuiBuilder {
 	}
 
 	public void drawMultiblockMissingBar(GuiBase gui, GuiBase.Layer layer) {
-		if(GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE){
 			return;
 		}
 		int x = 0;
@@ -448,8 +448,8 @@ public class TRBuilder extends GuiBuilder {
 		gui.drawTexturedModalRect(posX - 27, posY + 4, 126, 151, 30, 87);
 	}
 
-	public void drawSlotTab(GuiScreen gui, int posX, int posY, int mouseX, int mouseY, boolean upgrades){
-		int offset = 0;
+	public void drawSlotTab(GuiScreen gui, int posX, int posY, int mouseX, int mouseY, boolean upgrades, ItemStack stack){
+		int offset = -1;
 		if(!upgrades){
 			offset = 80;
 		}

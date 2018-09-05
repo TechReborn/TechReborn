@@ -24,6 +24,7 @@
 
 package techreborn.api.fluidreplicator;
 
+import reborncore.common.util.FluidUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -114,11 +115,11 @@ public class FluidReplicatorRecipe implements Cloneable {
 		if (fluid == null) {
 			return false;
 		}
-		if (!fluid.equals(output)) {
+		if (!FluidUtils.fluidEquals(fluid, output)) {
 			return false;
 		}
 		final Fluid tankFluid = tile.tank.getFluidType();
-		if (tankFluid != null && !tankFluid.equals(output)) {
+		if (tankFluid != null && !FluidUtils.fluidEquals(tankFluid, fluid)) {
 			return false;
 		}
 		

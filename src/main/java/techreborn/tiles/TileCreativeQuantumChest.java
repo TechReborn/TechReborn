@@ -22,47 +22,26 @@
  * SOFTWARE.
  */
 
-package techreborn.client.container;
+package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import reborncore.client.gui.slots.BaseSlot;
-import reborncore.client.gui.slots.SlotFilteredVoid;
-import reborncore.common.container.RebornContainer;
-import reborncore.common.util.Inventory;
-import techreborn.init.TRIngredients;
 
-public class ContainerDestructoPack extends RebornContainer {
+public class TileCreativeQuantumChest extends TileQuantumChest {
 
-	private EntityPlayer player;
-	private Inventory inv;
+	@Override
+	public void update() {
+		super.update();
+		ItemStack stack = getStackInSlot(1);
+		if (!stack.isEmpty() && storedItem.isEmpty()) {
+			stack.setCount(stack.getMaxStackSize());
+			storedItem = stack.copy();
+		}
 
-	@SuppressWarnings("deprecation")
-	public ContainerDestructoPack(EntityPlayer player) {
-		super(null);
-		this.player = player;
-		inv = new Inventory(1, "destructopack", 64, null);
-		buildContainer();
+		storedItem.setCount(maxCapacity - storedItem.getMaxStackSize());
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer arg0) {
-		return true;
-	}
-
-	private void buildContainer() {
-		this.addSlotToContainer(
-			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { TRIngredients.Parts.MACHINE_PARTS.getStack() }));
-		int i;
-
-		for (i = 0; i < 3; ++i) {
-			for (int j = 0; j < 9; ++j) {
-				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-			}
-		}
-
-		for (i = 0; i < 9; ++i) {
-			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
-		}
+	public int slotTransferSpeed() {
+		return 1;
 	}
 }

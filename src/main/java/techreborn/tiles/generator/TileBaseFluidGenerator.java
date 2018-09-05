@@ -26,9 +26,7 @@ package techreborn.tiles.generator;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -40,6 +38,8 @@ import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
 import techreborn.api.generator.GeneratorRecipeHelper;
+
+import javax.annotation.Nullable;
 
 public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider {
 
@@ -90,7 +90,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		}
 
 		if (tank.getFluidAmount() > 0) {
-			if (currentRecipe == null || !currentRecipe.getFluid().equals(tank.getFluidType()))
+			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluidType()))
 				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluidType()).orElse(null);
 
 			if (currentRecipe != null) {
@@ -173,22 +173,6 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-		}
-		return super.getCapability(capability, facing);
-	}
-
-	@Override
 	public void readFromNBT(NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
 		tank.readFromNBT(tagCompound);
@@ -220,5 +204,11 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 	public void setTankAmount(int amount){
 		tank.setFluidAmount(amount);
+	}
+
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
 	}
 }

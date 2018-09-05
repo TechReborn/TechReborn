@@ -120,5 +120,12 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in EU)")
 	public static int quantumGenerationRateN = 64;	
 
+	@ConfigRegistry(config = "world", category = "loot", key = "enableOverworldLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to OverWorld loot chests.")
+	public static boolean enableOverworldLoot = true;
 
+	@ConfigRegistry(config = "world", category = "loot", key = "enableNetherLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to Nether loot chests.")
+	public static boolean enableNetherLoot = true;
+	
+	@ConfigRegistry(config = "world", category = "loot", key = "enableEndLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to The End loot chests.")
+	public static boolean enableEndLoot = true;
 }

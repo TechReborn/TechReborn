@@ -27,14 +27,17 @@ package techreborn.client.gui.slot.elements;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.gui.GuiBase;
 
+import java.util.function.Predicate;
+
 public class CheckBoxElement extends ElementBase {
 	public String label, type;
 	public int labelColor, slotID;
-	TileLegacyMachineBase machineBase;
+	public TileLegacyMachineBase machineBase;
+	Predicate<CheckBoxElement> ticked;
 
 	private Sprite.CheckBox checkBoxSprite;
 
-	public CheckBoxElement(String label, int labelColor, int x, int y, String type, int slotID, Sprite.CheckBox checkBoxSprite, TileLegacyMachineBase machineBase) {
+	public CheckBoxElement(String label, int labelColor, int x, int y, String type, int slotID, Sprite.CheckBox checkBoxSprite, TileLegacyMachineBase machineBase, Predicate<CheckBoxElement> ticked) {
 		super(x, y, checkBoxSprite.getNormal());
 		this.checkBoxSprite = checkBoxSprite;
 		this.type = type;
@@ -42,13 +45,14 @@ public class CheckBoxElement extends ElementBase {
 		this.machineBase = machineBase;
 		this.label = label;
 		this.labelColor = labelColor;
-		if (isTicked()) {
+		this.ticked = ticked;
+		if (ticked.test(this)) {
 			container.setSprite(0, checkBoxSprite.getTicked());
 		} else {
 			container.setSprite(0, checkBoxSprite.getNormal());
 		}
 		this.addPressAction((element, gui, provider, mouseX, mouseY) -> {
-			if (isTicked()) {
+			if (ticked.test(this)) {
 				element.container.setSprite(0, checkBoxSprite.getTicked());
 			} else {
 				element.container.setSprite(0, checkBoxSprite.getNormal());
@@ -61,21 +65,11 @@ public class CheckBoxElement extends ElementBase {
 	public void draw(GuiBase gui) {
 	//	super.draw(gui);
 		ISprite sprite = checkBoxSprite.getNormal();
-		if(isTicked()){
+		if(ticked.test(this)){
 			sprite = checkBoxSprite.getTicked();
 		}
 		drawSprite(gui, sprite, x, y );
 		drawString(gui, label, x + checkBoxSprite.getNormal().width + 5, ((y + getHeight(gui.getMachine()) / 2) - (gui.mc.fontRenderer.FONT_HEIGHT / 2)), labelColor);
-	}
-
-	public boolean isTicked() {
-		if(type.equalsIgnoreCase("output")){
-			return machineBase.slotConfiguration.getSlotDetails(slotID).autoOutput();
-		}
-		if(type.equalsIgnoreCase("filter")){
-			return machineBase.slotConfiguration.getSlotDetails(slotID).filter();
-		}
-		return machineBase.slotConfiguration.getSlotDetails(slotID).autoInput();
 	}
 
 }

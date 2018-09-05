@@ -22,47 +22,39 @@
  * SOFTWARE.
  */
 
-package techreborn.client.container;
+package techreborn.blocks.tier3;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import reborncore.client.gui.slots.BaseSlot;
-import reborncore.client.gui.slots.SlotFilteredVoid;
-import reborncore.common.container.RebornContainer;
-import reborncore.common.util.Inventory;
-import techreborn.init.TRIngredients;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
+import techreborn.client.EGui;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.TileCreativeQuantumTank;
+import techreborn.utils.TechRebornCreativeTab;
 
-public class ContainerDestructoPack extends RebornContainer {
+public class BlockCreativeQuantumTank extends BlockMachineBase {
 
-	private EntityPlayer player;
-	private Inventory inv;
-
-	@SuppressWarnings("deprecation")
-	public ContainerDestructoPack(EntityPlayer player) {
-		super(null);
-		this.player = player;
-		inv = new Inventory(1, "destructopack", 64, null);
-		buildContainer();
+	public BlockCreativeQuantumTank() {
+		super();
+		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer arg0) {
-		return true;
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		return new TileCreativeQuantumTank();
 	}
 
-	private void buildContainer() {
-		this.addSlotToContainer(
-			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { TRIngredients.Parts.MACHINE_PARTS.getStack() }));
-		int i;
+	@Override
+	public IMachineGuiHandler getGui() {
+		return EGui.QUANTUM_TANK;
+	}
 
-		for (i = 0; i < 3; ++i) {
-			for (int j = 0; j < 9; ++j) {
-				this.addSlotToContainer(new BaseSlot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-			}
-		}
-
-		for (i = 0; i < 9; ++i) {
-			this.addSlotToContainer(new BaseSlot(player.inventory, i, 8 + i * 18, 142));
-		}
+	@Override
+	public boolean isAdvanced() {
+		return true;
 	}
 }

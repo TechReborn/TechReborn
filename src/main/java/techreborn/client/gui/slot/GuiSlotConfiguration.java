@@ -51,7 +51,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GuiSlotConfiguration {
+public class GuiSlotConfiguration  {
 
 	static HashMap<Integer, ConfigSlotElement> slotElementMap = new HashMap<>();
 
@@ -236,7 +236,7 @@ public class GuiSlotConfiguration {
 	}
 
 	public static List<Rectangle> getExtraSpace(GuiBase guiBase){
-		if(!GuiBase.showSlotConfig || slectedSlot == -1){
+		if(GuiBase.slotConfigType != GuiBase.SlotConfigType.ITEMS || slectedSlot == -1){
 			return Collections.emptyList();
 		}
 		List<Rectangle> list = new ArrayList<>();

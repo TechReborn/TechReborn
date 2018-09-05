@@ -26,6 +26,7 @@ package techreborn.api.fluidreplicator;
 
 import net.minecraftforge.fluids.Fluid;
 import org.apache.commons.lang3.Validate;
+import reborncore.common.util.FluidUtils;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -72,6 +73,6 @@ public class FluidReplicatorRecipeList {
 	 * @return FluidReplicatorRecipe Recipe for fluid provided
 	 */
 	public static Optional<FluidReplicatorRecipe> getRecipeForFluid(Fluid fluid) {
-		return recipes.stream().filter(recipe -> recipe.getFluid().equals(fluid)).findAny();
+		return recipes.stream().filter(recipe -> FluidUtils.fluidEquals(recipe.getFluid(), fluid)).findAny();
 	}
 }

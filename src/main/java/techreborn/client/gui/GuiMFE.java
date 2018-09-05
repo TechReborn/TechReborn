@@ -53,7 +53,7 @@ public class GuiMFE extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if(!GuiBase.showSlotConfig){
+		if(GuiBase.slotConfigType == SlotConfigType.NONE){
 			GlStateManager.pushMatrix();
 			GlStateManager.scale(0.6, 0.6, 1);
 			this.drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.mfe.getEnergy()) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) this.mfe.getMaxPower()) + " " + PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);

@@ -60,7 +60,9 @@ public class ModBlocks {
 
 	public static Block THERMAL_GENERATOR;
 	public static Block QUANTUM_TANK;
+	public static Block CREATIVE_QUANTUM_TANK;
 	public static Block QUANTUM_CHEST;
+	public static Block CREATIVE_QUANTUM_CHEST;
 	public static Block DIGITAL_CHEST;
 	public static Block INDUSTRIAL_CENTRIFUGE;
 	public static Block ROLLING_MACHINE;
@@ -151,8 +153,14 @@ public class ModBlocks {
 		QUANTUM_TANK = new BlockQuantumTank();
 		registerBlock(QUANTUM_TANK, ItemBlockQuantumTank.class, "quantum_tank");
 
+		CREATIVE_QUANTUM_TANK = new BlockCreativeQuantumTank();
+		registerBlock(CREATIVE_QUANTUM_TANK, ItemBlockQuantumTank.class, "creative_quantum_tank");
+
 		QUANTUM_CHEST = new BlockQuantumChest();
 		registerBlock(QUANTUM_CHEST, ItemBlockQuantumChest.class, "quantum_chest");
+
+		CREATIVE_QUANTUM_CHEST = new BlockCreativeQuantumChest();
+		registerBlock(CREATIVE_QUANTUM_CHEST, ItemBlockQuantumChest.class, "creative_quantum_chest");
 
 		DIGITAL_CHEST = new BlockDigitalChest();
 		registerBlock(DIGITAL_CHEST, ItemBlockDigitalChest.class, "digital_chest");
@@ -393,7 +401,7 @@ public class ModBlocks {
 	 */
 	public static void registerBlock(Block block, String name) {
 		name = name.toLowerCase();
-		block.setTranslationKey(ModInfo.MOD_ID + ":" + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlock(block, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
@@ -405,19 +413,19 @@ public class ModBlocks {
 	 */
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
 		name = name.toLowerCase();
-		block.setTranslationKey(ModInfo.MOD_ID + ":" + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlock(block, itemclass, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerBlock(Block block, ItemBlock itemBlock, String name) {
 		name = name.toLowerCase();
-		block.setTranslationKey(ModInfo.MOD_ID + ":" + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlock(block, itemBlock, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerBlockNoItem(Block block, String name) {
 		name = name.toLowerCase();
-		block.setTranslationKey(ModInfo.MOD_ID + ":" + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlockNoItem(block,  new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 

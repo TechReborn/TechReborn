@@ -31,9 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -52,6 +50,8 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
+
+import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
@@ -128,24 +128,6 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		return tagCompound;
 	}
 
-	@Override
-	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			if (tank != null) {
-				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-			}
-		}
-		return super.getCapability(capability, facing);
-	}
-
 	// TileLegacyMachineBase
 	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
@@ -212,5 +194,11 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 			}
 		}
 		return false;
+	}
+
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
 	}
 }

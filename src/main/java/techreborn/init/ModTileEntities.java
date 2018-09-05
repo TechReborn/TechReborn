@@ -93,6 +93,8 @@ public enum ModTileEntities {
 	ELECTRIC_FURNACE(TileElectricFurnace.class,  "electric_furnace"),
 	SOLAR_PANEL(TileSolarPanel.class,  "solar_panel"),
 	CREATIVE_SOLAR_PANEL(TileCreativeSolarPanel.class,  "creative_solar_panel"),
+	CREATIVE_QUANTUM_TANK(TileCreativeQuantumTank.class,  "creative_quantum_tank"),
+	CREATIVE_QUANTUM_CHEST(TileCreativeQuantumChest.class,  "creative_quantum_chest"),
 	WATER_MILL(TileWaterMill.class,  "water_mill"),
 	WIND_MILL(TileWindMill.class,  "wind_mill"),
 	MACHINE_BASE(TileLegacyMachineBase.class,  "machine_base"),

@@ -43,6 +43,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRItems;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,6 +62,9 @@ public class ItemAdvancedDrill extends ItemDrill {
 			return new HashSet<BlockPos>();
 		}
 		RayTraceResult raytrace = rayTrace(worldIn, playerIn, false);
+		if(raytrace == null || raytrace.sideHit == null){
+			return Collections.emptySet();
+		}
 		EnumFacing enumfacing = raytrace.sideHit;
 		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
 			for (int i = -1; i < 2; i++) {

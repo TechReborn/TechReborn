@@ -27,10 +27,7 @@ package techreborn.tiles.multiblock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -45,6 +42,8 @@ import techreborn.init.ModBlocks;
 import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
+
+import javax.annotation.Nullable;
 
 /**
  * @author drcrazy
@@ -124,22 +123,6 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 		return tagCompound;
 	}
 
-	@Override
-	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-		}
-		return super.getCapability(capability, facing);
-	}
-
 	// TileLegacyMachineBase
 	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
@@ -160,5 +143,11 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
+	}
+
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
 	}
 }

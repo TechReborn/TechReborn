@@ -2,16 +2,13 @@
 	"pools": [
 		{
 			"name": "techreborn",
-			"rolls": {
-				"min": 1,
-				"max": 3
-			},
+			"rolls": 1,
 			"entries": [
 				{
 					"type": "item",
 					"name": "techreborn:ingotbronze",
 					"entryName": "bronze_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -26,7 +23,7 @@
 					"type": "item",
 					"name": "techreborn:ingotcopper",
 					"entryName": "copper_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -41,7 +38,7 @@
 					"type": "item",
 					"name": "techreborn:ingotlead",
 					"entryName": "lead_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -56,7 +53,7 @@
 					"type": "item",
 					"name": "techreborn:ingotsilver",
 					"entryName": "silver_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -71,7 +68,7 @@
 					"type": "item",
 					"name": "techreborn:ingottin",
 					"entryName": "tin_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -86,7 +83,7 @@
 					"type": "item",
 					"name": "techreborn:ingotrefinediron",
 					"entryName": "refined_iron_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -101,7 +98,7 @@
 					"type": "item",
 					"name": "techreborn:ingotadvancedalloy",
 					"entryName": "advanced_alloy_ingot",
-					"weight": 10,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_count",
@@ -116,7 +113,7 @@
 					"type": "item",
 					"name": "techreborn:machine_frame",
 					"entryName": "basic_frame",
-					"weight": 30,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_data",
@@ -126,9 +123,9 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:machine_frame",
+					"name": "techreborn:part",
 					"entryName": "basic_circuit",
-					"weight": 30,
+					"weight": 5,
 					"functions": [
 						{
 							"function": "set_data",
@@ -138,7 +135,7 @@
 				},
 				{
 					"type": "empty",
-					"weight": 20
+					"weight": 50
 				}
 			]
 		}

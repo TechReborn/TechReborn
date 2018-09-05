@@ -59,7 +59,7 @@ import java.util.List;
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAutoCraftingTable extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, IInventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterInput", comment = "AutoCrafting Table Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -85,8 +85,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public IRecipe getIRecipe() {
 		InventoryCrafting crafting = getCraftingInventory();
 		if (!crafting.isEmpty()) {
-			if(lastRecipe != null){
-				if(lastRecipe.matches(crafting, world)){
+			if (lastRecipe != null) {
+				if (lastRecipe.matches(crafting, world)) {
 					return lastRecipe;
 				}
 			}
@@ -181,41 +181,39 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	public boolean make(IRecipe recipe) {
-		if (canMake(recipe)) {
-			if (recipe == null) {
-				return false;
-			} else if (recipe != null) {
-				for (int i = 0; i < recipe.getIngredients().size(); i++) {
-					Ingredient ingredient = recipe.getIngredients().get(i);
-					//Looks for the best slot to take it from
-					ItemStack bestSlot = inventory.getStackInSlot(i);
-					if (ingredient.apply(bestSlot)) {
-						handleContainerItem(bestSlot);
-						bestSlot.shrink(1);
-					} else {
-						for (int j = 0; j < 9; j++) {
-							ItemStack stack = inventory.getStackInSlot(j);
-							if (ingredient.apply(stack)) {
-								handleContainerItem(stack);
-								stack.shrink(1); //TODO is this right? or do I need to use it as an actull crafting grid
-								break;
-							}
-						}
+		if (recipe == null || !canMake(recipe)) {
+			return false;
+		}
+		for (int i = 0; i < recipe.getIngredients().size(); i++) {
+			Ingredient ingredient = recipe.getIngredients().get(i);
+			// Looks for the best slot to take it from
+			ItemStack bestSlot = inventory.getStackInSlot(i);
+			if (ingredient.apply(bestSlot)) {
+				handleContainerItem(bestSlot);
+				bestSlot.shrink(1);
+			} else {
+				for (int j = 0; j < 9; j++) {
+					ItemStack stack = inventory.getStackInSlot(j);
+					if (ingredient.apply(stack)) {
+						handleContainerItem(stack);
+						stack.shrink(1); // TODO is this right? or do I need
+											// to use it as an actull
+											// crafting grid
+						break;
 					}
 				}
-				ItemStack output = inventory.getStackInSlot(9);
-				//TODO fire forge recipe event
-				ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
-				if (output.isEmpty()) {
-					inventory.setInventorySlotContents(9, ouputStack.copy());
-				} else {
-					//TODO use ouputStack in someway?
-					output.grow(recipe.getRecipeOutput().getCount());
-				}
-				return true;
 			}
 		}
-		return false;
+		ItemStack output = inventory.getStackInSlot(9);
+		// TODO fire forge recipe event
+		ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
+		if (output.isEmpty()) {
+			inventory.setInventorySlotContents(9, ouputStack.copy());
+		} else {
+			// TODO use ouputStack in someway?
+			output.grow(recipe.getRecipeOutput().getCount());
+		}
+		return true;
 	}
 
 	private void handleContainerItem(ItemStack stack) {
@@ -225,7 +223,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			if (hasOutputSpace(containerItem, 10)) {
 				if (extraOutputSlot.isEmpty()) {
 					setInventorySlotContents(10, containerItem.copy());
-				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true) && extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
+				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true)
+						&& extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
 					extraOutputSlot.grow(1);
 				}
 			}
@@ -264,14 +263,15 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			if (ingredient != Ingredient.EMPTY && ingredient.apply(stack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);
-				} else if (stackInSlot.getItem() == stack.getItem() && stackInSlot.getItemDamage() == stack.getItemDamage()) {
+				} else if (stackInSlot.getItem() == stack.getItem()
+						&& stackInSlot.getItemDamage() == stack.getItemDamage()) {
 					if (stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()) {
 						possibleSlots.add(i);
 					}
 				}
 			}
 		}
-		//Slot, count
+		// Slot, count
 		Pair<Integer, Integer> smallestCount = null;
 		for (Integer slot : possibleSlots) {
 			ItemStack slotStack = inventory.getStackInSlot(slot);
@@ -328,7 +328,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 						progress++;
 						if (progress == 1) {
 							world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.AUTO_CRAFTING,
-								SoundCategory.BLOCKS, 0.3F, 0.8F);
+									SoundCategory.BLOCKS, 0.3F, 0.8F);
 						}
 						useEnergy(euTick);
 					}
@@ -342,7 +342,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		}
 	}
 
-	//Easyest way to sync back to the client
+	// Easyest way to sync back to the client
 	public int getLockedInt() {
 		return locked ? 1 : 0;
 	}
@@ -384,7 +384,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
-		if(tag.hasKey("locked")){
+		if (tag.hasKey("locked")) {
 			locked = tag.getBoolean("locked");
 		}
 		super.readFromNBT(tag);
@@ -407,12 +407,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 	}
 
 	@Override
 	public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
-		if(index > 8){
+		if (index > 8) {
 			return false;
 		}
 		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
@@ -424,13 +424,13 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		if(index > 8){
+		if (index > 8) {
 			return true;
 		}
 		return false;
 	}
 
-	//This machine doesnt have a facing
+	// This machine doesnt have a facing
 	@Override
 	public EnumFacing getFacingEnum() {
 		return EnumFacing.NORTH;
@@ -451,16 +451,12 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
-		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this)
-			.slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25)
-			.slot(3, 28, 43).slot(4, 46, 43).slot(5, 64, 43)
-			.slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61)
-			.outputSlot(9, 145, 42).outputSlot(10, 145, 70).syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
-			.syncIntegerValue(this::getLockedInt, this::setLockedInt)
-			.addInventory().create(this);
+		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
+				.tile(this).slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25).slot(3, 28, 43).slot(4, 46, 43)
+				.slot(5, 64, 43).slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61).outputSlot(9, 145, 42)
+				.outputSlot(10, 145, 70).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
+				.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
+				.syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);
 	}
 
 	@Override

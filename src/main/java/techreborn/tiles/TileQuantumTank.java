@@ -29,9 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
@@ -47,6 +44,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
@@ -113,22 +111,6 @@ public class TileQuantumTank extends TileLegacyMachineBase
 		readFromNBT(packet.getNbtCompound());
 	}
 
-	@Override
-	public boolean hasCapability(final Capability<?> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-
-	@Override
-	public <T> T getCapability(final Capability<T> capability, final EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-		}
-		return super.getCapability(capability, facing);
-	}
-
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
@@ -160,5 +142,11 @@ public class TileQuantumTank extends TileLegacyMachineBase
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).addInventory()
 			.create(this);
+	}
+
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
 	}
 }
