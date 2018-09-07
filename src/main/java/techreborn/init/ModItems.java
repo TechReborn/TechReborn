@@ -30,7 +30,6 @@ import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
-import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrames;
@@ -96,7 +95,7 @@ public class ModItems {
 	public static Item TREE_TAP;
 	public static Item WRENCH;
 	
-	// Other
+	// Misc
 	public static DynamicCell CELL;
 	public static Item FREQUENCY_TRANSMITTER;
 	public static Item MANUAL;
@@ -251,7 +250,7 @@ public class ModItems {
 		WRENCH = new ItemWrench();
 		registerItem(WRENCH, "wrench");
 		
-		// Other
+		// Misc
 		CELL = new DynamicCell();
 		registerItem(CELL, "dynamicCell");
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);		

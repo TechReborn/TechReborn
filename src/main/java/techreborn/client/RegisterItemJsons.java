@@ -56,39 +56,47 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerItems() {
-		register(ModItems.RE_BATTERY, "battery/re_battery");
-		register(ModItems.LITHIUM_BATTERY, "battery/lithium_battery");
+		
+		// Armor
+		register(ModItems.CLOAKING_DEVICE, "armor/cloaking_device");
+		register(ModItems.LAPOTRONIC_ORB_PACK, "armor/lapotronic_orbpack");
+		register(ModItems.LITHIUM_BATTERY_PACK, "armor/lithium_batpack");		
+		
+		// Battery
 		register(ModItems.ENERGY_CRYSTAL, "battery/energy_crystal");
 		register(ModItems.LAPOTRONIC_CRYSTAL, "battery/lapotron_crystal");
 		register(ModItems.LAPOTRONIC_ORB, "battery/lapotronic_orb");
-
-		register(ModItems.FREQUENCY_TRANSMITTER, "misc/frequency_transmitter");
-		register(ModItems.UU_MATTER, "misc/uu_matter");
-		register(ModItems.SCRAP_BOX, "misc/scrapbox");
-		register(ModItems.MANUAL, "misc/manual");
-		register(ModItems.DEBUG, "misc/debug");
-		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
-		register(ModItems.MISSING_RECIPE_PLACEHOLDER, "misc/missing_recipe");
-
-		register(ModItems.STEEL_DRILL, "tool/steel_drill");
-		register(ModItems.DIAMOND_DRILL, "tool/diamond_drill");
-		register(ModItems.ADVANCED_DRILL, "tool/advanced_drill");
-		register(ModItems.STEEL_CHAINSAW, "tool/steel_chainsaw");
-		register(ModItems.DIAMOND_CHAINSAW, "tool/diamond_chainsaw");
+		register(ModItems.LITHIUM_BATTERY, "battery/lithium_battery");
+		register(ModItems.RE_BATTERY, "battery/re_battery");
+		
+		// Tools
 		register(ModItems.ADVANCED_CHAINSAW, "tool/advanced_chainsaw");
-		register(ModItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");
-		register(ModItems.DIAMOND_JACKHAMMER, "tool/diamond_jackhammer");
+		register(ModItems.ADVANCED_DRILL, "tool/advanced_drill");
 		register(ModItems.ADVANCED_JACKHAMMER, "tool/advanced_jackhammer");
-		register(ModItems.NANOSABER, "tool/nanosaber");
-		register(ModItems.TREE_TAP, "tool/treetap");
+		register(ModItems.DEBUG, "tool/debug");
+		register(ModItems.DIAMOND_CHAINSAW, "tool/diamond_chainsaw");
+		register(ModItems.DIAMOND_DRILL, "tool/diamond_drill");
+		register(ModItems.DIAMOND_JACKHAMMER, "tool/diamond_jackhammer");
 		register(ModItems.ELECTRIC_TREE_TAP, "tool/electric_treetap");
-		register(ModItems.CLOAKING_DEVICE, "tool/cloaking_device");
+		register(ModItems.NANOSABER, "tool/nanosaber");
 		register(ModItems.OMNI_TOOL, "tool/omni_tool");
 		register(ModItems.ROCK_CUTTER, "tool/rock_cutter");
-		register(ModItems.WRENCH, "tool/wrench");
-		register(ModItems.LAPOTRONIC_ORB_PACK, "tool/lapotronic_orbpack");
-		register(ModItems.LITHIUM_BATTERY_PACK, "tool/lithium_batpack");
+		register(ModItems.STEEL_CHAINSAW, "tool/steel_chainsaw");
+		register(ModItems.STEEL_DRILL, "tool/steel_drill");
+		register(ModItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");
+		register(ModItems.TREE_TAP, "tool/treetap");
+		register(ModItems.WRENCH, "tool/wrench");		
 
+		// Misc
+		register(ModItems.FREQUENCY_TRANSMITTER, "misc/frequency_transmitter");
+		register(ModItems.MANUAL, "misc/manual");
+		register(ModItems.MISSING_RECIPE_PLACEHOLDER, "misc/missing_recipe");
+		register(ModItems.SCRAP_BOX, "misc/scrapbox");
+		String[] name = ItemUpgrades.types.clone();
+		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
+			registerBlockstate(ModItems.UPGRADES, i, name[i], "items/misc/");
+		}
+		
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			registerBlockstateMultiItem(ModItems.RUBY_HELMET, "ruby_helmet", "items/tool/armour");
 			registerBlockstateMultiItem(ModItems.RUBY_CHESTPLATE, "ruby_chestplate", "items/tool/armour");
@@ -129,7 +137,8 @@ public class RegisterItemJsons {
 			registerBlockstateMultiItem(ModItems.BRONZE_HOE, "bronze_hoe", "items/tool/tool");
 		}
 
-		String[] name = ItemIngots.types.clone();
+		// Ingredients
+		name = ItemIngots.types.clone();
 		for (int i = 0; i < ItemIngots.types.length; ++i) {
 			registerBlockstate(ModItems.INGOTS, i, name[i], "items/materials/");
 		}
@@ -173,11 +182,8 @@ public class RegisterItemJsons {
 				registerBlockstate(ModItems.PARTS, i, name[i], "items/materials/");
 			}
 		}
-
-		name = ItemUpgrades.types.clone();
-		for (int i = 0; i < ItemUpgrades.types.length; ++i) {
-			registerBlockstate(ModItems.UPGRADES, i, name[i], "items/misc/");
-		}
+		
+		register(ModItems.UU_MATTER, "misc/uu_matter");
 
 		for (EnumCableType cableType : EnumCableType.values()) {
 			registerBlockstateMultiItem(Item.getItemFromBlock(ModBlocks.CABLE), cableType.ordinal(), cableType.getName().toLowerCase(), "cable_inv");
@@ -194,6 +200,11 @@ public class RegisterItemJsons {
 			}
 		});
 	}
+	
+	private static void registerBlocks() {
+		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
+		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
+	}
 
 	public static void setBlockStateMapper(Block block, String path, IProperty<?>... ignoredProperties) {
 		final String slash = !path.isEmpty() ? "/" : "";
@@ -207,10 +218,6 @@ public class RegisterItemJsons {
 				return new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getResourceDomain(), path + slash + block.getRegistryName().getResourcePath()), this.getPropertyString(map));
 			}
 		});
-	}
-
-	private static void registerBlocks() {
-		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
 	}
 
 	private static void register(Item item, int meta, String name) {
