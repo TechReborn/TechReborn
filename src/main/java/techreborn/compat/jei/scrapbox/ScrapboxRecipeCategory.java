@@ -48,7 +48,7 @@ public class ScrapboxRecipeCategory implements IRecipeCategory<ScrapboxRecipeWra
 
 	public ScrapboxRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 62, 74, 32);
-		title = StringUtils.t("jei.techreborn.scrapbox.name");
+		title = StringUtils.t("techreborn.jei.category.scrapbox");
 	}
 
 	@Override

@@ -29,6 +29,6 @@ import techreborn.items.ItemTR;
 public class ItemUUmatter extends ItemTR {
 
 	public ItemUUmatter() {
-		setUnlocalizedName("techreborn.uuMatter");
+		setUnlocalizedName("techreborn.part.uuMatter");
 	}
 }

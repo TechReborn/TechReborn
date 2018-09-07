@@ -34,6 +34,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.util.StringUtils;
 import techreborn.init.ModBlocks;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class StackWIPHandler {
 	public void toolTip(ItemTooltipEvent event) {
 		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
 		if (block != null && wipBlocks.contains(block)) {
-			event.getToolTip().add(TextFormatting.RED + "WIP Coming Soon");
+			event.getToolTip().add(TextFormatting.RED + StringUtils.t("techreborn.tooltip.wip"));
 		}
 
 		if (devHeads.contains(event.getItemStack())) {

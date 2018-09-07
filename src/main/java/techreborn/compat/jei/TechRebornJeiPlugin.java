@@ -255,6 +255,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			}
 		}
 
+		// Recipes
 		registry.handleRecipes(AlloySmelterRecipe.class, recipe -> new AlloySmelterRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.handleRecipes(AssemblingMachineRecipe.class, recipe -> new AssemblingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.handleRecipes(BlastFurnaceRecipe.class, recipe -> new BlastFurnaceRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.BLAST_FURNACE);
@@ -310,7 +311,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			TechRebornJeiPlugin.addDebugRecipes(registry);
 		}
 
-		registry.addIngredientInfo(ItemParts.getPartByName("rubberSap"), ItemStack.class, StringUtils.t("techreborn.desc.rubberSap"));
+		// Descriptions
+		registry.addIngredientInfo(ItemParts.getPartByName("rubberSap"), ItemStack.class, StringUtils.t("techreborn.jei.desc.rubberSap"));
 		if (!BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			registry.addIngredientInfo(new ItemStack(ModItems.SCRAP_BOX), ItemStack.class, StringUtils.t("techreborn.desc.scrapBoxNoDispenser"));
 		} else {
