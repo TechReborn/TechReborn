@@ -33,5 +33,4 @@ public class ItemTR extends Item {
 		setNoRepair();
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
-
 }

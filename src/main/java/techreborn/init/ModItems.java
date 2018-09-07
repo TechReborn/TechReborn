@@ -352,8 +352,6 @@ public class ModItems {
 
 		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
 		BlockMachineBase.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
-
-		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 	}
 
 	public static void registerItem(Item item, String name) {
