@@ -22,14 +22,13 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.items.ingredients;
 
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.items.ItemTR;
 
 public class ItemUUmatter extends ItemTR {
 
 	public ItemUUmatter() {
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.uuMatter");
 	}
 }

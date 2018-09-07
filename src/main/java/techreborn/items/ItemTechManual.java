@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tools;
+package techreborn.items;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -32,13 +32,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import techreborn.Core;
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
-import techreborn.items.ItemTR;
 
 public class ItemTechManual extends ItemTR {
 
 	public ItemTechManual() {
-		this.setCreativeTab(TechRebornCreativeTab.instance);
 		this.setUnlocalizedName("techreborn.manual");
 		this.setMaxStackSize(1);
 	}

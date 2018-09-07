@@ -48,7 +48,7 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.util.WorldUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemParts;
 import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.items.tools.ItemTreeTap;
 import techreborn.lib.ModInfo;

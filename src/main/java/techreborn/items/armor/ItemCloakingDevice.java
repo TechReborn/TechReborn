@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tools;
+package techreborn.items.armor;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -49,7 +49,6 @@ import techreborn.api.Reference;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
-import techreborn.items.armor.ItemTRArmour;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;

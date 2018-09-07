@@ -34,7 +34,13 @@ import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.items.*;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemDustsSmall;
+import techreborn.items.ingredients.ItemGems;
+import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemNuggets;
+import techreborn.items.ingredients.ItemParts;
+import techreborn.items.ingredients.ItemPlates;
 
 public class OreDict {
 

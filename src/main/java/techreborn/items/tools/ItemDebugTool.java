@@ -36,7 +36,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.items.ItemTR;
 
 /**
@@ -45,7 +44,6 @@ import techreborn.items.ItemTR;
 public class ItemDebugTool extends ItemTR {
 
 	public ItemDebugTool() {
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.debug");
 	}
 

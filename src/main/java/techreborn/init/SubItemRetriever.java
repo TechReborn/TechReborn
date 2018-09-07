@@ -29,6 +29,13 @@ import techreborn.api.ISubItemRetriever;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.items.*;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemDustsSmall;
+import techreborn.items.ingredients.ItemGems;
+import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemNuggets;
+import techreborn.items.ingredients.ItemParts;
+import techreborn.items.ingredients.ItemPlates;
 
 /**
  * Created by Mark on 03/04/2016.

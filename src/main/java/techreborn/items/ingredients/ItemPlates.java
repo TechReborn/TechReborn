@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.items.ingredients;
 
 import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,6 +32,7 @@ import reborncore.common.util.OreUtil;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
+import techreborn.items.ItemTR;
 
 import java.security.InvalidParameterException;
 

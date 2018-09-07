@@ -28,7 +28,7 @@ import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.blocks.BlockOre;
 import techreborn.items.ItemCells;
-import techreborn.items.ItemDusts;
+import techreborn.items.ingredients.ItemDusts;
 
 /**
  * @author drcrazy

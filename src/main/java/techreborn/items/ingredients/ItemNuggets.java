@@ -22,50 +22,43 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.items.ingredients;
 
 import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
+import techreborn.items.ItemTR;
 
 import java.security.InvalidParameterException;
 
-public class ItemIngots extends ItemTR {
+public class ItemNuggets extends ItemTR {
+
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
-		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", "advanced_alloy", "mixed_metal",
-		"iridium_alloy" };
+		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", ModItems.META_PLACEHOLDER, ModItems.META_PLACEHOLDER,
+		ModItems.META_PLACEHOLDER, "iron", "diamond" };
 
-	public ItemIngots() {
-		setCreativeTab(TechRebornCreativeTab.instance);
+	public ItemNuggets() {
 		setHasSubtypes(true);
-		setUnlocalizedName("techreborn.ingot");
+		setUnlocalizedName("techreborn.nuggets");
 		TRRecipeHandler.hideEntry(this);
 	}
 
-	public static ItemStack getIngotByName(String name, int count) {
+	public static ItemStack getNuggetByName(String name, int count) {
 		name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, name);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].equalsIgnoreCase(name)) {
-				return new ItemStack(ModItems.INGOTS, count, i);
+				return new ItemStack(ModItems.NUGGETS, count, i);
 			}
 		}
-		if (name.equalsIgnoreCase("iron")) {
-			return new ItemStack(Items.IRON_INGOT);
-		}
-		if (name.equalsIgnoreCase("gold")) {
-			return new ItemStack(Items.GOLD_INGOT);
-		}
-		throw new InvalidParameterException("The ingot " + name + " could not be found.");
+		throw new InvalidParameterException("The nugget " + name + " could not be found.");
 	}
 
-	public static ItemStack getIngotByName(String name) {
-		return getIngotByName(name, 1);
+	public static ItemStack getNuggetByName(String name) {
+		return getNuggetByName(name, 1);
 	}
 
 	@Override
@@ -91,4 +84,5 @@ public class ItemIngots extends ItemTR {
 			}
 		}
 	}
+
 }

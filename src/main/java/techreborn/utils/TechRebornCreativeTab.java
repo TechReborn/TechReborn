@@ -26,7 +26,7 @@ package techreborn.utils;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemParts;
 
 public class TechRebornCreativeTab extends CreativeTabs {
 

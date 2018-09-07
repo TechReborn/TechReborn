@@ -37,8 +37,8 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.init.ModItems;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemGems;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 

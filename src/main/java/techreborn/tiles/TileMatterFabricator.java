@@ -40,7 +40,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemParts;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)

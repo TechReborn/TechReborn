@@ -30,8 +30,8 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemIngots;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemIngots;
 
 /**
  * @author drcrazy

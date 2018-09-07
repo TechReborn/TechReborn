@@ -45,7 +45,7 @@ import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.init.recipes.RecipeMethods;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemParts;
 
 import java.util.ArrayList;
 import java.util.List;

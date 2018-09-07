@@ -34,9 +34,9 @@ import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.DynamicCell;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemGems;
-import techreborn.items.ItemNuggets;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemGems;
+import techreborn.items.ingredients.ItemNuggets;
 import techreborn.utils.StackWIPHandler;
 
 /**

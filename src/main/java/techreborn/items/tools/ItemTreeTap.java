@@ -35,7 +35,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.compat.CompatManager;
 import techreborn.events.TRRecipeHandler;
 import techreborn.items.ItemTR;
@@ -46,7 +45,6 @@ public class ItemTreeTap extends ItemTR {
 		setMaxStackSize(1);
 		setMaxDamage(20);
 		setUnlocalizedName("techreborn.treetap");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

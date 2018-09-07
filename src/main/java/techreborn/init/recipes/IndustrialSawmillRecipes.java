@@ -39,7 +39,7 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.items.ItemDusts;
+import techreborn.items.ingredients.ItemDusts;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;

@@ -42,6 +42,9 @@ import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.*;
+import techreborn.items.ingredients.ItemDustsSmall;
+import techreborn.items.ingredients.ItemNuggets;
+import techreborn.items.ingredients.ItemParts;
 
 /**
  * Created by Prospector

@@ -36,53 +36,77 @@ import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
+import techreborn.items.armor.ItemCloakingDevice;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemDustsSmall;
+import techreborn.items.ingredients.ItemGems;
+import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemNuggets;
+import techreborn.items.ingredients.ItemParts;
+import techreborn.items.ingredients.ItemPlates;
+import techreborn.items.ingredients.ItemUUmatter;
 import techreborn.items.tools.*;
 
 import javax.annotation.Nullable;
 
 public class ModItems {
-
 	public static final String META_PLACEHOLDER = "PLACEHOLDER_ITEM";
+	
+	// Ingredients
+	public static Item DUSTS;
 	public static Item GEMS;
 	public static Item INGOTS;
 	public static Item NUGGETS;
-	public static Item DUSTS;
-	public static Item SMALL_DUSTS;
 	public static Item PARTS;
-	public static Item ROCK_CUTTER;
-	public static Item LITHIUM_BATTERY_PACK;
-	public static Item LAPOTRONIC_ORB_PACK;
-	public static Item LITHIUM_BATTERY;
-	public static Item OMNI_TOOL;
-	public static Item LAPOTRONIC_ORB;
-	public static Item MANUAL;
-	public static Item UU_MATTER;
 	public static Item PLATES;
+	public static Item SMALL_DUSTS;
+	public static Item UU_MATTER;
+	
+	// Armor
 	public static Item CLOAKING_DEVICE;
-	public static Item RE_BATTERY;
-	public static Item TREE_TAP;
-	public static Item ELECTRIC_TREE_TAP;
-	public static Item STEEL_DRILL;
-	public static Item DIAMOND_DRILL;
-	public static Item ADVANCED_DRILL;
-	public static Item STEEL_CHAINSAW;
-	public static Item DIAMOND_CHAINSAW;
-	public static Item ADVANCED_CHAINSAW;
-	public static Item STEEL_JACKHAMMER;
-	public static Item DIAMOND_JACKHAMMER;
-	public static Item ADVANCED_JACKHAMMER;
-	public static Item NANOSABER;
-	public static Item WRENCH;
-	public static Item LAPOTRONIC_CRYSTAL;
+	public static Item LAPOTRONIC_ORB_PACK;
+	public static Item LITHIUM_BATTERY_PACK;
+	
+	// Battery
 	public static Item ENERGY_CRYSTAL;
-	public static Item SCRAP_BOX;
+	public static Item LAPOTRONIC_CRYSTAL;
+	public static Item LAPOTRONIC_ORB;
+	public static Item LITHIUM_BATTERY;
+	public static Item RE_BATTERY;
+	
+	// Tools
+	public static Item ADVANCED_CHAINSAW;
+	public static Item ADVANCED_DRILL;
+	public static Item ADVANCED_JACKHAMMER;
+	public static Item DEBUG;
+	public static Item DIAMOND_CHAINSAW;
+	public static Item DIAMOND_DRILL;
+	public static Item DIAMOND_JACKHAMMER;
+	public static Item ELECTRIC_TREE_TAP;
+	public static Item NANOSABER;
+	public static Item OMNI_TOOL;
+	public static Item ROCK_CUTTER;
+	public static Item STEEL_CHAINSAW;
+	public static Item STEEL_DRILL;
+	public static Item STEEL_JACKHAMMER;
+	public static Item TREE_TAP;
+	public static Item WRENCH;
+	
+	// Other
+	public static DynamicCell CELL;
 	public static Item FREQUENCY_TRANSMITTER;
-	public static @Nullable
-	Item BRONZE_SWORD;
+	public static Item MANUAL;
+	public static Item MISSING_RECIPE_PLACEHOLDER;
+	public static Item SCRAP_BOX;
+	public static Item UPGRADES;
+
+	// Gem armor&tools
+	@Nullable
+	public static Item BRONZE_SWORD;
 	@Nullable
 	public static Item BRONZE_PICKAXE;
 	@Nullable
@@ -153,78 +177,94 @@ public class ModItems {
 	public static Item PERIDOT_LEGGINGS;
 	@Nullable
 	public static Item PERIDOT_BOOTS;
-	public static Item UPGRADES;
-	public static Item MISSING_RECIPE_PLACEHOLDER;
-	public static Item DEBUG;
-	public static DynamicCell CELL;
 
 	public static void init() throws InstantiationException, IllegalAccessException {
+		// Ingredients
+		DUSTS = new ItemDusts();
+		registerItem(DUSTS, "dust");
 		GEMS = new ItemGems();
 		registerItem(GEMS, "gem");
 		INGOTS = new ItemIngots();
 		registerItem(INGOTS, "ingot");
-		DUSTS = new ItemDusts();
-		registerItem(DUSTS, "dust");
-		SMALL_DUSTS = new ItemDustsSmall();
-		registerItem(SMALL_DUSTS, "smallDust");
-		PLATES = new ItemPlates();
-		registerItem(PLATES, "plates");
 		NUGGETS = new ItemNuggets();
 		registerItem(NUGGETS, "nuggets");
-		// purifiedCrushedOre = new ItemPurifiedCrushedOre();
-		// registerItem(purifiedCrushedOre, "purifiedCrushedOre");
 		PARTS = new ItemParts();
 		registerItem(PARTS, "part");
+		PLATES = new ItemPlates();
+		registerItem(PLATES, "plates");		
+		SMALL_DUSTS = new ItemDustsSmall();
+		registerItem(SMALL_DUSTS, "smallDust");
+		UU_MATTER = new ItemUUmatter();
+		registerItem(UU_MATTER, "uumatter");
 
-		ROCK_CUTTER = new ItemRockCutter();
-		registerItem(ROCK_CUTTER, "rockCutter");
-		LITHIUM_BATTERY_PACK = new ItemLithiumBatpack();
-		registerItem(LITHIUM_BATTERY_PACK, "lithiumBatpack");
+		// Armor
+		CLOAKING_DEVICE = new ItemCloakingDevice();
+		registerItem(CLOAKING_DEVICE, "cloakingdevice");
 		LAPOTRONIC_ORB_PACK = new ItemLapotronPack();
 		registerItem(LAPOTRONIC_ORB_PACK, "lapotronPack");
-		LITHIUM_BATTERY = new ItemLithiumBattery();
-		registerItem(LITHIUM_BATTERY, "lithiumBattery");
-		LAPOTRONIC_ORB = new ItemLapotronicOrb();
-		registerItem(LAPOTRONIC_ORB, "lapotronicOrb");
-		OMNI_TOOL = new ItemOmniTool();
-		registerItem(OMNI_TOOL, "omniTool");
+		LITHIUM_BATTERY_PACK = new ItemLithiumBatpack();
+		registerItem(LITHIUM_BATTERY_PACK, "lithiumBatpack");
+		
+		// Battery
 		ENERGY_CRYSTAL = new ItemEnergyCrystal();
 		registerItem(ENERGY_CRYSTAL, "energycrystal");
 		LAPOTRONIC_CRYSTAL = new ItemLapotronCrystal();
-		registerItem(LAPOTRONIC_CRYSTAL, "lapotroncrystal");
-
-		MANUAL = new ItemTechManual();
-		registerItem(MANUAL, "techmanuel");
-		UU_MATTER = new ItemUUmatter();
-		registerItem(UU_MATTER, "uumatter");
+		registerItem(LAPOTRONIC_CRYSTAL, "lapotroncrystal");		
+		LAPOTRONIC_ORB = new ItemLapotronicOrb();
+		registerItem(LAPOTRONIC_ORB, "lapotronicOrb");		
+		LITHIUM_BATTERY = new ItemLithiumBattery();
+		registerItem(LITHIUM_BATTERY, "lithiumBattery");
 		RE_BATTERY = new ItemReBattery();
-		registerItem(RE_BATTERY, "rebattery");
-		TREE_TAP = new ItemTreeTap();
-		registerItem(TREE_TAP, "treetap");
-
-		ELECTRIC_TREE_TAP = new ItemElectricTreetap();
-		registerItem(ELECTRIC_TREE_TAP, "electricTreetap");
-
-		STEEL_DRILL = new ItemSteelDrill();
-		registerItem(STEEL_DRILL, "irondrill");
-		DIAMOND_DRILL = new ItemDiamondDrill();
-		registerItem(DIAMOND_DRILL, "diamonddrill");
-		ADVANCED_DRILL = new ItemAdvancedDrill();
-		registerItem(ADVANCED_DRILL, "advanceddrill");
-
-		STEEL_CHAINSAW = new ItemSteelChainsaw();
-		registerItem(STEEL_CHAINSAW, "ironchainsaw");
-		DIAMOND_CHAINSAW = new ItemDiamondChainsaw();
-		registerItem(DIAMOND_CHAINSAW, "diamondchainsaw");
+		registerItem(RE_BATTERY, "rebattery");		
+		
+		// Tools
 		ADVANCED_CHAINSAW = new ItemAdvancedChainsaw();
-		registerItem(ADVANCED_CHAINSAW, "advancedchainsaw");
-
-		STEEL_JACKHAMMER = new ItemSteelJackhammer();
-		registerItem(STEEL_JACKHAMMER, "steeljackhammer");
+		registerItem(ADVANCED_CHAINSAW, "advancedchainsaw");		
+		ADVANCED_DRILL = new ItemAdvancedDrill();
+		registerItem(ADVANCED_DRILL, "advanceddrill");		
+		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
+		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");		
+		DEBUG = new ItemDebugTool();
+		registerItem(DEBUG, "debug");		
+		DIAMOND_CHAINSAW = new ItemDiamondChainsaw();
+		registerItem(DIAMOND_CHAINSAW, "diamondchainsaw");		
+		DIAMOND_DRILL = new ItemDiamondDrill();
+		registerItem(DIAMOND_DRILL, "diamonddrill");		
 		DIAMOND_JACKHAMMER = new ItemDiamondJackhammer();
 		registerItem(DIAMOND_JACKHAMMER, "diamondjackhammer");
-		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
-		registerItem(ADVANCED_JACKHAMMER, "ironjackhammer");
+		ELECTRIC_TREE_TAP = new ItemElectricTreetap();
+		registerItem(ELECTRIC_TREE_TAP, "electricTreetap");	
+		NANOSABER = new ItemNanosaber();
+		registerItem(NANOSABER, "nanosaber");
+		OMNI_TOOL = new ItemOmniTool();
+		registerItem(OMNI_TOOL, "omniTool");		
+		ROCK_CUTTER = new ItemRockCutter();
+		registerItem(ROCK_CUTTER, "rockCutter");
+		STEEL_CHAINSAW = new ItemSteelChainsaw();
+		registerItem(STEEL_CHAINSAW, "ironchainsaw");		
+		STEEL_DRILL = new ItemSteelDrill();
+		registerItem(STEEL_DRILL, "irondrill");	
+		STEEL_JACKHAMMER = new ItemSteelJackhammer();
+		registerItem(STEEL_JACKHAMMER, "steeljackhammer");
+		TREE_TAP = new ItemTreeTap();
+		registerItem(TREE_TAP, "treetap");		
+		WRENCH = new ItemWrench();
+		registerItem(WRENCH, "wrench");
+		
+		// Other
+		CELL = new DynamicCell();
+		registerItem(CELL, "dynamicCell");
+		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);		
+		FREQUENCY_TRANSMITTER = new ItemFrequencyTransmitter();
+		registerItem(FREQUENCY_TRANSMITTER, "frequencyTransmitter");
+		MANUAL = new ItemTechManual();
+		registerItem(MANUAL, "techmanuel");
+		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
+		registerItem(MISSING_RECIPE_PLACEHOLDER, "missingRecipe");
+		SCRAP_BOX = new ItemScrapBox();
+		registerItem(SCRAP_BOX, "scrapbox");
+		UPGRADES = new ItemUpgrades();
+		registerItem(UPGRADES, "upgrades");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");
@@ -308,35 +348,6 @@ public class ModItems {
 			registerItem(PERIDOT_BOOTS, "peridotBoots");
 		}
 
-		WRENCH = new ItemWrench();
-		registerItem(WRENCH, "wrench");
-
-		NANOSABER = new ItemNanosaber();
-		registerItem(NANOSABER, "nanosaber");
-
-		SCRAP_BOX = new ItemScrapBox();
-		registerItem(SCRAP_BOX, "scrapbox");
-
-		FREQUENCY_TRANSMITTER = new ItemFrequencyTransmitter();
-		registerItem(FREQUENCY_TRANSMITTER, "frequencyTransmitter");
-
-		UPGRADES = new ItemUpgrades();
-		registerItem(UPGRADES, "upgrades");
-
-		CLOAKING_DEVICE = new ItemCloakingDevice();
-		registerItem(CLOAKING_DEVICE, "cloakingdevice");
-
-		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
-		registerItem(MISSING_RECIPE_PLACEHOLDER, "missingRecipe");
-
-		DEBUG = new ItemDebugTool();
-		registerItem(DEBUG, "debug");
-
-		CELL = new DynamicCell();
-		registerItem(CELL, "dynamicCell");
-
-		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
-
 		Core.logHelper.info("TechReborns Items Loaded");
 
 		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
@@ -349,5 +360,4 @@ public class ModItems {
 		item.setRegistryName(name);
 		RebornRegistry.registerItem(item);
 	}
-
 }

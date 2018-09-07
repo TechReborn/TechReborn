@@ -37,7 +37,6 @@ import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.api.IToolHandler;
 import reborncore.common.util.RebornPermissions;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.compat.CompatManager;
 import techreborn.items.ItemTR;
 import techreborn.utils.IC2WrenchHelper;
@@ -48,7 +47,6 @@ import techreborn.utils.IC2WrenchHelper;
 public class ItemWrench extends ItemTR implements IToolHandler {
 
 	public ItemWrench() {
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setUnlocalizedName("techreborn.wrench");
 		setMaxStackSize(1);
 	}

@@ -40,7 +40,7 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemParts;
 
 /**
  * Created by modmuss50 on 16/07/2016.

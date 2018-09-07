@@ -41,8 +41,8 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModItems;
 import techreborn.init.recipes.RecipeMethods;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemPlates;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemPlates;
 
 /**
  * Created by modmuss50 on 06/07/2017.

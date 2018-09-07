@@ -34,7 +34,6 @@ import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.WorldUtils;
 import techreborn.api.Reference;
-import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
 
@@ -42,7 +41,6 @@ public class ItemScrapBox extends ItemTR {
 
 	public ItemScrapBox() {
 		setUnlocalizedName("techreborn.scrapbox");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

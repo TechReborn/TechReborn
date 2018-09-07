@@ -110,7 +110,7 @@ import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemParts;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

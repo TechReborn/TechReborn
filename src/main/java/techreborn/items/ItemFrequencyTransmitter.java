@@ -41,7 +41,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
 
@@ -52,7 +51,6 @@ public class ItemFrequencyTransmitter extends ItemTR {
 
 	public ItemFrequencyTransmitter() {
 		setUnlocalizedName("techreborn.frequencyTransmitter");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		this.addPropertyOverride(new ResourceLocation("techreborn:coords"), new IItemPropertyGetter() {
 			@Override

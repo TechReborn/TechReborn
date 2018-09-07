@@ -47,7 +47,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModItems;
 import techreborn.items.ItemTR;
@@ -65,7 +64,6 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 
 	public ItemElectricTreetap() {
 		setUnlocalizedName("techreborn.electric_treetap");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 	}
 

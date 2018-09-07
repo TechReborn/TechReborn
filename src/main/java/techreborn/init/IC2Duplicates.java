@@ -28,8 +28,8 @@ import net.minecraft.item.ItemStack;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.ItemIngots;
-import techreborn.items.ItemParts;
+import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemParts;
 
 /**
  * Created by Mark on 18/12/2016.

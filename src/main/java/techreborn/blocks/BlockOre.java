@@ -51,8 +51,8 @@ import reborncore.common.util.StringUtils;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModBlocks;
-import techreborn.items.ItemDusts;
-import techreborn.items.ItemGems;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemGems;
 import techreborn.lib.ModInfo;
 import techreborn.world.config.IOreNameProvider;
 
