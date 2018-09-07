@@ -37,7 +37,6 @@ public class ContainerDestructoPack extends RebornContainer {
 	private EntityPlayer player;
 	private Inventory inv;
 
-	@SuppressWarnings("deprecation")
 	public ContainerDestructoPack(EntityPlayer player) {
 		super(null);
 		this.player = player;

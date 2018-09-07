@@ -51,8 +51,8 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y + 0.5F, (float) z);
-		if ((float) entity.fuse - partialTicks + 1.0F < 10.0F) {
-			float f = 1.0F - ((float) entity.fuse - partialTicks + 1.0F) / 10.0F;
+		if ((float) entity.getFuse() - partialTicks + 1.0F < 10.0F) {
+			float f = 1.0F - ((float) entity.getFuse() - partialTicks + 1.0F) / 10.0F;
 			f = MathHelper.clamp(f, 0.0F, 1.0F);
 			f = f * f;
 			f = f * f;
@@ -64,7 +64,7 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 		blockrendererdispatcher.renderBlockBrightness(ModBlocks.NUKE.getDefaultState(),
 			entity.getBrightness());
 		GlStateManager.translate(0.0F, 0.0F, 1.0F);
-		if (entity.fuse / 5 % 2 == 0) {
+		if (entity.getFuse() / 5 % 2 == 0) {
 			GlStateManager.disableLighting();
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(770, 772);
