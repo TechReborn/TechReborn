@@ -41,8 +41,8 @@ import techreborn.lib.ModInfo;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class EntityNukePrimed extends EntityTNTPrimed {
 
-	@ConfigRegistry(config = "misc", category = "nuke", key = "fuse", comment = "Nuke fuse time (ticks)")
-	public static int fuse = 400;
+	@ConfigRegistry(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")
+	public static int fuseTime = 400;
 
 	@ConfigRegistry(config = "misc", category = "nuke", key = "radius", comment = "Nuke explision radius")
 	public static int radius = 40;
@@ -52,48 +52,54 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 
 	public EntityNukePrimed(World world) {
 		super(world);
+		setFuse(EntityNukePrimed.fuseTime);
 	}
 
 	public EntityNukePrimed(World world, double x, double y, double z, EntityLivingBase tntPlacedBy) {
 		super(world, x, y, z, tntPlacedBy);
+		setFuse(EntityNukePrimed.fuseTime);
 	}
 
 	@Override
 	public void onUpdate() {
-
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
-		this.motionY -= 0.03999999910593033D;
+
+		if (!this.hasNoGravity()) {
+			this.motionY -= 0.03999999910593033D;
+		}
+
 		this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
 		this.motionY *= 0.9800000190734863D;
 		this.motionZ *= 0.9800000190734863D;
+
 		if (this.onGround) {
 			this.motionX *= 0.699999988079071D;
 			this.motionZ *= 0.699999988079071D;
 			this.motionY *= -0.5D;
 		}
-		if (this.fuse-- <= 0) {
+
+		setFuse(getFuse() - 1);
+
+		if (getFuse() <= 0) {
 			this.setDead();
 			if (!this.world.isRemote) {
-				this.explodeNuke();
+				explodeNuke();
 			}
 		} else {
 			this.handleWaterMovement();
-			this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.5D, this.posZ, 0.0D,
-				0.0D, 0.0D, new int[0]);
+			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
 	public void explodeNuke() {
-		if(!enabled){
+		if (!enabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(this.posX, this.posY, this.posZ), world,
-			radius);
+		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(posX, posY, posZ), world, radius);
 		nukeExplosion.setLivingBase(getTntPlacedBy());
 		nukeExplosion.explode();
 	}
-
 }

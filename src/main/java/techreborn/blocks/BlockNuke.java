@@ -33,17 +33,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.common.BaseBlock;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.lib.ModInfo;
+import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -59,13 +61,13 @@ public class BlockNuke extends BaseBlock {
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
-	public void explode(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
+	public void ignite(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {
 		if (!worldIn.isRemote) {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
-				(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter);
+					(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter);
 			worldIn.spawnEntity(entitynukeprimed);
-			// worldIn.playSoundAtEntity(entitynukeprimed, "game.tnt.primed",
-			// 1.0F, 1.0F);
+			worldIn.playSound((EntityPlayer) null, entitynukeprimed.posX, entitynukeprimed.posY, entitynukeprimed.posZ,
+					SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		}
 	}
 
@@ -73,8 +75,8 @@ public class BlockNuke extends BaseBlock {
 	public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
 		if (!worldIn.isRemote) {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
-				(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy());
-			entitynukeprimed.fuse = worldIn.rand.nextInt(entitynukeprimed.fuse / 4) + entitynukeprimed.fuse / 8;
+					(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy());
+			entitynukeprimed.setFuse(worldIn.rand.nextInt(EntityNukePrimed.fuseTime / 4) + EntityNukePrimed.fuseTime / 8);
 			worldIn.spawnEntity(entitynukeprimed);
 		}
 	}
@@ -83,10 +85,12 @@ public class BlockNuke extends BaseBlock {
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
 			EntityArrow entityarrow = (EntityArrow) entityIn;
-
+			EntityLivingBase shooter = null;
+			if (entityarrow.shootingEntity instanceof EntityLivingBase) {
+				shooter = (EntityLivingBase) entityarrow.shootingEntity;
+			}
 			if (entityarrow.isBurning()) {
-				this.explode(worldIn, pos, state, entityarrow.shootingEntity instanceof EntityLivingBase
-				                                  ? (EntityLivingBase) entityarrow.shootingEntity : null);
+				ignite(worldIn, pos, state, shooter);
 				worldIn.setBlockToAir(pos);
 			}
 		}
@@ -96,25 +100,22 @@ public class BlockNuke extends BaseBlock {
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
 		super.onBlockAdded(worldIn, pos, state);
 		if (worldIn.isBlockPowered(pos)) {
-			this.explode(worldIn, pos, state, null);
+			ignite(worldIn, pos, state, null);
 			worldIn.setBlockToAir(pos);
 		}
 	}
 
-	/**
-	 * Called when a neighboring block changes.
-	 */
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_) {
 		if (worldIn.isBlockPowered(pos)) {
-			this.explode(worldIn, pos, state, null);
+			ignite(worldIn, pos, state, null);
 			worldIn.setBlockToAir(pos);
 		}
 	}
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		return false;
 	}
 
