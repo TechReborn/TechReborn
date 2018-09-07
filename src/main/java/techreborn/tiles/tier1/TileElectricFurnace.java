@@ -30,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -44,7 +44,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileElectricFurnace extends TilePowerAcceptor
-		implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceInput", comment = "Electric Furnace Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -69,37 +69,37 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public void cookItems() {
 		if (canSmelt()) {
-			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
+			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(inventory.getStackInSlot(input1));
 
-			if (getStackInSlot(output).isEmpty()) {
-				setInventorySlotContents(output, itemstack.copy());
-			} else if (getStackInSlot(output).isItemEqual(itemstack)) {
-				getStackInSlot(output).grow(itemstack.getCount());
+			if (inventory.getStackInSlot(output).isEmpty()) {
+				inventory.setStackInSlot(output, itemstack.copy());
+			} else if (inventory.getStackInSlot(output).isItemEqual(itemstack)) {
+				inventory.getStackInSlot(output).grow(itemstack.getCount());
 			}
-			if (getStackInSlot(input1).getCount() > 1) {
-				decrStackSize(input1, 1);
+			if (inventory.getStackInSlot(input1).getCount() > 1) {
+				inventory.shrinkSlot(input1, 1);
 			} else {
-				setInventorySlotContents(input1, ItemStack.EMPTY);
+				inventory.setStackInSlot(input1, ItemStack.EMPTY);
 			}
 		}
 	}
 
 	public boolean canSmelt() {
-		if (getStackInSlot(input1).isEmpty()) {
+		if (inventory.getStackInSlot(input1).isEmpty()) {
 			return false;
 		}
-		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(getStackInSlot(input1));
+		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(inventory.getStackInSlot(input1));
 		if (itemstack.isEmpty()) {
 			return false;
 		}
-		if (getStackInSlot(output).isEmpty()) {
+		if (inventory.getStackInSlot(output).isEmpty()) {
 			return true;
 		}
-		if (!getStackInSlot(output).isItemEqual(itemstack)) {
+		if (!inventory.getStackInSlot(output).isItemEqual(itemstack)) {
 			return false;
 		}
-		final int result = getStackInSlot(output).getCount() + itemstack.getCount();
-		return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
+		final int result = inventory.getStackInSlot(output).getCount() + itemstack.getCount();
+		return result <= this.inventory.getStackLimit() && result <= itemstack.getMaxStackSize();
 	}
 
 	public boolean isBurning() {
@@ -207,7 +207,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		return new ItemStack(ModBlocks.ELECTRIC_FURNACE, 1);
 	}
 
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;

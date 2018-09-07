@@ -32,7 +32,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.ForgeModContainer;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -45,7 +45,7 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
+public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
 	public static int maxOutput = 32;
@@ -90,19 +90,19 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 
 		if (burnTime == 0) {
 			updateState();
-			burnTime = totalBurnTime = TileSolidFuelGenerator.getItemBurnTime(getStackInSlot(fuelSlot));
+			burnTime = totalBurnTime = TileSolidFuelGenerator.getItemBurnTime(inventory.getStackInSlot(fuelSlot));
 			if (burnTime > 0) {
 				updateState();
-				burnItem = getStackInSlot(fuelSlot);
-				if (getStackInSlot(fuelSlot).getCount() == 1) {
-					if (getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
-						setInventorySlotContents(fuelSlot, new ItemStack(Items.BUCKET));
+				burnItem = inventory.getStackInSlot(fuelSlot);
+				if (inventory.getStackInSlot(fuelSlot).getCount() == 1) {
+					if (inventory.getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
+						inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
-						setInventorySlotContents(fuelSlot, ItemStack.EMPTY);
+						inventory.setStackInSlot(fuelSlot, ItemStack.EMPTY);
 					}
 
 				} else {
-					decrStackSize(fuelSlot, 1);
+					inventory.shrinkSlot(fuelSlot, 1);
 				}
 			}
 		}

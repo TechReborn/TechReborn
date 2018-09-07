@@ -28,8 +28,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.common.recipes.RecipeCrafter;
 import techreborn.client.gui.GuiBase;
@@ -41,13 +41,13 @@ import java.util.List;
 
 public class ConfigSlotElement extends ElementBase {
 	SlotType type;
-	IInventory inventory;
+	IItemHandler inventory;
 	int id;
 	public List<ElementBase> elements = new ArrayList<>();
 	boolean filter = false;
 
 
-	public ConfigSlotElement(IInventory slotInventory, int slotId, SlotType type, int x, int y, GuiBase gui) {
+	public ConfigSlotElement(IItemHandler slotInventory, int slotId, SlotType type, int x, int y, GuiBase gui) {
 		super(x, y, type.getButtonSprite());
 		this.type = type;
 		this.inventory = slotInventory;

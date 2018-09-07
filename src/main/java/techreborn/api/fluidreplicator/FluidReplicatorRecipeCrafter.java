@@ -181,7 +181,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 			return;
 		}
 		if (hasAllInputs(currentRecipe)) {
-			inventory.decrStackSize(inputSlots[0], currentRecipe.getInput());	
+			inventory.shrinkSlot(inputSlots[0], currentRecipe.getInput());
 		}
 	}
 	

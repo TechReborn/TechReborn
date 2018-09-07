@@ -24,22 +24,22 @@
 
 package techreborn.client.container.builder.slot;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import reborncore.client.gui.slots.BaseSlot;
 
 import java.util.function.Predicate;
 
-public class FilteredSlot extends Slot {
+public class FilteredSlot extends BaseSlot {
 
 	private Predicate<ItemStack> filter;
 	private int stackLimit = 64;
 
-	public FilteredSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition) {
+	public FilteredSlot(final IItemHandler inventory, final int index, final int xPosition, final int yPosition) {
 		super(inventory, index, xPosition, yPosition);
 	}
 
-	public FilteredSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, int stackLimit) {
+	public FilteredSlot(final IItemHandler inventory, final int index, final int xPosition, final int yPosition, int stackLimit) {
 		super(inventory, index, xPosition, yPosition);
 		this.stackLimit = stackLimit;
 	}

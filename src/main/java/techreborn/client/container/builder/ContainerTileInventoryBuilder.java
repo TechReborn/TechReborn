@@ -24,14 +24,14 @@
 
 package techreborn.client.container.builder;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.IUpgradeable;
@@ -39,8 +39,10 @@ import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
+import techreborn.client.container.builder.slot.FurnaceFuelSlot;
 import techreborn.client.container.builder.slot.UpgradeSlot;
 
 import java.util.function.Consumer;
@@ -50,54 +52,56 @@ import java.util.function.Predicate;
 
 public class ContainerTileInventoryBuilder {
 
-	private final IInventory tile;
+	private final TileLegacyMachineBase tile;
 	private final ContainerBuilder parent;
 	private final int rangeStart;
 
-	ContainerTileInventoryBuilder(final ContainerBuilder parent, final IInventory tile) {
+	ContainerTileInventoryBuilder(final ContainerBuilder parent, final TileLegacyMachineBase tile) {
 		this.tile = tile;
 		this.parent = parent;
 		this.rangeStart = parent.slots.size();
-		if (tile instanceof IUpgradeable) {
-			upgradeSlots((IUpgradeable) tile);
+		//Ensure that the tile has an inv
+		Validate.isTrue(tile.getInventoryForTile().isPresent());
+		if (tile.canBeUpgraded()) {
+			upgradeSlots(tile);
 		}
 	}
 
 	public ContainerTileInventoryBuilder slot(final int index, final int x, final int y) {
-		this.parent.slots.add(new BaseSlot(this.tile, index, x, y));
+		this.parent.slots.add(new BaseSlot(this.tile.getInventoryForTile().get(), index, x, y));
 		return this;
 	}
 
 	public ContainerTileInventoryBuilder outputSlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new SlotOutput(this.tile, index, x, y));
+		this.parent.slots.add(new SlotOutput(this.tile.getInventoryForTile().get(), index, x, y));
 		return this;
 	}
 
 	public ContainerTileInventoryBuilder fakeSlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new SlotFake(this.tile, index, x, y, false, false, Integer.MAX_VALUE));
+		this.parent.slots.add(new SlotFake(this.tile.getInventoryForTile().get(), index, x, y, false, false, Integer.MAX_VALUE));
 		return this;
 	}
 
 	public ContainerTileInventoryBuilder filterSlot(final int index, final int x, final int y,
 	                                                final Predicate<ItemStack> filter) {
-		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(filter));
+		this.parent.slots.add(new FilteredSlot(this.tile.getInventoryForTile().get(), index, x, y).setFilter(filter));
 		return this;
 	}
 
 	public ContainerTileInventoryBuilder energySlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y)
+		this.parent.slots.add(new FilteredSlot(this.tile.getInventoryForTile().get(), index, x, y)
 			.setFilter(stack -> stack.hasCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)));
 		return this;
 	}
 
 	public ContainerTileInventoryBuilder fluidSlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(
+		this.parent.slots.add(new FilteredSlot(this.tile.getInventoryForTile().get(), index, x, y).setFilter(
 			stack -> stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, EnumFacing.UP)));
 		return this;
 	}
 
 	public ContainerTileInventoryBuilder fuelSlot(final int index, final int x, final int y) {
-		this.parent.slots.add(new SlotFurnaceFuel(this.tile, index, x, y));
+		this.parent.slots.add(new FurnaceFuelSlot(this.tile.getInventoryForTile().get(), index, x, y));
 		return this;
 	}
 

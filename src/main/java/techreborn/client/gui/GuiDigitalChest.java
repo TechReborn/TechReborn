@@ -50,13 +50,13 @@ public class GuiDigitalChest extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if (!this.digitalChest.storedItem.isEmpty() && this.digitalChest.getStackInSlot(1) != null) {
+		if (!this.digitalChest.storedItem.isEmpty() && !this.digitalChest.inventory.getStackInSlot(1).isEmpty()) {
 			this.builder.drawBigBlueBar(this, 31, 43,
-				this.digitalChest.storedItem.getCount() + this.digitalChest.getStackInSlot(1).getCount(),
+				this.digitalChest.storedItem.getCount() + this.digitalChest.inventory.getStackInSlot(1).getCount(),
 				this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
-		if (this.digitalChest.storedItem.isEmpty() && this.digitalChest.getStackInSlot(1) != null) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.digitalChest.getStackInSlot(1).getCount(),
+		if (this.digitalChest.storedItem.isEmpty() && !this.digitalChest.inventory.getStackInSlot(1).isEmpty()) {
+			this.builder.drawBigBlueBar(this, 31, 43, this.digitalChest.inventory.getStackInSlot(1).getCount(),
 				this.digitalChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
 		}
 	}

@@ -32,7 +32,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
@@ -42,7 +42,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
  * Created by Rushmead
  */
 public class TileEnergyStorage extends TilePowerAcceptor 
-		implements IToolDrop, IInventoryProvider {
+		implements IToolDrop, ItemHandlerProvider {
 
 	public Inventory inventory;
 	public String name;
@@ -139,7 +139,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 		return new ItemStack(wrenchDrop);
 	}
 	
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;

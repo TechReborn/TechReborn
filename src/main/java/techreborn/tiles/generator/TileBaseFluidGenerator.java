@@ -28,7 +28,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
@@ -41,7 +41,7 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 
 import javax.annotation.Nullable;
 
-public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider {
+public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider {
 
 	private final FluidGeneratorRecipeList recipes;
 	private final int euTick;
@@ -135,8 +135,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	protected boolean acceptFluid() {
-		if (!getStackInSlot(0).isEmpty()) {
-			FluidStack stack = FluidUtils.getFluidStackInContainer(getStackInSlot(0));
+		if (!inventory.getStackInSlot(0).isEmpty()) {
+			FluidStack stack = FluidUtils.getFluidStackInContainer(inventory.getStackInSlot(0));
 			if (stack != null)
 				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
 		}

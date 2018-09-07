@@ -25,19 +25,19 @@
 package techreborn.client.container.builder.slot;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.items.IItemHandler;
 import reborncore.api.tile.IUpgrade;
 import reborncore.api.tile.IUpgradeable;
+import reborncore.client.gui.slots.BaseSlot;
 import reborncore.common.util.Inventory;
 import techreborn.client.container.IRightClickHandler;
 import techreborn.client.container.builder.BuiltContainer;
 
-public class UpgradeSlot extends Slot implements IRightClickHandler {
+public class UpgradeSlot extends BaseSlot implements IRightClickHandler {
 
-	public UpgradeSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition) {
+	public UpgradeSlot(final IItemHandler inventory, final int index, final int xPosition, final int yPosition) {
 		super(inventory, index, xPosition, yPosition);
 	}
 

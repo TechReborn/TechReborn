@@ -26,7 +26,6 @@ package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
@@ -35,9 +34,10 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -59,7 +59,7 @@ import java.util.List;
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAutoCraftingTable extends TilePowerAcceptor
-		implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterInput", comment = "AutoCrafting Table Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -160,7 +160,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	boolean hasRoomForExtraItem(ItemStack stack) {
-		ItemStack extraOutputSlot = getStackInSlot(10);
+		ItemStack extraOutputSlot = inventory.getStackInSlot(10);
 		if (extraOutputSlot.isEmpty()) {
 			return true;
 		}
@@ -208,7 +208,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		// TODO fire forge recipe event
 		ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
 		if (output.isEmpty()) {
-			inventory.setInventorySlotContents(9, ouputStack.copy());
+			inventory.setStackInSlot(9, ouputStack.copy());
 		} else {
 			// TODO use ouputStack in someway?
 			output.grow(recipe.getRecipeOutput().getCount());
@@ -219,10 +219,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	private void handleContainerItem(ItemStack stack) {
 		if (stack.getItem().hasContainerItem(stack)) {
 			ItemStack containerItem = stack.getItem().getContainerItem(stack);
-			ItemStack extraOutputSlot = getStackInSlot(10);
+			ItemStack extraOutputSlot = inventory.getStackInSlot(10);
 			if (hasOutputSpace(containerItem, 10)) {
 				if (extraOutputSlot.isEmpty()) {
-					setInventorySlotContents(10, containerItem.copy());
+					inventory.setStackInSlot(10, containerItem.copy());
 				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true)
 						&& extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
 					extraOutputSlot.grow(1);
@@ -442,9 +442,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return new ItemStack(ModBlocks.AUTO_CRAFTING_TABLE, 1);
 	}
 
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
-	public IInventory getInventory() {
+	public IItemHandler getInventory() {
 		return inventory;
 	}
 

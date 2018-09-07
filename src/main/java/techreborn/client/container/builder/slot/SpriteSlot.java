@@ -24,9 +24,9 @@
 
 package techreborn.client.container.builder.slot;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 
@@ -35,13 +35,13 @@ public class SpriteSlot extends FilteredSlot {
 	private final String spriteName;
 	int stacksize;
 
-	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final String sprite, final int stacksize) {
+	public SpriteSlot(final IItemHandler inventory, final int index, final int xPosition, final int yPosition, final String sprite, final int stacksize) {
 		super(inventory, index, xPosition, yPosition);
 		this.spriteName = sprite;
 		this.stacksize = stacksize;
 	}
 
-	public SpriteSlot(final IInventory inventory, final int index, final int xPosition, final int yPosition, final String sprite) {
+	public SpriteSlot(final IItemHandler inventory, final int index, final int xPosition, final int yPosition, final String sprite) {
 		this(inventory, index, xPosition, yPosition, sprite, 64);
 	}
 

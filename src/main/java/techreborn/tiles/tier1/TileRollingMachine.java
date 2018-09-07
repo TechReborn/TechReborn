@@ -34,7 +34,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -56,7 +56,7 @@ import java.util.Optional;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileRollingMachine extends TilePowerAcceptor
-	implements IToolDrop, IInventoryProvider, IContainerProvider {
+	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxInput", comment = "Rolling Machine Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -137,7 +137,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
 					if (inventory.getStackInSlot(outputSlot).isEmpty()) {
-						inventory.setInventorySlotContents(outputSlot, currentRecipeOutput);
+						inventory.setStackInSlot(outputSlot, currentRecipeOutput);
 						tickTime = 0;
 						hasCrafted = true;
 					} else {
@@ -145,14 +145,14 @@ public class TileRollingMachine extends TilePowerAcceptor
 								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxStackSize()) {
 							final ItemStack stack = inventory.getStackInSlot(outputSlot);
 							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
-							inventory.setInventorySlotContents(outputSlot, stack);
+							inventory.setStackInSlot(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
 						}
 					}
 					if (hasCrafted) {
 						for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
-							inventory.decrStackSize(i, 1);
+							inventory.shrinkSlot(i, 1);
 						}
 						currentRecipeOutput = ItemStack.EMPTY;
 						currentRecipe = null;
@@ -234,7 +234,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		}
 		sourceStack.shrink(1);
 		inventory.getStackInSlot(bestSlot.getLeft()).grow(1);
-		inventory.hasChanged = true;
+		inventory.setChanged();
 
 		return Optional.of(getCraftingMatrix());
 	}
@@ -243,11 +243,11 @@ public class TileRollingMachine extends TilePowerAcceptor
 		if (craftCache == null) {
 			craftCache = new InventoryCrafting(new RollingTileContainer(), 3, 3);
 		}
-		if (inventory.hasChanged) {
+		if (inventory.hasChanged()) {
 			for (int i = 0; i < 9; i++) {
 				craftCache.setInventorySlotContents(i, inventory.getStackInSlot(i).copy());
 			}
-			inventory.hasChanged = false;
+			inventory.resetChanged();
 		}
 		return craftCache;
 	}
@@ -265,7 +265,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		if (stack.isEmpty()) {
 			return false;
 		}
-		ItemStack output = getStackInSlot(outputSlot);
+		ItemStack output = inventory.getStackInSlot(outputSlot);
 		if (output.isEmpty()) {
 			return true;
 		}
@@ -322,7 +322,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
 			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
 			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
-			.onCraft(inv -> this.inventory.setInventorySlotContents(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+			.onCraft(inv -> this.inventory.setStackInSlot(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
 			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);

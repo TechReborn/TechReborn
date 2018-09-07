@@ -30,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
@@ -40,7 +40,7 @@ import reborncore.common.util.Inventory;
  *
  */
 public abstract class TileGenericMachine extends TilePowerAcceptor
-		implements IToolDrop, IInventoryProvider, IRecipeCrafterProvider{
+		implements IToolDrop, ItemHandlerProvider, IRecipeCrafterProvider{
 
 	public String name;
 	public int maxInput;
@@ -113,7 +113,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 		return new ItemStack(toolDrop, 1);
 	}
 	
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;

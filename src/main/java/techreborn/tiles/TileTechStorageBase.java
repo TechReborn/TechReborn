@@ -32,10 +32,9 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
@@ -45,11 +44,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileTechStorageBase extends TileLegacyMachineBase
-		implements IInventoryProvider, IToolDrop, IListInfoProvider {
+		implements ItemHandlerProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;
 	public final Inventory inventory;
-	public InvWrapper invWrapper;
 	public ItemStack storedItem;
 
 	public TileTechStorageBase(String name, int maxCapacity) {
@@ -95,16 +93,10 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
 		storedItem.setCount(0);
-		setInventorySlotContents(1, ItemStack.EMPTY);
+		inventory.setStackInSlot(1, ItemStack.EMPTY);
 		syncWithAll();
 
 		return dropStack;
-	}
-
-	public InvWrapper getInvWrapper() {
-		if (invWrapper == null)
-			invWrapper = new InvWrapper(this);
-		return invWrapper;
 	}
 
 	public int getStoredCount() {
@@ -115,8 +107,8 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		ArrayList<ItemStack> stacks = new ArrayList<>();
 
 		if (!getStoredItemType().isEmpty()) {
-			if (!getStackInSlot(1).isEmpty()) {
-				stacks.add(getStackInSlot(1));
+			if (!inventory.getStackInSlot(1).isEmpty()) {
+				stacks.add(inventory.getStackInSlot(1));
 			}
 			int size = storedItem.getMaxStackSize();
 			for (int i = 0; i < getStoredCount() / size; i++) {
@@ -140,25 +132,25 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		super.update();
 		if (!world.isRemote) {
 			ItemStack outputStack = ItemStack.EMPTY;
-			if (!getStackInSlot(1).isEmpty()) {
-				outputStack = getStackInSlot(1);
+			if (!inventory.getStackInSlot(1).isEmpty()) {
+				outputStack = inventory.getStackInSlot(1);
 			}
-			if (!getStackInSlot(0).isEmpty()
+			if (!inventory.getStackInSlot(0).isEmpty()
 					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
-				ItemStack inputStack = getStackInSlot(0);
+				ItemStack inputStack = inventory.getStackInSlot(0);
 				if (getStoredItemType().isEmpty()
 						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
 
 					storedItem = inputStack;
-					setInventorySlotContents(0, ItemStack.EMPTY);
+					inventory.setStackInSlot(0, ItemStack.EMPTY);
 				} else if (ItemUtils.isItemEqual(getStoredItemType(), inputStack, true, true)) {
 					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
 					if (inputStack.getCount() <= reminder) {
 						setStoredItemCount(inputStack.getCount());
-						setInventorySlotContents(0, ItemStack.EMPTY);
+						inventory.setStackInSlot(0, ItemStack.EMPTY);
 					} else {
 						setStoredItemCount(maxCapacity - outputStack.getCount());
-						getStackInSlot(0).shrink(reminder);
+						inventory.getStackInSlot(0).shrink(reminder);
 					}
 				}
 				markDirty();
@@ -176,7 +168,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 						storedItem = ItemStack.EMPTY;
 					}
 
-					setInventorySlotContents(1, delivered);
+					inventory.setStackInSlot(1, delivered);
 					markDirty();
 					syncWithAll();
 				} else if (ItemUtils.isItemEqual(storedItem, outputStack, true, true)
@@ -224,7 +216,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvWrapper());
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory);
 		}
 		return super.getCapability(capability, facing);
 	}
@@ -234,7 +226,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;
@@ -256,16 +248,16 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 				name = storedItem.getDisplayName();
 				size += storedItem.getCount();
 			}
-			if (!getStackInSlot(1).isEmpty()) {
-				name = getStackInSlot(1).getDisplayName();
-				size += getStackInSlot(1).getCount();
+			if (!inventory.getStackInSlot(1).isEmpty()) {
+				name = inventory.getStackInSlot(1).getDisplayName();
+				size += inventory.getStackInSlot(1).getCount();
 			}
 			info.add(size + " " + name);
 		}
 	}
 
 	public ItemStack getStoredItemType() {
-		return storedItem.isEmpty() ? getStackInSlot(1) : storedItem;
+		return storedItem.isEmpty() ? inventory.getStackInSlot(1) : storedItem;
 	}
 
 

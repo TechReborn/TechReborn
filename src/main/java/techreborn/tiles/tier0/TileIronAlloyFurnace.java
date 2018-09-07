@@ -34,7 +34,7 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -50,7 +50,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIronAlloyFurnace extends TileLegacyMachineBase
-	implements IToolDrop, IInventoryProvider, IContainerProvider {
+	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileIronAlloyFurnace", 64, this);
@@ -136,13 +136,13 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 			--this.burnTime;
 		}
 		if (!this.world.isRemote) {
-			if (this.burnTime != 0 || !this.getStackInSlot(this.input1).isEmpty()&& !this.getStackInSlot(this.fuel).isEmpty()) {
+			if (this.burnTime != 0 || !inventory.getStackInSlot(this.input1).isEmpty()&& !inventory.getStackInSlot(this.fuel).isEmpty()) {
 				if (this.burnTime == 0 && this.canSmelt()) {
-					this.currentItemBurnTime = this.burnTime = TileIronAlloyFurnace.getItemBurnTime(this.getStackInSlot(this.fuel));
+					this.currentItemBurnTime = this.burnTime = TileIronAlloyFurnace.getItemBurnTime(inventory.getStackInSlot(this.fuel));
 					if (this.burnTime > 0) {
 						flag1 = true;
-						if (!this.getStackInSlot(this.fuel).isEmpty()) {
-							this.decrStackSize(this.fuel, 1);
+						if (!inventory.getStackInSlot(this.fuel).isEmpty()) {
+							inventory.shrinkSlot(this.fuel, 1);
 						}
 					}
 				}
@@ -191,7 +191,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	}
 
 	private boolean canSmelt() {
-		if (this.getStackInSlot(this.input1).isEmpty() || this.getStackInSlot(this.input2).isEmpty()) {
+		if (inventory.getStackInSlot(this.input1).isEmpty() || inventory.getStackInSlot(this.input2).isEmpty()) {
 			return false;
 		} else {
 			ItemStack itemstack = null;
@@ -204,12 +204,12 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 
 			if (itemstack == null)
 				return false;
-			if (this.getStackInSlot(this.output).isEmpty())
+			if (inventory.getStackInSlot(this.output).isEmpty())
 				return true;
-			if (!this.getStackInSlot(this.output).isItemEqual(itemstack))
+			if (!inventory.getStackInSlot(this.output).isItemEqual(itemstack))
 				return false;
-			final int result = this.getStackInSlot(this.output).getCount() + itemstack.getCount();
-			return result <= this.getInventoryStackLimit() && result <= this.getStackInSlot(this.output).getMaxStackSize(); // Forge
+			final int result = inventory.getStackInSlot(this.output).getCount() + itemstack.getCount();
+			return result <= inventory.getStackLimit() && result <= inventory.getStackInSlot(this.output).getMaxStackSize(); // Forge
 			// BugFix:
 			// Make
 			// it
@@ -237,10 +237,10 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 				}
 			}
 
-			if (this.getStackInSlot(this.output).isEmpty()) {
-				this.setInventorySlotContents(this.output, itemstack.copy());
-			} else if (this.getStackInSlot(this.output).getItem() == itemstack.getItem()) {
-				this.decrStackSize(this.output, -itemstack.getCount());
+			if (inventory.getStackInSlot(this.output).isEmpty()) {
+				inventory.setStackInSlot(this.output, itemstack.copy());
+			} else if (inventory.getStackInSlot(this.output).getItem() == itemstack.getItem()) {
+				inventory.shrinkSlot(this.output, -itemstack.getCount());
 			}
 
 			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
@@ -259,7 +259,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 								if (input instanceof ItemStack) {
 									count = RecipeTranslator.getStackFromObject(input).getCount();
 								}
-								inventory.decrStackSize(inputSlot, count);
+								inventory.shrinkSlot(inputSlot, count);
 								break;
 							}
 						}

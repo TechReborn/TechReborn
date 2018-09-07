@@ -28,7 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -38,13 +38,13 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.TRItems;
 import techreborn.init.TRIngredients;
+import techreborn.init.TRItems;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor
-		implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxInput", comment = "Matter Fabricator Max Input (Value in EU)")
 	public static int maxInput = 8192;
@@ -88,7 +88,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private void addOutputProducts(int slot) {
 		if (inventory.getStackInSlot(slot).isEmpty()) {
-			inventory.setInventorySlotContents(slot, TRIngredients.Parts.UU_MATTER.getStack());
+			inventory.setStackInSlot(slot, TRIngredients.Parts.UU_MATTER.getStack());
 		} 
 		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), TRIngredients.Parts.UU_MATTER.getStack(), true, true)) {
 			inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + inventory.getStackInSlot(slot).getCount())));
@@ -151,7 +151,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 				if (amp != 0 && this.canUseEnergy(euNeeded)) {
 					useEnergy(euNeeded);
 					amplifier += amp;
-					inventory.decrStackSize(i, 1);
+					inventory.shrinkSlot(i, 1);
 				}
 			}
 		}
@@ -201,7 +201,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
 	}
 
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;

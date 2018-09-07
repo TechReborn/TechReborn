@@ -31,7 +31,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -49,7 +49,7 @@ import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileQuantumTank extends TileLegacyMachineBase
-	implements IInventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
+	implements ItemHandlerProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
 	public static int maxStorage = Integer.MAX_VALUE;
@@ -111,7 +111,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 		readFromNBT(packet.getNbtCompound());
 	}
 
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;

@@ -29,7 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.IInventoryProvider;
+import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -44,7 +44,7 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileRecycler extends TilePowerAcceptor 
-		implements IToolDrop, IInventoryProvider, IContainerProvider {
+		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -79,24 +79,24 @@ public class TileRecycler extends TilePowerAcceptor
 		final int randomchance = this.world.rand.nextInt(chance);
 
 		if (randomchance == 1) {
-			if (getStackInSlot(1).isEmpty()) {
-				setInventorySlotContents(1, itemstack.copy());
+			if (inventory.getStackInSlot(1).isEmpty()) {
+				inventory.setStackInSlot(1, itemstack.copy());
 			}
 			else {
-				this.getStackInSlot(1).grow(itemstack.getCount());
+				inventory.getStackInSlot(1).grow(itemstack.getCount());
 			}
 		}
-		decrStackSize(0, 1);
+		inventory.shrinkSlot(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return !getStackInSlot(0) .isEmpty() && hasSlotGotSpace(1);
+		return !inventory.getStackInSlot(0) .isEmpty() && hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(int slot) {
-		if (getStackInSlot(slot).isEmpty()) {
+		if (inventory.getStackInSlot(slot).isEmpty()) {
 			return true;
-		} else if (getStackInSlot(slot).getCount() < getStackInSlot(slot).getMaxStackSize()) {
+		} else if (inventory.getStackInSlot(slot).getCount() < inventory.getStackInSlot(slot).getMaxStackSize()) {
 			return true;
 		}
 		return false;
@@ -191,7 +191,7 @@ public class TileRecycler extends TilePowerAcceptor
 		return new ItemStack(ModBlocks.RECYCLER, 1);
 	}
 
-	// IInventoryProvider
+	// ItemHandlerProvider
 	@Override
 	public Inventory getInventory() {
 		return this.inventory;

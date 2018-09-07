@@ -100,7 +100,7 @@ public class BuiltContainer extends Container {
 	@Override
 	public boolean canInteractWith(final EntityPlayer playerIn) {
 		if(this.tile != null) {
-			return tile.isUsableByPlayer(playerIn);
+			return playerIn.getDistanceSq((double) tile.getPos().getX() + 0.5D, (double) tile.getPos().getY() + 0.5D, (double) tile.getPos().getZ() + 0.5D) <= 64.0D;
 		} else {
 			return this.canInteract.test(playerIn); // <
 		}

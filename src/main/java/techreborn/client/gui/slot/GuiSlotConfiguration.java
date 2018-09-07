@@ -70,7 +70,7 @@ public class GuiSlotConfiguration  {
 			if (guiBase.tile != slot.inventory) {
 				continue;
 			}
-			ConfigSlotElement slotElement = new ConfigSlotElement(guiBase.getMachine(), slot.getSlotIndex(), SlotType.NORMAL, slot.xPos - guiBase.guiLeft + 50, slot.yPos - guiBase.guiTop - 25, guiBase);
+			ConfigSlotElement slotElement = new ConfigSlotElement(guiBase.getMachine().getInventoryForTile().get(), slot.getSlotIndex(), SlotType.NORMAL, slot.xPos - guiBase.guiLeft + 50, slot.yPos - guiBase.guiTop - 25, guiBase);
 			slotElementMap.put(slot.getSlotIndex(), slotElement);
 		}
 
