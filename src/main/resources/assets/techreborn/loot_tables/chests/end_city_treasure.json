@@ -111,15 +111,9 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:part",
+					"name": "techreborn:energyflowcircuit",
 					"entryName": "energy_flow_circuit",
-					"weight": 30,
-					"functions": [
-						{
-							"function": "set_data",
-							"data": 0
-						}
-					]
+					"weight": 30
 				},
 				{
 					"type": "empty",

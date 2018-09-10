@@ -102,7 +102,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "DUST_" + this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".dust." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 
@@ -135,7 +135,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "DUST_SMALL_" + this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".dustsmall." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 
@@ -163,7 +163,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "GEM_" + this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".gem." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 		
@@ -192,7 +192,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "INGOT_" + this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".ingot." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 
@@ -221,7 +221,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "NUGGET_" + this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".nuggets." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);			
 		}
 		
@@ -256,7 +256,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".part." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 
@@ -287,7 +287,7 @@ public class TRIngredients {
 			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "PLATE_" + this.toString());
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + "." + name);
+			item.setTranslationKey(ModInfo.MOD_ID + ".plate." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 

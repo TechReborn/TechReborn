@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;

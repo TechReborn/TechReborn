@@ -28,11 +28,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.api.tile.ItemHandlerProvider;
-import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.tile.TileLegacyMachineBase;
 
 import java.util.ArrayList;
