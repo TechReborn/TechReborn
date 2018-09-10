@@ -149,21 +149,25 @@ public class SubItemRetriever implements ISubItemRetriever {
 
 	@Override
 	public ItemStack getOreByName(String name) {
-		return BlockOre.getOreByName(name);
+//		return BlockOre.getOreByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getOreByName(String name, int count) {
-		return BlockOre.getOreByName(name, count);
+//		return BlockOre.getOreByName(name, count);
+		return null;
 	}
 
 	@Override
 	public ItemStack getStorageBlockByName(String name) {
-		return BlockStorage.getStorageBlockByName(name);
+//		return BlockStorage.getStorageBlockByName(name);
+		return null;
 	}
 
 	@Override
 	public ItemStack getStorageBlockByName(String name, int count) {
-		return BlockStorage.getStorageBlockByName(name, count);
+//		return BlockStorage.getStorageBlockByName(name, count);
+		return null;
 	}
 }

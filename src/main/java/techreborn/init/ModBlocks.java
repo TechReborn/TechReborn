@@ -34,7 +34,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.RebornRegistry;
 import reborncore.common.util.OreUtil;
-import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.BlockCable;
@@ -57,96 +56,107 @@ import techreborn.lib.ModInfo;
  * Registers all TR blocks
  */
 public class ModBlocks {
-
-	public static Block THERMAL_GENERATOR;
-	public static Block QUANTUM_TANK;
-	public static Block CREATIVE_QUANTUM_TANK;
-	public static Block QUANTUM_CHEST;
-	public static Block CREATIVE_QUANTUM_CHEST;
-	public static Block DIGITAL_CHEST;
-	public static Block INDUSTRIAL_CENTRIFUGE;
-	public static Block ROLLING_MACHINE;
-	public static Block MACHINE_CASINGS;
-	public static Block INDUSTRIAL_BLAST_FURNACE;
-	public static Block ALLOY_SMELTER;
-	public static Block INDUSTRIAL_GRINDER;
-	public static Block IMPLOSION_COMPRESSOR;
-	public static Block MATTER_FABRICATOR;
-	public static Block CHUNK_LOADER;
-	public static Block DRAGON_EGG_SYPHON;
-	public static Block MAGIC_ENERGY_CONVERTER;
-	public static Block ASSEMBLY_MACHINE;
-	public static Block DIESEL_GENERATOR;
-	public static Block INDUSTRIAL_ELECTROLYZER;
-	public static Block MAGICAL_ABSORBER;
-	public static Block SEMI_FLUID_GENERATOR;
-	public static Block GAS_TURBINE;
-	public static Block IRON_ALLOY_FURNACE;
-	public static Block CHEMICAL_REACTOR;
-	public static Block INTERDIMENSIONAL_SU;
-	public static Block ADJUSTABLE_SU;
-	public static Block LAPOTRONIC_SU;
-	public static Block LSU_STORAGE;
-	public static Block DISTILLATION_TOWER;
-	public static Block VACUUM_FREEZER;
-	public static Block FUSION_CONTROL_COMPUTER;
-	public static Block FUSION_COIL;
-	public static Block LIGHTNING_ROD;
-	public static Block INDUSTRIAL_SAWMILL;
-	public static Block CHARGE_O_MAT;
-	public static Block PLAYER_DETECTOR;
-	public static Block GRINDER;
-	public static Block SOLID_FUEL_GENEREATOR;
-	public static Block COMPRESSOR;
-	public static Block EXTRACTOR;
-	public static Block ELECTRIC_FURNACE;
-	public static Block SOLAR_PANEL;
-	public static Block CREATIVE_SOLAR_PANEL;
-	public static Block WATER_MILL;
-	public static Block WIND_MILL;
-	public static Block RECYCLER;
-	public static Block LOW_VOLTAGE_SU;
-	public static Block MEDIUM_VOLTAGE_SU;
-	public static Block HIGH_VOLTAGE_SU;
-	public static Block SCRAPBOXINATOR;
-	public static Block LV_TRANSFORMER;
-	public static Block MV_TRANSFORMER;
-	public static Block HV_TRANSFORMER;
-	public static Block AUTO_CRAFTING_TABLE;
-
-	public static BlockOre ORE;
-	public static BlockOre2 ORE2;
+	
+	// Storage Blocks
 	public static Block STORAGE;
 	public static Block STORAGE2;
-	public static Block MACHINE_FRAMES;
-	public static Block REINFORCED_GLASS;
+	
+	// Misc Blocks
+	public static Block CABLE;
+	public static Block COMPUTER_CUBE;
+	public static Block FLARE;	
 	public static Block IRON_FURNACE;
 	public static Block NUKE;
-
+	public static Block REFINED_IRON_FENCE;
+	public static Block REINFORCED_GLASS;
+	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_LOG;
 	public static Block RUBBER_LOG_SLAB_HALF;
 	public static Block RUBBER_LOG_SLAB_DOUBLE;
 	public static Block RUBBER_LOG_STAIR;
-	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_SAPLING;
 	public static Block RUBBER_PLANKS;
 
-	public static Block REFINED_IRON_FENCE;
-	public static Block FLARE;
-	public static Block CABLE;
-
-	public static Block COMPUTER_CUBE;
+	// Machines - machines
+	public static Block ALLOY_SMELTER;	
+	public static Block ASSEMBLY_MACHINE;	
+	public static Block AUTO_CRAFTING_TABLE;
+	public static Block CHEMICAL_REACTOR;
+	public static Block COMPRESSOR;
+	public static Block DISTILLATION_TOWER;
+	public static Block ELECTRIC_FURNACE;
+	public static Block EXTRACTOR;
+	public static Block FLUID_REPLICATOR;
+	public static Block GRINDER;
+	public static Block IMPLOSION_COMPRESSOR;
+	public static Block INDUSTRIAL_BLAST_FURNACE;
+	public static Block INDUSTRIAL_CENTRIFUGE;
+	public static Block INDUSTRIAL_ELECTROLYZER;
+	public static Block INDUSTRIAL_GRINDER;
+	public static Block INDUSTRIAL_SAWMILL;
+	public static Block IRON_ALLOY_FURNACE;
+	public static Block MATTER_FABRICATOR;
+	public static Block RECYCLER;
+	public static Block ROLLING_MACHINE;
+	public static Block SCRAPBOXINATOR;
+	public static Block VACUUM_FREEZER;
+	
+	// Machines - generators
+	public static Block CREATIVE_SOLAR_PANEL;
+	public static Block DIESEL_GENERATOR;
+	public static Block DRAGON_EGG_SYPHON;
+	public static Block FUSION_COIL;
+	public static Block FUSION_CONTROL_COMPUTER;
+	public static Block GAS_TURBINE;
+	public static Block LIGHTNING_ROD;
 	public static Block PLASMA_GENERATOR;
+	public static Block SEMI_FLUID_GENERATOR;
+	public static Block SOLAR_PANEL;
+	public static Block SOLID_FUEL_GENEREATOR;
+	public static Block THERMAL_GENERATOR;	
+	public static Block WATER_MILL;
+	public static Block WIND_MILL;	
+	
+	// Machines - storage
+	public static Block CREATIVE_QUANTUM_CHEST;
+	public static Block CREATIVE_QUANTUM_TANK;
+	public static Block DIGITAL_CHEST;
+	public static Block QUANTUM_CHEST;
+	public static Block QUANTUM_TANK;
 
+	// Machines - energy storage & transformers
+	public static Block ADJUSTABLE_SU;
+	public static Block CHARGE_O_MAT;
+	public static Block INTERDIMENSIONAL_SU;
+	public static Block LAPOTRONIC_SU;
+	public static Block LSU_STORAGE;
+	public static Block LOW_VOLTAGE_SU;
+	public static Block MEDIUM_VOLTAGE_SU;
+	public static Block HIGH_VOLTAGE_SU;
+	public static Block LV_TRANSFORMER;
+	public static Block MV_TRANSFORMER;
+	public static Block HV_TRANSFORMER;
+	
+	// Machines - misc
+	public static Block ALARM;
+	public static Block CHUNK_LOADER;
 	public static Block LAMP_INCANDESCENT;
 	public static Block LAMP_LED;
-	public static Block ALARM;
-	public static Block FLUID_REPLICATOR;
+	public static Block MAGICAL_ABSORBER;
+	public static Block MAGIC_ENERGY_CONVERTER;
+	public static Block PLAYER_DETECTOR;
+
+		
+	public static Block MACHINE_CASINGS;
+	public static Block MACHINE_FRAMES;
+
 
 	/**
 	 * Register blocks
 	 */
 	public static void init() {
+		TRIngredients.registerBlocks();
+		
 		THERMAL_GENERATOR = new BlockThermalGenerator();
 		registerBlock(THERMAL_GENERATOR, "thermal_generator");
 
@@ -201,11 +211,11 @@ public class ModBlocks {
 		MACHINE_CASINGS = new BlockMachineCasing();
 		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machine_casing");
 
-		ORE = new BlockOre();
-		registerBlock(ORE, ItemBlockOre.class, "ore");
-
-		ORE2 = new BlockOre2();
-		registerBlock(ORE2, ItemBlockOre2.class, "ore2");
+//		ORE = new BlockOre();
+//		registerBlock(ORE, ItemBlockOre.class, "ore");
+//
+//		ORE2 = new BlockOre2();
+//		registerBlock(ORE2, ItemBlockOre2.class, "ore2");
 
 		STORAGE = new BlockStorage();
 		registerBlock(STORAGE, ItemBlockStorage.class, "storage");
@@ -433,13 +443,11 @@ public class ModBlocks {
 	 * Register ores and ore blocks
 	 */
 	public static void registerOreDict() {
-		for (String ore : BlockOre.ores) {
-			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
-		}
+		// TODO: Fix block
+//		for (String ore : BlockOre.ores) {
+//			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
+//		}
 
-		for (String ore : BlockOre2.ores) {
-			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
-		}
 
 		OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
 		OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));

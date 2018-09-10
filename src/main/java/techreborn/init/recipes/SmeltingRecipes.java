@@ -28,7 +28,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockOre2;
 import techreborn.init.TRIngredients;
 
 /**
@@ -40,8 +39,8 @@ public class SmeltingRecipes extends RecipeMethods {
 		register(getStack(Items.IRON_INGOT), TRIngredients.Ingots.REFINED_IRON.getStack());
 		register(TRIngredients.Parts.SAP.getStack(), TRIngredients.Parts.RUBBER.getStack());
 		register(TRIngredients.Ingots.MIXED_METAL.getStack(), TRIngredients.Ingots.ADVANCED_ALLOY.getStack());
-		register(BlockOre.getOreByName("silver"), TRIngredients.Ingots.SILVER.getStack());
-		register(BlockOre2.getOreByName("tin"), TRIngredients.Ingots.TIN.getStack());
+//		register(BlockOre.getOreByName("silver"), TRIngredients.Ingots.SILVER.getStack());
+//		register(BlockOre2.getOreByName("tin"), TRIngredients.Ingots.TIN.getStack());
 				
 //		TODO: Fix recipe		
 //		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));

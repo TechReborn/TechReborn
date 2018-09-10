@@ -10,102 +10,102 @@
       {}
     ],
     "type": {
-      "galena": {
+      "oregalena": {
         "textures": {
           "all": "techreborn:blocks/ore/galena_ore"
         }
       },
-      "iridium": {
+      "oreiridium": {
         "textures": {
           "all": "techreborn:blocks/ore/iridium_ore"
         }
       },
-      "ruby": {
+      "oreruby": {
         "textures": {
           "all": "techreborn:blocks/ore/ruby_ore"
         }
       },
-      "sapphire": {
+      "oresapphire": {
         "textures": {
           "all": "techreborn:blocks/ore/sapphire_ore"
         }
       },
-      "bauxite": {
+      "orebauxite": {
         "textures": {
           "all": "techreborn:blocks/ore/bauxite_ore"
         }
       },
-      "pyrite": {
+      "orepyrite": {
         "textures": {
           "all": "techreborn:blocks/ore/pyrite_ore"
         }
       },
-      "cinnabar": {
+      "orecinnabar": {
         "textures": {
           "all": "techreborn:blocks/ore/cinnabar_ore"
         }
       },
-      "sphalerite": {
+      "oresphalerite": {
         "textures": {
           "all": "techreborn:blocks/ore/sphalerite_ore"
         }
       },
-      "tungsten": {
+      "oretungsten": {
         "textures": {
           "all": "techreborn:blocks/ore/tungsten_ore"
         }
       },
-      "tungsten_stone": {
+      "oretungstenstone": {
         "textures": {
           "all": "techreborn:blocks/ore/tungsten_ore_stone"
         }
       },
-      "sheldonite": {
+      "oresheldonite": {
         "textures": {
           "all": "techreborn:blocks/ore/sheldonite_ore"
         }
       },
-      "sheldonite_stone": {
+      "oresheldonitestone": {
         "textures": {
           "all": "techreborn:blocks/ore/sheldonite_ore_stone"
         }
       },
-      "peridot": {
+      "oreperidot": {
         "textures": {
           "all": "techreborn:blocks/ore/peridot_ore"
         }
       },
-      "peridot_stone": {
+      "oreperidotstone": {
         "textures": {
           "all": "techreborn:blocks/ore/peridot_ore_stone"
         }
       },
-      "sodalite": {
+      "oresodalite": {
         "textures": {
           "all": "techreborn:blocks/ore/sodalite_ore"
         }
       },
-      "sodalite_stone": {
+      "oresodalitestone": {
         "textures": {
           "all": "techreborn:blocks/ore/sodalite_ore_stone"
         }
       },
-      "lead": {
+      "orelead": {
         "textures": {
           "all": "techreborn:blocks/ore/lead_ore"
         }
       },
-      "silver": {
+      "oresilver": {
         "textures": {
           "all": "techreborn:blocks/ore/silver_ore"
         }
       },
-      "copper": {
+      "orecopper": {
         "textures": {
           "all": "techreborn:blocks/ore/copper_ore"
         }
       },
-      "tin": {
+      "oretin": {
         "textures": {
           "all": "techreborn:blocks/ore/tin_ore"
         }

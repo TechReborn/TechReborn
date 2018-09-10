@@ -160,7 +160,7 @@ public class TRItems {
 	
 	public static void init() {
 
-		TRIngredients.register();
+		TRIngredients.registerItems();
 
 		// Armor
 		CLOAKING_DEVICE = new ItemCloakingDevice();
