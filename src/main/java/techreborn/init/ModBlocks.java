@@ -57,10 +57,6 @@ import techreborn.lib.ModInfo;
  */
 public class ModBlocks {
 	
-	// Storage Blocks
-	public static Block STORAGE;
-	public static Block STORAGE2;
-	
 	// Misc Blocks
 	public static Block CABLE;
 	public static Block COMPUTER_CUBE;
@@ -210,18 +206,6 @@ public class ModBlocks {
 
 		MACHINE_CASINGS = new BlockMachineCasing();
 		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machine_casing");
-
-//		ORE = new BlockOre();
-//		registerBlock(ORE, ItemBlockOre.class, "ore");
-//
-//		ORE2 = new BlockOre2();
-//		registerBlock(ORE2, ItemBlockOre2.class, "ore2");
-
-		STORAGE = new BlockStorage();
-		registerBlock(STORAGE, ItemBlockStorage.class, "storage");
-
-		STORAGE2 = new BlockStorage2();
-		registerBlock(STORAGE2, ItemBlockStorage2.class, "storage2");
 
 		DRAGON_EGG_SYPHON = new BlockDragonEggSyphon();
 		registerBlock(DRAGON_EGG_SYPHON, "dragon_egg_syphon");
@@ -449,30 +433,30 @@ public class ModBlocks {
 //		}
 
 
-		OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
-		OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
-		OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
-		OreUtil.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
-		OreUtil.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
-		OreUtil.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
-		OreUtil.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
-		OreUtil.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
-		OreUtil.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
-		OreUtil.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
-		OreUtil.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
-		OreUtil.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
-		OreUtil.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
-		OreUtil.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
-		OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
-		OreUtil.registerOre("blockBronze", BlockStorage.getStorageBlockByName("bronze"));
-		OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
-		OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
-		OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
-		OreUtil.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
-		OreUtil.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
-		OreUtil.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
-		OreUtil.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
-		OreUtil.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
+//		OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
+//		OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
+//		OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
+//		OreUtil.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
+//		OreUtil.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
+//		OreUtil.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
+//		OreUtil.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
+//		OreUtil.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
+//		OreUtil.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
+//		OreUtil.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
+//		OreUtil.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
+//		OreUtil.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
+//		OreUtil.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
+//		OreUtil.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
+//		OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
+//		OreUtil.registerOre("blockBronze", BlockStorage.getStorageBlockByName("bronze"));
+//		OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
+//		OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
+//		OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
+//		OreUtil.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
+//		OreUtil.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
+//		OreUtil.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
+//		OreUtil.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
+//		OreUtil.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
 
 		OreUtil.registerOre("craftingPiston", Blocks.PISTON);
 		OreUtil.registerOre("craftingPiston", Blocks.STICKY_PISTON);

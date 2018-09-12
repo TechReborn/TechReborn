@@ -45,13 +45,12 @@ import java.util.Map;
 
 public class RegisterItemJsons {
 	public static void registerModels() {
+		TRIngredients.registerModel();
 		registerItems();
 		registerBlocks();
 	}
 
-	private static void registerItems() {
-		TRIngredients.registerModel();
-		
+	private static void registerItems() {		
 		// Armor
 		register(TRItems.CLOAKING_DEVICE, "tool/cloaking_device");
 		register(TRItems.LAPOTRONIC_ORB_PACK, "tool/lapotronic_orbpack");

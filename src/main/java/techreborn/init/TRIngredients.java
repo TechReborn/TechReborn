@@ -38,6 +38,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornRegistry;
 import techreborn.blocks.BlockOre;
+import techreborn.blocks.BlockStorage;
 import techreborn.events.TRRecipeHandler;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
@@ -50,10 +51,8 @@ public class TRIngredients {
 
 	public static void registerBlocks() {
 		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		
-		
+		Arrays.stream(Storage.values()).forEach(value -> RebornRegistry.registerBlock(value.block));	
 	}
-	
 	
 	public static void registerItems() {
 		 Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
@@ -64,7 +63,6 @@ public class TRIngredients {
 		 Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		 Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 	}
-	
 	
 	@SideOnly(Side.CLIENT)
 	public static void registerModel() {
@@ -97,15 +95,26 @@ public class TRIngredients {
 				new ModelResourceLocation(platesRL, "type=" + value.name)));
 
 		ResourceLocation oresRL = new ResourceLocation(ModInfo.MOD_ID, "ores");
-		for (Ores ore : Ores.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ore.block), 0, new ModelResourceLocation(oresRL, "type=" + ore.name));
-			ModelLoader.setCustomStateMapper(ore.block, new DefaultStateMapper() {
+		for (Ores value : Ores.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(oresRL, "type=" + value.name));
+			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(oresRL, "type=" + ore.name);
+					return new ModelResourceLocation(oresRL, "type=" + value.name);
 				}
 			});
 		}
+		
+		ResourceLocation storageRL = new ResourceLocation(ModInfo.MOD_ID, "storage");
+		for (Storage value : Storage.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(storageRL, "type=" + value.name));
+			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(storageRL, "type=" + value.name);
+				}
+			});
+		}	
 	}
 	
 	public static enum Ores implements IStringSerializable {
@@ -128,6 +137,28 @@ public class TRIngredients {
 			return name;
 		}
 
+	}
+	
+	public static enum Storage implements IStringSerializable {
+		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
+		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, OSMIUM, PERIDOT, PLATINUM, RED_GARNET, REFINED_IRON, RUBY,
+		SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
+
+		public final String name;
+		public final Block block;
+
+		private Storage() {
+			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "BLOCK_" + this.toString());
+			block = new BlockStorage();
+			block.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
+			block.setTranslationKey(ModInfo.MOD_ID + ".storage." + this.toString().toLowerCase());
+			TRRecipeHandler.hideEntry(block);
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
 	}
 
 	public static enum Dusts implements IStringSerializable {

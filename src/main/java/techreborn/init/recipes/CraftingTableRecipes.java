@@ -32,7 +32,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.Core;
 import techreborn.blocks.BlockStorage;
-import techreborn.blocks.BlockStorage2;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -49,9 +48,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerCompressionRecipes();
 		registerMixedMetalIngotRecipes();
 			
-		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), "stone", "plateIridiumAlloy");
-		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), "plateIridium");
-		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), "ingotTungstensteel");
+//		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), "stone", "plateIridiumAlloy");
+//		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), "plateIridium");
+//		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), "ingotTungstensteel");
 		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), getStack(ModBlocks.RUBBER_LOG));
 		registerShaped(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
 		registerShaped(getStack(ModBlocks.REFINED_IRON_FENCE), "RRR", "RRR", 'R', "ingotRefinedIron");
@@ -294,7 +293,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerCompressionRecipes() {
-		for (String name : BlockStorage.types) {
+//		for (String name : BlockStorage.types) {
 //			if (OreUtil.hasIngot(name)) {
 //				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A', "ingot" + StringUtils.toFirstCapital(name));
 //				registerShapeless(getMaterial(name, 9, Type.INGOT), BlockStorage.getStorageBlockByName(name));
@@ -302,9 +301,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 //				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A', "gem" + StringUtils.toFirstCapital(name));
 //				registerShapeless(getMaterial(name, 9, Type.GEM), BlockStorage.getStorageBlockByName(name));
 //			}
-		}
+//		}
 		
-		for (String block : BlockStorage2.types){
+//		for (String block : BlockStorage2.types){
 //			block = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, block);
 //			if (OreUtil.hasIngot(block)) {
 //				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A', "ingot" + StringUtils.toFirstCapital(block));
@@ -313,7 +312,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 //				registerShaped(BlockStorage2.getStorageBlockByName(block), "AAA", "AAA", "AAA", 'A', "gem" + StringUtils.toFirstCapital(block));
 //				registerShapeless(getMaterial(block, 9, Type.GEM), BlockStorage2.getStorageBlockByName(block));
 //			}
-		}
+//		}
 
 //		for (String name : ItemDustsSmall.types) {
 //			registerShapeless(getMaterial(name, 4, Type.SMALL_DUST), getMaterialObject(name, Type.DUST));
