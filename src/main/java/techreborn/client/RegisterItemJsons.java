@@ -150,20 +150,6 @@ public class RegisterItemJsons {
 		});
 	}
 
-	public static void setBlockStateMapper(Block block, String path, IProperty<?>... ignoredProperties) {
-		final String slash = !path.isEmpty() ? "/" : "";
-		ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				Map<IProperty<?>, Comparable<?>> map = Maps.<IProperty<?>, Comparable<?>>newLinkedHashMap(state.getProperties());
-				for (IProperty<?> iproperty : ignoredProperties) {
-					map.remove(iproperty);
-				}
-				return new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getNamespace(), path + slash + block.getRegistryName().getPath()), this.getPropertyString(map));
-			}
-		});
-	}
-
 	private static void registerBlocks() {
 		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
 	}

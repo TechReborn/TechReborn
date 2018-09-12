@@ -24,11 +24,11 @@
 package techreborn.init;
 
 import java.util.Arrays;
-
 import com.google.common.base.CaseFormat;
-
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
@@ -37,8 +37,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornRegistry;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import techreborn.blocks.BlockOre;
 import techreborn.events.TRRecipeHandler;
 import techreborn.items.ItemTR;
@@ -97,8 +95,19 @@ public class TRIngredients {
 		ResourceLocation platesRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates");
 		Arrays.stream(Plates.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
 				new ModelResourceLocation(platesRL, "type=" + value.name)));
+
+		ResourceLocation oresRL = new ResourceLocation(ModInfo.MOD_ID, "ores");
+		for (Ores ore : Ores.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ore.block), 0, new ModelResourceLocation(oresRL, "type=" + ore.name));
+			ModelLoader.setCustomStateMapper(ore.block, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(oresRL, "type=" + ore.name);
+				}
+			});
+		}
 	}
-		
+	
 	public static enum Ores implements IStringSerializable {
 		BAUXITE, CINNABAR, COPPER, GALENA, IRIDIUM, LEAD, PERIDOT, PYRITE, RUBY, SAPPHIRE, SHELDONITE, SILVER, SODALITE,
 		SPHALERITE, TIN, TUNGSTEN;
@@ -111,7 +120,6 @@ public class TRIngredients {
 			block = new BlockOre();
 			block.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			block.setTranslationKey(ModInfo.MOD_ID + ".ore." + this.toString().toLowerCase());
-			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, block).setInvVariant("type=" + name).setFileName("ores"));
 			TRRecipeHandler.hideEntry(block);
 		}
 

@@ -26,7 +26,6 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -36,8 +35,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.PropertyString;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -52,11 +49,6 @@ import java.util.Random;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class BlockOre extends Block implements IOreNameProvider {
 
-//	public static final String[] ores = new String[] {
-//		"galena", "iridium", "ruby", "sapphire", "bauxite", "pyrite",
-//		"cinnabar", "sphalerite", "tungsten", "sheldonite", "peridot", "sodalite",
-//		"lead", "silver" };
-//	public static List<String> oreNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(ores));
 	public static final PropertyString VARIANTS = getVarients();
 	@ConfigRegistry(config = "misc", category = "blocks", key = "rubyMinQuatity", comment = "Minimum quantity of Ruby gems per Ruby ore")
 	public static int rubyMinQuatity = 1;
@@ -88,10 +80,6 @@ public class BlockOre extends Block implements IOreNameProvider {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 2);
-		// TODO: Fix block
-//		for (int i = 0; i < ores.length; i++) {
-//			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i).setInvVariant("type=" + OreBlockStateManager.convert(ores[i])).setFileName("ores"));
-//		}
 	}
 
 //	public static ItemStack getOreByName(String name, int count) {
