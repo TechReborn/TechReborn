@@ -54,7 +54,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 
 	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
 		super();
-		inventory = new Inventory<>(invSize, "Tile" + name, 64, this);
+		inventory = new Inventory<>(invSize, "Tile" + name, 64, this).withConfiguredAccess();
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
 		this.name = name;

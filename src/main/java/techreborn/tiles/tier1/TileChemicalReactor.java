@@ -49,7 +49,7 @@ public class TileChemicalReactor extends TileGenericMachine	implements IContaine
 		super("ChemicalReactor", maxInput, maxEnergy, ModBlocks.CHEMICAL_REACTOR, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
-		this.inventory = new Inventory<>(4, "TileChemicalReactor", 64, this);
+		this.inventory = new Inventory<>(4, "TileChemicalReactor", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(Reference.CHEMICAL_REACTOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 

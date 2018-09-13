@@ -49,7 +49,7 @@ public class TileCompressor extends TileGenericMachine implements IContainerProv
 		super("Compressor", maxInput, maxEnergy, ModBlocks.COMPRESSOR, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory<>(3, "TileCompressor", 64, this);
+		this.inventory = new Inventory<>(3, "TileCompressor", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(Reference.COMPRESSOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	

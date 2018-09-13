@@ -61,7 +61,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxCoilSize", comment = "Fusion Reactor Max Coil size (Radius)")
 	public static int maxCoilSize = 50;
 
-	public Inventory inventory;
+	public Inventory<TileFusionControlComputer> inventory;
 
 	public int coilCount = 0;
 	public int crafingTickTime = 0;
@@ -78,7 +78,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public TileFusionControlComputer() {
 		super();
 		checkOverfill = false;
-		this.inventory = new Inventory<>(3, "TileFusionControlComputer", 64, this);
+		this.inventory = new Inventory<>(3, "TileFusionControlComputer", 64, this).withConfiguredAccess();
 	}
 
 	/**

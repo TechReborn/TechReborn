@@ -51,7 +51,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 		super("VacuumFreezer", maxInput, maxEnergy, ModBlocks.VACUUM_FREEZER, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory<>(3, "TileVacuumFreezer", 64, this);
+		this.inventory = new Inventory<>(3, "TileVacuumFreezer", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(Reference.VACUUM_FREEZER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	

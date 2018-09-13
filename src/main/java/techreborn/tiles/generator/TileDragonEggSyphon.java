@@ -50,7 +50,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 4;
 
-	public Inventory<TileDragonEggSyphon> inventory = new Inventory<>(3, "TileDragonEggSyphon", 64, this);
+	public Inventory<TileDragonEggSyphon> inventory = new Inventory<>(3, "TileDragonEggSyphon", 64, this).withConfiguredAccess();
 	private long lastOutput = 0;
 
 	public TileDragonEggSyphon() {

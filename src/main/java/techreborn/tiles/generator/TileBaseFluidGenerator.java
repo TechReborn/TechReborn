@@ -62,7 +62,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super();
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		tank = new Tank(tileName, tankCapacity, this);
-		inventory = new Inventory<>(3, tileName, 64, this);
+		inventory = new Inventory<>(3, tileName, 64, this).withConfiguredAccess();
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
 	}

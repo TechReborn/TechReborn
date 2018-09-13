@@ -64,7 +64,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		super("IndustrialBlastFurnace", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_BLAST_FURNACE, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
-		this.inventory = new Inventory<>(5, "TileIndustrialBlastFurnace", 64, this);
+		this.inventory = new Inventory<>(5, "TileIndustrialBlastFurnace", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(Reference.BLAST_FURNACE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	

@@ -54,7 +54,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
 	public static int outputAmount = 10;
 
-	public Inventory<TileSolidFuelGenerator> inventory = new Inventory<>(2, "TileSolidFuelGenerator", 64, this);
+	public Inventory<TileSolidFuelGenerator> inventory = new Inventory<>(2, "TileSolidFuelGenerator", 64, this).withConfiguredAccess();
 	public int fuelSlot = 0;
 	public int burnTime;
 	public int totalBurnTime = 0;

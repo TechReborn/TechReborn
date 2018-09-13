@@ -49,7 +49,7 @@ public class TileScrapboxinator extends TileGenericMachine implements IContainer
 		super("Scrapboxinator", maxInput, maxEnergy, ModBlocks.SCRAPBOXINATOR, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory<>(3, "TileScrapboxinator", 64, this);
+		this.inventory = new Inventory<>(3, "TileScrapboxinator", 64, this).withConfiguredAccess();
 		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
 	

@@ -55,7 +55,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	public static int maxStorage = Integer.MAX_VALUE;
 
 	public Tank tank = new Tank("TileQuantumTank", maxStorage, this);
-	public Inventory<TileQuantumTank> inventory = new Inventory<>(3, "TileQuantumTank", 64, this);
+	public Inventory<TileQuantumTank> inventory = new Inventory<>(3, "TileQuantumTank", 64, this).withConfiguredAccess();
 
 	public void readFromNBTWithoutCoords(final NBTTagCompound tagCompound) {
 		tank.readFromNBT(tagCompound);
