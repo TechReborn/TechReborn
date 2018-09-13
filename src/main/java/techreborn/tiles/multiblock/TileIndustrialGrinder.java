@@ -39,6 +39,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
+import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.Reference;
@@ -48,6 +49,7 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
@@ -70,7 +72,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		super("IndustrialGrinder", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_GRINDER, 7);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
-		this.inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
+		this.inventory = new Inventory<>(8, "TileIndustrialGrinder", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_GRINDER_RECIPE, this, 1, 4, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
@@ -128,18 +130,13 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		return tagCompound;
 	}
 
-	// TileLegacyMachineBase
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 1) {
-			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
-				return true;
+	private static IInventoryAccess<TileIndustrialGrinder> getInventoryAccess(){
+		return (slotID, stack, face, direction, tile) -> {
+			if(slotID == 1){
+				return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			}
-			else {
-				return false;
-			}
-		}
-		return super.isItemValidForSlot(slotIndex, itemStack);
+			return true;
+		};
 	}
 
 	// IContainerProvider

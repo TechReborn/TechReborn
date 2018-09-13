@@ -32,6 +32,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import org.lwjgl.input.Keyboard;
 import reborncore.client.gui.GuiUtil;
 import reborncore.common.network.NetworkManager;
@@ -64,10 +67,16 @@ public class GuiSlotConfiguration  {
 	public static void init(GuiBase guiBase) {
 		reset();
 		slotElementMap.clear();
+		IItemHandler itemHandler = getMachine().getInventoryForTile().orElseGet(null);
+		if(itemHandler == null){
+			return;
+		}
 
 		BuiltContainer container = guiBase.container;
 		for (Slot slot : container.inventorySlots) {
-			if (guiBase.tile != slot.inventory) {
+			if(!(slot instanceof SlotItemHandler)){
+				continue;
+			} else if (((SlotItemHandler) slot).getItemHandler() != itemHandler){
 				continue;
 			}
 			ConfigSlotElement slotElement = new ConfigSlotElement(guiBase.getMachine().getInventoryForTile().get(), slot.getSlotIndex(), SlotType.NORMAL, slot.xPos - guiBase.guiLeft + 50, slot.yPos - guiBase.guiTop - 25, guiBase);
@@ -77,9 +86,15 @@ public class GuiSlotConfiguration  {
 	}
 
 	public static void draw(GuiBase guiBase, int mouseX, int mouseY) {
+		IItemHandler itemHandler = getMachine().getInventoryForTile().orElseGet(null);
+		if(itemHandler == null){
+			return;
+		}
 		BuiltContainer container = guiBase.container;
 		for (Slot slot : container.inventorySlots) {
-			if (guiBase.tile != slot.inventory) {
+			if(!(slot instanceof SlotItemHandler)){
+				continue;
+			} else if (((SlotItemHandler) slot).getItemHandler() != itemHandler){
 				continue;
 			}
 			GlStateManager.color(255, 0, 0);
@@ -172,8 +187,11 @@ public class GuiSlotConfiguration  {
 		BuiltContainer container = guiBase.container;
 
 		if(getVisibleElements().isEmpty()) {
+			IItemHandler itemHandler = getMachine().getInventoryForTile().orElseGet(null);
 			for (Slot slot : container.inventorySlots) {
-				if (guiBase.tile != slot.inventory) {
+				if(!(slot instanceof SlotItemHandler)){
+					continue;
+				} else if (((SlotItemHandler) slot).getItemHandler() != itemHandler){
 					continue;
 				}
 				if (guiBase.isPointInRect(slot.xPos, slot.yPos, 18, 18, mouseX, mouseY)) {

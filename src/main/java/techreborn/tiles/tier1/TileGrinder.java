@@ -49,7 +49,7 @@ public class TileGrinder extends TileGenericMachine implements IContainerProvide
 		super("Grinder", maxInput, maxEnergy, ModBlocks.GRINDER, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory(3, "TileGrinder", 64, this);
+		this.inventory = new Inventory<>(3, "TileGrinder", 64, this);
 		this.crafter = new RecipeCrafter(Reference.GRINDER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 

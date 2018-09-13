@@ -53,7 +53,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 	public TileTechStorageBase(String name, int maxCapacity) {
 		this.maxCapacity = maxCapacity;
 		storedItem = ItemStack.EMPTY;
-		inventory = new Inventory(3, name, maxCapacity, this);
+		inventory = new Inventory<>(3, name, maxCapacity, this);
 	}
 
 	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {

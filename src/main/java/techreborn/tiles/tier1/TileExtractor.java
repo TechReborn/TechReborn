@@ -49,7 +49,7 @@ public class TileExtractor extends TileGenericMachine implements IContainerProvi
 		super("Extractor", maxInput, maxEnergy, ModBlocks.EXTRACTOR, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory(3, "TileExtractor", 64, this);
+		this.inventory = new Inventory<>(3, "TileExtractor", 64, this);
 		this.crafter = new RecipeCrafter(Reference.EXTRACTOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	

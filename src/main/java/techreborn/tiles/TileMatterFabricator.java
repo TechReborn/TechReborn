@@ -55,7 +55,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
 	public static int energyPerAmp = 5;
 
-	public Inventory inventory = new Inventory(12, "TileMatterFabricator", 64, this);
+	public Inventory<TileMatterFabricator> inventory = new Inventory<>(12, "TileMatterFabricator", 64, this);
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {

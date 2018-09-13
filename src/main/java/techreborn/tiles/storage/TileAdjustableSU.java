@@ -47,7 +47,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
-	public Inventory inventory = new Inventory(4, "TileAdjustableSU", 64, this);
+	public Inventory<TileAdjustableSU> inventory = new Inventory<>(4, "TileAdjustableSU", 64, this);
 	private int OUTPUT = 64; // The current output
 
 	public TileAdjustableSU() {

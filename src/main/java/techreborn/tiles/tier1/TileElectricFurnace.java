@@ -51,7 +51,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
 
-	public Inventory inventory = new Inventory(3, "TileElectricFurnace", 64, this);
+	public Inventory<TileElectricFurnace> inventory = new Inventory<>(3, "TileElectricFurnace", 64, this);
 	public int progress;
 	public int fuelScale = 100;
 	public int cost = 6;

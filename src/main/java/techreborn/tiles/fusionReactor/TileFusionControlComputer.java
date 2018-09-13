@@ -78,7 +78,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public TileFusionControlComputer() {
 		super();
 		checkOverfill = false;
-		this.inventory = new Inventory(3, "TileFusionControlComputer", 64, this);
+		this.inventory = new Inventory<>(3, "TileFusionControlComputer", 64, this);
 	}
 
 	/**

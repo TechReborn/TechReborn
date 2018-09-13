@@ -69,7 +69,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	private InventoryCrafting craftCache;
-	public Inventory inventory = new Inventory(12, "TileRollingMachine", 64, this);
+	public Inventory<TileRollingMachine> inventory = new Inventory<>(12, "TileRollingMachine", 64, this);
 	public boolean isRunning;
 	public int tickTime;
 	@Nonnull

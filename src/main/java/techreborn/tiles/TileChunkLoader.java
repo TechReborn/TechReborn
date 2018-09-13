@@ -49,7 +49,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
-	public Inventory inventory = new Inventory(1, "TileChunkLoader", 64, this);
+	public Inventory<TileChunkLoader> inventory = new Inventory<>(1, "TileChunkLoader", 64, this);
 
 	public boolean isRunning;
 	public int tickTime;

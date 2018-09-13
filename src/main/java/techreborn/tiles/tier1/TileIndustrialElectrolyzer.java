@@ -51,7 +51,7 @@ public class TileIndustrialElectrolyzer extends TileGenericMachine implements IC
 		super("IndustrialElectrolyzer", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_ELECTROLYZER, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory(7, "TileIndustrialElectrolyzer", 64, this);
+		this.inventory = new Inventory<>(7, "TileIndustrialElectrolyzer", 64, this);
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

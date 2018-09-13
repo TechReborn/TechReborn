@@ -29,9 +29,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
@@ -42,7 +44,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 		implements ItemHandlerProvider, IContainerProvider {
 
 	public int tickTime;
-	public Inventory inventory = new Inventory(3, "TileIronFurnace", 64, this);
+	public Inventory<TileIronFurnace> inventory = new Inventory<>(3, "TileIronFurnace", 64, this, getInvetoryAccess());
 	public int fuel;
 	public int fuelGague;
 	public int progress;
@@ -168,16 +170,20 @@ public class TileIronFurnace extends TileLegacyMachineBase
 		return this.inventory;
 	}
 
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		boolean isFuel = TileEntityFurnace.isItemFuel(stack);
-		if(isFuel){
-			ItemStack fuelSlotStack = inventory.getStackInSlot(fuelslot);
-			if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxStackSize() != fuelSlotStack.getCount()){
-				return index == fuelslot;
+	public static IInventoryAccess<TileIronFurnace> getInvetoryAccess(){
+		return (slotID, stack, face, direction, tile) -> {
+			if(direction == IInventoryAccess.AccessDirection.INSERT){
+				boolean isFuel = TileEntityFurnace.isItemFuel(stack);
+				if(isFuel){
+					ItemStack fuelSlotStack = tile.inventory.getStackInSlot(tile.fuelslot);
+					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxStackSize() != fuelSlotStack.getCount()){
+						return slotID == tile.fuelslot;
+					}
+				}
+				return slotID != tile.output;
 			}
-		}
-		return index != output;
+			return true;
+		};
 	}
 
 	public int getBurnTime() {

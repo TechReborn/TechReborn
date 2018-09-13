@@ -53,7 +53,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	public int tickTime;
-	public Inventory inventory = new Inventory(4, "TileIronAlloyFurnace", 64, this);
+	public Inventory<TileIronAlloyFurnace> inventory = new Inventory<>(4, "TileIronAlloyFurnace", 64, this);
 	public int burnTime;
 	public int currentItemBurnTime;
 	public int cookTime;

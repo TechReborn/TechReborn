@@ -53,7 +53,7 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 		super("DistillationTower", maxInput, maxEnergy, ModBlocks.DISTILLATION_TOWER, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory(7, "TileDistillationTower", 64, this);
+		this.inventory = new Inventory<>(7, "TileDistillationTower", 64, this);
 		this.crafter = new RecipeCrafter(Reference.DISTILLATION_TOWER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

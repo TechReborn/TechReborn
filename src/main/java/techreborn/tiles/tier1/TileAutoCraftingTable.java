@@ -41,6 +41,8 @@ import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IContainerProvider;
@@ -66,7 +68,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterMaxEnergy", comment = "AutoCrafting Table Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	public Inventory inventory = new Inventory(11, "TileAutoCraftingTable", 64, this);
+	public Inventory<TileAutoCraftingTable> inventory = new Inventory<>(11, "TileAutoCraftingTable", 64, this, getInventoryAccess());
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -396,38 +398,23 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return false;
 	}
 
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
-		if (bestSlot != -1) {
-			return index == bestSlot;
-		}
-		return super.isItemValidForSlot(index, stack);
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack stack, EnumFacing direction) {
-		if (index > 8) {
-			return false;
-		}
-		int bestSlot = findBestSlotForStack(getIRecipe(), stack);
-		if (bestSlot != -1) {
-			return index == bestSlot;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		if (index > 8) {
+	private static IInventoryAccess<TileAutoCraftingTable> getInventoryAccess(){
+		return (slotID, stack, facing, direction, tile) -> {
+			switch (direction){
+				case INSERT:
+					if (slotID > 8) {
+						return false;
+					}
+					int bestSlot = tile.findBestSlotForStack(tile.getIRecipe(), stack);
+					if (bestSlot != -1) {
+						return slotID == bestSlot;
+					}
+					return true;
+				case EXTRACT:
+					return slotID > 8;
+			}
 			return true;
-		}
-		return false;
+		};
 	}
 
 	// This machine doesnt have a facing

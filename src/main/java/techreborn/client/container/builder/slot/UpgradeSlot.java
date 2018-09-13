@@ -55,7 +55,7 @@ public class UpgradeSlot extends BaseSlot implements IRightClickHandler {
 	public boolean handleRightClick(int slotID, EntityPlayer player, BuiltContainer container) {
 		if (inventory instanceof Inventory) {
 			Inventory inv = (Inventory) inventory;
-			TileEntity tileEntity = inv.getTileBase();
+			TileEntity tileEntity = inv.getTile();
 			if (tileEntity instanceof IUpgradeable) {
 				IUpgradeable upgradeable = (IUpgradeable) tileEntity;
 				if (upgradeable.canBeUpgraded()) {

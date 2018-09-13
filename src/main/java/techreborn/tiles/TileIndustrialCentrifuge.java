@@ -53,7 +53,7 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 		super("IndustrialCentrifuge", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_CENTRIFUGE, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory(7, "TileIndustrialCentrifuge", 64, this);
+		this.inventory = new Inventory<>(7, "TileIndustrialCentrifuge", 64, this);
 		this.crafter = new RecipeCrafter(Reference.CENTRIFUGE_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

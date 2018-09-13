@@ -28,10 +28,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
+import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
@@ -66,7 +68,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	public TileFluidReplicator() {
 		super("FluidReplicator", maxInput, maxEnergy, ModBlocks.FLUID_REPLICATOR, 3);
 		final int[] inputs = new int[] { 0 };
-		this.inventory = new Inventory(4, "TileFluidReplicator", 64, this);
+		this.inventory = new Inventory<>(4, "TileFluidReplicator", 64, this, getInventoryAccess());
 		this.crafter = new FluidReplicatorRecipeCrafter(this, this.inventory, inputs, null);
 		this.tank = new Tank("TileFluidReplicator", TileFluidReplicator.TANK_CAPACITY, this);
 	}
@@ -123,17 +125,13 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 		return tagCompound;
 	}
 
-	// TileLegacyMachineBase
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 0) {
-			if (itemStack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack())) {
-				return true;
-			} else {
-				return false;
+	private static IInventoryAccess<TileFluidReplicator> getInventoryAccess(){
+		return (slotID, stack, face, direction, tile) -> {
+			if(slotID == 0){
+				return stack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack());
 			}
-		}
-		return super.isItemValidForSlot(slotIndex, itemStack);
+			return true;
+		};
 	}
 
 	// IContainerProvider

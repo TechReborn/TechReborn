@@ -31,6 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
@@ -39,6 +40,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
+import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.Reference;
@@ -50,6 +52,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
+import techreborn.tiles.tier1.TileAutoCraftingTable;
 
 import javax.annotation.Nullable;
 
@@ -70,7 +73,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		super("IndustrialSawmill", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_SAWMILL, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
-		this.inventory = new Inventory(7, "TileSawmill", 64, this);
+		this.inventory = new Inventory<>(7, "TileSawmill", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
@@ -128,18 +131,15 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		return tagCompound;
 	}
 
-	// TileLegacyMachineBase
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 1) {
-			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-				return true;
-			} else {
-				return false;
+	private static IInventoryAccess<TileIndustrialSawmill> getInventoryAccess(){
+		return (slotID, stack, face, direction, tile) -> {
+			if(direction == IInventoryAccess.AccessDirection.INSERT){
+				return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			}
-		}
-		return super.isItemValidForSlot(slotIndex, itemStack);
+			return true;
+		};
 	}
+
 
 	// IContainerProvider
 	@Override

@@ -52,7 +52,7 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 		super("ImplosionCompressor", maxInput, maxEnergy, ModBlocks.IMPLOSION_COMPRESSOR, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
-		this.inventory = new Inventory(5, "TileImplosionCompressor", 64, this);
+		this.inventory = new Inventory<>(5, "TileImplosionCompressor", 64, this);
 		this.crafter = new RecipeCrafter(Reference.IMPLOSION_COMPRESSOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	

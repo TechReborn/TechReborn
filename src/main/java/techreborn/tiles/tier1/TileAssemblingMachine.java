@@ -49,7 +49,7 @@ public class TileAssemblingMachine extends TileGenericMachine implements IContai
 		super("AssemblingMachine", maxInput, maxEnergy, ModBlocks.ASSEMBLY_MACHINE, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
-		this.inventory = new Inventory(4, "TileAssemblingMachine", 64, this);
+		this.inventory = new Inventory<>(4, "TileAssemblingMachine", 64, this);
 		this.crafter = new RecipeCrafter(Reference.ASSEMBLING_MACHINE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
