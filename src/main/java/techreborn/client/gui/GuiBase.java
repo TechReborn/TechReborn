@@ -183,7 +183,7 @@ public class GuiBase extends GuiContainer {
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
 		}
-		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset + 27, 12, 12, mouseX, mouseY) && getMachine().hasSlotConfig()) {
+		if (builder.isInRect(guiLeft - 19, guiTop + 92 - offset + 27, 12, 12, mouseX, mouseY) && getMachine().showTankConfig()) {
 			List<String> list = new ArrayList<>();
 			list.add("Configure Fluids");
 			GuiUtils.drawHoveringText(list, mouseX - guiLeft  ,  mouseY - guiTop , width, height, -1, mc.fontRenderer);
@@ -274,7 +274,7 @@ public class GuiBase extends GuiContainer {
 				GuiSlotConfiguration.reset();
 			}
 		}
-		if(isPointInRegion(-26, 84 - offset + 27, 30, 30, mouseX, mouseY) && getMachine().hasSlotConfig()){
+		if(isPointInRegion(-26, 84 - offset + 27, 30, 30, mouseX, mouseY) && getMachine().showTankConfig()){
 			if(slotConfigType != SlotConfigType.FLUIDS){
 				slotConfigType = SlotConfigType.FLUIDS;
 			} else {
