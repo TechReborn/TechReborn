@@ -93,7 +93,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileChunkLoader> getInventory() {
 		return this.inventory;
 	}
 

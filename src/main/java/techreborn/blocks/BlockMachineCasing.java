@@ -112,13 +112,13 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired){
 			if (state.getValue(TYPE) == "reinforced") {
-				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));				
+				drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED));				
 			}
 			else if (state.getValue(TYPE) == "advanced") {
-				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 2));
+				drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_ELITE));
 			}
 			else {
-				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
+				drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC));
 			}
 		}
 		else {

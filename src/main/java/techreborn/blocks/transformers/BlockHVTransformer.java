@@ -52,7 +52,7 @@ public class BlockHVTransformer extends BlockTransformer {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
 		if (RebornCoreConfig.wrenchRequired){
-			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));
+			drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED));
 		}
 		else {
 			drops.add(new ItemStack(this));

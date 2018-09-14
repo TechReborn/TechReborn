@@ -53,7 +53,7 @@ public class BlockMediumVoltageSU extends BlockEnergyStorage {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
-			drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
+			drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC));
 		} else {
 			super.getDrops(drops, world, pos, state, fortune);
 		}

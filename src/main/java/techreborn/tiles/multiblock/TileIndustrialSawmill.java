@@ -28,10 +28,8 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
@@ -52,8 +50,6 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
-import techreborn.tiles.tier1.TileAutoCraftingTable;
-
 import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
@@ -118,6 +114,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		tank.compareAndUpdate();
 	}
 	
+	// TilePowerAcceptor
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
@@ -129,6 +126,13 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
 		return tagCompound;
+	}
+	
+	// TileLegacyMachineBase
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
 	}
 
 	private static IInventoryAccess<TileIndustrialSawmill> getInventoryAccess(){
@@ -194,11 +198,5 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 			}
 		}
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Tank getTank() {
-		return tank;
 	}
 }

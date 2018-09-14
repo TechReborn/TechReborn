@@ -44,7 +44,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
 public class TileEnergyStorage extends TilePowerAcceptor 
 		implements IToolDrop, ItemHandlerProvider {
 
-	public Inventory inventory;
+	public Inventory<TileEnergyStorage> inventory;
 	public String name;
 	public Block wrenchDrop;
 	public EnumPowerTier tier;
@@ -141,7 +141,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileEnergyStorage> getInventory() {
 		return inventory;
 	}
 }

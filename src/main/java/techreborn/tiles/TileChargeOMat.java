@@ -119,7 +119,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileChargeOMat> getInventory() {
 		return inventory;
 	}
 

@@ -121,7 +121,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileDragonEggSyphon> getInventory() {
 		return inventory;
 	}
 }

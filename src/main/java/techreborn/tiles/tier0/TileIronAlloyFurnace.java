@@ -305,7 +305,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileIronAlloyFurnace> getInventory() {
 		return this.inventory;
 	}
 

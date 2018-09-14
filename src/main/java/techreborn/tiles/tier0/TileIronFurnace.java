@@ -29,7 +29,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -166,7 +165,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileIronFurnace> getInventory() {
 		return this.inventory;
 	}
 

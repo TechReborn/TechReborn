@@ -51,7 +51,7 @@ public class TileRecycler extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
 
-	private final Inventory inventory = new Inventory<>(3, "TileRecycler", 64, this).withConfiguredAccess();
+	private final Inventory<TileRecycler> inventory = new Inventory<>(3, "TileRecycler", 64, this).withConfiguredAccess();
 	private final int cost = 2;
 	private final int time = 15;
 	private final int chance = 6;
@@ -193,7 +193,7 @@ public class TileRecycler extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileRecycler> getInventory() {
 		return this.inventory;
 	}
 

@@ -151,7 +151,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileSolidFuelGenerator> getInventory() {
 		return inventory;
 	}
 

@@ -209,7 +209,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileElectricFurnace> getInventory() {
 		return inventory;
 	}
 

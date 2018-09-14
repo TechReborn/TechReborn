@@ -295,7 +295,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileRollingMachine> getInventory() {
 		return inventory;
 	}
 

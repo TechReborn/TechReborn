@@ -28,7 +28,6 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +48,6 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.TRIngredients;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
@@ -92,6 +90,15 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		return down && center && blade && up;
 	}
 	
+	private static IInventoryAccess<TileIndustrialGrinder> getInventoryAccess(){
+		return (slotID, stack, face, direction, tile) -> {
+			if(slotID == 1){
+				return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+			}
+			return true;
+		};
+	}
+	
 	// TilePowerAcceptor
 	@Override
 	public void update() {
@@ -129,14 +136,12 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		tank.writeToNBT(tagCompound);
 		return tagCompound;
 	}
-
-	private static IInventoryAccess<TileIndustrialGrinder> getInventoryAccess(){
-		return (slotID, stack, face, direction, tile) -> {
-			if(slotID == 1){
-				return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-			}
-			return true;
-		};
+	
+	// TileLegacyMachineBase
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
 	}
 
 	// IContainerProvider
@@ -194,11 +199,5 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 			}
 		}
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Tank getTank() {
-		return tank;
 	}
 }

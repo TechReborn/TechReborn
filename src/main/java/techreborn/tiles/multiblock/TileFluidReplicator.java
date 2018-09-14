@@ -25,10 +25,8 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -133,6 +131,13 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 			return true;
 		};
 	}
+	
+	// TileLegacyMachineBase
+	@Nullable
+	@Override
+	public Tank getTank() {
+		return tank;
+	}
 
 	// IContainerProvider
 	@Override
@@ -141,11 +146,5 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
-	}
-
-	@Nullable
-	@Override
-	public Tank getTank() {
-		return tank;
 	}
 }

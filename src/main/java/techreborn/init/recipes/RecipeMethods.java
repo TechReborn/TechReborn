@@ -62,8 +62,8 @@ public abstract class RecipeMethods {
 //			return ItemParts.getPartByName(name, count);
 		} else if (type == Type.CABLE) {
 			return BlockCable.getCableByName(name, count);
-		} else if (type == Type.MACHINE_FRAME) {
-			return BlockMachineFrames.getFrameByName(name, count);
+//		} else if (type == Type.MACHINE_FRAME) {
+//			return BlockMachineFrames.getFrameByName(name, count);
 		} else if (type == Type.MACHINE_CASING) {
 			return BlockMachineCasing.getStackByName(name, count);
 //		} else if (type == Type.UPGRADE) {

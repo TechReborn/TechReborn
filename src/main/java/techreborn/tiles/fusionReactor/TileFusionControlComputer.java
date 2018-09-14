@@ -364,7 +364,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileFusionControlComputer> getInventory() {
 		return inventory;
 	}
 

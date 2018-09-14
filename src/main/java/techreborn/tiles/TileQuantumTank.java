@@ -113,7 +113,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileQuantumTank> getInventory() {
 		return this.inventory;
 	}
 	

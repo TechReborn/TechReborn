@@ -151,6 +151,7 @@ public class RegisterItemJsons {
 
 	private static void registerBlocks() {
 		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
+		
 	}
 
 	private static void register(Item item, int meta, String name) {

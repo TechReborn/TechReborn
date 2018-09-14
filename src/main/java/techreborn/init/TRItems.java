@@ -26,13 +26,13 @@ package techreborn.init;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.api.Reference;
-import techreborn.blocks.BlockMachineFrames;
 import techreborn.config.ConfigTechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.items.*;
@@ -317,8 +317,9 @@ public class TRItems {
 		}
 		Core.logHelper.info("TechReborns Items Loaded");
 
-		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
-		BlockMachineBase.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
+		// TODO: do we need this at all?
+		BlockMachineBase.advancedFrameStack = new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED);
+		BlockMachineBase.basicFrameStack = new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC);
 	}
 
 	public static void registerItem(Item item, String name) {

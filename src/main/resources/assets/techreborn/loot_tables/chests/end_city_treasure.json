@@ -99,15 +99,9 @@
 				},								
 				{
 					"type": "item",
-					"name": "techreborn:machine_frame",
-					"entryName": "advanced_frame",
-					"weight": 30,
-					"functions": [
-						{
-							"function": "set_data",
-							"data": 2
-						}
-					]
+					"name": "techreborn:machineblockelite",
+					"entryName": "highly_advanced_frame",
+					"weight": 30
 				},
 				{
 					"type": "item",
