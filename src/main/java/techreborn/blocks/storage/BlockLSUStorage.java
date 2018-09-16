@@ -44,8 +44,8 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.lesu.TileLSUStorage;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -57,7 +57,7 @@ public class BlockLSUStorage extends BaseTileBlock {
 	public BlockLSUStorage() {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

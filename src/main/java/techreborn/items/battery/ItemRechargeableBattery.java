@@ -22,16 +22,34 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.items.battery;
 
-import net.minecraft.item.Item;
-import techreborn.utils.TechRebornCreativeTab;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import techreborn.init.TRItems;
 
-public class ItemTR extends Item {
+public class ItemRechargeableBattery extends ItemBattery {
 
-	public ItemTR() {
-		setNoRepair();
-		setCreativeTab(TechRebornCreativeTab.instance);
+	// 40k FE capacity with 100 FE\t charge rate
+	public ItemRechargeableBattery() {
+		super(40_000, 100);
 	}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+		if (!isInCreativeTab(par2CreativeTabs)) {
+			return;
+		}
+		ItemStack stack = new ItemStack(TRItems.RECHARGEABLE_BATTERY);
+		//	ItemStack charged = stack.copy();
+		//IEnergyStorage capEnergy = charged.getCapability(CapabilityEnergy.ENERGY, null);
+		//capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+
+		itemList.add(stack);
+		//itemList.add(charged);
+	}
 }

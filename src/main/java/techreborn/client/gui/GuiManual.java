@@ -30,13 +30,13 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import techreborn.items.ItemTechManual;
+import techreborn.items.ItemManual;
 
 import java.awt.*;
 
 public class GuiManual extends GuiScreen {
 
-	ItemTechManual manual;
+	ItemManual manual;
 	EntityPlayer player;
 
 	private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/manual.png");

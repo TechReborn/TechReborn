@@ -40,7 +40,6 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -55,12 +54,11 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public ItemDrill(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
 		super(material);
 		this.efficiency = efficiencyOnProperMaterial;
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}
-	
+
 	// ItemPickaxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
@@ -68,13 +66,13 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 			return unpoweredSpeed;
 		}
 		if (Items.WOODEN_PICKAXE.getDestroySpeed(stack, state) > 1.0F
-				|| Items.WOODEN_SHOVEL.getDestroySpeed(stack, state) > 1.0F) {
+			|| Items.WOODEN_SHOVEL.getDestroySpeed(stack, state) > 1.0F) {
 			return efficiency;
 		} else {
 			return super.getDestroySpeed(stack, state);
 		}
 	}
-	
+
 	// ItemTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
@@ -84,12 +82,12 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
 		return true;
 	}
-	
+
 	//Item
 	@Override
 	public boolean isRepairable() {
@@ -113,7 +111,9 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack,
+	                                            @Nullable
+		                                            NBTTagCompound nbt) {
 		return new PoweredItemCapabilityProvider(stack);
 	}
 

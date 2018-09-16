@@ -41,7 +41,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Random;
@@ -67,7 +67,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 		setSoundType(SoundType.WOOD);
 		this.setDefaultState(iblockstate.withProperty(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT));
 		useNeighborBrightness = true;
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override

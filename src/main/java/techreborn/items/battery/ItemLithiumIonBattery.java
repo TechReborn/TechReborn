@@ -31,11 +31,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.init.TRItems;
 
-public class ItemReBattery extends ItemBattery {
+public class ItemLithiumIonBattery extends ItemBattery {
 
-	// 40k FE capacity with 100 FE\t charge rate
-	public ItemReBattery() {
-		super("rebattery", 40_000, 100);
+	// 400k FE with 1k FE\t charge rate
+	public ItemLithiumIonBattery() {
+		super(400_000, 1_000);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -44,12 +44,13 @@ public class ItemReBattery extends ItemBattery {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRItems.RE_BATTERY);
-	//	ItemStack charged = stack.copy();
-		//IEnergyStorage capEnergy = charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ItemStack stack = new ItemStack(TRItems.LITHIUM_ION_BATTERY);
+		//	ItemStack charged = stack.copy();
+		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		//capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
 		//itemList.add(charged);
 	}
 }
+

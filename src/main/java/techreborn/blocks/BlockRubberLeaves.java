@@ -40,9 +40,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
@@ -56,7 +55,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 			.withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, CHECK_DECAY, DECAYABLE));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, CHECK_DECAY, DECAYABLE));
 	}
 
 	@Override
@@ -139,6 +138,6 @@ public class BlockRubberLeaves extends BlockLeaves {
 	}
 
 	public boolean fancyLeaves(){
-		return Core.proxy.fancyGraphics();
+		return TechReborn.proxy.fancyGraphics();
 	}
 }

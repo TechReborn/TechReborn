@@ -26,6 +26,7 @@ package techreborn.items.battery;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -38,28 +39,28 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
-import techreborn.items.ItemTR;
 
 import javax.annotation.Nullable;
 
-public class ItemBattery extends ItemTR implements IEnergyItemInfo {
+public class ItemBattery extends Item implements IEnergyItemInfo {
 
-	String name;
 	int maxEnergy = 0;
 	int maxTransfer = 0;
 
-	public ItemBattery(String name, int maxEnergy, int maxTransfer) {
+	public ItemBattery(int maxEnergy, int maxTransfer) {
 		super();
 		setMaxStackSize(1);
 		setMaxDamage(1);
-		setTranslationKey("techreborn." + name);
-		this.name = name;
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;
 		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float apply(ItemStack stack,
+			                   @Nullable
+				                   World worldIn,
+			                   @Nullable
+				                   EntityLivingBase entityIn) {
 				if (!stack.isEmpty() && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() == 0) {
 					return 1.0F;
 				}
@@ -67,7 +68,7 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 			}
 		});
 	}
-	
+
 	// Item
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
@@ -86,7 +87,9 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack,
+	                                            @Nullable
+		                                            NBTTagCompound nbt) {
 		return new PoweredItemCapabilityProvider(stack);
 	}
 

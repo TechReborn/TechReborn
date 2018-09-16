@@ -22,41 +22,30 @@
  * SOFTWARE.
  */
 
-package techreborn.lib;
+package techreborn.items;
 
-import reborncore.common.IModInfo;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
+import techreborn.TechReborn;
+import techreborn.client.EGui;
+import techreborn.utils.InitUtils;
 
-public class ModInfo implements IModInfo {
-	public static final String MOD_NAME = "Tech Reborn";
-	public static final String MOD_ID = "techreborn";
-	public static final String MOD_VERSION = "@MODVERSION@";
-	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore;after:jei@[4.7,)";
-	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
-	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
-	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+public class ItemManual extends Item {
 
-	@Override
-	public String MOD_NAME() {
-		return MOD_NAME;
+	public ItemManual() {
+		this.setMaxStackSize(1);
 	}
 
 	@Override
-	public String MOD_ID() {
-		return MOD_ID;
-	}
+	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
+	                                                final EnumHand hand) {
+		player.openGui(TechReborn.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
 
-	@Override
-	public String MOD_VERSION() {
-		return MOD_VERSION;
-	}
-
-	@Override
-	public String MOD_DEPENDENCIES() {
-		return MOD_DEPENDENCIES;
-	}
-
-	public static final class Keys {
-		public static final String CATEGORY = "keys.techreborn.category";
-		public static final String CONFIG = "keys.techreborn.config";
+		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 }

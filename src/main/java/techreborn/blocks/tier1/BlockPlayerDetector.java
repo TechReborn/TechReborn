@@ -56,9 +56,9 @@ import reborncore.common.blocks.PropertyString;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.tier1.TilePlayerDectector;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -76,7 +76,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < types.length; i++) {
-			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
+			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
 		}
 	}
 

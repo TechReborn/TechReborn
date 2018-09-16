@@ -29,6 +29,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
@@ -43,18 +44,15 @@ import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
 import techreborn.init.TRItems;
 import techreborn.lib.MessageIDs;
-import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemFrequencyTransmitter extends ItemTR {
+public class ItemFrequencyTransmitter extends Item {
 
 	public ItemFrequencyTransmitter() {
-		setTranslationKey("techreborn.frequencyTransmitter");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		this.addPropertyOverride(new ResourceLocation("techreborn:coords"), new IItemPropertyGetter() {
+		this.addPropertyOverride(new ResourceLocation("techreborn", "coords"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack,
@@ -113,7 +111,9 @@ public class ItemFrequencyTransmitter extends ItemTR {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack,
+	                           @Nullable
+		                           World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if (stack.hasTagCompound() && stack.getTagCompound() != null && stack.getTagCompound().hasKey("x") && stack.getTagCompound().hasKey("y") && stack.getTagCompound().hasKey("z") && stack.getTagCompound().hasKey("dim")) {
 			int x = stack.getTagCompound().getInteger("x");
 			int y = stack.getTagCompound().getInteger("y");

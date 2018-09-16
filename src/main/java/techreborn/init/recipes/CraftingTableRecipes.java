@@ -30,12 +30,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.RebornCraftingHelper;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.init.TRItems;
-import techreborn.init.TRIngredients;
 import techreborn.items.*;
 
 /**
@@ -75,20 +75,20 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(TRItems.DIAMOND_JACKHAMMER), "DSD", "TCT", " D ", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', getStack(TRItems.STEEL_JACKHAMMER, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
 		registerShaped(getStack(TRItems.ADVANCED_JACKHAMMER), "NDN", "OCO", " I ", 'I', "plateIridiumAlloy", 'N', "nuggetIridium", 'D', getStack(TRItems.DIAMOND_JACKHAMMER, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', getMaterial("overclock", Type.UPGRADE));
 		registerShaped(getStack(TRItems.CLOAKING_DEVICE), "CIC", "IOI", "CIC", 'C', "ingotChrome", 'I', "plateIridiumAlloy", 'O', getStack(TRItems.LAPOTRONIC_ORB));
-		registerShaped(getStack(TRItems.LAPOTRONIC_ORB_PACK), "FOF", "SPS", "FIF", 'F', "circuitMaster", 'O', getStack(TRItems.LAPOTRONIC_ORB), 'S', "craftingSuperconductor", 'I', "ingotIridium", 'P', getStack(TRItems.LITHIUM_BATTERY_PACK));
-		registerShaped(getStack(TRItems.RE_BATTERY), " W ", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', EnumCableType.ICOPPER.getStack());
-		registerShaped(getStack(TRItems.LITHIUM_BATTERY), " C ", "PFP", "PFP", 'F', getCell("lithium"), 'P', "plateAluminum", 'C', EnumCableType.IGOLD.getStack());
-		registerShaped(getStack(TRItems.LITHIUM_BATTERY_PACK),	"BCB", "BPB", "B B", 'B', getStack(TRItems.LITHIUM_BATTERY), 'P', "plateAluminum", 'C', "circuitAdvanced");
+		registerShaped(getStack(TRItems.LAPOTRONIC_ORBPACK), "FOF", "SPS", "FIF", 'F', "circuitMaster", 'O', getStack(TRItems.LAPOTRONIC_ORB), 'S', "craftingSuperconductor", 'I', "ingotIridium", 'P', getStack(TRItems.LITHIUM_ION_BATPACK));
+		registerShaped(getStack(TRItems.RECHARGEABLE_BATTERY), " W ", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', EnumCableType.ICOPPER.getStack());
+		registerShaped(getStack(TRItems.LITHIUM_ION_BATTERY), " C ", "PFP", "PFP", 'F', getCell("lithium"), 'P', "plateAluminum", 'C', EnumCableType.IGOLD.getStack());
+		registerShaped(getStack(TRItems.LITHIUM_ION_BATPACK),	"BCB", "BPB", "B B", 'B', getStack(TRItems.LITHIUM_ION_BATTERY), 'P', "plateAluminum", 'C', "circuitAdvanced");
 		registerShaped(getStack(TRItems.ENERGY_CRYSTAL), "RRR", "RDR", "RRR", 'R', "dustRedstone", 'D', "gemDiamond");
-		registerShaped(getStack(TRItems.LAPOTRONIC_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
+		registerShaped(getStack(TRItems.LAPOTRON_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
 		registerShaped(getStack(TRItems.LAPOTRONIC_ORB), "LLL", "LPL", "LLL", 'L', "lapotronCrystal", 'P', "plateIridiumAlloy");
-		registerShaped(getStack(TRItems.SCRAP_BOX), "SSS", "SSS", "SSS", 'S', TRIngredients.Parts.SCRAP.getStack());
+		registerShaped(getStack(TRItems.SCRAP_BOX), "SSS", "SSS", "SSS", 'S', TRContent.Parts.SCRAP.getStack());
 		registerShapeless(getStack(TRItems.FREQUENCY_TRANSMITTER), EnumCableType.ICOPPER.getStack(), "circuitBasic");
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			addToolAndArmourRecipes(getStack(TRItems.RUBY_SWORD), getStack(TRItems.RUBY_PICKAXE), getStack(TRItems.RUBY_AXE), getStack(TRItems.RUBY_HOE), getStack(TRItems.RUBY_SPADE), getStack(TRItems.RUBY_HELMET), getStack(TRItems.RUBY_CHESTPLATE), getStack(TRItems.RUBY_LEGGINGS), getStack(TRItems.RUBY_BOOTS), "gemRuby");
-			addToolAndArmourRecipes(getStack(TRItems.SAPPHIRE_SWORD), getStack(TRItems.SAPPHIRE_PICKAXE), getStack(TRItems.SAPPHIRE_AXE), getStack(TRItems.SAPPHIRE_HOE), getStack(TRItems.SAPPHIRE_SPADE), getStack(TRItems.SAPPHIRE_HELMET), getStack(TRItems.SAPPHIRE_CHSTPLATE), getStack(TRItems.SAPPHIRE_LEGGINGS), getStack(TRItems.SAPPHIRE_BOOTS), "gemSapphire");
-			addToolAndArmourRecipes(getStack(TRItems.PERIDOT_SWORD), getStack(TRItems.PERIDOT_PICKAXE), getStack(TRItems.PERIDOT_AXE), getStack(TRItems.PERIDOT_HOE), getStack(TRItems.PERIDOT_SAPPHIRE), getStack(TRItems.PERIDOT_HELMET), getStack(TRItems.PERIDOT_CHESTPLATE), getStack(TRItems.PERIDOT_LEGGINGS), getStack(TRItems.PERIDOT_BOOTS), "gemPeridot");
+			addToolAndArmourRecipes(getStack(TRItems.SAPPHIRE_SWORD), getStack(TRItems.SAPPHIRE_PICKAXE), getStack(TRItems.SAPPHIRE_AXE), getStack(TRItems.SAPPHIRE_HOE), getStack(TRItems.SAPPHIRE_SPADE), getStack(TRItems.SAPPHIRE_HELMET), getStack(TRItems.SAPPHIRE_CHESTPLATE), getStack(TRItems.SAPPHIRE_LEGGINGS), getStack(TRItems.SAPPHIRE_BOOTS), "gemSapphire");
+			addToolAndArmourRecipes(getStack(TRItems.PERIDOT_SWORD), getStack(TRItems.PERIDOT_PICKAXE), getStack(TRItems.PERIDOT_AXE), getStack(TRItems.PERIDOT_HOE), getStack(TRItems.PERIDOT_SPADE), getStack(TRItems.PERIDOT_HELMET), getStack(TRItems.PERIDOT_CHESTPLATE), getStack(TRItems.PERIDOT_LEGGINGS), getStack(TRItems.PERIDOT_BOOTS), "gemPeridot");
 			addToolAndArmourRecipes(getStack(TRItems.BRONZE_SWORD), getStack(TRItems.BRONZE_PICKAXE), getStack(TRItems.BRONZE_AXE), getStack(TRItems.BRONZE_HOE), getStack(TRItems.BRONZE_SPADE), getStack(TRItems.BRONZE_HELMET), getStack(TRItems.BRONZE_CHESTPLATE), getStack(TRItems.BRONZE_LEGGINGS), getStack(TRItems.BRONZE_BOOTS), "ingotBronze");
 		}
 		
@@ -116,7 +116,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), "RER", "CFC", "RER", 'R', "plateIron", 'E', getStack(ModBlocks.EXTRACTOR), 'C', "circuitAdvanced", 'F', "machineBlockAdvanced");
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "ingotRefinedIron", 'E', getStack(ModBlocks.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_CENTRIFUGE), "RCR", "AEA", "RCR", 'R', "plateAluminum", 'E', getStack(ModBlocks.EXTRACTOR), 'A', "machineBlockAdvanced", 'C', "circuitAdvanced");
-		registerShaped(getStack(ModBlocks.INDUSTRIAL_SAWMILL), "PAP", "SSS", "ACA", 'P', "ingotRefinedIron", 'A', "circuitAdvanced", 'S', TRIngredients.Parts.DIAMOND_SAW_BLADE.getStack(), 'C', "machineBlockAdvanced");
+		registerShaped(getStack(ModBlocks.INDUSTRIAL_SAWMILL), "PAP", "SSS", "ACA", 'P', "ingotRefinedIron", 'A', "circuitAdvanced", 'S', TRContent.Parts.DIAMOND_SAW_BLADE.getStack(), 'C', "machineBlockAdvanced");
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_BLAST_FURNACE), "CHC", "HBH", "FHF", 'H', getMaterial("cupronickelHeatingCoil", Type.PART), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'F', getStack(ModBlocks.ELECTRIC_FURNACE));
 		registerShaped(getStack(ModBlocks.INDUSTRIAL_GRINDER), "ECG", "HHH", "CBC", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'H', "craftingDiamondGrinder", 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'G', getStack(ModBlocks.GRINDER));
 //		registerShaped(getStack(ModBlocks.IMPLOSION_COMPRESSOR), "ABA", "CPC", "ABA", 'A', getMaterialObject("advancedAlloy", Type.INGOT), 'C', "circuitAdvanced", 'B', "machineBlockAdvanced", 'P', getStack(ModBlocks.COMPRESSOR));
@@ -134,10 +134,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.SCRAPBOXINATOR), "ICI", "DSD", "ICI", 'S', getStack(TRItems.SCRAP_BOX), 'C', "circuitBasic", 'I', "plateIron", 'D', "dirt");
 		registerShaped(getStack(ModBlocks.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P', "energyCrystal", 'T', getStack(ModBlocks.FUSION_COIL), 'C', "circuitMaster");
 //		registerShaped(getStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', getMaterial("nichromeHeatingCoil", Type.PART), 'C', "circuitMaster", 'S', "craftingSuperconductor", 'R', getMaterial("iridiumNeutronReflector", Type.PART));
-		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', TRIngredients.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRIngredients.Parts.DIGITAL_DISPLAY.getStack());
-		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', TRIngredients.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRIngredients.Parts.DIGITAL_DISPLAY.getStack());
+		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
+		registerShaped(getStack(ModBlocks.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
 		registerShaped(getStack(ModBlocks.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(ModBlocks.EXTRACTOR), 'A', "machineBlockElite", 'O', getStack(TRItems.LAPOTRONIC_ORB));
-		registerShaped(getStack(ModBlocks.COMPUTER_CUBE), "OMC", "MFM", "CMO", 'O', TRIngredients.Parts.DATA_STORAGE_CORE.getStack(), 'M', TRIngredients.Parts.DIGITAL_DISPLAY.getStack(), 'C', "circuitMaster", 'F', "machineBlockAdvanced");
+		registerShaped(getStack(ModBlocks.COMPUTER_CUBE), "OMC", "MFM", "CMO", 'O', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'M', TRContent.Parts.DIGITAL_DISPLAY.getStack(), 'C', "circuitMaster", 'F', "machineBlockAdvanced");
 		registerShaped(getStack(ModBlocks.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', "circuitStorage", 'C', "circuitAdvanced", 'F',  getStack(ModBlocks.COMPUTER_CUBE));
 		registerShaped(getStack(ModBlocks.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(ModBlocks.MEDIUM_VOLTAGE_SU), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(TRItems.LAPOTRONIC_ORB));
 		registerShaped(getStack(ModBlocks.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(ModBlocks.HV_TRANSFORMER), 'C', "circuitMaster", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR));
@@ -165,9 +165,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.IRON_FURNACE), " I ", "I I", "IFI", 'I', "ingotIron", 'F', getStack(Blocks.FURNACE));
 		registerShaped(getStack(ModBlocks.EXTRACTOR), "TMT", "TCT", "   ", 'T', getStack(TRItems.TREE_TAP, true), 'M', "machineBlockBasic", 'C', "circuitBasic");
 		registerShaped(getStack(ModBlocks.GRINDER), "FFF", "SMS", " C ", 'F', Items.FLINT, 'S', getStack(Blocks.COBBLESTONE), 'M', "machineBlockBasic", 'C', "circuitBasic");
-		registerShaped(getStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', TRIngredients.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRIngredients.Parts.DIGITAL_DISPLAY.getStack(), 'A', "machineBlockElite", 'Q', getStack(ModBlocks.DIGITAL_CHEST), 'T', getStack(ModBlocks.COMPRESSOR));
+		registerShaped(getStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack(), 'A', "machineBlockElite", 'Q', getStack(ModBlocks.DIGITAL_CHEST), 'T', getStack(ModBlocks.COMPRESSOR));
 		registerShaped(getStack(ModBlocks.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "platePlatinum", 'E', "circuitAdvanced", 'C', getStack(ModBlocks.QUANTUM_CHEST));
-		registerShaped(getStack(ModBlocks.LAMP_INCANDESCENT), "GGG", "TCT", "GGG", 'G', "paneGlass", 'T', getMaterial("copper", Type.CABLE), 'C', TRIngredients.Parts.CARBON_FIBER.getStack());
+		registerShaped(getStack(ModBlocks.LAMP_INCANDESCENT), "GGG", "TCT", "GGG", 'G', "paneGlass", 'T', getMaterial("copper", Type.CABLE), 'C', TRContent.Parts.CARBON_FIBER.getStack());
 		registerShaped(getStack(ModBlocks.LAMP_LED), "GGG", "TLT", "GGG", 'G', "paneGlass", 'T', getMaterial("tin", Type.CABLE), 'L', "dustGlowstone");
 
 
@@ -238,7 +238,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 
 		//UU-Matter
-		ItemStack uuStack = TRIngredients.Parts.UU_MATTER.getStack();
+		ItemStack uuStack = TRContent.Parts.UU_MATTER.getStack();
 		registerShaped(getStack(Blocks.LOG, 8), 				" U ", "   ", "   ", 'U', uuStack);
 		registerShaped(getStack(Blocks.STONE, 16), 				"   ", " U ", "   ", 'U', uuStack);
 		registerShaped(getStack(Blocks.SNOW, 16), 				"U U", "   ", "   ", 'U', uuStack);
@@ -288,7 +288,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 			Items.BOOK);
 
 
-		Core.logHelper.info("Crafting Table Recipes Added");
+		TechReborn.LOGGER.info("Crafting Table Recipes Added");
 	}
 
 	static void registerCompressionRecipes() {

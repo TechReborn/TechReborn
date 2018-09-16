@@ -45,8 +45,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import techreborn.Core;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Iterator;
@@ -67,7 +66,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.name = name;
 		this.guiID = guiID;
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
@@ -172,7 +171,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		}
 
 		if (!playerIn.isSneaking()) {
-			playerIn.openGui(Core.INSTANCE, guiID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			playerIn.openGui(TechReborn.INSTANCE, guiID, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;
 		}
 

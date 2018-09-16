@@ -36,7 +36,7 @@ public class ItemEnergyCrystal extends ItemBattery {
 
 	// 4M FE storage with 1k charge rate
 	public ItemEnergyCrystal() {
-		super("energyCrystal", ConfigTechReborn.EnergyCrystalMaxCharge, 1_000);
+		super(ConfigTechReborn.EnergyCrystalMaxCharge, 1_000);
 	}
 
 	@SideOnly(Side.CLIENT)

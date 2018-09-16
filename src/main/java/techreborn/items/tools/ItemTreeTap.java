@@ -24,16 +24,15 @@
 
 package techreborn.items.tools;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import techreborn.items.ItemTR;
 
-public class ItemTreeTap extends ItemTR {
+public class ItemTreeTap extends Item {
 
 	public ItemTreeTap() {
 		setMaxStackSize(1);
 		setMaxDamage(20);
 	}
-
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {

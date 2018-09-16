@@ -44,7 +44,6 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -60,35 +59,38 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
 	public ItemChainsaw(ToolMaterial material, int energyCapacity, float unpoweredSpeed) {
 		super(material);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		this.maxCharge = energyCapacity;
 		this.efficiency = unpoweredSpeed;
 
-		this.addPropertyOverride(new ResourceLocation("techreborn:animated"), new IItemPropertyGetter() {
+		this.addPropertyOverride(new ResourceLocation("techreborn", "animated"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float apply(ItemStack stack,
+			                   @Nullable
+				                   World worldIn,
+			                   @Nullable
+				                   EntityLivingBase entityIn) {
 				if (!stack.isEmpty() && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost
-						&& entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
+					&& entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
 				}
 				return 0.0F;
 			}
 		});
 	}
-	
+
 	// ItemAxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost
-				&& (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
+			&& (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
 			return super.getDestroySpeed(stack, state);
 		}
 	}
-	
+
 	// ItemTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
@@ -121,7 +123,9 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack,
+	                                            @Nullable
+		                                            NBTTagCompound nbt) {
 		return new PoweredItemCapabilityProvider(stack);
 	}
 

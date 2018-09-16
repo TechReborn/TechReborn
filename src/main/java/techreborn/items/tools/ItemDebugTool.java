@@ -25,6 +25,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -36,12 +37,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.items.ItemTR;
 
 /**
  * Created by Mark on 20/03/2016.
  */
-public class ItemDebugTool extends ItemTR {
+public class ItemDebugTool extends Item {
 
 	public ItemDebugTool() {
 	}

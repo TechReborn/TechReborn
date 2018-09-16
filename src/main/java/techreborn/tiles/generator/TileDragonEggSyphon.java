@@ -33,13 +33,13 @@ import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileDragonEggSyphon extends TilePowerAcceptor 
 	implements IToolDrop, ItemHandlerProvider {
 

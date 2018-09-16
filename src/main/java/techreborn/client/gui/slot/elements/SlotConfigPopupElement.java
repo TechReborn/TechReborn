@@ -141,7 +141,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		int sy = iny + getY() + gui.guiTop;
 		SlotConfiguration.SlotConfigHolder slotConfigHolder = machineBase.slotConfiguration.getSlotDetails(slotID);
 		if(slotConfigHolder == null){
-			RebornCore.logHelper.debug("Humm, this isnt suppoed to happen");
+			RebornCore.LOGGER.debug("Humm, this isnt suppoed to happen");
 			return;
 		}
 		SlotConfiguration.SlotConfig slotConfig = slotConfigHolder.getSideDetail(side);

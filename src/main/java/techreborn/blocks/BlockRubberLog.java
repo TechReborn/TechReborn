@@ -46,12 +46,12 @@ import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.util.WorldUtils;
+import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.items.tools.ItemTreeTap;
-import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class BlockRubberLog extends Block {
 		this.setTickRandomly(true);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 5);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override
@@ -186,8 +186,8 @@ public class BlockRubberLog extends Block {
 					} else {
 						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
 					}
-					if (!playerIn.inventory.addItemStackToInventory(TRIngredients.Parts.SAP.getStack())) {
-						WorldUtils.dropItem(TRIngredients.Parts.SAP.getStack(), worldIn, pos.offset(side));
+					if (!playerIn.inventory.addItemStackToInventory(TRContent.Parts.SAP.getStack())) {
+						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(side));
 					}
 					if (playerIn instanceof EntityPlayerMP) {
 						TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
@@ -210,7 +210,7 @@ public class BlockRubberLog extends Block {
 		drops.add(new ItemStack(this));
 		if (state.getValue(HAS_SAP)) {
 			if (new Random().nextInt(4) == 0) {
-				drops.add(TRIngredients.Parts.SAP.getStack());
+				drops.add(TRContent.Parts.SAP.getStack());
 			}
 		}
 		return drops;

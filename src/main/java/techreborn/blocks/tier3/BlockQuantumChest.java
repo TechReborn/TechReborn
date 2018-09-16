@@ -34,8 +34,8 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.WorldUtils;
+import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileTechStorageBase;
 import techreborn.utils.TechRebornCreativeTab;
@@ -48,7 +48,7 @@ public class BlockQuantumChest extends BlockMachineBase {
 		super();
 		this.setTranslationKey("techreborn.quantumChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier3_machines"));
 	}
 	
 	@Override

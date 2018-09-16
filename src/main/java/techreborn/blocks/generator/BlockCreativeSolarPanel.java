@@ -42,8 +42,8 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileCreativeSolarPanel;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -56,7 +56,7 @@ public class BlockCreativeSolarPanel extends BaseTileBlock {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0F);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

@@ -27,21 +27,21 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.items.DynamicCell;
-import techreborn.lib.ModInfo;
 
 import java.util.List;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileIndustrialCentrifuge extends TileGenericMachine implements IContainerProvider, IListInfoProvider {
 
 	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")

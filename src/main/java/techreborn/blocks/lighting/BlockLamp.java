@@ -47,7 +47,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.tiles.lighting.TileLamp;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -67,7 +67,7 @@ public class BlockLamp extends BaseTileBlock {
 		this.bbs = GenBoundingBoxes(depth, width);
 		this.cost = cost;
 		this.brightness = brightness;
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/lighting"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	

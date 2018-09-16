@@ -34,18 +34,18 @@ import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.StringUtils;
+import techreborn.TechReborn;
 import techreborn.blocks.transformers.BlockTransformer;
-import techreborn.lib.ModInfo;
 
 import java.util.List;
 
 /**
  * Created by Rushmead
  */
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileTransformer extends TilePowerAcceptor 
 		implements IToolDrop, IListInfoProvider {
 	
@@ -118,7 +118,7 @@ public class TileTransformer extends TilePowerAcceptor
 	}
 
 	@Override
-	public void checkTeir() {
+	public void checkTier() {
 		//Nope
 	}
 	

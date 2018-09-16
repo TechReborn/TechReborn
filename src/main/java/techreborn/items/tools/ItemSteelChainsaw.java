@@ -49,12 +49,12 @@ public class ItemSteelChainsaw extends ItemChainsaw {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRItems.STEEL_CHAINSAW);
-	//	ItemStack charged = stack.copy();
-	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		//	ItemStack charged = stack.copy();
+		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-	//	itemList.add(charged);
+		//	itemList.add(charged);
 	}
 
 	@Override

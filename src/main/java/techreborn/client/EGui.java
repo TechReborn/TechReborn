@@ -28,7 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import techreborn.Core;
+import techreborn.TechReborn;
 
 public enum EGui implements IMachineGuiHandler {
 
@@ -85,7 +85,7 @@ public enum EGui implements IMachineGuiHandler {
 	@Override
 	public void open(EntityPlayer player, BlockPos pos, World world) {
 		if(!world.isRemote){
-			player.openGui(Core.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(TechReborn.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 

@@ -32,7 +32,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.Core;
+import techreborn.TechReborn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class ModelHelper {
 
 			return ModelBlock.deserialize(getReaderForResource(location)).getAllTransforms();
 		} catch (IOException exception) {
-			Core.logHelper.warn("Can't load resource " + location);
+			TechReborn.LOGGER.warn("Can't load resource " + location);
 			exception.printStackTrace();
 			return null;
 		}

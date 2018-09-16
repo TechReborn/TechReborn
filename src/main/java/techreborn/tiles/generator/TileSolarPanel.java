@@ -34,7 +34,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.StringUtils;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.generator.solarpanel.EnumPanelType;
 import techreborn.init.ModBlocks;
@@ -65,7 +65,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		}
 		if (world.getTotalWorldTime() % 20 == 0) {
 			canSeeSky = world.canBlockSeeSky(pos.up());
-			if(lastSate != isSunOut()){
+			if (lastSate != isSunOut()) {
 				world.setBlockState(pos,
 					world.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
 				lastSate = isSunOut();
@@ -129,10 +129,10 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
-		if(tag.hasKey("panelType")){
+		if (tag.hasKey("panelType")) {
 			panel = EnumPanelType.values()[tag.getInteger("panelType")];
 		} else {
-			Core.logHelper.warn("A solar panel has failed to load from NBT, it will not work correctly. Please break and replace it to fix the issue. BlockPos:" + pos.toString());
+			TechReborn.LOGGER.warn("A solar panel has failed to load from NBT, it will not work correctly. Please break and replace it to fix the issue. BlockPos:" + pos.toString());
 			panel = EnumPanelType.Basic;
 		}
 		super.readFromNBT(tag);
@@ -145,7 +145,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void checkTeir() {
+	public void checkTier() {
 		//Nope
 	}
 
@@ -155,7 +155,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 			+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower()));
 
 		info.add(TextFormatting.GRAY + "Generation Rate Day: " + TextFormatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD));
+			+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD));
 
 		info.add(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
 			+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN));

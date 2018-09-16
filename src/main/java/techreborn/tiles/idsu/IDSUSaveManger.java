@@ -26,14 +26,14 @@ package techreborn.tiles.idsu;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.storage.WorldSavedData;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 
 /**
  * Created by modmuss50 on 13/06/2017.
  */
 public class IDSUSaveManger extends WorldSavedData implements IDataIDSU {
 	public IDSUSaveManger(String name) {
-		super(ModInfo.MOD_ID + "_IDSU");
+		super(TechReborn.MOD_ID + "_IDSU");
 	}
 
 	@Override

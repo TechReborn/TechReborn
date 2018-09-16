@@ -38,10 +38,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Tank;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -49,7 +49,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 08/05/2016.
  */
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TilePump extends TilePowerAcceptor {
 
 	@ConfigRegistry(config = "machines", category = "pump", key = "PumpEUCost", comment = "Pump cost for one block of fluid (Value in EU)")

@@ -32,7 +32,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.Reference;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 import techreborn.tiles.multiblock.TileFluidReplicator;
 
 /**
@@ -64,7 +64,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 			return false;
 		}
 		ItemStack inputStack = inventory.getStackInSlot(inputSlots[0]);
-		if (!inputStack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack())) {
+		if (!inputStack.isItemEqual(TRContent.Parts.UU_MATTER.getStack())) {
 			return false;
 		}
 		if (inputStack.getCount() < recipe.getInput()) {

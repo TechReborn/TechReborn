@@ -28,19 +28,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+import techreborn.TechReborn;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.TRIngredients;
-import techreborn.lib.ModInfo;
+import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
 import javax.annotation.Nullable;
@@ -50,7 +50,7 @@ import javax.annotation.Nullable;
  *
  */
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileFluidReplicator extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxInput", comment = "Fluid Replicator Max Input (Value in EU)")
@@ -126,7 +126,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	private static IInventoryAccess<TileFluidReplicator> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(slotID == 0){
-				return stack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack());
+				return stack.isItemEqual(TRContent.Parts.UU_MATTER.getStack());
 			}
 			return true;
 		};
@@ -143,7 +143,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRIngredients.Parts.UU_MATTER.getStack()))
+				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
 	}

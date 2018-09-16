@@ -30,8 +30,8 @@ import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolidFuelGenerator;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -40,7 +40,7 @@ public class BlockSolidFuelGenerator extends BlockMachineBase {
 	public BlockSolidFuelGenerator() {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

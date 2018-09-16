@@ -30,7 +30,7 @@ import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.tiles.generator.TileLightningRod;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -39,7 +39,7 @@ public class BlockLightningRod extends BlockMachineBase {
 	public BlockLightningRod() {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

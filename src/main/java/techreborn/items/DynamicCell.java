@@ -49,7 +49,7 @@ import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRItems;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.utils.InitUtils;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -60,8 +60,6 @@ public class DynamicCell extends Item {
 
 	public DynamicCell() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		setTranslationKey("techreborn.cell");
 		setMaxStackSize(64);
 		TRRecipeHandler.hideEntry(this);
 	}

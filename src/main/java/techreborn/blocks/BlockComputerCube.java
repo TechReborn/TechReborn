@@ -38,9 +38,9 @@ import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
-import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockComputerCube extends BlockMachineBase {
@@ -49,7 +49,7 @@ public class BlockComputerCube extends BlockMachineBase {
 		super();
 		this.setTranslationKey("techreborn.computercube");
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 
 	@Override

@@ -42,9 +42,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.ToolManager;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
-import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
@@ -57,7 +57,7 @@ public class BlockFusionCoil extends Block {
 		setHardness(2f);
 		setSoundType(SoundType.METAL);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 	
 	@Override

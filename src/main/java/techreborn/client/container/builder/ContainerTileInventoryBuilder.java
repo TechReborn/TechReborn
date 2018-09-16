@@ -39,7 +39,7 @@ import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.tile.TileLegacyMachineBase;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.client.container.builder.slot.FilteredSlot;
 import techreborn.client.container.builder.slot.FurnaceFuelSlot;
 import techreborn.client.container.builder.slot.UpgradeSlot;
@@ -143,7 +143,7 @@ public class ContainerTileInventoryBuilder {
 					((TilePowerAcceptor) this.tile)::setExtraPowerStoage)
 				.syncIntegerValue(() -> (int) ((TilePowerAcceptor) this.tile).getPowerChange(),
 					((TilePowerAcceptor) this.tile)::setPowerChange);
-		Core.logHelper.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
+		TechReborn.LOGGER.error(this.tile + " is not an instance of TilePowerAcceptor! Energy cannot be synced.");
 		return this;
 	}
 
@@ -156,7 +156,7 @@ public class ContainerTileInventoryBuilder {
 				.syncIntegerValue(() -> ((IRecipeCrafterProvider) this.tile).getRecipeCrafter().currentNeededTicks,
 					(currentNeededTicks) -> ((IRecipeCrafterProvider) this.tile)
 						.getRecipeCrafter().currentNeededTicks = currentNeededTicks);
-		Core.logHelper
+		TechReborn.LOGGER
 			.error(this.tile + " is not an instance of IRecipeCrafterProvider! Craft progress cannot be synced.");
 		return this;
 	}

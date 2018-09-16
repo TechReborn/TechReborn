@@ -29,7 +29,6 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.events.TRRecipeHandler;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -53,7 +52,6 @@ public class ItemTRArmour extends ItemArmor {
 			setTranslationKey(material.name().toLowerCase() + "Leggings");
 		if (slot == EntityEquipmentSlot.FEET)
 			setTranslationKey(material.name().toLowerCase() + "Boots");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}
 

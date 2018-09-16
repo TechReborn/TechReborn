@@ -41,19 +41,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRItems;
-import techreborn.items.armor.ItemTRArmour;
-import techreborn.lib.ModInfo;
-import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
 	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in FE)")
@@ -66,9 +64,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemCloakingDevice() {
 		super(Reference.CLOAKING_ARMOR, EntityEquipmentSlot.CHEST);
-		setTranslationKey("techreborn.cloakingdevice");
 		setMaxStackSize(1);
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	// Item

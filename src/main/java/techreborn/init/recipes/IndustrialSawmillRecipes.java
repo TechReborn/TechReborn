@@ -35,13 +35,13 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.init.TRIngredients;
-import techreborn.lib.ModInfo;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nonnull;
 import java.security.InvalidParameterException;
@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class IndustrialSawmillRecipes extends RecipeMethods {
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
 
@@ -116,7 +116,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	public static void addRecipe(ItemStack log, ItemStack plank) {
 		plank.setCount(plankCount);
-		register(log, WATER, 100, 128, plank, TRIngredients.Dusts.SAW.getStack(3), getStack(Items.PAPER, 1));
+		register(log, WATER, 100, 128, plank, TRContent.Dusts.SAW.getStack(3), getStack(Items.PAPER, 1));
 	}
 
 	static void register(ItemStack input1, FluidStack fluid, int ticks, int euPerTick, ItemStack... outputs) {

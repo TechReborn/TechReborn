@@ -25,27 +25,24 @@
 package techreborn.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.utils.InitUtils;
 
-public class ItemDestructopack extends ItemTR {
+public class ItemDestructopack extends Item {
 
 	public ItemDestructopack() {
-		this.setTranslationKey("techreborn.destructopack");
-		this.setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
-	                                                final EnumHand hand) {
-		player.openGui(Core.INSTANCE, EGui.DESTRUCTOPACK.ordinal(), world, (int) player.posX, (int) player.posY,
-			(int) player.posY);
+	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+		player.openGui(TechReborn.INSTANCE, EGui.DESTRUCTOPACK.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
 		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 }

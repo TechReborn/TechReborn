@@ -25,6 +25,7 @@
 package techreborn.items;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -34,15 +35,13 @@ import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.WorldUtils;
 import techreborn.api.Reference;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.utils.InitUtils;
 
 import java.util.List;
 
-public class ItemScrapBox extends ItemTR {
+public class ItemScrapBox extends Item {
 
 	public ItemScrapBox() {
-		setTranslationKey("techreborn.scrapbox");
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

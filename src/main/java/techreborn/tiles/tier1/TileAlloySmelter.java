@@ -27,20 +27,20 @@ package techreborn.tiles.tier1;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileAlloySmelter extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")

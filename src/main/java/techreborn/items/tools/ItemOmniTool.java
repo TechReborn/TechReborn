@@ -49,7 +49,7 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRItems;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -65,7 +65,6 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	public ItemOmniTool() {
 		super(ToolMaterial.DIAMOND);
 		efficiency = 13F;
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(200);
 	}

@@ -36,19 +36,19 @@ import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.recipes.RecipeTranslator;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

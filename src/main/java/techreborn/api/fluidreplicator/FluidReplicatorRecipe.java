@@ -28,7 +28,7 @@ import reborncore.common.util.FluidUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 import techreborn.tiles.multiblock.TileFluidReplicator;
 
 import javax.annotation.Nonnull;
@@ -98,7 +98,7 @@ public class FluidReplicatorRecipe implements Cloneable {
 	
 	public List<Object> getInputs() {
 		ArrayList<Object> inputs = new ArrayList<>();
-		inputs.add(TRIngredients.Parts.UU_MATTER.getStack(input));
+		inputs.add(TRContent.Parts.UU_MATTER.getStack(input));
 		return inputs;
 	}
 	

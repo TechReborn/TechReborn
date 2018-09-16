@@ -26,16 +26,16 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileGasTurbine extends TileBaseFluidGenerator implements IContainerProvider {
 
 	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorMaxOutput", comment = "Gas Generator Max Output (Value in EU)")

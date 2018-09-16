@@ -32,7 +32,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import reborncore.common.misc.ChunkCoord;
-import techreborn.Core;
+import techreborn.TechReborn;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -48,7 +48,7 @@ public class TechRebornRetroGen {
 	private final Deque<ChunkCoord> chunksToRetroGen = new ArrayDeque<>(64);
 
 	private boolean isChunkEligibleForRetroGen(ChunkDataEvent.Load event) {
-		return Core.worldGen.config.retroGenOres && event.getWorld().provider.getDimension() == 0
+		return TechReborn.worldGen.config.retroGenOres && event.getWorld().provider.getDimension() == 0
 			&& event.getData().getString(RETROGEN_TAG).isEmpty();
 	}
 
@@ -65,7 +65,7 @@ public class TechRebornRetroGen {
 		if (isTickEligibleForRetroGen(event)) {
 			if (!chunksToRetroGen.isEmpty()) {
 				final ChunkCoord coord = chunksToRetroGen.pollFirst();
-				Core.logHelper.info("Regenerating ore in " + coord + '.');
+				TechReborn.LOGGER.info("Regenerating ore in " + coord + '.');
 				final World world = event.world;
 				if (world.getChunkProvider().getLoadedChunk(coord.getX(), coord.getZ()) != null) {
 					final long seed = world.getSeed();
@@ -74,7 +74,7 @@ public class TechRebornRetroGen {
 					final long zSeed = rng.nextLong() >> 2 + 1L;
 					final long chunkSeed = (xSeed * coord.getX() + zSeed * coord.getZ()) * seed;
 					rng.setSeed(chunkSeed);
-					Core.worldGen.generate(rng, coord.getX() << 4, coord.getZ() << 4, world, null, null);
+					TechReborn.worldGen.generate(rng, coord.getX() << 4, coord.getZ() << 4, world, null, null);
 				}
 			}
 		}
@@ -84,7 +84,7 @@ public class TechRebornRetroGen {
 	public void onChunkLoad(ChunkDataEvent.Load event) {
 		if (isChunkEligibleForRetroGen(event)) {
 			final ChunkCoord coord = ChunkCoord.of(event);
-			Core.logHelper.info("Queueing retro ore gen for " + coord + '.');
+			TechReborn.LOGGER.info("Queueing retro ore gen for " + coord + '.');
 			chunksToRetroGen.addLast(coord);
 		}
 	}

@@ -30,16 +30,16 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxInput", comment = "Chunk Loader Max Input (Value in EU)")

@@ -36,9 +36,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import techreborn.TechReborn;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.init.ModFluids;
-import techreborn.lib.ModInfo;
 
 /**
  * @author drcrazy
@@ -89,7 +89,7 @@ public class FluidBlockModelHandler {
 		String name = block.getTranslationKey().substring(5).toLowerCase();
 		Item item = Item.getItemFromBlock(block);
 		ModelResourceLocation location = new ModelResourceLocation(
-				new ResourceLocation(ModInfo.MOD_ID.toLowerCase(), "fluids"), name);
+				new ResourceLocation(TechReborn.MOD_ID.toLowerCase(), "fluids"), name);
 		
 		ModelLoader.registerItemVariants(item);
 		ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {

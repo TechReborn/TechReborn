@@ -32,8 +32,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.tile.TileLegacyMachineBase;
+import techreborn.TechReborn;
 import techreborn.client.gui.GuiBase;
-import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,7 @@ public class ElementBase {
 	private int width;
 	private int height;
 
-	public static final ResourceLocation MECH_ELEMENTS = new ResourceLocation(ModInfo.MOD_ID, "textures/gui/elements.png");
+	public static final ResourceLocation MECH_ELEMENTS = new ResourceLocation(TechReborn.MOD_ID, "textures/gui/elements.png");
 
 	public ElementBase(int x, int y, SpriteContainer container) {
 		this.container = container;

@@ -33,17 +33,16 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
-import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -54,7 +53,7 @@ import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
 import static techreborn.utils.OreDictUtils.isDictPrefixed;
 import static techreborn.utils.OreDictUtils.joinDictName;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class ModRecipes {
 
 	public static void init() {
@@ -93,7 +92,7 @@ public class ModRecipes {
 					ItemStack input = (ItemStack) entry.getKey();
 					ItemStack output = (ItemStack) entry.getValue();
 					if (ItemUtils.isInputEqual("nuggetSteel", output, true, true, false) && ItemUtils.isInputEqual("nuggetIron", input, true, true, false)) {
-						Core.logHelper.info("Removing a steelnugget smelting recipe");
+						TechReborn.LOGGER.info("Removing a steelnugget smelting recipe");
 						iterator.remove();
 					}
 				}
@@ -293,7 +292,7 @@ public class ModRecipes {
 					continue;
 
 				boolean ore = data[0].equals("ore");
-				Core.logHelper.debug("Ore: " + data[1]);
+				TechReborn.LOGGER.debug("Ore: " + data[1]);
 				ItemStack dust = getDictOreOrEmpty(joinDictName("dust", data[1]), ore ? 2 : 1);
 				if (dust.isEmpty() || dust.getItem() == null) {
 					continue;

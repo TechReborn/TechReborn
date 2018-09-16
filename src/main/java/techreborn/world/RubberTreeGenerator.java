@@ -31,7 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.IPlantable;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.blocks.BlockRubberLog;
 import techreborn.init.ModBlocks;
@@ -70,7 +70,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 	}
 
 	public boolean growTree(World world, Random rand, int x, int y, int z) {
-		int treeHeight = rand.nextInt(5) + Core.worldGen.config.rubberTreeConfig.treeBaseHeight;
+		int treeHeight = rand.nextInt(5) + TechReborn.worldGen.config.rubberTreeConfig.treeBaseHeight;
 		int worldHeight = world.getHeight();
 		if (y >= 1 && y + treeHeight + 1 <= worldHeight) {
 			int xOffset;
@@ -146,7 +146,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 						|| block.isReplaceable(world, blockpos)) {
 						IBlockState newState = ModBlocks.RUBBER_LOG.getDefaultState();
 						boolean isAddingSap = false;
-						if (rand.nextInt(Core.worldGen.config.rubberTreeConfig.sapRarity) == 0) {
+						if (rand.nextInt(TechReborn.worldGen.config.rubberTreeConfig.sapRarity) == 0) {
 							newState = newState.withProperty(BlockRubberLog.HAS_SAP, true)
 								.withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
 							isAddingSap = true;
@@ -161,7 +161,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 					}
 				}
 				if (topLogPos != null) {
-					for (int i = 0; i < Core.worldGen.config.rubberTreeConfig.spireHeight; i++) {
+					for (int i = 0; i < TechReborn.worldGen.config.rubberTreeConfig.spireHeight; i++) {
 						BlockPos spikePos = topLogPos.up(i);
 						this.setBlockAndNotifyAdequately(world, spikePos, ModBlocks.RUBBER_LEAVES.getDefaultState()
 							.withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));

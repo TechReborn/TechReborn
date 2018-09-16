@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRSpade extends ItemSpade {
 
@@ -40,7 +39,6 @@ public class ItemTRSpade extends ItemSpade {
 	public ItemTRSpade(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

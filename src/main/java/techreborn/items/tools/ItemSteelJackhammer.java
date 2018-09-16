@@ -42,16 +42,16 @@ public class ItemSteelJackhammer extends ItemJackhammer {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems( CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRItems.STEEL_JACKHAMMER);
-//		ItemStack charged = stack.copy();
-//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		//		ItemStack charged = stack.copy();
+		//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-//		itemList.add(charged);
+		//		itemList.add(charged);
 	}
 }

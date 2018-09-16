@@ -33,15 +33,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import reborncore.common.blocks.PropertyString;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
-import techreborn.init.TRIngredients;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
+import techreborn.init.TRContent;
 import techreborn.utils.TechRebornCreativeTab;
+
 import java.util.Random;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class BlockOre extends Block {
 
 	public static final PropertyString VARIANTS = getVarients();
@@ -114,22 +115,22 @@ public class BlockOre extends Block {
 
 		// Secondary drop, like peridot from sapphire ore added via event handler. 
 		if (variant.equalsIgnoreCase("Ruby")) {
-			OreDrop ruby = new OreDrop(TRIngredients.Gems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
+			OreDrop ruby = new OreDrop(TRContent.Gems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
 			drops.add(ruby.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sapphire")) {
-			OreDrop sapphire = new OreDrop(TRIngredients.Gems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
+			OreDrop sapphire = new OreDrop(TRContent.Gems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
 			drops.add(sapphire.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Pyrite")) {
-			OreDrop pyriteDust = new OreDrop(TRIngredients.Dusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
+			OreDrop pyriteDust = new OreDrop(TRContent.Dusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
 			drops.add(pyriteDust.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sodalite")) {
-			OreDrop sodalite = new OreDrop(TRIngredients.Dusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
+			OreDrop sodalite = new OreDrop(TRContent.Dusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
 			drops.add(sodalite.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Cinnabar")) {
-			OreDrop cinnabar = new OreDrop(TRIngredients.Dusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
+			OreDrop cinnabar = new OreDrop(TRContent.Dusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
 			drops.add(cinnabar.getDrops(fortune, random));
 		} else if (variant.equalsIgnoreCase("Sphalerite")) {
-			OreDrop sphalerite = new OreDrop(TRIngredients.Dusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
+			OreDrop sphalerite = new OreDrop(TRContent.Dusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
 			drops.add(sphalerite.getDrops(fortune, random));
 		} else {
 			drops.add(new ItemStack(Item.getItemFromBlock(this), 1, meta));

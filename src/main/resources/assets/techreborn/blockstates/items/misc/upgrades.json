@@ -1,4 +1,4 @@
-  {
+{
   "forge_marker": 1,
   "defaults": {
     "model": "builtin/generated",
@@ -6,7 +6,7 @@
   },
   "variants": {
     "type": {
-      "overclock": {
+      "overclocker": {
         "textures": {
           "layer0": "techreborn:items/upgrade/overclocker_upgrade"
         }
@@ -24,16 +24,6 @@
       "range": {
         "textures": {
           "layer0": "techreborn:items/upgrade/range_upgrade"
-        }
-      },
-      "ejection": {
-        "textures": {
-          "layer0": "techreborn:items/upgrade/ejection_upgrade"
-        }
-      },
-      "injection": {
-        "textures": {
-          "layer0": "techreborn:items/upgrade/injection_upgrade"
         }
       }
     }

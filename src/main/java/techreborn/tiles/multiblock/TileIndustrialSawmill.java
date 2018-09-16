@@ -35,12 +35,13 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
@@ -48,11 +49,10 @@ import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 import javax.annotation.Nullable;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
 
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")

@@ -45,7 +45,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.Iterator;
@@ -64,7 +64,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.name = name;
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/energy"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

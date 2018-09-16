@@ -32,17 +32,17 @@ import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.TRIngredients;
-import techreborn.lib.ModInfo;
+import techreborn.init.TRContent;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileRecycler extends TilePowerAcceptor 
 		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 	
@@ -75,7 +75,7 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 	
 	public void recycleItems() {
-		final ItemStack itemstack = TRIngredients.Parts.SCRAP.getStack();
+		final ItemStack itemstack = TRContent.Parts.SCRAP.getStack();
 		final int randomchance = this.world.rand.nextInt(chance);
 
 		if (randomchance == 1) {

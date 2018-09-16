@@ -31,15 +31,15 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.WorldUtils;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Value in EU)")

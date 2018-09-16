@@ -26,7 +26,7 @@ package techreborn.client.keybindings;
 
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.lib.Key;
 
 public class KeyInputEventHandler {
@@ -40,7 +40,7 @@ public class KeyInputEventHandler {
 
 	@SubscribeEvent
 	public void handleKeyInputEvent(InputEvent.KeyInputEvent event) {
-		Core.logHelper.info(getPressedKeybinding());
+		TechReborn.LOGGER.info(getPressedKeybinding());
 	}
 
 }

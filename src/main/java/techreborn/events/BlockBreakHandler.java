@@ -33,18 +33,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
+import techreborn.TechReborn;
+import techreborn.init.TRContent;
 import techreborn.init.TRItems;
-import techreborn.init.TRIngredients;
-import techreborn.lib.ModInfo;
 import techreborn.utils.OreDictUtils;
 
 import java.util.List;
 import java.util.Random;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class BlockBreakHandler {
 
 	@ConfigRegistry(config = "compat", category = "general", key = "secondaryGemDrops", comment = "Drop red and yellow garnets and peridot from any harvested oreRuby, oreSapphire, oreSphalerite. False will also disable drop from TechReborn ores.")
@@ -67,15 +67,15 @@ public class BlockBreakHandler {
 			List<ItemStack> drops = event.getDrops();
 			Random random = new Random();
 			if (OreDictUtils.isOre(state, "oreRuby")) {
-				OreDrop redGarnet = new OreDrop(TRIngredients.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
+				OreDrop redGarnet = new OreDrop(TRContent.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
 				drops.add(redGarnet.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSapphire")) {
-				OreDrop peridot = new OreDrop(TRIngredients.Gems.PERIDOT.getStack(), peridotDropChance, 1);
+				OreDrop peridot = new OreDrop(TRContent.Gems.PERIDOT.getStack(), peridotDropChance, 1);
 				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSodalite")) {
-				OreDrop aluminium = new OreDrop(TRIngredients.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
+				OreDrop aluminium = new OreDrop(TRContent.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
 				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreCinnabar")) {
@@ -83,7 +83,7 @@ public class BlockBreakHandler {
 				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
 			}
 			else if (OreDictUtils.isOre(state, "oreSphalerite")) {
-				OreDrop yellowGarnet = new OreDrop(TRIngredients.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
+				OreDrop yellowGarnet = new OreDrop(TRContent.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
 				drops.add(yellowGarnet.getDrops(event.getFortuneLevel(), random));
 			}	
 		}

@@ -27,8 +27,7 @@ package techreborn.init.recipes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.RebornCraftingHelper;
-import techreborn.blocks.BlockOre;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 
 /**
  * Created by Prospector
@@ -36,9 +35,9 @@ import techreborn.init.TRIngredients;
 public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
-		register(getStack(Items.IRON_INGOT), TRIngredients.Ingots.REFINED_IRON.getStack());
-		register(TRIngredients.Parts.SAP.getStack(), TRIngredients.Parts.RUBBER.getStack());
-		register(TRIngredients.Ingots.MIXED_METAL.getStack(), TRIngredients.Ingots.ADVANCED_ALLOY.getStack());
+		register(getStack(Items.IRON_INGOT), TRContent.Ingots.REFINED_IRON.getStack());
+		register(TRContent.Parts.SAP.getStack(), TRContent.Parts.RUBBER.getStack());
+		register(TRContent.Ingots.MIXED_METAL.getStack(), TRContent.Ingots.ADVANCED_ALLOY.getStack());
 //		register(BlockOre.getOreByName("silver"), TRIngredients.Ingots.SILVER.getStack());
 //		register(BlockOre2.getOreByName("tin"), TRIngredients.Ingots.TIN.getStack());
 				

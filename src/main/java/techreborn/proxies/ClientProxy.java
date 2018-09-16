@@ -41,6 +41,7 @@ import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.client.multiblock.MultiblockRenderEvent;
+import techreborn.TechReborn;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientEventHandler;
 import techreborn.client.IconSupplier;
@@ -56,7 +57,6 @@ import techreborn.events.FluidBlockModelHandler;
 import techreborn.events.StackToolTipEvent;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemFrequencyTransmitter;
-import techreborn.lib.ModInfo;
 
 public class ClientProxy extends CommonProxy {
 
@@ -65,7 +65,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		RebornModelRegistry.registerModels(ModInfo.MOD_ID);
+		RebornModelRegistry.registerModels(TechReborn.MOD_ID);
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		ModelDynamicCell.init();

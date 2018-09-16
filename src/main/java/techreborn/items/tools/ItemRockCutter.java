@@ -47,7 +47,7 @@ import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRItems;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -61,7 +61,6 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
 		super(ToolMaterial.DIAMOND);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		efficiency = 16F;
 	}

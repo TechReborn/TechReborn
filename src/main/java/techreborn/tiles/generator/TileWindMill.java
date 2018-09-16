@@ -29,16 +29,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")

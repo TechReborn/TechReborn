@@ -25,19 +25,19 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import techreborn.TechReborn;
 import techreborn.api.recipe.ScrapboxRecipeCrafter;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.TRItems;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileScrapboxinator extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")

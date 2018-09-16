@@ -45,7 +45,7 @@ import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.tiles.generator.TileSolarPanel;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -63,7 +63,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getBlockState().getBaseState().withProperty(ACTIVE, false).withProperty(TYPE, EnumPanelType.Basic));
 		for (int i = 0; i < panes.length; i++) {
-			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/generators").setInvVariant("active=false,type=" + panes[i]));
+			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/generators").setInvVariant("active=false,type=" + panes[i]));
 		}
 	}
 

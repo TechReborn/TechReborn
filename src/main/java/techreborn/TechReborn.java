@@ -25,6 +25,8 @@
 package techreborn;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -42,12 +44,13 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
-import reborncore.common.util.LogHelper;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
@@ -59,7 +62,6 @@ import techreborn.events.BlockBreakHandler;
 import techreborn.events.TRRecipeHandler;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
-import techreborn.lib.ModInfo;
 import techreborn.packets.*;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
@@ -72,20 +74,34 @@ import techreborn.world.village.VillagePlantaionHandler;
 
 import java.io.File;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, acceptedMinecraftVersions = "[1.12,1.12.2]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b", guiFactory = "techreborn.client.TechRebornGuiFactory")
-public class Core {
+@Mod(modid = TechReborn.MOD_ID, name = TechReborn.MOD_NAME, version = TechReborn.MOD_VERSION, dependencies = TechReborn.MOD_DEPENDENCIES, acceptedMinecraftVersions = "[1.12,1.12.2]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b", guiFactory = "techreborn.client.TechRebornGuiFactory")
+public class TechReborn {
 
 	//enable dev featues with -Dtechreborn.devFeatues=true
 	public static final boolean DEV_FEATURES = Boolean.parseBoolean(System.getProperty("techreborn.devFeatues", "false"));
-	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
+	public static final String MOD_ID = "techreborn";
+	public static final String MOD_NAME = "Tech Reborn";
+	public static final String MOD_VERSION = "@MODVERSION@";
+	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore;after:jei@[4.7,)";
+	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
+	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
+	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	@Mod.Instance
-	public static Core INSTANCE;
-	public static LogHelper logHelper = new LogHelper(new ModInfo());
+	public static TechReborn INSTANCE;
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
 
-	public Core() {
+	public static final CreativeTabs TAB = new CreativeTabs(MOD_ID) {
+		@Override
+		public ItemStack createIcon() {
+			return TRContent.Parts.MACHINE_PARTS.getStack();
+		}
+	};
+
+	public TechReborn() {
 		//Forge says to call it here, so yeah
 		FluidRegistry.enableUniversalBucket();
 		//Done here so its loaded before RC's config manager
@@ -94,7 +110,7 @@ public class Core {
 
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
-		event.getModMetadata().version = ModInfo.MOD_VERSION;
+		event.getModMetadata().version = MOD_VERSION;
 		INSTANCE = this;
 		MinecraftForge.EVENT_BUS.register(this);
 
@@ -113,10 +129,7 @@ public class Core {
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
-		//Ore Dictionary
-		OreDict.init();
 		proxy.preInit(event);
-		logHelper.info("PreInitialization Complete");
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
@@ -124,7 +137,7 @@ public class Core {
 		//Register ModRecipes
 		ModRecipes.init();
 	}
-	
+
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		// Registers Chest Loot
@@ -150,7 +163,7 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		//Village stuff
 		VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
-		MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(ModInfo.MOD_ID, "rubberplantation").toString());
+		MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
 		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
@@ -158,8 +171,6 @@ public class Core {
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
-
-		logHelper.info("Initialization Complete");
 	}
 
 	@Mod.EventHandler
@@ -167,7 +178,7 @@ public class Core {
 		proxy.postInit(event);
 
 		ModRecipes.postInit();
-		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
+		LOGGER.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
 		// RecipeHandler.scanForDupeRecipes();
 		// RecipeConfigManager.save();
@@ -190,8 +201,7 @@ public class Core {
 
 	@Mod.EventHandler
 	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-		logHelper.warn("Invalid fingerprint detected for TechReborn!");
-		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for TechReborn!");
+		LOGGER.warn("Invalid fingerprint detected for Tech Reborn!");
+		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for Tech Reborn!");
 	}
-
 }

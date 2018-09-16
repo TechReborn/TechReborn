@@ -30,8 +30,8 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.impl.ConfigRegistryFactory;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 public enum EnumCableType implements IStringSerializable {
 	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.MEDIUM),
@@ -75,7 +75,7 @@ public enum EnumCableType implements IStringSerializable {
 
 	@SubscribeEvent
 	public static void handleConfig(ConfigRegistryFactory.RebornRegistryEvent event){
-		Configuration config = event.getConfiguration(ModInfo.MOD_ID, "misc");
+		Configuration config = event.getConfiguration(TechReborn.MOD_ID, "misc");
 		for(EnumCableType cableType : values()){
 			cableType.transferRate = config.getInt(cableType.friendlyName + "_transfer_rate", "cable", cableType.defaultTransferRate, 0, Integer.MAX_VALUE, "Cable transfer rate");
 			cableType.canKill = config.getBoolean(cableType.friendlyName + "_do_damage", "cable", cableType.defaultCanKill,  "Set to true to allow cable to do damge to enties that come in contact with it");

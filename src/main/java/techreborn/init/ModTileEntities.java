@@ -28,7 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
@@ -121,7 +121,7 @@ public enum ModTileEntities {
 		this.name = name;
 	}
 	ModTileEntities(Class<? extends TileEntity> tileClass, String name) {
-		this(tileClass,  new ResourceLocation(ModInfo.MOD_ID, name));
+		this(tileClass,  new ResourceLocation(TechReborn.MOD_ID, name));
 	}
 
 

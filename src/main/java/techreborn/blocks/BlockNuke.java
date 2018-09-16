@@ -43,8 +43,8 @@ import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseBlock;
+import techreborn.TechReborn;
 import techreborn.entities.EntityNukePrimed;
-import techreborn.lib.ModInfo;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**
@@ -58,7 +58,7 @@ public class BlockNuke extends BaseBlock {
 		setTranslationKey("techreborn.nuke");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	public void ignite(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase igniter) {

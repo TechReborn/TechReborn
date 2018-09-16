@@ -33,9 +33,9 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
+import techreborn.init.TRContent;
 import techreborn.init.TRItems;
-import techreborn.init.TRIngredients;
-import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,18 +80,18 @@ public class TRRecipeHandler {
 		if (recipe.getRegistryName() == null) {
 			return false;
 		}
-		if (!recipe.getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
+		if (!recipe.getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		if (!recipe.getRecipeOutput().getItem().getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
+		if (!recipe.getRecipeOutput().getItem().getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {
-			return false;
-		}
+//		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {
+//			return false;
+//		}
 		//Hide uu recipes
 		for (Ingredient ingredient : recipe.getIngredients()) {
-			if (ingredient.apply(TRIngredients.Parts.UU_MATTER.getStack())) {
+			if (ingredient.apply(TRContent.Parts.UU_MATTER.getStack())) {
 				return false;
 			}
 		}

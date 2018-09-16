@@ -28,14 +28,14 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import techreborn.Core;
+import techreborn.TechReborn;
 
 public class CommonProxy {
 	public static boolean isChiselAround;
 
 	public void preInit(FMLPreInitializationEvent event) {
 		if (isChiselAround) {
-			Core.logHelper.info("Hello chisel, shiny things will be enabled in techreborn");
+			TechReborn.LOGGER.info("Hello chisel, shiny things will be enabled in techreborn");
 		}
 	}
 

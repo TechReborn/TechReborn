@@ -39,17 +39,17 @@ import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
-import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileAutoCraftingTable extends TilePowerAcceptor
 		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

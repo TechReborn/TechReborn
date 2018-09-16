@@ -24,11 +24,11 @@
 
 package techreborn.config;
 
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class ConfigTechReborn {
 	@ConfigRegistry(config = "recipes", category = "railcraft", key = "disableRailcraftNugget", comment = "When true TechReborn will remove Railcraft's Iron Nugget to steel nugget recipe.")
 	public static boolean disableRailcraftSteelNuggetRecipe = false;

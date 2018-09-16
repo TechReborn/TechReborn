@@ -34,7 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.world.RubberTreeGenerator;
 
@@ -49,7 +49,7 @@ public class BlockRubberSapling extends BlockSapling {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getDefaultState().withProperty(STAGE, 0));
 		setSoundType(SoundType.PLANT);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override

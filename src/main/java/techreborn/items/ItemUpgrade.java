@@ -22,35 +22,37 @@
  * SOFTWARE.
  */
 
-package techreborn.items.battery;
+package techreborn.items;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.init.TRItems;
+import reborncore.api.tile.IUpgrade;
+import reborncore.common.recipes.IUpgradeHandler;
+import reborncore.common.tile.TileLegacyMachineBase;
+import techreborn.utils.InitUtils;
 
-public class ItemLithiumBattery extends ItemBattery {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	// 400k FE with 1k FE\t charge rate
-	public ItemLithiumBattery() {
-		super("lithiumBattery", 400_000, 1_000);
+public class ItemUpgrade extends Item implements IUpgrade {
+
+	public final String name;
+	public final IUpgrade behavior;
+
+	public ItemUpgrade(String name, IUpgrade process) {
+		this.name = name;
+		this.behavior = process;
+		setMaxStackSize(16);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
-			return;
-		}
-		ItemStack stack = new ItemStack(TRItems.LITHIUM_BATTERY);
-	//	ItemStack charged = stack.copy();
-	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		//capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(stack);
-		//itemList.add(charged);
+	public void process(
+		@Nonnull
+			TileLegacyMachineBase tile,
+		@Nullable
+			IUpgradeHandler handler,
+		@Nonnull
+			ItemStack stack) {
+		behavior.process(tile, handler, stack);
 	}
 }
-

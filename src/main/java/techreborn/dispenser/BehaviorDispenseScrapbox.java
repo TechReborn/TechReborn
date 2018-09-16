@@ -34,15 +34,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
-import techreborn.lib.ModInfo;
 
 import java.util.List;
 import java.util.Random;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 
 	@ConfigRegistry(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")

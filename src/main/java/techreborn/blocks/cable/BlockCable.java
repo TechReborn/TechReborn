@@ -50,11 +50,11 @@ import reborncore.api.ToolManager;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.cable.TileCable;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.ElectrialShockSource;
@@ -65,7 +65,7 @@ import java.security.InvalidParameterException;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class BlockCable extends BlockContainer {
 
 	public static final PropertyBool EAST = PropertyBool.create("east");

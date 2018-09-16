@@ -26,7 +26,7 @@ package techreborn.init.recipes;
 
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 import techreborn.items.ItemCells;
 
 /**
@@ -40,7 +40,7 @@ public class FusionReactorRecipes extends RecipeMethods {
 		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"),
 				ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium3"), 60000000, 16384, 2048));
 		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"),
-				ItemCells.getCellByName("Berylium"), TRIngredients.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
+				ItemCells.getCellByName("Berylium"), TRContent.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
 		// TODO: Fix recipe
 //		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"),
 //				ItemCells.getCellByName("lithium"), BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));

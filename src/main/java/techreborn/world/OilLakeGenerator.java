@@ -30,10 +30,10 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.init.ModFluids;
-import techreborn.lib.ModInfo;
 
 import java.util.Random;
 
@@ -41,7 +41,7 @@ import java.util.Random;
  * Created by modmuss50 on 13/06/2017.
  */
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class OilLakeGenerator implements IWorldGenerator {
 
 	@ConfigRegistry(config = "world", category = "oil_lakes", comment = "Enable the generation of underground oil lakes")

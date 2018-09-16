@@ -28,7 +28,7 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockRubberPlankStair extends BlockStairs {
@@ -37,6 +37,6 @@ public class BlockRubberPlankStair extends BlockStairs {
 		super(modelState);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		useNeighborBrightness = true;
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

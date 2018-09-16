@@ -30,19 +30,19 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 import techreborn.init.TRItems;
-import techreborn.lib.ModInfo;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor
 		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
@@ -73,7 +73,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private boolean spaceForOutput(int slot) {
 		return inventory.getStackInSlot(slot).isEmpty()
-				|| ItemUtils.isItemEqual(inventory.getStackInSlot(slot), TRIngredients.Parts.UU_MATTER.getStack(), true, true)
+				|| ItemUtils.isItemEqual(inventory.getStackInSlot(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)
 						&& inventory.getStackInSlot(slot).getCount() < 64;
 	}
 
@@ -88,9 +88,9 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private void addOutputProducts(int slot) {
 		if (inventory.getStackInSlot(slot).isEmpty()) {
-			inventory.setStackInSlot(slot, TRIngredients.Parts.UU_MATTER.getStack());
+			inventory.setStackInSlot(slot, TRContent.Parts.UU_MATTER.getStack());
 		} 
-		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), TRIngredients.Parts.UU_MATTER.getStack(), true, true)) {
+		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
 			inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + inventory.getStackInSlot(slot).getCount())));
 		}
 	}
@@ -110,7 +110,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.isItemEqual(TRIngredients.Parts.SCRAP.getStack())) {
+		if (itemStack.isItemEqual(TRContent.Parts.SCRAP.getStack())) {
 			return 200;
 		} else if (itemStack.getItem() == TRItems.SCRAP_BOX) {
 			return 2000;

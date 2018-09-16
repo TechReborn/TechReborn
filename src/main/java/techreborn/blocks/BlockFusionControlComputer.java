@@ -38,9 +38,9 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
+import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.FusionDamageSource;
@@ -52,7 +52,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	public BlockFusionControlComputer() {
 		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

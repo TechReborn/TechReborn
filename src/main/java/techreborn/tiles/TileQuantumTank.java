@@ -32,22 +32,22 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
+import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileQuantumTank extends TileLegacyMachineBase
 	implements ItemHandlerProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 

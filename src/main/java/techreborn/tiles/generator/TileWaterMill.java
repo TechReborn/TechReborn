@@ -30,17 +30,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.blocks.generator.BlockWindMill;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")

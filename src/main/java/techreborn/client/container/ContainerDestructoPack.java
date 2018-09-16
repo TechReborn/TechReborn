@@ -30,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.gui.slots.SlotFilteredVoid;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.util.Inventory;
-import techreborn.init.TRIngredients;
+import techreborn.init.TRContent;
 
 public class ContainerDestructoPack extends RebornContainer {
 
@@ -51,7 +51,7 @@ public class ContainerDestructoPack extends RebornContainer {
 
 	private void buildContainer() {
 		this.addSlotToContainer(
-			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { TRIngredients.Parts.MACHINE_PARTS.getStack() }));
+			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { TRContent.Parts.MACHINE_PARTS.getStack() }));
 		int i;
 
 		for (i = 0; i < 3; ++i) {

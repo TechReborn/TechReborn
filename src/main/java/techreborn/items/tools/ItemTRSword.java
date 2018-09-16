@@ -27,7 +27,6 @@ package techreborn.items.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class ItemTRSword extends ItemSword {
 
@@ -40,7 +39,6 @@ public class ItemTRSword extends ItemSword {
 	public ItemTRSword(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

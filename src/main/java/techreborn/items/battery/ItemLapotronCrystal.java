@@ -36,7 +36,7 @@ public class ItemLapotronCrystal extends ItemBattery {
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemLapotronCrystal() {
-		super("lapotronCrystal", ConfigTechReborn.LapotronCrystalMaxCharge, 10_000);
+		super(ConfigTechReborn.LapotronCrystalMaxCharge, 10_000);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -45,12 +45,12 @@ public class ItemLapotronCrystal extends ItemBattery {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRItems.LAPOTRONIC_CRYSTAL);
-	//	ItemStack charged = stack.copy();
-	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack stack = new ItemStack(TRItems.LAPOTRON_CRYSTAL);
+		//	ItemStack charged = stack.copy();
+		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-	//	itemList.add(charged);
+		//	itemList.add(charged);
 	}
 }

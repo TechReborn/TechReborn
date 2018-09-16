@@ -24,13 +24,12 @@
 
 package techreborn.blocks;
 
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.lib.ModInfo;
-
+import techreborn.TechReborn;
 
 //This is in its own class as not to load the block class before
-@RebornRegistry(modID = ModInfo.MOD_ID, priority = 1, earlyReg = true)
+@RebornRegister(modID = TechReborn.MOD_ID, priority = 1, earlyReg = true)
 public class OreBlockStateManager {
 	//This is a one off config, dont worry about it
 	@ConfigRegistry(config = "misc", category = "misc", key = "endOreStone", comment = "Set to true to render the end ores with a stone background")

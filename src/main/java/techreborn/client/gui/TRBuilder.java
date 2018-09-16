@@ -42,8 +42,8 @@ import reborncore.api.tile.IUpgradeable;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import techreborn.TechReborn;
 import techreborn.init.TRItems;
-import techreborn.lib.ModInfo;
 import techreborn.proxies.ClientProxy;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ import static net.minecraft.item.ItemStack.EMPTY;
  * Created by Prospector
  */
 public class TRBuilder extends GuiBuilder {
-	public static final ResourceLocation GUI_SHEET = new ResourceLocation(ModInfo.MOD_ID.toLowerCase() + ":" + "textures/gui/gui_sheet.png");
+	public static final ResourceLocation GUI_SHEET = new ResourceLocation(TechReborn.MOD_ID.toLowerCase() + ":" + "textures/gui/gui_sheet.png");
 
 	public TRBuilder() {
 		super(GUI_SHEET);

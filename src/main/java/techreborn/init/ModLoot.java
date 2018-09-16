@@ -29,9 +29,8 @@ import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import techreborn.Core;
+import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
-import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,22 +41,22 @@ public class ModLoot {
 
 	public static void init() {
 		if (ConfigTechReborn.enableOverworldLoot) {
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/abandoned_mineshaft"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/desert_pyramid"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/igloo_chest"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/jungle_temple"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/simple_dungeon"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/stronghold_corridor"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/stronghold_crossing"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/stronghold_library"));	
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/village_blacksmith"));
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/woodland_mansion"));			
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/abandoned_mineshaft"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/desert_pyramid"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/igloo_chest"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/jungle_temple"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/simple_dungeon"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/stronghold_corridor"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/stronghold_crossing"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/stronghold_library"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/village_blacksmith"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/woodland_mansion"));
 		}
 		if (ConfigTechReborn.enableNetherLoot) {
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/nether_bridge"));					
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/nether_bridge"));
 		}
 		if (ConfigTechReborn.enableEndLoot) {
-			lootTables.add(new ResourceLocation(ModInfo.MOD_ID, "chests/end_city_treasure"));
+			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/end_city_treasure"));
 		}
 		
 		for (ResourceLocation lootTable : lootTables) {
@@ -73,8 +72,8 @@ public class ModLoot {
 		for (ResourceLocation lootTable : lootTables) {
 			if (event.getName().getNamespace().equals(lootTable.getPath())) {
 				event.getTable().addPool(getLootPool(lootTable));
-				if (Core.DEV_FEATURES) {
-					Core.logHelper.info("Loot pool injected into " + lootTable.getPath());
+				if (TechReborn.DEV_FEATURES) {
+					TechReborn.LOGGER.info("Loot pool injected into " + lootTable.getPath());
 				}
 			}
 		}

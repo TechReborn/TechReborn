@@ -26,10 +26,12 @@ package techreborn.client.keybindings;
 
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
-import techreborn.lib.ModInfo;
 
 public class KeyBindings {
 
-	public static KeyBinding config = new KeyBinding(ModInfo.Keys.CONFIG, Keyboard.KEY_P, ModInfo.Keys.CATEGORY);
+	public static final String CATEGORY = "keys.techreborn.category";
+	public static final String CONFIG = "keys.techreborn.config";
+
+	public static KeyBinding config = new KeyBinding(CONFIG, Keyboard.KEY_P, CATEGORY);
 
 }

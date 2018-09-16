@@ -142,7 +142,7 @@ public class FluidConfigPopupElement extends ElementBase {
 		int sy = iny + getY() + gui.guiTop;
 		FluidConfiguration fluidConfiguration = machineBase.fluidConfiguration;
 		if (fluidConfiguration == null) {
-			RebornCore.logHelper.debug("Humm, this isnt suppoed to happen");
+			RebornCore.LOGGER.debug("Humm, this isnt suppoed to happen");
 			return;
 		}
 		FluidConfiguration.FluidConfig fluidConfig = fluidConfiguration.getSideDetail(side);

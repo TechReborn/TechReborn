@@ -31,19 +31,19 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.RebornCoreConfig;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.blocks.storage.BlockLapotronicSU;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.storage.TileEnergyStorage;
 
 import java.util.ArrayList;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileLapotronicSU extends TileEnergyStorage implements IContainerProvider{
 
 //	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")

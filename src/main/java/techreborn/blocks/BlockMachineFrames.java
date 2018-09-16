@@ -28,7 +28,7 @@ import net.minecraft.block.material.Material;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseBlock;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockMachineFrames extends BaseBlock {
@@ -40,7 +40,7 @@ public class BlockMachineFrames extends BaseBlock {
 		super(Material.IRON);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(1f);
-		RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/structure"));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/structure"));
 	}
 
 //	public static ItemStack getFrameByName(String name, int count) {

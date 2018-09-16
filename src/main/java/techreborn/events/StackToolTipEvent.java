@@ -42,7 +42,7 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.Core;
+import techreborn.TechReborn;
 
 public class StackToolTipEvent {
 
@@ -92,7 +92,7 @@ public class StackToolTipEvent {
 					}
 				}
 			} catch (NullPointerException e) {
-				Core.logHelper.debug("Failed to load info for " + event.getItemStack().getDisplayName());
+				TechReborn.LOGGER.debug("Failed to load info for " + event.getItemStack().getDisplayName());
 			}
 		}
 	}

@@ -22,31 +22,8 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.lib;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.world.World;
-import techreborn.Core;
-import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
+public class TRConstants {
 
-public class ItemTechManual extends ItemTR {
-
-	public ItemTechManual() {
-		this.setCreativeTab(TechRebornCreativeTab.instance);
-		this.setTranslationKey("techreborn.manual");
-		this.setMaxStackSize(1);
-	}
-
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
-	                                                final EnumHand hand) {
-		player.openGui(Core.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
-
-		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
-	}
 }

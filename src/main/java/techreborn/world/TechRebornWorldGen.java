@@ -40,8 +40,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import org.apache.commons.io.FileUtils;
 import reborncore.common.misc.ChunkCoord;
-import techreborn.Core;
-import techreborn.init.ModBlocks;
+import techreborn.TechReborn;
 import techreborn.world.config.OreConfig;
 import techreborn.world.config.WorldGenConfig;
 
@@ -146,22 +145,22 @@ public class TechRebornWorldGen implements IWorldGenerator {
 			//
 			//			});
 		} catch (Exception e) {
-			Core.logHelper.error(
+			TechReborn.LOGGER.error(
 				"The ores.json file was invalid, bad things are about to happen, I will try and save the world now :");
 			config = defaultConfig;
 			jsonInvalid = true;
-			Core.logHelper.error(
+			TechReborn.LOGGER.error(
 				"The ores.json file was ignored and the default values loaded, you file will NOT be over written");
 			e.printStackTrace();
 		}
 	}
 
 	public void printError(String string) {
-		Core.logHelper.error("###############-ERROR-####################");
-		Core.logHelper.error("");
-		Core.logHelper.error(string);
-		Core.logHelper.error("");
-		Core.logHelper.error("###############-ERROR-####################");
+		TechReborn.LOGGER.error("###############-ERROR-####################");
+		TechReborn.LOGGER.error("");
+		TechReborn.LOGGER.error(string);
+		TechReborn.LOGGER.error("");
+		TechReborn.LOGGER.error("###############-ERROR-####################");
 	}
 
 	private void save() {
@@ -237,7 +236,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 						try {
 							worldGenMinable.generate(world, random, pos);
 						} catch (ArrayIndexOutOfBoundsException e) {
-							Core.logHelper.error("Something bad is happening during world gen the ore "
+							TechReborn.LOGGER.error("Something bad is happening during world gen the ore "
 									+ ore.blockNiceName
 									+ " caused a crash when generating. Report this to the TechReborn devs with a log");
 						}

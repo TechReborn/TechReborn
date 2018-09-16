@@ -31,37 +31,41 @@ import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
-import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.config.ConfigTechReborn;
-import techreborn.events.TRRecipeHandler;
-import techreborn.items.*;
-import techreborn.items.armor.*;
+import techreborn.items.DynamicCell;
+import techreborn.items.ItemFrequencyTransmitter;
+import techreborn.items.ItemManual;
+import techreborn.items.ItemScrapBox;
+import techreborn.items.armor.ItemCloakingDevice;
+import techreborn.items.armor.ItemLapotronicOrbpack;
+import techreborn.items.armor.ItemLithiumIonBatpack;
+import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
 import techreborn.items.tools.*;
-import techreborn.lib.ModInfo;
+import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 
 public class TRItems {
-	
+
 	// Armor
 	public static Item CLOAKING_DEVICE;
-	public static Item LAPOTRONIC_ORB_PACK;	
-	public static Item LITHIUM_BATTERY_PACK;
-	
+	public static Item LAPOTRONIC_ORBPACK;
+	public static Item LITHIUM_ION_BATPACK;
+
 	// Battery
-	public static Item ENERGY_CRYSTAL;	
-	public static Item LAPOTRONIC_CRYSTAL;
-	public static Item LAPOTRONIC_ORB;	
-	public static Item LITHIUM_BATTERY;
-	public static Item RE_BATTERY;
-	
+	public static Item ENERGY_CRYSTAL;
+	public static Item LAPOTRON_CRYSTAL;
+	public static Item LAPOTRONIC_ORB;
+	public static Item LITHIUM_ION_BATTERY;
+	public static Item RECHARGEABLE_BATTERY;
+
 	// Tools
-	public static Item ADVANCED_CHAINSAW;	
+	public static Item ADVANCED_CHAINSAW;
 	public static Item ADVANCED_DRILL;
 	public static Item ADVANCED_JACKHAMMER;
-	public static Item DEBUG;
+	public static Item DEBUG_TOOL;
 	public static Item DIAMOND_CHAINSAW;
 	public static Item DIAMOND_DRILL;
 	public static Item DIAMOND_JACKHAMMER;
@@ -80,10 +84,7 @@ public class TRItems {
 	public static Item FREQUENCY_TRANSMITTER;
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
-	public static Item UPGRADE_OVERCLOCKER;
-	public static Item UPGRADE_TRANSFORMER;
-	public static Item UPGRADE_ENERGY_STORAGE;
-	
+
 	// Gem armor & tools
 	@Nullable
 	public static Item BRONZE_SWORD;
@@ -134,7 +135,7 @@ public class TRItems {
 	@Nullable
 	public static Item SAPPHIRE_HELMET;
 	@Nullable
-	public static Item SAPPHIRE_CHSTPLATE;
+	public static Item SAPPHIRE_CHESTPLATE;
 	@Nullable
 	public static Item SAPPHIRE_LEGGINGS;
 	@Nullable
@@ -144,7 +145,7 @@ public class TRItems {
 	@Nullable
 	public static Item PERIDOT_PICKAXE;
 	@Nullable
-	public static Item PERIDOT_SAPPHIRE;
+	public static Item PERIDOT_SPADE;
 	@Nullable
 	public static Item PERIDOT_AXE;
 	@Nullable
@@ -157,175 +158,105 @@ public class TRItems {
 	public static Item PERIDOT_LEGGINGS;
 	@Nullable
 	public static Item PERIDOT_BOOTS;
-	
+
 	public static void init() {
 
-		TRIngredients.registerItems();
+		TRContent.registerItems();
 
-		// Armor
-		CLOAKING_DEVICE = new ItemCloakingDevice();
-		registerItem(CLOAKING_DEVICE, "cloakingDevice");
-		LAPOTRONIC_ORB_PACK = new ItemLapotronPack();
-		registerItem(LAPOTRONIC_ORB_PACK, "lapotronPack");
-		LITHIUM_BATTERY_PACK = new ItemLithiumBatpack();
-		registerItem(LITHIUM_BATTERY_PACK, "lithiumBatpack");		
-		
 		// Battery
-		ENERGY_CRYSTAL = new ItemEnergyCrystal();
-		registerItem(ENERGY_CRYSTAL, "energyCrystal");
-		LAPOTRONIC_CRYSTAL = new ItemLapotronCrystal();
-		registerItem(LAPOTRONIC_CRYSTAL, "lapotronCrystal");
-		LAPOTRONIC_ORB = new ItemLapotronicOrb();
-		registerItem(LAPOTRONIC_ORB, "lapotronicOrb");
-		LITHIUM_BATTERY = new ItemLithiumBattery();
-		registerItem(LITHIUM_BATTERY, "lithiumBattery");
-		RE_BATTERY = new ItemReBattery();
-		registerItem(RE_BATTERY, "rebattery");
-		
+		registerItem(RECHARGEABLE_BATTERY = InitUtils.setup(new ItemRechargeableBattery(), "rechargeable_battery"));
+		registerItem(LITHIUM_ION_BATTERY = InitUtils.setup(new ItemLithiumIonBattery(), "lithium_ion_battery"));
+		registerItem(ENERGY_CRYSTAL = InitUtils.setup(new ItemEnergyCrystal(), "energy_crystal"));
+		registerItem(LAPOTRON_CRYSTAL = InitUtils.setup(new ItemLapotronCrystal(), "lapotron_crytal"));
+		registerItem(LAPOTRONIC_ORB = InitUtils.setup(new ItemLapotronicOrb(), "lapotronic_orb"));
+
+		//Armor
+		registerItem(LITHIUM_ION_BATPACK = InitUtils.setup(new ItemLithiumIonBatpack(), "lithium_ion_batpack"));
+		registerItem(LAPOTRONIC_ORBPACK = InitUtils.setup(new ItemLapotronicOrbpack(), "lapotronic_orbpack"));
+		registerItem(CLOAKING_DEVICE = InitUtils.setup(new ItemCloakingDevice(), "cloaking_device"));
+
 		// Tools
-		ADVANCED_CHAINSAW = new ItemAdvancedChainsaw();
-		registerItem(ADVANCED_CHAINSAW, "advancedChainsaw");
-		ADVANCED_DRILL = new ItemAdvancedDrill();
-		registerItem(ADVANCED_DRILL, "advancedDrill");
-		ADVANCED_JACKHAMMER = new ItemAdvancedJackhammer();
-		registerItem(ADVANCED_JACKHAMMER, "advancedJackhammer");
-		DEBUG = new ItemDebugTool();
-		registerItem(DEBUG, "debug");
-		DIAMOND_CHAINSAW = new ItemDiamondChainsaw();
-		registerItem(DIAMOND_CHAINSAW, "diamondChainsaw");
-		DIAMOND_DRILL = new ItemDiamondDrill();
-		registerItem(DIAMOND_DRILL, "diamondDrill");
-		DIAMOND_JACKHAMMER = new ItemDiamondJackhammer();
-		registerItem(DIAMOND_JACKHAMMER, "diamondJackhammer");
-		ELECTRIC_TREE_TAP = new ItemElectricTreetap();
-		registerItem(ELECTRIC_TREE_TAP, "electricTreetap");	
-		NANOSABER = new ItemNanosaber();
-		registerItem(NANOSABER, "nanosaber");
-		OMNI_TOOL = new ItemOmniTool();
-		registerItem(OMNI_TOOL, "omniTool");
-		ROCK_CUTTER = new ItemRockCutter();
-		registerItem(ROCK_CUTTER, "rockCutter");
-		STEEL_CHAINSAW = new ItemSteelChainsaw();
-		registerItem(STEEL_CHAINSAW, "steelChainsaw");
-		STEEL_DRILL = new ItemSteelDrill();
-		registerItem(STEEL_DRILL, "steelDrill");
-		STEEL_JACKHAMMER = new ItemSteelJackhammer();
-		registerItem(STEEL_JACKHAMMER, "steelJackhammer");
-		TREE_TAP = new ItemTreeTap();
-		registerItem(TREE_TAP, "treetap");
-		WRENCH = new ItemWrench();
-		registerItem(WRENCH, "wrench");
-		
+		registerItem(DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
+
+		registerItem(STEEL_DRILL = InitUtils.setup(new ItemSteelDrill(), "steel_drill"));
+		registerItem(STEEL_CHAINSAW = InitUtils.setup(new ItemSteelChainsaw(), "steel_chainsaw"));
+		registerItem(STEEL_JACKHAMMER = InitUtils.setup(new ItemSteelJackhammer(), "steel_jackhammer"));
+		registerItem(DIAMOND_DRILL = InitUtils.setup(new ItemDiamondDrill(), "diamond_drill"));
+		registerItem(DIAMOND_CHAINSAW = InitUtils.setup(new ItemDiamondChainsaw(), "diamond_chainsaw"));
+		registerItem(DIAMOND_JACKHAMMER = InitUtils.setup(new ItemDiamondJackhammer(), "diamond_jackhammer"));
+		registerItem(ADVANCED_DRILL = InitUtils.setup(new ItemAdvancedDrill(), "advanced_drill"));
+		registerItem(ADVANCED_CHAINSAW = InitUtils.setup(new ItemAdvancedChainsaw(), "advanced_chainsaw"));
+		registerItem(ADVANCED_JACKHAMMER = InitUtils.setup(new ItemAdvancedJackhammer(), "advanced_jackhammer"));
+
+		registerItem(ROCK_CUTTER = InitUtils.setup(new ItemRockCutter(), "rock_cutter"));
+		registerItem(NANOSABER = InitUtils.setup(new ItemNanosaber(), "nanosaber"));
+		registerItem(OMNI_TOOL = InitUtils.setup(new ItemOmniTool(), "omni_tool"));
+		registerItem(ELECTRIC_TREE_TAP = InitUtils.setup(new ItemElectricTreetap(), "electric_treetap"));
+
+		registerItem(TREE_TAP = InitUtils.setup(new ItemTreeTap(), "treetap"));
+		registerItem(WRENCH = InitUtils.setup(new ItemWrench(), "wrench"));
+
 		// Other
-		CELL = new DynamicCell();
-		registerItem(CELL, "dynamicCell");		
+		registerItem(CELL = InitUtils.setup(new DynamicCell(), "cell"));
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
-		FREQUENCY_TRANSMITTER = new ItemFrequencyTransmitter();
-		registerItem(FREQUENCY_TRANSMITTER, "frequencyTransmitter");	
-		SCRAP_BOX = new ItemScrapBox();
-		registerItem(SCRAP_BOX, "scrapbox");
-		MANUAL = new ItemTechManual();
-		registerItem(MANUAL, "techManual");
-		UPGRADE_OVERCLOCKER = new ItemUpgrades();
-		registerItem(UPGRADE_OVERCLOCKER, "upgrade_overclocker");		
-		UPGRADE_TRANSFORMER = new ItemUpgrades();
-		registerItem(UPGRADE_TRANSFORMER, "upgrade_transformer");		
-		UPGRADE_ENERGY_STORAGE = new ItemUpgrades();
-		registerItem(UPGRADE_ENERGY_STORAGE, "upgrade_energystorage");		
-		 
+		registerItem(FREQUENCY_TRANSMITTER = InitUtils.setup(new ItemFrequencyTransmitter(), "frequency_transmitter"));
+		registerItem(SCRAP_BOX = InitUtils.setup(new ItemScrapBox(), "scrap_box"));
+		registerItem(MANUAL = InitUtils.setup(new ItemManual(), "manual"));
+
 		// Gem armor & tools
 		if (ConfigTechReborn.enableGemArmorAndTools) {
-			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");
-			registerItem(BRONZE_SWORD, "bronzeSword");
-			BRONZE_PICKAXE = new ItemTRPickaxe(Reference.BRONZE, "ingotBronze");
-			registerItem(BRONZE_PICKAXE, "bronzePickaxe");
-			BRONZE_SPADE = new ItemTRSpade(Reference.BRONZE, "ingotBronze");
-			registerItem(BRONZE_SPADE, "bronzeSpade");
-			BRONZE_AXE = new ItemTRAxe(Reference.BRONZE, "ingotBronze");
-			registerItem(BRONZE_AXE, "bronzeAxe");
-			BRONZE_HOE = new ItemTRHoe(Reference.BRONZE, "ingotBronze");
-			registerItem(BRONZE_HOE, "bronzeHoe");
+			//Todo: repair with tags
+			registerItem(BRONZE_SWORD = InitUtils.setup(new ItemTRSword(Reference.BRONZE, "ingotBronze"), "bronze_sword"));
+			registerItem(BRONZE_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.BRONZE, "ingotBronze"), "bronze_pickaxe"));
+			registerItem(BRONZE_SPADE = InitUtils.setup(new ItemTRSpade(Reference.BRONZE, "ingotBronze"), "bronze_spade"));
+			registerItem(BRONZE_AXE = InitUtils.setup(new ItemTRAxe(Reference.BRONZE, "ingotBronze"), "bronze_axe"));
+			registerItem(BRONZE_HOE = InitUtils.setup(new ItemTRHoe(Reference.BRONZE, "ingotBronze"), "bronze_hoe"));
 
-			BRONZE_HELMET = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD, "ingotBronze");
-			registerItem(BRONZE_HELMET, "bronzeHelmet");
-			BRONZE_CHESTPLATE = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST, "ingotBronze");
-			registerItem(BRONZE_CHESTPLATE, "bronzeChestplate");
-			BRONZE_LEGGINGS = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS, "ingotBronze");
-			registerItem(BRONZE_LEGGINGS, "bronzeLeggings");
-			BRONZE_BOOTS = new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET, "ingotBronze");
-			registerItem(BRONZE_BOOTS, "bronzeBoots");
+			registerItem(BRONZE_HELMET = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD, "ingotBronze"), "bronze_helmet"));
+			registerItem(BRONZE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST, "ingotBronze"), "bronze_chestplate"));
+			registerItem(BRONZE_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS, "ingotBronze"), "bronze_leggings"));
+			registerItem(BRONZE_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET, "ingotBronze"), "bronze_boots"));
 
-			RUBY_SWORD = new ItemTRSword(Reference.RUBY, "gemRuby");
-			registerItem(RUBY_SWORD, "rubySword");
-			RUBY_PICKAXE = new ItemTRPickaxe(Reference.RUBY, "gemRuby");
-			registerItem(RUBY_PICKAXE, "rubyPickaxe");
-			RUBY_SPADE = new ItemTRSpade(Reference.RUBY, "gemRuby");
-			registerItem(RUBY_SPADE, "rubySpade");
-			RUBY_AXE = new ItemTRAxe(Reference.RUBY, "gemRuby");
-			registerItem(RUBY_AXE, "rubyAxe");
-			RUBY_HOE = new ItemTRHoe(Reference.RUBY, "gemRuby");
-			registerItem(RUBY_HOE, "rubyHoe");
+			registerItem(RUBY_SWORD = InitUtils.setup(new ItemTRSword(Reference.RUBY, "gemRuby"), "ruby_sword"));
+			registerItem(RUBY_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.RUBY, "gemRuby"), "ruby_pickaxe"));
+			registerItem(RUBY_SPADE = InitUtils.setup(new ItemTRSpade(Reference.RUBY, "gemRuby"), "ruby_spade"));
+			registerItem(RUBY_AXE = InitUtils.setup(new ItemTRAxe(Reference.RUBY, "gemRuby"), "ruby_axe"));
+			registerItem(RUBY_HOE = InitUtils.setup(new ItemTRHoe(Reference.RUBY, "gemRuby"), "ruby_hoe"));
 
-			RUBY_HELMET = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD, "gemRuby");
-			registerItem(RUBY_HELMET, "rubyHelmet");
-			RUBY_CHESTPLATE = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST, "gemRuby");
-			registerItem(RUBY_CHESTPLATE, "rubyChestplate");
-			RUBY_LEGGINGS = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS, "gemRuby");
-			registerItem(RUBY_LEGGINGS, "rubyLeggings");
-			RUBY_BOOTS = new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET, "gemRuby");
-			registerItem(RUBY_BOOTS, "rubyBoots");
+			registerItem(RUBY_HELMET = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD, "gemRuby"), "ruby_helmet"));
+			registerItem(RUBY_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST, "gemRuby"), "ruby_chestplate"));
+			registerItem(RUBY_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS, "gemRuby"), "ruby_leggings"));
+			registerItem(RUBY_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET, "gemRuby"), "ruby_boots"));
 
-			SAPPHIRE_SWORD = new ItemTRSword(Reference.SAPPHIRE, "gemSapphire");
-			registerItem(SAPPHIRE_SWORD, "sapphireSword");
-			SAPPHIRE_PICKAXE = new ItemTRPickaxe(Reference.SAPPHIRE, "gemSapphire");
-			registerItem(SAPPHIRE_PICKAXE, "sapphirePickaxe");
-			SAPPHIRE_SPADE = new ItemTRSpade(Reference.SAPPHIRE, "gemSapphire");
-			registerItem(SAPPHIRE_SPADE, "sapphireSpade");
-			SAPPHIRE_AXE = new ItemTRAxe(Reference.SAPPHIRE, "gemSapphire");
-			registerItem(SAPPHIRE_AXE, "sapphireAxe");
-			SAPPHIRE_HOE = new ItemTRHoe(Reference.SAPPHIRE, "gemSapphire");
-			registerItem(SAPPHIRE_HOE, "sapphireHoe");
+			registerItem(SAPPHIRE_SWORD = InitUtils.setup(new ItemTRSword(Reference.SAPPHIRE, "gemSapphire"), "sapphire_sword"));
+			registerItem(SAPPHIRE_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.SAPPHIRE, "gemSapphire"), "sapphire_pickaxe"));
+			registerItem(SAPPHIRE_SPADE = InitUtils.setup(new ItemTRSpade(Reference.SAPPHIRE, "gemSapphire"), "sapphire_spade"));
+			registerItem(SAPPHIRE_AXE = InitUtils.setup(new ItemTRAxe(Reference.SAPPHIRE, "gemSapphire"), "sapphire_axe"));
+			registerItem(SAPPHIRE_HOE = InitUtils.setup(new ItemTRHoe(Reference.SAPPHIRE, "gemSapphire"), "sapphire_hoe"));
 
-			SAPPHIRE_HELMET = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD, "gemSapphire");
-			registerItem(SAPPHIRE_HELMET, "sapphireHelmet");
-			SAPPHIRE_CHSTPLATE = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST, "gemSapphire");
-			registerItem(SAPPHIRE_CHSTPLATE, "sapphireChestplate");
-			SAPPHIRE_LEGGINGS = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS, "gemSapphire");
-			registerItem(SAPPHIRE_LEGGINGS, "sapphireLeggings");
-			SAPPHIRE_BOOTS = new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET, "gemSapphire");
-			registerItem(SAPPHIRE_BOOTS, "sapphireBoots");
+			registerItem(SAPPHIRE_HELMET = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD, "gemSapphire"), "sapphire_helmet"));
+			registerItem(SAPPHIRE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST, "gemSapphire"), "sapphire_chestplate"));
+			registerItem(SAPPHIRE_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS, "gemSapphire"), "sapphire_leggings"));
+			registerItem(SAPPHIRE_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET, "gemSapphire"), "sapphire_boots"));
 
-			PERIDOT_SWORD = new ItemTRSword(Reference.PERIDOT, "gemPeridot");
-			registerItem(PERIDOT_SWORD, "peridotSword");
-			PERIDOT_PICKAXE = new ItemTRPickaxe(Reference.PERIDOT, "gemPeridot");
-			registerItem(PERIDOT_PICKAXE, "peridotPickaxe");
-			PERIDOT_SAPPHIRE = new ItemTRSpade(Reference.PERIDOT, "gemPeridot");
-			registerItem(PERIDOT_SAPPHIRE, "peridotSpade");
-			PERIDOT_AXE = new ItemTRAxe(Reference.PERIDOT, "gemPeridot");
-			registerItem(PERIDOT_AXE, "peridotAxe");
-			PERIDOT_HOE = new ItemTRHoe(Reference.PERIDOT, "gemPeridot");
-			registerItem(PERIDOT_HOE, "peridotHoe");
+			registerItem(PERIDOT_SWORD = InitUtils.setup(new ItemTRSword(Reference.PERIDOT, "gemPeridot"), "peridot_sword"));
+			registerItem(PERIDOT_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.PERIDOT, "gemPeridot"), "peridot_pickaxe"));
+			registerItem(PERIDOT_SPADE = InitUtils.setup(new ItemTRSpade(Reference.PERIDOT, "gemPeridot"), "peridot_spade"));
+			registerItem(PERIDOT_AXE = InitUtils.setup(new ItemTRAxe(Reference.PERIDOT, "gemPeridot"), "peridot_axe"));
+			registerItem(PERIDOT_HOE = InitUtils.setup(new ItemTRHoe(Reference.PERIDOT, "gemPeridot"), "peridot_hoe"));
 
-			PERIDOT_HELMET = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD, "gemPeridot");
-			registerItem(PERIDOT_HELMET, "peridotHelmet");
-			PERIDOT_CHESTPLATE = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST, "gemPeridot");
-			registerItem(PERIDOT_CHESTPLATE, "peridotChestplate");
-			PERIDOT_LEGGINGS = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS, "gemPeridot");
-			registerItem(PERIDOT_LEGGINGS, "peridotLeggings");
-			PERIDOT_BOOTS = new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET, "gemPeridot");
-			registerItem(PERIDOT_BOOTS, "peridotBoots");
+			registerItem(PERIDOT_HELMET = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD, "gemPeridot"), "peridot_helmet"));
+			registerItem(PERIDOT_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST, "gemPeridot"), "peridot_chestplate"));
+			registerItem(PERIDOT_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS, "gemPeridot"), "peridot_leggings"));
+			registerItem(PERIDOT_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET, "gemPeridot"), "peridot_boots"));
 		}
-		Core.logHelper.info("TechReborns Items Loaded");
 
 		// TODO: do we need this at all?
 		BlockMachineBase.advancedFrameStack = new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED);
 		BlockMachineBase.basicFrameStack = new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC);
 	}
 
-	public static void registerItem(Item item, String name) {
-		item.setRegistryName(name);
-		item.setTranslationKey(ModInfo.MOD_ID + "." + name);
-		TRRecipeHandler.hideEntry(item);
+	public static void registerItem(Item item) {
 		RebornRegistry.registerItem(item);
 	}
 }

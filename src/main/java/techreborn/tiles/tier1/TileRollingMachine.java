@@ -36,16 +36,16 @@ import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.RollingMachineRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ import java.util.Optional;
 
 //TODO add tick and power bars.
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class TileRollingMachine extends TilePowerAcceptor
 	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

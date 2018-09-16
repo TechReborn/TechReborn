@@ -31,14 +31,14 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
-import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.lib.ModInfo;
+import techreborn.TechReborn;
 
 /**
  * Created by Mark on 13/03/2016.
  */
-@RebornRegistry(modID = ModInfo.MOD_ID)
+@RebornRegister(modID = TechReborn.MOD_ID)
 public class EntityNukePrimed extends EntityTNTPrimed {
 
 	@ConfigRegistry(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")

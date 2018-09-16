@@ -25,6 +25,7 @@
 package techreborn.items.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -36,13 +37,13 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.TRItems;
-import techreborn.items.ItemTR;
+
 import javax.annotation.Nullable;
 
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
+public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 
 	public static final int maxCharge = 10_000;
 	public int cost = 20;
