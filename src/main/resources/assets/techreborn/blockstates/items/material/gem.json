@@ -6,27 +6,27 @@
   },
   "variants": {
     "type": {
-      "gemperidot": {
+      "peridot": {
         "textures": {
           "layer0": "techreborn:items/gem/peridot"
         }
       },   
-      "gemredgarnet": {
+      "red_garnet": {
         "textures": {
           "layer0": "techreborn:items/gem/red_garnet"
         }
       },       
-      "gemruby": {
+      "ruby": {
         "textures": {
           "layer0": "techreborn:items/gem/ruby"
         }
       },
-      "gemsapphire": {
+      "sapphire": {
         "textures": {
           "layer0": "techreborn:items/gem/sapphire"
         }
       },
-      "gemyellowgarnet": {
+      "yellow_garnet": {
         "textures": {
           "layer0": "techreborn:items/gem/yellow_garnet"
         }

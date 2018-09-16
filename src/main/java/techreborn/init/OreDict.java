@@ -49,27 +49,25 @@ public class OreDict {
 		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 		OreUtil.registerOre("treeSapling", ModBlocks.RUBBER_SAPLING);
 		OreUtil.registerOre("saplingRubber", ModBlocks.RUBBER_SAPLING);
-		
-//		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("slabWood", new ItemStack(RUBBER_LOG_SLAB_HALF, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("stairWood", new ItemStack(RUBBER_LOG_STAIR, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
-//		OreUtil.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
 
-
+		//		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("slabWood", new ItemStack(RUBBER_LOG_SLAB_HALF, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("stairWood", new ItemStack(RUBBER_LOG_STAIR, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
+		//		OreUtil.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
 
 		// Parts
-		OreUtil.registerOre("circuitBasic", TRIngredients.Parts.CIRCUIT_BASIC.getStack());
-		OreUtil.registerOre("circuitAdvanced", TRIngredients.Parts.CIRCUIT_ADVANCED.getStack());
-		OreUtil.registerOre("circuitElite", TRIngredients.Parts.CIRCUIT_ELITE.getStack());
-		OreUtil.registerOre("circuitStorage", TRIngredients.Parts.DATA_STORAGE_CIRCUIT.getStack());
-		OreUtil.registerOre("circuitMaster", TRIngredients.Parts.ENERGY_FLOW_CIRCUIT.getStack());
+		OreUtil.registerOre("circuitBasic", TRIngredients.Parts.ELECTRONIC_CIRCUIT.getStack());
+		OreUtil.registerOre("circuitAdvanced", TRIngredients.Parts.ADVANCED_CIRCUIT.getStack());
+		OreUtil.registerOre("circuitElite", TRIngredients.Parts.INDUSTRIAL_CIRCUIT.getStack());
+		OreUtil.registerOre("circuitStorage", TRIngredients.Parts.DATA_STORAGE_CHIP.getStack());
+		OreUtil.registerOre("circuitMaster", TRIngredients.Parts.ENERGY_FLOW_CHIP.getStack());
 		OreUtil.registerOre("craftingDiamondGrinder", TRIngredients.Parts.DIAMOND_GRINDING_HEAD.getStack());
 		OreUtil.registerOre("craftingTungstenGrinder", TRIngredients.Parts.TUNGSTEN_GRINDING_HEAD.getStack());
-		OreUtil.registerOre("craftingSuperconductor", TRIngredients.Parts.SUPER_CONDUCTOR.getStack());
+		OreUtil.registerOre("craftingSuperconductor", TRIngredients.Parts.SUPERCONDUCTOR.getStack());
 		OreUtil.registerOre("materialResin", TRIngredients.Parts.SAP.getStack());
 		OreUtil.registerOre("materialRubber", TRIngredients.Parts.RUBBER.getStack());
 		OreUtil.registerOre("itemRubber", TRIngredients.Parts.RUBBER.getStack());
@@ -100,74 +98,72 @@ public class OreDict {
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
-		
-//		for (String ore : BlockOre.ores) {
-//		OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
-//	}
 
+		//		for (String ore : BlockOre.ores) {
+		//		OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
+		//	}
 
-//	OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
-//	OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
-//	OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
-//	OreUtil.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
-//	OreUtil.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
-//	OreUtil.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
-//	OreUtil.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
-//	OreUtil.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
-//	OreUtil.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
-//	OreUtil.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
-//	OreUtil.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
-//	OreUtil.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
-//	OreUtil.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
-//	OreUtil.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
-//	OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
-//	OreUtil.registerOre("blockBronze", BlockStorage.getStorageBlockByName("bronze"));
-//	OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
-//	OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
-//	OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
-//	OreUtil.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
-//	OreUtil.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
-//	OreUtil.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
-//	OreUtil.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
-//	OreUtil.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
+		//	OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
+		//	OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
+		//	OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
+		//	OreUtil.registerOre("blockTitanium", BlockStorage.getStorageBlockByName("titanium"));
+		//	OreUtil.registerOre("blockChrome", BlockStorage.getStorageBlockByName("chrome"));
+		//	OreUtil.registerOre("blockSteel", BlockStorage.getStorageBlockByName("steel"));
+		//	OreUtil.registerOre("blockBrass", BlockStorage.getStorageBlockByName("brass"));
+		//	OreUtil.registerOre("blockLead", BlockStorage.getStorageBlockByName("lead"));
+		//	OreUtil.registerOre("blockElectrum", BlockStorage.getStorageBlockByName("electrum"));
+		//	OreUtil.registerOre("blockZinc", BlockStorage.getStorageBlockByName("zinc"));
+		//	OreUtil.registerOre("blockPlatinum", BlockStorage.getStorageBlockByName("platinum"));
+		//	OreUtil.registerOre("blockTungsten", BlockStorage.getStorageBlockByName("tungsten"));
+		//	OreUtil.registerOre("blockNickel", BlockStorage.getStorageBlockByName("nickel"));
+		//	OreUtil.registerOre("blockInvar", BlockStorage.getStorageBlockByName("invar"));
+		//	OreUtil.registerOre("blockIridium", BlockStorage.getStorageBlockByName("iridium"));
+		//	OreUtil.registerOre("blockBronze", BlockStorage.getStorageBlockByName("bronze"));
+		//	OreUtil.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
+		//	OreUtil.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
+		//	OreUtil.registerOre("blockTungstensteel", BlockStorage2.getStorageBlockByName("tungstensteel", 1));
+		//	OreUtil.registerOre("blockRuby", BlockStorage2.getStorageBlockByName("ruby", 1));
+		//	OreUtil.registerOre("blockSapphire", BlockStorage2.getStorageBlockByName("sapphire", 1));
+		//	OreUtil.registerOre("blockPeridot", BlockStorage2.getStorageBlockByName("peridot", 1));
+		//	OreUtil.registerOre("blockYellowGarnet", BlockStorage2.getStorageBlockByName("yellowGarnet", 1));
+		//	OreUtil.registerOre("blockRedGarnet", BlockStorage2.getStorageBlockByName("redGarnet", 1));
 
-		
-//		TODO: fix recipe		
-//		for (String type : ItemGems.types) {
-//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
-//			boolean ignoreIt = false;
-//			for (String ignore : plateGenIgnores)
-//				if (type.startsWith(ignore))
-//					ignoreIt = true;
-//			 if (!ignoreIt)
-//				ItemPlates.registerType(type);
-//		}
+		//		TODO: fix recipe
+		//		for (String type : ItemGems.types) {
+		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
+		//			boolean ignoreIt = false;
+		//			for (String ignore : plateGenIgnores)
+		//				if (type.startsWith(ignore))
+		//					ignoreIt = true;
+		//			 if (!ignoreIt)
+		//				ItemPlates.registerType(type);
+		//		}
 
-//		for (String type : ItemIngots.types) {
-//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
-//			boolean ignoreIt = false;
-//			for (String ignore : plateGenIgnores)
-//				if (type.startsWith(ignore))
-//					ignoreIt = true;
-//			 if (!ignoreIt)
-//				ItemPlates.registerType(type);
-//		}
+		//		for (String type : ItemIngots.types) {
+		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
+		//			boolean ignoreIt = false;
+		//			for (String ignore : plateGenIgnores)
+		//				if (type.startsWith(ignore))
+		//					ignoreIt = true;
+		//			 if (!ignoreIt)
+		//				ItemPlates.registerType(type);
+		//		}
 
-//		for (String type : ItemPlates.types) {
-//			 OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
-//		}
-		
-//		for (String type : ItemDusts.types) {
-//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
-//		}
-//
-//		for (String type : ItemDustsSmall.types) {
-//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
-//		}
+		//		for (String type : ItemPlates.types) {
+		//			 OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
+		//		}
 
-//		for (String type : ItemNuggets.types) {
-//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
-//		}
+		//		for (String type : ItemDusts.types) {
+		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
+		//		}
+		//
+		//		for (String type : ItemDustsSmall.types) {
+		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));
+		//		}
+
+		//		for (String type : ItemNuggets.types) {
+		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "nugget_" + type), ItemNuggets.getNuggetByName(type));
+		//		}
 
 	}
 

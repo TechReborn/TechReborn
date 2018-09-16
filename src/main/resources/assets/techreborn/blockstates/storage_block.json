@@ -14,137 +14,137 @@
 			}
 		],
 		"type": {
-			"blockaluminum": {
+			"aluminum": {
 				"textures": {
 					"all": "techreborn:blocks/storage/aluminum_block"
 				}
 			},
-			"blockbrass": {
+			"brass": {
 				"textures": {
 					"all": "techreborn:blocks/storage/brass_block"
 				}
 			},
-			"blockbronze": {
+			"bronze": {
 				"textures": {
 					"all": "techreborn:blocks/storage/bronze_block"
 				}
 			},
-			"blockchrome": {
+			"chrome": {
 				"textures": {
 					"all": "techreborn:blocks/storage/chrome_block"
 				}
 			},
-			"blockcopper": {
+			"copper": {
 				"textures": {
 					"all": "techreborn:blocks/storage/copper_block"
 				}
 			},
-			"blockelectrum": {
+			"electrum": {
 				"textures": {
 					"all": "techreborn:blocks/storage/electrum_block"
 				}
 			},
-			"blockinvar": {
+			"invar": {
 				"textures": {
 					"all": "techreborn:blocks/storage/invar_block"
 				}
 			},
-			"blockiridium": {
+			"iridium": {
 				"textures": {
 					"all": "techreborn:blocks/storage/iridium_block"
 				}
 			},
-			"blockiridiumreinforcedstone": {
+			"iridium_reinforced_stone": {
 				"textures": {
 					"all": "techreborn:blocks/storage/iridium_reinforced_stone_block"
 				}
 			},
-			"blockiridiumreinforcedtungstensteel": {
+			"iridium_reinforced_tungstensteel": {
 				"textures": {
 					"all": "techreborn:blocks/storage/iridium_reinforced_tungstensteel_block"
 				}
 			},
-			"blocklead": {
+			"lead": {
 				"textures": {
 					"all": "techreborn:blocks/storage/lead_block"
 				}
 			},
-			"blocknickel": {
+			"nickel": {
 				"textures": {
 					"all": "techreborn:blocks/storage/nickel_block"
 				}
 			},
-			"blockosmium": {
+			"osmium": {
 				"textures": {
 					"all": "techreborn:blocks/storage/osmium_block"
 				}
 			},
-			"blockperidot": {
+			"peridot": {
 				"textures": {
 					"all": "techreborn:blocks/storage/peridot_block"
 				}
 			},
-			"blockplatinum": {
+			"platinum": {
 				"textures": {
 					"all": "techreborn:blocks/storage/platinum_block"
 				}
 			},
-			"blockredgarnet": {
+			"red_garnet": {
 				"textures": {
 					"all": "techreborn:blocks/storage/redgarnet_block"
 				}
 			},			
-			"blockrefinediron": {
+			"refined_iron": {
 				"textures": {
 					"all": "techreborn:blocks/storage/refinediron_block"
 				}
 			},		
-			"blockruby": {
+			"ruby": {
 				"textures": {
 					"all": "techreborn:blocks/storage/ruby_block"
 				}
 			},
-			"blocksapphire": {
+			"sapphire": {
 				"textures": {
 					"all": "techreborn:blocks/storage/sapphire_block"
 				}
 			},									
-			"blocksilver": {
+			"silver": {
 				"textures": {
 					"all": "techreborn:blocks/storage/silver_block"
 				}
 			},
-			"blocksteel": {
+			"steel": {
 				"textures": {
 					"all": "techreborn:blocks/storage/steel_block"
 				}
 			},
-			"blocktin": {
+			"tin": {
 				"textures": {
 					"all": "techreborn:blocks/storage/tin_block"
 				}
 			},						
-			"blocktitanium": {
+			"titanium": {
 				"textures": {
 					"all": "techreborn:blocks/storage/titanium_block"
 				}
 			},
-			"blocktungsten": {
+			"tungsten": {
 				"textures": {
 					"all": "techreborn:blocks/storage/tungsten_block"
 				}
 			},
-			"blocktungstensteel": {
+			"tungstensteel": {
 				"textures": {
 					"all": "techreborn:blocks/storage/tungstensteel_block"
 				}
 			},
-			"blockyellowgarnet": {
+			"yellow_garnet": {
 				"textures": {
 					"all": "techreborn:blocks/storage/yellowgarnet_block"
 				}
 			},
-			"blockzinc": {
+			"zinc": {
 				"textures": {
 					"all": "techreborn:blocks/storage/zinc_block"
 				}

@@ -26,7 +26,6 @@ package techreborn.init.recipes;
 
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.blocks.BlockOre;
 import techreborn.init.TRIngredients;
 import techreborn.items.ItemCells;
 

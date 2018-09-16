@@ -6,117 +6,117 @@
   },
   "variants": {
     "type": {
-      "ingotadvancedalloy": {
+      "advanced_alloy": {
         "textures": {
           "layer0": "techreborn:items/ingot/advanced_alloy_ingot"
         }
       },    
-      "ingotaluminum": {
+      "aluminum": {
         "textures": {
           "layer0": "techreborn:items/ingot/aluminum_ingot"
         }
       },
-      "ingotbrass": {
+      "brass": {
         "textures": {
           "layer0": "techreborn:items/ingot/brass_ingot"
         }
       },
-      "ingotbronze": {
+      "bronze": {
         "textures": {
           "layer0": "techreborn:items/ingot/bronze_ingot"
         }
       },
-      "ingotchrome": {
+      "chrome": {
         "textures": {
           "layer0": "techreborn:items/ingot/chrome_ingot"
         }
       },
-      "ingotcopper": {
+      "copper": {
         "textures": {
           "layer0": "techreborn:items/ingot/copper_ingot"
         }
       },
-      "ingotelectrum": {
+      "electrum": {
         "textures": {
           "layer0": "techreborn:items/ingot/electrum_ingot"
         }
       },
-      "ingothottungstensteel": {
+      "hot_tungstensteel": {
         "textures": {
           "layer0": "techreborn:items/ingot/hot_tungstensteel_ingot"
         }
       },      
-      "ingotinvar": {
+      "invar": {
         "textures": {
           "layer0": "techreborn:items/ingot/invar_ingot"
         }
       },
-      "ingotiridiumalloy": {
+      "iridium_alloy": {
         "textures": {
           "layer0": "techreborn:items/ingot/iridium_alloy_ingot"
         }
       },
-      "ingotiridium": {
+      "iridium": {
         "textures": {
           "layer0": "techreborn:items/ingot/iridium_ingot"
         }
       },
-      "ingotlead": {
+      "lead": {
         "textures": {
           "layer0": "techreborn:items/ingot/lead_ingot"
         }
       },
-      "ingotmixedmetal": {
+      "mixed_metal": {
         "textures": {
           "layer0": "techreborn:items/ingot/mixed_metal_ingot"
         }
       },
-      "ingotnickel": {
+      "nickel": {
         "textures": {
           "layer0": "techreborn:items/ingot/nickel_ingot"
         }
       },
-      "ingotplatinum": {
+      "platinum": {
         "textures": {
           "layer0": "techreborn:items/ingot/platinum_ingot"
         }
       },
-      "ingotrefinediron": {
+      "refined_iron": {
         "textures": {
           "layer0": "techreborn:items/ingot/refined_iron_ingot"
         }
       },
-      "ingotsilver": {
+      "silver": {
         "textures": {
           "layer0": "techreborn:items/ingot/silver_ingot"
         }
       },
-      "ingotsteel": {
+      "steel": {
         "textures": {
           "layer0": "techreborn:items/ingot/steel_ingot"
         }
       },
-      "ingottin": {
+      "tin": {
         "textures": {
           "layer0": "techreborn:items/ingot/tin_ingot"
         }
       },
-      "ingottitanium": {
+      "titanium": {
         "textures": {
           "layer0": "techreborn:items/ingot/titanium_ingot"
         }
       },
-      "ingottungsten": {
+      "tungsten": {
         "textures": {
           "layer0": "techreborn:items/ingot/tungsten_ingot"
         }
       },
-      "ingottungstensteel": {
+      "tungstensteel": {
         "textures": {
           "layer0": "techreborn:items/ingot/tungstensteel_ingot"
         }
       },
-      "ingotzinc": {
+      "zinc": {
         "textures": {
           "layer0": "techreborn:items/ingot/zinc_ingot"
         }

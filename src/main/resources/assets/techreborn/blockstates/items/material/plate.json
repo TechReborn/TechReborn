@@ -6,197 +6,197 @@
 	},
 	"variants": {
 		"type": {
-			"plateadvancedalloy": {
+			"advanced_alloy": {
 				"textures": {
 					"layer0": "techreborn:items/plate/advanced_alloy_plate"
 				}
 			},
-			"platealuminum": {
+			"aluminum": {
 				"textures": {
 					"layer0": "techreborn:items/plate/aluminum_plate"
 				}
 			},
-			"platebrass": {
+			"brass": {
 				"textures": {
 					"layer0": "techreborn:items/plate/brass_plate"
 				}
 			},
-			"platebronze": {
+			"bronze": {
 				"textures": {
 					"layer0": "techreborn:items/plate/bronze_plate"
 				}
 			},
-			"platecarbon": {
+			"carbon": {
 				"textures": {
 					"layer0": "techreborn:items/plate/carbon_plate"
 				}
 			},
-			"platechrome": {
+			"chrome": {
 				"textures": {
 					"layer0": "techreborn:items/plate/chrome_plate"
 				}
 			},
-			"platecoal": {
+			"coal": {
 				"textures": {
 					"layer0": "techreborn:items/plate/coal_plate"
 				}
 			},
-			"platecopper": {
+			"copper": {
 				"textures": {
 					"layer0": "techreborn:items/plate/copper_plate"
 				}
 			},
-			"platediamond": {
+			"diamond": {
 				"textures": {
 					"layer0": "techreborn:items/plate/diamond_plate"
 				}
 			},
-			"plateelectrum": {
+			"electrum": {
 				"textures": {
 					"layer0": "techreborn:items/plate/electrum_plate"
 				}
 			},
-			"plateemerald": {
+			"emerald": {
 				"textures": {
 					"layer0": "techreborn:items/plate/emerald_plate"
 				}
 			},
-			"plategold": {
+			"gold": {
 				"textures": {
 					"layer0": "techreborn:items/plate/gold_plate"
 				}
 			},
-			"plateinvar": {
+			"invar": {
 				"textures": {
 					"layer0": "techreborn:items/plate/invar_plate"
 				}
 			},
-			"plateiridiumalloy": {
+			"iridium_alloy": {
 				"textures": {
 					"layer0": "techreborn:items/plate/iridium_alloy_plate"
 				}
 			},
-			"plateiridium": {
+			"iridium": {
 				"textures": {
 					"layer0": "techreborn:items/plate/iridium_plate"
 				}
 			},
-			"plateiron": {
+			"iron": {
 				"textures": {
 					"layer0": "techreborn:items/plate/iron_plate"
 				}
 			},
-			"platelapis": {
+			"lapis": {
 				"textures": {
 					"layer0": "techreborn:items/plate/lapis_plate"
 				}
 			},
-			"platelazurite": {
+			"lazurite": {
 				"textures": {
 					"layer0": "techreborn:items/plate/lazurite_plate"
 				}
 			},
-			"platelead": {
+			"lead": {
 				"textures": {
 					"layer0": "techreborn:items/plate/lead_plate"
 				}
 			},
-			"platemagnalium": {
+			"magnalium": {
 				"textures": {
 					"layer0": "techreborn:items/plate/magnalium_plate"
 				}
 			},
-			"platenickel": {
+			"nickel": {
 				"textures": {
 					"layer0": "techreborn:items/plate/nickel_plate"
 				}
 			},
-			"plateobsidian": {
+			"obsidian": {
 				"textures": {
 					"layer0": "techreborn:items/plate/obsidian_plate"
 				}
 			},
-			"plateperidot": {
+			"peridot": {
 				"textures": {
 					"layer0": "techreborn:items/plate/peridot_plate"
 				}
 			},
-			"plateplatinum": {
+			"platinum": {
 				"textures": {
 					"layer0": "techreborn:items/plate/platinum_plate"
 				}
 			},
-			"plateredgarnet": {
+			"red_garnet": {
 				"textures": {
 					"layer0": "techreborn:items/plate/red_garnet_plate"
 				}
 			},
-			"plateredstone": {
+			"redstone": {
 				"textures": {
 					"layer0": "techreborn:items/plate/redstone_plate"
 				}
 			},
-			"platerefinediron": {
+			"refined_iron": {
 				"textures": {
 					"layer0": "techreborn:items/plate/refined_iron_plate"
 				}
 			},
-			"plateruby": {
+			"ruby": {
 				"textures": {
 					"layer0": "techreborn:items/plate/ruby_plate"
 				}
 			},
-			"platesapphire": {
+			"sapphire": {
 				"textures": {
 					"layer0": "techreborn:items/plate/sapphire_plate"
 				}
 			},
-			"platesilicon": {
+			"silicon": {
 				"textures": {
 					"layer0": "techreborn:items/plate/silicon_plate"
 				}
 			},
-			"platesilver": {
+			"silver": {
 				"textures": {
 					"layer0": "techreborn:items/plate/silver_plate"
 				}
 			},
-			"platesteel": {
+			"steel": {
 				"textures": {
 					"layer0": "techreborn:items/plate/steel_plate"
 				}
 			},
-			"platetin": {
+			"tin": {
 				"textures": {
 					"layer0": "techreborn:items/plate/tin_plate"
 				}
 			},
-			"platetitanium": {
+			"titanium": {
 				"textures": {
 					"layer0": "techreborn:items/plate/titanium_plate"
 				}
 			},
-			"platetungsten": {
+			"tungsten": {
 				"textures": {
 					"layer0": "techreborn:items/plate/tungsten_plate"
 				}
 			},
-			"platetungstensteel": {
+			"tungstensteel": {
 				"textures": {
 					"layer0": "techreborn:items/plate/tungstensteel_plate"
 				}
 			},
-			"platewood": {
+			"wood": {
 				"textures": {
 					"layer0": "techreborn:items/plate/wood_plate"
 				}
 			},
-			"plateyellowgarnet": {
+			"yellow_garnet": {
 				"textures": {
 					"layer0": "techreborn:items/plate/yellow_garnet_plate"
 				}
 			},
-			"platezinc": {
+			"zinc": {
 				"textures": {
 					"layer0": "techreborn:items/plate/zinc_plate"
 				}

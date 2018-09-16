@@ -21,10 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package techreborn.init;
 
-import java.util.Arrays;
-import com.google.common.base.CaseFormat;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -43,89 +42,92 @@ import techreborn.events.TRRecipeHandler;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
 
+import java.util.Arrays;
+
 /**
  * @author drcrazy
- *
  */
 public class TRIngredients {
 
 	public static void registerBlocks() {
 		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(Storage.values()).forEach(value -> RebornRegistry.registerBlock(value.block));	
+		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
 	}
-	
+
 	public static void registerItems() {
-		 Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		 Arrays.stream(DustsSmall.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		 Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		 Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		 Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		 Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		 Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void registerModel() {
-		ResourceLocation dustsRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/dusts");		
+		ResourceLocation dustsRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/dust");
 		Arrays.stream(Dusts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(dustsRL, "type=" + value.name)));
-		
-		ResourceLocation dustsSmallRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/dustssmall");
-		Arrays.stream(DustsSmall.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(dustsSmallRL, "type=" + value.name)));
-		
-		ResourceLocation gemsRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/gems");
-		Arrays.stream(Gems.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(gemsRL, "type=" + value.name)));
-		
-		ResourceLocation ingotsRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/ingots");
-		Arrays.stream(Ingots.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(ingotsRL, "type=" + value.name)));
-		
-		ResourceLocation nuggetsRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/nuggets");
-		Arrays.stream(Nuggets.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(nuggetsRL, "type=" + value.name)));
-		
-		ResourceLocation partsRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/parts");
-		Arrays.stream(Parts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(partsRL, "type=" + value.name)));
-		
-		ResourceLocation platesRL = new ResourceLocation(ModInfo.MOD_ID, "items/materials/plates");
-		Arrays.stream(Plates.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-				new ModelResourceLocation(platesRL, "type=" + value.name)));
+			new ModelResourceLocation(dustsRL, "type=" + value.unsuffixedName)));
 
-		ResourceLocation oresRL = new ResourceLocation(ModInfo.MOD_ID, "ores");
+		ResourceLocation dustsSmallRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/small_dust");
+		Arrays.stream(SmallDusts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(dustsSmallRL, "type=" + value.unsuffixedName)));
+
+		ResourceLocation gemsRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/gem");
+		Arrays.stream(Gems.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(gemsRL, "type=" + value.unsuffixedName)));
+
+		ResourceLocation ingotsRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/ingot");
+		Arrays.stream(Ingots.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(ingotsRL, "type=" + value.unsuffixedName)));
+
+		ResourceLocation nuggetsRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/nugget");
+		Arrays.stream(Nuggets.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(nuggetsRL, "type=" + value.unsuffixedName)));
+
+		ResourceLocation partsRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/part");
+		Arrays.stream(Parts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(partsRL, "type=" + value.name)));
+
+		ResourceLocation platesRL = new ResourceLocation(ModInfo.MOD_ID, "items/material/plate");
+		Arrays.stream(Plates.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(platesRL, "type=" + value.unsuffixedName)));
+
+		ResourceLocation oresRL = new ResourceLocation(ModInfo.MOD_ID, "ore");
 		for (Ores value : Ores.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(oresRL, "type=" + value.name));
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(oresRL, "type=" + value.unsuffixedName));
 			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(oresRL, "type=" + value.name);
+					return new ModelResourceLocation(oresRL, "type=" + value.unsuffixedName);
 				}
 			});
 		}
-		
-		ResourceLocation storageRL = new ResourceLocation(ModInfo.MOD_ID, "storage");
-		for (Storage value : Storage.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(storageRL, "type=" + value.name));
+
+		ResourceLocation storageRL = new ResourceLocation(ModInfo.MOD_ID, "storage_block");
+		for (StorageBlocks value : StorageBlocks.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(storageRL, "type=" + value.unsuffixedName));
 			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(storageRL, "type=" + value.name);
+					return new ModelResourceLocation(storageRL, "type=" + value.unsuffixedName);
 				}
 			});
-		}	
+		}
 	}
-	
+
 	public static enum Ores implements IStringSerializable {
 		BAUXITE, CINNABAR, COPPER, GALENA, IRIDIUM, LEAD, PERIDOT, PYRITE, RUBY, SAPPHIRE, SHELDONITE, SILVER, SODALITE,
 		SPHALERITE, TIN, TUNGSTEN;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Block block;
 
 		private Ores() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ORE_" + this.toString());
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_ore";
 			block = new BlockOre();
 			block.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			block.setTranslationKey(ModInfo.MOD_ID + ".ore." + this.toString().toLowerCase());
@@ -138,20 +140,22 @@ public class TRIngredients {
 		}
 
 	}
-	
-	public static enum Storage implements IStringSerializable {
+
+	public static enum StorageBlocks implements IStringSerializable {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
 		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, OSMIUM, PERIDOT, PLATINUM, RED_GARNET, REFINED_IRON, RUBY,
 		SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Block block;
 
-		private Storage() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "BLOCK_" + this.toString());
+		private StorageBlocks() {
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_block";
 			block = new BlockStorage();
 			block.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			block.setTranslationKey(ModInfo.MOD_ID + ".storage." + this.toString().toLowerCase());
+			block.setTranslationKey(ModInfo.MOD_ID + ".storage_block." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(block);
 		}
 
@@ -169,11 +173,13 @@ public class TRIngredients {
 		SAPPHIRE, SAW, SILVER, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TIN, TITANIUM, TUNGSTEN, UVAROVITE,
 		YELLOW_GARNET, ZINC;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Item item;
 
 		private Dusts() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "DUST_" + this.toString());
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_dust";
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			item.setTranslationKey(ModInfo.MOD_ID + ".dust." + this.toString().toLowerCase());
@@ -194,7 +200,7 @@ public class TRIngredients {
 		}
 	}
 
-	public static enum DustsSmall implements IStringSerializable {
+	public static enum SmallDusts implements IStringSerializable {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE,
@@ -202,14 +208,16 @@ public class TRIngredients {
 		RUBY, SALTPETER, SAPPHIRE, SAW, SILVER, SODALITE, SPESSARTINE, SPHALERITE, STEEL, SULFUR, TIN, TITANIUM,
 		TUNGSTEN, UVAROVITE, YELLOW_GARNET, ZINC;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Item item;
 
-		private DustsSmall() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "DUST_SMALL_" + this.toString());
+		private SmallDusts() {
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_small_dust";
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + ".dustsmall." + this.toString().toLowerCase());
+			item.setTranslationKey(ModInfo.MOD_ID + ".small_dust." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
 
@@ -226,25 +234,27 @@ public class TRIngredients {
 			return name;
 		}
 	}
-	
+
 	public static enum Gems implements IStringSerializable {
 		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Item item;
-		
+
 		private Gems() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "GEM_" + this.toString());
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_gem";
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			item.setTranslationKey(ModInfo.MOD_ID + ".gem." + this.toString().toLowerCase());
 			TRRecipeHandler.hideEntry(item);
 		}
-		
+
 		public ItemStack getStack() {
 			return new ItemStack(item);
 		}
-		
+
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
@@ -254,16 +264,18 @@ public class TRIngredients {
 			return name;
 		}
 	}
-	
+
 	public static enum Ingots implements IStringSerializable {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Item item;
 
 		private Ingots() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "INGOT_" + this.toString());
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_ingot";
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			item.setTranslationKey(ModInfo.MOD_ID + ".ingot." + this.toString().toLowerCase());
@@ -283,26 +295,28 @@ public class TRIngredients {
 			return name;
 		}
 	}
-	
+
 	public static enum Nuggets implements IStringSerializable {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, DIAMOND, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
 		PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Item item;
-		
+
 		private Nuggets() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "NUGGET_" + this.toString());
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_nugget";
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
-			item.setTranslationKey(ModInfo.MOD_ID + ".nuggets." + this.toString().toLowerCase());
-			TRRecipeHandler.hideEntry(item);			
+			item.setTranslationKey(ModInfo.MOD_ID + ".nugget." + this.toString().toLowerCase());
+			TRRecipeHandler.hideEntry(item);
 		}
-		
+
 		public ItemStack getStack() {
 			return new ItemStack(item);
 		}
-		
+
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
@@ -312,22 +326,56 @@ public class TRIngredients {
 			return name;
 		}
 	}
-	
+
 	public static enum Parts implements IStringSerializable {
-		CARBON_FIBER, CARBON_MESH, CIRCUIT_ADVANCED, CIRCUIT_BASIC, CIRCUIT_ELITE, COMPUTER_MONITOR, COOLANT_SIMPLE, COOLANT_SIX, COOLANT_TRIPLE,
-		CUPRONICKEL_HEATING_COIL, DATA_ORB, DATA_STORAGE_CIRCUIT, DEPLETED_CELL,
-		DIAMOND_GRINDING_HEAD, DIAMOND_SAW_BLADE, DOUBLE_DEPLETED_CELL, DOUBLE_PLUTONIUM_CELL, DOUBLE_THORIUM_CELL,
-		DOUBLE_URANIUM_CELL, ENERGY_FLOW_CIRCUIT, HELIUM_COOLANT_SIMPLE, HELIUM_COOLANT_SIX,
-		HELIUM_COOLANT_TRIPLE, IRIDIUM_NEUTRON_REFLECTOR, KANTHAL_HEATING_COIL, MACHINE_PARTS, NAK_COOLANT_SIMPLE,
-		NAK_COOLANT_SIX, NAK_COOLANT_TRIPLE, NEUTRON_REFLECTOR, NICHROME_HEATING_COIL, PLUTONIUM_CELL, QUAD_DEPLETED_CELL,
-		QUAD_PLUTONIUM_CELL, QUAD_THORIUM_CELL, QUAD_URANIUM_CELL, RUBBER, SAP, SCRAP, SUPER_CONDUCTOR,
-		THICK_NEUTRON_REFLECTOR, THORIUM_CELL, TUNGSTEN_GRINDING_HEAD, URANIUM_CELL, UU_MATTER;
+		CARBON_FIBER,
+		CARBON_MESH,
+
+		ELECTRONIC_CIRCUIT,
+		ADVANCED_CIRCUIT,
+		INDUSTRIAL_CIRCUIT,
+
+		MACHINE_PARTS,
+		DIGITAL_DISPLAY,
+
+		DATA_STORAGE_CORE,
+		DATA_STORAGE_CHIP,
+		ENERGY_FLOW_CHIP,
+		SUPERCONDUCTOR,
+
+		DIAMOND_SAW_BLADE,
+		DIAMOND_GRINDING_HEAD,
+		TUNGSTEN_GRINDING_HEAD,
+
+		CUPRONICKEL_HEATING_COIL,
+		KANTHAL_HEATING_COIL,
+		NICHROME_HEATING_COIL,
+
+		NEUTRON_REFLECTOR,
+		THICK_NEUTRON_REFLECTOR,
+		IRIDIUM_NEUTRON_REFLECTOR
+
+		//java vars can't start with numbers, so these get suffixes
+		, WATER_COOLANT_CELL_10K,
+		WATER_COOLANT_CELL_30K,
+		WATER_COOLANT_CELL_60K,
+		HELIUM_COOLANT_CELL_60K,
+		HELIUM_COOLANT_CELL_360K,
+		HELIUM_COOLANT_CELL_180K,
+		NAK_COOLANT_CELL_60K,
+		NAK_COOLANT_CELL_180K,
+		NAK_COOLANT_CELL_360K,
+
+		RUBBER,
+		SAP,
+		SCRAP,
+		UU_MATTER;
 
 		public final String name;
 		public final Item item;
 
 		private Parts() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, this.toString());
+			name = this.toString().toLowerCase();
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			item.setTranslationKey(ModInfo.MOD_ID + ".part." + this.toString().toLowerCase());
@@ -347,18 +395,20 @@ public class TRIngredients {
 			return name;
 		}
 	}
-	
+
 	public static enum Plates implements IStringSerializable {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
 		IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, RED_GARNET,
 		REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
 		YELLOW_GARNET, ZINC;
 
+		public final String unsuffixedName;
 		public final String name;
 		public final Item item;
 
 		private Plates() {
-			name = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "PLATE_" + this.toString());
+			unsuffixedName = this.toString().toLowerCase();
+			name = this.toString().toLowerCase() + "_plate";
 			item = new ItemTR();
 			item.setRegistryName(new ResourceLocation(ModInfo.MOD_ID, name));
 			item.setTranslationKey(ModInfo.MOD_ID + ".plate." + this.toString().toLowerCase());
@@ -368,7 +418,7 @@ public class TRIngredients {
 		public ItemStack getStack() {
 			return new ItemStack(item);
 		}
-		
+
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
