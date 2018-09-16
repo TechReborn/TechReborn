@@ -24,10 +24,10 @@
 
 package techreborn.tiles.multiblock;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModBlocks;
 
 public class MultiblockChecker {
@@ -47,12 +47,19 @@ public class MultiblockChecker {
 		this.downCenter = downCenter;
 	}
 
+	// TODO: make thid not so ugly
 	public boolean checkCasing(int offX, int offY, int offZ, String type) {
-		IBlockState block = getBlock(offX, offY, offZ);
-		if (block.getBlock() == ModBlocks.MACHINE_CASINGS) {
+		Block block = getBlock(offX, offY, offZ).getBlock();
+		if (block == ModBlocks.MACHINE_CASINGS_STANDARD || block == ModBlocks.MACHINE_CASINGS_REINFORCED || block == ModBlocks.MACHINE_CASINGS_ADVANCED ) {
 			if (type == MultiblockChecker.CASING_ANY) {
 				return true;
-			} else if (block.getValue(BlockMachineCasing.TYPE).equals(type)) {
+			} else if ( type == "standard" && block ==  ModBlocks.MACHINE_CASINGS_STANDARD) {
+				return true;
+			}
+			else if (type == "reinforced" && block ==  ModBlocks.MACHINE_CASINGS_REINFORCED) {
+				return true;
+			}
+			else if (type == "advanced" && block ==  ModBlocks.MACHINE_CASINGS_ADVANCED) {
 				return true;
 			}
 		}

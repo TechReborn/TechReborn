@@ -203,7 +203,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileMatterFabricator> getInventory() {
 		return inventory;
 	}
 

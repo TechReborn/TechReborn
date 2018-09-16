@@ -56,8 +56,10 @@ public class ModBlocks {
 	// Misc Blocks
 	public static Block CABLE;
 	public static Block COMPUTER_CUBE;
-	public static Block FLARE;	
-	public static Block MACHINE_CASINGS;
+	public static Block FLARE;
+	public static Block MACHINE_CASINGS_ADVANCED;
+	public static Block MACHINE_CASINGS_REINFORCED;
+	public static Block MACHINE_CASINGS_STANDARD;
 	public static Block MACHINE_BLOCK_ADVANCED;
 	public static Block MACHINE_BLOCK_BASIC;
 	public static Block MACHINE_BLOCK_ELITE;
@@ -163,10 +165,16 @@ public class ModBlocks {
 		
 		MACHINE_BLOCK_ELITE = new BlockMachineFrames();
 		registerBlock(MACHINE_BLOCK_ELITE, "machineBlockElite");
+
+		MACHINE_CASINGS_ADVANCED = new BlockMachineCasing();
+		registerBlock(MACHINE_CASINGS_ADVANCED, "machineCasingAdvanced");
 		
-		MACHINE_CASINGS = new BlockMachineCasing();
-		registerBlock(MACHINE_CASINGS, ItemBlockMachineCasing.class, "machine_casing");
+		MACHINE_CASINGS_REINFORCED = new BlockMachineCasing();
+		registerBlock(MACHINE_CASINGS_REINFORCED, "machineCasingReinforced");
 		
+		MACHINE_CASINGS_STANDARD = new BlockMachineCasing();
+		registerBlock(MACHINE_CASINGS_STANDARD, "machineCasingStandard");
+	
 		NUKE = new BlockNuke();
 		registerBlock(NUKE, "nuke");
 		

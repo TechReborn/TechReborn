@@ -47,7 +47,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		implements ItemHandlerProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;
-	public final Inventory inventory;
+	public final Inventory<TileTechStorageBase> inventory;
 	public ItemStack storedItem;
 
 	public TileTechStorageBase(String name, int maxCapacity) {
@@ -228,7 +228,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<TileTechStorageBase> getInventory() {
 		return inventory;
 	}
 

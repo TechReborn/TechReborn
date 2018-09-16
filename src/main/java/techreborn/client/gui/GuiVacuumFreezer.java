@@ -31,7 +31,6 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.blocks.BlockMachineCasing;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
@@ -105,7 +104,7 @@ public class GuiVacuumFreezer extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState reinforcedCasing = ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "reinforced");					
+					IBlockState reinforcedCasing = ModBlocks.MACHINE_CASINGS_REINFORCED.getDefaultState();					
 					
 					this.addComponent(0, -1, 0, reinforcedCasing, multiblock);
 					this.addComponent(1, -1, 0, reinforcedCasing, multiblock);
