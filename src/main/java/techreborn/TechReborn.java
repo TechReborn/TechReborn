@@ -77,8 +77,6 @@ import java.io.File;
 @Mod(modid = TechReborn.MOD_ID, name = TechReborn.MOD_NAME, version = TechReborn.MOD_VERSION, dependencies = TechReborn.MOD_DEPENDENCIES, acceptedMinecraftVersions = "[1.12,1.12.2]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b", guiFactory = "techreborn.client.TechRebornGuiFactory")
 public class TechReborn {
 
-	//enable dev featues with -Dtechreborn.devFeatues=true
-	public static final boolean DEV_FEATURES = Boolean.parseBoolean(System.getProperty("techreborn.devFeatues", "false"));
 	public static final String MOD_ID = "techreborn";
 	public static final String MOD_NAME = "Tech Reborn";
 	public static final String MOD_VERSION = "@MODVERSION@";
@@ -86,6 +84,7 @@ public class TechReborn {
 	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
 	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
 	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;

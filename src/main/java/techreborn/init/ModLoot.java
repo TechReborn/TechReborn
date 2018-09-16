@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModLoot {
-	
+
 	public static List<ResourceLocation> lootTables = new ArrayList<ResourceLocation>();
 
 	public static void init() {
@@ -58,7 +58,7 @@ public class ModLoot {
 		if (ConfigTechReborn.enableEndLoot) {
 			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/end_city_treasure"));
 		}
-		
+
 		for (ResourceLocation lootTable : lootTables) {
 			LootTableList.register(lootTable);
 		}
@@ -66,28 +66,26 @@ public class ModLoot {
 
 	@SubscribeEvent
 	public void lootLoad(LootTableLoadEvent event) {
-		if(!event.getName().getNamespace().equals("minecraft")) {
+		if (!event.getName().getNamespace().equals("minecraft")) {
 			return;
 		}
 		for (ResourceLocation lootTable : lootTables) {
 			if (event.getName().getNamespace().equals(lootTable.getPath())) {
 				event.getTable().addPool(getLootPool(lootTable));
-				if (TechReborn.DEV_FEATURES) {
-					TechReborn.LOGGER.info("Loot pool injected into " + lootTable.getPath());
-				}
+				TechReborn.LOGGER.debug("Loot pool injected into " + lootTable.getPath());
 			}
 		}
 	}
-	
+
 	/**
 	 * Generates loot pool to be injected into vanilla loot pools
-	 * 
+	 *
 	 * @param lootTable ResourceLocation Loot table to inject
 	 * @return LootPool Loot pool to inject
 	 */
 	private LootPool getLootPool(ResourceLocation lootTable) {
-		LootEntry entry = new LootEntryTable(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString()); 
-		LootPool pool = new LootPool(new LootEntry[] {entry}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "lootPool_"+lootTable.toString()); 
+		LootEntry entry = new LootEntryTable(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString());
+		LootPool pool = new LootPool(new LootEntry[] { entry }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "lootPool_" + lootTable.toString());
 		return pool;
 	}
 }

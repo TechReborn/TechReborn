@@ -24,9 +24,11 @@
 
 package techreborn.items.tools;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -39,7 +41,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.InitUtils;
+import techreborn.utils.OreDictUtils;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -61,13 +63,12 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	// ItemPickaxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		//tOdo: check if stone tag
-		//		if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
-		//			&& stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost) {
-		//			return efficiency;
-		//		} else {
-		return 0.5F;
-		//		}
+		if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
+			&& stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost) {
+			return efficiency;
+		} else {
+			return 0.5F;
+		}
 	}
 
 	// ItemTool
@@ -88,10 +89,8 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	// Item
 	@Override
 	public boolean canHarvestBlock(final IBlockState state, final ItemStack stack) {
-		return false;
-		//todo: cheeck if stone tag
-		//		return OreDictUtils.isOre(state, "stone")
-		//			|| state.getMaterial() == Material.ROCK && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost;
+		return OreDictUtils.isOre(state, "stone")
+			|| state.getMaterial() == Material.ROCK && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost;
 	}
 
 	@Override
