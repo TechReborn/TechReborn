@@ -1,6 +1,6 @@
 {
   "parent": "techreborn:item/techrebornItem",
   "textures": {
-    "layer0": "techreborn:items/tool/lithium_batpack"
+    "layer0": "techreborn:items/armor/lapotronic_orbpack"
   }
 }
