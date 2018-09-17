@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ores/bauxite",
+    "#forge:ores/cinnabar",
+    "#forge:ores/copper",
+    "#forge:ores/galena",
+    "#forge:ores/iridium",
+    "#forge:ores/lead",
+    "#forge:ores/peridot",
+    "#forge:ores/pyrite",
+    "#forge:ores/ruby",
+    "#forge:ores/sapphire",
+    "#forge:ores/sheldonite",
+    "#forge:ores/silver",
+    "#forge:ores/sodalite",
+    "#forge:ores/sphalerite",
+    "#forge:ores/tin",
+    "#forge:ores/tungsten"
+  ]
+}
