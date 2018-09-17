@@ -1,8 +1,8 @@
-![](https://i.imgur.com/evHOtQl.png "Tech Reborn")
+![](https://i.imgur.com/m0y21EK.png "Tech Reborn")
 
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/teamreborn) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/techreborn/localized.svg)](https://translate.techreborn.ovh/project/techreborn)
 
-# Tech Reborn for 1.12 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
+# Tech Reborn for 1.13.1 (BUILD JOBS WILL NEED UPDATING) [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
 
 *Tech Reborn is a completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.*
 
@@ -37,8 +37,6 @@ Techreborn is available in a range of diffrent languages, if you want to help ou
 
 # Screenshots
 
-**Please note that the following screenshots use the new Tech Reborn textures that are in the 1.11+ releases:**
-
 ![screenshot](https://i.imgur.com/BW128tX.png)
 ![screenshot](https://i.imgur.com/4rxbO4Q.png)
 ![screenshot](https://i.imgur.com/edaGPlL.png)
@@ -53,6 +51,7 @@ Techreborn is available in a range of diffrent languages, if you want to help ou
 * Modmuss50 - Lead Developer
 * Gigabit101 - Developer
 * Prospector - Developer & Texture Artist
+* Drcrazy - Developer
 * Yulife - Lead Texture Artist
 * The Chisel Team - Connected Textures if Chisel is installed
  
