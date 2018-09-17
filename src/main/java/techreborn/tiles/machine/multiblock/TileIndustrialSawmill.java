@@ -128,7 +128,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		return tagCompound;
 	}
 	
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Nullable
 	@Override
 	public Tank getTank() {

@@ -35,7 +35,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
@@ -43,7 +43,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileTechStorageBase extends TileLegacyMachineBase
+public class TileTechStorageBase extends TileMachineBase
 		implements ItemHandlerProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;
@@ -126,7 +126,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		return stacks;
 	}
 
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public void update() {
 		super.update();

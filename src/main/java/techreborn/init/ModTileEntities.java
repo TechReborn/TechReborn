@@ -27,7 +27,7 @@ package techreborn.init;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.TechReborn;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
@@ -101,7 +101,7 @@ public enum ModTileEntities {
 	CREATIVE_QUANTUM_CHEST(TileCreativeQuantumChest.class,  "creative_quantum_chest"),
 	WATER_MILL(TileWaterMill.class,  "water_mill"),
 	WIND_MILL(TileWindMill.class,  "wind_mill"),
-	MACHINE_BASE(TileLegacyMachineBase.class,  "machine_base"),
+	MACHINE_BASE(TileMachineBase.class,  "machine_base"),
 	RECYCLER(TileRecycler.class,  "recycler"),
 	LOW_VOLTAGE_SU(TileLowVoltageSU.class,  "low_voltage_su"),
 	MEDIUM_VOLTAGE_SU(TileMediumVoltageSU.class,  "medium_voltage_su"),

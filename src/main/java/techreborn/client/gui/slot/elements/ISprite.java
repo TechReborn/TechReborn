@@ -24,8 +24,8 @@
 
 package techreborn.client.gui.slot.elements;
 
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 
 public interface ISprite {
-	Sprite getSprite(TileLegacyMachineBase provider);
+	Sprite getSprite(TileMachineBase provider);
 }

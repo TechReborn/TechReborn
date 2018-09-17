@@ -34,7 +34,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
-public class TileQuantumTank extends TileLegacyMachineBase
+public class TileQuantumTank extends TileMachineBase
 	implements ItemHandlerProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
@@ -75,7 +75,7 @@ public class TileQuantumTank extends TileLegacyMachineBase
 		return dropStack;
 	}
 	
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public void update() {
 		super.update();

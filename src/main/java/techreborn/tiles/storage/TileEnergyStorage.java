@@ -113,7 +113,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 		return tier;
 	}
 
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public void setFacing(EnumFacing enumFacing) {
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, enumFacing));

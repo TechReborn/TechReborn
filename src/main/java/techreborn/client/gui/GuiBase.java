@@ -36,7 +36,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import reborncore.api.tile.IUpgradeable;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.slot.GuiFluidConfiguration;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
@@ -318,8 +318,8 @@ public class GuiBase extends GuiContainer {
 		return super.isPointInRegion(rectX, rectY, rectWidth, rectHeight, pointX, pointY);
 	}
 
-	public TileLegacyMachineBase getMachine(){
-		return (TileLegacyMachineBase) tile;
+	public TileMachineBase getMachine(){
+		return (TileMachineBase) tile;
 	}
 
 

@@ -132,7 +132,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 		};
 	}
 	
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Nullable
 	@Override
 	public Tank getTank() {

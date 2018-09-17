@@ -32,14 +32,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.lwjgl.input.Keyboard;
 import reborncore.client.gui.GuiUtil;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.packet.PacketConfigSave;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.elements.ConfigSlotElement;
@@ -127,7 +126,7 @@ public class GuiSlotConfiguration  {
 	}
 
 	public static void copyToClipboard(){
-		TileLegacyMachineBase machine = getMachine();
+		TileMachineBase machine = getMachine();
 		if(machine == null || machine.slotConfiguration == null){
 			return;
 		}
@@ -137,7 +136,7 @@ public class GuiSlotConfiguration  {
 	}
 
 	public static void pasteFromClipboard(){
-		TileLegacyMachineBase machine = getMachine();
+		TileMachineBase machine = getMachine();
 		if(machine == null || machine.slotConfiguration == null){
 			return;
 		}
@@ -152,15 +151,15 @@ public class GuiSlotConfiguration  {
 	}
 
 	@Nullable
-	private static TileLegacyMachineBase getMachine(){
+	private static TileMachineBase getMachine(){
 		if(!(Minecraft.getMinecraft().currentScreen instanceof GuiBase)){
 			return null;
 		}
 		GuiBase base = (GuiBase) Minecraft.getMinecraft().currentScreen;
-		if(!(base.tile instanceof TileLegacyMachineBase)){
+		if(!(base.tile instanceof TileMachineBase)){
 			return null;
 		}
-		TileLegacyMachineBase machineBase = (TileLegacyMachineBase) base.tile;
+		TileMachineBase machineBase = (TileMachineBase) base.tile;
 		return machineBase;
 	}
 

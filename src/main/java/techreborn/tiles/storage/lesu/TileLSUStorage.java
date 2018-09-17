@@ -30,10 +30,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.init.ModBlocks;
 
-public class TileLSUStorage extends TileLegacyMachineBase 
+public class TileLSUStorage extends TileMachineBase
 	implements IToolDrop {
 
 	public LesuNetwork network;
@@ -77,7 +77,7 @@ public class TileLSUStorage extends TileLegacyMachineBase
 		findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public void update() {
 		super.update();

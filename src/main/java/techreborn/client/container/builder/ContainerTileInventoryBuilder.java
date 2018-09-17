@@ -38,7 +38,7 @@ import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.container.builder.slot.FilteredSlot;
 import techreborn.client.container.builder.slot.FurnaceFuelSlot;
@@ -51,11 +51,11 @@ import java.util.function.Predicate;
 
 public class ContainerTileInventoryBuilder {
 
-	private final TileLegacyMachineBase tile;
+	private final TileMachineBase tile;
 	private final ContainerBuilder parent;
 	private final int rangeStart;
 
-	ContainerTileInventoryBuilder(final ContainerBuilder parent, final TileLegacyMachineBase tile) {
+	ContainerTileInventoryBuilder(final ContainerBuilder parent, final TileMachineBase tile) {
 		this.tile = tile;
 		this.parent = parent;
 		this.rangeStart = parent.slots.size();

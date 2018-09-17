@@ -179,7 +179,7 @@ public class TileRecycler extends TilePowerAcceptor
 		return maxInput;
 	}
 	
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return true;

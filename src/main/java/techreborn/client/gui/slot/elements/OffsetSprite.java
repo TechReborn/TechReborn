@@ -24,7 +24,7 @@
 
 package techreborn.client.gui.slot.elements;
 
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 
 public class OffsetSprite {
 	public ISprite sprite;
@@ -41,7 +41,7 @@ public class OffsetSprite {
 		this.sprite = sprite;
 	}
 
-	public OffsetSprite(Sprite sprite, TileLegacyMachineBase provider) {
+	public OffsetSprite(Sprite sprite, TileMachineBase provider) {
 		this.sprite = sprite;
 	}
 
@@ -49,7 +49,7 @@ public class OffsetSprite {
 		return sprite;
 	}
 
-	public int getOffsetX(TileLegacyMachineBase provider) {
+	public int getOffsetX(TileMachineBase provider) {
 		return offsetX + sprite.getSprite(provider).offsetX;
 	}
 
@@ -58,7 +58,7 @@ public class OffsetSprite {
 		return this;
 	}
 
-	public int getOffsetY(TileLegacyMachineBase provider) {
+	public int getOffsetY(TileMachineBase provider) {
 		return offsetY + sprite.getSprite(provider).offsetY;
 	}
 

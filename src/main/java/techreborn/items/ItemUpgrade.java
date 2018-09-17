@@ -28,8 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.recipes.IUpgradeHandler;
-import reborncore.common.tile.TileLegacyMachineBase;
-import techreborn.utils.InitUtils;
+import reborncore.common.tile.TileMachineBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,7 +47,7 @@ public class ItemUpgrade extends Item implements IUpgrade {
 	@Override
 	public void process(
 		@Nonnull
-			TileLegacyMachineBase tile,
+			TileMachineBase tile,
 		@Nullable
 			IUpgradeHandler handler,
 		@Nonnull

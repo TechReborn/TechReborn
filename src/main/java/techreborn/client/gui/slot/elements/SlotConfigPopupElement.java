@@ -39,7 +39,7 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.network.packet.PacketIOSave;
 import reborncore.common.network.packet.PacketSlotSave;
 import reborncore.common.tile.SlotConfiguration;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.MachineFacing;
 import techreborn.client.gui.GuiBase;
 
@@ -63,7 +63,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		drawDefaultBackground(gui, adjustX(gui, getX() -8), adjustY(gui, getY() - 7), 84, 105 + (filter ? 15 : 0));
 		super.draw(gui);
 
-		TileLegacyMachineBase machine = ((TileLegacyMachineBase) gui.tile);
+		TileMachineBase machine = ((TileMachineBase) gui.tile);
 		IBlockAccess blockAccess = machine.getWorld();
 		BlockPos pos = machine.getPos();
 		IBlockState state = blockAccess.getBlockState(pos);
@@ -88,7 +88,7 @@ public class SlotConfigPopupElement extends ElementBase {
 	}
 
 	@Override
-	public boolean onRelease(TileLegacyMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
+	public boolean onRelease(TileMachineBase provider, GuiBase gui, int mouseX, int mouseY) {
 		if(isInBox(23 , 4, 16, 16, mouseX, mouseY, gui)){
 			cyleSlotConfig(MachineFacing.UP.getFacing(provider), gui);
 		} else if(isInBox(23 , 23, 16, 16, mouseX, mouseY, gui)){
@@ -135,7 +135,7 @@ public class SlotConfigPopupElement extends ElementBase {
 		NetworkManager.sendToServer(packetSlotSave);
 	}
 
-	private void drawSlotSateColor(TileLegacyMachineBase machineBase, EnumFacing side, int slotID, int inx, int iny, GuiBase gui){
+	private void drawSlotSateColor(TileMachineBase machineBase, EnumFacing side, int slotID, int inx, int iny, GuiBase gui){
 		iny += 4;
 		int sx = inx + getX() + gui.guiLeft;
 		int sy = iny + getY() + gui.guiTop;

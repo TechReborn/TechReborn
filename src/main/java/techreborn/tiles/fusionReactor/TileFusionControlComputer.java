@@ -344,7 +344,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		return tagCompound;
 	}
 
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public void onLoad() {
 		super.onLoad();

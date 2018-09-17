@@ -29,7 +29,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.elements.ConfigFluidElement;
 import techreborn.client.gui.slot.elements.ElementBase;
@@ -138,15 +138,15 @@ public class GuiFluidConfiguration {
 	}
 
 	@Nullable
-	private static TileLegacyMachineBase getMachine() {
+	private static TileMachineBase getMachine() {
 		if (!(Minecraft.getMinecraft().currentScreen instanceof GuiBase)) {
 			return null;
 		}
 		GuiBase base = (GuiBase) Minecraft.getMinecraft().currentScreen;
-		if (!(base.tile instanceof TileLegacyMachineBase)) {
+		if (!(base.tile instanceof TileMachineBase)) {
 			return null;
 		}
-		TileLegacyMachineBase machineBase = (TileLegacyMachineBase) base.tile;
+		TileMachineBase machineBase = (TileMachineBase) base.tile;
 		return machineBase;
 	}
 

@@ -37,7 +37,7 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
@@ -49,7 +49,7 @@ import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
-public class TileIronAlloyFurnace extends TileLegacyMachineBase
+public class TileIronAlloyFurnace extends TileMachineBase
 	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	public int tickTime;

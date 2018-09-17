@@ -24,7 +24,7 @@
 
 package techreborn.client.gui.slot.elements;
 
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import techreborn.client.gui.GuiBase;
 
 import java.util.function.Predicate;
@@ -32,12 +32,12 @@ import java.util.function.Predicate;
 public class CheckBoxElement extends ElementBase {
 	public String label, type;
 	public int labelColor, slotID;
-	public TileLegacyMachineBase machineBase;
+	public TileMachineBase machineBase;
 	Predicate<CheckBoxElement> ticked;
 
 	private Sprite.CheckBox checkBoxSprite;
 
-	public CheckBoxElement(String label, int labelColor, int x, int y, String type, int slotID, Sprite.CheckBox checkBoxSprite, TileLegacyMachineBase machineBase, Predicate<CheckBoxElement> ticked) {
+	public CheckBoxElement(String label, int labelColor, int x, int y, String type, int slotID, Sprite.CheckBox checkBoxSprite, TileMachineBase machineBase, Predicate<CheckBoxElement> ticked) {
 		super(x, y, checkBoxSprite.getNormal());
 		this.checkBoxSprite = checkBoxSprite;
 		this.type = type;

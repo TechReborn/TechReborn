@@ -53,7 +53,7 @@ public class TileScrapboxinator extends TileGenericMachine implements IContainer
 		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
 	
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return false;

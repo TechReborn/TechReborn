@@ -30,7 +30,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class ContainerBuilder {
 		return new ContainerPlayerInventoryBuilder(this, player);
 	}
 
-	public ContainerTileInventoryBuilder tile(final TileLegacyMachineBase tile) {
+	public ContainerTileInventoryBuilder tile(final TileMachineBase tile) {
 		return new ContainerTileInventoryBuilder(this, tile);
 	}
 
@@ -88,7 +88,7 @@ public class ContainerBuilder {
 		this.tileInventoryRanges.add(range);
 	}
 
-	public BuiltContainer create(final TileLegacyMachineBase tile) {
+	public BuiltContainer create(final TileMachineBase tile) {
 		final BuiltContainer built = new BuiltContainer(this.name, this.canInteract,
 				this.playerInventoryRanges,
 				this.tileInventoryRanges, tile);

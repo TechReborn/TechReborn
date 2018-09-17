@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.tuple.MutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.container.IRightClickHandler;
 
@@ -56,11 +56,11 @@ public class BuiltContainer extends Container {
 	private List<Consumer<InventoryCrafting>> craftEvents;
 	private Integer[] integerParts;
 
-	private final TileLegacyMachineBase tile;
+	private final TileMachineBase tile;
 
 	public BuiltContainer(final String name, final Predicate<EntityPlayer> canInteract,
 						  final List<Range<Integer>> playerSlotRange,
-						  final List<Range<Integer>> tileSlotRange, TileLegacyMachineBase tile) {
+						  final List<Range<Integer>> tileSlotRange, TileMachineBase tile) {
 		this.name = name;
 
 		this.canInteract = canInteract;

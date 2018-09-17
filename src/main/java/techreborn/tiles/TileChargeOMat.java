@@ -105,7 +105,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 		return maxInput;
 	}
 	
-	// TileLegacyMachineBase
+	// TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
