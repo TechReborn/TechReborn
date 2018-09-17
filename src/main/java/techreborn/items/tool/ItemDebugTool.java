@@ -24,6 +24,7 @@
 
 package techreborn.items.tool;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -47,20 +48,23 @@ public class ItemDebugTool extends Item {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
-	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ) {
+		Block block = worldIn.getBlockState(pos).getBlock();
+		if (block != null) {
+			playerIn.sendMessage(new TextComponentString(
+					TextFormatting.GREEN + "Block Registry Name:" + TextFormatting.BLUE + block.getRegistryName().toString()));
+		}
 		TileEntity tile = worldIn.getTileEntity(pos);
 		if (tile instanceof IEnergyInterfaceTile) {
 			if (!tile.getWorld().isRemote) {
-				playerIn.sendMessage(
-					new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
+				playerIn.sendMessage(new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
 						+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
 			}
 			return EnumActionResult.SUCCESS;
 		} else if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
 			if (!tile.getWorld().isRemote) {
-				playerIn.sendMessage(
-					new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
+				playerIn.sendMessage(new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
 						+ tile.getCapability(CapabilityEnergy.ENERGY, facing).getEnergyStored() + "FU"));
 			}
 			return EnumActionResult.SUCCESS;
