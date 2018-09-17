@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.multiblock.TileIndustrialGrinder;
+import techreborn.tiles.machine.multiblock.TileIndustrialGrinder;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockIndustrialGrinder extends BlockMachineBase {

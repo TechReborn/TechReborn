@@ -59,7 +59,7 @@ import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
-import techreborn.tiles.tier1.TilePlayerDectector;
+import techreborn.tiles.machine.tier1.TilePlayerDectector;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;

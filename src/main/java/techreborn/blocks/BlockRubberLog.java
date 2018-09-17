@@ -50,8 +50,8 @@ import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.items.tools.ItemElectricTreetap;
-import techreborn.items.tools.ItemTreeTap;
+import techreborn.items.tool.basic.ItemElectricTreetap;
+import techreborn.items.tool.ItemTreeTap;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.ArrayList;

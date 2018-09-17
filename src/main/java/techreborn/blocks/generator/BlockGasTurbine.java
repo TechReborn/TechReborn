@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.generator.TileGasTurbine;
+import techreborn.tiles.generator.advanced.TileGasTurbine;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockGasTurbine extends BlockMachineBase {

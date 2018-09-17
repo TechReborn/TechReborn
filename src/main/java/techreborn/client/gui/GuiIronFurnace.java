@@ -30,7 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techreborn.init.TRItems;
-import techreborn.tiles.tier0.TileIronFurnace;
+import techreborn.tiles.machine.iron.TileIronFurnace;
 
 public class GuiIronFurnace extends GuiBase {
 

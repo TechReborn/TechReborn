@@ -79,11 +79,11 @@ public class OreDict {
 		OreUtil.registerOre("machineBlockElite", new ItemStack(ModBlocks.MACHINE_BLOCK_ELITE));
 
 		// Tools&Armor
-		OreUtil.registerOre("reBattery", TRItems.RECHARGEABLE_BATTERY);
+		OreUtil.registerOre("reBattery", TRItems.RED_CELL_BATTERY);
 		OreUtil.registerOre("lapotronCrystal", TRItems.LAPOTRON_CRYSTAL);
 		OreUtil.registerOre("energyCrystal", TRItems.ENERGY_CRYSTAL);
-		OreUtil.registerOre("drillBasic", TRItems.STEEL_DRILL);
-		OreUtil.registerOre("drillDiamond", TRItems.DIAMOND_DRILL);
+		OreUtil.registerOre("drillBasic", TRItems.BASIC_DRILL);
+		OreUtil.registerOre("drillDiamond", TRItems.ADVANCED_DRILL);
 
 		// Misc
 		OreUtil.registerOre("industrialTnt", Blocks.TNT);

@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.generator.TileSemiFluidGenerator;
+import techreborn.tiles.generator.advanced.TileSemiFluidGenerator;
 
 public class GuiSemifluidGenerator extends GuiBase {
 

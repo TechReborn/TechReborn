@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.tier1.TileCompressor;
+import techreborn.tiles.machine.tier1.TileCompressor;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockCompressor extends BlockMachineBase {

@@ -34,7 +34,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketAutoCraftingTableLock;
-import techreborn.tiles.tier1.TileAutoCraftingTable;
+import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
 
 import java.io.IOException;
 

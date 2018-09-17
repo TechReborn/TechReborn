@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketRollingMachineLock;
-import techreborn.tiles.tier1.TileRollingMachine;
+import techreborn.tiles.machine.tier1.TileRollingMachine;
 
 import java.io.IOException;
 

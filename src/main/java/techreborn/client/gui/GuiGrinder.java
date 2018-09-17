@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.tier1.TileGrinder;
+import techreborn.tiles.machine.tier1.TileGrinder;
 
 public class GuiGrinder extends GuiBase {
 

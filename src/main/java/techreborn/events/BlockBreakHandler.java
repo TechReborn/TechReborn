@@ -91,7 +91,7 @@ public class BlockBreakHandler {
 
 	@SubscribeEvent
 	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
-		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == TRItems.ADVANCED_CHAINSAW && event.getOriginalSpeed() > 1.0f){
+		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == TRItems.INDUSTRIAL_CHAINSAW && event.getOriginalSpeed() > 1.0f){
 			BlockPos pos = event.getPos();
 			World worldIn = event.getEntityPlayer().world;
 			float speed = 20F;

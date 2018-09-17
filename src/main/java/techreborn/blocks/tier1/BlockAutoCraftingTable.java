@@ -34,7 +34,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.tier1.TileAutoCraftingTable;
+import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockAutoCraftingTable extends BlockMachineBase {

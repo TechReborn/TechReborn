@@ -29,7 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import techreborn.init.TRContent;
-import techreborn.tiles.multiblock.TileFluidReplicator;
+import techreborn.tiles.machine.multiblock.TileFluidReplicator;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

@@ -46,7 +46,7 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.lesu.TileLSUStorage;
+import techreborn.tiles.storage.lesu.TileLSUStorage;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**

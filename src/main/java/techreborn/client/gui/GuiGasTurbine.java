@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.generator.TileGasTurbine;
+import techreborn.tiles.generator.advanced.TileGasTurbine;
 
 public class GuiGasTurbine extends GuiBase {
 

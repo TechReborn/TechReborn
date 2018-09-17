@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.idsu.TileInterdimensionalSU;
+import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 
 public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	

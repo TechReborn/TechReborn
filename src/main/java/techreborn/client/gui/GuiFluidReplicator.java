@@ -35,7 +35,7 @@ import reborncore.client.multiblock.MultiblockSet;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.proxies.ClientProxy;
-import techreborn.tiles.multiblock.TileFluidReplicator;
+import techreborn.tiles.machine.multiblock.TileFluidReplicator;
 
 import java.io.IOException;
 

@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.generator.TileThermalGenerator;
+import techreborn.tiles.generator.advanced.TileThermalGenerator;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockThermalGenerator extends BlockMachineBase {

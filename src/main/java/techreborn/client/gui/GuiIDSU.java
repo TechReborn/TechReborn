@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.idsu.TileInterdimensionalSU;
+import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 
 public class GuiIDSU extends GuiBase {
 

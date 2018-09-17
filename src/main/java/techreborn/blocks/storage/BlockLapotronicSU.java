@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.ModBlocks;
-import techreborn.tiles.lesu.TileLapotronicSU;
+import techreborn.tiles.storage.lesu.TileLapotronicSU;
 
 public class BlockLapotronicSU extends BlockEnergyStorage {
 	

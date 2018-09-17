@@ -33,7 +33,7 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.api.Reference;
 import techreborn.init.TRContent;
-import techreborn.tiles.multiblock.TileFluidReplicator;
+import techreborn.tiles.machine.multiblock.TileFluidReplicator;
 
 /**
  * @author drcrazy

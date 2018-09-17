@@ -42,7 +42,22 @@ import techreborn.items.armor.ItemLapotronicOrbpack;
 import techreborn.items.armor.ItemLithiumIonBatpack;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
-import techreborn.items.tools.*;
+import techreborn.items.tool.ItemDebugTool;
+import techreborn.items.tool.ItemTreeTap;
+import techreborn.items.tool.ItemWrench;
+import techreborn.items.tool.advanced.ItemAdvancedChainsaw;
+import techreborn.items.tool.advanced.ItemAdvancedDrill;
+import techreborn.items.tool.advanced.ItemAdvancedJackhammer;
+import techreborn.items.tool.advanced.ItemRockCutter;
+import techreborn.items.tool.basic.ItemBasicChainsaw;
+import techreborn.items.tool.basic.ItemBasicDrill;
+import techreborn.items.tool.basic.ItemBasicJackhammer;
+import techreborn.items.tool.basic.ItemElectricTreetap;
+import techreborn.items.tool.industrial.*;
+import techreborn.items.tool.vanilla.ItemTRAxe;
+import techreborn.items.tool.vanilla.ItemTRHoe;
+import techreborn.items.tool.vanilla.ItemTRSpade;
+import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
@@ -59,23 +74,23 @@ public class TRItems {
 	public static Item LAPOTRON_CRYSTAL;
 	public static Item LAPOTRONIC_ORB;
 	public static Item LITHIUM_ION_BATTERY;
-	public static Item RECHARGEABLE_BATTERY;
+	public static Item RED_CELL_BATTERY;
 
 	// Tools
+	public static Item INDUSTRIAL_CHAINSAW;
+	public static Item INDUSTRIAL_DRILL;
+	public static Item INDUSTRIAL_JACKHAMMER;
+	public static Item DEBUG_TOOL;
 	public static Item ADVANCED_CHAINSAW;
 	public static Item ADVANCED_DRILL;
 	public static Item ADVANCED_JACKHAMMER;
-	public static Item DEBUG_TOOL;
-	public static Item DIAMOND_CHAINSAW;
-	public static Item DIAMOND_DRILL;
-	public static Item DIAMOND_JACKHAMMER;
 	public static Item ELECTRIC_TREE_TAP;
 	public static Item NANOSABER;
 	public static Item OMNI_TOOL;
 	public static Item ROCK_CUTTER;
-	public static Item STEEL_CHAINSAW;
-	public static Item STEEL_DRILL;
-	public static Item STEEL_JACKHAMMER;
+	public static Item BASIC_CHAINSAW;
+	public static Item BASIC_DRILL;
+	public static Item BASIC_JACKHAMMER;
 	public static Item TREE_TAP;
 	public static Item WRENCH;
 
@@ -164,29 +179,26 @@ public class TRItems {
 		TRContent.registerItems();
 
 		// Battery
-		registerItem(RECHARGEABLE_BATTERY = InitUtils.setup(new ItemRechargeableBattery(), "rechargeable_battery"));
+		registerItem(RED_CELL_BATTERY = InitUtils.setup(new ItemRedCellBattery(), "red_cell_battery"));
 		registerItem(LITHIUM_ION_BATTERY = InitUtils.setup(new ItemLithiumIonBattery(), "lithium_ion_battery"));
+		registerItem(LITHIUM_ION_BATPACK = InitUtils.setup(new ItemLithiumIonBatpack(), "lithium_ion_batpack"));
 		registerItem(ENERGY_CRYSTAL = InitUtils.setup(new ItemEnergyCrystal(), "energy_crystal"));
 		registerItem(LAPOTRON_CRYSTAL = InitUtils.setup(new ItemLapotronCrystal(), "lapotron_crytal"));
 		registerItem(LAPOTRONIC_ORB = InitUtils.setup(new ItemLapotronicOrb(), "lapotronic_orb"));
-
-		//Armor
-		registerItem(LITHIUM_ION_BATPACK = InitUtils.setup(new ItemLithiumIonBatpack(), "lithium_ion_batpack"));
 		registerItem(LAPOTRONIC_ORBPACK = InitUtils.setup(new ItemLapotronicOrbpack(), "lapotronic_orbpack"));
-		registerItem(CLOAKING_DEVICE = InitUtils.setup(new ItemCloakingDevice(), "cloaking_device"));
 
 		// Tools
 		registerItem(DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
 
-		registerItem(STEEL_DRILL = InitUtils.setup(new ItemSteelDrill(), "steel_drill"));
-		registerItem(STEEL_CHAINSAW = InitUtils.setup(new ItemSteelChainsaw(), "steel_chainsaw"));
-		registerItem(STEEL_JACKHAMMER = InitUtils.setup(new ItemSteelJackhammer(), "steel_jackhammer"));
-		registerItem(DIAMOND_DRILL = InitUtils.setup(new ItemDiamondDrill(), "diamond_drill"));
-		registerItem(DIAMOND_CHAINSAW = InitUtils.setup(new ItemDiamondChainsaw(), "diamond_chainsaw"));
-		registerItem(DIAMOND_JACKHAMMER = InitUtils.setup(new ItemDiamondJackhammer(), "diamond_jackhammer"));
+		registerItem(BASIC_DRILL = InitUtils.setup(new ItemBasicDrill(), "basic_drill"));
+		registerItem(BASIC_CHAINSAW = InitUtils.setup(new ItemBasicChainsaw(), "basic_chainsaw"));
+		registerItem(BASIC_JACKHAMMER = InitUtils.setup(new ItemBasicJackhammer(), "basic_jackhammer"));
 		registerItem(ADVANCED_DRILL = InitUtils.setup(new ItemAdvancedDrill(), "advanced_drill"));
 		registerItem(ADVANCED_CHAINSAW = InitUtils.setup(new ItemAdvancedChainsaw(), "advanced_chainsaw"));
 		registerItem(ADVANCED_JACKHAMMER = InitUtils.setup(new ItemAdvancedJackhammer(), "advanced_jackhammer"));
+		registerItem(INDUSTRIAL_DRILL = InitUtils.setup(new ItemIndustrialDrill(), "industrial_drill"));
+		registerItem(INDUSTRIAL_CHAINSAW = InitUtils.setup(new ItemIndustrialChainsaw(), "industrial_chainsaw"));
+		registerItem(INDUSTRIAL_JACKHAMMER = InitUtils.setup(new ItemIndustrialJackhammer(), "industrial_jackhammer"));
 
 		registerItem(ROCK_CUTTER = InitUtils.setup(new ItemRockCutter(), "rock_cutter"));
 		registerItem(NANOSABER = InitUtils.setup(new ItemNanosaber(), "nanosaber"));
@@ -195,6 +207,9 @@ public class TRItems {
 
 		registerItem(TREE_TAP = InitUtils.setup(new ItemTreeTap(), "treetap"));
 		registerItem(WRENCH = InitUtils.setup(new ItemWrench(), "wrench"));
+
+		// Armor
+		registerItem(CLOAKING_DEVICE = InitUtils.setup(new ItemCloakingDevice(), "cloaking_device"));
 
 		// Other
 		registerItem(CELL = InitUtils.setup(new DynamicCell(), "cell"));

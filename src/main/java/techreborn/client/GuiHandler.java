@@ -36,16 +36,21 @@ import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.*;
-import techreborn.tiles.idsu.TileInterdimensionalSU;
-import techreborn.tiles.lesu.TileLapotronicSU;
-import techreborn.tiles.multiblock.*;
+import techreborn.tiles.generator.advanced.TileDieselGenerator;
+import techreborn.tiles.generator.advanced.TileGasTurbine;
+import techreborn.tiles.generator.advanced.TileSemiFluidGenerator;
+import techreborn.tiles.generator.advanced.TileThermalGenerator;
+import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
+import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
+import techreborn.tiles.storage.lesu.TileLapotronicSU;
+import techreborn.tiles.machine.multiblock.*;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.tier0.TileIronAlloyFurnace;
-import techreborn.tiles.tier0.TileIronFurnace;
-import techreborn.tiles.tier1.*;
+import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
+import techreborn.tiles.machine.iron.TileIronFurnace;
+import techreborn.tiles.machine.tier1.*;
 
 public class GuiHandler implements IGuiHandler {
 

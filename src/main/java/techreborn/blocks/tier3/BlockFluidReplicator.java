@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.multiblock.TileFluidReplicator;
+import techreborn.tiles.machine.multiblock.TileFluidReplicator;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockFluidReplicator extends BlockMachineBase {

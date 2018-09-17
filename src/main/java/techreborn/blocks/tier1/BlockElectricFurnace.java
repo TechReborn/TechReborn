@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.tier1.TileElectricFurnace;
+import techreborn.tiles.machine.tier1.TileElectricFurnace;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockElectricFurnace extends BlockMachineBase {

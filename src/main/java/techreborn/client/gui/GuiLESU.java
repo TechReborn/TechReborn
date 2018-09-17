@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.lesu.TileLapotronicSU;
+import techreborn.tiles.storage.lesu.TileLapotronicSU;
 
 public class GuiLESU extends GuiBase {
 

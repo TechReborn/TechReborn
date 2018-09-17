@@ -31,7 +31,7 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
-import techreborn.tiles.generator.TileDragonEggSyphon;
+import techreborn.tiles.generator.advanced.TileDragonEggSyphon;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockDragonEggSyphon extends BlockMachineBase {

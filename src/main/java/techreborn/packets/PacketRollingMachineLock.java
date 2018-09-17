@@ -29,7 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
-import techreborn.tiles.tier1.TileRollingMachine;
+import techreborn.tiles.machine.tier1.TileRollingMachine;
 
 public class PacketRollingMachineLock implements INetworkPacket {
 

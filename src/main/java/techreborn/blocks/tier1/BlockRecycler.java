@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.tier1.TileRecycler;
+import techreborn.tiles.machine.tier1.TileRecycler;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockRecycler extends BlockMachineBase {

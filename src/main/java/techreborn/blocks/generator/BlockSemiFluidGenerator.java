@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.generator.TileSemiFluidGenerator;
+import techreborn.tiles.generator.advanced.TileSemiFluidGenerator;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockSemiFluidGenerator extends BlockMachineBase {

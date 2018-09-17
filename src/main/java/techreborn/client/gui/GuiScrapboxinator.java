@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.tier1.TileScrapboxinator;
+import techreborn.tiles.machine.tier1.TileScrapboxinator;
 
 public class GuiScrapboxinator extends GuiBase {
 

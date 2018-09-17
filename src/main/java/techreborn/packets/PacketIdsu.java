@@ -28,7 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
-import techreborn.tiles.idsu.TileInterdimensionalSU;
+import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 
 public class PacketIdsu implements INetworkPacket {
 

@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.tier1.TileAssemblingMachine;
+import techreborn.tiles.machine.tier1.TileAssemblingMachine;
 
 public class GuiAssemblingMachine extends GuiBase {
 

@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.generator.TileDieselGenerator;
+import techreborn.tiles.generator.advanced.TileDieselGenerator;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**

@@ -426,7 +426,7 @@ public class TRContent {
 		Upgrades(IUpgrade upgrade) {
 			name = this.toString().toLowerCase();
 			item = new ItemUpgrade(name, upgrade);
-			InitUtils.setupIngredient(item, name, "_upgrade");
+			InitUtils.setupIngredient(item, name, "upgrade");
 		}
 	}
 }

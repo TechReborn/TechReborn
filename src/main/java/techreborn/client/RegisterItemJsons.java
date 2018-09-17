@@ -57,27 +57,27 @@ public class RegisterItemJsons {
 		register(TRItems.LITHIUM_ION_BATPACK, "tool/lithium_batpack");
 
 		// Battery
-		register(TRItems.RECHARGEABLE_BATTERY, "battery/re_battery");
+		register(TRItems.RED_CELL_BATTERY, "battery/re_battery");
 		register(TRItems.LITHIUM_ION_BATTERY, "battery/lithium_battery");
 		register(TRItems.ENERGY_CRYSTAL, "battery/energy_crystal");
 		register(TRItems.LAPOTRON_CRYSTAL, "battery/lapotron_crystal");
 		register(TRItems.LAPOTRONIC_ORB, "battery/lapotronic_orb");
 
 		// Tools
+		register(TRItems.INDUSTRIAL_CHAINSAW, "tool/industrial_chainsaw");
+		register(TRItems.INDUSTRIAL_DRILL, "tool/industrial_drill");
+		register(TRItems.INDUSTRIAL_JACKHAMMER, "tool/industrial_jackhammer");
+		register(TRItems.DEBUG_TOOL, "misc/debug");
 		register(TRItems.ADVANCED_CHAINSAW, "tool/advanced_chainsaw");
 		register(TRItems.ADVANCED_DRILL, "tool/advanced_drill");
 		register(TRItems.ADVANCED_JACKHAMMER, "tool/advanced_jackhammer");
-		register(TRItems.DEBUG_TOOL, "misc/debug");
-		register(TRItems.DIAMOND_CHAINSAW, "tool/diamond_chainsaw");
-		register(TRItems.DIAMOND_DRILL, "tool/diamond_drill");
-		register(TRItems.DIAMOND_JACKHAMMER, "tool/diamond_jackhammer");
 		register(TRItems.ELECTRIC_TREE_TAP, "tool/electric_treetap");
 		register(TRItems.NANOSABER, "tool/nanosaber");
 		register(TRItems.OMNI_TOOL, "tool/omni_tool");
 		register(TRItems.ROCK_CUTTER, "tool/rock_cutter");
-		register(TRItems.STEEL_CHAINSAW, "tool/steel_chainsaw");
-		register(TRItems.STEEL_DRILL, "tool/steel_drill");
-		register(TRItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");
+		register(TRItems.BASIC_CHAINSAW, "tool/basic_chainsaw");
+		register(TRItems.BASIC_DRILL, "tool/basic_drill");
+		register(TRItems.BASIC_JACKHAMMER, "tool/basic_jackhammer");
 		register(TRItems.TREE_TAP, "tool/treetap");
 		register(TRItems.WRENCH, "tool/wrench");
 
