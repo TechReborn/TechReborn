@@ -9,7 +9,7 @@
 			"entries": [
 				{
 					"type": "item",
-					"name": "techreborn:ingotchrome",
+					"name": "techreborn:chrome_ingot",
 					"entryName": "chrome_ingot",
 					"weight": 10,
 					"functions": [
@@ -24,7 +24,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotiridium",
+					"name": "techreborn:iridium_ingot",
 					"entryName": "iridium_ingot",
 					"weight": 10,
 					"functions": [
@@ -39,7 +39,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotplatinum",
+					"name": "techreborn:platinum_ingot",
 					"entryName": "platinum_ingot",
 					"weight": 10,
 					"functions": [
@@ -54,7 +54,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingottitanium",
+					"name": "techreborn:titanium_ingot",
 					"entryName": "titanium_ingot",
 					"weight": 10,
 					"functions": [
@@ -69,7 +69,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingottungsten",
+					"name": "techreborn:tungsten_ingot",
 					"entryName": "tungsten_ingot",
 					"weight": 10,
 					"functions": [
@@ -84,7 +84,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingottungstensteel",
+					"name": "techreborn:tungstensteel_ingot",
 					"entryName": "tungstensteel_ingot",
 					"weight": 10,
 					"functions": [
@@ -100,15 +100,21 @@
 				{
 					"type": "item",
 					"name": "techreborn:machineblockelite",
-					"entryName": "advanced_frame",
+					"entryName": "highly_advanced_frame",
 					"weight": 30
 				},
 				{
 					"type": "item",
-					"name": "techreborn:energyflowcircuit",
-					"entryName": "energy_flow_circuit",
+					"name": "techreborn:industrial_circuit",
+					"entryName": "tier3_electronic_circuit",
 					"weight": 30
 				},
+				{
+					"type": "item",
+					"name": "techreborn:energy_flow_chip",
+					"entryName": "tier2_data_circuit",
+					"weight": 15
+				},	
 				{
 					"type": "empty",
 					"weight": 20

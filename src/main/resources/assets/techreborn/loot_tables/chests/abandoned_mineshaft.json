@@ -6,7 +6,7 @@
 			"entries": [
 				{
 					"type": "item",
-					"name": "techreborn:ingotbronze",
+					"name": "techreborn:bronze_ingot",
 					"entryName": "bronze_ingot",
 					"weight": 5,
 					"functions": [
@@ -21,7 +21,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotcopper",
+					"name": "techreborn:copper_ingot",
 					"entryName": "copper_ingot",
 					"weight": 5,
 					"functions": [
@@ -36,7 +36,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotlead",
+					"name": "techreborn:lead_ingot",
 					"entryName": "lead_ingot",
 					"weight": 5,
 					"functions": [
@@ -51,7 +51,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotsilver",
+					"name": "techreborn:silver_ingot",
 					"entryName": "silver_ingot",
 					"weight": 5,
 					"functions": [
@@ -66,7 +66,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingottin",
+					"name": "techreborn:tin_ingot",
 					"entryName": "tin_ingot",
 					"weight": 5,
 					"functions": [
@@ -81,7 +81,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotrefinediron",
+					"name": "techreborn:refined_iron_ingot",
 					"entryName": "refined_iron_ingot",
 					"weight": 5,
 					"functions": [
@@ -96,7 +96,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotadvancedalloy",
+					"name": "techreborn:advanced_alloy_ingot",
 					"entryName": "advanced_alloy_ingot",
 					"weight": 5,
 					"functions": [
@@ -108,22 +108,7 @@
 							}
 						}
 					]
-				},
-				{
-					"type": "item",
-					"name": "techreborn:ingotmixedmetal",
-					"entryName": "mixed_metal_ingot",
-					"weight": 5,
-					"functions": [
-						{
-							"function": "set_count",
-							"count": {
-								"min": 1,
-								"max": 2
-							}
-						}
-					]
-				},								
+				},				
 				{
 					"type": "item",
 					"name": "techreborn:machineblockbasic",
@@ -132,7 +117,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:circuitBasic",
+					"name": "techreborn:electronic_circuit",
 					"entryName": "basic_circuit",
 					"weight": 5
 				},

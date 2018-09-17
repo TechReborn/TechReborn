@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,7 +39,6 @@ public class TRContent {
 		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 	}
 
@@ -101,7 +99,7 @@ public class TRContent {
 			new ModelResourceLocation(upgradeRL, "type=" + value.name)));
 	}
 
-	public static enum Ores implements IStringSerializable {
+	public static enum Ores {
 		BAUXITE, CINNABAR, COPPER, GALENA, IRIDIUM, LEAD, PERIDOT, PYRITE, RUBY, SAPPHIRE, SHELDONITE, SILVER, SODALITE,
 		SPHALERITE, TIN, TUNGSTEN;
 
@@ -113,14 +111,9 @@ public class TRContent {
 			block = new BlockOre();
 			InitUtils.setupIngredient(block, name, "ore");
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum StorageBlocks implements IStringSerializable {
+	public static enum StorageBlocks {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
 		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, OSMIUM, PERIDOT, PLATINUM, RED_GARNET, REFINED_IRON, RUBY,
 		SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
@@ -133,14 +126,9 @@ public class TRContent {
 			block = new BlockStorage();
 			InitUtils.setupIngredient(block, name, "storage_block");
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum Dusts implements IStringSerializable {
+	public static enum Dusts {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
@@ -164,14 +152,9 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum SmallDusts implements IStringSerializable {
+	public static enum SmallDusts {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE,
@@ -196,14 +179,9 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum Gems implements IStringSerializable {
+	public static enum Gems {
 		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
 		public final String name;
@@ -222,14 +200,9 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum Ingots implements IStringSerializable {
+	public static enum Ingots {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -249,14 +222,9 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum Nuggets implements IStringSerializable {
+	public static enum Nuggets {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, DIAMOND, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
 		PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -276,14 +244,9 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum Parts implements IStringSerializable {
+	public static enum Parts {
 		CARBON_FIBER,
 		CARBON_MESH,
 
@@ -343,14 +306,9 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
 	}
 
-	public static enum Plates implements IStringSerializable {
+	public static enum Plates {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
 		IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, RED_GARNET,
 		REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
@@ -371,11 +329,6 @@ public class TRContent {
 
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
-		}
-
-		@Override
-		public String getName() {
-			return name;
 		}
 	}
 

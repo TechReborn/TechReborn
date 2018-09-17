@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:orecopper"
+      "item": "techreborn:copper_ore"
     },
     "title": {
       "translate": "itemGroup.techreborn"
@@ -19,7 +19,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:orecopper"
+            "item": "techreborn:copper_ore"
           }
         ]
       }
@@ -29,7 +29,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:orelead"
+            "item": "techreborn:lead_ore"
           }
         ]
       }

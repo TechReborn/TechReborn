@@ -59,10 +59,6 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2F);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/structure"));
-//		this.setDefaultState(this.getDefaultState().withProperty(TYPE, "standard"));
-//		for (int i = 0; i < types.length; i++) {
-//			RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this, i, "machines/structure").setInvVariant("type=" + types[i]));
-//		}
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

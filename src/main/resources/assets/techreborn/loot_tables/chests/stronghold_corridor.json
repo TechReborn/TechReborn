@@ -9,7 +9,7 @@
 			"entries": [
 				{
 					"type": "item",
-					"name": "techreborn:ingotaluminum",
+					"name": "techreborn:aluminum_ingot",
 					"entryName": "aluminium_ingot",
 					"weight": 10,
 					"functions": [
@@ -24,7 +24,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotbrass",
+					"name": "techreborn:brass_ingot",
 					"entryName": "brass_ingot",
 					"weight": 10,
 					"functions": [
@@ -39,7 +39,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotelectrum",
+					"name": "techreborn:electrum_ingot",
 					"entryName": "electrum_ingot",
 					"weight": 10,
 					"functions": [
@@ -54,7 +54,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotinvar",
+					"name": "techreborn:invar_ingot",
 					"entryName": "invar_ingot",
 					"weight": 10,
 					"functions": [
@@ -69,7 +69,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotnickel",
+					"name": "techreborn:nickel_ingot",
 					"entryName": "nickel_ingot",
 					"weight": 10,
 					"functions": [
@@ -84,7 +84,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotsteel",
+					"name": "techreborn:steel_ingot",
 					"entryName": "steel_ingot",
 					"weight": 10,
 					"functions": [
@@ -99,7 +99,7 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:ingotzinc",
+					"name": "techreborn:zinc_ingot",
 					"entryName": "zinc_ingot",
 					"weight": 10,
 					"functions": [
@@ -120,14 +120,14 @@
 				},
 				{
 					"type": "item",
-					"name": "techreborn:circuitelite",
-					"entryName": "data_control_circuit",
+					"name": "techreborn:advanced_circuit",
+					"entryName": "tier2_electronic_circuit",
 					"weight": 15
 				},
 				{
 					"type": "item",
-					"name": "techreborn:datastoragecircuit",
-					"entryName": "data_storage_circuit",
+					"name": "techreborn:data_storage_chip",
+					"entryName": "tier1_data_circuit",
 					"weight": 15
 				},				
 				{

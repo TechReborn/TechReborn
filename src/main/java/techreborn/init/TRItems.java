@@ -77,28 +77,28 @@ public class TRItems {
 	public static Item RED_CELL_BATTERY;
 
 	// Tools
-	public static Item INDUSTRIAL_CHAINSAW;
-	public static Item INDUSTRIAL_DRILL;
-	public static Item INDUSTRIAL_JACKHAMMER;
-	public static Item DEBUG_TOOL;
 	public static Item ADVANCED_CHAINSAW;
 	public static Item ADVANCED_DRILL;
 	public static Item ADVANCED_JACKHAMMER;
-	public static Item ELECTRIC_TREE_TAP;
-	public static Item NANOSABER;
-	public static Item OMNI_TOOL;
-	public static Item ROCK_CUTTER;
 	public static Item BASIC_CHAINSAW;
 	public static Item BASIC_DRILL;
 	public static Item BASIC_JACKHAMMER;
+	public static Item DEBUG_TOOL;
+	public static Item ELECTRIC_TREE_TAP;
+	public static Item INDUSTRIAL_CHAINSAW;
+	public static Item INDUSTRIAL_DRILL;
+	public static Item INDUSTRIAL_JACKHAMMER;
+	public static Item NANOSABER;
+	public static Item OMNI_TOOL;
+	public static Item ROCK_CUTTER;
 	public static Item TREE_TAP;
 	public static Item WRENCH;
 
 	// Other
 	public static DynamicCell CELL;
 	public static Item FREQUENCY_TRANSMITTER;
-	public static Item SCRAP_BOX;
 	public static Item MANUAL;
+	public static Item SCRAP_BOX;
 
 	// Gem armor & tools
 	@Nullable
@@ -179,44 +179,42 @@ public class TRItems {
 		TRContent.registerItems();
 
 		// Battery
-		registerItem(RED_CELL_BATTERY = InitUtils.setup(new ItemRedCellBattery(), "red_cell_battery"));
-		registerItem(LITHIUM_ION_BATTERY = InitUtils.setup(new ItemLithiumIonBattery(), "lithium_ion_battery"));
-		registerItem(LITHIUM_ION_BATPACK = InitUtils.setup(new ItemLithiumIonBatpack(), "lithium_ion_batpack"));
 		registerItem(ENERGY_CRYSTAL = InitUtils.setup(new ItemEnergyCrystal(), "energy_crystal"));
-		registerItem(LAPOTRON_CRYSTAL = InitUtils.setup(new ItemLapotronCrystal(), "lapotron_crytal"));
+		registerItem(LAPOTRON_CRYSTAL = InitUtils.setup(new ItemLapotronCrystal(), "lapotron_crystal"));
 		registerItem(LAPOTRONIC_ORB = InitUtils.setup(new ItemLapotronicOrb(), "lapotronic_orb"));
-		registerItem(LAPOTRONIC_ORBPACK = InitUtils.setup(new ItemLapotronicOrbpack(), "lapotronic_orbpack"));
+		registerItem(LITHIUM_ION_BATTERY = InitUtils.setup(new ItemLithiumIonBattery(), "lithium_ion_battery"));
+		registerItem(RED_CELL_BATTERY = InitUtils.setup(new ItemRedCellBattery(), "red_cell_battery"));
 
 		// Tools
-		registerItem(DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
-
-		registerItem(BASIC_DRILL = InitUtils.setup(new ItemBasicDrill(), "basic_drill"));
-		registerItem(BASIC_CHAINSAW = InitUtils.setup(new ItemBasicChainsaw(), "basic_chainsaw"));
-		registerItem(BASIC_JACKHAMMER = InitUtils.setup(new ItemBasicJackhammer(), "basic_jackhammer"));
 		registerItem(ADVANCED_DRILL = InitUtils.setup(new ItemAdvancedDrill(), "advanced_drill"));
 		registerItem(ADVANCED_CHAINSAW = InitUtils.setup(new ItemAdvancedChainsaw(), "advanced_chainsaw"));
 		registerItem(ADVANCED_JACKHAMMER = InitUtils.setup(new ItemAdvancedJackhammer(), "advanced_jackhammer"));
+		registerItem(BASIC_DRILL = InitUtils.setup(new ItemBasicDrill(), "basic_drill"));
+		registerItem(BASIC_CHAINSAW = InitUtils.setup(new ItemBasicChainsaw(), "basic_chainsaw"));
+		registerItem(BASIC_JACKHAMMER = InitUtils.setup(new ItemBasicJackhammer(), "basic_jackhammer"));
+		registerItem(DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
+		registerItem(ELECTRIC_TREE_TAP = InitUtils.setup(new ItemElectricTreetap(), "electric_treetap"));
 		registerItem(INDUSTRIAL_DRILL = InitUtils.setup(new ItemIndustrialDrill(), "industrial_drill"));
 		registerItem(INDUSTRIAL_CHAINSAW = InitUtils.setup(new ItemIndustrialChainsaw(), "industrial_chainsaw"));
 		registerItem(INDUSTRIAL_JACKHAMMER = InitUtils.setup(new ItemIndustrialJackhammer(), "industrial_jackhammer"));
-
-		registerItem(ROCK_CUTTER = InitUtils.setup(new ItemRockCutter(), "rock_cutter"));
 		registerItem(NANOSABER = InitUtils.setup(new ItemNanosaber(), "nanosaber"));
 		registerItem(OMNI_TOOL = InitUtils.setup(new ItemOmniTool(), "omni_tool"));
-		registerItem(ELECTRIC_TREE_TAP = InitUtils.setup(new ItemElectricTreetap(), "electric_treetap"));
-
+		registerItem(ROCK_CUTTER = InitUtils.setup(new ItemRockCutter(), "rock_cutter"));
 		registerItem(TREE_TAP = InitUtils.setup(new ItemTreeTap(), "treetap"));
 		registerItem(WRENCH = InitUtils.setup(new ItemWrench(), "wrench"));
 
 		// Armor
 		registerItem(CLOAKING_DEVICE = InitUtils.setup(new ItemCloakingDevice(), "cloaking_device"));
+		registerItem(LAPOTRONIC_ORBPACK = InitUtils.setup(new ItemLapotronicOrbpack(), "lapotronic_orbpack"));
+		registerItem(LITHIUM_ION_BATPACK = InitUtils.setup(new ItemLithiumIonBatpack(), "lithium_ion_batpack"));
 
 		// Other
 		registerItem(CELL = InitUtils.setup(new DynamicCell(), "cell"));
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 		registerItem(FREQUENCY_TRANSMITTER = InitUtils.setup(new ItemFrequencyTransmitter(), "frequency_transmitter"));
-		registerItem(SCRAP_BOX = InitUtils.setup(new ItemScrapBox(), "scrap_box"));
 		registerItem(MANUAL = InitUtils.setup(new ItemManual(), "manual"));
+		registerItem(SCRAP_BOX = InitUtils.setup(new ItemScrapBox(), "scrap_box"));
+
 
 		// Gem armor & tools
 		if (ConfigTechReborn.enableGemArmorAndTools) {

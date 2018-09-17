@@ -33,7 +33,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.utils.InitUtils;
 
 public class ItemDestructopack extends Item {
 

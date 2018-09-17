@@ -49,7 +49,6 @@ import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRItems;
-import techreborn.utils.InitUtils;
 
 /**
  * Created by modmuss50 on 17/05/2016.
