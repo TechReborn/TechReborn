@@ -52,7 +52,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialDrill() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.AdvancedDrillCharge, 2.0F, 10F);
+		super(ToolMaterial.DIAMOND, ConfigTechReborn.IndustrialDrillCharge, 2.0F, 10F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

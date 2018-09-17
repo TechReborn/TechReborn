@@ -54,10 +54,8 @@ import javax.annotation.Nullable;
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
-	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in FE)")
-	public static int usage = 10;
-
 	public static int maxCharge = ConfigTechReborn.CloakingDeviceCharge;
+	public static int usage = ConfigTechReborn.CloackingDeviceUsage;
 	public static int transferLimit = 10_000;
 	public static boolean isActive;
 
