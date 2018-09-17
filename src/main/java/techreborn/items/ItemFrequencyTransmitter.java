@@ -43,7 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
 import techreborn.init.TRItems;
-import techreborn.lib.MessageIDs;
+import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
 import java.util.List;

@@ -58,7 +58,7 @@ import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
-import techreborn.lib.MessageIDs;
+import techreborn.utils.MessageIDs;
 import techreborn.tiles.machine.tier1.TilePlayerDectector;
 import techreborn.utils.TechRebornCreativeTab;
 

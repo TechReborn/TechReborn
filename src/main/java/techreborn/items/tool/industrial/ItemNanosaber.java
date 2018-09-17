@@ -55,7 +55,7 @@ import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRItems;
-import techreborn.lib.MessageIDs;
+import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
 import java.util.List;

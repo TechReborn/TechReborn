@@ -56,7 +56,7 @@ import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
-import techreborn.dispenser.BehaviorDispenseScrapbox;
+import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
 import techreborn.events.TRRecipeHandler;

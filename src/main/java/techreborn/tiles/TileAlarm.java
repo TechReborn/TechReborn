@@ -41,7 +41,7 @@ import reborncore.common.util.ChatUtils;
 import techreborn.blocks.BlockAlarm;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
-import techreborn.lib.MessageIDs;
+import techreborn.utils.MessageIDs;
 
 public class TileAlarm extends TileEntity 
 	implements ITickable, IToolDrop {

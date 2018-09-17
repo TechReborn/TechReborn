@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.lib;
+package techreborn.utils;
 
 /**
  * @author Prospector on 21/05/16

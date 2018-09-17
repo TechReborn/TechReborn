@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.dispenser;
+package techreborn.utils;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
