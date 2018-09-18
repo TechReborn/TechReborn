@@ -42,7 +42,6 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;

@@ -91,8 +91,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 				}
 
 				for (final IMultiblockPart part : casing.connectedParts) {
-					final BlockMachineCasing casing1 = (BlockMachineCasing) world.getBlockState(part.getPos()).getBlock();
-					heat += casing1.getHeatFromState(world.getBlockState(part.getPos()));
+					heat += BlockMachineCasing.getHeatFromState(part.getBlockState());
 				}
 
 				if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getTranslationKey().equals("tile.lava")
