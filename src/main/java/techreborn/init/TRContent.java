@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,8 +17,11 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
+import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
+import techreborn.blocks.tier1.BlockElectricFurnace;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 
@@ -29,16 +33,20 @@ public class TRContent {
 	public static void registerBlocks() {
 		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
 		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(MachineBlocks.values()).forEach(value -> {
+			RebornRegistry.registerBlock(value.frame);
+			RebornRegistry.registerBlock(value.casing);
+		});
 	}
 
 	public static void registerItems() {
-		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 	}
 
@@ -94,12 +102,30 @@ public class TRContent {
 			});
 		}
 
+		ResourceLocation machineBlockRL = new ResourceLocation(TechReborn.MOD_ID, "machine_block");
+		for (MachineBlocks value : MachineBlocks.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.frame), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame"));
+			ModelLoader.setCustomStateMapper(value.frame, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame");
+				}
+			});
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.casing), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing"));
+			ModelLoader.setCustomStateMapper(value.casing, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing");
+				}
+			});
+		}
+
 		ResourceLocation upgradeRL = new ResourceLocation(TechReborn.MOD_ID, "items/misc/upgrades");
 		Arrays.stream(Upgrades.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
 			new ModelResourceLocation(upgradeRL, "type=" + value.name)));
 	}
 
-	public static enum Ores {
+	public static enum Ores implements IItemProvider {
 		BAUXITE, CINNABAR, COPPER, GALENA, IRIDIUM, LEAD, PERIDOT, PYRITE, RUBY, SAPPHIRE, SHELDONITE, SILVER, SODALITE,
 		SPHALERITE, TIN, TUNGSTEN;
 
@@ -109,11 +135,16 @@ public class TRContent {
 		private Ores() {
 			name = this.toString().toLowerCase();
 			block = new BlockOre();
-			InitUtils.setupIngredient(block, name, "ore");
+			InitUtils.setup(block, name + "_ore");
+		}
+
+		@Override
+		public Item asItem() {
+			return Item.getItemFromBlock(block);
 		}
 	}
 
-	public static enum StorageBlocks {
+	public static enum StorageBlocks implements IItemProvider {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
 		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, OSMIUM, PERIDOT, PLATINUM, RED_GARNET, REFINED_IRON, RUBY,
 		SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
@@ -124,11 +155,55 @@ public class TRContent {
 		private StorageBlocks() {
 			name = this.toString().toLowerCase();
 			block = new BlockStorage();
-			InitUtils.setupIngredient(block, name, "storage_block");
+			InitUtils.setup(block, name + "_storage_block");
+		}
+
+		@Override
+		public Item asItem() {
+			return Item.getItemFromBlock(block);
 		}
 	}
 
-	public static enum Dusts {
+	public static enum MachineBlocks {
+		BASIC(1020 / 25),
+		ADVANCED(1700 / 25),
+		INDUSTRIAL(2380 / 25);
+
+		public final String name;
+		public final Block frame;
+		public final Block casing;
+
+		private MachineBlocks(int casingHeatCapacity) {
+			name = this.toString().toLowerCase();
+			frame = new BlockMachineFrame();
+			InitUtils.setup(frame, name + "_machine_frame");
+			casing = new BlockMachineCasing(casingHeatCapacity);
+			InitUtils.setup(casing, name + "_machine_casing");
+		}
+
+		public Block getFrame() {
+			return frame;
+		}
+
+		public Block getCasing() {
+			return casing;
+		}
+	}
+
+	public static enum Machine {
+		ELECTRIC_FURNACE(new BlockElectricFurnace());
+
+		public final String name;
+		public final Block block;
+
+		private <B extends Block> Machine(B block) {
+			this.name = this.toString().toLowerCase();
+			this.block = block;
+			InitUtils.setup(block, name);
+		}
+	}
+
+	public static enum Dusts implements IItemProvider {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
@@ -142,7 +217,7 @@ public class TRContent {
 		private Dusts() {
 			name = this.toString().toLowerCase();
 			item = new Item();
-			InitUtils.setupIngredient(item, name, "dust");
+			InitUtils.setup(item, name + "_dust");
 		}
 
 		public ItemStack getStack() {
@@ -152,9 +227,14 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
 	}
 
-	public static enum SmallDusts {
+	public static enum SmallDusts implements IItemProvider {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE,
@@ -168,8 +248,7 @@ public class TRContent {
 		private SmallDusts() {
 			name = this.toString().toLowerCase();
 			item = new Item();
-			item.setRegistryName(new ResourceLocation(TechReborn.MOD_ID, name));
-			item.setTranslationKey(TechReborn.MOD_ID + ".small_dust." + this.toString().toLowerCase());
+			InitUtils.setup(item, name + "_small_dust");
 		}
 
 		public ItemStack getStack() {
@@ -179,9 +258,14 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
 	}
 
-	public static enum Gems {
+	public static enum Gems implements IItemProvider {
 		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
 		public final String name;
@@ -190,7 +274,7 @@ public class TRContent {
 		private Gems() {
 			name = this.toString().toLowerCase();
 			item = new Item();
-			InitUtils.setupIngredient(item, name, "gem");
+			InitUtils.setup(item, name + "_gem");
 		}
 
 		public ItemStack getStack() {
@@ -200,9 +284,14 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
 	}
 
-	public static enum Ingots {
+	public static enum Ingots implements IItemProvider {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -212,7 +301,7 @@ public class TRContent {
 		private Ingots() {
 			name = this.toString().toLowerCase();
 			item = new Item();
-			InitUtils.setupIngredient(item, name, "ingot");
+			InitUtils.setup(item, name + "_ingot");
 		}
 
 		public ItemStack getStack() {
@@ -222,9 +311,14 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
 	}
 
-	public static enum Nuggets {
+	public static enum Nuggets implements IItemProvider {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, DIAMOND, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
 		PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -234,7 +328,7 @@ public class TRContent {
 		private Nuggets() {
 			name = this.toString().toLowerCase();
 			item = new Item();
-			InitUtils.setupIngredient(item, name, "nugget");
+			InitUtils.setup(item, name + "_nugget");
 		}
 
 		public ItemStack getStack() {
@@ -244,9 +338,14 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
 	}
 
-	public static enum Parts {
+	public static enum Parts implements IItemProvider {
 		CARBON_FIBER,
 		CARBON_MESH,
 
@@ -306,9 +405,14 @@ public class TRContent {
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
 		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
 	}
 
-	public static enum Plates {
+	public static enum Plates implements IItemProvider {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
 		IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, RED_GARNET,
 		REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
@@ -320,7 +424,7 @@ public class TRContent {
 		private Plates() {
 			name = this.toString().toLowerCase();
 			item = new Item();
-			InitUtils.setupIngredient(item, name, "plate");
+			InitUtils.setup(item, name + "_plate");
 		}
 
 		public ItemStack getStack() {
@@ -329,6 +433,11 @@ public class TRContent {
 
 		public ItemStack getStack(int amount) {
 			return new ItemStack(item, amount);
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
 		}
 	}
 
@@ -341,7 +450,7 @@ public class TRContent {
 	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")
 	public static double energyStoragePower = 40_000;
 
-	public static enum Upgrades {
+	public static enum Upgrades implements IItemProvider {
 		OVERCLOCKER((tile, handler, stack) -> {
 			TilePowerAcceptor powerAcceptor = null;
 			if (tile instanceof TilePowerAcceptor) {
@@ -379,7 +488,12 @@ public class TRContent {
 		Upgrades(IUpgrade upgrade) {
 			name = this.toString().toLowerCase();
 			item = new ItemUpgrade(name, upgrade);
-			InitUtils.setupIngredient(item, name, "upgrade");
+			InitUtils.setup(item, name + "_upgrade");
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
 		}
 	}
 }

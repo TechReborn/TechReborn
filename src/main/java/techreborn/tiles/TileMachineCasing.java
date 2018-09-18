@@ -24,17 +24,12 @@
 
 package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import reborncore.api.IToolDrop;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import techreborn.multiblocks.MultiBlockCasing;
 
-public class TileMachineCasing extends RectangularMultiblockTileEntityBase 
-	implements IToolDrop {
-	
+public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
+
 	@Override
 	public void onMachineActivated() {
 
@@ -88,11 +83,5 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase
 	@Override
 	public void update() {
 
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(Item.getItemFromBlock(world.getBlockState(pos).getBlock()));
 	}
 }

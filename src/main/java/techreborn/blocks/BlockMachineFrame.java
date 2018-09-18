@@ -24,36 +24,15 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import reborncore.common.multiblock.BlockMultiblockBase;
-import techreborn.tiles.TileMachineCasing;
+import reborncore.common.BaseBlock;
+import techreborn.utils.TechRebornCreativeTab;
 
-public class BlockMachineCasing extends BlockMultiblockBase {
+public class BlockMachineFrame extends BaseBlock {
 
-	public final int heatCapacity;
-
-	public BlockMachineCasing(int heatCapacity) {
+	public BlockMachineFrame() {
 		super(Material.IRON);
-		this.heatCapacity = heatCapacity;
-		setHardness(2F);
+		setCreativeTab(TechRebornCreativeTab.instance);
+		setHardness(1f);
 	}
-
-	public static int getHeatFromState(IBlockState state) {
-		Block block = state.getBlock();
-		if (!(block instanceof BlockMachineCasing)) {
-			return 0;
-		}
-		BlockMachineCasing casing = (BlockMachineCasing) block;
-		return casing.heatCapacity;
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileMachineCasing();
-	}
-
 }

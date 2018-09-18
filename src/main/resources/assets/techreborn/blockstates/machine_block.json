@@ -10,19 +10,34 @@
       {}
     ],
     "type": {
-      "basic": {
+      "basic_machine_frame": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier1_machine_block"
         }
       },
-      "advanced": {
+      "advanced_machine_frame": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier2_machine_block"
         }
       },
-      "highly_advanced": {
+      "industrial_machine_frame": {
         "textures": {
           "all": "techreborn:blocks/machines/structure/tier3_machine_block"
+        }
+      },
+      "basic_machine_casing": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier1_casing"
+        }
+      },
+      "advanced_machine_casing": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier2_casing"
+        }
+      },
+      "industrial_machine_casing": {
+        "textures": {
+          "all": "techreborn:blocks/machines/structure/tier3_casing"
         }
       }
     }

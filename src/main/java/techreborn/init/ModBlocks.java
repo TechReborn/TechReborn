@@ -51,7 +51,7 @@ import techreborn.itemblocks.*;
  * Registers all TR blocks
  */
 public class ModBlocks {
-	
+
 	// Misc Blocks
 	public static Block CABLE;
 	public static Block COMPUTER_CUBE;
@@ -74,8 +74,8 @@ public class ModBlocks {
 	public static Block RUBBER_SAPLING;
 
 	// Machines - machines
-	public static Block ALLOY_SMELTER;	
-	public static Block ASSEMBLY_MACHINE;	
+	public static Block ALLOY_SMELTER;
+	public static Block ASSEMBLY_MACHINE;
 	public static Block AUTO_CRAFTING_TABLE;
 	public static Block CHEMICAL_REACTOR;
 	public static Block COMPRESSOR;
@@ -97,7 +97,7 @@ public class ModBlocks {
 	public static Block ROLLING_MACHINE;
 	public static Block SCRAPBOXINATOR;
 	public static Block VACUUM_FREEZER;
-	
+
 	// Machines - generators
 	public static Block CREATIVE_SOLAR_PANEL;
 	public static Block DIESEL_GENERATOR;
@@ -110,10 +110,10 @@ public class ModBlocks {
 	public static Block SEMI_FLUID_GENERATOR;
 	public static Block SOLAR_PANEL;
 	public static Block SOLID_FUEL_GENEREATOR;
-	public static Block THERMAL_GENERATOR;	
+	public static Block THERMAL_GENERATOR;
 	public static Block WATER_MILL;
-	public static Block WIND_MILL;	
-	
+	public static Block WIND_MILL;
+
 	// Machines - storage
 	public static Block CREATIVE_QUANTUM_CHEST;
 	public static Block CREATIVE_QUANTUM_TANK;
@@ -133,7 +133,7 @@ public class ModBlocks {
 	public static Block LV_TRANSFORMER;
 	public static Block MV_TRANSFORMER;
 	public static Block HV_TRANSFORMER;
-	
+
 	// Machines - misc
 	public static Block ALARM;
 	public static Block CHUNK_LOADER;
@@ -148,41 +148,23 @@ public class ModBlocks {
 	 */
 	public static void init() {
 		TRContent.registerBlocks();
-		
+
 		// Misc. blocks
 		COMPUTER_CUBE = new BlockComputerCube();
 		registerBlock(COMPUTER_CUBE, "computer_cube");
-		
+
 		CABLE = new BlockCable();
 		registerBlock(CABLE, ItemBlockCable.class, "cable");
-		
-		MACHINE_BLOCK_ADVANCED = new BlockMachineFrames();
-		registerBlock(MACHINE_BLOCK_ADVANCED, "machineBlockAdvanced");
-		
-		MACHINE_BLOCK_BASIC = new BlockMachineFrames();
-		registerBlock(MACHINE_BLOCK_BASIC, "machineBlockBasic");
-		
-		MACHINE_BLOCK_ELITE = new BlockMachineFrames();
-		registerBlock(MACHINE_BLOCK_ELITE, "machineBlockElite");
 
-		MACHINE_CASINGS_ADVANCED = new BlockMachineCasing();
-		registerBlock(MACHINE_CASINGS_ADVANCED, "machineCasingAdvanced");
-		
-		MACHINE_CASINGS_REINFORCED = new BlockMachineCasing();
-		registerBlock(MACHINE_CASINGS_REINFORCED, "machineCasingReinforced");
-		
-		MACHINE_CASINGS_STANDARD = new BlockMachineCasing();
-		registerBlock(MACHINE_CASINGS_STANDARD, "machineCasingStandard");
-	
 		NUKE = new BlockNuke();
 		registerBlock(NUKE, "nuke");
-		
+
 		REFINED_IRON_FENCE = new BlockRefinedIronFence();
 		registerBlock(REFINED_IRON_FENCE, "refined_iron_fence");
 
 		REINFORCED_GLASS = new BlockReinforcedGlass();
 		registerBlock(REINFORCED_GLASS, "reinforced_glass");
-		
+
 		RUBBER_LEAVES = new BlockRubberLeaves();
 		registerBlock(RUBBER_LEAVES, "rubber_leaves");
 
@@ -197,120 +179,120 @@ public class ModBlocks {
 
 		RUBBER_LOG_STAIR = new BlockRubberPlankStair(RUBBER_LOG.getDefaultState(), "rubber_plank");
 		registerBlock(RUBBER_LOG_STAIR, "rubber_plank_stair");
-		
+
 		RUBBER_PLANKS = new BlockRubberPlank();
 		registerBlock(RUBBER_PLANKS, "rubber_planks");
 
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
-		
+
 		// Machines - machines
 		ALLOY_SMELTER = new BlockAlloySmelter();
 		registerBlock(ALLOY_SMELTER, "alloy_smelter");
-		
+
 		ASSEMBLY_MACHINE = new BlockAssemblingMachine();
 		registerBlock(ASSEMBLY_MACHINE, "assembly_machine");
-		
+
 		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
 		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
-		
+
 		COMPRESSOR = new BlockCompressor();
 		registerBlock(COMPRESSOR, "compressor");
-		
+
 		CHEMICAL_REACTOR = new BlockChemicalReactor();
 		registerBlock(CHEMICAL_REACTOR, "chemical_reactor");
-		
+
 		DISTILLATION_TOWER = new BlockDistillationTower();
 		registerBlock(DISTILLATION_TOWER, "distillation_tower");
-		
+
 		ELECTRIC_FURNACE = new BlockElectricFurnace();
 		registerBlock(ELECTRIC_FURNACE, "electric_furnace");
-		
+
 		EXTRACTOR = new BlockExtractor();
 		registerBlock(EXTRACTOR, "extractor");
-		
+
 		FLUID_REPLICATOR = new BlockFluidReplicator();
 		registerBlock(FLUID_REPLICATOR, "fluid_replicator");
-		
+
 		GRINDER = new BlockGrinder();
 		registerBlock(GRINDER, "grinder");
-		
+
 		IMPLOSION_COMPRESSOR = new BlockImplosionCompressor();
 		registerBlock(IMPLOSION_COMPRESSOR, "implosion_compressor");
-		
+
 		INDUSTRIAL_BLAST_FURNACE = new BlockIndustrialBlastFurnace();
 		registerBlock(INDUSTRIAL_BLAST_FURNACE, "industrial_blast_furnace");
-		
+
 		INDUSTRIAL_CENTRIFUGE = new BlockIndustrialCentrifuge();
 		registerBlock(INDUSTRIAL_CENTRIFUGE, "industrial_centrifuge");
-		
+
 		INDUSTRIAL_ELECTROLYZER = new BlockIndustrialElectrolyzer();
 		registerBlock(INDUSTRIAL_ELECTROLYZER, "industrial_electrolyzer");
-		
+
 		INDUSTRIAL_GRINDER = new BlockIndustrialGrinder();
 		registerBlock(INDUSTRIAL_GRINDER, "industrial_grinder");
-		
+
 		INDUSTRIAL_SAWMILL = new BlockIndustrialSawmill();
 		registerBlock(INDUSTRIAL_SAWMILL, "industrial_sawmill");
-		
+
 		IRON_ALLOY_FURNACE = new BlockIronAlloyFurnace();
 		registerBlock(IRON_ALLOY_FURNACE, "iron_alloy_furnace");
-		
+
 		IRON_FURNACE = new BlockIronFurnace();
 		registerBlock(IRON_FURNACE, "iron_furnace");
-		
+
 		MATTER_FABRICATOR = new BlockMatterFabricator();
 		registerBlock(MATTER_FABRICATOR, "matter_fabricator");
-		
+
 		RECYCLER = new BlockRecycler();
 		registerBlock(RECYCLER, "recycler");
 
 		ROLLING_MACHINE = new BlockRollingMachine();
 		registerBlock(ROLLING_MACHINE, "rolling_machine");
-		
+
 		SCRAPBOXINATOR = new BlockScrapboxinator();
 		registerBlock(SCRAPBOXINATOR, "scrapboxinator");
-		
+
 		VACUUM_FREEZER = new BlockVacuumFreezer();
 		registerBlock(VACUUM_FREEZER, "vacuum_freezer");
 
 		// Machines - generators
 		CREATIVE_SOLAR_PANEL = new BlockCreativeSolarPanel();
 		registerBlock(CREATIVE_SOLAR_PANEL, "creative_solar_panel");
-		
+
 		DIESEL_GENERATOR = new BlockDieselGenerator();
 		registerBlock(DIESEL_GENERATOR, "diesel_generator");
-		
+
 		DRAGON_EGG_SYPHON = new BlockDragonEggSyphon();
 		registerBlock(DRAGON_EGG_SYPHON, "dragon_egg_syphon");
-		
+
 		FUSION_COIL = new BlockFusionCoil();
 		registerBlock(FUSION_COIL, "fusion_coil");
-		
+
 		FUSION_CONTROL_COMPUTER = new BlockFusionControlComputer();
 		registerBlock(FUSION_CONTROL_COMPUTER, "fusion_control_computer");
-		
+
 		GAS_TURBINE = new BlockGasTurbine();
 		registerBlock(GAS_TURBINE, "gas_turbine");
-		
+
 		LIGHTNING_ROD = new BlockLightningRod();
 		registerBlock(LIGHTNING_ROD, "lightning_rod");
-		
+
 		PLASMA_GENERATOR = new BlockPlasmaGenerator();
 		registerBlock(PLASMA_GENERATOR, "plasma_generator");
-		
+
 		SEMI_FLUID_GENERATOR = new BlockSemiFluidGenerator();
 		registerBlock(SEMI_FLUID_GENERATOR, "semi_fluid_generator");
-		
+
 		SOLAR_PANEL = new BlockSolarPanel();
 		registerBlock(SOLAR_PANEL, ItemBlockSolarPanel.class,  "solar_panel");
-		
+
 		SOLID_FUEL_GENEREATOR = new BlockSolidFuelGenerator();
 		registerBlock(SOLID_FUEL_GENEREATOR, "solid_fuel_generator");
-		
+
 		THERMAL_GENERATOR = new BlockThermalGenerator();
 		registerBlock(THERMAL_GENERATOR, "thermal_generator");
-		
+
 		WATER_MILL = new BlockWaterMill();
 		registerBlock(WATER_MILL, "water_mill");
 
@@ -320,26 +302,26 @@ public class ModBlocks {
 		// Machines - storage
 		CREATIVE_QUANTUM_CHEST = new BlockCreativeQuantumChest();
 		registerBlock(CREATIVE_QUANTUM_CHEST, ItemBlockQuantumChest.class, "creative_quantum_chest");
-		
+
 		CREATIVE_QUANTUM_TANK = new BlockCreativeQuantumTank();
 		registerBlock(CREATIVE_QUANTUM_TANK, ItemBlockQuantumTank.class, "creative_quantum_tank");
-		
+
 		DIGITAL_CHEST = new BlockDigitalChest();
 		registerBlock(DIGITAL_CHEST, ItemBlockDigitalChest.class, "digital_chest");
-		
+
 		QUANTUM_CHEST = new BlockQuantumChest();
 		registerBlock(QUANTUM_CHEST, ItemBlockQuantumChest.class, "quantum_chest");
-		
+
 		QUANTUM_TANK = new BlockQuantumTank();
 		registerBlock(QUANTUM_TANK, ItemBlockQuantumTank.class, "quantum_tank");
 
 		// Machines - energy storage & transformers
 		ADJUSTABLE_SU = new BlockAdjustableSU();
 		registerBlock(ADJUSTABLE_SU, ItemBlockAdjustableSU.class, "adjustable_su");
-		
+
 		CHARGE_O_MAT = new BlockChargeOMat();
 		registerBlock(CHARGE_O_MAT, "charge_o_mat");
-		
+
 		INTERDIMENSIONAL_SU = new BlockInterdimensionalSU();
 		registerBlock(INTERDIMENSIONAL_SU, "interdimensional_su");
 
@@ -348,7 +330,7 @@ public class ModBlocks {
 
 		LSU_STORAGE = new BlockLSUStorage();
 		registerBlock(LSU_STORAGE, "lsu_storage");
-		
+
 		LOW_VOLTAGE_SU = new BlockLowVoltageSU();
 		registerBlock(LOW_VOLTAGE_SU, "low_voltage_su");
 
@@ -357,7 +339,7 @@ public class ModBlocks {
 
 		HIGH_VOLTAGE_SU = new BlockHighVoltageSU();
 		registerBlock(HIGH_VOLTAGE_SU, "high_voltage_su");
-		
+
 		LV_TRANSFORMER = new BlockLVTransformer();
 		registerBlock(LV_TRANSFORMER, "lv_transformer");
 
@@ -365,30 +347,30 @@ public class ModBlocks {
 		registerBlock(MV_TRANSFORMER, "mv_transformer");
 
 		HV_TRANSFORMER = new BlockHVTransformer();
-		registerBlock(HV_TRANSFORMER, "hv_transformer");	
-		
+		registerBlock(HV_TRANSFORMER, "hv_transformer");
+
 		// Machines - misc
 		ALARM = new BlockAlarm();
 		registerBlock(ALARM, "alarm");
-		
+
 		CHUNK_LOADER = new BlockChunkLoader();
 		registerBlock(CHUNK_LOADER, "chunk_loader");
-		
+
 		LAMP_INCANDESCENT = new BlockLamp( 14, 4, 0.625, 0.25);
 		registerBlock(LAMP_INCANDESCENT, "lamp_incandescent");
 
 		LAMP_LED = new BlockLamp( 15, 1, 0.0625, 0.125);
 		registerBlock(LAMP_LED, "lamp_led");
-		
+
 		MAGICAL_ABSORBER = new BlockMagicEnergyAbsorber();
 		registerBlock(MAGICAL_ABSORBER, "magic_energy_absorber");
-		
+
 		MAGIC_ENERGY_CONVERTER = new BlockMagicEnergyConverter();
 		registerBlock(MAGIC_ENERGY_CONVERTER, "magic_energy_converter");
-		
+
 		PLAYER_DETECTOR = new BlockPlayerDetector();
-		registerBlock(PLAYER_DETECTOR, ItemBlockPlayerDetector.class, "player_detector");			
-	
+		registerBlock(PLAYER_DETECTOR, ItemBlockPlayerDetector.class, "player_detector");
+
 
 
 		//TODO enable when done

@@ -24,8 +24,10 @@
 
 package techreborn;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -41,6 +43,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,12 +54,12 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
+import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
-import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
 import techreborn.events.TRRecipeHandler;
@@ -65,6 +68,7 @@ import techreborn.init.*;
 import techreborn.packets.*;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
+import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.OilLakeGenerator;
 import techreborn.world.TechRebornWorldGen;
@@ -182,6 +186,39 @@ public class TechReborn {
 		// RecipeHandler.scanForDupeRecipes();
 		// RecipeConfigManager.save();
 		//recipeCompact.saveMissingItems(configDir);
+
+
+		//todo: remove, gens localization
+		for (Item item : ForgeRegistries.ITEMS.getValues()) {
+			if (item.getRegistryName().getNamespace().equals("techreborn")) {
+				StringBuilder localName = new StringBuilder();
+				String[] words = item.getRegistryName().getPath().split("_|\\.");
+				for (String word : words) {
+					if (!word.contains("techreborn")) {
+						if (localName.length() > 0) {
+							localName.append(" ");
+						}
+						localName.append(StringUtils.toFirstCapital(word));
+					}
+				}
+				System.out.println("item.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
+			}
+		}
+		for (Block item : ForgeRegistries.BLOCKS.getValues()) {
+			if (item.getRegistryName().getNamespace().equals("techreborn")) {
+				StringBuilder localName = new StringBuilder();
+				String[] words = item.getRegistryName().getPath().split("_|\\.");
+				for (String word : words) {
+					if (!word.contains("techreborn")) {
+						if (localName.length() > 0) {
+							localName.append(" ");
+						}
+						localName.append(StringUtils.toFirstCapital(word));
+					}
+				}
+				System.out.println("tile.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
+			}
+		}
 	}
 
 	@Mod.EventHandler

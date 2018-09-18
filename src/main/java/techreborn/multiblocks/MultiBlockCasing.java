@@ -34,7 +34,7 @@ import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
-import techreborn.init.ModBlocks;
+import techreborn.blocks.BlockMachineCasing;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
@@ -335,7 +335,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	@Override
 	protected void isBlockGoodForFrame(World world, int x, int y, int z) throws MultiblockValidationException {
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
-		if (block == ModBlocks.MACHINE_CASINGS_STANDARD || block == ModBlocks.MACHINE_CASINGS_REINFORCED || block == ModBlocks.MACHINE_CASINGS_ADVANCED) {
+		if (block instanceof BlockMachineCasing) {
 
 		} else {
 			super.isBlockGoodForFrame(world, x, y, z);
