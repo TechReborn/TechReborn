@@ -34,7 +34,8 @@ public enum EnumPanelType implements IStringSerializable {
 	Hybrid("hybrid", EnumPowerTier.LOW),
 	Advanced("advanced", EnumPowerTier.MEDIUM),
 	Ultimate("ultimate", EnumPowerTier.HIGH),
-	Quantum("quantum", EnumPowerTier.EXTREME);
+	Quantum("quantum", EnumPowerTier.EXTREME), 
+	CREATIVE("creative", EnumPowerTier.EXTREME);
 	
 	private String friendlyName;
 	// Generation of EU during Day
@@ -48,6 +49,7 @@ public enum EnumPanelType implements IStringSerializable {
 	EnumPanelType(String friendlyName, EnumPowerTier tier) {
 		this.friendlyName = friendlyName;
 		this.powerTier = tier;
+		// TODO: Fix me
 		switch (friendlyName) {
 		case "basic":
 			this.generationRateD = ConfigTechReborn.basicGenerationRateD;

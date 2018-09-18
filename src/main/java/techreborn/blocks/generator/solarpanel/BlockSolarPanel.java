@@ -24,95 +24,30 @@
 
 package techreborn.blocks.generator.solarpanel;
 
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
-import techreborn.tiles.generator.TileSolarPanel;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 public class BlockSolarPanel extends BlockMachineBase {
-	public static final String[] panes = new String[] {
-		"basic", "hybrid", "advanced", "ultimate", "quantum"};
-	public static PropertyBool ACTIVE = PropertyBool.create("active");
-	public static final IProperty<EnumPanelType> TYPE = PropertyEnum.create("type", EnumPanelType.class);
 
 	public BlockSolarPanel() {
-		super(true);
+		super();
 		setCreativeTab(TechRebornCreativeTab.instance);
-		this.setDefaultState(this.getBlockState().getBaseState().withProperty(ACTIVE, false).withProperty(TYPE, EnumPanelType.Basic));
-		for (int i = 0; i < panes.length; i++) {
-			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/generators").setInvVariant("active=false,type=" + panes[i]));
-		}
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
-
+	
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		int active = state.getValue(ACTIVE) ? EnumPanelType.values().length : 0;
-		return state.getValue(TYPE).ordinal() + active;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, ACTIVE, TYPE);
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		boolean active = false;
-		if(meta >= EnumPanelType.values().length){
-			active = true;
-			meta -= EnumPanelType.values().length;
-		}
-		return getDefaultState().withProperty(ACTIVE, active).withProperty(TYPE, EnumPanelType.values()[meta]);
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileSolarPanel(getStateFromMeta(meta).getValue(TYPE));
-	}
-
-	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getStateFromMeta(placer.getHeldItem(hand).getItemDamage());
-	}
-
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		//return new ItemStack(Item.getItemFromBlock(this), 1, getMetaFromState(world.getBlockState(pos)));
-		return new ItemStack(Item.getItemFromBlock(this), 1, world.getBlockState(pos).getValue(TYPE).ordinal());
-	}
-	@Override
-	public int damageDropped(IBlockState state) {
-		return state.getValue(TYPE).ordinal();
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for (EnumPanelType panelType : EnumPanelType.values()) {
-			list.add(new ItemStack(this, 1, panelType.ordinal()));
-		}
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		// TODO: FIx me
+		return null;
 	}
 
 	@Override
