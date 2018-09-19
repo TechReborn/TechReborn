@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornRegistry;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
@@ -21,7 +22,9 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
+import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.tier1.BlockElectricFurnace;
+import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 
@@ -37,6 +40,7 @@ public class TRContent {
 			RebornRegistry.registerBlock(value.frame);
 			RebornRegistry.registerBlock(value.casing);
 		});
+		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
 	}
 
 	public static void registerItems() {
@@ -79,6 +83,10 @@ public class TRContent {
 		ResourceLocation platesRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/plate");
 		Arrays.stream(Plates.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
 			new ModelResourceLocation(platesRL, "type=" + value.name)));
+		
+		ResourceLocation upgradeRL = new ResourceLocation(TechReborn.MOD_ID, "items/misc/upgrades");
+		Arrays.stream(Upgrades.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(upgradeRL, "type=" + value.name)));
 
 		ResourceLocation oresRL = new ResourceLocation(TechReborn.MOD_ID, "ore");
 		for (Ores value : Ores.values()) {
@@ -119,10 +127,36 @@ public class TRContent {
 				}
 			});
 		}
-
-		ResourceLocation upgradeRL = new ResourceLocation(TechReborn.MOD_ID, "items/misc/upgrades");
-		Arrays.stream(Upgrades.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(upgradeRL, "type=" + value.name)));
+	}
+	
+	public static enum SolarPanels {
+		BASIC(EnumPowerTier.MICRO, ConfigTechReborn.basicGenerationRateD, ConfigTechReborn.basicGenerationRateN), 
+		ADVANCED(EnumPowerTier.LOW, ConfigTechReborn.advancedGenerationRateD, ConfigTechReborn.advancedGenerationRateN), 
+		INDUSTRIAL(EnumPowerTier.MEDIUM, ConfigTechReborn.industrialGenerationRateD, ConfigTechReborn.industrialGenerationRateN),
+		ULTIMATE(EnumPowerTier.HIGH, ConfigTechReborn.ultimateGenerationRateD, ConfigTechReborn.ultimateGenerationRateN), 
+		QUANTUM(EnumPowerTier.EXTREME, ConfigTechReborn.quantumGenerationRateD, ConfigTechReborn.quantumGenerationRateN), 
+		CREATIVE(EnumPowerTier.INFINITE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+		
+		public final String name;
+		public final Block block;
+		// Generation of EU during Day
+		public int generationRateD = 1;
+		// Generation of EU during Night
+		public int generationRateN = 0;
+		// Internal EU storage of solar panel
+		public int internalCapacity = 1000;
+		public final EnumPowerTier powerTier;
+		
+		private SolarPanels(EnumPowerTier tier, int generationRateD, int generationRateN) {
+			name = this.toString().toLowerCase();
+			powerTier = tier;
+			block = new BlockSolarPanel(this);
+			this.generationRateD = generationRateD;
+			this.generationRateN = generationRateN;
+			
+			InitUtils.setup(block, "solar_panel_" + name);
+		}
+		
 	}
 
 	public static enum Ores implements IItemProvider {

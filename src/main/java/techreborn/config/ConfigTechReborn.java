@@ -93,34 +93,34 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (FE)")
 	public static int CloackingDeviceUsage = 10;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicNightRate", comment = "Generation rate during night for Basic Solar Panel (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicNightRate", comment = "Generation rate during night for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateN = 0;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelHybrid", key = "hybridDayRate", comment = "Generation rate during day for Hybrid Solar Panel (Value in EU)")
-	public static int hybridGenerationRateD = 16;
+	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Value in FE)")
+	public static int advancedGenerationRateD = 16;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelHybrid", key = "hybridNightRate", comment = "Generation rate during night for Hybrid Solar Panel (Value in EU)")
-	public static int hybridGenerationRateN = 0;	
+	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Value in FE)")
+	public static int advancedGenerationRateN = 0;	
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Value in EU)")
-	public static int advancedGenerationRateD = 64;
+	@ConfigRegistry(config = "generators", category = "solarPanelIndustrial", key = "industrialDayRate", comment = "Generation rate during day for Industrial Solar Panel (Value in FE)")
+	public static int industrialGenerationRateD = 64;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Value in EU)")
-	public static int advancedGenerationRateN = 2;
+	@ConfigRegistry(config = "generators", category = "solarPanelIndustrial", key = "industrialNightRate", comment = "Generation rate during night for Industrial Solar Panel (Value in FE)")
+	public static int industrialGenerationRateN = 2;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelUltimate", key = "ultimateDayRate", comment = "Generation rate during day for Ultimate Solar Panel (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "solarPanelUltimate", key = "ultimateDayRate", comment = "Generation rate during day for Ultimate Solar Panel (Value in FE)")
 	public static int ultimateGenerationRateD = 256;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelUltimate", key = "ultimateNightRate", comment = "Generation rate during night for Ultimate Solar Panel (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "solarPanelUltimate", key = "ultimateNightRate", comment = "Generation rate during night for Ultimate Solar Panel (Value in FE)")
 	public static int ultimateGenerationRateN = 16;	
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in FE)")
 	public static int quantumGenerationRateD = 1024;
 	
-	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in EU)")
+	@ConfigRegistry(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in FE)")
 	public static int quantumGenerationRateN = 64;	
 
 	@ConfigRegistry(config = "world", category = "loot", key = "enableOverworldLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to OverWorld loot chests.")

@@ -31,23 +31,27 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
+import techreborn.init.TRContent.SolarPanels;
+import techreborn.tiles.generator.TileSolarPanel;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
 public class BlockSolarPanel extends BlockMachineBase {
+	
+	public final SolarPanels panelType;
 
-	public BlockSolarPanel() {
+	public BlockSolarPanel(SolarPanels panel) {
 		super();
+		this.panelType = panel;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		// TODO: FIx me
-		return null;
+		return new TileSolarPanel();
 	}
 
 	@Override

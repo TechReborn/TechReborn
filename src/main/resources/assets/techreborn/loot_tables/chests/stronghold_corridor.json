@@ -114,8 +114,8 @@
 				},								
 				{
 					"type": "item",
-					"name": "techreborn:machineblockadvanced",
-					"entryName": "reinforced_frame",
+					"name": "techreborn:advanced_machine_frame",
+					"entryName": "tier2_machine_block",
 					"weight": 30
 				},
 				{

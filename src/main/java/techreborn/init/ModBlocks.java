@@ -34,7 +34,6 @@ import techreborn.TechReborn;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
-import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.storage.*;
 import techreborn.blocks.tier0.BlockIronAlloyFurnace;
@@ -107,13 +106,6 @@ public class ModBlocks {
 	public static Block LIGHTNING_ROD;
 	public static Block PLASMA_GENERATOR;
 	public static Block SEMI_FLUID_GENERATOR;
-	public static Block SOLAR_PANEL_BASIC;
-	public static Block SOLAR_PANEL_ADVANCED;
-	public static Block SOLAR_PANEL_INDUSTRIAL;
-	public static Block SOLAR_PANEL_ULTIMATE;
-	public static Block SOLAR_PANEL_QUANTUM;
-	public static Block SOLAR_PANEL_CREATIVE;
-	
 	public static Block SOLID_FUEL_GENEREATOR;
 	public static Block THERMAL_GENERATOR;
 	public static Block WATER_MILL;
@@ -285,24 +277,6 @@ public class ModBlocks {
 
 		SEMI_FLUID_GENERATOR = new BlockSemiFluidGenerator();
 		registerBlock(SEMI_FLUID_GENERATOR, "semi_fluid_generator");
-
-		SOLAR_PANEL_BASIC = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL_BASIC, "solar_panel_basic");
-
-		SOLAR_PANEL_ADVANCED = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL_ADVANCED, "solar_panel_advanced");
-		
-		SOLAR_PANEL_INDUSTRIAL = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL_INDUSTRIAL, "solar_panel_industrial");
-		
-		SOLAR_PANEL_ULTIMATE = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL_ULTIMATE, "solar_panel_ultimate");
-		
-		SOLAR_PANEL_QUANTUM = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL_QUANTUM, "solar_panel_quantum");
-		
-		SOLAR_PANEL_CREATIVE = new BlockSolarPanel();
-		registerBlock(SOLAR_PANEL_CREATIVE, "solar_panel_creative");
 
 		SOLID_FUEL_GENEREATOR = new BlockSolidFuelGenerator();
 		registerBlock(SOLID_FUEL_GENEREATOR, "solid_fuel_generator");

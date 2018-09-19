@@ -201,7 +201,7 @@ public class TechReborn {
 						localName.append(StringUtils.toFirstCapital(word));
 					}
 				}
-				System.out.println("item.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
+//				System.out.println("item.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
 			}
 		}
 		for (Block item : ForgeRegistries.BLOCKS.getValues()) {
@@ -216,7 +216,7 @@ public class TechReborn {
 						localName.append(StringUtils.toFirstCapital(word));
 					}
 				}
-				System.out.println("tile.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
+//				System.out.println("tile.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
 			}
 		}
 	}

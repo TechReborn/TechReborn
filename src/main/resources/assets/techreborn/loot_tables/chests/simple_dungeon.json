@@ -111,7 +111,7 @@
 				},				
 				{
 					"type": "item",
-					"name": "techreborn:machineblockbasic",
+					"name": "techreborn:basic_machine_frame",
 					"entryName": "basic_frame",
 					"weight": 5
 				},
