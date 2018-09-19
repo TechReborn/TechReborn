@@ -64,4 +64,7 @@ public class OreConfig {
 		this.minYHeight = minYHeight;
 		this.maxYHeight = maxYHeight;
 	}
+
+	public OreConfig() {
+	}
 }

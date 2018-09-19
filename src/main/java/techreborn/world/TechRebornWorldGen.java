@@ -112,10 +112,11 @@ public class TechRebornWorldGen implements IWorldGenerator {
 		for (OreConfig defaultOre : defaultOres) {
 			boolean hasFoundOre = false;
 			for (OreConfig ore : config) {
-				if (ore.blockName.equals(defaultOre.blockName) && ore.meta == defaultOre.meta) {
+				if (ore.blockName.replaceAll(":", ".").equals(defaultOre.blockName.replaceAll(":", ".")) && ore.meta == defaultOre.meta) {
 					hasFoundOre = true;
 					// Should allow for states to be saved/loaded
 					ore.state = defaultOre.state;
+					break;
 				}
 			}
 			if (!hasFoundOre) {
