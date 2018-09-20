@@ -63,17 +63,17 @@
       }
     },
     "type": {
-      "insulatedcopper": {
+      "insulated_copper": {
         "textures": {
           "cable": "techreborn:blocks/cables/copper_insulated_cable"
         }
       },
-      "insulatedgold": {
+      "insulated_gold": {
         "textures": {
           "cable": "techreborn:blocks/cables/gold_insulated_cable"
         }
       },
-      "insulatedhv": {
+      "insulated_hv": {
         "textures": {
           "cable": "techreborn:blocks/cables/hv_insulated_cable"
         }

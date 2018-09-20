@@ -24,6 +24,7 @@
 
 package techreborn.tiles.cable;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -42,7 +43,7 @@ import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.blocks.cable.EnumCableType;
+import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,17 @@ public class TileCable extends TileEntity
 	
 	public int power = 0;
 	private int transferRate = 0;
-	private EnumCableType cableType = null;
+	private TRContent.Cables cableType = null;
 	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
 	int ticksSinceLastChange = 0;
 	
-	private EnumCableType getCableType() {
-		return world.getBlockState(pos).getValue(BlockCable.TYPE);
+	private TRContent.Cables getCableType() {
+		Block block = world.getBlockState(pos).getBlock();
+		if(block instanceof BlockCable){
+			return ((BlockCable) block).type;
+		}
+		//Something has gone wrong if this happens
+		return TRContent.Cables.COPPER;
 	}
 	
 	public boolean canReceiveFromFace(EnumFacing face) {
@@ -245,6 +251,6 @@ public class TileCable extends TileEntity
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return getCableType().getStack();
+		return new ItemStack(getCableType().block);
 	}
 }

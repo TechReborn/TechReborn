@@ -92,7 +92,7 @@ public class OreDict {
 		OreUtil.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
 		OreUtil.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
 		OreUtil.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
-		OreUtil.registerOre("insulatedGoldCableItem", BlockCable.getCableByName("insulatedgold"));
+		//OreUtil.registerOre("insulatedGoldCableItem", BlockCable.getCableByName("insulatedgold"));
 		OreUtil.registerOre("pulpWood", TRContent.Dusts.SAW.getStack());
 
 		//OreUtil.registerOre("uran235", nothing);

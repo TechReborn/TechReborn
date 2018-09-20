@@ -57,7 +57,6 @@ import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
-import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.entities.EntityNukePrimed;
@@ -107,8 +106,6 @@ public class TechReborn {
 	public TechReborn() {
 		//Forge says to call it here, so yeah
 		FluidRegistry.enableUniversalBucket();
-		//Done here so its loaded before RC's config manager
-		MinecraftForge.EVENT_BUS.register(EnumCableType.class);
 	}
 
 	@Mod.EventHandler

@@ -35,7 +35,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import techreborn.TechReborn;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.TRContent;
@@ -130,20 +129,23 @@ public class RegisterItemJsons {
 
 		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
 
-		for (EnumCableType cableType : EnumCableType.values()) {
-			registerBlockstateMultiItem(Item.getItemFromBlock(ModBlocks.CABLE), cableType.ordinal(), cableType.getName().toLowerCase(), "cable_inv");
+		for (TRContent.Cables cableType : TRContent.Cables.values()) {
+			BlockCable blockCable = cableType.block;
+
+			registerBlockstateMultiItem(Item.getItemFromBlock(blockCable), cableType.name().toLowerCase(), "cable_inv");
+
+			ModelLoader.setCustomStateMapper(blockCable, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
+					BlockCable cable = (BlockCable) state.getBlock();
+					String property = this.getPropertyString(map) + ",type=" + cable.type.name().toLowerCase();
+					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID, "cable_" + (cable.type.cableThickness > 10 ? "thick" : "thin")), property);
+				}
+			});
 		}
 
-		ModelLoader.setCustomStateMapper(ModBlocks.CABLE, new DefaultStateMapper() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-				Map<IProperty<?>, Comparable<?>> map = Maps.<IProperty<?>, Comparable<?>>newLinkedHashMap(state.getProperties());
-				if (state.getValue(BlockCable.TYPE).ordinal() <= 4) {
-					return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getNamespace(), ModBlocks.CABLE.getRegistryName().getPath()) + "_thin", this.getPropertyString(map));
-				}
-				return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getNamespace(), ModBlocks.CABLE.getRegistryName().getPath()) + "_thick", this.getPropertyString(map));
-			}
-		});
+
 	}
 
 	private static void registerBlocks() {

@@ -22,6 +22,7 @@ import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
+import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.tier1.BlockElectricFurnace;
 import techreborn.config.ConfigTechReborn;
@@ -41,6 +42,7 @@ public class TRContent {
 			RebornRegistry.registerBlock(value.casing);
 		});
 		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
 	}
 
 	public static void registerItems() {
@@ -158,7 +160,39 @@ public class TRContent {
 			
 			InitUtils.setup(block, "solar_panel_" + name);
 		}
-		
+
+	}
+
+	public static enum Cables {
+		COPPER(128, 12.0, true, EnumPowerTier.MEDIUM),
+		TIN(32, 12.0, true, EnumPowerTier.LOW),
+		GOLD(512, 12.0, true, EnumPowerTier.HIGH),
+		HV(2048, 12.0, true, EnumPowerTier.EXTREME),
+		GLASSFIBER(8192, 12.0, false, EnumPowerTier.INSANE),
+		INSULATED_COPPER(128, 10.0, false, EnumPowerTier.MEDIUM),
+		INSULATED_GOLD(512, 10.0, false, EnumPowerTier.HIGH),
+		INSULATED_HV(2048, 10.0, false, EnumPowerTier.EXTREME);
+
+		public int transferRate;
+		public int defaultTransferRate;
+		public double cableThickness;
+		public boolean canKill;
+		public boolean defaultCanKill;
+		public EnumPowerTier tier;
+
+		public final BlockCable block;
+
+		Cables(int transferRate, double cableThickness, boolean canKill,
+		       EnumPowerTier tier) {
+			this.transferRate = transferRate;
+			this.defaultTransferRate = transferRate;
+			this.cableThickness = cableThickness / 2;
+			this.canKill = canKill;
+			this.defaultCanKill = canKill;
+			this.tier = tier;
+			this.block = new BlockCable(this);
+			InitUtils.setup(block, "cable_" + this.name().toLowerCase());
+		}
 	}
 
 	public static enum Ores implements IItemProvider {

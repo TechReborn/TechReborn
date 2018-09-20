@@ -55,6 +55,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
+import techreborn.init.TRContent;
 import techreborn.tiles.cable.TileCable;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.ElectrialShockSource;
@@ -74,7 +75,6 @@ public class BlockCable extends BlockContainer {
 	public static final PropertyBool SOUTH = PropertyBool.create("south");
 	public static final PropertyBool UP = PropertyBool.create("up");
 	public static final PropertyBool DOWN = PropertyBool.create("down");
-	public static final IProperty<EnumCableType> TYPE = PropertyEnum.create("type", EnumCableType.class);
 
 	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
 	public static boolean uninsulatedElectrocutionDamage = true;
@@ -85,29 +85,18 @@ public class BlockCable extends BlockContainer {
 	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionParticles", comment = "When true an uninsulated cable will create a spark when an entity touches it")
 	public static boolean uninsulatedElectrocutionParticles = true;
 
-	public BlockCable() {
+	public final TRContent.Cables type;
+
+	public BlockCable(TRContent.Cables type) {
 		super(Material.ROCK);
+		this.type = type;
 		setHardness(1F);
 		setResistance(8F);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false).withProperty(TYPE, EnumCableType.COPPER));
+		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
-	public static ItemStack getCableByName(String name, int count) {
-		for (int i = 0; i < EnumCableType.values().length; i++) {
-			if (EnumCableType.values()[i].getName().equalsIgnoreCase(name)) {
-				return new ItemStack(ModBlocks.CABLE,
-					count, i);
-			}
-		}
-		throw new InvalidParameterException("The cable " + name + " could not be found.");
-	}
-
-	public static ItemStack getCableByName(String name) {
-		return getCableByName(name, 1);
-	}
-	
 	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
 	public TileEntity getTileEntitySafely(IBlockAccess blockAccess, BlockPos pos) {
 		if (blockAccess instanceof ChunkCache) {
@@ -166,32 +155,6 @@ public class BlockCable extends BlockContainer {
 		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
 	}
-	
-	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {	
-		if (RebornCoreConfig.wrenchRequired){
-			if (state.getValue(TYPE) == EnumCableType.ICOPPER) {
-				drops.add(getCableByName("copper", 1));				
-			}
-			else if (state.getValue(TYPE) == EnumCableType.IGOLD) {
-				drops.add(getCableByName("gold", 1));			
-			}
-			else if (state.getValue(TYPE) == EnumCableType.IHV) {
-				drops.add(getCableByName("hv", 1));
-			}
-			else {
-				super.getDrops(drops, world, pos, state, fortune);
-			}
-		}
-		else {
-			super.getDrops(drops, world, pos, state, fortune);
-		}
-	}
-
-	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return state.getValue(TYPE).getStack();
-	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
@@ -210,7 +173,7 @@ public class BlockCable extends BlockContainer {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-		if (blockState.getValue(TYPE) == EnumCableType.GLASSFIBER)
+		if (type == TRContent.Cables.GLASSFIBER)
 			return false;
 		else
 			return true;
@@ -223,7 +186,7 @@ public class BlockCable extends BlockContainer {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, EAST, WEST, NORTH, SOUTH, UP, DOWN, TYPE);
+		return new BlockStateContainer(this, EAST, WEST, NORTH, SOUTH, UP, DOWN);
 	}
 
 	@Override
@@ -232,20 +195,13 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for (EnumCableType cableType : EnumCableType.values()) {
-			list.add(new ItemStack(this, 1, cableType.ordinal()));
-		}
-	}
-
-	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(TYPE).ordinal();
+		return 0;
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(TYPE, EnumCableType.values()[meta]);
+		return getDefaultState();
 	}
 
 	@Override
@@ -258,7 +214,7 @@ public class BlockCable extends BlockContainer {
 		state = state.getActualState(source, pos);
 		float minSize = 0.3125F;
 		float maxSize =  0.6875F;
-		int thinkness = (int) state.getValue(TYPE).cableThickness;
+		int thinkness = (int) type.cableThickness;
 		if(thinkness == 6){
 			minSize = 0.35F;
 			maxSize = 0.65F;
@@ -287,13 +243,13 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
 		super.onEntityCollision(worldIn, pos, state, entity);
-		if (state.getValue(TYPE).canKill && entity instanceof EntityLivingBase) {
+		if (type.canKill && entity instanceof EntityLivingBase) {
 			TileEntity tileEntity = worldIn.getTileEntity(pos);
 			if (tileEntity != null && tileEntity instanceof TileCable) {
 				TileCable tileCable = (TileCable) tileEntity;
 				if (tileCable.power != 0) {
 					if (uninsulatedElectrocutionDamage) {
-						if (state.getValue(TYPE) == EnumCableType.HV) {
+						if (type == TRContent.Cables.HV) {
 							entity.setFire(1);
 						}
 						entity.attackEntityFrom(new ElectrialShockSource(), 1F);

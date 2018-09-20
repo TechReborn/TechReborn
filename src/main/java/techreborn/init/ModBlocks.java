@@ -52,7 +52,6 @@ import techreborn.itemblocks.*;
 public class ModBlocks {
 
 	// Misc Blocks
-	public static Block CABLE;
 	public static Block COMPUTER_CUBE;
 	public static Block FLARE;
 	public static Block MACHINE_CASINGS_ADVANCED;
@@ -149,9 +148,6 @@ public class ModBlocks {
 		// Misc. blocks
 		COMPUTER_CUBE = new BlockComputerCube();
 		registerBlock(COMPUTER_CUBE, "computer_cube");
-
-		CABLE = new BlockCable();
-		registerBlock(CABLE, ItemBlockCable.class, "cable");
 
 		NUKE = new BlockNuke();
 		registerBlock(NUKE, "nuke");

@@ -31,17 +31,17 @@
           "layer0": "techreborn:items/cables/glassfiber"
         }
       },
-      "insulatedcopper": {
+      "insulated_copper": {
         "textures": {
           "layer0": "techreborn:items/cables/insulatedcopper"
         }
       },
-      "insulatedgold": {
+      "insulated_gold": {
         "textures": {
           "layer0": "techreborn:items/cables/insulatedgold"
         }
       },
-      "insulatedhv": {
+      "insulated_hv": {
         "textures": {
           "layer0": "techreborn:items/cables/insulatedhv"
         }
