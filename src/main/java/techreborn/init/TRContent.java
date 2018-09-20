@@ -153,6 +153,8 @@ public class TRContent {
 			block = new BlockSolarPanel(this);
 			this.generationRateD = generationRateD;
 			this.generationRateN = generationRateN;
+			// Buffer for 2 mins of work
+			internalCapacity = generationRateD * 2_400;
 			
 			InitUtils.setup(block, "solar_panel_" + name);
 		}

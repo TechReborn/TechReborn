@@ -4,7 +4,7 @@
     "transform": "forge:default-block",
     "model": "orientable",
     "textures": {
-      "particle": "techreborn:blocks/machines/generators/solar_panel_side_off",
+      "particle": "techreborn:blocks/machines/generators/panels/solar_panel_side_off",
       "west": "techreborn:blocks/machines/generators/wind_mill_left",
       "east": "techreborn:blocks/machines/generators/wind_mill_right",
       "south": "techreborn:blocks/machines/generators/generator_bottom",

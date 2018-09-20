@@ -27,6 +27,7 @@ package techreborn.tiles.generator;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
@@ -130,6 +131,15 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD
 				+ StringUtils.toFirstCapitalAllLowercase(getTier().toString()));
 	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		if (world == null) {
+			// We are in TileEntity.create method during chunk load.
+			this.checkOverfill = false;
+		}
+		super.readFromNBT(tag);
+	}
 
 	// TileMachineBase
 	@Override
@@ -141,11 +151,10 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 			panel = solarPanelBlock.panelType;
 		}
 	}
-
+	
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer playerIn) {
-		// return new ItemStack(ModBlocks.SOLAR_PANEL, 1, panel.ordinal());
-		return null;
+		return new ItemStack(getBlockType());
 	}
 }
