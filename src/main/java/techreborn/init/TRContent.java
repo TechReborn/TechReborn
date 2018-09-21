@@ -129,6 +129,20 @@ public class TRContent {
 				}
 			});
 		}
+		
+		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
+		for (Cables value : Cables.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(cableRL, "type=" + value.name));
+			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID, "cable_" + (value.cableThickness == 5 ? "thick" : "thin")), "type=" + value.name);
+				}
+			});
+			
+			
+			
+		}
 	}
 	
 	public static enum SolarPanels {
@@ -141,6 +155,7 @@ public class TRContent {
 		
 		public final String name;
 		public final Block block;
+		
 		// Generation of EU during Day
 		public int generationRateD = 1;
 		// Generation of EU during Night
@@ -158,7 +173,7 @@ public class TRContent {
 			// Buffer for 2 mins of work
 			internalCapacity = generationRateD * 2_400;
 			
-			InitUtils.setup(block, "solar_panel_" + name);
+			InitUtils.setup(block, name + "_solar_panel");
 		}
 
 	}
@@ -173,17 +188,19 @@ public class TRContent {
 		INSULATED_GOLD(512, 10.0, false, EnumPowerTier.HIGH),
 		INSULATED_HV(2048, 10.0, false, EnumPowerTier.EXTREME);
 
+		public final String name;
+		public final BlockCable block;
+
 		public int transferRate;
 		public int defaultTransferRate;
 		public double cableThickness;
 		public boolean canKill;
 		public boolean defaultCanKill;
 		public EnumPowerTier tier;
-
-		public final BlockCable block;
-
-		Cables(int transferRate, double cableThickness, boolean canKill,
-		       EnumPowerTier tier) {
+		
+		
+		Cables(int transferRate, double cableThickness, boolean canKill, EnumPowerTier tier) {
+			name = this.toString().toLowerCase();
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
 			this.cableThickness = cableThickness / 2;
@@ -191,7 +208,7 @@ public class TRContent {
 			this.defaultCanKill = canKill;
 			this.tier = tier;
 			this.block = new BlockCable(this);
-			InitUtils.setup(block, "cable_" + this.name().toLowerCase());
+			InitUtils.setup(block, name + "_cable");
 		}
 	}
 

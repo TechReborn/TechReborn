@@ -31,7 +31,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
-import techreborn.blocks.cable.BlockCable;
 import techreborn.items.*;
 
 /**

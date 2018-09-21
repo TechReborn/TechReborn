@@ -32,7 +32,6 @@ import net.minecraft.util.ResourceLocation;
 import reborncore.RebornRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.*;
-import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.storage.*;

@@ -128,29 +128,10 @@ public class RegisterItemJsons {
 		}
 
 		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
-
-		for (TRContent.Cables cableType : TRContent.Cables.values()) {
-			BlockCable blockCable = cableType.block;
-
-			registerBlockstateMultiItem(Item.getItemFromBlock(blockCable), cableType.name().toLowerCase(), "cable_inv");
-
-			ModelLoader.setCustomStateMapper(blockCable, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
-					BlockCable cable = (BlockCable) state.getBlock();
-					String property = this.getPropertyString(map) + ",type=" + cable.type.name().toLowerCase();
-					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID, "cable_" + (cable.type.cableThickness > 10 ? "thick" : "thin")), property);
-				}
-			});
-		}
-
-
 	}
 
 	private static void registerBlocks() {
 		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
-
 	}
 
 	private static void register(Item item, int meta, String name) {
@@ -163,13 +144,12 @@ public class RegisterItemJsons {
 		register(item, 0, name);
 	}
 
-	@SuppressWarnings("unused")
 	private static void register(Block block, int meta, String name) {
 		register(Item.getItemFromBlock(block), meta, name);
 	}
 
 	private static void register(Block block, String name) {
-		register(Item.getItemFromBlock(block), 0, name);
+		register(block, 0, name);
 	}
 
 	@SuppressWarnings("unused")
@@ -192,8 +172,7 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlockstateMultiItem(Item item, String variantName, String path) {
-		ResourceLocation loc = new ResourceLocation(TechReborn.MOD_ID, path);
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "type=" + variantName));
+		registerBlockstateMultiItem(item, 0, variantName, path);
 	}
 
 	private static void registerBlockstateMultiItem(Item item, int meta, String variantName, String path) {

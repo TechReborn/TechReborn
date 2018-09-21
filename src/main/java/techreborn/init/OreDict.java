@@ -29,7 +29,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.OreUtil;
-import techreborn.blocks.cable.BlockCable;
 
 public class OreDict {
 

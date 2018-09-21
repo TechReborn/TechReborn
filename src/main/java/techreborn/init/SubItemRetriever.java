@@ -26,8 +26,6 @@ package techreborn.init;
 
 import net.minecraft.item.ItemStack;
 import techreborn.api.ISubItemRetriever;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockStorage;
 import techreborn.items.*;
 
 /**

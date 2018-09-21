@@ -8,15 +8,7 @@
     }
   },
   "variants": {
-    "inventory": [
-      {
-        "transform": "forge:default-block",
-        "model": "techreborn:cable",
-        "textures": {
-          "cable": "techreborn:blocks/cables/copper_cable"
-        }
-      }
-    ],
+    "inventory": [{} ],
     "down": {
       "true": {
         "submodel": {
