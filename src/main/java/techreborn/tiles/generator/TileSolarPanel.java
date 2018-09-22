@@ -35,7 +35,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.StringUtils;
-import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
+import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.init.TRContent.SolarPanels;
 
 import java.util.List;

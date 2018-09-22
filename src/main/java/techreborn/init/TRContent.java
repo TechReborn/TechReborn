@@ -1,6 +1,7 @@
 package techreborn.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
@@ -23,13 +24,16 @@ import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
+import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.blocks.tier1.BlockElectricFurnace;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
+import java.util.Map;
+
+import com.google.common.collect.Maps;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TRContent {
@@ -132,16 +136,18 @@ public class TRContent {
 		
 		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
 		for (Cables value : Cables.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(cableRL, "type=" + value.name));
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0,
+					new ModelResourceLocation(cableRL, "type=" + value.name));
 			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID, "cable_" + (value.cableThickness == 5 ? "thick" : "thin")), "type=" + value.name);
+					Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
+					String property = this.getPropertyString(map) + ",ztype=" + value.name;
+
+					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID,
+							"cable_" + (value.cableThickness == 5 ? "thick" : "thin")), property);
 				}
 			});
-			
-			
-			
 		}
 	}
 	

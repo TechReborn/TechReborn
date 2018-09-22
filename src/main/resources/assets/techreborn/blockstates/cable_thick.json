@@ -62,7 +62,7 @@
       "false": {
       }
     },
-    "type": {
+    "ztype": {
       "insulated_copper": {
         "textures": {
           "cable": "techreborn:blocks/cables/copper_insulated_cable"

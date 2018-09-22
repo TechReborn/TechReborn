@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.generator.solarpanel;
+package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

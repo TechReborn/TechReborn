@@ -24,23 +24,16 @@
 
 package techreborn.client;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import techreborn.TechReborn;
-import techreborn.blocks.cable.BlockCable;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.init.TRContent;
 import techreborn.init.TRItems;
-
-import java.util.Map;
 
 public class RegisterItemJsons {
 	public static void registerModels() {
