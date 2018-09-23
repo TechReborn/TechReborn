@@ -33,7 +33,7 @@ import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.tiles.generator.TileBaseFluidGenerator;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -54,7 +54,7 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.GAS_TURBINE, 1);
+		return new ItemStack(TRBlocks.GAS_TURBINE, 1);
 	}
 
 	@Override

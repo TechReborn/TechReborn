@@ -273,8 +273,8 @@ public class TRItems {
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
 
 		// TODO: do we need this at all?
-		BlockMachineBase.advancedFrameStack = new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED);
-		BlockMachineBase.basicFrameStack = new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC);
+		BlockMachineBase.advancedFrameStack = new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame());
+		BlockMachineBase.basicFrameStack = new ItemStack(TRContent.MachineBlocks.BASIC.getFrame());
 	}
 
 	public static void registerItem(Item item) {

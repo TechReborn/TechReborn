@@ -38,7 +38,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.init.TRContent;
 import techreborn.init.TRItems;
 
@@ -198,7 +198,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.MATTER_FABRICATOR, 1);
+		return new ItemStack(TRBlocks.MATTER_FABRICATOR, 1);
 	}
 
 	// ItemHandlerProvider

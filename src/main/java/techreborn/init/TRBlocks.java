@@ -48,17 +48,11 @@ import techreborn.itemblocks.*;
 /**
  * Registers all TR blocks
  */
-public class ModBlocks {
+public class TRBlocks {
 
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;
 	public static Block FLARE;
-	public static Block MACHINE_CASINGS_ADVANCED;
-	public static Block MACHINE_CASINGS_REINFORCED;
-	public static Block MACHINE_CASINGS_STANDARD;
-	public static Block MACHINE_BLOCK_ADVANCED;
-	public static Block MACHINE_BLOCK_BASIC;
-	public static Block MACHINE_BLOCK_ELITE;
 	public static Block NUKE;
 	public static Block REFINED_IRON_FENCE;
 	public static Block REINFORCED_GLASS;

@@ -33,7 +33,7 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.client.gui.widget.GuiButtonHologram;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileImplosionCompressor;
 
@@ -113,7 +113,7 @@ public class GuiImplosionCompressor extends GuiBase {
 						for (int y = -4; y <= -2; y++) {
 							for (int z = -1; z <= 1; z++) {
 								if (!((x == 0) && (y == -3) && (z == 0))) {
-									this.addComponent(x, y, z, ModBlocks.MACHINE_CASINGS_REINFORCED.getDefaultState(), multiblock);
+									this.addComponent(x, y, z, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState(), multiblock);
 								}
 							}
 						}

@@ -31,7 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.init.TRContent;
 import techreborn.init.TRItems;
 
@@ -120,11 +120,11 @@ public class RegisterItemJsons {
 			registerBlockstateMultiItem(TRItems.BRONZE_HOE, "bronze_hoe", "items/tool");
 		}
 
-		register(ModBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
+		register(TRBlocks.RUBBER_SAPLING, "misc/rubber_sapling");
 	}
 
 	private static void registerBlocks() {
-		register(ModBlocks.REFINED_IRON_FENCE, "iron_fence");
+		register(TRBlocks.REFINED_IRON_FENCE, "iron_fence");
 	}
 
 	private static void register(Item item, int meta, String name) {

@@ -34,7 +34,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 import java.util.ArrayList;
 
@@ -46,9 +46,9 @@ public class StackWIPHandler {
 	public static ArrayList<ItemStack> devHeads = new ArrayList<>();
 
 	public StackWIPHandler() {
-		wipBlocks.add(ModBlocks.MAGICAL_ABSORBER);
-		wipBlocks.add(ModBlocks.CHUNK_LOADER);
-		wipBlocks.add(ModBlocks.MAGIC_ENERGY_CONVERTER);
+		wipBlocks.add(TRBlocks.MAGICAL_ABSORBER);
+		wipBlocks.add(TRBlocks.CHUNK_LOADER);
+		wipBlocks.add(TRBlocks.MAGIC_ENERGY_CONVERTER);
 
 		addHead("modmuss50");
 		addHead("Gigabit101");

@@ -42,7 +42,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -68,7 +68,7 @@ public class TileQuantumTank extends TileMachineBase
 	
 	public ItemStack getDropWithNBT() {
 		final NBTTagCompound tileEntity = new NBTTagCompound();
-		final ItemStack dropStack = new ItemStack(ModBlocks.QUANTUM_TANK, 1);
+		final ItemStack dropStack = new ItemStack(TRBlocks.QUANTUM_TANK, 1);
 		this.writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);

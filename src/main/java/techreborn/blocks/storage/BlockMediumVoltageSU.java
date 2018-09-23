@@ -33,7 +33,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.storage.TileMediumVoltageSU;
 
 /**
@@ -53,7 +53,7 @@ public class BlockMediumVoltageSU extends BlockEnergyStorage {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
-			drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC));
+			drops.add(new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
 		} else {
 			super.getDrops(drops, world, pos, state, fortune);
 		}

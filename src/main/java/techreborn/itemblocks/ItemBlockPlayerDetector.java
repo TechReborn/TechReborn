@@ -27,10 +27,10 @@ package techreborn.itemblocks;
 import net.minecraft.block.Block;
 import reborncore.common.itemblock.ItemBlockBase;
 import techreborn.blocks.tier1.BlockPlayerDetector;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 public class ItemBlockPlayerDetector extends ItemBlockBase {
 	public ItemBlockPlayerDetector(Block block) {
-		super(ModBlocks.PLAYER_DETECTOR, ModBlocks.PLAYER_DETECTOR, BlockPlayerDetector.types);
+		super(TRBlocks.PLAYER_DETECTOR, TRBlocks.PLAYER_DETECTOR, BlockPlayerDetector.types);
 	}
 }

@@ -37,7 +37,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
@@ -145,6 +145,6 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(ModBlocks.LIGHTNING_ROD);
+		return new ItemStack(TRBlocks.LIGHTNING_ROD);
 	}
 }

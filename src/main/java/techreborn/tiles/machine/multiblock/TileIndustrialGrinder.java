@@ -48,7 +48,7 @@ import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.tiles.TileGenericMachine;
 
 import javax.annotation.Nullable;
@@ -67,7 +67,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	int ticksSinceLastChange;
 
 	public TileIndustrialGrinder() {
-		super("IndustrialGrinder", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_GRINDER, 7);
+		super("IndustrialGrinder", maxInput, maxEnergy, TRBlocks.INDUSTRIAL_GRINDER, 7);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
 		this.inventory = new Inventory<>(8, "TileIndustrialGrinder", 64, this, getInventoryAccess());

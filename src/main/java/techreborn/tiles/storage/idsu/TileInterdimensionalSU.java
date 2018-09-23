@@ -34,7 +34,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.tiles.storage.TileEnergyStorage;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -50,7 +50,7 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	public String ownerUdid;
 
 	public TileInterdimensionalSU() {
-		super("IDSU", 2, ModBlocks.INTERDIMENSIONAL_SU, EnumPowerTier.EXTREME, maxInput, maxOutput, maxEnergy);
+		super("IDSU", 2, TRBlocks.INTERDIMENSIONAL_SU, EnumPowerTier.EXTREME, maxInput, maxOutput, maxEnergy);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -49,7 +49,7 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 	public static int maxEnergy = 1_000;
 
 	public TileAlloySmelter() {
-		super("AlloySmelter", maxInput, maxEnergy, ModBlocks.ALLOY_SMELTER, 3);
+		super("AlloySmelter", maxInput, maxEnergy, TRBlocks.ALLOY_SMELTER, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileAlloySmelter", 64, this).withConfiguredAccess();

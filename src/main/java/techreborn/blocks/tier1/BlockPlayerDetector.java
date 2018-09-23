@@ -57,7 +57,7 @@ import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.utils.MessageIDs;
 import techreborn.tiles.machine.tier1.TilePlayerDectector;
 import techreborn.utils.TechRebornCreativeTab;
@@ -176,7 +176,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	// Block
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(ModBlocks.PLAYER_DETECTOR, 1, typeNamesList.indexOf(state.getValue(TYPE)));
+		return new ItemStack(TRBlocks.PLAYER_DETECTOR, 1, typeNamesList.indexOf(state.getValue(TYPE)));
 	}
 
 	@Override

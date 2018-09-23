@@ -32,7 +32,7 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.client.gui.widget.GuiButtonHologram;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileVacuumFreezer;
 
@@ -104,7 +104,7 @@ public class GuiVacuumFreezer extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState reinforcedCasing = ModBlocks.MACHINE_CASINGS_REINFORCED.getDefaultState();					
+					IBlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();					
 					
 					this.addComponent(0, -1, 0, reinforcedCasing, multiblock);
 					this.addComponent(1, -1, 0, reinforcedCasing, multiblock);

@@ -28,7 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 
 public class MultiblockChecker {
 
@@ -50,16 +50,16 @@ public class MultiblockChecker {
 	// TODO: make thid not so ugly
 	public boolean checkCasing(int offX, int offY, int offZ, String type) {
 		Block block = getBlock(offX, offY, offZ).getBlock();
-		if (block == ModBlocks.MACHINE_CASINGS_STANDARD || block == ModBlocks.MACHINE_CASINGS_REINFORCED || block == ModBlocks.MACHINE_CASINGS_ADVANCED ) {
+		if (block == TRContent.MachineBlocks.BASIC.getCasing()|| block == TRContent.MachineBlocks.ADVANCED.getCasing() || block == TRContent.MachineBlocks.INDUSTRIAL.getCasing() ) {
 			if (type == MultiblockChecker.CASING_ANY) {
 				return true;
-			} else if ( type == "standard" && block ==  ModBlocks.MACHINE_CASINGS_STANDARD) {
+			} else if ( type == "standard" && block ==  TRContent.MachineBlocks.BASIC.getCasing()) {
 				return true;
 			}
-			else if (type == "reinforced" && block ==  ModBlocks.MACHINE_CASINGS_REINFORCED) {
+			else if (type == "reinforced" && block ==  TRContent.MachineBlocks.ADVANCED.getCasing()) {
 				return true;
 			}
-			else if (type == "advanced" && block ==  ModBlocks.MACHINE_CASINGS_ADVANCED) {
+			else if (type == "advanced" && block ==  TRContent.MachineBlocks.INDUSTRIAL.getCasing()) {
 				return true;
 			}
 		}

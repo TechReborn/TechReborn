@@ -45,7 +45,7 @@ import techreborn.api.RollingMachineRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -274,7 +274,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.ROLLING_MACHINE, 1);
+		return new ItemStack(TRBlocks.ROLLING_MACHINE, 1);
 	}
 
 	@Override

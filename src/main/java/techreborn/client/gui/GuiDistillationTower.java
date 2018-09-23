@@ -34,7 +34,7 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.client.gui.widget.GuiButtonHologram;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileDistillationTower;
 
@@ -107,8 +107,8 @@ public class GuiDistillationTower extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState advancedCasing = ModBlocks.MACHINE_CASINGS_ADVANCED.getDefaultState();					
-					IBlockState standardCasing = ModBlocks.MACHINE_CASINGS_STANDARD.getDefaultState();
+					IBlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();					
+					IBlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 					
 					this.addComponent(0, 0, 0, standardCasing, multiblock);
 					this.addComponent(1, 0, 0, standardCasing, multiblock);

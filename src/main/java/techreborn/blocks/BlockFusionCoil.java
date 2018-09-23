@@ -43,7 +43,7 @@ import reborncore.api.ToolManager;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.init.ModSounds;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -68,7 +68,7 @@ public class BlockFusionCoil extends Block {
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
 			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
 				if (playerIn.isSneaking()) {
-					ItemStack drop = new ItemStack(ModBlocks.FUSION_COIL, 1);
+					ItemStack drop = new ItemStack(TRBlocks.FUSION_COIL, 1);
 					spawnAsEntity(worldIn, pos, drop);
 					worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);

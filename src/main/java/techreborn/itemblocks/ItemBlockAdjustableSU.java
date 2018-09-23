@@ -40,7 +40,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.tiles.storage.TileAdjustableSU;
 
 import java.util.List;
@@ -85,7 +85,7 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 
 	public ItemStack getDropWithNBT(double energy) {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(ModBlocks.ADJUSTABLE_SU, 1);
+		ItemStack dropStack = new ItemStack(TRBlocks.ADJUSTABLE_SU, 1);
 		writeToNBTWithoutCoords(tileEntity, energy);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);

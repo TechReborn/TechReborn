@@ -33,7 +33,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.storage.TileAdjustableSU;
 
 public class BlockAdjustableSU extends BlockEnergyStorage {
@@ -50,7 +50,7 @@ public class BlockAdjustableSU extends BlockEnergyStorage {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
-			drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_ELITE));
+			drops.add(new ItemStack(TRContent.MachineBlocks.INDUSTRIAL.getFrame()));
 		} else {
 			super.getDrops(drops, world, pos, state, fortune);
 		}

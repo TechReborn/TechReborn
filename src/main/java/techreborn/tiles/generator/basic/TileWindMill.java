@@ -32,7 +32,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -95,6 +95,6 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(ModBlocks.WIND_MILL);
+		return new ItemStack(TRBlocks.WIND_MILL);
 	}
 }

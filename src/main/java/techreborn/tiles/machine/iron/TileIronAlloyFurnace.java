@@ -46,7 +46,7 @@ import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileIronAlloyFurnace extends TileMachineBase
@@ -297,7 +297,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(ModBlocks.IRON_ALLOY_FURNACE, 1);
+		return new ItemStack(TRBlocks.IRON_ALLOY_FURNACE, 1);
 	}
 
 	public boolean isComplete() {

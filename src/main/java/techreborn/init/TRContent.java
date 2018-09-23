@@ -184,7 +184,7 @@ public class TRContent {
 
 	}
 
-	public static enum Cables {
+	public static enum Cables implements IItemProvider {
 		COPPER(128, 12.0, true, EnumPowerTier.MEDIUM),
 		TIN(32, 12.0, true, EnumPowerTier.LOW),
 		GOLD(512, 12.0, true, EnumPowerTier.HIGH),
@@ -215,6 +215,11 @@ public class TRContent {
 			this.tier = tier;
 			this.block = new BlockCable(this);
 			InitUtils.setup(block, name + "_cable");
+		}
+		
+		@Override
+		public Item asItem() {
+			return Item.getItemFromBlock(block);
 		}
 	}
 

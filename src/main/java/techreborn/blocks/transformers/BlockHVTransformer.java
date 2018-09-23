@@ -32,7 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.transformers.TileHVTransformer;
 
 /**
@@ -52,7 +52,7 @@ public class BlockHVTransformer extends BlockTransformer {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
 		if (RebornCoreConfig.wrenchRequired){
-			drops.add(new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED));
+			drops.add(new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
 		}
 		else {
 			drops.add(new ItemStack(this));

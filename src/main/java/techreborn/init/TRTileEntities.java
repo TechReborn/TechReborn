@@ -55,7 +55,7 @@ import techreborn.tiles.transformers.TileMVTransformer;
 
 import java.util.Arrays;
 
-public enum ModTileEntities {
+public enum TRTileEntities {
 
 	THERMAL_GEN(TileThermalGenerator.class,  "thermal_generator"),
 	QUANTUM_TANK(TileQuantumTank.class,  "quantum_tank"),
@@ -119,17 +119,17 @@ public enum ModTileEntities {
 	public Class<? extends TileEntity> tileClass;
 	public ResourceLocation name;
 
-	ModTileEntities(Class<? extends TileEntity> tileClass, ResourceLocation name) {
+	TRTileEntities(Class<? extends TileEntity> tileClass, ResourceLocation name) {
 		this.tileClass = tileClass;
 		this.name = name;
 	}
-	ModTileEntities(Class<? extends TileEntity> tileClass, String name) {
+	TRTileEntities(Class<? extends TileEntity> tileClass, String name) {
 		this(tileClass,  new ResourceLocation(TechReborn.MOD_ID, name));
 	}
 
 
 	public static void init(){
-		Arrays.stream(ModTileEntities.values())
+		Arrays.stream(TRTileEntities.values())
 			.forEach(modTileEntities -> GameRegistry.registerTileEntity(modTileEntities.tileClass, modTileEntities.name));
 	}
 

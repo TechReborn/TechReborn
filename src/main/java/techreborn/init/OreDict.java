@@ -24,11 +24,15 @@
 
 package techreborn.init;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.OreUtil;
+import reborncore.common.util.StringUtils;
+import techreborn.init.TRContent.Dusts;
+import techreborn.init.TRContent.Ores;
 
 public class OreDict {
 
@@ -43,11 +47,11 @@ public class OreDict {
 	 */
 	public static void init() {
 		// Blocks
-		OreUtil.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
-		OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
-		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
-		OreUtil.registerOre("treeSapling", ModBlocks.RUBBER_SAPLING);
-		OreUtil.registerOre("saplingRubber", ModBlocks.RUBBER_SAPLING);
+		OreUtil.registerOre("fenceIron", TRBlocks.REFINED_IRON_FENCE);
+		OreUtil.registerOre("woodRubber", TRBlocks.RUBBER_LOG);
+		OreUtil.registerOre("glassReinforced", TRBlocks.REINFORCED_GLASS);
+		OreUtil.registerOre("treeSapling", TRBlocks.RUBBER_SAPLING);
+		OreUtil.registerOre("saplingRubber", TRBlocks.RUBBER_SAPLING);
 
 		//		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
 		//		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
@@ -72,10 +76,10 @@ public class OreDict {
 		OreUtil.registerOre("itemRubber", TRContent.Parts.RUBBER.getStack());
 
 		// Frames
-		OreUtil.registerOre("machineBasic", new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC));
-		OreUtil.registerOre("machineBlockBasic", new ItemStack(ModBlocks.MACHINE_BLOCK_BASIC));
-		OreUtil.registerOre("machineBlockAdvanced", new ItemStack(ModBlocks.MACHINE_BLOCK_ADVANCED));
-		OreUtil.registerOre("machineBlockElite", new ItemStack(ModBlocks.MACHINE_BLOCK_ELITE));
+		OreUtil.registerOre("machineBasic", new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
+		OreUtil.registerOre("machineBlockBasic", new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
+		OreUtil.registerOre("machineBlockAdvanced", new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
+		OreUtil.registerOre("machineBlockElite", new ItemStack(TRContent.MachineBlocks.INDUSTRIAL.getFrame()));
 
 		// Tools&Armor
 		OreUtil.registerOre("reBattery", TRItems.RED_CELL_BATTERY);
@@ -91,17 +95,23 @@ public class OreDict {
 		OreUtil.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
 		OreUtil.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
 		OreUtil.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
-		//OreUtil.registerOre("insulatedGoldCableItem", BlockCable.getCableByName("insulatedgold"));
+		OreUtil.registerOre("insulatedGoldCableItem", TRContent.Cables.INSULATED_GOLD.asItem());
 		OreUtil.registerOre("pulpWood", TRContent.Dusts.SAW.getStack());
 
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
+		
+		for (Ores ore : TRContent.Ores.values()) {
+			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore.name), new ItemStack(ore.block));
+		}
+		
+		for (Dusts dust : TRContent.Dusts.values()) {
+			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + dust.name), dust.getStack());
+		}
 
-		//		for (String ore : BlockOre.ores) {
-		//		OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
-		//	}
-
+		
+		
 		//	OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
 		//	OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
 		//	OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));
@@ -152,9 +162,7 @@ public class OreDict {
 		//			 OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		//		}
 
-		//		for (String type : ItemDusts.types) {
-		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + type), ItemDusts.getDustByName(type));
-		//		}
+
 		//
 		//		for (String type : ItemDustsSmall.types) {
 		//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_small_" + type), ItemDustsSmall.getSmallDustByName(type));

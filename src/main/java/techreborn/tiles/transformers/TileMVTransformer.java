@@ -25,7 +25,7 @@
 package techreborn.tiles.transformers;
 
 import reborncore.api.power.EnumPowerTier;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 /**
  * Created by modmuss50 on 16/03/2016.
@@ -33,6 +33,6 @@ import techreborn.init.ModBlocks;
 public class TileMVTransformer extends TileTransformer {
 
 	public TileMVTransformer() {
-		super("MVTransformer", ModBlocks.MV_TRANSFORMER, EnumPowerTier.HIGH);
+		super("MVTransformer", TRBlocks.MV_TRANSFORMER, EnumPowerTier.HIGH);
 	}
 }

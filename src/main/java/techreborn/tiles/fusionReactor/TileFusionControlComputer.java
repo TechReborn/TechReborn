@@ -44,7 +44,7 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean Returns true if block is fusion coil
 	 */
 	public boolean isCoil(BlockPos pos) {
-		return world.getBlockState(pos).getBlock() == ModBlocks.FUSION_COIL;
+		return world.getBlockState(pos).getBlock() == TRBlocks.FUSION_COIL;
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER, 1);
+		return new ItemStack(TRBlocks.FUSION_CONTROL_COMPUTER, 1);
 	}
 
 	// ItemHandlerProvider

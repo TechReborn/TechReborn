@@ -48,7 +48,7 @@ import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.ModBlocks;
+import techreborn.init.TRBlocks;
 import techreborn.tiles.TileGenericMachine;
 import javax.annotation.Nullable;
 
@@ -66,7 +66,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	int ticksSinceLastChange;
 
 	public TileIndustrialSawmill() {
-		super("IndustrialSawmill", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_SAWMILL, 6);
+		super("IndustrialSawmill", maxInput, maxEnergy, TRBlocks.INDUSTRIAL_SAWMILL, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
 		this.inventory = new Inventory<>(7, "TileSawmill", 64, this, getInventoryAccess());
