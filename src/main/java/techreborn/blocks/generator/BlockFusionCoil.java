@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -44,7 +44,6 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 import techreborn.init.ModSounds;
-import techreborn.init.TRContent;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
@@ -68,7 +67,7 @@ public class BlockFusionCoil extends Block {
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
 			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
 				if (playerIn.isSneaking()) {
-					ItemStack drop = new ItemStack(TRContent.FUSION_COIL, 1);
+					ItemStack drop = new ItemStack(this);
 					spawnAsEntity(worldIn, pos, drop);
 					worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);

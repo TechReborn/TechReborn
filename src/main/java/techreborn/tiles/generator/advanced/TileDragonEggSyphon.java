@@ -116,7 +116,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.DRAGON_EGG_SYPHON, 1);
+		return TRContent.Machine.DRAGON_EGG_SYPHON.getStack();
 	}
 
 	// ItemHandlerProvider

@@ -54,7 +54,7 @@ public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IC
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.SEMI_FLUID_GENERATOR, 1);
+		return TRContent.Machine.SEMI_FLUID_GENERATOR.getStack();
 	}
 
 	@Override

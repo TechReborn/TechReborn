@@ -29,8 +29,6 @@ import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.blocks.BlockAlarm;
 import techreborn.blocks.BlockComputerCube;
-import techreborn.blocks.BlockFusionCoil;
-import techreborn.blocks.BlockFusionControlComputer;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockNuke;
@@ -47,6 +45,8 @@ import techreborn.blocks.BlockStorage;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.BlockDieselGenerator;
 import techreborn.blocks.generator.BlockDragonEggSyphon;
+import techreborn.blocks.generator.BlockFusionCoil;
+import techreborn.blocks.generator.BlockFusionControlComputer;
 import techreborn.blocks.generator.BlockGasTurbine;
 import techreborn.blocks.generator.BlockLightningRod;
 import techreborn.blocks.generator.BlockMagicEnergyAbsorber;
@@ -168,22 +168,9 @@ public class TRContent {
 	public static Block RUBBER_SAPLING;
 	
 	// Machines - machines
-
-
 	
 	// Machines - generators
-	public static Block DIESEL_GENERATOR;
-	public static Block DRAGON_EGG_SYPHON;
-	public static Block FUSION_COIL;
-	public static Block FUSION_CONTROL_COMPUTER;
-	public static Block GAS_TURBINE;
-	public static Block LIGHTNING_ROD;
-	public static Block PLASMA_GENERATOR;
-	public static Block SEMI_FLUID_GENERATOR;
-	public static Block SOLID_FUEL_GENEREATOR;
-	public static Block THERMAL_GENERATOR;
-	public static Block WATER_MILL;
-	public static Block WIND_MILL;
+
 	
 	// Machines - storage
 	public static Block CREATIVE_QUANTUM_CHEST;
@@ -358,7 +345,6 @@ public class TRContent {
 			
 			InitUtils.setup(block, name + "_solar_panel");
 		}
-
 	}
 
 	public static enum Cables implements IItemProvider {
@@ -464,6 +450,8 @@ public class TRContent {
 			return casing;
 		}
 	}
+	
+	
 	public static enum Machine {
 		ALLOY_SMELTER(new BlockAlloySmelter()),
 		ASSEMBLY_MACHINE(new BlockAssemblingMachine()),
@@ -487,7 +475,20 @@ public class TRContent {
 		RECYCLER(new BlockRecycler()),
 		ROLLING_MACHINE(new BlockRollingMachine()),
 		SCRAPBOXINATOR(new BlockScrapboxinator()),
-		VACUUM_FREEZER(new BlockVacuumFreezer())
+		VACUUM_FREEZER(new BlockVacuumFreezer()),
+		
+		DIESEL_GENERATOR(new BlockDieselGenerator()),
+		DRAGON_EGG_SYPHON(new BlockDragonEggSyphon()),
+		FUSION_COIL(new BlockFusionCoil()),
+		FUSION_CONTROL_COMPUTER(new BlockFusionControlComputer()),
+		GAS_TURBINE(new BlockGasTurbine()),
+		LIGHTNING_ROD(new BlockLightningRod()),
+		PLASMA_GENERATOR(new BlockPlasmaGenerator()),
+		SEMI_FLUID_GENERATOR(new BlockSemiFluidGenerator()),
+		SOLID_FUEL_GENEREATOR(new BlockSolidFuelGenerator()),
+		THERMAL_GENERATOR(new BlockThermalGenerator()),
+		WATER_MILL(new BlockWaterMill()),
+		WIND_MILL(new BlockWindMill())
 		
 		
 		;
@@ -844,42 +845,6 @@ public class TRContent {
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
 
-		// Machines - generators
-		DIESEL_GENERATOR = new BlockDieselGenerator();
-		registerBlock(DIESEL_GENERATOR, "diesel_generator");
-
-		DRAGON_EGG_SYPHON = new BlockDragonEggSyphon();
-		registerBlock(DRAGON_EGG_SYPHON, "dragon_egg_syphon");
-
-		FUSION_COIL = new BlockFusionCoil();
-		registerBlock(FUSION_COIL, "fusion_coil");
-
-		FUSION_CONTROL_COMPUTER = new BlockFusionControlComputer();
-		registerBlock(FUSION_CONTROL_COMPUTER, "fusion_control_computer");
-
-		GAS_TURBINE = new BlockGasTurbine();
-		registerBlock(GAS_TURBINE, "gas_turbine");
-
-		LIGHTNING_ROD = new BlockLightningRod();
-		registerBlock(LIGHTNING_ROD, "lightning_rod");
-
-		PLASMA_GENERATOR = new BlockPlasmaGenerator();
-		registerBlock(PLASMA_GENERATOR, "plasma_generator");
-
-		SEMI_FLUID_GENERATOR = new BlockSemiFluidGenerator();
-		registerBlock(SEMI_FLUID_GENERATOR, "semi_fluid_generator");
-
-		SOLID_FUEL_GENEREATOR = new BlockSolidFuelGenerator();
-		registerBlock(SOLID_FUEL_GENEREATOR, "solid_fuel_generator");
-
-		THERMAL_GENERATOR = new BlockThermalGenerator();
-		registerBlock(THERMAL_GENERATOR, "thermal_generator");
-
-		WATER_MILL = new BlockWaterMill();
-		registerBlock(WATER_MILL, "water_mill");
-
-		WIND_MILL = new BlockWindMill();
-		registerBlock(WIND_MILL, "wind_mill");
 
 		// Machines - storage
 		CREATIVE_QUANTUM_CHEST = new BlockCreativeQuantumChest();

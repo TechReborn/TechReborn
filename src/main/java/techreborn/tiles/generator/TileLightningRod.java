@@ -145,6 +145,6 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.LIGHTNING_ROD);
+		return TRContent.Machine.LIGHTNING_ROD.getStack();
 	}
 }

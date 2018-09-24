@@ -150,7 +150,7 @@ public class GuiFusionReactor extends GuiBase {
 
 	private void updateMultiBlockRender(){
 		final Multiblock multiblock = new Multiblock();
-		IBlockState coil = TRContent.FUSION_COIL.getDefaultState();
+		IBlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
 
 		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
 		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));

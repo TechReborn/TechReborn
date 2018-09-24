@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.generator;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -60,7 +60,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
 									final float hitX, final float hitY, final float hitZ) {
 		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world.getTileEntity(pos);
-		if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRContent.FUSION_COIL)){
+		if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRContent.Machine.FUSION_COIL.block)){
 			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
 			boolean placed = false;
 			for(BlockPos coil : coils){
@@ -68,7 +68,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 					return true;
 				}
 				if(world.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
-					world.setBlockState(coil, TRContent.FUSION_COIL.getDefaultState());
+					world.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
 					if(!player.isCreative()){
 						player.getHeldItem(hand).shrink(1);
 					}

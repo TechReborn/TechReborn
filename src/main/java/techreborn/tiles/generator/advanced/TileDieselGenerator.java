@@ -54,7 +54,7 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.DIESEL_GENERATOR, 1);
+		return TRContent.Machine.DIESEL_GENERATOR.getStack();
 	}
 
 	@Override

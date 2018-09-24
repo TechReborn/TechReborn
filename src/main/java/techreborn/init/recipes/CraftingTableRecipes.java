@@ -97,17 +97,17 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShaped(ItemUpgrades.getUpgradeByName("transformer"), "GGG", "WTW", "GCG", 'G', "blockGlass", 'W', EnumCableType.IGOLD.getStack(), 'C', "circuitBasic", 'T', getStack(ModBlocks.MV_TRANSFORMER));
 
 		//Machines
-		registerShapeless(getStack(TRContent.SOLID_FUEL_GENEREATOR), "reBattery", "machineBlockBasic", getStack(Blocks.FURNACE));
-		registerShaped(getStack(TRContent.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
-		registerShaped(getStack(TRContent.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateAluminum", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
-		registerShaped(getStack(TRContent.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "ingotRefinedIron", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
-		registerShaped(getStack(TRContent.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateAluminum", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
-		registerShaped(getStack(TRContent.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateInvar", 'A', "circuitAdvanced", 'W', getStack(TRContent.WIND_MILL), 'G', "glassReinforced");
-		registerShaped(getStack(TRContent.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateAluminum", 'A', "circuitAdvanced", 'W', getStack(TRContent.WIND_MILL), 'G', "glassReinforced");
-		registerShaped(getStack(TRContent.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "plateInvar", 'R', "glassReinforced", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR), 'C', "circuitBasic");
-		registerShaped(getStack(TRContent.WIND_MILL), " I ", " G ", " I ", 'I', "plateMagnalium", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
-		registerShaped(getStack(TRContent.WIND_MILL), "IGI", 'I', "plateMagnalium", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
-		registerShaped(getStack(TRContent.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShapeless(getStack(TRContent.SOLID_FUEL_GENEREATOR), "reBattery", "machineBlockBasic", getStack(Blocks.FURNACE));
+//		registerShaped(getStack(TRContent.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateAluminum", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "ingotRefinedIron", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateAluminum", 'C', "circuitBasic", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateInvar", 'A', "circuitAdvanced", 'W', getStack(TRContent.WIND_MILL), 'G', "glassReinforced");
+//		registerShaped(getStack(TRContent.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateAluminum", 'A', "circuitAdvanced", 'W', getStack(TRContent.WIND_MILL), 'G', "glassReinforced");
+//		registerShaped(getStack(TRContent.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "plateInvar", 'R', "glassReinforced", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR), 'C', "circuitBasic");
+//		registerShaped(getStack(TRContent.WIND_MILL), " I ", " G ", " I ", 'I', "plateMagnalium", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.WIND_MILL), "IGI", 'I', "plateMagnalium", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
 //		registerShaped(getStack(ModBlocks.LIGHTNING_ROD), "CAC", "ACA", "CAC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'C', "circuitMaster");
 		registerShaped(TRContent.Machine.IRON_ALLOY_FURNACE.getStack(), "III", "F F", "III", 'I', "ingotRefinedIron", 'F', TRContent.Machine.IRON_FURNACE.getStack());
 		registerShaped(TRContent.Machine.INDUSTRIAL_ELECTROLYZER.getStack(), "RER", "CFC", "RER", 'R', "plateIron", 'E', TRContent.Machine.EXTRACTOR.getStack(), 'C', "circuitAdvanced", 'F', "machineBlockAdvanced");
@@ -129,15 +129,15 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(TRContent.LAPOTRONIC_SU),  " L ", "CBC", " M ", 'L', getStack(TRContent.LV_TRANSFORMER), 'C', "circuitAdvanced", 'M', getStack(TRContent.MV_TRANSFORMER), 'B', getStack(TRContent.LSU_STORAGE));
 		registerShaped(getStack(TRContent.LSU_STORAGE), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C', "circuitBasic");
 //		registerShaped(getStack(TRContent.SCRAPBOXINATOR), "ICI", "DSD", "ICI", 'S', getStack(TRContent.SCRAP_BOX), 'C', "circuitBasic", 'I', "plateIron", 'D', "dirt");
-		registerShaped(getStack(TRContent.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P', "energyCrystal", 'T', getStack(TRContent.FUSION_COIL), 'C', "circuitMaster");
+//		registerShaped(getStack(TRContent.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P', "energyCrystal", 'T', getStack(TRContent.FUSION_COIL), 'C', "circuitMaster");
 //		registerShaped(getStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', getMaterial("nichromeHeatingCoil", Type.PART), 'C', "circuitMaster", 'S', "craftingSuperconductor", 'R', getMaterial("iridiumNeutronReflector", Type.PART));
 		registerShaped(getStack(TRContent.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
 		registerShaped(getStack(TRContent.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
 //		registerShaped(getStack(TRContent.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(TRContent.EXTRACTOR), 'A', "machineBlockElite", 'O', getStack(TRContent.LAPOTRONIC_ORB));
 		registerShaped(getStack(TRContent.COMPUTER_CUBE), "OMC", "MFM", "CMO", 'O', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'M', TRContent.Parts.DIGITAL_DISPLAY.getStack(), 'C', "circuitMaster", 'F', "machineBlockAdvanced");
 		registerShaped(getStack(TRContent.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', "circuitStorage", 'C', "circuitAdvanced", 'F',  getStack(TRContent.COMPUTER_CUBE));
-		registerShaped(getStack(TRContent.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(TRContent.MEDIUM_VOLTAGE_SU), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(TRContent.LAPOTRONIC_ORB));
-		registerShaped(getStack(TRContent.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(TRContent.HV_TRANSFORMER), 'C', "circuitMaster", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
+//		registerShaped(getStack(TRContent.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(TRContent.MEDIUM_VOLTAGE_SU), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(TRContent.LAPOTRONIC_ORB));
+//		registerShaped(getStack(TRContent.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(TRContent.HV_TRANSFORMER), 'C', "circuitMaster", 'G', getStack(TRContent.SOLID_FUEL_GENEREATOR));
 //		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 0), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "paneGlass", 'G', getStack(ModBlocks.SOLID_FUEL_GENEREATOR), 'C', "circuitBasic");
 //		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 0));
 //		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', "machineBlockBasic");

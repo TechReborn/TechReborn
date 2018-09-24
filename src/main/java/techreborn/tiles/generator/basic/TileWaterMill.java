@@ -107,6 +107,6 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.WATER_MILL);
+		return TRContent.Machine.WATER_MILL.getStack();
 	}
 }

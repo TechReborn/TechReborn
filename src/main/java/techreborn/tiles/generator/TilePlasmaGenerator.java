@@ -53,7 +53,7 @@ public class TilePlasmaGenerator extends TileBaseFluidGenerator implements ICont
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.PLASMA_GENERATOR, 1);
+		return TRContent.Machine.PLASMA_GENERATOR.getStack();
 	}
 
 	@Override

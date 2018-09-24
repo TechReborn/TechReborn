@@ -147,7 +147,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.SOLID_FUEL_GENEREATOR);
+		return TRContent.Machine.SOLID_FUEL_GENEREATOR.getStack();
 	}
 
 	@Override

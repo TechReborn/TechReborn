@@ -54,7 +54,7 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.GAS_TURBINE, 1);
+		return TRContent.Machine.GAS_TURBINE.getStack();
 	}
 
 	@Override

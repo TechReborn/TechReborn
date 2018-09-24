@@ -105,7 +105,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean Returns true if block is fusion coil
 	 */
 	public boolean isCoil(BlockPos pos) {
-		return world.getBlockState(pos).getBlock() == TRContent.FUSION_COIL;
+		return world.getBlockState(pos).getBlock() == TRContent.Machine.FUSION_COIL.block;
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.FUSION_CONTROL_COMPUTER, 1);
+		return TRContent.Machine.FUSION_CONTROL_COMPUTER.getStack();
 	}
 
 	// ItemHandlerProvider

@@ -95,6 +95,6 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.WIND_MILL);
+		return TRContent.Machine.WIND_MILL.getStack();
 	}
 }
