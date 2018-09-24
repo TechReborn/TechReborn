@@ -131,8 +131,8 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShaped(getStack(TRContent.SCRAPBOXINATOR), "ICI", "DSD", "ICI", 'S', getStack(TRContent.SCRAP_BOX), 'C', "circuitBasic", 'I', "plateIron", 'D', "dirt");
 //		registerShaped(getStack(TRContent.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P', "energyCrystal", 'T', getStack(TRContent.FUSION_COIL), 'C', "circuitMaster");
 //		registerShaped(getStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', getMaterial("nichromeHeatingCoil", Type.PART), 'C', "circuitMaster", 'S', "craftingSuperconductor", 'R', getMaterial("iridiumNeutronReflector", Type.PART));
-		registerShaped(getStack(TRContent.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
-		registerShaped(getStack(TRContent.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
+//		registerShaped(getStack(TRContent.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateAluminum",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
+//		registerShaped(getStack(TRContent.DIGITAL_CHEST), "PPP", "PDP", "PCP", 'P', "plateSteel",  'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack());
 //		registerShaped(getStack(TRContent.MATTER_FABRICATOR), "ETE", "AOA", "ETE", 'E', "circuitMaster", 'T', getStack(TRContent.EXTRACTOR), 'A', "machineBlockElite", 'O', getStack(TRContent.LAPOTRONIC_ORB));
 		registerShaped(getStack(TRContent.COMPUTER_CUBE), "OMC", "MFM", "CMO", 'O', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'M', TRContent.Parts.DIGITAL_DISPLAY.getStack(), 'C', "circuitMaster", 'F', "machineBlockAdvanced");
 		registerShaped(getStack(TRContent.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', "circuitStorage", 'C', "circuitAdvanced", 'F',  getStack(TRContent.COMPUTER_CUBE));
@@ -163,7 +163,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShaped(getStack(TRContent.EXTRACTOR), "TMT", "TCT", "   ", 'T', getStack(TRContent.TREE_TAP, true), 'M', "machineBlockBasic", 'C', "circuitBasic");
 //		registerShaped(getStack(TRContent.GRINDER), "FFF", "SMS", " C ", 'F', Items.FLINT, 'S', getStack(Blocks.COBBLESTONE), 'M', "machineBlockBasic", 'C', "circuitBasic");
 //		registerShaped(getStack(TRContent.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', TRContent.Parts.DATA_STORAGE_CORE.getStack(), 'C', TRContent.Parts.DIGITAL_DISPLAY.getStack(), 'A', "machineBlockElite", 'Q', getStack(TRContent.DIGITAL_CHEST), 'T', getStack(TRContent.COMPRESSOR));
-		registerShaped(getStack(TRContent.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "platePlatinum", 'E', "circuitAdvanced", 'C', getStack(TRContent.QUANTUM_CHEST));
+//		registerShaped(getStack(TRContent.QUANTUM_TANK), "EPE", "PCP", "EPE", 'P', "platePlatinum", 'E', "circuitAdvanced", 'C', getStack(TRContent.QUANTUM_CHEST));
 		registerShaped(getStack(TRContent.LAMP_INCANDESCENT), "GGG", "TCT", "GGG", 'G', "paneGlass", 'T', getMaterial("copper", Type.CABLE), 'C', TRContent.Parts.CARBON_FIBER.getStack());
 		registerShaped(getStack(TRContent.LAMP_LED), "GGG", "TLT", "GGG", 'G', "paneGlass", 'T', getMaterial("tin", Type.CABLE), 'L', "dustGlowstone");
 

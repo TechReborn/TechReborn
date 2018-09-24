@@ -68,7 +68,7 @@ public class TileQuantumTank extends TileMachineBase
 	
 	public ItemStack getDropWithNBT() {
 		final NBTTagCompound tileEntity = new NBTTagCompound();
-		final ItemStack dropStack = new ItemStack(TRContent.QUANTUM_TANK, 1);
+		final ItemStack dropStack = TRContent.Machine.QUANTUM_TANK.getStack();
 		this.writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
