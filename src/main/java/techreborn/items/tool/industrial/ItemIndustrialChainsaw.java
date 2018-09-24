@@ -38,7 +38,6 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.TRItems;
 import techreborn.items.tool.ItemChainsaw;
 
 public class ItemIndustrialChainsaw extends ItemChainsaw {
@@ -56,7 +55,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRItems.INDUSTRIAL_CHAINSAW);
+		ItemStack stack = new ItemStack(this);
 	//	ItemStack charged = stack.copy();
 	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

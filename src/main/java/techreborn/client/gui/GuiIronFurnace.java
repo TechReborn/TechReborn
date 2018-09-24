@@ -29,7 +29,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import techreborn.init.TRItems;
+import techreborn.init.TRContent;
 import techreborn.tiles.machine.iron.TileIronFurnace;
 
 public class GuiIronFurnace extends GuiBase {
@@ -50,7 +50,7 @@ public class GuiIronFurnace extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades, new ItemStack(TRItems.WRENCH));
+		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades, new ItemStack(TRContent.WRENCH));
 		this.mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
 		final int k = (this.width - this.xSize) / 2;
 		final int l = (this.height - this.ySize) / 2;

@@ -31,7 +31,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import techreborn.init.TRItems;
+import techreborn.init.TRContent;
 
 public class TRTickHandler {
 
@@ -43,7 +43,7 @@ public class TRTickHandler {
 		Item chestslot = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty()
 		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
 
-		if (previouslyWearing != chestslot && previouslyWearing == TRItems.CLOAKING_DEVICE && player.isInvisible()
+		if (previouslyWearing != chestslot && previouslyWearing == TRContent.CLOAKING_DEVICE && player.isInvisible()
 			&& !player.isPotionActive(MobEffects.INVISIBILITY)) {
 			player.setInvisible(false);
 		}

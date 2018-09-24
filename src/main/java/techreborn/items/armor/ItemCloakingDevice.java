@@ -46,8 +46,6 @@ import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.TRItems;
-
 import javax.annotation.Nullable;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -90,7 +88,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRItems.CLOAKING_DEVICE);
+		ItemStack uncharged = new ItemStack(this);
 //		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
 //		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 //		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

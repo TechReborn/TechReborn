@@ -65,7 +65,7 @@ public final class TechRebornAPI {
 	 */
 	public static Item getItem(String name) {
 		try {
-			Object e = Class.forName("techreborn.init.TRItems").getField(name).get(null);
+			Object e = Class.forName("techreborn.init.TRContent").getField(name).get(null);
 			return e instanceof Item ? (Item) e : null;
 		} catch (NoSuchFieldException e1) {
 			e1.printStackTrace();
@@ -89,7 +89,7 @@ public final class TechRebornAPI {
 	 */
 	public static Item getIngredient(String name) {
 		try {
-			Object e = Class.forName("techreborn.init.TRIngredient").getField(name).get(null);
+			Object e = Class.forName("techreborn.init.TRContent").getField(name).get(null);
 			return e instanceof Item ? (Item) e : null;
 		} catch (NoSuchFieldException e1) {
 			e1.printStackTrace();

@@ -5,20 +5,25 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.RebornRegistry;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IUpgrade;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.util.BucketHandler;
 import techreborn.TechReborn;
+import techreborn.api.Reference;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.blocks.BlockMachineFrame;
 import techreborn.blocks.BlockOre;
@@ -27,130 +32,166 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.blocks.tier1.BlockElectricFurnace;
 import techreborn.config.ConfigTechReborn;
+import techreborn.items.DynamicCell;
+import techreborn.items.ItemFrequencyTransmitter;
+import techreborn.items.ItemManual;
+import techreborn.items.ItemScrapBox;
 import techreborn.items.ItemUpgrade;
+import techreborn.items.armor.ItemCloakingDevice;
+import techreborn.items.armor.ItemLapotronicOrbpack;
+import techreborn.items.armor.ItemLithiumIonBatpack;
+import techreborn.items.armor.ItemTRArmour;
+import techreborn.items.battery.ItemEnergyCrystal;
+import techreborn.items.battery.ItemLapotronCrystal;
+import techreborn.items.battery.ItemLapotronicOrb;
+import techreborn.items.battery.ItemLithiumIonBattery;
+import techreborn.items.battery.ItemRedCellBattery;
+import techreborn.items.tool.ItemDebugTool;
+import techreborn.items.tool.ItemTreeTap;
+import techreborn.items.tool.ItemWrench;
+import techreborn.items.tool.advanced.ItemAdvancedChainsaw;
+import techreborn.items.tool.advanced.ItemAdvancedDrill;
+import techreborn.items.tool.advanced.ItemAdvancedJackhammer;
+import techreborn.items.tool.advanced.ItemRockCutter;
+import techreborn.items.tool.basic.ItemBasicChainsaw;
+import techreborn.items.tool.basic.ItemBasicDrill;
+import techreborn.items.tool.basic.ItemBasicJackhammer;
+import techreborn.items.tool.basic.ItemElectricTreetap;
+import techreborn.items.tool.industrial.ItemIndustrialChainsaw;
+import techreborn.items.tool.industrial.ItemIndustrialDrill;
+import techreborn.items.tool.industrial.ItemIndustrialJackhammer;
+import techreborn.items.tool.industrial.ItemNanosaber;
+import techreborn.items.tool.industrial.ItemOmniTool;
+import techreborn.items.tool.vanilla.ItemTRAxe;
+import techreborn.items.tool.vanilla.ItemTRHoe;
+import techreborn.items.tool.vanilla.ItemTRSpade;
+import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Maps;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TRContent {
-
-	public static void registerBlocks() {
-		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(MachineBlocks.values()).forEach(value -> {
-			RebornRegistry.registerBlock(value.frame);
-			RebornRegistry.registerBlock(value.casing);
-		});
-		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-	}
-
-	public static void registerItems() {
-		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
-	}
-
-	@SideOnly(Side.CLIENT)
-	public static void registerModel() {
-		ResourceLocation dustsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/dust");
-		Arrays.stream(Dusts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(dustsRL, "type=" + value.name)));
-
-		ResourceLocation dustsSmallRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/small_dust");
-		Arrays.stream(SmallDusts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(dustsSmallRL, "type=" + value.name)));
-
-		ResourceLocation gemsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/gem");
-		Arrays.stream(Gems.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(gemsRL, "type=" + value.name)));
-
-		ResourceLocation ingotsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/ingot");
-		Arrays.stream(Ingots.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(ingotsRL, "type=" + value.name)));
-
-		ResourceLocation nuggetsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/nugget");
-		Arrays.stream(Nuggets.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(nuggetsRL, "type=" + value.name)));
-
-		ResourceLocation partsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/part");
-		Arrays.stream(Parts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(partsRL, "type=" + value.name)));
-
-		ResourceLocation platesRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/plate");
-		Arrays.stream(Plates.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(platesRL, "type=" + value.name)));
-		
-		ResourceLocation upgradeRL = new ResourceLocation(TechReborn.MOD_ID, "items/misc/upgrades");
-		Arrays.stream(Upgrades.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
-			new ModelResourceLocation(upgradeRL, "type=" + value.name)));
-
-		ResourceLocation oresRL = new ResourceLocation(TechReborn.MOD_ID, "ore");
-		for (Ores value : Ores.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(oresRL, "type=" + value.name));
-			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(oresRL, "type=" + value.name);
-				}
-			});
-		}
-
-		ResourceLocation storageRL = new ResourceLocation(TechReborn.MOD_ID, "storage_block");
-		for (StorageBlocks value : StorageBlocks.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(storageRL, "type=" + value.name));
-			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(storageRL, "type=" + value.name);
-				}
-			});
-		}
-
-		ResourceLocation machineBlockRL = new ResourceLocation(TechReborn.MOD_ID, "machine_block");
-		for (MachineBlocks value : MachineBlocks.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.frame), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame"));
-			ModelLoader.setCustomStateMapper(value.frame, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame");
-				}
-			});
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.casing), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing"));
-			ModelLoader.setCustomStateMapper(value.casing, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing");
-				}
-			});
-		}
-		
-		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
-		for (Cables value : Cables.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0,
-					new ModelResourceLocation(cableRL, "type=" + value.name));
-			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
-					String property = this.getPropertyString(map) + ",ztype=" + value.name;
-
-					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID,
-							"cable_" + (value.cableThickness == 5 ? "thick" : "thin")), property);
-				}
-			});
-		}
-	}
 	
+	// Armor
+	public static Item CLOAKING_DEVICE;
+	public static Item LAPOTRONIC_ORBPACK;
+	public static Item LITHIUM_ION_BATPACK;
+
+	// Battery
+	public static Item ENERGY_CRYSTAL;
+	public static Item LAPOTRON_CRYSTAL;
+	public static Item LAPOTRONIC_ORB;
+	public static Item LITHIUM_ION_BATTERY;
+	public static Item RED_CELL_BATTERY;
+
+	// Tools
+	public static Item TREE_TAP;
+	public static Item WRENCH;
+
+	public static Item BASIC_CHAINSAW;
+	public static Item BASIC_DRILL;
+	public static Item BASIC_JACKHAMMER;
+	public static Item ELECTRIC_TREE_TAP;
+
+	public static Item ADVANCED_CHAINSAW;
+	public static Item ADVANCED_DRILL;
+	public static Item ADVANCED_JACKHAMMER;
+	public static Item ROCK_CUTTER;
+
+	public static Item INDUSTRIAL_CHAINSAW;
+	public static Item INDUSTRIAL_DRILL;
+	public static Item INDUSTRIAL_JACKHAMMER;
+	public static Item NANOSABER;
+	public static Item OMNI_TOOL;
+
+	public static Item DEBUG_TOOL;
+
+	// Other
+	public static Item FREQUENCY_TRANSMITTER;
+	public static Item SCRAP_BOX;
+	public static Item MANUAL;
+	public static DynamicCell CELL;
+
+	// Gem armor & tools
+	@Nullable
+	public static Item BRONZE_SWORD;
+	@Nullable
+	public static Item BRONZE_PICKAXE;
+	@Nullable
+	public static Item BRONZE_SPADE;
+	@Nullable
+	public static Item BRONZE_AXE;
+	@Nullable
+	public static Item BRONZE_HOE;
+	@Nullable
+	public static Item BRONZE_HELMET;
+	@Nullable
+	public static Item BRONZE_CHESTPLATE;
+	@Nullable
+	public static Item BRONZE_LEGGINGS;
+	@Nullable
+	public static Item BRONZE_BOOTS;
+	@Nullable
+	public static Item RUBY_SWORD;
+	@Nullable
+	public static Item RUBY_PICKAXE;
+	@Nullable
+	public static Item RUBY_SPADE;
+	@Nullable
+	public static Item RUBY_AXE;
+	@Nullable
+	public static Item RUBY_HOE;
+	@Nullable
+	public static Item RUBY_HELMET;
+	@Nullable
+	public static Item RUBY_CHESTPLATE;
+	@Nullable
+	public static Item RUBY_LEGGINGS;
+	@Nullable
+	public static Item RUBY_BOOTS;
+	@Nullable
+	public static Item SAPPHIRE_SWORD;
+	@Nullable
+	public static Item SAPPHIRE_PICKAXE;
+	@Nullable
+	public static Item SAPPHIRE_SPADE;
+	@Nullable
+	public static Item SAPPHIRE_AXE;
+	@Nullable
+	public static Item SAPPHIRE_HOE;
+	@Nullable
+	public static Item SAPPHIRE_HELMET;
+	@Nullable
+	public static Item SAPPHIRE_CHESTPLATE;
+	@Nullable
+	public static Item SAPPHIRE_LEGGINGS;
+	@Nullable
+	public static Item SAPPHIRE_BOOTS;
+	@Nullable
+	public static Item PERIDOT_SWORD;
+	@Nullable
+	public static Item PERIDOT_PICKAXE;
+	@Nullable
+	public static Item PERIDOT_SPADE;
+	@Nullable
+	public static Item PERIDOT_AXE;
+	@Nullable
+	public static Item PERIDOT_HOE;
+	@Nullable
+	public static Item PERIDOT_HELMET;
+	@Nullable
+	public static Item PERIDOT_CHESTPLATE;
+	@Nullable
+	public static Item PERIDOT_LEGGINGS;
+	@Nullable
+	public static Item PERIDOT_BOOTS;
+		
 	public static enum SolarPanels {
 		BASIC(EnumPowerTier.MICRO, ConfigTechReborn.basicGenerationRateD, ConfigTechReborn.basicGenerationRateN), 
 		ADVANCED(EnumPowerTier.LOW, ConfigTechReborn.advancedGenerationRateD, ConfigTechReborn.advancedGenerationRateN), 
@@ -594,4 +635,210 @@ public class TRContent {
 			return item;
 		}
 	}
+	
+	public static void registerBlocks() {
+		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(MachineBlocks.values()).forEach(value -> {
+			RebornRegistry.registerBlock(value.frame);
+			RebornRegistry.registerBlock(value.casing);
+		});
+		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+	}
+
+	public static void registerItems() {
+		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Dusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		
+		// Gem armor & tools
+		if (ConfigTechReborn.enableGemArmorAndTools) {
+			//Todo: repair with tags
+			RebornRegistry.registerItem(BRONZE_SWORD = InitUtils.setup(new ItemTRSword(Reference.BRONZE, "ingotBronze"), "bronze_sword"));
+			RebornRegistry.registerItem(BRONZE_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.BRONZE, "ingotBronze"), "bronze_pickaxe"));
+			RebornRegistry.registerItem(BRONZE_SPADE = InitUtils.setup(new ItemTRSpade(Reference.BRONZE, "ingotBronze"), "bronze_spade"));
+			RebornRegistry.registerItem(BRONZE_AXE = InitUtils.setup(new ItemTRAxe(Reference.BRONZE, "ingotBronze"), "bronze_axe"));
+			RebornRegistry.registerItem(BRONZE_HOE = InitUtils.setup(new ItemTRHoe(Reference.BRONZE, "ingotBronze"), "bronze_hoe"));
+
+			RebornRegistry.registerItem(BRONZE_HELMET = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.HEAD, "ingotBronze"), "bronze_helmet"));
+			RebornRegistry.registerItem(BRONZE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.CHEST, "ingotBronze"), "bronze_chestplate"));
+			RebornRegistry.registerItem(BRONZE_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.LEGS, "ingotBronze"), "bronze_leggings"));
+			RebornRegistry.registerItem(BRONZE_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.BRONZE_ARMOUR, EntityEquipmentSlot.FEET, "ingotBronze"), "bronze_boots"));
+
+			RebornRegistry.registerItem(RUBY_SWORD = InitUtils.setup(new ItemTRSword(Reference.RUBY, "gemRuby"), "ruby_sword"));
+			RebornRegistry.registerItem(RUBY_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.RUBY, "gemRuby"), "ruby_pickaxe"));
+			RebornRegistry.registerItem(RUBY_SPADE = InitUtils.setup(new ItemTRSpade(Reference.RUBY, "gemRuby"), "ruby_spade"));
+			RebornRegistry.registerItem(RUBY_AXE = InitUtils.setup(new ItemTRAxe(Reference.RUBY, "gemRuby"), "ruby_axe"));
+			RebornRegistry.registerItem(RUBY_HOE = InitUtils.setup(new ItemTRHoe(Reference.RUBY, "gemRuby"), "ruby_hoe"));
+
+			RebornRegistry.registerItem(RUBY_HELMET = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.HEAD, "gemRuby"), "ruby_helmet"));
+			RebornRegistry.registerItem(RUBY_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.CHEST, "gemRuby"), "ruby_chestplate"));
+			RebornRegistry.registerItem(RUBY_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.LEGS, "gemRuby"), "ruby_leggings"));
+			RebornRegistry.registerItem(RUBY_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.RUBY_ARMOUR, EntityEquipmentSlot.FEET, "gemRuby"), "ruby_boots"));
+
+			RebornRegistry.registerItem(SAPPHIRE_SWORD = InitUtils.setup(new ItemTRSword(Reference.SAPPHIRE, "gemSapphire"), "sapphire_sword"));
+			RebornRegistry.registerItem(SAPPHIRE_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.SAPPHIRE, "gemSapphire"), "sapphire_pickaxe"));
+			RebornRegistry.registerItem(SAPPHIRE_SPADE = InitUtils.setup(new ItemTRSpade(Reference.SAPPHIRE, "gemSapphire"), "sapphire_spade"));
+			RebornRegistry.registerItem(SAPPHIRE_AXE = InitUtils.setup(new ItemTRAxe(Reference.SAPPHIRE, "gemSapphire"), "sapphire_axe"));
+			RebornRegistry.registerItem(SAPPHIRE_HOE = InitUtils.setup(new ItemTRHoe(Reference.SAPPHIRE, "gemSapphire"), "sapphire_hoe"));
+
+			RebornRegistry.registerItem(SAPPHIRE_HELMET = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.HEAD, "gemSapphire"), "sapphire_helmet"));
+			RebornRegistry.registerItem(SAPPHIRE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.CHEST, "gemSapphire"), "sapphire_chestplate"));
+			RebornRegistry.registerItem(SAPPHIRE_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.LEGS, "gemSapphire"), "sapphire_leggings"));
+			RebornRegistry.registerItem(SAPPHIRE_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.SAPPHIRE_ARMOUR, EntityEquipmentSlot.FEET, "gemSapphire"), "sapphire_boots"));
+
+			RebornRegistry.registerItem(PERIDOT_SWORD = InitUtils.setup(new ItemTRSword(Reference.PERIDOT, "gemPeridot"), "peridot_sword"));
+			RebornRegistry.registerItem(PERIDOT_PICKAXE = InitUtils.setup(new ItemTRSword(Reference.PERIDOT, "gemPeridot"), "peridot_pickaxe"));
+			RebornRegistry.registerItem(PERIDOT_SPADE = InitUtils.setup(new ItemTRSpade(Reference.PERIDOT, "gemPeridot"), "peridot_spade"));
+			RebornRegistry.registerItem(PERIDOT_AXE = InitUtils.setup(new ItemTRAxe(Reference.PERIDOT, "gemPeridot"), "peridot_axe"));
+			RebornRegistry.registerItem(PERIDOT_HOE = InitUtils.setup(new ItemTRHoe(Reference.PERIDOT, "gemPeridot"), "peridot_hoe"));
+
+			RebornRegistry.registerItem(PERIDOT_HELMET = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.HEAD, "gemPeridot"), "peridot_helmet"));
+			RebornRegistry.registerItem(PERIDOT_CHESTPLATE = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.CHEST, "gemPeridot"), "peridot_chestplate"));
+			RebornRegistry.registerItem(PERIDOT_LEGGINGS = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.LEGS, "gemPeridot"), "peridot_leggings"));
+			RebornRegistry.registerItem(PERIDOT_BOOTS = InitUtils.setup(new ItemTRArmour(Reference.PERIDOT_ARMOUR, EntityEquipmentSlot.FEET, "gemPeridot"), "peridot_boots"));
+		}
+
+		// Battery
+		RebornRegistry.registerItem(RED_CELL_BATTERY = InitUtils.setup(new ItemRedCellBattery(), "red_cell_battery"));
+		RebornRegistry.registerItem(LITHIUM_ION_BATTERY = InitUtils.setup(new ItemLithiumIonBattery(), "lithium_ion_battery"));
+		RebornRegistry.registerItem(LITHIUM_ION_BATPACK = InitUtils.setup(new ItemLithiumIonBatpack(), "lithium_ion_batpack"));
+		RebornRegistry.registerItem(ENERGY_CRYSTAL = InitUtils.setup(new ItemEnergyCrystal(), "energy_crystal"));
+		RebornRegistry.registerItem(LAPOTRON_CRYSTAL = InitUtils.setup(new ItemLapotronCrystal(), "lapotron_crystal"));
+		RebornRegistry.registerItem(LAPOTRONIC_ORB = InitUtils.setup(new ItemLapotronicOrb(), "lapotronic_orb"));
+		RebornRegistry.registerItem(LAPOTRONIC_ORBPACK = InitUtils.setup(new ItemLapotronicOrbpack(), "lapotronic_orbpack"));
+
+		// Tools
+		RebornRegistry.registerItem(TREE_TAP = InitUtils.setup(new ItemTreeTap(), "treetap"));
+		RebornRegistry.registerItem(WRENCH = InitUtils.setup(new ItemWrench(), "wrench"));
+
+		RebornRegistry.registerItem(BASIC_DRILL = InitUtils.setup(new ItemBasicDrill(), "basic_drill"));
+		RebornRegistry.registerItem(BASIC_CHAINSAW = InitUtils.setup(new ItemBasicChainsaw(), "basic_chainsaw"));
+		RebornRegistry.registerItem(BASIC_JACKHAMMER = InitUtils.setup(new ItemBasicJackhammer(), "basic_jackhammer"));
+		RebornRegistry.registerItem(ELECTRIC_TREE_TAP = InitUtils.setup(new ItemElectricTreetap(), "electric_treetap"));
+
+		RebornRegistry.registerItem(ADVANCED_DRILL = InitUtils.setup(new ItemAdvancedDrill(), "advanced_drill"));
+		RebornRegistry.registerItem(ADVANCED_CHAINSAW = InitUtils.setup(new ItemAdvancedChainsaw(), "advanced_chainsaw"));
+		RebornRegistry.registerItem(ADVANCED_JACKHAMMER = InitUtils.setup(new ItemAdvancedJackhammer(), "advanced_jackhammer"));
+		RebornRegistry.registerItem(ROCK_CUTTER = InitUtils.setup(new ItemRockCutter(), "rock_cutter"));
+
+		RebornRegistry.registerItem(INDUSTRIAL_DRILL = InitUtils.setup(new ItemIndustrialDrill(), "industrial_drill"));
+		RebornRegistry.registerItem(INDUSTRIAL_CHAINSAW = InitUtils.setup(new ItemIndustrialChainsaw(), "industrial_chainsaw"));
+		RebornRegistry.registerItem(INDUSTRIAL_JACKHAMMER = InitUtils.setup(new ItemIndustrialJackhammer(), "industrial_jackhammer"));
+		RebornRegistry.registerItem(NANOSABER = InitUtils.setup(new ItemNanosaber(), "nanosaber"));
+		RebornRegistry.registerItem(OMNI_TOOL = InitUtils.setup(new ItemOmniTool(), "omni_tool"));
+
+		// Armor
+		RebornRegistry.registerItem(CLOAKING_DEVICE = InitUtils.setup(new ItemCloakingDevice(), "cloaking_device"));
+
+		// Other
+		RebornRegistry.registerItem(FREQUENCY_TRANSMITTER = InitUtils.setup(new ItemFrequencyTransmitter(), "frequency_transmitter"));
+		RebornRegistry.registerItem(SCRAP_BOX = InitUtils.setup(new ItemScrapBox(), "scrap_box"));
+		RebornRegistry.registerItem(MANUAL = InitUtils.setup(new ItemManual(), "manual"));
+		RebornRegistry.registerItem(DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
+		RebornRegistry.registerItem(CELL = InitUtils.setup(new DynamicCell(), "cell"));
+		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);
+
+		// TODO: do we need this at all?
+		BlockMachineBase.advancedFrameStack = new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame());
+		BlockMachineBase.basicFrameStack = new ItemStack(TRContent.MachineBlocks.BASIC.getFrame());
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void registerModel() {
+		ResourceLocation dustsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/dust");
+		Arrays.stream(Dusts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(dustsRL, "type=" + value.name)));
+
+		ResourceLocation dustsSmallRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/small_dust");
+		Arrays.stream(SmallDusts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(dustsSmallRL, "type=" + value.name)));
+
+		ResourceLocation gemsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/gem");
+		Arrays.stream(Gems.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(gemsRL, "type=" + value.name)));
+
+		ResourceLocation ingotsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/ingot");
+		Arrays.stream(Ingots.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(ingotsRL, "type=" + value.name)));
+
+		ResourceLocation nuggetsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/nugget");
+		Arrays.stream(Nuggets.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(nuggetsRL, "type=" + value.name)));
+
+		ResourceLocation partsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/part");
+		Arrays.stream(Parts.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(partsRL, "type=" + value.name)));
+
+		ResourceLocation platesRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/plate");
+		Arrays.stream(Plates.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(platesRL, "type=" + value.name)));
+		
+		ResourceLocation upgradeRL = new ResourceLocation(TechReborn.MOD_ID, "items/misc/upgrades");
+		Arrays.stream(Upgrades.values()).forEach(value -> ModelLoader.setCustomModelResourceLocation(value.item, 0,
+			new ModelResourceLocation(upgradeRL, "type=" + value.name)));
+
+		ResourceLocation oresRL = new ResourceLocation(TechReborn.MOD_ID, "ore");
+		for (Ores value : Ores.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(oresRL, "type=" + value.name));
+			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(oresRL, "type=" + value.name);
+				}
+			});
+		}
+
+		ResourceLocation storageRL = new ResourceLocation(TechReborn.MOD_ID, "storage_block");
+		for (StorageBlocks value : StorageBlocks.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(storageRL, "type=" + value.name));
+			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(storageRL, "type=" + value.name);
+				}
+			});
+		}
+
+		ResourceLocation machineBlockRL = new ResourceLocation(TechReborn.MOD_ID, "machine_block");
+		for (MachineBlocks value : MachineBlocks.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.frame), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame"));
+			ModelLoader.setCustomStateMapper(value.frame, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame");
+				}
+			});
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.casing), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing"));
+			ModelLoader.setCustomStateMapper(value.casing, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing");
+				}
+			});
+		}
+		
+		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
+		for (Cables value : Cables.values()) {
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0,
+					new ModelResourceLocation(cableRL, "type=" + value.name));
+			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
+				@Override
+				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+					Map<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
+					String property = this.getPropertyString(map) + ",ztype=" + value.name;
+
+					return new ModelResourceLocation(new ResourceLocation(TechReborn.MOD_ID,
+							"cable_" + (value.cableThickness == 5 ? "thick" : "thin")), property);
+				}
+			});
+		}
+	}
+
 }

@@ -42,7 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
-import techreborn.init.TRItems;
+import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
@@ -132,7 +132,7 @@ public class ItemFrequencyTransmitter extends Item {
 
 	public static class StackInfoFreqTransmitter extends StackInfoElement {
 		public StackInfoFreqTransmitter() {
-			super(TRItems.FREQUENCY_TRANSMITTER);
+			super(TRContent.FREQUENCY_TRANSMITTER);
 		}
 
 		@Override

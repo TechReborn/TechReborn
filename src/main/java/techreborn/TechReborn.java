@@ -124,7 +124,7 @@ public class TechReborn {
 		TRBlocks.init();
 		TRTileEntities.init();
 		ModFluids.init();
-		TRItems.init();
+		TRContent.registerItems();
 
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
@@ -167,7 +167,7 @@ public class TechReborn {
 		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRItems.SCRAP_BOX, new BehaviorDispenseScrapbox());
+			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);

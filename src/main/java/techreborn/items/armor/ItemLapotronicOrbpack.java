@@ -41,8 +41,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.TRItems;
-
 import javax.annotation.Nullable;
 
 public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo {
@@ -63,7 +61,7 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRItems.LAPOTRONIC_ORBPACK);
+		ItemStack uncharged = new ItemStack(this);
 		//	ItemStack charged = new ItemStack(ModItems.LAPOTRONIC_ORBPACK);
 		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
 		//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

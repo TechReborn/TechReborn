@@ -38,7 +38,6 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.init.TRItems;
 import techreborn.utils.OreDictUtils;
 
 import java.util.List;
@@ -91,7 +90,7 @@ public class BlockBreakHandler {
 
 	@SubscribeEvent
 	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
-		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == TRItems.INDUSTRIAL_CHAINSAW && event.getOriginalSpeed() > 1.0f){
+		if(event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND).getItem() == TRContent.INDUSTRIAL_CHAINSAW && event.getOriginalSpeed() > 1.0f){
 			BlockPos pos = event.getPos();
 			World worldIn = event.getEntityPlayer().world;
 			float speed = 20F;

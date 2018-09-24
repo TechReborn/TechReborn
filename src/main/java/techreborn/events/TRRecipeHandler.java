@@ -35,8 +35,6 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.init.TRItems;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,7 +56,7 @@ public class TRRecipeHandler {
 		if (entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP) {
 			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)) {
 				for (IRecipe recipe : CraftingManager.REGISTRY) {
-					if (recipe.getRecipeOutput().getItem() == TRItems.TREE_TAP) {
+					if (recipe.getRecipeOutput().getItem() == TRContent.TREE_TAP) {
 						entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
 					}
 				}

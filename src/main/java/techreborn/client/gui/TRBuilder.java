@@ -43,7 +43,7 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.TechReborn;
-import techreborn.init.TRItems;
+import techreborn.init.TRContent;
 import techreborn.proxies.ClientProxy;
 
 import java.util.ArrayList;
@@ -455,7 +455,7 @@ public class TRBuilder extends GuiBuilder {
 		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(posX - 26, posY + 84 - offset, 157, 148, 30, 30);
-		renderItemStack(new ItemStack(TRItems.WRENCH), posX - 19, posY + 92 - offset);
+		renderItemStack(new ItemStack(TRContent.WRENCH), posX - 19, posY + 92 - offset);
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
