@@ -170,14 +170,9 @@ public class TRContent {
 	// Machines - machines
 	
 	// Machines - generators
-
 	
 	// Machines - storage
-	public static Block CREATIVE_QUANTUM_CHEST;
-	public static Block CREATIVE_QUANTUM_TANK;
-	public static Block DIGITAL_CHEST;
-	public static Block QUANTUM_CHEST;
-	public static Block QUANTUM_TANK;
+
 	
 	// Machines - energy storage & transformers
 	public static Block ADJUSTABLE_SU;
@@ -488,14 +483,31 @@ public class TRContent {
 		SOLID_FUEL_GENEREATOR(new BlockSolidFuelGenerator()),
 		THERMAL_GENERATOR(new BlockThermalGenerator()),
 		WATER_MILL(new BlockWaterMill()),
-		WIND_MILL(new BlockWindMill())
+		WIND_MILL(new BlockWindMill()),
+		
+		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest(), ItemBlockQuantumChest.class),
+		CREATIVE_QUANTUM_TANK(new BlockCreativeQuantumTank(), ItemBlockQuantumTank.class),
+		DIGITAL_CHEST(new BlockDigitalChest(), ItemBlockDigitalChest.class),
+		QUANTUM_CHEST(new BlockQuantumChest(), ItemBlockQuantumChest.class),
+		QUANTUM_TANK(new BlockQuantumTank(), ItemBlockQuantumTank.class)
+		
 		
 		
 		;
+		
+
+		
+		
 		public final String name;
 		public final Block block;
 
 		private <B extends Block> Machine(B block) {
+			this.name = this.toString().toLowerCase();
+			this.block = block;
+			InitUtils.setup(block, name);
+		}
+		
+		private <B extends Block, IB extends ItemBlock> Machine(B block, Class<IB> itemBlock) {
 			this.name = this.toString().toLowerCase();
 			this.block = block;
 			InitUtils.setup(block, name);
@@ -844,23 +856,6 @@ public class TRContent {
 
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
-
-
-		// Machines - storage
-		CREATIVE_QUANTUM_CHEST = new BlockCreativeQuantumChest();
-		registerBlock(CREATIVE_QUANTUM_CHEST, ItemBlockQuantumChest.class, "creative_quantum_chest");
-
-		CREATIVE_QUANTUM_TANK = new BlockCreativeQuantumTank();
-		registerBlock(CREATIVE_QUANTUM_TANK, ItemBlockQuantumTank.class, "creative_quantum_tank");
-
-		DIGITAL_CHEST = new BlockDigitalChest();
-		registerBlock(DIGITAL_CHEST, ItemBlockDigitalChest.class, "digital_chest");
-
-		QUANTUM_CHEST = new BlockQuantumChest();
-		registerBlock(QUANTUM_CHEST, ItemBlockQuantumChest.class, "quantum_chest");
-
-		QUANTUM_TANK = new BlockQuantumTank();
-		registerBlock(QUANTUM_TANK, ItemBlockQuantumTank.class, "quantum_tank");
 
 		// Machines - energy storage & transformers
 		ADJUSTABLE_SU = new BlockAdjustableSU();
