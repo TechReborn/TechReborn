@@ -40,7 +40,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileElectricFurnace extends TilePowerAcceptor
@@ -204,7 +204,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.ELECTRIC_FURNACE, 1);
+		return new ItemStack(TRContent.ELECTRIC_FURNACE, 1);
 	}
 
 	// ItemHandlerProvider

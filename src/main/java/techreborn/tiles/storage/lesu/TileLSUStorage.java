@@ -31,7 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.tile.TileMachineBase;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 public class TileLSUStorage extends TileMachineBase
 	implements IToolDrop {
@@ -95,6 +95,6 @@ public class TileLSUStorage extends TileMachineBase
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.LSU_STORAGE, 1);
+		return new ItemStack(TRContent.LSU_STORAGE, 1);
 	}
 }

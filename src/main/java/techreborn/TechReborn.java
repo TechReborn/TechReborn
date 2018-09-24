@@ -121,7 +121,7 @@ public class TechReborn {
 		CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		// Registration 
-		TRBlocks.init();
+		TRContent.registerBlocks();
 		TRTileEntities.init();
 		ModFluids.init();
 		TRContent.registerItems();

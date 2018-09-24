@@ -37,7 +37,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
 import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.client.gui.widget.GuiButtonUpDown;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.packets.PacketFusionControlSize;
 import techreborn.proxies.ClientProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
@@ -150,7 +150,7 @@ public class GuiFusionReactor extends GuiBase {
 
 	private void updateMultiBlockRender(){
 		final Multiblock multiblock = new Multiblock();
-		IBlockState coil = TRBlocks.FUSION_COIL.getDefaultState();
+		IBlockState coil = TRContent.FUSION_COIL.getDefaultState();
 
 		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
 		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));

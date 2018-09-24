@@ -34,7 +34,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.generator.BlockWindMill;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -107,6 +107,6 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRBlocks.WATER_MILL);
+		return new ItemStack(TRContent.WATER_MILL);
 	}
 }

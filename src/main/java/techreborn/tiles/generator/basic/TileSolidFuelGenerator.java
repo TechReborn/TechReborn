@@ -42,7 +42,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
@@ -147,7 +147,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRBlocks.SOLID_FUEL_GENEREATOR);
+		return new ItemStack(TRContent.SOLID_FUEL_GENEREATOR);
 	}
 
 	@Override

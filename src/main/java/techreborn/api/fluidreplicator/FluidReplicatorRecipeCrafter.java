@@ -52,7 +52,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	 * @param inputSlots This is the list of the slots that the crafting logic should look for the input UU-Matter.
 	 * @param outputSlots This is the list of slots that the crafting logic should look for output fluid
 	 */
-	public FluidReplicatorRecipeCrafter(TileEntity parentTile, Inventory inventory, int[] inputSlots, int[] outputSlots) {
+	public FluidReplicatorRecipeCrafter(TileEntity parentTile, Inventory<?> inventory, int[] inputSlots, int[] outputSlots) {
 		super(Reference.FLUID_REPLICATOR_RECIPE, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 	

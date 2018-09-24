@@ -47,11 +47,11 @@ public class OreDict {
 	 */
 	public static void init() {
 		// Blocks
-		OreUtil.registerOre("fenceIron", TRBlocks.REFINED_IRON_FENCE);
-		OreUtil.registerOre("woodRubber", TRBlocks.RUBBER_LOG);
-		OreUtil.registerOre("glassReinforced", TRBlocks.REINFORCED_GLASS);
-		OreUtil.registerOre("treeSapling", TRBlocks.RUBBER_SAPLING);
-		OreUtil.registerOre("saplingRubber", TRBlocks.RUBBER_SAPLING);
+		OreUtil.registerOre("fenceIron", TRContent.REFINED_IRON_FENCE);
+		OreUtil.registerOre("woodRubber", TRContent.RUBBER_LOG);
+		OreUtil.registerOre("glassReinforced", TRContent.REINFORCED_GLASS);
+		OreUtil.registerOre("treeSapling", TRContent.RUBBER_SAPLING);
+		OreUtil.registerOre("saplingRubber", TRContent.RUBBER_SAPLING);
 
 		//		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
 		//		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));

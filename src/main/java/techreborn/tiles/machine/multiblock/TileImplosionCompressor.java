@@ -35,7 +35,7 @@ import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -49,7 +49,7 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 	public MultiblockChecker multiblockChecker;
 
 	public TileImplosionCompressor() {
-		super("ImplosionCompressor", maxInput, maxEnergy, TRBlocks.IMPLOSION_COMPRESSOR, 4);
+		super("ImplosionCompressor", maxInput, maxEnergy, TRContent.IMPLOSION_COMPRESSOR, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new Inventory<>(5, "TileImplosionCompressor", 64, this);

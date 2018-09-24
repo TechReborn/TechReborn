@@ -32,7 +32,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ScrapboxRecipe;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 import techreborn.utils.StackWIPHandler;
 
@@ -185,7 +185,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.LEAVES2, 1, 0));
 		register(getStack(Blocks.LEAVES2, 1, 1));
 
-		register(getStack(TRBlocks.RUBBER_SAPLING));
+		register(getStack(TRContent.RUBBER_SAPLING));
 
 //		for (String i : ItemDusts.types) {
 //			register(ItemDusts.getDustByName(i));

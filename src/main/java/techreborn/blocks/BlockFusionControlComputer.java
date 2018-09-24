@@ -40,7 +40,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.FusionDamageSource;
@@ -60,7 +60,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
 									final float hitX, final float hitY, final float hitZ) {
 		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world.getTileEntity(pos);
-		if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRBlocks.FUSION_COIL)){
+		if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRContent.FUSION_COIL)){
 			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
 			boolean placed = false;
 			for(BlockPos coil : coils){
@@ -68,7 +68,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 					return true;
 				}
 				if(world.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
-					world.setBlockState(coil, TRBlocks.FUSION_COIL.getDefaultState());
+					world.setBlockState(coil, TRContent.FUSION_COIL.getDefaultState());
 					if(!player.isCreative()){
 						player.getHeldItem(hand).shrink(1);
 					}

@@ -39,8 +39,8 @@ import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import techreborn.blocks.BlockAlarm;
-import techreborn.init.TRBlocks;
 import techreborn.init.ModSounds;
+import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 public class TileAlarm extends TileEntity 
@@ -106,6 +106,6 @@ public class TileAlarm extends TileEntity
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.ALARM, 1);
+		return new ItemStack(TRContent.ALARM, 1);
 	}
 }

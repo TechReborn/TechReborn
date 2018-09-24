@@ -38,7 +38,6 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
 import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -197,7 +196,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.MATTER_FABRICATOR, 1);
+		return new ItemStack(TRContent.MATTER_FABRICATOR, 1);
 	}
 
 	// ItemHandlerProvider

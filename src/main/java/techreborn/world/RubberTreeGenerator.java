@@ -34,7 +34,7 @@ import net.minecraftforge.common.IPlantable;
 import techreborn.TechReborn;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.blocks.BlockRubberLog;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 import java.util.Random;
 
@@ -80,7 +80,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 			Block baseBlock = baseSate.getBlock();
 			boolean hasPlacedBlock = false;
 			if (baseBlock != null && baseBlock.canSustainPlant(baseSate, world, new BlockPos(x, y - 1, z),
-				EnumFacing.UP, (IPlantable) TRBlocks.RUBBER_SAPLING) && y < worldHeight - treeHeight - 1) {
+				EnumFacing.UP, (IPlantable) TRContent.RUBBER_SAPLING) && y < worldHeight - treeHeight - 1) {
 				for (yOffset = y; yOffset <= y + 1 + treeHeight; ++yOffset) {
 					byte radius = 1;
 					if (yOffset == y) {
@@ -130,7 +130,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 								|| block.canBeReplacedByLeaves(state1, world,
 								new BlockPos(xOffset, yOffset, zOffset)))) {
 								this.setBlockAndNotifyAdequately(world, new BlockPos(xOffset, yOffset, zOffset),
-									TRBlocks.RUBBER_LEAVES.getDefaultState().withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
+									TRContent.RUBBER_LEAVES.getDefaultState().withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
 								hasPlacedBlock = true;
 							}
 						}
@@ -144,7 +144,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 					Block block = state1.getBlock();
 					if (block == null || block.isAir(state1, world, blockpos) || block.isLeaves(state1, world, blockpos)
 						|| block.isReplaceable(world, blockpos)) {
-						IBlockState newState = TRBlocks.RUBBER_LOG.getDefaultState();
+						IBlockState newState = TRContent.RUBBER_LOG.getDefaultState();
 						boolean isAddingSap = false;
 						if (rand.nextInt(TechReborn.worldGen.config.rubberTreeConfig.sapRarity) == 0) {
 							newState = newState.withProperty(BlockRubberLog.HAS_SAP, true)
@@ -163,7 +163,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 				if (topLogPos != null) {
 					for (int i = 0; i < TechReborn.worldGen.config.rubberTreeConfig.spireHeight; i++) {
 						BlockPos spikePos = topLogPos.up(i);
-						this.setBlockAndNotifyAdequately(world, spikePos, TRBlocks.RUBBER_LEAVES.getDefaultState()
+						this.setBlockAndNotifyAdequately(world, spikePos, TRContent.RUBBER_LEAVES.getDefaultState()
 							.withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
 					}
 				}

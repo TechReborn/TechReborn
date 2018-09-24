@@ -33,7 +33,7 @@ import techreborn.api.generator.EFluidGenerator;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TilePlasmaGenerator extends TileBaseFluidGenerator implements IContainerProvider {
@@ -53,7 +53,7 @@ public class TilePlasmaGenerator extends TileBaseFluidGenerator implements ICont
 
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRBlocks.PLASMA_GENERATOR, 1);
+		return new ItemStack(TRContent.PLASMA_GENERATOR, 1);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -46,7 +46,7 @@ public class TileChemicalReactor extends TileGenericMachine	implements IContaine
 	public static int maxEnergy = 10_000;
 
 	public TileChemicalReactor() {
-		super("ChemicalReactor", maxInput, maxEnergy, TRBlocks.CHEMICAL_REACTOR, 3);
+		super("ChemicalReactor", maxInput, maxEnergy, TRContent.CHEMICAL_REACTOR, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileChemicalReactor", 64, this).withConfiguredAccess();

@@ -55,7 +55,7 @@ import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.FluidBlockModelHandler;
 import techreborn.events.StackToolTipEvent;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.items.ItemFrequencyTransmitter;
 
 public class ClientProxy extends CommonProxy {
@@ -86,7 +86,7 @@ public class ClientProxy extends CommonProxy {
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
-		ModelLoader.setCustomStateMapper(TRBlocks.RUBBER_LEAVES, rubberLeavesStateMap);
+		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
 	}
 
 	@Override

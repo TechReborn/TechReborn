@@ -37,7 +37,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
@@ -60,7 +60,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.CHUNK_LOADER, 1);
+		return new ItemStack(TRContent.CHUNK_LOADER, 1);
 	}
 
 	public boolean isComplete() {

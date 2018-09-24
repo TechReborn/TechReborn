@@ -48,8 +48,8 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
 import techreborn.init.ModSounds;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -425,7 +425,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRBlocks.AUTO_CRAFTING_TABLE, 1);
+		return new ItemStack(TRContent.AUTO_CRAFTING_TABLE, 1);
 	}
 
 	// ItemHandlerProvider

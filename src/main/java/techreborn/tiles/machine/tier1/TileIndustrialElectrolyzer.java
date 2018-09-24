@@ -35,7 +35,7 @@ import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 import techreborn.tiles.TileGenericMachine;
 
@@ -48,7 +48,7 @@ public class TileIndustrialElectrolyzer extends TileGenericMachine implements IC
 	public static int maxEnergy = 10_000;
 
 	public TileIndustrialElectrolyzer() {
-		super("IndustrialElectrolyzer", maxInput, maxEnergy, TRBlocks.INDUSTRIAL_ELECTROLYZER, 6);
+		super("IndustrialElectrolyzer", maxInput, maxEnergy, TRContent.INDUSTRIAL_ELECTROLYZER, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileIndustrialElectrolyzer", 64, this).withConfiguredAccess();

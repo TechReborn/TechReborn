@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.world.RubberTreeGenerator;
 
 import java.util.List;
@@ -71,7 +71,7 @@ public class VillageComponentRubberPlantaion extends StructureVillagePieces.Fiel
 	@Override
 	protected void setBlockState(World worldIn, IBlockState blockstateIn, int x, int y, int z, StructureBoundingBox boundingboxIn) {
 		if (isCrop(blockstateIn)) {
-			blockstateIn = TRBlocks.RUBBER_SAPLING.getDefaultState();
+			blockstateIn = TRContent.RUBBER_SAPLING.getDefaultState();
 		}
 		super.setBlockState(worldIn, blockstateIn, x, y, z, boundingboxIn);
 	}
@@ -99,7 +99,7 @@ public class VillageComponentRubberPlantaion extends StructureVillagePieces.Fiel
 			BlockPos pos = new BlockPos(this.getXWithOffset(row, coloum), this.getYWithOffset(1), this.getZWithOffset(row, coloum));
 			if (!new RubberTreeGenerator(true).growTree(world, random, pos.getX(), pos.getY(), pos.getZ())) {
 				//Puts the sapling back if the tree did not grow
-				setBlockState(world, TRBlocks.RUBBER_SAPLING.getDefaultState(), row, 1, coloum, structureBoundingBox);
+				setBlockState(world, TRContent.RUBBER_SAPLING.getDefaultState(), row, 1, coloum, structureBoundingBox);
 			}
 		}
 	}

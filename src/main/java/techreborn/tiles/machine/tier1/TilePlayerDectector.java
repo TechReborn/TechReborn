@@ -35,7 +35,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 import java.util.Iterator;
 
@@ -138,6 +138,6 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer p0) {
-		return new ItemStack(TRBlocks.PLAYER_DETECTOR, 1, 0);
+		return new ItemStack(TRContent.PLAYER_DETECTOR, 1, 0);
 	}
 }

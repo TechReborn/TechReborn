@@ -37,7 +37,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileDragonEggSyphon extends TilePowerAcceptor 
@@ -116,7 +116,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.DRAGON_EGG_SYPHON, 1);
+		return new ItemStack(TRContent.DRAGON_EGG_SYPHON, 1);
 	}
 
 	// ItemHandlerProvider

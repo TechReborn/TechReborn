@@ -34,7 +34,7 @@ import techreborn.api.Reference;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -46,7 +46,7 @@ public class TileGrinder extends TileGenericMachine implements IContainerProvide
 	public static int maxEnergy = 1_000;
 
 	public TileGrinder() {
-		super("Grinder", maxInput, maxEnergy, TRBlocks.GRINDER, 2);
+		super("Grinder", maxInput, maxEnergy, TRContent.GRINDER, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileGrinder", 64, this).withConfiguredAccess();

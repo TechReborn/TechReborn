@@ -29,7 +29,7 @@ import reborncore.api.power.EnumPowerTier;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -41,7 +41,7 @@ public class TileMediumVoltageSU extends TileEnergyStorage implements IContainer
 	 *  MFE should store 1.2M FE with 512 FE/t I/O
 	 */
 	public TileMediumVoltageSU() {
-		super("MEDIUM_VOLTAGE_SU", 2, TRBlocks.MEDIUM_VOLTAGE_SU, EnumPowerTier.MEDIUM, 128, 128, 300000);
+		super("MEDIUM_VOLTAGE_SU", 2, TRContent.MEDIUM_VOLTAGE_SU, EnumPowerTier.MEDIUM, 128, 128, 300000);
 	}
 
 	@Override

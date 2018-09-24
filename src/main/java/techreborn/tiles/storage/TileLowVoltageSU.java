@@ -29,7 +29,7 @@ import reborncore.api.power.EnumPowerTier;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -37,7 +37,7 @@ import techreborn.init.TRBlocks;
 public class TileLowVoltageSU extends TileEnergyStorage implements IContainerProvider {
 
 	public TileLowVoltageSU() {
-		super("BatBox", 2, TRBlocks.LOW_VOLTAGE_SU, EnumPowerTier.LOW, 32, 32, 40000);
+		super("BatBox", 2, TRContent.LOW_VOLTAGE_SU, EnumPowerTier.LOW, 32, 32, 40000);
 	}
 
 	@Override

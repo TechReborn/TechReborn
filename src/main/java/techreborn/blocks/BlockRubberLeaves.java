@@ -41,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
@@ -126,7 +126,7 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(TRBlocks.RUBBER_SAPLING);
+		return Item.getItemFromBlock(TRContent.RUBBER_SAPLING);
 	}
 
 	@Override

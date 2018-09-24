@@ -40,7 +40,7 @@ import techreborn.TechReborn;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
-import techreborn.init.TRBlocks;
+import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileChargeOMat extends TilePowerAcceptor
@@ -114,7 +114,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRBlocks.CHARGE_O_MAT, 1);
+		return new ItemStack(TRContent.CHARGE_O_MAT, 1);
 	}
 
 	// ItemHandlerProvider

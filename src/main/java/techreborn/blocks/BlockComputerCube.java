@@ -39,8 +39,8 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
-import techreborn.init.TRBlocks;
 import techreborn.init.ModSounds;
+import techreborn.init.TRContent;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockComputerCube extends BlockMachineBase {
@@ -65,7 +65,7 @@ public class BlockComputerCube extends BlockMachineBase {
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
 			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
 				if (playerIn.isSneaking()) {
-					ItemStack drop = new ItemStack(TRBlocks.COMPUTER_CUBE, 1);
+					ItemStack drop = new ItemStack(TRContent.COMPUTER_CUBE, 1);
 					spawnAsEntity(worldIn, pos, drop);
 					worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);
