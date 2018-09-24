@@ -50,7 +50,7 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	public static int maxEnergy = 10_000;
 
 	public TileIndustrialCentrifuge() {
-		super("IndustrialCentrifuge", maxInput, maxEnergy, TRContent.INDUSTRIAL_CENTRIFUGE, 6);
+		super("IndustrialCentrifuge", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileIndustrialCentrifuge", 64, this).withConfiguredAccess();

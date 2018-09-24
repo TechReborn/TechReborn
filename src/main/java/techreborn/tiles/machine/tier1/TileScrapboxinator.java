@@ -45,7 +45,7 @@ public class TileScrapboxinator extends TileGenericMachine implements IContainer
 	public static int maxEnergy = 1_000;
 
 	public TileScrapboxinator() {
-		super("Scrapboxinator", maxInput, maxEnergy, TRContent.SCRAPBOXINATOR, 2);
+		super("Scrapboxinator", maxInput, maxEnergy, TRContent.Machine.SCRAPBOXINATOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileScrapboxinator", 64, this).withConfiguredAccess();

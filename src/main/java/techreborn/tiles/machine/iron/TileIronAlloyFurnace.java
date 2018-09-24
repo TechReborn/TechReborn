@@ -297,7 +297,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.IRON_ALLOY_FURNACE, 1);
+		return TRContent.Machine.IRON_ALLOY_FURNACE.getStack();
 	}
 
 	public boolean isComplete() {

@@ -204,7 +204,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.ELECTRIC_FURNACE, 1);
+		return TRContent.Machine.ELECTRIC_FURNACE.getStack();
 	}
 
 	// ItemHandlerProvider

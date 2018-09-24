@@ -46,7 +46,7 @@ public class TileExtractor extends TileGenericMachine implements IContainerProvi
 	public static int maxEnergy = 1_000;
 
 	public TileExtractor() {
-		super("Extractor", maxInput, maxEnergy, TRContent.EXTRACTOR, 2);
+		super("Extractor", maxInput, maxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileExtractor", 64, this).withConfiguredAccess();

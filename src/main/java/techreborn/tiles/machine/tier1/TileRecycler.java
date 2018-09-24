@@ -187,7 +187,7 @@ public class TileRecycler extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.RECYCLER, 1);
+		return TRContent.Machine.RECYCLER.getStack();
 	}
 
 	// ItemHandlerProvider

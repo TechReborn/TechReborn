@@ -61,7 +61,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	private int cachedHeat;
 
 	public TileIndustrialBlastFurnace() {
-		super("IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.INDUSTRIAL_BLAST_FURNACE, 4);
+		super("IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new Inventory<>(5, "TileIndustrialBlastFurnace", 64, this).withConfiguredAccess();

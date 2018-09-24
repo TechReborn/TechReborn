@@ -50,7 +50,7 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 	public MultiblockChecker multiblockChecker;
 
 	public TileDistillationTower() {
-		super("DistillationTower", maxInput, maxEnergy, TRContent.DISTILLATION_TOWER, 6);
+		super("DistillationTower", maxInput, maxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileDistillationTower", 64, this).withConfiguredAccess();

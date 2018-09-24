@@ -49,7 +49,7 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 	public MultiblockChecker multiblockChecker;
 
 	public TileImplosionCompressor() {
-		super("ImplosionCompressor", maxInput, maxEnergy, TRContent.IMPLOSION_COMPRESSOR, 4);
+		super("ImplosionCompressor", maxInput, maxEnergy, TRContent.Machine.IMPLOSION_COMPRESSOR.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new Inventory<>(5, "TileImplosionCompressor", 64, this);

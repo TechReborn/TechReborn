@@ -46,7 +46,7 @@ public class TileAssemblingMachine extends TileGenericMachine implements IContai
 	public static int maxEnergy = 10_000;
 
 	public TileAssemblingMachine() {
-		super("AssemblingMachine", maxInput, maxEnergy, TRContent.ASSEMBLY_MACHINE, 3);
+		super("AssemblingMachine", maxInput, maxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileAssemblingMachine", 64, this).withConfiguredAccess();

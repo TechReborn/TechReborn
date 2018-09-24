@@ -66,7 +66,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	int ticksSinceLastChange;
 
 	public TileIndustrialSawmill() {
-		super("IndustrialSawmill", maxInput, maxEnergy, TRContent.INDUSTRIAL_SAWMILL, 6);
+		super("IndustrialSawmill", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
 		this.inventory = new Inventory<>(7, "TileSawmill", 64, this, getInventoryAccess());

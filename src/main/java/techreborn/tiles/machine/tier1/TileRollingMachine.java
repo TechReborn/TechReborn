@@ -274,7 +274,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.ROLLING_MACHINE, 1);
+		return TRContent.Machine.ROLLING_MACHINE.getStack();
 	}
 
 	@Override

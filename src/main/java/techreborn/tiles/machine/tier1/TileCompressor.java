@@ -46,7 +46,7 @@ public class TileCompressor extends TileGenericMachine implements IContainerProv
 	public static int maxEnergy = 1000;
 
 	public TileCompressor() {
-		super("Compressor", maxInput, maxEnergy, TRContent.COMPRESSOR, 2);
+		super("Compressor", maxInput, maxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileCompressor", 64, this).withConfiguredAccess();

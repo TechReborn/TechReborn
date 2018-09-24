@@ -67,7 +67,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	int ticksSinceLastChange;
 
 	public TileIndustrialGrinder() {
-		super("IndustrialGrinder", maxInput, maxEnergy, TRContent.INDUSTRIAL_GRINDER, 7);
+		super("IndustrialGrinder", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
 		this.inventory = new Inventory<>(8, "TileIndustrialGrinder", 64, this, getInventoryAccess());

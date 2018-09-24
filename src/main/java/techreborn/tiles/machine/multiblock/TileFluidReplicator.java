@@ -63,7 +63,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	int ticksSinceLastChange;
 
 	public TileFluidReplicator() {
-		super("FluidReplicator", maxInput, maxEnergy, TRContent.FLUID_REPLICATOR, 3);
+		super("FluidReplicator", maxInput, maxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		final int[] inputs = new int[] { 0 };
 		this.inventory = new Inventory<>(4, "TileFluidReplicator", 64, this, getInventoryAccess());
 		this.crafter = new FluidReplicatorRecipeCrafter(this, this.inventory, inputs, null);

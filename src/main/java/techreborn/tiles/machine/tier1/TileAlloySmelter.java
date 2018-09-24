@@ -49,7 +49,7 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 	public static int maxEnergy = 1_000;
 
 	public TileAlloySmelter() {
-		super("AlloySmelter", maxInput, maxEnergy, TRContent.ALLOY_SMELTER, 3);
+		super("AlloySmelter", maxInput, maxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileAlloySmelter", 64, this).withConfiguredAccess();

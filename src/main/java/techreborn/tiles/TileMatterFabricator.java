@@ -196,7 +196,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.MATTER_FABRICATOR, 1);
+		return TRContent.Machine.MATTER_FABRICATOR.getStack();
 	}
 
 	// ItemHandlerProvider

@@ -48,7 +48,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	public MultiblockChecker multiblockChecker;
 
 	public TileVacuumFreezer() {
-		super("VacuumFreezer", maxInput, maxEnergy, TRContent.VACUUM_FREEZER, 2);
+		super("VacuumFreezer", maxInput, maxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileVacuumFreezer", 64, this).withConfiguredAccess();

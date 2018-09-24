@@ -168,29 +168,8 @@ public class TRContent {
 	public static Block RUBBER_SAPLING;
 	
 	// Machines - machines
-	public static Block ALLOY_SMELTER;
-	public static Block ASSEMBLY_MACHINE;
-	public static Block AUTO_CRAFTING_TABLE;
-	public static Block CHEMICAL_REACTOR;
-	public static Block COMPRESSOR;
-	public static Block DISTILLATION_TOWER;
-	public static Block ELECTRIC_FURNACE;
-	public static Block EXTRACTOR;
-	public static Block FLUID_REPLICATOR;
-	public static Block GRINDER;
-	public static Block IMPLOSION_COMPRESSOR;
-	public static Block INDUSTRIAL_BLAST_FURNACE;
-	public static Block INDUSTRIAL_CENTRIFUGE;
-	public static Block INDUSTRIAL_ELECTROLYZER;
-	public static Block INDUSTRIAL_GRINDER;
-	public static Block INDUSTRIAL_SAWMILL;
-	public static Block IRON_ALLOY_FURNACE;
-	public static Block IRON_FURNACE;
-	public static Block MATTER_FABRICATOR;
-	public static Block RECYCLER;
-	public static Block ROLLING_MACHINE;
-	public static Block SCRAPBOXINATOR;
-	public static Block VACUUM_FREEZER;
+
+
 	
 	// Machines - generators
 	public static Block DIESEL_GENERATOR;
@@ -485,10 +464,33 @@ public class TRContent {
 			return casing;
 		}
 	}
-
 	public static enum Machine {
-		ELECTRIC_FURNACE(new BlockElectricFurnace());
-
+		ALLOY_SMELTER(new BlockAlloySmelter()),
+		ASSEMBLY_MACHINE(new BlockAssemblingMachine()),
+		AUTO_CRAFTING_TABLE(new BlockAutoCraftingTable()),
+		CHEMICAL_REACTOR(new BlockChemicalReactor()),
+		COMPRESSOR(new BlockCompressor()),
+		DISTILLATION_TOWER(new BlockDistillationTower()),
+		EXTRACTOR(new BlockExtractor()),
+		FLUID_REPLICATOR(new BlockFluidReplicator()),
+		GRINDER(new BlockGrinder()),
+		ELECTRIC_FURNACE(new BlockElectricFurnace()),
+		IMPLOSION_COMPRESSOR(new BlockImplosionCompressor()),
+		INDUSTRIAL_BLAST_FURNACE(new BlockIndustrialBlastFurnace()),
+		INDUSTRIAL_CENTRIFUGE(new BlockIndustrialCentrifuge()),
+		INDUSTRIAL_ELECTROLYZER(new BlockIndustrialElectrolyzer()),
+		INDUSTRIAL_GRINDER(new BlockIndustrialGrinder()),
+		INDUSTRIAL_SAWMILL(new BlockIndustrialSawmill()),
+		IRON_ALLOY_FURNACE(new BlockIronAlloyFurnace()),
+		IRON_FURNACE(new BlockIronFurnace()),
+		MATTER_FABRICATOR(new BlockMatterFabricator()),
+		RECYCLER(new BlockRecycler()),
+		ROLLING_MACHINE(new BlockRollingMachine()),
+		SCRAPBOXINATOR(new BlockScrapboxinator()),
+		VACUUM_FREEZER(new BlockVacuumFreezer())
+		
+		
+		;
 		public final String name;
 		public final Block block;
 
@@ -496,6 +498,10 @@ public class TRContent {
 			this.name = this.toString().toLowerCase();
 			this.block = block;
 			InitUtils.setup(block, name);
+		}
+		
+		public ItemStack getStack() {
+			return new ItemStack(block);
 		}
 	}
 
@@ -802,6 +808,7 @@ public class TRContent {
 		});
 		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
 		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
 		
 		// Misc. blocks
 		COMPUTER_CUBE = new BlockComputerCube();
@@ -836,76 +843,6 @@ public class TRContent {
 
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
-
-		// Machines - machines
-		ALLOY_SMELTER = new BlockAlloySmelter();
-		registerBlock(ALLOY_SMELTER, "alloy_smelter");
-
-		ASSEMBLY_MACHINE = new BlockAssemblingMachine();
-		registerBlock(ASSEMBLY_MACHINE, "assembly_machine");
-
-		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
-		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
-
-		COMPRESSOR = new BlockCompressor();
-		registerBlock(COMPRESSOR, "compressor");
-
-		CHEMICAL_REACTOR = new BlockChemicalReactor();
-		registerBlock(CHEMICAL_REACTOR, "chemical_reactor");
-
-		DISTILLATION_TOWER = new BlockDistillationTower();
-		registerBlock(DISTILLATION_TOWER, "distillation_tower");
-
-		ELECTRIC_FURNACE = new BlockElectricFurnace();
-		registerBlock(ELECTRIC_FURNACE, "electric_furnace");
-
-		EXTRACTOR = new BlockExtractor();
-		registerBlock(EXTRACTOR, "extractor");
-
-		FLUID_REPLICATOR = new BlockFluidReplicator();
-		registerBlock(FLUID_REPLICATOR, "fluid_replicator");
-
-		GRINDER = new BlockGrinder();
-		registerBlock(GRINDER, "grinder");
-
-		IMPLOSION_COMPRESSOR = new BlockImplosionCompressor();
-		registerBlock(IMPLOSION_COMPRESSOR, "implosion_compressor");
-
-		INDUSTRIAL_BLAST_FURNACE = new BlockIndustrialBlastFurnace();
-		registerBlock(INDUSTRIAL_BLAST_FURNACE, "industrial_blast_furnace");
-
-		INDUSTRIAL_CENTRIFUGE = new BlockIndustrialCentrifuge();
-		registerBlock(INDUSTRIAL_CENTRIFUGE, "industrial_centrifuge");
-
-		INDUSTRIAL_ELECTROLYZER = new BlockIndustrialElectrolyzer();
-		registerBlock(INDUSTRIAL_ELECTROLYZER, "industrial_electrolyzer");
-
-		INDUSTRIAL_GRINDER = new BlockIndustrialGrinder();
-		registerBlock(INDUSTRIAL_GRINDER, "industrial_grinder");
-
-		INDUSTRIAL_SAWMILL = new BlockIndustrialSawmill();
-		registerBlock(INDUSTRIAL_SAWMILL, "industrial_sawmill");
-
-		IRON_ALLOY_FURNACE = new BlockIronAlloyFurnace();
-		registerBlock(IRON_ALLOY_FURNACE, "iron_alloy_furnace");
-
-		IRON_FURNACE = new BlockIronFurnace();
-		registerBlock(IRON_FURNACE, "iron_furnace");
-
-		MATTER_FABRICATOR = new BlockMatterFabricator();
-		registerBlock(MATTER_FABRICATOR, "matter_fabricator");
-
-		RECYCLER = new BlockRecycler();
-		registerBlock(RECYCLER, "recycler");
-
-		ROLLING_MACHINE = new BlockRollingMachine();
-		registerBlock(ROLLING_MACHINE, "rolling_machine");
-
-		SCRAPBOXINATOR = new BlockScrapboxinator();
-		registerBlock(SCRAPBOXINATOR, "scrapboxinator");
-
-		VACUUM_FREEZER = new BlockVacuumFreezer();
-		registerBlock(VACUUM_FREEZER, "vacuum_freezer");
 
 		// Machines - generators
 		DIESEL_GENERATOR = new BlockDieselGenerator();

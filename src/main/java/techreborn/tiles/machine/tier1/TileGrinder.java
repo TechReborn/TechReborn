@@ -46,7 +46,7 @@ public class TileGrinder extends TileGenericMachine implements IContainerProvide
 	public static int maxEnergy = 1_000;
 
 	public TileGrinder() {
-		super("Grinder", maxInput, maxEnergy, TRContent.GRINDER, 2);
+		super("Grinder", maxInput, maxEnergy, TRContent.Machine.GRINDER.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileGrinder", 64, this).withConfiguredAccess();

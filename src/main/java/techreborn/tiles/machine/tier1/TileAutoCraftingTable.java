@@ -425,7 +425,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return new ItemStack(TRContent.AUTO_CRAFTING_TABLE, 1);
+		return TRContent.Machine.AUTO_CRAFTING_TABLE.getStack();
 	}
 
 	// ItemHandlerProvider
