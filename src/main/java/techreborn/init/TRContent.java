@@ -103,7 +103,6 @@ import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.config.ConfigTechReborn;
 import techreborn.itemblocks.ItemBlockAdjustableSU;
 import techreborn.itemblocks.ItemBlockDigitalChest;
-import techreborn.itemblocks.ItemBlockPlayerDetector;
 import techreborn.itemblocks.ItemBlockQuantumChest;
 import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockRubberSapling;
@@ -166,25 +165,6 @@ public class TRContent {
 	public static Block RUBBER_LOG_STAIR;
 	public static Block RUBBER_PLANKS;
 	public static Block RUBBER_SAPLING;
-	
-	// Machines - machines
-	
-	// Machines - generators
-	
-	// Machines - storage
-
-	
-	// Machines - energy storage & transformers
-
-	
-	// Machines - misc
-	public static Block ALARM;
-	public static Block CHUNK_LOADER;
-	public static Block LAMP_INCANDESCENT;
-	public static Block LAMP_LED;
-	public static Block MAGICAL_ABSORBER;
-	public static Block MAGIC_ENERGY_CONVERTER;
-	public static Block PLAYER_DETECTOR;
 	
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -365,6 +345,10 @@ public class TRContent {
 			InitUtils.setup(block, name + "_cable");
 		}
 		
+		public ItemStack getStack() {
+			return new ItemStack(block);
+		}
+		
 		@Override
 		public Item asItem() {
 			return Item.getItemFromBlock(block);
@@ -468,9 +452,11 @@ public class TRContent {
 		FUSION_CONTROL_COMPUTER(new BlockFusionControlComputer()),
 		GAS_TURBINE(new BlockGasTurbine()),
 		LIGHTNING_ROD(new BlockLightningRod()),
+		MAGIC_ENERGY_ABSORBER (new BlockMagicEnergyAbsorber()),
+		MAGIC_ENERGY_CONVERTER(new BlockMagicEnergyConverter()),
 		PLASMA_GENERATOR(new BlockPlasmaGenerator()),
 		SEMI_FLUID_GENERATOR(new BlockSemiFluidGenerator()),
-		SOLID_FUEL_GENEREATOR(new BlockSolidFuelGenerator()),
+		SOLID_FUEL_GENERATOR(new BlockSolidFuelGenerator()),
 		THERMAL_GENERATOR(new BlockThermalGenerator()),
 		WATER_MILL(new BlockWaterMill()),
 		WIND_MILL(new BlockWindMill()),
@@ -491,11 +477,13 @@ public class TRContent {
 		HIGH_VOLTAGE_SU(new BlockHighVoltageSU()),
 		LV_TRANSFORMER(new BlockLVTransformer()),
 		MV_TRANSFORMER(new BlockMVTransformer()),
-		HV_TRANSFORMER(new BlockHVTransformer())
+		HV_TRANSFORMER(new BlockHVTransformer()),
 		
-		;
-		
-	
+		ALARM(new BlockAlarm()),
+		CHUNK_LOADER(new BlockChunkLoader()),
+		LAMP_INCANDESCENT(new BlockLamp(14, 4, 0.625, 0.25)),
+		LAMP_LED(new BlockLamp(15, 1, 0.0625, 0.125)),
+		PLAYER_DETECTOR(new BlockPlayerDetector());
 		
 		public final String name;
 		public final Block block;
@@ -516,7 +504,7 @@ public class TRContent {
 			return new ItemStack(block);
 		}
 	}
-
+	
 	public static enum Dusts implements IItemProvider {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
@@ -856,28 +844,6 @@ public class TRContent {
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
 
-		// Machines - misc
-		ALARM = new BlockAlarm();
-		registerBlock(ALARM, "alarm");
-
-		CHUNK_LOADER = new BlockChunkLoader();
-		registerBlock(CHUNK_LOADER, "chunk_loader");
-
-		LAMP_INCANDESCENT = new BlockLamp( 14, 4, 0.625, 0.25);
-		registerBlock(LAMP_INCANDESCENT, "lamp_incandescent");
-
-		LAMP_LED = new BlockLamp( 15, 1, 0.0625, 0.125);
-		registerBlock(LAMP_LED, "lamp_led");
-
-		MAGICAL_ABSORBER = new BlockMagicEnergyAbsorber();
-		registerBlock(MAGICAL_ABSORBER, "magic_energy_absorber");
-
-		MAGIC_ENERGY_CONVERTER = new BlockMagicEnergyConverter();
-		registerBlock(MAGIC_ENERGY_CONVERTER, "magic_energy_converter");
-
-		PLAYER_DETECTOR = new BlockPlayerDetector();
-		registerBlock(PLAYER_DETECTOR, ItemBlockPlayerDetector.class, "player_detector");
-
 		//TODO enable when done
 		//		flare = new BlockFlare();
 		//		registerBlock(flare, "flare");
@@ -1085,7 +1051,6 @@ public class TRContent {
 			});
 		}
 	}
-
 
 	/**
 	 * Wrapper method for RebornRegistry

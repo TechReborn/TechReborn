@@ -138,6 +138,6 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer p0) {
-		return new ItemStack(TRContent.PLAYER_DETECTOR, 1, 0);
+		return TRContent.Machine.PLAYER_DETECTOR.getStack();
 	}
 }

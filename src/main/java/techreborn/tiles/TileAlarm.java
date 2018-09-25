@@ -106,6 +106,6 @@ public class TileAlarm extends TileEntity
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.ALARM, 1);
+		return TRContent.Machine.ALARM.getStack();
 	}
 }

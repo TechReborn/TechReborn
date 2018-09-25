@@ -60,7 +60,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.CHUNK_LOADER, 1);
+		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
 
 	public boolean isComplete() {

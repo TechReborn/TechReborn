@@ -46,9 +46,9 @@ public class StackWIPHandler {
 	public static ArrayList<ItemStack> devHeads = new ArrayList<>();
 
 	public StackWIPHandler() {
-		wipBlocks.add(TRContent.MAGICAL_ABSORBER);
-		wipBlocks.add(TRContent.CHUNK_LOADER);
-		wipBlocks.add(TRContent.MAGIC_ENERGY_CONVERTER);
+		wipBlocks.add(TRContent.Machine.MAGIC_ENERGY_ABSORBER.block);
+		wipBlocks.add(TRContent.Machine.CHUNK_LOADER.block);
+		wipBlocks.add(TRContent.Machine.MAGIC_ENERGY_CONVERTER.block);
 
 		addHead("modmuss50");
 		addHead("Gigabit101");
