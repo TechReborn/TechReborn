@@ -286,7 +286,7 @@ public class TRContent {
 		INDUSTRIAL(EnumPowerTier.MEDIUM, ConfigTechReborn.industrialGenerationRateD, ConfigTechReborn.industrialGenerationRateN),
 		ULTIMATE(EnumPowerTier.HIGH, ConfigTechReborn.ultimateGenerationRateD, ConfigTechReborn.ultimateGenerationRateN), 
 		QUANTUM(EnumPowerTier.EXTREME, ConfigTechReborn.quantumGenerationRateD, ConfigTechReborn.quantumGenerationRateN), 
-		CREATIVE(EnumPowerTier.INFINITE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+		CREATIVE(EnumPowerTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
 		
 		public final String name;
 		public final Block block;

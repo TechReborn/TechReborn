@@ -36,6 +36,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.generator.BlockSolarPanel;
+import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
 
 import java.util.List;
@@ -55,6 +56,10 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	public void update() {
 		super.update();
 		if (world.isRemote) {
+			return;
+		}
+		if (panel == TRContent.SolarPanels.CREATIVE) {
+			setEnergy(Integer.MAX_VALUE);
 			return;
 		}
 		if (world.getTotalWorldTime() % 20 == 0) {

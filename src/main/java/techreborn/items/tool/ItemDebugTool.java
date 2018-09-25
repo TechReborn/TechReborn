@@ -52,23 +52,30 @@ public class ItemDebugTool extends Item {
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
 		Block block = worldIn.getBlockState(pos).getBlock();
 		if (block != null) {
-			playerIn.sendMessage(new TextComponentString(
-					TextFormatting.GREEN + "Block Registry Name:" + TextFormatting.BLUE + block.getRegistryName().toString()));
+			sendMessage(playerIn, worldIn, new TextComponentString(TextFormatting.GREEN + "Block Registry Name: "
+					+ TextFormatting.BLUE + block.getRegistryName().toString()));
+		} else {
+			return EnumActionResult.FAIL;
 		}
+		
 		TileEntity tile = worldIn.getTileEntity(pos);
-		if (tile instanceof IEnergyInterfaceTile) {
-			if (!tile.getWorld().isRemote) {
-				playerIn.sendMessage(new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
-						+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
-			}
-			return EnumActionResult.SUCCESS;
-		} else if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
-			if (!tile.getWorld().isRemote) {
-				playerIn.sendMessage(new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
-						+ tile.getCapability(CapabilityEnergy.ENERGY, facing).getEnergyStored() + "FU"));
-			}
-			return EnumActionResult.SUCCESS;
+		if (tile != null) {
+			sendMessage(playerIn, worldIn, new TextComponentString(
+					TextFormatting.GREEN + "Tile Entity: " + TextFormatting.BLUE + tile.getDisplayName().toString()));
 		}
-		return EnumActionResult.FAIL;
+		if (tile instanceof IEnergyInterfaceTile) {
+			sendMessage(playerIn, worldIn, new TextComponentString(TextFormatting.GREEN + "Power: "
+					+ TextFormatting.BLUE + PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
+		} else if (tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
+			sendMessage(playerIn, worldIn, new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
+					+ tile.getCapability(CapabilityEnergy.ENERGY, facing).getEnergyStored() + "FU"));
+		}
+		return EnumActionResult.SUCCESS;
+	}
+
+	private void sendMessage(EntityPlayer playerIn, World worldIn, TextComponentString string) {
+		if (!worldIn.isRemote) {
+			playerIn.sendMessage(string);
+		}
 	}
 }
