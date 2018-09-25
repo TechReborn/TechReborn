@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.tier1.TileGrinder;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockGrinder extends BlockMachineBase {
 
 	public BlockGrinder() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier1_machines"));
 	}
 

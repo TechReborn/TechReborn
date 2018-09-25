@@ -37,8 +37,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,6 @@ public class BlockIronAlloyFurnace extends BlockMachineBase {
 
 	public BlockIronAlloyFurnace() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier0_machines"));
 	}
 

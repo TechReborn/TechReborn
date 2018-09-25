@@ -26,13 +26,11 @@ package techreborn.blocks;
 
 import net.minecraft.block.material.Material;
 import reborncore.common.BaseBlock;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockMachineFrame extends BaseBlock {
 
 	public BlockMachineFrame() {
 		super(Material.IRON);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(1f);
 	}
 }

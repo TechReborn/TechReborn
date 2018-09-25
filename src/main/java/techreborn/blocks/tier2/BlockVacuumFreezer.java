@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.multiblock.TileVacuumFreezer;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockVacuumFreezer extends BlockMachineBase {
 
 	public BlockVacuumFreezer() {
 		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 

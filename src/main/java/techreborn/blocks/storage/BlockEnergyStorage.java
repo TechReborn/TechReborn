@@ -46,8 +46,6 @@ import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.TechReborn;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.Iterator;
 import java.util.Random;
 
@@ -62,7 +60,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	public BlockEnergyStorage(String name, int guiID) {
 		super(Material.IRON);
 		setHardness(2f);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.name = name;
 		this.guiID = guiID;

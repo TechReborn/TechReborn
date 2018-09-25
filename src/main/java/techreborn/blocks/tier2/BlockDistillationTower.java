@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.multiblock.TileDistillationTower;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockDistillationTower extends BlockMachineBase {
 
 	public BlockDistillationTower() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 	

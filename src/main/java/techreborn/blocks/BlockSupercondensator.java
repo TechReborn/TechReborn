@@ -31,15 +31,13 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.List;
 
 public class BlockSupercondensator extends BlockMachineBase {
 	public BlockSupercondensator(Material material) {
 		super();
 		setTranslationKey("techreborn.supercondensator");
-		setCreativeTab(TechRebornCreativeTab.instance);
+//		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

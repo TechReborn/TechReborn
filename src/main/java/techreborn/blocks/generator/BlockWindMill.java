@@ -32,7 +32,6 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.tiles.generator.basic.TileWindMill;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -41,7 +40,6 @@ public class BlockWindMill extends BlockMachineBase {
 
 	public BlockWindMill() {
 		super(false);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

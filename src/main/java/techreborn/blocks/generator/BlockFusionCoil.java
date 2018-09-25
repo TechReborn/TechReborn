@@ -44,8 +44,6 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 import techreborn.init.ModSounds;
-import techreborn.utils.TechRebornCreativeTab;
-
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -55,7 +53,6 @@ public class BlockFusionCoil extends Block {
 		super(Material.IRON);
 		setHardness(2f);
 		setSoundType(SoundType.METAL);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 	

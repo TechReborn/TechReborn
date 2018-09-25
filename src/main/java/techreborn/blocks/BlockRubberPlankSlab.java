@@ -42,8 +42,6 @@ import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.Random;
 
 //Thanks @Prospector you saved me me some time :)
@@ -60,7 +58,7 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 			iblockstate = iblockstate.withProperty(HALF, EnumBlockHalf.BOTTOM);
 			halfslab = this;
 		}
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		setHarvestLevel("axe", 0);
 		setHardness(2.0F);
 		setResistance(15);

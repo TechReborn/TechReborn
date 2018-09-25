@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.multiblock.TileFluidReplicator;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockFluidReplicator extends BlockMachineBase {
 	
 	public BlockFluidReplicator() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier3_machines"));
 	}
 

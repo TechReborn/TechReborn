@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.generator.advanced.TileThermalGenerator;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockThermalGenerator extends BlockMachineBase {
 
 	public BlockThermalGenerator() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

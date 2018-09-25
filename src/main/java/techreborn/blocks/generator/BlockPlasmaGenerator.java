@@ -33,7 +33,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.generator.TilePlasmaGenerator;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Block for Plasma Generator
@@ -42,7 +41,6 @@ public class BlockPlasmaGenerator extends BlockMachineBase {
 
 	public BlockPlasmaGenerator() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 	

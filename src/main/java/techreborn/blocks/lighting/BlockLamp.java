@@ -49,7 +49,6 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.TechReborn;
 import techreborn.tiles.lighting.TileLamp;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockLamp extends BaseTileBlock {
 
@@ -62,7 +61,6 @@ public class BlockLamp extends BaseTileBlock {
 
 	public BlockLamp(int brightness, int cost, double depth, double width) {
 		super(Material.REDSTONE_LIGHT);
-		this.setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
 		this.bbs = GenBoundingBoxes(depth, width);
 		this.cost = cost;

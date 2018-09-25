@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.tier1.TileAssemblingMachine;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockAssemblingMachine extends BlockMachineBase {
 
 	public BlockAssemblingMachine() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier1_machines"));
 	}
 

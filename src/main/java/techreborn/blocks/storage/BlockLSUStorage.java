@@ -47,7 +47,6 @@ import reborncore.common.items.WrenchHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.tiles.storage.lesu.TileLSUStorage;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Energy storage block for LESU
@@ -56,7 +55,6 @@ public class BlockLSUStorage extends BaseTileBlock {
 
 	public BlockLSUStorage() {
 		super(Material.IRON);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

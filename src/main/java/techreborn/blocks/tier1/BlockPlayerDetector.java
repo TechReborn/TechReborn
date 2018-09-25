@@ -59,8 +59,6 @@ import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.utils.MessageIDs;
 import techreborn.tiles.machine.tier1.TilePlayerDectector;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.List;
 import java.util.Random;
 
@@ -72,7 +70,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
 
 	public BlockPlayerDetector() {
 		super(true);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		this.setDefaultState(this.getStateFromMeta(0));
 		for (int i = 0; i < types.length; i++) {
 			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));

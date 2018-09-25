@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.TileCreativeQuantumTank;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockCreativeQuantumTank extends BlockMachineBase {
 
 	public BlockCreativeQuantumTank() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier3_machines"));
 	}
 

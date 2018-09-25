@@ -27,13 +27,11 @@ package techreborn.blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import reborncore.common.BaseBlock;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockStorage extends BaseBlock {
 
 	public BlockStorage() {
 		super(Material.IRON);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2f);
 		setSoundType(SoundType.METAL);
 	}

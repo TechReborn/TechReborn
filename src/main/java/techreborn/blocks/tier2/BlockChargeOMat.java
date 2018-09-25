@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.TileChargeOMat;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockChargeOMat extends BlockMachineBase {
 
 	public BlockChargeOMat() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 

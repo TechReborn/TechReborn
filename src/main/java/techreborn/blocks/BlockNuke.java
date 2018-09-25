@@ -45,7 +45,6 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseBlock;
 import techreborn.TechReborn;
 import techreborn.entities.EntityNukePrimed;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -56,7 +55,7 @@ public class BlockNuke extends BaseBlock {
 	public BlockNuke() {
 		super(Material.TNT);
 		setTranslationKey("techreborn.nuke");
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}

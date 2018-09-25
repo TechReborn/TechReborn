@@ -41,14 +41,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockComputerCube extends BlockMachineBase {
 
 	public BlockComputerCube() {
 		super();
-		this.setTranslationKey("techreborn.computercube");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 

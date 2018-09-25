@@ -34,15 +34,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.Random;
 
 public class BlockReinforcedGlass extends BlockGlass {
 
 	public BlockReinforcedGlass() {
 		super(Material.GLASS, false);
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		setSoundType(SoundType.STONE);
 		setHardness(4.0F);
 		setResistance(60F);

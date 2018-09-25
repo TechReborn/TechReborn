@@ -42,7 +42,6 @@ import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.FusionDamageSource;
 
 import java.util.List;
@@ -51,7 +50,6 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 
 	public BlockFusionControlComputer() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

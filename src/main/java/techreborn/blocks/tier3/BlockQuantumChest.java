@@ -38,16 +38,12 @@ import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileTechStorageBase;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.List;
 
 public class BlockQuantumChest extends BlockMachineBase {
 
 	public BlockQuantumChest() {
 		super();
-		this.setTranslationKey("techreborn.quantumChest");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier3_machines"));
 	}
 	

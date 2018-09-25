@@ -33,15 +33,12 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.List;
 
 public class BlockMagicEnergyAbsorber extends BlockMachineBase {
 
 	public BlockMagicEnergyAbsorber() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

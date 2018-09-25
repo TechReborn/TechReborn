@@ -52,8 +52,6 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.items.tool.basic.ItemElectricTreetap;
 import techreborn.items.tool.ItemTreeTap;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -68,7 +66,7 @@ public class BlockRubberLog extends Block {
 
 	public BlockRubberLog() {
 		super(Material.WOOD);
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		this.setHardness(2.0F);
 		this.setDefaultState(
 			this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));

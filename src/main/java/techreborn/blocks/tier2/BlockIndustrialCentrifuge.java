@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.TileIndustrialCentrifuge;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockIndustrialCentrifuge extends BlockMachineBase {
 
 	public BlockIndustrialCentrifuge() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 

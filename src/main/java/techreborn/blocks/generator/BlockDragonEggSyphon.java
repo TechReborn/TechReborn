@@ -32,13 +32,11 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.tiles.generator.advanced.TileDragonEggSyphon;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockDragonEggSyphon extends BlockMachineBase {
 
 	public BlockDragonEggSyphon() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

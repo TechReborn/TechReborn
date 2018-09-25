@@ -36,8 +36,6 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.Random;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -70,7 +68,6 @@ public class BlockOre extends Block {
 
 	public BlockOre() {
 		super(Material.ROCK);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setHardness(2.0f);
 		setHarvestLevel("pickaxe", 2);
 	}

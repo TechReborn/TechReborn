@@ -33,7 +33,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.init.TRContent.SolarPanels;
 import techreborn.tiles.generator.TileSolarPanel;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -45,7 +44,6 @@ public class BlockSolarPanel extends BlockMachineBase {
 	public BlockSolarPanel(SolarPanels panel) {
 		super();
 		this.panelType = panel;
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 	

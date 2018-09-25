@@ -35,7 +35,6 @@ import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.world.RubberTreeGenerator;
 
 import java.util.Random;
@@ -46,7 +45,7 @@ import java.util.Random;
 public class BlockRubberSapling extends BlockSapling {
 
 	public BlockRubberSapling() {
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		this.setDefaultState(this.getDefaultState().withProperty(STAGE, 0));
 		setSoundType(SoundType.PLANT);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));

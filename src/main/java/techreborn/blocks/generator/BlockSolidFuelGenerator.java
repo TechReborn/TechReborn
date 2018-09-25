@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockSolidFuelGenerator extends BlockMachineBase {
 
 	public BlockSolidFuelGenerator() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

@@ -52,7 +52,6 @@ import techreborn.TechReborn;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.tiles.cable.TileCable;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
@@ -86,7 +85,6 @@ public class BlockCable extends BlockContainer {
 		this.type = type;
 		setHardness(1F);
 		setResistance(8F);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

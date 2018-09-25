@@ -38,16 +38,12 @@ import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.TileDigitalChest;
 import techreborn.tiles.TileTechStorageBase;
-import techreborn.utils.TechRebornCreativeTab;
-
 import java.util.List;
 
 public class BlockDigitalChest extends BlockMachineBase {
 
 	public BlockDigitalChest() {
 		super();
-		this.setTranslationKey("techreborn.digitalChest");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 

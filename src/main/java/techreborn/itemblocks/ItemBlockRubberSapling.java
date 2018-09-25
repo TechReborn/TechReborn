@@ -26,7 +26,7 @@ package techreborn.itemblocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.TechReborn;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -35,7 +35,7 @@ public class ItemBlockRubberSapling extends ItemBlock {
 
 	public ItemBlockRubberSapling(Block block) {
 		super(block);
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		setTranslationKey("techreborn.rubberSapling");
 	}
 }

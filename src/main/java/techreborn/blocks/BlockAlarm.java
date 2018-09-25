@@ -51,8 +51,6 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.TechReborn;
 import techreborn.tiles.TileAlarm;
-import techreborn.utils.TechRebornCreativeTab;
-
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -63,10 +61,8 @@ public class BlockAlarm extends BaseTileBlock {
 
 	public BlockAlarm() {
 		super(Material.ROCK);
-		setTranslationKey("techreborn.alarm");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
 		this.bbs = GenBoundingBoxes(0.19, 0.81);
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

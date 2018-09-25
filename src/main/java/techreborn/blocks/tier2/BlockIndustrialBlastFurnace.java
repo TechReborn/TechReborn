@@ -33,13 +33,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.multiblock.TileIndustrialBlastFurnace;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 
 	public BlockIndustrialBlastFurnace() {
 		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 

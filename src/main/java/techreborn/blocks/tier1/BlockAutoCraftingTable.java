@@ -35,14 +35,11 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
-import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockAutoCraftingTable extends BlockMachineBase {
 
 	public BlockAutoCraftingTable() {
 		super(true);
-		setTranslationKey("techreborn.electriccraftingtable");
-		setCreativeTab(TechRebornCreativeTab.instance);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier1_machines"));
 	}
 

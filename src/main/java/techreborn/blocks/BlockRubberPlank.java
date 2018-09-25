@@ -31,7 +31,6 @@ import net.minecraft.init.Blocks;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -40,7 +39,7 @@ public class BlockRubberPlank extends Block {
 
 	public BlockRubberPlank() {
 		super(Material.WOOD);
-		setCreativeTab(TechRebornCreativeTab.instance);
+		setCreativeTab(TechReborn.TAB);
 		this.setHardness(2.0F);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 20);
