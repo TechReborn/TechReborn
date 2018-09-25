@@ -59,7 +59,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public TileLapotronicSU() {
-		super("LESU", 2, TRContent.LAPOTRONIC_SU, EnumPowerTier.INSANE, 8192, baseOutput, 1_000_000);
+		super("LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnumPowerTier.INSANE, 8192, baseOutput, 1_000_000);
 		checkOverfill = false;
 	}
 

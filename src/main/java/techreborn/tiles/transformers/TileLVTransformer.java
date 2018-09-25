@@ -33,7 +33,7 @@ import techreborn.init.TRContent;
 public class TileLVTransformer extends TileTransformer {
 
 	public TileLVTransformer() {
-		super("LVTransformer", TRContent.LV_TRANSFORMER, EnumPowerTier.MEDIUM);
+		super("LVTransformer", TRContent.Machine.LV_TRANSFORMER.block, EnumPowerTier.MEDIUM);
 	}
 
 }

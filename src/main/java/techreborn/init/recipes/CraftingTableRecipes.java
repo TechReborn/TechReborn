@@ -122,12 +122,12 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShaped(getStack(TRContent.CHEMICAL_REACTOR), "IMI", "CPC", "IEI", 'I', "plateInvar", 'C', "circuitAdvanced", 'M', getStack(TRContent.EXTRACTOR), 'P', getStack(TRContent.COMPRESSOR), 'E', getStack(TRContent.EXTRACTOR));
 //		registerShaped(getStack(TRContent.ROLLING_MACHINE),  "PCP", "MBM", "PCP", 'P', getStack(Blocks.PISTON), 'C', "circuitAdvanced", 'M', getStack(TRContent.COMPRESSOR), 'B', "machineBlockBasic");
 //		registerShaped(getStack(TRContent.AUTO_CRAFTING_TABLE), "MPM", "PCP", "MPM", 'M', "circuitAdvanced", 'C', "workbench", 'P', "plateIron");
-		registerShaped(getStack(TRContent.CHARGE_O_MAT),  "ETE", "COC", "EAE", 'E', "circuitMaster", 'T', "energyCrystal", 'C', "chest", 'O', getStack(TRContent.LAPOTRONIC_ORB), 'A', "machineBlockAdvanced");
+		registerShaped(TRContent.Machine.CHARGE_O_MAT.getStack(),  "ETE", "COC", "EAE", 'E', "circuitMaster", 'T', "energyCrystal", 'C', "chest", 'O', getStack(TRContent.LAPOTRONIC_ORB), 'A', "machineBlockAdvanced");
 //		registerShaped(getStack(TRContent.ALLOY_SMELTER), " C ", "FMF", "   ", 'C', "circuitBasic", 'F', getStack(TRContent.ELECTRIC_FURNACE), 'M', "machineBlockBasic");
-		registerShaped(getStack(TRContent.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P', "plateIridiumAlloy", 'C', "chestEnder", 'A', getStack(TRContent.ADJUSTABLE_SU));
-		registerShaped(getStack(TRContent.ADJUSTABLE_SU), "LLL", "LCL", "LLL", 'L', getStack(TRContent.LAPOTRONIC_ORB), 'C', "energyCrystal");
-		registerShaped(getStack(TRContent.LAPOTRONIC_SU),  " L ", "CBC", " M ", 'L', getStack(TRContent.LV_TRANSFORMER), 'C', "circuitAdvanced", 'M', getStack(TRContent.MV_TRANSFORMER), 'B', getStack(TRContent.LSU_STORAGE));
-		registerShaped(getStack(TRContent.LSU_STORAGE), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C', "circuitBasic");
+//		registerShaped(getStack(TRContent.INTERDIMENSIONAL_SU), "PAP", "ACA", "PAP", 'P', "plateIridiumAlloy", 'C', "chestEnder", 'A', getStack(TRContent.ADJUSTABLE_SU));
+//		registerShaped(getStack(TRContent.ADJUSTABLE_SU), "LLL", "LCL", "LLL", 'L', getStack(TRContent.LAPOTRONIC_ORB), 'C', "energyCrystal");
+//		registerShaped(getStack(TRContent.LAPOTRONIC_SU),  " L ", "CBC", " M ", 'L', getStack(TRContent.LV_TRANSFORMER), 'C', "circuitAdvanced", 'M', getStack(TRContent.MV_TRANSFORMER), 'B', getStack(TRContent.LSU_STORAGE));
+		registerShaped(TRContent.Machine.LSU_STORAGE.getStack(), "LLL", "LCL", "LLL", 'L', "blockLapis", 'C', "circuitBasic");
 //		registerShaped(getStack(TRContent.SCRAPBOXINATOR), "ICI", "DSD", "ICI", 'S', getStack(TRContent.SCRAP_BOX), 'C', "circuitBasic", 'I', "plateIron", 'D', "dirt");
 //		registerShaped(getStack(TRContent.FUSION_CONTROL_COMPUTER), "CCC", "PTP", "CCC", 'P', "energyCrystal", 'T', getStack(TRContent.FUSION_COIL), 'C', "circuitMaster");
 //		registerShaped(getStack(ModBlocks.FUSION_COIL), "CSC", "NAN", "CRC", 'A', getStack(ModBlocks.MACHINE_CASINGS, 1, 2), 'N', getMaterial("nichromeHeatingCoil", Type.PART), 'C', "circuitMaster", 'S', "craftingSuperconductor", 'R', getMaterial("iridiumNeutronReflector", Type.PART));

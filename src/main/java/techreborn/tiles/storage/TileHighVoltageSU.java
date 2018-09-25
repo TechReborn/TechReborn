@@ -41,7 +41,7 @@ public class TileHighVoltageSU extends TileEnergyStorage implements IContainerPr
 	 *  MFSU should store 40M FE with 2048 FE/t I/O
 	 */
 	public TileHighVoltageSU() {
-		super("HIGH_VOLTAGE_SU", 2, TRContent.HIGH_VOLTAGE_SU, EnumPowerTier.HIGH, 512, 512, 10_000_000);
+		super("HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnumPowerTier.HIGH, 512, 512, 10_000_000);
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class TileMediumVoltageSU extends TileEnergyStorage implements IContainer
 	 *  MFE should store 1.2M FE with 512 FE/t I/O
 	 */
 	public TileMediumVoltageSU() {
-		super("MEDIUM_VOLTAGE_SU", 2, TRContent.MEDIUM_VOLTAGE_SU, EnumPowerTier.MEDIUM, 128, 128, 300000);
+		super("MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnumPowerTier.MEDIUM, 128, 128, 300000);
 	}
 
 	@Override

@@ -95,6 +95,6 @@ public class TileLSUStorage extends TileMachineBase
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.LSU_STORAGE, 1);
+		return TRContent.Machine.LSU_STORAGE.getStack();
 	}
 }

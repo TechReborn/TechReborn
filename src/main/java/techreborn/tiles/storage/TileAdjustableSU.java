@@ -51,7 +51,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	private int OUTPUT = 64; // The current output
 
 	public TileAdjustableSU() {
-		super("ADJUSTABLE_SU", 4, TRContent.ADJUSTABLE_SU, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
+		super("ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
 	
 	public void handleGuiInputFromClient(int id) {
@@ -77,7 +77,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(TRContent.ADJUSTABLE_SU, 1);
+		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		writeToNBTWithoutCoords(tileEntity);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);

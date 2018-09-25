@@ -175,17 +175,7 @@ public class TRContent {
 
 	
 	// Machines - energy storage & transformers
-	public static Block ADJUSTABLE_SU;
-	public static Block CHARGE_O_MAT;
-	public static Block INTERDIMENSIONAL_SU;
-	public static Block LAPOTRONIC_SU;
-	public static Block LSU_STORAGE;
-	public static Block LOW_VOLTAGE_SU;
-	public static Block MEDIUM_VOLTAGE_SU;
-	public static Block HIGH_VOLTAGE_SU;
-	public static Block LV_TRANSFORMER;
-	public static Block MV_TRANSFORMER;
-	public static Block HV_TRANSFORMER;
+
 	
 	// Machines - misc
 	public static Block ALARM;
@@ -489,14 +479,23 @@ public class TRContent {
 		CREATIVE_QUANTUM_TANK(new BlockCreativeQuantumTank(), ItemBlockQuantumTank.class),
 		DIGITAL_CHEST(new BlockDigitalChest(), ItemBlockDigitalChest.class),
 		QUANTUM_CHEST(new BlockQuantumChest(), ItemBlockQuantumChest.class),
-		QUANTUM_TANK(new BlockQuantumTank(), ItemBlockQuantumTank.class)
+		QUANTUM_TANK(new BlockQuantumTank(), ItemBlockQuantumTank.class),
 		
-		
+		ADJUSTABLE_SU(new BlockAdjustableSU(), ItemBlockAdjustableSU.class),
+		CHARGE_O_MAT(new BlockChargeOMat()),
+		INTERDIMENSIONAL_SU(new BlockInterdimensionalSU()),
+		LAPOTRONIC_SU(new BlockLapotronicSU()),
+		LSU_STORAGE(new BlockLSUStorage()),
+		LOW_VOLTAGE_SU(new BlockLowVoltageSU()),
+		MEDIUM_VOLTAGE_SU(new BlockMediumVoltageSU()),
+		HIGH_VOLTAGE_SU(new BlockHighVoltageSU()),
+		LV_TRANSFORMER(new BlockLVTransformer()),
+		MV_TRANSFORMER(new BlockMVTransformer()),
+		HV_TRANSFORMER(new BlockHVTransformer())
 		
 		;
 		
-
-		
+	
 		
 		public final String name;
 		public final Block block;
@@ -856,40 +855,6 @@ public class TRContent {
 
 		RUBBER_SAPLING = new BlockRubberSapling();
 		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
-
-		// Machines - energy storage & transformers
-		ADJUSTABLE_SU = new BlockAdjustableSU();
-		registerBlock(ADJUSTABLE_SU, ItemBlockAdjustableSU.class, "adjustable_su");
-
-		CHARGE_O_MAT = new BlockChargeOMat();
-		registerBlock(CHARGE_O_MAT, "charge_o_mat");
-
-		INTERDIMENSIONAL_SU = new BlockInterdimensionalSU();
-		registerBlock(INTERDIMENSIONAL_SU, "interdimensional_su");
-
-		LAPOTRONIC_SU = new BlockLapotronicSU();
-		registerBlock(LAPOTRONIC_SU, "lapotronic_su");
-
-		LSU_STORAGE = new BlockLSUStorage();
-		registerBlock(LSU_STORAGE, "lsu_storage");
-
-		LOW_VOLTAGE_SU = new BlockLowVoltageSU();
-		registerBlock(LOW_VOLTAGE_SU, "low_voltage_su");
-
-		MEDIUM_VOLTAGE_SU = new BlockMediumVoltageSU();
-		registerBlock(MEDIUM_VOLTAGE_SU, "medium_voltage_su");
-
-		HIGH_VOLTAGE_SU = new BlockHighVoltageSU();
-		registerBlock(HIGH_VOLTAGE_SU, "high_voltage_su");
-
-		LV_TRANSFORMER = new BlockLVTransformer();
-		registerBlock(LV_TRANSFORMER, "lv_transformer");
-
-		MV_TRANSFORMER = new BlockMVTransformer();
-		registerBlock(MV_TRANSFORMER, "mv_transformer");
-
-		HV_TRANSFORMER = new BlockHVTransformer();
-		registerBlock(HV_TRANSFORMER, "hv_transformer");
 
 		// Machines - misc
 		ALARM = new BlockAlarm();

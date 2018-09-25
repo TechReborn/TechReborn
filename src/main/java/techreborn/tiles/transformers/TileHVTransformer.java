@@ -33,7 +33,7 @@ import techreborn.init.TRContent;
 public class TileHVTransformer extends TileTransformer {
 
 	public TileHVTransformer() {
-		super("HVTransformer", TRContent.HV_TRANSFORMER, EnumPowerTier.EXTREME);
+		super("HVTransformer", TRContent.Machine.HV_TRANSFORMER.block, EnumPowerTier.EXTREME);
 	}
 
 }

@@ -50,7 +50,7 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	public String ownerUdid;
 
 	public TileInterdimensionalSU() {
-		super("IDSU", 2, TRContent.INTERDIMENSIONAL_SU, EnumPowerTier.EXTREME, maxInput, maxOutput, maxEnergy);
+		super("IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnumPowerTier.EXTREME, maxInput, maxOutput, maxEnergy);
 	}
 
 	@Override

@@ -33,6 +33,6 @@ import techreborn.init.TRContent;
 public class TileMVTransformer extends TileTransformer {
 
 	public TileMVTransformer() {
-		super("MVTransformer", TRContent.MV_TRANSFORMER, EnumPowerTier.HIGH);
+		super("MVTransformer", TRContent.Machine.MV_TRANSFORMER.block, EnumPowerTier.HIGH);
 	}
 }

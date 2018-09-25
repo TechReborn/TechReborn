@@ -85,7 +85,7 @@ public class ItemBlockAdjustableSU extends ItemBlock {
 
 	public ItemStack getDropWithNBT(double energy) {
 		NBTTagCompound tileEntity = new NBTTagCompound();
-		ItemStack dropStack = new ItemStack(TRContent.ADJUSTABLE_SU, 1);
+		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		writeToNBTWithoutCoords(tileEntity, energy);
 		dropStack.setTagCompound(new NBTTagCompound());
 		dropStack.getTagCompound().setTag("tileEntity", tileEntity);

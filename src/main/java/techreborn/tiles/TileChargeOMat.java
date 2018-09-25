@@ -114,7 +114,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
-		return new ItemStack(TRContent.CHARGE_O_MAT, 1);
+		return TRContent.Machine.CHARGE_O_MAT.getStack();
 	}
 
 	// ItemHandlerProvider
