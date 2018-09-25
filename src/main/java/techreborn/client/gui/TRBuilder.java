@@ -89,7 +89,7 @@ public class TRBuilder extends GuiBuilder {
 			list.add(powerColour + PowerSystem.getLocaliszedPowerFormattedNoSuffix(energyStored) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxEnergyStored) + " " + PowerSystem.getDisplayPower().abbreviation);
 			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
 			if(gui.tile instanceof TilePowerAcceptor && GuiScreen.isShiftKeyDown()){
-				((TilePowerAcceptor) gui.tile).addInfo(list, true);
+				((TilePowerAcceptor) gui.tile).addInfo(list, true, false);
 				list.add("");
 				list.add(TextFormatting.BLUE + "Click to change display unit");
 			} else {

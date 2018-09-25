@@ -29,6 +29,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -55,7 +56,7 @@ public class StackToolTipEvent {
 		}
 		Item item = event.getItemStack().getItem();
 		if (item instanceof IListInfoProvider) {
-			((IListInfoProvider) item).addInfo(event.getToolTip(), false);
+			((IListInfoProvider) item).addInfo(event.getToolTip(), false, false);
 		} else if (event.getItemStack().getItem() instanceof IEnergyItemInfo) {
 			IEnergyStorage capEnergy = event.getItemStack().getCapability(CapabilityEnergy.ENERGY, null);
 			event.getToolTip().add(1,
@@ -87,8 +88,15 @@ public class StackToolTipEvent {
 					&& block.getRegistryName().getNamespace().contains("techreborn")) {
 					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().world, 
 						block.getStateFromMeta(event.getItemStack().getItemDamage()));
+					boolean hasData = false;
+					if(event.getItemStack().hasTagCompound() && event.getItemStack().getTagCompound().hasKey("tile_data")){
+						NBTTagCompound tileData = event.getItemStack().getTagCompound().getCompoundTag("tile_data");
+						tile.readFromNBT(tileData);
+						hasData = true;
+						event.getToolTip().add(TextFormatting.DARK_GREEN + "Block data contained");
+					}
 					if (tile instanceof IListInfoProvider) {
-						((IListInfoProvider) tile).addInfo(event.getToolTip(), false);
+						((IListInfoProvider) tile).addInfo(event.getToolTip(), false, hasData);
 					}
 				}
 			} catch (NullPointerException e) {

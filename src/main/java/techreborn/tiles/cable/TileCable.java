@@ -238,7 +238,7 @@ public class TileCable extends TileEntity
 
     // IListInfoProvider
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
+	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile) {
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
 					+ TextFormatting.GOLD

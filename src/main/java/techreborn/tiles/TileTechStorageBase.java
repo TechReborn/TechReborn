@@ -240,8 +240,8 @@ public class TileTechStorageBase extends TileMachineBase
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
-		if (isRealTile) {
+	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
+		if (isRealTile || hasData) {
 			int size = 0;
 			String name = "of nothing";
 			if (!storedItem.isEmpty()) {

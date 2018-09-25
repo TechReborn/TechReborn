@@ -1,5 +1,6 @@
 package techreborn.init;
 
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.properties.IProperty;
@@ -27,99 +28,27 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.BucketHandler;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
-import techreborn.blocks.BlockAlarm;
-import techreborn.blocks.BlockComputerCube;
-import techreborn.blocks.BlockMachineCasing;
-import techreborn.blocks.BlockMachineFrame;
-import techreborn.blocks.BlockNuke;
-import techreborn.blocks.BlockOre;
-import techreborn.blocks.BlockRefinedIronFence;
-import techreborn.blocks.BlockReinforcedGlass;
-import techreborn.blocks.BlockRubberLeaves;
-import techreborn.blocks.BlockRubberLog;
-import techreborn.blocks.BlockRubberPlank;
-import techreborn.blocks.BlockRubberPlankSlab;
-import techreborn.blocks.BlockRubberPlankStair;
-import techreborn.blocks.BlockRubberSapling;
-import techreborn.blocks.BlockStorage;
+import techreborn.blocks.*;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.blocks.generator.BlockDieselGenerator;
-import techreborn.blocks.generator.BlockDragonEggSyphon;
-import techreborn.blocks.generator.BlockFusionCoil;
-import techreborn.blocks.generator.BlockFusionControlComputer;
-import techreborn.blocks.generator.BlockGasTurbine;
-import techreborn.blocks.generator.BlockLightningRod;
-import techreborn.blocks.generator.BlockMagicEnergyAbsorber;
-import techreborn.blocks.generator.BlockMagicEnergyConverter;
-import techreborn.blocks.generator.BlockPlasmaGenerator;
-import techreborn.blocks.generator.BlockSemiFluidGenerator;
-import techreborn.blocks.generator.BlockSolarPanel;
-import techreborn.blocks.generator.BlockSolidFuelGenerator;
-import techreborn.blocks.generator.BlockThermalGenerator;
-import techreborn.blocks.generator.BlockWaterMill;
-import techreborn.blocks.generator.BlockWindMill;
+import techreborn.blocks.generator.*;
 import techreborn.blocks.lighting.BlockLamp;
-import techreborn.blocks.storage.BlockAdjustableSU;
-import techreborn.blocks.storage.BlockHighVoltageSU;
-import techreborn.blocks.storage.BlockInterdimensionalSU;
-import techreborn.blocks.storage.BlockLSUStorage;
-import techreborn.blocks.storage.BlockLapotronicSU;
-import techreborn.blocks.storage.BlockLowVoltageSU;
-import techreborn.blocks.storage.BlockMediumVoltageSU;
+import techreborn.blocks.storage.*;
 import techreborn.blocks.tier0.BlockIronAlloyFurnace;
 import techreborn.blocks.tier0.BlockIronFurnace;
-import techreborn.blocks.tier1.BlockAlloySmelter;
-import techreborn.blocks.tier1.BlockAssemblingMachine;
-import techreborn.blocks.tier1.BlockAutoCraftingTable;
-import techreborn.blocks.tier1.BlockCompressor;
-import techreborn.blocks.tier1.BlockElectricFurnace;
-import techreborn.blocks.tier1.BlockExtractor;
-import techreborn.blocks.tier1.BlockGrinder;
-import techreborn.blocks.tier1.BlockPlayerDetector;
-import techreborn.blocks.tier1.BlockRecycler;
-import techreborn.blocks.tier1.BlockRollingMachine;
-import techreborn.blocks.tier1.BlockScrapboxinator;
-import techreborn.blocks.tier2.BlockChargeOMat;
-import techreborn.blocks.tier2.BlockChemicalReactor;
-import techreborn.blocks.tier2.BlockDigitalChest;
-import techreborn.blocks.tier2.BlockDistillationTower;
-import techreborn.blocks.tier2.BlockImplosionCompressor;
-import techreborn.blocks.tier2.BlockIndustrialBlastFurnace;
-import techreborn.blocks.tier2.BlockIndustrialCentrifuge;
-import techreborn.blocks.tier2.BlockIndustrialElectrolyzer;
-import techreborn.blocks.tier2.BlockIndustrialGrinder;
-import techreborn.blocks.tier2.BlockIndustrialSawmill;
-import techreborn.blocks.tier2.BlockVacuumFreezer;
-import techreborn.blocks.tier3.BlockChunkLoader;
-import techreborn.blocks.tier3.BlockCreativeQuantumChest;
-import techreborn.blocks.tier3.BlockCreativeQuantumTank;
-import techreborn.blocks.tier3.BlockFluidReplicator;
-import techreborn.blocks.tier3.BlockMatterFabricator;
-import techreborn.blocks.tier3.BlockQuantumChest;
-import techreborn.blocks.tier3.BlockQuantumTank;
+import techreborn.blocks.tier1.*;
+import techreborn.blocks.tier2.*;
+import techreborn.blocks.tier3.*;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.config.ConfigTechReborn;
-import techreborn.itemblocks.ItemBlockAdjustableSU;
-import techreborn.itemblocks.ItemBlockDigitalChest;
-import techreborn.itemblocks.ItemBlockQuantumChest;
-import techreborn.itemblocks.ItemBlockQuantumTank;
 import techreborn.itemblocks.ItemBlockRubberSapling;
-import techreborn.items.DynamicCell;
-import techreborn.items.ItemFrequencyTransmitter;
-import techreborn.items.ItemManual;
-import techreborn.items.ItemScrapBox;
-import techreborn.items.ItemUpgrade;
+import techreborn.items.*;
 import techreborn.items.armor.ItemCloakingDevice;
 import techreborn.items.armor.ItemLapotronicOrbpack;
 import techreborn.items.armor.ItemLithiumIonBatpack;
 import techreborn.items.armor.ItemTRArmour;
-import techreborn.items.battery.ItemEnergyCrystal;
-import techreborn.items.battery.ItemLapotronCrystal;
-import techreborn.items.battery.ItemLapotronicOrb;
-import techreborn.items.battery.ItemLithiumIonBattery;
-import techreborn.items.battery.ItemRedCellBattery;
+import techreborn.items.battery.*;
 import techreborn.items.tool.ItemDebugTool;
 import techreborn.items.tool.ItemTreeTap;
 import techreborn.items.tool.ItemWrench;
@@ -131,23 +60,16 @@ import techreborn.items.tool.basic.ItemBasicChainsaw;
 import techreborn.items.tool.basic.ItemBasicDrill;
 import techreborn.items.tool.basic.ItemBasicJackhammer;
 import techreborn.items.tool.basic.ItemElectricTreetap;
-import techreborn.items.tool.industrial.ItemIndustrialChainsaw;
-import techreborn.items.tool.industrial.ItemIndustrialDrill;
-import techreborn.items.tool.industrial.ItemIndustrialJackhammer;
-import techreborn.items.tool.industrial.ItemNanosaber;
-import techreborn.items.tool.industrial.ItemOmniTool;
+import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.ItemTRAxe;
 import techreborn.items.tool.vanilla.ItemTRHoe;
 import techreborn.items.tool.vanilla.ItemTRSpade;
 import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Map;
-
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Maps;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TRContent {
@@ -461,13 +383,13 @@ public class TRContent {
 		WATER_MILL(new BlockWaterMill()),
 		WIND_MILL(new BlockWindMill()),
 		
-		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest(), ItemBlockQuantumChest.class),
-		CREATIVE_QUANTUM_TANK(new BlockCreativeQuantumTank(), ItemBlockQuantumTank.class),
-		DIGITAL_CHEST(new BlockDigitalChest(), ItemBlockDigitalChest.class),
-		QUANTUM_CHEST(new BlockQuantumChest(), ItemBlockQuantumChest.class),
-		QUANTUM_TANK(new BlockQuantumTank(), ItemBlockQuantumTank.class),
+		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
+		CREATIVE_QUANTUM_TANK(new BlockCreativeQuantumTank()),
+		DIGITAL_CHEST(new BlockDigitalChest()),
+		QUANTUM_CHEST(new BlockQuantumChest()),
+		QUANTUM_TANK(new BlockQuantumTank()),
 		
-		ADJUSTABLE_SU(new BlockAdjustableSU(), ItemBlockAdjustableSU.class),
+		ADJUSTABLE_SU(new BlockAdjustableSU()),
 		CHARGE_O_MAT(new BlockChargeOMat()),
 		INTERDIMENSIONAL_SU(new BlockInterdimensionalSU()),
 		LAPOTRONIC_SU(new BlockLapotronicSU()),
@@ -489,12 +411,6 @@ public class TRContent {
 		public final Block block;
 
 		private <B extends Block> Machine(B block) {
-			this.name = this.toString().toLowerCase();
-			this.block = block;
-			InitUtils.setup(block, name);
-		}
-		
-		private <B extends Block, IB extends ItemBlock> Machine(B block, Class<IB> itemBlock) {
 			this.name = this.toString().toLowerCase();
 			this.block = block;
 			InitUtils.setup(block, name);

@@ -71,8 +71,8 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
+	public void addInfo(final List<String> info, final boolean isRealTile, boolean hasData) {
+		super.addInfo(info, isRealTile, hasData);
 		info.add("Round and round it goes");
 	}
 }

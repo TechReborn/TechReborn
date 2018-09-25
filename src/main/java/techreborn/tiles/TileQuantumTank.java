@@ -125,8 +125,8 @@ public class TileQuantumTank extends TileMachineBase
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		if (isRealTile) {
+	public void addInfo(final List<String> info, final boolean isRealTile, boolean hasData) {
+		if (isRealTile | hasData) {
 			if (this.tank.getFluid() != null) {
 				info.add(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName());
 			} else {

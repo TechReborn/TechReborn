@@ -123,7 +123,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	// TODO: Translate
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
+	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
 		info.add(TextFormatting.GRAY + "Internal Energy Storage: " + TextFormatting.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower()));
 

@@ -75,8 +75,8 @@ public class TilePump extends TilePowerAcceptor {
 	}
 
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile) {
-		super.addInfo(info, isRealTile);
+	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
+		super.addInfo(info, isRealTile, hasData);
 		info.add(TextFormatting.LIGHT_PURPLE + "Eu per extract " + TextFormatting.GREEN
 			+ PowerSystem.getLocaliszedPower(pumpExtractEU));
 		info.add(TextFormatting.LIGHT_PURPLE + "Speed: " + TextFormatting.GREEN
