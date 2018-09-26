@@ -715,63 +715,6 @@ public class TRContent {
 		}
 	}
 	
-	public static void registerBlocks() {
-		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(MachineBlocks.values()).forEach(value -> {
-			RebornRegistry.registerBlock(value.frame);
-			RebornRegistry.registerBlock(value.casing);
-		});
-		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		
-		// Misc. blocks
-		COMPUTER_CUBE = new BlockComputerCube();
-		registerBlock(COMPUTER_CUBE, "computer_cube");
-
-		NUKE = new BlockNuke();
-		registerBlock(NUKE, "nuke");
-
-		REFINED_IRON_FENCE = new BlockRefinedIronFence();
-		registerBlock(REFINED_IRON_FENCE, "refined_iron_fence");
-
-		REINFORCED_GLASS = new BlockReinforcedGlass();
-		registerBlock(REINFORCED_GLASS, "reinforced_glass");
-
-		RUBBER_LEAVES = new BlockRubberLeaves();
-		registerBlock(RUBBER_LEAVES, "rubber_leaves");
-
-		RUBBER_LOG = new BlockRubberLog();
-		registerBlock(RUBBER_LOG, "rubber_log");
-
-		RUBBER_LOG_SLAB_HALF = new BlockRubberPlankSlab.BlockHalf("rubber_plank");
-		registerBlockNoItem(RUBBER_LOG_SLAB_HALF, "rubber_plank_slab");
-
-		RUBBER_LOG_SLAB_DOUBLE = new BlockRubberPlankSlab.BlockDouble("rubber_plank", RUBBER_LOG_SLAB_HALF);
-		registerBlock(RUBBER_LOG_SLAB_DOUBLE, new ItemSlab(RUBBER_LOG_SLAB_HALF, (BlockSlab) RUBBER_LOG_SLAB_HALF, (BlockSlab) RUBBER_LOG_SLAB_DOUBLE) , "rubber_plank_double_slab");
-
-		RUBBER_LOG_STAIR = new BlockRubberPlankStair(TRContent.RUBBER_LOG.getDefaultState(), "rubber_plank");
-		registerBlock(RUBBER_LOG_STAIR, "rubber_plank_stair");
-
-		RUBBER_PLANKS = new BlockRubberPlank();
-		registerBlock(RUBBER_PLANKS, "rubber_planks");
-
-		RUBBER_SAPLING = new BlockRubberSapling();
-		registerBlock(RUBBER_SAPLING, ItemBlockRubberSapling.class, "rubber_sapling");
-
-		//TODO enable when done
-		//		flare = new BlockFlare();
-		//		registerBlock(flare, "flare");
-		//		ItemBlock itemBlock = new ItemColored(flare, true);
-		//		itemBlock.setRegistryName("flareItemBlock");
-		//		itemBlock.setCreativeTab(TechRebornCreativeTabMisc.instance);
-		//		GameRegistry.register(itemBlock);
-		//		GameRegistry.registerTileEntity(TileEntityFlare.class, "TileEntityFlareTR");
-
-		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
-	}
-
 	public static void registerItems() {
 		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
@@ -967,40 +910,4 @@ public class TRContent {
 			});
 		}
 	}
-
-	/**
-	 * Wrapper method for RebornRegistry
-	 * @param block Block to register
-	 * @param name Name of block to register
-	 */
-	public static void registerBlock(Block block, String name) {
-		name = name.toLowerCase();
-		block.setTranslationKey(TechReborn.MOD_ID + "." + name);
-		RebornRegistry.registerBlock(block, new ResourceLocation(TechReborn.MOD_ID, name));
-	}
-
-	/**
-	 * Wrapper method for RebornRegistry
-	 * @param block Block to Register
-	 * @param itemclass Itemblock of block to register
-	 * @param name Name of block to register
-	 */
-	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
-		name = name.toLowerCase();
-		block.setTranslationKey(TechReborn.MOD_ID + "." + name);
-		RebornRegistry.registerBlock(block, itemclass, new ResourceLocation(TechReborn.MOD_ID, name));
-	}
-
-	public static void registerBlock(Block block, ItemBlock itemBlock, String name) {
-		name = name.toLowerCase();
-		block.setTranslationKey(TechReborn.MOD_ID + "." + name);
-		RebornRegistry.registerBlock(block, itemBlock, new ResourceLocation(TechReborn.MOD_ID, name));
-	}
-
-	public static void registerBlockNoItem(Block block, String name) {
-		name = name.toLowerCase();
-		block.setTranslationKey(TechReborn.MOD_ID + "." + name);
-		RebornRegistry.registerBlockNoItem(block,  new ResourceLocation(TechReborn.MOD_ID, name));
-	}
-
 }
