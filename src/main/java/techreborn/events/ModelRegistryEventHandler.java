@@ -88,7 +88,8 @@ public class ModelRegistryEventHandler {
 		
 		ResourceLocation oresRL = new ResourceLocation(TechReborn.MOD_ID, "ore");
 		for (Ores value : Ores.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(oresRL, "type=" + value.name));
+			registerBlockstateMultiItem(oresRL, Item.getItemFromBlock(value.block), value.name);
+
 			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
@@ -99,7 +100,7 @@ public class ModelRegistryEventHandler {
 
 		ResourceLocation storageRL = new ResourceLocation(TechReborn.MOD_ID, "storage_block");
 		for (StorageBlocks value : StorageBlocks.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0, new ModelResourceLocation(storageRL, "type=" + value.name));
+			registerBlockstateMultiItem(storageRL, Item.getItemFromBlock(value.block), value.name);
 			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
@@ -110,14 +111,14 @@ public class ModelRegistryEventHandler {
 
 		ResourceLocation machineBlockRL = new ResourceLocation(TechReborn.MOD_ID, "machine_block");
 		for (MachineBlocks value : MachineBlocks.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.frame), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame"));
+			registerBlockstateMultiItem(machineBlockRL, Item.getItemFromBlock(value.frame), value.name + "_machine_frame");
 			ModelLoader.setCustomStateMapper(value.frame, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame");
 				}
 			});
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.casing), 0, new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing"));
+			registerBlockstateMultiItem(machineBlockRL, Item.getItemFromBlock(value.casing), value.name + "_machine_casing");
 			ModelLoader.setCustomStateMapper(value.casing, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
@@ -128,8 +129,7 @@ public class ModelRegistryEventHandler {
 		
 		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
 		for (Cables value : Cables.values()) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(value.block), 0,
-					new ModelResourceLocation(cableRL, "type=" + value.name));
+			registerBlockstateMultiItem(cableRL, Item.getItemFromBlock(value.block), value.name);			
 			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
 				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
@@ -306,22 +306,12 @@ public class ModelRegistryEventHandler {
 		});
 	}
 	
-	private static void register(Block block, String name) {
-		register(block, 0, name);
+	private static void register(Block block, String modelPath) {
+		RebornModelRegistry.registerItemModel(Item.getItemFromBlock(block), modelPath);
 	}
 	
-	private static void register(Block block, int meta, String name) {
-		register(Item.getItemFromBlock(block), meta, name);
-	}
-	
-	private static void register(Item item, String name) {
-		register(item, 0, name);
-	}
-	
-	private static void register(Item item, int meta, String name) {
-		ResourceLocation loc = new ResourceLocation(TechReborn.MOD_ID, name);
-		ModelLoader.setCustomModelResourceLocation(item, meta,
-			new ModelResourceLocation(loc, "inventory"));
+	private static void register(Item item, String modelPath) {
+		RebornModelRegistry.registerItemModel(item, modelPath);
 	}
 	
 	private static void registerBlockstateMultiItem(ResourceLocation RL, Item item, String variantName) {
