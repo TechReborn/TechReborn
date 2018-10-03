@@ -39,21 +39,16 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.hud.StackInfoHUD;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.client.multiblock.MultiblockRenderEvent;
-import techreborn.TechReborn;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientEventHandler;
 import techreborn.client.IconSupplier;
-import techreborn.client.RegisterItemJsons;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.GuiFluidConfiguration;
 import techreborn.client.gui.slot.GuiSlotConfiguration;
 import techreborn.client.keybindings.KeyBindings;
-import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entities.EntityNukePrimed;
-import techreborn.events.FluidBlockModelHandler;
 import techreborn.events.StackToolTipEvent;
 import techreborn.init.TRContent;
 import techreborn.items.ItemFrequencyTransmitter;
@@ -65,13 +60,9 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		RebornModelRegistry.registerModels(TechReborn.MOD_ID);
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
-		ModelDynamicCell.init();
-		RegisterItemJsons.registerModels();
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
-		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 
