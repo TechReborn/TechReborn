@@ -27,16 +27,13 @@ package techreborn.blocks;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
-import techreborn.TechReborn;
 
 public class BlockRefinedIronFence extends BlockFence {
 
 	public BlockRefinedIronFence() {
 		super(Material.IRON, BlockPlanks.EnumType.OAK.getMapColor());
-		setCreativeTab(TechReborn.TAB);
 		setHardness(2.0F);
 		setHarvestLevel("pickaxe", 2);
-		//RebornModelRegistry.registerModel(new ModelCompound(ModInfo.MOD_ID, this));
 	}
 
 }

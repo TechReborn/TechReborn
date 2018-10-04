@@ -54,8 +54,6 @@ public class BlockNuke extends BaseBlock {
 
 	public BlockNuke() {
 		super(Material.TNT);
-		setTranslationKey("techreborn.nuke");
-		setCreativeTab(TechReborn.TAB);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}

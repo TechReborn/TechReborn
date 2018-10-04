@@ -35,12 +35,12 @@ import techreborn.init.TRContent;
 public class ContainerDestructoPack extends RebornContainer {
 
 	private EntityPlayer player;
-	private Inventory inv;
+	private Inventory<?> inv;
 
 	public ContainerDestructoPack(EntityPlayer player) {
 		super(null);
 		this.player = player;
-		inv = new Inventory(1, "destructopack", 64, null);
+		inv = new Inventory<>(1, "destructopack", 64, null);
 		buildContainer();
 	}
 

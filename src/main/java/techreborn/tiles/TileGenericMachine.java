@@ -47,7 +47,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	public int maxEnergy;
 	public Block toolDrop;
 	public int energySlot;
-	public Inventory inventory;
+	public Inventory<?> inventory;
 	public RecipeCrafter crafter;
 	
 	/**
@@ -115,7 +115,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public Inventory<?> getInventory() {
 		return inventory;
 	}
 	

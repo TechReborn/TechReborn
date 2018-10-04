@@ -34,7 +34,6 @@ public class BlockRubberPlankStair extends BlockStairs {
 
 	public BlockRubberPlankStair(IBlockState modelState, String name) {
 		super(modelState);
-		setCreativeTab(TechReborn.TAB);
 		useNeighborBrightness = true;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}

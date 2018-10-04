@@ -49,7 +49,6 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	public BlockRubberLeaves() {
 		super();
-		setCreativeTab(TechReborn.TAB);
 		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
 			.withProperty(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);

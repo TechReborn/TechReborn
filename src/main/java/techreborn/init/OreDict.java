@@ -49,18 +49,17 @@ public class OreDict {
 		// Blocks
 		OreUtil.registerOre("fenceIron", TRContent.REFINED_IRON_FENCE);
 		OreUtil.registerOre("woodRubber", TRContent.RUBBER_LOG);
+		OreUtil.registerOre("logWood", TRContent.RUBBER_LOG);
+		OreUtil.registerOre("logRubber", TRContent.RUBBER_LOG);
+		OreUtil.registerOre("plankWood", TRContent.RUBBER_PLANKS);
+		OreUtil.registerOre("plankRubber", TRContent.RUBBER_PLANKS);
 		OreUtil.registerOre("glassReinforced", TRContent.REINFORCED_GLASS);
 		OreUtil.registerOre("treeSapling", TRContent.RUBBER_SAPLING);
 		OreUtil.registerOre("saplingRubber", TRContent.RUBBER_SAPLING);
-
-		//		OreUtil.registerOre("logWood", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("logRubber", new ItemStack(RUBBER_LOG, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("plankWood", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("slabWood", new ItemStack(RUBBER_LOG_SLAB_HALF, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("stairWood", new ItemStack(RUBBER_LOG_STAIR, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("plankRubber", new ItemStack(RUBBER_PLANKS, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("treeLeaves", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
-		//		OreUtil.registerOre("leavesRubber", new ItemStack(RUBBER_LEAVES, 1, OreDictionary.WILDCARD_VALUE));
+		OreUtil.registerOre("slabWood", TRContent.RUBBER_LOG_SLAB_HALF);
+		OreUtil.registerOre("stairWood", TRContent.RUBBER_LOG_STAIR);
+		OreUtil.registerOre("treeLeaves", TRContent.RUBBER_LEAVES);
+		OreUtil.registerOre("leavesRubber", TRContent.RUBBER_LEAVES);
 
 		// Parts
 		OreUtil.registerOre("circuitBasic", TRContent.Parts.ELECTRONIC_CIRCUIT.getStack());

@@ -113,13 +113,11 @@ public class RegistryEventHandler {
 		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"));
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"));
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"));
+		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
+				ItemBlockRubberSapling.class, 
+				"rubber_sapling");
 		RebornRegistry.registerBlockNoItem(TRContent.RUBBER_LOG_SLAB_HALF = InitUtils.setup(new BlockRubberPlankSlab.BlockHalf("rubber_plank"), "rubber_plank_slab"));
-		RebornRegistry.registerBlock(
-				TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
-					ItemBlockRubberSapling.class, 
-					"rubber_sapling");
-		RebornRegistry.registerBlock(
-				TRContent.RUBBER_LOG_SLAB_DOUBLE = InitUtils.setup(new BlockRubberPlankSlab.BlockDouble("rubber_plank", TRContent.RUBBER_LOG_SLAB_HALF), "rubber_plank_double_slab"),
+		RebornRegistry.registerBlock(TRContent.RUBBER_LOG_SLAB_DOUBLE = InitUtils.setup(new BlockRubberPlankSlab.BlockDouble("rubber_plank", TRContent.RUBBER_LOG_SLAB_HALF), "rubber_plank_double_slab"),
 					new ItemSlab(TRContent.RUBBER_LOG_SLAB_HALF, (BlockSlab) TRContent.RUBBER_LOG_SLAB_HALF, (BlockSlab) TRContent.RUBBER_LOG_SLAB_DOUBLE),
 					"rubber_plank_double_slab");
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG_STAIR = InitUtils.setup(new BlockRubberPlankStair(TRContent.RUBBER_LOG.getDefaultState(), "rubber_plank"),

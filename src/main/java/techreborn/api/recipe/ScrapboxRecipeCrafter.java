@@ -45,7 +45,7 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	 * @param inputSlots Slot IDs for input
 	 * @param outputSlots Slot IDs for output
 	 */
-	public ScrapboxRecipeCrafter(TileEntity parentTile, Inventory inventory, int[] inputSlots, int[] outputSlots) {
+	public ScrapboxRecipeCrafter(TileEntity parentTile, Inventory<?> inventory, int[] inputSlots, int[] outputSlots) {
 		super(Reference.SCRAPBOX_RECIPE, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 

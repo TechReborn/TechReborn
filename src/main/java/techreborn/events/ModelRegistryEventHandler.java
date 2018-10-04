@@ -29,7 +29,6 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -45,6 +44,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
@@ -83,48 +83,20 @@ public class ModelRegistryEventHandler {
 	}
 	
 	private static void registerBlocks() {
-		register(TRContent.REFINED_IRON_FENCE, "iron_fence");
-		register(TRContent.RUBBER_SAPLING, "misc/rubber_sapling");
-		
-		ResourceLocation oresRL = new ResourceLocation(TechReborn.MOD_ID, "ore");
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, TRContent.REFINED_IRON_FENCE));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, TRContent.RUBBER_SAPLING));
+
 		for (Ores value : Ores.values()) {
-			registerBlockstateMultiItem(oresRL, Item.getItemFromBlock(value.block), value.name);
-
-			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(oresRL, "type=" + value.name);
-				}
-			});
+			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, value.block).setFileName("ore").setInvVariant("type=" + value.name));
 		}
 
-		ResourceLocation storageRL = new ResourceLocation(TechReborn.MOD_ID, "storage_block");
 		for (StorageBlocks value : StorageBlocks.values()) {
-			registerBlockstateMultiItem(storageRL, Item.getItemFromBlock(value.block), value.name);
-			ModelLoader.setCustomStateMapper(value.block, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(storageRL, "type=" + value.name);
-				}
-			});
+			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, value.block).setFileName("storage_block").setInvVariant("type=" + value.name));
 		}
 
-		ResourceLocation machineBlockRL = new ResourceLocation(TechReborn.MOD_ID, "machine_block");
 		for (MachineBlocks value : MachineBlocks.values()) {
-			registerBlockstateMultiItem(machineBlockRL, Item.getItemFromBlock(value.frame), value.name + "_machine_frame");
-			ModelLoader.setCustomStateMapper(value.frame, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_frame");
-				}
-			});
-			registerBlockstateMultiItem(machineBlockRL, Item.getItemFromBlock(value.casing), value.name + "_machine_casing");
-			ModelLoader.setCustomStateMapper(value.casing, new DefaultStateMapper() {
-				@Override
-				protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-					return new ModelResourceLocation(machineBlockRL, "type=" + value.name + "_machine_casing");
-				}
-			});
+			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, value.frame).setFileName("machine_block").setInvVariant("type=" + value.name + "_machine_frame"));
+			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, value.casing).setFileName("machine_block").setInvVariant("type=" + value.name + "_machine_casing"));
 		}
 		
 		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
@@ -304,10 +276,6 @@ public class ModelRegistryEventHandler {
 				return location;
 			}
 		});
-	}
-	
-	private static void register(Block block, String modelPath) {
-		RebornModelRegistry.registerItemModel(Item.getItemFromBlock(block), modelPath);
 	}
 	
 	private static void register(Item item, String modelPath) {

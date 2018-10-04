@@ -66,7 +66,6 @@ public class BlockRubberLog extends Block {
 
 	public BlockRubberLog() {
 		super(Material.WOOD);
-		setCreativeTab(TechReborn.TAB);
 		this.setHardness(2.0F);
 		this.setDefaultState(
 			this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));

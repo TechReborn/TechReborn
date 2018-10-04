@@ -58,7 +58,6 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 			iblockstate = iblockstate.withProperty(HALF, EnumBlockHalf.BOTTOM);
 			halfslab = this;
 		}
-		setCreativeTab(TechReborn.TAB);
 		setHarvestLevel("axe", 0);
 		setHardness(2.0F);
 		setResistance(15);

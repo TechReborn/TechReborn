@@ -48,7 +48,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	private FluidGeneratorRecipe currentRecipe;
 	private int ticksSinceLastChange;
 	public final Tank tank;
-	public final Inventory inventory;
+	public final Inventory<?> inventory;
 	protected long lastOutput = 0;
 
 	/*
@@ -168,7 +168,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Inventory<?> getInventory() {
 		return inventory;
 	}
 

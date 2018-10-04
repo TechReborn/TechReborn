@@ -40,7 +40,6 @@ public class BlockReinforcedGlass extends BlockGlass {
 
 	public BlockReinforcedGlass() {
 		super(Material.GLASS, false);
-		setCreativeTab(TechReborn.TAB);
 		setSoundType(SoundType.STONE);
 		setHardness(4.0F);
 		setResistance(60F);
