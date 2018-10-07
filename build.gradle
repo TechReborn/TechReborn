@@ -124,10 +124,13 @@ dependencies {
 		
 	deobfCompile "mezz.jei:jei_1.12.2:+"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
-	deobfCompile  'net.industrial-craft:industrialcraft-2:2.8.+'
-	deobfCompile  'cofh:ThermalDynamics:1.12.2-2.5+:universal'
-	deobfCompile  'cofh:ThermalExpansion:1.12.2-5.5+:universal'
-	deobfCompile  'MCMultiPart2:MCMultiPart:2.4.1'
+	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.+'
+	deobfCompile 'cofh:ThermalDynamics:1.12.2-+:universal'
+	deobfCompile 'cofh:ThermalExpansion:1.12.2-+:universal'
+	deobfCompile "cofh:CoFHCore:1.12.2-+:universal"
+	deobfCompile "cofh:ThermalFoundation:1.12.2-+:universal"
+	deobfCompile "codechicken:CodeChickenLib:1.12.2-+:universal"
+	deobfCompile 'MCMultiPart2:MCMultiPart:2.4.1'
 	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
 	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
 }
