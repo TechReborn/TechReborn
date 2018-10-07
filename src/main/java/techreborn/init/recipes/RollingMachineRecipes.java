@@ -29,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techreborn.api.TechRebornAPI;
+import techreborn.items.DynamicCell;
 import techreborn.lib.ModInfo;
 
 /**
@@ -56,6 +57,8 @@ public class RollingMachineRecipes extends RecipeMethods {
 		register(new ResourceLocation(ModInfo.MOD_ID, "tripwire_hook"), getStack(Blocks.TRIPWIRE_HOOK, 4), " I ", " S ", " W ", 'I', "ingotIron", 'S', "stickWood", 'W', "plankWood");
 		register(new ResourceLocation(ModInfo.MOD_ID, "heavy_pressure_plate"), getStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 2), "II ", 'I', "ingotIron");
 		register(new ResourceLocation(ModInfo.MOD_ID, "light_pressure_plate"), getStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE, 2), "GG ", 'G', "ingotGold");
+
+		register(new ResourceLocation(ModInfo.MOD_ID, "empty_cell"), DynamicCell.getEmptyCell(24), " T ", "T T", " T ", 'T', "ingotTin");
 	}
 
 	static void register(ResourceLocation resourceLocation, ItemStack output, Object... componentsObjects) {

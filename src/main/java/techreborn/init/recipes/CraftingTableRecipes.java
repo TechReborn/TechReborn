@@ -30,6 +30,8 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
 import reborncore.common.util.StringUtils;
@@ -49,7 +51,12 @@ import techreborn.items.ingredients.ItemParts;
 /**
  * Created by Prospector
  */
+@RebornRegistry
 public class CraftingTableRecipes extends RecipeMethods {
+
+	@ConfigRegistry(config = "recipes", category = "crafting", key = "cellRecipe", comment = "Enables the new thermal expansion compatible cell recipe")
+	public static boolean newCellRecipe = true;
+
 	public static void init() {
 
 		registerCompressionRecipes();
@@ -59,7 +66,12 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), "plateIridium");
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getMaterialObject("tungstensteel", Type.INGOT));
 		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), getStack(ModBlocks.RUBBER_LOG));
-		registerShaped(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
+		if(newCellRecipe){
+			registerShaped(DynamicCell.getEmptyCell(16), " T ", "TGT", " T ", 'T', "ingotTin", 'G', "paneGlass"); // Blame thermal expansion for making gears have the same recipe
+		} else {
+			registerShaped(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
+		}
+
 		registerShaped(getStack(ModBlocks.REFINED_IRON_FENCE), "RRR", "RRR", 'R', "ingotRefinedIron");
 		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GAG", "GGG", "GAG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
 		registerShaped(getStack(ModBlocks.REINFORCED_GLASS, 7), "GGG", "AGA", "GGG", 'A', "plateAdvancedAlloy", 'G', "blockGlass");
