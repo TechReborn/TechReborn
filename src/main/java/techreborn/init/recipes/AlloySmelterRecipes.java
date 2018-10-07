@@ -28,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.recipes.OreRecipeInput;
 import reborncore.common.util.OreUtil;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.items.ingredients.ItemDusts;
@@ -42,16 +43,16 @@ public class AlloySmelterRecipes extends RecipeMethods {
 	public static void init() {
 		// Bronze
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
+			new AlloySmelterRecipe(new OreRecipeInput("ingotCopper", 3), "ingotTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("tin", 1),
+			new AlloySmelterRecipe(new OreRecipeInput("ingotCopper", 3), "dustTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("tin", 1),
+			new AlloySmelterRecipe(new OreRecipeInput("dustCopper", 3), "ingotTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("tin", 1),
+			new AlloySmelterRecipe(new OreRecipeInput("dustCopper", 3), "dustTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 
 		// Electrum

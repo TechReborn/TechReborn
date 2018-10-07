@@ -29,6 +29,7 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import reborncore.common.recipes.IRecipeInput;
 import techreborn.api.recipe.BaseRecipe;
 
 import javax.annotation.Nonnull;
@@ -57,6 +58,8 @@ public abstract class BaseRecipeWrapper<T extends BaseRecipe> implements IRecipe
 				}
 			} else if (input instanceof String) {
 				inputs.add(OreDictionary.getOres((String) input));
+			} else if (input instanceof IRecipeInput){
+				inputs.add(((IRecipeInput) input).getAllStacks());
 			}
 		}
 		for (ItemStack input : baseRecipe.getOutputs()) {
