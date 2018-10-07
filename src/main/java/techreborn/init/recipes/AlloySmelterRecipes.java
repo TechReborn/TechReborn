@@ -41,46 +41,50 @@ import techreborn.items.ingredients.ItemIngots;
 public class AlloySmelterRecipes extends RecipeMethods {
 
 	public static void init() {
+
+		OreRecipeInput ingotCopper3 = new OreRecipeInput("ingotCopper", 3);
+		OreRecipeInput dustCopper3 = new OreRecipeInput("dustCopper", 3);
+
 		// Bronze
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new OreRecipeInput("ingotCopper", 3), "ingotTin",
+			new AlloySmelterRecipe(ingotCopper3, "ingotTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new OreRecipeInput("ingotCopper", 3), "dustTin",
+			new AlloySmelterRecipe(ingotCopper3, "dustTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new OreRecipeInput("dustCopper", 3), "ingotTin",
+			new AlloySmelterRecipe(dustCopper3, "ingotTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new OreRecipeInput("dustCopper", 3), "dustTin",
+			new AlloySmelterRecipe(dustCopper3, "dustTin",
 				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 
 		// Electrum
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemIngots.getIngotByName("silver", 1),
+			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), "ingotSilver",
 				ItemIngots.getIngotByName("electrum", 2), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), ItemDusts.getDustByName("silver", 1),
+			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), "dustSilver",
 				ItemIngots.getIngotByName("electrum", 2), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemIngots.getIngotByName("silver", 1),
+			new AlloySmelterRecipe("dustGold", "ingotSilver",
 				ItemIngots.getIngotByName("electrum", 2), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("gold", 1), ItemDusts.getDustByName("silver", 1),
+			new AlloySmelterRecipe("dustGold", "dustSilver",
 				ItemIngots.getIngotByName("electrum", 2), 200, 16));
 
 		// Invar
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemIngots.getIngotByName("nickel", 1),
+			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), "ingotNickel",
 				ItemIngots.getIngotByName("invar", 3), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("nickel", 1),
+			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), "dustNickel",
 				ItemIngots.getIngotByName("invar", 3), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemIngots.getIngotByName("nickel", 1),
+			new AlloySmelterRecipe(new OreRecipeInput("dustIron", 2), "ingotNickel",
 				ItemIngots.getIngotByName("invar", 3), 200, 16));
 		RecipeHandler.addRecipe(
-			new AlloySmelterRecipe(ItemDusts.getDustByName("iron", 2), ItemDusts.getDustByName("nickel", 1),
+			new AlloySmelterRecipe(new OreRecipeInput("dustIron", 2), "dustNickel",
 				ItemIngots.getIngotByName("invar", 3), 200, 16));
 
 		// Brass
@@ -88,16 +92,16 @@ public class AlloySmelterRecipes extends RecipeMethods {
 			ItemStack brassStack = getOre("ingotBrass");
 			brassStack.setCount(4);
 			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
+				new AlloySmelterRecipe(ingotCopper3, "ingotZinc",
 					brassStack, 200, 16));
 			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
+				new AlloySmelterRecipe(ingotCopper3, "dustZinc",
 					brassStack, 200, 16));
 			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemIngots.getIngotByName("zinc", 1),
+				new AlloySmelterRecipe(dustCopper3, "ingotZinc",
 					brassStack, 200, 16));
 			RecipeHandler.addRecipe(
-				new AlloySmelterRecipe(ItemDusts.getDustByName("copper", 3), ItemDusts.getDustByName("zinc", 1),
+				new AlloySmelterRecipe(dustCopper3, "dustZinc",
 					brassStack, 200, 16));
 		}
 
