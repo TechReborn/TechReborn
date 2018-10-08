@@ -129,6 +129,8 @@ dependencies {
 	deobfCompile 'cofh:ThermalExpansion:1.12.2-+:universal'
 	deobfCompile "cofh:CoFHCore:1.12.2-+:universal"
 	deobfCompile "cofh:ThermalFoundation:1.12.2-+:universal"
+	deobfCompile "cofh:RedstoneFlux:1.12-2.1+:universal"
+	deobfCompile "cofh:CoFHWorld:1.12.2-+:universal"
 	deobfCompile "codechicken:CodeChickenLib:1.12.2-+:universal"
 	deobfCompile 'MCMultiPart2:MCMultiPart:2.4.1'
 	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
