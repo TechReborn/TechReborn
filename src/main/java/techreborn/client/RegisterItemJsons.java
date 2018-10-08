@@ -58,9 +58,9 @@ public class RegisterItemJsons {
 	private static void registerItems() {
 		
 		// Armor
-		register(ModItems.CLOAKING_DEVICE, "armour/cloaking_device");
-		register(ModItems.LAPOTRONIC_ORB_PACK, "armour/lapotronic_orbpack");
-		register(ModItems.LITHIUM_BATTERY_PACK, "armour/lithium_batpack");
+		register(ModItems.CLOAKING_DEVICE, "armor/cloaking_device");
+		register(ModItems.LAPOTRONIC_ORB_PACK, "armor/lapotronic_orbpack");
+		register(ModItems.LITHIUM_BATTERY_PACK, "armor/lithium_batpack");
 		
 		// Battery
 		register(ModItems.ENERGY_CRYSTAL, "battery/energy_crystal");
@@ -98,22 +98,22 @@ public class RegisterItemJsons {
 		}
 		
 		if (ConfigTechReborn.enableGemArmorAndTools) {
-			registerBlockstateMultiItem(ModItems.RUBY_HELMET, "ruby_helmet", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.RUBY_CHESTPLATE, "ruby_chestplate", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.RUBY_LEGGINGS, "ruby_leggings", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.RUBY_BOOTS, "ruby_boots", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.SAPPHIRE_HELMET, "sapphire_helmet", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.SAPPHIRE_CHSTPLATE, "sapphire_chestplate", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.SAPPHIRE_LEGGINGS, "sapphire_leggings", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.SAPPHIRE_BOOTS, "sapphire_boots", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.PERIDOT_HELMET, "peridot_helmet", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.PERIDOT_CHESTPLATE, "peridot_chestplate", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.PERIDOT_LEGGINGS, "peridot_leggings", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.PERIDOT_BOOTS, "peridot_boots", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.BRONZE_HELMET, "bronze_helmet", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.BRONZE_CHESTPLATE, "bronze_chestplate", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.BRONZE_LEGGINGS, "bronze_leggings", "items/tool/armour");
-			registerBlockstateMultiItem(ModItems.BRONZE_BOOTS, "bronze_boots", "items/tool/armour");
+			registerBlockstateMultiItem(ModItems.RUBY_HELMET, "ruby_helmet", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.RUBY_CHESTPLATE, "ruby_chestplate", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.RUBY_LEGGINGS, "ruby_leggings", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.RUBY_BOOTS, "ruby_boots", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.SAPPHIRE_HELMET, "sapphire_helmet", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.SAPPHIRE_CHSTPLATE, "sapphire_chestplate", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.SAPPHIRE_LEGGINGS, "sapphire_leggings", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.SAPPHIRE_BOOTS, "sapphire_boots", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.PERIDOT_HELMET, "peridot_helmet", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.PERIDOT_CHESTPLATE, "peridot_chestplate", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.PERIDOT_LEGGINGS, "peridot_leggings", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.PERIDOT_BOOTS, "peridot_boots", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.BRONZE_HELMET, "bronze_helmet", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.BRONZE_CHESTPLATE, "bronze_chestplate", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.BRONZE_LEGGINGS, "bronze_leggings", "items/tool/armor");
+			registerBlockstateMultiItem(ModItems.BRONZE_BOOTS, "bronze_boots", "items/tool/armor");
 
 			registerBlockstateMultiItem(ModItems.RUBY_PICKAXE, "ruby_pickaxe", "items/tool/tool");
 			registerBlockstateMultiItem(ModItems.RUBY_SWORD, "ruby_sword", "items/tool/tool");

@@ -54,7 +54,7 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTRArmor implements IEnergyItemInfo {
 
 	@ConfigRegistry(config = "items", category = "cloacking_device", key = "ClockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (Value in FE)")
 	public static int usage = 10;

@@ -36,7 +36,7 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "recipes", category = "ic2", key = "deduplicate", comment = "Changes a lot of recipes and hides blocks to integrate TechReborn into IC2")
 	public static boolean REMOVE_DUPLICATES = false;
 
-	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armour and tools")
+	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 
 	@ConfigRegistry(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")

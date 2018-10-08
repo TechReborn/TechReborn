@@ -10,7 +10,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.items.InventoryItem;
-import techreborn.api.armour.*;
+import techreborn.api.armor.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,20 +19,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 //Think of this class as the tile entity on the item. It handles sorting all the upgrades out, and the inventoryes, and the power
-public class ModularArmourManager implements ICapabilityProvider, IModularArmourManager {
+public class ModularArmorManager implements ICapabilityProvider, IModularArmorManager {
 
 	ItemStack stack;
-	ArmourSlot armourSlot;
+	ArmorSlot armorSlot;
 
-	public ModularArmourManager(ItemStack stack) {
+	public ModularArmorManager(ItemStack stack) {
 		Validate.isInstanceOf(ItemArmor.class, stack.getItem());
 		this.stack = stack;
 		ItemArmor itemArmor = (ItemArmor) stack.getItem();
-		this.armourSlot = ArmourSlot.fromEntityEquipmentSlot(itemArmor.armorType);
+		this.armorSlot = ArmorSlot.fromEntityEquipmentSlot(itemArmor.armorType);
 	}
 
 	@Override
-	public ItemStack getArmourStack() {
+	public ItemStack getArmorStack() {
 		return stack;
 	}
 
@@ -47,11 +47,11 @@ public class ModularArmourManager implements ICapabilityProvider, IModularArmour
 	}
 
 	@Override
-	public List<IArmourUpgrade> getAllUprgades() {
+	public List<IArmorUpgrade> getAllUprgades() {
 		return IntStream.range(0, getInvetory().getSlots())
 			.mapToObj(value -> getInvetory().getStackInSlot(value))
-			.filter(ModularArmourUtils::isUprgade)
-			.map(ModularArmourUtils::getArmourUprgade)
+			.filter(ModularArmorUtils::isUprgade)
+			.map(ModularArmorUtils::getArmorUprgade)
 			.collect(Collectors.toList());
 	}
 
@@ -59,8 +59,8 @@ public class ModularArmourManager implements ICapabilityProvider, IModularArmour
 	public List<UpgradeHolder> getAllHolders() {
 		return IntStream.range(0, getInvetory().getSlots())
 			.mapToObj(value -> getInvetory().getStackInSlot(value))
-			.filter(ModularArmourUtils::isUprgade)
-			.map(stack -> ModularArmourUtils.getArmourUprgadeHolder(stack, this))
+			.filter(ModularArmorUtils::isUprgade)
+			.map(stack -> ModularArmorUtils.getArmorUprgadeHolder(stack, this))
 			.collect(Collectors.toList());
 	}
 

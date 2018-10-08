@@ -93,7 +93,7 @@ public class GuiBase extends GuiContainer {
 		builder.drawOutputSlotBar(this, x - 4, y - 4, count);
 	}
 
-	protected void drawArmourSlots(int x, int y, Layer layer) {
+	protected void drawArmorSlots(int x, int y, Layer layer) {
 		if (layer == Layer.BACKGROUND) {
 			x += guiLeft;
 			y += guiTop;

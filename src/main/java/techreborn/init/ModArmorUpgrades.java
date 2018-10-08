@@ -1,21 +1,21 @@
 package techreborn.init;
 
 import reborncore.RebornRegistry;
-import techreborn.api.armour.IArmourUpgrade;
-import techreborn.items.armor.modular.upgrades.ItemArmourUpgrade;
+import techreborn.api.armor.IArmorUpgrade;
+import techreborn.items.armor.modular.upgrades.ItemArmorUpgrade;
 import techreborn.items.armor.modular.upgrades.TestUpgrade;
 
 import java.util.Arrays;
 
-public enum  ModArmourUpgrades {
+public enum  ModArmorUpgrades {
 	TEST(new TestUpgrade());
 
-	IArmourUpgrade upgrade;
-	ItemArmourUpgrade item;
+	IArmorUpgrade upgrade;
+	ItemArmorUpgrade item;
 
-	ModArmourUpgrades(IArmourUpgrade upgrade) {
+	ModArmorUpgrades(IArmorUpgrade upgrade) {
 		this.upgrade = upgrade;
-		item = new ItemArmourUpgrade(upgrade);
+		item = new ItemArmorUpgrade(upgrade);
 	}
 
 	public static void init(){

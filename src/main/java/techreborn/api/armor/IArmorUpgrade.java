@@ -1,4 +1,4 @@
-package techreborn.api.armour;
+package techreborn.api.armor;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Arrays;
 import java.util.List;
 
-public interface IArmourUpgrade {
+public interface IArmorUpgrade {
 
 	/**
 	 * @return a unique registry name for this uprgade
@@ -16,10 +16,10 @@ public interface IArmourUpgrade {
 	public ResourceLocation getName();
 
 	/**
-	 * @return the armourStack slots that this upgradeStack is valid for, default all
+	 * @return the armorStack slots that this upgradeStack is valid for, default all
 	 */
-	public default List<ArmourSlot> getValidSlots() {
-		return Arrays.asList(ArmourSlot.values());
+	public default List<ArmorSlot> getValidSlots() {
+		return Arrays.asList(ArmorSlot.values());
 	}
 
 	public default void tick(UpgradeHolder holder, EntityPlayer player) {

@@ -2,11 +2,11 @@ package techreborn.items.armor.modular.upgrades;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import techreborn.api.armour.UpgradeHolder;
-import techreborn.items.armor.modular.BaseArmourUprgade;
+import techreborn.api.armor.UpgradeHolder;
+import techreborn.items.armor.modular.BaseArmorUprgade;
 import techreborn.lib.ModInfo;
 
-public class TestUpgrade extends BaseArmourUprgade {
+public class TestUpgrade extends BaseArmorUprgade {
 
 	public TestUpgrade() {
 		super(new ResourceLocation(ModInfo.MOD_ID, "test"));

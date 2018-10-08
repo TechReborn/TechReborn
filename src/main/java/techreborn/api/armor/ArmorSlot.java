@@ -1,10 +1,10 @@
-package techreborn.api.armour;
+package techreborn.api.armor;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 
 import java.util.Arrays;
 
-public enum ArmourSlot {
+public enum ArmorSlot {
 	HEAD(EntityEquipmentSlot.HEAD),
 	CHEST(EntityEquipmentSlot.CHEST),
 	LEGS(EntityEquipmentSlot.LEGS),
@@ -12,7 +12,7 @@ public enum ArmourSlot {
 
 	EntityEquipmentSlot entityEquipmentSlot;
 
-	ArmourSlot(EntityEquipmentSlot entityEquipmentSlot) {
+	ArmorSlot(EntityEquipmentSlot entityEquipmentSlot) {
 		this.entityEquipmentSlot = entityEquipmentSlot;
 	}
 
@@ -20,9 +20,9 @@ public enum ArmourSlot {
 		return entityEquipmentSlot;
 	}
 
-	public static ArmourSlot fromEntityEquipmentSlot(EntityEquipmentSlot entityEquipmentSlot) {
+	public static ArmorSlot fromEntityEquipmentSlot(EntityEquipmentSlot entityEquipmentSlot) {
 		return Arrays.stream(values())
-			.filter(armourSlot -> armourSlot.entityEquipmentSlot == entityEquipmentSlot)
+			.filter(armorSlot -> armorSlot.entityEquipmentSlot == entityEquipmentSlot)
 			.findFirst()
 			.orElse(null);
 	}

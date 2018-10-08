@@ -45,7 +45,7 @@ public class GuiIDSU extends GuiBase {
 
 		this.drawSlot(62, 45, layer);
 		this.drawSlot(98, 45, layer);
-		this.drawArmourSlots(8, 18, layer);
+		this.drawArmorSlots(8, 18, layer);
 	}
 
 	@Override

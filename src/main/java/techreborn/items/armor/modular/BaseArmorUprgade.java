@@ -1,13 +1,13 @@
 package techreborn.items.armor.modular;
 
 import net.minecraft.util.ResourceLocation;
-import techreborn.api.armour.IArmourUpgrade;
+import techreborn.api.armor.IArmorUpgrade;
 
-public abstract class BaseArmourUprgade implements IArmourUpgrade {
+public abstract class BaseArmorUprgade implements IArmorUpgrade {
 
 	ResourceLocation name;
 
-	public BaseArmourUprgade(ResourceLocation name) {
+	public BaseArmorUprgade(ResourceLocation name) {
 		this.name = name;
 	}
 

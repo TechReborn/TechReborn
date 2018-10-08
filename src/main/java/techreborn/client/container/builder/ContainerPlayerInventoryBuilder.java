@@ -101,19 +101,19 @@ public final class ContainerPlayerInventoryBuilder {
 		}
 
 		public ContainerPlayerArmorInventoryBuilder helmet(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.getSizeInventory() - 2, xStart, yStart, EntityEquipmentSlot.HEAD, IconSupplier.armour_head_name);
+			return this.armor(this.parent.player.getSizeInventory() - 2, xStart, yStart, EntityEquipmentSlot.HEAD, IconSupplier.armor_head_name);
 		}
 
 		public ContainerPlayerArmorInventoryBuilder chestplate(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.getSizeInventory() - 3, xStart, yStart, EntityEquipmentSlot.CHEST, IconSupplier.armour_chest_name);
+			return this.armor(this.parent.player.getSizeInventory() - 3, xStart, yStart, EntityEquipmentSlot.CHEST, IconSupplier.armor_chest_name);
 		}
 
 		public ContainerPlayerArmorInventoryBuilder leggings(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.getSizeInventory() - 4, xStart, yStart, EntityEquipmentSlot.LEGS, IconSupplier.armour_legs_name);
+			return this.armor(this.parent.player.getSizeInventory() - 4, xStart, yStart, EntityEquipmentSlot.LEGS, IconSupplier.armor_legs_name);
 		}
 
 		public ContainerPlayerArmorInventoryBuilder boots(final int xStart, final int yStart) {
-			return this.armor(this.parent.player.getSizeInventory() - 5, xStart, yStart, EntityEquipmentSlot.FEET, IconSupplier.armour_feet_name);
+			return this.armor(this.parent.player.getSizeInventory() - 5, xStart, yStart, EntityEquipmentSlot.FEET, IconSupplier.armor_feet_name);
 		}
 
 		public ContainerPlayerArmorInventoryBuilder complete(final int xStart, final int yStart) {

@@ -1,4 +1,4 @@
-package techreborn.api.armour;
+package techreborn.api.armor;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -11,16 +11,16 @@ import javax.annotation.Nullable;
 
 public class ArmorUpgradeCapabilityProvider implements ICapabilityProvider {
 
-	public static ICapabilityProvider getUpgradeProvider(ItemStack stack, IArmourUpgrade upgrade) {
+	public static ICapabilityProvider getUpgradeProvider(ItemStack stack, IArmorUpgrade upgrade) {
 		Validate.notNull(upgrade);
 		Validate.notNull(stack);
 		return new ArmorUpgradeCapabilityProvider(stack, upgrade);
 	}
 
 	ItemStack stack;
-	IArmourUpgrade armorUpgrade;
+	IArmorUpgrade armorUpgrade;
 
-	public ArmorUpgradeCapabilityProvider(ItemStack stack, IArmourUpgrade upgrade) {
+	public ArmorUpgradeCapabilityProvider(ItemStack stack, IArmorUpgrade upgrade) {
 		this.stack = stack;
 		this.armorUpgrade = upgrade;
 	}
@@ -31,7 +31,7 @@ public class ArmorUpgradeCapabilityProvider implements ICapabilityProvider {
 			Capability<?> capability,
 		@Nullable
 			EnumFacing facing) {
-		return capability == CapabilityArmourUpgrade.ARMOUR_UPRGRADE_CAPABILITY;
+		return capability == CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY;
 	}
 
 	@Nullable
@@ -41,8 +41,8 @@ public class ArmorUpgradeCapabilityProvider implements ICapabilityProvider {
 			Capability<T> capability,
 		@Nullable
 			EnumFacing facing) {
-		if(capability == CapabilityArmourUpgrade.ARMOUR_UPRGRADE_CAPABILITY){
-			return CapabilityArmourUpgrade.ARMOUR_UPRGRADE_CAPABILITY.cast(armorUpgrade);
+		if(capability == CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY){
+			return CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY.cast(armorUpgrade);
 		}
 		return null;
 	}

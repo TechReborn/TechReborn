@@ -4,22 +4,22 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import techreborn.api.armour.IArmourUpgrade;
+import techreborn.api.armor.IArmorUpgrade;
 
 import javax.annotation.Nullable;
 
 public class ModCapabilities {
 
 	public static void init(){
-		CapabilityManager.INSTANCE.register(IArmourUpgrade.class, new Capability.IStorage<IArmourUpgrade>() {
+		CapabilityManager.INSTANCE.register(IArmorUpgrade.class, new Capability.IStorage<IArmorUpgrade>() {
 			@Nullable
 			@Override
-			public NBTBase writeNBT(Capability<IArmourUpgrade> capability, IArmourUpgrade instance, EnumFacing side) {
+			public NBTBase writeNBT(Capability<IArmorUpgrade> capability, IArmorUpgrade instance, EnumFacing side) {
 				return null;
 			}
 
 			@Override
-			public void readNBT(Capability<IArmourUpgrade> capability, IArmourUpgrade instance, EnumFacing side, NBTBase nbt) {
+			public void readNBT(Capability<IArmorUpgrade> capability, IArmorUpgrade instance, EnumFacing side, NBTBase nbt) {
 
 			}
 		}, () -> {

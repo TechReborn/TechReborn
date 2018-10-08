@@ -34,15 +34,15 @@ import techreborn.events.TRRecipeHandler;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemTRArmour extends ItemArmor {
+public class ItemTRArmor extends ItemArmor {
 
 	String repairOreDict = "";
 
-	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot) {
+	public ItemTRArmor(ArmorMaterial material, EntityEquipmentSlot slot) {
 		this(material, slot, "");
 	}
 
-	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot, String repairOreDict) {
+	public ItemTRArmor(ArmorMaterial material, EntityEquipmentSlot slot, String repairOreDict) {
 		super(material, material.getDamageReductionAmount(slot), slot);
 		this.repairOreDict = repairOreDict;
 		if (slot == EntityEquipmentSlot.HEAD)
