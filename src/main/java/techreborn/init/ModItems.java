@@ -26,12 +26,14 @@ package techreborn.init;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.api.Reference;
+import techreborn.api.armour.ArmourSlot;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.*;
@@ -39,6 +41,7 @@ import techreborn.items.armor.ItemCloakingDevice;
 import techreborn.items.armor.ItemLapotronPack;
 import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmour;
+import techreborn.items.armor.modular.ItemModularArmour;
 import techreborn.items.battery.*;
 import techreborn.items.ingredients.ItemDusts;
 import techreborn.items.ingredients.ItemDustsSmall;
@@ -103,7 +106,9 @@ public class ModItems {
 	public static Item SCRAP_BOX;
 	public static Item UPGRADES;
 
-	// Gem armor&tools
+	public static Item MODULAR_CHEST_TEST;
+
+	// Gem armour&tools
 	@Nullable
 	public static Item BRONZE_SWORD;
 	@Nullable
@@ -264,6 +269,12 @@ public class ModItems {
 		registerItem(SCRAP_BOX, "scrapbox");
 		UPGRADES = new ItemUpgrades();
 		registerItem(UPGRADES, "upgrades");
+
+		MODULAR_CHEST_TEST = new ItemModularArmour(ItemArmor.ArmorMaterial.DIAMOND, ArmourSlot.CHEST);
+		MODULAR_CHEST_TEST.setUnlocalizedName("techrebonr.modularchesttest");
+		registerItem(MODULAR_CHEST_TEST, "modular_chest_test");
+
+		ModArmourUpgrades.init();
 
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			BRONZE_SWORD = new ItemTRSword(Reference.BRONZE, "ingotBronze");

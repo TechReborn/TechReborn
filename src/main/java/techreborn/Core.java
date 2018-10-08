@@ -113,6 +113,7 @@ public class Core {
 		ModTileEntities.init();
 		ModFluids.init();
 		ModItems.init();
+		ModCapabilities.init();
 
 		// Entitys
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);

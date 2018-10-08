@@ -58,9 +58,9 @@ public class RegisterItemJsons {
 	private static void registerItems() {
 		
 		// Armor
-		register(ModItems.CLOAKING_DEVICE, "armor/cloaking_device");
-		register(ModItems.LAPOTRONIC_ORB_PACK, "armor/lapotronic_orbpack");
-		register(ModItems.LITHIUM_BATTERY_PACK, "armor/lithium_batpack");		
+		register(ModItems.CLOAKING_DEVICE, "armour/cloaking_device");
+		register(ModItems.LAPOTRONIC_ORB_PACK, "armour/lapotronic_orbpack");
+		register(ModItems.LITHIUM_BATTERY_PACK, "armour/lithium_batpack");
 		
 		// Battery
 		register(ModItems.ENERGY_CRYSTAL, "battery/energy_crystal");
