@@ -74,7 +74,8 @@ public enum EGui implements IMachineGuiHandler {
 	SEMIFLUID_GENERATOR(true),
 	THERMAL_GENERATOR(true),
 	VACUUM_FREEZER(true),
-	FLUID_REPLICATOR(true);
+	FLUID_REPLICATOR(true),
+	WORKSTATION(true);
 
 	private final boolean containerBuilder;
 

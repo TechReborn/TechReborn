@@ -40,8 +40,10 @@ import reborncore.client.gui.slots.BaseSlot;
 import reborncore.client.gui.slots.SlotFake;
 import reborncore.client.gui.slots.SlotOutput;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.Core;
 import techreborn.client.container.builder.slot.FilteredSlot;
+import techreborn.client.container.builder.slot.ToggledSlot;
 import techreborn.client.container.builder.slot.UpgradeSlot;
 import techreborn.compat.CompatManager;
 import techreborn.utils.IC2ItemCharger;
@@ -84,6 +86,12 @@ public class ContainerTileInventoryBuilder {
 	public ContainerTileInventoryBuilder filterSlot(final int index, final int x, final int y,
 	                                                final Predicate<ItemStack> filter) {
 		this.parent.slots.add(new FilteredSlot(this.tile, index, x, y).setFilter(filter));
+		return this;
+	}
+
+	public ContainerTileInventoryBuilder toggleSlot(final int index, final int x, final int y,
+	                                                final Predicate<ItemStack> filter, final Predicate<Pair<TileLegacyMachineBase, Integer>> toggle) {
+		this.parent.slots.add(new ToggledSlot(this.tile, index, x, y).setToggle(toggle).setFilter(filter));
 		return this;
 	}
 

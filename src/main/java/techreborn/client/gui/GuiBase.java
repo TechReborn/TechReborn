@@ -28,6 +28,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -75,6 +76,15 @@ public class GuiBase extends GuiContainer {
 			y += guiTop;
 		}
 		builder.drawSlot(this, x - 1, y - 1);
+	}
+
+	protected void drawSlot(int id, int x, int y, Layer layer) {
+		for(Slot slot : container.inventorySlots){
+			if(slot.inventory == tile && slot.getSlotIndex() == id && !slot.isEnabled()){
+				return;
+			}
+		}
+		drawSlot(x, y, layer);
 	}
 
 	protected void drawScrapSlot(int x, int y, Layer layer) {

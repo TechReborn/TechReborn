@@ -113,6 +113,7 @@ public class ModBlocks {
 	public static Block MV_TRANSFORMER;
 	public static Block HV_TRANSFORMER;
 	public static Block AUTO_CRAFTING_TABLE;
+	public static Block WORKSTATION;
 
 	public static BlockOre ORE;
 	public static BlockOre2 ORE2;
@@ -353,6 +354,9 @@ public class ModBlocks {
 
 		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
 		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");
+
+		WORKSTATION = new BlockWorkstation();
+		registerBlock(WORKSTATION, "workstation");
 
 		IRON_FURNACE = new BlockIronFurnace();
 		registerBlock(IRON_FURNACE, "iron_furnace");

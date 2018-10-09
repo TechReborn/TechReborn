@@ -199,6 +199,11 @@ public class RegisterItemJsons {
 				return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getResourceDomain(), ModBlocks.CABLE.getRegistryName().getResourcePath()) + "_thick", this.getPropertyString(map));
 			}
 		});
+
+		register(ModItems.QUANTUMSUIT_HELMET, "armor/quantumsuit_helmet");
+		register(ModItems.QUANTUMSUIT_CHEST, "armor/quantumsuit_chest");
+		register(ModItems.QUANTUMSUIT_LEGGS, "armor/quantumsuit_leggs");
+		register(ModItems.QUANTUMSUIT_BOOTS, "armor/quantumsuit_boots");
 	}
 	
 	private static void registerBlocks() {
