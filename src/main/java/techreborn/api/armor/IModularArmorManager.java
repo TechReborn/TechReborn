@@ -5,6 +5,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public interface IModularArmorManager {
 
@@ -18,4 +19,8 @@ public interface IModularArmorManager {
 	public List<UpgradeHolder> getAllHolders();
 
 	public IEnergyStorage getEnergyStorage();
+
+	public default void tooltip(List<String> list){
+		getAllHolders().forEach(holder -> holder.getUpgrade().tooltip(holder, list));
+	}
 }

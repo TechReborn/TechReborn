@@ -96,7 +96,7 @@ public class StackToolTipEvent {
 		}
 	}
 
-	public int percentage(int MaxValue, int CurrentValue) {
+	public static int percentage(int MaxValue, int CurrentValue) {
 		if (CurrentValue == 0)
 			return 0;
 		return (int) ((CurrentValue * 100.0f) / MaxValue);

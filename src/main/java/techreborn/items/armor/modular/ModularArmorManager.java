@@ -3,6 +3,7 @@ package techreborn.items.armor.modular;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -10,10 +11,14 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.Validate;
+import org.lwjgl.input.Keyboard;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.items.InventoryItem;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import techreborn.api.armor.*;
+import techreborn.events.StackToolTipEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -71,6 +76,33 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 	}
 
 	@Override
+	public void tooltip(List<String> list) {
+		list.add(1,
+			TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(getEnergyStorage().getEnergyStored() / RebornCoreConfig.euPerFU)
+				+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(getEnergyStorage().getMaxEnergyStored() / RebornCoreConfig.euPerFU)
+				+ " " + PowerSystem.getDisplayPower().abbreviation);
+		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+			int percentage = StackToolTipEvent.percentage(getEnergyStorage().getMaxEnergyStored(), getEnergyStorage().getEnergyStored());
+			TextFormatting color;
+			if (percentage <= 10) {
+				color = TextFormatting.RED;
+			} else if (percentage >= 75) {
+				color = TextFormatting.GREEN;
+			} else {
+				color = TextFormatting.YELLOW;
+			}
+			list.add(2, color + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
+			list.add(3,
+				TextFormatting.GRAY + "I/O Rate: "
+					+ TextFormatting.GOLD
+					+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxTransfer(stack)));
+		}
+
+		//Great way to all the super for an interface :P
+		IModularArmorManager.super.tooltip(list);
+	}
+
+	@Override
 	public boolean hasCapability(
 		@Nonnull
 			Capability<?> capability,
@@ -89,7 +121,7 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvetory());
 		}
-		if(capability == CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY){
+		if (capability == CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY) {
 			return CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY.cast(this);
 		}
 		return energyProvider.getCapability(capability, facing);

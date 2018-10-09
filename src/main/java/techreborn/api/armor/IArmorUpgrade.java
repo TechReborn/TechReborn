@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,28 @@ public interface IArmorUpgrade {
 	}
 
 	public default void tick(UpgradeHolder holder, EntityPlayer player) {
+
+	}
+
+	/**
+	 *
+	 * A method to handle LivingHurtEvent
+	 *
+	 * @return true to canel the event
+	 */
+	public default boolean hurt(UpgradeHolder holder, LivingHurtEvent event) {
+		return false;
+	}
+
+	public default double getSpeed(UpgradeHolder holder){
+		return 0F;
+	}
+
+	/**
+	 * Add tool tips to the armor item
+	 * @param list
+	 */
+	public default void tooltip(UpgradeHolder holder, List<String> list){
 
 	}
 
