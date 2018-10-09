@@ -3,7 +3,6 @@ package techreborn.api.armor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.Validate;
-import techreborn.items.armor.modular.ModularArmorManager;
 
 import java.util.List;
 import java.util.function.Function;
@@ -27,11 +26,11 @@ public class ModularArmorUtils {
 
 	public static IModularArmorManager getManager(ItemStack stack) {
 		Validate.isTrue(isModularArmor(stack));
-		return new ModularArmorManager(stack); //TODO move out of api package
+		return stack.getCapability(CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY, null);
 	}
 
 	public static boolean isModularArmor(ItemStack stack){
-		return false; //TODO
+		return stack.hasCapability(CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY, null);
 	}
 
 	public static List<IModularArmorManager> getArmorOnPlayer(EntityPlayer player){

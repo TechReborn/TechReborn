@@ -70,7 +70,7 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 			Capability<?> capability,
 		@Nullable
 			EnumFacing facing) {
-		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY;
 	}
 
 	@Nullable
@@ -82,6 +82,9 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 			EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getInvetory());
+		}
+		if(capability == CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY){
+			return CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY.cast(this);
 		}
 		return null;
 	}
