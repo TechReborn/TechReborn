@@ -5,7 +5,6 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public interface IModularArmorManager {
 
@@ -23,4 +22,7 @@ public interface IModularArmorManager {
 	public default void tooltip(List<String> list){
 		getAllHolders().forEach(holder -> holder.getUpgrade().tooltip(holder, list));
 	}
+
+	//Called to refresh things such as AttributeModifiers, this is called when an upragde is added or remvoed from the armor
+	public void invalidate();
 }

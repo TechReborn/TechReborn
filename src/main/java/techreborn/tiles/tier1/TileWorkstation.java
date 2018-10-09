@@ -25,29 +25,21 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
+import techreborn.api.armor.IModularArmorManager;
 import techreborn.api.armor.ModularArmorUtils;
 import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
-
-import java.util.function.Predicate;
 
 public class TileWorkstation extends TileGenericMachine implements IContainerProvider {
 
@@ -80,6 +72,13 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 
 	public boolean isUpgradeSlot(int id){
 		return id >= 2 && id <= 5;
+	}
+
+	public void invalidateArmor(){
+		if(!getStackInSlot(armorSlot).isEmpty() && ModularArmorUtils.isModularArmor(getStackInSlot(armorSlot))){
+			IModularArmorManager manager = ModularArmorUtils.getManager(getStackInSlot(armorSlot));
+			manager.invalidate();
+		}
 	}
 
 	public boolean hasArmorInvenotry(){
@@ -115,6 +114,7 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 			if (getStackInSlot(index).getCount() > count) {
 					ItemStack result = getStackInSlot(index).splitStack(count);
 					markDirty();
+					invalidateArmor();
 					return result;
 			}
 			ItemStack stack = getStackInSlot(index);
@@ -147,7 +147,16 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 				return;
 			}
 			IItemHandlerModifiable itemHandler = getArmorInvenory();
+			ItemStack oldStack = getStackInSlot(index);
+			if(ModularArmorUtils.isUprgade(oldStack)){
+				ModularArmorUtils.getArmorUprgade(oldStack).onRemoved(oldStack, this);
+			}
 			itemHandler.setStackInSlot(index, stack);
+			ItemStack newStack = getStackInSlot(index);
+			if(ModularArmorUtils.isUprgade(newStack)){
+				ModularArmorUtils.getArmorUprgade(newStack).onAdded(newStack, this);
+			}
+			invalidateArmor();
 			return;
 		}
 		super.setInventorySlotContents(index, stack);

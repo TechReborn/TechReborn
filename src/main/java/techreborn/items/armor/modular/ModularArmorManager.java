@@ -103,6 +103,11 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 	}
 
 	@Override
+	public void invalidate() {
+
+	}
+
+	@Override
 	public boolean hasCapability(
 		@Nonnull
 			Capability<?> capability,

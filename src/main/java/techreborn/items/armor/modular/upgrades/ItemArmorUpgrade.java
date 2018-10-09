@@ -15,6 +15,7 @@ public class ItemArmorUpgrade extends ItemTR {
 
 	public ItemArmorUpgrade(IArmorUpgrade armorUpgrade) {
 		this.armorUpgrade = armorUpgrade;
+		setMaxStackSize(1);
 	}
 
 	@Nullable

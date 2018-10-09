@@ -1,8 +1,12 @@
 package techreborn.api.armor;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
@@ -46,6 +50,20 @@ public interface IArmorUpgrade {
 	 * @param list
 	 */
 	public default void tooltip(UpgradeHolder holder, List<String> list){
+
+	}
+
+	public default Multimap<String, AttributeModifier> getAttributeModifiers(UpgradeHolder holder){
+		return HashMultimap.create();
+	}
+
+	//Called when the uprgade is added to the armor stack
+	public default void onAdded(ItemStack stack, TileEntity workstation){
+
+	}
+
+	//Called when the uprgade is removed from the armor stack
+	public default void onRemoved(ItemStack stack, TileEntity workstation){
 
 	}
 
