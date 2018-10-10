@@ -104,7 +104,9 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 
 	@Override
 	public void invalidate() {
-
+		if(getMaxPower(stack) < getEnergyStorage().getEnergyStored()){
+			energyProvider.getCapEnergy().setEnergyStored(getEnergyStorage().getMaxEnergyStored());
+		}
 	}
 
 	@Override
@@ -134,7 +136,10 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 
 	@Override
 	public double getMaxPower(ItemStack stack) {
-		return 40_000; //TODO changed based on the armor type and uprgades
+		return 40_000 +
+			getAllHolders().stream()
+				.mapToInt(value -> value.getUpgrade().getPowerStorage(value))
+				.sum();
 	}
 
 	@Override

@@ -25,6 +25,8 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -33,6 +35,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
+import techreborn.api.armor.ArmorSlot;
+import techreborn.api.armor.IArmorUpgrade;
 import techreborn.api.armor.IModularArmorManager;
 import techreborn.api.armor.ModularArmorUtils;
 import techreborn.client.container.IContainerProvider;
@@ -57,10 +61,10 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 			.armor().complete(28, 18).addArmor()
 			.addInventory().tile(this)
 			.slot(armorSlot, 97, 27)
-			.toggleSlot(2, 71, 60, ModularArmorUtils::isUprgade, this::showSlot)
-			.toggleSlot(3, 89, 60, ModularArmorUtils::isUprgade, this::showSlot)
-			.toggleSlot(4, 107, 60, ModularArmorUtils::isUprgade, this::showSlot)
-			.toggleSlot(5, 125, 60, ModularArmorUtils::isUprgade, this::showSlot)
+			.toggleSlot(2, 71, 60, this::isValidForUprgade, this::showSlot)
+			.toggleSlot(3, 89, 60, this::isValidForUprgade, this::showSlot)
+			.toggleSlot(4, 107, 60, this::isValidForUprgade, this::showSlot)
+			.toggleSlot(5, 125, 60, this::isValidForUprgade, this::showSlot)
 			.energySlot(0, 8, 72).syncEnergyValue()
 			.addInventory().create(this);
 	}
@@ -72,6 +76,35 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 
 	public boolean isUpgradeSlot(int id){
 		return id >= 2 && id <= 5;
+	}
+
+	public boolean isValidForUprgade(ItemStack stack){
+		if(!ModularArmorUtils.isUprgade(stack)){
+			return false;
+		}
+		IArmorUpgrade upgrade = ModularArmorUtils.getArmorUprgade(stack);
+		if(!upgrade.allowMultiple()){
+			for (int i = 2; i < 5; i++) {
+				ItemStack other = getStackInSlot(i);
+				if(ModularArmorUtils.isUprgade(other)){
+					if(ModularArmorUtils.getArmorUprgade(other).getName().equals(upgrade.getName())){
+						return false;
+					}
+				}
+			}
+		}
+		if(!ModularArmorUtils.isModularArmor(getStackInSlot(armorSlot))){
+			return false;
+		}
+		IModularArmorManager armorManager = ModularArmorUtils.getManager(getStackInSlot(armorSlot));
+		if(armorManager.getArmorStack().getItem() instanceof ItemArmor){
+			EntityEquipmentSlot slot = ((ItemArmor) armorManager.getArmorStack().getItem()).getEquipmentSlot();
+			if(!upgrade.getValidSlots().contains(ArmorSlot.fromEntityEquipmentSlot(slot))){
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public void invalidateArmor(){

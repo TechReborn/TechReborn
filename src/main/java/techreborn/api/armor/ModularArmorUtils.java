@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
 public class ModularArmorUtils {
 
 	public static boolean isUprgade(ItemStack stack) {
-		return stack.hasCapability(CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY, null);
+		return !stack.isEmpty() && stack.hasCapability(CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY, null);
 	}
 
 	public static IArmorUpgrade getArmorUprgade(ItemStack stack) {

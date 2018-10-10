@@ -67,6 +67,22 @@ public interface IArmorUpgrade {
 
 	}
 
+	public default int getPowerStorage(UpgradeHolder holder){
+		return 0;
+	}
+
+	public default boolean allowMultiple(){
+		return true;
+	}
+
+	public default void equip(UpgradeHolder holder, EntityPlayer player){
+
+	}
+
+	public default void unequip(UpgradeHolder holder, EntityPlayer player){
+
+	}
+
 	/**
 	 * Used to get data storage for the upgradeStack
 	 */
