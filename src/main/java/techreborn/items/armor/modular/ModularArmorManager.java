@@ -154,6 +154,6 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
-		return 512;
+		return 1024;
 	}
 }

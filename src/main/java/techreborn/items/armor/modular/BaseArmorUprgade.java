@@ -2,6 +2,7 @@ package techreborn.items.armor.modular;
 
 import net.minecraft.util.ResourceLocation;
 import techreborn.api.armor.IArmorUpgrade;
+import techreborn.api.armor.UpgradeHolder;
 
 public abstract class BaseArmorUprgade implements IArmorUpgrade {
 
@@ -14,5 +15,9 @@ public abstract class BaseArmorUprgade implements IArmorUpgrade {
 	@Override
 	public ResourceLocation getName() {
 		return name;
+	}
+
+	public boolean canUsePower(UpgradeHolder holder, int value){
+		return holder.getArmorManager().getEnergyStorage().getEnergyStored() >= value;
 	}
 }
