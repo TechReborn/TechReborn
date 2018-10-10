@@ -20,4 +20,8 @@ public abstract class BaseArmorUprgade implements IArmorUpgrade {
 	public boolean canUsePower(UpgradeHolder holder, int value){
 		return holder.getArmorManager().getEnergyStorage().getEnergyStored() >= value;
 	}
+
+	public void usePower(UpgradeHolder holder, int value){
+		holder.getArmorManager().getEnergyStorage().extractEnergy(value, false);
+	}
 }

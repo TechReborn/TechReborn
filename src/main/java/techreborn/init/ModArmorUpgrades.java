@@ -3,17 +3,15 @@ package techreborn.init;
 import net.minecraft.item.Item;
 import reborncore.RebornRegistry;
 import techreborn.api.armor.IArmorUpgrade;
-import techreborn.items.armor.modular.upgrades.FlightUpgrade;
-import techreborn.items.armor.modular.upgrades.ItemArmorUpgrade;
-import techreborn.items.armor.modular.upgrades.ProtectionUprgade;
-import techreborn.items.armor.modular.upgrades.TestUpgrade;
+import techreborn.items.armor.modular.upgrades.*;
 
 import java.util.Arrays;
 
 public enum  ModArmorUpgrades {
 	TEST(new TestUpgrade()),
 	PROTECTION(new ProtectionUprgade(), ModItems.PLATES),
-	FLIGHT(new FlightUpgrade());
+	FLIGHT(new FlightUpgrade()),
+	BREATHING(new BreathingUpgrade());
 
 	IArmorUpgrade upgrade;
 	ItemArmorUpgrade item;
