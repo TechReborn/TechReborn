@@ -26,7 +26,6 @@ package techreborn.init;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
@@ -43,14 +42,7 @@ import techreborn.items.armor.ItemLithiumBatpack;
 import techreborn.items.armor.ItemTRArmor;
 import techreborn.items.armor.modular.ItemModularArmor;
 import techreborn.items.battery.*;
-import techreborn.items.ingredients.ItemDusts;
-import techreborn.items.ingredients.ItemDustsSmall;
-import techreborn.items.ingredients.ItemGems;
-import techreborn.items.ingredients.ItemIngots;
-import techreborn.items.ingredients.ItemNuggets;
-import techreborn.items.ingredients.ItemParts;
-import techreborn.items.ingredients.ItemPlates;
-import techreborn.items.ingredients.ItemUUmatter;
+import techreborn.items.ingredients.*;
 import techreborn.items.tools.*;
 import techreborn.lib.ModInfo;
 
@@ -275,19 +267,19 @@ public class ModItems {
 		UPGRADES = new ItemUpgrades();
 		registerItem(UPGRADES, "upgrades");
 
-		QUANTUMSUIT_HELMET = new ItemModularArmor(ItemArmor.ArmorMaterial.DIAMOND, ArmorSlot.HEAD);
+		QUANTUMSUIT_HELMET = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.HEAD);
 		QUANTUMSUIT_HELMET.setUnlocalizedName(ModInfo.MOD_ID +".quantumsuit_helmet");
 		registerItem(QUANTUMSUIT_HELMET, "quantumsuit_helmet");
 
-		QUANTUMSUIT_CHEST = new ItemModularArmor(ItemArmor.ArmorMaterial.DIAMOND, ArmorSlot.CHEST);
+		QUANTUMSUIT_CHEST = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.CHEST);
 		QUANTUMSUIT_CHEST.setUnlocalizedName(ModInfo.MOD_ID +".quantumsuit_chest");
 		registerItem(QUANTUMSUIT_CHEST, "quantumsuit_chestt");
 
-		QUANTUMSUIT_LEGGS = new ItemModularArmor(ItemArmor.ArmorMaterial.DIAMOND, ArmorSlot.LEGS);
+		QUANTUMSUIT_LEGGS = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.LEGS);
 		QUANTUMSUIT_LEGGS.setUnlocalizedName(ModInfo.MOD_ID +".quantumsuit_leggs");
 		registerItem(QUANTUMSUIT_LEGGS, "quantumsuit_leggs");
 
-		QUANTUMSUIT_BOOTS = new ItemModularArmor(ItemArmor.ArmorMaterial.DIAMOND, ArmorSlot.FEET);
+		QUANTUMSUIT_BOOTS = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.FEET);
 		QUANTUMSUIT_BOOTS.setUnlocalizedName(ModInfo.MOD_ID +".quantumsuit_boots");
 		registerItem(QUANTUMSUIT_BOOTS, "quantumsuit_boots");
 

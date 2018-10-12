@@ -46,6 +46,8 @@ public class Reference {
 		2 }, 16, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0F);
 	public static ArmorMaterial CLOAKING_ARMOR = EnumHelper.addEnum(ArmorMaterial.class, "CLOAKING", ARMOR_PARAMETERS, "techreborn:cloaking", 5, new int[] { 1, 2, 3,
 			1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0F);
+	public static ArmorMaterial QUANTUM_ARMOR = EnumHelper.addEnum(ArmorMaterial.class, "QUANTUM", ARMOR_PARAMETERS, "techreborn:quantum", 0, new int[] { 0, 0, 0,
+		0 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0F);
 
 	public static ToolMaterial BRONZE = EnumHelper.addToolMaterial("BRONZE", 2, 375, 6.0F, 2.25F, 8);
 	public static ToolMaterial RUBY = EnumHelper.addToolMaterial("RUBY", 2, 320, 6.2F, 2.7F, 10);
