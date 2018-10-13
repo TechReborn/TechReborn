@@ -592,6 +592,28 @@ techreborn.message.nanosaberEnergyError=Not Enough Energy:
 keys.techreborn.category=TechReborn Category
 keys.techreborn.config=Config
 
+#Modular armor
+tile.techreborn.workstation.name=Powersuit Workstation
+item.techreborn.basic_powersuit_helmet.name=Basic Powersuit Helmet
+item.techreborn.basic_powersuit_chest.name=Basic Powersuit Chestplate
+item.techreborn.basic_powersuit_legs.name=Basic Powersuit Legs
+item.techreborn.basic_powersuit_boots.name=Basic Powersuit Boots
+item.techreborn.advanced_powersuit_helmet.name=Advanced Powersuit Helmet
+item.techreborn.advanced_powersuit_chest.name=Advanced Powersuit Chestplate
+item.techreborn.advanced_powersuit_legs.name=Advanced Powersuit Legs
+item.techreborn.advanced_powersuit_boots.name=Advanced Powersuit Boots
+item.techreborn.industrial_powersuit_helmet.name=Industrial Powersuit Helmet
+item.techreborn.industrial_powersuit_chest.name=Industrial Powersuit Chestplate
+item.techreborn.industrial_powersuit_legs.name=Industrial Powersuit Legs
+item.techreborn.industrial_powersuit_boots.name=Industrial Powersuit Boots
+item.techreborn.quantum_powersuit_helmet.name=Quantum Powersuit Helmet
+item.techreborn.quantum_powersuit_chest.name=Quantum Powersuit Chestplate
+item.techreborn.quantum_powersuit_legs.name=Quantum Powersuit Legs
+item.techreborn.quantum_powersuit_boots.name=Quantum Powersuit Boots
+
+techreborn.powersuit.tooltip.suitinfo=Uprgaded with armor upgrades
+techreborn.powersuit.tooltip.upgradeinfo=Modular armor uprgade
+
 # JEI Integration
 techreborn.jei.recipe.start.cost=Start: %s
 techreborn.jei.recipe.running.cost=%s/t: %s

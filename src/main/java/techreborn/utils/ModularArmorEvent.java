@@ -1,5 +1,6 @@
 package techreborn.utils;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -9,6 +10,8 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.api.armor.ModularArmorUtils;
 import techreborn.api.armor.UpgradeHolder;
 import techreborn.lib.ModInfo;
@@ -23,15 +26,16 @@ public class ModularArmorEvent {
 	//TODO is there a better way, make sure that this gets cleaned up as well if the palyer logs out or something
 	static Map<String, NonNullList<ItemStack>> armorMap = new HashMap<>();
 
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static void itemToolTipEvent(ItemTooltipEvent event){
 		if(ModularArmorUtils.isModularArmor(event.getItemStack())){
-			event.getToolTip().add(TextFormatting.LIGHT_PURPLE + "Uprgaded with armor upgrades");
+			event.getToolTip().add(TextFormatting.LIGHT_PURPLE + I18n.format("techreborn.powersuit.tooltip.suitinfo"));
 			ModularArmorUtils.getManager(event.getItemStack()).tooltip(event.getToolTip());
 		}
 		//Lets make it clear it can be used in the moduar armor
 		if(ModularArmorUtils.isUprgade(event.getItemStack())){
-			event.getToolTip().add(TextFormatting.LIGHT_PURPLE + "Modular armor uprgade");
+			event.getToolTip().add(TextFormatting.LIGHT_PURPLE + I18n.format("techreborn.powersuit.tooltip.upgradeinfo"));
 		}
 	}
 
