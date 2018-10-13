@@ -200,10 +200,25 @@ public class RegisterItemJsons {
 			}
 		});
 
-		register(ModItems.QUANTUMSUIT_HELMET, "armor/quantumsuit_helmet");
-		register(ModItems.QUANTUMSUIT_CHEST, "armor/quantumsuit_chest");
-		register(ModItems.QUANTUMSUIT_LEGGS, "armor/quantumsuit_leggs");
-		register(ModItems.QUANTUMSUIT_BOOTS, "armor/quantumsuit_boots");
+		register(ModItems.BASIC_POWERSUITSUIT_HELMET, "armor/basic_powersuit_helmet");
+		register(ModItems.BASIC_POWERSUITSUIT_CHEST, "armor/basic_powersuit_chest");
+		register(ModItems.BASIC_POWERSUITSUIT_LEGS, "armor/basic_powersuit_legs");
+		register(ModItems.BASIC_POWERSUIT_BOOTS, "armor/basic_powersuit_boots");
+
+		register(ModItems.ADVANCED_POWERSUITSUIT_HELMET, "armor/advanced_powersuit_helmet");
+		register(ModItems.ADVANCED_POWERSUITSUIT_CHEST, "armor/advanced_powersuit_chest");
+		register(ModItems.ADVANCED_POWERSUITSUIT_LEGS, "armor/advanced_powersuit_legs");
+		register(ModItems.ADVANCED_POWERSUIT_BOOTS, "armor/advanced_powersuit_boots");
+
+		register(ModItems.INDUSTRIAL_POWERSUITSUIT_HELMET, "armor/industrial_powersuit_helmet");
+		register(ModItems.INDUSTRIAL_POWERSUITSUIT_CHEST, "armor/industrial_powersuit_chest");
+		register(ModItems.INDUSTRIAL_POWERSUITSUIT_LEGS, "armor/industrial_powersuit_legs");
+		register(ModItems.INDUSTRIAL_POWERSUIT_BOOTS, "armor/industrial_powersuit_boots");
+
+		register(ModItems.QUANTUM_POWERSUIT_HELMET, "armor/quantum_powersuit_helmet");
+		register(ModItems.QUANTUM_POWERSUIT_CHEST, "armor/quantum_powersuit_chest");
+		register(ModItems.QUANTUM_POWERSUIT_LEGS, "armor/quantum_powersuit_legs");
+		register(ModItems.QUANTUM_POWERSUIT_BOOTS, "armor/quantum_powersuit_boots");
 	}
 	
 	private static void registerBlocks() {
