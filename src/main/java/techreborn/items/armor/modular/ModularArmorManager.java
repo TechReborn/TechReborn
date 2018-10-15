@@ -33,8 +33,10 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 	ArmorSlot armorSlot;
 
 	PoweredItemContainerProvider energyProvider;
+	public int upgradeSlots;
 
-	public ModularArmorManager(ItemStack stack) {
+	public ModularArmorManager(ItemStack stack, int upgradeSlots) {
+		this.upgradeSlots = upgradeSlots;
 		Validate.isInstanceOf(ItemArmor.class, stack.getItem());
 		this.stack = stack;
 		ItemArmor itemArmor = (ItemArmor) stack.getItem();
@@ -155,5 +157,10 @@ public class ModularArmorManager implements ICapabilityProvider, IModularArmorMa
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return 1024;
+	}
+
+	@Override
+	public int getUpgradeSlots() {
+		return upgradeSlots;
 	}
 }

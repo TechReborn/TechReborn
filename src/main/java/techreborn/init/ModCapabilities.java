@@ -2,6 +2,8 @@ package techreborn.init;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -15,6 +17,7 @@ import techreborn.api.armor.ArmorUpgradeCapabilityProvider;
 import techreborn.api.armor.IArmorUpgrade;
 import techreborn.api.armor.IModularArmorManager;
 import techreborn.items.armor.modular.upgrades.PowerStorageUprgade;
+import techreborn.items.tools.ItemElectricTreetap;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nullable;
@@ -67,7 +70,7 @@ public class ModCapabilities {
 		if(upgradeMap.containsKey(event.getObject().getItem())){
 			event.addCapability(new ResourceLocation(ModInfo.MOD_ID, "armor_uprgade_attach"), ArmorUpgradeCapabilityProvider.getUpgradeProvider(event.getObject(), upgradeMap.get(event.getObject().getItem())));
 		}
-		if(event.getObject().getItem() instanceof IEnergyItemInfo){
+		if(event.getObject().getItem() instanceof IEnergyItemInfo && !(event.getObject().getItem() instanceof ItemTool) && !(event.getObject().getItem() instanceof ItemSword) && !(event.getObject().getItem() instanceof ItemElectricTreetap)){
 			event.addCapability(new ResourceLocation(ModInfo.MOD_ID, "armor_uprgade_power_attach"), ArmorUpgradeCapabilityProvider.getUpgradeProvider(event.getObject(), powerStorageUprgade));
 		}
 	}

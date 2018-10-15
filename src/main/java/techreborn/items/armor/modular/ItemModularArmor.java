@@ -21,12 +21,15 @@ import java.util.Objects;
 
 public class ItemModularArmor extends ItemTRArmor {
 
-	public ItemModularArmor(ArmorMaterial material, ArmorSlot slot) {
+	public int upgradeSlots;
+
+	public ItemModularArmor(ArmorMaterial material, ArmorSlot slot, int upgradeSlots) {
 		super(material, slot.getEntityEquipmentSlot());
+		this.upgradeSlots = upgradeSlots;
 	}
 
 	public ModularArmorManager getManager(ItemStack stack) {
-		return new ModularArmorManager(stack);
+		return new ModularArmorManager(stack, upgradeSlots);
 	}
 
 	@Nullable
@@ -76,7 +79,23 @@ public class ItemModularArmor extends ItemTRArmor {
 			})
 			.map(holder -> holder.getUpgrade().getAttributeModifiers(holder))
 			.filter(Objects::nonNull)
-			.forEach(attributes::putAll);
+			.forEach(map -> map.entries().forEach(entry -> {
+				if(attributes.containsKey(entry.getKey())){
+					//Im not 100% sure I need this, but it seems to fix the issue of the speed uprgades not adding up
+					AttributeModifier targetModifier = attributes.get(entry.getKey()).stream().findFirst().orElse(null);
+					Validate.notNull(targetModifier);
+					attributes.removeAll(entry.getKey());
+					attributes.put(entry.getKey(), merge(targetModifier, entry.getValue()));
+				} else {
+					attributes.put(entry.getKey(), entry.getValue());
+				}
+			}));
 		return attributes;
 	}
+
+	//TODO is this the best way to do this?
+	private AttributeModifier merge(AttributeModifier m1, AttributeModifier m2){
+		return new AttributeModifier(m1.getID(), m1.getName(), m1.getAmount() + m2.getAmount(), 0);
+	}
+
 }

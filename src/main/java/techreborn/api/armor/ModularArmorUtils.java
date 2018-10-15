@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.Validate;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -12,24 +13,29 @@ import java.util.stream.StreamSupport;
 
 public class ModularArmorUtils {
 
-	public static boolean isUprgade(ItemStack stack) {
+	public static boolean isUprgade(@Nonnull ItemStack stack) {
 		return !stack.isEmpty() && stack.hasCapability(CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY, null);
 	}
 
-	public static IArmorUpgrade getArmorUprgade(ItemStack stack) {
+	public static IArmorUpgrade getArmorUprgade(@Nonnull ItemStack stack) {
+		Validate.notNull(stack);
 		return stack.getCapability(CapabilityArmorUpgrade.ARMOR_UPRGRADE_CAPABILITY, null);
 	}
 
-	public static UpgradeHolder getArmorUprgadeHolder(ItemStack stack, IModularArmorManager armorManager) {
+	public static UpgradeHolder getArmorUprgadeHolder(@Nonnull ItemStack stack, IModularArmorManager armorManager) {
 		return new UpgradeHolder(stack, armorManager);
 	}
 
-	public static IModularArmorManager getManager(ItemStack stack) {
+	public static IModularArmorManager getManager(@Nonnull ItemStack stack) {
 		Validate.isTrue(isModularArmor(stack));
 		return stack.getCapability(CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY, null);
 	}
 
-	public static boolean isModularArmor(ItemStack stack){
+	public static boolean isModularArmor(@Nonnull ItemStack stack){
+		Validate.notNull(stack);
+		if(stack.isEmpty()){
+			return false;
+		}
 		return stack.hasCapability(CapabilityArmorUpgrade.ARMOR_MANAGER_CAPABILITY, null);
 	}
 

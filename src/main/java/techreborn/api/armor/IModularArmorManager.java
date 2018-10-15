@@ -25,4 +25,8 @@ public interface IModularArmorManager {
 
 	//Called to refresh things such as AttributeModifiers, this is called when an upragde is added or remvoed from the armor
 	public void invalidate();
+
+	public default int getUpgradeSlots(){
+		return 4;
+	}
 }

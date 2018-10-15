@@ -58,12 +58,12 @@ public interface IArmorUpgrade {
 	}
 
 	//Called when the uprgade is added to the armor stack
-	public default void onAdded(ItemStack stack, TileEntity workstation){
+	public default void onAdded(UpgradeHolder holder, TileEntity workstation){
 
 	}
 
 	//Called when the uprgade is removed from the armor stack
-	public default void onRemoved(ItemStack stack, TileEntity workstation){
+	public default void onRemoved(UpgradeHolder holder, TileEntity workstation){
 
 	}
 

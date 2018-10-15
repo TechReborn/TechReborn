@@ -283,70 +283,70 @@ public class ModItems {
 		registerItem(UPGRADES, "upgrades");
 
 		//Basic
-		BASIC_POWERSUITSUIT_HELMET = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.HEAD);
+		BASIC_POWERSUITSUIT_HELMET = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.HEAD, 1);
 		BASIC_POWERSUITSUIT_HELMET.setUnlocalizedName(ModInfo.MOD_ID +".basic_powersuit_helmet");
 		registerItem(BASIC_POWERSUITSUIT_HELMET, "basic_powersuit_helmet");
 
-		BASIC_POWERSUITSUIT_CHEST = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.CHEST);
+		BASIC_POWERSUITSUIT_CHEST = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.CHEST, 1);
 		BASIC_POWERSUITSUIT_CHEST.setUnlocalizedName(ModInfo.MOD_ID +".basic_powersuit_chest");
 		registerItem(BASIC_POWERSUITSUIT_CHEST, "basic_powersuit_chest");
 
-		BASIC_POWERSUITSUIT_LEGS = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.LEGS);
+		BASIC_POWERSUITSUIT_LEGS = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.LEGS, 1);
 		BASIC_POWERSUITSUIT_LEGS.setUnlocalizedName(ModInfo.MOD_ID +".basic_powersuit_legs");
 		registerItem(BASIC_POWERSUITSUIT_LEGS, "basic_powersuit_legs");
 
-		BASIC_POWERSUIT_BOOTS = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.FEET);
+		BASIC_POWERSUIT_BOOTS = new ItemModularArmor(Reference.BASIC_ARMOR, ArmorSlot.FEET, 1);
 		BASIC_POWERSUIT_BOOTS.setUnlocalizedName(ModInfo.MOD_ID +".basic_powersuit_boots");
 		registerItem(BASIC_POWERSUIT_BOOTS, "basic_powersuit_boots");
 
 		//Advanced
-		ADVANCED_POWERSUITSUIT_HELMET = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.HEAD);
+		ADVANCED_POWERSUITSUIT_HELMET = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.HEAD, 2);
 		ADVANCED_POWERSUITSUIT_HELMET.setUnlocalizedName(ModInfo.MOD_ID +".advanced_powersuit_helmet");
 		registerItem(ADVANCED_POWERSUITSUIT_HELMET, "advanced_powersuit_helmet");
 
-		ADVANCED_POWERSUITSUIT_CHEST = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.CHEST);
+		ADVANCED_POWERSUITSUIT_CHEST = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.CHEST, 2);
 		ADVANCED_POWERSUITSUIT_CHEST.setUnlocalizedName(ModInfo.MOD_ID +".advanced_powersuit_chest");
 		registerItem(ADVANCED_POWERSUITSUIT_CHEST, "advanced_powersuit_chest");
 
-		ADVANCED_POWERSUITSUIT_LEGS = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.LEGS);
+		ADVANCED_POWERSUITSUIT_LEGS = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.LEGS, 2);
 		ADVANCED_POWERSUITSUIT_LEGS.setUnlocalizedName(ModInfo.MOD_ID +".advanced_powersuit_legs");
 		registerItem(ADVANCED_POWERSUITSUIT_LEGS, "advanced_powersuit_legs");
 
-		ADVANCED_POWERSUIT_BOOTS = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.FEET);
+		ADVANCED_POWERSUIT_BOOTS = new ItemModularArmor(Reference.ADVANCED_ARMOR, ArmorSlot.FEET, 2);
 		ADVANCED_POWERSUIT_BOOTS.setUnlocalizedName(ModInfo.MOD_ID +".advanced_powersuit_boots");
 		registerItem(ADVANCED_POWERSUIT_BOOTS, "advanced_powersuit_boots");
 
 		//Industrial
-		INDUSTRIAL_POWERSUITSUIT_HELMET = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.HEAD);
+		INDUSTRIAL_POWERSUITSUIT_HELMET = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.HEAD, 3);
 		INDUSTRIAL_POWERSUITSUIT_HELMET.setUnlocalizedName(ModInfo.MOD_ID +".industrial_powersuit_helmet");
 		registerItem(INDUSTRIAL_POWERSUITSUIT_HELMET, "industrial_powersuit_helmet");
 
-		INDUSTRIAL_POWERSUITSUIT_CHEST = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.CHEST);
+		INDUSTRIAL_POWERSUITSUIT_CHEST = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.CHEST, 3);
 		INDUSTRIAL_POWERSUITSUIT_CHEST.setUnlocalizedName(ModInfo.MOD_ID +".industrial_powersuit_chest");
 		registerItem(INDUSTRIAL_POWERSUITSUIT_CHEST, "industrial_powersuit_chest");
 
-		INDUSTRIAL_POWERSUITSUIT_LEGS = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.LEGS);
+		INDUSTRIAL_POWERSUITSUIT_LEGS = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.LEGS, 3);
 		INDUSTRIAL_POWERSUITSUIT_LEGS.setUnlocalizedName(ModInfo.MOD_ID +".industrial_powersuit_legs");
 		registerItem(INDUSTRIAL_POWERSUITSUIT_LEGS, "industrial_powersuit_legs");
 
-		INDUSTRIAL_POWERSUIT_BOOTS = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.FEET);
+		INDUSTRIAL_POWERSUIT_BOOTS = new ItemModularArmor(Reference.INDUSTRIAL_ARMOR, ArmorSlot.FEET, 3);
 		INDUSTRIAL_POWERSUIT_BOOTS.setUnlocalizedName(ModInfo.MOD_ID +".industrial_powersuit_boots");
 		registerItem(INDUSTRIAL_POWERSUIT_BOOTS, "industrial_powersuit_boots");
 
 		//Quantum
-		QUANTUM_POWERSUIT_HELMET = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.HEAD);
+		QUANTUM_POWERSUIT_HELMET = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.HEAD, 4);
 		QUANTUM_POWERSUIT_HELMET.setUnlocalizedName(ModInfo.MOD_ID +".quantum_powersuit_helmet");
 		registerItem(QUANTUM_POWERSUIT_HELMET, "quantum_powersuit_helmet");
 
-		QUANTUM_POWERSUIT_CHEST = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.CHEST);
+		QUANTUM_POWERSUIT_CHEST = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.CHEST, 4);
 		QUANTUM_POWERSUIT_CHEST.setUnlocalizedName(ModInfo.MOD_ID +".quantum_powersuit_chest");
 		registerItem(QUANTUM_POWERSUIT_CHEST, "quantum_powersuit_chest");
 
-		QUANTUM_POWERSUIT_LEGS = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.LEGS);
+		QUANTUM_POWERSUIT_LEGS = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.LEGS, 4);
 		QUANTUM_POWERSUIT_LEGS.setUnlocalizedName(ModInfo.MOD_ID +".quantum_powersuit_legs");
 		registerItem(QUANTUM_POWERSUIT_LEGS, "quantum_powersuit_legs");
 
-		QUANTUM_POWERSUIT_BOOTS = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.FEET);
+		QUANTUM_POWERSUIT_BOOTS = new ItemModularArmor(Reference.QUANTUM_ARMOR, ArmorSlot.FEET, 4);
 		QUANTUM_POWERSUIT_BOOTS.setUnlocalizedName(ModInfo.MOD_ID +".quantum_powersuit_boots");
 		registerItem(QUANTUM_POWERSUIT_BOOTS, "quantum_powersuit_boots");
 

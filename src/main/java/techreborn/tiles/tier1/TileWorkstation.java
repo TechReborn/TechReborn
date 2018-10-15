@@ -70,8 +70,14 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 	}
 
 	private boolean showSlot(Pair<TileLegacyMachineBase, Integer> pair) {
-		//TODO check the size of the item's inv
-		return !getStackInSlot(armorSlot).isEmpty();
+		if(ModularArmorUtils.isModularArmor(getStackInSlot(armorSlot))){
+			IModularArmorManager armorManager = ModularArmorUtils.getManager(getStackInSlot(armorSlot));
+			int slotShifted = pair.getRight() -2;
+			if(slotShifted < armorManager.getUpgradeSlots()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean isUpgradeSlot(int id){
@@ -175,19 +181,17 @@ public class TileWorkstation extends TileGenericMachine implements IContainerPro
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		if(isUpgradeSlot(index)){
-			if(!hasArmorInvenotry()){
-				return;
-			}
+		if(isUpgradeSlot(index) && ModularArmorUtils.isModularArmor(getStackInSlot(armorSlot))){
+			IModularArmorManager modularArmorManager = ModularArmorUtils.getManager(getStackInSlot(armorSlot));
 			IItemHandlerModifiable itemHandler = getArmorInvenory();
 			ItemStack oldStack = getStackInSlot(index);
 			if(ModularArmorUtils.isUprgade(oldStack)){
-				ModularArmorUtils.getArmorUprgade(oldStack).onRemoved(oldStack, this);
+				ModularArmorUtils.getArmorUprgade(oldStack).onRemoved(ModularArmorUtils.getArmorUprgadeHolder(oldStack, modularArmorManager), this);
 			}
 			itemHandler.setStackInSlot(index, stack);
 			ItemStack newStack = getStackInSlot(index);
 			if(ModularArmorUtils.isUprgade(newStack)){
-				ModularArmorUtils.getArmorUprgade(newStack).onAdded(newStack, this);
+				ModularArmorUtils.getArmorUprgade(newStack).onAdded(ModularArmorUtils.getArmorUprgadeHolder(newStack, modularArmorManager), this);
 			}
 			invalidateArmor();
 			return;
