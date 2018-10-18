@@ -134,7 +134,7 @@ dependencies {
 	deobfCompile "codechicken:CodeChickenLib:1.12.2-+:universal"
 	deobfCompile 'MCMultiPart2:MCMultiPart:2.4.1'
 	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
-	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+:deobf"
+	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+"
 }
 
 
