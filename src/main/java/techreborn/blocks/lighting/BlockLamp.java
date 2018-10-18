@@ -46,7 +46,7 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
-import reborncore.common.items.WrenchHelper;
+import reborncore.common.util.WrenchUtils;
 import techreborn.TechReborn;
 import techreborn.tiles.lighting.TileLamp;
 
@@ -177,7 +177,7 @@ public class BlockLamp extends BaseTileBlock {
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
-			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, side)) {
 				return true;
 			}
 		}

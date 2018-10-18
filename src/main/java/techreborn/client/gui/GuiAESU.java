@@ -48,7 +48,7 @@ public class GuiAESU extends GuiBase {
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
-
+		
 		this.drawSlot(62, 45, layer);
 		this.drawSlot(98, 45, layer);
 		this.drawArmourSlots(8, 18, layer);

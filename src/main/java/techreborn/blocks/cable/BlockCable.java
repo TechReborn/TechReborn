@@ -45,7 +45,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
-import reborncore.common.items.WrenchHelper;
+import reborncore.common.util.WrenchUtils;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
@@ -141,7 +141,7 @@ public class BlockCable extends BlockContainer {
 		}
 		
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
-			if (WrenchHelper.handleWrench(stack, worldIn, pos, playerIn, side)) {
+			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, side)) {
 				return true;
 			}
 		}
