@@ -304,8 +304,8 @@ public class CraftingTableRecipes extends RecipeMethods {
 			}
 		}
 
-		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_SLAB_HALF),  "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
-		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_STAIR),  "W  ", "WW ", "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
+		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_SLAB_HALF, 6),  "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
+		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_STAIR, 4),  "W  ", "WW ", "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
 
 		Core.logHelper.info("Crafting Table Recipes Added");
 	}
