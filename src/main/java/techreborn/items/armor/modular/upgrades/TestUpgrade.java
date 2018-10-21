@@ -20,6 +20,7 @@ import techreborn.lib.ModInfo;
 
 import java.util.UUID;
 
+@Deprecated
 public class TestUpgrade extends BaseArmorUprgade {
 
 	protected static final UUID SPEED_MODIFIER = UUID.randomUUID();

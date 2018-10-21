@@ -612,7 +612,7 @@ item.techreborn.quantum_powersuit_legs.name=Quantum Powersuit Legs
 item.techreborn.quantum_powersuit_boots.name=Quantum Powersuit Boots
 
 techreborn.powersuit.tooltip.suitinfo=Uprgaded with armor upgrades
-techreborn.powersuit.tooltip.upgradeinfo=Modular armor uprgade
+techreborn.powersuit.tooltip.upgradeinfo=Modular armor upgrade
 
 # JEI Integration
 techreborn.jei.recipe.start.cost=Start: %s

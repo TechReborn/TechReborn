@@ -4,6 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.api.armor.ArmorSlot;
 import techreborn.api.armor.UpgradeHolder;
 import techreborn.items.armor.modular.BaseArmorUprgade;
@@ -12,9 +14,12 @@ import techreborn.lib.ModInfo;
 import java.util.Collections;
 import java.util.List;
 
+@RebornRegistry
 public class FlightUpgrade extends BaseArmorUprgade {
 
-	int powerUage = 1000;
+	@ConfigRegistry(config = "upgrades", category = "anit_gravity", key = "power_usage", comment = "The amont of power to use when flying")
+	public static int powerUsage = 128;
+
 
 	public FlightUpgrade() {
 		super(new ResourceLocation(ModInfo.MOD_ID, "flight"));
@@ -35,7 +40,7 @@ public class FlightUpgrade extends BaseArmorUprgade {
 		if(player.isCreative()){
 			return;
 		}
-		if(canUsePower(holder, powerUage)){
+		if(canUsePower(holder, powerUsage)){
 			startFlying(player);
 		}
 	}
@@ -53,13 +58,13 @@ public class FlightUpgrade extends BaseArmorUprgade {
 		if(player.isCreative()){
 			return;
 		}
-		if(!canUsePower(holder, powerUage)){
+		if(!canUsePower(holder, powerUsage)){
 			stopFlying(player);
 		} else if(!player.capabilities.allowFlying) {
 			startFlying(player);
 		}
 		if(player.capabilities.isFlying){
-			holder.getArmorManager().getEnergyStorage().extractEnergy(powerUage, false);
+			holder.getArmorManager().getEnergyStorage().extractEnergy(powerUsage, false);
 		}
 	}
 
@@ -69,7 +74,7 @@ public class FlightUpgrade extends BaseArmorUprgade {
 		if(player.isCreative()){
 			return false;
 		}
-		if(canUsePower(holder, powerUage) && player.capabilities.allowFlying){
+		if(canUsePower(holder, powerUsage) && player.capabilities.allowFlying){
 			return event.getSource() == DamageSource.FALL;
 		}
 		return false;
