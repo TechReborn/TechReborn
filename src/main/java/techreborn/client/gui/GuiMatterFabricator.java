@@ -58,7 +58,7 @@ public class GuiMatterFabricator extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		//this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, TRBuilder.ProgressDirection.DOWN, layer);
+		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 83, 41, mouseX, mouseY, TRBuilder.ProgressDirection.DOWN, layer);
 		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }
