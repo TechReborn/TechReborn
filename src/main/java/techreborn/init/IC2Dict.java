@@ -54,6 +54,7 @@ public class IC2Dict {
 		IC2Duplicates.ELECTRICAL_FURNACE.setIc2Stack(BlockName.te.getItemStack(TeBlock.electric_furnace.getName()));
 		IC2Duplicates.IRON_FURNACE.setIc2Stack(BlockName.te.getItemStack(TeBlock.iron_furnace.getName()));
 		IC2Duplicates.GENERATOR.setIc2Stack(BlockName.te.getItemStack(TeBlock.generator.getName()));
+		IC2Duplicates.WATER_MILL.setIc2Stack(BlockName.te.getItemStack(TeBlock.water_generator.getName()));
 		IC2Duplicates.EXTRACTOR.setIc2Stack(BlockName.te.getItemStack(TeBlock.extractor.getName()));
 		IC2Duplicates.RECYCLER.setIc2Stack(BlockName.te.getItemStack(TeBlock.recycler.getName()));
 		IC2Duplicates.COMPRESSOR.setIc2Stack(BlockName.te.getItemStack(TeBlock.compressor.getName()));
@@ -78,6 +79,10 @@ public class IC2Dict {
 		IC2Duplicates.REFINED_IRON.setIc2Stack(ItemName.plate.getItemStack("iron"));
 		IC2Duplicates.SCRAP.setIc2Stack(ItemName.crafting.getItemStack(CraftingItemType.scrap));
 		IC2Duplicates.FREQ_TRANSMITTER.setIc2Stack(ItemName.frequency_transmitter.getItemStack());
+		IC2Duplicates.NEUTRON_REFLECTOR.setIc2Stack(ItemName.neutron_reflector.getItemStack());
+		IC2Duplicates.THICK_NEUTRON_REFLECTOR.setIc2Stack(ItemName.thick_neutron_reflector.getItemStack());
+		IC2Duplicates.IRIDIUM_NEUTRON_REFLECTOR.setIc2Stack(ItemName.iridium_reflector.getItemStack());
+		
 		//Rubber - ore dic: itemRubber, hidden from JEI
 		//Rubber Sap - only used to make rubber, hidden from JEI
 		//Rubber tree blocks, hidden when deduplication is on, and rubber tress are not set to gen, includes tree taps

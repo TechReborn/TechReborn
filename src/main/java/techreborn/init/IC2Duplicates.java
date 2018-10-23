@@ -28,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.recipes.RecipeMethods.Type;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
 
@@ -40,6 +41,7 @@ public enum IC2Duplicates {
 	ELECTRICAL_FURNACE(new ItemStack(ModBlocks.ELECTRIC_FURNACE)),
 	IRON_FURNACE(new ItemStack(ModBlocks.IRON_FURNACE)),
 	GENERATOR(new ItemStack(ModBlocks.SOLID_FUEL_GENEREATOR)),
+	WATER_MILL(new ItemStack(ModBlocks.WATER_MILL)),
 	EXTRACTOR(new ItemStack(ModBlocks.EXTRACTOR)),
 	RECYCLER(new ItemStack(ModBlocks.RECYCLER)),
 	COMPRESSOR(new ItemStack(ModBlocks.COMPRESSOR)),
@@ -58,11 +60,15 @@ public enum IC2Duplicates {
 	CABLE_IHV(EnumCableType.IHV.getStack()),
 	CABLE_IIHV(EnumCableType.TIN.getStack()),
 	MIXED_METAL(ItemIngots.getIngotByName("mixed_metal")),
+	REFINED_IRON(ItemIngots.getIngotByName("refined_iron")),
 	CARBON_FIBER(ItemParts.getPartByName("carbon_fiber")),
 	CARBON_MESH(ItemParts.getPartByName("carbon_mesh")),
-	REFINED_IRON(ItemIngots.getIngotByName("refined_iron")),
+	NEUTRON_REFLECTOR(ItemParts.getPartByName("neutron_reflector")),
+	THICK_NEUTRON_REFLECTOR(ItemParts.getPartByName("thick_neutron_reflector")),
+	IRIDIUM_NEUTRON_REFLECTOR(ItemParts.getPartByName("iridium_neutron_reflector")),
 	SCRAP(ItemParts.getPartByName("scrap")),
 	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER));
+	
 
 	ItemStack ic2Stack;
 	ItemStack trStack;
