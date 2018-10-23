@@ -109,6 +109,10 @@ public class IC2Dict {
 			OreUtil.registerOre("drillBasic", ItemName.drill.getItemStack());
 			OreUtil.registerOre("drillDiamond", ItemName.diamond_drill.getItemStack());
 			OreUtil.registerOre("drillAdvanced", ItemName.iridium_drill.getItemStack());
+			
+			OreUtil.registerOre("reflectorBasic", ItemName.neutron_reflector.getItemStack());
+			OreUtil.registerOre("reflectorThick", ItemName.thick_neutron_reflector.getItemStack());
+			OreUtil.registerOre("reflectorIridium", ItemName.iridium_reflector.getItemStack());
 
 			ItemStack industrialTnt = BlockName.te.getItemStack(TeBlock.itnt);
 			industrialTnt.setItemDamage(1);
