@@ -64,7 +64,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public int gaugeProgressScaled(int scale) {
-		return progress * scale / fuelScale;
+		return progress * scale / (int) (fuelScale * (1.0 - getSpeedMultiplier()));
 	}
 
 	public void cookItems() {
