@@ -102,7 +102,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getOre("dustYellowGarnet", 16), 3500, getMaterial("andradite", 5, Type.DUST), getMaterial("grossular", 8, Type.DUST), getMaterial("uvarovite", 3, Type.DUST));
 		register(getOre("dustDarkAshes", 2), 240, getMaterial("ashes", 1, Type.DUST));
 		register(getOre("dustAshes", 2), 240, getMaterial("carbon", Type.CELL));
-		register(getOre("dustMarble"), 1040, getMaterial("magnesium", Type.DUST), getMaterial("calcite", 7, Type.DUST));
+		register(getOre("dustMarble", 8), 1040, getMaterial("magnesium", Type.DUST), getMaterial("calcite", 7, Type.DUST));
 		register(getOre("dustBasalt", 16), 2040, getMaterial("peridot", Type.DUST), getMaterial("calcite", 3, Type.DUST), getMaterial("flint", 8, Type.DUST), getMaterial("dark_ashes", 4, Type.DUST));
 		register(getMaterial("lava", 16, Type.CELL), 1500, getMaterial("tin", 6, Type.INGOT), getMaterial("copper", 4, Type.INGOT), getMaterial("electrum", Type.INGOT), getMaterial("tungsten", Type.SMALL_DUST));
 		register(getMaterial("hydrogen", 4, Type.CELL), 3000, getMaterial("deuterium", Type.CELL));
