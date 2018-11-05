@@ -29,6 +29,7 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -57,13 +58,10 @@ public class FluidReplicatorRecipeWrapper implements IRecipeWrapper {
 				IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
-	/* (non-Javadoc)
-	 * @see mezz.jei.api.recipe.IRecipeWrapper#getIngredients(mezz.jei.api.ingredients.IIngredients)
-	 */
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInput(ItemStack.class, new ItemStack(ModItems.UU_MATTER, recipe.getInput()));
-		ingredients.setOutput(FluidStack.class, new FluidStack(recipe.getFluid(), Fluid.BUCKET_VOLUME));
+		ingredients.setInput(VanillaTypes.ITEM, new ItemStack(ModItems.UU_MATTER, recipe.getInput()));
+		ingredients.setOutput(VanillaTypes.FLUID, new FluidStack(recipe.getFluid(), Fluid.BUCKET_VOLUME));
 	}
 	
 	@Override

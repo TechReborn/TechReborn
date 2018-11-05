@@ -29,6 +29,7 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -63,7 +64,7 @@ public class IndustrialGrinderRecipeWrapper extends BaseRecipeWrapper<Industrial
 	public void getIngredients(
 		@Nonnull
 		final IIngredients ingredients) {
-		ingredients.setInput(FluidStack.class, this.baseRecipe.fluidStack);
+		ingredients.setInput(VanillaTypes.FLUID, this.baseRecipe.fluidStack);
 		super.getIngredients(ingredients);
 	}
 
