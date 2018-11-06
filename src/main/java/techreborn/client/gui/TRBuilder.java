@@ -117,28 +117,27 @@ public class TRBuilder extends GuiBuilder {
 
 		gui.mc.getTextureManager().bindTexture(GUI_SHEET);
 		gui.drawTexturedModalRect(x, y, direction.x, direction.y, direction.width, direction.height);
-
-		if (direction.equals(ProgressDirection.RIGHT)) {
-			int j = (int) ((double) progress / (double) maxProgress * 16);
-			if (j < 0)
-				j = 0;
-			gui.drawTexturedModalRect(x, y, direction.xActive, direction.yActive, j, 10);
+		int j = (int) ((double) progress / (double) maxProgress * 16);
+		if (j < 0) {
+			j = 0;
 		}
 
-		if (direction.equals(ProgressDirection.LEFT)) {
-			int j = (int) ((double) progress / (double) maxProgress * 16);
-			if (j < 0)
-				j = 0;
-			gui.drawTexturedModalRect(x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+		switch (direction) {
+			case RIGHT:
+				gui.drawTexturedModalRect(x, y, direction.xActive, direction.yActive, j, 10);
+				break;
+			case LEFT:
+				gui.drawTexturedModalRect(x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+				break;
+			case UP:
+				gui.drawTexturedModalRect(x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+				break;
+			case DOWN:
+				gui.drawTexturedModalRect(x, y, direction.xActive, direction.yActive, 10, j);
+				break;
+			default:
+				return;
 		}
-		
-		if (direction.equals(ProgressDirection.UP)) {
-			int j = (int) ((double) progress / (double) maxProgress * 16);
-			if (j < 0)
-				j = 0;
-			gui.drawTexturedModalRect(x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
-		}
-
 
 		if (isInRect(x, y, direction.width, direction.height, mouseX, mouseY)) {
 			int percentage = percentage(maxProgress, progress);
