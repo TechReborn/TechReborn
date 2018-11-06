@@ -37,11 +37,15 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
+
 import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.StringUtils;
 import techreborn.Core;
 
 public class StackToolTipEvent {
@@ -54,26 +58,18 @@ public class StackToolTipEvent {
 			return;
 		}
 		Item item = event.getItemStack().getItem();
-		if (item instanceof IListInfoProvider) {
-			((IListInfoProvider) item).addInfo(event.getToolTip(), false);
-		} else if (event.getItemStack().getItem() instanceof IEnergyItemInfo) {
+		List<String> tooltip = event.getToolTip();
+		
+		if (item instanceof IEnergyItemInfo) {
 			IEnergyStorage capEnergy = event.getItemStack().getCapability(CapabilityEnergy.ENERGY, null);
-			event.getToolTip().add(1,
+			tooltip.add(1,
 					TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU)
 					+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored() / RebornCoreConfig.euPerFU)
 					+ " " + PowerSystem.getDisplayPower().abbreviation);
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 				int percentage = percentage(capEnergy.getMaxEnergyStored(), capEnergy.getEnergyStored());
-				TextFormatting color;
-				if (percentage <= 10) {
-					color = TextFormatting.RED;
-				} else if (percentage >= 75) {
-					color = TextFormatting.GREEN;
-				} else {
-					color = TextFormatting.YELLOW;
-				}
-				event.getToolTip().add(2, color + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
-				event.getToolTip().add(3,
+				tooltip.add(2, StringUtils.getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
+				tooltip.add(3,
 						TextFormatting.GRAY + "I/O Rate: " 
 						+ TextFormatting.GOLD
 						+ PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyItemInfo) item).getMaxTransfer(event.getItemStack())));
@@ -82,12 +78,17 @@ public class StackToolTipEvent {
 		else {
 			try {
 				Block block = Block.getBlockFromItem(item);
-				if (block != null && (block instanceof BlockContainer || block instanceof ITileEntityProvider)
-					&& block.getRegistryName().getResourceDomain().contains("techreborn")) {
-					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().world, 
-						block.getStateFromMeta(event.getItemStack().getItemDamage()));
+				if (block == null) {
+					return;
+				}
+				if (!block.getRegistryName().getResourceDomain().contains("techreborn")) {
+					return;
+				}
+				if (block instanceof BlockContainer || block instanceof ITileEntityProvider) {
+					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().world,
+							block.getStateFromMeta(event.getItemStack().getItemDamage()));
 					if (tile instanceof IListInfoProvider) {
-						((IListInfoProvider) tile).addInfo(event.getToolTip(), false);
+						((IListInfoProvider) tile).addInfo(tooltip, false);
 					}
 				}
 			} catch (NullPointerException e) {
@@ -96,10 +97,10 @@ public class StackToolTipEvent {
 		}
 	}
 
-	public int percentage(int MaxValue, int CurrentValue) {
-		if (CurrentValue == 0)
+	private int percentage(int MaxValue, int CurrentValue) {
+		if (CurrentValue == 0) {
 			return 0;
+		}
 		return (int) ((CurrentValue * 100.0f) / MaxValue);
 	}
-
 }

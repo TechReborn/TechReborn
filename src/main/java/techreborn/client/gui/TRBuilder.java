@@ -42,6 +42,7 @@ import reborncore.api.tile.IUpgradeable;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.util.StringUtils;
 import techreborn.lib.ModInfo;
 import techreborn.proxies.ClientProxy;
 
@@ -86,7 +87,7 @@ public class TRBuilder extends GuiBuilder {
 			List<String> list = new ArrayList<>();
 			TextFormatting powerColour = TextFormatting.GOLD;
 			list.add(powerColour + PowerSystem.getLocaliszedPowerFormattedNoSuffix(energyStored) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(maxEnergyStored) + " " + PowerSystem.getDisplayPower().abbreviation);
-			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
+			list.add(StringUtils.getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
 			if(gui.tile instanceof TilePowerAcceptor && GuiScreen.isShiftKeyDown()){
 				((TilePowerAcceptor) gui.tile).addInfo(list, true);
 				list.add("");
@@ -142,7 +143,7 @@ public class TRBuilder extends GuiBuilder {
 		if (isInRect(x, y, direction.width, direction.height, mouseX, mouseY)) {
 			int percentage = percentage(maxProgress, progress);
 			List<String> list = new ArrayList<>();
-			list.add(getPercentageColour(percentage) + "" + percentage + "%");
+			list.add(StringUtils.getPercentageColour(percentage) + "" + percentage + "%");
 			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
@@ -181,7 +182,7 @@ public class TRBuilder extends GuiBuilder {
 				list.add(TextFormatting.GOLD + "Empty Tank");
 			else
 				list.add(TextFormatting.GOLD + "" + amount + "mB/" + maxCapacity + "mB " + fluid.getLocalizedName());
-			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
+			list.add(StringUtils.getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
 			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
@@ -344,7 +345,7 @@ public class TRBuilder extends GuiBuilder {
 			int percentage = percentage(max, value);
 			List<String> list = new ArrayList<>();
 			list.add("" + TextFormatting.GOLD + value + "/" + max + suffix);
-			list.add(getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
+			list.add(StringUtils.getPercentageColour(percentage) + "" + percentage + "%" + TextFormatting.GRAY + " Full");
 
 			if (value > max) {
 				list.add(TextFormatting.GRAY + "Yo this is storing more than it should be able to");
@@ -428,7 +429,7 @@ public class TRBuilder extends GuiBuilder {
 		if (isInRect(x, y, 12, 12, mouseX, mouseY)) {
 			int percentage = percentage(maxProgress, progress);
 			List<String> list = new ArrayList<>();
-			list.add(getPercentageColour(percentage) + "" + percentage + "%");
+			list.add(StringUtils.getPercentageColour(percentage) + "" + percentage + "%");
 			net.minecraftforge.fml.client.config.GuiUtils.drawHoveringText(list, mouseX, mouseY, gui.width, gui.height, -1, gui.mc.fontRenderer);
 			GlStateManager.disableLighting();
 			GlStateManager.color(1, 1, 1, 1);
@@ -501,16 +502,6 @@ public class TRBuilder extends GuiBuilder {
 
 	public int getScaledBurnTime(int scale, int burnTime, int totalBurnTime) {
 		return (int) (((float) burnTime / (float) totalBurnTime) * scale);
-	}
-
-	public TextFormatting getPercentageColour(int percentage) {
-		if (percentage <= 10) {
-			return TextFormatting.RED;
-		} else if (percentage >= 75) {
-			return TextFormatting.GREEN;
-		} else {
-			return TextFormatting.YELLOW;
-		}
 	}
 
 	public int percentage(int MaxValue, int CurrentValue) {

@@ -29,7 +29,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.client.gui.GuiBase;
@@ -366,16 +365,6 @@ public class ElementBase {
 
 	public int getScaledBurnTime(int scale, int burnTime, int totalBurnTime) {
 		return (int) (((float) burnTime / (float) totalBurnTime) * scale);
-	}
-
-	public TextFormatting getPercentageColour(int percentage) {
-		if (percentage <= 10) {
-			return TextFormatting.RED;
-		} else if (percentage >= 75) {
-			return TextFormatting.GREEN;
-		} else {
-			return TextFormatting.YELLOW;
-		}
 	}
 
 	public int getPercentage(int MaxValue, int CurrentValue) {
