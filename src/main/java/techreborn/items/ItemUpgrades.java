@@ -24,15 +24,11 @@
 
 package techreborn.items;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgrade;
@@ -41,29 +37,24 @@ import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
-import reborncore.common.util.ItemNBTHelper;
-import techreborn.Core;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
-import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class ItemUpgrades extends ItemTR implements IUpgrade {
 
-	@ConfigRegistry(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker upgrade speed multipiler")
+	@ConfigRegistry(config = "items", category = "upgrades", key = "overclocker_speed", comment = "Overclocker upgrade speed multipiler")
 	public static double overclockerSpeed = 0.25;
 
-	@ConfigRegistry(config = "items", category = "upgrades", key = "overclcoker_power", comment = "Overclocker upgrade power multipiler")
+	@ConfigRegistry(config = "items", category = "upgrades", key = "overclocker_power", comment = "Overclocker upgrade power multipiler")
 	public static double overclockerPower = 0.75;
 
 	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage upgrade extra power")
-	public static double energyStoragePower = 40000;
+	public static double energyStoragePower = 40_000;
 
 	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage"};
 
@@ -86,8 +77,8 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		return getUpgradeByName(name, 1);
 	}
 
+	// Item
 	@Override
-	// gets Unlocalized Name depending on meta data
 	public String getUnlocalizedName(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
 		if (meta < 0 || meta >= types.length) {
@@ -97,7 +88,6 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		return super.getUnlocalizedName() + "." + types[meta];
 	}
 
-	// Adds Dusts SubItems To Creative Tab
 	@Override
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		if (!isInCreativeTab(creativeTabs)) {
@@ -108,19 +98,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		super.addInformation(stack, world, tooltip, flag);
-		if (stack.getItemDamage() == 4 || stack.getItemDamage() == 5) {
-			tooltip.add("Facing: " + getFacing(stack).getName());
-			String text = Core.proxy.getUpgradeConfigText();
-			if (!text.isEmpty()) {
-				tooltip.add(text);
-			}
-		}
-	}
-
+	// IUpgrade
 	@Override
 	public void process(
 		@Nonnull
@@ -155,15 +133,5 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	@SideOnly(Side.CLIENT)
 	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
 
-	}
-
-	@SuppressWarnings("deprecation")
-	@SideOnly(Side.CLIENT)
-	public BuiltContainer getContainer(EntityPlayer player) {
-		return new ContainerBuilder("sides").create();
-	}
-
-	public EnumFacing getFacing(ItemStack stack) {
-		return EnumFacing.VALUES[ItemNBTHelper.getInt(stack, "side", 0)];
 	}
 }
