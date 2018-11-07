@@ -60,8 +60,22 @@ public class TileCable extends TileEntity
 	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
 	int ticksSinceLastChange = 0;
 	
-	private EnumCableType getCableType() {
-		return world.getBlockState(pos).getValue(BlockCable.TYPE);
+	//MC calls this during world load. Keep it, please.
+	public TileCable() {
+		super();
+	}
+	
+	public TileCable(EnumCableType cableType) {
+		this.cableType = cableType;
+		this.transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
+	}
+	
+	private void updateCableType() {
+		if (cableType == null) {
+			cableType = world.getBlockState(pos).getValue(BlockCable.TYPE);
+			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
+		}
+		return;
 	}
 	
 	public boolean canReceiveFromFace(EnumFacing face) {
@@ -132,8 +146,7 @@ public class TileCable extends TileEntity
 		}
 		
 		if (cableType == null ){
-			cableType = getCableType();
-			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU; 
+			updateCableType(); 
 		}
 		
 		ticksSinceLastChange++;
@@ -187,8 +200,9 @@ public class TileCable extends TileEntity
 		}
 
 		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
-		if (!simulate)
+		if (!simulate) {
 			power += energyReceived;
+		}
 		return energyReceived;
 	}
 
@@ -199,8 +213,9 @@ public class TileCable extends TileEntity
 		}
 
 		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
-		if (!simulate)
+		if (!simulate) {
 			power -= energyExtracted;
+		}
 		return energyExtracted;
 	}
 
@@ -233,18 +248,16 @@ public class TileCable extends TileEntity
     // IListInfoProvider
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
-		if (isRealTile) {
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
 					+ TextFormatting.GOLD
 					+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t");
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(this.cableType.tier.toString()));
-		}
+					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString()));
 	}
 
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
-		return getCableType().getStack();
+		return cableType.getStack();
 	}
 }
