@@ -25,10 +25,7 @@
 package techreborn.compat.theoneprobe;
 
 import mcjty.theoneprobe.TheOneProbe;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.compat.ICompatModule;
 
 import static techreborn.compat.CompatConfigs.enableTOP;
@@ -39,16 +36,6 @@ import static techreborn.compat.CompatConfigs.enableTOP;
 public class TheOneProbeCompat implements ICompatModule {
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-
-	}
-
-	@Override
-	public void init(FMLInitializationEvent event) {
-
-	}
-
-	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		if (enableTOP) {
 			TheOneProbe.theOneProbeImp.registerProvider(new ProbeProvider());
@@ -56,8 +43,4 @@ public class TheOneProbeCompat implements ICompatModule {
 		}
 	}
 
-	@Override
-	public void serverStarting(FMLServerStartingEvent event) {
-
-	}
 }

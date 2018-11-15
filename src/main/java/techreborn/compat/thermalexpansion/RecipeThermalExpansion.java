@@ -31,9 +31,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeList;
 import techreborn.api.generator.EFluidGenerator;
@@ -48,10 +45,7 @@ import techreborn.items.ingredients.ItemPlates;
  * Created by modmuss50 on 06/07/2017.
  */
 public class RecipeThermalExpansion implements ICompatModule {
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {
 
-	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
@@ -85,13 +79,4 @@ public class RecipeThermalExpansion implements ICompatModule {
 		FluidReplicatorRecipeList.addRecipe(new FluidReplicatorRecipe(4, TFFluids.fluidCoal, 100, 20));
 	}
 
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-
-	}
-
-	@Override
-	public void serverStarting(FMLServerStartingEvent event) {
-
-	}
 }

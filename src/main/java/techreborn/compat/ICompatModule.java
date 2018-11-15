@@ -31,11 +31,11 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 public interface ICompatModule {
 
-	public void preInit(FMLPreInitializationEvent event);
+	public default void preInit(FMLPreInitializationEvent event){}
 
-	public void init(FMLInitializationEvent event);
+	public default void init(FMLInitializationEvent event){}
 
-	public void postInit(FMLPostInitializationEvent event);
+	public default void postInit(FMLPostInitializationEvent event){}
 
-	public void serverStarting(FMLServerStartingEvent event);
+	public default void serverStarting(FMLServerStartingEvent event){}
 }

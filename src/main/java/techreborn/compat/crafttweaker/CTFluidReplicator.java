@@ -24,13 +24,13 @@
 
 package techreborn.compat.crafttweaker;
 
-import java.util.Optional;
-
 import crafttweaker.api.liquid.ILiquidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeList;
+
+import java.util.Optional;
 
 /**
  * @author drcrazy

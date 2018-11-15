@@ -32,10 +32,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import techreborn.compat.ICompatModule;
 
@@ -91,21 +88,6 @@ public class CraftTweakerCompat implements ICompatModule {
 		CraftTweakerAPI.registerClass(CTGrinder.class);
 		CraftTweakerAPI.registerClass(CTExtractor.class);
 		CraftTweakerAPI.registerClass(CTFluidReplicator.class);
-	}
-
-	@Override
-	public void init(FMLInitializationEvent event) {
-
-	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-
-	}
-
-	@Override
-	public void serverStarting(FMLServerStartingEvent event) {
-
 	}
 
 }
