@@ -276,7 +276,7 @@ public class TechRebornWorldGen implements IWorldGenerator {
 					treeGenerator.generate(world, random, new BlockPos(x, 72, z));
 				}
 			}
-			retroGen.markChunk(ChunkCoord.of(chunkX, chunkZ));
 		}
+		retroGen.markChunk(ChunkCoord.of(chunkX, chunkZ));
 	}
 }

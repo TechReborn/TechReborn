@@ -74,7 +74,7 @@ public class TechRebornRetroGen {
 					final long zSeed = rng.nextLong() >> 2 + 1L;
 					final long chunkSeed = (xSeed * coord.getX() + zSeed * coord.getZ()) * seed;
 					rng.setSeed(chunkSeed);
-					Core.worldGen.generate(rng, coord.getX() << 4, coord.getZ() << 4, world, null, null);
+					Core.worldGen.generate(rng, coord.getX(), coord.getZ(), world, null, null);
 				}
 			}
 		}
