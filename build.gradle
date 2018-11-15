@@ -81,6 +81,10 @@ repositories {
 		name "OpenComputer"
 		url "http://maven.cil.li/"
 	}
+	maven {
+		name "CurseForge"
+		url "https://minecraft.curseforge.com/api/maven/"
+	}
 }
 
 configurations {
@@ -112,15 +116,12 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	//Some dep we use wants the older jei, so this ingores it. We grab the latest anyway, so it shoudnt cause any issues.
-	def withoutOldJEI = { exclude module: 'jei_1.12.2' }
-
 	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
 	compile "mcp.mobius.waila:Hwyla:+"
 	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
-	compile name: 'buildcraft', version: '7.99.17', ext: 'jar'
+	compile name: 'buildcraft', version: '7.99.19', ext: 'jar'
 		
 	deobfCompile "mezz.jei:jei_1.12.2:+"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
@@ -135,6 +136,9 @@ dependencies {
 	deobfCompile 'MCMultiPart2:MCMultiPart:2.4.1'
 	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
 	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+"
+	deobfCompile "mekanism:Mekanism:1.12.2:9.4.13.349"
+	deobfCompile "mekanism-generators:MekanismGenerators:1.12.2:9.4.13.349"
+	deobfCompile "mekanism-tools:MekanismTools:1.12.2:9.4.13.349"
 }
 
 

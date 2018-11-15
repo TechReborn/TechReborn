@@ -37,6 +37,7 @@ import techreborn.compat.buildcraft.BuildcraftCompat;
 import techreborn.compat.crafttweaker.CraftTweakerCompat;
 import techreborn.compat.ic2.RecipesIC2;
 import techreborn.compat.immersiveengineering.RecipeImmersiveEngineering;
+import techreborn.compat.mekanism.MekanismCompat;
 import techreborn.compat.opencomputers.CompatOpenComputers;
 import techreborn.compat.theoneprobe.TheOneProbeCompat;
 import techreborn.compat.thermalexpansion.RecipeThermalExpansion;
@@ -59,13 +60,13 @@ public class CompatManager {
 		register(CraftTweakerCompat.class, "crafttweaker");
 		register(CompatModuleTinkers.class, "tconstruct");
 		register(TheOneProbeCompat.class, "theoneprobe");
-		//register(CompatModulePsi.class, "Psi");
 		register(RecipesIC2.class, "ic2");
 		register(BuildcraftBuildersCompat.class, "buildcraftbuilders");
 		register(BuildcraftCompat.class, "buildcraftcore");
 		register(RecipeThermalExpansion.class, "thermalexpansion");
 		register(CompatOpenComputers.class, "opencomputers");
 		register(RecipeImmersiveEngineering.class, "immersiveengineering");
+		register(MekanismCompat.class, "mekanism");
 	}
 
 	public void register(Class<? extends ICompatModule> moduleClass, Object... objs) {
