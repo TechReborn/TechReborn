@@ -85,6 +85,10 @@ repositories {
 		name "CurseForge"
 		url "https://minecraft.curseforge.com/api/maven/"
 	}
+	ivy {
+		name "AE2"
+		artifactPattern "http://ae-mod.info/builds/[module]-[revision](-[classifier])(.[ext])"
+	}
 }
 
 configurations {
@@ -139,6 +143,8 @@ dependencies {
 	deobfCompile "mekanism:Mekanism:1.12.2:9.4.13.349"
 	deobfCompile "mekanism-generators:MekanismGenerators:1.12.2:9.4.13.349"
 	deobfCompile "mekanism-tools:MekanismTools:1.12.2:9.4.13.349"
+	deobfCompile "mekanism-tools:MekanismTools:1.12.2:9.4.13.349"
+	deobfCompile name: "appliedenergistics2", version: "rv6-stable-4", classifier: 'api', ext:"jar" //Required to fix odd crash with mekanism
 }
 
 
