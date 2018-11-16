@@ -198,12 +198,6 @@ publishing {
 			artifact sourceJar {
 				classifier "sources"
 			}
-
-
-			//Removes all of the dependencies from the maven pom, fixes issues when other projects try to depend on tr
-			pom.withXml {
-				asNode().remove(asNode().get('dependencies'))
-			}
 		}
 	}
 	repositories {
