@@ -37,58 +37,15 @@ repositories {
 		url = "http://maven.modmuss50.me/"
 	}
 	maven {
-		// JEI, TiC
-		name "TiC"
+		// JEI
+		name "JEI"
 		url "http://dvs1.progwml6.com/files/maven"
-	}
-	maven {
-		name = "Amadornes"
-		url "http://maven.amadornes.com/"
-	}
-	maven {
-		// CraftTweaker2
-		name "Jared"
-		url "http://maven.blamejared.com/"
-	}
-	maven {
-		// TheOneProbe
-		url "http://maven.tterrag.com/"
 	}
 	 maven {
 	 	// IC2
 	 	name = "ic2"
 	 	url = "http://maven.ic2.player.to/"
 	 }
-	maven {
-		// HWYLA
-		name "TehNut"
-		url "http://tehnut.info/maven/"
-	}
-	maven {
-		name 'CB Repo'
-		url "http://chickenbones.net/maven/"
-	}
-	maven {
-		// CoFH
-		name 'Covers'
-		url "http://maven.covers1624.net/"
-	}
-	ivy {
-		name "BuildCraft"
-		artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision].[ext]"
-	}
-	maven {
-		name "OpenComputer"
-		url "http://maven.cil.li/"
-	}
-	maven {
-		name "CurseForge"
-		url "https://minecraft.curseforge.com/api/maven/"
-	}
-	ivy {
-		name "AE2"
-		artifactPattern "http://ae-mod.info/builds/[module]-[revision](-[classifier])(.[ext])"
-	}
 }
 
 configurations {
@@ -123,28 +80,9 @@ dependencies {
 	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
-	compile "mcp.mobius.waila:Hwyla:+"
-	compile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.12.323"
-	compile name: 'buildcraft', version: '7.99.19', ext: 'jar'
-		
+
 	deobfCompile "mezz.jei:jei_1.12.2:+"
-	deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.19-11"
 	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.+'
-	deobfCompile 'cofh:ThermalDynamics:1.12.2-+:universal'
-	deobfCompile 'cofh:ThermalExpansion:1.12.2-+:universal'
-	deobfCompile "cofh:CoFHCore:1.12.2-+:universal"
-	deobfCompile "cofh:ThermalFoundation:1.12.2-+:universal"
-	deobfCompile "cofh:RedstoneFlux:1.12-2.1+:universal"
-	deobfCompile "cofh:CoFHWorld:1.12.2-+:universal"
-	deobfCompile "codechicken:CodeChickenLib:1.12.2-+:universal"
-	deobfCompile 'MCMultiPart2:MCMultiPart:2.4.1'
-	deobfCompile "li.cil.oc:OpenComputers:MC1.12.2-1.7.2+"
-	deobfCompile "blusunrize:ImmersiveEngineering:0.12-+"
-	deobfCompile "mekanism:Mekanism:1.12.2:9.4.13.349"
-	deobfCompile "mekanism-generators:MekanismGenerators:1.12.2:9.4.13.349"
-	deobfCompile "mekanism-tools:MekanismTools:1.12.2:9.4.13.349"
-	deobfCompile "mekanism-tools:MekanismTools:1.12.2:9.4.13.349"
-	deobfCompile name: "appliedenergistics2", version: "rv6-stable-4", classifier: 'api', ext:"jar" //Required to fix odd crash with mekanism
 }
 
 
@@ -185,13 +123,6 @@ task deobfJar(type: Jar) {
 jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
-	//    configurations.shade.each { dep ->
-	//        from(project.zipTree(dep)){
-	//            include 'ic2/api/'
-	//            include 'forestry/api/fuels/'
-	//            exclude 'META-INF', 'META-INF/**', '**/*.java'
-	//        }
-	//    }
 	manifest {
 		attributes 'FMLAT': 'techreborn_at.cfg'
 	}

@@ -26,22 +26,10 @@ package techreborn.compat;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.relauncher.Side;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.registration.impl.ConfigRegistryFactory;
-import techreborn.compat.buildcraft.BuildcraftBuildersCompat;
-import techreborn.compat.buildcraft.BuildcraftCompat;
-import techreborn.compat.crafttweaker.CraftTweakerCompat;
-import techreborn.compat.ic2.RecipesIC2;
-import techreborn.compat.immersiveengineering.RecipeImmersiveEngineering;
-import techreborn.compat.mekanism.MekanismCompat;
-import techreborn.compat.opencomputers.CompatOpenComputers;
-import techreborn.compat.theoneprobe.TheOneProbeCompat;
-import techreborn.compat.thermalexpansion.RecipeThermalExpansion;
-import techreborn.compat.tinkers.CompatModuleTinkers;
 import techreborn.lib.ModInfo;
 
 import java.lang.annotation.Annotation;
@@ -57,65 +45,11 @@ public class CompatManager {
 	public CompatManager() {
 		isIC2Loaded = Loader.isModLoaded("ic2");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
-		register(CraftTweakerCompat.class, "crafttweaker");
-		register(CompatModuleTinkers.class, "tconstruct");
-		register(TheOneProbeCompat.class, "theoneprobe");
-		register(RecipesIC2.class, "ic2");
-		register(BuildcraftBuildersCompat.class, "buildcraftbuilders");
-		register(BuildcraftCompat.class, "buildcraftcore");
-		register(RecipeThermalExpansion.class, "thermalexpansion");
-		register(CompatOpenComputers.class, "opencomputers");
-		register(RecipeImmersiveEngineering.class, "immersiveengineering");
-		register(MekanismCompat.class, "mekanism");
-	}
-
-	public void register(Class<? extends ICompatModule> moduleClass, Object... objs) {
-		registerCompact(moduleClass, true, objs);
-	}
-
-	public void registerCompact(Class<? extends ICompatModule> moduleClass, boolean config, Object... objs) {
-		if(config){
-			if(!shouldLoad(moduleClass.getSimpleName())){
-				return;
-			}
-		}
-		for (Object obj : objs) {
-			if (obj instanceof String) {
-				String modid = (String) obj;
-				if (modid.startsWith("@")) {
-					if (modid.equals("@client")) {
-						if (FMLCommonHandler.instance().getSide() != Side.CLIENT) {
-							return;
-						}
-					}
-				} else if (modid.startsWith("!")) {
-					if (Loader.isModLoaded(modid.replaceAll("!", ""))) {
-						return;
-					}
-				} else {
-					if (!Loader.isModLoaded(modid)) {
-						return;
-					}
-				}
-			} else if (obj instanceof Boolean) {
-				Boolean boo = (Boolean) obj;
-				if (!boo) {
-				}
-				return;
-			}
-		}
-		try {
-			compatModules.add(moduleClass.newInstance());
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
 	}
 
 	//This is a hack, and is bad. Dont do this.
-	public boolean shouldLoad(String name){
-		ConfigRegistry configRegistry = new ConfigRegistry(){
+	public boolean checkConfig(String name) {
+		ConfigRegistry configRegistry = new ConfigRegistry() {
 			@Override
 			public Class<? extends Annotation> annotationType() {
 				return null;
@@ -142,7 +76,7 @@ public class CompatManager {
 			}
 		};
 
-		RebornRegistry rebornRegistry = new RebornRegistry(){
+		RebornRegistry rebornRegistry = new RebornRegistry() {
 
 			@Override
 			public Class<? extends Annotation> annotationType() {
@@ -162,6 +96,11 @@ public class CompatManager {
 			@Override
 			public boolean earlyReg() {
 				return false;
+			}
+
+			@Override
+			public String modOnly() {
+				return "";
 			}
 		};
 		Configuration configuration = ConfigRegistryFactory.getOrCreateConfig(configRegistry, rebornRegistry);

@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.registration.RebornRegistry;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.api.recipe.machines.ExtractorRecipe;
@@ -43,6 +44,7 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.init.recipes.RecipeMethods;
 import techreborn.items.ingredients.ItemParts;
+import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ import java.util.List;
 /**
  * Created by Mark on 06/06/2016.
  */
+@RebornRegistry(modOnly = "ic2", modID = ModInfo.MOD_ID)
 public class RecipesIC2 implements ICompatModule {
 
 	List<RecipeDuplicate> recipeDuplicateList = new ArrayList<>();
