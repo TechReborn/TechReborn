@@ -43,15 +43,17 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.*;
+import techreborn.items.DynamicCell;
+import techreborn.items.ItemUpgrades;
 import techreborn.items.ingredients.ItemDustsSmall;
 import techreborn.items.ingredients.ItemNuggets;
 import techreborn.items.ingredients.ItemParts;
+import techreborn.lib.ModInfo;
 
 /**
  * Created by Prospector
  */
-@RebornRegistry
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class CraftingTableRecipes extends RecipeMethods {
 
 	@ConfigRegistry(config = "recipes", category = "crafting", key = "cellRecipe", comment = "Enables the new thermal expansion compatible cell recipe")
