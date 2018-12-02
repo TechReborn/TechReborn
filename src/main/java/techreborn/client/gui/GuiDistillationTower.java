@@ -30,13 +30,15 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import reborncore.ClientProxy;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.blocks.BlockMachineCasing;
-import techreborn.client.gui.widget.GuiButtonHologram;
+import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
-import techreborn.proxies.ClientProxy;
 import techreborn.tiles.multiblock.TileDistillationTower;
 
 import java.io.IOException;

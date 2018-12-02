@@ -27,9 +27,10 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.client.gui.widget.GuiButtonUpDown;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.packets.PacketAesu;
 import techreborn.tiles.storage.TileAdjustableSU;
 

@@ -26,6 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 

@@ -27,6 +27,8 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import techreborn.tiles.generator.TilePlasmaGenerator;
 
 /**

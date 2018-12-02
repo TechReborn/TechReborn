@@ -36,7 +36,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
-import techreborn.client.gui.TRBuilder;
+import reborncore.client.gui.builder.TRBuilder;
 import techreborn.init.ModItems;
 
 import javax.annotation.Nonnull;

@@ -30,7 +30,7 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.client.gui.TRBuilder;
+import reborncore.client.gui.builder.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;

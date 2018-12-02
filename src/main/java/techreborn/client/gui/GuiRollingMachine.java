@@ -25,6 +25,8 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketRollingMachineLock;
 import techreborn.tiles.tier1.TileRollingMachine;
