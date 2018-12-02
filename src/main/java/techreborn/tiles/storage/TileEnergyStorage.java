@@ -35,10 +35,10 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.util.IC2ItemCharger;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.compat.CompatManager;
-import techreborn.utils.IC2ItemCharger;
 
 /**
  * Created by Rushmead

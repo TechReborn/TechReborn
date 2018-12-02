@@ -35,14 +35,14 @@ import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.util.IC2ItemCharger;
 import reborncore.common.util.Inventory;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.compat.CompatManager;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-import techreborn.utils.IC2ItemCharger;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileChargeOMat extends TilePowerAcceptor

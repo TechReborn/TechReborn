@@ -26,7 +26,7 @@ package techreborn.compat.jei;
 
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.inventory.Slot;
-import techreborn.client.container.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 
 import java.util.ArrayList;
 import java.util.List;

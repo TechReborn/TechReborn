@@ -37,7 +37,7 @@ import reborncore.client.gui.GuiUtil;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.packet.PacketConfigSave;
 import reborncore.common.tile.TileLegacyMachineBase;
-import techreborn.client.container.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.elements.ConfigSlotElement;
 import techreborn.client.gui.slot.elements.ElementBase;

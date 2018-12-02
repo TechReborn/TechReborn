@@ -43,7 +43,7 @@ import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientEventHandler;
-import techreborn.client.IconSupplier;
+import reborncore.client.IconSupplier;
 import techreborn.client.RegisterItemJsons;
 import techreborn.client.gui.GuiBase;
 import techreborn.client.gui.slot.GuiFluidConfiguration;
@@ -70,7 +70,6 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		ModelDynamicCell.init();
 		RegisterItemJsons.registerModels();
-		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
