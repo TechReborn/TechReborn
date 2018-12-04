@@ -76,7 +76,7 @@ public class GuiIndustrialSawmill extends GuiBase {
 		this.drawSlot(126, 43, layer);
 		this.drawSlot(126, 61, layer);
 		
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

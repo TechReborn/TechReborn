@@ -55,7 +55,7 @@ public class GuiRollingMachine extends GuiBase {
 		this.drawSlot(8, 70, layer);
 		this.drawOutputSlot(124, gridYPos + 18, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 		this.builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
 	}
 

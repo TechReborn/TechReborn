@@ -44,7 +44,7 @@ public class GuiGasTurbine extends GuiBase {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		drawSlot(25, 35, layer);
 		drawSlot(25, 55, layer);
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 	
 	

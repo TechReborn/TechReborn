@@ -75,7 +75,7 @@ public class GuiImplosionCompressor extends GuiBase {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

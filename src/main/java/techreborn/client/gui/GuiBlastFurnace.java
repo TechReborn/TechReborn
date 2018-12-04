@@ -73,7 +73,7 @@ public class GuiBlastFurnace extends GuiBase {
 		this.drawSlot(50, 47, layer);
 		this.drawOutputSlotBar(92, 36, 2, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class GuiScrapboxinator extends GuiBase {
 		// Output slot
 		this.drawOutputSlot(101, 45, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

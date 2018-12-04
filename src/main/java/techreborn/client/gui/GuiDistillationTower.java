@@ -72,7 +72,7 @@ public class GuiDistillationTower extends GuiBase {
 		// Four output slots
 		this.drawOutputSlotBar(78, 36, 4, layer);
 		// JEI Button
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 	
 	@Override

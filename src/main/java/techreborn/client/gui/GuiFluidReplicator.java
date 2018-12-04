@@ -89,7 +89,7 @@ public class GuiFluidReplicator extends GuiBase {
 		// Liquid output slot
 		drawSlot(124, 55, layer);
 		// JEI button
-		builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

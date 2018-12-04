@@ -77,7 +77,7 @@ public class GuiIndustrialGrinder extends GuiBase {
 		this.drawSlot(126, 54, layer);
 		this.drawSlot(126, 72, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

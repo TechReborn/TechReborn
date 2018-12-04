@@ -48,7 +48,7 @@ public class GuiElectricFurnace extends GuiBase {
 		drawSlot(55, 45, layer);
 		drawOutputSlot(101, 45, layer);
 
-		builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

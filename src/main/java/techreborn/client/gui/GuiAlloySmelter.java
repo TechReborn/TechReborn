@@ -50,7 +50,7 @@ public class GuiAlloySmelter extends GuiBase {
 		this.drawSlot(126, 47, layer);
 		this.drawOutputSlot(80, 47, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

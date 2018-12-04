@@ -48,7 +48,7 @@ public class GuiCompressor extends GuiBase {
 		this.drawSlot(55, 45, layer);
 		this.drawOutputSlot(101, 45, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class GuiIndustrialElectrolyzer extends GuiBase {
 		this.drawSlot(81, 72, layer);
 		//Output slots
 		this.drawOutputSlotBar(50, 23, 4, layer);
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		this.builder.drawJEIButton(this, 158, 5, layer);
 	}
 	
 	@Override
