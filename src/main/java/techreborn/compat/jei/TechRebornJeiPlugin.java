@@ -321,31 +321,31 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		}
 
 		//NEW ONES
-		addRecipeClickArea(GuiCentrifuge.class, 158, 4, 12, 12, RecipeCategoryUids.CENTRIFUGE);
-		addRecipeClickArea(GuiElectricFurnace.class, 158, 4, 12, 12, VanillaRecipeCategoryUid.SMELTING);
-		addRecipeClickArea(GuiGenerator.class, 158, 4, 12, 12, VanillaRecipeCategoryUid.FUEL);
-		addRecipeClickArea(GuiExtractor.class, 158, 4, 12, 12, RecipeCategoryUids.EXTRACTOR);
-		addRecipeClickArea(GuiCompressor.class, 158, 4, 12, 12, RecipeCategoryUids.COMPRESSOR);
-		addRecipeClickArea(GuiGrinder.class, 158, 4, 12, 12, RecipeCategoryUids.GRINDER);
-		addRecipeClickArea(GuiVacuumFreezer.class, 158, 4, 12, 12, RecipeCategoryUids.VACUUM_FREEZER);
-		addRecipeClickArea(GuiBlastFurnace.class, 158, 4, 12, 12, RecipeCategoryUids.BLAST_FURNACE);
-		addRecipeClickArea(GuiChemicalReactor.class, 158, 4, 12, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
-		addRecipeClickArea(GuiImplosionCompressor.class, 158, 4, 12, 12, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
-		addRecipeClickArea(GuiIndustrialGrinder.class, 158, 4, 12, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
-		addRecipeClickArea(GuiIndustrialSawmill.class, 158, 4, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
-		addRecipeClickArea(GuiIndustrialElectrolyzer.class, 158, 4, 12, 12, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
-		addRecipeClickArea(GuiSemifluidGenerator.class, 158, 4, 12, 12, EFluidGenerator.SEMIFLUID.getRecipeID());
-		addRecipeClickArea(GuiDieselGenerator.class, 158, 4, 12, 12, EFluidGenerator.DIESEL.getRecipeID());
-		addRecipeClickArea(GuiGasTurbine.class, 158, 4, 12, 12, EFluidGenerator.GAS.getRecipeID());
-		addRecipeClickArea(GuiThermalGenerator.class, 158, 4, 12, 12, EFluidGenerator.THERMAL.getRecipeID());
-		addRecipeClickArea(GuiAlloySmelter.class, 158, 4, 12, 12, RecipeCategoryUids.ALLOY_SMELTER);
-		addRecipeClickArea(GuiPlasmaGenerator.class, 158, 4, 12, 12, EFluidGenerator.PLASMA.getRecipeID());
-		addRecipeClickArea(GuiDistillationTower.class, 158, 4, 12, 12, RecipeCategoryUids.DISTILLATION_TOWER);
-		addRecipeClickArea(GuiScrapboxinator.class, 158, 4, 12, 12, RecipeCategoryUids.SCRAPBOX);
-		addRecipeClickArea(GuiFusionReactor.class, 158, 4, 12, 12, RecipeCategoryUids.FUSION_REACTOR);
-		addRecipeClickArea(GuiRollingMachine.class, 158, 4, 12, 12, RecipeCategoryUids.ROLLING_MACHINE);
-		addRecipeClickArea(GuiFluidReplicator.class, 158, 4, 12, 12, RecipeCategoryUids.FLUID_REPLICATOR);
-		addRecipeClickArea(GuiAssemblingMachine.class, 158, 4, 12, 12, RecipeCategoryUids.ASSEMBLING_MACHINE);
+		addRecipeClickArea(GuiCentrifuge.class, 158, 5, 12, 12, RecipeCategoryUids.CENTRIFUGE);
+		addRecipeClickArea(GuiElectricFurnace.class, 158, 5, 12, 12, VanillaRecipeCategoryUid.SMELTING);
+		addRecipeClickArea(GuiGenerator.class, 158, 5, 12, 12, VanillaRecipeCategoryUid.FUEL);
+		addRecipeClickArea(GuiExtractor.class, 158, 5, 12, 12, RecipeCategoryUids.EXTRACTOR);
+		addRecipeClickArea(GuiCompressor.class, 158, 5, 12, 12, RecipeCategoryUids.COMPRESSOR);
+		addRecipeClickArea(GuiGrinder.class, 158, 5, 12, 12, RecipeCategoryUids.GRINDER);
+		addRecipeClickArea(GuiVacuumFreezer.class, 158, 5, 12, 12, RecipeCategoryUids.VACUUM_FREEZER);
+		addRecipeClickArea(GuiBlastFurnace.class, 158, 5, 12, 12, RecipeCategoryUids.BLAST_FURNACE);
+		addRecipeClickArea(GuiChemicalReactor.class, 158, 5, 12, 12, RecipeCategoryUids.CHEMICAL_REACTOR);
+		addRecipeClickArea(GuiImplosionCompressor.class, 158, 5, 12, 12, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
+		addRecipeClickArea(GuiIndustrialGrinder.class, 158, 5, 12, 12, RecipeCategoryUids.INDUSTRIAL_GRINDER);
+		addRecipeClickArea(GuiIndustrialSawmill.class, 158, 5, 20, 15, RecipeCategoryUids.INDUSTRIAL_SAWMILL);
+		addRecipeClickArea(GuiIndustrialElectrolyzer.class, 158, 5, 12, 12, RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
+		addRecipeClickArea(GuiSemifluidGenerator.class, 158, 5, 12, 12, EFluidGenerator.SEMIFLUID.getRecipeID());
+		addRecipeClickArea(GuiDieselGenerator.class, 158, 5, 12, 12, EFluidGenerator.DIESEL.getRecipeID());
+		addRecipeClickArea(GuiGasTurbine.class, 158, 5, 12, 12, EFluidGenerator.GAS.getRecipeID());
+		addRecipeClickArea(GuiThermalGenerator.class, 158, 5, 12, 12, EFluidGenerator.THERMAL.getRecipeID());
+		addRecipeClickArea(GuiAlloySmelter.class, 158, 5, 12, 12, RecipeCategoryUids.ALLOY_SMELTER);
+		addRecipeClickArea(GuiPlasmaGenerator.class, 158, 5, 12, 12, EFluidGenerator.PLASMA.getRecipeID());
+		addRecipeClickArea(GuiDistillationTower.class, 158, 5, 12, 12, RecipeCategoryUids.DISTILLATION_TOWER);
+		addRecipeClickArea(GuiScrapboxinator.class, 158, 5, 12, 12, RecipeCategoryUids.SCRAPBOX);
+		addRecipeClickArea(GuiFusionReactor.class, 158, 5, 12, 12, RecipeCategoryUids.FUSION_REACTOR);
+		addRecipeClickArea(GuiRollingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.ROLLING_MACHINE);
+		addRecipeClickArea(GuiFluidReplicator.class, 158, 5, 12, 12, RecipeCategoryUids.FLUID_REPLICATOR);
+		addRecipeClickArea(GuiAssemblingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.ASSEMBLING_MACHINE);
 		
 		//OLD ONES
 		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
