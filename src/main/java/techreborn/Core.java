@@ -48,7 +48,6 @@ import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.Torus;
-import techreborn.utils.UnspportedIc2Exception;
 import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
@@ -120,10 +119,6 @@ public class Core {
 
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.preInit(event);
-		}
-
-		if(TechRebornAPI.ic2Helper == null && Loader.isModLoaded("ic2")){
-			throw new UnspportedIc2Exception();
 		}
 
 		//Ore Dictionary
