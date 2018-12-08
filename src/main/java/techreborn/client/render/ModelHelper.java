@@ -53,7 +53,7 @@ public class ModelHelper {
 
 			return ModelBlock.deserialize(getReaderForResource(location)).getAllTransforms();
 		} catch (IOException exception) {
-			Core.logHelper.warn("Can't tick resource " + location);
+			Core.logHelper.warn("Can't load resource " + location);
 			exception.printStackTrace();
 			return null;
 		}
