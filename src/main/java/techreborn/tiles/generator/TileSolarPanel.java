@@ -138,7 +138,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		if(tag.hasKey("panelType")){
 			panel = EnumPanelType.values()[tag.getInteger("panelType")];
 		} else {
-			Core.logHelper.warn("A solar panel has failed to load from NBT, it will not work correctly. Please break and replace it to fix the issue. BlockPos:" + pos.toString());
+			Core.logHelper.warn("A solar panel has failed to tick from NBT, it will not work correctly. Please break and replace it to fix the issue. BlockPos:" + pos.toString());
 			panel = EnumPanelType.Basic;
 		}
 		super.readFromNBT(tag);

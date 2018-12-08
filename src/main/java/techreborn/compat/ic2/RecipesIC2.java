@@ -62,7 +62,7 @@ public class RecipesIC2 implements ICompatModule {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	// LOW is used as we want it to load as late as possible, but before crafttweaker
+	// LOW is used as we want it to tick as late as possible, but before crafttweaker
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		recipeDuplicateList.add(new RecipeDuplicate(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0),

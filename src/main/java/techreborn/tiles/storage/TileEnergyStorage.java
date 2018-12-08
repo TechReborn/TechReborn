@@ -34,8 +34,9 @@ import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.util.IC2ItemCharger;
+import reborncore.ic2.IC2ItemCharger;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
 import techreborn.compat.CompatManager;
@@ -78,8 +79,8 @@ public class TileEnergyStorage extends TilePowerAcceptor
 				if (getEnergy() >= 0.0 && maxReceive > 0) {
 					powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
 				}
-			} else if (CompatManager.isIC2Loaded) {
-				IC2ItemCharger.chargeIc2Item(this, stack);
+			} else if (ExternalPowerSystems.isPoweredItem(stack)) {
+				ExternalPowerSystems.chargeItem(this, stack);
 			}
 		}
 		if (!inventory.getStackInSlot(1).isEmpty()) {

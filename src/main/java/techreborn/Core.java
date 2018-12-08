@@ -131,7 +131,7 @@ public class Core {
 		logHelper.info("PreInitialization Complete");
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
+	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to tick as late as possible, but before crafttweaker
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 		//Register ModRecipes
 		ModRecipes.init();
@@ -167,7 +167,7 @@ public class Core {
 		//Village stuff
 		VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
 		MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(ModInfo.MOD_ID, "rubberplantation").toString());
-		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
+		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it tick, then it will be read from disk
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());

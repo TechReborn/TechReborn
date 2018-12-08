@@ -60,7 +60,7 @@ public class TileCable extends TileEntity
 	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
 	int ticksSinceLastChange = 0;
 	
-	//MC calls this during world load. Keep it, please.
+	//MC calls this during world tick. Keep it, please.
 	public TileCable() {
 		super();
 	}

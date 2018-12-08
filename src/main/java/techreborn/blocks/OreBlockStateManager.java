@@ -29,7 +29,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.lib.ModInfo;
 
 
-//This is in its own class as not to load the block class before
+//This is in its own class as not to tick the block class before
 @RebornRegistry(modID = ModInfo.MOD_ID, priority = 1, earlyReg = true)
 public class OreBlockStateManager {
 	//This is a one off config, dont worry about it

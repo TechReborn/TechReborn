@@ -92,7 +92,7 @@ public class StackToolTipEvent {
 					}
 				}
 			} catch (NullPointerException e) {
-				Core.logHelper.debug("Failed to load info for " + event.getItemStack().getDisplayName());
+				Core.logHelper.debug("Failed to tick info for " + event.getItemStack().getDisplayName());
 			}
 		}
 	}
