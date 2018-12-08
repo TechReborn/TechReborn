@@ -38,12 +38,10 @@ import java.util.ArrayList;
 public class CompatManager {
 
 	public static CompatManager INSTANCE = new CompatManager();
-	public static boolean isIC2Loaded = false;
 	public static boolean isQuantumStorageLoaded = false;
 	public ArrayList<ICompatModule> compatModules = new ArrayList<>();
 
 	public CompatManager() {
-		isIC2Loaded = Loader.isModLoaded("ic2");
 		isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 	}
 

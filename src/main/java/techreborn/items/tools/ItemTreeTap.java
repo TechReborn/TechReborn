@@ -24,7 +24,6 @@
 
 package techreborn.items.tools;
 
-import ic2.core.item.tool.ItemTreetap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +34,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.compat.CompatManager;
+import techreborn.api.TechRebornAPI;
 import techreborn.events.TRRecipeHandler;
 import techreborn.items.ItemTR;
 
@@ -51,15 +50,16 @@ public class ItemTreeTap extends ItemTR {
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
 		Block block = state.getBlock();
-		if (CompatManager.isIC2Loaded && block == Block.getBlockFromName("ic2:rubber_wood")) {
-			ItemTreetap.attemptExtract(playerIn, worldIn, pos, side, state, null);
-			if (!worldIn.isRemote) {
-				playerIn.getHeldItem(hand).damageItem(1, playerIn);
+		if(TechRebornAPI.ic2Helper != null){
+			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null)){
+				if (!worldIn.isRemote) {
+					playerIn.getHeldItem(hand).damageItem(1, playerIn);
+				}
+				if (playerIn instanceof EntityPlayerMP) {
+					TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
+				}
+				return EnumActionResult.SUCCESS;
 			}
-			if (playerIn instanceof EntityPlayerMP) {
-				TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
-			}
-			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
 	}

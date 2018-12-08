@@ -25,6 +25,7 @@
 package techreborn.init;
 
 import net.minecraft.item.ItemStack;
+import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
@@ -82,15 +83,15 @@ public enum IC2Duplicates {
 	}
 
 	public static boolean deduplicate() {
-		if (!CompatManager.isIC2Loaded) {
+		if (TechRebornAPI.ic2Helper == null) {
 			return false;
 		}
 		return ConfigTechReborn.REMOVE_DUPLICATES;
 	}
 
 	public ItemStack getIc2Stack() {
-		if (!CompatManager.isIC2Loaded) {
-			throw new RuntimeException("IC2 isnt loaded");
+		if (TechRebornAPI.ic2Helper == null) {
+			throw new RuntimeException("IC2 API isnt populated");
 		}
 		if (ic2Stack.isEmpty()) {
 			throw new RuntimeException("IC2 stack wasnt set ");

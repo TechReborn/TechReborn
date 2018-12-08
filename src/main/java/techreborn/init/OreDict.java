@@ -29,9 +29,8 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 import reborncore.common.util.OreUtil;
-import techreborn.Core;
+import techreborn.api.TechRebornAPI;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.items.ingredients.ItemDusts;
@@ -52,9 +51,8 @@ public class OreDict {
 	);
 
 	public static void init() {
-		if (Loader.isModLoaded("ic2")) {
-			Core.logHelper.info("IC2 installed, enabling integration");
-			IC2Dict.init();
+		if(TechRebornAPI.ic2Helper != null){
+			TechRebornAPI.ic2Helper.initDuplicates();
 		}
 
 		OreUtil.registerOre("reBattery", ModItems.RE_BATTERY);

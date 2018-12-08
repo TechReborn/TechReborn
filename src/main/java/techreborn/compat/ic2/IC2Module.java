@@ -25,9 +25,15 @@
 package techreborn.compat.ic2;
 
 import ic2.api.item.IC2Items;
+import ic2.core.item.tool.ItemTreetap;
 import ic2.core.ref.ItemName;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,12 +42,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.util.RebornCraftingHelper;
+import techreborn.api.IC2Helper;
+import techreborn.api.TechRebornAPI;
+import techreborn.api.recipe.machines.ChemicalReactorRecipe;
 import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.compat.ICompatModule;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
+import techreborn.init.recipes.ChemicalReactorRecipes;
 import techreborn.init.recipes.RecipeMethods;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.lib.ModInfo;
@@ -52,14 +62,15 @@ import java.util.List;
 /**
  * Created by Mark on 06/06/2016.
  */
-@RebornRegistry(modOnly = "ic2", modID = ModInfo.MOD_ID)
-public class RecipesIC2 implements ICompatModule {
+@RebornRegistry(modOnly = "ic2,!ic2-classic-spmod", modID = ModInfo.MOD_ID)
+public class IC2Module implements ICompatModule, IC2Helper {
 
 	List<RecipeDuplicate> recipeDuplicateList = new ArrayList<>();
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
+		TechRebornAPI.ic2Helper = this;
 	}
 
 	// LOW is used as we want it to tick as late as possible, but before crafttweaker
@@ -89,6 +100,19 @@ public class RecipesIC2 implements ICompatModule {
 
 		RecipeHandler.addRecipe(new ExtractorRecipe(ItemName.filled_tin_can.getItemStack(),
 				ItemName.crafting.getItemStack("tin_can"), 300, 16));
+
+		ItemStack f = IC2Items.getItem("crop_res", "fertilizer");
+		ChemicalReactorRecipes.register(RecipeMethods.getMaterial("calcite", RecipeMethods.Type.DUST), RecipeMethods.getMaterial("sulfur", RecipeMethods.Type.DUST), f, 40);
+	}
+
+	@Override
+	public void initDuplicates() {
+		IC2Dict.init();
+	}
+
+	@Override
+	public boolean extractSap(EntityPlayer player, World world, BlockPos pos, EnumFacing side, IBlockState state, List<ItemStack> stacks) {
+		return ItemTreetap.attemptExtract(player, world, pos, side, state, null);
 	}
 
 	public class RecipeDuplicate {

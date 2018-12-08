@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.init;
+package techreborn.compat.ic2;
 
 import ic2.core.block.BlockIC2Fence;
 import ic2.core.block.BlockTexGlass;
@@ -40,6 +40,7 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
 import techreborn.Core;
 import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.init.IC2Duplicates;
 import techreborn.items.ingredients.ItemParts;
 
 /**
@@ -47,7 +48,6 @@ import techreborn.items.ingredients.ItemParts;
  */
 public class IC2Dict {
 
-	//TODO IC2
 	public static void init() {
 
 		IC2Duplicates.GRINDER.setIc2Stack(BlockName.te.getItemStack(TeBlock.macerator.getName()));

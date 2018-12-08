@@ -24,7 +24,6 @@
 
 package techreborn.init.recipes;
 
-import ic2.api.item.IC2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -57,21 +56,14 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 		register(getMaterial("compressedair", Type.CELL), getMaterial("hydrogen", 2, Type.CELL), getMaterial("water", Type.CELL), 400);
 		register(getMaterial("compressedair", 2, Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrogenDioxide", Type.CELL), 400);
 		register(getMaterial("oil", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrofuel", 2, Type.CELL), 800);
-		
-		//Dusts
-		if (techreborn.compat.CompatManager.isIC2Loaded){
-			ItemStack f = IC2Items.getItem("crop_res", "fertilizer");
-			register(getMaterial("calcite", Type.DUST), getMaterial("sulfur", Type.DUST), f, 40);
-			//There is no recipe for phosphorous yet. 
-			//register(getMaterial("calcite", Type.DUST), getMaterial("phosphorous", Type.DUST), f, 40);
-		}		
+
 	}
 	
-	static void register(ItemStack in1, ItemStack in2,  ItemStack out, int tickTime, int euPerTick){
+	public static void register(ItemStack in1, ItemStack in2,  ItemStack out, int tickTime, int euPerTick){
 		RecipeHandler.addRecipe(new ChemicalReactorRecipe(in1, in2, out, tickTime, euPerTick));
 	}
-	
-	static void register (ItemStack in1, ItemStack in2,  ItemStack out, int tickTime){
+
+	public static void register (ItemStack in1, ItemStack in2,  ItemStack out, int tickTime){
 		register(in1, in2, out, tickTime, 30);
 	}
 

@@ -32,10 +32,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -51,6 +48,7 @@ import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.util.LogHelper;
 import reborncore.common.util.Torus;
+import techreborn.utils.UnspportedIc2Exception;
 import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.GuiHandler;
@@ -120,9 +118,12 @@ public class Core {
 		ModFixs dataFixes = FMLCommonHandler.instance().getDataFixer().init(ModInfo.MOD_ID, 1);
 		ModTileEntities.initDataFixer(dataFixes);
 
-		CompatManager.isIC2Loaded = Loader.isModLoaded("ic2");
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.preInit(event);
+		}
+
+		if(TechRebornAPI.ic2Helper == null && Loader.isModLoaded("ic2")){
+			throw new UnspportedIc2Exception();
 		}
 
 		//Ore Dictionary
