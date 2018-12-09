@@ -36,12 +36,10 @@ import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.ic2.IC2ItemCharger;
 import reborncore.common.util.Inventory;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.compat.CompatManager;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 

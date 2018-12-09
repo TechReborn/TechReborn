@@ -47,11 +47,6 @@ repositories {
 		name "JEI"
 		url "http://dvs1.progwml6.com/files/maven"
 	}
-	 maven {
-	 	// IC2
-	 	name = "ic2"
-	 	url = "http://maven.ic2.player.to/"
-	 }
 }
 
 configurations {
@@ -91,7 +86,6 @@ dependencies {
 	}
 
 	deobfCompile "mezz.jei:jei_1.12.2:+"
-	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.+'
 }
 
 
