@@ -24,7 +24,6 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -49,7 +48,6 @@ public class ItemTreeTap extends ItemTR {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
-		Block block = state.getBlock();
 		if(TechRebornAPI.ic2Helper != null){
 			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null)){
 				if (!worldIn.isRemote) {

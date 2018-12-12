@@ -37,7 +37,6 @@ import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
 import reborncore.api.IToolHandler;
 import reborncore.common.util.RebornPermissions;
-import techreborn.compat.CompatManager;
 import techreborn.items.ItemTR;
 
 /**

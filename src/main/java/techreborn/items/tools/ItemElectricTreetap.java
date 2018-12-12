@@ -24,7 +24,6 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -70,7 +69,6 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
-		Block block = state.getBlock();
 		IEnergyStorage capEnergy = playerIn.getHeldItem(hand).getCapability(CapabilityEnergy.ENERGY, null);
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote){

@@ -27,7 +27,6 @@ package techreborn.init;
 import net.minecraft.item.ItemStack;
 import techreborn.api.TechRebornAPI;
 import techreborn.blocks.cable.EnumCableType;
-import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
