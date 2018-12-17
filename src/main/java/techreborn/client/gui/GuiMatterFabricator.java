@@ -45,12 +45,12 @@ public class GuiMatterFabricator extends GuiBase {
 
 		this.drawSlot(8, 72, layer);
 		
-		this.drawScrapSlot(30, 20, layer);
-		this.drawScrapSlot(50, 20, layer);
-		this.drawScrapSlot(70, 20, layer);
-		this.drawScrapSlot(90, 20, layer);
-		this.drawScrapSlot(110, 20, layer);
-		this.drawScrapSlot(130, 20, layer);
+		this.drawSlot(30, 20, layer);
+		this.drawSlot(50, 20, layer);
+		this.drawSlot(70, 20, layer);
+		this.drawSlot(90, 20, layer);
+		this.drawSlot(110, 20, layer);
+		this.drawSlot(130, 20, layer);
 		this.drawOutputSlotBar(39, 65, 5, layer);
 
 	}
