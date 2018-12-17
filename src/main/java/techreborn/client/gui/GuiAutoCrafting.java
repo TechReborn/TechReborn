@@ -87,8 +87,8 @@ public class GuiAutoCrafting extends GuiBase {
 			renderItemStack(recipe.getRecipeOutput(), 95, 42);
 		}
 		final Layer layer = Layer.FOREGROUND;
-		this.builder.drawMultiEnergyBar(this, 9, 26, (int) this.tileAutoCraftingTable.getEnergy(), (int) this.tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
-		this.builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 26, (int) tileAutoCraftingTable.getEnergy(), (int) tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 	}
 
 	@Override
@@ -104,12 +104,12 @@ public class GuiAutoCrafting extends GuiBase {
 		drawOutputSlot(95, 42, layer);
 		drawString("Inventory", 8, 82, 4210752, layer);
 
-		this.builder.drawLockButton(this, 145, 4, mouseX, mouseY, layer, tileAutoCraftingTable.locked);
+		builder.drawLockButton(this, 145, 4, mouseX, mouseY, layer, tileAutoCraftingTable.locked);
 	}
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (this.builder.isInRect(145 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)) {
+		if (builder.isInRect(145 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)) {
 			NetworkManager.sendToServer(new PacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
 			return;
 		}

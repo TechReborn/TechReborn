@@ -43,17 +43,17 @@ public class GuiCentrifuge extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 
-		this.drawSlot(40, 34, layer);
-		this.drawSlot(40, 54, layer);
+		drawSlot(40, 34, layer);
+		drawSlot(40, 54, layer);
 
-		this.drawSlot(82, 44, layer);
-		this.drawSlot(101, 25, layer);
-		this.drawSlot(120, 44, layer);
-		this.drawSlot(101, 63, layer);
+		drawSlot(82, 44, layer);
+		drawSlot(101, 25, layer);
+		drawSlot(120, 44, layer);
+		drawSlot(101, 63, layer);
 
-		this.builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class GuiCentrifuge extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

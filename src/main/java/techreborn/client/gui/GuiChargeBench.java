@@ -42,12 +42,12 @@ public class GuiChargeBench extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(62, 25, layer);
-		this.drawSlot(98, 25, layer);
-		this.drawSlot(62, 45, layer);
-		this.drawSlot(98, 45, layer);
-		this.drawSlot(62, 65, layer);
-		this.drawSlot(98, 65, layer);
+		drawSlot(62, 25, layer);
+		drawSlot(98, 25, layer);
+		drawSlot(62, 45, layer);
+		drawSlot(98, 45, layer);
+		drawSlot(62, 65, layer);
+		drawSlot(98, 65, layer);
 	}
 
 	@Override
@@ -55,6 +55,6 @@ public class GuiChargeBench extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawMultiEnergyBar(this, 81, 28, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

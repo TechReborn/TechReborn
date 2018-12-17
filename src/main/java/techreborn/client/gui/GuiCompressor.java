@@ -43,12 +43,12 @@ public class GuiCompressor extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 
-		this.drawSlot(55, 45, layer);
-		this.drawOutputSlot(101, 45, layer);
+		drawSlot(55, 45, layer);
+		drawOutputSlot(101, 45, layer);
 
-		this.builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class GuiCompressor extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }
