@@ -68,11 +68,11 @@ public class GuiFusionReactor extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		this.drawSlot(34, 47, layer);
-		this.drawSlot(126, 47, layer);
-		this.drawOutputSlot(80, 47, layer);
+		drawSlot(34, 47, layer);
+		drawSlot(126, 47, layer);
+		drawOutputSlot(80, 47, layer);
 
-		this.builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 
 	}
 	
@@ -81,8 +81,8 @@ public class GuiFusionReactor extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, TRBuilder.ProgressDirection.LEFT, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, TRBuilder.ProgressDirection.LEFT, layer);
 		if (tile.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
@@ -105,7 +105,7 @@ public class GuiFusionReactor extends GuiBase {
 
 			}
 		}
-		this.builder.drawUpDownButtons(this, 121, 79, layer);
+		builder.drawUpDownButtons(this, 121, 79, layer);
 		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
 		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
@@ -114,7 +114,7 @@ public class GuiFusionReactor extends GuiBase {
 		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, GuiBase.Layer.FOREGROUND));
 		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, GuiBase.Layer.FOREGROUND));
 
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 	
 	public void addHologramButton(int x, int y, int id, Layer layer) {
@@ -165,9 +165,9 @@ public class GuiFusionReactor extends GuiBase {
 
 		final MultiblockSet set = new MultiblockSet(multiblock);
 		ClientProxy.multiblockRenderEvent.setMultiblock(set);
-		ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
-		MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY() - 1,
-			this.tile.getPos().getZ());
+		ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+		MultiblockRenderEvent.anchor = new BlockPos(tile.getPos().getX(), tile.getPos().getY() - 1,
+				tile.getPos().getZ());
 	}
 	
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {

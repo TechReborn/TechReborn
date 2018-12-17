@@ -64,7 +64,7 @@ public class GuiImplosionCompressor extends GuiBase {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 		
 		drawSlot(50, 27, layer);
 		drawSlot(50, 47, layer);
@@ -75,7 +75,7 @@ public class GuiImplosionCompressor extends GuiBase {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 
-		this.builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override
@@ -83,8 +83,8 @@ public class GuiImplosionCompressor extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer);
 		} else {
@@ -116,7 +116,7 @@ public class GuiImplosionCompressor extends GuiBase {
 						for (int y = -4; y <= -2; y++) {
 							for (int z = -1; z <= 1; z++) {
 								if (!((x == 0) && (y == -3) && (z == 0))) {
-									this.addComponent(x, y, z, ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "reinforced"), multiblock);
+									addComponent(x, y, z, ModBlocks.MACHINE_CASINGS.getDefaultState().withProperty(BlockMachineCasing.TYPE, "reinforced"), multiblock);
 								}
 							}
 						}
@@ -124,9 +124,8 @@ public class GuiImplosionCompressor extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
-							//new Location(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
-					MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ());
+					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					MultiblockRenderEvent.anchor = new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ());
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

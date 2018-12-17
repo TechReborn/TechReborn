@@ -42,8 +42,8 @@ public class GuiQuantumChest extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(80, 24, layer);
-		this.drawSlot(80, 64, layer);
+		drawSlot(80, 24, layer);
+		drawSlot(80, 64, layer);
 	}
 
 	@Override
@@ -51,11 +51,11 @@ public class GuiQuantumChest extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if (!this.quantumChest.storedItem.isEmpty() && this.quantumChest.getStackInSlot(1) != null) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.storedItem.getCount() + this.quantumChest.getStackInSlot(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+		if (!quantumChest.storedItem.isEmpty() && quantumChest.getStackInSlot(1) != null) {
+			builder.drawBigBlueBar(this, 31, 43, quantumChest.storedItem.getCount() + quantumChest.getStackInSlot(1).getCount(), quantumChest.maxCapacity, mouseX - guiLeft, mouseY - guiTop, "Stored", layer);
 		}
-		if (this.quantumChest.storedItem.isEmpty() && this.quantumChest.getStackInSlot(1) != null) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.getStackInSlot(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+		if (quantumChest.storedItem.isEmpty() && quantumChest.getStackInSlot(1) != null) {
+			builder.drawBigBlueBar(this, 31, 43, quantumChest.getStackInSlot(1).getCount(), quantumChest.maxCapacity, mouseX - guiLeft, mouseY - guiTop, "Stored", layer);
 		}
 	}
 }

@@ -57,19 +57,19 @@ public class GuiManual extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		this.buttonList.add(new GuiButton(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")));
-		this.buttonList.add(new GuiButton(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")));
+		buttonList.add(new GuiButton(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")));
+		buttonList.add(new GuiButton(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")));
 	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
-		this.mc.getTextureManager().bindTexture(GuiManual.texture);
+		drawDefaultBackground();
+		mc.getTextureManager().bindTexture(GuiManual.texture);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		drawTexturedModalRect(centerX, centerY, 0, 0, guiWidth, guiHeight);
-		this.fontRenderer.drawString(text1, ((width / 2) - this.fontRenderer.getStringWidth(text1) / 2), height / 2 - (guiHeight / 4), 4210752);
-		this.fontRenderer.drawString(text2, ((width / 2) - this.fontRenderer.getStringWidth(text2) / 2), height / 2 + 5, 4210752);
+		fontRenderer.drawString(text1, ((width / 2) - fontRenderer.getStringWidth(text1) / 2), height / 2 - (guiHeight / 4), 4210752);
+		fontRenderer.drawString(text2, ((width / 2) - fontRenderer.getStringWidth(text2) / 2), height / 2 + 5, 4210752);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
@@ -77,10 +77,10 @@ public class GuiManual extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 		switch (button.id) {
 			case 1:
-				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://wiki.techreborn.ovh", 1, false));
+				mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://wiki.techreborn.ovh", 1, false));
 				break;
 			case 2:
-				this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://discord.gg/0tCDWb77cvetwm0e", 2, false));
+				mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://discord.gg/0tCDWb77cvetwm0e", 2, false));
 				break;
 		}
 	}
@@ -96,7 +96,7 @@ public class GuiManual extends GuiScreen {
 						System.err.print(e);
 					}
 				}else {
-					this.mc.displayGuiScreen(this);
+					mc.displayGuiScreen(this);
 				}
 				break;
 			case 2:
@@ -107,7 +107,7 @@ public class GuiManual extends GuiScreen {
 						System.err.print(e);
 					}
 				}else {
-					this.mc.displayGuiScreen(this);
+					mc.displayGuiScreen(this);
 				}
 				break;
 		}
