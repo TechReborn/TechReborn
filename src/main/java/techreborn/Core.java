@@ -54,6 +54,7 @@ import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
 import techreborn.compat.CompatManager;
 import techreborn.compat.ICompatModule;
+import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
@@ -135,23 +136,27 @@ public class Core {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
-		// Registers Chest Loot
+
 		ModLoot.init();
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
-		// Sounds
 		ModSounds.init();
+		
 		// Compat
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.init(event);
 		}
+		
 		// Client only init, needs to be done before parts system
 		proxy.init(event);
+		
 		// WorldGen
 		worldGen.load();
 		GameRegistry.registerWorldGenerator(worldGen, 0);
 		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
+		
 		// Register Gui Handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+		
 		// Event busses
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
@@ -160,10 +165,16 @@ public class Core {
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
+		
 		//Village stuff
-		VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
-		MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(ModInfo.MOD_ID, "rubberplantation").toString());
-		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
+		if (ConfigTechReborn.enableRubberTreePlantation) {
+			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
+			MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class,
+					new ResourceLocation(ModInfo.MOD_ID, "rubberplantation").toString());
+			// Done to make it load, then it will be read from disk
+			ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); 
+		}
+		
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.SCRAP_BOX, new BehaviorDispenseScrapbox());

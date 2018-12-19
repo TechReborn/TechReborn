@@ -131,4 +131,8 @@ public class ConfigTechReborn {
 	
 	@ConfigRegistry(config = "world", category = "loot", key = "enableEndLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to The End loot chests.")
 	public static boolean enableEndLoot = true;
+	
+	@ConfigRegistry(config = "world", category = "village", key = "enableRubberTreePlantation", comment = "When true TechReborn will add Rubber tree farm to villages.")
+	public static boolean enableRubberTreePlantation = true;
+	
 }
