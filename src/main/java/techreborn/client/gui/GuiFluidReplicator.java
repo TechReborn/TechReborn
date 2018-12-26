@@ -29,13 +29,15 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import reborncore.ClientProxy;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.TRContent;
-import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileFluidReplicator;
+import reborncore.client.gui.builder.widget.GuiButtonHologram;
 
 import java.io.IOException;
 
@@ -86,7 +88,7 @@ public class GuiFluidReplicator extends GuiBase {
 		// Liquid output slot
 		drawSlot(124, 55, layer);
 		// JEI button
-		builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override

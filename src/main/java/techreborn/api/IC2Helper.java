@@ -22,54 +22,21 @@
  * SOFTWARE.
  */
 
-package techreborn.client.gui.widget;
+package techreborn.api;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.client.multiblock.Multiblock;
-import techreborn.client.gui.GuiBase;
+import net.minecraft.world.World;
 
-/**
- * Created by Prospector
- */
-public class GuiButtonHologram extends GuiButton {
+import java.util.List;
 
-	GuiBase.Layer layer;
-	GuiBase gui;
+public interface IC2Helper {
 
-	public GuiButtonHologram(int buttonId, int x, int y, GuiBase gui, GuiBase.Layer layer) {
-		super(buttonId, x, y, 20, 12, "");
-		this.layer = layer;
-		this.gui = gui;
-	}
+	public void initDuplicates();
 
-	@Override
-	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+	public boolean extractSap(EntityPlayer player, World world, BlockPos pos, EnumFacing side, IBlockState state, List<ItemStack> stacks);
 
-		if (layer == GuiBase.Layer.FOREGROUND) {
-			mouseX -= gui.getGuiLeft();
-			mouseY -= gui.getGuiTop();
-		}
-
-		if (this.enabled && this.visible && mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
-			return true;
-		}
-		return false;
-	}
-
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x, y, z), blockState);
-	}
-
-	@Override
-	public void drawButtonForegroundLayer(int mouseX, int mouseY) {
-
-	}
-
-	@Override
-	public void drawButton(Minecraft p_191745_1_, int p_191745_2_, int p_191745_3_, float p_191745_4_) {
-
-	}
 }

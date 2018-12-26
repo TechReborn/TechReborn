@@ -39,6 +39,8 @@ public final class TechRebornAPI {
 
 	public static ISubItemRetriever subItemRetriever;
 
+	public static IC2Helper ic2Helper;
+
 	public static void addRollingOreMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
 		RollingMachineRecipe.instance.addShapedOreRecipe(resourceLocation, output, components);
 	}

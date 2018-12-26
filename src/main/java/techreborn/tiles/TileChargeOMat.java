@@ -32,15 +32,17 @@ import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.lib.ModInfo;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileChargeOMat extends TilePowerAcceptor
@@ -75,6 +77,8 @@ public class TileChargeOMat extends TilePowerAcceptor
 					if (getEnergy() >= 0.0 && maxReceive > 0) {
 						powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
 					}
+				} else if (ExternalPowerSystems.isPoweredItem(stack)) {
+					ExternalPowerSystems.chargeItem(this, stack);
 				}
 			}
 		}

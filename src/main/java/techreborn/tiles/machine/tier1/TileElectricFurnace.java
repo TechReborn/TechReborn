@@ -37,9 +37,9 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -64,7 +64,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public int gaugeProgressScaled(int scale) {
-		return progress * scale / fuelScale;
+		return progress * scale / (int) (fuelScale * (1.0 - getSpeedMultiplier()));
 	}
 
 	public void cookItems() {

@@ -25,6 +25,8 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import techreborn.tiles.TileMatterFabricator;
 
 public class GuiMatterFabricator extends GuiBase {
@@ -41,15 +43,15 @@ public class GuiMatterFabricator extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 		
-		this.drawScrapSlot(30, 20, layer);
-		this.drawScrapSlot(50, 20, layer);
-		this.drawScrapSlot(70, 20, layer);
-		this.drawScrapSlot(90, 20, layer);
-		this.drawScrapSlot(110, 20, layer);
-		this.drawScrapSlot(130, 20, layer);
-		this.drawOutputSlotBar(39, 65, 5, layer);
+		drawSlot(30, 20, layer);
+		drawSlot(50, 20, layer);
+		drawSlot(70, 20, layer);
+		drawSlot(90, 20, layer);
+		drawSlot(110, 20, layer);
+		drawSlot(130, 20, layer);
+		drawOutputSlotBar(39, 65, 5, layer);
 
 	}
 
@@ -58,7 +60,7 @@ public class GuiMatterFabricator extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		//this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, TRBuilder.ProgressDirection.DOWN, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 83, 41, mouseX, mouseY, TRBuilder.ProgressDirection.DOWN, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

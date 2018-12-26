@@ -26,6 +26,8 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import techreborn.tiles.machine.tier1.TileIndustrialElectrolyzer;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 
 public class GuiIndustrialElectrolyzer extends GuiBase {
 	
@@ -42,13 +44,13 @@ public class GuiIndustrialElectrolyzer extends GuiBase {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		//Battery slot
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 		//Input slots
-		this.drawSlot(47, 72, layer);
-		this.drawSlot(81, 72, layer);
+		drawSlot(47, 72, layer);
+		drawSlot(81, 72, layer);
 		//Output slots
-		this.drawOutputSlotBar(50, 23, 4, layer);
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		drawOutputSlotBar(50, 23, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 	
 	@Override
@@ -56,8 +58,8 @@ public class GuiIndustrialElectrolyzer extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, TRBuilder.ProgressDirection.UP, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, TRBuilder.ProgressDirection.UP, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 	
 	

@@ -35,11 +35,11 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.storage.BlockLapotronicSU;
-import techreborn.client.container.IContainerProvider;
 import techreborn.client.container.builder.BuiltContainer;
 import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.tiles.storage.TileEnergyStorage;
+import reborncore.client.containerBuilder.IContainerProvider;
 
 import java.util.ArrayList;
 

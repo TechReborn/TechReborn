@@ -29,13 +29,16 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import reborncore.ClientProxy;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.client.gui.widget.GuiButtonHologram;
 import techreborn.init.TRContent;
-import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileImplosionCompressor;
+import techreborn.blocks.BlockMachineCasing;
+import reborncore.client.gui.builder.widget.GuiButtonHologram;
 
 import java.io.IOException;
 
@@ -61,7 +64,7 @@ public class GuiImplosionCompressor extends GuiBase {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 		
 		drawSlot(50, 27, layer);
 		drawSlot(50, 47, layer);
@@ -72,7 +75,7 @@ public class GuiImplosionCompressor extends GuiBase {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override
@@ -80,8 +83,8 @@ public class GuiImplosionCompressor extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer);
 		} else {
@@ -121,9 +124,8 @@ public class GuiImplosionCompressor extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
-							//new Location(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ(), this.tile.getWorld());
-					MultiblockRenderEvent.anchor = new BlockPos(this.tile.getPos().getX(), this.tile.getPos().getY(), this.tile.getPos().getZ());
+					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					MultiblockRenderEvent.anchor = new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ());
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

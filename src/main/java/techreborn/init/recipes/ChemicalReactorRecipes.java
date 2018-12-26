@@ -57,13 +57,14 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 		register(getMaterial("compressedair", Type.CELL), getMaterial("hydrogen", 2, Type.CELL), getMaterial("water", Type.CELL), 400);
 		register(getMaterial("compressedair", 2, Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrogenDioxide", Type.CELL), 400);
 		register(getMaterial("oil", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrofuel", 2, Type.CELL), 800);
+
 	}
 	
-	static void register(ItemStack in1, ItemStack in2,  ItemStack out, int tickTime, int euPerTick){
+	public static void register(ItemStack in1, ItemStack in2,  ItemStack out, int tickTime, int euPerTick){
 		RecipeHandler.addRecipe(Reference.CHEMICAL_REACTOR_RECIPE, new ChemicalReactorRecipe(in1, in2, out, tickTime, euPerTick));
 	}
-	
-	static void register (ItemStack in1, ItemStack in2,  ItemStack out, int tickTime){
+
+	public static void register (ItemStack in1, ItemStack in2,  ItemStack out, int tickTime){
 		register(in1, in2, out, tickTime, 30);
 	}
 

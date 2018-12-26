@@ -24,18 +24,29 @@
 
 package techreborn.items.tool.basic;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
 import reborncore.common.util.ItemUtils;
+import techreborn.api.TechRebornAPI;
+
 import javax.annotation.Nullable;
 
 /**
@@ -48,6 +59,20 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 
 	public ItemElectricTreetap() {
 		setMaxStackSize(1);
+	}
+
+	// Item
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		IBlockState state = worldIn.getBlockState(pos);
+		IEnergyStorage capEnergy = playerIn.getHeldItem(hand).getCapability(CapabilityEnergy.ENERGY, null);
+		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
+			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote){
+				capEnergy.extractEnergy(cost, false);
+				return EnumActionResult.SUCCESS;
+			}
+		}
+		return EnumActionResult.PASS;
 	}
 
 	@Override

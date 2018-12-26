@@ -26,6 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fluids.FluidStack;
+import reborncore.client.gui.builder.GuiBase;
 import techreborn.tiles.TileQuantumTank;
 
 public class GuiQuantumTank extends GuiBase {
@@ -42,8 +43,8 @@ public class GuiQuantumTank extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		this.drawSlot(80, 17, layer);
-		this.drawSlot(80, 53, layer);
+		drawSlot(80, 17, layer);
+		drawSlot(80, 53, layer);
 
 	}
 
@@ -51,13 +52,13 @@ public class GuiQuantumTank extends GuiBase {
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
-		FluidStack fluid = this.quantumTank.tank.getFluid();
+		FluidStack fluid = quantumTank.tank.getFluid();
 		if(fluid != null){
-			this.fontRenderer.drawString( "Fluid Type:", 10, 20, 4210752);
-			this.fontRenderer.drawString(fluid.getLocalizedName() + "", 10, 30, 4210752);
+			fontRenderer.drawString( "Fluid Type:", 10, 20, 4210752);
+			fontRenderer.drawString(fluid.getLocalizedName() + "", 10, 30, 4210752);
 
-			this.fontRenderer.drawString("Fluid Amount:", 10, 50, 4210752);
-			this.fontRenderer.drawString(this.quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);
+			fontRenderer.drawString("Fluid Amount:", 10, 50, 4210752);
+			fontRenderer.drawString(quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);
 		}
 
 	}
@@ -65,6 +66,6 @@ public class GuiQuantumTank extends GuiBase {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 }

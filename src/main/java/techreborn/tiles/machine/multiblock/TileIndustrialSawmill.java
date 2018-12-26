@@ -45,10 +45,11 @@ import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 import javax.annotation.Nullable;
 
@@ -127,7 +128,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		tank.writeToNBT(tagCompound);
 		return tagCompound;
 	}
-	
+
 	// TileMachineBase
 	@Nullable
 	@Override

@@ -137,7 +137,7 @@ public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
 				throw new InvalidParameterException("input is invalid!");
 			}
 		}
-		if (RecipeTranslator.getStackFromObject(inuput) == null) {
+		if (RecipeTranslator.getStackFromObject(inuput) == null || RecipeTranslator.getStackFromObject(inuput).isEmpty()) {
 			throw new InvalidParameterException("Could not determin recipe input for " + inuput);
 		}
 		inputs.add(inuput);

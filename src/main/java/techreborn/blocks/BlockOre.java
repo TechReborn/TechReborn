@@ -77,7 +77,7 @@ public class BlockOre extends Block {
 		Block ore = state.getBlock();
 		Random random = new Random();
 
-		// Secondary drop, like Yellow Garnet from Sphalerite ore added via event handler. 
+		// Secondary drop, like Yellow Garnet from Sphalerite ore added via event handler.
 		if (ore == TRContent.Ores.RUBY.block) {
 			OreDrop ruby = new OreDrop(TRContent.Gems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
 			drops.add(ruby.getDrops(fortune, random));

@@ -31,6 +31,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
+import techreborn.api.TechRebornAPI;
 import techreborn.init.TRContent.Dusts;
 import techreborn.init.TRContent.Ores;
 
@@ -46,6 +47,9 @@ public class OreDict {
 	 * Register blocks and items
 	 */
 	public static void init() {
+		if(TechRebornAPI.ic2Helper != null){
+			TechRebornAPI.ic2Helper.initDuplicates();
+		}
 		// Blocks
 		OreUtil.registerOre("fenceIron", TRContent.REFINED_IRON_FENCE);
 		OreUtil.registerOre("woodRubber", TRContent.RUBBER_LOG);
@@ -100,17 +104,17 @@ public class OreDict {
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
-		
+
 		for (Ores ore : TRContent.Ores.values()) {
 			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore.name), new ItemStack(ore.block));
 		}
-		
+
 		for (Dusts dust : TRContent.Dusts.values()) {
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + dust.name), dust.getStack());
 		}
 
-		
-		
+
+
 		//	OreUtil.registerOre("blockSilver", BlockStorage.getStorageBlockByName("silver"));
 		//	OreUtil.registerOre("blockAluminum", BlockStorage.getStorageBlockByName("aluminum"));
 		//	OreUtil.registerOre("blockAluminium", BlockStorage.getStorageBlockByName("aluminum"));

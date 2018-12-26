@@ -25,6 +25,8 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import techreborn.tiles.generator.advanced.TileThermalGenerator;
 
 public class GuiThermalGenerator extends GuiBase {
@@ -42,7 +44,7 @@ public class GuiThermalGenerator extends GuiBase {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		drawSlot(25, 35, layer);
 		drawSlot(25, 55, layer);
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 	
 	
@@ -51,9 +53,9 @@ public class GuiThermalGenerator extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 		
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 130, 28, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
-		this.builder.drawTank(this, 44, 25, mouseX, mouseY, this.tile.tank.getFluid(), this.tile.tank.getCapacity(), this.tile.tank.isEmpty(), layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 130, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawTank(this, 44, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
 		
 	}
 }

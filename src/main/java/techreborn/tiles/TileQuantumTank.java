@@ -39,9 +39,9 @@ import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;

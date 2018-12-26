@@ -13,11 +13,16 @@ buildscript {
 		maven {
 			url "https://plugins.gradle.org/m2/"
 		}
+		maven {
+			name = "CB Repo"
+			url = "http://chickenbones.net/maven"
+		}
 	}
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
+		classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
 	}
 }
 
@@ -26,6 +31,7 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: net.minecrell.gradle.licenser.Licenser
 apply plugin: 'de.undercouch.download'
+apply plugin: 'net.covers1624.contained-deps'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -36,9 +42,20 @@ repositories {
 		name = "Modmuss50"
 		url = "http://maven.modmuss50.me/"
 	}
+	maven {
+		// JEI
+		name "JEI"
+		url "http://dvs1.progwml6.com/files/maven"
+	}
 }
 
 version = "3.0.0"
+
+configurations {
+	shade
+	compile.extendsFrom shade
+}
+
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -46,7 +63,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.4.2757"
+	version = "1.12.2-14.23.5.2768"
 	mappings = "snapshot_20180720"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
@@ -65,6 +82,7 @@ dependencies {
 	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
+	deobfCompile "mezz.jei:jei_1.12.2:+"
 }
 
 processResources
@@ -101,16 +119,14 @@ task deobfJar(type: Jar) {
 }
 
 
+containedDeps {
+	configuration = "shade"
+	tasks = "jar"
+}
+
 jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
-	//    configurations.shade.each { dep ->
-	//        from(project.zipTree(dep)){
-	//            include 'ic2/api/'
-	//            include 'forestry/api/fuels/'
-	//            exclude 'META-INF', 'META-INF/**', '**/*.java'
-	//        }
-	//    }
 	manifest {
 		attributes 'FMLAT': 'techreborn_at.cfg'
 	}
@@ -185,12 +201,6 @@ publishing {
 
 			artifact sourceJar {
 				classifier "sources"
-			}
-
-
-			//Removes all of the dependencies from the maven pom, fixes issues when other projects try to depend on tr
-			pom.withXml {
-				asNode().remove(asNode().get('dependencies'))
 			}
 		}
 	}

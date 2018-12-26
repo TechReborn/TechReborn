@@ -28,12 +28,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import reborncore.ClientProxy;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.client.gui.widget.GuiButtonHologram;
+import techreborn.blocks.BlockMachineCasing;
+import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.TRContent;
-import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileVacuumFreezer;
 
 import java.io.IOException;
@@ -59,14 +62,14 @@ public class GuiVacuumFreezer extends GuiBase {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Battery slot
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 		// Input slots
-		this.drawSlot(8, 72, layer);
-		this.drawSlot(55, 45, layer);
+		drawSlot(8, 72, layer);
+		drawSlot(55, 45, layer);
 		// Output slot
-		this.drawOutputSlot(101, 45, layer);
+		drawOutputSlot(101, 45, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override
@@ -74,8 +77,8 @@ public class GuiVacuumFreezer extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
@@ -104,22 +107,22 @@ public class GuiVacuumFreezer extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();					
+					IBlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 					
-					this.addComponent(0, -1, 0, reinforcedCasing, multiblock);
-					this.addComponent(1, -1, 0, reinforcedCasing, multiblock);
-					this.addComponent(0, -1, 1, reinforcedCasing, multiblock);
-					this.addComponent(-1, -1, 0, reinforcedCasing, multiblock);
-					this.addComponent(0, -1, -1, reinforcedCasing, multiblock);
-					this.addComponent(-1, -1, -1, reinforcedCasing, multiblock);
-					this.addComponent(-1, -1, 1, reinforcedCasing, multiblock);
-					this.addComponent(1, -1, -1, reinforcedCasing, multiblock);
-					this.addComponent(1, -1, 1, reinforcedCasing, multiblock);
+					addComponent(0, -1, 0, reinforcedCasing, multiblock);
+					addComponent(1, -1, 0, reinforcedCasing, multiblock);
+					addComponent(0, -1, 1, reinforcedCasing, multiblock);
+					addComponent(-1, -1, 0, reinforcedCasing, multiblock);
+					addComponent(0, -1, -1, reinforcedCasing, multiblock);
+					addComponent(-1, -1, -1, reinforcedCasing, multiblock);
+					addComponent(-1, -1, 1, reinforcedCasing, multiblock);
+					addComponent(1, -1, -1, reinforcedCasing, multiblock);
+					addComponent(1, -1, 1, reinforcedCasing, multiblock);
 					
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
-					MultiblockRenderEvent.anchor = this.tile.getPos().down();
+					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					MultiblockRenderEvent.anchor = tile.getPos().down();
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

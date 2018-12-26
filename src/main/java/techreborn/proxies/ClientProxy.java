@@ -29,6 +29,7 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.util.RecipeBookClient;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,24 +39,24 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.api.tile.IUpgradeable;
+import reborncore.client.IconSupplier;
 import reborncore.client.hud.StackInfoHUD;
-import reborncore.client.multiblock.MultiblockRenderEvent;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.client.ClientEventHandler;
-import techreborn.client.IconSupplier;
-import techreborn.client.gui.GuiBase;
-import techreborn.client.gui.slot.GuiFluidConfiguration;
-import techreborn.client.gui.slot.GuiSlotConfiguration;
+
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.slot.GuiFluidConfiguration;
+import reborncore.client.gui.builder.slot.GuiSlotConfiguration;
 import techreborn.client.keybindings.KeyBindings;
+import techreborn.client.render.ModelDynamicCell;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.StackToolTipEvent;
 import techreborn.init.TRContent;
+import techreborn.items.DynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 
 public class ClientProxy extends CommonProxy {
-
-	public static MultiblockRenderEvent multiblockRenderEvent;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
@@ -63,6 +64,8 @@ public class ClientProxy extends CommonProxy {
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
+		ModelDynamicCell.init();
+		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 
@@ -70,14 +73,14 @@ public class ClientProxy extends CommonProxy {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
-		multiblockRenderEvent = new MultiblockRenderEvent();
 		MinecraftForge.EVENT_BUS.register(GuiSlotConfiguration.class);
 		MinecraftForge.EVENT_BUS.register(GuiFluidConfiguration.class);
-		MinecraftForge.EVENT_BUS.register(multiblockRenderEvent);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
+		GuiBase.wrenchStack = new ItemStack(ModItems.WRENCH);
+		GuiBase.fluidCellProvider = DynamicCell::getCellWithFluid;
 	}
 
 	@Override

@@ -35,9 +35,9 @@ import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 
 public class TileIronFurnace extends TileMachineBase
 		implements ItemHandlerProvider, IContainerProvider {

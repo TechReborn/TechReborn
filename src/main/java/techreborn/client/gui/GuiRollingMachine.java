@@ -25,6 +25,8 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketRollingMachineLock;
 import techreborn.tiles.machine.tier1.TileRollingMachine;
@@ -46,15 +48,21 @@ public class GuiRollingMachine extends GuiBase {
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		int gridYPos = 22;
-		this.drawSlot(30, gridYPos, layer);         this.drawSlot(48, gridYPos, layer);         this.drawSlot(66, gridYPos, layer);
-		this.drawSlot(30, gridYPos + 18, layer); this.drawSlot(48, gridYPos + 18, layer); this.drawSlot(66, gridYPos + 18, layer);
-		this.drawSlot(30, gridYPos + 36, layer); this.drawSlot(48, gridYPos + 36, layer); this.drawSlot(66, gridYPos + 36, layer);
+		drawSlot(30, gridYPos, layer);
+		drawSlot(48, gridYPos, layer);         
+		drawSlot(66, gridYPos, layer);
+		drawSlot(30, gridYPos + 18, layer);
+		drawSlot(48, gridYPos + 18, layer); 
+		drawSlot(66, gridYPos + 18, layer);
+		drawSlot(30, gridYPos + 36, layer); 
+		drawSlot(48, gridYPos + 36, layer); 
+		drawSlot(66, gridYPos + 36, layer);
 
-		this.drawSlot(8, 70, layer);
-		this.drawOutputSlot(124, gridYPos + 18, layer);
+		drawSlot(8, 70, layer);
+		drawOutputSlot(124, gridYPos + 18, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
-		this.builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
+		builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
 	}
 
 	@Override
@@ -62,13 +70,13 @@ public class GuiRollingMachine extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 17, (int) this.rollingMachine.getEnergy(), (int) this.rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(this.builder.isInRect(130 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)){
+		if(builder.isInRect(130 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)){
 			NetworkManager.sendToServer(new PacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
 			return;
 		}

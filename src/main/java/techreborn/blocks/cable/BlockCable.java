@@ -126,7 +126,7 @@ public class BlockCable extends BlockContainer {
 	@Nullable
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileCable();
+		return new TileCable(getStateFromMeta(meta).getValue(TYPE));
 	}
 
 	// Block

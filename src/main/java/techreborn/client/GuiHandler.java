@@ -30,7 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import techreborn.client.container.ContainerDestructoPack;
-import techreborn.client.container.IContainerProvider;
+import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.client.gui.*;
 import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.tiles.*;

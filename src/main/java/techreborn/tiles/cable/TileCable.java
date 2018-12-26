@@ -193,8 +193,9 @@ public class TileCable extends TileEntity
 		}
 
 		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
-		if (!simulate)
+		if (!simulate) {
 			power += energyReceived;
+		}
 		return energyReceived;
 	}
 
@@ -205,8 +206,9 @@ public class TileCable extends TileEntity
 		}
 
 		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
-		if (!simulate)
+		if (!simulate) {
 			power -= energyExtracted;
+		}
 		return energyExtracted;
 	}
 
@@ -244,8 +246,7 @@ public class TileCable extends TileEntity
 					+ TextFormatting.GOLD
 					+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t");
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(this.cableType.tier.toString()));
-		}
+					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString()));
 	}
 
 	// IToolDrop

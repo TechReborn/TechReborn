@@ -30,12 +30,15 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import reborncore.ClientProxy;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.TRBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.client.gui.widget.GuiButtonHologram;
+import techreborn.blocks.BlockMachineCasing;
+import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.TRContent;
-import techreborn.proxies.ClientProxy;
 import techreborn.tiles.machine.multiblock.TileDistillationTower;
 
 import java.io.IOException;
@@ -62,14 +65,14 @@ public class GuiDistillationTower extends GuiBase {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 		// Battery slot
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 		// Input slots
-		this.drawSlot(35, 27, layer);
-		this.drawSlot(35, 47, layer);
+		drawSlot(35, 27, layer);
+		drawSlot(35, 47, layer);
 		// Four output slots
-		this.drawOutputSlotBar(78, 36, 4, layer);
+		drawOutputSlotBar(78, 36, 4, layer);
 		// JEI Button
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 	
 	@Override
@@ -77,8 +80,8 @@ public class GuiDistillationTower extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawProgressBar(this, this.tile.getProgressScaled(100), 100, 55, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
@@ -107,55 +110,54 @@ public class GuiDistillationTower extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();					
+					IBlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 					IBlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 					
-					this.addComponent(0, 0, 0, standardCasing, multiblock);
-					this.addComponent(1, 0, 0, standardCasing, multiblock);
-					this.addComponent(0, 0, 1, standardCasing, multiblock);
-					this.addComponent(-1, 0, 0, standardCasing, multiblock);
-					this.addComponent(0, 0, -1, standardCasing, multiblock);
-					this.addComponent(-1, 0, -1, standardCasing, multiblock);
-					this.addComponent(-1, 0, 1, standardCasing, multiblock);
-					this.addComponent(1, 0, -1, standardCasing, multiblock);
-					this.addComponent(1, 0, 1, standardCasing, multiblock);
+					addComponent(0, 0, 0, standardCasing, multiblock);
+					addComponent(1, 0, 0, standardCasing, multiblock);
+					addComponent(0, 0, 1, standardCasing, multiblock);
+					addComponent(-1, 0, 0, standardCasing, multiblock);
+					addComponent(0, 0, -1, standardCasing, multiblock);
+					addComponent(-1, 0, -1, standardCasing, multiblock);
+					addComponent(-1, 0, 1, standardCasing, multiblock);
+					addComponent(1, 0, -1, standardCasing, multiblock);
+					addComponent(1, 0, 1, standardCasing, multiblock);
 
-					this.addComponent(1, 1, 0, advancedCasing, multiblock);
-					this.addComponent(0, 1, 1, advancedCasing, multiblock);
-					this.addComponent(-1, 1, 0, advancedCasing, multiblock);
-					this.addComponent(0, 1, -1, advancedCasing, multiblock);
-					this.addComponent(-1, 1, -1, advancedCasing, multiblock);
-					this.addComponent(-1, 1, 1, advancedCasing, multiblock);
-					this.addComponent(1, 1, -1, advancedCasing, multiblock);
-					this.addComponent(1, 1, 1, advancedCasing, multiblock);
+					addComponent(1, 1, 0, advancedCasing, multiblock);
+					addComponent(0, 1, 1, advancedCasing, multiblock);
+					addComponent(-1, 1, 0, advancedCasing, multiblock);
+					addComponent(0, 1, -1, advancedCasing, multiblock);
+					addComponent(-1, 1, -1, advancedCasing, multiblock);
+					addComponent(-1, 1, 1, advancedCasing, multiblock);
+					addComponent(1, 1, -1, advancedCasing, multiblock);
+					addComponent(1, 1, 1, advancedCasing, multiblock);
 
-					this.addComponent(1, 2, 0, standardCasing, multiblock);
-					this.addComponent(0, 2, 1, standardCasing, multiblock);
-					this.addComponent(-1, 2, 0, standardCasing, multiblock);
-					this.addComponent(0, 2, -1, standardCasing, multiblock);
-					this.addComponent(-1, 2, -1, standardCasing, multiblock);
-					this.addComponent(-1, 2, 1, standardCasing, multiblock);
-					this.addComponent(1, 2, -1, standardCasing, multiblock);
-					this.addComponent(1, 2, 1, standardCasing, multiblock);
+					addComponent(1, 2, 0, standardCasing, multiblock);
+					addComponent(0, 2, 1, standardCasing, multiblock);
+					addComponent(-1, 2, 0, standardCasing, multiblock);
+					addComponent(0, 2, -1, standardCasing, multiblock);
+					addComponent(-1, 2, -1, standardCasing, multiblock);
+					addComponent(-1, 2, 1, standardCasing, multiblock);
+					addComponent(1, 2, -1, standardCasing, multiblock);
+					addComponent(1, 2, 1, standardCasing, multiblock);
 
-					this.addComponent(0, 3, 0, advancedCasing, multiblock);
-					this.addComponent(1, 3, 0, advancedCasing, multiblock);
-					this.addComponent(0, 3, 1, advancedCasing, multiblock);
-					this.addComponent(-1, 3, 0, advancedCasing, multiblock);
-					this.addComponent(0, 3, -1, advancedCasing, multiblock);
-					this.addComponent(-1, 3, -1, advancedCasing, multiblock);
-					this.addComponent(-1, 3, 1, advancedCasing, multiblock);
-					this.addComponent(1, 3, -1, advancedCasing, multiblock);
-					this.addComponent(1, 3, 1, advancedCasing, multiblock);
+					addComponent(0, 3, 0, advancedCasing, multiblock);
+					addComponent(1, 3, 0, advancedCasing, multiblock);
+					addComponent(0, 3, 1, advancedCasing, multiblock);
+					addComponent(-1, 3, 0, advancedCasing, multiblock);
+					addComponent(0, 3, -1, advancedCasing, multiblock);
+					addComponent(-1, 3, -1, advancedCasing, multiblock);
+					addComponent(-1, 3, 1, advancedCasing, multiblock);
+					addComponent(1, 3, -1, advancedCasing, multiblock);
+					addComponent(1, 3, 1, advancedCasing, multiblock);
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = this.tile.getPos();
+					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-						this.tile.getPos().getX()
-							- EnumFacing.byIndex(this.tile.getFacingInt()).getXOffset() * 2,
-						this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-						- EnumFacing.byIndex(this.tile.getFacingInt()).getZOffset() * 2);
+							tile.getPos().getX() - EnumFacing.byIndex(tile.getFacingInt()).getXOffset() * 2,
+							tile.getPos().getY() - 1,
+							tile.getPos().getZ() - EnumFacing.byIndex(tile.getFacingInt()).getZOffset() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

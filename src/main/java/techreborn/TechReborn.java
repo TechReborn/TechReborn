@@ -56,6 +56,9 @@ import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
+import techreborn.compat.CompatManager;
+import techreborn.compat.ICompatModule;
+import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
 import techreborn.events.TRRecipeHandler;
@@ -125,6 +128,10 @@ public class TechReborn {
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
 		proxy.preInit(event);
+
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.preInit(event);
+		}
 	}
 
 	@Mod.EventHandler
@@ -134,6 +141,11 @@ public class TechReborn {
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
 		ModSounds.init();
+
+		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
+			compatModule.init(event);
+		}
+
 		// Client only init, needs to be done before parts system
 		proxy.init(event);
 		// WorldGen
@@ -151,9 +163,12 @@ public class TechReborn {
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		//Village stuff
-		VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
-		MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
-		ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
+		if (ConfigTechReborn.enableRubberTreePlantation) {
+			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
+			MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
+			ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
+		}
+
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
 			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());

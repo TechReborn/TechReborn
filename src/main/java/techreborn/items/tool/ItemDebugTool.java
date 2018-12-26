@@ -57,7 +57,7 @@ public class ItemDebugTool extends Item {
 		} else {
 			return EnumActionResult.FAIL;
 		}
-		
+
 		TileEntity tile = worldIn.getTileEntity(pos);
 		if (tile != null) {
 			sendMessage(playerIn, worldIn, new TextComponentString(

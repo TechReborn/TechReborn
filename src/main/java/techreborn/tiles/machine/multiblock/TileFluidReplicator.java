@@ -36,10 +36,11 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
 import javax.annotation.Nullable;
@@ -130,7 +131,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 			return true;
 		};
 	}
-	
+
 	// TileMachineBase
 	@Nullable
 	@Override

@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.builder.GuiBase;
 import techreborn.tiles.TileQuantumChest;
 
 public class GuiQuantumChest extends GuiBase {
@@ -41,8 +42,8 @@ public class GuiQuantumChest extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(80, 24, layer);
-		this.drawSlot(80, 64, layer);
+		drawSlot(80, 24, layer);
+		drawSlot(80, 64, layer);
 	}
 
 	@Override

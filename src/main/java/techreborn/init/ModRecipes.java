@@ -43,6 +43,11 @@ import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
+import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemDustsSmall;
+import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemPlates;
+import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -125,7 +130,7 @@ public class ModRecipes {
 //				ItemPlates.getPlateByName("RedGarnet", 9), 300, 4));
 //		RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(OreUtil.getStackFromName("ingotRefinedIron", 1),
 //				ItemPlates.getPlateByName("RefinedIron"), 300, 4));
-//		
+//
 //		ItemStack plate;
 //		for (String ore : OreUtil.oreNames) {
 //			if (ore.equals("iridium")) {
@@ -138,7 +143,7 @@ public class ModRecipes {
 //					plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1);
 //				}
 //				if (plate.isEmpty()) {
-//					continue;				
+//					continue;
 //				}
 //				if (OreUtil.hasIngot(ore)) {
 //					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
@@ -202,7 +207,7 @@ public class ModRecipes {
 //			new ItemStack(Blocks.NETHERRACK),
 //			ItemDusts.getDustByName("netherrack"),
 //			300, 27));
-//		
+//
 //		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 //				new ItemStack(Blocks.END_STONE),
 //				ItemDusts.getDustByName("endstone"),
@@ -237,14 +242,14 @@ public class ModRecipes {
 //			ItemStack marbleStack = getOre("stoneMarble");
 //			marbleStack.setCount(1);
 //			RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//					marbleStack, ItemDusts.getDustByName("marble"), 
+//					marbleStack, ItemDusts.getDustByName("marble"),
 //					120, 10));
 		}
 		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
 //			ItemStack marbleStack = getOre("stoneBasalt");
 //			marbleStack.setCount(1);
 //			RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//					marbleStack, ItemDusts.getDustByName("basalt"), 
+//					marbleStack, ItemDusts.getDustByName("basalt"),
 //					120, 10));
 		}
 

@@ -26,6 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
+import reborncore.client.gui.builder.GuiBase;
 
 public class GuiGenerator extends GuiBase {
 
@@ -41,11 +42,11 @@ public class GuiGenerator extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		this.drawSlot(8, 72, layer);
+		drawSlot(8, 72, layer);
 
-		this.drawSlot(80, 54, layer);
+		drawSlot(80, 54, layer);
 
-		this.builder.drawJEIButton(this, 150, 4, layer);
+		builder.drawJEIButton(this, 158, 5, layer);
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class GuiGenerator extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		this.builder.drawBurnBar(this, this.tile.getScaledBurnTime(100), 100, 81, 38, mouseX, mouseY, layer);
-		this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawBurnBar(this, tile.getScaledBurnTime(100), 100, 81, 38, mouseX, mouseY, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.iron.TileIronFurnace;
+import reborncore.client.gui.builder.GuiBase;
 
 public class GuiIronFurnace extends GuiBase {
 
@@ -48,7 +49,7 @@ public class GuiIronFurnace extends GuiBase {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
+		drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades, new ItemStack(TRContent.WRENCH));
 		this.mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
@@ -58,24 +59,22 @@ public class GuiIronFurnace extends GuiBase {
 
 		int j = 0;
 
-		j = this.furnace.gaugeProgressScaled(24);
+		j = furnace.gaugeProgressScaled(24);
 		if (j > 0) {
-			this.drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
+			drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
-		j = this.furnace.gaugeFuelScaled(12);
+		j = furnace.gaugeFuelScaled(12);
 		if (j > 0) {
-			this.drawTexturedModalRect(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+			drawTexturedModalRect(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn:iron_furnace.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
-			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
+		final String name = I18n.format("tile.techreborn.iron_furnace.name");
+		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 4210752);
+		fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8, ySize - 96 + 2, 4210752);
 
 		super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
 	}
@@ -83,7 +82,7 @@ public class GuiIronFurnace extends GuiBase {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 
 }

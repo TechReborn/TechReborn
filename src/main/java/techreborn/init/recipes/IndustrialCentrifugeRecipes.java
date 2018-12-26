@@ -45,7 +45,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Blocks.MYCELIUM, 8), 1640, getStack(Blocks.SAND, 4), getStack(Items.CLAY_BALL), getStack(Blocks.BROWN_MUSHROOM, 2), getStack(Blocks.RED_MUSHROOM, 2));
 		register(getStack(Items.GOLDEN_APPLE), 5000, getStack(Items.GOLD_INGOT, 6), getMaterial("methane", Type.CELL));
 		register(getStack(Items.GOLDEN_APPLE, 1, 1), 5000, getStack(Items.GOLD_INGOT, 64), getMaterial("methane", Type.CELL));
-//		TODO: Fix recipe		
+//		TODO: Fix recipe
 //		register(getStack(Items.GOLDEN_CARROT), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
 //		register(getStack(Items.SPECKLED_MELON, 8), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
 		register(getStack(Items.APPLE, 32), 5000, getMaterial("methane", Type.CELL));
@@ -79,7 +79,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Blocks.RED_MUSHROOM, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.NETHER_WART, 32), 5000, getMaterial("methane", Type.CELL));
 //		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART));
-//		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));		
+//		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));
 //		register(getStack(Blocks.SOUL_SAND, 16), 2500, getStack(Blocks.SAND, 10), getMaterial("saltpeter", 4, Type.DUST), getMaterial("coal", Type.DUST), getMaterial("oil", Type.CELL));
 //		register(getOre("dustBronze"), 1500, getMaterial("copper", 6, Type.SMALL_DUST), getMaterial("tin", 2, Type.SMALL_DUST));
 //		register(getOre("dustIron", 2), 1500, getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
