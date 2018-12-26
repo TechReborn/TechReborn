@@ -27,7 +27,6 @@ package techreborn.items.battery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
@@ -49,7 +48,7 @@ public class ItemLapotronCrystal extends ItemBattery {
 		}
 		ItemStack stack = new ItemStack(ModItems.LAPOTRONIC_CRYSTAL);
 		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);

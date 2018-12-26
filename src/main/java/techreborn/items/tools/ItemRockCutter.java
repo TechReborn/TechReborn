@@ -38,7 +38,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
@@ -77,7 +76,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
+		if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
 			return 2F;
 		} else {
 			return Items.DIAMOND_PICKAXE.getDestroySpeed(stack, state);
@@ -89,7 +88,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			stack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
+			new ForgePowerItemManager(stack).extractEnergy(cost, false);
 		}
 		return true;
 	}
@@ -151,7 +150,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		ItemStack charged = new ItemStack(ModItems.ROCK_CUTTER);
 		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);

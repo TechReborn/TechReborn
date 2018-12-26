@@ -34,7 +34,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
@@ -69,7 +68,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 		}
 		ItemStack uncharged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
 		ItemStack charged = new ItemStack(ModItems.LAPOTRONIC_ORB_PACK);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
 		itemList.add(charged);

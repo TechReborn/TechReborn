@@ -38,7 +38,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -81,7 +80,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	// ItemTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		stack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
+		new ForgePowerItemManager(stack).extractEnergy(cost, false);
 		return true;
 	}
 
@@ -89,7 +88,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	// @Override
 	// public float getDigSpeed(ItemStack stack, IBlockState state) {
-	// IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+	// IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 	// if (capEnergy.getEnergyStored() >= cost) {
 	// capEnergy.extractEnergy(cost, false);
 	// return 5.0F;
@@ -108,7 +107,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entityliving, EntityLivingBase attacker) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() >= hitCost) {
 			capEnergy.extractEnergy(hitCost, false);
 			entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
@@ -163,7 +162,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 		}
 		ItemStack uncharged = new ItemStack(ModItems.OMNI_TOOL);
 		ItemStack charged = new ItemStack(ModItems.OMNI_TOOL);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
