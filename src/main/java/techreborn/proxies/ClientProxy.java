@@ -65,7 +65,6 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
 		ModelDynamicCell.init();
-		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 
@@ -79,7 +78,7 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
-		GuiBase.wrenchStack = new ItemStack(ModItems.WRENCH);
+		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCell::getCellWithFluid;
 	}
 

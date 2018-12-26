@@ -39,8 +39,6 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.items.ingredients.ItemParts;
-import techreborn.lib.ModInfo;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor

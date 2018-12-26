@@ -243,10 +243,11 @@ public class TileCable extends TileEntity
 	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile) {
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
-					+ TextFormatting.GOLD
-					+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t");
+				+ TextFormatting.GOLD
+				+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t");
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString()));
+				+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString()));
+		}
 	}
 
 	// IToolDrop

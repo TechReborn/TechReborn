@@ -43,11 +43,6 @@ import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
-import techreborn.items.ingredients.ItemDusts;
-import techreborn.items.ingredients.ItemDustsSmall;
-import techreborn.items.ingredients.ItemIngots;
-import techreborn.items.ingredients.ItemPlates;
-import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
 import java.util.Map;

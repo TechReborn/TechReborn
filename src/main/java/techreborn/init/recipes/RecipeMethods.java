@@ -32,13 +32,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.items.*;
-import techreborn.items.ingredients.ItemDusts;
-import techreborn.items.ingredients.ItemDustsSmall;
-import techreborn.items.ingredients.ItemGems;
-import techreborn.items.ingredients.ItemIngots;
-import techreborn.items.ingredients.ItemNuggets;
-import techreborn.items.ingredients.ItemParts;
-import techreborn.items.ingredients.ItemPlates;
 
 /**
  * Created by Prospector

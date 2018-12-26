@@ -56,8 +56,6 @@ import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.client.GuiHandler;
 import techreborn.command.TechRebornDevCommand;
-import techreborn.compat.CompatManager;
-import techreborn.compat.ICompatModule;
 import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
@@ -128,10 +126,6 @@ public class TechReborn {
 		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
 		proxy.preInit(event);
-
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.preInit(event);
-		}
 	}
 
 	@Mod.EventHandler
@@ -141,11 +135,6 @@ public class TechReborn {
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
 		ModSounds.init();
-
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.init(event);
-		}
-
 		// Client only init, needs to be done before parts system
 		proxy.init(event);
 		// WorldGen

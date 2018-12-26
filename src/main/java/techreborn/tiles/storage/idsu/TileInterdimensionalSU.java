@@ -28,12 +28,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.client.container.IContainerProvider;
-import techreborn.client.container.builder.BuiltContainer;
-import techreborn.client.container.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.tiles.storage.TileEnergyStorage;
 
