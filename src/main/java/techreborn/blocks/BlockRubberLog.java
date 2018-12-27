@@ -41,9 +41,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.IEnergyStorage;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.WorldUtils;
 import techreborn.events.TRRecipeHandler;
@@ -170,7 +170,7 @@ public class BlockRubberLog extends Block {
 		if (stack.isEmpty()) {
 			return false;
 		}
-		IEnergyStorage capEnergy = null;
+		ForgePowerItemManager capEnergy = null;
 		if (stack.getItem() instanceof ItemElectricTreetap) {
 			capEnergy = new ForgePowerItemManager(stack);
 		}
@@ -183,6 +183,8 @@ public class BlockRubberLog extends Block {
 				if (!worldIn.isRemote) {
 					if (capEnergy != null) {
 						capEnergy.extractEnergy(20, false);
+
+						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 					} else {
 						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
 					}

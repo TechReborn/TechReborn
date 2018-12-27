@@ -36,10 +36,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
@@ -68,10 +68,12 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
-		IEnergyStorage capEnergy = new ForgePowerItemManager(playerIn.getHeldItem(hand));
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(playerIn.getHeldItem(hand));
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote){
 				capEnergy.extractEnergy(cost, false);
+				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+
 				return EnumActionResult.SUCCESS;
 			}
 		}

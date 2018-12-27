@@ -38,6 +38,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
@@ -98,7 +99,12 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, ItemStack drill) {
 		IBlockState blockState = world.getBlockState(pos);
-		new ForgePowerItemManager(drill).extractEnergy(cost, false);
+
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
+
+		capEnergy.extractEnergy(cost, false);
+		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+
 		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
