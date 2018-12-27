@@ -38,12 +38,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.utils.TechRebornCreativeTab;
 
@@ -71,7 +71,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost
+				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() >= cost
 						&& entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
 				}
@@ -83,7 +83,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	// ItemAxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() >= cost
+		if (new ForgePowerItemManager(stack).getEnergyStored() >= cost
 				&& (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
@@ -96,7 +96,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			stack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
+			new ForgePowerItemManager(stack).extractEnergy(cost, false);
 		}
 		return true;
 	}

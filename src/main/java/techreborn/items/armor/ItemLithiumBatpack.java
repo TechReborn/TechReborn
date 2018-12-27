@@ -65,10 +65,18 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 		if (world.isRemote) {
 			return;
 		}
-		if (!itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
-			return;
-		}
-		IEnergyStorage capEnergy = itemStack.getCapability(CapabilityEnergy.ENERGY, null);
+
+		// TODO: Find out how to become compatible with IC2 items
+		// IC2 handles battery pack charging in a very peculiar way. Battery packs do not actually distribute power on their own,
+		// rather items explicitly request charging from armor slots. The default ElectricItemManager implementation will only
+		// draw power from an IElectricItem, so items utilizing ISpecialElectricItem or IBackupElectricItemManager will not work.
+		// This means that the only way for battery armor to be 100% compatible with IC2 is to be completely managed by the
+		// ElectricItemManager. This will obviously not work. Instead, we should automatically distribute power to IC2 electric items.
+		// However, this brings up a somewhat unrelated problem: TechReborn items do not know how to explicitly pull power from IC2
+		// battery packs. Perhaps we need to add a function to ExternalPowerManager to hint that an ItemStack has discharged,
+		// which will appropriately ask IC2 battery packs for energy.
+
+		IEnergyStorage capEnergy = new ForgePowerItemManager(itemStack);
 
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			if (!player.inventory.getStackInSlot(i).isEmpty()) {
@@ -123,7 +131,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 		}
 		ItemStack uncharged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
 		ItemStack charged = new ItemStack(ModItems.LITHIUM_BATTERY_PACK);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
 		itemList.add(charged);

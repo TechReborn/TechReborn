@@ -33,7 +33,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -58,7 +57,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		}
 		ItemStack stack = new ItemStack(ModItems.ADVANCED_CHAINSAW);
 		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
@@ -86,7 +85,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if (oldPos == pos) {
 			return;
 		}
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() < cost) {
 			return;
 		}

@@ -41,10 +41,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.WorldUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
@@ -172,7 +172,7 @@ public class BlockRubberLog extends Block {
 		}
 		IEnergyStorage capEnergy = null;
 		if (stack.getItem() instanceof ItemElectricTreetap) {
-			capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+			capEnergy = new ForgePowerItemManager(stack);
 		}
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {

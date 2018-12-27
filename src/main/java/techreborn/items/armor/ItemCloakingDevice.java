@@ -34,7 +34,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -79,7 +78,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
 			capEnergy.extractEnergy(usage, false);
 			player.setInvisible(true);
@@ -98,7 +97,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		}
 		ItemStack uncharged = new ItemStack(ModItems.CLOAKING_DEVICE);
 		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
 		itemList.add(charged);

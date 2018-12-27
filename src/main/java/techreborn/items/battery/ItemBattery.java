@@ -31,12 +31,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.items.ItemTR;
 
@@ -60,7 +60,7 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 			@Override
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() == 0) {
+				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() == 0) {
 					return 1.0F;
 				}
 				return 0.0F;

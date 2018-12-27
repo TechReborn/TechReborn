@@ -44,7 +44,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -77,7 +76,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 			@SideOnly(Side.CLIENT)
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				if (ItemUtils.isActive(stack)) {
-					ForgePowerItemManager capEnergy = (ForgePowerItemManager) stack.getCapability(CapabilityEnergy.ENERGY, null);
+					ForgePowerItemManager capEnergy = (ForgePowerItemManager) new ForgePowerItemManager(stack);
 					if (capEnergy.getMaxEnergyStored() - capEnergy.getEnergyStored() >= 0.9	* capEnergy.getMaxEnergyStored()) {
 						return 0.5F;
 					}
@@ -91,7 +90,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	// ItemSword
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() >= cost) {
 			capEnergy.extractEnergy(cost, false);
 			return true;
@@ -121,7 +120,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
 		final ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
-			if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
+			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ TextFormatting.GOLD + I18n
@@ -155,7 +154,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (ItemUtils.isActive(stack) && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
 			if(worldIn.isRemote){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
@@ -206,13 +205,13 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		ItemStack inactiveCharged = new ItemStack(ModItems.NANOSABER);
 		inactiveCharged.setTagCompound(new NBTTagCompound());
 		inactiveCharged.getTagCompound().setBoolean("isActive", false);
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) inactiveCharged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(inactiveCharged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		ItemStack activeCharged = new ItemStack(ModItems.NANOSABER);
 		activeCharged.setTagCompound(new NBTTagCompound());
 		activeCharged.getTagCompound().setBoolean("isActive", true);
-		ForgePowerItemManager capEnergy2 = (ForgePowerItemManager) activeCharged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy2 = new ForgePowerItemManager(activeCharged);
 		capEnergy2.setEnergyStored(capEnergy2.getMaxEnergyStored());
 
 		itemList.add(inactiveUncharged);

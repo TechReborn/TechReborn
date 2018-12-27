@@ -31,7 +31,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -45,6 +44,7 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.StringUtils;
 import techreborn.Core;
 
@@ -61,7 +61,7 @@ public class StackToolTipEvent {
 		List<String> tooltip = event.getToolTip();
 		
 		if (item instanceof IEnergyItemInfo) {
-			IEnergyStorage capEnergy = event.getItemStack().getCapability(CapabilityEnergy.ENERGY, null);
+			IEnergyStorage capEnergy = new ForgePowerItemManager(event.getItemStack());
 			tooltip.add(1,
 					TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU)
 					+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored() / RebornCoreConfig.euPerFU)

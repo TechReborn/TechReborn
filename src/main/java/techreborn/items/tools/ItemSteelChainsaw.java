@@ -29,7 +29,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
@@ -52,7 +51,7 @@ public class ItemSteelChainsaw extends ItemChainsaw {
 		}
 		ItemStack stack = new ItemStack(ModItems.STEEL_CHAINSAW);
 		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
