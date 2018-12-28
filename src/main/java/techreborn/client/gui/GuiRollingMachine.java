@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketRollingMachineLock;
 import techreborn.tiles.tier1.TileRollingMachine;
@@ -70,13 +70,13 @@ public class GuiRollingMachine extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(builder.isInRect(130 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)){
+		if(isPointInRect(130 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)){
 			NetworkManager.sendToServer(new PacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
 			return;
 		}

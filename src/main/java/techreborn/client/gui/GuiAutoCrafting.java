@@ -33,7 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketAutoCraftingTableLock;
 import techreborn.tiles.tier1.TileAutoCraftingTable;
@@ -87,8 +87,9 @@ public class GuiAutoCrafting extends GuiBase {
 			renderItemStack(recipe.getRecipeOutput(), 95, 42);
 		}
 		final Layer layer = Layer.FOREGROUND;
+		
+		builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(this, 9, 26, (int) tileAutoCraftingTable.getEnergy(), (int) tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
-		builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class GuiAutoCrafting extends GuiBase {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (builder.isInRect(145 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)) {
+		if (isPointInRect(145 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)) {
 			NetworkManager.sendToServer(new PacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
 			return;
 		}

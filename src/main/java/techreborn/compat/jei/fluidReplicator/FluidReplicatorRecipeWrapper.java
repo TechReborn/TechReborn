@@ -36,7 +36,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 import techreborn.init.ModItems;
 
 import javax.annotation.Nonnull;
@@ -52,7 +53,9 @@ public class FluidReplicatorRecipeWrapper implements IRecipeWrapper {
 	public FluidReplicatorRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		ProgressDirection right = ProgressDirection.RIGHT;
+		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
+				right.yActive, right.width, right.height);
 		int ticksPerCycle = recipe.getTickTime();
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
 				IDrawableAnimated.StartDirection.LEFT, false);

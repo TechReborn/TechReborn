@@ -31,7 +31,8 @@ import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.ChemicalReactorRecipe;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
@@ -47,8 +48,12 @@ public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReac
 			ChemicalReactorRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressrightStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
-		IDrawableStatic progressleftStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 84, 161, 16, 10);
+		ProgressDirection right = ProgressDirection.RIGHT;
+		ProgressDirection left = ProgressDirection.LEFT;
+		IDrawableStatic progressrightStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
+				right.yActive, right.width, right.height);
+		IDrawableStatic progressleftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
+				left.yActive, left.width, left.height);
 
 		int ticksPerCycle = baseRecipe.tickTime(); // speed up the animation
 

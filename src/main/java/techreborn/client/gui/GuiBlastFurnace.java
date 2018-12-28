@@ -32,7 +32,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
@@ -82,7 +82,7 @@ public class GuiBlastFurnace extends GuiBase {
 		this.hasMultiBlock = tile.getCachedHeat() != 0;
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 
 		builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
 		if (hasMultiBlock) {

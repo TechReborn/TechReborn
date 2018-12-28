@@ -31,8 +31,9 @@ import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
-import reborncore.client.gui.builder.TRBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 
 import javax.annotation.Nonnull;
 
@@ -40,19 +41,21 @@ public class AlloySmelterRecipeWrapper extends BaseRecipeWrapper<AlloySmelterRec
 	private final IDrawableAnimated progressright;
 	private final IDrawableAnimated progressleft;
 
-	public AlloySmelterRecipeWrapper(
-		@Nonnull
-			IJeiHelpers jeiHelpers,
-		@Nonnull
-			AlloySmelterRecipe baseRecipe) {
+	public AlloySmelterRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull AlloySmelterRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressrightStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
-		IDrawableStatic progressleftStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 84, 161, 16, 10);
+		ProgressDirection right = ProgressDirection.RIGHT;
+		ProgressDirection left = ProgressDirection.LEFT;
+		IDrawableStatic progressrightStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
+				right.yActive, right.width, right.height);
+		IDrawableStatic progressleftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
+				left.yActive, left.width, left.height);
 		int ticksPerCycle = baseRecipe.tickTime();
 
-		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
-		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle, IDrawableAnimated.StartDirection.RIGHT, false);
+		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle,
+				IDrawableAnimated.StartDirection.LEFT, false);
+		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle,
+				IDrawableAnimated.StartDirection.RIGHT, false);
 
 	}
 

@@ -31,7 +31,8 @@ import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
@@ -46,7 +47,9 @@ public class CentrifugeRecipeWrapper extends BaseRecipeWrapper<CentrifugeRecipe>
 			CentrifugeRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		ProgressDirection right = ProgressDirection.RIGHT;
+		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
+				right.yActive, right.width, right.height);
 
 		int ticksPerCycle = baseRecipe.tickTime() / 4; // speed up the animation
 

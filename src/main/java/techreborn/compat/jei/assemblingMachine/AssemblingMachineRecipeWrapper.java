@@ -30,7 +30,7 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
 import techreborn.api.recipe.machines.AssemblingMachineRecipe;
-import reborncore.client.gui.builder.TRBuilder;
+import reborncore.client.guibuilder.GuiBuilder;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
@@ -41,7 +41,7 @@ public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<Assembling
 	public AssemblingMachineRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull AssemblingMachineRecipe baseRecipe) {
 		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(TRBuilder.GUI_SHEET, 100, 151, 16, 10);
+		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, 74, 150, 16, 10);
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, baseRecipe.tickTime(),
 				IDrawableAnimated.StartDirection.LEFT, false);
 	}
