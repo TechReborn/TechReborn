@@ -115,7 +115,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		if (world.isRemote) {
 			return;
 		}
-		charge(2);
+		charge(10);
 
 		InventoryCrafting craftMatrix = getCraftingMatrix();
 		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
