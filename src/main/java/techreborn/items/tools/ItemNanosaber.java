@@ -44,10 +44,10 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
@@ -89,10 +89,12 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	
 	// ItemSword
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
-		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
+	public boolean hitEntity(ItemStack stack, EntityLivingBase entityHit, EntityLivingBase entityHitter) {
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() >= cost) {
 			capEnergy.extractEnergy(cost, false);
+			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityHitter);
+
 			return true;
 		} else {
 			return false;

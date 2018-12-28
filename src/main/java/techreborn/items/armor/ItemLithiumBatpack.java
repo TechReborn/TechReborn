@@ -34,11 +34,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
@@ -66,26 +65,11 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 			return;
 		}
 
-		// TODO: Find out how to become compatible with IC2 items
-		// IC2 handles battery pack charging in a very peculiar way. Battery packs do not actually distribute power on their own,
-		// rather items explicitly request charging from armor slots. The default ElectricItemManager implementation will only
-		// draw power from an IElectricItem, so items utilizing ISpecialElectricItem or IBackupElectricItemManager will not work.
-		// This means that the only way for battery armor to be 100% compatible with IC2 is to be completely managed by the
-		// ElectricItemManager. This will obviously not work. Instead, we should automatically distribute power to IC2 electric items.
-		// However, this brings up a somewhat unrelated problem: TechReborn items do not know how to explicitly pull power from IC2
-		// battery packs. Perhaps we need to add a function to ExternalPowerManager to hint that an ItemStack has discharged,
-		// which will appropriately ask IC2 battery packs for energy.
-
-		IEnergyStorage capEnergy = new ForgePowerItemManager(itemStack);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(itemStack);
 
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			if (!player.inventory.getStackInSlot(i).isEmpty()) {
-				ItemStack item = player.inventory.getStackInSlot(i);
-				if (!item.hasCapability(CapabilityEnergy.ENERGY, null)) {
-					continue;
-				}
-				IEnergyStorage itemPower = item.getCapability(CapabilityEnergy.ENERGY, null);
-				capEnergy.extractEnergy(itemPower.receiveEnergy(Math.min(capEnergy.getEnergyStored(), maxSend), false), false);
+				ExternalPowerSystems.chargeItem(capEnergy, player.inventory.getStackInSlot(i));
 			}
 		}
 	}

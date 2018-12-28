@@ -27,11 +27,8 @@ package techreborn.tiles;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
@@ -47,6 +44,8 @@ import techreborn.lib.ModInfo;
 public class TileChargeOMat extends TilePowerAcceptor
 	implements IToolDrop, IInventoryProvider, IContainerProvider {
 
+	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")
+	public static int maxOutput = 512;
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxInput", comment = "Charge Bench Max Input (Value in EU)")
 	public static int maxInput = 512;
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
@@ -67,22 +66,14 @@ public class TileChargeOMat extends TilePowerAcceptor
 			return;
 		}
 		for (int i = 0; i < 6; i++) {
-			if (!inventory.getStackInSlot(i).isEmpty()) {
-				final ItemStack stack = inventory.getStackInSlot(i);
-				if (stack.hasCapability(CapabilityEnergy.ENERGY, null)) {
-					IEnergyStorage powerItem = stack.getCapability(CapabilityEnergy.ENERGY, null);
-					int maxReceive = powerItem.receiveEnergy((int)getMaxInput() * RebornCoreConfig.euPerFU, true);
-					double maxUse = Math.min((double) (maxReceive / RebornCoreConfig.euPerFU), getMaxInput());
-					if (getEnergy() >= 0.0 && maxReceive > 0) {
-						powerItem.receiveEnergy((int) useEnergy(maxUse) * RebornCoreConfig.euPerFU, false);
-					}
-				} else if (ExternalPowerSystems.isPoweredItem(stack)) {
-					ExternalPowerSystems.chargeItem(this, stack);
-				}
+			ItemStack stack = inventory.getStackInSlot(i);
+
+			if (!stack.isEmpty()) {
+				ExternalPowerSystems.chargeItem(this, stack);
 			}
 		}
 	}
-	
+
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -100,7 +91,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 
 	@Override
 	public double getBaseMaxOutput() {
-		return 0;
+		return maxOutput;
 	}
 
 	@Override

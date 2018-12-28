@@ -33,9 +33,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
@@ -85,10 +85,12 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if (oldPos == pos) {
 			return;
 		}
-		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
+
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() < cost) {
 			return;
 		}
+
 		IBlockState blockState = world.getBlockState(pos);
 		if (blockState.getBlockHardness(world, pos) == -1.0F) {
 			return;
@@ -96,7 +98,10 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if(!(entityLiving instanceof EntityPlayer)){
 			return;
 		}
+
 		capEnergy.extractEnergy(cost, false);
+		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
+
 		blockState.getBlock().harvestBlock(world, (EntityPlayer) entityLiving, pos, blockState, world.getTileEntity(pos), stack);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
