@@ -76,7 +76,7 @@ public class GuiRollingMachine extends GuiBase {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(isPointInRect(130 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)){
+		if(isPointInRect(130, 4, 20, 12, mouseX, mouseY)){
 			NetworkManager.sendToServer(new PacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
 			return;
 		}
