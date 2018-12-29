@@ -86,7 +86,7 @@ public class GuiBlastFurnace extends GuiBase {
 
 		builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
 		if (hasMultiBlock) {
-			addHologramButton(6, 4, 212, layer);
+			addHologramButton(4, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);

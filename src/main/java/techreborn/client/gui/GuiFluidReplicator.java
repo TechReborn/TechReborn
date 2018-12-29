@@ -99,7 +99,6 @@ public class GuiFluidReplicator extends GuiBase {
 
 		builder.drawTank(this, 99, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
@@ -108,6 +107,7 @@ public class GuiFluidReplicator extends GuiBase {
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	// GuiScreen
