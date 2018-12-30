@@ -37,7 +37,6 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.blocks.BlockMachineCasing;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 
@@ -98,16 +97,6 @@ public class GuiIndustrialGrinder extends GuiBase {
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
 		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
-	}
-
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
 	}
 
 	@Override

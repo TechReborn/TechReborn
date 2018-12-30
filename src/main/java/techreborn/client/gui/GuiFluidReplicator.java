@@ -36,7 +36,6 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.blocks.BlockMachineCasing;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.multiblock.TileFluidReplicator;
 
@@ -53,16 +52,6 @@ public class GuiFluidReplicator extends GuiBase {
 	public GuiFluidReplicator(final EntityPlayer player, final TileFluidReplicator tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
-	}
-
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
 	}
 
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {

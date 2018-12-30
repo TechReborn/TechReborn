@@ -38,7 +38,6 @@ import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.init.ModBlocks;
 import techreborn.packets.PacketFusionControlSize;
@@ -118,17 +117,7 @@ public class GuiFusionReactor extends GuiBase {
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
-	
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
-	}
-	
+		
 	@Override
 	public void actionPerformed(final GuiButton button) throws IOException {
 		super.actionPerformed(button);
