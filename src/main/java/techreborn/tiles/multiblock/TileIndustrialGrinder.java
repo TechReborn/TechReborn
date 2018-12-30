@@ -76,7 +76,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		this.ticksSinceLastChange = 0;
 	}
 
-	public boolean getMutliBlock() {
+	public boolean getMultiBlock() {
 		if (multiblockChecker == null) {
 			return false;
 		}
@@ -108,7 +108,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 			ticksSinceLastChange = 0;
 		}
 		
-		if (!world.isRemote && getMutliBlock()) {
+		if (!world.isRemote && getMultiBlock()) {
 			super.update();
 		}
 
@@ -155,7 +155,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	// ITileRecipeHandler
 	@Override
 	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
-		if (!getMutliBlock()) {
+		if (!getMultiBlock()) {
 			return false;
 		}
 		final FluidStack recipeFluid = recipe.fluidStack;

@@ -73,6 +73,9 @@ public class GuiFusionReactor extends GuiBase {
 		drawOutputSlot(80, 47, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (tile.getCoilStatus() > 0) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 
 	}
 	
@@ -85,7 +88,6 @@ public class GuiFusionReactor extends GuiBase {
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		if (tile.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
 			if(tile.state == 2){
 				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);

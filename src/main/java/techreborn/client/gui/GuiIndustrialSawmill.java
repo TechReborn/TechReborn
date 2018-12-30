@@ -77,6 +77,9 @@ public class GuiIndustrialSawmill extends GuiBase {
 		drawSlot(126, 61, layer);
 		
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (tile.getMutliBlock()) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 	}
 
 	@Override
@@ -88,7 +91,6 @@ public class GuiIndustrialSawmill extends GuiBase {
 		builder.drawTank(this, 53, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
 		if (tile.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);

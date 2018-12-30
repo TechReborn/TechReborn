@@ -90,6 +90,9 @@ public class GuiFluidReplicator extends GuiBase {
 		drawSlot(124, 55, layer);
 		// JEI button
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (tile.getMultiBlock()) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 	}
 
 	@Override
@@ -101,7 +104,6 @@ public class GuiFluidReplicator extends GuiBase {
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		if (tile.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
