@@ -27,6 +27,7 @@ package techreborn.compat;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Loader;
+import reborncore.Distribution;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.registration.impl.ConfigRegistryFactory;
@@ -94,6 +95,11 @@ public class CompatManager {
 			@Override
 			public boolean earlyReg() {
 				return false;
+			}
+
+			@Override
+			public Distribution side() {
+				return Distribution.UNIVERSAL;
 			}
 
 			@Override
