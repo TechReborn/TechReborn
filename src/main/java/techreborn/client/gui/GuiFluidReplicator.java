@@ -31,7 +31,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;

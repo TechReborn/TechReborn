@@ -33,7 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.PacketAutoCraftingTableLock;
 import techreborn.tiles.machine.tier1.TileAutoCraftingTable;

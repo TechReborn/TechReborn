@@ -45,6 +45,8 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
+import reborncore.common.powerSystem.ExternalPowerSystems;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;

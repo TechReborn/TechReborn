@@ -28,11 +28,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.generator.advanced.TileDieselGenerator;
 
 @SideOnly(Side.CLIENT)
 public class GuiDieselGenerator extends GuiBase {
-	
+
 	TileDieselGenerator tile;
 
 	public GuiDieselGenerator(final EntityPlayer player, final TileDieselGenerator tile) {

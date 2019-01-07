@@ -64,7 +64,6 @@ public class ClientProxy extends CommonProxy {
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
-		ModelDynamicCell.init();
 		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 

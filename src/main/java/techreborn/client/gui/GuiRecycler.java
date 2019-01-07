@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.machine.tier1.TileRecycler;
 import reborncore.client.gui.builder.GuiBase;
 

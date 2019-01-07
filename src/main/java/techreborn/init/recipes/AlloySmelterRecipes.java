@@ -41,8 +41,8 @@ public class AlloySmelterRecipes extends RecipeMethods {
 
 	public static void init() {
 
-		OreRecipeInput ingotCopper3 = new OreRecipeInput("ingotCopper", 3);
-		OreRecipeInput dustCopper3 = new OreRecipeInput("dustCopper", 3);
+//		OreRecipeInput ingotCopper3 = new OreRecipeInput("ingotCopper", 3);
+//		OreRecipeInput dustCopper3 = new OreRecipeInput("dustCopper", 3);
 
 //		// Bronze
 ////		TODO: Fix Recipe

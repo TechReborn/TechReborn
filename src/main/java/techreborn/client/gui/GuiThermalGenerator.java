@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.generator.advanced.TileThermalGenerator;
 
 public class GuiThermalGenerator extends GuiBase {
