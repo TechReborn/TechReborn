@@ -32,12 +32,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 
 import javax.annotation.Nullable;
@@ -56,12 +56,8 @@ public class ItemBattery extends Item implements IEnergyItemInfo {
 		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)
-			public float apply(ItemStack stack,
-			                   @Nullable
-				                   World worldIn,
-			                   @Nullable
-				                   EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() == 0) {
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() == 0) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -90,7 +86,7 @@ public class ItemBattery extends Item implements IEnergyItemInfo {
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
 		                                            NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 
 	// IEnergyItemInfo

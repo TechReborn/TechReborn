@@ -27,7 +27,6 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import techreborn.tiles.machine.tier1.TileRecycler;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.TRBuilder;
 
 public class GuiRecycler extends GuiBase {
 
@@ -54,7 +53,7 @@ public class GuiRecycler extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.gaugeProgressScaled(100), 100, 76, 48, mouseX, mouseY, TRBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, tile.gaugeProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

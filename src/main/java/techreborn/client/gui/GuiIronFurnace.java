@@ -48,14 +48,14 @@ public class GuiIronFurnace extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		drawDefaultBackground();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		builder.drawSlotTab(this, guiLeft, guiTop, p_146976_2_, p_146976_3_, upgrades, new ItemStack(TRContent.WRENCH));
-		this.mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+		builder.drawSlotTab(this, guiLeft - 24, guiTop + 6, new ItemStack(TRContent.WRENCH));
+		mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
+		final int k = (this.width - xSize) / 2;
+		final int l = (this.height - ySize) / 2;
+		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 
 		int j = 0;
 
@@ -71,12 +71,12 @@ public class GuiIronFurnace extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		final String name = I18n.format("tile.techreborn.iron_furnace.name");
 		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 4210752);
 		fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8, ySize - 96 + 2, 4210752);
 
-		super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 	}
 
 	@Override

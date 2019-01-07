@@ -37,15 +37,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.TechRebornAPI;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
@@ -65,10 +66,12 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = worldIn.getBlockState(pos);
-		IEnergyStorage capEnergy = playerIn.getHeldItem(hand).getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(playerIn.getHeldItem(hand));
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote){
 				capEnergy.extractEnergy(cost, false);
+				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+
 				return EnumActionResult.SUCCESS;
 			}
 		}
@@ -93,7 +96,7 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -102,13 +105,13 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(this);
-//		ItemStack charged = new ItemStack(ModItems.ELECTRIC_TREE_TAP);
-//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack uncharged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);
+		ItemStack charged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
-//		itemList.add(charged);
+		itemList.add(charged);
 	}
 
 	// IEnergyItemInfo

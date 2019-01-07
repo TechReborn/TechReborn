@@ -38,16 +38,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
+
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -77,7 +79,11 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	// ItemTool
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		stack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+
+		capEnergy.extractEnergy(cost, false);
+		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
+
 		return true;
 	}
 
@@ -104,9 +110,11 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entityliving, EntityLivingBase attacker) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() >= hitCost) {
 			capEnergy.extractEnergy(hitCost, false);
+			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityliving);
+
 			entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
 		}
 		return false;
@@ -147,7 +155,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -157,13 +165,13 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(this);
-//		ItemStack charged = new ItemStack(ModItems.OMNI_TOOL);
-//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack uncharged = new ItemStack(TRContent.OMNI_TOOL);
+		ItemStack charged = new ItemStack(TRContent.OMNI_TOOL);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
-//		itemList.add(charged);
+		itemList.add(charged);
 	}
 	
 	// IEnergyItemInfo

@@ -29,7 +29,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
 
 public class ItemLapotronicOrb extends ItemBattery {
 
@@ -44,12 +46,12 @@ public class ItemLapotronicOrb extends ItemBattery {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(this);
-	//	ItemStack charged = stack.copy();
-	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack stack = new ItemStack(TRContent.LAPOTRONIC_ORB);
+		ItemStack charged = stack.copy();
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-	//	itemList.add(charged);
+		itemList.add(charged);
 	}
 }

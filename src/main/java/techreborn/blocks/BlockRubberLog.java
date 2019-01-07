@@ -167,9 +167,9 @@ public class BlockRubberLog extends Block {
 		if (stack.isEmpty()) {
 			return false;
 		}
-		IEnergyStorage capEnergy = null;
+		ForgePowerItemManager capEnergy = null;
 		if (stack.getItem() instanceof ItemElectricTreetap) {
-			capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+			capEnergy = new ForgePowerItemManager(stack);
 		}
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {
@@ -180,6 +180,8 @@ public class BlockRubberLog extends Block {
 				if (!worldIn.isRemote) {
 					if (capEnergy != null) {
 						capEnergy.extractEnergy(20, false);
+
+						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 					} else {
 						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
 					}

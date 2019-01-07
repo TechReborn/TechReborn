@@ -33,11 +33,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.ExternalPowerSystems;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
 
 public class ItemIndustrialChainsaw extends ItemChainsaw {
@@ -55,13 +56,13 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(this);
-	//	ItemStack charged = stack.copy();
-	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack stack = new ItemStack(TRContent.ADVANCED_CHAINSAW);
+		ItemStack charged = stack.copy();
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-	//	itemList.add(charged);
+		itemList.add(charged);
 	}
 
 	@Override
@@ -85,10 +86,12 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		if (oldPos == pos) {
 			return;
 		}
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() < cost) {
 			return;
 		}
+
 		IBlockState blockState = world.getBlockState(pos);
 		if (blockState.getBlockHardness(world, pos) == -1.0F) {
 			return;
@@ -96,7 +99,10 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		if(!(entityLiving instanceof EntityPlayer)){
 			return;
 		}
+
 		capEnergy.extractEnergy(cost, false);
+		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
+
 		blockState.getBlock().harvestBlock(world, (EntityPlayer) entityLiving, pos, blockState, world.getTileEntity(pos), stack);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);

@@ -36,10 +36,12 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.ExternalPowerSystems;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
 
 import javax.annotation.Nullable;
@@ -99,7 +101,12 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, ItemStack drill) {
 		IBlockState blockState = world.getBlockState(pos);
-		drill.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
+
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
+
+		capEnergy.extractEnergy(cost, false);
+		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+
 		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 		world.setBlockToAir(pos);
 		world.removeTileEntity(pos);
@@ -154,12 +161,12 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(this);
-	//	ItemStack charged = stack.copy();
-	//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-	//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack stack = new ItemStack(TRContent.ADVANCED_DRILL);
+		ItemStack charged = stack.copy();
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-	//	itemList.add(charged);
+		itemList.add(charged);
 	}
 }

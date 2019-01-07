@@ -34,15 +34,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
+
 import javax.annotation.Nullable;
 
 public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo {
@@ -60,19 +62,12 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 		if (world.isRemote) {
 			return;
 		}
-		if (!itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
-			return;
-		}
-		IEnergyStorage capEnergy = itemStack.getCapability(CapabilityEnergy.ENERGY, null);
+
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(itemStack);
 
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			if (!player.inventory.getStackInSlot(i).isEmpty()) {
-				ItemStack item = player.inventory.getStackInSlot(i);
-				if (!item.hasCapability(CapabilityEnergy.ENERGY, null)) {
-					continue;
-				}
-				IEnergyStorage itemPower = item.getCapability(CapabilityEnergy.ENERGY, null);
-				capEnergy.extractEnergy(itemPower.receiveEnergy(Math.min(capEnergy.getEnergyStored(), maxSend), false), false);
+				ExternalPowerSystems.chargeItem(capEnergy, player.inventory.getStackInSlot(i));
 			}
 		}
 	}
@@ -103,7 +98,7 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
 		                                            NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
@@ -118,10 +113,10 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(this);
-		//	ItemStack charged = new ItemStack(ModItems.LITHIUM_ION_BATPACK);
-		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
+		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
 		//	itemList.add(charged);
 	}

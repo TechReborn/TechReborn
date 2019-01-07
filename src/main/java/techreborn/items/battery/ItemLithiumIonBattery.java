@@ -29,6 +29,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import techreborn.init.TRContent;
 
 public class ItemLithiumIonBattery extends ItemBattery {
 
@@ -43,13 +45,13 @@ public class ItemLithiumIonBattery extends ItemBattery {
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(this);
-		//	ItemStack charged = stack.copy();
-		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		//capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack stack = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
+		ItemStack charged = stack.copy();
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
-		//itemList.add(charged);
+		itemList.add(charged);
 	}
 }
 

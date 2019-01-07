@@ -38,9 +38,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
+
 import javax.annotation.Nullable;
 
 public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo {
@@ -61,12 +64,12 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(this);
-		//	ItemStack charged = new ItemStack(ModItems.LAPOTRONIC_ORBPACK);
-		//	ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-		//	capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
+		ItemStack charged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
-		//	itemList.add(charged);
+		itemList.add(charged);
 	}
 
 	@Override
@@ -94,7 +97,7 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
 		                                            NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override

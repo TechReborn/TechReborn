@@ -184,6 +184,11 @@ public class TileIronFurnace extends TileMachineBase
 			return true;
 		};
 	}
+	
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
 
 	public int getBurnTime() {
 		return this.fuel;

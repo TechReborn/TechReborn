@@ -34,18 +34,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
+
 import javax.annotation.Nullable;
 
 @RebornRegister(modID = TechReborn.MOD_ID)
@@ -71,7 +73,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
+		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
 			capEnergy.extractEnergy(usage, false);
 			player.setInvisible(true);
@@ -88,10 +90,10 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		if (!isInCreativeTab(par2CreativeTabs)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(this);
-//		ItemStack charged = new ItemStack(ModItems.CLOAKING_DEVICE);
-//		ForgePowerItemManager capEnergy = (ForgePowerItemManager) charged.getCapability(CapabilityEnergy.ENERGY, null);
-//		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		ItemStack uncharged = new ItemStack(TRContent.CLOAKING_DEVICE);
+		ItemStack charged = new ItemStack(TRContent.CLOAKING_DEVICE);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		itemList.add(uncharged);
 //		itemList.add(charged);
 	}
@@ -114,7 +116,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	@Override
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 	
 	// IEnergyItemInfo

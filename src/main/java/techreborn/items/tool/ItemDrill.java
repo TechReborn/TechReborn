@@ -35,10 +35,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.power.IEnergyItemInfo;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemCapabilityProvider;
+import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 
 import javax.annotation.Nullable;
@@ -62,7 +63,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	// ItemPickaxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if (stack.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored() < cost) {
+		if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
 			return unpoweredSpeed;
 		}
 		if (Items.WOODEN_PICKAXE.getDestroySpeed(stack, state) > 1.0F
@@ -78,7 +79,10 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			stack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(cost, false);
+			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+
+			capEnergy.extractEnergy(cost, false);
+			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 		}
 		return true;
 	}
@@ -114,7 +118,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
 		                                            NBTTagCompound nbt) {
-		return new PoweredItemCapabilityProvider(stack);
+		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
