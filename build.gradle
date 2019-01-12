@@ -19,19 +19,20 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
-		classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
+		//classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
 	}
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: net.minecrell.gradle.licenser.Licenser
 apply plugin: 'de.undercouch.download'
-apply plugin: 'net.covers1624.contained-deps'
+apply plugin: 'idea'
+//apply plugin: 'net.covers1624.contained-deps'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -63,11 +64,17 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.5.2768"
-	mappings = "snapshot_20180720"
-	replace "@MODVERSION@", project.version
-	useDepAts = true
-	runDir = "run"
+	mappings channel: 'snapshot', version: '20180921-1.13'
+
+	runs {
+        client = {
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        server = {
+            workingDirectory project.file('run').canonicalPath
+        }
+    }
 }
 
 license {
@@ -79,73 +86,53 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
-		transitive = false
-	}
-	deobfCompile "mezz.jei:jei_1.12.2:+"
+	minecraft 'net.minecraftforge.test:forge:1.13-24.0.76-1.13-pre'
+	compile 'RebornCore:RebornCore-1.13:4.0.0.5:dev'
 }
 
-processResources
-	{
-		// this will ensure that this task is redone when the versions change.
-		inputs.property "version", project.version
-		inputs.property "mcversion", project.minecraft.version
+processResources{
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', '1.13'
 
-		// replace stuff in mcmod.info, nothing else
-		from(sourceSets.main.resources.srcDirs) {
-			include 'mcmod.info'
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META_INF/mods.toml'     
+        expand 'version':project.version, 'mcversion': '1.13'
+    }
 
-			// replace version and mcversion
-			expand 'version': project.version, 'mcversion': project.minecraft.version
-		}
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META_INF/mods.toml'
+    }
 
-		// copy everything else, thats not the mcmod.info
-		from(sourceSets.main.resources.srcDirs) {
-			exclude 'mcmod.info'
-		}
-
-		// Move access transformers to META-INF
-		rename '(.+_at.cfg)', 'META-INF/$1'
-	}
-
-
-task deobfJar(type: Jar) {
-	from sourceSets.main.output
-	exclude "**/*.psd"
-	classifier = 'dev'
-	manifest {
-		attributes 'FMLAT': 'techreborn_at.cfg'
-	}
+	rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 
-containedDeps {
-	configuration = "shade"
-	tasks = "jar"
-}
+// task deobfJar(type: Jar) {
+// 	from sourceSets.main.output
+// 	exclude "**/*.psd"
+// 	classifier = 'dev'
+// 	manifest {
+// 		attributes 'FMLAT': 'techreborn_at.cfg'
+// 	}
+// }
+
+
+// containedDeps {
+// 	configuration = "shade"
+// 	tasks = "jar"
+// }
 
 jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
-	manifest {
-		attributes 'FMLAT': 'techreborn_at.cfg'
-	}
+	// manifest {
+	// 	attributes 'FMLAT': 'techreborn_at.cfg'
+	// }
 
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.lang"} : null}
 	dependsOn 'renameCrowdin'
 }
 
-task apiJar(type: Jar) {
-	from sourceSets.main.allSource
-	from sourceSets.main.output
-	include 'techreborn/api/**/*'
-
-	classifier = "api"
-}
-
-apiJar.mustRunAfter deobfJar
-
-build.dependsOn deobfJar, apiJar
 
 //Triggers crowdin to export the latest translations
 task crowdinExport() {
@@ -190,18 +177,6 @@ publishing {
 			version project.version
 
 			from components.java
-
-			artifact apiJar {
-				classifier "api"
-			}
-
-			artifact deobfJar {
-				classifier "dev"
-			}
-
-			artifact sourceJar {
-				classifier "sources"
-			}
 		}
 	}
 	repositories {
@@ -218,63 +193,25 @@ publishing {
 }
 
 
-//Thanks Matthew from #ForgeGradle https://gist.github.com/matthewprenger/108265e3efc83181bd2cc2d2fc31a853
-task updateMappings(dependsOn: sourceJar) {
+// task signJar(type: SignJar, dependsOn: reobfJar) {
+// 	onlyIf {
+// 		project.hasProperty('keyStore')
+// 	}
 
-	def remapped = file('src_remapped/main/java')
-	def methods = file('methods.csv')
-	def fields = file('fields.csv')
+// 	if (project.hasProperty('keyStore')) {
+// 		keyStore = project.keyStore
+// 		alias = project.keyStoreAlias
+// 		storePass = project.keyStorePass
+// 		keyPass = project.keyStoreKeyPass
+// 		inputFile = jar.archivePath
+// 		outputFile = jar.archivePath
+// 	}
 
-	doLast {
+// }
 
-		Map<String, String> map = new HashMap<>()
-		methods.eachLine {line ->
-			String[] pts = line.split(",")
-			map.put(pts[0], pts[1])
-		}
-		fields.eachLine {line ->
-			String[] pts = line.split(",")
-			map.put(pts[0], pts[1])
-		}
+// build.dependsOn signJar
 
-		copy {
-			from zipTree(sourceJar.archivePath)
-			into remapped
-			include '**/*.java'
-
-			filter {javaLine ->
-				map.entrySet().each {entry ->
-					javaLine = javaLine.replace(entry.getKey(), entry.getValue())
-				}
-				return javaLine
-			}
-
-			includeEmptyDirs = false
-			eachFile {println "Processing: $it.name"}
-		}
-	}
-}
-
-
-task signJar(type: SignJar, dependsOn: reobfJar) {
-	onlyIf {
-		project.hasProperty('keyStore')
-	}
-
-	if (project.hasProperty('keyStore')) {
-		keyStore = project.keyStore
-		alias = project.keyStoreAlias
-		storePass = project.keyStorePass
-		keyPass = project.keyStoreKeyPass
-		inputFile = jar.archivePath
-		outputFile = jar.archivePath
-	}
-
-}
-
-build.dependsOn signJar
-
-apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
+// apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
 import com.google.gson.JsonArray
 import groovy.util.XmlSlurper
