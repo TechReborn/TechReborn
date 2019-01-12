@@ -84,7 +84,6 @@ public class GuiImplosionCompressor extends GuiBase {
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer);
 		} else {
@@ -92,16 +91,8 @@ public class GuiImplosionCompressor extends GuiBase {
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-	}
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
 	}
 
 	@Override

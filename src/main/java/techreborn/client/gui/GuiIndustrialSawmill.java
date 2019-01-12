@@ -37,7 +37,6 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.blocks.BlockMachineCasing;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileIndustrialSawmill;
 
@@ -77,6 +76,9 @@ public class GuiIndustrialSawmill extends GuiBase {
 		drawSlot(126, 61, layer);
 		
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (tile.getMutliBlock()) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 	}
 
 	@Override
@@ -86,25 +88,14 @@ public class GuiIndustrialSawmill extends GuiBase {
 		
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawTank(this, 53, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}	
-	}
-	
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 	
 	@Override

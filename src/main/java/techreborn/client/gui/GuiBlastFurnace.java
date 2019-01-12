@@ -74,6 +74,9 @@ public class GuiBlastFurnace extends GuiBase {
 		drawOutputSlotBar(92, 36, 2, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (hasMultiBlock) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 	}
 
 	@Override
@@ -86,24 +89,13 @@ public class GuiBlastFurnace extends GuiBase {
 
 		builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
 		if (hasMultiBlock) {
-			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+			addHologramButton(4, 4, 212, layer);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
 		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
-	}
-
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
 	}
 
 	@Override

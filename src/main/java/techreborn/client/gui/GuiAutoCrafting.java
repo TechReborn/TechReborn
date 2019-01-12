@@ -110,7 +110,7 @@ public class GuiAutoCrafting extends GuiBase {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (isPointInRect(145 + getGuiLeft(), 4 + getGuiTop(), 20, 12, mouseX, mouseY)) {
+		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
 			NetworkManager.sendToServer(new PacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
 			return;
 		}

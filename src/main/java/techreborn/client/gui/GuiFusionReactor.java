@@ -38,7 +38,6 @@ import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.init.TRContent;
 import techreborn.packets.PacketFusionControlSize;
@@ -67,6 +66,9 @@ public class GuiFusionReactor extends GuiBase {
 		drawOutputSlot(80, 47, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (tile.getCoilStatus() > 0) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 
 	}
 	
@@ -79,7 +81,6 @@ public class GuiFusionReactor extends GuiBase {
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		if (tile.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
 			if(tile.state == 2){
 				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
@@ -110,17 +111,7 @@ public class GuiFusionReactor extends GuiBase {
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
-	
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
-	}
-	
+		
 	@Override
 	public void actionPerformed(final GuiButton button) throws IOException {
 		super.actionPerformed(button);

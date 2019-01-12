@@ -38,6 +38,7 @@ import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileFluidReplicator;
 import reborncore.client.gui.builder.widget.GuiButtonHologram;
+import techreborn.blocks.BlockMachineCasing;
 
 import java.io.IOException;
 
@@ -52,16 +53,6 @@ public class GuiFluidReplicator extends GuiBase {
 	public GuiFluidReplicator(final EntityPlayer player, final TileFluidReplicator tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
-	}
-
-	public void addHologramButton(int x, int y, int id, Layer layer) {
-		int factorX = 0;
-		int factorY = 0;
-		if (layer == Layer.BACKGROUND) {
-			factorX = guiLeft;
-			factorY = guiTop;
-		}
-		buttonList.add(new GuiButtonHologram(id, x + factorX, y + factorY, this, layer));
 	}
 
 	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
@@ -89,6 +80,9 @@ public class GuiFluidReplicator extends GuiBase {
 		drawSlot(124, 55, layer);
 		// JEI button
 		builder.drawJEIButton(this, 158, 5, layer);
+		if (tile.getMultiBlock()) {
+			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+		}
 	}
 
 	@Override
@@ -98,15 +92,14 @@ public class GuiFluidReplicator extends GuiBase {
 
 		builder.drawTank(this, 99, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		if (tile.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer);
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	// GuiScreen
