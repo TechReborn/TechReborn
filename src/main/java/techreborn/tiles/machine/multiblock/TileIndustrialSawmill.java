@@ -116,15 +116,15 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	
 	// TilePowerAcceptor
 	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
+	public void read(final NBTTagCompound tagCompound) {
+		super.read(tagCompound);
+		tank.read(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
+	public NBTTagCompound write(final NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		tank.write(tagCompound);
 		return tagCompound;
 	}
 

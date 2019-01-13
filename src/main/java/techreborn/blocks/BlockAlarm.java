@@ -26,7 +26,7 @@ package techreborn.blocks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -55,13 +55,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockAlarm extends BaseTileBlock {
-	public static PropertyDirection FACING;
+	public static DirectionProperty FACING;
 	public static PropertyBool ACTIVE;
 	private AxisAlignedBB[] bbs;
 
 	public BlockAlarm() {
 		super(Material.ROCK);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
+		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH).with(ACTIVE, false));
 		this.bbs = GenBoundingBoxes(0.19, 0.81);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
@@ -88,18 +88,18 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
+		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
 
 	public static void setActive(boolean active, World world, BlockPos pos) {
 		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
-		IBlockState state = world.getBlockState(pos).withProperty(ACTIVE, active).withProperty(FACING, facing);
+		IBlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
 		world.setBlockState(pos, state, 3);
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		FACING = PropertyDirection.create("facing");
+		FACING = DirectionProperty.create("facing");
 		ACTIVE = PropertyBool.create("active");
 		return new BlockStateContainer(this, FACING, ACTIVE);
 	}
@@ -141,7 +141,7 @@ public class BlockAlarm extends BaseTileBlock {
 	public IBlockState getStateFromMeta(int meta) {
 		Boolean active = (meta & 8) == 8;
 		EnumFacing facing = EnumFacing.byIndex(meta & 7);
-		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
+		return this.getDefaultState().with(FACING, facing).with(ACTIVE, active);
 	}
 
 	@Nullable
@@ -153,7 +153,7 @@ public class BlockAlarm extends BaseTileBlock {
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 	                                        float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return this.getDefaultState().withProperty(FACING, facing);
+		return this.getDefaultState().with(FACING, facing);
 	}
 
 	@Override

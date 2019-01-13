@@ -65,7 +65,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		if (world.getTotalWorldTime() % 20 == 0) {
 			canSeeSky = world.canBlockSeeSky(pos.up());
 			if (lastState != isSunOut()) {
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockSolarPanel.ACTIVE, isSunOut()));
 				lastState = isSunOut();
 			}
 		}
@@ -138,12 +138,12 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound tag) {
+	public void read(NBTTagCompound tag) {
 		if (world == null) {
 			// We are in TileEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
-		super.readFromNBT(tag);
+		super.read(tag);
 	}
 
 	// TileMachineBase

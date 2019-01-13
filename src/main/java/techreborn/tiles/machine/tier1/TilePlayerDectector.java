@@ -123,14 +123,14 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tag) {
-		super.readFromNBT(tag);
+	public void read(NBTTagCompound tag) {
+		super.read(tag);
 		owenerUdid = tag.getString("ownerID");
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-		super.writeToNBT(tag);
+	public NBTTagCompound write(NBTTagCompound tag) {
+		super.write(tag);
 		tag.setString("ownerID", owenerUdid);
 		return tag;
 	}

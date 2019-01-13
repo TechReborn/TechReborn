@@ -313,11 +313,11 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		this.crafingTickTime = tagCompound.getInteger("crafingTickTime");
-		this.finalTickTime = tagCompound.getInteger("finalTickTime");
-		this.neededPower = tagCompound.getInteger("neededPower");
+	public void read(final NBTTagCompound tagCompound) {
+		super.read(tagCompound);
+		this.crafingTickTime = tagCompound.getInt("crafingTickTime");
+		this.finalTickTime = tagCompound.getInt("finalTickTime");
+		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
 		if(tagCompound.hasKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
 			for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
@@ -327,20 +327,20 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 			}
 		}
 		if(tagCompound.hasKey("size")){
-			this.size = tagCompound.getInteger("size");
+			this.size = tagCompound.getInt("size");
 		}
 		this.size = Math.min(size, maxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("crafingTickTime", this.crafingTickTime);
-		tagCompound.setInteger("finalTickTime", this.finalTickTime);
-		tagCompound.setInteger("neededPower", this.neededPower);
+	public NBTTagCompound write(final NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		tagCompound.setInt("crafingTickTime", this.crafingTickTime);
+		tagCompound.setInt("finalTickTime", this.finalTickTime);
+		tagCompound.setInt("neededPower", this.neededPower);
 		tagCompound.setBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		tagCompound.setBoolean("hasActiveRecipe", this.currentRecipe != null);
-		tagCompound.setInteger("size", size);
+		tagCompound.setInt("size", size);
 		return tagCompound;
 	}
 

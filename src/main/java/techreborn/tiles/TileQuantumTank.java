@@ -57,21 +57,21 @@ public class TileQuantumTank extends TileMachineBase
 	public Tank tank = new Tank("TileQuantumTank", maxStorage, this);
 	public Inventory<TileQuantumTank> inventory = new Inventory<>(3, "TileQuantumTank", 64, this).withConfiguredAccess();
 
-	public void readFromNBTWithoutCoords(final NBTTagCompound tagCompound) {
-		tank.readFromNBT(tagCompound);
+	public void readWithoutCoords(final NBTTagCompound tagCompound) {
+		tank.read(tagCompound);
 	}
 	
-	public NBTTagCompound writeToNBTWithoutCoords(final NBTTagCompound tagCompound) {
-		tank.writeToNBT(tagCompound);
+	public NBTTagCompound writeWithoutCoords(final NBTTagCompound tagCompound) {
+		tank.write(tagCompound);
 		return tagCompound;
 	}
 	
 	public ItemStack getDropWithNBT() {
 		final NBTTagCompound tileEntity = new NBTTagCompound();
 		final ItemStack dropStack = TRContent.Machine.QUANTUM_TANK.getStack();
-		this.writeToNBTWithoutCoords(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+		this.writeWithoutCoords(tileEntity);
+		dropStack.setTag(new NBTTagCompound());
+		dropStack.getTag().setTag("tileEntity", tileEntity);
 		return dropStack;
 	}
 	
@@ -93,22 +93,22 @@ public class TileQuantumTank extends TileMachineBase
 	}
 	
 	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		readFromNBTWithoutCoords(tagCompound);
+	public void read(final NBTTagCompound tagCompound) {
+		super.read(tagCompound);
+		readWithoutCoords(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		writeToNBTWithoutCoords(tagCompound);
+	public NBTTagCompound write(final NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		readFromNBT(packet.getNbtCompound());
+		read(packet.getNbtCompound());
 	}
 
 	// ItemHandlerProvider

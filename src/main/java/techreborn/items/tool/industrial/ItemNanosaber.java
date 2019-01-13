@@ -43,9 +43,9 @@ import net.minecraft.util.*;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -72,7 +72,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		setMaxStackSize(1);
 		this.addPropertyOverride(new ResourceLocation("techreborn:active"), new IItemPropertyGetter() {
 			@Override
-			@SideOnly(Side.CLIENT)
+			@OnlyIn(Dist.CLIENT)
 			public float apply(ItemStack stack,
 			                   @Nullable
 				                   World worldIn,
@@ -132,10 +132,10 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 						.format("techreborn.message.nanosaberActivate")));
 			} else {
 				if (!ItemUtils.isActive(stack)) {
-					if (stack.getTagCompound() == null) {
-						stack.setTagCompound(new NBTTagCompound());
+					if (stack.getTag() == null) {
+						stack.setTag(new NBTTagCompound());
 					}
-					stack.getTagCompound().setBoolean("isActive", true);
+					stack.getTag().setBoolean("isActive", true);
 					if (world.isRemote) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
@@ -143,7 +143,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 								.format("techreborn.message.nanosaberActive")));
 					}
 				} else {
-					stack.getTagCompound().setBoolean("isActive", false);
+					stack.getTag().setBoolean("isActive", false);
 					if (world.isRemote) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
@@ -166,7 +166,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 						+ TextFormatting.GOLD + I18n
 						.format("techreborn.message.nanosaberDeactivating")));
 			}
-			stack.getTagCompound().setBoolean("isActive", false);
+			stack.getTag().setBoolean("isActive", false);
 		}
 	}
 
@@ -198,7 +198,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		return new PoweredItemContainerProvider(stack);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void getSubItems(
 		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
@@ -206,18 +206,18 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 			return;
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
-		inactiveUncharged.setTagCompound(new NBTTagCompound());
-		inactiveUncharged.getTagCompound().setBoolean("isActive", false);
+		inactiveUncharged.setTag(new NBTTagCompound());
+		inactiveUncharged.getTag().setBoolean("isActive", false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
-		inactiveCharged.setTagCompound(new NBTTagCompound());
-		inactiveCharged.getTagCompound().setBoolean("isActive", false);
+		inactiveCharged.setTag(new NBTTagCompound());
+		inactiveCharged.getTag().setBoolean("isActive", false);
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(inactiveCharged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
-		activeCharged.setTagCompound(new NBTTagCompound());
-		activeCharged.getTagCompound().setBoolean("isActive", true);
+		activeCharged.setTag(new NBTTagCompound());
+		activeCharged.getTag().setBoolean("isActive", true);
 		ForgePowerItemManager capEnergy2 = new ForgePowerItemManager(activeCharged);
 		capEnergy2.setEnergyStored(capEnergy2.getMaxEnergyStored());
 
@@ -226,7 +226,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		itemList.add(activeCharged);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack,
 	                           @Nullable

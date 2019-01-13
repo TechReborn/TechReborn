@@ -39,8 +39,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import techreborn.TechReborn;
 import techreborn.tiles.TileEntityFlare;
 import java.util.List;
@@ -58,7 +58,7 @@ public class BlockFlare extends BlockContainer {
 		super(Material.REDSTONE_LIGHT);
 		setCreativeTab(TechReborn.TAB);
 		setTranslationKey("techreborn.flare");
-		this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
+		this.setDefaultState(this.blockState.getBaseState().with(COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class BlockFlare extends BlockContainer {
 		return (state.getValue(COLOR)).getMetadata();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		for (EnumDyeColor enumdyecolor : EnumDyeColor.values()) {
 			list.add(new ItemStack(itemIn, 1, enumdyecolor.getMetadata()));
@@ -83,7 +83,7 @@ public class BlockFlare extends BlockContainer {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(COLOR, EnumDyeColor.byMetadata(meta));
+		return this.getDefaultState().with(COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class BlockFlare extends BlockContainer {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}

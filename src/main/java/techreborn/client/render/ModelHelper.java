@@ -30,8 +30,8 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import techreborn.TechReborn;
 
 import java.io.BufferedReader;
@@ -42,7 +42,7 @@ import java.io.Reader;
 /*
  * Credits to JsonDestroyer
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelHelper {
 
 	public static final ItemCameraTransforms DEFAULT_ITEM_TRANSFORMS = loadTransformFromJson(new ResourceLocation("minecraft:models/item/generated"));
@@ -61,7 +61,7 @@ public class ModelHelper {
 
 	public static Reader getReaderForResource(ResourceLocation location) throws IOException {
 		ResourceLocation file = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
-		IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(file);
+		IResource iresource = Minecraft.getInstance().getResourceManager().getResource(file);
 		return new BufferedReader(new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8));
 	}
 

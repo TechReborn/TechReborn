@@ -37,13 +37,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 
@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelDynamicCell implements IModel {
 
 	public static final ModelDynamicCell MODEL = new ModelDynamicCell(
@@ -210,7 +210,7 @@ public class ModelDynamicCell implements IModel {
 		private final HashMap<String, IBakedModel> modelCache = new HashMap<>();
 
 		private final Function<ResourceLocation, TextureAtlasSprite> textureGetter = location ->
-			Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+			Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString());
 
 		private OverrideHandler() {
 			super(ImmutableList.of());

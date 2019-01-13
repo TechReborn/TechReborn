@@ -104,10 +104,10 @@ public class GuiFusionReactor extends GuiBase {
 		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
 		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
-		buttonList.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
-		buttonList.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
-		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, GuiBase.Layer.FOREGROUND));
-		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, GuiBase.Layer.FOREGROUND));
+		buttons.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
+		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
+		buttons.add(new GuiButtonUpDown(302, 121 + 24, 79, this, GuiBase.Layer.FOREGROUND));
+		buttons.add(new GuiButtonUpDown(303, 121 + 36, 79, this, GuiBase.Layer.FOREGROUND));
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}

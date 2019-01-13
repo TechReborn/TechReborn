@@ -278,18 +278,18 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
+	public void read(final NBTTagCompound tagCompound) {
+		super.read(tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
-		this.tickTime = tagCompound.getInteger("tickTime");
+		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
+	public NBTTagCompound write(final NBTTagCompound tagCompound) {
+		super.write(tagCompound);
 		tagCompound.setBoolean("isRunning", this.isRunning);
-		tagCompound.setInteger("tickTime", this.tickTime);
+		tagCompound.setInt("tickTime", this.tickTime);
 		tagCompound.setBoolean("locked", locked);
 		return tagCompound;
 	}

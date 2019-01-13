@@ -56,7 +56,7 @@ public class TileTechStorageBase extends TileMachineBase
 		inventory = new Inventory<>(3, name, maxCapacity, this).withConfiguredAccess();
 	}
 
-	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
+	public void readWithoutCoords(NBTTagCompound tagCompound) {
 
 		storedItem = ItemStack.EMPTY;
 
@@ -65,33 +65,33 @@ public class TileTechStorageBase extends TileMachineBase
 		}
 
 		if (!storedItem.isEmpty()) {
-			storedItem.setCount(Math.min(tagCompound.getInteger("storedQuantity"), this.maxCapacity));
+			storedItem.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
 		}
 
-		inventory.readFromNBT(tagCompound);
+		inventory.read(tagCompound);
 	}
 
-	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
+	public NBTTagCompound writeWithoutCoords(NBTTagCompound tagCompound) {
 		if (!storedItem.isEmpty()) {
 			ItemStack temp = storedItem.copy();
 			if (storedItem.getCount() > storedItem.getMaxStackSize()) {
 				temp.setCount(storedItem.getMaxStackSize());
 			}
-			tagCompound.setTag("storedStack", temp.writeToNBT(new NBTTagCompound()));
-			tagCompound.setInteger("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
+			tagCompound.setTag("storedStack", temp.write(new NBTTagCompound()));
+			tagCompound.setInt("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
 		} else {
-			tagCompound.setInteger("storedQuantity", 0);
+			tagCompound.setInt("storedQuantity", 0);
 		}
-		inventory.writeToNBT(tagCompound);
+		inventory.write(tagCompound);
 		return tagCompound;
 	}
 
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		writeToNBTWithoutCoords(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+		writeWithoutCoords(tileEntity);
+		dropStack.setTag(new NBTTagCompound());
+		dropStack.getTag().setTag("tileEntity", tileEntity);
 		storedItem.setCount(0);
 		inventory.setStackInSlot(1, ItemStack.EMPTY);
 		syncWithAll();
@@ -197,19 +197,19 @@ public class TileTechStorageBase extends TileMachineBase
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		readFromNBT(packet.getNbtCompound());
+		read(packet.getNbtCompound());
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		readFromNBTWithoutCoords(tagCompound);
+	public void read(NBTTagCompound tagCompound) {
+		super.read(tagCompound);
+		readWithoutCoords(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		writeToNBTWithoutCoords(tagCompound);
+	public NBTTagCompound write(NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 

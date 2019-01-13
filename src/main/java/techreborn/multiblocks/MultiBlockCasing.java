@@ -300,12 +300,12 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound data) {
+	public void write(NBTTagCompound data) {
 
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound data) {
+	public void read(NBTTagCompound data) {
 
 	}
 

@@ -68,12 +68,12 @@ public class DynamicCell extends Item {
 		//Clearing tag because ItemUtils.isItemEqual doesn't handle tags ForgeCaps and display
 		//And breaks ability to use in recipes
 		//TODO: Property ItemUtils.isItemEquals tags equality handling?
-		if (stack.hasTagCompound()) {
-			NBTTagCompound tag = stack.getTagCompound();
+		if (stack.hasTag()) {
+			NBTTagCompound tag = stack.getTag();
 			if (tag.getSize() != 1 || tag.hasKey("Fluid")) {
 				NBTTagCompound clearTag = new NBTTagCompound();
 				clearTag.setTag("Fluid", tag.getCompoundTag("Fluid"));
-				stack.setTagCompound(clearTag);
+				stack.setTag(clearTag);
 			}
 		}
 	}
@@ -194,10 +194,10 @@ public class DynamicCell extends Item {
 			super(container, capacity);
 
 			//backwards compatibility
-			if (container.hasTagCompound() && container.getTagCompound().hasKey("FluidName")) {
-				FluidStack stack = FluidStack.loadFluidStackFromNBT(container.getTagCompound());
+			if (container.hasTag() && container.getTag().hasKey("FluidName")) {
+				FluidStack stack = FluidStack.loadFluidStackFromNBT(container.getTag());
 				if (stack != null) {
-					container.setTagCompound(new NBTTagCompound());
+					container.setTag(new NBTTagCompound());
 					fill(stack, true);
 				}
 			}
@@ -231,7 +231,7 @@ public class DynamicCell extends Item {
 		@Override
 		public ItemStack getContainer() {
 			ItemStack cell;
-			if (container.hasTagCompound() && container.getTagCompound().hasKey(FLUID_NBT_KEY)) {
+			if (container.hasTag() && container.getTag().hasKey(FLUID_NBT_KEY)) {
 				cell = super.getContainer();
 			}
 			else {

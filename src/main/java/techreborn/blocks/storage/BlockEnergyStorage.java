@@ -28,12 +28,12 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -53,14 +53,14 @@ import java.util.Random;
  * Created by Rushmead
  */
 public abstract class BlockEnergyStorage extends BaseTileBlock {
-	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
+	public static DirectionProperty FACING = DirectionProperty.create("facing", Facings.ALL);
 	public String name;
 	public int guiID;
 
 	public BlockEnergyStorage(String name, int guiID) {
 		super(Material.IRON);
 		setHardness(2f);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH));
 		this.name = name;
 		this.guiID = guiID;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
@@ -68,7 +68,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	}
 
 	public void setFacing(EnumFacing facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
+		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
 
 	public EnumFacing getSideFromint(int i) {
@@ -143,7 +143,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 			} else {
 				facing = side.getOpposite();
 			}
-			world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing));
+			world.setBlockState(pos, state.with(BlockEnergyStorage.FACING, facing));
 			return true;
 		}
 
@@ -177,7 +177,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		FACING = PropertyDirection.create("facing", Facings.ALL);
+		FACING = DirectionProperty.create("facing", Facings.ALL);
 		return new BlockStateContainer(this, FACING);
 	}
 
@@ -203,7 +203,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing facing = getSideFromint(meta);
-		return this.getDefaultState().withProperty(FACING, facing);
+		return this.getDefaultState().with(FACING, facing);
 	}
 
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {

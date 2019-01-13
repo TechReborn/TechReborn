@@ -57,10 +57,10 @@ public class ItemCells {
 		if(stack1.isEmpty() || stack2.isEmpty()){
 			return false;
 		}
-		if(stack1.getTagCompound() == null || stack2.getTagCompound() == null){
+		if(stack1.getTag() == null || stack2.getTag() == null){
 			return false;
 		}
-		return stack1.getTagCompound().equals(stack2.getTagCompound());
+		return stack1.getTag().equals(stack2.getTag());
 	}
 
 }

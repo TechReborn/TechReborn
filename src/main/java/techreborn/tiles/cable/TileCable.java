@@ -96,35 +96,35 @@ public class TileCable extends TileEntity
 	
 	@Override
     public NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
+        return write(new NBTTagCompound());
     }
 
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
-        writeToNBT(nbtTag);
+        write(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        readFromNBT(packet.getNbtCompound());
+        read(packet.getNbtCompound());
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void read(NBTTagCompound compound) {
+        super.read(compound);
         if (compound.hasKey("TileCable")) {
-            power = compound.getCompoundTag("TileCable").getInteger("power");
+            power = compound.getCompoundTag("TileCable").getInt("power");
         }
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+    public NBTTagCompound write(NBTTagCompound compound) {
+        super.write(compound);
         if (power > 0) {
         	NBTTagCompound data = new NBTTagCompound();
-    		data.setInteger("power", getEnergyStored());
+    		data.setInt("power", getEnergyStored());
     		compound.setTag("TileCable", data);
         }
         return compound;

@@ -88,8 +88,8 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public String getUpgradeConfigText() {
-		if (Minecraft.getMinecraft().currentScreen instanceof GuiBase) {
-			GuiBase base = (GuiBase) Minecraft.getMinecraft().currentScreen;
+		if (Minecraft.getInstance().currentScreen instanceof GuiBase) {
+			GuiBase base = (GuiBase) Minecraft.getInstance().currentScreen;
 			if (base.tile instanceof IUpgradeable) {
 				if (((IUpgradeable) base.tile).canBeUpgraded()) {
 					return TextFormatting.LIGHT_PURPLE + "Right click to configure";
@@ -109,7 +109,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public boolean fancyGraphics() {
-		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
+		return Minecraft.getInstance().gameSettings.fancyGraphics;
 	}
 
 	@Override

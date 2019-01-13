@@ -93,14 +93,14 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
+	public void read(NBTTagCompound nbttagcompound) {
+		super.read(nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
+	public NBTTagCompound write(NBTTagCompound nbttagcompound) {
+		super.write(nbttagcompound);
 		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
 			return nbttagcompound;
 		}

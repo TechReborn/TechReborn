@@ -26,8 +26,8 @@ package techreborn.items.tool.vanilla;
 
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.common.util.ItemUtils;
 
 public class ItemTRHoe extends ItemHoe {
@@ -44,7 +44,7 @@ public class ItemTRHoe extends ItemHoe {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isFull3D() {
 		return true;
 	}

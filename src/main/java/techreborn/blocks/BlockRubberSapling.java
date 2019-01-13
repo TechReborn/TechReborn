@@ -42,7 +42,7 @@ import java.util.Random;
 public class BlockRubberSapling extends BlockSapling {
 
 	public BlockRubberSapling() {
-		this.setDefaultState(this.getDefaultState().withProperty(STAGE, 0));
+		this.setDefaultState(this.getDefaultState().with(STAGE, 0));
 		setSoundType(SoundType.PLANT);
 	}
 

@@ -28,7 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -63,14 +63,14 @@ import java.util.Random;
  */
 public class BlockRubberLog extends Block {
 
-	public static PropertyDirection SAP_SIDE = PropertyDirection.create("sapside", EnumFacing.Plane.HORIZONTAL);
+	public static DirectionProperty SAP_SIDE = DirectionProperty.create("sapside", EnumFacing.Plane.HORIZONTAL);
 	public static PropertyBool HAS_SAP = PropertyBool.create("hassap");
 
 	public BlockRubberLog() {
 		super(Material.WOOD);
 		this.setHardness(2.0F);
 		this.setDefaultState(
-			this.getDefaultState().withProperty(SAP_SIDE, EnumFacing.NORTH).withProperty(HAS_SAP, false));
+			this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false));
 		this.setTickRandomly(true);
 		this.setSoundType(SoundType.WOOD);
 		Blocks.FIRE.setFireInfo(this, 5, 5);
@@ -91,7 +91,7 @@ public class BlockRubberLog extends Block {
 			tempMeta -= 3;
 		}
 		EnumFacing facing = EnumFacing.byHorizontalIndex(tempMeta);
-		return this.getDefaultState().withProperty(SAP_SIDE, facing).withProperty(HAS_SAP, hasSap);
+		return this.getDefaultState().with(SAP_SIDE, facing).with(HAS_SAP, hasSap);
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class BlockRubberLog extends Block {
 				EnumFacing facing = EnumFacing.byHorizontalIndex(rand.nextInt(4));
 				if (worldIn.getBlockState(pos.down()).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
-					worldIn.setBlockState(pos, state.withProperty(HAS_SAP, true).withProperty(SAP_SIDE, facing));
+					worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
 				}
 			}
 		}
@@ -176,7 +176,7 @@ public class BlockRubberLog extends Block {
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {
 				worldIn.setBlockState(pos,
-					state.withProperty(HAS_SAP, false).withProperty(SAP_SIDE, EnumFacing.byHorizontalIndex(0)));
+					state.with(HAS_SAP, false).with(SAP_SIDE, EnumFacing.byHorizontalIndex(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
 					0.6F, 1F);
 				if (!worldIn.isRemote) {

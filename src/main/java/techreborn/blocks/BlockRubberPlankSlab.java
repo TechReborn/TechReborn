@@ -55,14 +55,14 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 		this.name = name;
 		IBlockState iblockstate = this.blockState.getBaseState();
 		if (!this.isDouble()) {
-			iblockstate = iblockstate.withProperty(HALF, EnumBlockHalf.BOTTOM);
+			iblockstate = iblockstate.with(HALF, EnumBlockHalf.BOTTOM);
 			halfslab = this;
 		}
 		setHarvestLevel("axe", 0);
 		setHardness(2.0F);
 		setResistance(15);
 		setSoundType(SoundType.WOOD);
-		this.setDefaultState(iblockstate.withProperty(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT));
+		this.setDefaultState(iblockstate.with(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT));
 		useNeighborBrightness = true;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
@@ -84,10 +84,10 @@ public abstract class BlockRubberPlankSlab extends BlockSlab {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		IBlockState iblockstate = this.getDefaultState().withProperty(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT);
+		IBlockState iblockstate = this.getDefaultState().with(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT);
 
 		if (!this.isDouble()) {
-			iblockstate = iblockstate.withProperty(HALF, (meta & 8) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
+			iblockstate = iblockstate.with(HALF, (meta & 8) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
 		}
 
 		return iblockstate;

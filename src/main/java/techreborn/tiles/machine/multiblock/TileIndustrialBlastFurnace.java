@@ -142,7 +142,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		readFromNBT(packet.getNbtCompound());
+		read(packet.getNbtCompound());
 	}
 	
 	// IContainerProvider

@@ -48,7 +48,7 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 
 	@Override
 	public void doRender(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x, (float) y + 0.5F, (float) z);
 		if ((float) entity.getFuse() - partialTicks + 1.0F < 10.0F) {
@@ -72,7 +72,7 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 			GlStateManager.doPolygonOffset(-3.0F, -3.0F);
 			GlStateManager.enablePolygonOffset();
 			blockrendererdispatcher.renderBlockBrightness(
-				TRContent.NUKE.getDefaultState().withProperty(BlockNuke.OVERLAY, true), 1.0F);
+				TRContent.NUKE.getDefaultState().with(BlockNuke.OVERLAY, true), 1.0F);
 			GlStateManager.doPolygonOffset(0.0F, 0.0F);
 			GlStateManager.disablePolygonOffset();
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

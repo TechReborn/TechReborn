@@ -30,6 +30,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import techreborn.tiles.TileChunkLoader;
 
 public class GuiChunkLoader extends GuiContainer {
@@ -54,16 +55,16 @@ public class GuiChunkLoader extends GuiContainer {
 		super.initGui();
 		this.guiLeft = this.width / 2 - this.xSize / 2;
 		this.guiTop = this.height / 2 - this.ySize / 2;
-		this.plusOneButton = new GuiButton(0, this.guiLeft + 5, this.guiTop + 37, 40, 20, "+1");
-		this.plusTenButton = new GuiButton(0, this.guiLeft + 45, this.guiTop + 37, 40, 20, "+10");
+		this.plusOneButton = new GuiButtonSimple(0, this.guiLeft + 5, this.guiTop + 37, 40, 20, "+1");
+		this.plusTenButton = new GuiButtonSimple(0, this.guiLeft + 45, this.guiTop + 37, 40, 20, "+10");
 
-		this.minusOneButton = new GuiButton(0, this.guiLeft + 90, this.guiTop + 37, 40, 20, "-1");
-		this.minusTenButton = new GuiButton(0, this.guiLeft + 130, this.guiTop + 37, 40, 20, "-10");
+		this.minusOneButton = new GuiButtonSimple(0, this.guiLeft + 90, this.guiTop + 37, 40, 20, "-1");
+		this.minusTenButton = new GuiButtonSimple(0, this.guiLeft + 130, this.guiTop + 37, 40, 20, "-10");
 
-		this.buttonList.add(this.plusOneButton);
-		this.buttonList.add(this.plusTenButton);
-		this.buttonList.add(this.minusOneButton);
-		this.buttonList.add(this.minusTenButton);
+		this.buttons.add(this.plusOneButton);
+		this.buttons.add(this.plusTenButton);
+		this.buttons.add(this.minusOneButton);
+		this.buttons.add(this.minusTenButton);
 	}
 
 	@Override
@@ -86,8 +87,8 @@ public class GuiChunkLoader extends GuiContainer {
 	}
 
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		super.drawScreen(mouseX, mouseY, partialTicks);
+	public void render(int mouseX, int mouseY, float partialTicks) {
+		super.render(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 

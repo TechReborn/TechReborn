@@ -32,12 +32,10 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.RebornCoreConfig;
@@ -49,7 +47,7 @@ import techreborn.TechReborn;
 public class StackToolTipEvent {
 
 	@SuppressWarnings("deprecation")
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public void handleItemTooltipEvent(ItemTooltipEvent event) {
 		if (event.getEntityPlayer() == null) {
@@ -87,12 +85,12 @@ public class StackToolTipEvent {
 				Block block = Block.getBlockFromItem(item);
 				if (block != null && (block instanceof BlockContainer || block instanceof ITileEntityProvider)
 					&& block.getRegistryName().getNamespace().contains("techreborn")) {
-					TileEntity tile = block.createTileEntity(Minecraft.getMinecraft().world,
+					TileEntity tile = block.createTileEntity(Minecraft.getInstance().world,
 						block.getStateFromMeta(event.getItemStack().getItemDamage()));
 					boolean hasData = false;
-					if(event.getItemStack().hasTagCompound() && event.getItemStack().getTagCompound().hasKey("tile_data")){
-						NBTTagCompound tileData = event.getItemStack().getTagCompound().getCompoundTag("tile_data");
-						tile.readFromNBT(tileData);
+					if(event.getItemStack().hasTag() && event.getItemStack().getTag().hasKey("tile_data")){
+						NBTTagCompound tileData = event.getItemStack().getTag().getCompoundTag("tile_data");
+						tile.read(tileData);
 						hasData = true;
 						event.getToolTip().add(TextFormatting.DARK_GREEN + "Block data contained");
 					}

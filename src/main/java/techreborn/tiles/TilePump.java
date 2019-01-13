@@ -137,26 +137,26 @@ public class TilePump extends TilePowerAcceptor {
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		readFromNBTWithoutCoords(tagCompound);
+	public void read(NBTTagCompound tagCompound) {
+		super.read(tagCompound);
+		readWithoutCoords(tagCompound);
 	}
 
 	@Override
-	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
-		tank.readFromNBT(tagCompound);
+	public void readWithoutCoords(NBTTagCompound tagCompound) {
+		tank.read(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		writeToNBTWithoutCoords(tagCompound);
+	public NBTTagCompound write(NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		tank.writeToNBT(tagCompound);
+	public NBTTagCompound writeWithoutCoords(NBTTagCompound tagCompound) {
+		tank.write(tagCompound);
 		return tagCompound;
 	}
 

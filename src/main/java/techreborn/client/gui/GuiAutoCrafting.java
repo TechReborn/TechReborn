@@ -62,7 +62,7 @@ public class GuiAutoCrafting extends GuiBase {
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 			RenderHelper.enableGUIStandardItemLighting();
 
-			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
+			RenderItem itemRenderer = Minecraft.getInstance().getRenderItem();
 			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
 
 			GlStateManager.disableLighting();

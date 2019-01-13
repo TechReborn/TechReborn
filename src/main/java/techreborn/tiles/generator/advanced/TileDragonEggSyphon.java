@@ -81,9 +81,9 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 			}
 
 			if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, true));
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 			} else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, false));
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 			}
 		}
 	}

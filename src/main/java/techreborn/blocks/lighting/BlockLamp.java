@@ -26,7 +26,7 @@ package techreborn.blocks.lighting;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -52,7 +52,7 @@ import techreborn.tiles.lighting.TileLamp;
 
 public class BlockLamp extends BaseTileBlock {
 
-	public static PropertyDirection FACING;
+	public static DirectionProperty FACING;
 	public static PropertyBool ACTIVE;
 	private AxisAlignedBB[] bbs;
 
@@ -61,7 +61,7 @@ public class BlockLamp extends BaseTileBlock {
 
 	public BlockLamp(int brightness, int cost, double depth, double width) {
 		super(Material.REDSTONE_LIGHT);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
+		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH).with(ACTIVE, false));
 		this.bbs = GenBoundingBoxes(depth, width);
 		this.cost = cost;
 		this.brightness = brightness;
@@ -93,12 +93,12 @@ public class BlockLamp extends BaseTileBlock {
 	}
 
 	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).withProperty(FACING, facing));
+		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
 
 	public static void setActive(Boolean active, World world, BlockPos pos) {
 		EnumFacing facing = (EnumFacing)world.getBlockState(pos).getValue(FACING);
-		IBlockState state = world.getBlockState(pos).withProperty(ACTIVE, active).withProperty(FACING, facing);
+		IBlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
 		world.setBlockState(pos, state, 3);
 	}
 
@@ -115,7 +115,7 @@ public class BlockLamp extends BaseTileBlock {
 	// Block
 	@Override
 	protected BlockStateContainer createBlockState() {
-		FACING = PropertyDirection.create("facing");
+		FACING = DirectionProperty.create("facing");
 		ACTIVE = PropertyBool.create("active");
 		return new BlockStateContainer(this, FACING, ACTIVE);
 	}
@@ -123,7 +123,7 @@ public class BlockLamp extends BaseTileBlock {
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 											float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return this.getDefaultState().withProperty(FACING, facing);
+		return this.getDefaultState().with(FACING, facing);
 	}
 
 	@Override
@@ -196,6 +196,6 @@ public class BlockLamp extends BaseTileBlock {
 	public IBlockState getStateFromMeta(int meta) {
 		Boolean active = (meta&8)==8;
 		EnumFacing facing = EnumFacing.byIndex(meta&7);
-		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
+		return this.getDefaultState().with(FACING, facing).with(ACTIVE, active);
 	}
 }

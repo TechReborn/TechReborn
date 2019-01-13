@@ -64,7 +64,7 @@ public class BlockStorage extends BaseBlock {
 //		if (meta > types.length) {
 //			meta = 0;
 //		}
-//		return getBlockState().getBaseState().withProperty(TYPE, typesList.get(meta));
+//		return getBlockState().getBaseState().with(TYPE, typesList.get(meta));
 //	}
 //
 //	@Override

@@ -130,7 +130,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 								|| block.canBeReplacedByLeaves(state1, world,
 								new BlockPos(xOffset, yOffset, zOffset)))) {
 								this.setBlockAndNotifyAdequately(world, new BlockPos(xOffset, yOffset, zOffset),
-									TRContent.RUBBER_LEAVES.getDefaultState().withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
+									TRContent.RUBBER_LEAVES.getDefaultState().with(BlockRubberLeaves.DECAYABLE, true).with(BlockRubberLeaves.CHECK_DECAY, false));
 								hasPlacedBlock = true;
 							}
 						}
@@ -147,8 +147,8 @@ public class RubberTreeGenerator extends WorldGenerator {
 						IBlockState newState = TRContent.RUBBER_LOG.getDefaultState();
 						boolean isAddingSap = false;
 						if (rand.nextInt(TechReborn.worldGen.config.rubberTreeConfig.sapRarity) == 0) {
-							newState = newState.withProperty(BlockRubberLog.HAS_SAP, true)
-								.withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
+							newState = newState.with(BlockRubberLog.HAS_SAP, true)
+								.with(BlockRubberLog.SAP_SIDE, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
 							isAddingSap = true;
 						}
 						if (isAddingSap) {
@@ -164,7 +164,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 					for (int i = 0; i < TechReborn.worldGen.config.rubberTreeConfig.spireHeight; i++) {
 						BlockPos spikePos = topLogPos.up(i);
 						this.setBlockAndNotifyAdequately(world, spikePos, TRContent.RUBBER_LEAVES.getDefaultState()
-							.withProperty(BlockRubberLeaves.DECAYABLE, true).withProperty(BlockRubberLeaves.CHECK_DECAY, false));
+							.with(BlockRubberLeaves.DECAYABLE, true).with(BlockRubberLeaves.CHECK_DECAY, false));
 					}
 				}
 			}

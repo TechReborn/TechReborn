@@ -54,7 +54,7 @@ public class TileEntityFlare extends TileEntity implements ITickable {
 			}
 			particleSmokeLarge.multipleParticleScaleBy(0.5F);
 
-			Minecraft.getMinecraft().effectRenderer.addEffect(particleSmokeLarge);
+			Minecraft.getInstance().effectRenderer.addEffect(particleSmokeLarge);
 
 			world.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 0.0D, 0.0D, 0.0D);
 		}

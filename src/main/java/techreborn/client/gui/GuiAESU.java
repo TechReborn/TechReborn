@@ -73,10 +73,10 @@ public class GuiAESU extends GuiBase {
 	
 		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		
-		buttonList.add(new GuiButtonUpDown(300, 121, 79, this, layer));
-		buttonList.add(new GuiButtonUpDown(301, 121 + 12, 79, this, layer));
-		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer));
-		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer));
+		buttons.add(new GuiButtonUpDown(300, 121, 79, this, layer));
+		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, layer));
+		buttons.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer));
+		buttons.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer));
 	}
 	
 	@Override

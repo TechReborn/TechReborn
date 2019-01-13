@@ -57,12 +57,12 @@ public class GuiManual extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		buttonList.add(new GuiButton(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")));
-		buttonList.add(new GuiButton(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")));
+		buttons.add(new GuiButton(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")));
+		buttons.add(new GuiButton(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")));
 	}
 
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	public void render(int mouseX, int mouseY, float partialTicks) {
 		drawDefaultBackground();
 		mc.getTextureManager().bindTexture(GuiManual.texture);
 		int centerX = (width / 2) - guiWidth / 2;
@@ -70,7 +70,7 @@ public class GuiManual extends GuiScreen {
 		drawTexturedModalRect(centerX, centerY, 0, 0, guiWidth, guiHeight);
 		fontRenderer.drawString(text1, ((width / 2) - fontRenderer.getStringWidth(text1) / 2), height / 2 - (guiHeight / 4), 4210752);
 		fontRenderer.drawString(text2, ((width / 2) - fontRenderer.getStringWidth(text2) / 2), height / 2 + 5, 4210752);
-		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.render(mouseX, mouseY, partialTicks);
 	}
 
 	@Override

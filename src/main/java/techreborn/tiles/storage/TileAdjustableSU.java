@@ -78,9 +78,9 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	public ItemStack getDropWithNBT() {
 		NBTTagCompound tileEntity = new NBTTagCompound();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		writeToNBTWithoutCoords(tileEntity);
-		dropStack.setTagCompound(new NBTTagCompound());
-		dropStack.getTagCompound().setTag("tileEntity", tileEntity);
+		writeWithoutCoords(tileEntity);
+		dropStack.setTag(new NBTTagCompound());
+		dropStack.getTag().setTag("tileEntity", tileEntity);
 		return dropStack;
 	}
 	
@@ -105,18 +105,18 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	// TilePowerAcceptor
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tagCompound.setInteger("output", OUTPUT);
-		inventory.writeToNBT(tagCompound);
+	public NBTTagCompound write(NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		tagCompound.setInt("output", OUTPUT);
+		inventory.write(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-		this.OUTPUT = nbttagcompound.getInteger("output");
-		inventory.readFromNBT(nbttagcompound);
+	public void read(NBTTagCompound nbttagcompound) {
+		super.read(nbttagcompound);
+		this.OUTPUT = nbttagcompound.getInt("output");
+		inventory.read(nbttagcompound);
 	}
 
 	// IContainerProvider

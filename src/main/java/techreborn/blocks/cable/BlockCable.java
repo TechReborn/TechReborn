@@ -85,7 +85,7 @@ public class BlockCable extends BlockContainer {
 		this.type = type;
 		setHardness(1F);
 		setResistance(8F);
-		setDefaultState(getDefaultState().withProperty(EAST, false).withProperty(WEST, false).withProperty(NORTH, false).withProperty(SOUTH, false).withProperty(UP, false).withProperty(DOWN, false));
+		setDefaultState(getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
@@ -226,7 +226,7 @@ public class BlockCable extends BlockContainer {
 		for (EnumFacing facing : EnumFacing.values()) {
 			TileEntity tileEntity = getTileEntitySafely(worldIn, pos.offset(facing));
 			if (tileEntity != null) {
-				actualState = actualState.withProperty(getProperty(facing), tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()));
+				actualState = actualState.with(getProperty(facing), tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()));
 			}
 		}
 		return actualState;

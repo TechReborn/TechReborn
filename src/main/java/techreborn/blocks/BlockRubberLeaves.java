@@ -36,8 +36,8 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
@@ -49,8 +49,8 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	public BlockRubberLeaves() {
 		super();
-		this.setDefaultState(this.getDefaultState().withProperty(CHECK_DECAY, true)
-			.withProperty(DECAYABLE, true));
+		this.setDefaultState(this.getDefaultState().with(CHECK_DECAY, true)
+			.with(DECAYABLE, true));
 		Blocks.FIRE.setFireInfo(this, 30, 60);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, CHECK_DECAY, DECAYABLE));
 	}
@@ -90,8 +90,8 @@ public class BlockRubberLeaves extends BlockLeaves {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(DECAYABLE, (meta & 1) == 0)
-			.withProperty(CHECK_DECAY, (meta & 2) > 0);
+		return this.getDefaultState().with(DECAYABLE, (meta & 1) == 0)
+			.with(CHECK_DECAY, (meta & 2) > 0);
 	}
 
 	@Override
@@ -106,17 +106,17 @@ public class BlockRubberLeaves extends BlockLeaves {
 		return meta;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int getBlockColor() {
 		return 16777215;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int getRenderColor(IBlockState state) {
 		return 16777215;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
 		return 16777215;
 	}

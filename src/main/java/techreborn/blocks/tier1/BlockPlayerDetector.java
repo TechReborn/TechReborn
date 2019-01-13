@@ -44,8 +44,8 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
@@ -132,7 +132,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 					} else if (type.equals("you")) {
 						newType = "all";
 					}
-					worldIn.setBlockState(pos, state.withProperty(TYPE, newType));
+					worldIn.setBlockState(pos, state.with(TYPE, newType));
 				}
 			}
 		}
@@ -156,7 +156,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		if (meta > types.length) {
 			meta = 0;
 		}
-		return getBlockState().getBaseState().withProperty(TYPE, typeNamesList.get(meta));
+		return getBlockState().getBaseState().with(TYPE, typeNamesList.get(meta));
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void getSubBlocks(CreativeTabs creativeTabs, NonNullList<ItemStack> list) {
 		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(this, 1, meta));

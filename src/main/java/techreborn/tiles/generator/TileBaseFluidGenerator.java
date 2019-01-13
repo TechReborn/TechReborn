@@ -108,10 +108,10 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		}
 
 		if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, true));
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		}
 		else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, false));
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}
 	
@@ -173,15 +173,15 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
+	public void read(NBTTagCompound tagCompound) {
+		super.read(tagCompound);
+		tank.read(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
+	public NBTTagCompound write(NBTTagCompound tagCompound) {
+		super.write(tagCompound);
+		tank.write(tagCompound);
 		return tagCompound;
 	}
 

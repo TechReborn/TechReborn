@@ -54,7 +54,7 @@ public class BlockNuke extends BaseBlock {
 
 	public BlockNuke() {
 		super(Material.TNT);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(OVERLAY, false));
+		this.setDefaultState(this.blockState.getBaseState().with(OVERLAY, false));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
@@ -123,7 +123,7 @@ public class BlockNuke extends BaseBlock {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(OVERLAY, (meta & 1) > 0);
+		return this.getDefaultState().with(OVERLAY, (meta & 1) > 0);
 	}
 
 	@Override
