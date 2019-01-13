@@ -26,7 +26,7 @@ package techreborn.packets;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.storage.TileAdjustableSU;
@@ -57,8 +57,8 @@ public class PacketAesu implements INetworkPacket {
 	}
 
 	@Override
-	public void processData(MessageContext context) {
-		TileEntity tile = context.getServerHandler().player.world.getTileEntity(pos);
+	public void processData(NetworkEvent.Context context) {
+		TileEntity tile = context.getSender().world.getTileEntity(pos);
 		if (tile instanceof TileAdjustableSU){
 			((TileAdjustableSU) tile).handleGuiInputFromClient(buttonID);
 		}

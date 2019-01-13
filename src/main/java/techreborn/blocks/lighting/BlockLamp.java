@@ -25,7 +25,7 @@
 package techreborn.blocks.lighting;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -53,7 +53,7 @@ import techreborn.tiles.lighting.TileLamp;
 public class BlockLamp extends BaseTileBlock {
 
 	public static DirectionProperty FACING;
-	public static PropertyBool ACTIVE;
+	public static BooleanProperty ACTIVE;
 	private AxisAlignedBB[] bbs;
 
 	private int cost;
@@ -116,7 +116,7 @@ public class BlockLamp extends BaseTileBlock {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		FACING = DirectionProperty.create("facing");
-		ACTIVE = PropertyBool.create("active");
+		ACTIVE = BooleanProperty.create("active");
 		return new BlockStateContainer(this, FACING, ACTIVE);
 	}
 

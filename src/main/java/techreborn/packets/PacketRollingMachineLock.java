@@ -26,7 +26,7 @@ package techreborn.packets;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.machine.tier1.TileRollingMachine;
@@ -57,8 +57,8 @@ public class PacketRollingMachineLock implements INetworkPacket {
 	}
 
 	@Override
-	public void processData(MessageContext context) {
-		TileEntity tileEntity = context.getServerHandler().player.world.getTileEntity(machinePos);
+	public void processData(NetworkEvent.Context context) {
+		TileEntity tileEntity = context.getSender().world.getTileEntity(machinePos);
 		if(tileEntity instanceof TileRollingMachine){
 			((TileRollingMachine) tileEntity).locked = locked;
 		}

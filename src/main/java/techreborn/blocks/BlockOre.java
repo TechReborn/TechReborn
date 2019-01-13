@@ -67,9 +67,10 @@ public class BlockOre extends Block {
 	public static int sphaleriteMaxQuantity = 2;
 
 	public BlockOre() {
-		super(Material.ROCK);
-		setHardness(2.0f);
-		setHarvestLevel("pickaxe", 2);
+		super(Block.Builder
+			.create(Material.ROCK)
+			.hardnessAndResistance(2F)
+		);
 	}
 
 	@Override

@@ -25,7 +25,7 @@
 package techreborn.packets;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.INetworkPacket;
 import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
@@ -56,7 +56,7 @@ public class PacketIdsu implements INetworkPacket {
 	}
 
 	@Override
-	public void processData(MessageContext context) {
+	public void processData(NetworkEvent.Context context) {
 		//		if (!pos.getWorld().isRemote) {
 		//			pos.handleGuiInputFromClient(buttonID);
 		//		}

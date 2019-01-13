@@ -27,13 +27,14 @@ package techreborn.blocks.cable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -62,12 +63,12 @@ import javax.annotation.Nullable;
 @RebornRegister(modID = TechReborn.MOD_ID)
 public class BlockCable extends BlockContainer {
 
-	public static final PropertyBool EAST = PropertyBool.create("east");
-	public static final PropertyBool WEST = PropertyBool.create("west");
-	public static final PropertyBool NORTH = PropertyBool.create("north");
-	public static final PropertyBool SOUTH = PropertyBool.create("south");
-	public static final PropertyBool UP = PropertyBool.create("up");
-	public static final PropertyBool DOWN = PropertyBool.create("down");
+	public static final BooleanProperty EAST = BooleanProperty.create("east");
+	public static final BooleanProperty WEST = BooleanProperty.create("west");
+	public static final BooleanProperty NORTH = BooleanProperty.create("north");
+	public static final BooleanProperty SOUTH = BooleanProperty.create("south");
+	public static final BooleanProperty UP = BooleanProperty.create("up");
+	public static final BooleanProperty DOWN = BooleanProperty.create("down");
 
 	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
 	public static boolean uninsulatedElectrocutionDamage = true;

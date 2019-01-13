@@ -27,7 +27,7 @@ package techreborn.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -64,7 +64,7 @@ import java.util.Random;
 public class BlockRubberLog extends Block {
 
 	public static DirectionProperty SAP_SIDE = DirectionProperty.create("sapside", EnumFacing.Plane.HORIZONTAL);
-	public static PropertyBool HAS_SAP = PropertyBool.create("hassap");
+	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
 
 	public BlockRubberLog() {
 		super(Material.WOOD);

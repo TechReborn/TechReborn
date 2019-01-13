@@ -26,7 +26,7 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -50,7 +50,7 @@ import techreborn.entities.EntityNukePrimed;
  * Created by Mark on 13/03/2016.
  */
 public class BlockNuke extends BaseBlock {
-	public static final PropertyBool OVERLAY = PropertyBool.create("overlay");
+	public static final BooleanProperty OVERLAY = BooleanProperty.create("overlay");
 
 	public BlockNuke() {
 		super(Material.TNT);
