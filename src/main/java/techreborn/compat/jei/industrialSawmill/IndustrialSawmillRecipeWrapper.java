@@ -33,6 +33,7 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
@@ -90,7 +91,7 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<Industrial
 			int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
 			minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-			minecraft.fontRenderer.drawString("FE: " + baseRecipe.euPerTick + " FE/t", x, y += lineHeight, 0x444444);
+			minecraft.fontRenderer.drawString("FE: " + PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.euPerTick) + " " + PowerSystem.getDisplayPower().abbreviation + "/t", x, y += lineHeight, 0x444444);
 		}
 	}
 
