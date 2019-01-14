@@ -360,6 +360,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.GAS_TURBINE), EFluidGenerator.GAS.getRecipeID());
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DIESEL_GENERATOR), EFluidGenerator.DIESEL.getRecipeID());
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.THERMAL_GENERATOR), EFluidGenerator.THERMAL.getRecipeID());
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.PLASMA_GENERATOR), EFluidGenerator.PLASMA.getRecipeID());
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.COMPRESSOR), RecipeCategoryUids.COMPRESSOR);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.EXTRACTOR), RecipeCategoryUids.EXTRACTOR);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.GRINDER), RecipeCategoryUids.GRINDER);
