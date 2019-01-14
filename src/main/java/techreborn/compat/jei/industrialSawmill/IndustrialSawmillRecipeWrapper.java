@@ -91,7 +91,7 @@ public class IndustrialSawmillRecipeWrapper extends BaseRecipeWrapper<Industrial
 			int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
 			minecraft.fontRenderer.drawString("Time: " + baseRecipe.tickTime / 20 + " s", x, y, 0x444444);
-			minecraft.fontRenderer.drawString("FE: " + PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.euPerTick) + " " + PowerSystem.getDisplayPower().abbreviation + "/t", x, y += lineHeight, 0x444444);
+			minecraft.fontRenderer.drawString("Energy: " + PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.euPerTick) + " " + PowerSystem.getDisplayPower().abbreviation + "/t", x, y += lineHeight, 0x444444);
 		}
 	}
 
