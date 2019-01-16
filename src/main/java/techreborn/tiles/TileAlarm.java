@@ -25,7 +25,6 @@
 package techreborn.tiles;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -38,6 +37,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
+import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockAlarm;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
@@ -54,7 +54,8 @@ public class TileAlarm extends TileEntity
 			} else {
 				selectedSound = 1;
 			}
-			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(
+					TextFormatting.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
 		}
 	}
 	
