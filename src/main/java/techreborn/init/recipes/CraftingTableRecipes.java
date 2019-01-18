@@ -393,7 +393,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 			return;
 		}
 		if (top.equals("ingotRefinedIron") && IC2Duplicates.deduplicate()) {
-			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', getStack(IC2Duplicates.REFINED_IRON), 'M', middle, 'B', bottom);
+			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', "ingotRefinedIron", 'M', middle, 'B', bottom);
 		} else {
 			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', top, 'M', middle, 'B', bottom);
 		}

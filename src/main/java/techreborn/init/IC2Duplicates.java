@@ -59,7 +59,6 @@ public enum IC2Duplicates {
 	CABLE_IHV(EnumCableType.IHV.getStack()),
 	CABLE_IIHV(EnumCableType.TIN.getStack()),
 	MIXED_METAL(ItemIngots.getIngotByName("mixed_metal")),
-	REFINED_IRON(ItemIngots.getIngotByName("refined_iron")),
 	CARBON_FIBER(ItemParts.getPartByName("carbon_fiber")),
 	CARBON_MESH(ItemParts.getPartByName("carbon_mesh")),
 	NEUTRON_REFLECTOR(ItemParts.getPartByName("neutron_reflector")),

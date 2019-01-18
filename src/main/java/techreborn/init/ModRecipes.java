@@ -395,7 +395,7 @@ public class ModRecipes {
 	}
 
 	static void addIc2Recipes() {
-		RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), IC2Duplicates.REFINED_IRON.getStackBasedOnConfig(),
+		RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), "ingotRefinedIron",
 			Items.BOOK);
 
 //		RebornCraftingHelper
