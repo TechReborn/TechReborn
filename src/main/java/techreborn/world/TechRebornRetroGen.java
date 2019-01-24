@@ -48,7 +48,7 @@ public class TechRebornRetroGen {
 	private final Deque<ChunkCoord> chunksToRetroGen = new ArrayDeque<>(64);
 
 	private boolean isChunkEligibleForRetroGen(ChunkDataEvent.Load event) {
-		return Core.worldGen.config.retroGenOres && event.getWorld().provider.getDimension() == 0
+		return Core.worldGen.config.retroGenOres
 			&& event.getData().getString(RETROGEN_TAG).isEmpty();
 	}
 
@@ -57,7 +57,7 @@ public class TechRebornRetroGen {
 	}
 
 	private boolean isTickEligibleForRetroGen(TickEvent.WorldTickEvent event) {
-		return event.phase == TickEvent.Phase.END || event.side == Side.SERVER;
+		return event.phase == TickEvent.Phase.END && event.side == Side.SERVER;
 	}
 
 	@SubscribeEvent
@@ -72,7 +72,7 @@ public class TechRebornRetroGen {
 					final Random rng = new Random(seed);
 					final long xSeed = rng.nextLong() >> 2 + 1L;
 					final long zSeed = rng.nextLong() >> 2 + 1L;
-					final long chunkSeed = (xSeed * coord.getX() + zSeed * coord.getZ()) * seed;
+					final long chunkSeed = (xSeed * coord.getX() + zSeed * coord.getZ()) ^ seed;
 					rng.setSeed(chunkSeed);
 					Core.worldGen.generate(rng, coord.getX(), coord.getZ(), world, null, null);
 				}
@@ -84,7 +84,7 @@ public class TechRebornRetroGen {
 	public void onChunkLoad(ChunkDataEvent.Load event) {
 		if (isChunkEligibleForRetroGen(event)) {
 			final ChunkCoord coord = ChunkCoord.of(event);
-			Core.logHelper.info("Queueing retro ore gen for " + coord + '.');
+			Core.logHelper.debug("Queueing retro gen for " + coord + '.');
 			chunksToRetroGen.addLast(coord);
 		}
 	}
