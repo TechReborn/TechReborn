@@ -73,6 +73,9 @@ public class TileTransformer extends TilePowerAcceptor
 		this.maxInput = tier.getMaxInput();
 		this.maxOutput = tier.getMaxOutput();
 		this.maxStorage = tier.getMaxInput() * 2;
+
+		// Should always be 4, except if we're tier MICRO, in which it will be 1.
+		super.setMaxPacketsPerTick(tier.getMaxOutput() / ouputTier.getMaxInput());
 	}
 	
 	// TilePowerAcceptor
