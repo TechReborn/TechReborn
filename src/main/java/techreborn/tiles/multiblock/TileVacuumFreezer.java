@@ -56,22 +56,21 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	}
 	
 	public boolean getMultiBlock() {
+		if(multiblockChecker == null){
+			return false;
+		}
 		return multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
 	}
 	
 	// TileGenericMachine
 	@Override
 	public void update() {
+		if(multiblockChecker == null){
+			multiblockChecker = new MultiblockChecker(world, pos.down());
+		}
 		if (!world.isRemote && getMultiBlock()) {
 			super.update();
 		}
-	}
-
-	// TileEntity
-	@Override
-	public void validate() {
-		super.validate();
-		multiblockChecker = new MultiblockChecker(world, pos.down());
 	}
 
 	// IContainerProvider

@@ -107,6 +107,9 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	}
 	
 	public boolean getMutliBlock() {
+		if(multiblockChecker == null){
+			return false;
+		}
 		final boolean layer0 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.CASING_ANY, MultiblockChecker.ZERO_OFFSET);
 		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 1, 0));
 		final boolean layer2 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.CASING_ANY, new BlockPos(0, 2, 0));
