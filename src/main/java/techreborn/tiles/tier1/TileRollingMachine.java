@@ -48,9 +48,8 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 //TODO add tick and power bars.
 
@@ -210,6 +209,41 @@ public class TileRollingMachine extends TilePowerAcceptor
 					possibleSlots.add(s);
 				}
 			}
+		}
+
+		int totalItems =  possibleSlots.stream()
+			.mapToInt(value -> inventory.getStackInSlot(value).getCount()).sum();
+		int slots = possibleSlots.size();
+
+		//This makes an array of ints with the best possible slot distribution
+		int[] split = new int[slots];
+		int remainder = totalItems % slots;
+		Arrays.fill(split, totalItems / slots);
+		while (remainder > 0){
+			for (int i = 0; i < split.length; i++) {
+				if(remainder > 0){
+					split[i] +=1;
+					remainder --;
+				}
+			}
+		}
+
+		List<Integer> slotDistrubution = possibleSlots.stream()
+			.mapToInt(value -> inventory.getStackInSlot(value).getCount())
+			.boxed().collect(Collectors.toList());
+
+		boolean needsBalance = false;
+		for (int i = 0; i < split.length; i++) {
+			int required = split[i];
+			if(slotDistrubution.contains(required)){
+				//We need to remove the int, not at the int, this seems to work around that
+				slotDistrubution.remove(new Integer(required));
+			} else {
+				needsBalance = true;
+			}
+		}
+		if (!needsBalance) {
+			return Optional.empty();
 		}
 
 		//Slot, count
