@@ -157,7 +157,7 @@ public enum IC2Duplicates {
 	}
 
 	public static boolean isClassicMode(){
-		return ModInfo.IC2_PROFILE.equals("Classic");
+		return ConfigTechReborn.IC2_PROFILE.equals("Classic");
 	}
 
 	public static boolean isClassicalDedupe(){
