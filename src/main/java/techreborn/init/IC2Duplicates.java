@@ -79,7 +79,8 @@ public enum IC2Duplicates {
 	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"), true),
 	BASIC_MACHINE_FRAME(BlockMachineFrames.getFrameByName("basic"), true),
 	ADVANCED_MACHINE_FRAME(BlockMachineFrames.getFrameByName("advanced"), true),
-	CARBON_PLATE(ItemPlates.getPlateByName("carbon"), true);
+	CARBON_PLATE(ItemPlates.getPlateByName("carbon"), true),
+	ADVANCED_ALLOY(ItemPlates.getPlateByName("advanced_alloy"), true);
 	
 
 	ItemStack ic2Stack;

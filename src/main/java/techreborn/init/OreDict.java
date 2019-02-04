@@ -51,6 +51,31 @@ public class OreDict {
 	);
 
 	public static void init() {
+
+		for (String type : ItemGems.types) {
+			if (type.equals(ModItems.META_PLACEHOLDER))
+				continue; //Aware of placeholders!
+			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
+			boolean ignoreIt = false;
+			for (String ignore : plateGenIgnores)
+				if (type.startsWith(ignore))
+					ignoreIt = true;
+			if (!ignoreIt)
+				ItemPlates.registerType(type);
+		}
+
+		for (String type : ItemIngots.types) {
+			if (type.equals(ModItems.META_PLACEHOLDER))
+				continue; //Aware of placeholders!
+			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
+			boolean ignoreIt = false;
+			for (String ignore : plateGenIgnores)
+				if (type.startsWith(ignore))
+					ignoreIt = true;
+			if (!ignoreIt)
+				ItemPlates.registerType(type);
+		}
+
 		if(TechRebornAPI.ic2Helper != null){
 			TechRebornAPI.ic2Helper.initDuplicates();
 		}
@@ -107,30 +132,6 @@ public class OreDict {
 		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
 		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
-
-		for (String type : ItemGems.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "gem_" + type), ItemGems.getGemByName(type));
-			boolean ignoreIt = false;
-			for (String ignore : plateGenIgnores)
-				if (type.startsWith(ignore))
-					ignoreIt = true;
-			if (!ignoreIt)
-				ItemPlates.registerType(type);
-		}
-
-		for (String type : ItemIngots.types) {
-			if (type.equals(ModItems.META_PLACEHOLDER))
-				continue; //Aware of placeholders!
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "ingot_" + type), ItemIngots.getIngotByName(type));
-			boolean ignoreIt = false;
-			for (String ignore : plateGenIgnores)
-				if (type.startsWith(ignore))
-					ignoreIt = true;
-			if (!ignoreIt)
-				ItemPlates.registerType(type);
-		}
 
 		for (String type : ItemPlates.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))
