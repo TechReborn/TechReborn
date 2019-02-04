@@ -35,6 +35,9 @@ public class ModInfo implements IModInfo {
 	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
 	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
 
+	//This is in here as the ic2 event get called soo early it fucks the class loading order up :) weee
+	public static String IC2_PROFILE = "UNKNOWN";
+
 	@Override
 	public String MOD_NAME() {
 		return MOD_NAME;

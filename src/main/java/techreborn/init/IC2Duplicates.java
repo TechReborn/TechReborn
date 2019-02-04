@@ -25,11 +25,16 @@
 package techreborn.init;
 
 import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.Validate;
 import techreborn.api.TechRebornAPI;
+import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
+import techreborn.itemblocks.ItemBlockMachineFrames;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
+import techreborn.items.ingredients.ItemPlates;
+import techreborn.lib.ModInfo;
 
 /**
  * Created by Mark on 18/12/2016.
@@ -65,19 +70,45 @@ public enum IC2Duplicates {
 	THICK_NEUTRON_REFLECTOR(ItemParts.getPartByName("thick_neutron_reflector")),
 	IRIDIUM_NEUTRON_REFLECTOR(ItemParts.getPartByName("iridium_neutron_reflector")),
 	SCRAP(ItemParts.getPartByName("scrap")),
-	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER));
+	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER)),
+
+	//Classical dedupes
+	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL), true),
+	LAPATRON_CRYSTAL(new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), true),
+	RE_BATTERY(new ItemStack(ModItems.RE_BATTERY), true),
+	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"), true),
+	BASIC_MACHINE_FRAME(BlockMachineFrames.getFrameByName("basic"), true),
+	ADVANCED_MACHINE_FRAME(BlockMachineFrames.getFrameByName("advanced"), true),
+	CARBON_PLATE(ItemPlates.getPlateByName("carbon"), true);
 	
 
 	ItemStack ic2Stack;
 	ItemStack trStack;
+	boolean classicOnly;
 
 	IC2Duplicates(ItemStack trStack) {
-		this.trStack = trStack;
+		this(trStack, false);
 	}
 
 	IC2Duplicates(ItemStack ic2Stack, ItemStack trStack) {
+		this(ic2Stack, trStack, false);
+	}
+
+	IC2Duplicates(ItemStack ic2Stack, ItemStack trStack, boolean classicOnly) {
+		Validate.notNull(trStack);
+		Validate.isTrue(!trStack.isEmpty());
+		Validate.notNull(ic2Stack);
+		Validate.isTrue(!ic2Stack.isEmpty());
 		this.ic2Stack = ic2Stack;
 		this.trStack = trStack;
+		this.classicOnly = classicOnly;
+	}
+
+	IC2Duplicates(ItemStack trStack, boolean classicOnly) {
+		Validate.notNull(trStack);
+		Validate.isTrue(!trStack.isEmpty());
+		this.trStack = trStack;
+		this.classicOnly = classicOnly;
 	}
 
 	public static boolean deduplicate() {
@@ -98,6 +129,8 @@ public enum IC2Duplicates {
 	}
 
 	public void setIc2Stack(ItemStack ic2Stack) {
+		Validate.notNull(ic2Stack);
+		Validate.isTrue(!ic2Stack.isEmpty());
 		this.ic2Stack = ic2Stack;
 	}
 
@@ -113,10 +146,22 @@ public enum IC2Duplicates {
 	}
 
 	public ItemStack getStackBasedOnConfig() {
+		//Used only for when de-duping classic only items
+		if(!classicOnly){
+			return getTrStack();
+		}
 		if (deduplicate()) {
 			return getIc2Stack();
 		}
 		return getTrStack();
+	}
+
+	public static boolean isClassicMode(){
+		return ModInfo.IC2_PROFILE.equals("Classic");
+	}
+
+	public static boolean isClassicalDedupe(){
+		return deduplicate() && isClassicMode();
 	}
 
 }
