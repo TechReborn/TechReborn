@@ -38,7 +38,9 @@ public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
 		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
-		register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
+		if(!IC2Duplicates.isClassicalDedupe()){
+			register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
+		}
 		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
 		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
 		register(BlockOre.getOreByName("silver"), getMaterial("silver", Type.INGOT));
