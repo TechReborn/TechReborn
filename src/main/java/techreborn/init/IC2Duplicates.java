@@ -148,7 +148,7 @@ public enum IC2Duplicates {
 
 	public ItemStack getStackBasedOnConfig() {
 		//Used only for when de-duping classic only items
-		if(!classicOnly){
+		if(!isClassicMode() && classicOnly){
 			return getTrStack();
 		}
 		if (deduplicate()) {

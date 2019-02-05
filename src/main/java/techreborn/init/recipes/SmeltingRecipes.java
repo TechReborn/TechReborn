@@ -40,13 +40,13 @@ public class SmeltingRecipes extends RecipeMethods {
 		register(getMaterial("sap", Type.PART), getMaterial("rubber", Type.PART));
 		if(!IC2Duplicates.isClassicalDedupe()){
 			register(getStack(Items.IRON_INGOT), getMaterial("refined_iron", Type.INGOT));
-			register(IC2Duplicates.MIXED_METAL.getStackBasedOnConfig(), getMaterial("advanced_alloy", Type.INGOT));
 		}
 		register(BlockOre2.getOreByName("copper"), getMaterial("copper", Type.INGOT));
 		register(BlockOre2.getOreByName("tin"), getMaterial("tin", Type.INGOT));
 		register(BlockOre.getOreByName("silver"), getMaterial("silver", Type.INGOT));
 		register(BlockOre.getOreByName("lead"), getMaterial("lead", Type.INGOT));
 		register(BlockOre.getOreByName("sheldonite"), getMaterial("platinum", Type.INGOT));
+		register(IC2Duplicates.MIXED_METAL.getStackBasedOnConfig(), getMaterial("advanced_alloy", Type.INGOT));
 
 		
 		// Dust smelting
