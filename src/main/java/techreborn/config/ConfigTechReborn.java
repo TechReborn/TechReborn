@@ -36,6 +36,9 @@ public class ConfigTechReborn {
 	@ConfigRegistry(config = "recipes", category = "ic2", key = "deduplicate", comment = "Changes a lot of recipes and hides blocks to integrate TechReborn into IC2")
 	public static boolean REMOVE_DUPLICATES = false;
 
+	@ConfigRegistry(config = "recipes", category = "ic2", key = "ic2_profile", comment = "Enter the ic2 profile name here (Experimental or Classic)")
+	public static String IC2_PROFILE = "Experimental";
+
 	@ConfigRegistry(config = "misc", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 

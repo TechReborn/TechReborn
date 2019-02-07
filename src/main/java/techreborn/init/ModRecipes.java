@@ -137,7 +137,7 @@ public class ModRecipes {
 				ItemPlates.getPlateByName("RedGarnet"), 300, 4));
 		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("blockRedGarnet", 1),
 				ItemPlates.getPlateByName("RedGarnet", 9), 300, 4));
-		RecipeHandler.addRecipe(new CompressorRecipe(OreUtil.getStackFromName("ingotRefinedIron", 1),
+		RecipeHandler.addRecipe(new CompressorRecipe("ingotRefinedIron",
 				ItemPlates.getPlateByName("RefinedIron"), 300, 4));
 		
 		ItemStack plate;
