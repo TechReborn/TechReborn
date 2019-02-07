@@ -211,38 +211,42 @@ public class TileRollingMachine extends TilePowerAcceptor
 			}
 		}
 
-		int totalItems =  possibleSlots.stream()
-			.mapToInt(value -> inventory.getStackInSlot(value).getCount()).sum();
-		int slots = possibleSlots.size();
+		if(!possibleSlots.isEmpty()){
+			int totalItems =  possibleSlots.stream()
+				.mapToInt(value -> inventory.getStackInSlot(value).getCount()).sum();
+			int slots = possibleSlots.size();
 
-		//This makes an array of ints with the best possible slot distribution
-		int[] split = new int[slots];
-		int remainder = totalItems % slots;
-		Arrays.fill(split, totalItems / slots);
-		while (remainder > 0){
-			for (int i = 0; i < split.length; i++) {
-				if(remainder > 0){
-					split[i] +=1;
-					remainder --;
+			//This makes an array of ints with the best possible slot distribution
+			int[] split = new int[slots];
+			int remainder = totalItems % slots;
+			Arrays.fill(split, totalItems / slots);
+			while (remainder > 0){
+				for (int i = 0; i < split.length; i++) {
+					if(remainder > 0){
+						split[i] +=1;
+						remainder --;
+					}
 				}
 			}
-		}
 
-		List<Integer> slotDistrubution = possibleSlots.stream()
-			.mapToInt(value -> inventory.getStackInSlot(value).getCount())
-			.boxed().collect(Collectors.toList());
+			List<Integer> slotDistrubution = possibleSlots.stream()
+				.mapToInt(value -> inventory.getStackInSlot(value).getCount())
+				.boxed().collect(Collectors.toList());
 
-		boolean needsBalance = false;
-		for (int i = 0; i < split.length; i++) {
-			int required = split[i];
-			if(slotDistrubution.contains(required)){
-				//We need to remove the int, not at the int, this seems to work around that
-				slotDistrubution.remove(new Integer(required));
-			} else {
-				needsBalance = true;
+			boolean needsBalance = false;
+			for (int i = 0; i < split.length; i++) {
+				int required = split[i];
+				if(slotDistrubution.contains(required)){
+					//We need to remove the int, not at the int, this seems to work around that
+					slotDistrubution.remove(new Integer(required));
+				} else {
+					needsBalance = true;
+				}
 			}
-		}
-		if (!needsBalance) {
+			if (!needsBalance) {
+				return Optional.empty();
+			}
+		} else {
 			return Optional.empty();
 		}
 
