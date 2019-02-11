@@ -65,9 +65,11 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		register(getOre("oreRedstone"), WATER, 100, 64, getStack(Items.REDSTONE, 10), getMaterial("glowstone", 2, Type.SMALL_DUST));
 
 		register(getOre("oreDiamond"), WATER, 100, 64, getStack(Items.DIAMOND), getMaterial("diamond", 6, Type.SMALL_DUST), getMaterial("coal", Type.DUST));
-		
-		register(getOre("oreEmerald"), WATER, 100, 64, getStack(Items.EMERALD), getMaterial("emerald", 6, Type.SMALL_DUST));
+		register(getOre("oreDiamond"), MERCURY, 100, 64, getStack(Items.DIAMOND, 2), getMaterial("diamond", 3, Type.SMALL_DUST));
 
+		register(getOre("oreEmerald"), WATER, 100, 64, getStack(Items.EMERALD), getMaterial("emerald", 6, Type.SMALL_DUST));
+		register(getOre("oreEmerald"), MERCURY, 100, 64, getStack(Items.EMERALD, 2), getMaterial("emerald", 3, Type.SMALL_DUST));
+		
 		//TR ores
 		register(getOre("oreCopper"), WATER, 100, 64, getMaterial("copper", 2, Type.DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
 		register(getOre("oreCopper"), SODIUM_PERSULFATE, 100, 64, getMaterial("copper", 3, Type.DUST), getMaterial("gold", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));

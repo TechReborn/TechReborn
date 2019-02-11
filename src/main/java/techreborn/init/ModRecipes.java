@@ -392,6 +392,18 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(
 			new BlastFurnaceRecipe(BlockOre.getOreByName("Pyrite"), ItemDusts.getDustByName("calcite"),
 				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
+		RecipeHandler.addRecipe(
+				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Blocks.SAND),
+					new ItemStack(Items.DIAMOND, 5), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
+		RecipeHandler.addRecipe(
+				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Blocks.SAND),
+					new ItemStack(Items.DIAMOND, 8), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
+		RecipeHandler.addRecipe(
+				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Blocks.SAND),
+					new ItemStack(Items.DIAMOND, 7), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
+		RecipeHandler.addRecipe(
+				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Blocks.SAND),
+					new ItemStack(Items.DIAMOND, 4), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
 	}
 
 	static void addIc2Recipes() {
@@ -419,22 +431,6 @@ public class ModRecipes {
 		// 'B', Blocks.beacon,
 		// 'L', "lapotronCrystal",
 		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
-
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.electricCraftingTable),
-		// "ITI", "IBI", "ICI",
-		// 'I', "plateIron",
-		// 'C', "circuitAdvanced",
-		// 'T', "crafterWood",
-		// 'B', "machineBlockBasic");
-
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.electricCraftingTable),
-		// "ATA", "ABA", "ACA",
-		// 'A', "plateAluminum",
-		// 'C', "circuitAdvanced",
-		// 'T', "crafterWood",
-		// 'B', "machineBlockBasic");
 
 		// RebornCraftingHelper.addShapedOreRecipe(new
 		// ItemStack(ModBlocks.chunkLoader),
