@@ -30,11 +30,9 @@ import techreborn.api.TechRebornAPI;
 import techreborn.blocks.BlockMachineFrames;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.config.ConfigTechReborn;
-import techreborn.itemblocks.ItemBlockMachineFrames;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
-import techreborn.lib.ModInfo;
 
 /**
  * Created by Mark on 18/12/2016.
