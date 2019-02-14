@@ -44,6 +44,9 @@ import techreborn.items.ItemTR;
  */
 public class ItemWrench extends ItemTR implements IToolHandler {
 
+	//Set by TR mod compat
+	public static WrenchContext ic2WrenchContext;
+
 	public ItemWrench() {
 		setUnlocalizedName("techreborn.wrench");
 		setMaxStackSize(1);
@@ -52,6 +55,12 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if(ic2WrenchContext != null){
+			EnumActionResult actionResult = ic2WrenchContext.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
+			if(actionResult != EnumActionResult.FAIL){
+				return actionResult;
+			}
+		}
 		if (!world.isRemote && !PermissionAPI.hasPermission(player.getGameProfile(), RebornPermissions.WRENCH_BLOCK, new BlockPosContext(player, pos, world.getBlockState(pos), facing))) {
 			return EnumActionResult.PASS;
 		}
@@ -70,5 +79,11 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 			stack.damageItem(1, player);
 		}
 		return true;
+	}
+
+	@FunctionalInterface
+	public interface WrenchContext {
+		EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
+		          EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ);
 	}
 }
