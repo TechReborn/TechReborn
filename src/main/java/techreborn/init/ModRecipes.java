@@ -39,17 +39,14 @@ import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
 import techreborn.Core;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.blocks.BlockOre;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.recipes.*;
 import techreborn.items.*;
 import techreborn.items.ingredients.ItemDusts;
-import techreborn.items.ingredients.ItemDustsSmall;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemPlates;
 import techreborn.lib.ModInfo;
@@ -88,8 +85,9 @@ public class ModRecipes {
 		DistillationTowerRecipes.init();
 		AlloySmelterRecipes.init();
 		FluidReplicatorRecipes.init();
+		BlastFurnaceRecipes.init();
 
-		addBlastFurnaceRecipes();
+
 		addVacuumFreezerRecipes();
 		addIc2Recipes();
 		addGrinderRecipes();
@@ -348,62 +346,6 @@ public class ModRecipes {
 				ItemCells.getCellByName("cell"),
 				60, 64));
 			
-	}
-
-	static void addBlastFurnaceRecipes() {
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"),
-				null, 3600, 120, 1500));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("titanium", 4), null,
-			ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("aluminum"), null, ItemIngots.getIngotByName("aluminum"),
-				null, 2200, 120, 1700));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("aluminum", 4), null,
-			ItemIngots.getIngotByName("aluminum"), null, 2200, 120, 1700));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("tungsten"), null, ItemIngots.getIngotByName("tungsten"),
-				null, 1800, 120, 2500));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("tungsten", 4), null,
-			ItemIngots.getIngotByName("tungsten"), null, 1800, 120, 2500));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("chrome"), null, ItemIngots.getIngotByName("chrome"),
-				null, 4420, 120, 1700));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("chrome", 4), null,
-			ItemIngots.getIngotByName("chrome"), null, 4420, 120, 1700));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("steel"), null, ItemIngots.getIngotByName("steel"), null,
-				2800, 120, 1000));
-		RecipeHandler.addRecipe(new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("steel", 4), null,
-			ItemIngots.getIngotByName("steel"), null, 2800, 120, 1000));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemDusts.getDustByName("galena", 2), null, ItemIngots.getIngotByName("silver"),
-				ItemIngots.getIngotByName("lead"), 80, 120, 1500));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(new ItemStack(Items.IRON_INGOT), ItemDusts.getDustByName("coal", 2),
-				ItemIngots.getIngotByName("steel"), ItemDusts.getDustByName("dark_ashes", 2), 500, 120, 1000));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(ItemIngots.getIngotByName("tungsten"), ItemIngots.getIngotByName("steel"),
-				ItemIngots.getIngotByName("hot_tungstensteel"), ItemDusts.getDustByName("dark_ashes", 4), 500,
-				128, 3000));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(new ItemStack(Blocks.IRON_ORE), ItemDusts.getDustByName("calcite"),
-				new ItemStack(Items.IRON_INGOT, 3), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
-		RecipeHandler.addRecipe(
-			new BlastFurnaceRecipe(BlockOre.getOreByName("Pyrite"), ItemDusts.getDustByName("calcite"),
-				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
-		RecipeHandler.addRecipe(
-				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Blocks.SAND),
-					new ItemStack(Items.DIAMOND, 5), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
-		RecipeHandler.addRecipe(
-				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Blocks.SAND),
-					new ItemStack(Items.DIAMOND, 8), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
-		RecipeHandler.addRecipe(
-				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Blocks.SAND),
-					new ItemStack(Items.DIAMOND, 7), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
-		RecipeHandler.addRecipe(
-				new BlastFurnaceRecipe(new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Blocks.SAND),
-					new ItemStack(Items.DIAMOND, 4), ItemDusts.getDustByName("dark_ashes"), 140, 120, 1000));
 	}
 
 	static void addIc2Recipes() {
