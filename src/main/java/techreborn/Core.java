@@ -216,6 +216,7 @@ public class Core {
 		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
 		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
 		event.registerPacket(PacketAutoCraftingTableLock.class, Side.SERVER);
+		event.registerPacket(PacketRefund.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler

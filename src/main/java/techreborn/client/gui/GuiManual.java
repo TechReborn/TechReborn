@@ -30,9 +30,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import reborncore.common.network.NetworkManager;
 import techreborn.items.ItemTechManual;
+import techreborn.packets.PacketRefund;
 
 import java.awt.*;
+
 
 public class GuiManual extends GuiScreen {
 
@@ -44,7 +47,7 @@ public class GuiManual extends GuiScreen {
 	int guiHeight = 195;
 	private static final String text1 = I18n.format("techreborn.manual.wiki");
 	private static final String text2 = I18n.format("techreborn.manual.discord");
-
+	private static final String text3 = I18n.format("techreborn.manual.refund");
 
 	public GuiManual(EntityPlayer player) {
 		this.player = player;
@@ -57,8 +60,12 @@ public class GuiManual extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		buttonList.add(new GuiButton(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")));
-		buttonList.add(new GuiButton(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")));
+		int y = height / 4;
+		buttonList.add(new GuiButton(1, (width / 2 - 30), y + 10, 60, 20, I18n.format("techreborn.manual.wikibtn")));
+		buttonList.add(new GuiButton(2, (width / 2 - 30), y + 60, 60, 20, I18n.format("techreborn.manual.discordbtn")));
+		if(PacketRefund.allowRefund){
+			buttonList.add(new GuiButton(3, (width / 2 - 30), y + 110, 60, 20, I18n.format("techreborn.manual.refundbtn")));
+		}
 	}
 
 	@Override
@@ -68,8 +75,12 @@ public class GuiManual extends GuiScreen {
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		drawTexturedModalRect(centerX, centerY, 0, 0, guiWidth, guiHeight);
-		fontRenderer.drawString(text1, ((width / 2) - fontRenderer.getStringWidth(text1) / 2), height / 2 - (guiHeight / 4), 4210752);
-		fontRenderer.drawString(text2, ((width / 2) - fontRenderer.getStringWidth(text2) / 2), height / 2 + 5, 4210752);
+		int y = height / 4;
+		fontRenderer.drawString(text1, ((width / 2) - fontRenderer.getStringWidth(text1) / 2), y, 4210752);
+		fontRenderer.drawString(text2, ((width / 2) - fontRenderer.getStringWidth(text2) / 2), y + 50, 4210752);
+		if(PacketRefund.allowRefund){
+			fontRenderer.drawString(text3, ((width / 2) - fontRenderer.getStringWidth(text3) / 2), y + 100, 4210752);
+		}
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
@@ -80,7 +91,11 @@ public class GuiManual extends GuiScreen {
 				mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://wiki.techreborn.ovh", 1, false));
 				break;
 			case 2:
-				mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://discord.gg/0tCDWb77cvetwm0e", 2, false));
+				mc.displayGuiScreen(new GuiConfirmOpenLink(this, "https://discord.gg/teamreborn", 2, false));
+				break;
+			case 3:
+				mc.displayGuiScreen(null);
+				NetworkManager.sendToServer(new PacketRefund());
 				break;
 		}
 	}
