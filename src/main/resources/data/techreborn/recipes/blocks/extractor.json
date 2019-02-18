@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:extractor"
+  },
+  "pattern": [
+    "TMT",
+    "TCT",
+    "   "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "T": {
+      "item": "techreborn:treetap"
+    },
+    "M": {
+      "item": "#MACHINEBLOCKBASIC"
+    }
+  }
+}

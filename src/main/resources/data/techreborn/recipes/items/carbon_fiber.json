@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:carbon_fiber"
+  },
+  "pattern": [
+    " C ",
+    "C C",
+    " C "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#DUSTCOAL"
+    }
+  }
+}

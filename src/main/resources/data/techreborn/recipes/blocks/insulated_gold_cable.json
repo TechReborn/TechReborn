@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techreborn:insulated_gold_cable",
+    "count": 4
+  },
+  "pattern": [
+    "RRR",
+    "RGR",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#ITEMRUBBER"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techreborn:tin_dust",
+    "count": 10
+  },
+  "pattern": [
+    "   ",
+    "U U",
+    "  U"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

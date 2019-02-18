@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techreborn:insulated_gold_cable"
+  },
+  "ingredients": [
+    {
+      "item": "#ITEMRUBBER"
+    },
+    {
+      "item": "#ITEMRUBBER"
+    },
+    {
+      "item": "techreborn:gold_cable"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

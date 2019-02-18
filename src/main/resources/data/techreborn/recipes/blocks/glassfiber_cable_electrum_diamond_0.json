@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techreborn:glassfiber_cable",
+    "count": 8
+  },
+  "pattern": [
+    "GGG",
+    "RDR",
+    "GGG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#INGOTELECTRUM"
+    },
+    "D": {
+      "item": "#GEMDIAMOND"
+    },
+    "G": {
+      "item": "#BLOCKGLASS"
+    }
+  }
+}

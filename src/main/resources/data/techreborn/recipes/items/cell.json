@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techreborn:cell",
+    "count": 16
+  },
+  "pattern": [
+    " T ",
+    "T T",
+    " T "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#INGOTTIN"
+    }
+  }
+}

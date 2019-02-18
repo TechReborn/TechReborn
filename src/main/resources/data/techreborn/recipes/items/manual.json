@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "techreborn:manual"
+  },
+  "ingredients": [
+    {
+      "item": "#INGOTREFINEDIRON"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

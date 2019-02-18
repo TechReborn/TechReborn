@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:tungsten_dust"
+  },
+  "pattern": [
+    "U  ",
+    "UUU",
+    "UUU"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

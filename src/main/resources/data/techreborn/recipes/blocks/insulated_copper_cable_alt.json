@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techreborn:insulated_copper_cable",
+    "count": 6
+  },
+  "pattern": [
+    "RCR",
+    "RCR",
+    "RCR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#ITEMRUBBER"
+    },
+    "C": {
+      "item": "#INGOTCOPPER"
+    }
+  }
+}

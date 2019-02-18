@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "techreborn:iridium_reinforced_tungstensteel_storage_block"
+  },
+  "ingredients": [
+    {
+      "item": "techreborn:tungstensteel_storage_block"
+    },
+    {
+      "item": "#PLATEIRIDIUM"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

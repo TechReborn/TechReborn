@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:iridium_alloy_ingot"
+  },
+  "pattern": [
+    "IAI",
+    "ADA",
+    "IAI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#PLATEADVANCEDALLOY"
+    },
+    "D": {
+      "item": "#DUSTDIAMOND"
+    },
+    "I": {
+      "item": "#INGOTIRIDIUM"
+    }
+  }
+}

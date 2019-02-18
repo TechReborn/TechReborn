@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:copper_cable",
+    "count": 6
+  },
+  "pattern": [
+    "CCC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#INGOTCOPPER"
+    }
+  }
+}

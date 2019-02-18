@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:lamp_led"
+  },
+  "pattern": [
+    "GGG",
+    "TLT",
+    "GGG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "techreborn:tin_cable"
+    },
+    "G": {
+      "item": "#PANEGLASS"
+    },
+    "L": {
+      "item": "#DUSTGLOWSTONE"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:lamp_incandescent"
+  },
+  "pattern": [
+    "GGG",
+    "TCT",
+    "GGG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "techreborn:carbon_fiber"
+    },
+    "T": {
+      "item": "techreborn:copper_cable"
+    },
+    "G": {
+      "item": "#PANEGLASS"
+    }
+  }
+}

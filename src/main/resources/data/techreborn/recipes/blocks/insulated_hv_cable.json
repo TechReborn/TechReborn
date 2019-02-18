@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techreborn:insulated_hv_cable",
+    "count": 4
+  },
+  "pattern": [
+    "RRR",
+    "RIR",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#ITEMRUBBER"
+    },
+    "I": {
+      "item": "#INGOTREFINEDIRON"
+    }
+  }
+}

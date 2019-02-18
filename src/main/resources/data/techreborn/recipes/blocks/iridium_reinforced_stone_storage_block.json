@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "techreborn:iridium_reinforced_stone_storage_block"
+  },
+  "ingredients": [
+    {
+      "item": "#STONE"
+    },
+    {
+      "item": "#PLATEIRIDIUMALLOY"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

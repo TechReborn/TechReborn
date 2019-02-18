@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techreborn:lead_dust",
+    "count": 14
+  },
+  "pattern": [
+    "UUU",
+    "UUU",
+    "U  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

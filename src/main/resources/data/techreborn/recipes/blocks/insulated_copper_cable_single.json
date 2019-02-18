@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "techreborn:insulated_copper_cable"
+  },
+  "ingredients": [
+    {
+      "item": "#ITEMRUBBER"
+    },
+    {
+      "item": "techreborn:copper_cable"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

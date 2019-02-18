@@ -229,6 +229,10 @@ public class TRContent {
 			return new ItemStack(block);
 		}
 		
+		public ItemStack getStack(int amount) {
+			return new ItemStack(block, amount);
+		}
+		
 		@Override
 		public Item asItem() {
 			return Item.getItemFromBlock(block);
@@ -246,6 +250,14 @@ public class TRContent {
 			name = this.toString().toLowerCase();
 			block = new BlockOre();
 			InitUtils.setup(block, name + "_ore");
+		}
+		
+		public ItemStack getStack() {
+			return new ItemStack(block);
+		}
+		
+		public ItemStack getStack(int amount) {
+			return new ItemStack(block, amount);
 		}
 
 		@Override
@@ -266,6 +278,14 @@ public class TRContent {
 			name = this.toString().toLowerCase();
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
+		}
+		
+		public ItemStack getStack() {
+			return new ItemStack(block);
+		}
+		
+		public ItemStack getStack(int amount) {
+			return new ItemStack(block, amount);
 		}
 
 		@Override

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techreborn:insulated_hv_cable"
+  },
+  "ingredients": [
+    {
+      "item": "#ITEMRUBBER"
+    },
+    {
+      "item": "#ITEMRUBBER"
+    },
+    {
+      "item": "techreborn:hv_cable"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

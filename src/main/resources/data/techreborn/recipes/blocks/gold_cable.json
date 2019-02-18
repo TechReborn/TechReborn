@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:gold_cable",
+    "count": 12
+  },
+  "pattern": [
+    "GGG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

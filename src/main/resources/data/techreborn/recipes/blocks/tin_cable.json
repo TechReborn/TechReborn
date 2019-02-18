@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:tin_cable",
+    "count": 9
+  },
+  "pattern": [
+    "TTT"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#INGOTTIN"
+    }
+  }
+}

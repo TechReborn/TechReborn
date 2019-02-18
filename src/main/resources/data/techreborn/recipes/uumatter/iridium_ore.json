@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:iridium_ore"
+  },
+  "pattern": [
+    "UUU",
+    " U ",
+    "UUU"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

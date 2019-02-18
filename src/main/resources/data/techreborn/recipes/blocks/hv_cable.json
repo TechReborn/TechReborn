@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:hv_cable",
+    "count": 12
+  },
+  "pattern": [
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#INGOTREFINEDIRON"
+    }
+  }
+}
