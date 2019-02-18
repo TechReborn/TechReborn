@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:iron_furnace"
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "IFI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

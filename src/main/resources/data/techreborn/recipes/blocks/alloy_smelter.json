@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:alloy_smelter"
+  },
+  "pattern": [
+    " C ",
+    "FMF",
+    "   "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "F": {
+      "item": "techreborn:electric_furnace"
+    },
+    "M": {
+      "item": "#MACHINEBLOCKBASIC"
+    }
+  }
+}

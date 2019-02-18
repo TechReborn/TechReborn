@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:peridotspade"
+  },
+  "pattern": [
+    "G",
+    "S",
+    "S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "G": {
+      "item": "#GEMPERIDOT"
+    }
+  }
+}

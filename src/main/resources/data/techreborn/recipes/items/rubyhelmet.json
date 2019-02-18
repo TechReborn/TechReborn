@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:rubyhelmet"
+  },
+  "pattern": [
+    "GGG",
+    "G G"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#GEMRUBY"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:semi_fluid_generator"
+  },
+  "pattern": [
+    "III",
+    "IHI",
+    "CGC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "H": {
+      "item": "#GLASSREINFORCED"
+    },
+    "I": {
+      "item": "#PLATEALUMINUM"
+    }
+  }
+}

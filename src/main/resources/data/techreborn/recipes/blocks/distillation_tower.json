@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techreborn:distillation_tower"
+  },
+  "pattern": [
+    "CMC",
+    "PBP",
+    "EME"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:extractor"
+    },
+    "B": {
+      "item": "#MACHINEBLOCKELITE"
+    },
+    "C": {
+      "item": "techreborn:industrial_centrifuge"
+    },
+    "E": {
+      "item": "techreborn:industrial_electrolyzer"
+    },
+    "M": {
+      "item": "#CIRCUITMASTER"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:implosion_compressor"
+  },
+  "pattern": [
+    "ABA",
+    "CPC",
+    "ABA"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:compressor"
+    },
+    "A": {
+      "item": "#INGOTADVANCEDALLOY"
+    },
+    "B": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "techreborn:solid_fuel_generator"
+  },
+  "ingredients": [
+    {
+      "item": "#REBATTERY"
+    },
+    {
+      "item": "#MACHINEBLOCKBASIC"
+    },
+    {
+      "item": "minecraft:furnace"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

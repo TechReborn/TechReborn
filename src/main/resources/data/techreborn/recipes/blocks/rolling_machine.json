@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:rolling_machine"
+  },
+  "pattern": [
+    "PCP",
+    "MBM",
+    "PCP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "B": {
+      "item": "#MACHINEBLOCKBASIC"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "M": {
+      "item": "techreborn:compressor"
+    }
+  }
+}

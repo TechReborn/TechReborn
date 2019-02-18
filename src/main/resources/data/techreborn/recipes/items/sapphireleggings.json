@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:sapphireleggings"
+  },
+  "pattern": [
+    "GGG",
+    "G G",
+    "G G"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#GEMSAPPHIRE"
+    }
+  }
+}

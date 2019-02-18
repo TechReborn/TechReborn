@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:gas_turbine"
+  },
+  "pattern": [
+    "IAI",
+    "WGW",
+    "IAI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "W": {
+      "item": "techreborn:wind_mill"
+    },
+    "G": {
+      "item": "#GLASSREINFORCED"
+    },
+    "I": {
+      "item": "#PLATEINVAR"
+    }
+  }
+}

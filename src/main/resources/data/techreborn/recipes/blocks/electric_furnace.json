@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:electric_furnace"
+  },
+  "pattern": [
+    " C ",
+    "RFR",
+    "   "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "F": {
+      "item": "techreborn:iron_furnace"
+    }
+  }
+}

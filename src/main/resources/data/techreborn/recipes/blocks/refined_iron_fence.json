@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:refined_iron_fence"
+  },
+  "pattern": [
+    "RRR",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#INGOTREFINEDIRON"
+    }
+  }
+}

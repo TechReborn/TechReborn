@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:thermal_generator"
+  },
+  "pattern": [
+    "III",
+    "IRI",
+    "CGC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#GLASSREINFORCED"
+    },
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "I": {
+      "item": "#PLATEINVAR"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:rubychestplate"
+  },
+  "pattern": [
+    "G G",
+    "GGG",
+    "GGG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#GEMRUBY"
+    }
+  }
+}

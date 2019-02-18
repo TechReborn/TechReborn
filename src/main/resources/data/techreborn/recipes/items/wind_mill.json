@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:wind_mill"
+  },
+  "pattern": [
+    " I ",
+    " G ",
+    " I "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "I": {
+      "item": "#PLATEMAGNALIUM"
+    }
+  }
+}

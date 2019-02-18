@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "minecraft:diamond"
+  },
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "N": {
+      "item": "#NUGGETDIAMOND"
+    }
+  }
+}

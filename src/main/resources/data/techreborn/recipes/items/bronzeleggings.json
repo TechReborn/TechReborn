@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:bronzeleggings"
+  },
+  "pattern": [
+    "GGG",
+    "G G",
+    "G G"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#INGOTBRONZE"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techreborn:reinforced_glass",
+    "count": 7
+  },
+  "pattern": [
+    "GAG",
+    "GGG",
+    "GAG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#PLATEADVANCEDALLOY"
+    },
+    "G": {
+      "item": "#BLOCKGLASS"
+    }
+  }
+}

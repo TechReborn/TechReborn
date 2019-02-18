@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:high_voltage_su"
+  },
+  "pattern": [
+    "LAL",
+    "LML",
+    "LOL"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "L": {
+      "item": "#LAPOTRONCRYSTAL"
+    },
+    "M": {
+      "item": "techreborn:medium_voltage_su"
+    },
+    "O": {
+      "item": "#MACHINEBLOCKADVANCED"
+    }
+  }
+}

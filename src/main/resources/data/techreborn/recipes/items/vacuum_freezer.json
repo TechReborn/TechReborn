@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:vacuum_freezer"
+  },
+  "pattern": [
+    "SPS",
+    "CGC",
+    "SPS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:extractor"
+    },
+    "S": {
+      "item": "#PLATESTEEL"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "G": {
+      "item": "#GLASSREINFORCED"
+    }
+  }
+}

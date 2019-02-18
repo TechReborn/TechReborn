@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:quantum_tank"
+  },
+  "pattern": [
+    "EPE",
+    "PCP",
+    "EPE"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLATEPLATINUM"
+    },
+    "C": {
+      "item": "techreborn:quantum_chest"
+    },
+    "E": {
+      "item": "#CIRCUITADVANCED"
+    }
+  }
+}

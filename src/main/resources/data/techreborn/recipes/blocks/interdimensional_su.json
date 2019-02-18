@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:interdimensional_su"
+  },
+  "pattern": [
+    "PAP",
+    "ACA",
+    "PAP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLATEIRIDIUMALLOY"
+    },
+    "A": {
+      "item": "techreborn:adjustable_su"
+    },
+    "C": {
+      "item": "#CHESTENDER"
+    }
+  }
+}

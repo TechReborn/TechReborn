@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:sapphirehelmet"
+  },
+  "pattern": [
+    "GGG",
+    "G G"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#GEMSAPPHIRE"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:wrench"
+  },
+  "pattern": [
+    "BNB",
+    "NBN",
+    " B "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "#INGOTBRONZE"
+    },
+    "N": {
+      "item": "#NUGGETBRONZE"
+    }
+  }
+}

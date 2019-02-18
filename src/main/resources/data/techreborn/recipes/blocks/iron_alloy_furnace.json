@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:iron_alloy_furnace"
+  },
+  "pattern": [
+    "III",
+    "F F",
+    "III"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "F": {
+      "item": "techreborn:iron_furnace"
+    },
+    "I": {
+      "item": "#INGOTREFINEDIRON"
+    }
+  }
+}

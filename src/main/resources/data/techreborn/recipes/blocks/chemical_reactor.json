@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techreborn:chemical_reactor"
+  },
+  "pattern": [
+    "IMI",
+    "CPC",
+    "IEI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:compressor"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "E": {
+      "item": "techreborn:extractor"
+    },
+    "I": {
+      "item": "#PLATEINVAR"
+    },
+    "M": {
+      "item": "techreborn:extractor"
+    }
+  }
+}

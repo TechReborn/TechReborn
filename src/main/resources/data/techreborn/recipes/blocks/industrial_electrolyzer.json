@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:industrial_electrolyzer"
+  },
+  "pattern": [
+    "RER",
+    "CFC",
+    "RER"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#PLATEIRON"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "E": {
+      "item": "techreborn:extractor"
+    },
+    "F": {
+      "item": "#MACHINEBLOCKADVANCED"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:water_mill"
+  },
+  "pattern": [
+    "SWS",
+    "WGW",
+    "SWS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#STICKWOOD"
+    },
+    "W": {
+      "item": "#PLANKWOOD"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    }
+  }
+}

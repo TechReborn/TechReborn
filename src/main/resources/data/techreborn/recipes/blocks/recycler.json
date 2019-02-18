@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:recycler"
+  },
+  "pattern": [
+    " E ",
+    "DCD",
+    "GDG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "techreborn:compressor"
+    },
+    "D": {
+      "item": "#DIRT"
+    },
+    "E": {
+      "item": "#CIRCUITBASIC"
+    },
+    "G": {
+      "item": "#DUSTGLOWSTONE"
+    }
+  }
+}

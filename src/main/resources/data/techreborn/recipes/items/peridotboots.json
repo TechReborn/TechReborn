@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "techreborn:peridotboots"
+  },
+  "pattern": [
+    "G G",
+    "G G"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#GEMPERIDOT"
+    }
+  }
+}

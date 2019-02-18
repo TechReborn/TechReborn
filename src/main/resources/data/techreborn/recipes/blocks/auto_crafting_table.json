@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:auto_crafting_table"
+  },
+  "pattern": [
+    "MPM",
+    "PCP",
+    "MPM"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLATEIRON"
+    },
+    "C": {
+      "item": "#WORKBENCH"
+    },
+    "M": {
+      "item": "#CIRCUITADVANCED"
+    }
+  }
+}

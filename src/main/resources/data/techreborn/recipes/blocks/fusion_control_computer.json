@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:fusion_control_computer"
+  },
+  "pattern": [
+    "CCC",
+    "PTP",
+    "CCC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#ENERGYCRYSTAL"
+    },
+    "C": {
+      "item": "#CIRCUITMASTER"
+    },
+    "T": {
+      "item": "techreborn:fusion_coil"
+    }
+  }
+}

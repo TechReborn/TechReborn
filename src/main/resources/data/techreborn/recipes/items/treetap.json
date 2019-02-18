@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:treetap"
+  },
+  "pattern": [
+    " S ",
+    "PPP",
+    "P  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLANKWOOD"
+    },
+    "S": {
+      "item": "#STICKWOOD"
+    }
+  }
+}

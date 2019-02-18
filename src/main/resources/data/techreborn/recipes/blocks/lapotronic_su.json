@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:lapotronic_su"
+  },
+  "pattern": [
+    " L ",
+    "CBC",
+    " M "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "techreborn:lsu_storage"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "L": {
+      "item": "techreborn:lv_transformer"
+    },
+    "M": {
+      "item": "techreborn:mv_transformer"
+    }
+  }
+}

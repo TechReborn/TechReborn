@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techreborn:industrial_grinder"
+  },
+  "pattern": [
+    "ECG",
+    "HHH",
+    "CBC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "E": {
+      "item": "techreborn:industrial_electrolyzer"
+    },
+    "G": {
+      "item": "techreborn:grinder"
+    },
+    "H": {
+      "item": "#CRAFTINGDIAMONDGRINDER"
+    }
+  }
+}

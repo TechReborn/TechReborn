@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:scrapboxinator"
+  },
+  "pattern": [
+    "ICI",
+    "DSD",
+    "ICI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "techreborn:scrapbox"
+    },
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "D": {
+      "item": "#DIRT"
+    },
+    "I": {
+      "item": "#PLATEIRON"
+    }
+  }
+}

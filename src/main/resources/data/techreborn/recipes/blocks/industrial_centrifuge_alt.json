@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:industrial_centrifuge"
+  },
+  "pattern": [
+    "RCR",
+    "AEA",
+    "RCR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "R": {
+      "item": "#PLATEALUMINUM"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "E": {
+      "item": "techreborn:extractor"
+    }
+  }
+}

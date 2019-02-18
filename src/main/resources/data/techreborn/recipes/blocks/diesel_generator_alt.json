@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:diesel_generator"
+  },
+  "pattern": [
+    "III",
+    "I I",
+    "CGC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "I": {
+      "item": "#PLATEALUMINUM"
+    }
+  }
+}

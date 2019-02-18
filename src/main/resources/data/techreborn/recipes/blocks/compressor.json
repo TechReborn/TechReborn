@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:compressor"
+  },
+  "pattern": [
+    "S S",
+    "SCS",
+    "SMS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "S": {
+      "item": "#STONE"
+    },
+    "M": {
+      "item": "#MACHINEBLOCKBASIC"
+    }
+  }
+}

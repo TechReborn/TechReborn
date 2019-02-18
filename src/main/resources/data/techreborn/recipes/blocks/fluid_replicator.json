@@ -1,0 +1,31 @@
+{
+  "result": {
+    "item": "techreborn:fluid_replicator"
+  },
+  "pattern": [
+    "PCP",
+    "CFC",
+    "ESR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLATETUNGSTENSTEEL"
+    },
+    "R": {
+      "item": "techreborn:chemical_reactor"
+    },
+    "C": {
+      "item": "#CIRCUITMASTER"
+    },
+    "S": {
+      "item": "#CRAFTINGSUPERCONDUCTOR"
+    },
+    "E": {
+      "item": "techreborn:industrial_electrolyzer"
+    },
+    "F": {
+      "item": "#MACHINEBLOCKELITE"
+    }
+  }
+}
