@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:gold_ore",
+    "count": 2
+  },
+  "pattern": [
+    " U ",
+    "UUU",
+    " U "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

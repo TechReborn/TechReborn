@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:obsidian",
+    "count": 12
+  },
+  "pattern": [
+    "U U",
+    "U U",
+    "   "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

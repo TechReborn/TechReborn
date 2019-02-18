@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:glowstone",
+    "count": 8
+  },
+  "pattern": [
+    " U ",
+    "U U",
+    "UUU"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

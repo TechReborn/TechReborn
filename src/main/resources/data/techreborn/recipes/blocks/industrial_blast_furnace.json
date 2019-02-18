@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:industrial_blast_furnace"
+  },
+  "pattern": [
+    "CHC",
+    "HBH",
+    "FHF"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "F": {
+      "item": "techreborn:electric_furnace"
+    },
+    "H": {
+      "item": "techreborn:cupronickel_heating_coil"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:computer_cube"
+  },
+  "pattern": [
+    "OMC",
+    "MFM",
+    "CMO"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITMASTER"
+    },
+    "F": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "M": {
+      "item": "techreborn:digital_display"
+    },
+    "O": {
+      "item": "techreborn:data_storage_core"
+    }
+  }
+}

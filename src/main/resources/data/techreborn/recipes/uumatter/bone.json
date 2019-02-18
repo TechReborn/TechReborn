@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:bone",
+    "count": 32
+  },
+  "pattern": [
+    "U  ",
+    "UU ",
+    "U  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

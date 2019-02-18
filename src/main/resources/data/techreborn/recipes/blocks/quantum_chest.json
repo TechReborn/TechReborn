@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techreborn:quantum_chest"
+  },
+  "pattern": [
+    "DCD",
+    "ATA",
+    "DQD"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#MACHINEBLOCKELITE"
+    },
+    "Q": {
+      "item": "techreborn:digital_chest"
+    },
+    "C": {
+      "item": "techreborn:digital_display"
+    },
+    "D": {
+      "item": "techreborn:data_storage_core"
+    },
+    "T": {
+      "item": "techreborn:compressor"
+    }
+  }
+}

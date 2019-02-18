@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:cactus",
+    "count": 48
+  },
+  "pattern": [
+    " U ",
+    "UUU",
+    "U U"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

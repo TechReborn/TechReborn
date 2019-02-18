@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:digital_chest"
+  },
+  "pattern": [
+    "PPP",
+    "PDP",
+    "PCP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLATESTEEL"
+    },
+    "C": {
+      "item": "techreborn:digital_display"
+    },
+    "D": {
+      "item": "techreborn:data_storage_core"
+    }
+  }
+}

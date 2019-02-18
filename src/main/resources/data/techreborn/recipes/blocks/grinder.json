@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:grinder"
+  },
+  "pattern": [
+    "FFF",
+    "SMS",
+    " C "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "M": {
+      "item": "#MACHINEBLOCKBASIC"
+    }
+  }
+}

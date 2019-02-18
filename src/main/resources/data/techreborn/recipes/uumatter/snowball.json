@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:snowball",
+    "count": 16
+  },
+  "pattern": [
+    "   ",
+    "   ",
+    "UUU"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:scrap_box"
+  },
+  "pattern": [
+    "SSS",
+    "SSS",
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "techreborn:scrap"
+    }
+  }
+}

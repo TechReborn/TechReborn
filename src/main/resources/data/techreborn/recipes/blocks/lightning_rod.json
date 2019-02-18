@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:lightning_rod"
+  },
+  "pattern": [
+    "CAC",
+    "ACA",
+    "CAC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "techreborn:industrial_machine_casing"
+    },
+    "C": {
+      "item": "#CIRCUITMASTER"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:gunpowder",
+    "count": 15
+  },
+  "pattern": [
+    "UUU",
+    "U  ",
+    "UUU"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

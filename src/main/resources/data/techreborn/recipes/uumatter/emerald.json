@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:emerald",
+    "count": 2
+  },
+  "pattern": [
+    "UUU",
+    "UUU",
+    " U "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

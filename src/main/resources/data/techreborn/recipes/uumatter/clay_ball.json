@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:clay_ball",
+    "count": 48
+  },
+  "pattern": [
+    "UU ",
+    "U  ",
+    "UU "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

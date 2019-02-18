@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "minecraft:emerald_ore"
+  },
+  "pattern": [
+    "UU ",
+    "U U",
+    " UU"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}

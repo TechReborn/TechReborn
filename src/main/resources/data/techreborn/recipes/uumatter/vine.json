@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "minecraft:vine",
+    "count": 24
+  },
+  "pattern": [
+    "U  ",
+    "U  ",
+    "U  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "U": {
+      "item": "techreborn:uu_matter"
+    }
+  }
+}
