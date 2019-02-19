@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:neutron_reflector"
+  },
+  "pattern": [
+    "TCT",
+    "CPC",
+    "TCT"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLATECOPPER"
+    },
+    "C": {
+      "item": "#DUSTCOAL"
+    },
+    "T": {
+      "item": "#DUSTTIN"
+    }
+  }
+}

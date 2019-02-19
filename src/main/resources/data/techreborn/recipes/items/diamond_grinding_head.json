@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techreborn:diamond_grinding_head",
+    "count": 2
+  },
+  "pattern": [
+    "DSD",
+    "SGS",
+    "DSD"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTSTEEL"
+    },
+    "D": {
+      "item": "#DUSTDIAMOND"
+    },
+    "G": {
+      "item": "#GEMDIAMOND"
+    }
+  }
+}

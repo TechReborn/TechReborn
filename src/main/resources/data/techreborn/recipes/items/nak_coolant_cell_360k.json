@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:nak_coolant_cell_360k"
+  },
+  "pattern": [
+    "THT",
+    "TCT",
+    "THT"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#INGOTCOPPER"
+    },
+    "T": {
+      "item": "#INGOTTIN"
+    },
+    "H": {
+      "item": "techreborn:nak_coolant_cell_180k"
+    }
+  }
+}

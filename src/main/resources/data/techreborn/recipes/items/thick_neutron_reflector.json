@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techreborn:thick_neutron_reflector"
+  },
+  "pattern": [
+    " P ",
+    "PCP",
+    " P "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:neutron_reflector"
+    },
+    "C": {
+      "nbt": "{Fluid:{FluidName:\"berylium\",Amount:1000}}",
+      "item": "techreborn:cell",
+      "type": "minecraft:item_nbt"
+    }
+  }
+}

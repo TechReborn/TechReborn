@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techreborn:diamond_saw_blade",
+    "count": 4
+  },
+  "pattern": [
+    "DSD",
+    "S S",
+    "DSD"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTSTEEL"
+    },
+    "D": {
+      "item": "#DUSTDIAMOND"
+    }
+  }
+}

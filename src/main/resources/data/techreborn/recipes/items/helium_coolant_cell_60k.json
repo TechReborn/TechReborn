@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "techreborn:helium_coolant_cell_60k"
+  },
+  "pattern": [
+    " T ",
+    "TCT",
+    " T "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "nbt": "{Fluid:{FluidName:\"helium\",Amount:1000}}",
+      "item": "techreborn:cell",
+      "type": "minecraft:item_nbt"
+    },
+    "T": {
+      "item": "#INGOTTIN"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:electronic_circuit"
+  },
+  "pattern": [
+    "WWW",
+    "SRS",
+    "WWW"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#INGOTREFINEDIRON"
+    },
+    "S": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "techreborn:insulated_copper_cable"
+    }
+  }
+}

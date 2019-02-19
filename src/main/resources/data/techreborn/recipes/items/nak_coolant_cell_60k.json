@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "techreborn:nak_coolant_cell_60k"
+  },
+  "pattern": [
+    "TST",
+    "PCP",
+    "TST"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "nbt": "{Fluid:{FluidName:\"potassium\",Amount:1000}}",
+      "item": "techreborn:cell",
+      "type": "minecraft:item_nbt"
+    },
+    "C": {
+      "item": "techreborn:water_coolant_cell_10k"
+    },
+    "S": {
+      "nbt": "{Fluid:{FluidName:\"sodium\",Amount:1000}}",
+      "item": "techreborn:cell",
+      "type": "minecraft:item_nbt"
+    },
+    "T": {
+      "item": "#INGOTTIN"
+    }
+  }
+}

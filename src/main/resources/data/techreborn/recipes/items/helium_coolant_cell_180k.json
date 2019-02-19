@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:helium_coolant_cell_180k"
+  },
+  "pattern": [
+    "TTT",
+    "CCC",
+    "TTT"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "techreborn:helium_coolant_cell_60k"
+    },
+    "T": {
+      "item": "#INGOTTIN"
+    }
+  }
+}

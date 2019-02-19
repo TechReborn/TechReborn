@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:advanced_circuit"
+  },
+  "pattern": [
+    "RGR",
+    "LCL",
+    "RGR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "G": {
+      "item": "#DUSTGLOWSTONE"
+    },
+    "L": {
+      "item": "#GEMLAPIS"
+    }
+  }
+}

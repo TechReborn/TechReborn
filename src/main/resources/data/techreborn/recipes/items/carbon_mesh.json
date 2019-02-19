@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "techreborn:carbon_mesh"
+  },
+  "ingredients": [
+    {
+      "item": "techreborn:carbon_fiber"
+    },
+    {
+      "item": "techreborn:carbon_fiber"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

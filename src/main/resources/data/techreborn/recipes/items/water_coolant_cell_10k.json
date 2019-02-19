@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "techreborn:water_coolant_cell_10k",
+    "count": 2
+  },
+  "pattern": [
+    " T ",
+    "TWT",
+    " T "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#INGOTTIN"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  }
+}

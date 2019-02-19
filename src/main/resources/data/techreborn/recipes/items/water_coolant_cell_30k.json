@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:water_coolant_cell_30k"
+  },
+  "pattern": [
+    "TTT",
+    "CCC",
+    "TTT"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "techreborn:water_coolant_cell_10k"
+    },
+    "T": {
+      "item": "#INGOTTIN"
+    }
+  }
+}

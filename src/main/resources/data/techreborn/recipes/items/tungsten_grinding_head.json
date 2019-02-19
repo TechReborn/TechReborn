@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techreborn:tungsten_grinding_head",
+    "count": 2
+  },
+  "pattern": [
+    "TST",
+    "SBS",
+    "TST"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "#BLOCKSTEEL"
+    },
+    "S": {
+      "item": "#INGOTSTEEL"
+    },
+    "T": {
+      "item": "#INGOTTUNGSTEN"
+    }
+  }
+}

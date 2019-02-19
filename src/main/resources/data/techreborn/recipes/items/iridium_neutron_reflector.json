@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:iridium_neutron_reflector"
+  },
+  "pattern": [
+    "PPP",
+    "PIP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:thick_neutron_reflector"
+    },
+    "I": {
+      "item": "#INGOTIRIDIUM"
+    }
+  }
+}
