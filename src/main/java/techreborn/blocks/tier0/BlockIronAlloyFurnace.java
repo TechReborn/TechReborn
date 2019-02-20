@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
@@ -48,7 +49,7 @@ public class BlockIronAlloyFurnace extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileIronAlloyFurnace();
 	}
 

@@ -42,6 +42,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.client.models.ModelCompound;
@@ -146,7 +147,7 @@ public class BlockAlarm extends BaseTileBlock {
 
 	@Nullable
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileAlarm();
 	}
 

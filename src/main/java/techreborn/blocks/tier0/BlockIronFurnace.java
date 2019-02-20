@@ -31,6 +31,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -89,7 +90,7 @@ public class BlockIronFurnace extends BlockMachineBase {
 	
 	// BlockMachineBase
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileIronFurnace();
 	}
 

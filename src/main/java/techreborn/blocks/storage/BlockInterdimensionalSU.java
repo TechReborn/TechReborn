@@ -32,6 +32,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
@@ -45,7 +46,7 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileInterdimensionalSU();
 	}
 

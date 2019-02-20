@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
@@ -46,12 +46,12 @@ public class BlockHighVoltageSU extends BlockEnergyStorage {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileHighVoltageSU();
 	}
 	
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public void getDrops(NonNullList<ItemStack> drops, IBlockReader world, BlockPos pos, IBlockState state, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
 			drops.add(new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
 		} else {

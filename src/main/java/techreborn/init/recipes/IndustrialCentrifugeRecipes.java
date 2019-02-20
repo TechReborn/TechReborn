@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
+import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 
 import java.security.InvalidParameterException;
@@ -44,10 +45,9 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Blocks.GRASS, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2), getStack(Items.WHEAT_SEEDS, 4));
 		register(getStack(Blocks.MYCELIUM, 8), 1640, getStack(Blocks.SAND, 4), getStack(Items.CLAY_BALL), getStack(Blocks.BROWN_MUSHROOM, 2), getStack(Blocks.RED_MUSHROOM, 2));
 		register(getStack(Items.GOLDEN_APPLE), 5000, getStack(Items.GOLD_INGOT, 6), getMaterial("methane", Type.CELL));
-		register(getStack(Items.GOLDEN_APPLE, 1, 1), 5000, getStack(Items.GOLD_INGOT, 64), getMaterial("methane", Type.CELL));
-//		TODO: Fix recipe
-//		register(getStack(Items.GOLDEN_CARROT), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
-//		register(getStack(Items.SPECKLED_MELON, 8), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
+		register(getStack(Items.ENCHANTED_GOLDEN_APPLE), 5000, getStack(Items.GOLD_INGOT, 64), getMaterial("methane", Type.CELL));
+		register(getStack(Items.GOLDEN_CARROT), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
+		register(getStack(Items.GLISTERING_MELON_SLICE, 8), 5000, getStack(Items.GOLD_NUGGET, 6), getMaterial("methane", Type.CELL));
 		register(getStack(Items.APPLE, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.MUSHROOM_STEW, 16), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.BREAD, 64), 5000, getMaterial("methane", Type.CELL));
@@ -61,9 +61,11 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Items.COOKED_MUTTON, 16), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.RABBIT, 12), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.COOKED_RABBIT, 16), 5000, getMaterial("methane", Type.CELL));
-		register(getStack(Items.FISH, 12), 5000, getMaterial("methane", Type.CELL));
-		register(getStack(Items.COOKED_FISH, 16), 5000, getMaterial("methane", Type.CELL));
-		register(getStack(Items.MELON, 64), 5000, getMaterial("methane", Type.CELL));
+		register(getStack(Items.COD, 12), 5000, getMaterial("methane", Type.CELL));
+		register(getStack(Items.COOKED_COD, 16), 5000, getMaterial("methane", Type.CELL));
+		register(getStack(Items.SALMON, 12), 5000, getMaterial("methane", Type.CELL));		
+		register(getStack(Items.COOKED_SALMON, 16), 5000, getMaterial("methane", Type.CELL));
+		register(getStack(Items.MELON_SLICE, 64), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Blocks.PUMPKIN, 16), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.ROTTEN_FLESH, 16), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.SPIDER_EYE, 32), 5000, getMaterial("methane", Type.CELL));
@@ -78,6 +80,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Blocks.BROWN_MUSHROOM, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Blocks.RED_MUSHROOM, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.NETHER_WART, 32), 5000, getMaterial("methane", Type.CELL));
+//TODO: Fixme		
 //		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART));
 //		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));
 //		register(getStack(Blocks.SOUL_SAND, 16), 2500, getStack(Blocks.SAND, 10), getMaterial("saltpeter", 4, Type.DUST), getMaterial("coal", Type.DUST), getMaterial("oil", Type.CELL));

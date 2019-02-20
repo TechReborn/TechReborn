@@ -132,7 +132,7 @@ public abstract class RecipeMethods {
 	}
 
 	public static ItemStack getStack(Item item, int count) {
-		return getStack(item, count, 0);
+		return new ItemStack(item, count);
 	}
 
 	public static ItemStack getStack(Item item, boolean wildcard) {
@@ -141,10 +141,6 @@ public abstract class RecipeMethods {
 
 	public static ItemStack getStack(Item item, int count, boolean wildcard) {
 		return getStack(item, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
-	}
-
-	public static ItemStack getStack(Item item, int count, int metadata) {
-		return new ItemStack(item, count, metadata);
 	}
 
 	public static ItemStack getStack(Block block) {

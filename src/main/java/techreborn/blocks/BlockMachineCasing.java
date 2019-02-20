@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.tiles.TileMachineCasing;
@@ -52,7 +53,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileMachineCasing();
 	}
 

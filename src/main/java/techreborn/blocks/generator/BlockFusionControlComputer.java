@@ -32,6 +32,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
@@ -99,7 +100,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileFusionControlComputer();
 	}
 	
