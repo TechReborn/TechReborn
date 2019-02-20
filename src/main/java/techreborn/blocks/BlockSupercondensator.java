@@ -27,11 +27,16 @@ package techreborn.blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class BlockSupercondensator extends BlockMachineBase {
 	public BlockSupercondensator(Material material) {
@@ -41,9 +46,9 @@ public class BlockSupercondensator extends BlockMachineBase {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
-		// TODO
+	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentString("WIP Coming Soon").applyTextStyle(TextFormatting.RED));
+		// TODO 
 		// Remember to remove WIP override and imports once complete
 	}
 

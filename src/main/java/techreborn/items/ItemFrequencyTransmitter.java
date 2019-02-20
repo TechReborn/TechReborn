@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -111,22 +112,20 @@ public class ItemFrequencyTransmitter extends Item {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack,
-	                           @Nullable
-		                           World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (stack.hasTag() && stack.getTag() != null && stack.getTag().hasKey("x") && stack.getTag().hasKey("y") && stack.getTag().hasKey("z") && stack.getTag().hasKey("dim")) {
 			int x = stack.getTag().getInt("x");
 			int y = stack.getTag().getInt("y");
 			int z = stack.getTag().getInt("z");
 			int dim = stack.getTag().getInt("dim");
 
-			tooltip.add(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x);
-			tooltip.add(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y);
-			tooltip.add(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z);
-			tooltip.add(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
+			tooltip.add(new TextComponentString(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x));
+			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y));
+			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z));
+			tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
 
 		} else {
-			tooltip.add(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet"));
+			tooltip.add(new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet")));
 		}
 	}
 

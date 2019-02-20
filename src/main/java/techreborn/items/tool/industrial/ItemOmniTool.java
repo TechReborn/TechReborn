@@ -35,6 +35,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -133,8 +135,10 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		tooltip.add(TextFormatting.RED + "WIP Coming Soon");
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TextComponentString("WIP Coming Soon").applyTextStyle(TextFormatting.RED));
+		// TODO 
+		// Remember to remove WIP override and imports once complete
 	}
 
 	@Override
