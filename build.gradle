@@ -68,12 +68,27 @@ minecraft {
 	mappings channel: 'snapshot', version: '20180921-1.13'
 
 	runs {
-        client = {
-            workingDirectory project.file('run').canonicalPath
-            source sourceSets.main
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                techreborn {
+                    source sourceSets.main
+                }
+            }
         }
-        server = {
-            workingDirectory project.file('run').canonicalPath
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                techreborn {
+                    source sourceSets.main
+                }
+            }
         }
     }
 }
@@ -87,17 +102,17 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft 'net.minecraftforge.test:forge:1.13-24.0.76-1.13-pre'
-	compile 'RebornCore:RebornCore-1.13:4.0.0.5:dev'
+	minecraft 'net.minecraftforge:forge:1.13.2-25.0.44'
+	compile 'RebornCore:RebornCore-1.13.2:+:dev'
 }
 
 processResources{
     inputs.property 'version', project.version
-    inputs.property 'mcversion', '1.13'
+    inputs.property 'mcversion', '1.13.2'
 
     from(sourceSets.main.resources.srcDirs) {
         include 'META_INF/mods.toml'     
-        expand 'version':project.version, 'mcversion': '1.13'
+        expand 'version':project.version, 'mcversion': '1.13.2'
     }
 
     from(sourceSets.main.resources.srcDirs) {
