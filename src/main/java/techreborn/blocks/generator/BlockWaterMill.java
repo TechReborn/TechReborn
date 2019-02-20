@@ -26,7 +26,6 @@ package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -40,7 +39,7 @@ import techreborn.tiles.generator.basic.TileWaterMill;
 public class BlockWaterMill extends BlockMachineBase {
 
 	public BlockWaterMill() {
-		super(false);
+		super();
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 

@@ -32,6 +32,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.ExtractorRecipe;
+import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 
 /**
@@ -39,11 +40,15 @@ import techreborn.items.DynamicCell;
  */
 public class ExtractorRecipes extends RecipeMethods {
 	public static void init() {
-//		TODO: Fix Recipe
-//		register(getStack(ModBlocks.RUBBER_SAPLING), getMaterial("rubber", Type.PART), false);
-//		register(getStack(ModBlocks.RUBBER_LOG),  getMaterial("rubber", Type.PART), false);
-//		register(getStack(Items.SLIME_BALL), getMaterial("rubber", 2, Type.PART));
-//		register(getMaterial("sap", Type.PART), getMaterial("rubber", 3, Type.PART));
+		register(getStack(TRContent.RUBBER_SAPLING), TRContent.Parts.RUBBER.getStack(), false);
+		register(getStack(TRContent.RUBBER_LOG), TRContent.Parts.RUBBER.getStack(), false);
+		register(getStack(Items.SLIME_BALL), TRContent.Parts.RUBBER.getStack(2), false);
+		register(TRContent.Parts.SAP.getStack(), TRContent.Parts.RUBBER.getStack(3), false);
+		register(getStack(Blocks.RED_TULIP), getStack(Items.ROSE_RED, 2), false);
+		register(getStack(Blocks.POPPY), getStack(Items.ROSE_RED, 2), false);
+		register(getStack(Blocks.ROSE_BUSH), getStack(Items.ROSE_RED, 4), false);
+
+		
 		register(getStack(Blocks.RED_FLOWER), getStack(Items.DYE, 2, 1), false);
 		register(getStack(Blocks.YELLOW_FLOWER), getStack(Items.DYE, 2, 11), false);
 		register(getStack(Blocks.RED_FLOWER, 1, 1), getStack(Items.DYE, 2, 12), false);
@@ -58,6 +63,8 @@ public class ExtractorRecipes extends RecipeMethods {
 		register(getStack(Blocks.DOUBLE_PLANT, 1, 1), getStack(Items.DYE, 4, 13), false);
 		register(getStack(Blocks.DOUBLE_PLANT, 1, 4), getStack(Items.DYE, 4, 1), false);
 		register(getStack(Blocks.DOUBLE_PLANT, 1, 5), getStack(Items.DYE, 4, 9), false);
+		
+		
 		register(getStack(Blocks.TALLGRASS, 1, 1), getStack(Items.WHEAT_SEEDS), false);
 		register(getStack(Blocks.TALLGRASS, 1, 2), getStack(Items.WHEAT_SEEDS), false);
 		register(getStack(Blocks.DOUBLE_PLANT, 1, 2), getStack(Items.WHEAT_SEEDS, 2), false);
