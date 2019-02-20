@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "techreborn:energy_flow_chip",
+    "count": 4
+  },
+  "pattern": [
+    "ATA",
+    "LIL",
+    "ATA"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "T": {
+      "item": "#INGOTTUNGSTEN"
+    },
+    "I": {
+      "item": "#PLATEIRIDIUMALLOY"
+    },
+    "L": {
+      "item": "#LAPOTRONCRYSTAL"
+    }
+  }
+}

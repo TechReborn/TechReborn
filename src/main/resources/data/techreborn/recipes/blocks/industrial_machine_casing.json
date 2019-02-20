@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techreborn:industrial_machine_casing",
+    "count": 4
+  },
+  "pattern": [
+    "RRR",
+    "CAC",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#MACHINEBLOCKELITE"
+    },
+    "R": {
+      "item": "#PLATECHROME"
+    },
+    "C": {
+      "item": "#CIRCUITELITE"
+    }
+  }
+}

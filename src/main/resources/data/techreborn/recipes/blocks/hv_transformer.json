@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:hv_transformer"
+  },
+  "pattern": [
+    " H ",
+    " M ",
+    " H "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "H": {
+      "item": "techreborn:insulated_hv_cable"
+    },
+    "M": {
+      "item": "techreborn:mv_transformer"
+    }
+  }
+}

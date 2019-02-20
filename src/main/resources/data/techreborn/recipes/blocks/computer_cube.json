@@ -19,7 +19,7 @@
       "item": "techreborn:digital_display"
     },
     "O": {
-      "item": "techreborn:data_storage_core"
+      "item": "#CIRCUITSTORAGE"
     }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:advanced_machine_frame"
+  },
+  "pattern": [
+    " C ",
+    "AMA",
+    " C "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#PLATEADVANCEDALLOY"
+    },
+    "C": {
+      "item": "#PLATECARBON"
+    },
+    "M": {
+      "item": "#MACHINEBLOCKBASIC"
+    }
+  }
+}

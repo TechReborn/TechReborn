@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:industrial_machine_frame"
+  },
+  "pattern": [
+    "CTC",
+    "TBT",
+    "CTC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "C": {
+      "item": "#PLATECHROME"
+    },
+    "T": {
+      "item": "#PLATETITANIUM"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "techreborn:basic_machine_frame"
+  },
+  "pattern": [
+    "AAA",
+    "A A",
+    "AAA"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#INGOTREFINEDIRON"
+    }
+  }
+}

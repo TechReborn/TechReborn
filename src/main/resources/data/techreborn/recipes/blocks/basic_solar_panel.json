@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:basic_solar_panel"
+  },
+  "pattern": [
+    "DLD",
+    "LDL",
+    "CGC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITBASIC"
+    },
+    "D": {
+      "item": "#DUSTCOAL"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "L": {
+      "item": "#PANEGLASS"
+    }
+  }
+}

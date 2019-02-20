@@ -187,8 +187,15 @@ public class TRContent {
 			this.generationRateN = generationRateN;
 			// Buffer for 2 mins of work
 			internalCapacity = generationRateD * 2_400;
-			
 			InitUtils.setup(block, name + "_solar_panel");
+		}
+		
+		public ItemStack getStack() {
+			return new ItemStack(block);
+		}
+		
+		public ItemStack getStack(int amount) {
+			return new ItemStack(block, amount);
 		}
 	}
 

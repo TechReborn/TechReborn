@@ -69,7 +69,7 @@ public class OreDict {
 		OreUtil.registerOre("circuitBasic", TRContent.Parts.ELECTRONIC_CIRCUIT.getStack());
 		OreUtil.registerOre("circuitAdvanced", TRContent.Parts.ADVANCED_CIRCUIT.getStack());
 		OreUtil.registerOre("circuitElite", TRContent.Parts.INDUSTRIAL_CIRCUIT.getStack());
-		OreUtil.registerOre("circuitStorage", TRContent.Parts.DATA_STORAGE_CHIP.getStack());
+		OreUtil.registerOre("circuitStorage", TRContent.Parts.DATA_STORAGE_CORE.getStack());
 		OreUtil.registerOre("circuitMaster", TRContent.Parts.ENERGY_FLOW_CHIP.getStack());
 		OreUtil.registerOre("craftingDiamondGrinder", TRContent.Parts.DIAMOND_GRINDING_HEAD.getStack());
 		OreUtil.registerOre("craftingTungstenGrinder", TRContent.Parts.TUNGSTEN_GRINDING_HEAD.getStack());

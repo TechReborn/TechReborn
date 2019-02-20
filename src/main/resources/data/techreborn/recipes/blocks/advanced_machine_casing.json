@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techreborn:advanced_machine_casing",
+    "count": 4
+  },
+  "pattern": [
+    "RRR",
+    "CAC",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#MACHINEBLOCKADVANCED"
+    },
+    "R": {
+      "item": "#PLATESTEEL"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    }
+  }
+}

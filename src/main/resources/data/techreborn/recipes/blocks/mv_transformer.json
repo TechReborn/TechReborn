@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "techreborn:mv_transformer"
+  },
+  "pattern": [
+    " G ",
+    " M ",
+    " G "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "techreborn:insulated_gold_cable"
+    },
+    "M": {
+      "item": "#MACHINEBLOCKBASIC"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:quantum_solar_panel"
+  },
+  "pattern": [
+    "DLD",
+    "LDL",
+    "CPC"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "techreborn:ultimate_solar_panel"
+    },
+    "C": {
+      "item": "#CIRCUITMASTER"
+    },
+    "D": {
+      "item": "#DUSTDIAMOND"
+    },
+    "L": {
+      "item": "#GLASSREINFORCED"
+    }
+  }
+}

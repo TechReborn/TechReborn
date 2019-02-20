@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:digital_display"
+  },
+  "pattern": [
+    "ADA",
+    "DGD",
+    "ADA"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#INGOTALUMINUM"
+    },
+    "D": {
+      "item": "#DYE"
+    },
+    "G": {
+      "item": "#PANEGLASS"
+    }
+  }
+}

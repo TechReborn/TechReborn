@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:data_storage_core"
+  },
+  "pattern": [
+    "ADA",
+    "DID",
+    "ADA"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#CIRCUITELITE"
+    },
+    "D": {
+      "item": "#DUSTDIAMOND"
+    },
+    "I": {
+      "item": "#INGOTIRIDIUM"
+    }
+  }
+}

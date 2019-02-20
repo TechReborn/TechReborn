@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "techreborn:basic_machine_casing",
+    "count": 4
+  },
+  "pattern": [
+    "RRR",
+    "CAC",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#MACHINEBLOCKBASIC"
+    },
+    "R": {
+      "item": "#PLATEALUMINUM"
+    },
+    "C": {
+      "item": "#CIRCUITBASIC"
+    }
+  }
+}

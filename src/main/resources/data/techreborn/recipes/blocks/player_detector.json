@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:player_detector"
+  },
+  "pattern": [
+    " D ",
+    "CFC",
+    " D "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "D": {
+      "item": "#CIRCUITSTORAGE"
+    },
+    "F": {
+      "item": "techreborn:computer_cube"
+    }
+  }
+}

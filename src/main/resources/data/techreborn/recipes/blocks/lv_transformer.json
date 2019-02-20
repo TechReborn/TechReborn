@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "techreborn:lv_transformer"
+  },
+  "pattern": [
+    "PWP",
+    "CCC",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PLANKWOOD"
+    },
+    "C": {
+      "item": "#INGOTCOPPER"
+    },
+    "W": {
+      "item": "techreborn:insulated_copper_cable"
+    }
+  }
+}

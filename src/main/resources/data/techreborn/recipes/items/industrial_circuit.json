@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "techreborn:industrial_circuit"
+  },
+  "pattern": [
+    "RGR",
+    "LCL",
+    "EEE"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "C": {
+      "item": "#CIRCUITADVANCED"
+    },
+    "E": {
+      "item": "#PLATEEMERALD"
+    },
+    "G": {
+      "item": "#DUSTGLOWSTONE"
+    },
+    "L": {
+      "item": "#GEMLAPIS"
+    }
+  }
+}

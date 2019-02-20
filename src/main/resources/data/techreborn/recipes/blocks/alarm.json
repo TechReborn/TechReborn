@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "techreborn:alarm"
+  },
+  "pattern": [
+    "ICI",
+    "SRS",
+    "ICI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#BLOCKREDSTONE"
+    },
+    "C": {
+      "item": "techreborn:copper_cable"
+    },
+    "S": {
+      "item": "techreborn:insulated_copper_cable"
+    },
+    "I": {
+      "item": "#INGOTIRON"
+    }
+  }
+}
