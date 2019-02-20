@@ -24,6 +24,7 @@
 
 package techreborn.tiles.tier0;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -31,6 +32,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
@@ -220,14 +222,19 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 				}
 			}
 			if (isBurning() && canSmelt()) {
+				if(!isActive()){
+					setActive(true);
+				}
 				++cookTime;
 				if (cookTime == 200) {
 					cookTime = 0;
 					smeltItem();
 					updateInventory = true;
+					setActive(false);
 				}
 			} else {
 				cookTime = 0;
+				setActive(false);
 			}
 		}
 		if (burning != isBurning()) {
@@ -237,7 +244,14 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 			markDirty();
 		}
 	}
-	
+
+	public void setActive(boolean active) {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockMachineBase) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, active));
+		}
+	}
+
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
