@@ -24,11 +24,13 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -39,11 +41,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.TRContent;
-
 import javax.annotation.Nullable;
 
 public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo {
@@ -53,28 +52,25 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
-		setMaxStackSize(1);
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, (new Item.Builder()).group(ItemGroup.COMBAT));
+		//TODO: move to builder
+		//setMaxStackSize(1);
 	}
 
 	// Item
-	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
-			return;
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if (this.isInGroup(group)) {
+			items.add(new ItemStack(this));
 		}
-		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
-		ItemStack charged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		itemList.add(uncharged);
-		itemList.add(charged);
 	}
-
+	   
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		ItemLithiumIonBatpack.distributePowerToInventory(world, player, itemStack, (int) transferLimit);
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof EntityPlayer) {
+			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (EntityPlayer) entityIn, stack,
+					(int) transferLimit);
+		}
 	}
 
 	@Override

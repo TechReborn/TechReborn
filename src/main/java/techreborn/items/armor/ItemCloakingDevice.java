@@ -24,11 +24,12 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -44,7 +45,6 @@ import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 
@@ -60,8 +60,9 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemCloakingDevice() {
-		super(Reference.CLOAKING_ARMOR, EntityEquipmentSlot.CHEST);
-		setMaxStackSize(1);
+		//TODO: Update ArmorMaterial
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST);
+		//setMaxStackSize(1);
 	}
 
 	// Item
@@ -72,32 +73,40 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	}
 	
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
-		if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
-			capEnergy.extractEnergy(usage, false);
-			player.setInvisible(true);
-		} else {
-			if (!player.isPotionActive(MobEffects.INVISIBILITY)) {
-				player.setInvisible(false);
+	
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof EntityPlayer) {
+			IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
+			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
+				capEnergy.extractEnergy(usage, false);
+				// TODO: Optimize
+				((EntityPlayer) entityIn).setInvisible(true);
+			} else {
+				if (!((EntityPlayer) entityIn).isPotionActive(MobEffects.INVISIBILITY)) {
+					((EntityPlayer) entityIn).setInvisible(false);
+				}
 			}
 		}
+	}
+	
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if (!isInGroup(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.CLOAKING_DEVICE);
 		ItemStack charged = new ItemStack(TRContent.CLOAKING_DEVICE);
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		itemList.add(uncharged);
-//		itemList.add(charged);
+		items.add(uncharged);
+		items.add(charged);
 	}
-
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);

@@ -26,24 +26,17 @@ package techreborn;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.creativetab.CreativeTabs;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.RebornCore;
@@ -75,7 +68,7 @@ import techreborn.world.village.VillagePlantaionHandler;
 
 import java.io.File;
 
-@Mod(modid = TechReborn.MOD_ID, name = TechReborn.MOD_NAME, version = TechReborn.MOD_VERSION, dependencies = TechReborn.MOD_DEPENDENCIES, acceptedMinecraftVersions = "[1.12,1.12.2]", certificateFingerprint = "8727a3141c8ec7f173b87aa78b9b9807867c4e6b", guiFactory = "techreborn.client.TechRebornGuiFactory")
+@Mod("techreborn")
 public class TechReborn {
 
 	public static final String MOD_ID = "techreborn";
@@ -87,48 +80,46 @@ public class TechReborn {
 	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
 
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
+//	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
-	@Mod.Instance
+//	@Mod.Instance
 	public static TechReborn INSTANCE;
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
 
-	public static final CreativeTabs TAB = new CreativeTabs(MOD_ID) {
-		@Override
-		public ItemStack createIcon() {
-			return TRContent.Parts.MACHINE_PARTS.getStack();
-		}
-	};
+//	public static final CreativeTabs TAB = new CreativeTabs(MOD_ID) {
+//		@Override
+//		public ItemStack createIcon() {
+//			return TRContent.Parts.MACHINE_PARTS.getStack();
+//		}
+//	};
 
 	public TechReborn() {
-		//Forge says to call it here, so yeah
-		FluidRegistry.enableUniversalBucket();
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
-		event.getModMetadata().version = MOD_VERSION;
-		INSTANCE = this;
-		MinecraftForge.EVENT_BUS.register(this);
 
-		configDir = new File(new File(event.getModConfigurationDirectory(), "teamreborn"), "techreborn");
+		INSTANCE = this;
+
+		configDir = new File(new File("teamreborn"), "techreborn");
 		worldGen = new TechRebornWorldGen();
 		worldGen.configFile = (new File(configDir, "ores.json"));
 
-		CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
+		//CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		// Registration 
 		TRTileEntities.init();
 		ModFluids.init();
 
 		// Entitys
-		EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+	//EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
 		proxy.preInit(event);
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	public void init(FMLInitializationEvent event) {
 		// Registers Chest Loot
 		ModLoot.init();
@@ -139,10 +130,10 @@ public class TechReborn {
 		proxy.init(event);
 		// WorldGen
 		worldGen.load();
-		GameRegistry.registerWorldGenerator(worldGen, 0);
-		GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
+		//GameRegistry.registerWorldGenerator(worldGen, 0);
+		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
-		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+		//NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		// Event busses
 		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
@@ -154,19 +145,19 @@ public class TechReborn {
 		//Village stuff
 		if (ConfigTechReborn.enableRubberTreePlantation) {
 			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
-			MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
+			//MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
 			ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
 		}
 
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
+			//BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	public void postinit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
 
@@ -179,53 +170,53 @@ public class TechReborn {
 
 
 		//todo: remove, gens localization
-		for (Item item : ForgeRegistries.ITEMS.getValues()) {
-			if (item.getRegistryName().getNamespace().equals("techreborn")) {
-				StringBuilder localName = new StringBuilder();
-				String[] words = item.getRegistryName().getPath().split("_|\\.");
-				for (String word : words) {
-					if (!word.contains("techreborn")) {
-						if (localName.length() > 0) {
-							localName.append(" ");
-						}
-						localName.append(StringUtils.toFirstCapital(word));
-					}
-				}
+//		for (Item item : ForgeRegistries.ITEMS.getValues()) {
+//			if (item.getRegistryName().getNamespace().equals("techreborn")) {
+//				StringBuilder localName = new StringBuilder();
+//				String[] words = item.getRegistryName().getPath().split("_|\\.");
+//				for (String word : words) {
+//					if (!word.contains("techreborn")) {
+//						if (localName.length() > 0) {
+//							localName.append(" ");
+//						}
+//						localName.append(StringUtils.toFirstCapital(word));
+//					}
+//				}
 //				System.out.println("item.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
-			}
-		}
-		for (Block item : ForgeRegistries.BLOCKS.getValues()) {
-			if (item.getRegistryName().getNamespace().equals("techreborn")) {
-				StringBuilder localName = new StringBuilder();
-				String[] words = item.getRegistryName().getPath().split("_|\\.");
-				for (String word : words) {
-					if (!word.contains("techreborn")) {
-						if (localName.length() > 0) {
-							localName.append(" ");
-						}
-						localName.append(StringUtils.toFirstCapital(word));
-					}
-				}
+//			}
+//		}
+//		for (Block item : ForgeRegistries.BLOCKS.getValues()) {
+//			if (item.getRegistryName().getNamespace().equals("techreborn")) {
+//				StringBuilder localName = new StringBuilder();
+//				String[] words = item.getRegistryName().getPath().split("_|\\.");
+//				for (String word : words) {
+//					if (!word.contains("techreborn")) {
+//						if (localName.length() > 0) {
+//							localName.append(" ");
+//						}
+//						localName.append(StringUtils.toFirstCapital(word));
+//					}
+//				}
 //				System.out.println("tile.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
-			}
-		}
+//			}
+//		}
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new TechRebornDevCommand());
+		//event.registerServerCommand(new TechRebornDevCommand());
 	}
 
 	@SubscribeEvent
 	public void LoadPackets(RegisterPacketEvent event) {
-		event.registerPacket(PacketAesu.class, Side.SERVER);
-		event.registerPacket(PacketIdsu.class, Side.SERVER);
-		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
-		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
-		event.registerPacket(PacketAutoCraftingTableLock.class, Side.SERVER);
+//		event.registerPacket(PacketAesu.class, Side.SERVER);
+//		event.registerPacket(PacketIdsu.class, Side.SERVER);
+//		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
+//		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
+//		event.registerPacket(PacketAutoCraftingTableLock.class, Side.SERVER);
 	}
 
-	@Mod.EventHandler
+	@SubscribeEvent
 	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
 		LOGGER.warn("Invalid fingerprint detected for Tech Reborn!");
 		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for Tech Reborn!");

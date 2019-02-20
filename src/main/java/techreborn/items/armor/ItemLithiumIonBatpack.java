@@ -24,11 +24,13 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -54,8 +56,9 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
-		setMaxStackSize(1);
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, (new Item.Builder()).group(ItemGroup.COMBAT));
+		//TODO: move to builder
+		//setMaxStackSize(1);
 	}
 
 	public static void distributePowerToInventory(World world, EntityPlayer player, ItemStack itemStack, int maxSend) {
@@ -74,8 +77,10 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 
 	// Item
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		distributePowerToInventory(world, player, itemStack, (int) transferLimit);
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof EntityPlayer) {
+			distributePowerToInventory(worldIn, (EntityPlayer) entityIn, stack, (int) transferLimit);
+		}
 	}
 
 	@Override
@@ -95,9 +100,7 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack,
-	                                            @Nullable
-		                                            NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
@@ -109,18 +112,18 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if (!isInGroup(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
 		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		itemList.add(uncharged);
-		//	itemList.add(charged);
+		items.add(uncharged);
+		items.add(charged);
 	}
-
+	
 	// IEnergyItemInfo
 	@Override
 	public int getCapacity() {

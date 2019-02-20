@@ -49,7 +49,6 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.BLAZE_POWDER));
 		register(getStack(Items.WHEAT));
 		register(getStack(Items.CARROT));
-		register(getStack(Items.BOAT));
 		register(getStack(Items.ACACIA_BOAT));
 		register(getStack(Items.BIRCH_BOAT));
 		register(getStack(Items.DARK_OAK_BOAT));
@@ -61,22 +60,33 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.LEATHER_LEGGINGS));
 		register(getStack(Items.BOW));
 		register(getStack(Items.COOKED_CHICKEN));
-		register(getStack(Items.CAKE));
-		register(getStack(Items.ACACIA_DOOR));
-		register(getStack(Items.DARK_OAK_DOOR));
-		register(getStack(Items.BIRCH_DOOR));
-		register(getStack(Items.JUNGLE_DOOR));
-		register(getStack(Items.OAK_DOOR));
-		register(getStack(Items.SPRUCE_DOOR));
+//		TODO: Migrate
+//		register(getStack(Items.CAKE));
 		register(getStack(Items.WOODEN_AXE));
 		register(getStack(Items.WOODEN_HOE));
 		register(getStack(Items.WOODEN_PICKAXE));
 		register(getStack(Items.WOODEN_SHOVEL));
 		register(getStack(Items.WOODEN_SWORD));
-		register(getStack(Items.BED));
-		register(getStack(Items.SKULL, 1, 0));
-		register(getStack(Items.SKULL, 1, 2));
-		register(getStack(Items.SKULL, 1, 4));
+		register(getStack(Items.WHITE_BED));
+		register(getStack(Items.ORANGE_BED));
+		register(getStack(Items.MAGENTA_BED));
+		register(getStack(Items.LIGHT_BLUE_BED));
+		register(getStack(Items.YELLOW_BED));
+		register(getStack(Items.LIME_BED));
+		register(getStack(Items.PINK_BED));
+		register(getStack(Items.GRAY_BED));
+		register(getStack(Items.LIGHT_GRAY_BED));
+		register(getStack(Items.CYAN_BED));
+		register(getStack(Items.PURPLE_BED));
+		register(getStack(Items.BLUE_BED));
+		register(getStack(Items.BROWN_BED));
+		register(getStack(Items.GREEN_BED));
+		register(getStack(Items.RED_BED));
+		register(getStack(Items.BLACK_BED));
+		
+//		register(getStack(Items.SKULL, 1, 0));
+//		register(getStack(Items.SKULL, 1, 2));
+//		register(getStack(Items.SKULL, 1, 4));
 		for (int i = 0; i < StackWIPHandler.devHeads.size(); i++)
 			register(StackWIPHandler.devHeads.get(i));
 		register(getStack(Items.GLOWSTONE_DUST));
@@ -94,7 +104,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.BOOK));
 		register(getStack(Items.PAPER));
 		register(getStack(Items.SUGAR));
-		register(getStack(Items.REEDS));
+//		register(getStack(Items.REEDS));
 		register(getStack(Items.SPIDER_EYE));
 		register(getStack(Items.SLIME_BALL));
 		register(getStack(Items.ROTTEN_FLESH));
@@ -118,9 +128,9 @@ public class ScrapboxRecipes extends RecipeMethods {
 //		register(getMaterial("sap", Type.PART));
 //		register(getMaterial("rubber", Type.PART));
 
-		register(getStack(Blocks.TRAPDOOR));
+//		register(getStack(Blocks.TRAPDOOR));
 		register(getStack(Blocks.STONE_BUTTON));
-		register(getStack(Blocks.WOODEN_BUTTON));
+//		register(getStack(Blocks.WOODEN_BUTTON));
 		register(getStack(Blocks.ACACIA_FENCE));
 		register(getStack(Blocks.ACACIA_FENCE_GATE));
 		register(getStack(Blocks.BIRCH_FENCE));
@@ -134,7 +144,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.OAK_FENCE_GATE));
 		register(getStack(Blocks.SPRUCE_FENCE));
 		register(getStack(Blocks.SPRUCE_FENCE_GATE));
-		register(getStack(Blocks.BRICK_BLOCK));
+//		register(getStack(Blocks.BRICK_BLOCK));
 		register(getStack(Blocks.CRAFTING_TABLE));
 		register(getStack(Blocks.PUMPKIN));
 		register(getStack(Blocks.NETHERRACK));
@@ -145,45 +155,45 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.SAND, 1, 1));
 		register(getStack(Blocks.GLOWSTONE));
 		register(getStack(Blocks.GRAVEL));
-		register(getStack(Blocks.HARDENED_CLAY));
+//		register(getStack(Blocks.HARDENED_CLAY));
 		register(getStack(Blocks.GLASS));
 		register(getStack(Blocks.GLASS_PANE));
 		register(getStack(Blocks.CACTUS));
-		register(getStack(Blocks.TALLGRASS, 1, 0));
-		register(getStack(Blocks.TALLGRASS, 1, 1));
-		register(getStack(Blocks.DEADBUSH));
+//		register(getStack(Blocks.TALLGRASS, 1, 0));
+//		register(getStack(Blocks.TALLGRASS, 1, 1));
+//		register(getStack(Blocks.DEADBUSH));
 		register(getStack(Blocks.CHEST));
 		register(getStack(Blocks.TNT));
 		register(getStack(Blocks.RAIL));
 		register(getStack(Blocks.DETECTOR_RAIL));
-		register(getStack(Blocks.GOLDEN_RAIL));
+//		register(getStack(Blocks.GOLDEN_RAIL));
 		register(getStack(Blocks.ACTIVATOR_RAIL));
-		register(getStack(Blocks.YELLOW_FLOWER));
-		register(getStack(Blocks.RED_FLOWER, 1, 0));
-		register(getStack(Blocks.RED_FLOWER, 1, 1));
-		register(getStack(Blocks.RED_FLOWER, 1, 2));
-		register(getStack(Blocks.RED_FLOWER, 1, 3));
-		register(getStack(Blocks.RED_FLOWER, 1, 4));
-		register(getStack(Blocks.RED_FLOWER, 1, 5));
-		register(getStack(Blocks.RED_FLOWER, 1, 6));
-		register(getStack(Blocks.RED_FLOWER, 1, 7));
-		register(getStack(Blocks.RED_FLOWER, 1, 8));
+//		register(getStack(Blocks.YELLOW_FLOWER));
+//		register(getStack(Blocks.RED_FLOWER, 1, 0));
+//		register(getStack(Blocks.RED_FLOWER, 1, 1));
+//		register(getStack(Blocks.RED_FLOWER, 1, 2));
+//		register(getStack(Blocks.RED_FLOWER, 1, 3));
+//		register(getStack(Blocks.RED_FLOWER, 1, 4));
+//		register(getStack(Blocks.RED_FLOWER, 1, 5));
+//		register(getStack(Blocks.RED_FLOWER, 1, 6));
+//		register(getStack(Blocks.RED_FLOWER, 1, 7));
+//		register(getStack(Blocks.RED_FLOWER, 1, 8));
 		register(getStack(Blocks.BROWN_MUSHROOM));
 		register(getStack(Blocks.RED_MUSHROOM));
 		register(getStack(Blocks.BROWN_MUSHROOM_BLOCK));
 		register(getStack(Blocks.RED_MUSHROOM_BLOCK));
-		register(getStack(Blocks.SAPLING, 1, 0));
-		register(getStack(Blocks.SAPLING, 1, 1));
-		register(getStack(Blocks.SAPLING, 1, 2));
-		register(getStack(Blocks.SAPLING, 1, 3));
-		register(getStack(Blocks.SAPLING, 1, 4));
-		register(getStack(Blocks.SAPLING, 1, 5));
-		register(getStack(Blocks.LEAVES, 1, 0));
-		register(getStack(Blocks.LEAVES, 1, 1));
-		register(getStack(Blocks.LEAVES, 1, 2));
-		register(getStack(Blocks.LEAVES, 1, 3));
-		register(getStack(Blocks.LEAVES2, 1, 0));
-		register(getStack(Blocks.LEAVES2, 1, 1));
+//		register(getStack(Blocks.SAPLING, 1, 0));
+//		register(getStack(Blocks.SAPLING, 1, 1));
+//		register(getStack(Blocks.SAPLING, 1, 2));
+//		register(getStack(Blocks.SAPLING, 1, 3));
+//		register(getStack(Blocks.SAPLING, 1, 4));
+//		register(getStack(Blocks.SAPLING, 1, 5));
+//		register(getStack(Blocks.LEAVES, 1, 0));
+//		register(getStack(Blocks.LEAVES, 1, 1));
+//		register(getStack(Blocks.LEAVES, 1, 2));
+//		register(getStack(Blocks.LEAVES, 1, 3));
+//		register(getStack(Blocks.LEAVES2, 1, 0));
+//		register(getStack(Blocks.LEAVES2, 1, 1));
 
 		register(getStack(TRContent.RUBBER_SAPLING));
 
@@ -199,12 +209,12 @@ public class ScrapboxRecipes extends RecipeMethods {
 //			register(ItemGems.getGemByName(i));
 //		}
 
-		registerDyable(Items.DYE);
-		registerDyable(Blocks.WOOL);
-		registerDyable(Blocks.CARPET);
-		registerDyable(Blocks.STAINED_GLASS);
-		registerDyable(Blocks.STAINED_GLASS_PANE);
-		registerDyable(Blocks.STAINED_HARDENED_CLAY);
+//		registerDyable(Items.DYE);
+//		registerDyable(Blocks.WOOL);
+//		registerDyable(Blocks.CARPET);
+//		registerDyable(Blocks.STAINED_GLASS);
+//		registerDyable(Blocks.STAINED_GLASS_PANE);
+//		registerDyable(Blocks.STAINED_HARDENED_CLAY);
 	}
 
 	static void register(ItemStack output) {
@@ -220,6 +230,6 @@ public class ScrapboxRecipes extends RecipeMethods {
 	}
 
 	static void registerDyable(Block block) {
-		registerDyable(Item.getItemFromBlock(block));
+		//registerDyable(Item.getItemFromBlock(block));
 	}
 }

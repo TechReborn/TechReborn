@@ -25,7 +25,10 @@
 package techreborn.items.armor;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.events.TRRecipeHandler;
@@ -42,23 +45,23 @@ public class ItemTRArmour extends ItemArmor {
 	}
 
 	public ItemTRArmour(ArmorMaterial material, EntityEquipmentSlot slot, String repairOreDict) {
-		super(material, material.getDamageReductionAmount(slot), slot);
+		super(material, slot, (new Item.Builder()).group(ItemGroup.COMBAT));
 		this.repairOreDict = repairOreDict;
 		if (slot == EntityEquipmentSlot.HEAD)
-			setTranslationKey(material.name().toLowerCase() + "Helmet");
+			//setTranslationKey(material.name().toLowerCase() + "Helmet");
 		if (slot == EntityEquipmentSlot.CHEST)
-			setTranslationKey(material.name().toLowerCase() + "Chestplate");
+			//setTranslationKey(material.name().toLowerCase() + "Chestplate");
 		if (slot == EntityEquipmentSlot.LEGS)
-			setTranslationKey(material.name().toLowerCase() + "Leggings");
+			//setTranslationKey(material.name().toLowerCase() + "Leggings");
 		if (slot == EntityEquipmentSlot.FEET)
-			setTranslationKey(material.name().toLowerCase() + "Boots");
+			//setTranslationKey(material.name().toLowerCase() + "Boots");
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
+			return ItemUtils.isInputEqual(repairOreDict, repair, false, true);
 		}
 		return super.getIsRepairable(toRepair, repair);
 	}

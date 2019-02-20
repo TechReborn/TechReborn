@@ -32,6 +32,7 @@ apply plugin: 'maven-publish'
 apply plugin: net.minecrell.gradle.licenser.Licenser
 apply plugin: 'de.undercouch.download'
 apply plugin: 'idea'
+apply plugin: 'eclipse'
 //apply plugin: 'net.covers1624.contained-deps'
 
 sourceCompatibility = 1.8
