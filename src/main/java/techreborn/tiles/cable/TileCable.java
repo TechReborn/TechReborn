@@ -172,8 +172,8 @@ public class TileCable extends TileEntity
 						sendingFace.add(face);
 					}					
 				}
-			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
-				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
+			} else if (tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent()) {
+				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
 				if (energyTile != null && energyTile.canReceive()) {
 					acceptors.add(energyTile);
 				}

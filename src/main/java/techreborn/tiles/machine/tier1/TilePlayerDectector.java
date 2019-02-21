@@ -93,7 +93,7 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 			}
 			if (lastRedstone != redstone) {
 				WorldUtils.updateBlock(world, pos);
-				world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock(), true);
+				world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock());
 			}
 		}
 	}

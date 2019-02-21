@@ -30,6 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IBaseRecipeType;
@@ -48,6 +49,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRTileEntities;
+import techreborn.tiles.machine.tier1.TileElectricFurnace;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileIronAlloyFurnace extends TileMachineBase
@@ -77,54 +79,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		if (stack.isEmpty()) {
 			return 0;
 		} else {
-			int burnTime = net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack);
-			if (burnTime >= 0)
-				return burnTime;
-			Item item = stack.getItem();
-
-			if (item == Item.getItemFromBlock(Blocks.WOODEN_SLAB)) {
-				return 150;
-			} else if (item == Item.getItemFromBlock(Blocks.WOOL)) {
-				return 100;
-			} else if (item == Item.getItemFromBlock(Blocks.CARPET)) {
-				return 67;
-			} else if (item == Item.getItemFromBlock(Blocks.LADDER)) {
-				return 300;
-			} else if (item == Item.getItemFromBlock(Blocks.WOODEN_BUTTON)) {
-				return 100;
-			} else if (Block.getBlockFromItem(item).getDefaultState().getMaterial() == Material.WOOD) {
-				return 300;
-			} else if (item == Item.getItemFromBlock(Blocks.COAL_BLOCK)) {
-				return 16000;
-			} else if (item instanceof ItemTool && "WOOD".equals(((ItemTool) item).getToolMaterialName())) {
-				return 200;
-			} else if (item instanceof ItemSword && "WOOD".equals(((ItemSword) item).getToolMaterialName())) {
-				return 200;
-			} else if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe) item).getMaterialName())) {
-				return 200;
-			} else if (item == Items.STICK) {
-				return 100;
-			} else if (item != Items.BOW && item != Items.FISHING_ROD) {
-				if (item == Items.SIGN) {
-					return 200;
-				} else if (item == Items.COAL) {
-					return 1600;
-				} else if (item == Items.LAVA_BUCKET) {
-					return 20000;
-				} else if (item != Item.getItemFromBlock(Blocks.SAPLING) && item != Items.BOWL) {
-					if (item == Items.BLAZE_ROD) {
-						return 2400;
-					} else if (item instanceof ItemDoor && item != Items.IRON_DOOR) {
-						return 200;
-					} else {
-						return item instanceof ItemBoat ? 400 : 0;
-					}
-				} else {
-					return 100;
-				}
-			} else {
-				return 300;
-			}
+			return TileEntityFurnace.getBurnTimes().getOrDefault(stack.getItem(), 0);
 		}
 	}
 
@@ -174,11 +129,11 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		}
 		for (final Object input : recipeType.getInputs()) {
 			boolean hasItem = false;
-			boolean useOreDict = input instanceof String || recipeType.useOreDic();
+			boolean useTags = input instanceof String || recipeType.useOreDic();
 			boolean checkSize = input instanceof ItemStack;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true, true,
-					useOreDict)) {
+				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true,
+					useTags)) {
 					ItemStack stack = RecipeTranslator.getStackFromObject(input);
 					if (!checkSize || inventory.getStackInSlot(inputslot).getCount() >= stack.getCount()) {
 						hasItem = true;
@@ -255,7 +210,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 					for (Object input : recipeType.getInputs()) {
 						boolean useOreDict = input instanceof String || recipeType.useOreDic();
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, true, useOreDict)) {
+							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, useOreDict)) {
 								int count = 1;
 								if (input instanceof ItemStack) {
 									count = RecipeTranslator.getStackFromObject(input).getCount();
@@ -342,11 +297,11 @@ public class TileIronAlloyFurnace extends TileMachineBase
 			.filterSlot(0, 47, 17,
 				stack -> RecipeHandler.recipeList.stream()
 					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true)))
 			.filterSlot(1, 65, 17,
 				stack -> RecipeHandler.recipeList.stream()
 					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true)))
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
 			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);

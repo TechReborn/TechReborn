@@ -24,7 +24,6 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -94,7 +93,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	private static IInventoryAccess<TileIndustrialGrinder> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(slotID == 1){
-				return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+				return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
 			}
 			return true;
 		};
@@ -102,7 +101,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
+	public void tick() {
 		if (multiblockChecker == null) {
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
 			multiblockChecker = new MultiblockChecker(world, downCenter);
@@ -119,7 +118,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		}
 		
 		if (!world.isRemote && getMultiBlock()) {
-			super.update();
+			super.tick();
 		}
 
 		tank.compareAndUpdate();

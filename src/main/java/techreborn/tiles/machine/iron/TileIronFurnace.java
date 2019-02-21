@@ -86,7 +86,7 @@ public class TileIronFurnace extends TileMachineBase
 			this.updateState();
 		}
 		if (this.fuel <= 0 && this.canSmelt()) {
-			this.fuel = this.fuelGague = (int) (TileEntityFurnace.getItemBurnTime(inventory.getStackInSlot(this.fuelslot)) * 1.25);
+			this.fuel = this.fuelGague = (int) (TileEntityFurnace.getBurnTimes().getOrDefault(inventory.getStackInSlot(this.fuelslot).getItem(), 0) * 1.25);
 			if (this.fuel > 0) {
 				// Fuel slot
 				ItemStack fuelStack = inventory.getStackInSlot(this.fuelslot);
@@ -165,7 +165,7 @@ public class TileIronFurnace extends TileMachineBase
 		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.fuel > 0)
+			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != this.fuel > 0)
 				blockMachineBase.setActive(this.fuel > 0, this.world, this.pos);
 		}
 	}

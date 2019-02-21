@@ -48,10 +48,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static techreborn.utils.OreDictUtils.getDictData;
-import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
-import static techreborn.utils.OreDictUtils.isDictPrefixed;
-import static techreborn.utils.OreDictUtils.joinDictName;
+import static techreborn.utils.TagUtils.getDictData;
+import static techreborn.utils.TagUtils.getDictOreOrEmpty;
+import static techreborn.utils.TagUtils.isDictPrefixed;
+import static techreborn.utils.TagUtils.joinDictName;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {

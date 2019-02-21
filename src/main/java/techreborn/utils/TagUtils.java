@@ -26,15 +26,34 @@ package techreborn.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagCollection;
+import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-@Deprecated //needs to go and be repalced by a version for tags. Has some other stuff that might be useful in another class so im not removing it just yet
-public class OreDictUtils {
+public class TagUtils {
+
+	public static <T> boolean hasTag(T type, Tag<T> tag) {
+		return tag.contains(type);
+	}
+
+	public static TagCollection<Block> getAllBlockTags(World world) {
+		return world.getTags().getBlocks();
+	}
+
+	public static TagCollection<Item> getAllItemTags(World world) {
+		return world.getTags().getItems();
+	}
+
+	public static TagCollection<Fluid> getAllFluidTags(World world) {
+		return world.getTags().getFluids();
+	}
 
 	public static String toFirstLower(String string) {
 		if (string == null || string.isEmpty())
@@ -80,44 +99,23 @@ public class OreDictUtils {
 		return false;
 	}
 
+	@Deprecated
 	@Nonnull
 	public static ItemStack getDictOreOrEmpty(String name, int amount) {
-		List<ItemStack> ores = OreDictionary.getOres(name);
-		if (ores.isEmpty())
-			return ItemStack.EMPTY;
-		ItemStack ore = ores.get(0).copy();
-		ore.setCount(amount);
-		return ore;
+		throw new UnsupportedOperationException("Move to tags");
 	}
 
-	public static boolean isOre(Block block, String oreName) {
-		return isOre(new ItemStack(Item.getItemFromBlock(block)), oreName);
-	}
 
+	@Deprecated
 	public static boolean isOre(IBlockState state, String oreName) {
-		return isOre(
-			new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.getBlock().getMetaFromState(state)),
-			oreName);
+		throw new UnsupportedOperationException("Move to tags");
 	}
 
-	public static boolean isOre(Item item, String oreName) {
-		return isOre(new ItemStack(item), oreName);
-	}
 
+	@Deprecated
 	public static boolean isOre(
 		@Nonnull
 			ItemStack stack, String oreName) {
-		if (!stack.isEmpty() && oreName != null) {
-			int id = OreDictionary.getOreID(oreName);
-			int[] ids = OreDictionary.getOreIDs(stack);
-
-			for (int i : ids) {
-				if (id == i) {
-					return true;
-				}
-			}
-		}
-
-		return false;
+		throw new UnsupportedOperationException("Move to tags");
 	}
 }

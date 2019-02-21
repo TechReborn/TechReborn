@@ -126,10 +126,10 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * 
 	 * @param stack ItemStack ItemStack to insert
 	 * @param slot int Slot ID to check
-	 * @param oreDic boolean Should we use ore dictionary
+	 * @param tags boolean Should we use tags
 	 * @return boolean Returns true if ItemStack will fit into slot
 	 */
-	public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {// Checks to see if it can
+	public boolean canFitStack(ItemStack stack, int slot, boolean tags) {// Checks to see if it can
 																								// fit the stack
 		if (stack.isEmpty()) {
 			return true;
@@ -137,7 +137,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		if (inventory.getStackInSlot(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true, oreDic)) {
+		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, tags)) {
 			if (stack.getCount() + inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {
 				return true;
 			}
@@ -185,9 +185,9 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	private boolean validateReactorRecipeInputs(FusionReactorRecipe recipe, ItemStack slot1, ItemStack slot2) {
-		if (ItemUtils.isItemEqual(slot1, recipe.getTopInput(), true, true, true)) {
+		if (ItemUtils.isItemEqual(slot1, recipe.getTopInput(), true, true)) {
 			if (recipe.getBottomInput() != null) {
-				if (!ItemUtils.isItemEqual(slot2, recipe.getBottomInput(), true, true, true)) {
+				if (!ItemUtils.isItemEqual(slot2, recipe.getBottomInput(), true, true)) {
 					return false;
 				}
 			}

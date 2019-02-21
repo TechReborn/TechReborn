@@ -74,8 +74,8 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 
 	public void checkForWater() {
 		waterblocks = 0;
-		for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-			if (world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
+		for (EnumFacing facing : EnumFacing.values()) {
+			if (facing.getAxis().isHorizontal() && world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
 				waterblocks++;
 			}
 		}

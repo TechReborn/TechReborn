@@ -42,7 +42,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.OreDictUtils;
+import techreborn.utils.TagUtils;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -64,7 +64,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	// ItemPickaxe
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		if ((OreDictUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
+		if ((TagUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
 			&& new ForgePowerItemManager(stack).getEnergyStored() >= cost) {
 			return efficiency;
 		} else {
@@ -93,7 +93,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	// Item
 	@Override
 	public boolean canHarvestBlock(final IBlockState state, final ItemStack stack) {
-		return OreDictUtils.isOre(state, "stone")
+		return TagUtils.isOre(state, "stone")
 			|| state.getMaterial() == Material.ROCK && new ForgePowerItemManager(stack).getEnergyStored() >= cost;
 	}
 

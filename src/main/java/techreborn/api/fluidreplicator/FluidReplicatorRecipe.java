@@ -111,7 +111,7 @@ public class FluidReplicatorRecipe implements Cloneable {
 			return false;
 		}
 		final BlockPos hole = tile.getPos().offset(tile.getFacing().getOpposite(), 2);
-		final Fluid fluid = FluidRegistry.lookupFluidForBlock(tile.getWorld().getBlockState(hole).getBlock());
+		final Fluid fluid = techreborn.utils.FluidUtils.fluidFromBlock(tile.getWorld().getBlockState(hole).getBlock());
 		if (fluid == null) {
 			return false;
 		}

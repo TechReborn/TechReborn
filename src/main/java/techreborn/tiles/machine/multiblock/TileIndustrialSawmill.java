@@ -24,7 +24,6 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -92,7 +91,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 
 	// TileGenericMachine
 	@Override
-	public void update() {
+	public void tick() {
 		if (multiblockChecker == null) {
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
 			multiblockChecker = new MultiblockChecker(world, downCenter);
@@ -109,7 +108,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		}
 
 		if (!world.isRemote && getMutliBlock()) {
-			super.update();
+			super.tick();
 		}
 
 		tank.compareAndUpdate();
@@ -139,7 +138,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	private static IInventoryAccess<TileIndustrialSawmill> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				return stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+				return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
 			}
 			return true;
 		};

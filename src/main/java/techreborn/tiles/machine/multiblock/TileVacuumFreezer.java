@@ -62,9 +62,9 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	
 	// TileGenericMachine
 	@Override
-	public void update() {
+	public void tick() {
 		if (!world.isRemote && getMultiBlock()) {
-			super.update();
+			super.tick();
 		}
 	}
 

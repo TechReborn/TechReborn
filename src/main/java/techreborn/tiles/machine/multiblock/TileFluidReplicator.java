@@ -82,7 +82,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 
 	// TileGenericMachine
 	@Override
-	public void update() {
+	public void tick() {
 		if (multiblockChecker == null) {
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
@@ -98,7 +98,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 		}
 
 		if (getMultiBlock()) {
-			super.update();
+			super.tick();
 		}
 
 		tank.compareAndUpdate();

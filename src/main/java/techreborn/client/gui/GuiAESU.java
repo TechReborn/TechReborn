@@ -64,7 +64,7 @@ public class GuiAESU extends GuiBase {
 
 		if(GuiBase.slotConfigType == SlotConfigType.NONE){
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.6, 0.6, 1);
+			GlStateManager.scaled(0.6, 0.6, 1);
 			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getEnergy()) + "/"
 				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getMaxPower()) + " "
 				+ PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);

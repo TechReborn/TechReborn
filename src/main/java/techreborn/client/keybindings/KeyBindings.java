@@ -25,13 +25,13 @@
 package techreborn.client.keybindings;
 
 import net.minecraft.client.settings.KeyBinding;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
 
 public class KeyBindings {
 
 	public static final String CATEGORY = "keys.techreborn.category";
 	public static final String CONFIG = "keys.techreborn.config";
 
-	public static KeyBinding config = new KeyBinding(CONFIG, Keyboard.KEY_P, CATEGORY);
+	public static KeyBinding config = new KeyBinding(CONFIG, GLFW.GLFW_KEY_P, CATEGORY);
 
 }
