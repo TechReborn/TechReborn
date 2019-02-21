@@ -37,7 +37,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileChemicalReactor extends TileGenericMachine	implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")

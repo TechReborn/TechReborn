@@ -39,7 +39,7 @@ import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileDragonEggSyphon extends TilePowerAcceptor 
 	implements IToolDrop, ItemHandlerProvider {
 

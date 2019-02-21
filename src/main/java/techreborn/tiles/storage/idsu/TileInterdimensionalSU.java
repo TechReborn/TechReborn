@@ -37,7 +37,7 @@ import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.tiles.storage.TileEnergyStorage;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileInterdimensionalSU extends TileEnergyStorage implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxInput", comment = "IDSU Max Input (Value in EU)")

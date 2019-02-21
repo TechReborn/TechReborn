@@ -42,7 +42,7 @@ import techreborn.api.Reference;
 import java.util.List;
 import java.util.Random;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 
 	@ConfigRegistry(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")

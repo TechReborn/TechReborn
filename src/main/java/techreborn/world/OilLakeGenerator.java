@@ -41,7 +41,7 @@ import java.util.Random;
  * Created by modmuss50 on 13/06/2017.
  */
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class OilLakeGenerator implements IWorldGenerator {
 
 	@ConfigRegistry(config = "world", category = "oil_lakes", comment = "Enable the generation of underground oil lakes")

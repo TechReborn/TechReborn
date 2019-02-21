@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class IndustrialSawmillRecipes extends RecipeMethods {
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
 

@@ -42,7 +42,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileElectricFurnace extends TilePowerAcceptor
 		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

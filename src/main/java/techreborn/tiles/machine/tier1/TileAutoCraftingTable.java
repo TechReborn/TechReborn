@@ -58,7 +58,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileAutoCraftingTable extends TilePowerAcceptor
 		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

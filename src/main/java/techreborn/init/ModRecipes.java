@@ -53,7 +53,7 @@ import static techreborn.utils.OreDictUtils.getDictOreOrEmpty;
 import static techreborn.utils.OreDictUtils.isDictPrefixed;
 import static techreborn.utils.OreDictUtils.joinDictName;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {
 
 	public static void init() {

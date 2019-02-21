@@ -41,7 +41,7 @@ import techreborn.items.DynamicCell;
 
 import java.util.List;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileIndustrialCentrifuge extends TileGenericMachine implements IContainerProvider, IListInfoProvider {
 
 	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")

@@ -38,7 +38,7 @@ import techreborn.init.TRContent;
  * Created by modmuss50 on 25/02/2016.
  */
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")

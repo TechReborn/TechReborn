@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
  *
  */
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileFluidReplicator extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxInput", comment = "Fluid Replicator Max Input (Value in EU)")

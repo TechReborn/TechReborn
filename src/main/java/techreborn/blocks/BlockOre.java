@@ -31,7 +31,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.OreDrop;
@@ -39,7 +38,7 @@ import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import java.util.Random;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class BlockOre extends Block {
 
 	@ConfigRegistry(config = "misc", category = "blocks", key = "rubyMinQuatity", comment = "Minimum quantity of Ruby gems per Ruby ore")

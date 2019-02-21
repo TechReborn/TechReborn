@@ -54,7 +54,7 @@ import java.util.Optional;
 
 //TODO add tick and power bars.
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileRollingMachine extends TilePowerAcceptor
 	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

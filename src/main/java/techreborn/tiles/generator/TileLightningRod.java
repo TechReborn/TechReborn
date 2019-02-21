@@ -39,7 +39,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")

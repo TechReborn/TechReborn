@@ -37,7 +37,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileExtractor extends TileGenericMachine implements IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")

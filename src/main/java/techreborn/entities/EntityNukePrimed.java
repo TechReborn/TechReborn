@@ -38,7 +38,7 @@ import techreborn.TechReborn;
 /**
  * Created by Mark on 13/03/2016.
  */
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class EntityNukePrimed extends EntityTNTPrimed {
 
 	@ConfigRegistry(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")

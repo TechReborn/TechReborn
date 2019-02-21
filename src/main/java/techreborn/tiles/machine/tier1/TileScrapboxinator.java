@@ -36,7 +36,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileScrapboxinator extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")

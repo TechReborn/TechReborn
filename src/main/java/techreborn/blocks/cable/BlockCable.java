@@ -61,7 +61,7 @@ import javax.annotation.Nullable;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class BlockCable extends BlockContainer {
 
 	public static final BooleanProperty EAST = BooleanProperty.create("east");

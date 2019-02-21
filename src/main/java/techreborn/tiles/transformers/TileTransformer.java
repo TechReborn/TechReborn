@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * Created by Rushmead
  */
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileTransformer extends TilePowerAcceptor 
 		implements IToolDrop, IListInfoProvider {
 	

@@ -53,7 +53,7 @@ import techreborn.tiles.TileGenericMachine;
 
 import javax.annotation.Nullable;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileIndustrialGrinder extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialGrinderRecipe> {
 	
 	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")

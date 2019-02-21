@@ -50,7 +50,7 @@ import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
 	public static int maxCharge = ConfigTechReborn.CloakingDeviceCharge;
@@ -76,14 +76,14 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entityIn;
 			IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
 				capEnergy.extractEnergy(usage, false);
-				// TODO: Optimize
-				((EntityPlayer) entityIn).setInvisible(true);
+				player.setInvisible(true);
 			} else {
-				if (!((EntityPlayer) entityIn).isPotionActive(MobEffects.INVISIBILITY)) {
-					((EntityPlayer) entityIn).setInvisible(false);
+				if (!player.isPotionActive(MobEffects.INVISIBILITY)) {
+					player.setInvisible(false);
 				}
 			}
 		}

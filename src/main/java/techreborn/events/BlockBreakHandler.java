@@ -43,7 +43,7 @@ import techreborn.utils.OreDictUtils;
 import java.util.List;
 import java.util.Random;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class BlockBreakHandler {
 
 	@ConfigRegistry(config = "compat", category = "general", key = "secondaryGemDrops", comment = "Drop red and yellow garnets and peridot from any harvested oreRuby, oreSapphire, oreSphalerite. False will also disable drop from TechReborn ores.")

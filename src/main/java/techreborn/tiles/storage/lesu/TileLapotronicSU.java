@@ -43,7 +43,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 
 import java.util.ArrayList;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileLapotronicSU extends TileEnergyStorage implements IContainerProvider{
 
 //	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")

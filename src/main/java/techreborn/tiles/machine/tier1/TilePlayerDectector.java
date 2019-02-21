@@ -39,7 +39,7 @@ import techreborn.init.TRContent;
 
 import java.util.Iterator;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop {
 
 	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Value in EU)")

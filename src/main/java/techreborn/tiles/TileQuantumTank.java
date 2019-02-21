@@ -47,7 +47,7 @@ import techreborn.init.TRContent;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileQuantumTank extends TileMachineBase
 	implements ItemHandlerProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 

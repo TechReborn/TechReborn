@@ -37,7 +37,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileCompressor extends TileGenericMachine implements IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "compressor", key = "CompressorInput", comment = "Compressor Max Input (Value in EU)")

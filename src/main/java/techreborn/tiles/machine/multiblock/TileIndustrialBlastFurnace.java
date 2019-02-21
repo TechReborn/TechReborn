@@ -49,7 +49,7 @@ import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileGenericMachine;
 import techreborn.tiles.TileMachineCasing;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileIndustrialBlastFurnace extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<BlastFurnaceRecipe>  {
 	
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")

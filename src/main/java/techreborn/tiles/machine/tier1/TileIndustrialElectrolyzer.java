@@ -39,7 +39,7 @@ import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileIndustrialElectrolyzer extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")

@@ -40,7 +40,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.tiles.TileGenericMachine;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileAlloySmelter extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")

@@ -48,7 +48,7 @@ import techreborn.init.TRContent;
 
 import java.util.List;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TileFusionControlComputer extends TilePowerAcceptor
 		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 

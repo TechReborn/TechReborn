@@ -49,7 +49,7 @@ import java.util.List;
 /**
  * Created by modmuss50 on 08/05/2016.
  */
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TilePump extends TilePowerAcceptor {
 
 	@ConfigRegistry(config = "machines", category = "pump", key = "PumpEUCost", comment = "Pump cost for one block of fluid (Value in EU)")

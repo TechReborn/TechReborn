@@ -29,7 +29,7 @@ import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 
-@RebornRegister(modID = TechReborn.MOD_ID)
+@RebornRegister(TechReborn.MOD_ID)
 public class TRContent {
 	
 	// Misc Blocks
