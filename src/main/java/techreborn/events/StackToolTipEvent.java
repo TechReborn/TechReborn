@@ -31,6 +31,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -59,10 +60,10 @@ public class StackToolTipEvent {
 			((IListInfoProvider) item).addInfo(event.getToolTip(), false, false);
 		} else if (event.getItemStack().getItem() instanceof IEnergyItemInfo) {
 			IEnergyStorage capEnergy = new ForgePowerItemManager(event.getItemStack());
-			event.getToolTip().add(1,
+			event.getToolTip().add(1, new TextComponentString(
 					TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU)
 					+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored() / RebornCoreConfig.euPerFU)
-					+ " " + PowerSystem.getDisplayPower().abbreviation);
+					+ " " + PowerSystem.getDisplayPower().abbreviation));
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 				int percentage = percentage(capEnergy.getMaxEnergyStored(), capEnergy.getEnergyStored());
 				TextFormatting color;
@@ -73,12 +74,12 @@ public class StackToolTipEvent {
 				} else {
 					color = TextFormatting.YELLOW;
 				}
-				event.getToolTip().add(2, color + "" + percentage + "%" + TextFormatting.GRAY + " Charged");
+				event.getToolTip().add(2, new TextComponentString(color + "" + percentage + "%" + TextFormatting.GRAY + " Charged"));
 // TODO: show both input and output rates
-				event.getToolTip().add(3,
+				event.getToolTip().add(3, new TextComponentString(
 						TextFormatting.GRAY + "I/O Rate: " 
 						+ TextFormatting.GOLD
-						+ PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyItemInfo) item).getMaxInput()));
+						+ PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyItemInfo) item).getMaxInput())));
 			}
 		}
 		else {
@@ -93,7 +94,7 @@ public class StackToolTipEvent {
 						NBTTagCompound tileData = event.getItemStack().getTag().getCompoundTag("tile_data");
 						tile.read(tileData);
 						hasData = true;
-						event.getToolTip().add(TextFormatting.DARK_GREEN + "Block data contained");
+						event.getToolTip().add(new TextComponentString(TextFormatting.DARK_GREEN + "Block data contained"));
 					}
 					if (tile instanceof IListInfoProvider) {
 						((IListInfoProvider) tile).addInfo(event.getToolTip(), false, hasData);
