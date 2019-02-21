@@ -27,6 +27,7 @@ package techreborn.blocks.transformers;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -57,8 +58,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	public String name;
 
 	public BlockTransformer(String name) {
-		super(Material.IRON);
-		setHardness(2f);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
 		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH));
 		this.name = name;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));

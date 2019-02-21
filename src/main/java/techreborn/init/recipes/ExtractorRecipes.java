@@ -47,29 +47,20 @@ public class ExtractorRecipes extends RecipeMethods {
 		register(getStack(Blocks.RED_TULIP), getStack(Items.ROSE_RED, 2), false);
 		register(getStack(Blocks.POPPY), getStack(Items.ROSE_RED, 2), false);
 		register(getStack(Blocks.ROSE_BUSH), getStack(Items.ROSE_RED, 4), false);
-
-		
-		register(getStack(Blocks.RED_FLOWER), getStack(Items.DYE, 2, 1), false);
-		register(getStack(Blocks.YELLOW_FLOWER), getStack(Items.DYE, 2, 11), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 1), getStack(Items.DYE, 2, 12), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 2), getStack(Items.DYE, 2, 13), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 3), getStack(Items.DYE, 2, 7), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 4), getStack(Items.DYE, 2, 1), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 5), getStack(Items.DYE, 2, 14), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 6), getStack(Items.DYE, 2, 7), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 7), getStack(Items.DYE, 2, 9), false);
-		register(getStack(Blocks.RED_FLOWER, 1, 8), getStack(Items.DYE, 2, 7), false);
-		register(getStack(Blocks.DOUBLE_PLANT), getStack(Items.DYE, 4, 11), false);
-		register(getStack(Blocks.DOUBLE_PLANT, 1, 1), getStack(Items.DYE, 4, 13), false);
-		register(getStack(Blocks.DOUBLE_PLANT, 1, 4), getStack(Items.DYE, 4, 1), false);
-		register(getStack(Blocks.DOUBLE_PLANT, 1, 5), getStack(Items.DYE, 4, 9), false);
-		
-		
-		register(getStack(Blocks.TALLGRASS, 1, 1), getStack(Items.WHEAT_SEEDS), false);
-		register(getStack(Blocks.TALLGRASS, 1, 2), getStack(Items.WHEAT_SEEDS), false);
-		register(getStack(Blocks.DOUBLE_PLANT, 1, 2), getStack(Items.WHEAT_SEEDS, 2), false);
-		register(getStack(Blocks.DOUBLE_PLANT, 1, 3), getStack(Items.WHEAT_SEEDS, 2), false);
-		register(getStack(Blocks.DEADBUSH, 1, 0), getStack(Items.STICK));
+		register(getStack(Blocks.BLUE_ORCHID), getStack(Items.LIGHT_BLUE_DYE, 2), false);
+		register(getStack(Blocks.AZURE_BLUET), getStack(Items.LIGHT_GRAY_DYE, 2), false);
+		register(getStack(Blocks.OXEYE_DAISY), getStack(Items.LIGHT_GRAY_DYE, 2), false);
+		register(getStack(Blocks.WHITE_TULIP), getStack(Items.LIGHT_GRAY_DYE, 2), false);
+		register(getStack(Blocks.ALLIUM), getStack(Items.MAGENTA_DYE, 2), false);
+		register(getStack(Blocks.LILAC), getStack(Items.MAGENTA_DYE, 4), false);
+		register(getStack(Blocks.ORANGE_TULIP), getStack(Items.ORANGE_DYE, 2), false);
+		register(getStack(Blocks.PINK_TULIP), getStack(Items.PINK_DYE, 2), false);
+		register(getStack(Blocks.PEONY), getStack(Items.PINK_DYE, 4), false);
+		register(getStack(Blocks.DANDELION), getStack(Items.DANDELION_YELLOW, 2), false);
+		register(getStack(Blocks.SUNFLOWER), getStack(Items.DANDELION_YELLOW, 2), false);
+		register(getStack(Blocks.TALL_GRASS), getStack(Items.WHEAT_SEEDS), false);
+		register(getStack(Blocks.LARGE_FERN), getStack(Items.WHEAT_SEEDS), false);
+		register(getStack(Blocks.DEAD_BUSH), getStack(Items.STICK));
 		for (int i = 1; i < 15; i++)
 			register(getStack(Blocks.WOOL, 1, i), getStack(Blocks.WOOL, 1, 0), false);
 		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {

@@ -25,11 +25,11 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.tiles.TileMachineCasing;
 
@@ -38,9 +38,8 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public final int heatCapacity;
 
 	public BlockMachineCasing(int heatCapacity) {
-		super(Material.IRON);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f).sound(SoundType.METAL));
 		this.heatCapacity = heatCapacity;
-		setHardness(2F);
 	}
 
 	public static int getHeatFromState(IBlockState state) {

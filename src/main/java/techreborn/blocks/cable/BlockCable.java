@@ -24,6 +24,7 @@
 
 package techreborn.blocks.cable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -82,10 +83,8 @@ public class BlockCable extends BlockContainer {
 	public final TRContent.Cables type;
 
 	public BlockCable(TRContent.Cables type) {
-		super(Material.ROCK);
+		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 8f));
 		this.type = type;
-		setHardness(1F);
-		setResistance(8F);
 		setDefaultState(getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

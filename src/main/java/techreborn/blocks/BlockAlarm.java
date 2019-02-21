@@ -24,6 +24,8 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
@@ -63,7 +65,7 @@ public class BlockAlarm extends BaseTileBlock {
 	private AxisAlignedBB[] bbs;
 
 	public BlockAlarm() {
-		super(Material.ROCK);
+		super(Block.Properties.create(Material.ROCK));
 		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH).with(ACTIVE, false));
 		this.bbs = GenBoundingBoxes(0.19, 0.81);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));

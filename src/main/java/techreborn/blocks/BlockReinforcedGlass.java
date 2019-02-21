@@ -24,13 +24,11 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
@@ -39,30 +37,12 @@ import java.util.Random;
 public class BlockReinforcedGlass extends BlockGlass {
 
 	public BlockReinforcedGlass() {
-		super(Material.GLASS, false);
-		setSoundType(SoundType.STONE);
-		setHardness(4.0F);
-		setResistance(60F);
+		super(Block.Properties.create(Material.GLASS).hardnessAndResistance(4f, 60f).sound(SoundType.STONE));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override
-	public int quantityDropped(Random random) {
+	public int quantityDropped(IBlockState state, Random random) {
 		return 1;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
-
-	public boolean isFullCube() {
-		return false;
 	}
 }

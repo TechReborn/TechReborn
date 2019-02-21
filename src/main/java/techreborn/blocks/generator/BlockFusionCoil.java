@@ -53,9 +53,7 @@ import java.util.List;
 public class BlockFusionCoil extends Block {
 
 	public BlockFusionCoil() {
-		super(Material.IRON);
-		setHardness(2f);
-		setSoundType(SoundType.METAL);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f).sound(SoundType.METAL));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 	

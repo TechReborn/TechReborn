@@ -27,6 +27,7 @@ package techreborn.blocks.storage;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -57,8 +58,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	public int guiID;
 
 	public BlockEnergyStorage(String name, int guiID) {
-		super(Material.IRON);
-		setHardness(2f);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
 		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH));
 		this.name = name;
 		this.guiID = guiID;

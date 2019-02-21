@@ -24,13 +24,14 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import reborncore.common.BaseBlock;
 
 public class BlockMachineFrame extends BaseBlock {
 
 	public BlockMachineFrame() {
-		super(Material.IRON);
-		setHardness(1f);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(1f).sound(SoundType.METAL));
 	}
 }
