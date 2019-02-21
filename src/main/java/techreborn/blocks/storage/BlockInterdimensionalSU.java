@@ -70,11 +70,11 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	}
 	
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
 			drops.add(new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
 		} else {
-			super.getDrops(drops, world, pos, state, fortune);
+			super.getDrops(state, drops, world, pos, fortune);
 		}
 	}
 }

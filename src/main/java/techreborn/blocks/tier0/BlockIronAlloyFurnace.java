@@ -27,6 +27,7 @@ package techreborn.blocks.tier0;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -37,8 +38,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BlockIronAlloyFurnace extends BlockMachineBase {
 
@@ -58,9 +57,7 @@ public class BlockIronAlloyFurnace extends BlockMachineBase {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
-		final List<ItemStack> items = new ArrayList<>();
-		items.add(new ItemStack(this));
-		return items;
+	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+		drops.add(new ItemStack(this));
 	}
 }

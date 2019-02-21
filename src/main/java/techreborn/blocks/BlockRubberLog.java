@@ -37,6 +37,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -204,14 +205,12 @@ public class BlockRubberLog extends Block {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		List<ItemStack> drops = new ArrayList<>();
+	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		drops.add(new ItemStack(this));
 		if (state.getValue(HAS_SAP)) {
 			if (new Random().nextInt(4) == 0) {
 				drops.add(TRContent.Parts.SAP.getStack());
 			}
 		}
-		return drops;
 	}
 }

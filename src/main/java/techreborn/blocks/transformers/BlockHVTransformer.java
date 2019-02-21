@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
@@ -51,7 +50,7 @@ public class BlockHVTransformer extends BlockTransformer {
 	}
 
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, final IBlockAccess world, final BlockPos pos, final IBlockState state, final int fortune) {
+	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		if (RebornCoreConfig.wrenchRequired){
 			drops.add(new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
 		}

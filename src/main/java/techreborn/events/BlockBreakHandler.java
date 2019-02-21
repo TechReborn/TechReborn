@@ -27,6 +27,8 @@ package techreborn.events;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -98,7 +100,7 @@ public class BlockBreakHandler {
 			for (int i = 1; i < 10; i++) {
 				BlockPos nextPos = pos.up(i);
 				IBlockState nextState = worldIn.getBlockState(nextPos);
-				if(nextState.getBlock().isWood(worldIn, nextPos)){
+				if(nextState.getBlock().isIn(BlockTags.LOGS)){
 					blocks ++;
 				}
 			}
