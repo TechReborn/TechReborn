@@ -24,33 +24,22 @@
 
 package techreborn;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
-import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
-import techreborn.client.GuiHandler;
 import techreborn.config.ConfigTechReborn;
-import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
 import techreborn.events.TRRecipeHandler;
 import techreborn.events.TRTickHandler;
@@ -60,10 +49,7 @@ import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
-import techreborn.world.OilLakeGenerator;
-import techreborn.world.TechRebornWorldGen;
 import techreborn.world.village.ModLootTables;
-import techreborn.world.village.VillageComponentRubberPlantaion;
 import techreborn.world.village.VillagePlantaionHandler;
 
 import java.io.File;
@@ -72,19 +58,10 @@ import java.io.File;
 public class TechReborn {
 
 	public static final String MOD_ID = "techreborn";
-	public static final String MOD_NAME = "Tech Reborn";
-	public static final String MOD_VERSION = "@MODVERSION@";
-	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore;after:jei@[4.7,)";
-	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
-	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
-	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
-
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 //	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
-//	@Mod.Instance
 	public static TechReborn INSTANCE;
-	public static TechRebornWorldGen worldGen;
 	public static File configDir;
 	
 	public static final ItemGroup ITEMGROUP = new ItemGroup(-1, MOD_ID) {
@@ -101,13 +78,9 @@ public class TechReborn {
 		INSTANCE = this;
 
 		configDir = new File(new File("teamreborn"), "techreborn");
-		worldGen = new TechRebornWorldGen();
-		worldGen.configFile = (new File(configDir, "ores.json"));
 
 		//CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		// Registration
-		TRTileEntities.init();
 		ModFluids.init();
 
 		ClientboundPackets.init();
@@ -116,7 +89,7 @@ public class TechReborn {
 		// Entitys
 		//EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
-		proxy.preInit(event);
+		proxy.preInit();
 
 		// Registers Chest Loot
 		ModLoot.init();

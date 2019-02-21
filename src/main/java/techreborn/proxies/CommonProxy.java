@@ -24,35 +24,23 @@
 
 package techreborn.proxies;
 
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import techreborn.TechReborn;
 
 public class CommonProxy {
-	public static boolean isChiselAround;
 
-	public void preInit(FMLPreInitializationEvent event) {
-		if (isChiselAround) {
-			TechReborn.LOGGER.info("Hello chisel, shiny things will be enabled in techreborn");
-		}
-	}
-
-	public void init(FMLInitializationEvent event) {
+	public void preInit() {
 
 	}
 
-	public void postInit(FMLPostInitializationEvent event) {
+	public void init() {
 
 	}
 
-	public void serverStarting(FMLServerStartingEvent event) {
+	public void postInit() {
 
 	}
 
-	public boolean isCTMAvailable() {
-		return false;
+	public void serverStarting() {
+
 	}
 
 	public String getUpgradeConfigText() {
@@ -63,8 +51,5 @@ public class CommonProxy {
 		return true;
 	}
 
-	public void rebuildRecipeBook(){
-
-	}
 
 }

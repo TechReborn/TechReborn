@@ -25,10 +25,8 @@
 package techreborn.proxies;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.util.RecipeBookClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
@@ -36,8 +34,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.IconSupplier;
 import reborncore.client.hud.StackInfoHUD;
@@ -59,8 +55,8 @@ import techreborn.items.ItemFrequencyTransmitter;
 public class ClientProxy extends CommonProxy {
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-		super.preInit(event);
+	public void preInit() {
+		super.preInit();
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
 		MinecraftForge.EVENT_BUS.register(new IconSupplier());
@@ -68,8 +64,8 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void init(FMLInitializationEvent event) {
-		super.init(event);
+	public void init() {
+		super.init();
 		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
 		MinecraftForge.EVENT_BUS.register(GuiSlotConfiguration.class);
 		MinecraftForge.EVENT_BUS.register(GuiFluidConfiguration.class);
@@ -81,10 +77,6 @@ public class ClientProxy extends CommonProxy {
 		GuiBase.fluidCellProvider = DynamicCell::getCellWithFluid;
 	}
 
-	@Override
-	public boolean isCTMAvailable() {
-		return isChiselAround;
-	}
 
 	@Override
 	public String getUpgradeConfigText() {
@@ -112,9 +104,4 @@ public class ClientProxy extends CommonProxy {
 		return Minecraft.getInstance().gameSettings.fancyGraphics;
 	}
 
-	@Override
-	public void rebuildRecipeBook() {
-		super.rebuildRecipeBook();
-		RecipeBookClient.rebuildTable();
-	}
 }

@@ -28,9 +28,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.common.IWorldGenerator;
 import techreborn.TechReborn;
 import techreborn.blocks.BlockRubberLeaves;
 import techreborn.blocks.BlockRubberLog;
@@ -38,7 +42,7 @@ import techreborn.init.TRContent;
 
 import java.util.Random;
 
-public class RubberTreeGenerator extends WorldGenerator {
+public class RubberTreeGenerator implements IWorldGenerator {
 
 	boolean isWorldGen = true;
 
@@ -69,7 +73,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 		return false;
 	}
 
-	public boolean growTree(World world, Random rand, int x, int y, int z) {
+	public boolean growTree(IWorld world, Random rand, int x, int y, int z) {
 		int treeHeight = rand.nextInt(5) + TechReborn.worldGen.config.rubberTreeConfig.treeBaseHeight;
 		int worldHeight = world.getHeight();
 		if (y >= 1 && y + treeHeight + 1 <= worldHeight) {
@@ -171,5 +175,10 @@ public class RubberTreeGenerator extends WorldGenerator {
 			return hasPlacedBlock;
 		}
 		return false;
+	}
+
+	@Override
+	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+
 	}
 }

@@ -24,16 +24,13 @@
 
 package techreborn.world;
 
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.init.ModFluids;
 
 import java.util.Random;
 
@@ -58,13 +55,13 @@ public class OilLakeGenerator implements IWorldGenerator {
 		if (!enable) {
 			return;
 		}
-		if (!world.provider.isSurfaceWorld()) {
+		if (!world.getDimension().isSurfaceWorld()) {
 			return;
 		}
 		if (random.nextInt(rareity) != 0) {
 			return;
 		}
 		int y = random.nextInt(maxHeight);
-		new WorldGenLakes(ModFluids.BLOCK_OIL).generate(world, random, new BlockPos((chunkX * 16) + 8, y, (chunkZ * 16) + 8));
+		//new WorldGenLakes(ModFluids.BLOCK_OIL).generate(world, random, new BlockPos((chunkX * 16) + 8, y, (chunkZ * 16) + 8));
 	}
 }
