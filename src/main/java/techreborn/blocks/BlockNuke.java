@@ -79,26 +79,26 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
 			EntityArrow entityarrow = (EntityArrow) entityIn;
 			EntityLivingBase shooter = null;
-			if (entityarrow.shootingEntity instanceof EntityLivingBase) {
-				shooter = (EntityLivingBase) entityarrow.shootingEntity;
+			if (entityarrow.func_212360_k() instanceof EntityLivingBase) {
+				shooter = (EntityLivingBase) entityarrow.func_212360_k();
 			}
 			if (entityarrow.isBurning()) {
 				ignite(worldIn, pos, state, shooter);
-				worldIn.setBlockToAir(pos);
+				worldIn.removeBlock(pos);
 			}
 		}
 	}
 
 	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		super.onBlockAdded(worldIn, pos, state);
+	public void onBlockAdded(IBlockState state, World worldIn, BlockPos pos, IBlockState oldState) {
+		super.onBlockAdded(state, worldIn, pos, oldState);
 		if (worldIn.isBlockPowered(pos)) {
 			ignite(worldIn, pos, state, null);
-			worldIn.setBlockToAir(pos);
+			worldIn.removeBlock(pos);
 		}
 	}
 
@@ -106,7 +106,7 @@ public class BlockNuke extends BaseBlock {
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_) {
 		if (worldIn.isBlockPowered(pos)) {
 			ignite(worldIn, pos, state, null);
-			worldIn.setBlockToAir(pos);
+			worldIn.removeBlock(pos);
 		}
 	}
 
