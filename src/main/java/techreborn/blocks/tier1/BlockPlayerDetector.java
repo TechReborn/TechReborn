@@ -94,13 +94,12 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 			
 		if (tileEntity == null) {
-			return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+			return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 		}
 		
 		String type = state.getValue(TYPE);
@@ -150,19 +149,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	protected BlockStateContainer createBlockState() {
 		TYPE = new PropertyString("type", types);
 		return new BlockStateContainer(this, TYPE);
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta > types.length) {
-			meta = 0;
-		}
-		return getBlockState().getBaseState().with(TYPE, typeNamesList.get(meta));
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return typeNamesList.indexOf(state.getValue(TYPE));
 	}
 
 	@Override

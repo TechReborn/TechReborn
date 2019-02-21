@@ -156,8 +156,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
-	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 
@@ -172,7 +171,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 			}
 		}
 
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 	
 	@Override
@@ -193,18 +192,6 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		return false;
 	}
 	
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int facingInt = getSideFromEnum(state.getValue(FACING));
-		return facingInt;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing facing = getSideFromint(meta);
-		return this.getDefaultState().with(FACING, facing);
-	}
-
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {
 		ALL;
 

@@ -111,12 +111,6 @@ public class BlockNuke extends BaseBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return false;
-	}
-
-	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(OVERLAY) ? 1 : 0;
 	}

@@ -55,21 +55,20 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
-									final EntityPlayer player, final EnumHand hand, final EnumFacing side,
-									final float hitX, final float hitY, final float hitZ) {
-		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) world.getTileEntity(pos);
-		if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRContent.Machine.FUSION_COIL.block)){
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) worldIn.getTileEntity(pos);
+		if(!playerIn.getHeldItem(hand).isEmpty() && playerIn.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRContent.Machine.FUSION_COIL.block)){
 			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
 			boolean placed = false;
 			for(BlockPos coil : coils){
-				if(player.getHeldItem(hand).isEmpty()){
+				if(playerIn.getHeldItem(hand).isEmpty()){
 					return true;
 				}
-				if(world.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
-					world.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
-					if(!player.isCreative()){
-						player.getHeldItem(hand).shrink(1);
+				if(worldIn.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
+					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
+					if(!playerIn.isCreative()){
+						playerIn.getHeldItem(hand).shrink(1);
 					}
 					placed = true;
 				}
@@ -80,7 +79,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 
 		}
 		tileFusionControlComputer.checkCoils();
-		return super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override

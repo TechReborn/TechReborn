@@ -31,7 +31,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import java.util.List;
@@ -41,8 +40,6 @@ import javax.annotation.Nullable;
 public class BlockSupercondensator extends BlockMachineBase {
 	public BlockSupercondensator(Material material) {
 		super();
-		setTranslationKey("techreborn.supercondensator");
-//		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 
 	@Override

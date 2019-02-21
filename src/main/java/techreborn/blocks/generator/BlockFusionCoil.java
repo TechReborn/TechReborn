@@ -56,9 +56,9 @@ public class BlockFusionCoil extends Block {
 		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f).sound(SoundType.METAL));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
-	
+
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 
 		ItemStack tool = playerIn.getHeldItem(EnumHand.MAIN_HAND);
@@ -78,12 +78,13 @@ public class BlockFusionCoil extends Block {
 		}
 		return false;
 	}
- 
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip,
+			ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		//TODO: Translate
+		// TODO: Translate
 		tooltip.add(new TextComponentString("Right click Fusion Control computer to auto place"));
 	}
 }

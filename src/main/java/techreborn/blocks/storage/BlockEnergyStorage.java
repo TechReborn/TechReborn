@@ -150,8 +150,7 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
-	                                EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 
@@ -191,18 +190,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 			facing = EnumFacing.UP;
 		}
 		setFacing(facing, worldIn, pos);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int facingInt = getSideFromEnum(state.getValue(FACING));
-		return facingInt;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing facing = getSideFromint(meta);
-		return this.getDefaultState().with(FACING, facing);
 	}
 
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {

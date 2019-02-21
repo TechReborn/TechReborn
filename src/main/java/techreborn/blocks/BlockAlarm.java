@@ -110,8 +110,7 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-	                                EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 
@@ -132,21 +131,7 @@ public class BlockAlarm extends BaseTileBlock {
 
 		}
 
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int facingInt = state.getValue(FACING).getIndex();
-		int activeInt = state.getValue(ACTIVE) ? 8 : 0;
-		return facingInt + activeInt;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		Boolean active = (meta & 8) == 8;
-		EnumFacing facing = EnumFacing.byIndex(meta & 7);
-		return this.getDefaultState().with(FACING, facing).with(ACTIVE, active);
+		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Nullable

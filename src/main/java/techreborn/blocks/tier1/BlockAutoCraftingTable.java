@@ -24,11 +24,8 @@
 
 package techreborn.blocks.tier1;
 
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -40,23 +37,8 @@ import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
 public class BlockAutoCraftingTable extends BlockMachineBase {
 
 	public BlockAutoCraftingTable() {
-		super(true);
+		super();
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier1_machines"));
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState();
 	}
 
 	@Override
