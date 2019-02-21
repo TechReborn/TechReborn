@@ -56,9 +56,7 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, (new Item.Builder()).group(ItemGroup.COMBAT));
-		//TODO: move to builder
-		//setMaxStackSize(1);
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().maxStackSize(1));
 	}
 
 	public static void distributePowerToInventory(World world, EntityPlayer player, ItemStack itemStack, int maxSend) {

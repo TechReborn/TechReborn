@@ -27,6 +27,7 @@ package techreborn.items.armor;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 
 /**
@@ -41,7 +42,7 @@ public class ItemTRArmour extends ItemArmor {
 	}
 
 	public ItemTRArmour(IArmorMaterial material, EntityEquipmentSlot slot, String repairOreDict) {
-		super(material, slot, (new Item.Properties()).group(ItemGroup.COMBAT));
+		super(material, slot, (new Item.Properties()).group(TechReborn.ITEMGROUP).maxStackSize(1));
 		this.repairOreDict = repairOreDict;
 		if (slot == EntityEquipmentSlot.HEAD)
 			//setTranslationKey(material.name().toLowerCase() + "Helmet");

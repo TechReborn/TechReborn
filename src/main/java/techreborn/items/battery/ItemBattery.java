@@ -39,6 +39,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 
@@ -48,15 +49,13 @@ public class ItemBattery extends Item implements IEnergyItemInfo {
 	int maxTransfer = 0;
 
 	public ItemBattery(int maxEnergy, int maxTransfer) {
-		super();
-		setMaxStackSize(1);
-		setMaxDamage(1);
+		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1).defaultMaxDamage(1));
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;
 		this.addPropertyOverride(new ResourceLocation("techreborn:empty"), new IItemPropertyGetter() {
 			@Override
 			@OnlyIn(Dist.CLIENT)
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float call(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() == 0) {
 					return 1.0F;
 				}

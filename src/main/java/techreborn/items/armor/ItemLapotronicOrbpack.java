@@ -52,9 +52,7 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, (new Item.Builder()).group(ItemGroup.COMBAT));
-		//TODO: move to builder
-		//setMaxStackSize(1);
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().maxStackSize(1));
 	}
 
 	// Item

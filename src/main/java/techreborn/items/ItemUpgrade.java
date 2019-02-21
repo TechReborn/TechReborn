@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.tile.TileMachineBase;
+import techreborn.TechReborn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,9 +40,9 @@ public class ItemUpgrade extends Item implements IUpgrade {
 	public final IUpgrade behavior;
 
 	public ItemUpgrade(String name, IUpgrade process) {
+		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(16));
 		this.name = name;
 		this.behavior = process;
-		setMaxStackSize(16);
 	}
 
 	@Override

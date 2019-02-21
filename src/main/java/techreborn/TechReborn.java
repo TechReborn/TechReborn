@@ -26,10 +26,13 @@ package techreborn;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
-
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -83,13 +86,14 @@ public class TechReborn {
 	public static TechReborn INSTANCE;
 	public static TechRebornWorldGen worldGen;
 	public static File configDir;
+	
+	public static final ItemGroup ITEMGROUP = new ItemGroup(-1, MOD_ID) {
+		@OnlyIn(Dist.CLIENT)
+		public ItemStack createIcon() {
+			return TRContent.Parts.MACHINE_PARTS.getStack();
+		}
+	};
 
-//	public static final CreativeTabs TAB = new CreativeTabs(MOD_ID) {
-//		@Override
-//		public ItemStack createIcon() {
-//			return TRContent.Parts.MACHINE_PARTS.getStack();
-//		}
-//	};
 
 	public TechReborn() {
 		MinecraftForge.EVENT_BUS.register(this);

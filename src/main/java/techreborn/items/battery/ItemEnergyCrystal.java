@@ -24,7 +24,7 @@
 
 package techreborn.items.battery;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,19 +39,18 @@ public class ItemEnergyCrystal extends ItemBattery {
 	public ItemEnergyCrystal() {
 		super(ConfigTechReborn.EnergyCrystalMaxCharge, 1_000);
 	}
-
+	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if (!isInGroup(group)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRContent.ENERGY_CRYSTAL);
-		ItemStack charged = stack.copy();
+		ItemStack uncharged = new ItemStack(TRContent.ENERGY_CRYSTAL);
+		ItemStack charged = new ItemStack(TRContent.ENERGY_CRYSTAL);
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(stack);
-		itemList.add(charged);
+		items.add(uncharged);
+		items.add(charged);
 	}
 }

@@ -392,7 +392,7 @@ public class TRContent {
 
 		private Dusts() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_dust");
 		}
 
@@ -423,7 +423,7 @@ public class TRContent {
 
 		private SmallDusts() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_small_dust");
 		}
 
@@ -449,7 +449,7 @@ public class TRContent {
 
 		private Gems() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_gem");
 		}
 
@@ -476,7 +476,7 @@ public class TRContent {
 
 		private Ingots() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_ingot");
 		}
 
@@ -503,7 +503,7 @@ public class TRContent {
 
 		private Nuggets() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_nugget");
 		}
 
@@ -570,7 +570,7 @@ public class TRContent {
 
 		private Parts() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name);
 		}
 
@@ -599,7 +599,7 @@ public class TRContent {
 
 		private Plates() {
 			name = this.toString().toLowerCase();
-			item = new Item();
+			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_plate");
 		}
 

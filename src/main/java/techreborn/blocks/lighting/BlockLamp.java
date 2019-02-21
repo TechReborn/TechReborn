@@ -38,8 +38,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
@@ -55,7 +55,7 @@ public class BlockLamp extends BaseTileBlock {
 
 	public static DirectionProperty FACING;
 	public static BooleanProperty ACTIVE;
-	private AxisAlignedBB[] bbs;
+	protected final VoxelShape[] shape;
 
 	private int cost;
 	private int brightness;
@@ -63,23 +63,23 @@ public class BlockLamp extends BaseTileBlock {
 	public BlockLamp(int brightness, int cost, double depth, double width) {
 		super(Block.Properties.create(Material.REDSTONE_LIGHT));
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH).with(ACTIVE, false));
-		this.bbs = GenBoundingBoxes(depth, width);
+		this.shape = GenCuboidShapes(depth, width);
 		this.cost = cost;
 		this.brightness = brightness;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	
-	private static AxisAlignedBB[] GenBoundingBoxes(double depth, double width) {
-		AxisAlignedBB[] bb = {
-			new AxisAlignedBB(width, 1.0 - depth, width, 1.0 - width, 1.0D, 1.0 - width),
-			new AxisAlignedBB(width, 0.0D, width, 1.0 - width, depth, 1.0 - width),
-			new AxisAlignedBB(width, width, 1.0 - depth, 1.0 - width, 1.0 - width, 1.0D),
-			new AxisAlignedBB(width, width, 0.0D, 1.0 - width, 1.0 - width, depth),
-			new AxisAlignedBB(1.0 - depth, width, width, 1.0D, 1.0 - width, 1.0 - width),
-			new AxisAlignedBB(0.0D, width, width, depth, 1.0 - width, 1.0 - width),
-		};
-		return bb;
+	private VoxelShape[] GenCuboidShapes(double depth, double width) {
+		VoxelShape[] shapes = {
+				Block.makeCuboidShape(width, 1.0 - depth, width, 1.0 - width, 1.0D, 1.0 - width),
+				Block.makeCuboidShape(width, 0.0D, width, 1.0 - width, depth, 1.0 - width),
+				Block.makeCuboidShape(width, width, 1.0 - depth, 1.0 - width, 1.0 - width, 1.0D),
+				Block.makeCuboidShape(width, width, 0.0D, 1.0 - width, 1.0 - width, depth),
+				Block.makeCuboidShape(1.0 - depth, width, width, 1.0D, 1.0 - width, 1.0 - width),
+				Block.makeCuboidShape(0.0D, width, width, depth, 1.0 - width, 1.0 - width),
+			};
+		return shapes;
 	}
 	
 	public static boolean isActive(IBlockState state) {
@@ -147,10 +147,10 @@ public class BlockLamp extends BaseTileBlock {
 		else
 			return BlockFaceShape.UNDEFINED;
 	}
-
+	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockReader worldIn, BlockPos pos) {
-		return this.bbs[getFacing(state).getIndex()];
+	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+		return shape[getFacing(state).getIndex()];
 	}
 	
 	@SuppressWarnings("deprecation")

@@ -31,6 +31,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import techreborn.world.RubberTreeGenerator;
 
@@ -47,8 +48,8 @@ public class BlockRubberSapling extends BlockSapling {
 	}
 
 	@Override
-	public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) {
+	public void grow(IWorld worldIn, BlockPos pos, IBlockState state, Random rand) {
+		if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
 			return;
 		}
 		worldIn.setBlockToAir(pos);

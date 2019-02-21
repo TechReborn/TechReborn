@@ -97,24 +97,24 @@ public class RegistryEventHandler {
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties()));
+		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties()));
 		Arrays.stream(MachineBlocks.values()).forEach(value -> {
-			RebornRegistry.registerBlock(value.frame);
-			RebornRegistry.registerBlock(value.casing);
+			RebornRegistry.registerBlock(value.frame, new Item.Properties());
+			RebornRegistry.registerBlock(value.casing, new Item.Properties());
 		});
-		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
-		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block));
+		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties()));
+		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties()));
+		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties()));
 
 		// Misc. blocks
-		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"));
-		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"));
-		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"));
-		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"));
+		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), new Item.Properties());
+		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), new Item.Properties());
+		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), new Item.Properties());
+		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), new Item.Properties());
+		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), new Item.Properties());
+		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), new Item.Properties());
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), new Item.Properties());
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
 				ItemBlockRubberSapling.class, 
 				"rubber_sapling");
@@ -123,7 +123,7 @@ public class RegistryEventHandler {
 					new ItemSlab(TRContent.RUBBER_LOG_SLAB_HALF, (BlockSlab) TRContent.RUBBER_LOG_SLAB_HALF, (BlockSlab) TRContent.RUBBER_LOG_SLAB_DOUBLE),
 					"rubber_plank_double_slab");
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG_STAIR = InitUtils.setup(new BlockRubberPlankStair(TRContent.RUBBER_LOG.getDefaultState(), "rubber_plank"),
-					"rubber_plank_stair"));
+					"rubber_plank_stair"), new Item.Properties());
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
