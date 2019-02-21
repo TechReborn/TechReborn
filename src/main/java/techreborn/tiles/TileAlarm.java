@@ -30,6 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -41,12 +42,17 @@ import reborncore.common.util.ChatUtils;
 import techreborn.blocks.BlockAlarm;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.utils.MessageIDs;
 
 public class TileAlarm extends TileEntity 
 	implements ITickable, IToolDrop {
 	private int selectedSound = 1;
-	
+
+	public TileAlarm() {
+		super(TRTileEntities.ALARM);
+	}
+
 	public void rightClick() {
 		if (!world.isRemote) {
 			if (selectedSound < 3) {
@@ -76,10 +82,11 @@ public class TileAlarm extends TileEntity
 		super.read(compound);
 	}
 
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
-		return false;
-	}
+	//TODO 1.13 seems to be gone?
+//	@Override
+//	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+//		return false;
+//	}
 
 	// ITickable
 	@Override

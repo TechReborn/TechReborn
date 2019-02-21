@@ -27,6 +27,7 @@ package techreborn.tiles.storage;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
@@ -50,8 +51,8 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	public int maxOutput;
 	public int maxStorage;
 
-	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
-		super();
+	public TileEnergyStorage(TileEntityType<?> tileEntityType, String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
+		super(tileEntityType);
 		inventory = new Inventory<>(invSize, "Tile" + name, 64, this).withConfiguredAccess();
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;

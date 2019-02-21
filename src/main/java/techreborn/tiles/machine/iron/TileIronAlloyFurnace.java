@@ -47,6 +47,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileIronAlloyFurnace extends TileMachineBase
@@ -63,7 +64,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	int fuel = 3;
 
 	public TileIronAlloyFurnace() {
-
+		super(TRTileEntities.IRON_ALLOY_FURNACE);
 	}
 
 	/**

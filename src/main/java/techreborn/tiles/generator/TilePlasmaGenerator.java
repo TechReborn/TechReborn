@@ -34,6 +34,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TilePlasmaGenerator extends TileBaseFluidGenerator implements IContainerProvider {
@@ -48,7 +49,7 @@ public class TilePlasmaGenerator extends TileBaseFluidGenerator implements ICont
 	public static int energyPerTick = 400;
 
 	public TilePlasmaGenerator() {
-		super(EFluidGenerator.PLASMA, "TilePlasmaGenerator", tankCapacity, energyPerTick);
+		super(TRTileEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "TilePlasmaGenerator", tankCapacity, energyPerTick);
 	}
 
 	@Override

@@ -27,6 +27,7 @@ package techreborn.tiles.transformers;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IListInfoProvider;
@@ -60,8 +61,8 @@ public class TileTransformer extends TilePowerAcceptor
 	public int maxOutput;
 	public int maxStorage;
 
-	public TileTransformer(String name, Block wrenchDrop, EnumPowerTier tier) {
-		super();
+	public TileTransformer(TileEntityType<?> tileEntityType, String name, Block wrenchDrop, EnumPowerTier tier) {
+		super(tileEntityType);
 		this.wrenchDrop = wrenchDrop;
 		this.inputTier = tier;
 		if (tier != EnumPowerTier.MICRO) {

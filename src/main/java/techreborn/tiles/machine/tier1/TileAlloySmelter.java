@@ -38,6 +38,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(TechReborn.MOD_ID)
@@ -49,7 +50,7 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 	public static int maxEnergy = 1_000;
 
 	public TileAlloySmelter() {
-		super("AlloySmelter", maxInput, maxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
+		super(TRTileEntities.ALLOY_SMELTER, "AlloySmelter", maxInput, maxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileAlloySmelter", 64, this).withConfiguredAccess();
@@ -64,11 +65,11 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 			.filterSlot(0, 34, 47,
 				stack -> RecipeHandler.recipeList.stream()
 					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true)))
 			.filterSlot(1, 126, 47,
 				stack -> RecipeHandler.recipeList.stream()
 					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true)))
 			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 			.create(this);
 	}

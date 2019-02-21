@@ -40,6 +40,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 import javax.annotation.Nullable;
@@ -63,7 +64,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	int ticksSinceLastChange;
 
 	public TileFluidReplicator() {
-		super("FluidReplicator", maxInput, maxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
+		super(TRTileEntities.FLUID_REPLICATOR, "FluidReplicator", maxInput, maxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		final int[] inputs = new int[] { 0 };
 		this.inventory = new Inventory<>(4, "TileFluidReplicator", 64, this, getInventoryAccess());
 		this.crafter = new FluidReplicatorRecipeCrafter(this, this.inventory, inputs, null);

@@ -31,6 +31,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.TextFormatting;
@@ -44,6 +45,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,11 @@ public class TileCable extends TileEntity
 	private TRContent.Cables cableType = null;
 	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
 	int ticksSinceLastChange = 0;
-	
+
+	public TileCable() {
+		super(TRTileEntities.CABLE);
+	}
+
 	private TRContent.Cables getCableType() {
 		Block block = world.getBlockState(pos).getBlock();
 		if(block instanceof BlockCable){
@@ -132,7 +138,7 @@ public class TileCable extends TileEntity
 	
 	// ITickable
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote) {
 			return;
 		}

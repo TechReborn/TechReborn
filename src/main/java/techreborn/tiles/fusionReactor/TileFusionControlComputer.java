@@ -45,6 +45,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	boolean hasStartedCrafting = false;
 
 	public TileFusionControlComputer() {
-		super();
+		super(TRTileEntities.FUSION_CONTROL_COMPUTER);
 		checkOverfill = false;
 		this.inventory = new Inventory<>(3, "TileFusionControlComputer", 64, this).withConfiguredAccess();
 	}

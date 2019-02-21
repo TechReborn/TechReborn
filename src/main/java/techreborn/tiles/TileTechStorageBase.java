@@ -29,8 +29,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.items.CapabilityItemHandler;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -39,6 +42,7 @@ import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +54,8 @@ public class TileTechStorageBase extends TileMachineBase
 	public final Inventory<TileTechStorageBase> inventory;
 	public ItemStack storedItem;
 
-	public TileTechStorageBase(String name, int maxCapacity) {
+	public TileTechStorageBase(TileEntityType<?> tileEntityTypeIn, String name, int maxCapacity) {
+		super(tileEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storedItem = ItemStack.EMPTY;
 		inventory = new Inventory<>(3, name, maxCapacity, this).withConfiguredAccess();
@@ -61,7 +66,7 @@ public class TileTechStorageBase extends TileMachineBase
 		storedItem = ItemStack.EMPTY;
 
 		if (tagCompound.hasKey("storedStack")) {
-			storedItem = new ItemStack((NBTTagCompound) tagCompound.getTag("storedStack"));
+			storedItem = ItemStack.read(tagCompound.getCompound("storedStack"));
 		}
 
 		if (!storedItem.isEmpty()) {
@@ -213,17 +218,20 @@ public class TileTechStorageBase extends TileMachineBase
 		return tagCompound;
 	}
 
+	@Nonnull
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory);
-		}
-		return super.getCapability(capability, facing);
-	}
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 
-	@Override
-	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+			return LazyOptional.of(new NonNullSupplier<T>() {
+				@Nonnull
+				@Override
+				public T get() {
+					return (T) inventory;
+				}
+			});
+		}
+		return super.getCapability(cap);
 	}
 
 	// ItemHandlerProvider
@@ -245,11 +253,11 @@ public class TileTechStorageBase extends TileMachineBase
 			int size = 0;
 			String name = "of nothing";
 			if (!storedItem.isEmpty()) {
-				name = storedItem.getDisplayName();
+				name = storedItem.getDisplayName().getString();
 				size += storedItem.getCount();
 			}
 			if (!inventory.getStackInSlot(1).isEmpty()) {
-				name = inventory.getStackInSlot(1).getDisplayName();
+				name = inventory.getStackInSlot(1).getDisplayName().getString();
 				size += inventory.getStackInSlot(1).getCount();
 			}
 			info.add(size + " " + name);

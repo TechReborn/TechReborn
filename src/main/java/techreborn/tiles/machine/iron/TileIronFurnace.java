@@ -29,6 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityType;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
@@ -38,6 +39,7 @@ import reborncore.common.util.ItemUtils;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 public class TileIronFurnace extends TileMachineBase
 		implements ItemHandlerProvider, IContainerProvider {
@@ -52,6 +54,10 @@ public class TileIronFurnace extends TileMachineBase
 	int output = 1;
 	int fuelslot = 2;
 	boolean active = false;
+
+	public TileIronFurnace() {
+		super(TRTileEntities.IRON_FURNACE);
+	}
 
 	public int gaugeProgressScaled(final int scale) {
 		return this.progress * scale / this.fuelScale;

@@ -38,6 +38,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.storage.BlockLapotronicSU;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.storage.TileEnergyStorage;
 import reborncore.client.containerBuilder.IContainerProvider;
 
@@ -59,13 +60,13 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public TileLapotronicSU() {
-		super("LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnumPowerTier.INSANE, 8192, baseOutput, 1_000_000);
+		super(TRTileEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnumPowerTier.INSANE, 8192, baseOutput, 1_000_000);
 		checkOverfill = false;
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (world.isRemote) {
 			return;
 		}

@@ -45,6 +45,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileGenericMachine;
 import techreborn.tiles.TileMachineCasing;
@@ -61,7 +62,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	private int cachedHeat;
 
 	public TileIndustrialBlastFurnace() {
-		super("IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
+		super(TRTileEntities.INDUSTRIAL_BLAST_FURNACE, "IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new Inventory<>(5, "TileIndustrialBlastFurnace", 64, this).withConfiguredAccess();

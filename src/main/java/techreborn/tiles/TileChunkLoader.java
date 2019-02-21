@@ -38,6 +38,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
@@ -55,7 +56,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	public int tickTime;
 
 	public TileChunkLoader() {
-		super();
+		super(TRTileEntities.CHUNK_LOADER );
 	}
 
 	@Override

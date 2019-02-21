@@ -25,6 +25,7 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.api.IToolDrop;
@@ -58,8 +59,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	 */
 	double pendingWithdraw = 0.0;
 
-	public TileBaseFluidGenerator(EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
-		super();
+	public TileBaseFluidGenerator(TileEntityType<?> tileEntityType, EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
+		super(tileEntityType);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		tank = new Tank(tileName, tankCapacity, this);
 		inventory = new Inventory<>(3, tileName, 64, this).withConfiguredAccess();

@@ -46,6 +46,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public int balanceSlot = 0;
 
 	public TileRollingMachine() {
-		super();
+		super(TRTileEntities.ROLLING_MACHINE);
 		outputSlot = 9;
 	}
 
@@ -110,8 +111,8 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (world.isRemote) {
 			return;
 		}
@@ -120,7 +121,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		InventoryCrafting craftMatrix = getCraftingMatrix();
 		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 		if (currentRecipe != null) {
-			if (world.getTotalWorldTime() % 2 == 0) {
+			if (world.getGameTime() % 2 == 0) {
 				Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
 				if (balanceResult.isPresent()) {
 					craftMatrix = balanceResult.get();
@@ -203,10 +204,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
 			ItemStack stackInSlot = inventory.getStackInSlot(s);
 			Ingredient ingredient = currentRecipe.getIngredients().get(s);
-			if (ingredient != Ingredient.EMPTY && ingredient.apply(sourceStack)) {
+			if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(s);
-				} else if (stackInSlot.getItem() == sourceStack.getItem() && stackInSlot.getItemDamage() == sourceStack.getItemDamage()) {
+				} else if (stackInSlot.getItem() == sourceStack.getItem()) {
 					possibleSlots.add(s);
 				}
 			}
@@ -229,7 +230,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			|| bestSlot.getLeft() == balanceSlot
 			|| bestSlot.getRight() == sourceStack.getCount()
 			|| inventory.getStackInSlot(bestSlot.getLeft()).isEmpty()
-			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStackInSlot(bestSlot.getLeft()), true, true, true)) {
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStackInSlot(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
 		sourceStack.shrink(1);

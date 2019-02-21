@@ -38,6 +38,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
@@ -54,7 +55,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	private int onStatusHoldTicks = -1;
 
 	public TileLightningRod() {
-		super();
+		super(TRTileEntities.LIGHTNING_ROD);
 	}
 
 	@Override

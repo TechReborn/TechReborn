@@ -37,6 +37,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.items.DynamicCell;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	public static int maxEnergy = 10_000;
 
 	public TileIndustrialCentrifuge() {
-		super("IndustrialCentrifuge", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
+		super(TRTileEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileIndustrialCentrifuge", 64, this).withConfiguredAccess();

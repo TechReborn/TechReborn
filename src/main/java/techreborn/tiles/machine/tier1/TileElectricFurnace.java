@@ -41,6 +41,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileElectricFurnace extends TilePowerAcceptor
@@ -60,7 +61,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	boolean wasBurning = false;
 
 	public TileElectricFurnace() {
-		super();
+		super(TRTileEntities.ELECTRIC_FURNACE );
 	}
 
 	public int gaugeProgressScaled(int scale) {
@@ -125,7 +126,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 			final IBlockState BlockStateContainer = world.getBlockState(pos);
 			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-				if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
+				if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != progress > 0)
 					blockMachineBase.setActive(progress > 0, world, pos);
 			}
 			wasBurning = (progress > 0);
@@ -143,12 +144,12 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote) {
 			return;
 		}
 
-		super.update();
+		super.tick();
 		charge(2);
 
 		final boolean burning = isBurning();

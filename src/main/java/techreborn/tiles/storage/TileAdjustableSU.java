@@ -36,6 +36,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileAdjustableSU extends TileEnergyStorage implements IContainerProvider {
@@ -51,7 +52,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	private int OUTPUT = 64; // The current output
 
 	public TileAdjustableSU() {
-		super("ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
+		super(TRTileEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
 	
 	public void handleGuiInputFromClient(int id) {

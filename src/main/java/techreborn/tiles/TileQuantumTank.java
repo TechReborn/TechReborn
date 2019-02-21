@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -43,6 +44,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -56,6 +58,14 @@ public class TileQuantumTank extends TileMachineBase
 
 	public Tank tank = new Tank("TileQuantumTank", maxStorage, this);
 	public Inventory<TileQuantumTank> inventory = new Inventory<>(3, "TileQuantumTank", 64, this).withConfiguredAccess();
+
+	public TileQuantumTank(){
+		this(TRTileEntities.QUANTUM_TANK);
+	}
+
+	public TileQuantumTank(TileEntityType<?> tileEntityTypeIn) {
+		super(tileEntityTypeIn);
+	}
 
 	public void readWithoutCoords(final NBTTagCompound tagCompound) {
 		tank.read(tagCompound);

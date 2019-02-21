@@ -31,6 +31,7 @@ import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileDigitalChest extends TileTechStorageBase implements IContainerProvider {
@@ -39,7 +40,7 @@ public class TileDigitalChest extends TileTechStorageBase implements IContainerP
 	public static int maxStorage = 32768;
 
 	public TileDigitalChest() {
-		super("TileDigitalChest", maxStorage);
+		super(TRTileEntities.DIGITAL_CHEST,"TileDigitalChest", maxStorage);
 	}
 
 	@Override

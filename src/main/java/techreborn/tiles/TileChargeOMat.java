@@ -39,6 +39,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileChargeOMat extends TilePowerAcceptor
@@ -54,7 +55,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 	public Inventory<TileChargeOMat> inventory = new Inventory<>(6, "TileChargeOMat", 64, this).withConfiguredAccess();
 
 	public TileChargeOMat() {
-		super();
+		super(TRTileEntities.CHARGE_O_MAT);
 	}
 
 	// TilePowerAcceptor

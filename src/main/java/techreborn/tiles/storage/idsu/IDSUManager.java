@@ -26,11 +26,12 @@ package techreborn.tiles.storage.idsu;
 
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
+import net.minecraft.world.storage.WorldSavedDataStorage;
 import techreborn.TechReborn;
 
 public class IDSUManager {
 	public static IDataIDSU getData(World world) {
-		MapStorage storage = world.getMapStorage();
+		WorldSavedDataStorage storage = world.getMapStorage();
 		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, TechReborn.MOD_ID + "_IDSU");
 
 		if (instance == null) {

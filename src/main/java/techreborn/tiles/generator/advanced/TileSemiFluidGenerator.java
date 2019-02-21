@@ -31,6 +31,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.generator.TileBaseFluidGenerator;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -49,7 +50,7 @@ public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IC
 	public static int energyPerTick = 8;
 
 	public TileSemiFluidGenerator() {
-		super(EFluidGenerator.SEMIFLUID, "TileSemiFluidGenerator", tankCapacity, energyPerTick);
+		super(TRTileEntities.SEMI_FLUID_GENERATOR, EFluidGenerator.SEMIFLUID, "TileSemiFluidGenerator", tankCapacity, energyPerTick);
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
@@ -38,6 +39,7 @@ import reborncore.common.util.StringUtils;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
+import techreborn.init.TRTileEntities;
 
 import java.util.List;
 
@@ -46,6 +48,10 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	boolean canSeeSky = false;
 	boolean lastState = false;
 	SolarPanels panel;
+
+	public TileSolarPanel() {
+		super(TRTileEntities.SOLAR_PANEL);
+	}
 
 	public boolean isSunOut() {
 		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaytime();

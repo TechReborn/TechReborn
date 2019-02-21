@@ -35,6 +35,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(TechReborn.MOD_ID)
@@ -48,7 +49,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	public MultiblockChecker multiblockChecker;
 
 	public TileVacuumFreezer() {
-		super("VacuumFreezer", maxInput, maxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
+		super(TRTileEntities.VACUUM_FREEZER, "VacuumFreezer", maxInput, maxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileVacuumFreezer", 64, this).withConfiguredAccess();

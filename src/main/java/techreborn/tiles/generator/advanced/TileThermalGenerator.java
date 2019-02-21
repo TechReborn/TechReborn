@@ -31,6 +31,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.generator.TileBaseFluidGenerator;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -49,7 +50,7 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	public static int energyPerTick = 10;
 
 	public TileThermalGenerator() {
-		super(EFluidGenerator.THERMAL, "TileThermalGenerator", tankCapacity, energyPerTick);
+		super(TRTileEntities.THERMAL_GEN, EFluidGenerator.THERMAL, "TileThermalGenerator", tankCapacity, energyPerTick);
 	}
 
 	@Override

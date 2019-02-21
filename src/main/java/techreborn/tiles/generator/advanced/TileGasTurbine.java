@@ -31,6 +31,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.generator.TileBaseFluidGenerator;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -49,7 +50,7 @@ public class TileGasTurbine extends TileBaseFluidGenerator implements IContainer
 	public static int energyPerTick = 16;
 
 	public TileGasTurbine() {
-		super(EFluidGenerator.GAS, "TileGasTurbine", tankCapacity, energyPerTick);
+		super(TRTileEntities.GAS_TURBINE, EFluidGenerator.GAS, "TileGasTurbine", tankCapacity, energyPerTick);
 	}
 
 	@Override

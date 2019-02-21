@@ -35,6 +35,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(TechReborn.MOD_ID)
@@ -46,7 +47,7 @@ public class TileCompressor extends TileGenericMachine implements IContainerProv
 	public static int maxEnergy = 1000;
 
 	public TileCompressor() {
-		super("Compressor", maxInput, maxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
+		super(TRTileEntities.COMPRESSOR, "Compressor", maxInput, maxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileCompressor", 64, this).withConfiguredAccess();

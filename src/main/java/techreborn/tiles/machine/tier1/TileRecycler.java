@@ -40,6 +40,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileRecycler extends TilePowerAcceptor 
@@ -58,7 +59,7 @@ public class TileRecycler extends TilePowerAcceptor
 	private int progress;
 
 	public TileRecycler() {
-		super();
+		super(TRTileEntities.RECYCLER);
 	}
 
 	public int gaugeProgressScaled(int scale) {
@@ -114,7 +115,7 @@ public class TileRecycler extends TilePowerAcceptor
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			boolean shouldBurn = isBurning || (canRecycle() && canUseEnergy(getEuPerTick(cost)));
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != shouldBurn) {
+			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != shouldBurn) {
 				blockMachineBase.setActive(isBurning, world, pos);
 			}
 		}
@@ -122,8 +123,8 @@ public class TileRecycler extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (world.isRemote) {
 			return;
 		}

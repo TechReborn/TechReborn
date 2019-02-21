@@ -28,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
@@ -50,6 +49,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public boolean locked = true;
 
 	public TileAutoCraftingTable() {
-		super();
+		super(TRTileEntities.AUTO_CRAFTING_TABLE);
 	}
 
 	@Nullable
@@ -133,7 +133,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 							requiredSize = 0;
 						}
 						if (stacksInSlots[i] > requiredSize) {
-							if (ingredient.apply(stack)) {
+							if (ingredient.test(stack)) {
 								if (stack.getItem().getContainerItem() != null) {
 									if (!hasRoomForExtraItem(stack.getItem().getContainerItem(stack))) {
 										continue;
@@ -189,13 +189,13 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			Ingredient ingredient = recipe.getIngredients().get(i);
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getStackInSlot(i);
-			if (ingredient.apply(bestSlot)) {
+			if (ingredient.test(bestSlot)) {
 				handleContainerItem(bestSlot);
 				bestSlot.shrink(1);
 			} else {
 				for (int j = 0; j < 9; j++) {
 					ItemStack stack = inventory.getStackInSlot(j);
-					if (ingredient.apply(stack)) {
+					if (ingredient.test(stack)) {
 						handleContainerItem(stack);
 						stack.shrink(1); // TODO is this right? or do I need
 											// to use it as an actull
@@ -235,7 +235,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public boolean hasIngredient(Ingredient ingredient) {
 		for (int i = 0; i < 9; i++) {
 			ItemStack stack = inventory.getStackInSlot(i);
-			if (ingredient.apply(stack)) {
+			if (ingredient.test(stack)) {
 				return true;
 			}
 		}
@@ -261,11 +261,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		for (int i = 0; i < recipe.getIngredients().size(); i++) {
 			ItemStack stackInSlot = inventory.getStackInSlot(i);
 			Ingredient ingredient = recipe.getIngredients().get(i);
-			if (ingredient != Ingredient.EMPTY && ingredient.apply(stack)) {
+			if (ingredient != Ingredient.EMPTY && ingredient.test(stack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);
-				} else if (stackInSlot.getItem() == stack.getItem()
-						&& stackInSlot.getItemDamage() == stack.getItemDamage()) {
+				} else if (stackInSlot.getItem() == stack.getItem()) {
 					if (stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()) {
 						possibleSlots.add(i);
 					}
@@ -312,8 +311,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (world.isRemote) {
 			return;
 		}

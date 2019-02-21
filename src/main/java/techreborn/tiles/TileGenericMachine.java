@@ -27,6 +27,7 @@ package techreborn.tiles;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
@@ -57,7 +58,8 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	 * @param toolDrop Block Block to drop with wrench
 	 * @param energySlot int Energy slot to use to charge machine from battery
 	 */
-	public TileGenericMachine(String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+	public TileGenericMachine(TileEntityType<?> tileEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+		super(tileEntityType);
 		this.name = "Tile" + name;
 		this.maxInput = maxInput;
 		this.maxEnergy = maxEnergy;

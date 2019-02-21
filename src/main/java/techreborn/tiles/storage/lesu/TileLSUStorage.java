@@ -26,17 +26,23 @@ package techreborn.tiles.storage.lesu;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 public class TileLSUStorage extends TileMachineBase
 	implements IToolDrop {
 
 	public LesuNetwork network;
+
+	public TileLSUStorage() {
+		super(TRTileEntities.LSU_STORAGE);
+	}
 
 	public final void findAndJoinNetwork(World world, int x, int y, int z) {
 		network = new LesuNetwork();

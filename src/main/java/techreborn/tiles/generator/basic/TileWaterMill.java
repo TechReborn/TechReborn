@@ -35,6 +35,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.generator.BlockWindMill;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -53,7 +54,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	int waterblocks = 0;
 
 	public TileWaterMill() {
-		super();
+		super(TRTileEntities.WATER_MILL);
 	}
 
 	@Override

@@ -30,6 +30,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -41,7 +42,7 @@ public class TileHighVoltageSU extends TileEnergyStorage implements IContainerPr
 	 *  MFSU should store 40M FE with 2048 FE/t I/O
 	 */
 	public TileHighVoltageSU() {
-		super("HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnumPowerTier.HIGH, 512, 512, 10_000_000);
+		super(TRTileEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnumPowerTier.HIGH, 512, 512, 10_000_000);
 	}
 
 	@Override

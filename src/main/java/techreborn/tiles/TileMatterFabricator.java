@@ -39,6 +39,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor
@@ -57,7 +58,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
-		super();
+		super(TRTileEntities.MATTER_FABRICATOR );
 	}
 
 	private boolean spaceForOutput() {

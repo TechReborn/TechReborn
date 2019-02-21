@@ -24,11 +24,17 @@
 
 package techreborn.tiles;
 
+import net.minecraft.tileentity.TileEntityType;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import techreborn.init.TRTileEntities;
 import techreborn.multiblocks.MultiBlockCasing;
 
 public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
+
+	public TileMachineCasing() {
+		super(TRTileEntities.MACHINE_CASINGS);
+	}
 
 	@Override
 	public void onMachineActivated() {

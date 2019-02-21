@@ -36,6 +36,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 import java.util.Iterator;
 
@@ -53,7 +54,7 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	boolean redstone = false;
 
 	public TilePlayerDectector() {
-		super();
+		super(TRTileEntities.PLAYER_DETECTOR);
 	}
 	
 	public boolean isProvidingPower() {
@@ -62,9 +63,9 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
-		if (!world.isRemote && world.getWorldTime() % 20 == 0) {
+	public void tick() {
+		super.tick();
+		if (!world.isRemote && world.getGameTime() % 20 == 0) {
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(euPerTick)) {

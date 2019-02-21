@@ -24,11 +24,18 @@
 
 package techreborn.tiles;
 
+import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
+
 public class TileCreativeQuantumTank extends TileQuantumTank {
 
+	public TileCreativeQuantumTank() {
+		super(TRTileEntities.CREATIVE_QUANTUM_TANK);
+	}
+
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (!tank.isEmpty() && !tank.isFull()) {
 			tank.setFluidAmount(Integer.MAX_VALUE);
 		}

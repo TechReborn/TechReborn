@@ -35,6 +35,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(TechReborn.MOD_ID)
@@ -46,7 +47,7 @@ public class TileAssemblingMachine extends TileGenericMachine implements IContai
 	public static int maxEnergy = 10_000;
 
 	public TileAssemblingMachine() {
-		super("AssemblingMachine", maxInput, maxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
+		super(TRTileEntities.ASSEMBLY_MACHINE, "AssemblingMachine", maxInput, maxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileAssemblingMachine", 64, this).withConfiguredAccess();

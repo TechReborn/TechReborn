@@ -37,6 +37,7 @@ import techreborn.init.TRContent;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(TechReborn.MOD_ID)
@@ -50,7 +51,7 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 	public MultiblockChecker multiblockChecker;
 
 	public TileDistillationTower() {
-		super("DistillationTower", maxInput, maxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
+		super(TRTileEntities.DISTILLATION_TOWER,"DistillationTower", maxInput, maxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileDistillationTower", 64, this).withConfiguredAccess();
@@ -74,14 +75,14 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 
 	// TileGenericMachine
 	@Override
-	public void update() {
+	public void tick() {
 		if (multiblockChecker == null) {
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		
 		if (!world.isRemote && getMutliBlock()){ 
-			super.update();
+			super.tick();
 		}	
 	}
 

@@ -33,6 +33,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -51,7 +52,7 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	public static double thunderMultiplier = 1.25;
 
 	public TileWindMill() {
-		super();
+		super(TRTileEntities.WIND_MILL);
 	}
 
 	@Override

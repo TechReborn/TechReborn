@@ -25,12 +25,17 @@
 package techreborn.tiles;
 
 import net.minecraft.item.ItemStack;
+import techreborn.init.TRTileEntities;
 
 public class TileCreativeQuantumChest extends TileQuantumChest {
 
+	public TileCreativeQuantumChest() {
+		super(TRTileEntities.CREATIVE_QUANTUM_CHEST);
+	}
+
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		ItemStack stack = inventory.getStackInSlot(1);
 		if (!stack.isEmpty() && storedItem.isEmpty()) {
 			stack.setCount(stack.getMaxStackSize());

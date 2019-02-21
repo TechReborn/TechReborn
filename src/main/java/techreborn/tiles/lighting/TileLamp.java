@@ -28,15 +28,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.lighting.BlockLamp;
+import techreborn.init.TRTileEntities;
 
 public class TileLamp extends TilePowerAcceptor	
 	implements IToolDrop {
 
 	private static int capacity = 33;
+
+	public TileLamp() {
+		super(TRTileEntities.LAMP);
+	}
 
 	// TilePowerAcceptor
 	@Override

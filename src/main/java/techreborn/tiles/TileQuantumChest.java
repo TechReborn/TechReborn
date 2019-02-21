@@ -25,12 +25,18 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.TRTileEntities;
+
+import javax.annotation.Nonnull;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileQuantumChest extends TileTechStorageBase implements IContainerProvider {
@@ -39,7 +45,11 @@ public class TileQuantumChest extends TileTechStorageBase implements IContainerP
 	public static int maxStorage = Integer.MAX_VALUE;
 
 	public TileQuantumChest() {
-		super("TileQuantumChest", maxStorage);
+		this(TRTileEntities.QUANTUM_CHEST);
+	}
+
+	public TileQuantumChest(TileEntityType<?> tileEntityType) {
+		super(tileEntityType, "TileQuantumChest", maxStorage);
 	}
 
 	@Override
@@ -47,4 +57,5 @@ public class TileQuantumChest extends TileTechStorageBase implements IContainerP
 		return new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this);
 	}
+
 }

@@ -43,6 +43,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
@@ -65,7 +66,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	ItemStack burnItem;
 
 	public TileSolidFuelGenerator() {
-		super();
+		super(TRTileEntities.SOLID_FUEL_GENEREATOR);
 	}
 
 	public static int getItemBurnTime(ItemStack stack) {

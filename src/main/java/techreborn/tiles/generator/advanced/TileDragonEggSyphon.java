@@ -38,6 +38,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileDragonEggSyphon extends TilePowerAcceptor 
@@ -54,7 +55,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	private long lastOutput = 0;
 
 	public TileDragonEggSyphon() {
-		super();
+		super(TRTileEntities.DRAGON_EGG_SYPHON);
 	}
 	
 	private boolean tryAddingEnergy(int amount) {
