@@ -33,6 +33,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.api.IToolHandler;
+import techreborn.TechReborn;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -40,7 +41,7 @@ import reborncore.api.IToolHandler;
 public class ItemWrench extends Item implements IToolHandler {
 
 	public ItemWrench() {
-		setMaxStackSize(1);
+		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 	}
 
 	@Override

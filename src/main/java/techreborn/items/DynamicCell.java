@@ -47,6 +47,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
+import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRContent;
 
@@ -58,8 +59,7 @@ public class DynamicCell extends Item {
 	public static final int CAPACITY = Fluid.BUCKET_VOLUME;
 
 	public DynamicCell() {
-		super();
-		setMaxStackSize(64);
+		super(new Item.Properties().group(TechReborn.ITEMGROUP));
 		TRRecipeHandler.hideEntry(this);
 	}
 

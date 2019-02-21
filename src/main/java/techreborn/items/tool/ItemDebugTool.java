@@ -25,19 +25,17 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
+import techreborn.TechReborn;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -45,37 +43,37 @@ import reborncore.common.powerSystem.PowerSystem;
 public class ItemDebugTool extends Item {
 
 	public ItemDebugTool() {
+		super(new Item.Properties().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		Block block = worldIn.getBlockState(pos).getBlock();
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		Block block = context.getWorld().getBlockState(context.getPos()).getBlock();
 		if (block != null) {
-			sendMessage(playerIn, worldIn, new TextComponentString(TextFormatting.GREEN + "Block Registry Name: "
+			sendMessage(context, new TextComponentString(TextFormatting.GREEN + "Block Registry Name: "
 					+ TextFormatting.BLUE + block.getRegistryName().toString()));
 		} else {
 			return EnumActionResult.FAIL;
 		}
 
-		TileEntity tile = worldIn.getTileEntity(pos);
+		TileEntity tile = context.getWorld().getTileEntity(context.getPos());
 		if (tile != null) {
-			sendMessage(playerIn, worldIn, new TextComponentString(
-					TextFormatting.GREEN + "Tile Entity: " + TextFormatting.BLUE + tile.getDisplayName().toString()));
+			sendMessage(context, new TextComponentString(
+					TextFormatting.GREEN + "Tile Entity: " + TextFormatting.BLUE + tile.getType().toString()));
 		}
 		if (tile instanceof IEnergyInterfaceTile) {
-			sendMessage(playerIn, worldIn, new TextComponentString(TextFormatting.GREEN + "Power: "
+			sendMessage(context, new TextComponentString(TextFormatting.GREEN + "Power: "
 					+ TextFormatting.BLUE + PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
-		} else if (tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
-			sendMessage(playerIn, worldIn, new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
-					+ tile.getCapability(CapabilityEnergy.ENERGY, facing).getEnergyStored() + "FU"));
+		} else if (tile.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing()) != null) {
+			sendMessage(context, new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
+					+ ((IEnergyStorage) tile.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing())).getEnergyStored() + "FU"));
 		}
 		return EnumActionResult.SUCCESS;
 	}
 
-	private void sendMessage(EntityPlayer playerIn, World worldIn, TextComponentString string) {
-		if (!worldIn.isRemote) {
-			playerIn.sendMessage(string);
+	private void sendMessage(ItemUseContext context, TextComponentString string) {
+		if (!context.getWorld().isRemote) {
+			context.getPlayer().sendMessage(string);
 		}
 	}
 }

@@ -34,12 +34,14 @@ import net.minecraft.world.World;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.WorldUtils;
+import techreborn.TechReborn;
 import techreborn.api.Reference;
 import java.util.List;
 
 public class ItemScrapBox extends Item {
 
 	public ItemScrapBox() {
+		super(new Item.Properties().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override

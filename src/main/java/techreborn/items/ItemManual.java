@@ -37,7 +37,7 @@ import techreborn.client.EGui;
 public class ItemManual extends Item {
 
 	public ItemManual() {
-		this.setMaxStackSize(1);
+		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 	}
 
 	@Override

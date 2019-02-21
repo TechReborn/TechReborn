@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
@@ -37,11 +38,16 @@ import techreborn.client.EGui;
 public class ItemDestructopack extends Item {
 
 	public ItemDestructopack() {
+		super(new Item.Properties().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
-		player.openGui(TechReborn.INSTANCE, EGui.DESTRUCTOPACK.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
+		if (world.isRemote) {
+			BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
+			EGui.DESTRUCTOPACK.open(player, pos, world);
+		}
+		//TODO: Add server part
 		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 }

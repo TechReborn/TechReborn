@@ -43,6 +43,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.DimensionManager;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
+import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
@@ -52,16 +53,13 @@ import java.util.List;
 public class ItemFrequencyTransmitter extends Item {
 
 	public ItemFrequencyTransmitter() {
-		setMaxStackSize(1);
+		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 		this.addPropertyOverride(new ResourceLocation("techreborn", "coords"), new IItemPropertyGetter() {
 			@Override
 			@OnlyIn(Dist.CLIENT)
-			public float apply(ItemStack stack,
-			                   @Nullable
-				                   World worldIn,
-			                   @Nullable
-				                   EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().hasKey("x") && stack.getTag().hasKey("y") && stack.getTag().hasKey("z") && stack.getTag().hasKey("dim")) {
+			public float call(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().hasKey("x")
+						&& stack.getTag().hasKey("y") && stack.getTag().hasKey("z") && stack.getTag().hasKey("dim")) {
 					return 1.0F;
 				}
 				return 0.0F;
