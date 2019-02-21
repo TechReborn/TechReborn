@@ -30,6 +30,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -71,7 +72,7 @@ public class BlockComputerCube extends BlockMachineBase {
 					return true;
 				}
 				else {
-					rotateBlock(worldIn, pos, side);
+					rotate(worldIn.getBlockState(pos), worldIn, pos, Rotation.CLOCKWISE_90);
 					return true;
 				}
 			}

@@ -24,16 +24,15 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
-import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 
 public class BlockRefinedIronFence extends BlockFence {
 
 	public BlockRefinedIronFence() {
-		super(Material.IRON, BlockPlanks.EnumType.OAK.getMapColor());
-		setHardness(2.0F);
-		setHarvestLevel("pickaxe", 2);
+		super(Block.Properties.create(Material.IRON, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.METAL));
 	}
-
 }

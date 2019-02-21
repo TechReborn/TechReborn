@@ -27,10 +27,9 @@ package techreborn.blocks.transformers;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.DirectionProperty;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.state.StateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,7 +58,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 
 	public BlockTransformer(String name) {
 		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
-		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
 		this.name = name;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
@@ -70,81 +69,13 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	}
 	
 	public EnumFacing getFacing(IBlockState state) {
-		return state.getValue(FACING);
-	}
-
-	public EnumFacing getSideFromint(int i) {
-		if (i == 0) {
-			return EnumFacing.NORTH;
-		} else if (i == 1) {
-			return EnumFacing.SOUTH;
-		} else if (i == 2) {
-			return EnumFacing.EAST;
-		} else if (i == 3) {
-			return EnumFacing.WEST;
-		} else if (i == 4) {
-			return EnumFacing.UP;
-		} else if (i == 5) {
-			return EnumFacing.DOWN;
-		}
-		return EnumFacing.NORTH;
-	}
-
-	public int getSideFromEnum(EnumFacing facing) {
-		if (facing == EnumFacing.NORTH) {
-			return 0;
-		} else if (facing == EnumFacing.SOUTH) {
-			return 1;
-		} else if (facing == EnumFacing.EAST) {
-			return 2;
-		} else if (facing == EnumFacing.WEST) {
-			return 3;
-		} else if (facing == EnumFacing.UP) {
-			return 4;
-		} else if (facing == EnumFacing.DOWN) {
-			return 5;
-		}
-		return 0;
-	}
-
-	private void setDefaultFacing(World worldIn, BlockPos pos, IBlockState state) {
-		if (!worldIn.isRemote) {
-			IBlockState state0 = worldIn.getBlockState(pos.north());
-			IBlockState state1 = worldIn.getBlockState(pos.south());
-			IBlockState state2 = worldIn.getBlockState(pos.west());
-			IBlockState state3 = worldIn.getBlockState(pos.east());
-			EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-			
-			if (enumfacing == EnumFacing.NORTH && state0.isFullBlock() && !state1.isFullBlock()) {
-				enumfacing = EnumFacing.SOUTH;
-			} else if (enumfacing == EnumFacing.SOUTH && state1.isFullBlock() && !state0.isFullBlock()) {
-				enumfacing = EnumFacing.NORTH;
-			} else if (enumfacing == EnumFacing.WEST && state2.isFullBlock() && !state3.isFullBlock()) {
-				enumfacing = EnumFacing.EAST;
-			} else if (enumfacing == EnumFacing.EAST && state3.isFullBlock() && !state2.isFullBlock()) {
-				enumfacing = EnumFacing.WEST;
-			}
-			
-			worldIn.setBlockState(pos, state.with(FACING, enumfacing), 2);
-		}
+		return state.get(FACING);
 	}
 	
-	// Block
-	@Override
-	protected BlockStateContainer createBlockState() {
-		FACING = DirectionProperty.create("facing", Facings.ALL);
-		return new BlockStateContainer(this, FACING);
-	}
-
-	@Override
-	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		super.onBlockAdded(worldIn, pos, state);
-		this.setDefaultFacing(worldIn, pos, state);
-	}
-
+	// BaseTileBlock
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-	                            ItemStack stack) {
+			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		EnumFacing facing = placer.getHorizontalFacing().getOpposite();
 		if (placer.rotationPitch < -50) {
@@ -154,7 +85,15 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		}
 		setFacing(facing, worldIn, pos);
 	}
+
+	// Block
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		FACING = DirectionProperty.create("facing", EnumFacing.Plane.HORIZONTAL);
+		builder.add(FACING);
+	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
@@ -172,24 +111,6 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		}
 
 		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
-	}
-	
-	@Override
-	public boolean rotateBlock(World world, BlockPos pos, EnumFacing side) {
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		if (block instanceof BlockTransformer) {
-			EnumFacing facing = state.getValue(BlockTransformer.FACING);
-			if (facing.getOpposite() == side) {
-				facing = side;
-			} else {
-				facing = side.getOpposite();
-			}
-			world.setBlockState(pos, state.with(BlockTransformer.FACING, facing));
-			return true;
-		}
-
-		return false;
 	}
 	
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {

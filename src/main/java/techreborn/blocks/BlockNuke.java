@@ -27,15 +27,13 @@ package techreborn.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.state.StateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
@@ -50,11 +48,11 @@ import techreborn.entities.EntityNukePrimed;
  * Created by Mark on 13/03/2016.
  */
 public class BlockNuke extends BaseBlock {
-	public static final BooleanProperty OVERLAY = BooleanProperty.create("overlay");
+	public static BooleanProperty OVERLAY = BooleanProperty.create("overlay");
 
 	public BlockNuke() {
-		super(Material.TNT);
-		this.setDefaultState(this.blockState.getBaseState().with(OVERLAY, false));
+		super(Block.Properties.create(Material.TNT));
+		this.setDefaultState(this.stateContainer.getBaseState().with(OVERLAY, false));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
@@ -93,6 +91,7 @@ public class BlockNuke extends BaseBlock {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onBlockAdded(IBlockState state, World worldIn, BlockPos pos, IBlockState oldState) {
 		super.onBlockAdded(state, worldIn, pos, oldState);
@@ -109,20 +108,10 @@ public class BlockNuke extends BaseBlock {
 			worldIn.removeBlock(pos);
 		}
 	}
-
+	
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(OVERLAY) ? 1 : 0;
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		OVERLAY = BooleanProperty.create("overlay");
+		builder.add(OVERLAY);
 	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().with(OVERLAY, (meta & 1) > 0);
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, OVERLAY);
-	}
-
 }

@@ -83,23 +83,8 @@ public class BlockFlare extends BlockContainer {
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().with(COLOR, EnumDyeColor.byMetadata(meta));
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return (state.getValue(COLOR)).getMetadata();
-	}
-
-	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, COLOR);
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
 	}
 
 	@Override
