@@ -25,7 +25,7 @@
 package techreborn.config;
 
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 
 @RebornRegister(TechReborn.MOD_ID)

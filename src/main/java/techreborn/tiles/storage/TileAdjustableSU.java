@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;

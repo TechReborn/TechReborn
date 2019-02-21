@@ -26,7 +26,7 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;

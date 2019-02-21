@@ -27,7 +27,7 @@ package techreborn.tiles.generator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.init.TRContent;

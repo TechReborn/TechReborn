@@ -27,7 +27,7 @@ package techreborn.tiles.machine.tier1;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
 import techreborn.api.Reference;

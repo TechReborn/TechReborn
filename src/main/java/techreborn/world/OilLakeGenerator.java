@@ -31,7 +31,7 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.ModFluids;
 

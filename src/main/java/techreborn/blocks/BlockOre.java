@@ -32,7 +32,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;

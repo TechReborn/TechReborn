@@ -34,7 +34,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.storage.BlockLapotronicSU;
 import techreborn.init.TRContent;

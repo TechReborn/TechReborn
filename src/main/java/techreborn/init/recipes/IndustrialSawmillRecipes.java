@@ -36,7 +36,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;

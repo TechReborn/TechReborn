@@ -25,7 +25,7 @@
 package techreborn.blocks;
 
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 
 //This is in its own class as not to load the block class before

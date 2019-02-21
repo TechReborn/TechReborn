@@ -32,7 +32,7 @@ import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;

@@ -30,7 +30,7 @@ import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 

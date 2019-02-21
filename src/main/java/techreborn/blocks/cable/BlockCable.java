@@ -49,7 +49,7 @@ import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;

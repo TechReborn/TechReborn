@@ -8,7 +8,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.BlockCable;

@@ -39,7 +39,7 @@ import net.minecraftforge.fluids.IFluidBlock;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 
