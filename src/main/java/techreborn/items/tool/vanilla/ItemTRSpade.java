@@ -24,6 +24,7 @@
 
 package techreborn.items.tool.vanilla;
 
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
@@ -32,11 +33,11 @@ public class ItemTRSpade extends ItemSpade {
 
 	String repairOreDict = "";
 
-	public ItemTRSpade(ToolMaterial material) {
+	public ItemTRSpade(IItemTier material) {
 		this(material, "");
 	}
 
-	public ItemTRSpade(ToolMaterial material, String repairOreDict) {
+	public ItemTRSpade(IItemTier material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
 	}

@@ -24,6 +24,7 @@
 
 package techreborn.items.tool.vanilla;
 
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,11 +35,11 @@ public class ItemTRHoe extends ItemHoe {
 
 	String repairOreDict = "";
 
-	public ItemTRHoe(ToolMaterial material) {
+	public ItemTRHoe(IItemTier material) {
 		this(material, "");
 	}
 
-	public ItemTRHoe(ToolMaterial material, String repairOreDict) {
+	public ItemTRHoe(IItemTier material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
 	}

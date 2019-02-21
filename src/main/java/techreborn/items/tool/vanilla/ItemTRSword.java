@@ -24,6 +24,7 @@
 
 package techreborn.items.tool.vanilla;
 
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import reborncore.common.util.ItemUtils;
@@ -32,11 +33,11 @@ public class ItemTRSword extends ItemSword {
 
 	String repairOreDict = "";
 
-	public ItemTRSword(ToolMaterial material) {
+	public ItemTRSword(IItemTier material) {
 		this(material, "");
 	}
 
-	public ItemTRSword(ToolMaterial material, String repairOreDict) {
+	public ItemTRSword(IItemTier material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
 	}

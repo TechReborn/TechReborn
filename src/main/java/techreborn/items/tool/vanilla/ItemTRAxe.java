@@ -24,6 +24,7 @@
 
 package techreborn.items.tool.vanilla;
 
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
@@ -32,11 +33,11 @@ public class ItemTRAxe extends ItemAxe {
 
 	String repairOreDict = "";
 
-	public ItemTRAxe(ToolMaterial material) {
+	public ItemTRAxe(IItemTier material) {
 		this(material, "");
 	}
 
-	public ItemTRAxe(ToolMaterial material, String repairOreDict) {
+	public ItemTRAxe(IItemTier material, String repairOreDict) {
 		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F);
 		this.repairOreDict = repairOreDict;
 	}
