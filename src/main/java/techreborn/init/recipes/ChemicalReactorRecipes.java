@@ -37,10 +37,10 @@ import techreborn.api.recipe.machines.ChemicalReactorRecipe;
  */
 public class ChemicalReactorRecipes extends RecipeMethods {
 	public static void init(){
-		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON), getStack(Items.SPECKLED_MELON), 40);
+		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON_SLICE), getStack(Items.GLISTERING_MELON_SLICE), 40);
 		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.CARROT), getStack(Items.GOLDEN_CARROT), 40);
 		register(getStack(Items.GOLD_INGOT, 8), getStack(Items.APPLE), getStack(Items.GOLDEN_APPLE), 40);
-		register(getStack(Blocks.GOLD_BLOCK, 8), getStack(Items.APPLE, 1), getStack(Items.GOLDEN_APPLE, 1, 1), 100);
+		register(getStack(Blocks.GOLD_BLOCK, 8), getStack(Items.APPLE, 1), getStack(Items.GOLDEN_APPLE), 100);
 		register(getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL), getStack(Items.MAGMA_CREAM), 40);
 		register(getStack(Items.BLAZE_POWDER), getStack(Items.ENDER_PEARL), getStack(Items.ENDER_EYE), 40);
 		

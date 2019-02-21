@@ -30,28 +30,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techreborn.TechReborn;
 import techreborn.api.TechRebornAPI;
+import techreborn.init.TRContent;
 
 /**
  * Created by Prospector
  */
 public class RollingMachineRecipes extends RecipeMethods {
 	public static void init() {
-//		register(new ResourceLocation(ModInfo.MOD_ID, "cupronickel_heating_coil"), getMaterial("cupronickel_heating_coil", 3, Type.PART), "NCN", "C C", "NCN", 'N', "ingotNickel", 'C', "ingotCopper");
-//		register(new ResourceLocation(ModInfo.MOD_ID, "nichrome_heating_coil"), getMaterial("nichrome_heating_coil", 2, Type.PART), " N ", "NCN", " N ", 'N', "ingotNickel", 'C', "ingotChrome");
+		register(new ResourceLocation(TechReborn.MOD_ID, "cupronickel_heating_coil"), TRContent.Parts.CUPRONICKEL_HEATING_COIL.getStack(3), "NCN", "C C", "NCN", 'N', "ingotNickel", 'C', "ingotCopper");
+		register(new ResourceLocation(TechReborn.MOD_ID, "nichrome_heating_coil"), TRContent.Parts.NICHROME_HEATING_COIL.getStack(2), " N ", "NCN", " N ", 'N', "ingotNickel", 'C', "ingotChrome");
 		if (oresExist("ingotAluminum")) {
-//			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminum");
+			register(new ResourceLocation(TechReborn.MOD_ID, "kanthal_heating_coil"), TRContent.Parts.KANTHAL_HEATING_COIL.getStack(3), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminum");
 		}
 		if (oresExist("ingotAluminium")) {
-//			register(new ResourceLocation(ModInfo.MOD_ID, "kanthal_heating_coil2"), getMaterial("kanthal_heating_coil", 3, Type.PART), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
+			register(new ResourceLocation(TechReborn.MOD_ID, "kanthal_heating_coil"), TRContent.Parts.KANTHAL_HEATING_COIL.getStack(3), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
 		}
-	// TODO: fix recipe
-		//	register(new ResourceLocation(ModInfo.MOD_ID, "plateMagnalium"), getMaterial("magnalium", 3, Type.PLATE), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");
+		register(new ResourceLocation(TechReborn.MOD_ID, "plateMagnalium"), TRContent.Plates.MAGNALIUM.getStack(3), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");
 		register(new ResourceLocation(TechReborn.MOD_ID, "rail"), getStack(Blocks.RAIL, 24), "I I", "ISI", "I I", 'I', "ingotIron", 'S', "stickWood");
-		register(new ResourceLocation(TechReborn.MOD_ID, "gold_rail"), getStack(Blocks.GOLDEN_RAIL, 8), "I I", "ISI", "IRI", 'I', "ingotGold", 'S', "stickWood", 'R', "dustRedstone");
+		register(new ResourceLocation(TechReborn.MOD_ID, "gold_rail"), getStack(Blocks.POWERED_RAIL, 8), "I I", "ISI", "IRI", 'I', "ingotGold", 'S', "stickWood", 'R', "dustRedstone");
 		register(new ResourceLocation(TechReborn.MOD_ID, "detector_rail"), getStack(Blocks.DETECTOR_RAIL, 8), "I I", "IPI", "IRI", 'I', "ingotIron", 'P', getStack(Blocks.STONE_PRESSURE_PLATE), 'R', "dustRedstone");
 		register(new ResourceLocation(TechReborn.MOD_ID, "activator_rail"), getStack(Blocks.ACTIVATOR_RAIL, 8), "ISI", "IRI", "ISI", 'I', "ingotIron", 'S', "stickWood", 'R', getStack(Blocks.REDSTONE_TORCH));
 		register(new ResourceLocation(TechReborn.MOD_ID, "iron_bars"), getStack(Blocks.IRON_BARS, 24), "III", "III", 'I', "ingotIron");
-		register(new ResourceLocation(TechReborn.MOD_ID, "iron_door"), getStack(Items.IRON_DOOR, 4), "II ", "II ", "II ", 'I', "ingotIron");
+		register(new ResourceLocation(TechReborn.MOD_ID, "iron_door"), getStack(Blocks.IRON_DOOR, 4), "II ", "II ", "II ", 'I', "ingotIron");
 		register(new ResourceLocation(TechReborn.MOD_ID, "minecart"), getStack(Items.MINECART, 2), "I I", "III", 'I', "ingotIron");
 		register(new ResourceLocation(TechReborn.MOD_ID, "bucket"), getStack(Items.BUCKET, 2), "I I", "I I", " I ", 'I', "ingotIron");
 		register(new ResourceLocation(TechReborn.MOD_ID, "tripwire_hook"), getStack(Blocks.TRIPWIRE_HOOK, 4), " I ", " S ", " W ", 'I', "ingotIron", 'S', "stickWood", 'W', "plankWood");
