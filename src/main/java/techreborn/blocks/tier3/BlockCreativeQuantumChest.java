@@ -59,10 +59,12 @@ public class BlockCreativeQuantumChest extends BlockMachineBase {
 	public boolean isAdvanced() {
 		return true;
 	}
-
+	
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		//lets not drop max int items into the world, that sounds like a bad idea
-		worldIn.removeTileEntity(pos);
+	public void onReplaced(IBlockState state, World worldIn, BlockPos pos, IBlockState newState, boolean isMoving) {
+		if (state.getBlock() != newState.getBlock()) {
+			//lets not drop max int items into the world, that sounds like a bad idea
+			worldIn.removeTileEntity(pos);
+		}
 	}
 }

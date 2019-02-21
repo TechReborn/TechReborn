@@ -24,22 +24,15 @@
 
 package techreborn.blocks.tier2;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileTechStorageBase;
-import java.util.List;
 
 public class BlockDigitalChest extends BlockMachineBase {
 
@@ -61,15 +54,5 @@ public class BlockDigitalChest extends BlockMachineBase {
 	@Override
 	public boolean isAdvanced() {
 		return true;
-	}
-	
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		TileEntity storageTile = worldIn.getTileEntity(pos);
-		if (storageTile != null && storageTile instanceof TileTechStorageBase) {
-			List<ItemStack> stacks = ((TileTechStorageBase) storageTile).getContentDrops();
-			WorldUtils.dropItems(stacks, worldIn, pos);
-		}
-		super.breakBlock(worldIn, pos, state);
 	}
 }
