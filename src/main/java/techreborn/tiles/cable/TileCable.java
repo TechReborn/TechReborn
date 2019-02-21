@@ -115,7 +115,7 @@ public class TileCable extends TileEntity
     public void read(NBTTagCompound compound) {
         super.read(compound);
         if (compound.hasKey("TileCable")) {
-            power = compound.getCompoundTag("TileCable").getInt("power");
+            power = compound.getCompound("TileCable").getInt("power");
         }
     }
 
@@ -153,7 +153,7 @@ public class TileCable extends TileEntity
 		}
 
 		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-		for (EnumFacing face : EnumFacing.VALUES) {
+		for (EnumFacing face : EnumFacing.values()) {
 			TileEntity tile = world.getTileEntity(pos.offset(face));
 
 			if (tile == null) {

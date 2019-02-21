@@ -44,13 +44,13 @@ public class TileEntityFlare extends TileEntity implements ITickable {
 
 	@Override
 	public void update() {
-		EnumDyeColor color = world.getBlockState(pos).getValue(BlockFlare.COLOR);
+		EnumDyeColor color = world.getBlockState(pos).get(BlockFlare.COLOR);
 		if (world.isRemote && world.isAirBlock(getPos().up())) {
 			ParticleSmoke particleSmokeLarge = new ParticleSmoke(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0.0D, 0);
 			particleSmokeLarge.setMaxAge(250);
 			if (color != EnumDyeColor.WHITE) {
 				float[] rgb = EntitySheep.getDyeRgb(color);
-				particleSmokeLarge.setRBGColorF(rgb[0] + (random.nextFloat() / 20), rgb[1] + (random.nextFloat() / 20), rgb[2] + (random.nextFloat() / 20));
+				particleSmokeLarge.setColor(rgb[0] + (random.nextFloat() / 20), rgb[1] + (random.nextFloat() / 20), rgb[2] + (random.nextFloat() / 20));
 			}
 			particleSmokeLarge.multipleParticleScaleBy(0.5F);
 

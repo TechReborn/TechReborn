@@ -58,15 +58,15 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 
 		if (onStatusHoldTicks > 0)
 			--onStatusHoldTicks;
 
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
-			if (getBlockType() instanceof BlockMachineBase)
-				((BlockMachineBase) getBlockType()).setActive(false, world, pos);
+			if (getBlockState().getBlock() instanceof BlockMachineBase)
+				((BlockMachineBase) getBlockState().getBlock()).setActive(false, world, pos);
 			onStatusHoldTicks = -1;
 		}
 

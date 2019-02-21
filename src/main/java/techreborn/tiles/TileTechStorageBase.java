@@ -128,8 +128,8 @@ public class TileTechStorageBase extends TileMachineBase
 
 	// TileMachineBase
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (!world.isRemote) {
 			ItemStack outputStack = ItemStack.EMPTY;
 			if (!inventory.getStackInSlot(1).isEmpty()) {

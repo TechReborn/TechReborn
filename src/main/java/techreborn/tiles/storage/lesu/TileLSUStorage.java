@@ -79,8 +79,8 @@ public class TileLSUStorage extends TileMachineBase
 
 	// TileMachineBase
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (network == null) {
 			findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
 		} else {

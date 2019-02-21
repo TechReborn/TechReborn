@@ -63,8 +63,8 @@ public class TileEnergyStorage extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (!inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(0);
 

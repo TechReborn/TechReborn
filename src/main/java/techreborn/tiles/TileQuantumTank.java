@@ -77,8 +77,8 @@ public class TileQuantumTank extends TileMachineBase
 	
 	// TileMachineBase
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (!world.isRemote) {
 			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
 				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))

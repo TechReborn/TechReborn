@@ -57,9 +57,9 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		if (world.getTotalWorldTime() % 20 == 0) {
+	public void tick() {
+		super.tick();
+		if (world.getGameTime() % 20 == 0) {
 			checkForWater();
 		}
 		if (waterblocks > 0) {

@@ -81,7 +81,7 @@ public class TileMachineCasing extends RectangularMultiblockTileEntityBase {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 
 	}
 }

@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.state.AbstractProperty;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -42,6 +43,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -90,7 +92,7 @@ public class BlockCable extends BlockContainer {
 	}
 
 	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
-	public TileEntity getTileEntitySafely(IBlockAccess blockAccess, BlockPos pos) {
+	public TileEntity getTileEntitySafely(IWorld blockAccess, BlockPos pos) {
 		if (blockAccess instanceof ChunkCache) {
 			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
 		} else {
@@ -98,7 +100,7 @@ public class BlockCable extends BlockContainer {
 		}
 	}
 
-	public IProperty<Boolean> getProperty(EnumFacing facing) {
+	public AbstractProperty<Boolean> getProperty(EnumFacing facing) {
 		switch (facing) {
 			case EAST:
 				return EAST;
@@ -201,12 +203,12 @@ public class BlockCable extends BlockContainer {
 			minSize = 0.35F;
 			maxSize = 0.65F;
 		}
-		float minX = state.getValue(WEST) ? 0.0F : minSize;
-		float minY = state.getValue(DOWN) ? 0.0F : minSize;
-		float minZ = state.getValue(NORTH) ? 0.0F : minSize;
-		float maxX = state.getValue(EAST) ? 1.0F : maxSize;
-		float maxY = state.getValue(UP) ? 1.0F : maxSize;
-		float maxZ = state.getValue(SOUTH) ? 1.0F : maxSize;
+		float minX = state.get(WEST) ? 0.0F : minSize;
+		float minY = state.get(DOWN) ? 0.0F : minSize;
+		float minZ = state.get(NORTH) ? 0.0F : minSize;
+		float maxX = state.get(EAST) ? 1.0F : maxSize;
+		float maxY = state.get(UP) ? 1.0F : maxSize;
+		float maxZ = state.get(SOUTH) ? 1.0F : maxSize;
 		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY, (double) maxZ);
 	}
 

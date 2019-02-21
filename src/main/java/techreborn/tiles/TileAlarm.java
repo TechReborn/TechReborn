@@ -83,8 +83,8 @@ public class TileAlarm extends TileEntity
 
 	// ITickable
 	@Override
-	public void update() {
-		if (!world.isRemote && world.getTotalWorldTime() % 25 == 0 && world.isBlockPowered(getPos())) {
+	public void tick() {
+		if (!world.isRemote && world.getGameTime() % 25 == 0 && world.isBlockPowered(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {
 				case 1:
@@ -98,7 +98,7 @@ public class TileAlarm extends TileEntity
 					break;
 			}
 
-		} else if (!world.isRemote && world.getTotalWorldTime() % 25 == 0) {
+		} else if (!world.isRemote && world.getGameTime() % 25 == 0) {
 			BlockAlarm.setActive(false, world, pos);
 		}
 	}

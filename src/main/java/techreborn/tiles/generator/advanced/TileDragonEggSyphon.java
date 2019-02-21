@@ -70,19 +70,19 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 
 		if (!world.isRemote) {
 			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
 					.getBlock() == Blocks.DRAGON_EGG) {
 				if (tryAddingEnergy(energyPerTick))
-					lastOutput = world.getTotalWorldTime();
+					lastOutput = world.getGameTime();
 			}
 
-			if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
+			if (world.getGameTime() - lastOutput < 30 && !isActive()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-			} else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
+			} else if (world.getGameTime() - lastOutput > 30 && isActive()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 			}
 		}

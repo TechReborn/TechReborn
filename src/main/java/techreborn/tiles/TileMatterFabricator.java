@@ -133,12 +133,12 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote) {
 			return;
 		}
 
-		super.update();
+		super.tick();
 		this.charge(11);
 
 		for (int i = 0; i < 6; i++) {

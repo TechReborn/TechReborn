@@ -26,6 +26,7 @@ package techreborn.world;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Sets;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,15 +45,15 @@ import java.util.Set;
  */
 public class TechRebornRetroGen {
 	private static final String RETROGEN_TAG = "techrebonr:retogen";
-	private static final Set<ChunkCoord> completedChunks = Sets.newHashSet();
-	private final Deque<ChunkCoord> chunksToRetroGen = new ArrayDeque<>(64);
+	private static final Set<ChunkPos> completedChunks = Sets.newHashSet();
+	private final Deque<ChunkPos> chunksToRetroGen = new ArrayDeque<>(64);
 
 	private boolean isChunkEligibleForRetroGen(ChunkDataEvent.Load event) {
 		return TechReborn.worldGen.config.retroGenOres && event.getWorld().provider.getDimension() == 0
 			&& event.getData().getString(RETROGEN_TAG).isEmpty();
 	}
 
-	public void markChunk(ChunkCoord coord) {
+	public void markChunk(ChunkPos coord) {
 		completedChunks.add(coord);
 	}
 
@@ -64,7 +65,7 @@ public class TechRebornRetroGen {
 	public void onWorldTick(TickEvent.WorldTickEvent event) {
 		if (isTickEligibleForRetroGen(event)) {
 			if (!chunksToRetroGen.isEmpty()) {
-				final ChunkCoord coord = chunksToRetroGen.pollFirst();
+				final ChunkPos coord = chunksToRetroGen.pollFirst();
 				TechReborn.LOGGER.info("Regenerating ore in " + coord + '.');
 				final World world = event.world;
 				if (world.getChunkProvider().getLoadedChunk(coord.getX(), coord.getZ()) != null) {
@@ -83,7 +84,7 @@ public class TechRebornRetroGen {
 	@SubscribeEvent
 	public void onChunkLoad(ChunkDataEvent.Load event) {
 		if (isChunkEligibleForRetroGen(event)) {
-			final ChunkCoord coord = ChunkCoord.of(event);
+			final ChunkPos coord = ChunkPos.of(event);
 			TechReborn.LOGGER.info("Queueing retro ore gen for " + coord + '.');
 			chunksToRetroGen.addLast(coord);
 		}
@@ -91,7 +92,7 @@ public class TechRebornRetroGen {
 
 	@SubscribeEvent
 	public void onChunkSave(ChunkDataEvent.Save event) {
-		final ChunkCoord coord = ChunkCoord.of(event);
+		final ChunkPos coord = ChunkPos.of(event);
 		if (completedChunks.contains(coord)) {
 			event.getData().setString(RETROGEN_TAG, "X");
 			completedChunks.remove(coord);

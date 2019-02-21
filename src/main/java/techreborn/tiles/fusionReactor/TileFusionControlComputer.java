@@ -199,15 +199,15 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 
 		if (world.isRemote) {
 			return;
 		}
 
 		// Force check every second
-		if (world.getTotalWorldTime() % 20 == 0) {
+		if (world.getGameTime() % 20 == 0) {
 			checkCoils();
 			inventory.setChanged();
 		}

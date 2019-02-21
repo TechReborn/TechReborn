@@ -62,9 +62,9 @@ public class TilePump extends TilePowerAcceptor {
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(pumpExtractEU)) {
+	public void tick() {
+		super.tick();
+		if (!world.isRemote && world.getGameTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(pumpExtractEU)) {
 			FluidStack fluidStack = drainBlock(world, pos.down(), false);
 			if (fluidStack != null) {
 				tank.fill(drainBlock(world, pos.down(), true), true);
@@ -102,7 +102,7 @@ public class TilePump extends TilePowerAcceptor {
 					return null;
 				}
 				if (doDrain) {
-					world.setBlockToAir(pos);
+					world.removeBlock(pos);
 				}
 				return new FluidStack(fluid, 1000);
 			}

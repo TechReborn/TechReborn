@@ -73,8 +73,8 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (world.isRemote) {
 			return;
 		}
@@ -114,7 +114,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 		final IBlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != burnTime > 0) {
+			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != burnTime > 0) {
 				blockMachineBase.setActive(burnTime > 0, world, pos);
 			}
 		}

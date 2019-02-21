@@ -53,8 +53,8 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if (world.isRemote) {
 			return;
 		}
@@ -62,7 +62,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 			setEnergy(Integer.MAX_VALUE);
 			return;
 		}
-		if (world.getTotalWorldTime() % 20 == 0) {
+		if (world.getGameTime() % 20 == 0) {
 			canSeeSky = world.canBlockSeeSky(pos.up());
 			if (lastState != isSunOut()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockSolarPanel.ACTIVE, isSunOut()));

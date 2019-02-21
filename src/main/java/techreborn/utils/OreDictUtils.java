@@ -33,6 +33,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import javax.annotation.Nonnull;
 import java.util.List;
 
+@Deprecated //needs to go and be repalced by a version for tags. Has some other stuff that might be useful in another class so im not removing it just yet
 public class OreDictUtils {
 
 	public static String toFirstLower(String string) {

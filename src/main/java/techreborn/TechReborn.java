@@ -34,7 +34,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import org.apache.logging.log4j.LogManager;
@@ -43,12 +42,10 @@ import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
-import reborncore.common.network.RegisterPacketEvent;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.client.GuiHandler;
-import techreborn.command.TechRebornDevCommand;
 import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
@@ -96,10 +93,6 @@ public class TechReborn {
 
 	public TechReborn() {
 		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	public void preinit(FMLPreInitializationEvent event) throws IllegalAccessException, InstantiationException {
 
 		INSTANCE = this;
 
@@ -109,18 +102,15 @@ public class TechReborn {
 
 		//CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		// Registration 
+		// Registration
 		TRTileEntities.init();
 		ModFluids.init();
 
 		// Entitys
-	//EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
+		//EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 
 		proxy.preInit(event);
-	}
 
-	@SubscribeEvent
-	public void init(FMLInitializationEvent event) {
 		// Registers Chest Loot
 		ModLoot.init();
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
@@ -157,8 +147,10 @@ public class TechReborn {
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
 	}
 
+
+
 	@SubscribeEvent
-	public void postinit(FMLPostInitializationEvent event) {
+	public void postinit() {
 		proxy.postInit(event);
 
 		ModRecipes.postInit();
@@ -202,23 +194,4 @@ public class TechReborn {
 //		}
 	}
 
-	@SubscribeEvent
-	public void serverStarting(FMLServerStartingEvent event) {
-		//event.registerServerCommand(new TechRebornDevCommand());
-	}
-
-	@SubscribeEvent
-	public void LoadPackets(RegisterPacketEvent event) {
-//		event.registerPacket(PacketAesu.class, Side.SERVER);
-//		event.registerPacket(PacketIdsu.class, Side.SERVER);
-//		event.registerPacket(PacketRollingMachineLock.class, Side.SERVER);
-//		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
-//		event.registerPacket(PacketAutoCraftingTableLock.class, Side.SERVER);
-	}
-
-	@SubscribeEvent
-	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-		LOGGER.warn("Invalid fingerprint detected for Tech Reborn!");
-		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for Tech Reborn!");
-	}
 }

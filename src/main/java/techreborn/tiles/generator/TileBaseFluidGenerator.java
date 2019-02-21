@@ -68,8 +68,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		ticksSinceLastChange++;
 
 		if(world.isRemote){
@@ -102,15 +102,15 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
 					tank.drain(currentWithdraw, true);
-					lastOutput = world.getTotalWorldTime();
+					lastOutput = world.getGameTime();
 				}
 			}
 		}
 
-		if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
+		if (world.getGameTime() - lastOutput < 30 && !isActive()) {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		}
-		else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
+		else if (world.getGameTime() - lastOutput > 30 && isActive()) {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}

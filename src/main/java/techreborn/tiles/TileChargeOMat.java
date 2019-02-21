@@ -59,8 +59,8 @@ public class TileChargeOMat extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 
 		if(world.isRemote){
 			return;

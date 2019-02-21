@@ -54,10 +54,10 @@ public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE);
 			int random = new Random().nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutput(0);
-			stack.splitStack(1);
+			stack.split(1);
 
 			TileEntityDispenser tile = source.getBlockTileEntity();
-			EnumFacing enumfacing = tile.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).getValue(BlockDispenser.FACING);
+			EnumFacing enumfacing = tile.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).get(BlockDispenser.FACING);
 			IPosition iposition = BlockDispenser.getDispensePosition(source);
 			doDispense(source.getWorld(), out, 6, enumfacing, iposition);
 		}

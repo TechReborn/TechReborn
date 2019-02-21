@@ -29,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -58,7 +59,7 @@ public class StackWIPHandler {
 	}
 
 	private void addHead(String name) {
-		ItemStack head = new ItemStack(Items.SKULL, 1, 3);
+		ItemStack head = new ItemStack(Items.PLAYER_HEAD, 3);
 		head.setTag(new NBTTagCompound());
 		head.getTag().setTag("SkullOwner", new NBTTagString(name));
 		devHeads.add(head);
@@ -69,11 +70,11 @@ public class StackWIPHandler {
 	public void toolTip(ItemTooltipEvent event) {
 		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
 		if (block != null && wipBlocks.contains(block)) {
-			event.getToolTip().add(TextFormatting.RED + StringUtils.t("techreborn.tooltip.wip"));
+			event.getToolTip().add(new TextComponentString(TextFormatting.RED + StringUtils.t("techreborn.tooltip.wip")));
 		}
 
 		if (devHeads.contains(event.getItemStack())) {
-			event.getToolTip().add(TextFormatting.GOLD + "TechReborn Developer");
+			event.getToolTip().add(new TextComponentString(TextFormatting.GOLD + "TechReborn Developer"));
 		}
 	}
 }
