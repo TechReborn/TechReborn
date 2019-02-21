@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
@@ -43,7 +42,7 @@ import techreborn.tiles.storage.TileMediumVoltageSU;
 public class BlockMediumVoltageSU extends BlockEnergyStorage {
 	
 	public BlockMediumVoltageSU() {
-		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU.ordinal());
+		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU);
 	}
 
 	@Override

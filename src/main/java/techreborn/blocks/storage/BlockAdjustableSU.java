@@ -39,7 +39,7 @@ import techreborn.tiles.storage.TileAdjustableSU;
 public class BlockAdjustableSU extends BlockEnergyStorage {
 	
 	public BlockAdjustableSU() {
-		super("AESU", EGui.AESU.ordinal());
+		super("AESU", EGui.AESU);
 	}
 
 	@Override

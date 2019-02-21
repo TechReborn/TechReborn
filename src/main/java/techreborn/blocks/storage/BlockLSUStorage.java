@@ -54,29 +54,31 @@ import techreborn.tiles.storage.lesu.TileLSUStorage;
 public class BlockLSUStorage extends BaseTileBlock {
 
 	public BlockLSUStorage() {
-		super(Material.IRON);
+		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	// BaseTileBlock
 	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		if (world.getTileEntity(pos) instanceof TileLSUStorage) {
-			TileLSUStorage tile = (TileLSUStorage) world.getTileEntity(pos);
+	public void onReplaced(IBlockState state, World worldIn, BlockPos pos, IBlockState newState, boolean isMoving) {
+		if (state.getBlock() == newState.getBlock()) {
+			return;
+		}
+		if (worldIn.getTileEntity(pos) instanceof TileLSUStorage) {
+			TileLSUStorage tile = (TileLSUStorage) worldIn.getTileEntity(pos);
 			if (tile != null) {
 				tile.removeFromNetwork();
 			}
 		}
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, worldIn, pos, newState, isMoving);
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TileLSUStorage();
 	}
-
-	// Block
+	
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack itemstack) {
 		super.onBlockPlacedBy(world, pos, state, player, itemstack);
@@ -88,6 +90,8 @@ public class BlockLSUStorage extends BaseTileBlock {
 		}
 	}
 
+	// Block
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
@@ -114,11 +118,5 @@ public class BlockLSUStorage extends BaseTileBlock {
 		} else {
 			super.getDrops(state, drops, world, pos, fortune);
 		}
-	}
-
-	@Override
-	public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
-		Block block = world.getBlockState(pos).getBlock();
-		return this == block;
 	}
 }

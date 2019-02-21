@@ -42,7 +42,7 @@ import techreborn.tiles.storage.TileHighVoltageSU;
 public class BlockHighVoltageSU extends BlockEnergyStorage {
 	
 	public BlockHighVoltageSU() {
-		super("high_voltage_su", EGui.HIGH_VOLTAGE_SU.ordinal());
+		super("high_voltage_su", EGui.HIGH_VOLTAGE_SU);
 	}
 
 	@Override

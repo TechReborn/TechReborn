@@ -27,19 +27,20 @@ package techreborn.blocks.storage;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
+import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
@@ -55,13 +56,13 @@ import java.util.Random;
 public abstract class BlockEnergyStorage extends BaseTileBlock {
 	public static DirectionProperty FACING = DirectionProperty.create("facing", Facings.ALL);
 	public String name;
-	public int guiID;
+	public IMachineGuiHandler gui;
 
-	public BlockEnergyStorage(String name, int guiID) {
+	public BlockEnergyStorage(String name, IMachineGuiHandler gui) {
 		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
-		this.setDefaultState(this.blockState.getBaseState().with(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
 		this.name = name;
-		this.guiID = guiID;
+		this.gui = gui;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
@@ -70,42 +71,8 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
 
-	public EnumFacing getSideFromint(int i) {
-		if (i == 0) {
-			return EnumFacing.NORTH;
-		} else if (i == 1) {
-			return EnumFacing.SOUTH;
-		} else if (i == 2) {
-			return EnumFacing.EAST;
-		} else if (i == 3) {
-			return EnumFacing.WEST;
-		} else if (i == 4) {
-			return EnumFacing.UP;
-		} else if (i == 5) {
-			return EnumFacing.DOWN;
-		}
-		return EnumFacing.NORTH;
-	}
-
-	public int getSideFromEnum(EnumFacing facing) {
-		if (facing == EnumFacing.NORTH) {
-			return 0;
-		} else if (facing == EnumFacing.SOUTH) {
-			return 1;
-		} else if (facing == EnumFacing.EAST) {
-			return 2;
-		} else if (facing == EnumFacing.WEST) {
-			return 3;
-		} else if (facing == EnumFacing.UP) {
-			return 4;
-		} else if (facing == EnumFacing.DOWN) {
-			return 5;
-		}
-		return 0;
-	}
-
 	public EnumFacing getFacing(IBlockState state) {
-		return state.getValue(FACING);
+		return state.get(FACING);
 	}
 
 	public String getSimpleName(String fullName) {
@@ -132,23 +99,12 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 
 	// Block
 	@Override
-	public boolean rotateBlock(World world, BlockPos pos, EnumFacing side) {
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		if (block instanceof BlockEnergyStorage) {
-			EnumFacing facing = state.getValue(BlockEnergyStorage.FACING);
-			if (facing.getOpposite() == side) {
-				facing = side;
-			} else {
-				facing = side.getOpposite();
-			}
-			world.setBlockState(pos, state.with(BlockEnergyStorage.FACING, facing));
-			return true;
-		}
-
-		return false;
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		FACING = DirectionProperty.create("facing", Facings.ALL);
+		builder.add(FACING);
 	}
-
+	
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
@@ -165,23 +121,17 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 			}
 		}
 
-		if (!playerIn.isSneaking()) {
-			playerIn.openGui(TechReborn.INSTANCE, guiID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		if (!playerIn.isSneaking() && gui != null) {
+			gui.open(playerIn, pos, worldIn);
 			return true;
 		}
 
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		FACING = DirectionProperty.create("facing", Facings.ALL);
-		return new BlockStateContainer(this, FACING);
+		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-	                            ItemStack stack) {
+			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		EnumFacing facing = placer.getHorizontalFacing().getOpposite();
 		if (placer.rotationPitch < -50) {
