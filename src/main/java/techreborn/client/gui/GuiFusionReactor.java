@@ -40,7 +40,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.init.TRContent;
-import techreborn.packets.PacketFusionControlSize;
+import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
 import java.awt.*;
@@ -134,7 +134,7 @@ public class GuiFusionReactor extends GuiBase {
 	}
 
 	private void sendSizeChange(int sizeDelta){
-		NetworkManager.sendToServer(new PacketFusionControlSize(sizeDelta, tile.getPos()));
+		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, tile.getPos()));
 		//Reset the multiblock as it will be wrong now.
 		if(ClientProxy.multiblockRenderEvent.currentMultiblock != null){
 			updateMultiBlockRender();

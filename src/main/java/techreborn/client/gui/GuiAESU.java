@@ -31,7 +31,7 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
-import techreborn.packets.PacketAesu;
+import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.storage.TileAdjustableSU;
 
 import java.io.IOException;
@@ -83,7 +83,7 @@ public class GuiAESU extends GuiBase {
 	public void actionPerformed(final GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		if (button.id >= 300 && button.id <= 303) {
-			NetworkManager.sendToServer(new PacketAesu(button.id, tile));
+			NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(button.id, tile));
 		} 
 	}
 }

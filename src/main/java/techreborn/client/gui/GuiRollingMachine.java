@@ -28,7 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
-import techreborn.packets.PacketRollingMachineLock;
+import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.machine.tier1.TileRollingMachine;
 
 import java.io.IOException;
@@ -77,7 +77,7 @@ public class GuiRollingMachine extends GuiBase {
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if(isPointInRect(130, 4, 20, 12, mouseX, mouseY)){
-			NetworkManager.sendToServer(new PacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
+			NetworkManager.sendToServer(ServerboundPackets.createPacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
 			return;
 		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);

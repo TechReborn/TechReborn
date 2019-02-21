@@ -106,6 +106,9 @@ public class TechReborn {
 		TRTileEntities.init();
 		ModFluids.init();
 
+		ClientboundPackets.init();
+		ServerboundPackets.init();
+
 		// Entitys
 		//EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
 

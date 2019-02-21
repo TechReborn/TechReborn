@@ -35,7 +35,7 @@ import net.minecraft.util.ResourceLocation;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
-import techreborn.packets.PacketAutoCraftingTableLock;
+import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
 
 import java.io.IOException;
@@ -111,7 +111,7 @@ public class GuiAutoCrafting extends GuiBase {
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
-			NetworkManager.sendToServer(new PacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
+			NetworkManager.sendToServer(ServerboundPackets.createPacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
 			return;
 		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);
