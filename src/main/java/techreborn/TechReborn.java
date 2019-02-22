@@ -37,6 +37,7 @@ import org.apache.logging.log4j.Logger;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
+import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.config.ConfigTechReborn;
@@ -62,7 +63,6 @@ public class TechReborn {
 //	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	public static TechReborn INSTANCE;
-	public static File configDir;
 	
 	public static final ItemGroup ITEMGROUP = new ItemGroup(-1, MOD_ID) {
 		@OnlyIn(Dist.CLIENT)
@@ -77,11 +77,12 @@ public class TechReborn {
 
 		INSTANCE = this;
 
-		configDir = new File(new File("teamreborn"), "techreborn");
+		RegistrationManager registrationManager = new RegistrationManager("techreborn");
 
 		//CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		ModFluids.init();
+		//Done like this to load them here
+		ModFluids.values();
 
 		ClientboundPackets.init();
 		ServerboundPackets.init();

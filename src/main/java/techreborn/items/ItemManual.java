@@ -43,8 +43,9 @@ public class ItemManual extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
 	                                                final EnumHand hand) {
-		player.openGui(TechReborn.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
+		throw new UnsupportedOperationException("1.13 fix me");
+		//player.openGui(TechReborn.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
 
-		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		//return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 }

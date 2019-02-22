@@ -35,7 +35,6 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import techreborn.TechReborn;
@@ -61,29 +60,30 @@ public class RubberTreeGenerator extends AbstractTree implements IWorldGenerator
 	}
 
 	public RubberTreeGenerator(boolean isWorldGen) {
-		super(!isWorldGen);
+		super();
 		this.isWorldGen = isWorldGen;
 	}
 
-	@Override
-	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		int retries = rand.nextInt(3) + 2;
-		for (int c = 0; c < retries; c++) {
-			int x = position.getX() + 8 + rand.nextInt(16);
-			int z = position.getZ() + 8 + rand.nextInt(16);
-			int y = worldIn.getHeight(x, z) - 1;
-			while (worldIn.isAirBlock(new BlockPos(x, y, z)) && y > 0) {
-				y--;
-			}
-			if (!growTree(worldIn, rand, x, y + 1, z)) {
-				retries--;
-			}
-		}
-
-		return false;
-	}
+//	@Override
+//	public boolean generate(World worldIn, Random rand, BlockPos position) {
+//		int retries = rand.nextInt(3) + 2;
+//		for (int c = 0; c < retries; c++) {
+//			int x = position.getX() + 8 + rand.nextInt(16);
+//			int z = position.getZ() + 8 + rand.nextInt(16);
+//			int y = worldIn.getHeight(x, z) - 1;
+//			while (worldIn.isAirBlock(new BlockPos(x, y, z)) && y > 0) {
+//				y--;
+//			}
+//			if (!growTree(worldIn, rand, x, y + 1, z)) {
+//				retries--;
+//			}
+//		}
+//
+//		return false;
+//	}
 
 	public boolean growTree(IWorld world, Random rand, int x, int y, int z) {
+		/*
 		int treeHeight = rand.nextInt(5) + TechReborn.worldGen.config.rubberTreeConfig.treeBaseHeight;
 		int worldHeight = world.getHeight();
 		if (y >= 1 && y + treeHeight + 1 <= worldHeight) {
@@ -184,6 +184,7 @@ public class RubberTreeGenerator extends AbstractTree implements IWorldGenerator
 			}
 			return hasPlacedBlock;
 		}
+		*/
 		return false;
 	}
 

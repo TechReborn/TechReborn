@@ -27,8 +27,6 @@ package techreborn.world.village;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.VillagePieces;
-import net.minecraft.world.gen.structure.StructureComponent;
-import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 import java.util.List;
@@ -38,7 +36,7 @@ public class VillagePlantaionHandler implements VillagerRegistry.IVillageCreatio
 
 	@Override
 	public VillagePieces.PieceWeight getVillagePieceWeight(Random random, int i) {
-		return new StructurePiece.PieceWeight(VillageComponentRubberPlantaion.class, 5, 1);
+		return new VillagePieces.PieceWeight(VillageComponentRubberPlantaion.class, 5, 1);
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -68,14 +69,17 @@ public class ItemFrequencyTransmitter extends Item {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos,
-	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getHeldItem(hand);
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		EntityPlayer player = context.getPlayer();
+		World world = context.getWorld();
+		BlockPos pos = context.getPos();
+		ItemStack stack = context.getItem();
+
 		stack.setTag(new NBTTagCompound());
 		stack.getTag().putInt("x", pos.getX());
 		stack.getTag().putInt("y", pos.getY());
 		stack.getTag().putInt("z", pos.getZ());
-		stack.getTag().putInt("dim", world.provider.getDimension());
+		stack.getTag().putInt("dim", world.getDimension().getType().getId());
 
 		if (!world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
@@ -87,7 +91,7 @@ public class ItemFrequencyTransmitter extends Item {
 					TextFormatting.GOLD + pos.getZ() +
 					TextFormatting.GRAY + " " + I18n.format("techreborn.message.in") + " " +
 					TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension())
-					.getName() + " (" + world.provider.getDimension() + ")"));
+					.getName() + " (" + world.getDimension().getType().getRegistryName() + ")"));
 		}
 		return EnumActionResult.SUCCESS;
 	}

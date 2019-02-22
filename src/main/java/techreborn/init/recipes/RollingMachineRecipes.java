@@ -60,6 +60,6 @@ public class RollingMachineRecipes extends RecipeMethods {
 	}
 
 	static void register(ResourceLocation resourceLocation, ItemStack output, Object... componentsObjects) {
-		TechRebornAPI.addRollingOreMachinceRecipe(resourceLocation, output, componentsObjects);
+
 	}
 }

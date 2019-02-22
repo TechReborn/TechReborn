@@ -25,13 +25,16 @@
 package techreborn.items;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Fluids;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -84,7 +87,7 @@ public class DynamicCell extends Item {
 		if (!worldIn.isRemote) {
 			RayTraceResult result = rayTrace(worldIn, playerIn, true);
 
-			if (result != null && result.typeOfHit == RayTraceResult.Type.BLOCK) {
+			if (result != null && result.type == RayTraceResult.Type.BLOCK) {
 				BlockPos pos = result.getBlockPos();
 				IBlockState state = worldIn.getBlockState(pos);
 				Block block = state.getBlock();
@@ -104,19 +107,20 @@ public class DynamicCell extends Item {
 
 					}
 
-				} else if (block instanceof BlockStaticLiquid) {
-					Fluid fluid = state.getMaterial() == Material.LAVA ? FluidRegistry.LAVA : FluidRegistry.WATER;
-
-					if (tryAddCellToInventory(playerIn, stack, fluid)) {
-						if (fluid != FluidRegistry.WATER)
-							worldIn.setBlockToAir(pos);
-						return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
-					}
+				} else if (block instanceof BlockFlowingFluid) {
+					//TODO 1.13 fix me
+//					Fluid fluid = state.getMaterial() == Material.LAVA ? Fluids.LAVA : Fluids.WATER;
+//
+//					if (tryAddCellToInventory(playerIn, stack, fluid)) {
+//						if (fluid != Fluids.WATER)
+//							worldIn.setBlockToAir(pos);
+//						return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+//					}
 
 				} else {
 					 ItemStack usedCell = stack.copy();
 					 usedCell.setCount(1);
-					 IFluidHandlerItem fluidHandler = FluidUtil.getFluidHandler(usedCell);
+					 IFluidHandlerItem fluidHandler = FluidUtil.getFluidHandler(usedCell).orElseGet(null);
 					 if (fluidHandler != null) {
 						 FluidStack fluid = fluidHandler.drain(DynamicCell.CAPACITY, false);
 						 if (fluid != null){
@@ -145,8 +149,8 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!isInCreativeTab(tab)) {
+	public void getSubItems(ItemGroup tab, NonNullList<ItemStack> subItems) {
+		if (!isInGroup(tab)) {
 			return;
 		}
 		subItems.add(getEmptyCell(1));
