@@ -27,7 +27,7 @@ package techreborn.entities;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.init.Particles;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
@@ -84,13 +84,13 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 		setFuse(getFuse() - 1);
 
 		if (getFuse() <= 0) {
-			this.setDead();
+			this.remove();
 			if (!this.world.isRemote) {
 				explodeNuke();
 			}
 		} else {
 			this.handleWaterMovement();
-			this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+			this.world.addParticle(Particles.SMOKE, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
 		}
 	}
 

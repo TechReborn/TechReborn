@@ -24,6 +24,7 @@
 
 package techreborn.tiles.machine.multiblock;
 
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -84,7 +85,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
 		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
 		final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
+		final boolean center = ((centerBlock.getBlock() instanceof BlockFlowingFluid
 				|| centerBlock.getBlock() instanceof IFluidBlock) 
 				&& centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;

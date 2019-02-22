@@ -72,20 +72,20 @@ public class BlockIronFurnace extends BlockMachineBase {
 
 			switch (enumfacing) {
 			case WEST:
-				worldIn.spawnParticle(Particles.SMOKE, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-				worldIn.spawnParticle(Particles.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.SMOKE, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 				break;
 			case EAST:
-				worldIn.spawnParticle(Particles.SMOKE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-				worldIn.spawnParticle(Particles.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.SMOKE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 				break;
 			case NORTH:
-				worldIn.spawnParticle(Particles.SMOKE, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-				worldIn.spawnParticle(Particles.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.SMOKE, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
 				break;
 			case SOUTH:
-				worldIn.spawnParticle(Particles.SMOKE, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-				worldIn.spawnParticle(Particles.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.SMOKE, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(Particles.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}

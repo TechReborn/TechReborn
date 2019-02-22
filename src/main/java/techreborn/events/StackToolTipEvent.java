@@ -92,7 +92,7 @@ public class StackToolTipEvent {
 						&& block.getRegistryName().getNamespace().contains("techreborn")) {
 					TileEntity tile = block.createTileEntity(block.getDefaultState(), Minecraft.getInstance().world);
 					boolean hasData = false;
-					if (event.getItemStack().hasTag() && event.getItemStack().getTag().hasKey("tile_data")) {
+					if (event.getItemStack().hasTag() && event.getItemStack().getTag().contains("tile_data")) {
 						NBTTagCompound tileData = event.getItemStack().getTag().getCompound("tile_data");
 						tile.read(tileData);
 						hasData = true;

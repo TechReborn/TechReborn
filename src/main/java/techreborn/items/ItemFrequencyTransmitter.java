@@ -120,7 +120,7 @@ public class ItemFrequencyTransmitter extends Item {
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x));
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y));
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z));
-			tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName());
+			tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName()));
 
 		} else {
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet")));

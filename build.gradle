@@ -65,7 +65,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	mappings channel: 'snapshot', version: '20180921-1.13'
+	mappings channel: 'snapshot', version: '20190222-1.13.1'
 
 	runs {
         client {

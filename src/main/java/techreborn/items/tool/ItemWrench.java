@@ -30,8 +30,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.api.IToolHandler;
 import techreborn.TechReborn;
 
@@ -42,12 +40,6 @@ public class ItemWrench extends Item implements IToolHandler {
 
 	public ItemWrench() {
 		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public boolean isFull3D() {
-		return true;
 	}
 
 	@Override
