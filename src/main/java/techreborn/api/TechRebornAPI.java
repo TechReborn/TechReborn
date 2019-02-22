@@ -41,22 +41,6 @@ public final class TechRebornAPI {
 
 	public static IC2Helper ic2Helper;
 
-	public static void addRollingOreMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapedOreRecipe(resourceLocation, output, components);
-	}
-
-	public static void addShapelessOreRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapelessOreRecipe(resourceLocation, output, components);
-	}
-
-	public static void addRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addRecipe(resourceLocation, output, components);
-	}
-
-	public static void addShapelessRollingMachinceRecipe(ResourceLocation resourceLocation, ItemStack output, Object... components) {
-		RollingMachineRecipe.instance.addShapelessRecipe(resourceLocation, output, components);
-	}
-
 	/**
 	 * Use this to get an item from Tech Reborn, @see <a href=
 	 * "https://github.com/TechReborn/TechReborn/blob/1.9/src/main/java/techreborn/init/ModItems.java">

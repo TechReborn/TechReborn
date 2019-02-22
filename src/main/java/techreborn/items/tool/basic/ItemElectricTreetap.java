@@ -25,7 +25,7 @@
 package techreborn.items.tool.basic;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -101,8 +101,8 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
+		if (!isInGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);

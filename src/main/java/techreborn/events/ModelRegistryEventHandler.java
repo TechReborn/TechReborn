@@ -29,12 +29,7 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -98,7 +93,9 @@ public class ModelRegistryEventHandler {
 			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, value.frame).setFileName("machine_block").setInvVariant("type=" + value.name + "_machine_frame"));
 			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, value.casing).setFileName("machine_block").setInvVariant("type=" + value.name + "_machine_casing"));
 		}
-		
+
+		/*
+
 		ResourceLocation cableRL = new ResourceLocation(TechReborn.MOD_ID, "cable_inv");
 		for (Cables value : Cables.values()) {
 			registerBlockstateMultiItem(cableRL, Item.getItemFromBlock(value.block), value.name);			
@@ -113,9 +110,13 @@ public class ModelRegistryEventHandler {
 				}
 			});
 		}
+
+		*/
 	}
-	
+
+
 	private static void registerFluidBlocks() {
+		/*
 		registerFluidBlockModel(ModFluids.BLOCK_BERYLLIUM);
 		registerFluidBlockModel(ModFluids.BLOCK_CALCIUM);
 		registerFluidBlockModel(ModFluids.BLOCK_CALCIUM_CARBONATE);
@@ -150,7 +151,9 @@ public class ModelRegistryEventHandler {
 		registerFluidBlockModel(ModFluids.BLOCK_SULFURIC_ACID);
 		registerFluidBlockModel(ModFluids.BLOCK_COMPRESSED_AIR);
 		registerFluidBlockModel(ModFluids.BLOCK_ELECTROLYZED_WATER);
+		*/
 	}
+
 	
 	private static void registerItems() {
 		// Armor
@@ -257,6 +260,8 @@ public class ModelRegistryEventHandler {
 		
 	}
 
+	/*
+
 	private static void registerFluidBlockModel(BlockFluidTechReborn block) {
 		String name = block.getTranslationKey().substring(5).toLowerCase();
 		Item item = Item.getItemFromBlock(block);
@@ -277,13 +282,15 @@ public class ModelRegistryEventHandler {
 			}
 		});
 	}
+
+	*/
 	
 	private static void register(Item item, String modelPath) {
 		RebornModelRegistry.registerItemModel(item, modelPath);
 	}
 	
 	private static void registerBlockstateMultiItem(ResourceLocation RL, Item item, String variantName) {
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(RL, "type=" + variantName));	
+		//ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(RL, "type=" + variantName));
 	}
 
 }

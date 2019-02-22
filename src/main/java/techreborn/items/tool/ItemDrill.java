@@ -29,6 +29,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,10 +54,9 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public float unpoweredSpeed = 2.0F;
 	public int transferLimit = 100;
 
-	public ItemDrill(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
-		super(material);
+	public ItemDrill(IItemTier material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().maxStackSize(1));
 		this.efficiency = efficiencyOnProperMaterial;
-		setMaxStackSize(1);
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}

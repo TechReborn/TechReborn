@@ -26,12 +26,15 @@ package techreborn.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.trees.AbstractTree;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -40,14 +43,21 @@ import techreborn.blocks.BlockRubberLeaves;
 import techreborn.blocks.BlockRubberLog;
 import techreborn.init.TRContent;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
-public class RubberTreeGenerator implements IWorldGenerator {
+public class RubberTreeGenerator extends AbstractTree implements IWorldGenerator {
 
 	boolean isWorldGen = true;
 
 	public RubberTreeGenerator() {
 		super();
+	}
+
+	@Nullable
+	@Override
+	protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
+		return null;
 	}
 
 	public RubberTreeGenerator(boolean isWorldGen) {

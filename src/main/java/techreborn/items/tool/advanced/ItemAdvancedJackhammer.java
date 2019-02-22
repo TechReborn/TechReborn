@@ -24,7 +24,7 @@
 
 package techreborn.items.tool.advanced;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,8 +46,8 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
+		if (!isInGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.ADVANCED_JACKHAMMER);

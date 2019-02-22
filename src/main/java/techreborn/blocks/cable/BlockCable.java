@@ -90,11 +90,11 @@ public class BlockCable extends BlockContainer {
 
 	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
 	public TileEntity getTileEntitySafely(IWorld blockAccess, BlockPos pos) {
-		if (blockAccess instanceof ChunkCache) {
-			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-		} else {
+//		if (blockAccess instanceof ChunkCache) {
+//			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
+//		} else {
 			return blockAccess.getTileEntity(pos);
-		}
+	//	}
 	}
 
 	public AbstractProperty<Boolean> getProperty(EnumFacing facing) {
@@ -147,6 +147,7 @@ public class BlockCable extends BlockContainer {
 		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
+	/*
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
@@ -206,20 +207,20 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+	public IBlockState getActualState(IBlockState state, IWorld worldIn, BlockPos pos) {
 		IBlockState actualState = state;
 		for (EnumFacing facing : EnumFacing.values()) {
 			TileEntity tileEntity = getTileEntitySafely(worldIn, pos.offset(facing));
 			if (tileEntity != null) {
-				actualState = actualState.with(getProperty(facing), tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()));
+				actualState = actualState.with(getProperty(facing), tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).isPresent());
 			}
 		}
 		return actualState;
 	}
 
 	@Override
-	public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity) {
-		super.onEntityCollision(worldIn, pos, state, entity);
+	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos,  Entity entity) {
+		super.onEntityCollision(state, worldIn, pos, entity);
 		if (type.canKill && entity instanceof EntityLivingBase) {
 			TileEntity tileEntity = worldIn.getTileEntity(pos);
 			if (tileEntity != null && tileEntity instanceof TileCable) {
@@ -244,4 +245,6 @@ public class BlockCable extends BlockContainer {
 			}
 		}
 	}
+
+	*/
 }

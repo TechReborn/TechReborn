@@ -103,7 +103,13 @@ group = 'TechReborn'
 
 dependencies {
 	minecraft 'net.minecraftforge:forge:1.13.2-25.0.44'
-	compile 'RebornCore:RebornCore-1.13.2:+:dev'
+
+	if (findProject(':reborncore') != null) {
+		compile project(":reborncore")
+	} else {
+		compile 'RebornCore:RebornCore-1.13.2:+:dev'
+	}
+
 }
 
 processResources{

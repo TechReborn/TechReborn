@@ -86,7 +86,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 				}
 				final EntityLightningBolt lightningBolt = new EntityLightningBolt(world,
 					pos.getX() + 0.5F,
-					world.provider.getAverageGroundLevel(),
+					world.getHeight(),
 					pos.getZ() + 0.5F, false);
 				world.addWeatherEffect(lightningBolt);
 				world.spawnEntity(lightningBolt);
@@ -99,8 +99,8 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	public float getLightningStrikeMultiplier() {
-		final float actualHeight = world.provider.getActualHeight();
-		final float groundLevel = world.provider.getAverageGroundLevel();
+		final float actualHeight = world.getDimension().getActualHeight();
+		final float groundLevel = world.getHeight();
 		for (int i = pos.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)

@@ -29,15 +29,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
@@ -58,16 +57,15 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public int transferLimit = 100;
 	public boolean isBreaking = false;
 
-	public ItemChainsaw(ToolMaterial material, int energyCapacity, float unpoweredSpeed) {
-		super(material);
-		setMaxStackSize(1);
+	public ItemChainsaw(ItemTier material, int energyCapacity, float unpoweredSpeed) {
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().maxStackSize(1));
 		this.maxCharge = energyCapacity;
 		this.efficiency = unpoweredSpeed;
 
 		this.addPropertyOverride(new ResourceLocation("techreborn", "animated"), new IItemPropertyGetter() {
 			@Override
 			@OnlyIn(Dist.CLIENT)
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float call(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() >= cost
 						&& entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
 					return 1.0F;
@@ -81,7 +79,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		if (new ForgePowerItemManager(stack).getEnergyStored() >= cost
-				&& (state.getBlock().isToolEffective("axe", state) || state.getMaterial() == Material.WOOD)) {
+				&& (state.getBlock().isToolEffective(state, ToolType.AXE) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
 			return super.getDestroySpeed(stack, state);

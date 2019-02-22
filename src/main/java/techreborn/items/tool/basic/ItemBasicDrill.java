@@ -25,12 +25,14 @@
 package techreborn.items.tool.basic;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -39,15 +41,14 @@ import techreborn.items.tool.ItemDrill;
 public class ItemBasicDrill extends ItemDrill {
 
 	public ItemBasicDrill() {
-		super(ToolMaterial.IRON, ConfigTechReborn.BasicDrillCharge, 0.5F, 10F);
+		super(ItemTier.IRON, ConfigTechReborn.BasicDrillCharge, 0.5F, 10F);
 		this.cost = 50;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
+		if (!isInGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.BASIC_DRILL);

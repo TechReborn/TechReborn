@@ -24,15 +24,14 @@
 
 package techreborn.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.block.trees.SpruceTree;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
 import techreborn.world.RubberTreeGenerator;
 
 import java.util.Random;
@@ -43,8 +42,8 @@ import java.util.Random;
 public class BlockRubberSapling extends BlockSapling {
 
 	public BlockRubberSapling() {
+		super(new SpruceTree(), Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT));
 		this.setDefaultState(this.getDefaultState().with(STAGE, 0));
-		setSoundType(SoundType.PLANT);
 	}
 
 	@Override
@@ -52,15 +51,11 @@ public class BlockRubberSapling extends BlockSapling {
 		if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
 			return;
 		}
-		worldIn.setBlockToAir(pos);
+		worldIn.removeBlock(pos);
 		if (!new RubberTreeGenerator(false).growTree(worldIn, rand, pos.getX(), pos.getY(), pos.getZ())) {
-			worldIn.setBlockState(pos, state); // Re-add the sapling if the tree
+			worldIn.setBlockState(pos, state, 3); // Re-add the sapling if the tree
 			// failed to grow
 		}
 	}
 
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(this, 1, 0));
-	}
 }

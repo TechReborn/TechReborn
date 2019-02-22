@@ -30,8 +30,10 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -53,11 +55,9 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	public int cost = 250;
 	public int transferLimit = 100;
 
-	public ItemJackhammer(ToolMaterial material, int energyCapacity) {
-		super(material);
+	public ItemJackhammer(ItemTier material, int energyCapacity) {
+		super(material, (int) material.getAttackDamage(), 1f, new Item.Properties().maxStackSize(1));
 		efficiency = 20F;
-		setMaxStackSize(1);
-		setMaxDamage(240);
 		this.maxCharge = energyCapacity;
 	}
 
@@ -92,7 +92,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 
 	// Item
 	@Override
-	public boolean canHarvestBlock(final IBlockState state, final ItemStack stack) {
+	public boolean canHarvestBlock( final ItemStack stack, final IBlockState state) {
 		return TagUtils.isOre(state, "stone")
 			|| state.getMaterial() == Material.ROCK && new ForgePowerItemManager(stack).getEnergyStored() >= cost;
 	}

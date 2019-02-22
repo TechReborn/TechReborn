@@ -71,8 +71,8 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(GuiFluidConfiguration.class);
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
-		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
-		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
+//		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
+//		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCell::getCellWithFluid;
 	}

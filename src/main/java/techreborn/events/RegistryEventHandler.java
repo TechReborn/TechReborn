@@ -117,10 +117,7 @@ public class RegistryEventHandler {
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
 				ItemBlockRubberSapling.class, 
 				"rubber_sapling");
-		RebornRegistry.registerBlockNoItem(TRContent.RUBBER_LOG_SLAB_HALF = InitUtils.setup(new BlockRubberPlankSlab.BlockHalf("rubber_plank"), "rubber_plank_slab"));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LOG_SLAB_DOUBLE = InitUtils.setup(new BlockRubberPlankSlab.BlockDouble("rubber_plank", TRContent.RUBBER_LOG_SLAB_HALF), "rubber_plank_double_slab"),
-					new ItemSlab(TRContent.RUBBER_LOG_SLAB_HALF, (BlockSlab) TRContent.RUBBER_LOG_SLAB_HALF, (BlockSlab) TRContent.RUBBER_LOG_SLAB_DOUBLE),
-					"rubber_plank_double_slab");
+		RebornRegistry.registerBlockNoItem(TRContent.RUBBER_LOG_SLAB = InitUtils.setup(new BlockRubberPlankSlab("rubber_plank"), "rubber_plank_slab"));
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG_STAIR = InitUtils.setup(new BlockRubberPlankStair(TRContent.RUBBER_LOG.getDefaultState(), "rubber_plank"),
 					"rubber_plank_stair"), new Item.Properties());
 
@@ -233,10 +230,10 @@ public class RegistryEventHandler {
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
 	}
 	
-	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
-	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		//Register ModRecipes
-		ModRecipes.init();
-	}
+//	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
+//	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+//		//Register ModRecipes
+//		ModRecipes.init();
+//	}
 
 }

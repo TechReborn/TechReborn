@@ -28,7 +28,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -203,9 +203,9 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
+	public void fillItemGroup(
+		ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
+		if (!isInGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
