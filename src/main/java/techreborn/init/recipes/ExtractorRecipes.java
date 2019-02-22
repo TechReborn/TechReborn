@@ -39,6 +39,7 @@ import techreborn.items.DynamicCell;
  * Created by Prospector
  */
 public class ExtractorRecipes extends RecipeMethods {
+	/* TODO 1.13 :D
 	public static void init() {
 		register(getStack(TRContent.RUBBER_SAPLING), TRContent.Parts.RUBBER.getStack(), false);
 		register(getStack(TRContent.RUBBER_LOG), TRContent.Parts.RUBBER.getStack(), false);
@@ -75,4 +76,6 @@ public class ExtractorRecipes extends RecipeMethods {
 	static void register(ItemStack input, ItemStack output, boolean oreDict) {
 		RecipeHandler.addRecipe(Reference.EXTRACTOR_RECIPE, new ExtractorRecipe(input, output, 400, 2, oreDict));
 	}
+
+	*/
 }

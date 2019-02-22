@@ -33,6 +33,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagCollection;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
+import techreborn.init.ModTags;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -118,4 +119,5 @@ public class TagUtils {
 			ItemStack stack, String oreName) {
 		throw new UnsupportedOperationException("Move to tags");
 	}
+
 }

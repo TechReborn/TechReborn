@@ -29,7 +29,6 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -51,6 +50,8 @@ import java.util.stream.Collectors;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class IndustrialSawmillRecipes extends RecipeMethods {
+	/* TODO 1.13 :D
+
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
 
 	@ConfigRegistry(config = "recipes", category = "sawmill", key = "plankCount", comment = "Number of planks the saw mill will ouput")
@@ -130,5 +131,7 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 			throw new InvalidParameterException("Invalid industrial sawmill outputs: " + outputs);
 		}
 	}
+
+	*/
 
 }

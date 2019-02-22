@@ -39,6 +39,8 @@ import java.security.InvalidParameterException;
  * Created by Prospector
  */
 public class IndustrialElectrolyzerRecipes extends RecipeMethods {
+	/* TODO 1.13 :D
+
 	public static void init() {
 		register(getMaterial("electrolyzedwater", 6, Type.CELL), 760, 120, getMaterial("hydrogen", 4, Type.CELL), getMaterial("compressedair", Type.CELL));
 		register(getMaterial("water", Type.CELL), 20, 50, getMaterial("electrolyzedwater", Type.CELL));
@@ -141,4 +143,6 @@ public class IndustrialElectrolyzerRecipes extends RecipeMethods {
 	static void register(ItemStack input, int ticks, int euPerTick, ItemStack... outputs) {
 		register(input, ticks, euPerTick, true, outputs);
 	}
+
+	*/
 }

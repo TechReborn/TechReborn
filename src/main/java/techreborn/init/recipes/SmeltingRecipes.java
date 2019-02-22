@@ -26,7 +26,6 @@ package techreborn.init.recipes;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import reborncore.common.util.RebornCraftingHelper;
 import techreborn.init.TRContent;
 
 /**
@@ -66,6 +65,6 @@ public class SmeltingRecipes extends RecipeMethods {
 	}
 
 	static void register(ItemStack input, ItemStack output) {
-		RebornCraftingHelper.addSmelting(input, output);
+		//RebornCraftingHelper.addSmelting(input, output);
 	}
 }

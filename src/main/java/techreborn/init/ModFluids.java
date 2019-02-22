@@ -68,7 +68,7 @@ public enum ModFluids {
 	public String name;
 
 	ModFluids() {
-		this.name = this.toString().replace("_", "").toLowerCase(); //Is this ok?
+		this.name = this.name().replace("_", "").toLowerCase(); //Is this ok?
 		fluid = new Fluid(name, new ResourceLocation("techreborn", "fixme"), new ResourceLocation("techrebonr", "alsofixme"));
 	}
 

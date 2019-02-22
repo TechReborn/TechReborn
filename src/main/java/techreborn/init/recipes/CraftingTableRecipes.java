@@ -29,7 +29,6 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import reborncore.common.util.RebornCraftingHelper;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -39,6 +38,8 @@ import techreborn.items.*;
  * Created by Prospector
  */
 public class CraftingTableRecipes extends RecipeMethods {
+	/* TODO 1.13 :D
+
 	public static void init() {
 
 		registerCompressionRecipes();
@@ -404,4 +405,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(leggings, "GGG", "G G", "G G", 'G', material);
 		registerShaped(boots, "G G", "G G", 'G', material);
 	}
+
+	*/
 }

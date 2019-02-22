@@ -149,10 +149,10 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.PUMPKIN));
 		register(getStack(Blocks.NETHERRACK));
 		register(getStack(Blocks.GRASS));
-		register(getStack(Blocks.DIRT, 1, 0));
-		register(getStack(Blocks.DIRT, 1, 1));
-		register(getStack(Blocks.SAND, 1, 0));
-		register(getStack(Blocks.SAND, 1, 1));
+		register(getStack(Blocks.DIRT, 1));
+		register(getStack(Blocks.DIRT, 1));
+		register(getStack(Blocks.SAND, 1));
+		register(getStack(Blocks.SAND, 1));
 		register(getStack(Blocks.GLOWSTONE));
 		register(getStack(Blocks.GRAVEL));
 //		register(getStack(Blocks.HARDENED_CLAY));
@@ -224,10 +224,6 @@ public class ScrapboxRecipes extends RecipeMethods {
 		RecipeHandler.addRecipe(Reference.SCRAPBOX_RECIPE, new ScrapboxRecipe(output, 20, 2));
 	}
 
-	static void registerDyable(Item item) {
-		for (int i = 0; i < 16; i++)
-			register(getStack(item, 1, i));
-	}
 
 	static void registerDyable(Block block) {
 		//registerDyable(Item.getItemFromBlock(block));

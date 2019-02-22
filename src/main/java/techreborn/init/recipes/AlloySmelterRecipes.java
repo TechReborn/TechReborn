@@ -28,8 +28,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.recipes.OreRecipeInput;
-import reborncore.common.util.OreUtil;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 
@@ -40,6 +38,8 @@ import techreborn.api.recipe.machines.AlloySmelterRecipe;
 public class AlloySmelterRecipes extends RecipeMethods {
 
 	public static void init() {
+
+		/*
 
 //		OreRecipeInput ingotCopper3 = new OreRecipeInput("ingotCopper", 3);
 //		OreRecipeInput dustCopper3 = new OreRecipeInput("dustCopper", 3);
@@ -106,7 +106,7 @@ public class AlloySmelterRecipes extends RecipeMethods {
 //		}
 
 		// Red Alloy
-		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
+//		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
 			ItemStack redAlloyStack = getOre("ingotRedAlloy");
 			redAlloyStack.setCount(1);
 //			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
@@ -115,10 +115,10 @@ public class AlloySmelterRecipes extends RecipeMethods {
 			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE,
 				new AlloySmelterRecipe(new ItemStack(Items.REDSTONE, 4), new ItemStack(Items.IRON_INGOT, 1),
 					redAlloyStack, 200, 16));
-		}
+//		}
 
 		// Blue Alloy
-		if (oresExist("ingotBlueAlloy", "dustTeslatite")) {
+//		if (oresExist("ingotBlueAlloy", "dustTeslatite")) {
 //			ItemStack blueAlloyStack = getOre("ingotBlueAlloy");
 //			blueAlloyStack.setCount(1);
 //			RecipeHandler.addRecipe(Reference.ALLOY_SMELTER_RECIPE, new AlloySmelterRecipe(getOre("dustTeslatite", 4),
@@ -126,7 +126,7 @@ public class AlloySmelterRecipes extends RecipeMethods {
 		}
 
 		// Blue Alloy
-		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite")) {
+//		if (OreUtil.doesOreExistAndValid("ingotPurpleAlloy") && OreUtil.doesOreExistAndValid("dustInfusedTeslatite")) {
 //			ItemStack purpleAlloyStack = getOre("ingotPurpleAlloy");
 //			purpleAlloyStack.setCount(1);
 //			ItemStack infusedTeslatiteStack = getOre("ingotPurpleAlloy");
@@ -219,6 +219,8 @@ public class AlloySmelterRecipes extends RecipeMethods {
 				new AlloySmelterRecipe(new ItemStack(Blocks.SOUL_SAND, 1), new ItemStack(Items.GOLD_INGOT, 1),
 					soulariumStack, 200, 16));
 		}
+
+		*/
 	}
 
 }

@@ -29,7 +29,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.oredict.OreDictionary;
-import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.items.*;
 
@@ -89,9 +88,7 @@ public abstract class RecipeMethods {
 		}
 		if (object != null) {
 			if (object instanceof String) {
-				if (OreUtil.doesOreExistAndValid((String) object)) {
-					return object;
-				}
+				throw new UnsupportedOperationException("Use tags");
 			} else {
 				return object;
 			}
@@ -107,24 +104,19 @@ public abstract class RecipeMethods {
 		return getMaterialObjectFromType(name, type);
 	}
 
+	@Deprecated
 	public static ItemStack getOre(String name, int count) {
-		return OreUtil.getStackFromName(name, count).copy();
+		throw new UnsupportedOperationException("Use tags");
 	}
 
+	@Deprecated
 	public static ItemStack getOre(String name) {
-		return getOre(name, 1);
+		throw new UnsupportedOperationException("Use tags");
 	}
 
+	@Deprecated
 	public static boolean oresExist(String... names) {
-		for (String name : names) {
-			if (!OreDictionary.doesOreNameExist(name)) {
-				return false;
-			}
-			if(OreDictionary.getOres(name).isEmpty()){
-				return false;
-			}
-		}
-		return true;
+		throw new UnsupportedOperationException("Use tags");
 	}
 
 	public static ItemStack getStack(Item item) {
@@ -135,12 +127,14 @@ public abstract class RecipeMethods {
 		return new ItemStack(item, count);
 	}
 
+
 	public static ItemStack getStack(Item item, boolean wildcard) {
 		return getStack(item, 1, wildcard);
 	}
 
+	@Deprecated
 	public static ItemStack getStack(Item item, int count, boolean wildcard) {
-		return getStack(item, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
+		throw new UnsupportedOperationException("Use tags");
 	}
 
 	public static ItemStack getStack(Block block) {
@@ -148,7 +142,7 @@ public abstract class RecipeMethods {
 	}
 
 	public static ItemStack getStack(Block block, int count) {
-		return getStack(block, count, 0);
+		return getStack(block, count);
 	}
 
 	public static ItemStack getStack(Block block, boolean wildcard) {
@@ -156,15 +150,13 @@ public abstract class RecipeMethods {
 	}
 
 	public static ItemStack getStack(Block block, int count, boolean wildcard) {
-		return getStack(block, count, wildcard ? OreDictionary.WILDCARD_VALUE : 0);
+		throw new UnsupportedOperationException("Use tags");
 	}
 
-	public static ItemStack getStack(Block block, int count, int metadata) {
-		return getStack(Item.getItemFromBlock(block), count, metadata);
-	}
 
 	public static Ingredient getCell(String name, int count){
-		return new IngredientCell(ItemCells.getCellByName(name, count));
+		throw new UnsupportedOperationException("fix me");
+		//return new IngredientCell(ItemCells.getCellByName(name, count));
 	}
 
 	public static Ingredient getCell(String name){

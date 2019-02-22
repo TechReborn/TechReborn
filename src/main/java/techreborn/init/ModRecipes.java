@@ -27,7 +27,6 @@ package techreborn.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -35,7 +34,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
-import reborncore.common.util.OreUtil;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.GrinderRecipe;
@@ -56,9 +54,13 @@ import static techreborn.utils.TagUtils.joinDictName;
 @RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {
 
+
+
 	public static void init() {
 		//Gonna rescan to make sure we have an uptodate list
 		//OreUtil.scanForOres();
+
+		/*
 
 		CraftingTableRecipes.init();
 		SmeltingRecipes.init();
@@ -80,26 +82,12 @@ public class ModRecipes {
 		addVacuumFreezerRecipes();
 		addGrinderRecipes();
 		addCompressorRecipes();
+
+		*/
 	}
 
 	public static void postInit() {
-		if (ConfigTechReborn.disableRailcraftSteelNuggetRecipe) {
-			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
-			Map.Entry<ItemStack, ItemStack> entry;
-			while (iterator.hasNext()) {
-				entry = iterator.next();
-				if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
-					ItemStack input = (ItemStack) entry.getKey();
-					ItemStack output = (ItemStack) entry.getValue();
-					if (ItemUtils.isInputEqual("nuggetSteel", output, true, true, false) && ItemUtils.isInputEqual("nuggetIron", input, true, true, false)) {
-						TechReborn.LOGGER.info("Removing a steelnugget smelting recipe");
-						iterator.remove();
-					}
-				}
-			}
-		}
-		
-		IndustrialSawmillRecipes.init();
+		//IndustrialSawmillRecipes.init();
 	}
 
 	private static void addCompressorRecipes() {
@@ -164,10 +152,10 @@ public class ModRecipes {
 		// int eutick = 2;
 		// int ticktime = 300;
 
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			new ItemStack(Items.BONE),
-			new ItemStack(Items.DYE, 6, 15),
-			170, 19));
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			new ItemStack(Items.BONE),
+//			new ItemStack(Items.DYE, 6, 15),
+//			170, 19));
 
 		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 			new ItemStack(Blocks.COBBLESTONE),
@@ -218,10 +206,10 @@ public class ModRecipes {
 //				ItemDusts.getDustByName("ender_pearl", 2),
 //				200, 22));
 		
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-				new ItemStack(Blocks.LAPIS_ORE),
-				new ItemStack(Items.DYE, 10, 4),
-				170, 19));
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//				new ItemStack(Blocks.LAPIS_ORE),
+//				new ItemStack(Items.DYE, 10, 4),
+//				170, 19));
 		
 //		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 //				new ItemStack(Blocks.OBSIDIAN),
@@ -233,20 +221,20 @@ public class ModRecipes {
 				new ItemStack(Items.BLAZE_POWDER, 4),
 				170, 19));
 
-		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
+//		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
 //			ItemStack marbleStack = getOre("stoneMarble");
 //			marbleStack.setCount(1);
 //			RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 //					marbleStack, ItemDusts.getDustByName("marble"),
 //					120, 10));
-		}
-		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
+//		}
+//		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
 //			ItemStack marbleStack = getOre("stoneBasalt");
 //			marbleStack.setCount(1);
 //			RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 //					marbleStack, ItemDusts.getDustByName("basalt"),
 //					120, 10));
-		}
+//		}
 
 		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
 		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
@@ -270,45 +258,45 @@ public class ModRecipes {
 			270, 31));
 
 
-		for (String oreDictionaryName : OreDictionary.getOreNames()) {
-			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
-				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
-				String[] data = getDictData(oreDictionaryName);
-
-				//High-level ores shouldn't grind here
-				if (data[0].equals("ore") && (
-					data[1].equals("tungsten") ||
-						data[1].equals("titanium") ||
-						data[1].equals("aluminium") ||
-						data[1].equals("iridium") ||
-						data[1].equals("saltpeter")||
-						data[1].equals("coal") || //Done here to skip going to dust so it can go to the output
-						data[1].equals("diamond") || //For example diamond ore should go to diamonds not the diamond dust
-						data[1].equals("emerald") || //TODO possibly remove this and make it a bit more dyamic? (Check for furnace recipes? and then the block drop?)
-						data[1].equals("redstone") ||
-						data[1].equals("quartz")
-						) ||
-					oreStack.isEmpty())
-					continue;
-
-				boolean ore = data[0].equals("ore");
-				TechReborn.LOGGER.debug("Ore: " + data[1]);
-				ItemStack dust = getDictOreOrEmpty(joinDictName("dust", data[1]), ore ? 2 : 1);
-				if (dust.isEmpty() || dust.getItem() == null) {
-					continue;
-				}
-				dust = dust.copy();
-				if (ore) {
-					dust.setCount(2);
-				}
-				boolean useOreDict = true;
-				//Disables the ore dict for lapis, this is becuase it is oredict with dye. This may cause some other lapis ores to not be grindable, but we can fix that when that arrises.
-				if(data[1].equalsIgnoreCase("lapis")){
-					useOreDict = false;
-				}
-				RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22, useOreDict));
-			}
-		}
+//		for (String oreDictionaryName : OreDictionary.getOreNames()) {
+//			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
+//				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
+//				String[] data = getDictData(oreDictionaryName);
+//
+//				//High-level ores shouldn't grind here
+//				if (data[0].equals("ore") && (
+//					data[1].equals("tungsten") ||
+//						data[1].equals("titanium") ||
+//						data[1].equals("aluminium") ||
+//						data[1].equals("iridium") ||
+//						data[1].equals("saltpeter")||
+//						data[1].equals("coal") || //Done here to skip going to dust so it can go to the output
+//						data[1].equals("diamond") || //For example diamond ore should go to diamonds not the diamond dust
+//						data[1].equals("emerald") || //TODO possibly remove this and make it a bit more dyamic? (Check for furnace recipes? and then the block drop?)
+//						data[1].equals("redstone") ||
+//						data[1].equals("quartz")
+//						) ||
+//					oreStack.isEmpty())
+//					continue;
+//
+//				boolean ore = data[0].equals("ore");
+//				TechReborn.LOGGER.debug("Ore: " + data[1]);
+//				ItemStack dust = getDictOreOrEmpty(joinDictName("dust", data[1]), ore ? 2 : 1);
+//				if (dust.isEmpty() || dust.getItem() == null) {
+//					continue;
+//				}
+//				dust = dust.copy();
+//				if (ore) {
+//					dust.setCount(2);
+//				}
+//				boolean useOreDict = true;
+//				//Disables the ore dict for lapis, this is becuase it is oredict with dye. This may cause some other lapis ores to not be grindable, but we can fix that when that arrises.
+//				if(data[1].equalsIgnoreCase("lapis")){
+//					useOreDict = false;
+//				}
+//				RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22, useOreDict));
+//			}
+//		}
 	}
 
 	static void addVacuumFreezerRecipes() {
@@ -379,10 +367,4 @@ public class ModRecipes {
 		return FluidUtil.getFilledBucket(new FluidStack(fluid, Fluid.BUCKET_VOLUME));
 	}
 
-	public static ItemStack getOre(String name) {
-		if (OreDictionary.getOres(name).isEmpty()) {
-			throw new RuntimeException("Failed to get ore: " + name);
-		}
-		return OreDictionary.getOres(name).get(0).copy();
-	}
 }

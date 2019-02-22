@@ -24,6 +24,7 @@
 
 package techreborn.tiles.generator;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -37,8 +38,10 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
+import techreborn.init.ModTags;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
+import techreborn.utils.TagUtils;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
@@ -111,10 +114,9 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	public boolean isValidIronFence(int y) {
-		final Item itemBlock = Item.getItemFromBlock(this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock());
-		for (final ItemStack fence : OreDictionary.getOres("fenceIron")) {
-			if (fence.getItem() == itemBlock)
-				return true;
+		Block block = this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock();
+		if(TagUtils.hasTag(block, ModTags.FENCE_IRON)){
+			return true;
 		}
 		return false;
 	}

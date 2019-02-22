@@ -30,8 +30,6 @@ import techreborn.TechReborn;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class ConfigTechReborn {
-	@ConfigRegistry(config = "recipes", category = "railcraft", key = "disableRailcraftNugget", comment = "When true TechReborn will remove Railcraft's Iron Nugget to steel nugget recipe.")
-	public static boolean disableRailcraftSteelNuggetRecipe = false;
 
 	@ConfigRegistry(config = "items", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;

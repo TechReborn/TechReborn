@@ -40,6 +40,8 @@ import java.security.InvalidParameterException;
  */
 public class IndustrialGrinderRecipes extends RecipeMethods {
 
+	/* TODO 1.13 :D
+
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
 	static FluidStack MERCURY = new FluidStack(ModFluids.MERCURY, 1000);
 	static FluidStack SODIUM_PERSULFATE = new FluidStack(ModFluids.SODIUMPERSULFATE, 1000);
@@ -214,4 +216,6 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 			throw new InvalidParameterException("Invalid industrial grinder inputs: " + inputs);
 		}
 	}
+
+	*/
 }
