@@ -81,7 +81,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		writeWithoutCoords(tileEntity);
 		dropStack.setTag(new NBTTagCompound());
-		dropStack.getTag().setTag("tileEntity", tileEntity);
+		dropStack.getTag().put("tileEntity", tileEntity);
 		return dropStack;
 	}
 	
@@ -108,7 +108,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	@Override
 	public NBTTagCompound write(NBTTagCompound tagCompound) {
 		super.write(tagCompound);
-		tagCompound.setInt("output", OUTPUT);
+		tagCompound.putInt("output", OUTPUT);
 		inventory.write(tagCompound);
 		return tagCompound;
 	}

@@ -30,6 +30,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -81,7 +83,7 @@ public class TileQuantumTank extends TileMachineBase
 		final ItemStack dropStack = TRContent.Machine.QUANTUM_TANK.getStack();
 		this.writeWithoutCoords(tileEntity);
 		dropStack.setTag(new NBTTagCompound());
-		dropStack.getTag().setTag("tileEntity", tileEntity);
+		dropStack.getTag().put("tileEntity", tileEntity);
 		return dropStack;
 	}
 	
@@ -135,15 +137,15 @@ public class TileQuantumTank extends TileMachineBase
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile, boolean hasData) {
+	public void addInfo(final List<ITextComponent> info, final boolean isRealTile, boolean hasData) {
 		if (isRealTile | hasData) {
 			if (this.tank.getFluid() != null) {
-				info.add(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName());
+				info.add(new TextComponentString(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName()));
 			} else {
-				info.add("Empty");
+				info.add(new TextComponentString("Empty"));
 			}
 		}
-		info.add("Capacity " + this.tank.getCapacity() + " mb");
+		info.add(new TextComponentString("Capacity " + this.tank.getCapacity() + " mb"));
 	}
 
 	// IContainerProvider

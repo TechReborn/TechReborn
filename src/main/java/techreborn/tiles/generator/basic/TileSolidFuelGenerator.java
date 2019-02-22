@@ -70,7 +70,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	public static int getItemBurnTime(ItemStack stack) {
-		return TileEntityFurnace.getItemBurnTime(stack) / 4;
+		return TileEntityFurnace.getBurnTimes().get(stack) / 4;
 	}
 
 	@Override

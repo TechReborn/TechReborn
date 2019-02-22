@@ -34,8 +34,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IListInfoProvider;
@@ -82,22 +85,13 @@ public class TileCable extends TileEntity
 		}
 		return canReceive();
 	}
-		
-	// TileEntity
+
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-		if (capability == CapabilityEnergy.ENERGY) {
-			return true;
-		}
-		return super.hasCapability(capability, facing);
-	}
-	
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+	public <T> LazyOptional<T> getCapability(Capability<T> capability) {
 		if (capability == CapabilityEnergy.ENERGY) {
 			return CapabilityEnergy.ENERGY.cast(this);
 		}
-		return super.getCapability(capability, facing);
+		return super.getCapability(capability);
 	}
 	
 	@Override
@@ -120,7 +114,7 @@ public class TileCable extends TileEntity
     @Override
     public void read(NBTTagCompound compound) {
         super.read(compound);
-        if (compound.hasKey("TileCable")) {
+        if (compound.contains("TileCable")) {
             power = compound.getCompound("TileCable").getInt("power");
         }
     }
@@ -130,8 +124,8 @@ public class TileCable extends TileEntity
         super.write(compound);
         if (power > 0) {
         	NBTTagCompound data = new NBTTagCompound();
-    		data.setInt("power", getEnergyStored());
-    		compound.setTag("TileCable", data);
+    		data.putInt("power", getEnergyStored());
+    		compound.put("TileCable", data);
         }
         return compound;
     }
@@ -246,13 +240,13 @@ public class TileCable extends TileEntity
 
     // IListInfoProvider
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
+	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile) {
-			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
+			info.add(new TextComponentString(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
 				+ TextFormatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t");
-			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-				+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString()));
+				+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t"));
+			info.add(new TextComponentString(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
+				+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
 		}
 	}
 

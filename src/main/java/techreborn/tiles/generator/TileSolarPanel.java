@@ -30,6 +30,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
@@ -129,18 +131,18 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	// TODO: Translate
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
-		info.add(TextFormatting.GRAY + "Internal Energy Storage: " + TextFormatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower()));
+	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
+		info.add(new TextComponentString(TextFormatting.GRAY + "Internal Energy Storage: " + TextFormatting.GOLD
+				+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower())));
 
-		info.add(TextFormatting.GRAY + "Generation Rate Day: " + TextFormatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD));
+		info.add(new TextComponentString(TextFormatting.GRAY + "Generation Rate Day: " + TextFormatting.GOLD
+				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
 
-		info.add(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN));
+		info.add(new TextComponentString(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
+				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
 
-		info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD
-				+ StringUtils.toFirstCapitalAllLowercase(getTier().toString()));
+		info.add(new TextComponentString(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD
+				+ StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
 	}
 	
 	@Override

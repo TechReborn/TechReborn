@@ -320,14 +320,14 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		this.finalTickTime = tagCompound.getInt("finalTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
-		if(tagCompound.hasKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
+		if(tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
 			for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
 				if (validateReactorRecipe(reactorRecipe)) {
 					this.currentRecipe = reactorRecipe;
 				}
 			}
 		}
-		if(tagCompound.hasKey("size")){
+		if(tagCompound.contains("size")){
 			this.size = tagCompound.getInt("size");
 		}
 		this.size = Math.min(size, maxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
@@ -336,12 +336,12 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	@Override
 	public NBTTagCompound write(final NBTTagCompound tagCompound) {
 		super.write(tagCompound);
-		tagCompound.setInt("crafingTickTime", this.crafingTickTime);
-		tagCompound.setInt("finalTickTime", this.finalTickTime);
-		tagCompound.setInt("neededPower", this.neededPower);
-		tagCompound.setBoolean("hasStartedCrafting", this.hasStartedCrafting);
-		tagCompound.setBoolean("hasActiveRecipe", this.currentRecipe != null);
-		tagCompound.setInt("size", size);
+		tagCompound.putInt("crafingTickTime", this.crafingTickTime);
+		tagCompound.putInt("finalTickTime", this.finalTickTime);
+		tagCompound.putInt("neededPower", this.neededPower);
+		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
+		tagCompound.putBoolean("hasActiveRecipe", this.currentRecipe != null);
+		tagCompound.putInt("size", size);
 		return tagCompound;
 	}
 

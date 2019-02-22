@@ -43,7 +43,7 @@ public class IDSUSaveManger extends WorldSavedData implements IDataIDSU {
 
 	@Override
 	public NBTTagCompound write(NBTTagCompound compound) {
-		compound.setDouble("power", power);
+		compound.putDouble("power", power);
 		return compound;
 	}
 

@@ -70,13 +70,13 @@ public class TileAlarm extends TileEntity
 		if (compound == null) {
 			compound = new NBTTagCompound();
 		}
-		compound.setInt("selectedSound", this.selectedSound);
+		compound.putInt("selectedSound", this.selectedSound);
 		return super.write(compound);
 	}
 
 	@Override
 	public void read(NBTTagCompound compound) {
-		if (compound != null && compound.hasKey("selectedSound")) {
+		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
 		super.read(compound);

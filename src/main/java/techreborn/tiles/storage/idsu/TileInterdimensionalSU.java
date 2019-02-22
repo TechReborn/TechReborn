@@ -105,7 +105,7 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
 			return nbttagcompound;
 		}
-		nbttagcompound.setString("ownerUdid", this.ownerUdid);
+		nbttagcompound.putString("ownerUdid", this.ownerUdid);
 		return nbttagcompound;
 	}
 

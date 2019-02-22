@@ -289,9 +289,9 @@ public class TileRollingMachine extends TilePowerAcceptor
 	@Override
 	public NBTTagCompound write(final NBTTagCompound tagCompound) {
 		super.write(tagCompound);
-		tagCompound.setBoolean("isRunning", this.isRunning);
-		tagCompound.setInt("tickTime", this.tickTime);
-		tagCompound.setBoolean("locked", locked);
+		tagCompound.putBoolean("isRunning", this.isRunning);
+		tagCompound.putInt("tickTime", this.tickTime);
+		tagCompound.putBoolean("locked", locked);
 		return tagCompound;
 	}
 

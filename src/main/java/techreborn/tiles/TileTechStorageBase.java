@@ -31,6 +31,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullSupplier;
@@ -65,7 +67,7 @@ public class TileTechStorageBase extends TileMachineBase
 
 		storedItem = ItemStack.EMPTY;
 
-		if (tagCompound.hasKey("storedStack")) {
+		if (tagCompound.contains("storedStack")) {
 			storedItem = ItemStack.read(tagCompound.getCompound("storedStack"));
 		}
 
@@ -82,10 +84,10 @@ public class TileTechStorageBase extends TileMachineBase
 			if (storedItem.getCount() > storedItem.getMaxStackSize()) {
 				temp.setCount(storedItem.getMaxStackSize());
 			}
-			tagCompound.setTag("storedStack", temp.write(new NBTTagCompound()));
-			tagCompound.setInt("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
+			tagCompound.put("storedStack", temp.write(new NBTTagCompound()));
+			tagCompound.putInt("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
 		} else {
-			tagCompound.setInt("storedQuantity", 0);
+			tagCompound.putInt("storedQuantity", 0);
 		}
 		inventory.write(tagCompound);
 		return tagCompound;
@@ -96,7 +98,7 @@ public class TileTechStorageBase extends TileMachineBase
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		writeWithoutCoords(tileEntity);
 		dropStack.setTag(new NBTTagCompound());
-		dropStack.getTag().setTag("tileEntity", tileEntity);
+		dropStack.getTag().put("tileEntity", tileEntity);
 		storedItem.setCount(0);
 		inventory.setStackInSlot(1, ItemStack.EMPTY);
 		syncWithAll();
@@ -248,7 +250,7 @@ public class TileTechStorageBase extends TileMachineBase
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<String> info, boolean isRealTile, boolean hasData) {
+	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile || hasData) {
 			int size = 0;
 			String name = "of nothing";
@@ -260,7 +262,7 @@ public class TileTechStorageBase extends TileMachineBase
 				name = inventory.getStackInSlot(1).getDisplayName().getString();
 				size += inventory.getStackInSlot(1).getCount();
 			}
-			info.add(size + " " + name);
+			info.add(new TextComponentString(size + " " + name));
 		}
 	}
 

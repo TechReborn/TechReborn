@@ -87,7 +87,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 
 				// Bottom center shouldn't have any tile entities below it
 				if (world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
-						.getBlock() == tileEntity.getBlockType()) {
+						.getBlock() == tileEntity.getWorld().getBlockState(tileEntity.getPos()).getBlock()) {
 					return 0;
 				}
 

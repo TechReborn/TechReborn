@@ -72,10 +72,10 @@ public class ItemFrequencyTransmitter extends Item {
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
 		stack.setTag(new NBTTagCompound());
-		stack.getTag().setInt("x", pos.getX());
-		stack.getTag().setInt("y", pos.getY());
-		stack.getTag().setInt("z", pos.getZ());
-		stack.getTag().setInt("dim", world.provider.getDimension());
+		stack.getTag().putInt("x", pos.getX());
+		stack.getTag().putInt("y", pos.getY());
+		stack.getTag().putInt("z", pos.getZ());
+		stack.getTag().putInt("dim", world.provider.getDimension());
 
 		if (!world.isRemote) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
@@ -111,7 +111,7 @@ public class ItemFrequencyTransmitter extends Item {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		if (stack.hasTag() && stack.getTag() != null && stack.getTag().hasKey("x") && stack.getTag().hasKey("y") && stack.getTag().hasKey("z") && stack.getTag().hasKey("dim")) {
+		if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 			int x = stack.getTag().getInt("x");
 			int y = stack.getTag().getInt("y");
 			int z = stack.getTag().getInt("z");
@@ -138,7 +138,7 @@ public class ItemFrequencyTransmitter extends Item {
 			TextFormatting gold = TextFormatting.GOLD;
 			TextFormatting grey = TextFormatting.GRAY;
 			if (stack.getItem() instanceof ItemFrequencyTransmitter) {
-				if (stack.hasTag() && stack.getTag() != null && stack.getTag().hasKey("x") && stack.getTag().hasKey("y") && stack.getTag().hasKey("z") && stack.getTag().hasKey("dim")) {
+				if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 					int coordX = stack.getTag().getInt("x");
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");
