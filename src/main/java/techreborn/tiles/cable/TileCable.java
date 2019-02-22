@@ -39,6 +39,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IListInfoProvider;
@@ -50,6 +51,7 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +91,7 @@ public class TileCable extends TileEntity
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability) {
 		if (capability == CapabilityEnergy.ENERGY) {
-			return CapabilityEnergy.ENERGY.cast(this);
+			return LazyOptional.of(() -> (T)this);
 		}
 		return super.getCapability(capability);
 	}

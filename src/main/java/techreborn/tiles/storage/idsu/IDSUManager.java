@@ -25,20 +25,20 @@
 package techreborn.tiles.storage.idsu;
 
 import net.minecraft.world.World;
-import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedDataStorage;
 import techreborn.TechReborn;
 
 public class IDSUManager {
 	public static IDataIDSU getData(World world) {
-		WorldSavedDataStorage storage = world.getMapStorage();
-		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, TechReborn.MOD_ID + "_IDSU");
-
-		if (instance == null) {
-			instance = new IDSUSaveManger(TechReborn.MOD_ID + "_IDSU");
-			storage.setData(TechReborn.MOD_ID + "_IDSU", instance);
-		}
-		return instance;
+		WorldSavedDataStorage storage = world.getSavedDataStorage();
+		throw new UnsupportedOperationException("needs rewriting anyway");
+//		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, TechReborn.MOD_ID + "_IDSU");
+//
+//		if (instance == null) {
+//			instance = new IDSUSaveManger(TechReborn.MOD_ID + "_IDSU");
+//			storage.setData(TechReborn.MOD_ID + "_IDSU", instance);
+//		}
+//		return instance;
 	}
 
 }

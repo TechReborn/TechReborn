@@ -61,7 +61,7 @@ public class StackWIPHandler {
 	private void addHead(String name) {
 		ItemStack head = new ItemStack(Items.PLAYER_HEAD, 3);
 		head.setTag(new NBTTagCompound());
-		head.getTag().setTag("SkullOwner", new NBTTagString(name));
+		head.getTag().put("SkullOwner", new NBTTagString(name));
 		devHeads.add(head);
 	}
 

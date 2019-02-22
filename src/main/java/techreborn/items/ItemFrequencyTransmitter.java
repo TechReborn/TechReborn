@@ -58,8 +58,8 @@ public class ItemFrequencyTransmitter extends Item {
 			@Override
 			@OnlyIn(Dist.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().hasKey("x")
-						&& stack.getTag().hasKey("y") && stack.getTag().hasKey("z") && stack.getTag().hasKey("dim")) {
+				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
+						&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 					return 1.0F;
 				}
 				return 0.0F;

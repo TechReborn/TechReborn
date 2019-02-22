@@ -70,9 +70,9 @@ public class DynamicCell extends Item {
 		//TODO: Property ItemUtils.isItemEquals tags equality handling?
 		if (stack.hasTag()) {
 			NBTTagCompound tag = stack.getTag();
-			if (tag.getSize() != 1 || tag.hasKey("Fluid")) {
+			if (tag.size() != 1 || tag.contains("Fluid")) {
 				NBTTagCompound clearTag = new NBTTagCompound();
-				clearTag.setTag("Fluid", tag.getCompoundTag("Fluid"));
+				clearTag.put("Fluid", tag.getCompound("Fluid"));
 				stack.setTag(clearTag);
 			}
 		}

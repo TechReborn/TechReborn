@@ -97,9 +97,8 @@ public class TechReborn {
 		// Sounds
 		ModSounds.init();
 		// Client only init, needs to be done before parts system
-		proxy.init(event);
+		proxy.init();
 		// WorldGen
-		worldGen.load();
 		//GameRegistry.registerWorldGenerator(worldGen, 0);
 		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
@@ -111,7 +110,6 @@ public class TechReborn {
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
-		MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 		//Village stuff
 		if (ConfigTechReborn.enableRubberTreePlantation) {
 			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
@@ -131,7 +129,7 @@ public class TechReborn {
 
 	@SubscribeEvent
 	public void postinit() {
-		proxy.postInit(event);
+		proxy.postInit();
 
 		ModRecipes.postInit();
 		LOGGER.info(RecipeHandler.recipeList.size() + " recipes loaded");

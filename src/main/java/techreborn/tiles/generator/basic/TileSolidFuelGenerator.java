@@ -30,7 +30,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.common.ForgeMod;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -96,7 +96,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 				updateState();
 				burnItem = inventory.getStackInSlot(fuelSlot);
 				if (inventory.getStackInSlot(fuelSlot).getCount() == 1) {
-					if (inventory.getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getStackInSlot(fuelSlot).getItem() == ForgeModContainer.getInstance().universalBucket) {
+					if (inventory.getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getStackInSlot(fuelSlot).getItem() == ForgeMod.getInstance().universalBucket) {
 						inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
 						inventory.setStackInSlot(fuelSlot, ItemStack.EMPTY);
