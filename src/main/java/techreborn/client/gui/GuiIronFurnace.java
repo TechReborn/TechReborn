@@ -50,7 +50,7 @@ public class GuiIronFurnace extends GuiBase {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		builder.drawSlotTab(this, guiLeft - 24, guiTop + 6, new ItemStack(TRContent.WRENCH));
 		mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
 		final int k = (this.width - xSize) / 2;

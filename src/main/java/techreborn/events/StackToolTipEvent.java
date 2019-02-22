@@ -24,10 +24,13 @@
 
 package techreborn.events;
 
+import org.lwjgl.glfw.GLFW;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -60,41 +63,41 @@ public class StackToolTipEvent {
 			((IListInfoProvider) item).addInfo(event.getToolTip(), false, false);
 		} else if (event.getItemStack().getItem() instanceof IEnergyItemInfo) {
 			IEnergyStorage capEnergy = new ForgePowerItemManager(event.getItemStack());
-			event.getToolTip().add(1, new TextComponentString(
-					TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU)
-					+ "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored() / RebornCoreConfig.euPerFU)
-					+ " " + PowerSystem.getDisplayPower().abbreviation));
-			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
+			TextComponentString line1 = new TextComponentString(PowerSystem
+					.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU));
+			line1.appendText("/");
+			line1.appendText(PowerSystem
+					.getLocaliszedPowerFormattedNoSuffix(capEnergy.getMaxEnergyStored() / RebornCoreConfig.euPerFU));
+			line1.appendText(" ");
+			line1.appendText(PowerSystem.getDisplayPower().abbreviation);
+			line1.applyTextStyle(TextFormatting.GOLD);
+
+			event.getToolTip().add(1, line1);
+
+			if (InputMappings.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT)
+					|| InputMappings.isKeyDown(GLFW.GLFW_KEY_RIGHT_SHIFT)) {
 				int percentage = percentage(capEnergy.getMaxEnergyStored(), capEnergy.getEnergyStored());
-				TextFormatting color;
-				if (percentage <= 10) {
-					color = TextFormatting.RED;
-				} else if (percentage >= 75) {
-					color = TextFormatting.GREEN;
-				} else {
-					color = TextFormatting.YELLOW;
-				}
-				event.getToolTip().add(2, new TextComponentString(color + "" + percentage + "%" + TextFormatting.GRAY + " Charged"));
+				TextFormatting color = StringUtils.getPercentageColour(percentage);
+				event.getToolTip().add(2,
+						new TextComponentString(color + "" + percentage + "%" + TextFormatting.GRAY + " Charged"));
 // TODO: show both input and output rates
-				event.getToolTip().add(3, new TextComponentString(
-						TextFormatting.GRAY + "I/O Rate: " 
+				event.getToolTip().add(3, new TextComponentString(TextFormatting.GRAY + "I/O Rate: "
 						+ TextFormatting.GOLD
 						+ PowerSystem.getLocaliszedPowerFormatted((int) ((IEnergyItemInfo) item).getMaxInput())));
 			}
-		}
-		else {
+		} else {
 			try {
 				Block block = Block.getBlockFromItem(item);
 				if (block != null && (block instanceof BlockContainer || block instanceof ITileEntityProvider)
-					&& block.getRegistryName().getNamespace().contains("techreborn")) {
-					TileEntity tile = block.createTileEntity(Minecraft.getInstance().world,
-						block.getStateFromMeta(event.getItemStack().getItemDamage()));
+						&& block.getRegistryName().getNamespace().contains("techreborn")) {
+					TileEntity tile = block.createTileEntity(block.getDefaultState(), Minecraft.getInstance().world);
 					boolean hasData = false;
-					if(event.getItemStack().hasTag() && event.getItemStack().getTag().hasKey("tile_data")){
-						NBTTagCompound tileData = event.getItemStack().getTag().getCompoundTag("tile_data");
+					if (event.getItemStack().hasTag() && event.getItemStack().getTag().hasKey("tile_data")) {
+						NBTTagCompound tileData = event.getItemStack().getTag().getCompound("tile_data");
 						tile.read(tileData);
 						hasData = true;
-						event.getToolTip().add(new TextComponentString(TextFormatting.DARK_GREEN + "Block data contained"));
+						event.getToolTip()
+								.add(new TextComponentString("Block data contained").applyTextStyle(TextFormatting.DARK_GREEN));
 					}
 					if (tile instanceof IListInfoProvider) {
 						((IListInfoProvider) tile).addInfo(event.getToolTip(), false, hasData);

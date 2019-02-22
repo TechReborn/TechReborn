@@ -25,10 +25,14 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,6 +44,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -67,70 +72,23 @@ public class BlockRubberLog extends Block {
 	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
 
 	public BlockRubberLog() {
-		super(Material.WOOD);
-		this.setHardness(2.0F);
+		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2f).sound(SoundType.WOOD).needsRandomTick());
 		this.setDefaultState(
 			this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false));
-		this.setTickRandomly(true);
-		this.setSoundType(SoundType.WOOD);
-		Blocks.FIRE.setFireInfo(this, 5, 5);
+		((BlockFire) Blocks.FIRE).setFireInfo(this, 5, 5);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, SAP_SIDE, HAS_SAP);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		SAP_SIDE = DirectionProperty.create("sapside", EnumFacing.Plane.HORIZONTAL);
+		HAS_SAP = BooleanProperty.create("hassap");
+		builder.add(SAP_SIDE, HAS_SAP);
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		boolean hasSap = false;
-		int tempMeta = meta;
-		if (meta > 3) {
-			hasSap = true;
-			tempMeta -= 3;
-		}
-		EnumFacing facing = EnumFacing.byHorizontalIndex(tempMeta);
-		return this.getDefaultState().with(SAP_SIDE, facing).with(HAS_SAP, hasSap);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int tempMeta = 0;
-		EnumFacing facing = state.getValue(SAP_SIDE);
-		switch (facing) {
-			case SOUTH:
-				tempMeta = 0;
-				break;
-			case WEST:
-				tempMeta = 1;
-				break;
-			case NORTH:
-				tempMeta = 2;
-				break;
-			case EAST:
-				tempMeta = 3;
-				break;
-			case UP:
-				tempMeta = 0;
-				break;
-			case DOWN:
-				tempMeta = 0;
-		}
-		if (state.getValue(HAS_SAP)) {
-			tempMeta += 4;
-		}
-		return tempMeta;
-	}
-
-	@Override
-	public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return true;
-	}
-
-	@Override
-	public boolean isWood(net.minecraft.world.IBlockAccess world, BlockPos pos) {
-		return true;
+	public boolean isIn(Tag<Block> tagIn) {
+		return tagIn == BlockTags.LOGS;
 	}
 
 	@Override
@@ -200,14 +158,9 @@ public class BlockRubberLog extends Block {
 	}
 
 	@Override
-	public int damageDropped(IBlockState state) {
-		return 0;
-	}
-
-	@Override
 	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		drops.add(new ItemStack(this));
-		if (state.getValue(HAS_SAP)) {
+		if (state.get(HAS_SAP)) {
 			if (new Random().nextInt(4) == 0) {
 				drops.add(TRContent.Parts.SAP.getStack());
 			}

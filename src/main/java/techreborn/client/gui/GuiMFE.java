@@ -56,7 +56,7 @@ public class GuiMFE extends GuiBase {
 
 		if(GuiBase.slotConfigType == SlotConfigType.NONE){
 			GlStateManager.pushMatrix();
-			GlStateManager.scale(0.6, 0.6, 1);
+			GlStateManager.scaled(0.6, 0.6, 1);
 			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getEnergy()) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getMaxPower()) + " " + PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
 			GlStateManager.popMatrix();
 		}

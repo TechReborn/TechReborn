@@ -64,7 +64,7 @@ public class GuiBlastFurnace extends GuiBase {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 		
 		drawSlot(8, 72, layer);

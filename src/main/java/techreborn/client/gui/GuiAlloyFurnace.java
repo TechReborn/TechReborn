@@ -48,7 +48,7 @@ public class GuiAlloyFurnace extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(GuiAlloyFurnace.texture);
 		final int k = (this.width - this.xSize) / 2;
 		final int l = (this.height - this.ySize) / 2;

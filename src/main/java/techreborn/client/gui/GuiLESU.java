@@ -55,7 +55,7 @@ public class GuiLESU extends GuiBase {
 		final Layer layer = Layer.FOREGROUND;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.scale(0.6, 0.6, 1);
+		GlStateManager.scaled(0.6, 0.6, 1);
 		drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getEnergy()) + "/"
 				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getMaxPower()) + " "
 				+ PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);

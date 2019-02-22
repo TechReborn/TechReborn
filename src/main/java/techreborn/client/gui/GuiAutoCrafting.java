@@ -27,7 +27,6 @@ package techreborn.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -61,21 +60,16 @@ public class GuiAutoCrafting extends GuiBase {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 			RenderHelper.enableGUIStandardItemLighting();
-
-			RenderItem itemRenderer = Minecraft.getInstance().getRenderItem();
-			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
-
+			itemRender.renderItemAndEffectIntoGUI(stack, x, y);
 			GlStateManager.disableLighting();
-
 			GlStateManager.pushMatrix();
-			GlStateManager.disableDepth();
-			GlStateManager.color(1, 1, 1, 1F / 3F);
+			GlStateManager.disableDepthTest();
+			GlStateManager.color4f(1, 1, 1, 1F / 3F);
 			drawRect(x - 4, y- 4, x + 20, y + 20, -2139062144);
-			GlStateManager.enableDepth();
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.enableDepthTest();
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 			GlStateManager.popMatrix();
-
 		}
 	}
 

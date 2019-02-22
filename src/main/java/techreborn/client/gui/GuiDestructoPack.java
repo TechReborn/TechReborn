@@ -24,7 +24,6 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -45,8 +44,8 @@ public class GuiDestructoPack extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
 		this.drawDefaultBackground();
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getInstance().renderEngine.bindTexture(texture);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 176, 166);
 	}
 

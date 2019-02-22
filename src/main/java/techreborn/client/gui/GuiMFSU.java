@@ -55,7 +55,7 @@ public class GuiMFSU extends GuiBase {
 		final Layer layer = Layer.FOREGROUND;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.scale(0.6, 0.6, 1);
+		GlStateManager.scaled(0.6, 0.6, 1);
 		drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfsu.getEnergy()) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfsu.getMaxPower()) + " " + PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
 		GlStateManager.popMatrix();
 
