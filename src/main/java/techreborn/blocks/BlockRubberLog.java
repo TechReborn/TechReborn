@@ -26,6 +26,7 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
@@ -33,7 +34,6 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -44,10 +44,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.powerSystem.ExternalPowerSystems;
@@ -59,8 +56,6 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.items.tool.basic.ItemElectricTreetap;
 import techreborn.items.tool.ItemTreeTap;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -73,8 +68,7 @@ public class BlockRubberLog extends Block {
 
 	public BlockRubberLog() {
 		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2f).sound(SoundType.WOOD).needsRandomTick());
-		this.setDefaultState(
-			this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false));
+		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false));
 		((BlockFire) Blocks.FIRE).setFireInfo(this, 5, 5);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
@@ -92,27 +86,28 @@ public class BlockRubberLog extends Block {
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
 		int i = 4;
 		int j = i + 1;
 		if (worldIn.isAreaLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 				IBlockState state1 = worldIn.getBlockState(blockpos);
-				if (state1.getBlock().isLeaves(state1, worldIn, blockpos)) {
-					state1.getBlock().beginLeavesDecay(state1, worldIn, blockpos);
+				if (state1.getBlock() instanceof BlockLeaves) {
+					state1.getBlock().tick(state1, worldIn, pos, worldIn.getRandom());
+					state1.getBlock().randomTick(state1, worldIn, pos, worldIn.getRandom());
 				}
 			}
 		}
 	}
 
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		super.updateTick(worldIn, pos, state, rand);
-		if (!state.getValue(HAS_SAP)) {
-			if (rand.nextInt(50) == 0) {
-				EnumFacing facing = EnumFacing.byHorizontalIndex(rand.nextInt(4));
+	public void tick(IBlockState state, World worldIn, BlockPos pos, Random random) {
+		super.tick(state, worldIn, pos, random);
+		if (!state.get(HAS_SAP)) {
+			if (random.nextInt(50) == 0) {
+				EnumFacing facing = EnumFacing.byHorizontalIndex(random.nextInt(4));
 				if (worldIn.getBlockState(pos.down()).getBlock() == this
-					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
+						&& worldIn.getBlockState(pos.up()).getBlock() == this) {
 					worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
 				}
 			}
@@ -120,7 +115,8 @@ public class BlockRubberLog extends Block {
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		if (stack.isEmpty()) {
@@ -131,11 +127,10 @@ public class BlockRubberLog extends Block {
 			capEnergy = new ForgePowerItemManager(stack);
 		}
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
-			if (state.getValue(HAS_SAP) && state.getValue(SAP_SIDE) == side) {
-				worldIn.setBlockState(pos,
-					state.with(HAS_SAP, false).with(SAP_SIDE, EnumFacing.byHorizontalIndex(0)));
+			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == side) {
+				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, EnumFacing.byHorizontalIndex(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
-					0.6F, 1F);
+						0.6F, 1F);
 				if (!worldIn.isRemote) {
 					if (capEnergy != null) {
 						capEnergy.extractEnergy(20, false);
