@@ -67,7 +67,7 @@ public class BlockRubberLog extends Block {
 	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
 
 	public BlockRubberLog() {
-		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2f).sound(SoundType.WOOD).needsRandomTick());
+		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2f).sound(SoundType.WOOD).tickRandomly());
 		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false));
 		((BlockFire) Blocks.FIRE).setFireInfo(this, 5, 5);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));

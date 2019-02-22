@@ -28,131 +28,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.block.material.MaterialColor;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import java.util.Random;
 
-//Thanks @Prospector you saved me me some time :)
-public abstract class BlockRubberPlankSlab extends BlockSlab {
-	public static final PropertyEnum<Variant> VARIANT = PropertyEnum.create("variant", BlockRubberPlankSlab.Variant.class);
+public class BlockRubberPlankSlab extends BlockSlab {
 	public final String name;
-	public Block halfslab;
 
 	public BlockRubberPlankSlab(String name) {
-		super(Material.WOOD, Material.WOOD.getMaterialMapColor());
+		super(Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).hardnessAndResistance(2.0F, 15.0F).sound(SoundType.WOOD));
 		this.name = name;
-		IBlockState iblockstate = this.blockState.getBaseState();
-		if (!this.isDouble()) {
-			iblockstate = iblockstate.with(HALF, EnumBlockHalf.BOTTOM);
-			halfslab = this;
-		}
-		setHarvestLevel("axe", 0);
-		setHardness(2.0F);
-		setResistance(15);
-		setSoundType(SoundType.WOOD);
-		this.setDefaultState(iblockstate.with(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT));
-		useNeighborBrightness = true;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
-	}
-
-	@Override
-	public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
-		return true;
-	}
-
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(halfslab);
-	}
-
-	@Override
-	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-		return new ItemStack(halfslab);
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		IBlockState iblockstate = this.getDefaultState().with(VARIANT, BlockRubberPlankSlab.Variant.DEFAULT);
-
-		if (!this.isDouble()) {
-			iblockstate = iblockstate.with(HALF, (meta & 8) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
-		}
-
-		return iblockstate;
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int i = 0;
-
-		if (!this.isDouble() && state.getValue(HALF) == EnumBlockHalf.TOP) {
-			i |= 8;
-		}
-
-		return i;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return this.isDouble() ? new BlockStateContainer(this, new IProperty[] { VARIANT }) : new BlockStateContainer(this, new IProperty[] { HALF, VARIANT });
-	}
-
-	@Override
-	public String getTranslationKey(int meta) {
-		return super.getTranslationKey();
-	}
-
-	@Override
-	public IProperty<?> getVariantProperty() {
-		return VARIANT;
-	}
-
-	@Override
-	public Comparable<?> getTypeForItem(ItemStack stack) {
-		return BlockRubberPlankSlab.Variant.DEFAULT;
-	}
-
-	public static enum Variant implements IStringSerializable {
-		DEFAULT;
-
-		@Override
-		public String getName() {
-			return "default";
-		}
-	}
-
-	public static class BlockDouble extends BlockRubberPlankSlab {
-		public BlockDouble(String name, Block half) {
-			super(name);
-			this.halfslab = half;
-		}
-
-		@Override
-		public boolean isDouble() {
-			return true;
-		}
-	}
-
-	public static class BlockHalf extends BlockRubberPlankSlab {
-		public BlockHalf(String name) {
-			super(name);
-		}
-
-		@Override
-		public boolean isDouble() {
-			return false;
-		}
 	}
 }

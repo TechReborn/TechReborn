@@ -42,7 +42,7 @@ import techreborn.init.TRContent;
 public class BlockRubberLeaves extends BlockLeaves {
 
 	public BlockRubberLeaves() {
-		super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).needsRandomTick().sound(SoundType.PLANT));
+		super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT));
 		((BlockFire) Blocks.FIRE).setFireInfo(this, 30, 60);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, DISTANCE, PERSISTENT));
 	}
