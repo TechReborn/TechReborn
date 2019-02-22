@@ -33,6 +33,6 @@ public class TechRebornFluid extends Fluid {
 		super(fluidName,
 			new ResourceLocation("techreborn:blocks/fluids/" + fluidName.replaceFirst("fluid", "") + "_flowing"),
 			new ResourceLocation("techreborn:blocks/fluids/" + fluidName.replaceFirst("fluid", "") + "_flowing"));
-		FluidRegistry.addBucketForFluid(this);
+		//FluidRegistry.addBucketForFluid(this);
 	}
 }

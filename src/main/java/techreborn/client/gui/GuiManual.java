@@ -30,6 +30,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import techreborn.items.ItemManual;
 
 import java.awt.*;
@@ -57,8 +58,8 @@ public class GuiManual extends GuiScreen {
 
 	@Override
 	public void initGui() {
-		buttons.add(new GuiButton(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")));
-		buttons.add(new GuiButton(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")));
+		buttons.add(new GuiButtonExtended(1, (width / 2 - 30), (height / 2 - (guiHeight / 4)) + 17, 60, 20, I18n.format("techreborn.manual.wikibtn")).clickHandler(this::onClick));
+		buttons.add(new GuiButtonExtended(2, (width / 2 - 30), (height / 2) + 22, 60, 20, I18n.format("techreborn.manual.discordbtn")).clickHandler(this::onClick));
 	}
 
 	@Override
@@ -73,8 +74,7 @@ public class GuiManual extends GuiScreen {
 		super.render(mouseX, mouseY, partialTicks);
 	}
 
-	@Override
-	protected void actionPerformed(GuiButton button) {
+	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
 		switch (button.id) {
 			case 1:
 				mc.displayGuiScreen(new GuiConfirmOpenLink(this, "http://wiki.techreborn.ovh", 1, false));
@@ -86,7 +86,7 @@ public class GuiManual extends GuiScreen {
 	}
 
 	@Override
-	public void confirmClicked(boolean result, int id) {
+	public void confirmResult(boolean result, int id) {
 		switch(id) {
 			case 1:
 				if(result == true) {

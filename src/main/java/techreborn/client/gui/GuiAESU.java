@@ -28,6 +28,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -73,17 +74,15 @@ public class GuiAESU extends GuiBase {
 	
 		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		
-		buttons.add(new GuiButtonUpDown(300, 121, 79, this, layer));
-		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, layer));
-		buttons.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer));
-		buttons.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer));
+		buttons.add(new GuiButtonUpDown(300, 121, 79, this, layer).clickHandler(this::onClick));
+		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, layer).clickHandler(this::onClick));
+		buttons.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer).clickHandler(this::onClick));
+		buttons.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer).clickHandler(this::onClick));
 	}
-	
-	@Override
-	public void actionPerformed(final GuiButton button) throws IOException {
-		super.actionPerformed(button);
+
+	public void onClick(GuiButtonExtended button, Double x, Double y){
 		if (button.id >= 300 && button.id <= 303) {
 			NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(button.id, tile));
-		} 
+		}
 	}
 }

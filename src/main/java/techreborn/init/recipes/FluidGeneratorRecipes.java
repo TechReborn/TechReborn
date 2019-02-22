@@ -24,6 +24,7 @@
 
 package techreborn.init.recipes;
 
+import net.minecraft.init.Fluids;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import techreborn.api.generator.EFluidGenerator;
@@ -35,21 +36,22 @@ import techreborn.init.ModFluids;
  */
 public class FluidGeneratorRecipes extends RecipeMethods {
 	public static void init() {
-		register(EFluidGenerator.DIESEL, ModFluids.NITROFUEL, 24);
-		register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL, 48);
-		register(EFluidGenerator.DIESEL, ModFluids.DIESEL, 128);
-		register(EFluidGenerator.DIESEL, ModFluids.NITRO_DIESEL, 400);
+		register(EFluidGenerator.DIESEL, ModFluids.NITROFUEL.getFluid(), 24);
+		register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL.getFluid(), 48);
+		register(EFluidGenerator.DIESEL, ModFluids.DIESEL.getFluid(), 128);
+		register(EFluidGenerator.DIESEL, ModFluids.NITRO_DIESEL.getFluid(), 400);
 		
-		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM, 30);
-		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM, 60);
-		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL, 16);
+		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM.getFluid(), 30);
+		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM.getFluid(), 60);
+		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL.getFluid(), 16);
 
-		register(EFluidGenerator.THERMAL, FluidRegistry.LAVA, 60);
+		//TODO 1.13 forge and mc fluids are 2 diffrent things, fix later
+		//register(EFluidGenerator.THERMAL, Fluids.LAVA, 60);
 
-		register(EFluidGenerator.GAS, ModFluids.HYDROGEN, 15);
-		register(EFluidGenerator.GAS, ModFluids.METHANE, 45);
+		register(EFluidGenerator.GAS, ModFluids.HYDROGEN.getFluid(), 15);
+		register(EFluidGenerator.GAS, ModFluids.METHANE.getFluid(), 45);
 		
-		register(EFluidGenerator.PLASMA, ModFluids.HELIUMPLASMA, 8192);
+		register(EFluidGenerator.PLASMA, ModFluids.HELIUMPLASMA.getFluid(), 8192);
 	}
 
 	static void register(EFluidGenerator generator, Fluid fluid, int euPerMB) {

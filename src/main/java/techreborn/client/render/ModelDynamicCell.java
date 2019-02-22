@@ -49,14 +49,13 @@ import techreborn.items.DynamicCell;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
+//TODO 1.13 very broken, look at ModelDynBucket for help porting this fully
 @OnlyIn(Dist.CLIENT)
-public class ModelDynamicCell implements IModel {
+public class ModelDynamicCell implements IUnbakedModel {
 
 	public static final ModelDynamicCell MODEL = new ModelDynamicCell(
 		new ResourceLocation("techreborn:items/cell_cover"),
@@ -69,8 +68,8 @@ public class ModelDynamicCell implements IModel {
 	private static final float SOUTH_Z_FLUID = 8.4f / 16f;
 
 	public static void init() {
-		ModelLoader.setCustomMeshDefinition(TRContent.CELL, stack -> MODEL_LOCATION);
-		ModelBakery.registerItemVariants(TRContent.CELL, MODEL_LOCATION);
+//		ModelLoader.setCustomMeshDefinition(TRContent.CELL, stack -> MODEL_LOCATION);
+//		ModelBakery.registerItemVariants(TRContent.CELL, MODEL_LOCATION);
 		ModelLoaderRegistry.registerLoader(new DynamicCellLoader());
 	}
 
@@ -94,22 +93,22 @@ public class ModelDynamicCell implements IModel {
 	}
 
 	@Override
-	public Collection<ResourceLocation> getTextures() {
+	public Collection<ResourceLocation> getTextures(Function<ResourceLocation, IUnbakedModel> modelGetter, Set<String> missingTextureErrors) {
 		return ImmutableList.of(baseTexture, emptyTexture);
 	}
 
 	@Override
-	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+	public IBakedModel bake(Function<ResourceLocation, IUnbakedModel> modelGetter, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, IModelState state, boolean uvlock, VertexFormat format) {
 
 		ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
 		TRSRTransformation transform = state.apply(Optional.empty()).orElse(TRSRTransformation.identity());
 
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-		builder.addAll(new ItemLayerModel(ImmutableList.of(baseTexture)).bake(transform, format, bakedTextureGetter).getQuads(null, null, 0L));
+		builder.addAll(new ItemLayerModel(ImmutableList.of(baseTexture)).bake(modelGetter, spriteGetter, state, uvlock, format).getQuads(null, null, new Random()));
 
 		ResourceLocation sprite = fluid != null ? fluid.getStill() : emptyTexture;
 		int color = fluid != null ? fluid.getColor() : Color.WHITE.getRGB();
-		TextureAtlasSprite fluidSprite = bakedTextureGetter.apply(sprite);
+		TextureAtlasSprite fluidSprite = spriteGetter.apply(sprite);
 		if (fluid != null) {
 			if (fluidSprite != null) {
 				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, EnumFacing.NORTH, color, -1));
@@ -117,8 +116,9 @@ public class ModelDynamicCell implements IModel {
 			}
 		}
 
-		return new BakedDynamicCell(builder.build(), this, bakedTextureGetter.apply(baseTexture), format, transformMap);
+		return new BakedDynamicCell(builder.build(), this, spriteGetter.apply(baseTexture), format, transformMap);
 	}
+
 
 	@Override
 	public IModelState getDefaultState() {
@@ -133,7 +133,7 @@ public class ModelDynamicCell implements IModel {
 		}
 
 		@Override
-		public IModel loadModel(ResourceLocation modelLocation) {
+		public IUnbakedModel loadModel(ResourceLocation modelLocation) {
 			return MODEL;
 		}
 
@@ -142,7 +142,7 @@ public class ModelDynamicCell implements IModel {
 
 	}
 
-	public static class BakedDynamicCell implements IBakedModel {
+	public static class BakedDynamicCell extends BakedItemModel {
 
 		private final List<BakedQuad> quads;
 		private final ModelDynamicCell parent;
@@ -150,25 +150,17 @@ public class ModelDynamicCell implements IModel {
 		private final VertexFormat format;
 		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap;
 
-		public BakedDynamicCell(List<BakedQuad> quads,
+		public BakedDynamicCell(ImmutableList<BakedQuad> quads,
 		                        ModelDynamicCell parent,
 		                        TextureAtlasSprite particle,
 		                        VertexFormat format,
 		                        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap) {
+			super(quads, particle, transformMap, null /* TODO fix this */);
 			this.transformMap = transformMap;
 			this.quads = quads;
 			this.parent = parent;
 			this.particle = particle;
 			this.format = format;
-		}
-
-		@Override
-		public List<BakedQuad> getQuads(
-			@Nullable
-				IBlockState state,
-			@Nullable
-				EnumFacing side, long rand) {
-			return quads;
 		}
 
 		@Override
@@ -209,28 +201,28 @@ public class ModelDynamicCell implements IModel {
 
 		private final HashMap<String, IBakedModel> modelCache = new HashMap<>();
 
-		private final Function<ResourceLocation, TextureAtlasSprite> textureGetter = location ->
-			Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString());
+//		private final Function<ResourceLocation, TextureAtlasSprite> textureGetter = location ->
+//			Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString());
 
-		private OverrideHandler() {
-			super(ImmutableList.of());
-		}
+//		private OverrideHandler() {
+//			super(ImmutableList.of());
+//		}
 
-		@Override
-		public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
-			FluidStack fluidStack = DynamicCell.getFluidHandler(stack).getFluid();
-			if (fluidStack == null) {
-				//return default bucket
-				return originalModel;
-			}
-			String name = fluidStack.getFluid().getName();
-			if (!modelCache.containsKey(name)) {
-				BakedDynamicCell bakedCell = (BakedDynamicCell) originalModel;
-				ModelDynamicCell model = new ModelDynamicCell(bakedCell.parent.baseTexture, bakedCell.parent.emptyTexture, fluidStack.getFluid());
-				modelCache.put(name, model.bake(new SimpleModelState(bakedCell.transformMap), bakedCell.format, textureGetter));
-			}
-			return modelCache.get(name);
-		}
+//		@Override
+//		public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+//			FluidStack fluidStack = DynamicCell.getFluidHandler(stack).getFluid();
+//			if (fluidStack == null) {
+//				//return default bucket
+//				return originalModel;
+//			}
+//			String name = fluidStack.getFluid().getName();
+//			if (!modelCache.containsKey(name)) {
+//				BakedDynamicCell bakedCell = (BakedDynamicCell) originalModel;
+//				ModelDynamicCell model = new ModelDynamicCell(bakedCell.parent.baseTexture, bakedCell.parent.emptyTexture, fluidStack.getFluid());
+//				modelCache.put(name, model.bake(new SimpleModelState(bakedCell.transformMap), bakedCell.format, textureGetter));
+//			}
+//			return modelCache.get(name);
+//		}
 
 	}
 

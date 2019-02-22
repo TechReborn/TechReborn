@@ -85,7 +85,8 @@ public enum EGui implements IMachineGuiHandler {
 	@Override
 	public void open(EntityPlayer player, BlockPos pos, World world) {
 		if(!world.isRemote){
-			player.openGui(TechReborn.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+			throw new UnsupportedOperationException("fix opening guis");
+			//player.openGui(TechReborn.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 	}
 

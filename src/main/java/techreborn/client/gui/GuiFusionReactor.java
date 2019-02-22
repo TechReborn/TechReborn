@@ -31,6 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
@@ -80,14 +81,14 @@ public class GuiFusionReactor extends GuiBase {
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		if (tile.getCoilStatus() > 0) {
-			addHologramButton(6, 4, 212, layer);
+			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
 			if(tile.state == 2){
 				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
-			addHologramButton(76, 56, 212, layer);
+			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 
 			Optional<Pair<Integer, Integer>> stackSize = getCoilStackCount();
@@ -111,10 +112,8 @@ public class GuiFusionReactor extends GuiBase {
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
-		
-	@Override
-	public void actionPerformed(final GuiButton button) throws IOException {
-		super.actionPerformed(button);
+
+	public void onClick(GuiButtonExtended button, Double x, Double y){
 		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				updateMultiBlockRender();

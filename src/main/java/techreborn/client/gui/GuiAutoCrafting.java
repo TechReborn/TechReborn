@@ -32,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.ServerboundPackets;
@@ -103,11 +104,11 @@ public class GuiAutoCrafting extends GuiBase {
 	}
 
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
 			NetworkManager.sendToServer(ServerboundPackets.createPacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
-			return;
+			return true;
 		}
-		super.mouseClicked(mouseX, mouseY, mouseButton);
+		return super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 }
