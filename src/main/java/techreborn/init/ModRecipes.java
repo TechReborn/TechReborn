@@ -58,7 +58,7 @@ public class ModRecipes {
 
 	public static void init() {
 		//Gonna rescan to make sure we have an uptodate list
-		OreUtil.scanForOres();
+		//OreUtil.scanForOres();
 
 		CraftingTableRecipes.init();
 		SmeltingRecipes.init();

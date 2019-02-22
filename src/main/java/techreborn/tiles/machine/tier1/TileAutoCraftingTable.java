@@ -33,6 +33,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
@@ -47,6 +48,7 @@ import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -91,7 +93,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 					return lastRecipe;
 				}
 			}
-			for (IRecipe testRecipe : CraftingManager.REGISTRY) {
+			for (IRecipe testRecipe : TRRecipeHandler.getRecipes(world, VanillaRecipeTypes.CRAFTING)) {
 				if (testRecipe.matches(crafting, world)) {
 					lastRecipe = testRecipe;
 					return testRecipe;

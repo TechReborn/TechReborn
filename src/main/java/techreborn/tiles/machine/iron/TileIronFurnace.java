@@ -27,9 +27,8 @@ package techreborn.tiles.machine.iron;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
@@ -39,6 +38,7 @@ import reborncore.common.util.ItemUtils;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRTileEntities;
 
 public class TileIronFurnace extends TileMachineBase
@@ -120,7 +120,7 @@ public class TileIronFurnace extends TileMachineBase
 
 	public void cookItems() {
 		if (this.canSmelt()) {
-			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(inventory.getStackInSlot(this.input1));
+			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(this.input1));
 
 			if (inventory.getStackInSlot(this.output).isEmpty()) {
 				inventory.setStackInSlot(this.output, itemstack.copy());
@@ -138,7 +138,7 @@ public class TileIronFurnace extends TileMachineBase
 	public boolean canSmelt() {
 		if (inventory.getStackInSlot(this.input1).isEmpty())
 			return false;
-		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(inventory.getStackInSlot(this.input1));
+		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(this.input1));
 		if (itemstack.isEmpty())
 			return false;
 		if (inventory.getStackInSlot(this.output).isEmpty())
@@ -154,7 +154,7 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	public ItemStack getResultFor(final ItemStack stack) {
-		final ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
+		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}

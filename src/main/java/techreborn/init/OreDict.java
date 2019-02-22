@@ -29,7 +29,6 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import reborncore.common.util.OreUtil;
 import reborncore.common.util.StringUtils;
 import techreborn.api.TechRebornAPI;
 import techreborn.init.TRContent.Dusts;
@@ -51,67 +50,67 @@ public class OreDict {
 			TechRebornAPI.ic2Helper.initDuplicates();
 		}
 		// Blocks
-		OreUtil.registerOre("fenceIron", TRContent.REFINED_IRON_FENCE);
-		OreUtil.registerOre("woodRubber", TRContent.RUBBER_LOG);
-		OreUtil.registerOre("logWood", TRContent.RUBBER_LOG);
-		OreUtil.registerOre("logRubber", TRContent.RUBBER_LOG);
-		OreUtil.registerOre("plankWood", TRContent.RUBBER_PLANKS);
-		OreUtil.registerOre("plankRubber", TRContent.RUBBER_PLANKS);
-		OreUtil.registerOre("glassReinforced", TRContent.REINFORCED_GLASS);
-		OreUtil.registerOre("treeSapling", TRContent.RUBBER_SAPLING);
-		OreUtil.registerOre("saplingRubber", TRContent.RUBBER_SAPLING);
-		OreUtil.registerOre("slabWood", TRContent.RUBBER_LOG_SLAB_HALF);
-		OreUtil.registerOre("stairWood", TRContent.RUBBER_LOG_STAIR);
-		OreUtil.registerOre("treeLeaves", TRContent.RUBBER_LEAVES);
-		OreUtil.registerOre("leavesRubber", TRContent.RUBBER_LEAVES);
-
-		// Parts
-		OreUtil.registerOre("circuitBasic", TRContent.Parts.ELECTRONIC_CIRCUIT.getStack());
-		OreUtil.registerOre("circuitAdvanced", TRContent.Parts.ADVANCED_CIRCUIT.getStack());
-		OreUtil.registerOre("circuitElite", TRContent.Parts.INDUSTRIAL_CIRCUIT.getStack());
-		OreUtil.registerOre("circuitStorage", TRContent.Parts.DATA_STORAGE_CHIP.getStack());
-		OreUtil.registerOre("circuitMaster", TRContent.Parts.ENERGY_FLOW_CHIP.getStack());
-		OreUtil.registerOre("craftingDiamondGrinder", TRContent.Parts.DIAMOND_GRINDING_HEAD.getStack());
-		OreUtil.registerOre("craftingTungstenGrinder", TRContent.Parts.TUNGSTEN_GRINDING_HEAD.getStack());
-		OreUtil.registerOre("craftingSuperconductor", TRContent.Parts.SUPERCONDUCTOR.getStack());
-		OreUtil.registerOre("materialResin", TRContent.Parts.SAP.getStack());
-		OreUtil.registerOre("materialRubber", TRContent.Parts.RUBBER.getStack());
-		OreUtil.registerOre("itemRubber", TRContent.Parts.RUBBER.getStack());
-
-		// Frames
-		OreUtil.registerOre("machineBasic", new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
-		OreUtil.registerOre("machineBlockBasic", new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
-		OreUtil.registerOre("machineBlockAdvanced", new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
-		OreUtil.registerOre("machineBlockElite", new ItemStack(TRContent.MachineBlocks.INDUSTRIAL.getFrame()));
-
-		// Tools&Armor
-		OreUtil.registerOre("reBattery", TRContent.RED_CELL_BATTERY);
-		OreUtil.registerOre("lapotronCrystal", TRContent.LAPOTRON_CRYSTAL);
-		OreUtil.registerOre("energyCrystal", TRContent.ENERGY_CRYSTAL);
-		OreUtil.registerOre("drillBasic", TRContent.BASIC_DRILL);
-		OreUtil.registerOre("drillDiamond", TRContent.ADVANCED_DRILL);
-
-		// Misc
-		OreUtil.registerOre("industrialTnt", Blocks.TNT);
-		OreUtil.registerOre("craftingPiston", Blocks.PISTON);
-		OreUtil.registerOre("craftingPiston", Blocks.STICKY_PISTON);
-		OreUtil.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
-		OreUtil.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
-		OreUtil.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
-		OreUtil.registerOre("insulatedGoldCableItem", TRContent.Cables.INSULATED_GOLD.asItem());
-		OreUtil.registerOre("pulpWood", TRContent.Dusts.SAW.getStack());
+//		OreUtil.registerOre("fenceIron", TRContent.REFINED_IRON_FENCE);
+//		OreUtil.registerOre("woodRubber", TRContent.RUBBER_LOG);
+//		OreUtil.registerOre("logWood", TRContent.RUBBER_LOG);
+//		OreUtil.registerOre("logRubber", TRContent.RUBBER_LOG);
+//		OreUtil.registerOre("plankWood", TRContent.RUBBER_PLANKS);
+//		OreUtil.registerOre("plankRubber", TRContent.RUBBER_PLANKS);
+//		OreUtil.registerOre("glassReinforced", TRContent.REINFORCED_GLASS);
+//		OreUtil.registerOre("treeSapling", TRContent.RUBBER_SAPLING);
+//		OreUtil.registerOre("saplingRubber", TRContent.RUBBER_SAPLING);
+//		OreUtil.registerOre("slabWood", TRContent.RUBBER_LOG_SLAB_HALF);
+//		OreUtil.registerOre("stairWood", TRContent.RUBBER_LOG_STAIR);
+//		OreUtil.registerOre("treeLeaves", TRContent.RUBBER_LEAVES);
+//		OreUtil.registerOre("leavesRubber", TRContent.RUBBER_LEAVES);
+//
+//		// Parts
+//		OreUtil.registerOre("circuitBasic", TRContent.Parts.ELECTRONIC_CIRCUIT.getStack());
+//		OreUtil.registerOre("circuitAdvanced", TRContent.Parts.ADVANCED_CIRCUIT.getStack());
+//		OreUtil.registerOre("circuitElite", TRContent.Parts.INDUSTRIAL_CIRCUIT.getStack());
+//		OreUtil.registerOre("circuitStorage", TRContent.Parts.DATA_STORAGE_CHIP.getStack());
+//		OreUtil.registerOre("circuitMaster", TRContent.Parts.ENERGY_FLOW_CHIP.getStack());
+//		OreUtil.registerOre("craftingDiamondGrinder", TRContent.Parts.DIAMOND_GRINDING_HEAD.getStack());
+//		OreUtil.registerOre("craftingTungstenGrinder", TRContent.Parts.TUNGSTEN_GRINDING_HEAD.getStack());
+//		OreUtil.registerOre("craftingSuperconductor", TRContent.Parts.SUPERCONDUCTOR.getStack());
+//		OreUtil.registerOre("materialResin", TRContent.Parts.SAP.getStack());
+//		OreUtil.registerOre("materialRubber", TRContent.Parts.RUBBER.getStack());
+//		OreUtil.registerOre("itemRubber", TRContent.Parts.RUBBER.getStack());
+//
+//		// Frames
+//		OreUtil.registerOre("machineBasic", new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
+//		OreUtil.registerOre("machineBlockBasic", new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
+//		OreUtil.registerOre("machineBlockAdvanced", new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
+//		OreUtil.registerOre("machineBlockElite", new ItemStack(TRContent.MachineBlocks.INDUSTRIAL.getFrame()));
+//
+//		// Tools&Armor
+//		OreUtil.registerOre("reBattery", TRContent.RED_CELL_BATTERY);
+//		OreUtil.registerOre("lapotronCrystal", TRContent.LAPOTRON_CRYSTAL);
+//		OreUtil.registerOre("energyCrystal", TRContent.ENERGY_CRYSTAL);
+//		OreUtil.registerOre("drillBasic", TRContent.BASIC_DRILL);
+//		OreUtil.registerOre("drillDiamond", TRContent.ADVANCED_DRILL);
+//
+//		// Misc
+//		OreUtil.registerOre("industrialTnt", Blocks.TNT);
+//		OreUtil.registerOre("craftingPiston", Blocks.PISTON);
+//		OreUtil.registerOre("craftingPiston", Blocks.STICKY_PISTON);
+//		OreUtil.registerOre("crafterWood", Blocks.CRAFTING_TABLE);
+//		OreUtil.registerOre("craftingIndustrialDiamond", Items.DIAMOND);
+//		OreUtil.registerOre("fertilizer", new ItemStack(Items.DYE, 1, 15));
+//		OreUtil.registerOre("insulatedGoldCableItem", TRContent.Cables.INSULATED_GOLD.asItem());
+//		OreUtil.registerOre("pulpWood", TRContent.Dusts.SAW.getStack());
 
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
-
-		for (Ores ore : TRContent.Ores.values()) {
-			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore.name), new ItemStack(ore.block));
-		}
-
-		for (Dusts dust : TRContent.Dusts.values()) {
-			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + dust.name), dust.getStack());
-		}
+//
+//		for (Ores ore : TRContent.Ores.values()) {
+//			OreUtil.registerOre("ore" + StringUtils.toFirstCapital(ore.name), new ItemStack(ore.block));
+//		}
+//
+//		for (Dusts dust : TRContent.Dusts.values()) {
+//			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "dust_" + dust.name), dust.getStack());
+//		}
 
 
 

@@ -27,8 +27,8 @@ package techreborn.tiles.machine.tier1;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -40,6 +40,7 @@ import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
@@ -70,7 +71,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public void cookItems() {
 		if (canSmelt()) {
-			final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(inventory.getStackInSlot(input1));
+			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(input1));
 
 			if (inventory.getStackInSlot(output).isEmpty()) {
 				inventory.setStackInSlot(output, itemstack.copy());
@@ -89,7 +90,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (inventory.getStackInSlot(input1).isEmpty()) {
 			return false;
 		}
-		final ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(inventory.getStackInSlot(input1));
+		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(input1));
 		if (itemstack.isEmpty()) {
 			return false;
 		}
@@ -108,7 +109,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public ItemStack getResultFor(ItemStack stack) {
-		final ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
+		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}
