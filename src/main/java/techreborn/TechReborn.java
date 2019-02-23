@@ -29,11 +29,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
@@ -60,7 +64,7 @@ public class TechReborn {
 	public static final String MOD_ID = "techreborn";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 //	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
-	public static CommonProxy proxy;
+	public static CommonProxy proxy = new CommonProxy();
 	public static TechReborn INSTANCE;
 	
 	public static final ItemGroup ITEMGROUP = new ItemGroup(-1, MOD_ID) {
@@ -72,6 +76,16 @@ public class TechReborn {
 
 
 	public TechReborn() {
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		eventBus.addListener(this::setup);
+	}
+
+	private void setup(FMLCommonSetupEvent event) {
+//		if(!RebornCore.LOADED){
+//			throw new RuntimeException("RebornCore has not loaded!");
+//		} else {
+//			System.out.println("Hello Reborn Core, I see you are loaded and ready.");
+//		}
 		MinecraftForge.EVENT_BUS.register(this);
 
 		INSTANCE = this;
@@ -95,7 +109,8 @@ public class TechReborn {
 		ModLoot.init();
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
-		ModSounds.init();
+		//TODO 1.13 registry events
+		//ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
 		// WorldGen

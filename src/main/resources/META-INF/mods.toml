@@ -1,8 +1,16 @@
 modLoader="javafml"
 loaderVersion="[13,)"
+version="1"
 
 [[mods]]
 	modId="techreborn"
 	version="${version}"
 	displayName="Tech Reborn"
 	description="Tech Reborn"
+
+[[dependencies.techreborn]]
+	modId="reborncore"
+	mandatory=true
+	ordering="AFTER"
+	side="BOTH"
+	versionRange="[4.0.0,)"

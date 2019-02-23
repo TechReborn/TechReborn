@@ -24,8 +24,13 @@
 
 package techreborn.init;
 
+import com.mojang.datafixers.DataFixUtils;
+import com.mojang.datafixers.types.Type;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.datafix.DataFixesManager;
+import net.minecraft.util.datafix.TypeReferences;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
@@ -52,6 +57,8 @@ import techreborn.tiles.storage.lesu.TileLapotronicSU;
 import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;
 import techreborn.tiles.transformers.TileMVTransformer;
+
+import java.util.function.Supplier;
 
 public class TRTileEntities {
 
@@ -115,7 +122,19 @@ public class TRTileEntities {
 	public static final TileEntityType FLUID_REPLICATOR = register(TileFluidReplicator.class, "fluid_replicator");
 
 	public static <T extends TileEntity> TileEntityType<T> register(Class<T> tClass, String name) {
-		return null;
+		return register(new ResourceLocation("techrebonr", name).toString(), TileEntityType.Builder.create(() -> {
+			//TODO clean this up
+			try {
+				return tClass.newInstance();
+			} catch (InstantiationException | IllegalAccessException e) {
+				throw new RuntimeException("Failed to create tile", e);
+			}
+		}));
+	}
+
+	public static <T extends TileEntity> TileEntityType<T> register(String id, TileEntityType.Builder<T> builder) {
+		TileEntityType<T> tileEntityType = builder.build(null);
+		return tileEntityType;
 	}
 
 }

@@ -77,6 +77,11 @@ minecraft {
                 techreborn {
                     source sourceSets.main
                 }
+				if (findProject(':reborncore') != null) {
+					reborncore {
+						source project(":reborncore").sourceSets.main
+					}
+				}
             }
         }
 

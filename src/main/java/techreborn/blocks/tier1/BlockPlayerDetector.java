@@ -26,6 +26,7 @@ package techreborn.blocks.tier1;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -65,7 +66,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public static PropertyString TYPE;
 
 	public BlockPlayerDetector() {
-		super();
+		super(Block.Properties.create(Material.IRON), true);
 		this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, types[0]));
 		for (int i = 0; i < types.length; i++) {
 			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));

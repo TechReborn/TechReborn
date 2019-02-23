@@ -32,6 +32,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.AbstractProperty;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -40,6 +41,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.BlockStateContainer;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.registration.RebornRegister;
@@ -78,7 +80,7 @@ public class BlockCable extends BlockContainer {
 	public BlockCable(TRContent.Cables type) {
 		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 8f));
 		this.type = type;
-		setDefaultState(getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
+		setDefaultState(this.stateContainer.getBaseState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
@@ -141,6 +143,11 @@ public class BlockCable extends BlockContainer {
 		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN);
+	}
+
 	/*
 
 	@Override
@@ -164,11 +171,6 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public boolean isFullBlock(IBlockState state) {
 		return false;
-	}
-
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, EAST, WEST, NORTH, SOUTH, UP, DOWN);
 	}
 
 	@Override
