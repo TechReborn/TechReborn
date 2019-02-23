@@ -1,0 +1,8 @@
+modLoader="javafml"
+loaderVersion="[13,)"
+
+[[mods]]
+	modId="techreborn"
+	version="${version}"
+	displayName="Tech Reborn"
+	description="Tech Reborn"

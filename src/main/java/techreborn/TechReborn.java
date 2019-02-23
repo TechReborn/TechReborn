@@ -126,8 +126,6 @@ public class TechReborn {
 	}
 
 
-
-	@SubscribeEvent
 	public void postinit() {
 		proxy.postInit();
 
