@@ -24,7 +24,6 @@
 
 package techreborn.tiles;
 
-import net.minecraft.tileentity.TileEntityType;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import techreborn.init.TRTileEntities;

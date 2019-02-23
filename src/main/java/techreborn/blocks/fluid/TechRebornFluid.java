@@ -26,7 +26,6 @@ package techreborn.blocks.fluid;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 public class TechRebornFluid extends Fluid {
 	public TechRebornFluid(String fluidName) {

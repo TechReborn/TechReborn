@@ -25,7 +25,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -38,10 +37,6 @@ import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileImplosionCompressor;
-import techreborn.blocks.BlockMachineCasing;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
-
-import java.io.IOException;
 
 public class GuiImplosionCompressor extends GuiBase {
 

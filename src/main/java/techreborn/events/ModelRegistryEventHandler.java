@@ -24,41 +24,22 @@
 
 package techreborn.events;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import com.google.common.collect.Maps;
-
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.blocks.fluid.BlockFluidTechReborn;
 import techreborn.client.render.ModelDynamicCell;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModFluids;
 import techreborn.init.TRContent;
-import techreborn.init.TRContent.Cables;
-import techreborn.init.TRContent.Dusts;
-import techreborn.init.TRContent.Gems;
-import techreborn.init.TRContent.Ingots;
-import techreborn.init.TRContent.MachineBlocks;
-import techreborn.init.TRContent.Nuggets;
-import techreborn.init.TRContent.Ores;
-import techreborn.init.TRContent.Parts;
-import techreborn.init.TRContent.Plates;
-import techreborn.init.TRContent.SmallDusts;
-import techreborn.init.TRContent.StorageBlocks;
-import techreborn.init.TRContent.Upgrades;
+import techreborn.init.TRContent.*;
+
+import java.util.Arrays;
 
 /**
  * @author drcrazy

@@ -24,18 +24,17 @@
 
 package techreborn.tiles.machine.iron;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IBaseRecipeType;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.tile.TileMachineBase;
@@ -45,11 +44,7 @@ import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import techreborn.init.TRContent;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRTileEntities;
-import techreborn.tiles.machine.tier1.TileElectricFurnace;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileIronAlloyFurnace extends TileMachineBase

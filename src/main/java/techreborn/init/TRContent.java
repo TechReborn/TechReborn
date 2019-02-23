@@ -24,7 +24,8 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.config.ConfigTechReborn;
-import techreborn.items.*;
+import techreborn.items.DynamicCell;
+import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;

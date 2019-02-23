@@ -24,18 +24,15 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.storage.TileAdjustableSU;
-
-import java.io.IOException;
 
 public class GuiAESU extends GuiBase {
 

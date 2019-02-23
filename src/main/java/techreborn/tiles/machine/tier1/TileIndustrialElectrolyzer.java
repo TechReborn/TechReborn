@@ -25,6 +25,9 @@
 package techreborn.tiles.machine.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
@@ -32,9 +35,6 @@ import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.items.DynamicCell;

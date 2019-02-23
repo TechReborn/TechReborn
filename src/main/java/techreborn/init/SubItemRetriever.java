@@ -26,7 +26,7 @@ package techreborn.init;
 
 import net.minecraft.item.ItemStack;
 import techreborn.api.ISubItemRetriever;
-import techreborn.items.*;
+import techreborn.items.ItemCells;
 /**
  * Created by Mark on 03/04/2016.
  */

@@ -25,7 +25,10 @@
 package techreborn.items.armor;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.*;
+import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;

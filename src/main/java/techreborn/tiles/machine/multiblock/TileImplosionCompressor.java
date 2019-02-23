@@ -26,6 +26,9 @@ package techreborn.tiles.machine.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
@@ -33,9 +36,6 @@ import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.init.TRContent;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 

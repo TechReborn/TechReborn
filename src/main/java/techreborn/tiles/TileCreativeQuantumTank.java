@@ -24,7 +24,6 @@
 
 package techreborn.tiles;
 
-import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
 public class TileCreativeQuantumTank extends TileQuantumTank {

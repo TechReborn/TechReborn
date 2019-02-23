@@ -25,7 +25,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -37,12 +36,8 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.blocks.BlockMachineCasing;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileIndustrialGrinder;
-
-import java.io.IOException;
 
 public class GuiIndustrialGrinder extends GuiBase {
 

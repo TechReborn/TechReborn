@@ -24,16 +24,6 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import techreborn.TechReborn;
-import techreborn.config.ConfigTechReborn;
-import techreborn.init.TRContent;
-import techreborn.items.*;
-
 /**
  * Created by Prospector
  */

@@ -30,6 +30,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.RebornCoreConfig;
@@ -40,7 +41,6 @@ import techreborn.blocks.storage.BlockLapotronicSU;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.storage.TileEnergyStorage;
-import reborncore.client.containerBuilder.IContainerProvider;
 
 import java.util.ArrayList;
 

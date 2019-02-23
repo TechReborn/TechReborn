@@ -24,15 +24,8 @@
 
 package techreborn.init;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import reborncore.common.util.StringUtils;
 import techreborn.api.TechRebornAPI;
-import techreborn.init.TRContent.Dusts;
-import techreborn.init.TRContent.Ores;
 
 public class OreDict {
 

@@ -28,9 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.util.StringUtils;
-import techreborn.items.*;
+import techreborn.items.ItemCells;
 
 /**
  * Created by Prospector

@@ -29,9 +29,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import reborncore.client.gui.builder.GuiBase;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.iron.TileIronFurnace;
-import reborncore.client.gui.builder.GuiBase;
 
 public class GuiIronFurnace extends GuiBase {
 

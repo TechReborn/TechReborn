@@ -44,6 +44,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.iron.TileIronFurnace;
+
 import java.util.Random;
 
 public class BlockIronFurnace extends BlockMachineBase {

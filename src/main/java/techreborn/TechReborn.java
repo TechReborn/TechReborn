@@ -45,15 +45,14 @@ import techreborn.events.BlockBreakHandler;
 import techreborn.events.TRRecipeHandler;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
-import techreborn.packets.*;
+import techreborn.packets.ClientboundPackets;
+import techreborn.packets.ServerboundPackets;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.village.ModLootTables;
 import techreborn.world.village.VillagePlantaionHandler;
-
-import java.io.File;
 
 @Mod("techreborn")
 public class TechReborn {

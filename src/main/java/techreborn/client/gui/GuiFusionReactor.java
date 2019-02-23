@@ -25,13 +25,13 @@
 package techreborn.client.gui;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
@@ -39,13 +39,11 @@ import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
-import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.init.TRContent;
 import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 

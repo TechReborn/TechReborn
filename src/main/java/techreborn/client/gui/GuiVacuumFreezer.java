@@ -25,7 +25,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
@@ -35,11 +34,8 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileVacuumFreezer;
-
-import java.io.IOException;
 
 public class GuiVacuumFreezer extends GuiBase {
 

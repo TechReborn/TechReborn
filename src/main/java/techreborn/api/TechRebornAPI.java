@@ -26,8 +26,6 @@ package techreborn.api;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import techreborn.api.recipe.IRecipeCompact;
 
 public final class TechRebornAPI {

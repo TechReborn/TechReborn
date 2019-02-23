@@ -26,7 +26,6 @@ package techreborn.tiles.storage.idsu;
 
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldSavedDataStorage;
-import techreborn.TechReborn;
 
 public class IDSUManager {
 	public static IDataIDSU getData(World world) {

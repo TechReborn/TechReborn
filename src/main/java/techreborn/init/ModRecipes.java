@@ -30,26 +30,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.config.ConfigTechReborn;
-import techreborn.init.recipes.*;
-import techreborn.items.*;
-
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import static techreborn.utils.TagUtils.getDictData;
-import static techreborn.utils.TagUtils.getDictOreOrEmpty;
-import static techreborn.utils.TagUtils.isDictPrefixed;
-import static techreborn.utils.TagUtils.joinDictName;
+import techreborn.items.ItemCells;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {

@@ -33,9 +33,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockReader;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import java.util.List;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class BlockSupercondensator extends BlockMachineBase {
 	public BlockSupercondensator(Material material) {

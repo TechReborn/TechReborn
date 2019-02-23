@@ -29,28 +29,27 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import techreborn.client.container.ContainerDestructoPack;
 import reborncore.client.containerBuilder.IContainerProvider;
+import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.gui.*;
-import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.tiles.*;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.tiles.generator.*;
+import techreborn.tiles.generator.TilePlasmaGenerator;
 import techreborn.tiles.generator.advanced.TileDieselGenerator;
 import techreborn.tiles.generator.advanced.TileGasTurbine;
 import techreborn.tiles.generator.advanced.TileSemiFluidGenerator;
 import techreborn.tiles.generator.advanced.TileThermalGenerator;
 import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
-import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
-import techreborn.tiles.storage.lesu.TileLapotronicSU;
+import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
+import techreborn.tiles.machine.iron.TileIronFurnace;
 import techreborn.tiles.machine.multiblock.*;
+import techreborn.tiles.machine.tier1.*;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
-import techreborn.tiles.machine.iron.TileIronFurnace;
-import techreborn.tiles.machine.tier1.*;
+import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
+import techreborn.tiles.storage.lesu.TileLapotronicSU;
 
 public class GuiHandler implements IGuiHandler {
 

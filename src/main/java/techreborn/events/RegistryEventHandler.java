@@ -3,52 +3,23 @@
  */
 package techreborn.events;
 
-import java.util.Arrays;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.blocks.BlockComputerCube;
-import techreborn.blocks.BlockNuke;
-import techreborn.blocks.BlockRefinedIronFence;
-import techreborn.blocks.BlockReinforcedGlass;
-import techreborn.blocks.BlockRubberLeaves;
-import techreborn.blocks.BlockRubberLog;
-import techreborn.blocks.BlockRubberPlank;
-import techreborn.blocks.BlockRubberPlankSlab;
-import techreborn.blocks.BlockRubberPlankStair;
-import techreborn.blocks.BlockRubberSapling;
+import techreborn.blocks.*;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.ModRecipes;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
-import techreborn.init.TRContent.Cables;
-import techreborn.init.TRContent.Dusts;
-import techreborn.init.TRContent.Gems;
-import techreborn.init.TRContent.Ingots;
-import techreborn.init.TRContent.Machine;
-import techreborn.init.TRContent.MachineBlocks;
-import techreborn.init.TRContent.Nuggets;
-import techreborn.init.TRContent.Ores;
-import techreborn.init.TRContent.Parts;
-import techreborn.init.TRContent.Plates;
-import techreborn.init.TRContent.SmallDusts;
-import techreborn.init.TRContent.SolarPanels;
-import techreborn.init.TRContent.StorageBlocks;
-import techreborn.init.TRContent.Upgrades;
+import techreborn.init.TRContent.*;
 import techreborn.init.TRToolTeir;
 import techreborn.itemblocks.ItemBlockRubberSapling;
 import techreborn.items.DynamicCell;
@@ -59,11 +30,7 @@ import techreborn.items.armor.ItemCloakingDevice;
 import techreborn.items.armor.ItemLapotronicOrbpack;
 import techreborn.items.armor.ItemLithiumIonBatpack;
 import techreborn.items.armor.ItemTRArmour;
-import techreborn.items.battery.ItemEnergyCrystal;
-import techreborn.items.battery.ItemLapotronCrystal;
-import techreborn.items.battery.ItemLapotronicOrb;
-import techreborn.items.battery.ItemLithiumIonBattery;
-import techreborn.items.battery.ItemRedCellBattery;
+import techreborn.items.battery.*;
 import techreborn.items.tool.ItemDebugTool;
 import techreborn.items.tool.ItemTreeTap;
 import techreborn.items.tool.ItemWrench;
@@ -75,16 +42,14 @@ import techreborn.items.tool.basic.ItemBasicChainsaw;
 import techreborn.items.tool.basic.ItemBasicDrill;
 import techreborn.items.tool.basic.ItemBasicJackhammer;
 import techreborn.items.tool.basic.ItemElectricTreetap;
-import techreborn.items.tool.industrial.ItemIndustrialChainsaw;
-import techreborn.items.tool.industrial.ItemIndustrialDrill;
-import techreborn.items.tool.industrial.ItemIndustrialJackhammer;
-import techreborn.items.tool.industrial.ItemNanosaber;
-import techreborn.items.tool.industrial.ItemOmniTool;
+import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.ItemTRAxe;
 import techreborn.items.tool.vanilla.ItemTRHoe;
 import techreborn.items.tool.vanilla.ItemTRSpade;
 import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
+
+import java.util.Arrays;
 
 /**
  * @author drcrazy

@@ -25,8 +25,8 @@
 package techreborn.items.tool.advanced;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;

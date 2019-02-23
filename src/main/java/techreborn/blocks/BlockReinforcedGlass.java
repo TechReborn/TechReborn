@@ -32,6 +32,7 @@ import net.minecraft.block.state.IBlockState;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
+
 import java.util.Random;
 
 public class BlockReinforcedGlass extends BlockGlass {

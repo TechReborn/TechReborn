@@ -35,8 +35,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import techreborn.init.TRContent;
 import reborncore.common.util.StringUtils;
+import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 

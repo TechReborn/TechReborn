@@ -31,8 +31,6 @@ import reborncore.common.network.NetworkManager;
 import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.machine.tier1.TileRollingMachine;
 
-import java.io.IOException;
-
 public class GuiRollingMachine extends GuiBase {
 
 	TileRollingMachine rollingMachine;

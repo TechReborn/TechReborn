@@ -24,12 +24,6 @@
 
 package techreborn.init.recipes;
 
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import techreborn.api.fluidreplicator.FluidReplicatorRecipe;
-import techreborn.api.fluidreplicator.FluidReplicatorRecipeList;
-import techreborn.init.ModFluids;
-
 /**
  * @author drcrazy
  *

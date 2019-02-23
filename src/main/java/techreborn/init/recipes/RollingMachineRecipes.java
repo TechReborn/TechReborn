@@ -29,7 +29,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import techreborn.TechReborn;
-import techreborn.api.TechRebornAPI;
 import techreborn.init.TRContent;
 
 /**

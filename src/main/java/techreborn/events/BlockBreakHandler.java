@@ -35,7 +35,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import reborncore.common.registration.RebornRegister;
-
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;

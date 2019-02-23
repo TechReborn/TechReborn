@@ -36,6 +36,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+
 import java.util.Random;
 
 @RebornRegister(TechReborn.MOD_ID)

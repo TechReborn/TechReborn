@@ -25,7 +25,6 @@
 package techreborn.client.gui;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -38,10 +37,6 @@ import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileFluidReplicator;
-import reborncore.client.gui.builder.widget.GuiButtonHologram;
-import techreborn.blocks.BlockMachineCasing;
-
-import java.io.IOException;
 
 /**
  * @author drcrazy

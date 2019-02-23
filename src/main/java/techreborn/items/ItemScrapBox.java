@@ -36,6 +36,7 @@ import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
+
 import java.util.List;
 
 public class ItemScrapBox extends Item {

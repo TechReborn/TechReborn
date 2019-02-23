@@ -25,8 +25,8 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
-import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
 import reborncore.client.gui.builder.GuiBase;
+import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
 
 public class GuiGenerator extends GuiBase {
 

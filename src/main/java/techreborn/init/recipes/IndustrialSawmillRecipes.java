@@ -24,29 +24,8 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import techreborn.init.TRContent;
-
-import javax.annotation.Nonnull;
-import java.security.InvalidParameterException;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class IndustrialSawmillRecipes extends RecipeMethods {

@@ -28,7 +28,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import techreborn.TechReborn;
 
 public enum EGui implements IMachineGuiHandler {
 

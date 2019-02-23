@@ -24,17 +24,6 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
-import techreborn.items.DynamicCell;
-import techreborn.items.ItemCells;
-
-import java.security.InvalidParameterException;
-
 /**
  * Created by Prospector
  */

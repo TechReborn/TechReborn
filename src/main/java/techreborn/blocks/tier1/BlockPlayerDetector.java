@@ -25,7 +25,6 @@
 package techreborn.blocks.tier1;
 
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -53,10 +52,11 @@ import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
-import techreborn.utils.MessageIDs;
 import techreborn.tiles.machine.tier1.TilePlayerDectector;
-import java.util.List;
+import techreborn.utils.MessageIDs;
+
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class BlockPlayerDetector extends BlockMachineBase {
 

@@ -35,9 +35,9 @@ import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
-import java.util.List;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class BlockMagicEnergyAbsorber extends BlockMachineBase {
 

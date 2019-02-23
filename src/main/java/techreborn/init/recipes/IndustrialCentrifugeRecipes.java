@@ -30,7 +30,6 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.Reference;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 
 import java.security.InvalidParameterException;

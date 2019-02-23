@@ -26,17 +26,13 @@ package techreborn.tiles;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.registration.RebornRegister;
+import reborncore.common.registration.config.ConfigRegistry;
+import techreborn.TechReborn;
 import techreborn.init.TRTileEntities;
-
-import javax.annotation.Nonnull;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileQuantumChest extends TileTechStorageBase implements IContainerProvider {

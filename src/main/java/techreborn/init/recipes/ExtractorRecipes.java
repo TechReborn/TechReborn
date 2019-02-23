@@ -24,17 +24,6 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.ExtractorRecipe;
-import techreborn.init.TRContent;
-import techreborn.items.DynamicCell;
-
 /**
  * Created by Prospector
  */
