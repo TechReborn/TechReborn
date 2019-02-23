@@ -25,6 +25,7 @@
 package techreborn.items.tool.vanilla;
 
 import net.minecraft.item.IItemTier;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
@@ -38,14 +39,14 @@ public class ItemTRAxe extends ItemAxe {
 	}
 
 	public ItemTRAxe(IItemTier material, String repairOreDict) {
-		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F);
+		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Properties());
 		this.repairOreDict = repairOreDict;
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
+			return ItemUtils.isInputEqual(repairOreDict, repair, false, false);
 		}
 		return super.getIsRepairable(toRepair, repair);
 	}

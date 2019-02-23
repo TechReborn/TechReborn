@@ -31,22 +31,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.Tags;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
+import techreborn.utils.TagUtils;
 
 public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialChainsaw() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.IndustrialChainsawCharge, 1.0F);
+		super(ItemTier.DIAMOND, ConfigTechReborn.IndustrialChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}
@@ -71,7 +74,8 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		for (int i = 1; i < 10; i++) {
 			BlockPos nextPos = pos.up(i);
 			IBlockState nextState = worldIn.getBlockState(nextPos);
-			if(nextState.getBlock().isWood(worldIn, nextPos)){
+			//TODO 1.13 use wood tag
+			if(TagUtils.hasTag(nextState.getBlock(), Tags.Blocks.STORAGE_BLOCKS)){
 				breakBlock(nextPos, stack, worldIn, entityLiving, pos);
 			}
 		}
@@ -105,7 +109,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 
 		blockState.getBlock().harvestBlock(world, (EntityPlayer) entityLiving, pos, blockState, world.getTileEntity(pos), stack);
-		world.setBlockToAir(pos);
+		world.removeBlock(pos);
 		world.removeTileEntity(pos);
 	}
 }

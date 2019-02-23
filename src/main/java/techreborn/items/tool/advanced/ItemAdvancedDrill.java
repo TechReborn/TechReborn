@@ -28,6 +28,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -40,7 +41,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedDrill() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.AdvancedDrillCharge, 0.5F, 15F);
+		super(ItemTier.DIAMOND, ConfigTechReborn.AdvancedDrillCharge, 0.5F, 15F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

@@ -26,6 +26,7 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,7 +39,7 @@ public class ItemIndustrialJackhammer extends ItemJackhammer {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialJackhammer() {
-		super(ToolMaterial.IRON, ConfigTechReborn.IndustrialJackhammerCharge);
+		super(ItemTier.IRON, ConfigTechReborn.IndustrialJackhammerCharge);
 		this.cost = 250;
 		this.efficiency = 60F;
 		this.transferLimit = 1000;

@@ -28,6 +28,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -40,7 +41,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedChainsaw() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.AdvancedChainsawCharge, 1.0F);
+		super(ItemTier.DIAMOND, ConfigTechReborn.AdvancedChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

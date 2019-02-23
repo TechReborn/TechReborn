@@ -28,18 +28,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import org.apache.commons.lang3.Validate;
-
+import techreborn.utils.FluidUtils;
 
 public class ItemCells {
 	public static ItemStack getCellByName(String name, int count) {
 		if (name.equalsIgnoreCase("empty") || name.equalsIgnoreCase("cell")) {
 			return DynamicCell.getEmptyCell(count).copy();
 		}
-		Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
+		Fluid fluid = FluidUtils.getFluid("fluid" + name.toLowerCase());
 		if (fluid == null) {
-			fluid = FluidRegistry.getFluid(name.toLowerCase());
+			fluid = FluidUtils.getFluid(name.toLowerCase());
 			if (fluid == null) {
-				fluid = FluidRegistry.getFluid(name.toLowerCase());
+				fluid = FluidUtils.getFluid(name.toLowerCase());
 			}
 		}
 		Validate.notNull(fluid, "The fluid " + name + " could not be found");

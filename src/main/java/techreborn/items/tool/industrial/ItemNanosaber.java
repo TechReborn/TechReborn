@@ -28,16 +28,13 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.IItemPropertyGetter;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
@@ -70,13 +67,11 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemNanosaber() {
-		super(ToolMaterial.DIAMOND);
-		setNoRepair();
-		setMaxStackSize(1);
+		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().setNoRepair().maxStackSize(1));
 		this.addPropertyOverride(new ResourceLocation("techreborn:active"), new IItemPropertyGetter() {
 			@Override
 			@OnlyIn(Dist.CLIENT)
-			public float apply(ItemStack stack,
+			public float call(ItemStack stack,
 			                   @Nullable
 				                   World worldIn,
 			                   @Nullable
@@ -138,7 +133,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 					if (stack.getTag() == null) {
 						stack.setTag(new NBTTagCompound());
 					}
-					stack.getTag().setBoolean("isActive", true);
+					stack.getTag().putBoolean("isActive", true);
 					if (world.isRemote) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
@@ -146,7 +141,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 								.format("techreborn.message.nanosaberActive")));
 					}
 				} else {
-					stack.getTag().setBoolean("isActive", false);
+					stack.getTag().putBoolean("isActive", false);
 					if (world.isRemote) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
 							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
@@ -161,7 +156,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
 			if(worldIn.isRemote){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
@@ -169,7 +164,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 						+ TextFormatting.GOLD + I18n
 						.format("techreborn.message.nanosaberDeactivating")));
 			}
-			stack.getTag().setBoolean("isActive", false);
+			stack.getTag().putBoolean("isActive", false);
 		}
 	}
 
@@ -210,17 +205,17 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
 		inactiveUncharged.setTag(new NBTTagCompound());
-		inactiveUncharged.getTag().setBoolean("isActive", false);
+		inactiveUncharged.getTag().putBoolean("isActive", false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
 		inactiveCharged.setTag(new NBTTagCompound());
-		inactiveCharged.getTag().setBoolean("isActive", false);
+		inactiveCharged.getTag().putBoolean("isActive", false);
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(inactiveCharged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
 		activeCharged.setTag(new NBTTagCompound());
-		activeCharged.getTag().setBoolean("isActive", true);
+		activeCharged.getTag().putBoolean("isActive", true);
 		ForgePowerItemManager capEnergy2 = new ForgePowerItemManager(activeCharged);
 		capEnergy2.setEnergyStored(capEnergy2.getMaxEnergyStored());
 

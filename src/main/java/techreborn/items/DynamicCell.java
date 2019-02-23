@@ -26,10 +26,7 @@ package techreborn.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlowingFluid;
-import net.minecraft.block.BlockStaticLiquid;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Fluids;
@@ -53,6 +50,7 @@ import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRContent;
+import techreborn.utils.FluidUtils;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -67,7 +65,7 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		//Clearing tag because ItemUtils.isItemEqual doesn't handle tags ForgeCaps and display
 		//And breaks ability to use in recipes
 		//TODO: Property ItemUtils.isItemEquals tags equality handling?
@@ -149,21 +147,21 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public void getSubItems(ItemGroup tab, NonNullList<ItemStack> subItems) {
+	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> subItems) {
 		if (!isInGroup(tab)) {
 			return;
 		}
 		subItems.add(getEmptyCell(1));
-		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
+		for (Fluid fluid : FluidUtils.getAllFluids()) {
 			subItems.add(getCellWithFluid(fluid));
 		}
 	}
 
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
+	public String getTranslationKey(ItemStack stack) {
 		FluidStack fluidStack = getFluidHandler(stack).getFluid();
 		if (fluidStack == null)
-			return super.getItemStackDisplayName(stack);
+			return super.getTranslationKey(stack);
 		return StringUtils.t("item.techreborn.cell.fluid.name").replaceAll("\\$fluid\\$", fluidStack.getLocalizedName());
 	}
 
@@ -198,7 +196,7 @@ public class DynamicCell extends Item {
 			super(container, capacity);
 
 			//backwards compatibility
-			if (container.hasTag() && container.getTag().hasKey("FluidName")) {
+			if (container.hasTag() && container.getTag().contains("FluidName")) {
 				FluidStack stack = FluidStack.loadFluidStackFromNBT(container.getTag());
 				if (stack != null) {
 					container.setTag(new NBTTagCompound());
@@ -235,7 +233,7 @@ public class DynamicCell extends Item {
 		@Override
 		public ItemStack getContainer() {
 			ItemStack cell;
-			if (container.hasTag() && container.getTag().hasKey(FLUID_NBT_KEY)) {
+			if (container.hasTag() && container.getTag().contains(FLUID_NBT_KEY)) {
 				cell = super.getContainer();
 			}
 			else {

@@ -26,12 +26,10 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -64,10 +62,8 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemOmniTool() {
-		super(ToolMaterial.DIAMOND);
+		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().maxStackSize(1));
 		efficiency = 13F;
-		setMaxStackSize(1);
-		setMaxDamage(200);
 	}
 	
 	// ItemPickaxe
@@ -124,9 +120,8 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	// Item
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
-	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		return TorchHelper.placeTorch(playerIn.getHeldItem(hand), playerIn, worldIn, pos, facing, hitX, hitY, hitZ, hand);
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		return TorchHelper.placeTorch(context);
 	}
 
 	@Override

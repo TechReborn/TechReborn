@@ -29,6 +29,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -59,18 +60,18 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
-		setMaxStackSize(1);
+		super(new Item.Properties().maxStackSize(1));
 	}
 
 	// Item
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		IBlockState state = worldIn.getBlockState(pos);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(playerIn.getHeldItem(hand));
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		IBlockState state = context.getWorld().getBlockState(context.getPos());
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(context.getItem());
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
-			if(TechRebornAPI.ic2Helper.extractSap(playerIn, worldIn, pos, side, state, null) && !worldIn.isRemote){
+			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isRemote){
 				capEnergy.extractEnergy(cost, false);
-				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, context.getPlayer());
 
 				return EnumActionResult.SUCCESS;
 			}

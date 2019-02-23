@@ -26,6 +26,7 @@ package techreborn.items.tool.basic;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,7 +38,7 @@ import techreborn.items.tool.ItemJackhammer;
 public class ItemBasicJackhammer extends ItemJackhammer {
 
 	public ItemBasicJackhammer() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.BasicJackhammerCharge);
+		super(ItemTier.DIAMOND, ConfigTechReborn.BasicJackhammerCharge);
 		this.cost = 50;
 		this.efficiency = 12F;
 	}

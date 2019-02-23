@@ -35,6 +35,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.IRegistry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -90,8 +91,8 @@ public class ItemFrequencyTransmitter extends Item {
 					TextFormatting.GRAY + " Z: " +
 					TextFormatting.GOLD + pos.getZ() +
 					TextFormatting.GRAY + " " + I18n.format("techreborn.message.in") + " " +
-					TextFormatting.GOLD + DimensionManager.getProviderType(world.provider.getDimension())
-					.getName() + " (" + world.getDimension().getType().getRegistryName() + ")"));
+					TextFormatting.GOLD + world.getDimension().getType().getRegistryName()
+					+ " (" + world.getDimension().getType().getRegistryName() + ")"));
 		}
 		return EnumActionResult.SUCCESS;
 	}
@@ -124,7 +125,7 @@ public class ItemFrequencyTransmitter extends Item {
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x));
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y));
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z));
-			tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + DimensionManager.getProviderType(dim).getName()));
+			tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + IRegistry.DIMENSION_TYPE.get(dim).getRegistryName().toString()));
 
 		} else {
 			tooltip.add(new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet")));
@@ -147,7 +148,7 @@ public class ItemFrequencyTransmitter extends Item {
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");
 					int coordDim = stack.getTag().getInt("dim");
-					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + DimensionManager.getProviderType(coordDim).getName() + " (" + coordDim + ")";
+					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + IRegistry.DIMENSION_TYPE.get(coordDim).getRegistryName().toString() + " (" + coordDim + ")";
 				} else {
 					text = grey + I18n.format("techreborn.message.noCoordsSet");
 				}

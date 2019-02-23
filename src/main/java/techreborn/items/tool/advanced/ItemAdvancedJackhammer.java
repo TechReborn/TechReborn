@@ -26,6 +26,7 @@ package techreborn.items.tool.advanced;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,7 +39,7 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedJackhammer() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.AdvancedJackhammerCharge);
+		super(ItemTier.DIAMOND, ConfigTechReborn.AdvancedJackhammerCharge);
 		this.cost = 100;
 		this.efficiency = 16F;
 		this.transferLimit = 1000;

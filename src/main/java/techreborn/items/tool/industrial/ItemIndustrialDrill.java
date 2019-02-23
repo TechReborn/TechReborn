@@ -31,6 +31,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -53,7 +54,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialDrill() {
-		super(ToolMaterial.DIAMOND, ConfigTechReborn.IndustrialDrillCharge, 2.0F, 10F);
+		super(ItemTier.DIAMOND, ConfigTechReborn.IndustrialDrillCharge, 2.0F, 10F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}
@@ -108,7 +109,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
 		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
-		world.setBlockToAir(pos);
+		world.removeBlock(pos);
 		world.removeTileEntity(pos);
 	}
 	

@@ -25,6 +25,7 @@
 package techreborn.items.tool.vanilla;
 
 import net.minecraft.item.IItemTier;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,20 +41,14 @@ public class ItemTRHoe extends ItemHoe {
 	}
 
 	public ItemTRHoe(IItemTier material, String repairOreDict) {
-		super(material);
+		super(material, 1F, new Item.Properties());
 		this.repairOreDict = repairOreDict;
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public boolean isFull3D() {
-		return true;
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, false, false, true);
+			return ItemUtils.isInputEqual(repairOreDict, repair, false,  true);
 		}
 		return super.getIsRepairable(toRepair, repair);
 	}

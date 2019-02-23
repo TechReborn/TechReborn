@@ -28,6 +28,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,7 +40,7 @@ import techreborn.items.tool.ItemChainsaw;
 public class ItemBasicChainsaw extends ItemChainsaw {
 
 	public ItemBasicChainsaw() {
-		super(ToolMaterial.IRON, ConfigTechReborn.BasicChainsawCharge, 0.5F);
+		super(ItemTier.IRON, ConfigTechReborn.BasicChainsawCharge, 0.5F);
 		this.cost = 50;
 	}
 

@@ -25,20 +25,19 @@
 package techreborn.items.tool.advanced;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
@@ -60,8 +59,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
-		super(ToolMaterial.DIAMOND);
-		setMaxStackSize(1);
+		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().maxStackSize(1));
 		efficiency = 16F;
 	}
 
@@ -97,11 +95,11 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-		if (!stack.isItemEnchanted()) {
+	public int getHarvestLevel(ItemStack stack, ToolType toolType, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+		if (!stack.isEnchanted()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
-		return super.getHarvestLevel(stack, toolClass, player, blockState);
+		return super.getHarvestLevel(stack, toolType, player, blockState);
 	}
 
 	// Item
@@ -112,7 +110,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		if (!stack.isItemEnchanted()) {
+		if (!stack.isEnchanted()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
 	}
