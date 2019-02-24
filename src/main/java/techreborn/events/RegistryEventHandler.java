@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +21,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
+import techreborn.init.TRTileEntities;
 import techreborn.init.TRToolTeir;
 import techreborn.itemblocks.ItemBlockRubberSapling;
 import techreborn.items.DynamicCell;
@@ -50,6 +52,7 @@ import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 /**
  * @author drcrazy
@@ -193,6 +196,11 @@ public class RegistryEventHandler {
 		BlockMachineBase.basicFrameStack = new ItemStack(TRContent.MachineBlocks.BASIC.getFrame());
 		
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
+	}
+
+	@SubscribeEvent
+	public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> event) {
+		TRTileEntities.TYPES.forEach(tileEntityType -> event.getRegistry().register(tileEntityType));
 	}
 	
 //	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker

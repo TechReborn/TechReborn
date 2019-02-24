@@ -31,6 +31,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixesManager;
 import net.minecraft.util.datafix.TypeReferences;
+import net.minecraft.util.registry.IRegistry;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
@@ -58,6 +59,8 @@ import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;
 import techreborn.tiles.transformers.TileMVTransformer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class TRTileEntities {
@@ -121,8 +124,10 @@ public class TRTileEntities {
 	public static final TileEntityType ALARM = register(TileAlarm.class, "alarm");
 	public static final TileEntityType FLUID_REPLICATOR = register(TileFluidReplicator.class, "fluid_replicator");
 
+	public static List<TileEntityType<?>> TYPES = new ArrayList<>();
+
 	public static <T extends TileEntity> TileEntityType<T> register(Class<T> tClass, String name) {
-		return register(new ResourceLocation("techrebonr", name).toString(), TileEntityType.Builder.create(() -> {
+		return register(new ResourceLocation("techrebon", name).toString(), TileEntityType.Builder.create(() -> {
 			//TODO clean this up
 			try {
 				return tClass.newInstance();
@@ -134,6 +139,7 @@ public class TRTileEntities {
 
 	public static <T extends TileEntity> TileEntityType<T> register(String id, TileEntityType.Builder<T> builder) {
 		TileEntityType<T> tileEntityType = builder.build(null);
+		tileEntityType.setRegistryName(new ResourceLocation(id));
 		return tileEntityType;
 	}
 
