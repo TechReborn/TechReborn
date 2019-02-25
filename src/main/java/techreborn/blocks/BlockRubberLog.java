@@ -101,9 +101,10 @@ public class BlockRubberLog extends Block {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void tick(IBlockState state, World worldIn, BlockPos pos, Random random) {
-		state.tick(worldIn, pos, random);
+		super.tick(state, worldIn, pos, random);
 		if (!state.get(HAS_SAP)) {
 			if (random.nextInt(50) == 0) {
 				EnumFacing facing = EnumFacing.byHorizontalIndex(random.nextInt(4));
@@ -115,10 +116,11 @@ public class BlockRubberLog extends Block {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		state.onBlockActivated(worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
+		super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		if (stack.isEmpty()) {
 			return false;
