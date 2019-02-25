@@ -25,7 +25,6 @@
 package techreborn.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -66,9 +65,6 @@ import techreborn.tiles.storage.TileMediumVoltageSU;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 import techreborn.client.gui.*;
 import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 import techreborn.tiles.storage.lesu.TileLapotronicSU;

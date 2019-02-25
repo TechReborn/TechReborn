@@ -41,7 +41,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.BlockStateContainer;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.registration.RebornRegister;
@@ -140,7 +139,7 @@ public class BlockCable extends BlockContainer {
 				return true;
 			}
 		}
-		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
+		return state.onBlockActivated(worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override

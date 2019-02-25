@@ -52,7 +52,6 @@ import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 /**
  * @author drcrazy

@@ -24,7 +24,6 @@
 
 package techreborn.items.tool.basic;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -61,7 +60,6 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	// Item
 	@Override
 	public EnumActionResult onItemUse(ItemUseContext context) {
-		IBlockState state = context.getWorld().getBlockState(context.getPos());
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(context.getItem());
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isRemote){

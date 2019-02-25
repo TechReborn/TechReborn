@@ -73,7 +73,6 @@ public class ItemFrequencyTransmitter extends Item {
 
 	@Override
 	public EnumActionResult onItemUse(ItemUseContext context) {
-		EntityPlayer player = context.getPlayer();
 		World world = context.getWorld();
 		BlockPos pos = context.getPos();
 		ItemStack stack = context.getItem();

@@ -94,8 +94,8 @@ public class BlockRubberLog extends Block {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 				IBlockState state1 = worldIn.getBlockState(blockpos);
 				if (state1.getBlock() instanceof BlockLeaves) {
-					state1.getBlock().tick(state1, worldIn, pos, worldIn.getRandom());
-					state1.getBlock().randomTick(state1, worldIn, pos, worldIn.getRandom());
+					state1.tick(worldIn, pos, worldIn.getRandom());
+					state1.randomTick(worldIn, pos, worldIn.getRandom());
 				}
 			}
 		}
@@ -103,7 +103,7 @@ public class BlockRubberLog extends Block {
 
 	@Override
 	public void tick(IBlockState state, World worldIn, BlockPos pos, Random random) {
-		super.tick(state, worldIn, pos, random);
+		state.tick(worldIn, pos, random);
 		if (!state.get(HAS_SAP)) {
 			if (random.nextInt(50) == 0) {
 				EnumFacing facing = EnumFacing.byHorizontalIndex(random.nextInt(4));
@@ -118,7 +118,7 @@ public class BlockRubberLog extends Block {
 	@Override
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
+		state.onBlockActivated(worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		if (stack.isEmpty()) {
 			return false;
