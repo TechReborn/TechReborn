@@ -107,25 +107,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 		}
 		return 0;
 	}
-	
-	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		if (RebornCoreConfig.wrenchRequired){
-			if (state.getValue(TYPE) == "reinforced") {
-				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 1));				
-			}
-			else if (state.getValue(TYPE) == "advanced") {
-				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 2));
-			}
-			else {
-				drops.add(new ItemStack(ModBlocks.MACHINE_FRAMES, 1, 0));
-			}
-		}
-		else {
-			super.getDrops(drops, world, pos, state, fortune);
-		}
-	}
-	
+
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
 	                                EnumFacing side, float hitX, float hitY, float hitZ) {
