@@ -24,6 +24,7 @@
 
 package techreborn;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -132,7 +133,7 @@ public class TechReborn {
 
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			//BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
+			 BlockDispenser.registerDispenseBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
