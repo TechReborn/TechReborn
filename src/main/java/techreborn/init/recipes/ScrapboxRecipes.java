@@ -143,7 +143,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.OAK_FENCE_GATE));
 		register(getStack(Blocks.SPRUCE_FENCE));
 		register(getStack(Blocks.SPRUCE_FENCE_GATE));
-//		register(getStack(Blocks.BRICK_BLOCK));
+		register(getStack(Blocks.BRICKS));
 		register(getStack(Blocks.CRAFTING_TABLE));
 		register(getStack(Blocks.PUMPKIN));
 		register(getStack(Blocks.NETHERRACK));
@@ -154,7 +154,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.SAND, 1));
 		register(getStack(Blocks.GLOWSTONE));
 		register(getStack(Blocks.GRAVEL));
-//		register(getStack(Blocks.HARDENED_CLAY));
+		register(getStack(Blocks.CLAY));
 		register(getStack(Blocks.GLASS));
 		register(getStack(Blocks.GLASS_PANE));
 		register(getStack(Blocks.CACTUS));
@@ -165,7 +165,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Blocks.TNT));
 		register(getStack(Blocks.RAIL));
 		register(getStack(Blocks.DETECTOR_RAIL));
-//		register(getStack(Blocks.GOLDEN_RAIL));
+		register(getStack(Blocks.POWERED_RAIL));
 		register(getStack(Blocks.ACTIVATOR_RAIL));
 //		register(getStack(Blocks.YELLOW_FLOWER));
 //		register(getStack(Blocks.RED_FLOWER, 1, 0));

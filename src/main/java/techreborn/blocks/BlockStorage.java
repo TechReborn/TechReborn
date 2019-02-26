@@ -44,36 +44,4 @@ public class BlockStorage extends BaseBlock {
 //		return BlockStorage2.getStorageBlockByName(name, count);
 //	}
 
-//	public static ItemStack getStorageBlockByName(String name) {
-//		return getStorageBlockByName(name, 1);
-//	}
-
-//	@Override
-//	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-//		return Item.getItemFromBlock(this);
-//	}
-//
-//	@Override
-//	public int damageDropped(IBlockState state) {
-//		return getMetaFromState(state);
-//	}
-
-//	@Override
-//	public IBlockState getStateFromMeta(int meta) {
-//		if (meta > types.length) {
-//			meta = 0;
-//		}
-//		return getBlockState().getBaseState().with(TYPE, typesList.get(meta));
-//	}
-//
-//	@Override
-//	public int getMetaFromState(IBlockState state) {
-//		return typesList.indexOf(state.getValue(TYPE));
-//	}
-//
-//	@Override
-//	protected BlockStateContainer createBlockState() {
-//		return new BlockStateContainer(this, TYPE);
-//	}
-
 }

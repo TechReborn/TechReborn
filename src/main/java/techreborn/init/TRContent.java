@@ -2,7 +2,6 @@ package techreborn.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
@@ -234,7 +233,7 @@ public class TRContent {
 		
 		@Override
 		public Item asItem() {
-			return Item.getItemFromBlock(block);
+			return block.asItem();
 		}
 	}
 
@@ -253,7 +252,7 @@ public class TRContent {
 
 		@Override
 		public Item asItem() {
-			return Item.getItemFromBlock(block);
+			return block.asItem();
 		}
 	}
 
@@ -273,7 +272,7 @@ public class TRContent {
 
 		@Override
 		public Item asItem() {
-			return Item.getItemFromBlock(block);
+			return block.asItem();
 		}
 	}
 
@@ -304,7 +303,7 @@ public class TRContent {
 	}
 	
 	
-	public static enum Machine {
+	public static enum Machine implements IItemProvider {
 		ALLOY_SMELTER(new BlockAlloySmelter()),
 		ASSEMBLY_MACHINE(new BlockAssemblingMachine()),
 		AUTO_CRAFTING_TABLE(new BlockAutoCraftingTable()),
@@ -379,6 +378,11 @@ public class TRContent {
 		
 		public ItemStack getStack() {
 			return new ItemStack(block);
+		}
+		
+		@Override
+		public Item asItem() {
+			return block.asItem();
 		}
 	}
 	

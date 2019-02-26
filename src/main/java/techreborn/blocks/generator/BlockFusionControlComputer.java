@@ -27,7 +27,6 @@ package techreborn.blocks.generator;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -58,7 +57,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) worldIn.getTileEntity(pos);
-		if(!playerIn.getHeldItem(hand).isEmpty() && playerIn.getHeldItem(hand).getItem() == Item.getItemFromBlock(TRContent.Machine.FUSION_COIL.block)){
+		if(!playerIn.getHeldItem(hand).isEmpty() && (playerIn.getHeldItem(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())){
 			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
 			boolean placed = false;
 			for(BlockPos coil : coils){
