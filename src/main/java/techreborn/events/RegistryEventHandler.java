@@ -4,10 +4,12 @@
 package techreborn.events;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,6 +20,7 @@ import reborncore.common.util.BucketHandler;
 import techreborn.TechReborn;
 import techreborn.blocks.*;
 import techreborn.config.ConfigTechReborn;
+import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
@@ -200,6 +203,15 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> event) {
 		TRTileEntities.TYPES.forEach(tileEntityType -> event.getRegistry().register(tileEntityType));
+	}
+	
+
+	@SubscribeEvent
+	public static void registerEntityTypes(RegistryEvent.Register<EntityType<?>> event) {
+		TRContent.ENTITY_NUKE = EntityType.Builder.create(EntityNukePrimed.class, EntityNukePrimed::new).build("nuke");
+		TRContent.ENTITY_NUKE.setRegistryName(new ResourceLocation(TechReborn.MOD_ID, "nuke"));
+		event.getRegistry().register(TRContent.ENTITY_NUKE);
+		
 	}
 	
 //	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker

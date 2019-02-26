@@ -1,6 +1,8 @@
 package techreborn.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
@@ -24,6 +26,7 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.config.ConfigTechReborn;
+import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
@@ -672,4 +675,6 @@ public class TRContent {
 			return item;
 		}
 	}
+	
+	public static EntityType<EntityNukePrimed> ENTITY_NUKE;
 }

@@ -99,9 +99,6 @@ public class TechReborn {
 		ClientboundPackets.init();
 		ServerboundPackets.init();
 
-		// Entitys
-		//EntityRegistry.registerModEntity(new ResourceLocation("techreborn", "nuke"), EntityNukePrimed.class, "nuke", 0, INSTANCE, 160, 5, true);
-
 		proxy.preInit();
 
 		// Registers Chest Loot
@@ -137,6 +134,7 @@ public class TechReborn {
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
+		LOGGER.info("Setup done!");
 	}
 
 
