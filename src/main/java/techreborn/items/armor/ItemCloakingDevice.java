@@ -28,7 +28,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,6 +45,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
@@ -60,9 +60,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemCloakingDevice() {
-		//TODO: Update ArmorMaterial
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST);
-		//setMaxStackSize(1);
+		super(TRArmorMaterial.CLOAKING, EntityEquipmentSlot.CHEST);
 	}
 
 	// Item
@@ -73,7 +71,6 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	}
 	
 	@Override
-	
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityIn;
