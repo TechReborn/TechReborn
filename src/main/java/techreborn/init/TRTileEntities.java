@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import reborncore.common.tile.TileMachineBase;
+import techreborn.TechReborn;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
@@ -121,7 +122,7 @@ public class TRTileEntities {
 	public static List<TileEntityType<?>> TYPES = new ArrayList<>();
 
 	public static <T extends TileEntity> TileEntityType<T> register(Class<T> tClass, String name) {
-		return register(new ResourceLocation("techrebon", name).toString(), TileEntityType.Builder.create(() -> {
+		return register(new ResourceLocation(TechReborn.MOD_ID, name).toString(), TileEntityType.Builder.create(() -> {
 			//TODO clean this up
 			try {
 				return tClass.newInstance();
