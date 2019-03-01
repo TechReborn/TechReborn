@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/tier1_machines/grinder_top_off",
+        "front": "techreborn:block/machines/tier1_machines/grinder_front_off",
+        "side": "techreborn:block/machines/tier1_machines/machine_side"
+    }
+}

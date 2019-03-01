@@ -55,7 +55,7 @@ public class ModelRegistryEventHandler {
 		registerFluidBlocks();
 		registerItems();
 		ModelDynamicCell.init();
-		RebornModelRegistry.registerModels(TechReborn.MOD_ID);
+		//RebornModelRegistry.registerModels(TechReborn.MOD_ID);
 	}
 	
 	private static void registerBlocks() {
