@@ -3,6 +3,7 @@ package techreborn.build.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ModelBuilder {
 
@@ -27,14 +28,25 @@ public class ModelBuilder {
 	public static class Model {
 		String name;
 		ModelBuilder modelBuilder;
+		List<Component> components = new ArrayList<>();
+
 
 		private Model(String name, ModelBuilder modelBuilder) {
 			this.name = name;
 			this.modelBuilder = modelBuilder;
 		}
 
+		public Model machine(Consumer<MachineModelBuilder.MachineTextures> textureConsumer){
+			components.addAll(new MachineModelBuilder(this, textureConsumer).getComponents());
+			return this;
+		}
+
 		public ModelBuilder build(){
 			return modelBuilder;
 		}
+	}
+
+	public static abstract class Component {
+
 	}
 }
