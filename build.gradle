@@ -196,6 +196,11 @@ task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 	}
 }
 
+import techreborn.build.GenerateResourcesTask
+task genResources(type: GenerateResourcesTask){
+	outputDir = file("src/main/resources")
+}
+
 publishing {
 	publications {
 		maven(MavenPublication) {
