@@ -59,6 +59,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TRTileEntities {
+	
+	public static List<TileEntityType<?>> TYPES = new ArrayList<>();
 
 	public static final TileEntityType<TileThermalGenerator> THERMAL_GEN = register(TileThermalGenerator.class, "thermal_generator");
 	public static final TileEntityType<TileQuantumTank> QUANTUM_TANK = register(TileQuantumTank.class, "quantum_tank");
@@ -119,7 +121,7 @@ public class TRTileEntities {
 	public static final TileEntityType<TileAlarm> ALARM = register(TileAlarm.class, "alarm");
 	public static final TileEntityType<TileFluidReplicator> FLUID_REPLICATOR = register(TileFluidReplicator.class, "fluid_replicator");
 
-	public static List<TileEntityType<?>> TYPES = new ArrayList<>();
+	
 
 	public static <T extends TileEntity> TileEntityType<T> register(Class<T> tClass, String name) {
 		return register(new ResourceLocation(TechReborn.MOD_ID, name).toString(), TileEntityType.Builder.create(() -> {
@@ -135,6 +137,7 @@ public class TRTileEntities {
 	public static <T extends TileEntity> TileEntityType<T> register(String id, TileEntityType.Builder<T> builder) {
 		TileEntityType<T> tileEntityType = builder.build(null);
 		tileEntityType.setRegistryName(new ResourceLocation(id));
+		TRTileEntities.TYPES.add(tileEntityType);
 		return tileEntityType;
 	}
 
