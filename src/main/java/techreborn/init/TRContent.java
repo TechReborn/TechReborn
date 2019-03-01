@@ -44,7 +44,7 @@ public class TRContent {
 	public static Block RUBBER_LEAVES;
 	public static Block RUBBER_LOG;
 	public static Block RUBBER_LOG_SLAB;
-	public static Block RUBBER_LOG_STAIR;
+	public static Block RUBBER_PLANK_STAIR;
 	public static Block RUBBER_PLANKS;
 	public static Block RUBBER_SAPLING;
 	

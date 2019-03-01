@@ -1,5 +1,5 @@
 {
-    "parent": "block/orientable",
+    "parent": "minecraft:block/orientable",
     "textures": {
         "top": "techreborn:block/machines/tier1_machines/grinder_top_on",
         "front": "techreborn:block/machines/tier1_machines/grinder_front_on",

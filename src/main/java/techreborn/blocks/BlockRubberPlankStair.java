@@ -26,7 +26,6 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
-import net.minecraft.block.state.IBlockState;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
@@ -34,8 +33,8 @@ import techreborn.init.TRContent;
 
 public class BlockRubberPlankStair extends BlockStairs {
 
-	public BlockRubberPlankStair(IBlockState modelState, String name) {
-		super(modelState, Block.Properties.from(TRContent.RUBBER_PLANKS));
+	public BlockRubberPlankStair() {
+		super(TRContent.RUBBER_PLANKS.getDefaultState(), Block.Properties.from(TRContent.RUBBER_PLANKS));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }
