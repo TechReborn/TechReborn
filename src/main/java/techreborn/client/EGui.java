@@ -224,7 +224,7 @@ public enum EGui implements IMachineGuiHandler {
 
 	public static EGui byID(ResourceLocation resourceLocation){
 		return Arrays.stream(values())
-			.filter(eGui -> eGui.name().toLowerCase().equals(resourceLocation.toString()))
+			.filter(eGui -> eGui.name().toLowerCase().equals(resourceLocation.getPath()))
 			.findFirst()
 			.orElseThrow(() -> new RuntimeException("Failed to find gui for " + resourceLocation));
 	}
@@ -245,12 +245,12 @@ public enum EGui implements IMachineGuiHandler {
 
 				@Override
 				public String getGuiID() {
-					return gui.name().toLowerCase();
+					return "techreborn:" + gui.name().toLowerCase();
 				}
 
 				@Override
 				public ITextComponent getName() {
-					return new TextComponentString(gui.name().toLowerCase());
+					return new TextComponentString(getGuiID());
 				}
 
 				@Override
@@ -263,13 +263,7 @@ public enum EGui implements IMachineGuiHandler {
 				public ITextComponent getCustomName() {
 					return null;
 				}
-			}, new Consumer<PacketBuffer>() {
-				@Override
-				public void accept(PacketBuffer packetBuffer) {
-					packetBuffer.writeBlockPos(pos);
-				}
-			});
-			//player.openGui(TechReborn.INSTANCE, this.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+			}, packetBuffer -> packetBuffer.writeBlockPos(pos));
 		}
 	}
 

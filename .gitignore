@@ -26,3 +26,5 @@ java_pid2412.hprof
 /logs/
 /classes/
 /gradle.properties
+/buildSrc/.gradle/
+/buildSrc/build/
