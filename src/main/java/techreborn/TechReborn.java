@@ -134,7 +134,7 @@ public class TechReborn {
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
-		LOGGER.info("Setup done!");
+		LOGGER.info("TechReborn setup done!");
 	}
 
 
@@ -142,7 +142,7 @@ public class TechReborn {
 		proxy.postInit();
 
 		ModRecipes.postInit();
-		LOGGER.info(RecipeHandler.recipeList.size() + " recipes loaded");
+		LOGGER.debug(RecipeHandler.recipeList.size() + " recipes loaded");
 
 		// RecipeHandler.scanForDupeRecipes();
 		// RecipeConfigManager.save();
