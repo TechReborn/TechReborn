@@ -29,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -39,8 +40,6 @@ import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.utils.TagUtils;
-
 import java.util.List;
 import java.util.Random;
 
@@ -66,23 +65,24 @@ public class BlockBreakHandler {
 			IBlockState state = event.getState();
 			List<ItemStack> drops = event.getDrops();
 			Random random = new Random();
-			if (TagUtils.isOre(state, "oreRuby")) {
+		//TODO: fix tags
+			if (state.getBlock().isIn(new BlockTags.Wrapper(new ResourceLocation(TechReborn.MOD_ID, "ruby_ore")))) {
 				OreDrop redGarnet = new OreDrop(TRContent.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
 				drops.add(redGarnet.getDrops(event.getFortuneLevel(), random));
 			}
-			else if (TagUtils.isOre(state, "oreSapphire")) {
+			else if (state.getBlock().isIn(new BlockTags.Wrapper(new ResourceLocation(TechReborn.MOD_ID, "sapphire_ore")))) {
 				OreDrop peridot = new OreDrop(TRContent.Gems.PERIDOT.getStack(), peridotDropChance, 1);
 				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
 			}
-			else if (TagUtils.isOre(state, "oreSodalite")) {
+			else if (state.getBlock().isIn(new BlockTags.Wrapper(new ResourceLocation(TechReborn.MOD_ID, "sodalite_ore")))) {
 				OreDrop aluminium = new OreDrop(TRContent.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
 				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
 			}
-			else if (TagUtils.isOre(state, "oreCinnabar")) {
+			else if (state.getBlock().isIn(new BlockTags.Wrapper(new ResourceLocation(TechReborn.MOD_ID, "cinnabar_ore")))) {
 				OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), redstoneDropChance, 1);
 				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
 			}
-			else if (TagUtils.isOre(state, "oreSphalerite")) {
+			else if (state.getBlock().isIn(new BlockTags.Wrapper(new ResourceLocation(TechReborn.MOD_ID, "sphalerite_ore")))) {
 				OreDrop yellowGarnet = new OreDrop(TRContent.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
 				drops.add(yellowGarnet.getDrops(event.getFortuneLevel(), random));
 			}	

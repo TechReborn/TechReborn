@@ -31,12 +31,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.Tags;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
@@ -73,8 +73,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		for (int i = 1; i < 10; i++) {
 			BlockPos nextPos = pos.up(i);
 			IBlockState nextState = worldIn.getBlockState(nextPos);
-			//TODO 1.13 use wood tag
-			if(TagUtils.hasTag(nextState.getBlock(), Tags.Blocks.STORAGE_BLOCKS)){
+			if(TagUtils.hasTag(nextState.getBlock(), BlockTags.LOGS)){
 				breakBlock(nextPos, stack, worldIn, entityLiving, pos);
 			}
 		}
