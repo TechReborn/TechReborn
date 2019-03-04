@@ -62,7 +62,6 @@ public class TechReborn {
 
 	public static final String MOD_ID = "techreborn";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-//	@SidedProxy(clientSide = TechReborn.CLIENT_PROXY_CLASS, serverSide = TechReborn.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy = new CommonProxy();
 	public static TechReborn INSTANCE;
 	
@@ -80,13 +79,7 @@ public class TechReborn {
 	}
 
 	private void setup(FMLCommonSetupEvent event) {
-//		if(!RebornCore.LOADED){
-//			throw new RuntimeException("RebornCore has not loaded!");
-//		} else {
-//			System.out.println("Hello Reborn Core, I see you are loaded and ready.");
-//		}
 		MinecraftForge.EVENT_BUS.register(this);
-
 		INSTANCE = this;
 
 		RegistrationManager registrationManager = new RegistrationManager("techreborn");

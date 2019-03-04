@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "techreborn:block/rubber_sapling"
+  }
+}

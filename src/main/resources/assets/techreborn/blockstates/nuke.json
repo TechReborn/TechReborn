@@ -1,34 +1,5 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "transform": "forge:default-block",
-    "model": "orientable",
-    "textures": {
-      "particle": "techreborn:blocks/nuke_side",
-      "bottom": "techreborn:blocks/nuke_top",
-      "top": "techreborn:blocks/nuke_top",
-      "front": "techreborn:blocks/nuke_front",
-      "side": "techreborn:blocks/nuke_side"
+    "variants": {
+        "": { "model": "techreborn:block/nuke" }
     }
-  },
-  "variants": {
-    "inventory": {
-      "transform": "forge:default-block",
-      "textures": {
-      }
-    },
-    "normal": [
-      {}
-    ],
-    "overlay": {
-      "true": {
-        "textures": {
-        }
-      },
-      "false": {
-        "textures": {
-        }
-      }
-    }
-  }
 }

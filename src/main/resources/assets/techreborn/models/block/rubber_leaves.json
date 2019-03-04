@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "techreborn:block/rubber_leaves"
+  }
+}
