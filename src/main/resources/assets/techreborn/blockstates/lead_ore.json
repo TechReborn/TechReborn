@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/lead_ore" }
+        "": { "model": "techreborn:block/ore/lead_ore" }
     }
 }
