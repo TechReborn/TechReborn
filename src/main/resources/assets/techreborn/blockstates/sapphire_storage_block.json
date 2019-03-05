@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/storage/sapphire_storage_block" }
+    }
+}

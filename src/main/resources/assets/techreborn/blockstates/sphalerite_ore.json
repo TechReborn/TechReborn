@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/sphalerite_ore" }
+        "": { "model": "techreborn:block/ore/sphalerite_ore" }
     }
 }

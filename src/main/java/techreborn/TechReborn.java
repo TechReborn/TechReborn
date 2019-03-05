@@ -24,9 +24,11 @@
 
 package techreborn;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,7 +36,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.api.recipe.RecipeHandler;
@@ -76,8 +81,9 @@ public class TechReborn {
 	public TechReborn() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		eventBus.addListener(this::setup);
+		eventBus.addListener(this::loadComplete);
 	}
-
+	
 	private void setup(FMLCommonSetupEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		INSTANCE = this;
@@ -129,19 +135,9 @@ public class TechReborn {
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
 		LOGGER.info("TechReborn setup done!");
 	}
-
-
-	public void postinit() {
-		proxy.postInit();
-
-		ModRecipes.postInit();
-		LOGGER.debug(RecipeHandler.recipeList.size() + " recipes loaded");
-
-		// RecipeHandler.scanForDupeRecipes();
-		// RecipeConfigManager.save();
-		//recipeCompact.saveMissingItems(configDir);
-
-
+	
+	private void loadComplete(FMLLoadCompleteEvent event) {
+		
 		//todo: remove, gens localization
 //		for (Item item : ForgeRegistries.ITEMS.getValues()) {
 //			if (item.getRegistryName().getNamespace().equals("techreborn")) {
@@ -158,6 +154,7 @@ public class TechReborn {
 //				System.out.println("item.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
 //			}
 //		}
+		
 //		for (Block item : ForgeRegistries.BLOCKS.getValues()) {
 //			if (item.getRegistryName().getNamespace().equals("techreborn")) {
 //				StringBuilder localName = new StringBuilder();
@@ -167,12 +164,25 @@ public class TechReborn {
 //						if (localName.length() > 0) {
 //							localName.append(" ");
 //						}
-//						localName.append(StringUtils.toFirstCapital(word));
+//						localName.append(word);
 //					}
 //				}
-//				System.out.println("tile.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
+//				System.out.println(item.getRegistryName().getPath());
 //			}
 //		}
+		
+	}
+
+
+	public void postinit() {
+		proxy.postInit();
+
+		ModRecipes.postInit();
+		LOGGER.debug(RecipeHandler.recipeList.size() + " recipes loaded");
+
+		// RecipeHandler.scanForDupeRecipes();
+		// RecipeConfigManager.save();
+		//recipeCompact.saveMissingItems(configDir);
 	}
 
 }

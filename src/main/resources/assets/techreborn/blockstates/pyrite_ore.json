@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/pyrite_ore" }
+        "": { "model": "techreborn:block/ore/pyrite_ore" }
     }
 }

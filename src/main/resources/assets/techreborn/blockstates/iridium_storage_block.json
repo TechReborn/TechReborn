@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/storage/iridium_storage_block" }
+    }
+}

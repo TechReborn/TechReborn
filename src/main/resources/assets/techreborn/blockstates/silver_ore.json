@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/silver_ore" }
+        "": { "model": "techreborn:block/ore/silver_ore" }
     }
 }
