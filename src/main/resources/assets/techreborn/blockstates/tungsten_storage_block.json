@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/storage/tungsten_storage_block" }
+    }
+}
