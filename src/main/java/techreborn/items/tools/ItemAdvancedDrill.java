@@ -26,26 +26,35 @@ package techreborn.items.tools;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.util.ChatUtils;
+import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
+import techreborn.lib.MessageIDs;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ItemAdvancedDrill extends ItemDrill {
@@ -142,10 +151,71 @@ public class ItemAdvancedDrill extends ItemDrill {
 		if ((entityLiving instanceof EntityPlayer)) {
 			playerIn = (EntityPlayer) entityLiving;
 		}
-		for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
-			breakBlock(additionalPos, worldIn, playerIn, stack);
+		if(ItemUtils.isActive(stack)){
+			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
+				breakBlock(additionalPos, worldIn, playerIn, stack);
+			}
 		}
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
+	}
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+		final ItemStack stack = player.getHeldItem(hand);
+		if (player.isSneaking()) {
+			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo") + " "
+						+ TextFormatting.GOLD + I18n
+						.format("techreborn.message.nanosaberActivate")));
+			} else {
+				if (!ItemUtils.isActive(stack)) {
+					if (stack.getTagCompound() == null) {
+						stack.setTagCompound(new NBTTagCompound());
+					}
+					stack.getTagCompound().setBoolean("isActive", true);
+					if (world.isRemote) {
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
+								+ TextFormatting.GOLD + I18n
+								.format("techreborn.message.nanosaberActive")));
+					}
+				} else {
+					stack.getTagCompound().setBoolean("isActive", false);
+					if (world.isRemote) {
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
+								+ TextFormatting.GOLD + I18n
+								.format("techreborn.message.nanosaberInactive")));
+					}
+				}
+			}
+			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		}
+		return new ActionResult<>(EnumActionResult.PASS, stack);
+	}
+
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+			if(worldIn.isRemote){
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
+						+ TextFormatting.GOLD + I18n
+						.format("techreborn.message.nanosaberDeactivating")));
+			}
+			stack.getTagCompound().setBoolean("isActive", false);
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		if (!ItemUtils.isActive(stack)) {
+			tooltip.add(TextFormatting.RED + I18n.format("techreborn.message.nanosaberInactive"));
+		} else {
+			tooltip.add(TextFormatting.GREEN + I18n.format("techreborn.message.nanosaberActive"));
+		}
 	}
 
 	// ItemPickaxe
