@@ -30,6 +30,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,7 +41,13 @@ import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemAdvancedChainsaw extends ItemChainsaw {
+
+	//Done to search for blocks in this order
+	private static final EnumFacing[] SEARCH_ORDER = new EnumFacing[]{EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.WEST, EnumFacing.UP};
 
 	public ItemAdvancedChainsaw() {
 		super(ToolMaterial.DIAMOND, "techreborn.advancedChainsaw", ConfigTechReborn.AdvancedChainsawCharge,
@@ -66,14 +73,35 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		for (int i = 1; i < 10; i++) {
-			BlockPos nextPos = pos.up(i);
-			IBlockState nextState = worldIn.getBlockState(nextPos);
-			if(nextState.getBlock().isWood(worldIn, nextPos)){
-				breakBlock(nextPos, stack, worldIn, entityLiving, pos);
-			}
-		}
+		List<BlockPos> wood = new ArrayList<>();
+		findWood(worldIn, pos, wood, new ArrayList<>());
+		wood.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
+	}
+
+	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves){
+		//Limit the amount of wood to be broken to 64 blocks.
+		if(wood.size() >= 64){
+			return;
+		}
+		//Search 150 leaves for wood
+		if(leaves.size() >= 150){
+			return;
+		}
+		for(EnumFacing facing : SEARCH_ORDER){
+			BlockPos checkPos = pos.offset(facing);
+			if(!wood.contains(checkPos) && !leaves.contains(checkPos)){
+				IBlockState state = world.getBlockState(checkPos);
+				if( state.getBlock().isWood(world, checkPos)){
+					wood.add(checkPos);
+					findWood(world, checkPos, wood, leaves);
+				} else if(state.getBlock().isLeaves(state, world, checkPos)){
+					leaves.add(checkPos);
+					findWood(world, checkPos, wood, leaves);
+				}
+			}
+
+		}
 	}
 
 	@Override
