@@ -41,9 +41,9 @@ import techreborn.lib.ModInfo;
 public class TileAdjustableSU extends TileEnergyStorage implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
-	public static int maxInput = 8192;
+	public static int maxInput = 16192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxOutput", comment = "AESU Max Output (Value in EU)")
-	public static int maxOutput = 8192;
+	public static int maxOutput = 16192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
