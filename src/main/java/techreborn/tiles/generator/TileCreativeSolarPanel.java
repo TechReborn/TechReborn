@@ -26,9 +26,11 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.init.ModBlocks;
 
@@ -46,7 +48,24 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 
 	@Override
 	public void update() {
-		super.update();
+		//If FE power is disabled we handle the power this way.
+		if(!PowerSystem.EnergySystem.FE.enabled.get()){
+			boolean added = false;
+			for (EnumFacing facing : EnumFacing.VALUES){
+				TileEntity tileEntity = world.getTileEntity(getPos().offset(facing));
+				if(tileEntity instanceof TilePowerAcceptor){
+					((TilePowerAcceptor) tileEntity).addEnergy(100000);
+					added = true;
+				}
+			}
+			if(!added){
+				//If nothing happened then go back to to ic2 power
+				super.update();
+			}
+		} else {
+			super.update();
+		}
+
 		setEnergy(getMaxPower());
 	}
 
