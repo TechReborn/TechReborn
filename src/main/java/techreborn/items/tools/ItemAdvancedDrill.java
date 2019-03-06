@@ -105,6 +105,7 @@ public class ItemAdvancedDrill extends ItemDrill {
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
+			blockState.getBlock().removedByPlayer(blockState, world, pos, playerIn, true);
 			blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 			world.setBlockToAir(pos);
 			world.removeTileEntity(pos);
