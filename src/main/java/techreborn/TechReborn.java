@@ -24,7 +24,6 @@
 
 package techreborn;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -38,8 +37,6 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.api.recipe.RecipeHandler;
@@ -138,6 +135,11 @@ public class TechReborn {
 	
 	private void loadComplete(FMLLoadCompleteEvent event) {
 		
+		proxy.postInit();
+
+		ModRecipes.postInit();
+		LOGGER.debug(RecipeHandler.recipeList.size() + " recipes loaded");
+		
 		//todo: remove, gens localization
 //		for (Item item : ForgeRegistries.ITEMS.getValues()) {
 //			if (item.getRegistryName().getNamespace().equals("techreborn")) {
@@ -172,17 +174,4 @@ public class TechReborn {
 //		}
 		
 	}
-
-
-	public void postinit() {
-		proxy.postInit();
-
-		ModRecipes.postInit();
-		LOGGER.debug(RecipeHandler.recipeList.size() + " recipes loaded");
-
-		// RecipeHandler.scanForDupeRecipes();
-		// RecipeConfigManager.save();
-		//recipeCompact.saveMissingItems(configDir);
-	}
-
 }
