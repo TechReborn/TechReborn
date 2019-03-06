@@ -39,6 +39,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
+import techreborn.init.ModItems;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.lib.ModInfo;
 
@@ -201,7 +202,7 @@ public class TileRecycler extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+			.tile(this).slot(0, 55, 45, itemStack -> itemStack.getItem() != ModItems.UPGRADES).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
 	}
 }
