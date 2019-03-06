@@ -101,13 +101,14 @@ public class ItemAdvancedDrill extends ItemDrill {
 		IBlockState blockState = world.getBlockState(pos);
 
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
+		if(capEnergy.getEnergyStored() > cost){
+			capEnergy.extractEnergy(cost, false);
+			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
-		capEnergy.extractEnergy(cost, false);
-		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
-
-		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
-		world.setBlockToAir(pos);
-		world.removeTileEntity(pos);
+			blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
+			world.setBlockToAir(pos);
+			world.removeTileEntity(pos);
+		}
 	}
 	
 	private boolean shouldBreak(EntityPlayer playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
