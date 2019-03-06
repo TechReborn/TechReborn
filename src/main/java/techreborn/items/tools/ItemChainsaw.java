@@ -168,4 +168,8 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 		return transferLimit;
 	}
 
+	@Override
+	public int getItemEnchantability() {
+		return 20;
+	}
 }
