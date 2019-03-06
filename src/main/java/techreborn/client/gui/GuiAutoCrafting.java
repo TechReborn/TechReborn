@@ -82,7 +82,7 @@ public class GuiAutoCrafting extends GuiBase {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
+		IRecipe recipe = tileAutoCraftingTable.findMatchingRecipe(tileAutoCraftingTable.getCraftingInventory());
 		if (recipe != null) {
 			renderItemStack(recipe.getRecipeOutput(), 95, 42);
 		}
