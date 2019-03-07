@@ -24,8 +24,6 @@
 
 package techreborn.blocks.transformers;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterators;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -34,6 +32,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -47,14 +46,12 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.TechReborn;
 
-import java.util.Iterator;
-import java.util.Random;
-
 /**
  * Created by Rushmead
  */
 public abstract class BlockTransformer extends BaseTileBlock {
-	public static DirectionProperty FACING = DirectionProperty.create("facing", Facings.ALL);
+	
+	public static DirectionProperty FACING = BlockStateProperties.FACING;
 	public String name;
 
 	public BlockTransformer(String name) {
@@ -90,7 +87,6 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	// Block
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		FACING = DirectionProperty.create("facing", EnumFacing.Plane.HORIZONTAL);
 		builder.add(FACING);
 	}
 	
@@ -112,29 +108,5 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		}
 
 		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
-	}
-	
-	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {
-		ALL;
-
-		public EnumFacing[] facings() {
-			return new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST,
-				EnumFacing.UP, EnumFacing.DOWN };
-		}
-
-		public EnumFacing random(Random rand) {
-			EnumFacing[] aenumfacing = this.facings();
-			return aenumfacing[rand.nextInt(aenumfacing.length)];
-		}
-
-		@Override
-		public boolean apply(EnumFacing p_apply_1_) {
-			return p_apply_1_ != null;
-		}
-
-		@Override
-		public Iterator<EnumFacing> iterator() {
-			return Iterators.forArray(this.facings());
-		}
 	}
 }

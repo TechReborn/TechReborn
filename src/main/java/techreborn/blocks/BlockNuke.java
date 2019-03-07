@@ -111,7 +111,6 @@ public class BlockNuke extends BaseBlock {
 	
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		OVERLAY = BooleanProperty.create("overlay");
 		builder.add(OVERLAY);
 	}
 }

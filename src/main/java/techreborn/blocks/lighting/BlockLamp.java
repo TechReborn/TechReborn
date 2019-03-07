@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -53,7 +54,7 @@ import techreborn.tiles.lighting.TileLamp;
 
 public class BlockLamp extends BaseTileBlock {
 
-	public static DirectionProperty FACING;
+	public static DirectionProperty FACING = BlockStateProperties.FACING;
 	public static BooleanProperty ACTIVE;
 	protected final VoxelShape[] shape;
 
@@ -113,7 +114,6 @@ public class BlockLamp extends BaseTileBlock {
 	// Block
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		FACING = DirectionProperty.create("facing", EnumFacing.Plane.HORIZONTAL);
 		ACTIVE = BooleanProperty.create("active");
 		builder.add(FACING, ACTIVE);
 	}

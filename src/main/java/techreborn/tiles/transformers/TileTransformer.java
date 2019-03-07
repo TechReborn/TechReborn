@@ -53,7 +53,7 @@ public class TileTransformer extends TilePowerAcceptor
 		implements IToolDrop, IListInfoProvider {
 	
 	@ConfigRegistry(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
-	public static boolean IC2TransformersStyle = false;
+	public static boolean IC2TransformersStyle = true;
 
 	public String name;
 	public Block wrenchDrop;
