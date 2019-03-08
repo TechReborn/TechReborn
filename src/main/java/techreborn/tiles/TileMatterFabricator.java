@@ -1,4 +1,4 @@
-/*
+ /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
  * Copyright (c) 2018 TechReborn
@@ -120,6 +120,11 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		if (IC2Duplicates.SCRAP.hasIC2Stack()) {
 			if (ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP.getIc2Stack(), true, true, true)) {
 				return 200;
+			}
+		}
+		if (IC2Duplicates.SCRAP_BOX.hasIC2Stack()) {
+			if (ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP_BOX.getIc2Stack(), true, true, true)) {
+				return 2000;
 			}
 		}
 		return 0;

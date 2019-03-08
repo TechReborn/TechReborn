@@ -69,6 +69,7 @@ public enum IC2Duplicates {
 	THICK_NEUTRON_REFLECTOR(ItemParts.getPartByName("thick_neutron_reflector")),
 	IRIDIUM_NEUTRON_REFLECTOR(ItemParts.getPartByName("iridium_neutron_reflector")),
 	SCRAP(ItemParts.getPartByName("scrap")),
+	SCRAP_BOX(new ItemStack(ModItems.SCRAP_BOX)),
 	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER)),
 
 	//Classical dedupes
