@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "techreborn:item/part/helium_coolant_cell_180k"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "techreborn:item/part/cupronickel_heating_coil"
+    }
+}

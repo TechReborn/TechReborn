@@ -25,6 +25,7 @@
 package techreborn;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -37,6 +38,8 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.api.recipe.RecipeHandler;
@@ -150,10 +153,10 @@ public class TechReborn {
 //						if (localName.length() > 0) {
 //							localName.append(" ");
 //						}
-//						localName.append(StringUtils.toFirstCapital(word));
+//						localName.append(word);
 //					}
 //				}
-//				System.out.println("item.techreborn." + item.getRegistryName().getPath() + ".name=" + localName);
+//				System.out.println(item.getRegistryName().getPath());
 //			}
 //		}
 		
