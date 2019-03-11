@@ -1,6 +1,0 @@
-{
-  "parent": "techreborn:item/techrebornItem",
-  "textures": {
-    "layer0": "techreborn:items/misc/rubber_sapling"
-  }
-}
