@@ -1,6 +1,6 @@
 {
-  "parent": "block/fence_side",
+  "parent": "minecraft:block/fence_side",
   "textures": {
-    "texture": "block/iron_block"
+    "texture": "minecraft:block/iron_block"
   }
 }
