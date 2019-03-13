@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "techreborn:item/smalldust/sphalerite_small_dust"
+    }
+}
