@@ -43,7 +43,6 @@ public class BlockRubberSapling extends BlockSapling {
 
 	public BlockRubberSapling() {
 		super(new SpruceTree(), Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT));
-		this.setDefaultState(this.getDefaultState().with(STAGE, 0));
 	}
 
 	@Override
