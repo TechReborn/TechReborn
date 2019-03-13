@@ -34,11 +34,9 @@ import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 
 public class BlockRubberPlankSlab extends BlockSlab {
-	public final String name;
 
-	public BlockRubberPlankSlab(String name) {
+	public BlockRubberPlankSlab() {
 		super(Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).hardnessAndResistance(2.0F, 15.0F).sound(SoundType.WOOD));
-		this.name = name;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

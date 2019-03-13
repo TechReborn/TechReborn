@@ -108,7 +108,7 @@ public class RegistryEventHandler {
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
 				ItemBlockRubberSapling.class, 
 				"rubber_sapling");
-		RebornRegistry.registerBlockNoItem(TRContent.RUBBER_LOG_SLAB = InitUtils.setup(new BlockRubberPlankSlab("rubber_plank"), "rubber_plank_slab"));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), new Item.Properties().group(TechReborn.ITEMGROUP));
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), new Item.Properties().group(TechReborn.ITEMGROUP));
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");

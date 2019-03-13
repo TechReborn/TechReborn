@@ -1,21 +1,7 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "half_slab",
-    "textures": {
-      "top": "techreborn:blocks/rubber_planks",
-      "bottom": "techreborn:blocks/rubber_planks",
-      "side": "techreborn:blocks/rubber_planks"
+    "variants": {
+        "type=bottom": { "model": "techreborn:block/rubber_plank_slab" },
+        "type=top": { "model": "techreborn:block/rubber_plank_slab_top" },
+        "type=double": { "model": "techreborn:block/rubber_planks" }
     }
-  },
-  "variants": {
-    "inventory": { "transform": "forge:default-block" },
-    "half": {
-      "top": { "model": "upper_slab" },
-      "bottom": { "model": "half_slab" }
-    },
-    "variant": {
-      "default": {}
-    }
-  }
 }
