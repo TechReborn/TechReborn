@@ -75,18 +75,18 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 				radius = 2;
 			}
 
+			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 			for (xOffset = baseX - radius; xOffset <= baseX + radius; ++xOffset) {
 				for (zOffset = baseZ - radius; zOffset <= baseZ + radius; ++zOffset) {
-					//TODO: Change to mutable
-					BlockPos pos = new BlockPos(xOffset, yOffset, zOffset);
-					Block block = worldIn.getBlockState(pos).getBlock();
-
-					if (block != null && !this.canGrowInto(worldIn, pos)) {
+					if (!this.canGrowInto(worldIn, blockpos$mutableblockpos.setPos(xOffset, yOffset, xOffset))) {
 						return false;
 					}
 				}
 			}
 		}
+		
+		// Ok, we are cleared for take off!
+		// TODO: Grow tree after log blockstate fix
 		
 
 		return false;
