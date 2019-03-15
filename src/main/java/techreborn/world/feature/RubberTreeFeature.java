@@ -27,12 +27,14 @@ package techreborn.world.feature;
 import java.util.Random;
 import java.util.Set;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import techreborn.blocks.BlockRubberLog;
 import techreborn.init.TRContent;
 
 /**
@@ -43,6 +45,9 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 	
 	//TODO: Configs
 	private int treeBaseHeight = 5;
+	private int sapRarity = 10;
+	private int spireHeight = 4;
+	final IBlockState leafState = TRContent.RUBBER_LEAVES.getDefaultState();
 
 	public RubberTreeFeature() {
 		super(false);
@@ -58,7 +63,9 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 		int baseZ = saplingPos.getZ();
 		if (baseY <= 1 && baseY + treeHeight + 1 >= worldHeight) { return false; }
 		
-		boolean isSoil = worldIn.getBlockState(saplingPos.down()).canSustainPlant(worldIn, saplingPos.down(),
+		BlockPos rootBlockPos = saplingPos.down();
+		IBlockState rootBlockState = worldIn.getBlockState(rootBlockPos);
+		boolean isSoil = rootBlockState.canSustainPlant(worldIn, rootBlockPos,
 				net.minecraft.util.EnumFacing.UP,
 				(net.minecraft.block.BlockSapling) TRContent.RUBBER_SAPLING.getBlock());
 		if (!isSoil) { return false; }
@@ -86,11 +93,68 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 		}
 		
 		// Ok, we are cleared for take off!
-		// TODO: Grow tree after log blockstate fix
-		
+		boolean hasPlacedBlock = false;
 
-		return false;
+		// Leaves
+		for (yOffset = baseY - 3 + treeHeight; yOffset <= baseY + treeHeight; ++yOffset) {
+			int var12 = yOffset - (baseY + treeHeight), center = 1 - var12 / 2;
+			for (xOffset = baseX - center; xOffset <= baseX + center; ++xOffset) {
+				int xPos = xOffset - baseX, t = xPos >> 15;
+				xPos = (xPos + t) ^ t;
+				for (zOffset = baseZ - center; zOffset <= baseZ + center; ++zOffset) {
+					int zPos = zOffset - baseZ;
+					zPos = (zPos + (t = zPos >> 31)) ^ t;
+					if ((xPos != center | zPos != center) || rand.nextInt(2) != 0 && var12 != 0) {
+	                      BlockPos blockpos = new BlockPos(xOffset, yOffset, zOffset);
+	                      hasPlacedBlock = growLeaves(worldIn, blockpos);
+					}
+				}
+			}
+		}
+		
+		// Trunk
+		BlockPos topLogPos = null;
+		IBlockState logState = TRContent.RUBBER_LOG.getDefaultState();
+		for (yOffset = 0; yOffset < treeHeight; ++yOffset) {
+			BlockPos blockpos = new BlockPos(baseX, baseY + yOffset, baseZ);
+			IBlockState state1 = worldIn.getBlockState(blockpos);
+			if (state1.isAir(worldIn, blockpos) || state1.isIn(BlockTags.LEAVES)) {
+				
+				if (rand.nextInt(sapRarity) == 0) {
+					logState = logState.with(BlockRubberLog.HAS_SAP, true)
+						.with(BlockRubberLog.SAP_SIDE, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
+				}
+	
+				//setBlockState(worldIn, blockpos, logState);
+				this.setLogState(changedBlocks, worldIn, blockpos, logState);
+
+				hasPlacedBlock = true;
+				topLogPos = blockpos;
+			}
+		}
+		
+		// Spire
+		if (topLogPos != null) {
+			for (int i = 0; i < spireHeight; i++) {
+				BlockPos blockpos = topLogPos.up(i);
+				growLeaves(worldIn, blockpos);
+			}
+		}
+		
+		if (hasPlacedBlock) {
+			setDirtAt(worldIn, rootBlockPos, saplingPos);
+		}
+
+		return hasPlacedBlock;
 	}
 	
-
+	private boolean growLeaves(IWorld worldIn, BlockPos pos) {
+        IBlockState state1 = worldIn.getBlockState(pos);
+        if (state1.canBeReplacedByLeaves(worldIn, pos)) {
+      	  this.setBlockState(worldIn, pos, leafState);
+      	  return true;
+        }
+        		
+		return false;
+	}
 }
