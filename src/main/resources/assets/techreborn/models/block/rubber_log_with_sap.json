@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/rubber_log_top",
+        "front": "techreborn:block/rubber_log_sap",
+        "side": "techreborn:block/rubber_log_side"
+    }
+}

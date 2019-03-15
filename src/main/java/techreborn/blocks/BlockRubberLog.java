@@ -26,9 +26,10 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
-import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -37,6 +38,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.EnumFacing;
@@ -62,22 +64,21 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 19/02/2016.
  */
-public class BlockRubberLog extends Block {
+public class BlockRubberLog extends BlockLog {
 
-	public static DirectionProperty SAP_SIDE = DirectionProperty.create("sapside", EnumFacing.Plane.HORIZONTAL);
+	public static DirectionProperty SAP_SIDE = BlockStateProperties.HORIZONTAL_FACING;
 	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
 
 	public BlockRubberLog() {
-		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2f).sound(SoundType.WOOD).tickRandomly());
-		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false));
+		super(MaterialColor.OBSIDIAN, Block.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD).tickRandomly());
+		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false).with(AXIS, EnumFacing.Axis.Y));
 		((BlockFire) Blocks.FIRE).setFireInfo(this, 5, 5);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		SAP_SIDE = DirectionProperty.create("sapside", EnumFacing.Plane.HORIZONTAL);
-		HAS_SAP = BooleanProperty.create("hassap");
+		super.fillStateContainer(builder);
 		builder.add(SAP_SIDE, HAS_SAP);
 	}
 
@@ -93,9 +94,9 @@ public class BlockRubberLog extends Block {
 		if (worldIn.isAreaLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 				IBlockState state1 = worldIn.getBlockState(blockpos);
-				if (state1.getBlock() instanceof BlockLeaves) {
-					state1.tick(worldIn, pos, worldIn.getRandom());
-					state1.randomTick(worldIn, pos, worldIn.getRandom());
+				if (state1.isIn(BlockTags.LEAVES)) {
+					state1.tick(worldIn, blockpos, worldIn.getRandom());
+					state1.randomTick(worldIn, blockpos, worldIn.getRandom());
 				}
 			}
 		}
