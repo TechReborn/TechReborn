@@ -287,6 +287,14 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	public IRecipe findMatchingRecipe(InventoryCrafting crafting){
+		if(crafting.isEmpty()){
+			return null;
+		}
+		if(currentRecipe != null){
+			if(currentRecipe.matches(crafting, world)){
+				return currentRecipe;
+			}
+		}
 		for (IRecipe testRecipe : CraftingManager.REGISTRY) {
 			if (testRecipe.matches(crafting, world)) {
 				return testRecipe;
@@ -309,7 +317,19 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		charge(10);
 
 		InventoryCrafting craftMatrix = getCraftingInventory();
-		currentRecipe = findMatchingRecipe(craftMatrix);
+		//Only search the recipe tree when the inv changes
+		if(inventory.hasChanged){
+			currentRecipe = findMatchingRecipe(craftMatrix);
+		}
+
+		//Checks that the current recipe is still valid, if not it will check for a valid recipe next tick.
+		if(currentRecipe != null){
+			if(!currentRecipe.matches(craftMatrix, world)){
+				currentRecipe = null;
+				inventory.hasChanged = true;
+			}
+		}
+
 		if (currentRecipe != null) {
 			if (world.getTotalWorldTime() % 2 == 0) {
 				Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
@@ -374,6 +394,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	public void setLockedInt(int lockedInt) {
 		locked = lockedInt == 1;
+		inventory.hasChanged = true;
 	}
 
 	@Override
@@ -412,6 +433,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		if (tag.hasKey("locked")) {
 			locked = tag.getBoolean("locked");
 		}
+		inventory.hasChanged = true;
 		super.readFromNBT(tag);
 	}
 
