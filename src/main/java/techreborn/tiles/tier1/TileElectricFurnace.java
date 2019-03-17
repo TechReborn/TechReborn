@@ -165,7 +165,6 @@ public class TileElectricFurnace extends TilePowerAcceptor
 				}
 			}
 		} else {
-			progress = 0;
 			updateState();
 		}
 		if (burning != isBurning()) {
