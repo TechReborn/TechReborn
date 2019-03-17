@@ -40,6 +40,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.api.TechRebornAPI;
 import techreborn.init.TRContent;
 
@@ -54,7 +55,7 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
-		super(new Item.Properties().maxStackSize(1));
+		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 	}
 
 	// Item

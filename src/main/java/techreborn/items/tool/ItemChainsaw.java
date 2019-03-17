@@ -44,6 +44,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -58,7 +59,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public boolean isBreaking = false;
 
 	public ItemChainsaw(ItemTier material, int energyCapacity, float unpoweredSpeed) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().maxStackSize(1));
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 		this.maxCharge = energyCapacity;
 		this.efficiency = unpoweredSpeed;
 

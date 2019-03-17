@@ -71,6 +71,7 @@ import techreborn.items.tool.basic.ItemElectricTreetap;
 import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.ItemTRAxe;
 import techreborn.items.tool.vanilla.ItemTRHoe;
+import techreborn.items.tool.vanilla.ItemTRPickaxe;
 import techreborn.items.tool.vanilla.ItemTRSpade;
 import techreborn.items.tool.vanilla.ItemTRSword;
 import techreborn.utils.InitUtils;
@@ -129,7 +130,7 @@ public class RegistryEventHandler {
 		if (ConfigTechReborn.enableGemArmorAndTools) {
 			//Todo: repair with tags
 			RebornRegistry.registerItem(TRContent.BRONZE_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.BRONZE, "ingotBronze"), "bronze_sword"));
-			RebornRegistry.registerItem(TRContent.BRONZE_PICKAXE = InitUtils.setup(new ItemTRSword(TRToolTier.BRONZE, "ingotBronze"), "bronze_pickaxe"));
+			RebornRegistry.registerItem(TRContent.BRONZE_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.BRONZE, "ingotBronze"), "bronze_pickaxe"));
 			RebornRegistry.registerItem(TRContent.BRONZE_SPADE = InitUtils.setup(new ItemTRSpade(TRToolTier.BRONZE, "ingotBronze"), "bronze_spade"));
 			RebornRegistry.registerItem(TRContent.BRONZE_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.BRONZE, "ingotBronze"), "bronze_axe"));
 			RebornRegistry.registerItem(TRContent.BRONZE_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.BRONZE, "ingotBronze"), "bronze_hoe"));
@@ -140,7 +141,7 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.BRONZE_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EntityEquipmentSlot.FEET, "ingotBronze"), "bronze_boots"));
 
 			RebornRegistry.registerItem(TRContent.RUBY_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.RUBY, "gemRuby"), "ruby_sword"));
-			RebornRegistry.registerItem(TRContent.RUBY_PICKAXE = InitUtils.setup(new ItemTRSword(TRToolTier.RUBY, "gemRuby"), "ruby_pickaxe"));
+			RebornRegistry.registerItem(TRContent.RUBY_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.RUBY, "gemRuby"), "ruby_pickaxe"));
 			RebornRegistry.registerItem(TRContent.RUBY_SPADE = InitUtils.setup(new ItemTRSpade(TRToolTier.RUBY, "gemRuby"), "ruby_spade"));
 			RebornRegistry.registerItem(TRContent.RUBY_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.RUBY, "gemRuby"), "ruby_axe"));
 			RebornRegistry.registerItem(TRContent.RUBY_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.RUBY, "gemRuby"), "ruby_hoe"));
@@ -151,7 +152,7 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.RUBY_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EntityEquipmentSlot.FEET, "gemRuby"), "ruby_boots"));
 
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_sword"));
-			RebornRegistry.registerItem(TRContent.SAPPHIRE_PICKAXE = InitUtils.setup(new ItemTRSword(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_pickaxe"));
+			RebornRegistry.registerItem(TRContent.SAPPHIRE_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_pickaxe"));
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_SPADE = InitUtils.setup(new ItemTRSpade(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_spade"));
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_axe"));
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_hoe"));
@@ -162,7 +163,7 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EntityEquipmentSlot.FEET, "gemSapphire"), "sapphire_boots"));
 
 			RebornRegistry.registerItem(TRContent.PERIDOT_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.PERIDOT, "gemPeridot"), "peridot_sword"));
-			RebornRegistry.registerItem(TRContent.PERIDOT_PICKAXE = InitUtils.setup(new ItemTRSword(TRToolTier.PERIDOT, "gemPeridot"), "peridot_pickaxe"));
+			RebornRegistry.registerItem(TRContent.PERIDOT_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.PERIDOT, "gemPeridot"), "peridot_pickaxe"));
 			RebornRegistry.registerItem(TRContent.PERIDOT_SPADE = InitUtils.setup(new ItemTRSpade(TRToolTier.PERIDOT, "gemPeridot"), "peridot_spade"));
 			RebornRegistry.registerItem(TRContent.PERIDOT_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.PERIDOT, "gemPeridot"), "peridot_axe"));
 			RebornRegistry.registerItem(TRContent.PERIDOT_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.PERIDOT, "gemPeridot"), "peridot_hoe"));

@@ -29,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 
 public class ItemTRHoe extends ItemHoe {
 
@@ -39,7 +40,7 @@ public class ItemTRHoe extends ItemHoe {
 	}
 
 	public ItemTRHoe(IItemTier material, String repairOreDict) {
-		super(material, 1F, new Item.Properties());
+		super(material, 1F, new Item.Properties().group(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 

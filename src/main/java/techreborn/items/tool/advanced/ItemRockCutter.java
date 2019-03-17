@@ -45,6 +45,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 
@@ -59,7 +60,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
-		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().maxStackSize(1));
+		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 		efficiency = 16F;
 	}
 

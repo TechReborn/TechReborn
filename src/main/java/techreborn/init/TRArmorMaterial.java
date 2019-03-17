@@ -32,6 +32,7 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.SoundEvent;
+import techreborn.TechReborn;
 
 
 public enum TRArmorMaterial implements IArmorMaterial {
@@ -98,7 +99,7 @@ public enum TRArmorMaterial implements IArmorMaterial {
 
 	@Override
 	public String getName() {
-		return null;
+		return TechReborn.MOD_ID + ":" + this.toString().toLowerCase();
 	}
 
 	@Override

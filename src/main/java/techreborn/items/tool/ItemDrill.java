@@ -43,6 +43,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public int transferLimit = 100;
 
 	public ItemDrill(IItemTier material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().maxStackSize(1));
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 		this.efficiency = efficiencyOnProperMaterial;
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;

@@ -44,6 +44,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.utils.TagUtils;
 
 import javax.annotation.Nullable;
@@ -56,7 +57,7 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	public int transferLimit = 100;
 
 	public ItemJackhammer(ItemTier material, int energyCapacity) {
-		super(material, (int) material.getAttackDamage(), 1f, new Item.Properties().maxStackSize(1));
+		super(material, (int) material.getAttackDamage(), 1f, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 		efficiency = 20F;
 		this.maxCharge = energyCapacity;
 	}

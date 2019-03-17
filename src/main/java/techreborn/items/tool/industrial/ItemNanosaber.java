@@ -52,6 +52,7 @@ import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
@@ -66,7 +67,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemNanosaber() {
-		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().setNoRepair().maxStackSize(1));
+		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().group(TechReborn.ITEMGROUP).setNoRepair().maxStackSize(1));
 		this.addPropertyOverride(new ResourceLocation("techreborn:active"), new IItemPropertyGetter() {
 			@Override
 			@OnlyIn(Dist.CLIENT)

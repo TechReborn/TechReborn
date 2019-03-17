@@ -29,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 
 public class ItemTRSword extends ItemSword {
 
@@ -39,7 +40,7 @@ public class ItemTRSword extends ItemSword {
 	}
 
 	public ItemTRSword(IItemTier material, String repairOreDict) {
-		super(material, 1, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Properties());
+		super(material, 1, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Properties().group(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 
