@@ -304,7 +304,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	public ItemStack findMatchingRecipeOutput(InventoryCrafting crafting){
-		return findMatchingRecipe(crafting).getRecipeOutput();
+		return findMatchingRecipe(crafting).getRecipeOutput().copy();
 	}
 
 	// TilePowerAcceptor
