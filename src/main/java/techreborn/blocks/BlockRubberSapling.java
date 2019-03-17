@@ -42,19 +42,19 @@ import java.util.Random;
 public class BlockRubberSapling extends BlockSapling {
 
 	public BlockRubberSapling() {
-		super(new SpruceTree(), Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT));
+		super(new RubberTree(), Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT));
 	}
 
-	@Override
-	public void grow(IWorld worldIn, BlockPos pos, IBlockState state, Random rand) {
-		if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
-			return;
-		}
-		worldIn.removeBlock(pos);
-		if (!new RubberTreeGenerator(false).growTree(worldIn, rand, pos.getX(), pos.getY(), pos.getZ())) {
-			worldIn.setBlockState(pos, state, 3); // Re-add the sapling if the tree
-			// failed to grow
-		}
-	}
+//	@Override
+//	public void grow(IWorld worldIn, BlockPos pos, IBlockState state, Random rand) {
+//		if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
+//			return;
+//		}
+//		worldIn.removeBlock(pos);
+//		if (!new RubberTreeGenerator(false).growTree(worldIn, rand, pos.getX(), pos.getY(), pos.getZ())) {
+//			worldIn.setBlockState(pos, state, 3); // Re-add the sapling if the tree
+//			// failed to grow
+//		}
+//	}
 
 }
