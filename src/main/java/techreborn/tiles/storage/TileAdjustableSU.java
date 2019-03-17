@@ -54,18 +54,18 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		super("ADJUSTABLE_SU", 4, ModBlocks.ADJUSTABLE_SU, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
 	
-	public void handleGuiInputFromClient(int id) {
+	public void handleGuiInputFromClient(int id, boolean shift) {
 		if (id == 300) {
-			OUTPUT += 256;
+			OUTPUT += shift ? 4096 : 256;
 		}
 		if (id == 301) {
-			OUTPUT += 64;
+			OUTPUT += shift ? 512 : 64;
 		}
 		if (id == 302) {
-			OUTPUT -= 64;
+			OUTPUT -= shift ? 512 : 64;
 		}
 		if (id == 303) {
-			OUTPUT -= 256;
+			OUTPUT -= shift ? 4096 : 256;
 		}
 		if (OUTPUT > maxOutput) {
 			OUTPUT = maxOutput;

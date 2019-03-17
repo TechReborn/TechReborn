@@ -27,6 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import org.lwjgl.input.Keyboard;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
@@ -83,7 +84,8 @@ public class GuiAESU extends GuiBase {
 	public void actionPerformed(final GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		if (button.id >= 300 && button.id <= 303) {
-			NetworkManager.sendToServer(new PacketAesu(button.id, tile));
+			boolean shift = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+			NetworkManager.sendToServer(new PacketAesu(button.id, tile, shift));
 		} 
 	}
 }

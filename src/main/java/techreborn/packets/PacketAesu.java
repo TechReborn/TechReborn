@@ -37,32 +37,36 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 
 	int buttonID;
 	BlockPos pos;
+	boolean shift;
 
 	public PacketAesu() {
 	}
 
-	public PacketAesu(int buttonID, TileAdjustableSU tile) {
-		this.pos = tile.getPos();
+	public PacketAesu(int buttonID, TileAdjustableSU tile, boolean shift) {
 		this.buttonID = buttonID;
+		this.pos = tile.getPos();
+		this.shift = shift;
 	}
 
 	@Override
 	public void writeData(ExtendedPacketBuffer out) throws IOException {
 		out.writeBlockPos(pos);
 		out.writeInt(buttonID);
+		out.writeBoolean(shift);
 	}
 
 	@Override
 	public void readData(ExtendedPacketBuffer in) throws IOException {
 		this.pos = in.readBlockPos();
 		this.buttonID = in.readInt();
+		this.shift = in.readBoolean();
 	}
 
 	@Override
 	public void processData(PacketAesu message, MessageContext context) {
 		TileEntity tile = context.getServerHandler().player.world.getTileEntity(message.pos);
 		if (tile instanceof TileAdjustableSU){
-			((TileAdjustableSU) tile).handleGuiInputFromClient(message.buttonID);
+			((TileAdjustableSU) tile).handleGuiInputFromClient(message.buttonID, shift);
 		}
 	}
 }
