@@ -35,6 +35,7 @@ import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -119,6 +120,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		InventoryCrafting craftMatrix = getCraftingMatrix();
 		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 		if (currentRecipe != null) {
+			setIsActive(true);
 			if (world.getTotalWorldTime() % 2 == 0) {
 				Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
 				if (balanceResult.isPresent()) {
@@ -147,6 +149,8 @@ public class TileRollingMachine extends TilePowerAcceptor
 							inventory.setInventorySlotContents(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
+						} else {
+							setIsActive(false);
 						}
 					}
 					if (hasCrafted) {
@@ -167,13 +171,27 @@ public class TileRollingMachine extends TilePowerAcceptor
 					&& canMake(craftMatrix)) {
 				useEnergy(getEuPerTick(energyPerTick));
 				tickTime++;
+			} else {
+				setIsActive(false);
 			}
 		}
 		if (currentRecipeOutput.isEmpty()) {
 			tickTime = 0;
 			currentRecipe = null;
+			setIsActive(canMake(getCraftingMatrix()));
 		}
+	}
 
+	public void setIsActive(boolean active) {
+		if (active == isRunning){
+			return;
+		}
+		isRunning = active;
+		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase)this.getWorld().getBlockState(this.getPos()).getBlock();
+			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
+		}
+		this.getWorld().notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
 	}
 
 	public Optional<InventoryCrafting> balanceRecipe(InventoryCrafting craftCache) {
