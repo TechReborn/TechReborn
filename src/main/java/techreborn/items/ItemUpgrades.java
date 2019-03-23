@@ -34,6 +34,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 import reborncore.api.tile.IUpgrade;
 import reborncore.api.tile.IUpgradeable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -149,8 +150,11 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	                           @Nullable
 		                           World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if(stack.getItemDamage() == 3){
-			tooltip.add(TextFormatting.LIGHT_PURPLE + "Increases the max output of the AESU");
-			tooltip.add(TextFormatting.GOLD + "Blame obstinate_3 for this");
+			tooltip.add(TextFormatting.LIGHT_PURPLE + "Increases the max transfer of the Adjustable SU");
+			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+				tooltip.add(TextFormatting.GOLD + "Blame obstinate_3 for this");
+			}
+
 		}
 	}
 

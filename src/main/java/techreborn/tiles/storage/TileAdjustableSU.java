@@ -72,6 +72,9 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
+		if(world.getTotalWorldTime() % 20 == 0){
+			checkTeir();
+		}
 	}
 
 	public int getMaxConfigOutput(){
@@ -136,6 +139,25 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	@Override
 	public double getBaseMaxOutput() {
 		return OUTPUT;
+	}
+
+	@Override
+	public double getMaxOutput() {
+		return OUTPUT;
+	}
+
+	@Override
+	public double getBaseMaxInput() {
+		//If we have super conductors increase the max input of the machine
+		if(getMaxConfigOutput() > maxOutput){
+			return getMaxConfigOutput();
+		}
+		return maxInput;
+	}
+
+	@Override
+	public EnumPowerTier getBaseTier() {
+		return null;
 	}
 
 	// TilePowerAcceptor
