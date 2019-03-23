@@ -38,6 +38,7 @@ import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.BlockStorage;
 import techreborn.blocks.BlockStorage2;
+import techreborn.blocks.cable.EnumCableType;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.IC2Duplicates;
@@ -190,6 +191,13 @@ public class CraftingTableRecipes extends RecipeMethods {
 			registerShaped(getStack(IC2Duplicates.WATER_MILL), "SWS", "WGW", "SWS", 'S', "stickWood", 'W', "plankWood", 'G', getStack(IC2Duplicates.GENERATOR));
 
 		}
+
+		registerShaped(EnumCableType.SUPERCONDUCTOR.getStack(), "MFM", "SSS", "MFM", 'M', getMaterial("advanced_machine", Type.MACHINE_FRAME), 'S', "craftingSuperconductor", 'F', getMaterial("energy_flow_circuit", 1, Type.PART));
+		registerShaped(EnumCableType.SUPERCONDUCTOR.getStack(8), "MFM", "SSS", "MFM", 'M', getMaterial("advanced_machine", Type.MACHINE_FRAME), 'S', getMaterial("enhanced_super_conductor", Type.PART), 'F', getMaterial("energy_flow_circuit", 1, Type.PART));
+
+		registerShaped(ItemUpgrades.getUpgradeByName("superconductor"), "SOS", "CMC", "SOS", 'C', EnumCableType.SUPERCONDUCTOR.getStack(), 'M', getMaterial("highly_advanced_machine", Type.MACHINE_FRAME) , 'O', getMaterial("data_orb", Type.PART), 'S', getMaterial("enhanced_super_conductor", Type.PART));
+
+
 
 		if (!CompatManager.isQuantumStorageLoaded) {
 			registerShaped(getStack(ModBlocks.QUANTUM_CHEST), "DCD", "ATA", "DQD", 'D', getMaterial("dataOrb", Type.PART), 'C', getMaterial("computerMonitor", Type.PART), 'A', "machineBlockElite", 'Q', getStack(ModBlocks.DIGITAL_CHEST), 'T', getStack(IC2Duplicates.COMPRESSOR));

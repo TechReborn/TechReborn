@@ -24,11 +24,18 @@
 
 package techreborn.init.recipes;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemEnchantedBook;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.blocks.BlockOre;
 import techreborn.items.ItemCells;
 import techreborn.items.ingredients.ItemDusts;
+import techreborn.items.ingredients.ItemParts;
 
 /**
  * @author drcrazy
@@ -48,5 +55,12 @@ public class FusionReactorRecipes extends RecipeMethods {
 			FusionReactorRecipeHelper.registerRecipe(
 				new FusionReactorRecipe(ItemCells.getCellByName("wolframium"), ItemCells.getCellByName("lithium"),
 					BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
+
+		ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
+		ItemEnchantedBook.addEnchantment(book, new EnchantmentData(Enchantment.REGISTRY.getObject(new ResourceLocation("efficiency")), 5));
+
+		FusionReactorRecipeHelper.registerRecipe(
+			new FusionReactorRecipe(ItemParts.getPartByName("super_conductor", 4), book,
+				ItemParts.getPartByName("enhanced_super_conductor", 4), 100000000, -8192, 2048, 50));
 	}
 }

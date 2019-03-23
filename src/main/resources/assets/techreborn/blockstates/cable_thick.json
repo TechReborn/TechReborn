@@ -77,6 +77,11 @@
         "textures": {
           "cable": "techreborn:blocks/cables/hv_insulated_cable"
         }
+      },
+      "superconductor": {
+        "textures": {
+          "cable": "techreborn:blocks/cables/superconductor_cable"
+        }
       }
     }
   }

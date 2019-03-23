@@ -27,9 +27,12 @@ package techreborn.items.ingredients;
 import com.google.common.base.CaseFormat;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.Core;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
@@ -46,7 +49,7 @@ public class ItemParts extends ItemTR {
 		"thorium_cell", "double_thorium_cell", "quad_thorium_cell", "plutonium_cell", "double_plutonium_cell",
 		"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", "iridium_neutron_reflector",
 		"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
-		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six"};
+		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six", "enhanced_super_conductor"};
 
 	public ItemParts() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);
@@ -115,5 +118,22 @@ public class ItemParts extends ItemTR {
 				break;
 		}
 		return itemStack;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean hasEffect(ItemStack stack) {
+		if(stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage()){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public EnumRarity getRarity(ItemStack stack) {
+		if(stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage()){
+			return EnumRarity.EPIC;
+		}
+		return super.getRarity(stack);
 	}
 }

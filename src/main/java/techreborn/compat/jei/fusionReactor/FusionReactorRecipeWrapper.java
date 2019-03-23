@@ -59,5 +59,9 @@ public class FusionReactorRecipeWrapper implements IRecipeWrapper {
 	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		RecipeUtil.drawInfo(minecraft, 0, 34, baseRecipe.getStartEU(), baseRecipe.getEuTick(), baseRecipe.getTickTime());
+		if(baseRecipe.getMinSize() != 0){
+			minecraft.fontRenderer.drawString("Reactor Size: " + baseRecipe.getMinSize(), 0, 74, RecipeUtil.color);
+		}
+
 	}
 }

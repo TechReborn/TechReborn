@@ -24,14 +24,18 @@
 
 package techreborn.items;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import reborncore.api.tile.IUpgrade;
+import reborncore.api.tile.IUpgradeable;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.registration.RebornRegistry;
@@ -39,10 +43,12 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.storage.TileAdjustableSU;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
+import java.util.List;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class ItemUpgrades extends ItemTR implements IUpgrade {
@@ -56,7 +62,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage upgrade extra power")
 	public static double energyStoragePower = 40_000;
 
-	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage"};
+	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "superconductor"};
 
 	public ItemUpgrades() {
 		setUnlocalizedName("techreborn.upgrade");
@@ -127,11 +133,32 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 				acceptor.extraTeir += 1;
 			}
 		}
+		if(machineBase instanceof TileAdjustableSU){
+
+		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleRightClick(TileEntity tile, ItemStack stack, Container container, int slotID) {
 
+	}
+
+	@Override
+	public void addInformation(ItemStack stack,
+	                           @Nullable
+		                           World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		if(stack.getItemDamage() == 3){
+			tooltip.add(TextFormatting.LIGHT_PURPLE + "Increases the max output of the AESU");
+			tooltip.add(TextFormatting.GOLD + "Blame obstinate_3 for this");
+		}
+	}
+
+	@Override
+	public boolean isValidForInventory(IUpgradeable upgradeable, ItemStack stack) {
+		if(stack.getItemDamage() == 3){
+			return upgradeable instanceof TileAdjustableSU;
+		}
+		return true;
 	}
 }

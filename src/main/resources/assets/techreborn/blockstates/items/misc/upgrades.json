@@ -35,6 +35,11 @@
         "textures": {
           "layer0": "techreborn:items/upgrade/injection_upgrade"
         }
+      },
+      "superconductor": {
+        "textures": {
+          "layer0": "techreborn:items/upgrade/superconductor"
+        }
       }
     }
   }

@@ -41,7 +41,8 @@ public enum EnumCableType implements IStringSerializable {
 	GLASSFIBER("glassfiber", "techreborn:blocks/cables/glass_fiber_cable", 8192, 12.0, false, EnumPowerTier.INSANE),
 	ICOPPER("insulatedcopper", "techreborn:blocks/cables/copper_insulated_cable", 128, 10.0, false, EnumPowerTier.MEDIUM),
 	IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false, EnumPowerTier.HIGH),
-	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.EXTREME);
+	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.EXTREME),
+	SUPERCONDUCTOR("superconductor", "techreborn:blocks/cables/superconductor_cable", Integer.MAX_VALUE / 4, 10.0, false, EnumPowerTier.INFINITE);
 
 	public String textureName = "minecraft:blocks/iron_block";
 	public int transferRate = 128;
@@ -71,6 +72,10 @@ public enum EnumCableType implements IStringSerializable {
 
 	public ItemStack getStack() {
 		return new ItemStack(ModBlocks.CABLE, 1, this.ordinal());
+	}
+
+	public ItemStack getStack(int amount) {
+		return new ItemStack(ModBlocks.CABLE, amount, this.ordinal());
 	}
 
 	@SubscribeEvent

@@ -66,6 +66,11 @@ public class FusionReactorRecipe {
 	int tickTime;
 
 	/**
+	 * This is the minium reactor size that this recipe can work with
+	 */
+	int minSize;
+
+	/**
 	 * @param topInput This is the top slot stack
 	 * @param bottomInput This is the bottom slot stack
 	 * @param output This is the output stack
@@ -75,13 +80,30 @@ public class FusionReactorRecipe {
 	 */
 	public FusionReactorRecipe(ItemStack topInput, ItemStack bottomInput, ItemStack output, double startEU,
 	                           double euTick, int tickTime) {
+		this(topInput, bottomInput, output, startEU, euTick, tickTime, 0);
+	}
+
+	/**
+	 * @param topInput This is the top slot stack
+	 * @param bottomInput This is the bottom slot stack
+	 * @param output This is the output stack
+	 * @param startEU This is the inital EU amount
+	 * @param euTick This is the eu that is transfured every tick
+	 * @param tickTime This is the time the recipe takes to process
+	 * @param minSize This is the min size of reactor required for this recipe
+	 */
+	public FusionReactorRecipe(ItemStack topInput, ItemStack bottomInput, ItemStack output, double startEU,
+	                           double euTick, int tickTime, int minSize) {
 		this.topInput = topInput;
 		this.bottomInput = bottomInput;
 		this.output = output;
 		this.startEU = startEU;
 		this.euTick = euTick;
 		this.tickTime = tickTime;
+		this.minSize = minSize;
 	}
+
+
 
 	public ItemStack getTopInput() {
 		return topInput;
@@ -105,5 +127,9 @@ public class FusionReactorRecipe {
 
 	public int getTickTime() {
 		return tickTime;
+	}
+
+	public int getMinSize() {
+		return minSize;
 	}
 }

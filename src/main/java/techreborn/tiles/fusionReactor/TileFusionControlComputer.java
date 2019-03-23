@@ -74,6 +74,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	int outputStackSlot = 2;
 	FusionReactorRecipe currentRecipe = null;
 	boolean hasStartedCrafting = false;
+	long lastTick = -1;
 
 	public TileFusionControlComputer() {
 		super();
@@ -180,7 +181,8 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean True if reactor can execute recipe provided 
 	 */
 	private boolean validateReactorRecipe(FusionReactorRecipe recipe) {
-		return validateReactorRecipeInputs(recipe, getStackInSlot(topStackSlot), getStackInSlot(bottomStackSlot)) || validateReactorRecipeInputs(recipe, getStackInSlot(bottomStackSlot), getStackInSlot(topStackSlot));
+		boolean validRecipe = validateReactorRecipeInputs(recipe, getStackInSlot(topStackSlot), getStackInSlot(bottomStackSlot)) || validateReactorRecipeInputs(recipe, getStackInSlot(bottomStackSlot), getStackInSlot(topStackSlot));
+		return validRecipe && getSize() >= recipe.getMinSize();
 	}
 
 	private boolean validateReactorRecipeInputs(FusionReactorRecipe recipe, ItemStack slot1, ItemStack slot2) {
@@ -205,6 +207,12 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		if (world.isRemote) {
 			return;
 		}
+
+		if(lastTick == world.getTotalWorldTime()){
+			//Prevent tick accerators, blame obstinate for this.
+			return;
+		}
+		lastTick = world.getTotalWorldTime();
 
 		// Force check every second
 		if (world.getTotalWorldTime() % 20 == 0) {

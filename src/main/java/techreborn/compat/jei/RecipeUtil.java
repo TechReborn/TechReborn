@@ -42,7 +42,7 @@ import java.awt.*;
 import java.util.List;
 
 public class RecipeUtil {
-	private static final int color = Color.darkGray.getRGB();
+	public static final int color = Color.darkGray.getRGB();
 
 	private RecipeUtil() {
 	}

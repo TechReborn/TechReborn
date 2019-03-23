@@ -38,14 +38,16 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 	int buttonID;
 	BlockPos pos;
 	boolean shift;
+	boolean ctrl;
 
 	public PacketAesu() {
 	}
 
-	public PacketAesu(int buttonID, TileAdjustableSU tile, boolean shift) {
+	public PacketAesu(int buttonID, TileAdjustableSU tile, boolean shift, boolean ctrl) {
 		this.buttonID = buttonID;
 		this.pos = tile.getPos();
 		this.shift = shift;
+		this.ctrl = ctrl;
 	}
 
 	@Override
@@ -53,6 +55,7 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 		out.writeBlockPos(pos);
 		out.writeInt(buttonID);
 		out.writeBoolean(shift);
+		out.writeBoolean(ctrl);
 	}
 
 	@Override
@@ -60,13 +63,14 @@ public class PacketAesu implements INetworkPacket<PacketAesu> {
 		this.pos = in.readBlockPos();
 		this.buttonID = in.readInt();
 		this.shift = in.readBoolean();
+		this.ctrl = in.readBoolean();
 	}
 
 	@Override
 	public void processData(PacketAesu message, MessageContext context) {
 		TileEntity tile = context.getServerHandler().player.world.getTileEntity(message.pos);
 		if (tile instanceof TileAdjustableSU){
-			((TileAdjustableSU) tile).handleGuiInputFromClient(message.buttonID, shift);
+			((TileAdjustableSU) tile).handleGuiInputFromClient(message.buttonID, shift, ctrl);
 		}
 	}
 }

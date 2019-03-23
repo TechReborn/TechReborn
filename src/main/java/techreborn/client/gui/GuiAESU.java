@@ -85,7 +85,8 @@ public class GuiAESU extends GuiBase {
 		super.actionPerformed(button);
 		if (button.id >= 300 && button.id <= 303) {
 			boolean shift = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-			NetworkManager.sendToServer(new PacketAesu(button.id, tile, shift));
+			boolean ctrl = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
+			NetworkManager.sendToServer(new PacketAesu(button.id, tile, shift, ctrl));
 		} 
 	}
 }
