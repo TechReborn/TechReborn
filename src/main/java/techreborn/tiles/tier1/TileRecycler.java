@@ -38,6 +38,7 @@ import reborncore.common.util.Inventory;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
 import techreborn.items.ingredients.ItemParts;
@@ -51,6 +52,8 @@ public class TileRecycler extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "recycler", key = "produceIC2Scrap", comment = "When enabled and when ic2 is installed the recycler will make ic2 scrap")
+	public static boolean produceIC2Scrap = false;
 
 	private final Inventory inventory = new Inventory(3, "TileRecycler", 64, this);
 	private final int cost = 2;
@@ -76,7 +79,10 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 	
 	public void recycleItems() {
-		final ItemStack itemstack = ItemParts.getPartByName("scrap");
+		ItemStack itemstack = ItemParts.getPartByName("scrap");
+		if(produceIC2Scrap && IC2Duplicates.SCRAP.hasIC2Stack()){
+			itemstack = IC2Duplicates.SCRAP.getIc2Stack();
+		}
 		final int randomchance = this.world.rand.nextInt(chance);
 
 		if (randomchance == 1) {
