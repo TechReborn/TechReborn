@@ -95,7 +95,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getStateFromMeta(placer.getHeldItem(hand).getItemDamage());
+		return getStateFromMeta(meta);
 	}
 
 	@Override
