@@ -137,7 +137,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		
-		if (!world.isRemote && getMutliBlock()){ 
+		if (getMutliBlock()){ 
 			super.update();
 		}		
 	}
