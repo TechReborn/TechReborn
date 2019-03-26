@@ -40,6 +40,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 
@@ -52,7 +53,7 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().maxStackSize(1));
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 	}
 
 	public static void distributePowerToInventory(World world, EntityPlayer player, ItemStack itemStack, int maxSend) {
@@ -101,7 +102,7 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		return "techreborn:" + "textures/models/lithiumbatpack.png";
+		return "techreborn:" + "textures/models/armor/lithiumbatpack.png";
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -110,8 +111,8 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 		if (!isInGroup(group)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
-		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
+		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);
+		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		items.add(uncharged);
