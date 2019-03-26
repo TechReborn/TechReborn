@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "techreborn:item/battery/energy_crystal"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "techreborn:empty": 1
+      },
+      "model": "techreborn:item/battery/override/energy_crystal_empty"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
-  "parent": "techreborn:item/battery/battery",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "techreborn:items/battery/energy_crystal_empty"
+    "layer0": "techreborn:item/battery/energy_crystal_empty"
   }
 }

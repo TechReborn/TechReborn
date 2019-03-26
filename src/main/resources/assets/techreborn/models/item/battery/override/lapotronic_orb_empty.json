@@ -1,6 +1,6 @@
 {
-  "parent": "techreborn:item/battery/battery",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "techreborn:items/battery/lapotronic_orb_empty"
+    "layer0": "techreborn:item/battery/lapotronic_orb_empty"
   }
 }
