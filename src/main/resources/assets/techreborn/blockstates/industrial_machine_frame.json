@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/machines/structure/industrial_machine_frame" }
+    }
+}
