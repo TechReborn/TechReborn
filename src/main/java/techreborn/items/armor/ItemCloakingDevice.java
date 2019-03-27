@@ -67,7 +67,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		return "techreborn:" + "textures/models/cloaking.png";
+		return "techreborn:" + "textures/models/armor/cloaking.png";
 	}
 	
 	@Override

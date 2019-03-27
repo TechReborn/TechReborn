@@ -1,6 +1,6 @@
 {
-  "parent": "techreborn:item/tool/tool",
+  "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "techreborn:items/tool/advanced_chainsaw_animated"
+    "layer0": "techreborn:item/tool/advanced_chainsaw_animated"
   }
 }

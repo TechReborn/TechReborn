@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "techreborn:item/tool/basic_chainsaw_animated"
+    "layer0": "techreborn:item/tool/nanosaber_on"
   }
 }

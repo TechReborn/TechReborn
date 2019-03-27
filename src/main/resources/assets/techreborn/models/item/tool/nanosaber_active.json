@@ -1,6 +1,0 @@
-{
-  "parent": "techreborn:item/tool/tool",
-  "textures": {
-    "layer0": "techreborn:items/tool/nanosaber_on"
-  }
-}

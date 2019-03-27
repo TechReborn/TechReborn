@@ -162,7 +162,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (!isInGroup(par2ItemGroup)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRContent.ADVANCED_DRILL);
+		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_DRILL);
 		ItemStack charged = stack.copy();
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());

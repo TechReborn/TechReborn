@@ -1,6 +1,6 @@
 {
-  "parent": "techreborn:item/techrebornItem",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "techreborn:items/tool/frequency_transmitter_coords"
+    "layer0": "techreborn:item/tool/frequency_transmitter_coords"
   }
 }

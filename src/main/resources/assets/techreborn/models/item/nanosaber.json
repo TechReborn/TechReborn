@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "techreborn:item/tool/nanosaber_off"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "techreborn:active": 0.5
+      },
+      "model": "techreborn:item/tool/override/nanosaber_active_low"
+    },
+    {
+      "predicate": {
+        "techreborn:active": 1
+      },
+      "model": "techreborn:item/tool/override/nanosaber_active"
+    }
+  ]
+}

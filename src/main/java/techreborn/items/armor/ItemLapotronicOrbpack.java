@@ -37,8 +37,11 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
+import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
@@ -49,15 +52,21 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().maxStackSize(1));
+		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
 	}
 
 	// Item
 	@Override
 	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if (this.isInGroup(group)) {
-			items.add(new ItemStack(this));
+		if (!isInGroup(group)) {
+			return;
 		}
+		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
+		ItemStack charged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		items.add(uncharged);
+		items.add(charged);
 	}
 	   
 	@Override
@@ -94,7 +103,7 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		return "techreborn:" + "textures/models/lapotronpack.png";
+		return "techreborn:" + "textures/models/armor/lapotronpack.png";
 	}
 
 	// IEnergyItemInfo
