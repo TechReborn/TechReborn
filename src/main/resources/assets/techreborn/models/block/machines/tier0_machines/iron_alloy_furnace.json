@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/tier0_machines/machine_top",
+        "front": "techreborn:block/machines/tier0_machines/iron_alloy_furnace_front_off",
+        "side": "techreborn:block/machines/tier0_machines/machine_side"
+    }
+}

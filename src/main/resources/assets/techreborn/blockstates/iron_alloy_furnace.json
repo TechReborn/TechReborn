@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "facing=north,active=false": { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace" },
+        "facing=south,active=false": { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace", "y": 180 },
+        "facing=west,active=false":  { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace", "y": 270 },
+        "facing=east,active=false":  { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace", "y": 90 },
+        "facing=north,active=true": { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace_on" },
+        "facing=south,active=true": { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace_on", "y": 180 },
+        "facing=west,active=true":  { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace_on", "y": 270 },
+        "facing=east,active=true":  { "model": "techreborn:block/machines/tier0_machines/iron_alloy_furnace_on", "y": 90 }
+    }
+}
