@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=all": { "model": "techreborn:block/machines/tier1_machines/player_detector_all" },
+        "type=you": { "model": "techreborn:block/machines/tier1_machines/player_detector_you" },
+        "type=others":  { "model": "techreborn:block/machines/tier1_machines/player_detector_others" }
+    }
+}

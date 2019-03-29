@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "facing=north,active=false": { "model": "techreborn:block/machines/tier1_machines/scrapboxinator" },
+        "facing=south,active=false": { "model": "techreborn:block/machines/tier1_machines/scrapboxinator", "y": 180 },
+        "facing=west,active=false":  { "model": "techreborn:block/machines/tier1_machines/scrapboxinator", "y": 270 },
+        "facing=east,active=false":  { "model": "techreborn:block/machines/tier1_machines/scrapboxinator", "y": 90 },
+        "facing=north,active=true": { "model": "techreborn:block/machines/tier1_machines/scrapboxinator_on" },
+        "facing=south,active=true": { "model": "techreborn:block/machines/tier1_machines/scrapboxinator_on", "y": 180 },
+        "facing=west,active=true":  { "model": "techreborn:block/machines/tier1_machines/scrapboxinator_on", "y": 270 },
+        "facing=east,active=true":  { "model": "techreborn:block/machines/tier1_machines/scrapboxinator_on", "y": 90 }
+    }
+}

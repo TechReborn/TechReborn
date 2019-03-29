@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "techreborn:block/machines/tier1_machines/player_detector_others"
+    }
+}
