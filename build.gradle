@@ -45,7 +45,7 @@ repositories {
 	maven {
 		// JEI
 		name "JEI"
-		url "http://dvs1.progwml6.com/files/maven"
+		url "https://dvs1.progwml6.com/files/maven"
 	}
 }
 
