@@ -25,6 +25,7 @@
 package techreborn.tiles.multiblock;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -44,6 +45,9 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	public static int maxInput = 64;
 	@ConfigRegistry(config = "machines", category = "vacuumfreezer", key = "VacuumFreezerMaxEnergy", comment = "Vacuum Freezer Max Energy (Value in EU)")
 	public static int maxEnergy = 64_000;
+	@ConfigRegistry(config = "machines", category = "vacuumfreezer", key = "VacuumFreezerBigMultiblock", comment = "Vacuum Freezer requires big multiblock")
+	public static boolean bigMultiblock = false;
+	
 
 	public MultiblockChecker multiblockChecker;
 
@@ -59,19 +63,34 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 		if(multiblockChecker == null){
 			return false;
 		}
-		return multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
+
+		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
+		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, -2, 0));
+		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, -1, 0));
+		
+		if (bigMultiblock) {
+			return down && chamber && up;	
+		}
+		else {
+			return up;
+		}
 	}
 	
 	// TileGenericMachine
 	@Override
 	public void update() {
-		if(multiblockChecker == null){
-			multiblockChecker = new MultiblockChecker(world, pos.down());
-		}
 		if (!world.isRemote && getMultiBlock()) {
 			super.update();
 		}
 	}
+
+	// TileEntity
+	@Override
+	public void validate() {
+		super.validate();
+		multiblockChecker = new MultiblockChecker(world, pos.down());
+	}
+
 
 	// IContainerProvider
 	@Override
