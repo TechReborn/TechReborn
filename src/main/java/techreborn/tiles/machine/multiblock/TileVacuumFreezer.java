@@ -62,8 +62,8 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 			return false;
 		}
 		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 2, 0));
-		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
+		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, -2, 0));
+		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, -1, 0));
 		return down && chamber && up;
 	}
 	

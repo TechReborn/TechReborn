@@ -93,17 +93,37 @@ public class GuiVacuumFreezer extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+					IBlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+					IBlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
 					
-					addComponent(0, -1, 0, reinforcedCasing, multiblock);
-					addComponent(1, -1, 0, reinforcedCasing, multiblock);
-					addComponent(0, -1, 1, reinforcedCasing, multiblock);
-					addComponent(-1, -1, 0, reinforcedCasing, multiblock);
-					addComponent(0, -1, -1, reinforcedCasing, multiblock);
-					addComponent(-1, -1, -1, reinforcedCasing, multiblock);
-					addComponent(-1, -1, 1, reinforcedCasing, multiblock);
-					addComponent(1, -1, -1, reinforcedCasing, multiblock);
-					addComponent(1, -1, 1, reinforcedCasing, multiblock);
+					addComponent(0, -1, 0, advancedCasing, multiblock);
+					addComponent(1, -1, 0, advancedCasing, multiblock);
+					addComponent(0, -1, 1, advancedCasing, multiblock);
+					addComponent(-1, -1, 0, advancedCasing, multiblock);
+					addComponent(0, -1, -1, advancedCasing, multiblock);
+					addComponent(-1, -1, -1, advancedCasing, multiblock);
+					addComponent(-1, -1, 1, advancedCasing, multiblock);
+					addComponent(1, -1, -1, advancedCasing, multiblock);
+					addComponent(1, -1, 1, advancedCasing, multiblock);
+					
+					addComponent(1, -2, 0, industrialCasing, multiblock);
+					addComponent(0, -2, 1, industrialCasing, multiblock);
+					addComponent(-1, -2, 0, industrialCasing, multiblock);
+					addComponent(0, -2, -1, industrialCasing, multiblock);
+					addComponent(-1, -2, -1, industrialCasing, multiblock);
+					addComponent(-1, -2, 1, industrialCasing, multiblock);
+					addComponent(1, -2, -1, industrialCasing, multiblock);
+					addComponent(1, -2, 1, industrialCasing, multiblock);
+
+					addComponent(0, -3, 0, advancedCasing, multiblock);
+					addComponent(1, -3, 0, advancedCasing, multiblock);
+					addComponent(0, -3, 1, advancedCasing, multiblock);
+					addComponent(-1, -3, 0, advancedCasing, multiblock);
+					addComponent(0, -3, -1, advancedCasing, multiblock);
+					addComponent(-1, -3, -1, advancedCasing, multiblock);
+					addComponent(-1, -3, 1, advancedCasing, multiblock);
+					addComponent(1, -3, -1, advancedCasing, multiblock);
+					addComponent(1, -3, 1, advancedCasing, multiblock);
 					
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
