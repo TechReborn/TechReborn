@@ -65,7 +65,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	mappings channel: 'snapshot', version: '20190222-1.13.1'
+	mappings channel: 'snapshot', version: '20190401-1.13.2'
 
 	runs {
         client {
@@ -107,7 +107,7 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:1.13.2-25.0.70'
+	minecraft 'net.minecraftforge:forge:1.13.2-25.0.107'
 
 	if (findProject(':reborncore') != null) {
 		compile project(":reborncore")

@@ -81,8 +81,8 @@ public class BlockNuke extends BaseBlock {
 		if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
 			EntityArrow entityarrow = (EntityArrow) entityIn;
 			EntityLivingBase shooter = null;
-			if (entityarrow.func_212360_k() instanceof EntityLivingBase) {
-				shooter = (EntityLivingBase) entityarrow.func_212360_k();
+			if (entityarrow.getShooter() instanceof EntityLivingBase) {
+				shooter = (EntityLivingBase) entityarrow.getShooter();
 			}
 			if (entityarrow.isBurning()) {
 				ignite(worldIn, pos, state, shooter);
