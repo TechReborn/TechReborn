@@ -25,9 +25,14 @@
 package techreborn.api.fluidreplicator;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import reborncore.common.util.FluidUtils;
 import techreborn.init.ModItems;
 import techreborn.tiles.multiblock.TileFluidReplicator;
@@ -112,6 +117,9 @@ public class FluidReplicatorRecipe implements Cloneable {
 			return false;
 		}
 		final BlockPos hole = tile.getPos().offset(tile.getFacing().getOpposite(), 2);
+		if(hasValidTank(tile.getWorld(), hole)){
+			return true;
+		}
 		final Fluid fluid = FluidRegistry.lookupFluidForBlock(tile.getWorld().getBlockState(hole).getBlock());
 		if (fluid == null) {
 			return false;
@@ -125,6 +133,19 @@ public class FluidReplicatorRecipe implements Cloneable {
 		}
 		
 		return true;
+	}
+
+	private boolean hasValidTank(World world, BlockPos pos){
+		TileEntity tileEntity = world.getTileEntity(pos);
+		if(tileEntity == null){
+			return false;
+		}
+		IFluidHandler fluidHandler = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+		if(fluidHandler != null){
+			FluidStack containedStack = fluidHandler.drain(1000, false);
+			return containedStack != null && FluidUtils.fluidEquals(containedStack.getFluid(), output);
+		}
+		return false;
 	}
 	
 	public boolean onCraft(TileFluidReplicator tile) {
