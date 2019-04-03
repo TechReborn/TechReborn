@@ -57,7 +57,9 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 			if(tileEntity != null ){
 				IEnergyStorage energyStorage = tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
 				if(energyStorage != null){
-					energyStorage.receiveEnergy(Integer.MAX_VALUE, false);
+					for (int i = 0; i < 10; i++) {
+						energyStorage.receiveEnergy(Integer.MAX_VALUE, false);
+					}
 				}
 			}
 		}
