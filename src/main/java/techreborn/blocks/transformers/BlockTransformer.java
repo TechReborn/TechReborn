@@ -179,24 +179,6 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	}
 	
 	@Override
-	public boolean rotateBlock(World world, BlockPos pos, EnumFacing side) {
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		if (block instanceof BlockTransformer) {
-			EnumFacing facing = state.getValue(BlockTransformer.FACING);
-			if (facing.getOpposite() == side) {
-				facing = side;
-			} else {
-				facing = side.getOpposite();
-			}
-			world.setBlockState(pos, state.withProperty(BlockTransformer.FACING, facing));
-			return true;
-		}
-
-		return false;
-	}
-	
-	@Override
 	public int getMetaFromState(IBlockState state) {
 		int facingInt = getSideFromEnum(state.getValue(FACING));
 		return facingInt;

@@ -137,24 +137,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 
 	// Block
 	@Override
-	public boolean rotateBlock(World world, BlockPos pos, EnumFacing side) {
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		if (block instanceof BlockEnergyStorage) {
-			EnumFacing facing = state.getValue(BlockEnergyStorage.FACING);
-			if (facing.getOpposite() == side) {
-				facing = side;
-			} else {
-				facing = side.getOpposite();
-			}
-			world.setBlockState(pos, state.withProperty(BlockEnergyStorage.FACING, facing));
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand,
 	                                EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
