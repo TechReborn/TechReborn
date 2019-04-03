@@ -26,7 +26,6 @@ package techreborn.blocks.transformers;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
