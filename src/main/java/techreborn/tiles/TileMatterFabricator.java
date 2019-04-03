@@ -88,11 +88,12 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	private void addOutputProducts(int slot) {
-		if (inventory.getStackInSlot(slot).isEmpty()) {
+		ItemStack stack = getStackInSlot(slot);
+		if (stack.isEmpty()) {
 			inventory.setInventorySlotContents(slot, new ItemStack(ModItems.UU_MATTER));
 		} 
-		else if (ItemUtils.isItemEqual(this.inventory.getStackInSlot(slot), new ItemStack(ModItems.UU_MATTER), true, true)) {
-			inventory.getStackInSlot(slot).setCount((Math.min(64, 1 + inventory.getStackInSlot(slot).getCount())));
+		else if (ItemUtils.isItemEqual(stack, new ItemStack(ModItems.UU_MATTER), true, true) && stack.getCount() < stack.getMaxStackSize()) {
+			inventory.getStackInSlot(slot).grow(1);
 		}
 	}
 
