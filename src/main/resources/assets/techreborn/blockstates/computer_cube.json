@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "techreborn:block/machines/tier2_machines/computer_cube" },
+        "facing=south": { "model": "techreborn:block/machines/tier2_machines/computer_cube", "y": 180 },
+        "facing=west":  { "model": "techreborn:block/machines/tier2_machines/computer_cube", "y": 270 },
+        "facing=east":  { "model": "techreborn:block/machines/tier2_machines/computer_cube", "y": 90 }
+        }
+}

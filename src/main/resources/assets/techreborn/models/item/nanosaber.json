@@ -8,13 +8,13 @@
       "predicate": {
         "techreborn:active": 0.5
       },
-      "model": "techreborn:item/tool/override/nanosaber_active_low"
+      "model": "techreborn:item/override/nanosaber_active_low"
     },
     {
       "predicate": {
         "techreborn:active": 1
       },
-      "model": "techreborn:item/tool/override/nanosaber_active"
+      "model": "techreborn:item/override/nanosaber_active"
     }
   ]
 }

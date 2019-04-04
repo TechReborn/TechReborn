@@ -8,7 +8,7 @@
       "predicate": {
         "techreborn:empty": 1
       },
-      "model": "techreborn:item/battery/override/lithium_battery_empty"
+      "model": "techreborn:item/override/lithium_battery_empty"
     }
   ]
 }

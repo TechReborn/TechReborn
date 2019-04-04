@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "top": "techreborn:block/machines/tier2_machines/charge_o_mat_top_off",
+        "bottom": "techreborn:block/machines/tier2_machines/machine_bottom",
+        "side": "techreborn:block/machines/tier2_machines/charge_o_mat_side_off"
+    }
+}

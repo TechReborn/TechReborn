@@ -8,7 +8,7 @@
       "predicate": {
         "techreborn:empty": 1
       },
-      "model": "techreborn:item/battery/override/energy_crystal_empty"
+      "model": "techreborn:item/override/energy_crystal_empty"
     }
   ]
 }

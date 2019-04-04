@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "techreborn:item/battery/re_battery_empty"
+    "layer0": "techreborn:item/battery/red_cell_battery_empty"
   }
 }

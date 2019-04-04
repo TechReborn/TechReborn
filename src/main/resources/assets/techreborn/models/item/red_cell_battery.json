@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "techreborn:item/battery/re_battery"
+    "layer0": "techreborn:item/battery/red_cell_battery"
   },
   "overrides": [
     {
       "predicate": {
         "techreborn:empty": 1
       },
-      "model": "techreborn:item/battery/override/re_battery_empty"
+      "model": "techreborn:item/override/red_cell_battery_empty"
     }
   ]
 }

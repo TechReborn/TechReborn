@@ -61,7 +61,6 @@ public class TRContent {
 	
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;
-	public static Block FLARE;
 	public static Block NUKE;
 	public static Block REFINED_IRON_FENCE;
 	public static Block REINFORCED_GLASS;

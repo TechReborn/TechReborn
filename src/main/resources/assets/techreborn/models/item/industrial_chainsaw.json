@@ -8,7 +8,7 @@
       "predicate": {
         "techreborn:animated": 1
       },
-      "model": "techreborn:item/tool/override/industrial_chainsaw_animated"
+      "model": "techreborn:item/override/industrial_chainsaw_animated"
     }
   ]
 }
