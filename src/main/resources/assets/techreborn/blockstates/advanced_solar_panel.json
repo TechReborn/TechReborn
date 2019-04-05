@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "active=false": { "model": "techreborn:block/machines/generators/advanced_solar_panel" },
+        "active=true":  { "model": "techreborn:block/machines/generators/advanced_solar_panel_on" }
+    }
+}
