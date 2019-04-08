@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/orientable",
+	"textures": {
+		"up": "techreborn:block/machines/tier2_machines/industrial_centrifuge_top_on",
+		"down": "techreborn:block/machines/tier2_machines/machine_bottom",
+		"west": "techreborn:block/machines/tier2_machines/machine_west",
+		"east": "techreborn:block/machines/tier2_machines/machine_east",
+		"south": "techreborn:block/machines/tier2_machines/machine_back",
+		"front": "techreborn:block/machines/tier2_machines/industrial_centrifuge_front_on"
+	}
+}

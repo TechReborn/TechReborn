@@ -1,0 +1,11 @@
+{
+	"parent": "minecraft:block/orientable",
+	"textures": {
+		"up": "techreborn:block/machines/tier2_machines/machine_top",
+		"down": "techreborn:block/machines/tier2_machines/machine_bottom",
+		"west": "techreborn:block/machines/tier2_machines/industrial_blast_furnace_west_on",
+		"east": "techreborn:block/machines/tier2_machines/industrial_blast_furnace_east_on",
+		"south": "techreborn:block/machines/tier2_machines/machine_back",
+		"front": "techreborn:block/machines/tier2_machines/industrial_blast_furnace_front_on"
+	}
+}
