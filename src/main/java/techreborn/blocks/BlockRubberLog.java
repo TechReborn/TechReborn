@@ -106,13 +106,17 @@ public class BlockRubberLog extends BlockLog {
 	@Override
 	public void tick(IBlockState state, World worldIn, BlockPos pos, Random random) {
 		super.tick(state, worldIn, pos, random);
-		if (!state.get(HAS_SAP)) {
-			if (random.nextInt(50) == 0) {
-				EnumFacing facing = EnumFacing.byHorizontalIndex(random.nextInt(4));
-				if (worldIn.getBlockState(pos.down()).getBlock() == this
-						&& worldIn.getBlockState(pos.up()).getBlock() == this) {
-					worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
-				}
+		if (state.get(AXIS) != EnumFacing.Axis.Y) {
+			return;
+		}
+		if (state.get(HAS_SAP)) {
+			return;
+		}
+		if (random.nextInt(50) == 0) {
+			EnumFacing facing = EnumFacing.byHorizontalIndex(random.nextInt(4));
+			if (worldIn.getBlockState(pos.down()).getBlock() == this
+					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
+				worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
 			}
 		}
 	}
