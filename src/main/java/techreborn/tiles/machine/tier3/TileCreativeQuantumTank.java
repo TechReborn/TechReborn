@@ -22,36 +22,31 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.machine.tier3;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntityType;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.init.TRTileEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
-public class TileQuantumChest extends TileTechStorageBase implements IContainerProvider {
+public class TileCreativeQuantumTank extends TileQuantumTank {
 
-	@ConfigRegistry(config = "machines", category = "quantum_chest", key = "QuantumChestMaxStorage", comment = "Maximum amount of items a Quantum Chest can store")
-	public static int maxStorage = Integer.MAX_VALUE;
-
-	public TileQuantumChest() {
-		this(TRTileEntities.QUANTUM_CHEST);
-	}
-
-	public TileQuantumChest(TileEntityType<?> tileEntityType) {
-		super(tileEntityType, "TileQuantumChest", maxStorage);
+	public TileCreativeQuantumTank() {
+		super(TRTileEntities.CREATIVE_QUANTUM_TANK);
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this);
+	public void tick() {
+		super.tick();
+		if (!tank.isEmpty() && !tank.isFull()) {
+			tank.setFluidAmount(Integer.MAX_VALUE);
+		}
 	}
 
+	@Override
+	public int slotTransferSpeed() {
+		return 1;
+	}
+
+	@Override
+	public int fluidTransferAmount() {
+		return 10000;
+	}
 }

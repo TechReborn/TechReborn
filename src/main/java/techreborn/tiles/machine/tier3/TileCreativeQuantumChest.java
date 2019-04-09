@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.machine.tier3;
 
 import net.minecraft.item.ItemStack;
 import techreborn.init.TRTileEntities;

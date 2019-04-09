@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.TileChunkLoader;
+import techreborn.tiles.machine.tier3.TileChunkLoader;
 
 public class BlockChunkLoader extends BlockMachineBase {
 

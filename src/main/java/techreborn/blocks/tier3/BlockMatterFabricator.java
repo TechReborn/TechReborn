@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.machine.tier3.TileMatterFabricator;
 
 public class BlockMatterFabricator extends BlockMachineBase {
 

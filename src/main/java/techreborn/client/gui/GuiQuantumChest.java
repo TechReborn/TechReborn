@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.tiles.TileQuantumChest;
+import techreborn.tiles.machine.tier3.TileQuantumChest;
 
 public class GuiQuantumChest extends GuiBase {
 

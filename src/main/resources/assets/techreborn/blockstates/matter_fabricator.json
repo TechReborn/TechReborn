@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "active=false": { "model": "techreborn:block/machines/tier3_machines/matter_fabricator" },
+        "active=true":  { "model": "techreborn:block/machines/tier3_machines/matter_fabricator_on" }
+    }
+}

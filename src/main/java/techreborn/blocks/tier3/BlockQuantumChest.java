@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.TileQuantumChest;
+import techreborn.tiles.machine.tier3.TileQuantumChest;
 
 public class BlockQuantumChest extends BlockMachineBase {
 

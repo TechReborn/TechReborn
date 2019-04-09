@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.machine.tier3.TileMatterFabricator;
 
 public class GuiMatterFabricator extends GuiBase {
 

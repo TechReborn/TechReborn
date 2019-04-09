@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.TileCreativeQuantumTank;
+import techreborn.tiles.machine.tier3.TileCreativeQuantumTank;
 
 public class BlockCreativeQuantumTank extends BlockMachineBase {
 

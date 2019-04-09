@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/machines/tier3_machines/chunk_loader" }
+    }
+}
