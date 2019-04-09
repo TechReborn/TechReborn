@@ -36,7 +36,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -121,6 +120,8 @@ public class ItemDebugTool extends Item {
 		s += "Power: ";
 		s += TextFormatting.BLUE;
 		s += PowerSystem.getLocaliszedPower(tile.getEnergy());
+		s += "/";
+		s += PowerSystem.getLocaliszedPower(tile.getMaxPower());
 		
 		return s;
 	}
@@ -130,6 +131,8 @@ public class ItemDebugTool extends Item {
 		s += "Power: ";
 		s += TextFormatting.RED;
 		s += cap.getEnergyStored();
+		s += "/";
+		s += cap.getMaxEnergyStored();
 		s += " RF";
 		
 		return s;
