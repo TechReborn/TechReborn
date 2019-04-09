@@ -1,5 +1,4 @@
 {
-    "variants": {
-        "": { "model": "techreborn:block/machines/tier3_machines/quantum_tank" }
-    }
+    "parent": "techreborn:block/machines/tier3_machines/quantum_tank"
 }
+

@@ -92,9 +92,12 @@ public class TileQuantumTank extends TileMachineBase
 	public void tick() {
 		super.tick();
 		if (!world.isRemote) {
-			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
-				this.syncWithAll();
+// TODO: Fix in 1.13
+//			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
+//					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType())) {
+//				this.syncWithAll();
+//			}
+				
 		}
 		tank.compareAndUpdate();
 	}
