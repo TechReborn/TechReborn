@@ -293,6 +293,12 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			if (recipe instanceof ScrapboxRecipe) {
 				return CompatConfigs.showScrapbox;
 			}
+			if (IC2Duplicates.deduplicate() && (recipe instanceof CompressorRecipe)) {
+				return false;
+			}
+			if (IC2Duplicates.deduplicate() && (recipe instanceof ExtractorRecipe)) {
+				return false;
+			}
 			return true;
 		}).collect(Collectors.toList()));
 
