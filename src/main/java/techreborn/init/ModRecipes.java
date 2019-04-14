@@ -27,10 +27,14 @@ package techreborn.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.crafting.Recipe;
+import reborncore.common.crafting.RecipeManager;
+import reborncore.common.crafting.RecipeType;
 import reborncore.common.registration.RebornRegister;
 import techreborn.TechReborn;
 import techreborn.api.Reference;
@@ -40,6 +44,9 @@ import techreborn.items.ItemCells;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {
+
+
+	public static final RecipeType<Recipe> GRINDER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:grinder"));
 
 
 

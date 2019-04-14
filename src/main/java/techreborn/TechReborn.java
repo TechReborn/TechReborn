@@ -95,6 +95,9 @@ public class TechReborn {
 		//Done like this to load them here
 		ModFluids.values();
 
+		//Done to force the class to load
+		ModRecipes.GRINDER.getName();
+
 		ClientboundPackets.init();
 		ServerboundPackets.init();
 
