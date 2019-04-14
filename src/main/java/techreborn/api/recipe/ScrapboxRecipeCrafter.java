@@ -25,11 +25,10 @@
 package techreborn.api.recipe;
 
 import net.minecraft.tileentity.TileEntity;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.crafting.Recipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 
 import java.util.List;
 
@@ -46,16 +45,16 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	 * @param outputSlots Slot IDs for output
 	 */
 	public ScrapboxRecipeCrafter(TileEntity parentTile, Inventory<?> inventory, int[] inputSlots, int[] outputSlots) {
-		super(Reference.SCRAPBOX_RECIPE, parentTile, 1, 1, inventory, inputSlots, outputSlots);
+		super(ModRecipes.SCRAPBOX, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 
 	@Override
 	public void updateCurrentRecipe(){
-		List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE);
-		int random = parentTile.getWorld().rand.nextInt(scrapboxRecipeList.size());
+		List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(tile.getWorld());
+		int random = tile.getWorld().rand.nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));
-		this.currentNeededTicks = Math.max((int) (currentRecipe.tickTime() * (1.0 - getSpeedMultiplier())), 1);
+		this.currentNeededTicks = Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);
 		this.currentTickTime = 0;
 		setIsActive();
 	}

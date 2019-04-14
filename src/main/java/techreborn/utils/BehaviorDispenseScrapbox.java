@@ -32,12 +32,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.crafting.Recipe;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 
 import java.util.List;
 import java.util.Random;
@@ -51,9 +50,9 @@ public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
 	@Override
 	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		if (dispenseScrapboxes) {
-			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE);
+			List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(source.getWorld());
 			int random = new Random().nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).getOutput(0);
+			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 			stack.split(1);
 
 			TileEntityDispenser tile = source.getBlockTileEntity();

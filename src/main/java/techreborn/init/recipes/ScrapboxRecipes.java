@@ -28,9 +28,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 import techreborn.utils.StackWIPHandler;
@@ -216,7 +213,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		if(output == null || output.isEmpty()){
 			return;
 		}
-		RecipeHandler.addRecipe(Reference.SCRAPBOX_RECIPE, new ScrapboxRecipe(output, 20, 2));
+		//RecipeHandler.addRecipe(Reference.SCRAPBOX_RECIPE, new ScrapboxRecipe(output, 20, 2));
 	}
 
 

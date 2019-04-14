@@ -31,7 +31,7 @@ import net.minecraftforge.fluids.FluidStack;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileFluidReplicator;
 
@@ -53,7 +53,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	 * @param outputSlots This is the list of slots that the crafting logic should look for output fluid
 	 */
 	public FluidReplicatorRecipeCrafter(TileEntity parentTile, Inventory<?> inventory, int[] inputSlots, int[] outputSlots) {
-		super(Reference.FLUID_REPLICATOR_RECIPE, parentTile, 1, 1, inventory, inputSlots, outputSlots);
+		super(ModRecipes.FLUID_REPLICATOR, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	// RecipeCrafter
 	@Override
 	public void updateEntity() {
-		if (parentTile.getWorld().isRemote) {
+		if (tile.getWorld().isRemote) {
 			return;
 		}
 		ticksSinceLastChange++;
@@ -114,7 +114,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 			}
 			// If it has reached the recipe tick time
 			if (currentRecipe != null && currentTickTime >= currentNeededTicks && hasAllInputs()) {
-				TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) parentTile;
+				TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) tile;
 				// Checks to see if it can fit the output
 				// And fill tank with replicated fluid
 				if (canFit(currentRecipe.getFluid(), tileFluidReplicator.tank) && currentRecipe.onCraft(tileFluidReplicator)) {
@@ -137,7 +137,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 					// Increase the ticktime
 					currentTickTime ++;
 					if(currentTickTime == 1 || currentTickTime % 20 == 0 && soundHanlder != null){
-						soundHanlder.playSound(false, parentTile);
+						soundHanlder.playSound(false, tile);
 					}
 				}
 			}
@@ -147,7 +147,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	
 	@Override
 	public void updateCurrentRecipe() {
-		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) parentTile;
+		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) tile;
 		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
 			if (recipe.canCraft(tileFluidReplicator) && hasAllInputs(recipe)) {
 				if (!canFit(recipe.getFluid(), tileFluidReplicator.tank)) {
@@ -187,7 +187,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	
 	@Override
 	public boolean canCraftAgain() {
-		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) parentTile;
+		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) tile;
 		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
 			if (recipe.canCraft(tileFluidReplicator) && hasAllInputs(recipe)) {
 				if (!canFit(recipe.getFluid(), tileFluidReplicator.tank)) {

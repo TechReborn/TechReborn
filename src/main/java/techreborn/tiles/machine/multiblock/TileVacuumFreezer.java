@@ -34,7 +34,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
@@ -54,7 +54,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new Inventory<>(3, "TileVacuumFreezer", 64, this).withConfiguredAccess();
-		this.crafter = new RecipeCrafter(Reference.VACUUM_FREEZER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.VACUUM_FREEZER, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	
 	public boolean getMultiBlock() {

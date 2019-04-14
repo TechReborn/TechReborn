@@ -25,9 +25,6 @@
 package techreborn.init.recipes;
 
 import net.minecraft.item.ItemStack;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.DistillationTowerRecipe;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemCells;
 
@@ -97,7 +94,7 @@ public class DistillationTowerRecipes extends RecipeMethods {
 			}
 			cells = DynamicCell.getEmptyCell(cellCount);
 		}
-		RecipeHandler.addRecipe(Reference.DISTILLATION_TOWER_RECIPE, new DistillationTowerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
+	//	RecipeHandler.addRecipe(Reference.DISTILLATION_TOWER_RECIPE, new DistillationTowerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
 	}
 
 	static void register(ItemStack input, int ticks, int euPerTick, ItemStack... outputs) {

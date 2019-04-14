@@ -40,10 +40,8 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.ITileRecipeHandler;
-import techreborn.api.recipe.machines.BlastFurnaceRecipe;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.multiblocks.MultiBlockCasing;
@@ -51,7 +49,7 @@ import techreborn.tiles.TileGenericMachine;
 import techreborn.tiles.TileMachineCasing;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class TileIndustrialBlastFurnace extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<BlastFurnaceRecipe>  {
+public class TileIndustrialBlastFurnace extends TileGenericMachine implements IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -66,7 +64,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new Inventory<>(5, "TileIndustrialBlastFurnace", 64, this).withConfiguredAccess();
-		this.crafter = new RecipeCrafter(Reference.BLAST_FURNACE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.BLAST_FURNACE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	
 	public int getHeat() {
@@ -154,19 +152,5 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
 				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
 	}
-	
-	// ITileRecipeHandler
-	@Override
-	public boolean canCraft(final TileEntity tile, final BlastFurnaceRecipe recipe) {
-		if (tile instanceof TileIndustrialBlastFurnace) {
-			final TileIndustrialBlastFurnace blastFurnace = (TileIndustrialBlastFurnace) tile;
-			return blastFurnace.getHeat() >= recipe.neededHeat;
-		}
-		return false;
-	}
 
-	@Override
-	public boolean onCraft(final TileEntity tile, final BlastFurnaceRecipe recipe) {
-		return true;
-	}
 }

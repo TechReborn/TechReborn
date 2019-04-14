@@ -24,29 +24,41 @@
 
 package techreborn.init;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.crafting.Recipe;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.crafting.RecipeType;
 import reborncore.common.registration.RebornRegister;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import techreborn.api.recipe.machines.VacuumFreezerRecipe;
-import techreborn.items.ItemCells;
+import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
+import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {
 
 
+	public static final RecipeType<Recipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:alloy_smelter"));
+	public static final RecipeType<Recipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:assembling_machine"));
+	public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BlastFurnaceRecipe.class, new ResourceLocation("techreborn:blast_furnace"));
+	public static final RecipeType<Recipe> CENTRIFUGE = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:centrifuge"));
+	public static final RecipeType<Recipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:chemical_reactor"));
+	public static final RecipeType<Recipe> COMPRESSOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:compressor"));
+	public static final RecipeType<Recipe> DISTILLATION_TOWER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:distillation_tower"));
+	public static final RecipeType<Recipe> EXTRACTOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:extractor"));
 	public static final RecipeType<Recipe> GRINDER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:grinder"));
+	public static final RecipeType<Recipe> IMPLOSION_COMPRESSOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:implosion_compressor"));
+	public static final RecipeType<Recipe> INDUSTRIAL_ELECTROLYZER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:industrial_electrolyzer"));
+	public static final RecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(IndustrialGrinderRecipe.class, new ResourceLocation("techreborn:industrial_grinder"));
+	public static final RecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(IndustrialSawmillRecipe.class, new ResourceLocation("techreborn:industrial_sawmill"));
+	public static final RecipeType<Recipe> RECYCLER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:recycler"));
+	public static final RecipeType<Recipe> SCRAPBOX = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:scrapbox"));
+	public static final RecipeType<Recipe> VACUUM_FREEZER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:vacuum_freezer"));
+	public static final RecipeType<Recipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:fluid_replicator"));
 
 
 
@@ -151,15 +163,15 @@ public class ModRecipes {
 //			new ItemStack(Items.DYE, 6, 15),
 //			170, 19));
 
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			new ItemStack(Blocks.COBBLESTONE),
-			new ItemStack(Blocks.SAND),
-			230, 23));
-
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			new ItemStack(Blocks.GRAVEL),
-			new ItemStack(Items.FLINT),
-			200, 20));
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			new ItemStack(Blocks.COBBLESTONE),
+//			new ItemStack(Blocks.SAND),
+//			230, 23));
+//
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			new ItemStack(Blocks.GRAVEL),
+//			new ItemStack(Items.FLINT),
+//			200, 20));
 
 //		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 //				new ItemStack(Items.COAL),
@@ -209,11 +221,11 @@ public class ModRecipes {
 //				new ItemStack(Blocks.OBSIDIAN),
 //				ItemDusts.getDustByName("obsidian", 4),
 //				170, 19));
-
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-				new ItemStack(Items.BLAZE_ROD),
-				new ItemStack(Items.BLAZE_POWDER, 4),
-				170, 19));
+//
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//				new ItemStack(Items.BLAZE_ROD),
+//				new ItemStack(Items.BLAZE_POWDER, 4),
+//				170, 19));
 
 //		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
 //			ItemStack marbleStack = getOre("stoneMarble");
@@ -231,25 +243,25 @@ public class ModRecipes {
 //		}
 
 		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			"oreCoal", new ItemStack(Items.COAL, 2),
-			270, 31));
-
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			"oreDiamond", new ItemStack(Items.DIAMOND, 1),
-			270, 31));
-
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			"oreEmerald", new ItemStack(Items.EMERALD, 1),
-			270, 31));
-
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			"oreRedstone", new ItemStack(Items.REDSTONE, 8),
-			270, 31));
-
-		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-			"oreQuartz", new ItemStack(Items.QUARTZ, 2),
-			270, 31));
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			"oreCoal", new ItemStack(Items.COAL, 2),
+//			270, 31));
+//
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			"oreDiamond", new ItemStack(Items.DIAMOND, 1),
+//			270, 31));
+//
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			"oreEmerald", new ItemStack(Items.EMERALD, 1),
+//			270, 31));
+//
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			"oreRedstone", new ItemStack(Items.REDSTONE, 8),
+//			270, 31));
+//
+//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
+//			"oreQuartz", new ItemStack(Items.QUARTZ, 2),
+//			270, 31));
 
 
 //		for (String oreDictionaryName : OreDictionary.getOreNames()) {
@@ -294,17 +306,17 @@ public class ModRecipes {
 	}
 
 	static void addVacuumFreezerRecipes() {
-		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE,
-				new VacuumFreezerRecipe(new ItemStack(Blocks.ICE, 2), new ItemStack(Blocks.PACKED_ICE), 60, 64));
+//		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE,
+//				new VacuumFreezerRecipe(new ItemStack(Blocks.ICE, 2), new ItemStack(Blocks.PACKED_ICE), 60, 64));
 //		TODO: Fix recipe
 //		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE, new VacuumFreezerRecipe(
 //				ItemIngots.getIngotByName("hot_tungstensteel"), ItemIngots.getIngotByName("tungstensteel"), 440, 64));
 
-		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE, new VacuumFreezerRecipe(
-				ItemCells.getCellByName("heliumplasma"), ItemCells.getCellByName("helium"), 440, 64));
-
-		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE,
-				new VacuumFreezerRecipe(ItemCells.getCellByName("water"), ItemCells.getCellByName("cell"), 60, 64));
+//		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE, new VacuumFreezerRecipe(
+//				ItemCells.getCellByName("heliumplasma"), ItemCells.getCellByName("helium"), 440, 64));
+//
+//		RecipeHandler.addRecipe(Reference.VACUUM_FREEZER_RECIPE,
+//				new VacuumFreezerRecipe(ItemCells.getCellByName("water"), ItemCells.getCellByName("cell"), 60, 64));
 
 	}
 

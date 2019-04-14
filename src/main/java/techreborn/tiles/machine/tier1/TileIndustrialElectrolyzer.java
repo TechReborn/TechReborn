@@ -34,7 +34,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.items.DynamicCell;
@@ -53,7 +53,7 @@ public class TileIndustrialElectrolyzer extends TileGenericMachine implements IC
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileIndustrialElectrolyzer", 64, this).withConfiguredAccess();
-		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_ELECTROLYZER_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_ELECTROLYZER, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
 	// IContainerProvider

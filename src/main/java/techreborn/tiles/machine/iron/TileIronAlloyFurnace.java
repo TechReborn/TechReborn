@@ -26,23 +26,22 @@ package techreborn.tiles.machine.iron;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.crafting.Recipe;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
@@ -118,21 +117,15 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		}
 	}
 
-	public boolean hasAllInputs(final IBaseRecipeType recipeType) {
+	public boolean hasAllInputs(final Recipe recipeType) {
 		if (recipeType == null) {
 			return false;
 		}
-		for (final Object input : recipeType.getInputs()) {
+		for (Ingredient ingredient : recipeType.getIngredients()) {
 			boolean hasItem = false;
-			boolean useTags = input instanceof String || recipeType.useOreDic();
-			boolean checkSize = input instanceof ItemStack;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true,
-					useTags)) {
-					ItemStack stack = RecipeTranslator.getStackFromObject(input);
-					if (!checkSize || inventory.getStackInSlot(inputslot).getCount() >= stack.getCount()) {
-						hasItem = true;
-					}
+				if (ingredient.test(inventory.getStackInSlot(inputslot))) {
+					hasItem = true;
 				}
 			}
 			if (!hasItem)
@@ -146,9 +139,9 @@ public class TileIronAlloyFurnace extends TileMachineBase
 			return false;
 		} else {
 			ItemStack itemstack = null;
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
+			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 				if (this.hasAllInputs(recipeType)) {
-					itemstack = recipeType.getOutput(0);
+					itemstack = recipeType.getOutputs().get(0);
 					break;
 				}
 			}
@@ -178,9 +171,9 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	public void smeltItem() {
 		if (this.canSmelt()) {
 			ItemStack itemstack = ItemStack.EMPTY;
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
+			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 				if (this.hasAllInputs(recipeType)) {
-					itemstack = recipeType.getOutput(0);
+					itemstack = recipeType.getOutputs().get(0);
 					break;
 				}
 				if (!itemstack.isEmpty()) {
@@ -194,7 +187,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 				inventory.shrinkSlot(this.output, -itemstack.getCount());
 			}
 
-			for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
+			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 				boolean hasAllRecipes = true;
 				if (this.hasAllInputs(recipeType)) {
 
@@ -202,14 +195,11 @@ public class TileIronAlloyFurnace extends TileMachineBase
 					hasAllRecipes = false;
 				}
 				if (hasAllRecipes) {
-					for (Object input : recipeType.getInputs()) {
-						boolean useOreDict = input instanceof String || recipeType.useOreDic();
+					for (Ingredient ingredient : recipeType.getIngredients()) {
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ItemUtils.isInputEqual(input, this.inventory.getStackInSlot(inputSlot), true, useOreDict)) {
+							if (ingredient.test(this.inventory.getStackInSlot(inputSlot))) {
 								int count = 1;
-								if (input instanceof ItemStack) {
-									count = RecipeTranslator.getStackFromObject(input).getCount();
-								}
+								//TODO also look into ingredient size here
 								inventory.shrinkSlot(inputSlot, count);
 								break;
 							}
@@ -290,13 +280,9 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this)
 			.filterSlot(0, 47, 17,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true)))
+			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getIngredients().get(0).test(stack)))
 			.filterSlot(1, 65, 17,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true)))
+			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getIngredients().get(1).test(stack)))
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
 			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);

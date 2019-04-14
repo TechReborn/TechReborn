@@ -45,9 +45,8 @@ import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.ITileRecipeHandler;
-import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
+
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
@@ -55,7 +54,7 @@ import techreborn.tiles.TileGenericMachine;
 import javax.annotation.Nullable;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
+public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -72,7 +71,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
 		this.inventory = new Inventory<>(7, "TileSawmill", 64, this, getInventoryAccess());
-		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_SAWMILL, this, 1, 3, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
 	}
@@ -155,50 +154,5 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this);
 	}
-	
-	// ITileRecipeHandler
-	@Override
-	public boolean canCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
-		if (!getMutliBlock()) {
-			return false;
-		}
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				return true;
-			}
-		}
-		return false;
-	}
 
-	@Override
-	public boolean onCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				if (tankFluid.amount == recipeFluid.amount) {
-					tank.setFluid(null);
-				} else {
-					tankFluid.amount -= recipeFluid.amount;
-				}
-				syncWithAll();
-				return true;
-			}
-		}
-		return false;
-	}
 }

@@ -25,10 +25,8 @@
 package techreborn;
 
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,11 +36,8 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.registration.RegistrationManager;
@@ -144,7 +139,6 @@ public class TechReborn {
 		proxy.postInit();
 
 		ModRecipes.postInit();
-		LOGGER.debug(RecipeHandler.recipeList.size() + " recipes loaded");
 		
 		//todo: remove, gens localization
 //		for (Item item : ForgeRegistries.ITEMS.getValues()) {

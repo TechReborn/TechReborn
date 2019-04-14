@@ -31,11 +31,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
+import reborncore.common.crafting.Recipe;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 
 import java.util.List;
 
@@ -49,9 +48,9 @@ public class ItemScrapBox extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if (!world.isRemote) {
-			List<IBaseRecipeType> scrapboxRecipeList = RecipeHandler.getRecipeClassFromName(Reference.SCRAPBOX_RECIPE);
+			List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(world);
 			int random = world.rand.nextInt(scrapboxRecipeList.size());
-			ItemStack out = scrapboxRecipeList.get(random).getOutput(0);
+			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 			WorldUtils.dropItem(out, world, player.getPosition());
 			stack.shrink(1);
 		}

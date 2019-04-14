@@ -25,7 +25,6 @@
 package techreborn.tiles.machine.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.api.recipe.RecipeHandler;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -33,10 +32,8 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
@@ -54,7 +51,7 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileAlloySmelter", 64, this).withConfiguredAccess();
-		this.crafter = new RecipeCrafter(Reference.ALLOY_SMELTER_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.ALLOY_SMELTER, this, 2, 1, this.inventory, inputs, outputs);
 	}
 
 	// IContainerProvider
@@ -63,13 +60,9 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.filterSlot(0, 34, 47,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true)))
+				stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getIngredients().get(0).test(stack)))
 			.filterSlot(1, 126, 47,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true)))
+			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getIngredients().get(1).test(stack)))
 			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 			.create(this);
 	}

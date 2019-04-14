@@ -26,9 +26,6 @@ package techreborn.init.recipes;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
 
 import java.security.InvalidParameterException;
 
@@ -77,6 +74,6 @@ public class ImplosionCompressorRecipes extends RecipeMethods {
 			throw new InvalidParameterException("Invalid implosion compressor darkAshes input: " + darkAshes);
 		}
 
-		RecipeHandler.addRecipe(Reference.IMPLOSION_COMPRESSOR_RECIPE, new ImplosionCompressorRecipe(input, getStack(Blocks.TNT, 16), output, getMaterial("dark_ashes", darkAshes, Type.DUST), 20, 32));
+		//RecipeHandler.addRecipe(Reference.IMPLOSION_COMPRESSOR_RECIPE, new ImplosionCompressorRecipe(input, getStack(Blocks.TNT, 16), output, getMaterial("dark_ashes", darkAshes, Type.DUST), 20, 32));
 	}
 }

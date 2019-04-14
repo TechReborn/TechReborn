@@ -45,9 +45,7 @@ import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
-import techreborn.api.recipe.ITileRecipeHandler;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
@@ -55,7 +53,7 @@ import techreborn.tiles.TileGenericMachine;
 import javax.annotation.Nullable;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class TileIndustrialGrinder extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialGrinderRecipe> {
+public class TileIndustrialGrinder extends TileGenericMachine implements IContainerProvider{
 	
 	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -72,7 +70,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
 		this.inventory = new Inventory<>(8, "TileIndustrialGrinder", 64, this, getInventoryAccess());
-		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_GRINDER_RECIPE, this, 1, 4, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_GRINDER, this, 1, 4, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
 	}
@@ -154,51 +152,5 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
 				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
 	}
-	
-	// ITileRecipeHandler
-	@Override
-	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
-		if (!getMultiBlock()) {
-			return false;
-		}
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				return true;
-			}
-		}
-		return false;
-	}
 
-	@Override
-	public boolean onCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				if (tankFluid.amount == recipeFluid.amount) {
-					tank.setFluid(null);
-				}
-				else {
-					tankFluid.amount -= recipeFluid.amount;
-				}
-				syncWithAll();
-				return true;
-			}
-		}
-		return false;
-	}
 }

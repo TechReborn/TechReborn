@@ -33,7 +33,7 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import techreborn.TechReborn;
-import techreborn.api.Reference;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
@@ -51,7 +51,7 @@ public class TileChemicalReactor extends TileGenericMachine	implements IContaine
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory<>(4, "TileChemicalReactor", 64, this).withConfiguredAccess();
-		this.crafter = new RecipeCrafter(Reference.CHEMICAL_REACTOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.CHEMICAL_REACTOR, this, 2, 2, this.inventory, inputs, outputs);
 	}
 
 	// IContainerProvider
