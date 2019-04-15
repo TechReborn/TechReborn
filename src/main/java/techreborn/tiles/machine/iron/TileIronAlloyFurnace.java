@@ -34,6 +34,7 @@ import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.crafting.RebornIngredient;
 import reborncore.common.crafting.Recipe;
 import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegister;
@@ -121,7 +122,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		if (recipeType == null) {
 			return false;
 		}
-		for (Ingredient ingredient : recipeType.getIngredients()) {
+		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 			boolean hasItem = false;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
 				if (ingredient.test(inventory.getStackInSlot(inputslot))) {
@@ -195,12 +196,10 @@ public class TileIronAlloyFurnace extends TileMachineBase
 					hasAllRecipes = false;
 				}
 				if (hasAllRecipes) {
-					for (Ingredient ingredient : recipeType.getIngredients()) {
+					for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 							if (ingredient.test(this.inventory.getStackInSlot(inputSlot))) {
-								int count = 1;
-								//TODO also look into ingredient size here
-								inventory.shrinkSlot(inputSlot, count);
+								inventory.shrinkSlot(inputSlot, ingredient.getSize());
 								break;
 							}
 						}
@@ -280,9 +279,9 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this)
 			.filterSlot(0, 47, 17,
-			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getIngredients().get(0).test(stack)))
+			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(0).test(stack)))
 			.filterSlot(1, 65, 17,
-			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getIngredients().get(1).test(stack)))
+			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(1).test(stack)))
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
 			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);
