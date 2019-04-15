@@ -1,5 +1,17 @@
 {
   "type": "techreborn:grinder",
   "power": 10,
-  "time": 123
+  "time": 123,
+  "ingredients" : [
+    {
+      "item": "minecraft:dirt",
+      "size": 2
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:diamond",
+      "count": 4
+    }
+  ]
 }
