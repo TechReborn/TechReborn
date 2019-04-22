@@ -1,0 +1,12 @@
+{
+    "variants": {
+        "facing=north,active=false": { "model": "techreborn:block/machines/generators/fusion_control_computer" },
+        "facing=south,active=false": { "model": "techreborn:block/machines/generators/fusion_control_computer", "y": 180 },
+        "facing=west,active=false":  { "model": "techreborn:block/machines/generators/fusion_control_computer", "y": 270 },
+        "facing=east,active=false":  { "model": "techreborn:block/machines/generators/fusion_control_computer", "y": 90 },
+        "facing=north,active=true": { "model": "techreborn:block/machines/generators/fusion_control_computer_on" },
+        "facing=south,active=true": { "model": "techreborn:block/machines/generators/fusion_control_computer_on", "y": 180 },
+        "facing=west,active=true":  { "model": "techreborn:block/machines/generators/fusion_control_computer_on", "y": 270 },
+        "facing=east,active=true":  { "model": "techreborn:block/machines/generators/fusion_control_computer_on", "y": 90 }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "techreborn:block/machines/structure/fusion_coil_heart",
+        "side": "techreborn:block/machines/structure/fusion_coil_side"
+    }
+}
