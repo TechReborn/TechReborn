@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "top": "techreborn:block/machines/generators/diesel_generator_top_off",
+        "bottom": "techreborn:block/machines/generators/generator_bottom",
+        "side": "techreborn:block/machines/generators/diesel_generator_side_off"
+    }
+}

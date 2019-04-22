@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/machines/generators/lightning_rod" }
+    }
+}
