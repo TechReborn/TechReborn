@@ -64,11 +64,16 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		registerCompressionRecipes();
 		registerMixedMetalIngotRecipes();
-			
+		
+		// Wood stuff
+		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), IC2Duplicates.RUBBER_WOOD.getStackBasedOnConfig());
+		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_SLAB_HALF, 6),  "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
+		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_STAIR, 4),  "W  ", "WW ", "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
+		
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), "stone", "plateIridiumAlloy");
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("tungstensteel", 1), "plateIridium");
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getMaterialObject("tungstensteel", Type.INGOT));
-		registerShapeless(getStack(ModBlocks.RUBBER_PLANKS, 4), getStack(ModBlocks.RUBBER_LOG));
+		
 		if(newCellRecipe){
 			registerShaped(DynamicCell.getEmptyCell(16), " T ", "TGT", " T ", 'T', "ingotTin", 'G', "paneGlass"); // Blame thermal expansion for making gears have the same recipe
 		} else {
@@ -318,9 +323,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 				registerShaped(getMaterial(part, Type.PART), " O ", "OIO", " O ", 'I', getStack(Items.IRON_INGOT), 'O', "ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
 			}
 		}
-
-		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_SLAB_HALF, 6),  "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
-		registerShaped(new ItemStack(ModBlocks.RUBBER_LOG_STAIR, 4),  "W  ", "WW ", "WWW", 'W', new ItemStack(ModBlocks.RUBBER_PLANKS));
 
 		Core.logHelper.info("Crafting Table Recipes Added");
 	}

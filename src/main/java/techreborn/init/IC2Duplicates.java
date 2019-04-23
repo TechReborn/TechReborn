@@ -71,6 +71,7 @@ public enum IC2Duplicates {
 	SCRAP(ItemParts.getPartByName("scrap")),
 	SCRAP_BOX(new ItemStack(ModItems.SCRAP_BOX)),
 	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER)),
+	RUBBER_WOOD(new ItemStack(ModBlocks.RUBBER_LOG)),
 
 	//Classical dedupes
 	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL), true),

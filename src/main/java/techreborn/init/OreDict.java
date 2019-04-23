@@ -120,7 +120,8 @@ public class OreDict {
 
 		OreUtil.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
 		//TODO ic2 bug? Disabled as it crashes with this line
-		//OreUtil.registerOre("woodRubber", ModBlocks.RUBBER_LOG);
+		OreUtil.registerOre("logWood", ModBlocks.RUBBER_LOG);
+		OreUtil.registerOre("logRubber", ModBlocks.RUBBER_LOG);
 		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
 
 		OreUtil.registerOre("craftingDiamondGrinder", ItemParts.getPartByName("diamondGrindingHead"));
