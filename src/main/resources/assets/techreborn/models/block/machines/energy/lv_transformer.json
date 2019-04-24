@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/energy/lv_transformer_side",
+        "front": "techreborn:block/machines/energy/lv_transformer_front",
+        "side": "techreborn:block/machines/energy/lv_transformer_side"
+    }
+}
