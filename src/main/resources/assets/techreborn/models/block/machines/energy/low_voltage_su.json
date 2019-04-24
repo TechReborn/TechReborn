@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/energy/low_voltage_su_side",
+        "front": "techreborn:block/machines/energy/low_voltage_su_front",
+        "side": "techreborn:block/machines/energy/low_voltage_su_side"
+    }
+}
