@@ -73,9 +73,10 @@ public enum IC2Duplicates {
 	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER)),
 	RUBBER_WOOD(new ItemStack(ModBlocks.RUBBER_LOG)),
 	RE_BATTERY(new ItemStack(ModItems.RE_BATTERY)),
-
+	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL)),
+	
 	//Classical dedupes
-	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL), true),
+	
 	LAPATRON_CRYSTAL(new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), true),
 
 	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"), true),
