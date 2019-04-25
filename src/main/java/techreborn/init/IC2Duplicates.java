@@ -74,11 +74,8 @@ public enum IC2Duplicates {
 	RUBBER_WOOD(new ItemStack(ModBlocks.RUBBER_LOG)),
 	RE_BATTERY(new ItemStack(ModItems.RE_BATTERY)),
 	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL)),
+	LAPATRON_CRYSTAL(new ItemStack(ModItems.LAPOTRONIC_CRYSTAL)),
 	
-	//Classical dedupes
-	
-	LAPATRON_CRYSTAL(new ItemStack(ModItems.LAPOTRONIC_CRYSTAL), true),
-
 	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"), true),
 	BASIC_MACHINE_FRAME(BlockMachineFrames.getFrameByName("basic"), true),
 	ADVANCED_MACHINE_FRAME(BlockMachineFrames.getFrameByName("advanced"), true),
