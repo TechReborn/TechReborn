@@ -28,13 +28,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.trees.SpruceTree;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import techreborn.world.RubberTreeGenerator;
-
-import java.util.Random;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -44,17 +37,4 @@ public class BlockRubberSapling extends BlockSapling {
 	public BlockRubberSapling() {
 		super(new RubberTree(), Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT));
 	}
-
-//	@Override
-//	public void grow(IWorld worldIn, BlockPos pos, IBlockState state, Random rand) {
-//		if (!net.minecraftforge.event.ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
-//			return;
-//		}
-//		worldIn.removeBlock(pos);
-//		if (!new RubberTreeGenerator(false).growTree(worldIn, rand, pos.getX(), pos.getY(), pos.getZ())) {
-//			worldIn.setBlockState(pos, state, 3); // Re-add the sapling if the tree
-//			// failed to grow
-//		}
-//	}
-
 }
