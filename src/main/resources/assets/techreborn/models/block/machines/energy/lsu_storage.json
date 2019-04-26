@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "techreborn:block/machines/energy/lapotronic_su_side"
+    }
+}
