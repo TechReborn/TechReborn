@@ -29,6 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
+import reborncore.api.tile.IUpgrade;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -50,6 +51,8 @@ public class TileRecycler extends TilePowerAcceptor
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "machines", category = "recycler", key = "produceIC2Scrap", comment = "When enabled and when ic2 is installed the recycler will make ic2 scrap")
+	public static boolean produceIC2Scrap = false;
 
 	private final Inventory<TileRecycler> inventory = new Inventory<>(3, "TileRecycler", 64, this).withConfiguredAccess();
 	private final int cost = 2;
@@ -75,7 +78,7 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 	
 	public void recycleItems() {
-		final ItemStack itemstack = TRContent.Parts.SCRAP.getStack();
+		ItemStack itemstack = TRContent.Parts.SCRAP.getStack();
 		final int randomchance = this.world.rand.nextInt(chance);
 
 		if (randomchance == 1) {
@@ -201,7 +204,7 @@ public class TileRecycler extends TilePowerAcceptor
 	@Override
 	public BuiltContainer createContainer(EntityPlayer player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+			.tile(this).slot(0, 55, 45, itemStack -> itemStack.getItem() instanceof IUpgrade).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
 	}
 }

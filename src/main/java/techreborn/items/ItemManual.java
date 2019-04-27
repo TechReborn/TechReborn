@@ -30,9 +30,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 
 public class ItemManual extends Item {
+
+	@ConfigRegistry(config = "misc", category = "general", key = "manualRefund", comment = "Allow refunding items used to craft the manual")
+	public static boolean allowRefund = true;
 
 	public ItemManual() {
 		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));

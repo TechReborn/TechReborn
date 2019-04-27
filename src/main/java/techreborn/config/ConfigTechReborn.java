@@ -90,7 +90,7 @@ public class ConfigTechReborn {
 	
 	@ConfigRegistry(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (FE)")
 	public static int CloackingDeviceUsage = 10;
-	
+
 	@ConfigRegistry(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
 	
@@ -101,7 +101,7 @@ public class ConfigTechReborn {
 	public static int advancedGenerationRateD = 16;
 	
 	@ConfigRegistry(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Value in FE)")
-	public static int advancedGenerationRateN = 0;	
+	public static int advancedGenerationRateN = 0;
 	
 	@ConfigRegistry(config = "generators", category = "solarPanelIndustrial", key = "industrialDayRate", comment = "Generation rate during day for Industrial Solar Panel (Value in FE)")
 	public static int industrialGenerationRateD = 64;

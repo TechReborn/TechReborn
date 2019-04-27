@@ -38,6 +38,7 @@ import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
@@ -50,8 +51,10 @@ import techreborn.init.TRTileEntities;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //TODO add tick and power bars.
 
@@ -121,6 +124,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		InventoryCrafting craftMatrix = getCraftingMatrix();
 		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 		if (currentRecipe != null) {
+			setIsActive(true);
 			if (world.getGameTime() % 2 == 0) {
 				Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
 				if (balanceResult.isPresent()) {
@@ -149,6 +153,8 @@ public class TileRollingMachine extends TilePowerAcceptor
 							inventory.setStackInSlot(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
+						} else {
+							setIsActive(false);
 						}
 					}
 					if (hasCrafted) {
@@ -169,13 +175,27 @@ public class TileRollingMachine extends TilePowerAcceptor
 					&& canMake(craftMatrix)) {
 				useEnergy(getEuPerTick(energyPerTick));
 				tickTime++;
+			} else {
+				setIsActive(false);
 			}
 		}
 		if (currentRecipeOutput.isEmpty()) {
 			tickTime = 0;
 			currentRecipe = null;
+			setIsActive(canMake(getCraftingMatrix()));
 		}
+	}
 
+	public void setIsActive(boolean active) {
+		if (active == isRunning){
+			return;
+		}
+		isRunning = active;
+		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase)this.getWorld().getBlockState(this.getPos()).getBlock();
+			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
+		}
+		this.getWorld().notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
 	}
 
 	public Optional<InventoryCrafting> balanceRecipe(InventoryCrafting craftCache) {
@@ -211,6 +231,45 @@ public class TileRollingMachine extends TilePowerAcceptor
 					possibleSlots.add(s);
 				}
 			}
+		}
+
+		if(!possibleSlots.isEmpty()){
+			int totalItems =  possibleSlots.stream()
+				.mapToInt(value -> inventory.getStackInSlot(value).getCount()).sum();
+			int slots = possibleSlots.size();
+
+			//This makes an array of ints with the best possible slot distribution
+			int[] split = new int[slots];
+			int remainder = totalItems % slots;
+			Arrays.fill(split, totalItems / slots);
+			while (remainder > 0){
+				for (int i = 0; i < split.length; i++) {
+					if(remainder > 0){
+						split[i] +=1;
+						remainder --;
+					}
+				}
+			}
+
+			List<Integer> slotDistrubution = possibleSlots.stream()
+				.mapToInt(value -> inventory.getStackInSlot(value).getCount())
+				.boxed().collect(Collectors.toList());
+
+			boolean needsBalance = false;
+			for (int i = 0; i < split.length; i++) {
+				int required = split[i];
+				if(slotDistrubution.contains(required)){
+					//We need to remove the int, not at the int, this seems to work around that
+					slotDistrubution.remove(new Integer(required));
+				} else {
+					needsBalance = true;
+				}
+			}
+			if (!needsBalance) {
+				return Optional.empty();
+			}
+		} else {
+			return Optional.empty();
 		}
 
 		//Slot, count

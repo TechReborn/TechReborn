@@ -95,7 +95,7 @@ public class GuiVacuumFreezer extends GuiBase {
 					final Multiblock multiblock = new Multiblock();
 					IBlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 					IBlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
-					
+
 					addComponent(0, -1, 0, advancedCasing, multiblock);
 					addComponent(1, -1, 0, advancedCasing, multiblock);
 					addComponent(0, -1, 1, advancedCasing, multiblock);

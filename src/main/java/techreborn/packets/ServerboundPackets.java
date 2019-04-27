@@ -24,16 +24,26 @@
 
 package techreborn.packets;
 
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.network.NetworkEvent;
+import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.NetworkPacket;
+import techreborn.init.TRContent;
+import techreborn.items.ItemManual;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
 import techreborn.tiles.machine.tier1.TileRollingMachine;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class ServerboundPackets {
 
@@ -42,6 +52,7 @@ public class ServerboundPackets {
 	public static final ResourceLocation ROLLING_MACHINE_LOCK = new ResourceLocation("techreborn", "rolling_machine_lock");
 	public static final ResourceLocation FUSION_CONTROL_SIZE = new ResourceLocation("techreborn", "fusion_control_size");
 	public static final ResourceLocation IDSU = new ResourceLocation("techreborn", "idsu");
+	public static final ResourceLocation REFUND = new ResourceLocation("techreborn", "refund");
 
 	public static void init() {
 		NetworkManager.registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
@@ -50,7 +61,7 @@ public class ServerboundPackets {
 			context.enqueueWork(() -> {
 				TileEntity tile = context.getSender().world.getTileEntity(pos);
 				if (tile instanceof TileAdjustableSU) {
-					((TileAdjustableSU) tile).handleGuiInputFromClient(buttonID);
+					((TileAdjustableSU) tile).handleGuiInputFromClient(buttonID, false, false);
 				}
 			});
 		});
@@ -98,6 +109,26 @@ public class ServerboundPackets {
 				}
 			});
 		});
+
+		NetworkManager.registerPacketHandler(REFUND, (extendedPacketBuffer, context) -> {
+			if(!ItemManual.allowRefund){
+				return;
+			}
+			context.enqueueWork(() -> {
+				EntityPlayerMP playerMP = context.getSender();
+				for (int i = 0; i < playerMP.inventory.getSizeInventory(); i++) {
+					ItemStack stack = playerMP.inventory.getStackInSlot(i);
+					if (stack.getItem() == TRContent.MANUAL) {
+						playerMP.inventory.removeStackFromSlot(i);
+						playerMP.inventory.addItemStackToInventory(new ItemStack(Items.BOOK));
+						//TODO 1.13
+						//playerMP.inventory.addItemStackToInventory(OreUtil.getStackFromName("ingotRefinedIron"));
+						return;
+					}
+				}
+			});
+
+		});
 	}
 
 	public static NetworkPacket createPacketAesu(int buttonID, TileAdjustableSU tile) {
@@ -132,6 +163,12 @@ public class ServerboundPackets {
 		return NetworkManager.createPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
+		});
+	}
+
+	public static NetworkPacket createRefundPacket(){
+		return NetworkManager.createPacket(REFUND, extendedPacketBuffer -> {
+
 		});
 	}
 

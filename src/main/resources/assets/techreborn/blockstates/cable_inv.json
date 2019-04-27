@@ -45,6 +45,11 @@
         "textures": {
           "layer0": "techreborn:items/cables/insulatedhv"
         }
+      },
+      "superconductor": {
+        "textures": {
+          "layer0": "techreborn:items/cables/superconductor"
+        }
       }
     }
   }

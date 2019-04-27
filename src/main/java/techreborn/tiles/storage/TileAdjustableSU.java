@@ -28,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import reborncore.api.power.EnumPowerTier;
+import reborncore.api.tile.IUpgrade;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -42,9 +43,9 @@ import techreborn.init.TRTileEntities;
 public class TileAdjustableSU extends TileEnergyStorage implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
-	public static int maxInput = 8192;
+	public static int maxInput = 16192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxOutput", comment = "AESU Max Output (Value in EU)")
-	public static int maxOutput = 8192;
+	public static int maxOutput = 16192;
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
@@ -54,22 +55,58 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	public TileAdjustableSU() {
 		super(TRTileEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
-	
-	public void handleGuiInputFromClient(int id) {
+
+	int superconductors = 0;
+
+	@Override
+	public void tick() {
+		super.tick();
+
+		superconductors = 0;
+		for (int i = 0; i < getUpgradeSlotCount(); i++) {
+			ItemStack stack = getUpgradeInvetory().getStackInSlot(i);
+			if(false){ //TODO 1.13
+				superconductors++;
+			}
+		}
+		if (OUTPUT > getMaxConfigOutput()) {
+			OUTPUT = getMaxConfigOutput();
+		}
+		if(world.getGameTime() % 20 == 0){
+			checkTier();
+		}
+	}
+
+	public int getMaxConfigOutput(){
+		int extra = 0;
+		if(superconductors > 0){
+			extra = (int) Math.pow(2, (superconductors + 2)) * maxOutput;
+		}
+		return maxOutput + extra;
+	}
+
+	public void handleGuiInputFromClient(int id, boolean shift, boolean ctrl) {
 		if (id == 300) {
-			OUTPUT += 256;
+			OUTPUT += shift ? 4096 : 256;
+			if(ctrl){
+				//Set to max, limited to the max later
+				OUTPUT = Integer.MAX_VALUE;
+			}
 		}
 		if (id == 301) {
-			OUTPUT += 64;
+			OUTPUT += shift ? 512 : 64;
 		}
 		if (id == 302) {
-			OUTPUT -= 64;
+			OUTPUT -= shift ? 512 : 64;
 		}
 		if (id == 303) {
-			OUTPUT -= 256;
+			OUTPUT -= shift ? 4096 : 256;
+			if(ctrl){
+				OUTPUT = 1;
+			}
 		}
-		if (OUTPUT > maxOutput) {
-			OUTPUT = maxOutput;
+		if (OUTPUT > getMaxConfigOutput()) {
+			OUTPUT = getMaxConfigOutput();
 		}
 		if (OUTPUT <= -1) {
 			OUTPUT = 0;
@@ -104,6 +141,25 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		return OUTPUT;
 	}
 
+	@Override
+	public double getMaxOutput() {
+		return OUTPUT;
+	}
+
+	@Override
+	public double getBaseMaxInput() {
+		//If we have super conductors increase the max input of the machine
+		if(getMaxConfigOutput() > maxOutput){
+			return getMaxConfigOutput();
+		}
+		return maxInput;
+	}
+
+	@Override
+	public EnumPowerTier getBaseTier() {
+		return null;
+	}
+
 	// TilePowerAcceptor
 	@Override
 	public NBTTagCompound write(NBTTagCompound tagCompound) {
@@ -126,5 +182,15 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().syncIntegerValue(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this);
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return true;
+	}
+
+	@Override
+	public boolean isUpgradeValid(IUpgrade upgrade, ItemStack stack) {
+		return false; //TODO 1.13
 	}
 }

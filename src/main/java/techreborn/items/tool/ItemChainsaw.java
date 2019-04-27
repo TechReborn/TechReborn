@@ -154,4 +154,8 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 		return 0;
 	}
 
+	@Override
+	public int getItemEnchantability() {
+		return 20;
+	}
 }

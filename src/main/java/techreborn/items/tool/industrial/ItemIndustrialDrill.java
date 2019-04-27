@@ -26,28 +26,39 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTier;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.util.ChatUtils;
+import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
+import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ItemIndustrialDrill extends ItemDrill {
@@ -105,12 +116,15 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
 
-		capEnergy.extractEnergy(cost, false);
-		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+		if(capEnergy.getEnergyStored() > cost){
+			capEnergy.extractEnergy(cost, false);
+			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
-		blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
-		world.removeBlock(pos);
-		world.removeTileEntity(pos);
+			blockState.getBlock().removedByPlayer(blockState, world, pos, playerIn, true, null);
+			blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
+			world.removeBlock(pos);
+			world.removeTileEntity(pos);
+		}
 	}
 	
 	private boolean shouldBreak(EntityPlayer playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -143,10 +157,72 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if ((entityLiving instanceof EntityPlayer)) {
 			playerIn = (EntityPlayer) entityLiving;
 		}
-		for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
-			breakBlock(additionalPos, worldIn, playerIn, stack);
+		if(ItemUtils.isActive(stack)){
+			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
+				breakBlock(additionalPos, worldIn, playerIn, stack);
+			}
 		}
 		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
+	}
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
+		final ItemStack stack = player.getHeldItem(hand);
+		if (player.isSneaking()) {
+			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo") + " "
+						+ TextFormatting.GOLD + I18n
+						.format("techreborn.message.nanosaberActivate")));
+			} else {
+				if (!ItemUtils.isActive(stack)) {
+					if (stack.getTag() == null) {
+						stack.setTag(new NBTTagCompound());
+					}
+					stack.getTag().putBoolean("isActive", true);
+					if (world.isRemote) {
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
+								+ TextFormatting.GOLD + I18n
+								.format("techreborn.message.nanosaberActive")));
+					}
+				} else {
+					stack.getTag().putBoolean("isActive", false);
+					if (world.isRemote) {
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
+								+ TextFormatting.GOLD + I18n
+								.format("techreborn.message.nanosaberInactive")));
+					}
+				}
+			}
+			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		}
+		return new ActionResult<>(EnumActionResult.PASS, stack);
+	}
+
+	@Override
+	public boolean onEntityItemUpdate(ItemStack stack, EntityItem entity) {
+		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+			if(entity.world.isRemote){
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
+					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
+						+ TextFormatting.GOLD + I18n
+						.format("techreborn.message.nanosaberDeactivating")));
+			}
+			stack.getTag().putBoolean("isActive", false);
+		}
+		return false;
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		if (!ItemUtils.isActive(stack)) {
+			tooltip.add(new TextComponentString(TextFormatting.YELLOW + "Shear: " + TextFormatting.RED + I18n.format("techreborn.message.nanosaberInactive")));
+		} else {
+			tooltip.add(new TextComponentString(TextFormatting.YELLOW + "Shear: " + TextFormatting.GREEN + I18n.format("techreborn.message.nanosaberActive")));
+		}
 	}
 
 	// ItemPickaxe

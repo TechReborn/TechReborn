@@ -89,7 +89,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 				world.addWeatherEffect(lightningBolt);
 				world.spawnEntity(lightningBolt);
 				addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
-				((BlockMachineBase) getBlockType()).setActive(true, world, pos);
+				((BlockMachineBase) world.getBlockState(pos).getBlock()).setActive(true, world, pos);
 				onStatusHoldTicks = 400;
 			}
 		}

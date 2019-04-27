@@ -58,6 +58,9 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 	}
 	
 	public boolean getMutliBlock() {
+		if(multiblockChecker == null){
+			return false;
+		}
 		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, MultiblockChecker.ZERO_OFFSET);
 		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 2, 0));
 		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
@@ -68,20 +71,12 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 	@Override
 	public void tick() {
 		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
-			multiblockChecker = new MultiblockChecker(world, downCenter);
+			multiblockChecker = new MultiblockChecker(world, pos.down(3));
 		}
 		
 		if (!world.isRemote && getMutliBlock()){ 
 			super.tick();
 		}	
-	}
-	
-	// TileEntity
-	@Override
-	public void validate() {
-		super.validate();
-		multiblockChecker = new MultiblockChecker(world, pos.down(3));
 	}
 
 	// IContainerProvider

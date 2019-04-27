@@ -50,7 +50,7 @@ import techreborn.TechReborn;
  * Created by Rushmead
  */
 public abstract class BlockTransformer extends BaseTileBlock {
-	
+
 	public static DirectionProperty FACING = BlockStateProperties.FACING;
 	public String name;
 
@@ -69,7 +69,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	public EnumFacing getFacing(IBlockState state) {
 		return state.get(FACING);
 	}
-	
+
 	// BaseTileBlock
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
@@ -89,7 +89,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
 		builder.add(FACING);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
