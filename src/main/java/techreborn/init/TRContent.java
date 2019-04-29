@@ -225,7 +225,9 @@ public class TRContent {
 		GLASSFIBER(8192, 12.0, false, EnumPowerTier.INSANE),
 		INSULATED_COPPER(128, 10.0, false, EnumPowerTier.MEDIUM),
 		INSULATED_GOLD(512, 10.0, false, EnumPowerTier.HIGH),
-		INSULATED_HV(2048, 10.0, false, EnumPowerTier.EXTREME);
+		INSULATED_HV(2048, 10.0, false, EnumPowerTier.EXTREME),
+		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, EnumPowerTier.INFINITE);
+		
 
 		public final String name;
 		public final BlockCable block;
