@@ -51,7 +51,7 @@ import techreborn.TechReborn;
  * Created by Rushmead
  */
 public abstract class BlockEnergyStorage extends BaseTileBlock {
-	public static DirectionProperty FACING = BlockStateProperties.FACING;;
+	public static DirectionProperty FACING = BlockStateProperties.FACING;
 	public String name;
 	public IMachineGuiHandler gui;
 

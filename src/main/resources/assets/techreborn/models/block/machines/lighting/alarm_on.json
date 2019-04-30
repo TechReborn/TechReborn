@@ -1,0 +1,38 @@
+{
+  "parent": "block/block",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 75, 45, 0 ],
+      "translation": [ 0, 2.5, 2],
+      "scale": [ 0.375, 0.375, 0.375 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 35, 0 ],
+      "translation": [ 0, 5.5, 0 ],
+      "scale": [ 0.60, 0.60, 0.60 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 225, 0 ],
+      "translation": [ 0, 4.2, 0 ],
+      "scale": [ 0.40, 0.40, 0.40 ]
+    }
+  },
+	"textures": {
+		"0": "techreborn:block/machines/lighting/alarm_on"
+	},
+	"elements": [
+		{
+			"name": "Alarm",
+			"from": [3, 0, 3],
+			"to": [13, 3, 13],
+			"faces": {
+              "down": { "texture": "#0", "uv": [0.0, 0.0, 1.0, 1.0] },
+              "up": { "texture": "#0", "uv": [1.0,1.0,15.0,15.0] },
+              "north": { "texture": "#0", "uv": [1.0,2.0,15.0,0.0] },
+              "south": { "texture": "#0", "uv": [1.0,2.0,15.0,0.0] },
+              "west": { "texture": "#0", "uv": [1.0,2.0,15.0,0.0] },
+              "east": { "texture": "#0", "uv": [1.0,2.0,15.0,0.0] }
+				}
+			}
+	]
+}

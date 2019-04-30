@@ -29,10 +29,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -57,7 +59,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockAlarm extends BaseTileBlock {
-	public static DirectionProperty FACING;
+	public static DirectionProperty FACING  = BlockStateProperties.FACING;
 	public static BooleanProperty ACTIVE;
 	protected final VoxelShape[] shape;
 
@@ -102,9 +104,20 @@ public class BlockAlarm extends BaseTileBlock {
 	// Block
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		FACING = DirectionProperty.create("facing", EnumFacing.Plane.HORIZONTAL);
 		ACTIVE = BooleanProperty.create("active");
 		builder.add(FACING, ACTIVE);
+	}
+	
+	@Nullable
+	@Override
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		for (EnumFacing enumfacing : context.getNearestLookingDirections()) {
+			IBlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
+			if (iblockstate.isValidPosition(context.getWorld(), context.getPos())) {
+				return iblockstate;
+			}
+		}
+		return null;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -156,6 +169,7 @@ public class BlockAlarm extends BaseTileBlock {
 	
 	@Override
 	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+		// TODO: Fix this
 		return shape[getFacing(state).getIndex()];
 	}
 }
