@@ -388,8 +388,8 @@ public class TRContent {
 		
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new BlockChunkLoader()),
-		LAMP_INCANDESCENT(new BlockLamp(14, 4, 0.625, 0.25)),
-		LAMP_LED(new BlockLamp(15, 1, 0.0625, 0.125)),
+		LAMP_INCANDESCENT(new BlockLamp(14, 4, 10, 8)),
+		LAMP_LED(new BlockLamp(15, 1, 1, 12)),
 		PLAYER_DETECTOR(new BlockPlayerDetector());
 		
 		public final String name;

@@ -24,12 +24,14 @@
 
 package techreborn.blocks.lighting;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
@@ -72,13 +74,14 @@ public class BlockLamp extends BaseTileBlock {
 	}
 	
 	private VoxelShape[] GenCuboidShapes(double depth, double width) {
+		double culling = (16.0D - width) / 2 ;
 		VoxelShape[] shapes = {
-				Block.makeCuboidShape(width, 1.0 - depth, width, 1.0 - width, 1.0D, 1.0 - width),
-				Block.makeCuboidShape(width, 0.0D, width, 1.0 - width, depth, 1.0 - width),
-				Block.makeCuboidShape(width, width, 1.0 - depth, 1.0 - width, 1.0 - width, 1.0D),
-				Block.makeCuboidShape(width, width, 0.0D, 1.0 - width, 1.0 - width, depth),
-				Block.makeCuboidShape(1.0 - depth, width, width, 1.0D, 1.0 - width, 1.0 - width),
-				Block.makeCuboidShape(0.0D, width, width, depth, 1.0 - width, 1.0 - width),
+				Block.makeCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
+				Block.makeCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
+				Block.makeCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
+				Block.makeCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
+				Block.makeCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
+				Block.makeCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
 			};
 		return shapes;
 	}
@@ -117,11 +120,17 @@ public class BlockLamp extends BaseTileBlock {
 		ACTIVE = BooleanProperty.create("active");
 		builder.add(FACING, ACTIVE);
 	}
-
+	
+	@Nullable
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		setFacing(placer.getHorizontalFacing().getOpposite(), worldIn, pos);
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		for (EnumFacing enumfacing : context.getNearestLookingDirections()) {
+			IBlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
+			if (iblockstate.isValidPosition(context.getWorld(), context.getPos())) {
+				return iblockstate;
+			}
+		}
+		return null;
 	}
 	
 	@Override

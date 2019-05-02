@@ -79,7 +79,7 @@ public class BlockAlarm extends BaseTileBlock {
 				Block.makeCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
 				Block.makeCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
 				Block.makeCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
-				Block.makeCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling),	
+				Block.makeCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
 		};
 		return shapes;
 	}
@@ -100,6 +100,13 @@ public class BlockAlarm extends BaseTileBlock {
 		EnumFacing facing = world.getBlockState(pos).get(FACING);
 		IBlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
 		world.setBlockState(pos, state, 3);
+	}
+	
+	// BaseTileBlock
+	@Nullable
+	@Override
+	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+		return new TileAlarm();
 	}
 	
 	// Block
@@ -145,12 +152,6 @@ public class BlockAlarm extends BaseTileBlock {
 		}
 
 		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
-	}
-
-	@Nullable
-	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
-		return new TileAlarm();
 	}
 
 	@Override

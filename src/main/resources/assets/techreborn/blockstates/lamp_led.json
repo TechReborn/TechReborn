@@ -1,0 +1,16 @@
+{
+    "variants": {
+        "facing=north,active=false": { "model": "techreborn:block/machines/lighting/lamp_led", "x": 90 },
+        "facing=south,active=false": { "model": "techreborn:block/machines/lighting/lamp_led", "x": 270 },
+        "facing=west,active=false":  { "model": "techreborn:block/machines/lighting/lamp_led", "x": 90, "y": 270 },
+        "facing=east,active=false":  { "model": "techreborn:block/machines/lighting/lamp_led", "x": 90, "y": 90 },
+        "facing=down,active=false":  { "model": "techreborn:block/machines/lighting/lamp_led", "x": 180 },
+        "facing=up,active=false":  { "model": "techreborn:block/machines/lighting/lamp_led" },
+        "facing=north,active=true": { "model": "techreborn:block/machines/lighting/lamp_led_on", "x": 90 },
+        "facing=south,active=true": { "model": "techreborn:block/machines/lighting/lamp_led_on", "x": 270 },
+        "facing=west,active=true":  { "model": "techreborn:block/machines/lighting/lamp_led_on", "x": 90, "y": 270 },
+        "facing=east,active=true":  { "model": "techreborn:block/machines/lighting/lamp_led_on", "x": 90, "y": 90 },
+        "facing=down,active=true":  { "model": "techreborn:block/machines/lighting/lamp_led_on", "x": 180 },
+        "facing=up,active=true":  { "model": "techreborn:block/machines/lighting/lamp_led_on"}
+    }
+}
