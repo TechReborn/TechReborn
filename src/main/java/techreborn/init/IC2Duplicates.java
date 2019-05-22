@@ -75,11 +75,12 @@ public enum IC2Duplicates {
 	RE_BATTERY(new ItemStack(ModItems.RE_BATTERY)),
 	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL)),
 	LAPATRON_CRYSTAL(new ItemStack(ModItems.LAPOTRONIC_CRYSTAL)),
+	CARBON_PLATE(ItemPlates.getPlateByName("carbon")),
 	
 	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"), true),
 	BASIC_MACHINE_FRAME(BlockMachineFrames.getFrameByName("basic"), true),
 	ADVANCED_MACHINE_FRAME(BlockMachineFrames.getFrameByName("advanced"), true),
-	CARBON_PLATE(ItemPlates.getPlateByName("carbon"), true),
+
 	ADVANCED_ALLOY(ItemPlates.getPlateByName("advanced_alloy"), true);
 	
 
