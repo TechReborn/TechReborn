@@ -76,6 +76,7 @@ public enum IC2Duplicates {
 	ENERGY_CRYSTAL(new ItemStack(ModItems.ENERGY_CRYSTAL)),
 	LAPATRON_CRYSTAL(new ItemStack(ModItems.LAPOTRONIC_CRYSTAL)),
 	CARBON_PLATE(ItemPlates.getPlateByName("carbon")),
+	IRON_FENCE(new ItemStack(ModBlocks.REFINED_IRON_FENCE)),
 	
 	REFINED_IRON(ItemIngots.getIngotByName("refined_iron"), true),
 	BASIC_MACHINE_FRAME(BlockMachineFrames.getFrameByName("basic"), true),
