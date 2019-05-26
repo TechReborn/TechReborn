@@ -25,20 +25,20 @@
 package techreborn.blocks.cable;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.AbstractProperty;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.state.StateFactory;
+import net.minecraft.state.property.AbstractProperty;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
@@ -56,7 +56,7 @@ import javax.annotation.Nullable;
  * Created by modmuss50 on 19/05/2017.
  */
 @RebornRegister(TechReborn.MOD_ID)
-public class BlockCable extends BlockContainer {
+public class BlockCable extends BlockWithEntity {
 
 	public static final BooleanProperty EAST = BooleanProperty.create("east");
 	public static final BooleanProperty WEST = BooleanProperty.create("west");
@@ -77,22 +77,22 @@ public class BlockCable extends BlockContainer {
 	public final TRContent.Cables type;
 
 	public BlockCable(TRContent.Cables type) {
-		super(Block.Properties.create(Material.ROCK).hardnessAndResistance(1f, 8f));
+		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
 		this.type = type;
-		setDefaultState(this.stateContainer.getBaseState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
+		setDefaultState(this.stateFactory.getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
-	public TileEntity getTileEntitySafely(IWorld blockAccess, BlockPos pos) {
+	public BlockEntity getTileEntitySafely(IWorld blockAccess, BlockPos pos) {
 //		if (blockAccess instanceof ChunkCache) {
 //			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
 //		} else {
-			return blockAccess.getTileEntity(pos);
+			return blockAccess.getBlockEntity(pos);
 	//	}
 	}
 
-	public AbstractProperty<Boolean> getProperty(EnumFacing facing) {
+	public AbstractProperty<Boolean> getProperty(Direction facing) {
 		switch (facing) {
 			case EAST:
 				return EAST;
@@ -113,22 +113,22 @@ public class BlockCable extends BlockContainer {
 	
 	// BlockContainer
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
 	}
 	
 	@Nullable
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileCable();
 	}
 
 	// Block
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
 		// We should always have tile entity. I hope.
 		if (tileEntity == null) {
@@ -144,7 +144,7 @@ public class BlockCable extends BlockContainer {
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
 		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN);
 	}
 

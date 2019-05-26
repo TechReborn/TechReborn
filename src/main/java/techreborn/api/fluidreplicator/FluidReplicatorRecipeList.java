@@ -24,7 +24,7 @@
 
 package techreborn.api.fluidreplicator;
 
-import net.minecraftforge.fluids.Fluid;
+
 import org.apache.commons.lang3.Validate;
 import reborncore.common.util.FluidUtils;
 

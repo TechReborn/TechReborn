@@ -24,19 +24,19 @@
 
 package techreborn.world;
 
-import net.minecraft.block.trees.AbstractTree;
+import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.chunk.ChunkManager;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class RubberTreeGenerator extends AbstractTree implements IWorldGenerator {
+public class RubberTreeGenerator extends SaplingGenerator implements IWorldGenerator {
 
 	boolean isWorldGen = true;
 
@@ -46,7 +46,7 @@ public class RubberTreeGenerator extends AbstractTree implements IWorldGenerator
 
 	@Nullable
 	@Override
-	protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
+	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
 		return null;
 	}
 
@@ -180,7 +180,7 @@ public class RubberTreeGenerator extends AbstractTree implements IWorldGenerator
 	}
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+	public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator chunkGenerator, ChunkManager chunkProvider) {
 
 	}
 }

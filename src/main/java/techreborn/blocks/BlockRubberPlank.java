@@ -25,10 +25,10 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
@@ -39,8 +39,8 @@ import techreborn.TechReborn;
 public class BlockRubberPlank extends Block {
 
 	public BlockRubberPlank() {
-		super(Block.Properties.create(Material.WOOD).hardnessAndResistance(2f).sound(SoundType.WOOD));
-		((BlockFire) Blocks.FIRE).setFireInfo(this, 5, 20);
+		super(Block.Settings.of(Material.WOOD).strength(2f).sounds(BlockSoundGroup.WOOD));
+		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 5, 20);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

@@ -24,9 +24,9 @@
 
 package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -63,11 +63,11 @@ public class TileChargeOMat extends TilePowerAcceptor
 	public void tick() {
 		super.tick();
 
-		if(world.isRemote){
+		if(world.isClient){
 			return;
 		}
 		for (int i = 0; i < 6; i++) {
-			ItemStack stack = inventory.getStackInSlot(i);
+			ItemStack stack = inventory.getInvStack(i);
 
 			if (!stack.isEmpty()) {
 				ExternalPowerSystems.chargeItem(this, stack);
@@ -81,12 +81,12 @@ public class TileChargeOMat extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return false;
 	}
 
@@ -108,7 +108,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.CHARGE_O_MAT.getStack();
 	}
 
@@ -120,7 +120,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
 			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create(this);

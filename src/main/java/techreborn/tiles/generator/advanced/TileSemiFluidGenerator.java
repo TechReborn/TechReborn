@@ -24,7 +24,7 @@
 
 package techreborn.tiles.generator.advanced;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -54,7 +54,7 @@ public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IC
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.SEMI_FLUID_GENERATOR.getStack();
 	}
 
@@ -69,7 +69,7 @@ public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IC
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("semifluidgenerator").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)

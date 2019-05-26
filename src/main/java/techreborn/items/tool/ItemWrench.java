@@ -24,11 +24,11 @@
 
 package techreborn.items.tool;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolHandler;
 import techreborn.TechReborn;
@@ -39,11 +39,11 @@ import techreborn.TechReborn;
 public class ItemWrench extends Item implements IToolHandler {
 
 	public ItemWrench() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 	}
 
 	@Override
-	public boolean handleTool(ItemStack stack, BlockPos pos, World world, EntityPlayer player, EnumFacing side, boolean damage) {
+	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
 		if (damage) {
 			stack.damageItem(1, player);
 		}

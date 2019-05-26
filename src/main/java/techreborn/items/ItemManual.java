@@ -24,11 +24,11 @@
 
 package techreborn.items;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
@@ -39,12 +39,12 @@ public class ItemManual extends Item {
 	public static boolean allowRefund = true;
 
 	public ItemManual() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player,
-	                                                final EnumHand hand) {
+	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player,
+	                                                final Hand hand) {
 		throw new UnsupportedOperationException("1.13 fix me");
 		//player.openGui(TechReborn.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
 

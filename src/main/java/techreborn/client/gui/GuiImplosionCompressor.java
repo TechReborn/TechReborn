@@ -24,9 +24,9 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
@@ -42,7 +42,7 @@ public class GuiImplosionCompressor extends GuiBase {
 
 	TileImplosionCompressor tile;
 
-	public GuiImplosionCompressor(final EntityPlayer player, final TileImplosionCompressor tile) {
+	public GuiImplosionCompressor(final PlayerEntity player, final TileImplosionCompressor tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
@@ -54,8 +54,8 @@ public class GuiImplosionCompressor extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
@@ -75,8 +75,8 @@ public class GuiImplosionCompressor extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -118,7 +118,7 @@ public class GuiImplosionCompressor extends GuiBase {
 		}
 	}
 
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 }

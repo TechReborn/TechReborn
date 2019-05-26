@@ -24,7 +24,7 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -56,7 +56,7 @@ public class TileChemicalReactor extends TileGenericMachine	implements IContaine
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
 			.syncEnergyValue().syncCrafterValue().addInventory().create(this);

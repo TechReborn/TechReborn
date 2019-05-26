@@ -25,7 +25,7 @@
 package techreborn.items;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
+
 import org.apache.commons.lang3.Validate;
 import techreborn.utils.FluidUtils;
 

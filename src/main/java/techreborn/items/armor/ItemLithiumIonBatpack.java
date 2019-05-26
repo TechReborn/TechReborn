@@ -25,15 +25,15 @@
 package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -46,35 +46,35 @@ import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
-public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo {
+public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo {
 
 	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
 	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
+		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 	}
 
-	public static void distributePowerToInventory(World world, EntityPlayer player, ItemStack itemStack, int maxSend) {
-		if (world.isRemote) {
+	public static void EnvTypeributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
+		if (world.isClient) {
 			return;
 		}
 
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(itemStack);
 
-		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			if (!player.inventory.getStackInSlot(i).isEmpty()) {
-				ExternalPowerSystems.chargeItem(capEnergy, player.inventory.getStackInSlot(i));
+		for (int i = 0; i < player.inventory.getInvSize(); i++) {
+			if (!player.inventory.getInvStack(i).isEmpty()) {
+				ExternalPowerSystems.chargeItem(capEnergy, player.inventory.getInvStack(i));
 			}
 		}
 	}
 
 	// Item
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (entityIn instanceof EntityPlayer) {
-			distributePowerToInventory(worldIn, (EntityPlayer) entityIn, stack, (int) transferLimit);
+	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof PlayerEntity) {
+			EnvTypeributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, (int) transferLimit);
 		}
 	}
 
@@ -95,20 +95,20 @@ public class ItemLithiumIonBatpack extends ItemArmor implements IEnergyItemInfo 
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+	@Environment(EnvType.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return "techreborn:" + "textures/models/armor/lithiumbatpack.png";
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if (!isInGroup(group)) {
+	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isInItemGroup(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);

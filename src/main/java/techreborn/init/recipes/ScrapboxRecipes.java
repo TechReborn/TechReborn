@@ -25,9 +25,9 @@
 package techreborn.init.recipes;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 import techreborn.utils.StackWIPHandler;

@@ -25,9 +25,9 @@
 package techreborn.api.recipe.recipes;
 
 import com.google.gson.JsonObject;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.JsonUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.Recipe;
 import reborncore.common.crafting.RecipeType;
 import techreborn.tiles.machine.multiblock.TileIndustrialBlastFurnace;
@@ -36,14 +36,14 @@ public class BlastFurnaceRecipe extends Recipe {
 
 	int heat;
 
-	public BlastFurnaceRecipe(RecipeType<?> type, ResourceLocation name) {
+	public BlastFurnaceRecipe(RecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
 
 	@Override
 	public void deserialize(JsonObject jsonObject) {
 		super.deserialize(jsonObject);
-		heat = JsonUtils.getInt(jsonObject, "heat");
+		heat = JsonHelper.getInt(jsonObject, "heat");
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class BlastFurnaceRecipe extends Recipe {
 	}
 
 	@Override
-	public boolean canCraft(final TileEntity tile) {
+	public boolean canCraft(final BlockEntity tile) {
 		if (tile instanceof TileIndustrialBlastFurnace) {
 			final TileIndustrialBlastFurnace blastFurnace = (TileIndustrialBlastFurnace) tile;
 			return blastFurnace.getHeat() >= heat;
@@ -62,7 +62,7 @@ public class BlastFurnaceRecipe extends Recipe {
 	}
 
 	@Override
-	public boolean onCraft(final TileEntity tile) {
+	public boolean onCraft(final BlockEntity tile) {
 		return true;
 	}
 }

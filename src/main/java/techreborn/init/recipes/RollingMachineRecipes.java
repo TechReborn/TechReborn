@@ -24,10 +24,10 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
@@ -36,29 +36,29 @@ import techreborn.init.TRContent;
  */
 public class RollingMachineRecipes extends RecipeMethods {
 	public static void init() {
-		register(new ResourceLocation(TechReborn.MOD_ID, "cupronickel_heating_coil"), TRContent.Parts.CUPRONICKEL_HEATING_COIL.getStack(3), "NCN", "C C", "NCN", 'N', "ingotNickel", 'C', "ingotCopper");
-		register(new ResourceLocation(TechReborn.MOD_ID, "nichrome_heating_coil"), TRContent.Parts.NICHROME_HEATING_COIL.getStack(2), " N ", "NCN", " N ", 'N', "ingotNickel", 'C', "ingotChrome");
+		register(new Identifier(TechReborn.MOD_ID, "cupronickel_heating_coil"), TRContent.Parts.CUPRONICKEL_HEATING_COIL.getStack(3), "NCN", "C C", "NCN", 'N', "ingotNickel", 'C', "ingotCopper");
+		register(new Identifier(TechReborn.MOD_ID, "nichrome_heating_coil"), TRContent.Parts.NICHROME_HEATING_COIL.getStack(2), " N ", "NCN", " N ", 'N', "ingotNickel", 'C', "ingotChrome");
 		if (oresExist("ingotAluminum")) {
-			register(new ResourceLocation(TechReborn.MOD_ID, "kanthal_heating_coil"), TRContent.Parts.KANTHAL_HEATING_COIL.getStack(3), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminum");
+			register(new Identifier(TechReborn.MOD_ID, "kanthal_heating_coil"), TRContent.Parts.KANTHAL_HEATING_COIL.getStack(3), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminum");
 		}
 		if (oresExist("ingotAluminium")) {
-			register(new ResourceLocation(TechReborn.MOD_ID, "kanthal_heating_coil"), TRContent.Parts.KANTHAL_HEATING_COIL.getStack(3), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
+			register(new Identifier(TechReborn.MOD_ID, "kanthal_heating_coil"), TRContent.Parts.KANTHAL_HEATING_COIL.getStack(3), "RRR", "CAA", "CCA", 'R', "ingotRefinedIron", 'C', "ingotChrome", 'A', "ingotAluminium");
 		}
-		register(new ResourceLocation(TechReborn.MOD_ID, "plateMagnalium"), TRContent.Plates.MAGNALIUM.getStack(3), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");
-		register(new ResourceLocation(TechReborn.MOD_ID, "rail"), getStack(Blocks.RAIL, 24), "I I", "ISI", "I I", 'I', "ingotIron", 'S', "stickWood");
-		register(new ResourceLocation(TechReborn.MOD_ID, "gold_rail"), getStack(Blocks.POWERED_RAIL, 8), "I I", "ISI", "IRI", 'I', "ingotGold", 'S', "stickWood", 'R', "dustRedstone");
-		register(new ResourceLocation(TechReborn.MOD_ID, "detector_rail"), getStack(Blocks.DETECTOR_RAIL, 8), "I I", "IPI", "IRI", 'I', "ingotIron", 'P', getStack(Blocks.STONE_PRESSURE_PLATE), 'R', "dustRedstone");
-		register(new ResourceLocation(TechReborn.MOD_ID, "activator_rail"), getStack(Blocks.ACTIVATOR_RAIL, 8), "ISI", "IRI", "ISI", 'I', "ingotIron", 'S', "stickWood", 'R', getStack(Blocks.REDSTONE_TORCH));
-		register(new ResourceLocation(TechReborn.MOD_ID, "iron_bars"), getStack(Blocks.IRON_BARS, 24), "III", "III", 'I', "ingotIron");
-		register(new ResourceLocation(TechReborn.MOD_ID, "iron_door"), getStack(Blocks.IRON_DOOR, 4), "II ", "II ", "II ", 'I', "ingotIron");
-		register(new ResourceLocation(TechReborn.MOD_ID, "minecart"), getStack(Items.MINECART, 2), "I I", "III", 'I', "ingotIron");
-		register(new ResourceLocation(TechReborn.MOD_ID, "bucket"), getStack(Items.BUCKET, 2), "I I", "I I", " I ", 'I', "ingotIron");
-		register(new ResourceLocation(TechReborn.MOD_ID, "tripwire_hook"), getStack(Blocks.TRIPWIRE_HOOK, 4), " I ", " S ", " W ", 'I', "ingotIron", 'S', "stickWood", 'W', "plankWood");
-		register(new ResourceLocation(TechReborn.MOD_ID, "heavy_pressure_plate"), getStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 2), "II ", 'I', "ingotIron");
-		register(new ResourceLocation(TechReborn.MOD_ID, "light_pressure_plate"), getStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE, 2), "GG ", 'G', "ingotGold");
+		register(new Identifier(TechReborn.MOD_ID, "plateMagnalium"), TRContent.Plates.MAGNALIUM.getStack(3), "AAA", "MMM", "AAA", 'A', "ingotAluminum", 'M', "dustMagnesium");
+		register(new Identifier(TechReborn.MOD_ID, "rail"), getStack(Blocks.RAIL, 24), "I I", "ISI", "I I", 'I', "ingotIron", 'S', "stickWood");
+		register(new Identifier(TechReborn.MOD_ID, "gold_rail"), getStack(Blocks.POWERED_RAIL, 8), "I I", "ISI", "IRI", 'I', "ingotGold", 'S', "stickWood", 'R', "dustRedstone");
+		register(new Identifier(TechReborn.MOD_ID, "detector_rail"), getStack(Blocks.DETECTOR_RAIL, 8), "I I", "IPI", "IRI", 'I', "ingotIron", 'P', getStack(Blocks.STONE_PRESSURE_PLATE), 'R', "dustRedstone");
+		register(new Identifier(TechReborn.MOD_ID, "activator_rail"), getStack(Blocks.ACTIVATOR_RAIL, 8), "ISI", "IRI", "ISI", 'I', "ingotIron", 'S', "stickWood", 'R', getStack(Blocks.REDSTONE_TORCH));
+		register(new Identifier(TechReborn.MOD_ID, "iron_bars"), getStack(Blocks.IRON_BARS, 24), "III", "III", 'I', "ingotIron");
+		register(new Identifier(TechReborn.MOD_ID, "iron_door"), getStack(Blocks.IRON_DOOR, 4), "II ", "II ", "II ", 'I', "ingotIron");
+		register(new Identifier(TechReborn.MOD_ID, "minecart"), getStack(Items.MINECART, 2), "I I", "III", 'I', "ingotIron");
+		register(new Identifier(TechReborn.MOD_ID, "bucket"), getStack(Items.BUCKET, 2), "I I", "I I", " I ", 'I', "ingotIron");
+		register(new Identifier(TechReborn.MOD_ID, "tripwire_hook"), getStack(Blocks.TRIPWIRE_HOOK, 4), " I ", " S ", " W ", 'I', "ingotIron", 'S', "stickWood", 'W', "plankWood");
+		register(new Identifier(TechReborn.MOD_ID, "heavy_pressure_plate"), getStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 2), "II ", 'I', "ingotIron");
+		register(new Identifier(TechReborn.MOD_ID, "light_pressure_plate"), getStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE, 2), "GG ", 'G', "ingotGold");
 	}
 
-	static void register(ResourceLocation resourceLocation, ItemStack output, Object... componentsObjects) {
+	static void register(Identifier resourceLocation, ItemStack output, Object... componentsObjects) {
 
 	}
 }

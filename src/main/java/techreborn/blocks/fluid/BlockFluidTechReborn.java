@@ -24,13 +24,13 @@
 
 package techreborn.blocks.fluid;
 
-import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.BaseFluid;
 
 public class BlockFluidTechReborn extends BlockFluidBase {
 
 	String name;
 
-	public BlockFluidTechReborn(FlowingFluid fluid, Properties properties, String name) {
+	public BlockFluidTechReborn(BaseFluid fluid, Settings properties, String name) {
 		super(fluid, properties);
 		//setTranslationKey(name);
 		this.name = name;

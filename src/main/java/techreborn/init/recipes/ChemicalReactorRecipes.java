@@ -24,9 +24,9 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 /**
  * @author drcrazy

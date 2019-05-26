@@ -25,10 +25,10 @@
 package techreborn.init;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
+import net.minecraft.util.Identifier;
+
+
+
 import reborncore.common.crafting.Recipe;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.crafting.RecipeType;
@@ -42,23 +42,23 @@ import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 public class ModRecipes {
 
 
-	public static final RecipeType<Recipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:alloy_smelter"));
-	public static final RecipeType<Recipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:assembling_machine"));
-	public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BlastFurnaceRecipe.class, new ResourceLocation("techreborn:blast_furnace"));
-	public static final RecipeType<Recipe> CENTRIFUGE = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:centrifuge"));
-	public static final RecipeType<Recipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:chemical_reactor"));
-	public static final RecipeType<Recipe> COMPRESSOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:compressor"));
-	public static final RecipeType<Recipe> DISTILLATION_TOWER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:distillation_tower"));
-	public static final RecipeType<Recipe> EXTRACTOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:extractor"));
-	public static final RecipeType<Recipe> GRINDER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:grinder"));
-	public static final RecipeType<Recipe> IMPLOSION_COMPRESSOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:implosion_compressor"));
-	public static final RecipeType<Recipe> INDUSTRIAL_ELECTROLYZER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:industrial_electrolyzer"));
-	public static final RecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(IndustrialGrinderRecipe.class, new ResourceLocation("techreborn:industrial_grinder"));
-	public static final RecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(IndustrialSawmillRecipe.class, new ResourceLocation("techreborn:industrial_sawmill"));
-	public static final RecipeType<Recipe> RECYCLER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:recycler"));
-	public static final RecipeType<Recipe> SCRAPBOX = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:scrapbox"));
-	public static final RecipeType<Recipe> VACUUM_FREEZER = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:vacuum_freezer"));
-	public static final RecipeType<Recipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(Recipe.class, new ResourceLocation("techreborn:fluid_replicator"));
+	public static final RecipeType<Recipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:alloy_smelter"));
+	public static final RecipeType<Recipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:assembling_machine"));
+	public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BlastFurnaceRecipe.class, new Identifier("techreborn:blast_furnace"));
+	public static final RecipeType<Recipe> CENTRIFUGE = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:centrifuge"));
+	public static final RecipeType<Recipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:chemical_reactor"));
+	public static final RecipeType<Recipe> COMPRESSOR = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:compressor"));
+	public static final RecipeType<Recipe> EnvTypeILLATION_TOWER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:EnvTypeillation_tower"));
+	public static final RecipeType<Recipe> EXTRACTOR = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:extractor"));
+	public static final RecipeType<Recipe> GRINDER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:grinder"));
+	public static final RecipeType<Recipe> IMPLOSION_COMPRESSOR = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:implosion_compressor"));
+	public static final RecipeType<Recipe> INDUSTRIAL_ELECTROLYZER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:industrial_electrolyzer"));
+	public static final RecipeType<IndustrialGrinderRecipe> INDUSTRIAL_GRINDER = RecipeManager.newRecipeType(IndustrialGrinderRecipe.class, new Identifier("techreborn:industrial_grinder"));
+	public static final RecipeType<IndustrialSawmillRecipe> INDUSTRIAL_SAWMILL = RecipeManager.newRecipeType(IndustrialSawmillRecipe.class, new Identifier("techreborn:industrial_sawmill"));
+	public static final RecipeType<Recipe> RECYCLER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:recycler"));
+	public static final RecipeType<Recipe> SCRAPBOX = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:scrapbox"));
+	public static final RecipeType<Recipe> VACUUM_FREEZER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:vacuum_freezer"));
+	public static final RecipeType<Recipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:fluid_replicator"));
 
 
 
@@ -80,7 +80,7 @@ public class ModRecipes {
 		ScrapboxRecipes.init();
 		ChemicalReactorRecipes.init();
 		FusionReactorRecipes.init();
-		DistillationTowerRecipes.init();
+		EnvTypeillationTowerRecipes.init();
 		AlloySmelterRecipes.init();
 		FluidReplicatorRecipes.init();
 

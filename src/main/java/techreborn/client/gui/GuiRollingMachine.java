@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
@@ -35,14 +35,14 @@ public class GuiRollingMachine extends GuiBase {
 
 	TileRollingMachine rollingMachine;
 
-	public GuiRollingMachine(final EntityPlayer player, final TileRollingMachine tileRollingmachine) {
+	public GuiRollingMachine(final PlayerEntity player, final TileRollingMachine tileRollingmachine) {
 		super(player, tileRollingmachine,  tileRollingmachine.createContainer(player));
 		this.rollingMachine = tileRollingmachine;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		int gridYPos = 22;
@@ -64,8 +64,8 @@ public class GuiRollingMachine extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

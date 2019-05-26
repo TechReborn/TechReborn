@@ -24,7 +24,7 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -56,7 +56,7 @@ public class TileAssemblingMachine extends TileGenericMachine implements IContai
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 55, 35).slot(1, 55, 55).outputSlot(2, 101, 45).energySlot(3, 8, 72)
 			.syncEnergyValue().syncCrafterValue().addInventory().create(this);

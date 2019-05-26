@@ -25,19 +25,18 @@
 package techreborn.items.tool;
 
 import java.util.Map.Entry;
-
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.IProperty;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.state.property.Property;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.SystemUtil;
+
+
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
@@ -48,77 +47,77 @@ import techreborn.TechReborn;
 public class ItemDebugTool extends Item {
 
 	public ItemDebugTool() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext context) {
-		IBlockState blockState = context.getWorld().getBlockState(context.getPos());
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
 		Block block = blockState.getBlock();
 		if (block == null) {
-			return EnumActionResult.FAIL;
+			return ActionResult.FAIL;
 		}
-		sendMessage(context, new TextComponentString(getRegistryName(block)));
-		for (Entry<IProperty<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
-			sendMessage(context, new TextComponentString(getPropertyString(entry)));
+		sendMessage(context, new TextComponent(getRegistryName(block)));
+		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
+			sendMessage(context, new TextComponent(getPropertyString(entry)));
 		}
-		TileEntity tile = context.getWorld().getTileEntity(context.getPos());
+		BlockEntity tile = context.getWorld().getBlockEntity(context.getBlockPos());
 		if (tile != null) {
-			sendMessage(context, new TextComponentString(getTileEntityType(tile)));
+			sendMessage(context, new TextComponent(getTileEntityType(tile)));
 			if (tile instanceof IEnergyInterfaceTile) {
-				sendMessage(context, new TextComponentString(getRCPower((IEnergyInterfaceTile) tile)));
+				sendMessage(context, new TextComponent(getRCPower((IEnergyInterfaceTile) tile)));
 			} else {
 				IEnergyStorage capEnergy = tile
-						.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing()).orElseGet(null);
+						.getCapability(CapabilityEnergy.ENERGY, context.getPlayerHorizontalFacing()).orElseGet(null);
 				if (capEnergy != null) {
-					sendMessage(context, new TextComponentString(getForgePower(capEnergy)));
+					sendMessage(context, new TextComponent(getForgePower(capEnergy)));
 				}
 			}
 		}
-		return EnumActionResult.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
-	private void sendMessage(ItemUseContext context, TextComponentString string) {
-		if (!context.getWorld().isRemote) {
+	private void sendMessage(ItemUsageContext context, TextComponent string) {
+		if (!context.getWorld().isClient) {
 			context.getPlayer().sendMessage(string);
 		}
 	}
 
-	private String getPropertyString(Entry<IProperty<?>, Comparable<?>> entryIn) {
-		IProperty<?> iproperty = entryIn.getKey();
+	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
+		Property<?> iproperty = entryIn.getKey();
 		Comparable<?> comparable = entryIn.getValue();
-		String s = Util.getValueName(iproperty, comparable);
+		String s = SystemUtil.getValueAsString(iproperty, comparable);
 		if (Boolean.TRUE.equals(comparable)) {
-			s = TextFormatting.GREEN + s;
+			s = ChatFormat.GREEN + s;
 		} else if (Boolean.FALSE.equals(comparable)) {
-			s = TextFormatting.RED + s;
+			s = ChatFormat.RED + s;
 		}
 
 		return iproperty.getName() + ": " + s;
 	}
 
 	private String getRegistryName(Block block) {
-		String s = "" + TextFormatting.GREEN;
+		String s = "" + ChatFormat.GREEN;
 		s += "Block Registry Name: ";
-		s += TextFormatting.BLUE;
+		s += ChatFormat.BLUE;
 		s += block.getRegistryName().toString();
 
 		return s;
 	}
 	
-	private String getTileEntityType(TileEntity tile) {
-		String s = "" + TextFormatting.GREEN;
+	private String getTileEntityType(BlockEntity tile) {
+		String s = "" + ChatFormat.GREEN;
 		s += "Tile Entity: ";
-		s += TextFormatting.BLUE;
+		s += ChatFormat.BLUE;
 		s += tile.getType().toString();
 
 		return s;
 	}
 	
 	private String getRCPower(IEnergyInterfaceTile tile) {
-		String s = "" + TextFormatting.GREEN;
+		String s = "" + ChatFormat.GREEN;
 		s += "Power: ";
-		s += TextFormatting.BLUE;
+		s += ChatFormat.BLUE;
 		s += PowerSystem.getLocaliszedPower(tile.getEnergy());
 		s += "/";
 		s += PowerSystem.getLocaliszedPower(tile.getMaxPower());
@@ -127,9 +126,9 @@ public class ItemDebugTool extends Item {
 	}
 	
 	private String getForgePower(IEnergyStorage cap) {
-		String s = "" + TextFormatting.GREEN;
+		String s = "" + ChatFormat.GREEN;
 		s += "Power: ";
-		s += TextFormatting.RED;
+		s += ChatFormat.RED;
 		s += cap.getEnergyStored();
 		s += "/";
 		s += cap.getMaxEnergyStored();

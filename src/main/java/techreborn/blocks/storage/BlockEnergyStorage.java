@@ -25,18 +25,18 @@
 package techreborn.blocks.storage;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.state.StateFactory;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
@@ -51,24 +51,24 @@ import techreborn.TechReborn;
  * Created by Rushmead
  */
 public abstract class BlockEnergyStorage extends BaseTileBlock {
-	public static DirectionProperty FACING = BlockStateProperties.FACING;
+	public static DirectionProperty FACING = Properties.FACING;
 	public String name;
 	public IMachineGuiHandler gui;
 
 	public BlockEnergyStorage(String name, IMachineGuiHandler gui) {
-		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH));
+		super(Block.Settings.of(Material.METAL).strength(2f));
+		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		this.gui = gui;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
-	public void setFacing(EnumFacing facing, World world, BlockPos pos) {
+	public void setFacing(Direction facing, World world, BlockPos pos) {
 		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
 
-	public EnumFacing getFacing(IBlockState state) {
+	public Direction getFacing(BlockState state) {
 		return state.get(FACING);
 	}
 
@@ -96,15 +96,15 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 
 	// Block
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
 		// We extended BlockTileBase. Thus we should always have tile entity. I hope.
 		if (tileEntity == null) {
@@ -126,14 +126,14 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
 			ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		EnumFacing facing = placer.getHorizontalFacing().getOpposite();
-		if (placer.rotationPitch < -50) {
-			facing = EnumFacing.DOWN;
-		} else if (placer.rotationPitch > 50) {
-			facing = EnumFacing.UP;
+		super.onPlaced(worldIn, pos, state, placer, stack);
+		Direction facing = placer.getHorizontalFacing().getOpposite();
+		if (placer.pitch < -50) {
+			facing = Direction.DOWN;
+		} else if (placer.pitch > 50) {
+			facing = Direction.UP;
 		}
 		setFacing(facing, worldIn, pos);
 	}

@@ -24,38 +24,38 @@
 
 package techreborn.world.village;
 
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CropBlock;
+import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.VillageGenerator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MutableIntBoundingBox;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.feature.structure.StructurePiece;
-import net.minecraft.world.gen.feature.structure.VillagePieces;
 import techreborn.init.TRContent;
 import techreborn.world.RubberTreeGenerator;
 
 import java.util.List;
 import java.util.Random;
 
-public class VillageComponentRubberPlantaion extends VillagePieces.Field1 {
+public class VillageComponentRubberPlantaion extends VillageGenerator.Field1 {
 
-	public static VillagePieces.Village buildComponent(VillagePieces.PieceWeight villagePiece, VillagePieces.Start startPiece, List<StructurePiece> pieces, Random random, int p1, int p2, int p3, EnumFacing facing, int p5) {
-		MutableBoundingBox structureboundingbox = MutableBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 13, 4, 9, facing);
-		return canVillageGoDeeper(structureboundingbox) && StructurePiece.findIntersecting(pieces, structureboundingbox) == null ? new VillageComponentRubberPlantaion(startPiece, p5, random, structureboundingbox, facing) : null;
+	public static VillageGenerator.Piece buildComponent(VillageGenerator.PieceWeight villagePiece, VillageGenerator.Start startPiece, List<StructurePiece> pieces, Random random, int p1, int p2, int p3, Direction facing, int p5) {
+		MutableIntBoundingBox structureboundingbox = MutableIntBoundingBox.createRotated(p1, p2, p3, 0, 0, 0, 13, 4, 9, facing);
+		return canVillageGoDeeper(structureboundingbox) && StructurePiece.method_14932(pieces, structureboundingbox) == null ? new VillageComponentRubberPlantaion(startPiece, p5, random, structureboundingbox, facing) : null;
 	}
 
 	public VillageComponentRubberPlantaion() {
 	}
 
-	public VillageComponentRubberPlantaion(VillagePieces.Start start, int type, Random rand, MutableBoundingBox structureBoundingBox, EnumFacing facing) {
+	public VillageComponentRubberPlantaion(VillageGenerator.Start start, int type, Random rand, MutableIntBoundingBox structureBoundingBox, Direction facing) {
 		super(start, type, rand, structureBoundingBox, facing);
 	}
 
 	@Override
-	protected void fillWithBlocks(IWorld worldIn, MutableBoundingBox boundingboxIn, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, IBlockState boundaryBlockState, IBlockState insideBlockState, boolean existingOnly) {
+	protected void fillWithBlocks(IWorld worldIn, MutableIntBoundingBox boundingboxIn, int xMin, int yMin, int zMin, int xMax, int yMax, int zMax, BlockState boundaryBlockState, BlockState insideBlockState, boolean existingOnly) {
 		//Replaces farmland with dirt, its not great but it works.
 		if (boundaryBlockState.getBlock() == Blocks.FARMLAND) {
 			boundaryBlockState = Blocks.GRASS.getDefaultState();
@@ -70,7 +70,7 @@ public class VillageComponentRubberPlantaion extends VillagePieces.Field1 {
 	}
 
 	@Override
-	protected void setBlockState(IWorld worldIn, IBlockState blockstateIn, int x, int y, int z, MutableBoundingBox boundingboxIn) {
+	protected void setBlockState(IWorld worldIn, BlockState blockstateIn, int x, int y, int z, MutableIntBoundingBox boundingboxIn) {
 		if (isCrop(blockstateIn)) {
 			blockstateIn = TRContent.RUBBER_SAPLING.getDefaultState();
 		}
@@ -78,7 +78,7 @@ public class VillageComponentRubberPlantaion extends VillagePieces.Field1 {
 	}
 
 	@Override
-	public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPos) {
+	public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableIntBoundingBox structureBoundingBoxIn, ChunkPos chunkPos) {
 		super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, chunkPos);
 		for (int i = 1; i < 7; i++) {
 			growRandom(i, 1, structureBoundingBoxIn, randomIn, worldIn);
@@ -94,7 +94,7 @@ public class VillageComponentRubberPlantaion extends VillagePieces.Field1 {
 		return true;
 	}
 
-	private void growRandom(int coloum, int row, MutableBoundingBox structureBoundingBox, Random random, IWorld world) {
+	private void growRandom(int coloum, int row, MutableIntBoundingBox structureBoundingBox, Random random, IWorld world) {
 		if (random.nextInt(10) == 0) {
 			setBlockState(world, Blocks.AIR.getDefaultState(), row, 1, coloum, structureBoundingBox);
 			BlockPos pos = new BlockPos(this.getXWithOffset(row, coloum), this.getYWithOffset(1), this.getZWithOffset(row, coloum));
@@ -105,8 +105,8 @@ public class VillageComponentRubberPlantaion extends VillagePieces.Field1 {
 		}
 	}
 
-	private boolean isCrop(IBlockState state) {
-		if (state.getBlock() instanceof BlockCrops) {
+	private boolean isCrop(BlockState state) {
+		if (state.getBlock() instanceof CropBlock) {
 			return true;
 		}
 		return false;

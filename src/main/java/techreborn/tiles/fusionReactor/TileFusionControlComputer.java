@@ -24,11 +24,11 @@
 
 package techreborn.tiles.fusionReactor;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -135,11 +135,11 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		if (stack.isEmpty()) {
 			return true;
 		}
-		if (inventory.getStackInSlot(slot).isEmpty()) {
+		if (inventory.getInvStack(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, tags)) {
-			if (stack.getCount() + inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {
+		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), stack, true, tags)) {
+			if (stack.getAmount() + inventory.getInvStack(slot).getAmount() <= stack.getMaxAmount()) {
 				return true;
 			}
 		}
@@ -182,7 +182,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	 * @return boolean True if reactor can execute recipe provided 
 	 */
 	private boolean validateReactorRecipe(FusionReactorRecipe recipe) {
-		boolean validRecipe = validateReactorRecipeInputs(recipe, inventory.getStackInSlot(topStackSlot), inventory.getStackInSlot(bottomStackSlot)) || validateReactorRecipeInputs(recipe, inventory.getStackInSlot(bottomStackSlot), inventory.getStackInSlot(topStackSlot));
+		boolean validRecipe = validateReactorRecipeInputs(recipe, inventory.getInvStack(topStackSlot), inventory.getInvStack(bottomStackSlot)) || validateReactorRecipeInputs(recipe, inventory.getInvStack(bottomStackSlot), inventory.getInvStack(topStackSlot));
 		return validRecipe && getSize() >= recipe.getMinSize();
 	}
 
@@ -205,18 +205,18 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public void tick() {
 		super.tick();
 
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
-		if(lastTick == world.getGameTime()){
+		if(lastTick == world.getTime()){
 			//Prevent tick accerators, blame obstinate for this.
 			return;
 		}
-		lastTick = world.getGameTime();
+		lastTick = world.getTime();
 
 		// Force check every second
-		if (world.getGameTime() % 20 == 0) {
+		if (world.getTime() % 20 == 0) {
 			checkCoils();
 			inventory.setChanged();
 		}
@@ -241,9 +241,9 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				if (canUseEnergy(currentRecipe.getStartEU())) {
 					useEnergy(currentRecipe.getStartEU());
 					hasStartedCrafting = true;
-					inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getCount());
+					inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getAmount());
 					if (!currentRecipe.getBottomInput().isEmpty()) {
-						inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getCount());
+						inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getAmount());
 					}
 				}
 			}
@@ -261,16 +261,16 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				}
 			} else if (crafingTickTime >= finalTickTime) {
 				if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
-					if (inventory.getStackInSlot(outputStackSlot).isEmpty()) {
+					if (inventory.getInvStack(outputStackSlot).isEmpty()) {
 						inventory.setStackInSlot(outputStackSlot, currentRecipe.getOutput().copy());
 					} else {
-						inventory.shrinkSlot(outputStackSlot, -currentRecipe.getOutput().getCount());
+						inventory.shrinkSlot(outputStackSlot, -currentRecipe.getOutput().getAmount());
 					}
 					if (validateReactorRecipe(this.currentRecipe)) {
 						crafingTickTime = 0;
-						inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getCount());
+						inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getAmount());
 						if (!currentRecipe.getBottomInput().isEmpty()) {
-							inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getCount());
+							inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getAmount());
 						}
 					} else {
 						resetCrafter();
@@ -296,13 +296,13 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
-		return !(direction == EnumFacing.DOWN || direction == EnumFacing.UP);
+	public boolean canAcceptEnergy(Direction direction) {
+		return !(direction == Direction.DOWN || direction == Direction.UP);
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
-		return direction == EnumFacing.DOWN || direction == EnumFacing.UP;
+	public boolean canProvideEnergy(Direction direction) {
+		return direction == Direction.DOWN || direction == Direction.UP;
 	}
 
 	@Override
@@ -322,28 +322,28 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	}
 
 	@Override
-	public void read(final NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		this.crafingTickTime = tagCompound.getInt("crafingTickTime");
 		this.finalTickTime = tagCompound.getInt("finalTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
-		if(tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
+		if(tagCompound.containsKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
 			for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
 				if (validateReactorRecipe(reactorRecipe)) {
 					this.currentRecipe = reactorRecipe;
 				}
 			}
 		}
-		if(tagCompound.contains("size")){
+		if(tagCompound.containsKey("size")){
 			this.size = tagCompound.getInt("size");
 		}
 		this.size = Math.min(size, maxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
 	}
 
 	@Override
-	public NBTTagCompound write(final NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(final CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		tagCompound.putInt("crafingTickTime", this.crafingTickTime);
 		tagCompound.putInt("finalTickTime", this.finalTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
@@ -367,7 +367,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.FUSION_CONTROL_COMPUTER.getStack();
 	}
 
@@ -379,7 +379,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
 				.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)

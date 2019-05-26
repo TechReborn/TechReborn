@@ -24,17 +24,17 @@
 
 package techreborn.events;
 
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.RecipeType;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+
+
+
+
+
+
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
@@ -59,10 +59,10 @@ public class TRRecipeHandler {
 			return;
 		}
 		World world = entityItemPickupEvent.getItem().world;
-		if (entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP) {
+		if (entityItemPickupEvent.getEntityPlayer() instanceof ServerPlayerEntity) {
 			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, true)) {
-				for (IRecipe recipe : world.getRecipeManager().getRecipes()) {
-					if (recipe.getRecipeOutput().getItem() == TRContent.TREE_TAP) {
+				for (Recipe recipe : world.getRecipeManager().getRecipes()) {
+					if (recipe.getOutput().getItem() == TRContent.TREE_TAP) {
 						entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
 					}
 				}
@@ -70,9 +70,9 @@ public class TRRecipeHandler {
 		}
 	}
 
-	public static void unlockTRRecipes(EntityPlayerMP playerMP) {
-		List<IRecipe> recipeList = new ArrayList<>();
-		for (IRecipe recipe : getRecipes(playerMP.world, VanillaRecipeTypes.CRAFTING)) {
+	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
+		List<Recipe> recipeList = new ArrayList<>();
+		for (Recipe recipe : getRecipes(playerMP.world, VanillaRecipeTypes.CRAFTING)) {
 			if (isRecipeValid(recipe)) {
 				recipeList.add(recipe);
 			}
@@ -80,7 +80,7 @@ public class TRRecipeHandler {
 		playerMP.unlockRecipes(recipeList);
 	}
 
-	public static <T extends IRecipe> List<IRecipe> getRecipes(World world, RecipeType<T> type){
+	public static <T extends Recipe> List<Recipe> getRecipes(World world, RecipeType<T> type){
 		return world.getRecipeManager().getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
 	}
 
@@ -89,30 +89,30 @@ public class TRRecipeHandler {
 	 * Used to get the matching output of a recipe type that only has 1 input
 	 *
 	 */
-	public static <T extends IRecipe> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
+	public static <T extends Recipe> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
 		return getRecipes(world, type).stream()
 			.filter(iRecipe -> iRecipe.getIngredients().size() == 1 && iRecipe.getIngredients().get(0).test(input))
-			.map(IRecipe::getRecipeOutput)
+			.map(Recipe::getRecipeOutput)
 			.findFirst()
 			.orElse(ItemStack.EMPTY);
 	}
 
-	private static boolean isRecipeValid(IRecipe recipe) {
+	private static boolean isRecipeValid(Recipe recipe) {
 		if (recipe.getId() == null) {
 			return false;
 		}
 		if (!recipe.getId().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		if (!recipe.getRecipeOutput().getItem().getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
+		if (!recipe.getOutput().getItem().getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
 //		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {
 //			return false;
 //		}
 		//Hide uu recipes
-		for (Ingredient ingredient : recipe.getIngredients()) {
-			if (ingredient.test(TRContent.Parts.UU_MATTER.getStack())) {
+		for (Ingredient ingredient : recipe.getPreviewInputs()) {
+			if (ingredient.method_8093(TRContent.Parts.UU_MATTER.getStack())) {
 				return false;
 			}
 		}

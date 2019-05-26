@@ -25,7 +25,7 @@
 package techreborn.api.generator;
 
 import com.google.common.collect.Sets;
-import net.minecraftforge.fluids.Fluid;
+
 import reborncore.common.util.FluidUtils;
 
 import java.util.HashSet;

@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.entity.player.PlayerEntity;
+
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.tiles.machine.tier3.TileQuantumTank;
 
@@ -33,14 +33,14 @@ public class GuiQuantumTank extends GuiBase {
 
 	TileQuantumTank quantumTank;
 
-	public GuiQuantumTank(final EntityPlayer player, final TileQuantumTank quantumTank) {
+	public GuiQuantumTank(final PlayerEntity player, final TileQuantumTank quantumTank) {
 		super(player, quantumTank, quantumTank.createContainer(player));
 		this.quantumTank = quantumTank;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(80, 17, layer);
@@ -49,16 +49,16 @@ public class GuiQuantumTank extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 
 		FluidStack fluid = quantumTank.tank.getFluid();
 		if(fluid != null){
-			fontRenderer.drawString( "Fluid Type:", 10, 20, 4210752);
-			fontRenderer.drawString(fluid.getLocalizedName() + "", 10, 30, 4210752);
+			font.draw( "Fluid Type:", 10, 20, 4210752);
+			font.draw(fluid.getLocalizedName() + "", 10, 30, 4210752);
 
-			fontRenderer.drawString("Fluid Amount:", 10, 50, 4210752);
-			fontRenderer.drawString(quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);
+			font.draw("Fluid Amount:", 10, 50, 4210752);
+			font.draw(quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);
 		}
 
 	}
@@ -66,6 +66,6 @@ public class GuiQuantumTank extends GuiBase {
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		super.render(mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		drawMouseoverTooltip(mouseX, mouseY);
 	}
 }

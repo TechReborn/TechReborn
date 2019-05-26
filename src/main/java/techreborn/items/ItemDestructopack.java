@@ -24,12 +24,12 @@
 
 package techreborn.items;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.TechReborn;
@@ -38,16 +38,16 @@ import techreborn.client.EGui;
 public class ItemDestructopack extends Item {
 
 	public ItemDestructopack() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
-		if (world.isRemote) {
-			BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
+	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
+		if (world.isClient) {
+			BlockPos pos = new BlockPos(player.x, player.y, player.z);
 			EGui.DESTRUCTOPACK.open(player, pos, world);
 		}
 		//TODO: Add server part
-		return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 	}
 }

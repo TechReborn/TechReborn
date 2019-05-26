@@ -24,13 +24,13 @@
 
 package techreborn.tiles.generator.basic;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.ForgeMod;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.Direction;
+
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -70,13 +70,13 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	public static int getItemBurnTime(ItemStack stack) {
-		return TileEntityFurnace.getBurnTimes().get(stack) / 4;
+		return FurnaceBlockEntity.getBurnTimes().get(stack) / 4;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		if (getEnergy() < getMaxPower()) {
@@ -91,12 +91,12 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 
 		if (burnTime == 0) {
 			updateState();
-			burnTime = totalBurnTime = TileSolidFuelGenerator.getItemBurnTime(inventory.getStackInSlot(fuelSlot));
+			burnTime = totalBurnTime = TileSolidFuelGenerator.getItemBurnTime(inventory.getInvStack(fuelSlot));
 			if (burnTime > 0) {
 				updateState();
-				burnItem = inventory.getStackInSlot(fuelSlot);
-				if (inventory.getStackInSlot(fuelSlot).getCount() == 1) {
-					if (inventory.getStackInSlot(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getStackInSlot(fuelSlot).getItem() == ForgeMod.getInstance().universalBucket) {
+				burnItem = inventory.getInvStack(fuelSlot);
+				if (inventory.getInvStack(fuelSlot).getAmount() == 1) {
+					if (inventory.getInvStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getInvStack(fuelSlot).getItem() == ForgeMod.getInstance().universalBucket) {
 						inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
 						inventory.setStackInSlot(fuelSlot, ItemStack.EMPTY);
@@ -112,7 +112,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = world.getBlockState(pos);
+		final BlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != burnTime > 0) {
@@ -127,12 +127,12 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return true;
 	}
 
@@ -147,7 +147,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.SOLID_FUEL_GENERATOR.getStack();
 	}
 
@@ -177,7 +177,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getBurnTime, this::setBurnTime)

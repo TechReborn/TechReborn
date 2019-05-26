@@ -25,16 +25,16 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSapling;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.sound.BlockSoundGroup;
 
 /**
  * Created by modmuss50 on 20/02/2016.
  */
-public class BlockRubberSapling extends BlockSapling {
+public class BlockRubberSapling extends SaplingBlock {
 
 	public BlockRubberSapling() {
-		super(new RubberTree(), Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT));
+		super(new RubberTree(), Block.Settings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS));
 	}
 }

@@ -24,10 +24,10 @@
 
 package techreborn.tiles.generator.basic;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
@@ -60,7 +60,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.getGameTime() % 20 == 0) {
+		if (world.getTime() % 20 == 0) {
 			checkForWater();
 		}
 		if (waterblocks > 0) {
@@ -74,7 +74,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 
 	public void checkForWater() {
 		waterblocks = 0;
-		for (EnumFacing facing : EnumFacing.values()) {
+		for (Direction facing : Direction.values()) {
 			if (facing.getAxis().isHorizontal() && world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
 				waterblocks++;
 			}
@@ -87,12 +87,12 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return true;
 	}
 
@@ -107,7 +107,7 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.WATER_MILL.getStack();
 	}
 }

@@ -24,24 +24,23 @@
 
 package techreborn.items.tool.industrial;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.ChatFormat;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -56,7 +55,7 @@ import techreborn.init.TRContent;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
+public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
 	public int transferLimit = 1_000;
@@ -65,21 +64,21 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemOmniTool() {
-		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
-		efficiency = 13F;
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		blockBreakingSpeed = 13F;
 	}
 	
 	// ItemPickaxe
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		return Items.DIAMOND_AXE.canHarvestBlock(state) || Items.DIAMOND_SWORD.canHarvestBlock(state)
-				|| Items.DIAMOND_PICKAXE.canHarvestBlock(state) || Items.DIAMOND_SHOVEL.canHarvestBlock(state)
-				|| Items.SHEARS.canHarvestBlock(state);
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.DIAMOND_AXE.isEffectiveOn(state) || Items.DIAMOND_SWORD.isEffectiveOn(state)
+				|| Items.DIAMOND_PICKAXE.isEffectiveOn(state) || Items.DIAMOND_SHOVEL.isEffectiveOn(state)
+				|| Items.SHEARS.isEffectiveOn(state);
 	}
 
 	// ItemTool
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 
 		capEnergy.extractEnergy(cost, false);
@@ -110,20 +109,20 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	// }
 
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase entityliving, EntityLivingBase attacker) {
+	public boolean onEntityDamaged(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() >= hitCost) {
 			capEnergy.extractEnergy(hitCost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityliving);
 
-			entityliving.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 8F);
+			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
 		}
 		return false;
 	}
 
 	// Item
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext context) {
+	public ActionResult useOnBlock(ItemUsageContext context) {
 		return TorchHelper.placeTorch(context);
 	}
 
@@ -133,8 +132,8 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TextComponentString("WIP Coming Soon").applyTextStyle(TextFormatting.RED));
+	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+		tooltip.add(new TextComponent("WIP Coming Soon").applyFormat(ChatFormat.RED));
 		// TODO 
 		// Remember to remove WIP override and imports once complete
 	}
@@ -156,15 +155,15 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(
-		ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(
+		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.OMNI_TOOL);

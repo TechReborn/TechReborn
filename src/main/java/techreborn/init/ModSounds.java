@@ -24,11 +24,11 @@
 
 package techreborn.init;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.registries.GameData;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+
 import reborncore.common.recipes.ICrafterSoundHanlder;
 import reborncore.common.recipes.RecipeCrafter;
 
@@ -62,7 +62,7 @@ public class ModSounds {
 	}
 
 	private static SoundEvent getSound(String str) {
-		ResourceLocation resourceLocation = new ResourceLocation("techreborn", str);
+		Identifier resourceLocation = new Identifier("techreborn", str);
 		SoundEvent soundEvent = new SoundEvent(resourceLocation);
 		soundEvent.setRegistryName(resourceLocation);
 		return GameData.register_impl(soundEvent);
@@ -71,7 +71,7 @@ public class ModSounds {
 	public static class SoundHandler implements ICrafterSoundHanlder {
 
 		@Override
-		public void playSound(boolean firstRun, TileEntity tileEntity) {
+		public void playSound(boolean firstRun, BlockEntity tileEntity) {
 			tileEntity.getWorld().playSound(null, tileEntity.getPos().getX(), tileEntity.getPos().getY(),
 				tileEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
 				SoundCategory.BLOCKS, 0.1F, 1F);

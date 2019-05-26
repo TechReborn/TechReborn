@@ -25,18 +25,18 @@
 package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
@@ -60,40 +60,40 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemCloakingDevice() {
-		super(TRArmorMaterial.CLOAKING, EntityEquipmentSlot.CHEST);
+		super(TRArmorMaterial.CLOAKING, EquipmentSlot.CHEST);
 	}
 
 	// Item
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+	@Environment(EnvType.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return "techreborn:" + "textures/models/armor/cloaking.png";
 	}
 	
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (entityIn instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entityIn;
+	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) entityIn;
 			IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
 			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
 				capEnergy.extractEnergy(usage, false);
 				player.setInvisible(true);
 			} else {
-				if (!player.isPotionActive(MobEffects.INVISIBILITY)) {
+				if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
 					player.setInvisible(false);
 				}
 			}
 		}
 	}
 	
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
 
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if (!isInGroup(group)) {
+	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isInItemGroup(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.CLOAKING_DEVICE);
@@ -121,7 +121,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 	

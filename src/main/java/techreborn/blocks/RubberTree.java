@@ -25,20 +25,19 @@
 package techreborn.blocks;
 
 import java.util.Random;
-
-import net.minecraft.block.trees.AbstractTree;
+import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import techreborn.world.feature.RubberTreeFeature;
 
 /**
  * @author drcrazy
  *
  */
-public class RubberTree extends AbstractTree {
+public class RubberTree extends SaplingGenerator {
 
 	@Override
-	protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
+	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
 		return new RubberTreeFeature();
 	}
 }

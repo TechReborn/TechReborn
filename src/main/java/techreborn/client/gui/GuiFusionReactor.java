@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.ClientProxy;
@@ -50,14 +50,14 @@ import java.util.Optional;
 public class GuiFusionReactor extends GuiBase {
 	TileFusionControlComputer tile;
 
-	public GuiFusionReactor(final EntityPlayer player, final TileFusionControlComputer tile) {
+	public GuiFusionReactor(final PlayerEntity player, final TileFusionControlComputer tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+	protected void drawBackground(final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawBackground(partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(34, 47, layer);
@@ -72,8 +72,8 @@ public class GuiFusionReactor extends GuiBase {
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -100,8 +100,8 @@ public class GuiFusionReactor extends GuiBase {
 			}
 		}
 		builder.drawUpDownButtons(this, 121, 79, layer);
-		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
-		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
+		draw("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
+		draw("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
 		buttons.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
 		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
@@ -140,7 +140,7 @@ public class GuiFusionReactor extends GuiBase {
 
 	private void updateMultiBlockRender(){
 		final Multiblock multiblock = new Multiblock();
-		IBlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
+		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
 
 		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
 		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
@@ -152,7 +152,7 @@ public class GuiFusionReactor extends GuiBase {
 				tile.getPos().getZ());
 	}
 	
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 

@@ -24,27 +24,27 @@
 
 package techreborn.blocks;
 
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.state.StateFactory;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.client.models.ModelCompound;
@@ -59,13 +59,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockAlarm extends BaseTileBlock {
-	public static DirectionProperty FACING  = BlockStateProperties.FACING;
+	public static DirectionProperty FACING  = Properties.FACING;
 	public static BooleanProperty ACTIVE;
 	protected final VoxelShape[] shape;
 
 	public BlockAlarm() {
-		super(Block.Properties.create(Material.ROCK));
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.NORTH).with(ACTIVE, false));
+		super(Block.Settings.of(Material.STONE));
+		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(3, 10);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
@@ -74,54 +74,54 @@ public class BlockAlarm extends BaseTileBlock {
 	private VoxelShape[] GenCuboidShapes(double depth, double width) {
 		double culling = (16.0D - width) / 2 ;
 		VoxelShape[] shapes = {
-				Block.makeCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
-				Block.makeCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
-				Block.makeCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
-				Block.makeCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
-				Block.makeCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
-				Block.makeCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
+				Block.createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
+				Block.createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
+				Block.createCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
+				Block.createCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
+				Block.createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
+				Block.createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
 		};
 		return shapes;
 	}
 	
-	public static boolean isActive(IBlockState state) {
+	public static boolean isActive(BlockState state) {
 		return state.get(ACTIVE);
 	}
 
-	public static EnumFacing getFacing(IBlockState state) {
-		return (EnumFacing) state.get(FACING);
+	public static Direction getFacing(BlockState state) {
+		return (Direction) state.get(FACING);
 	}
 
-	public static void setFacing(EnumFacing facing, World world, BlockPos pos) {
+	public static void setFacing(Direction facing, World world, BlockPos pos) {
 		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
 
 	public static void setActive(boolean active, World world, BlockPos pos) {
-		EnumFacing facing = world.getBlockState(pos).get(FACING);
-		IBlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
+		Direction facing = world.getBlockState(pos).get(FACING);
+		BlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
 		world.setBlockState(pos, state, 3);
 	}
 	
 	// BaseTileBlock
 	@Nullable
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileAlarm();
 	}
 	
 	// Block
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
 		ACTIVE = BooleanProperty.create("active");
 		builder.add(FACING, ACTIVE);
 	}
 	
 	@Nullable
 	@Override
-	public IBlockState getStateForPlacement(BlockItemUseContext context) {
-		for (EnumFacing enumfacing : context.getNearestLookingDirections()) {
-			IBlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
-			if (iblockstate.isValidPosition(context.getWorld(), context.getPos())) {
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		for (Direction enumfacing : context.getPlacementFacings()) {
+			BlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
+			if (iblockstate.canPlaceAt(context.getWorld(), context.getBlockPos())) {
 				return iblockstate;
 			}
 		}
@@ -130,9 +130,9 @@ public class BlockAlarm extends BaseTileBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
 		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
 		if (tileEntity == null) {
@@ -145,7 +145,7 @@ public class BlockAlarm extends BaseTileBlock {
 			}
 		}
 
-		if (!worldIn.isRemote && playerIn.isSneaking()) {
+		if (!worldIn.isClient && playerIn.isSneaking()) {
 			((TileAlarm) tileEntity).rightClick();
 			return true;
 
@@ -155,22 +155,22 @@ public class BlockAlarm extends BaseTileBlock {
 	}
 
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TextComponentTranslation("techreborn.tooltip.alarm").applyTextStyle(TextFormatting.GRAY));
+	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Component> tooltip, TooltipContext flagIn) {
+		tooltip.add(new TranslatableComponent("techreborn.tooltip.alarm").applyFormat(ChatFormat.GRAY));
 	}
 	
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
-		return shape[getFacing(state).getIndex()];
+	public VoxelShape getShape(BlockState state, BlockView worldIn, BlockPos pos) {
+		return shape[getFacing(state).getId()];
 	}
 }

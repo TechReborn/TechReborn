@@ -24,14 +24,14 @@
 
 package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.ChatFormat;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.utils.MessageIDs;
 
-public class TileAlarm extends TileEntity 
+public class TileAlarm extends BlockEntity 
 	implements ITickable, IToolDrop {
 	private int selectedSound = 1;
 
@@ -50,33 +50,33 @@ public class TileAlarm extends TileEntity
 	}
 
 	public void rightClick() {
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			if (selectedSound < 3) {
 				selectedSound++;
 			} else {
 				selectedSound = 1;
 			}
-			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponentString(
-					TextFormatting.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponent(
+					ChatFormat.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
 		}
 	}
 	
 	// TileEntity
 	@Override
-	public NBTTagCompound write(NBTTagCompound compound) {
+	public CompoundTag toTag(CompoundTag compound) {
 		if (compound == null) {
-			compound = new NBTTagCompound();
+			compound = new CompoundTag();
 		}
 		compound.putInt("selectedSound", this.selectedSound);
-		return super.write(compound);
+		return super.toTag(compound);
 	}
 
 	@Override
-	public void read(NBTTagCompound compound) {
-		if (compound != null && compound.contains("selectedSound")) {
+	public void fromTag(CompoundTag compound) {
+		if (compound != null && compound.containsKey("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
-		super.read(compound);
+		super.fromTag(compound);
 	}
 
 	//TODO 1.13 seems to be gone?
@@ -88,7 +88,7 @@ public class TileAlarm extends TileEntity
 	// ITickable
 	@Override
 	public void tick() {
-		if (!world.isRemote && world.getGameTime() % 25 == 0 && world.isBlockPowered(getPos())) {
+		if (!world.isClient && world.getTime() % 25 == 0 && world.isReceivingRedstonePower(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {
 				case 1:
@@ -102,14 +102,14 @@ public class TileAlarm extends TileEntity
 					break;
 			}
 
-		} else if (!world.isRemote && world.getGameTime() % 25 == 0) {
+		} else if (!world.isClient && world.getTime() % 25 == 0) {
 			BlockAlarm.setActive(false, world, pos);
 		}
 	}
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.ALARM.getStack();
 	}
 }

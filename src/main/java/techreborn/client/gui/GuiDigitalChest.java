@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.tiles.TileDigitalChest;
 
@@ -32,14 +32,14 @@ public class GuiDigitalChest extends GuiBase {
 
 	TileDigitalChest tile;
 
-	public GuiDigitalChest(final EntityPlayer player, final TileDigitalChest tile) {
+	public GuiDigitalChest(final PlayerEntity player, final TileDigitalChest tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(80, 24, layer);
@@ -47,18 +47,18 @@ public class GuiDigitalChest extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if (!tile.storedItem.isEmpty() && tile.inventory.getStackInSlot(1) != null) {
+		if (!tile.storedItem.isEmpty() && tile.inventory.getInvStack(1) != null) {
 			builder.drawBigBlueBar(this, 31, 43,
-				tile.storedItem.getCount() + tile.inventory.getStackInSlot(1).getCount(),
-				tile.maxCapacity, mouseX - guiLeft, mouseY - guiTop, "Stored", layer);
+				tile.storedItem.getAmount() + tile.inventory.getInvStack(1).getAmount(),
+				tile.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
 		}
-		if (tile.storedItem.isEmpty() && tile.inventory.getStackInSlot(1) != null) {
-			builder.drawBigBlueBar(this, 31, 43, tile.inventory.getStackInSlot(1).getCount(),
-				tile.maxCapacity, mouseX - guiLeft, mouseY - guiTop, "Stored", layer);
+		if (tile.storedItem.isEmpty() && tile.inventory.getInvStack(1) != null) {
+			builder.drawBigBlueBar(this, 31, 43, tile.inventory.getInvStack(1).getAmount(),
+				tile.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
 		}
 	}
 }

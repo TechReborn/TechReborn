@@ -25,10 +25,10 @@
 package techreborn.tiles.storage;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -51,7 +51,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	public int maxOutput;
 	public int maxStorage;
 
-	public TileEnergyStorage(TileEntityType<?> tileEntityType, String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
+	public TileEnergyStorage(BlockEntityType<?> tileEntityType, String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
 		super(tileEntityType);
 		inventory = new Inventory<>(invSize, "Tile" + name, 64, this).withConfiguredAccess();
 		this.wrenchDrop = wrenchDrop;
@@ -66,14 +66,14 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (!inventory.getStackInSlot(0).isEmpty()) {
-			ItemStack stack = inventory.getStackInSlot(0);
+		if (!inventory.getInvStack(0).isEmpty()) {
+			ItemStack stack = inventory.getInvStack(0);
 
 			if (ExternalPowerSystems.isPoweredItem(stack)) {
 				ExternalPowerSystems.chargeItem(this, stack);
 			}
 		}
-		if (!inventory.getStackInSlot(1).isEmpty()) {
+		if (!inventory.getInvStack(1).isEmpty()) {
 			charge(1);
 		}
 	}
@@ -84,12 +84,12 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return getFacing() != direction;
 	}
 	
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return getFacing() == direction;
 	}
 
@@ -110,12 +110,12 @@ public class TileEnergyStorage extends TilePowerAcceptor
 
 	// TileMachineBase
 	@Override
-	public void setFacing(EnumFacing enumFacing) {
+	public void setFacing(Direction enumFacing) {
 		world.setBlockState(pos, world.getBlockState(pos).with(BlockEnergyStorage.FACING, enumFacing));
 	}
 	
 	@Override
-	public EnumFacing getFacingEnum() {
+	public Direction getFacingEnum() {
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockEnergyStorage) {
 			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));
@@ -130,7 +130,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return new ItemStack(wrenchDrop);
 	}
 	

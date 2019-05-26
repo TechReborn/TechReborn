@@ -24,7 +24,7 @@
 
 package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -44,7 +44,7 @@ public class TileDigitalChest extends TileTechStorageBase implements IContainerP
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("digitalchest").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this);
 	}

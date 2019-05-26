@@ -24,11 +24,11 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -44,7 +44,7 @@ public class GuiBlastFurnace extends GuiBase {
 	public TileIndustrialBlastFurnace tile;
 	boolean hasMultiBlock;
 
-	public GuiBlastFurnace(final EntityPlayer player, final TileIndustrialBlastFurnace tile) {
+	public GuiBlastFurnace(final PlayerEntity player, final TileIndustrialBlastFurnace tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
@@ -57,8 +57,8 @@ public class GuiBlastFurnace extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
 
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -77,8 +77,8 @@ public class GuiBlastFurnace extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		this.hasMultiBlock = tile.getCachedHeat() != 0;
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
@@ -101,7 +101,7 @@ public class GuiBlastFurnace extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
+					BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 
 					this.addComponent(0, 0, 0, standardCasing, multiblock);
 					this.addComponent(1, 0, 0, standardCasing, multiblock);
@@ -145,9 +145,9 @@ public class GuiBlastFurnace extends GuiBase {
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							tile.getPos().getX() - EnumFacing.byIndex(tile.getFacingInt()).getXOffset() * 2,
+							tile.getPos().getX() - Direction.byId(tile.getFacingInt()).getOffsetX() * 2,
 							tile.getPos().getY() - 1,
-							tile.getPos().getZ() - EnumFacing.byIndex(tile.getFacingInt()).getZOffset() * 2);
+							tile.getPos().getZ() - Direction.byId(tile.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);
@@ -155,7 +155,7 @@ public class GuiBlastFurnace extends GuiBase {
 		}
 	}
 
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 

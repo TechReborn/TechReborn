@@ -24,10 +24,10 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
@@ -65,24 +65,24 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isRemote && world.getGameTime() % 20 == 0) {
+		if (!world.isClient && world.getTime() % 20 == 0) {
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(euPerTick)) {
-				Iterator<EntityPlayer> tIterator = super.world.playerEntities.iterator();
+				Iterator<PlayerEntity> tIterator = super.world.playerEntities.iterator();
 				while (tIterator.hasNext()) {
-					EntityPlayer player = tIterator.next();
-					if (player.getDistanceSq((double) super.getPos().getX() + 0.5D,
+					PlayerEntity player = tIterator.next();
+					if (player.squaredEnvTypeanceTo((double) super.getPos().getX() + 0.5D,
 						(double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
 						String type = world.getBlockState(pos).get(BlockPlayerDetector.TYPE);
 						if (type.equals("all")) {// ALL
 							redstone = true;
 						} else if (type.equals("others")) {// Others
-							if (!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())) {
+							if (!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUuid().toString())) {
 								redstone = true;
 							}
 						} else {// You
-							if (!owenerUdid.isEmpty() && owenerUdid.equals(player.getUniqueID().toString())) {
+							if (!owenerUdid.isEmpty() && owenerUdid.equals(player.getUuid().toString())) {
 								redstone = true;
 							}
 						}
@@ -92,7 +92,7 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 			}
 			if (lastRedstone != redstone) {
 				WorldUtils.updateBlock(world, pos);
-				world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock());
+				world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock());
 			}
 		}
 	}
@@ -103,12 +103,12 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return false;
 	}
 
@@ -123,21 +123,21 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 	}
 
 	@Override
-	public void read(NBTTagCompound tag) {
-		super.read(tag);
+	public void fromTag(CompoundTag tag) {
+		super.fromTag(tag);
 		owenerUdid = tag.getString("ownerID");
 	}
 
 	@Override
-	public NBTTagCompound write(NBTTagCompound tag) {
-		super.write(tag);
+	public CompoundTag toTag(CompoundTag tag) {
+		super.toTag(tag);
 		tag.putString("ownerID", owenerUdid);
 		return tag;
 	}
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
+	public ItemStack getToolDrop(PlayerEntity p0) {
 		return TRContent.Machine.PLAYER_DETECTOR.getStack();
 	}
 }

@@ -25,13 +25,13 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.Material;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
@@ -39,16 +39,16 @@ import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
-public class BlockRubberLeaves extends BlockLeaves {
+public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
-		super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT));
-		((BlockFire) Blocks.FIRE).setFireInfo(this, 30, 60);
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, DISTANCE, PERSISTENT));
+		super(Block.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS));
+		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, EnvTypeANCE, PERSISTENT));
 	}
 	
 	@Override
-	public IItemProvider getItemDropped(IBlockState state, World worldIn, BlockPos pos, int fortune) {
+	public ItemConvertible getItemDropped(BlockState state, World worldIn, BlockPos pos, int fortune) {
 		return TRContent.RUBBER_SAPLING;
 	}
 }

@@ -24,18 +24,18 @@
 
 package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullSupplier;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+
+
+
+
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -54,36 +54,36 @@ public class TileTechStorageBase extends TileMachineBase
 	public final Inventory<TileTechStorageBase> inventory;
 	public ItemStack storedItem;
 
-	public TileTechStorageBase(TileEntityType<?> tileEntityTypeIn, String name, int maxCapacity) {
+	public TileTechStorageBase(BlockEntityType<?> tileEntityTypeIn, String name, int maxCapacity) {
 		super(tileEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storedItem = ItemStack.EMPTY;
 		inventory = new Inventory<>(3, name, maxCapacity, this).withConfiguredAccess();
 	}
 
-	public void readWithoutCoords(NBTTagCompound tagCompound) {
+	public void readWithoutCoords(CompoundTag tagCompound) {
 
 		storedItem = ItemStack.EMPTY;
 
-		if (tagCompound.contains("storedStack")) {
-			storedItem = ItemStack.read(tagCompound.getCompound("storedStack"));
+		if (tagCompound.containsKey("storedStack")) {
+			storedItem = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
 		}
 
 		if (!storedItem.isEmpty()) {
-			storedItem.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
+			storedItem.setAmount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
 		}
 
 		inventory.read(tagCompound);
 	}
 
-	public NBTTagCompound writeWithoutCoords(NBTTagCompound tagCompound) {
+	public CompoundTag writeWithoutCoords(CompoundTag tagCompound) {
 		if (!storedItem.isEmpty()) {
 			ItemStack temp = storedItem.copy();
-			if (storedItem.getCount() > storedItem.getMaxStackSize()) {
-				temp.setCount(storedItem.getMaxStackSize());
+			if (storedItem.getAmount() > storedItem.getMaxAmount()) {
+				temp.setAmount(storedItem.getMaxAmount());
 			}
-			tagCompound.put("storedStack", temp.write(new NBTTagCompound()));
-			tagCompound.putInt("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
+			tagCompound.put("storedStack", temp.toTag(new CompoundTag()));
+			tagCompound.putInt("storedQuantity", Math.min(storedItem.getAmount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
 		}
@@ -92,12 +92,12 @@ public class TileTechStorageBase extends TileMachineBase
 	}
 
 	public ItemStack getDropWithNBT() {
-		NBTTagCompound tileEntity = new NBTTagCompound();
+		CompoundTag tileEntity = new CompoundTag();
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		writeWithoutCoords(tileEntity);
-		dropStack.setTag(new NBTTagCompound());
+		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("tileEntity", tileEntity);
-		storedItem.setCount(0);
+		storedItem.setAmount(0);
 		inventory.setStackInSlot(1, ItemStack.EMPTY);
 		syncWithAll();
 
@@ -105,25 +105,25 @@ public class TileTechStorageBase extends TileMachineBase
 	}
 
 	public int getStoredCount() {
-		return storedItem.getCount();
+		return storedItem.getAmount();
 	}
 
 	public List<ItemStack> getContentDrops() {
 		ArrayList<ItemStack> stacks = new ArrayList<>();
 
 		if (!getStoredItemType().isEmpty()) {
-			if (!inventory.getStackInSlot(1).isEmpty()) {
-				stacks.add(inventory.getStackInSlot(1));
+			if (!inventory.getInvStack(1).isEmpty()) {
+				stacks.add(inventory.getInvStack(1));
 			}
-			int size = storedItem.getMaxStackSize();
+			int size = storedItem.getMaxAmount();
 			for (int i = 0; i < getStoredCount() / size; i++) {
 				ItemStack droped = storedItem.copy();
-				droped.setCount(size);
+				droped.setAmount(size);
 				stacks.add(droped);
 			}
 			if (getStoredCount() % size != 0) {
 				ItemStack droped = storedItem.copy();
-				droped.setCount(getStoredCount() % size);
+				droped.setAmount(getStoredCount() % size);
 				stacks.add(droped);
 			}
 		}
@@ -135,27 +135,27 @@ public class TileTechStorageBase extends TileMachineBase
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			ItemStack outputStack = ItemStack.EMPTY;
-			if (!inventory.getStackInSlot(1).isEmpty()) {
-				outputStack = inventory.getStackInSlot(1);
+			if (!inventory.getInvStack(1).isEmpty()) {
+				outputStack = inventory.getInvStack(1);
 			}
-			if (!inventory.getStackInSlot(0).isEmpty()
-					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
-				ItemStack inputStack = inventory.getStackInSlot(0);
+			if (!inventory.getInvStack(0).isEmpty()
+					&& (storedItem.getAmount() + outputStack.getAmount()) < maxCapacity) {
+				ItemStack inputStack = inventory.getInvStack(0);
 				if (getStoredItemType().isEmpty()
 						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
 
 					storedItem = inputStack;
 					inventory.setStackInSlot(0, ItemStack.EMPTY);
 				} else if (ItemUtils.isItemEqual(getStoredItemType(), inputStack, true, true)) {
-					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
-					if (inputStack.getCount() <= reminder) {
-						setStoredItemCount(inputStack.getCount());
+					int reminder = maxCapacity - storedItem.getAmount() - outputStack.getAmount();
+					if (inputStack.getAmount() <= reminder) {
+						setStoredItemCount(inputStack.getAmount());
 						inventory.setStackInSlot(0, ItemStack.EMPTY);
 					} else {
-						setStoredItemCount(maxCapacity - outputStack.getCount());
-						inventory.getStackInSlot(0).shrink(reminder);
+						setStoredItemCount(maxCapacity - outputStack.getAmount());
+						inventory.getInvStack(0).subtractAmount(reminder);
 					}
 				}
 				markDirty();
@@ -166,8 +166,8 @@ public class TileTechStorageBase extends TileMachineBase
 				if (outputStack.isEmpty()) {
 
 					ItemStack delivered = storedItem.copy();
-					delivered.setCount(Math.min(storedItem.getCount(), delivered.getMaxStackSize()));
-					storedItem.shrink(delivered.getCount());
+					delivered.setAmount(Math.min(storedItem.getAmount(), delivered.getMaxAmount()));
+					storedItem.subtractAmount(delivered.getAmount());
 
 					if (storedItem.isEmpty()) {
 						storedItem = ItemStack.EMPTY;
@@ -177,12 +177,12 @@ public class TileTechStorageBase extends TileMachineBase
 					markDirty();
 					syncWithAll();
 				} else if (ItemUtils.isItemEqual(storedItem, outputStack, true, true)
-						&& outputStack.getCount() < outputStack.getMaxStackSize()) {
+						&& outputStack.getAmount() < outputStack.getMaxAmount()) {
 
-					int wanted = Math.min(storedItem.getCount(),
-							outputStack.getMaxStackSize() - outputStack.getCount());
-					outputStack.setCount(outputStack.getCount() + wanted);
-					storedItem.shrink(wanted);
+					int wanted = Math.min(storedItem.getAmount(),
+							outputStack.getMaxAmount() - outputStack.getAmount());
+					outputStack.setAmount(outputStack.getAmount() + wanted);
+					storedItem.subtractAmount(wanted);
 
 					if (storedItem.isEmpty()) {
 						storedItem = ItemStack.EMPTY;
@@ -200,20 +200,20 @@ public class TileTechStorageBase extends TileMachineBase
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+	public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		read(packet.getNbtCompound());
+		fromTag(packet.getCompoundTag());
 	}
 
 	@Override
-	public void read(NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		readWithoutCoords(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound write(NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
@@ -242,41 +242,41 @@ public class TileTechStorageBase extends TileMachineBase
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return getDropWithNBT();
 	}
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
+	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile || hasData) {
 			int size = 0;
 			String name = "of nothing";
 			if (!storedItem.isEmpty()) {
 				name = storedItem.getDisplayName().getString();
-				size += storedItem.getCount();
+				size += storedItem.getAmount();
 			}
-			if (!inventory.getStackInSlot(1).isEmpty()) {
-				name = inventory.getStackInSlot(1).getDisplayName().getString();
-				size += inventory.getStackInSlot(1).getCount();
+			if (!inventory.getInvStack(1).isEmpty()) {
+				name = inventory.getInvStack(1).getDisplayName().getString();
+				size += inventory.getInvStack(1).getAmount();
 			}
-			info.add(new TextComponentString(size + " " + name));
+			info.add(new TextComponent(size + " " + name));
 		}
 	}
 
 	public ItemStack getStoredItemType() {
-		return storedItem.isEmpty() ? inventory.getStackInSlot(1) : storedItem;
+		return storedItem.isEmpty() ? inventory.getInvStack(1) : storedItem;
 	}
 
 
 	public void setStoredItemCount(int amount) {
-		storedItem.grow(amount);
+		storedItem.addAmount(amount);
 		markDirty();
 	}
 
 	public void setStoredItemType(ItemStack type, int amount) {
 		storedItem = type;
-		storedItem.setCount(amount);
+		storedItem.setAmount(amount);
 		markDirty();
 	}
 

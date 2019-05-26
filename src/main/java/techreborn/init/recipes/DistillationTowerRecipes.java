@@ -34,7 +34,7 @@ import java.security.InvalidParameterException;
  * @author drcrazy
  *
  */
-public class DistillationTowerRecipes extends RecipeMethods {
+public class EnvTypeillationTowerRecipes extends RecipeMethods {
 
 	public static void init() {
 		register(ItemCells.getCellByName("oil", 16), 1400, 13, getMaterial("diesel", 16, Type.CELL), getMaterial("sulfuricAcid", 16, Type.CELL), getMaterial("glyceryl", Type.CELL));
@@ -61,18 +61,18 @@ public class DistillationTowerRecipes extends RecipeMethods {
 			output3 = outputs[2];
 			output4 = outputs[3];
 		} else {
-			throw new InvalidParameterException("Invalid number of distillation tower outputs: " + outputs);
+			throw new InvalidParameterException("Invalid number of EnvTypeillation tower outputs: " + outputs);
 		}
 
 		int cellCount = 0;
 		for (ItemStack stack : outputs) {
 			if (stack.getItem() instanceof DynamicCell) {
-				cellCount += stack.getCount();
+				cellCount += stack.getAmount();
 			}
 		}
 
 		if (input.getItem() instanceof DynamicCell) {
-			int inputCount = input.getCount();
+			int inputCount = input.getAmount();
 			if (cellCount < inputCount) {
 				if (output2 == null) {
 					output2 = DynamicCell.getEmptyCell(inputCount - cellCount);
@@ -90,11 +90,11 @@ public class DistillationTowerRecipes extends RecipeMethods {
 		ItemStack cells = null;
 		if (cellCount > 0) {
 			if (cellCount > 64) {
-				throw new InvalidParameterException("Invalid distillation tower outputs: " + outputs + "(Recipe requires > 64 cells)");
+				throw new InvalidParameterException("Invalid EnvTypeillation tower outputs: " + outputs + "(Recipe requires > 64 cells)");
 			}
 			cells = DynamicCell.getEmptyCell(cellCount);
 		}
-	//	RecipeHandler.addRecipe(Reference.DISTILLATION_TOWER_RECIPE, new DistillationTowerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
+	//	RecipeHandler.addRecipe(Reference.EnvTypeILLATION_TOWER_RECIPE, new EnvTypeillationTowerRecipe(input, cells, output1, output2, output3, output4, ticks, euPerTick, oreDict));
 	}
 
 	static void register(ItemStack input, int ticks, int euPerTick, ItemStack... outputs) {

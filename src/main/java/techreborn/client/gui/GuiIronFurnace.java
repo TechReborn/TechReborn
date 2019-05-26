@@ -25,64 +25,64 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.iron.TileIronFurnace;
 
 public class GuiIronFurnace extends GuiBase {
 
-	public static final ResourceLocation texture = new ResourceLocation("minecraft",
+	public static final Identifier texture = new Identifier("minecraft",
 		"textures/gui/container/furnace.png");
 
 	TileIronFurnace furnace;
 
-	public GuiIronFurnace(final EntityPlayer player, final TileIronFurnace furnace) {
+	public GuiIronFurnace(final PlayerEntity player, final TileIronFurnace furnace) {
 		super(player, furnace,  furnace.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
+		this.containerWidth = 176;
+		this.containerHeight = 167;
 		this.furnace = furnace;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
 		drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		builder.drawSlotTab(this, guiLeft - 24, guiTop + 6, new ItemStack(TRContent.WRENCH));
+		builder.drawSlotTab(this, left - 24, top + 6, new ItemStack(TRContent.WRENCH));
 		mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
-		final int k = (this.width - xSize) / 2;
-		final int l = (this.height - ySize) / 2;
-		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
+		final int k = (this.width - containerWidth) / 2;
+		final int l = (this.height - containerHeight) / 2;
+		blit(k, l, 0, 0, containerWidth, containerHeight);
 
 		int j = 0;
 
 		j = furnace.gaugeProgressScaled(24);
 		if (j > 0) {
-			drawTexturedModalRect(k + 78, l + 35, 176, 14, j + 1, 16);
+			blit(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
 		j = furnace.gaugeFuelScaled(12);
 		if (j > 0) {
-			drawTexturedModalRect(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
+			blit(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		final String name = I18n.format("tile.techreborn.iron_furnace.name");
-		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 6, 4210752);
-		fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8, ySize - 96 + 2, 4210752);
+	protected void drawForeground(int mouseX, int mouseY) {
+		final String name = I18n.translate("tile.techreborn.iron_furnace.name");
+		font.draw(name, containerWidth / 2 - font.getStringWidth(name) / 2, 6, 4210752);
+		font.draw(I18n.translate("container.inventory", new Object[0]), 8, containerHeight - 96 + 2, 4210752);
 
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		super.drawForeground(mouseX, mouseY);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		super.render(mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+		drawMouseoverTooltip(mouseX, mouseY);
 	}
 
 }

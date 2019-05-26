@@ -25,14 +25,13 @@
 package techreborn.api;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-
+import net.minecraft.item.ItemUsageContext;
 import java.util.List;
 
 public interface IC2Helper {
 
 	public void initDuplicates();
 
-	public boolean extractSap(ItemUseContext context, List<ItemStack> stacks);
+	public boolean extractSap(ItemUsageContext context, List<ItemStack> stacks);
 
 }

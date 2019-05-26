@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.tiles.machine.tier3.TileQuantumChest;
 
@@ -32,14 +32,14 @@ public class GuiQuantumChest extends GuiBase {
 
 	TileQuantumChest quantumChest;
 
-	public GuiQuantumChest(final EntityPlayer player, final TileQuantumChest quantumChest) {
+	public GuiQuantumChest(final PlayerEntity player, final TileQuantumChest quantumChest) {
 		super(player, quantumChest, quantumChest.createContainer(player));
 		this.quantumChest = quantumChest;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(80, 24, layer);
@@ -47,15 +47,15 @@ public class GuiQuantumChest extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if (!this.quantumChest.storedItem.isEmpty() && !this.quantumChest.inventory.getStackInSlot(1).isEmpty()) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.storedItem.getCount() + this.quantumChest.inventory.getStackInSlot(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+		if (!this.quantumChest.storedItem.isEmpty() && !this.quantumChest.inventory.getInvStack(1).isEmpty()) {
+			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.storedItem.getAmount() + this.quantumChest.inventory.getInvStack(1).getAmount(), this.quantumChest.maxCapacity, mouseX - this.left, mouseY - this.top, "Stored", layer);
 		}
-		if (this.quantumChest.storedItem.isEmpty() && !this.quantumChest.inventory.getStackInSlot(1).isEmpty()) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.inventory.getStackInSlot(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.guiLeft, mouseY - this.guiTop, "Stored", layer);
+		if (this.quantumChest.storedItem.isEmpty() && !this.quantumChest.inventory.getInvStack(1).isEmpty()) {
+			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.inventory.getInvStack(1).getAmount(), this.quantumChest.maxCapacity, mouseX - this.left, mouseY - this.top, "Stored", layer);
 		}
 	}
 }

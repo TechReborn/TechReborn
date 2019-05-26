@@ -24,14 +24,14 @@
 
 package techreborn.utils;
 
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IPosition;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityDispenser;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Position;
 import reborncore.common.crafting.Recipe;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
@@ -42,23 +42,23 @@ import java.util.List;
 import java.util.Random;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class BehaviorDispenseScrapbox extends BehaviorDefaultDispenseItem {
+public class BehaviorDispenseScrapbox extends ItemDispenserBehavior {
 
 	@ConfigRegistry(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")
 	public static boolean dispenseScrapboxes = true;
 
 	@Override
-	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+	protected ItemStack dispenseStack(BlockPointer source, ItemStack stack) {
 		if (dispenseScrapboxes) {
 			List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(source.getWorld());
 			int random = new Random().nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 			stack.split(1);
 
-			TileEntityDispenser tile = source.getBlockTileEntity();
-			EnumFacing enumfacing = tile.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).get(BlockDispenser.FACING);
-			IPosition iposition = BlockDispenser.getDispensePosition(source);
-			doDispense(source.getWorld(), out, 6, enumfacing, iposition);
+			DispenserBlockEntity tile = source.getBlockEntity();
+			Direction enumfacing = tile.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).get(DispenserBlock.FACING);
+			Position iposition = DispenserBlock.getOutputLocation(source);
+			dispenseItem(source.getWorld(), out, 6, enumfacing, iposition);
 		}
 		return stack;
 	}

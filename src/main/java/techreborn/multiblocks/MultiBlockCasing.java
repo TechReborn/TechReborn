@@ -25,8 +25,8 @@
 package techreborn.multiblocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.multiblock.IMultiblockPart;
@@ -122,7 +122,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
 		// Now we run a simple check on each block within that volume.
 		// Any block deviating = NO DEAL SIR
-		TileEntity te;
+		BlockEntity te;
 		RectangularMultiblockTileEntityBase part;
 		Class<? extends RectangularMultiblockControllerBase> myClass = this.getClass();
 
@@ -131,7 +131,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 				for (int z = minimumCoord.getZ(); z <= maximumCoord.getZ(); z++) {
 					// Okay, figure out what sort of block this should be.
 
-					te = this.worldObj.getTileEntity(new BlockPos(x, y, z));
+					te = this.worldObj.getBlockEntity(new BlockPos(x, y, z));
 					if (te instanceof RectangularMultiblockTileEntityBase) {
 						part = (RectangularMultiblockTileEntityBase) te;
 
@@ -211,7 +211,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
+	public void onAttachedPartWithMultiblockData(IMultiblockPart part, CompoundTag data) {
 
 	}
 
@@ -300,22 +300,22 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	}
 
 	@Override
-	public void write(NBTTagCompound data) {
+	public void write(CompoundTag data) {
 
 	}
 
 	@Override
-	public void read(NBTTagCompound data) {
+	public void read(CompoundTag data) {
 
 	}
 
 	@Override
-	public void formatDescriptionPacket(NBTTagCompound data) {
+	public void formatDescriptionPacket(CompoundTag data) {
 
 	}
 
 	@Override
-	public void decodeDescriptionPacket(NBTTagCompound data) {
+	public void decodeDescriptionPacket(CompoundTag data) {
 
 	}
 

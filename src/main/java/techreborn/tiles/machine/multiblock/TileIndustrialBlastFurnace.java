@@ -24,13 +24,13 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.ClientConnection;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -74,7 +74,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		
 		// Bottom center of multiblock
 		final BlockPos location = pos.offset(getFacing().getOpposite(), 2);
-		final TileEntity tileEntity = world.getTileEntity(location);
+		final BlockEntity tileEntity = world.getBlockEntity(location);
 
 		if (tileEntity instanceof TileMachineCasing) {
 			if (((TileMachineCasing) tileEntity).isConnected()
@@ -90,11 +90,11 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 				}
 
 				for (final IMultiblockPart part : casing.connectedParts) {
-					heat += BlockMachineCasing.getHeatFromState(part.getBlockState());
+					heat += BlockMachineCasing.getHeatFromState(part.getCachedState());
 				}
 
-				if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getTranslationKey().equals("tile.lava")
-						&& world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getTranslationKey().equals("tile.lava")) {
+				if (world.getBlockState(location.offset(Direction.UP, 1)).getBlock().getTranslationKey().equals("tile.lava")
+						&& world.getBlockState(location.offset(Direction.UP, 2)).getBlock().getTranslationKey().equals("tile.lava")) {
 					heat += 500;
 				}
 				return heat;
@@ -142,14 +142,14 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 
 	// TileMachineBase
 	@Override
-	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
+	public void onDataPacket(final ClientConnection net, final BlockEntityUpdateS2CPacket packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		read(packet.getNbtCompound());
+		fromTag(packet.getCompoundTag());
 	}
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()

@@ -25,15 +25,15 @@
 package techreborn.items.armor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
@@ -45,20 +45,20 @@ import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
-public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo {
+public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo {
 
 	// 400M FE maxCharge and 100k FE\t charge rate. Fully charged in 3 mins.
 	public static final int maxCharge = ConfigTechReborn.LapotronPackCharge;
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(ArmorMaterial.DIAMOND, EntityEquipmentSlot.CHEST, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
+		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 	}
 
 	// Item
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if (!isInGroup(group)) {
+	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isInItemGroup(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
@@ -70,9 +70,9 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	}
 	   
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (entityIn instanceof EntityPlayer) {
-			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (EntityPlayer) entityIn, stack,
+	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (entityIn instanceof PlayerEntity) {
+			ItemLithiumIonBatpack.EnvTypeributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack,
 					(int) transferLimit);
 		}
 	}
@@ -96,13 +96,13 @@ public class ItemLapotronicOrbpack extends ItemArmor implements IEnergyItemInfo 
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
-		                                            NBTTagCompound nbt) {
+		                                            CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+	@Environment(EnvType.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return "techreborn:" + "textures/models/armor/lapotronpack.png";
 	}
 

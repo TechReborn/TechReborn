@@ -25,10 +25,10 @@
 package techreborn.tiles;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -58,7 +58,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	 * @param toolDrop Block Block to drop with wrench
 	 * @param energySlot int Energy slot to use to charge machine from battery
 	 */
-	public TileGenericMachine(TileEntityType<?> tileEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+	public TileGenericMachine(BlockEntityType<?> tileEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
 		super(tileEntityType);
 		this.name = "Tile" + name;
 		this.maxInput = maxInput;
@@ -79,7 +79,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			charge(energySlot);
 		}
 	}
@@ -90,12 +90,12 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return false;
 	}
 
@@ -111,7 +111,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer p0) {
+	public ItemStack getToolDrop(PlayerEntity p0) {
 		return new ItemStack(toolDrop, 1);
 	}
 	

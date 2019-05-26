@@ -24,14 +24,14 @@
 
 package techreborn.blocks.storage;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
@@ -45,30 +45,30 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileInterdimensionalSU();
 	}
 
 	@Override
-	public IBlockState getStateForPlacement(BlockItemUseContext context) {
-		final TileEntity tile = context.getWorld().getTileEntity(context.getPos());
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		final BlockEntity tile = context.getWorld().getBlockEntity(context.getBlockPos());
 		if (tile instanceof TileInterdimensionalSU) {
-			((TileInterdimensionalSU) tile).ownerUdid = context.getPlayer().getUniqueID().toString();
+			((TileInterdimensionalSU) tile).ownerUdid = context.getPlayer().getUuid().toString();
 		}
 		return this.getDefaultState();
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		super.onBlockPlacedBy(world, pos, state, placer, stack);
-		TileEntity tile = world.getTileEntity(pos);
+	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		super.onPlaced(world, pos, state, placer, stack);
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof TileInterdimensionalSU) {
-			((TileInterdimensionalSU) tile).ownerUdid = placer.getUniqueID().toString();
+			((TileInterdimensionalSU) tile).ownerUdid = placer.getUuid().toString();
 		}
 	}
 	
 	@Override
-	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
 			drops.add(new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
 		} else {

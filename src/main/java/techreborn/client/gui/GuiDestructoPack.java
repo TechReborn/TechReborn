@@ -24,43 +24,43 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.Container;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.container.Container;
+import net.minecraft.util.Identifier;
 
-public class GuiDestructoPack extends GuiContainer {
+public class GuiDestructoPack extends ContainerScreen {
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
+	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/destructopack.png");
 
 	public GuiDestructoPack(Container container) {
 		super(container);
-		this.xSize = 176;
-		this.ySize = 166;
+		this.containerWidth = 176;
+		this.containerHeight = 166;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
+	protected void drawBackground(float arg0, int arg1, int arg2) {
 		this.drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(texture);
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, 176, 166);
+		blit(left, top, 0, 0, 176, 166);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int arg0, int arg1) {
-		String name = I18n.format("item.techreborn.part.destructoPack.name");
-		fontRenderer.drawString(name, xSize / 2 - fontRenderer.getStringWidth(name) / 2, 5, 4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2,
+	protected void drawForeground(int arg0, int arg1) {
+		String name = I18n.translate("item.techreborn.part.destructoPack.name");
+		font.draw(name, containerWidth / 2 - font.getStringWidth(name) / 2, 5, 4210752);
+		this.font.draw(I18n.translate("container.inventory"), 8, this.containerHeight - 96 + 2,
 			4210752);
-		super.drawGuiContainerForegroundLayer(arg0, arg1);
+		super.drawForeground(arg0, arg1);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		super.render(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		this.drawMouseoverTooltip(mouseX, mouseY);
 	}
 }

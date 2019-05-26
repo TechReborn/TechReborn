@@ -24,7 +24,7 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -58,7 +58,7 @@ public class TileIndustrialElectrolyzer extends TileGenericMachine implements IC
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))

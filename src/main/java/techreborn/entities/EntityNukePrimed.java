@@ -24,10 +24,10 @@
 
 package techreborn.entities;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.init.Particles;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.PrimedTntEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
@@ -39,7 +39,7 @@ import techreborn.TechReborn;
  * Created by Mark on 13/03/2016.
  */
 @RebornRegister(TechReborn.MOD_ID)
-public class EntityNukePrimed extends EntityTNTPrimed {
+public class EntityNukePrimed extends PrimedTntEntity {
 
 	@ConfigRegistry(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")
 	public static int fuseTime = 400;
@@ -55,22 +55,22 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 		setFuse(EntityNukePrimed.fuseTime);
 	}
 
-	public EntityNukePrimed(World world, double x, double y, double z, EntityLivingBase tntPlacedBy) {
+	public EntityNukePrimed(World world, double x, double y, double z, LivingEntity tntPlacedBy) {
 		super(world, x, y, z, tntPlacedBy);
 		setFuse(EntityNukePrimed.fuseTime);
 	}
 
 	@Override
 	public void tick() {
-		this.prevPosX = this.posX;
-		this.prevPosY = this.posY;
-		this.prevPosZ = this.posZ;
+		this.prevX = this.x;
+		this.prevY = this.y;
+		this.prevZ = this.z;
 
 		if (!this.hasNoGravity()) {
 			this.motionY -= 0.03999999910593033D;
 		}
 
-		this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+		this.move(MovementType.SELF, this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
 		this.motionY *= 0.9800000190734863D;
 		this.motionZ *= 0.9800000190734863D;
@@ -81,16 +81,16 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 			this.motionY *= -0.5D;
 		}
 
-		setFuse(getFuse() - 1);
+		setFuse(getFuseTimer() - 1);
 
-		if (getFuse() <= 0) {
+		if (getFuseTimer() <= 0) {
 			this.remove();
-			if (!this.world.isRemote) {
+			if (!this.world.isClient) {
 				explodeNuke();
 			}
 		} else {
-			this.handleWaterMovement();
-			this.world.addParticle(Particles.SMOKE, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
+			this.method_5713();
+			this.world.addParticle(ParticleTypes.SMOKE, this.x, this.y + 0.5D, this.z, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -98,8 +98,8 @@ public class EntityNukePrimed extends EntityTNTPrimed {
 		if (!enabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(posX, posY, posZ), world, radius);
-		nukeExplosion.setLivingBase(getTntPlacedBy());
+		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(x, y, z), world, radius);
+		nukeExplosion.setLivingBase(getCausingEntity());
 		nukeExplosion.explode();
 	}
 }

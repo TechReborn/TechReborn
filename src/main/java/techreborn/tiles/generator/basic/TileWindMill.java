@@ -24,9 +24,9 @@
 
 package techreborn.tiles.generator.basic;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
@@ -75,12 +75,12 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return true;
 	}
 
@@ -95,7 +95,7 @@ public class TileWindMill extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.WIND_MILL.getStack();
 	}
 }

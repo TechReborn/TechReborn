@@ -24,14 +24,14 @@
 
 package techreborn.items.tool.advanced;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -41,15 +41,15 @@ public class ItemAdvancedDrill extends ItemDrill {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedDrill() {
-		super(ItemTier.DIAMOND, ConfigTechReborn.AdvancedDrillCharge, 0.5F, 15F);
+		super(ToolMaterials.DIAMOND, ConfigTechReborn.AdvancedDrillCharge, 0.5F, 15F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.ADVANCED_DRILL);
@@ -62,8 +62,8 @@ public class ItemAdvancedDrill extends ItemDrill {
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		return Items.DIAMOND_PICKAXE.canHarvestBlock(state) || Items.DIAMOND_SHOVEL.canHarvestBlock(state);
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.DIAMOND_PICKAXE.isEffectiveOn(state) || Items.DIAMOND_SHOVEL.isEffectiveOn(state);
 	}
 
 }

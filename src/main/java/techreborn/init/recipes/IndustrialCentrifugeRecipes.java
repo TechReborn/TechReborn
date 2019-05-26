@@ -24,9 +24,9 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import techreborn.items.DynamicCell;
 
 import java.security.InvalidParameterException;
@@ -139,14 +139,14 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		int cellCount = 0;
 		for (ItemStack stack : outputs) {
 			if (stack.getItem() instanceof DynamicCell) {
-				cellCount += stack.getCount();
+				cellCount += stack.getAmount();
 			}
 
 		}
 
 		if (input instanceof ItemStack) {
 			if (((ItemStack) input).getItem() instanceof DynamicCell) {
-				int inputCount = ((ItemStack) input).getCount();
+				int inputCount = ((ItemStack) input).getAmount();
 				if (cellCount < inputCount) {
 					if (output2 == null) {
 						output2 = DynamicCell.getEmptyCell(inputCount - cellCount);

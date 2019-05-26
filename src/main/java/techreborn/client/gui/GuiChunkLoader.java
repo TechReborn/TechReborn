@@ -24,42 +24,42 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.ContainerScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import techreborn.tiles.machine.tier3.TileChunkLoader;
 
-public class GuiChunkLoader extends GuiContainer {
+public class GuiChunkLoader extends ContainerScreen {
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
+	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/industrial_chunkloader.png");
 	TileChunkLoader chunkloader;
-	private GuiButton plusOneButton;
-	private GuiButton plusTenButton;
-	private GuiButton minusOneButton;
-	private GuiButton minusTenButton;
+	private ButtonWidget plusOneButton;
+	private ButtonWidget plusTenButton;
+	private ButtonWidget minusOneButton;
+	private ButtonWidget minusTenButton;
 
-	public GuiChunkLoader(final EntityPlayer player, final TileChunkLoader chunkLoader) {
+	public GuiChunkLoader(final PlayerEntity player, final TileChunkLoader chunkLoader) {
 		super(chunkLoader.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
+		this.containerWidth = 176;
+		this.containerHeight = 167;
 		this.chunkloader = chunkLoader;
 	}
 
 	@Override
 	public void initGui() {
 		super.initGui();
-		this.guiLeft = this.width / 2 - this.xSize / 2;
-		this.guiTop = this.height / 2 - this.ySize / 2;
-		this.plusOneButton = new GuiButtonSimple(0, this.guiLeft + 5, this.guiTop + 37, 40, 20, "+1");
-		this.plusTenButton = new GuiButtonSimple(0, this.guiLeft + 45, this.guiTop + 37, 40, 20, "+10");
+		this.left = this.width / 2 - this.containerWidth / 2;
+		this.top = this.height / 2 - this.containerHeight / 2;
+		this.plusOneButton = new GuiButtonSimple(0, this.left + 5, this.top + 37, 40, 20, "+1");
+		this.plusTenButton = new GuiButtonSimple(0, this.left + 45, this.top + 37, 40, 20, "+10");
 
-		this.minusOneButton = new GuiButtonSimple(0, this.guiLeft + 90, this.guiTop + 37, 40, 20, "-1");
-		this.minusTenButton = new GuiButtonSimple(0, this.guiLeft + 130, this.guiTop + 37, 40, 20, "-10");
+		this.minusOneButton = new GuiButtonSimple(0, this.left + 90, this.top + 37, 40, 20, "-1");
+		this.minusTenButton = new GuiButtonSimple(0, this.left + 130, this.top + 37, 40, 20, "-10");
 
 		this.buttons.add(this.plusOneButton);
 		this.buttons.add(this.plusTenButton);
@@ -68,28 +68,28 @@ public class GuiChunkLoader extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(GuiChunkLoader.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+		final int k = (this.width - this.containerWidth) / 2;
+		final int l = (this.height - this.containerHeight) / 2;
+		this.blit(k, l, 0, 0, this.containerWidth, this.containerHeight);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn:chunk_loader.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
+	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
+		final String name = I18n.translate("tile.techreborn:chunk_loader.name");
+		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
+		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,
+			this.containerHeight - 96 + 2, 4210752);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		super.render(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		this.drawMouseoverTooltip(mouseX, mouseY);
 	}
 
 }

@@ -24,7 +24,7 @@
 
 package techreborn.tiles.generator.advanced;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -54,7 +54,7 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return TRContent.Machine.THERMAL_GENERATOR.getStack();
 	}
 
@@ -69,7 +69,7 @@ public class TileThermalGenerator extends TileBaseFluidGenerator implements ICon
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("thermalgenerator").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)

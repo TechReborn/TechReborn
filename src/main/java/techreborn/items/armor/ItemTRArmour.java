@@ -24,10 +24,10 @@
 
 package techreborn.items.armor;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.IArmorMaterial;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
@@ -36,33 +36,33 @@ import techreborn.events.TRRecipeHandler;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemTRArmour extends ItemArmor {
+public class ItemTRArmour extends ArmorItem {
 
 	String repairOreDict = "";
 
-	public ItemTRArmour(IArmorMaterial material, EntityEquipmentSlot slot) {
+	public ItemTRArmour(ArmorMaterial material, EquipmentSlot slot) {
 		this(material, slot, "");
 	}
 
-	public ItemTRArmour(IArmorMaterial material, EntityEquipmentSlot slot, String repairOreDict) {
-		super(material, slot, (new Item.Properties()).group(TechReborn.ITEMGROUP).maxStackSize(1));
+	public ItemTRArmour(ArmorMaterial material, EquipmentSlot slot, String repairOreDict) {
+		super(material, slot, (new Item.Settings()).itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 		this.repairOreDict = repairOreDict;
-		if (slot == EntityEquipmentSlot.HEAD)
+		if (slot == EquipmentSlot.HEAD)
 			//setTranslationKey(material.name().toLowerCase() + "Helmet");
-		if (slot == EntityEquipmentSlot.CHEST)
+		if (slot == EquipmentSlot.CHEST)
 			//setTranslationKey(material.name().toLowerCase() + "Chestplate");
-		if (slot == EntityEquipmentSlot.LEGS)
+		if (slot == EquipmentSlot.LEGS)
 			//setTranslationKey(material.name().toLowerCase() + "Leggings");
-		if (slot == EntityEquipmentSlot.FEET)
+		if (slot == EquipmentSlot.FEET)
 			//setTranslationKey(material.name().toLowerCase() + "Boots");
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+	public boolean canRepair(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
 			return ItemUtils.isInputEqual(repairOreDict, repair, false, true);
 		}
-		return super.getIsRepairable(toRepair, repair);
+		return super.canRepair(toRepair, repair);
 	}
 }

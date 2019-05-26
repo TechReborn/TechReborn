@@ -24,17 +24,17 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.container.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.Direction;
+
+
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -74,9 +74,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public int maxProgress = 120;
 	public int euTick = 10;
 
-	InventoryCrafting inventoryCrafting = null;
-	IRecipe lastCustomRecipe = null;
-	IRecipe lastRecipe = null;
+	CraftingInventory inventoryCrafting = null;
+	Recipe lastCustomRecipe = null;
+	Recipe lastRecipe = null;
 
 	public boolean locked = true;
 
@@ -85,15 +85,15 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	@Nullable
-	public IRecipe getIRecipe() {
-		InventoryCrafting crafting = getCraftingInventory();
-		if (!crafting.isEmpty()) {
+	public Recipe getIRecipe() {
+		CraftingInventory crafting = getCraftingInventory();
+		if (!crafting.isInvEmpty()) {
 			if (lastRecipe != null) {
 				if (lastRecipe.matches(crafting, world)) {
 					return lastRecipe;
 				}
 			}
-			for (IRecipe testRecipe : TRRecipeHandler.getRecipes(world, VanillaRecipeTypes.CRAFTING)) {
+			for (Recipe testRecipe : TRRecipeHandler.getRecipes(world, VanillaRecipeTypes.CRAFTING)) {
 				if (testRecipe.matches(crafting, world)) {
 					lastRecipe = testRecipe;
 					return testRecipe;
@@ -103,41 +103,41 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return null;
 	}
 
-	public InventoryCrafting getCraftingInventory() {
+	public CraftingInventory getCraftingInventory() {
 		if (inventoryCrafting == null) {
-			inventoryCrafting = new InventoryCrafting(new Container() {
+			inventoryCrafting = new CraftingInventory(new Container() {
 				@Override
-				public boolean canInteractWith(EntityPlayer playerIn) {
+				public boolean canUse(PlayerEntity playerIn) {
 					return false;
 				}
 			}, 3, 3);
 		}
 		for (int i = 0; i < 9; i++) {
-			inventoryCrafting.setInventorySlotContents(i, inventory.getStackInSlot(i));
+			inventoryCrafting.setInvStack(i, inventory.getInvStack(i));
 		}
 		return inventoryCrafting;
 	}
 
-	public boolean canMake(IRecipe recipe) {
-		if (recipe != null && recipe.canFit(3, 3)) {
+	public boolean canMake(Recipe recipe) {
+		if (recipe != null && recipe.fits(3, 3)) {
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
 			for (int i = 0; i < 9; i++) {
-				stacksInSlots[i] = inventory.getStackInSlot(i).getCount();
+				stacksInSlots[i] = inventory.getInvStack(i).getAmount();
 			}
-			for (Ingredient ingredient : recipe.getIngredients()) {
+			for (Ingredient ingredient : recipe.getPreviewInputs()) {
 				if (ingredient != Ingredient.EMPTY) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
-						ItemStack stack = inventory.getStackInSlot(i);
+						ItemStack stack = inventory.getInvStack(i);
 						int requiredSize = locked ? 1 : 0;
-						if (stack.getMaxStackSize() == 1) {
+						if (stack.getMaxAmount() == 1) {
 							requiredSize = 0;
 						}
 						if (stacksInSlots[i] > requiredSize) {
-							if (ingredient.test(stack)) {
-								if (stack.getItem().getContainerItem() != null) {
-									if (!hasRoomForExtraItem(stack.getItem().getContainerItem(stack))) {
+							if (ingredient.method_8093(stack)) {
+								if (stack.getItem().getRecipeRemainder() != null) {
+									if (!hasRoomForExtraItem(stack.getItem().getRecipeRemainder(stack))) {
 										continue;
 									}
 								}
@@ -153,7 +153,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				}
 			}
 			if (!missingOutput) {
-				if (hasOutputSpace(recipe.getRecipeOutput(), 9)) {
+				if (hasOutputSpace(recipe.getOutput(), 9)) {
 					return true;
 				}
 			}
@@ -163,7 +163,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	boolean hasRoomForExtraItem(ItemStack stack) {
-		ItemStack extraOutputSlot = inventory.getStackInSlot(10);
+		ItemStack extraOutputSlot = inventory.getInvStack(10);
 		if (extraOutputSlot.isEmpty()) {
 			return true;
 		}
@@ -171,35 +171,35 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	public boolean hasOutputSpace(ItemStack output, int slot) {
-		ItemStack stack = inventory.getStackInSlot(slot);
+		ItemStack stack = inventory.getInvStack(slot);
 		if (stack.isEmpty()) {
 			return true;
 		}
 		if (ItemUtils.isItemEqual(stack, output, true, true)) {
-			if (stack.getMaxStackSize() > stack.getCount() + output.getCount()) {
+			if (stack.getMaxAmount() > stack.getAmount() + output.getAmount()) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean make(IRecipe recipe) {
+	public boolean make(Recipe recipe) {
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
-		for (int i = 0; i < recipe.getIngredients().size(); i++) {
-			Ingredient ingredient = recipe.getIngredients().get(i);
+		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
+			Ingredient ingredient = recipe.getPreviewInputs().get(i);
 			// Looks for the best slot to take it from
-			ItemStack bestSlot = inventory.getStackInSlot(i);
-			if (ingredient.test(bestSlot)) {
+			ItemStack bestSlot = inventory.getInvStack(i);
+			if (ingredient.method_8093(bestSlot)) {
 				handleContainerItem(bestSlot);
-				bestSlot.shrink(1);
+				bestSlot.subtractAmount(1);
 			} else {
 				for (int j = 0; j < 9; j++) {
-					ItemStack stack = inventory.getStackInSlot(j);
-					if (ingredient.test(stack)) {
+					ItemStack stack = inventory.getInvStack(j);
+					if (ingredient.method_8093(stack)) {
 						handleContainerItem(stack);
-						stack.shrink(1); // TODO is this right? or do I need
+						stack.subtractAmount(1); // TODO is this right? or do I need
 											// to use it as an actull
 											// crafting grid
 						break;
@@ -207,28 +207,28 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				}
 			}
 		}
-		ItemStack output = inventory.getStackInSlot(9);
+		ItemStack output = inventory.getInvStack(9);
 		// TODO fire forge recipe event
-		ItemStack ouputStack = recipe.getCraftingResult(getCraftingInventory());
+		ItemStack ouputStack = recipe.craft(getCraftingInventory());
 		if (output.isEmpty()) {
 			inventory.setStackInSlot(9, ouputStack.copy());
 		} else {
 			// TODO use ouputStack in someway?
-			output.grow(recipe.getRecipeOutput().getCount());
+			output.addAmount(recipe.getOutput().getAmount());
 		}
 		return true;
 	}
 
 	private void handleContainerItem(ItemStack stack) {
-		if (stack.getItem().hasContainerItem(stack)) {
-			ItemStack containerItem = stack.getItem().getContainerItem(stack);
-			ItemStack extraOutputSlot = inventory.getStackInSlot(10);
+		if (stack.getItem().hasRecipeRemainder(stack)) {
+			ItemStack containerItem = stack.getItem().getRecipeRemainder(stack);
+			ItemStack extraOutputSlot = inventory.getInvStack(10);
 			if (hasOutputSpace(containerItem, 10)) {
 				if (extraOutputSlot.isEmpty()) {
 					inventory.setStackInSlot(10, containerItem.copy());
 				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true)
-						&& extraOutputSlot.getMaxStackSize() < extraOutputSlot.getCount() + containerItem.getCount()) {
-					extraOutputSlot.grow(1);
+						&& extraOutputSlot.getMaxAmount() < extraOutputSlot.getAmount() + containerItem.getAmount()) {
+					extraOutputSlot.addAmount(1);
 				}
 			}
 		}
@@ -236,15 +236,15 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	public boolean hasIngredient(Ingredient ingredient) {
 		for (int i = 0; i < 9; i++) {
-			ItemStack stack = inventory.getStackInSlot(i);
-			if (ingredient.test(stack)) {
+			ItemStack stack = inventory.getInvStack(i);
+			if (ingredient.method_8093(stack)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public boolean isItemValidForRecipeSlot(IRecipe recipe, ItemStack stack, int slotID) {
+	public boolean isItemValidForRecipeSlot(Recipe recipe, ItemStack stack, int slotID) {
 		if (recipe == null) {
 			return true;
 		}
@@ -255,19 +255,19 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		return true;
 	}
 
-	public int findBestSlotForStack(IRecipe recipe, ItemStack stack) {
+	public int findBestSlotForStack(Recipe recipe, ItemStack stack) {
 		if (recipe == null) {
 			return -1;
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int i = 0; i < recipe.getIngredients().size(); i++) {
-			ItemStack stackInSlot = inventory.getStackInSlot(i);
-			Ingredient ingredient = recipe.getIngredients().get(i);
-			if (ingredient != Ingredient.EMPTY && ingredient.test(stack)) {
+		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
+			ItemStack stackInSlot = inventory.getInvStack(i);
+			Ingredient ingredient = recipe.getPreviewInputs().get(i);
+			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(stack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);
 				} else if (stackInSlot.getItem() == stack.getItem()) {
-					if (stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + stack.getCount()) {
+					if (stackInSlot.getMaxAmount() >= stackInSlot.getAmount() + stack.getAmount()) {
 						possibleSlots.add(i);
 					}
 				}
@@ -276,14 +276,14 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		// Slot, count
 		Pair<Integer, Integer> smallestCount = null;
 		for (Integer slot : possibleSlots) {
-			ItemStack slotStack = inventory.getStackInSlot(slot);
+			ItemStack slotStack = inventory.getInvStack(slot);
 			if (slotStack.isEmpty()) {
 				return slot;
 			}
 			if (smallestCount == null) {
-				smallestCount = Pair.of(slot, slotStack.getCount());
-			} else if (smallestCount.getRight() >= slotStack.getCount()) {
-				smallestCount = Pair.of(slot, slotStack.getCount());
+				smallestCount = Pair.of(slot, slotStack.getAmount());
+			} else if (smallestCount.getRight() >= slotStack.getAmount()) {
+				smallestCount = Pair.of(slot, slotStack.getAmount());
 			}
 		}
 		if (smallestCount != null) {
@@ -315,10 +315,10 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
-		IRecipe recipe = getIRecipe();
+		Recipe recipe = getIRecipe();
 		if (recipe != null) {
 			if (progress >= maxProgress) {
 				if (make(recipe)) {
@@ -369,27 +369,27 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing enumFacing) {
+	public boolean canAcceptEnergy(Direction enumFacing) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing enumFacing) {
+	public boolean canProvideEnergy(Direction enumFacing) {
 		return false;
 	}
 
 	@Override
-	public NBTTagCompound write(NBTTagCompound tag) {
+	public CompoundTag toTag(CompoundTag tag) {
 		tag.putBoolean("locked", locked);
-		return super.write(tag);
+		return super.toTag(tag);
 	}
 
 	@Override
-	public void read(NBTTagCompound tag) {
-		if (tag.contains("locked")) {
+	public void fromTag(CompoundTag tag) {
+		if (tag.containsKey("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.read(tag);
+		super.fromTag(tag);
 	}
 
 	// TileMachineBase
@@ -419,13 +419,13 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	// This machine doesnt have a facing
 	@Override
-	public EnumFacing getFacingEnum() {
-		return EnumFacing.NORTH;
+	public Direction getFacingEnum() {
+		return Direction.NORTH;
 	}
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.AUTO_CRAFTING_TABLE.getStack();
 	}
 
@@ -437,7 +437,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(EntityPlayer player) {
+	public BuiltContainer createContainer(PlayerEntity player) {
 		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25).slot(3, 28, 43).slot(4, 46, 43)
 				.slot(5, 64, 43).slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61).outputSlot(9, 145, 42)

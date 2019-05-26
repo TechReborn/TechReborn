@@ -24,14 +24,14 @@
 
 package techreborn.tiles.generator;
 
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
@@ -55,22 +55,22 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	public boolean isSunOut() {
-		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaytime();
+		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaylight();
 	}
 
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		if (panel == TRContent.SolarPanels.CREATIVE) {
 			setEnergy(Integer.MAX_VALUE);
 			return;
 		}
-		if (world.getGameTime() % 20 == 0) {
-			canSeeSky = world.canBlockSeeSky(pos.up());
+		if (world.getTime() % 20 == 0) {
+			canSeeSky = world.method_8626(pos.up());
 			if (lastState != isSunOut()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockSolarPanel.ACTIVE, isSunOut()));
 				lastState = isSunOut();
@@ -94,12 +94,12 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return true;
 	}
 
@@ -130,27 +130,27 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	// TODO: Translate
 	@Override
-	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
-		info.add(new TextComponentString(TextFormatting.GRAY + "Internal Energy Storage: " + TextFormatting.GOLD
+	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
+		info.add(new TextComponent(ChatFormat.GRAY + "Internal Energy Storage: " + ChatFormat.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower())));
 
-		info.add(new TextComponentString(TextFormatting.GRAY + "Generation Rate Day: " + TextFormatting.GOLD
+		info.add(new TextComponent(ChatFormat.GRAY + "Generation Rate Day: " + ChatFormat.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
 
-		info.add(new TextComponentString(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
+		info.add(new TextComponent(ChatFormat.GRAY + "Generation Rate Night: " + ChatFormat.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
 
-		info.add(new TextComponentString(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD
+		info.add(new TextComponent(ChatFormat.GRAY + "Tier: " + ChatFormat.GOLD
 				+ StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
 	}
 	
 	@Override
-	public void read(NBTTagCompound tag) {
+	public void fromTag(CompoundTag tag) {
 		if (world == null) {
 			// We are in TileEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
-		super.read(tag);
+		super.fromTag(tag);
 	}
 
 	// TileMachineBase
@@ -166,7 +166,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer playerIn) {
+	public ItemStack getToolDrop(final PlayerEntity playerIn) {
 		return new ItemStack(getBlockType());
 	}
 }

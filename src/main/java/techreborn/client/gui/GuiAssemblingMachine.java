@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.machine.tier1.TileAssemblingMachine;
@@ -33,14 +33,14 @@ public class GuiAssemblingMachine extends GuiBase {
 
 	TileAssemblingMachine tile;
 
-	public GuiAssemblingMachine(final EntityPlayer player, final TileAssemblingMachine tile) {
+	public GuiAssemblingMachine(final PlayerEntity player, final TileAssemblingMachine tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+	protected void drawBackground(final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawBackground(partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Battery slot
@@ -56,8 +56,8 @@ public class GuiAssemblingMachine extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

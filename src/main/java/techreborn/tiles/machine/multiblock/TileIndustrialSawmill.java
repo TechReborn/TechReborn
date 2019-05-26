@@ -24,14 +24,14 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.block.BlockFlowingFluid;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.IFluidBlock;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+
+
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -81,8 +81,8 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
 		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
 		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
-		final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = ((centerBlock.getBlock() instanceof BlockFlowingFluid
+		final BlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
+		final boolean center = ((centerBlock.getBlock() instanceof FluidBlock
 				|| centerBlock.getBlock() instanceof IFluidBlock) 
 				&& centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
@@ -98,15 +98,15 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
-		if (!world.isRemote && ticksSinceLastChange >= 10) {
-			if (!inventory.getStackInSlot(1).isEmpty()) {
+		if (!world.isClient && ticksSinceLastChange >= 10) {
+			if (!inventory.getInvStack(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 5);
 				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidType());
 			}
 			ticksSinceLastChange = 0;
 		}
 
-		if (!world.isRemote && getMutliBlock()) {
+		if (!world.isClient && getMutliBlock()) {
 			super.tick();
 		}
 
@@ -115,14 +115,14 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	
 	// TilePowerAcceptor
 	@Override
-	public void read(final NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound write(final NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(final CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;
 	}
@@ -146,7 +146,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
 				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()

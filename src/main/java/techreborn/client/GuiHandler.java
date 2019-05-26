@@ -24,11 +24,11 @@
 
 package techreborn.client;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.IGuiHandler;
+
 import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.gui.*;
@@ -58,11 +58,11 @@ import techreborn.tiles.storage.lesu.TileLapotronicSU;
 public class GuiHandler implements IGuiHandler {
 
 	@Override
-	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
+	public Object getServerGuiElement(final int ID, final PlayerEntity player, final World world, final int x,
 	                                  final int y, final int z) {
 
 		final EGui gui = EGui.values()[ID];
-		final TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+		final BlockEntity tile = world.getBlockEntity(new BlockPos(x, y, z));
 
 		if (gui.useContainerBuilder() && tile != null)
 			return ((IContainerProvider) tile).createContainer(player);
@@ -77,10 +77,10 @@ public class GuiHandler implements IGuiHandler {
 	}
 
 	@Override
-	public Object getClientGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
+	public Object getClientGuiElement(final int ID, final PlayerEntity player, final World world, final int x,
 	                                  final int y, final int z) {
 		final EGui gui = EGui.values()[ID];
-		final TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+		final BlockEntity tile = world.getBlockEntity(new BlockPos(x, y, z));
 
 		switch (gui) {
 			case AESU:
@@ -163,8 +163,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
 			case PLASMA_GENERATOR:
 				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
-			case DISTILLATION_TOWER:
-				return new GuiDistillationTower(player, (TileDistillationTower) tile);
+			case EnvTypeILLATION_TOWER:
+				return new GuiEnvTypeillationTower(player, (TileEnvTypeillationTower) tile);
 			case MANUAL:
 				return new GuiManual(player);
 			case FLUID_REPLICATOR:

@@ -25,16 +25,16 @@
 package techreborn.events;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.util.Identifier;
+
+
+
+
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
@@ -88,29 +88,29 @@ public class RegistryEventHandler {
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties().group(TechReborn.ITEMGROUP)));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties().group(TechReborn.ITEMGROUP)));
+		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
+		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
 		Arrays.stream(MachineBlocks.values()).forEach(value -> {
-			RebornRegistry.registerBlock(value.frame, new Item.Properties().group(TechReborn.ITEMGROUP));
-			RebornRegistry.registerBlock(value.casing, new Item.Properties().group(TechReborn.ITEMGROUP));
+			RebornRegistry.registerBlock(value.frame, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+			RebornRegistry.registerBlock(value.casing, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 		});
-		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties().group(TechReborn.ITEMGROUP)));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties().group(TechReborn.ITEMGROUP)));
-		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Properties().group(TechReborn.ITEMGROUP)));
+		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
+		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
+		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
 
 		// Misc. blocks
-		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), new Item.Properties().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
 				ItemBlockRubberSapling.class, 
 				"rubber_sapling");
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), new Item.Properties().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), new Item.Properties().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
@@ -135,10 +135,10 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.BRONZE_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.BRONZE, "ingotBronze"), "bronze_axe"));
 			RebornRegistry.registerItem(TRContent.BRONZE_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.BRONZE, "ingotBronze"), "bronze_hoe"));
 
-			RebornRegistry.registerItem(TRContent.BRONZE_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EntityEquipmentSlot.HEAD, "ingotBronze"), "bronze_helmet"));
-			RebornRegistry.registerItem(TRContent.BRONZE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EntityEquipmentSlot.CHEST, "ingotBronze"), "bronze_chestplate"));
-			RebornRegistry.registerItem(TRContent.BRONZE_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EntityEquipmentSlot.LEGS, "ingotBronze"), "bronze_leggings"));
-			RebornRegistry.registerItem(TRContent.BRONZE_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EntityEquipmentSlot.FEET, "ingotBronze"), "bronze_boots"));
+			RebornRegistry.registerItem(TRContent.BRONZE_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EquipmentSlot.HEAD, "ingotBronze"), "bronze_helmet"));
+			RebornRegistry.registerItem(TRContent.BRONZE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EquipmentSlot.CHEST, "ingotBronze"), "bronze_chestplate"));
+			RebornRegistry.registerItem(TRContent.BRONZE_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EquipmentSlot.LEGS, "ingotBronze"), "bronze_leggings"));
+			RebornRegistry.registerItem(TRContent.BRONZE_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.BRONZE, EquipmentSlot.FEET, "ingotBronze"), "bronze_boots"));
 
 			RebornRegistry.registerItem(TRContent.RUBY_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.RUBY, "gemRuby"), "ruby_sword"));
 			RebornRegistry.registerItem(TRContent.RUBY_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.RUBY, "gemRuby"), "ruby_pickaxe"));
@@ -146,10 +146,10 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.RUBY_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.RUBY, "gemRuby"), "ruby_axe"));
 			RebornRegistry.registerItem(TRContent.RUBY_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.RUBY, "gemRuby"), "ruby_hoe"));
 
-			RebornRegistry.registerItem(TRContent.RUBY_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EntityEquipmentSlot.HEAD, "gemRuby"), "ruby_helmet"));
-			RebornRegistry.registerItem(TRContent.RUBY_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EntityEquipmentSlot.CHEST, "gemRuby"), "ruby_chestplate"));
-			RebornRegistry.registerItem(TRContent.RUBY_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EntityEquipmentSlot.LEGS, "gemRuby"), "ruby_leggings"));
-			RebornRegistry.registerItem(TRContent.RUBY_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EntityEquipmentSlot.FEET, "gemRuby"), "ruby_boots"));
+			RebornRegistry.registerItem(TRContent.RUBY_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EquipmentSlot.HEAD, "gemRuby"), "ruby_helmet"));
+			RebornRegistry.registerItem(TRContent.RUBY_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EquipmentSlot.CHEST, "gemRuby"), "ruby_chestplate"));
+			RebornRegistry.registerItem(TRContent.RUBY_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EquipmentSlot.LEGS, "gemRuby"), "ruby_leggings"));
+			RebornRegistry.registerItem(TRContent.RUBY_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.RUBY, EquipmentSlot.FEET, "gemRuby"), "ruby_boots"));
 
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_sword"));
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_pickaxe"));
@@ -157,10 +157,10 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_axe"));
 			RebornRegistry.registerItem(TRContent.SAPPHIRE_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.SAPPHIRE, "gemSapphire"), "sapphire_hoe"));
 
-			RebornRegistry.registerItem(TRContent.SAPPHIRE_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EntityEquipmentSlot.HEAD, "gemSapphire"), "sapphire_helmet"));
-			RebornRegistry.registerItem(TRContent.SAPPHIRE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EntityEquipmentSlot.CHEST, "gemSapphire"), "sapphire_chestplate"));
-			RebornRegistry.registerItem(TRContent.SAPPHIRE_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EntityEquipmentSlot.LEGS, "gemSapphire"), "sapphire_leggings"));
-			RebornRegistry.registerItem(TRContent.SAPPHIRE_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EntityEquipmentSlot.FEET, "gemSapphire"), "sapphire_boots"));
+			RebornRegistry.registerItem(TRContent.SAPPHIRE_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EquipmentSlot.HEAD, "gemSapphire"), "sapphire_helmet"));
+			RebornRegistry.registerItem(TRContent.SAPPHIRE_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EquipmentSlot.CHEST, "gemSapphire"), "sapphire_chestplate"));
+			RebornRegistry.registerItem(TRContent.SAPPHIRE_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EquipmentSlot.LEGS, "gemSapphire"), "sapphire_leggings"));
+			RebornRegistry.registerItem(TRContent.SAPPHIRE_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.SAPPHIRE, EquipmentSlot.FEET, "gemSapphire"), "sapphire_boots"));
 
 			RebornRegistry.registerItem(TRContent.PERIDOT_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.PERIDOT, "gemPeridot"), "peridot_sword"));
 			RebornRegistry.registerItem(TRContent.PERIDOT_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.PERIDOT, "gemPeridot"), "peridot_pickaxe"));
@@ -168,10 +168,10 @@ public class RegistryEventHandler {
 			RebornRegistry.registerItem(TRContent.PERIDOT_AXE = InitUtils.setup(new ItemTRAxe(TRToolTier.PERIDOT, "gemPeridot"), "peridot_axe"));
 			RebornRegistry.registerItem(TRContent.PERIDOT_HOE = InitUtils.setup(new ItemTRHoe(TRToolTier.PERIDOT, "gemPeridot"), "peridot_hoe"));
 
-			RebornRegistry.registerItem(TRContent.PERIDOT_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EntityEquipmentSlot.HEAD, "gemPeridot"), "peridot_helmet"));
-			RebornRegistry.registerItem(TRContent.PERIDOT_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EntityEquipmentSlot.CHEST, "gemPeridot"), "peridot_chestplate"));
-			RebornRegistry.registerItem(TRContent.PERIDOT_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EntityEquipmentSlot.LEGS, "gemPeridot"), "peridot_leggings"));
-			RebornRegistry.registerItem(TRContent.PERIDOT_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EntityEquipmentSlot.FEET, "gemPeridot"), "peridot_boots"));
+			RebornRegistry.registerItem(TRContent.PERIDOT_HELMET = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EquipmentSlot.HEAD, "gemPeridot"), "peridot_helmet"));
+			RebornRegistry.registerItem(TRContent.PERIDOT_CHESTPLATE = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EquipmentSlot.CHEST, "gemPeridot"), "peridot_chestplate"));
+			RebornRegistry.registerItem(TRContent.PERIDOT_LEGGINGS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EquipmentSlot.LEGS, "gemPeridot"), "peridot_leggings"));
+			RebornRegistry.registerItem(TRContent.PERIDOT_BOOTS = InitUtils.setup(new ItemTRArmour(TRArmorMaterial.PERIDOT, EquipmentSlot.FEET, "gemPeridot"), "peridot_boots"));
 		}
 
 		// Battery
@@ -222,7 +222,7 @@ public class RegistryEventHandler {
 	}
 
 	@SubscribeEvent
-	public static void registerTiles(RegistryEvent.Register<TileEntityType<?>> event) {
+	public static void registerTiles(RegistryEvent.Register<BlockEntityType<?>> event) {
 		TRTileEntities.TYPES.forEach(tileEntityType -> event.getRegistry().register(tileEntityType));
 	}
 	
@@ -230,7 +230,7 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void registerEntityTypes(RegistryEvent.Register<EntityType<?>> event) {
 		TRContent.ENTITY_NUKE = EntityType.Builder.create(EntityNukePrimed.class, EntityNukePrimed::new).build("nuke");
-		TRContent.ENTITY_NUKE.setRegistryName(new ResourceLocation(TechReborn.MOD_ID, "nuke"));
+		TRContent.ENTITY_NUKE.setRegistryName(new Identifier(TechReborn.MOD_ID, "nuke"));
 		event.getRegistry().register(TRContent.ENTITY_NUKE);
 		
 	}

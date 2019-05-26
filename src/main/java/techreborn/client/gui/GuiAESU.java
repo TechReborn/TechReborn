@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -38,14 +38,14 @@ public class GuiAESU extends GuiBase {
 
 	TileAdjustableSU tile;
 
-	public GuiAESU(final EntityPlayer player, final TileAdjustableSU aesu) {
+	public GuiAESU(final PlayerEntity player, final TileAdjustableSU aesu) {
 		super(player, aesu, aesu.createContainer(player));
 		this.tile = aesu;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		this.drawSlot(62, 45, layer);
@@ -56,8 +56,8 @@ public class GuiAESU extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		if(GuiBase.slotConfigType == SlotConfigType.NONE){

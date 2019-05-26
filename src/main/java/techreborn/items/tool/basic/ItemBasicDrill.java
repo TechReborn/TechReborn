@@ -24,14 +24,14 @@
 
 package techreborn.items.tool.basic;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -40,14 +40,14 @@ import techreborn.items.tool.ItemDrill;
 public class ItemBasicDrill extends ItemDrill {
 
 	public ItemBasicDrill() {
-		super(ItemTier.IRON, ConfigTechReborn.BasicDrillCharge, 0.5F, 10F);
+		super(ToolMaterials.IRON, ConfigTechReborn.BasicDrillCharge, 0.5F, 10F);
 		this.cost = 50;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.BASIC_DRILL);
@@ -60,7 +60,7 @@ public class ItemBasicDrill extends ItemDrill {
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		return Items.IRON_PICKAXE.canHarvestBlock(state) || Items.IRON_SHOVEL.canHarvestBlock(state);
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.IRON_PICKAXE.isEffectiveOn(state) || Items.IRON_SHOVEL.isEffectiveOn(state);
 	}
 }

@@ -25,11 +25,11 @@
 package techreborn.tiles.generator;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -67,24 +67,24 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 			--onStatusHoldTicks;
 
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
-			if (getBlockState().getBlock() instanceof BlockMachineBase)
-				((BlockMachineBase) getBlockState().getBlock()).setActive(false, world, pos);
+			if (getCachedState().getBlock() instanceof BlockMachineBase)
+				((BlockMachineBase) getCachedState().getBlock()).setActive(false, world, pos);
 			onStatusHoldTicks = -1;
 		}
 
-		final float weatherStrength = world.getThunderStrength(1.0F);
+		final float weatherStrength = world.getThunderGradient(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
 			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * (1.1F - weatherStrength);
-			if (world.rand.nextInt((int) Math.floor(totalChance)) == 0) {
+			if (world.random.nextInt((int) Math.floor(totalChance)) == 0) {
 				if (!isValidIronFence(pos.up().getY())) {
 					onStatusHoldTicks = 400;
 					return;
 				}
-				final EntityLightningBolt lightningBolt = new EntityLightningBolt(world,
+				final LightningEntity lightningBolt = new LightningEntity(world,
 					pos.getX() + 0.5F,
-					world.getHeight(),
+					world.getTopPosition(),
 					pos.getZ() + 0.5F, false);
 				world.addWeatherEffect(lightningBolt);
 				world.spawnEntity(lightningBolt);
@@ -98,7 +98,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 
 	public float getLightningStrikeMultiplier() {
 		final float actualHeight = world.getDimension().getActualHeight();
-		final float groundLevel = world.getHeight();
+		final float groundLevel = world.getTopPosition();
 		for (int i = pos.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)
@@ -125,12 +125,12 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return true;
 	}
 
@@ -145,7 +145,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.LIGHTNING_ROD.getStack();
 	}
 }

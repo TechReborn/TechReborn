@@ -24,11 +24,11 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
+import net.minecraft.util.math.Direction;
+
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -71,14 +71,14 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public void cookItems() {
 		if (canSmelt()) {
-			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(input1));
+			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(input1));
 
-			if (inventory.getStackInSlot(output).isEmpty()) {
+			if (inventory.getInvStack(output).isEmpty()) {
 				inventory.setStackInSlot(output, itemstack.copy());
-			} else if (inventory.getStackInSlot(output).isItemEqual(itemstack)) {
-				inventory.getStackInSlot(output).grow(itemstack.getCount());
+			} else if (inventory.getInvStack(output).isEqualIgnoreTags(itemstack)) {
+				inventory.getInvStack(output).addAmount(itemstack.getAmount());
 			}
-			if (inventory.getStackInSlot(input1).getCount() > 1) {
+			if (inventory.getInvStack(input1).getAmount() > 1) {
 				inventory.shrinkSlot(input1, 1);
 			} else {
 				inventory.setStackInSlot(input1, ItemStack.EMPTY);
@@ -87,21 +87,21 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public boolean canSmelt() {
-		if (inventory.getStackInSlot(input1).isEmpty()) {
+		if (inventory.getInvStack(input1).isEmpty()) {
 			return false;
 		}
-		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(input1));
+		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(input1));
 		if (itemstack.isEmpty()) {
 			return false;
 		}
-		if (inventory.getStackInSlot(output).isEmpty()) {
+		if (inventory.getInvStack(output).isEmpty()) {
 			return true;
 		}
-		if (!inventory.getStackInSlot(output).isItemEqual(itemstack)) {
+		if (!inventory.getInvStack(output).isEqualIgnoreTags(itemstack)) {
 			return false;
 		}
-		final int result = inventory.getStackInSlot(output).getCount() + itemstack.getCount();
-		return result <= this.inventory.getStackLimit() && result <= itemstack.getMaxStackSize();
+		final int result = inventory.getInvStack(output).getAmount() + itemstack.getAmount();
+		return result <= this.inventory.getStackLimit() && result <= itemstack.getMaxAmount();
 	}
 
 	public boolean isBurning() {
@@ -124,7 +124,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 				wasBurning = true;
 				return;
 			}
-			final IBlockState BlockStateContainer = world.getBlockState(pos);
+			final BlockState BlockStateContainer = world.getBlockState(pos);
 			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 				if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != progress > 0)
@@ -146,7 +146,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -183,12 +183,12 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return false;
 	}
 
@@ -204,7 +204,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.ELECTRIC_FURNACE.getStack();
 	}
 
@@ -216,7 +216,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);

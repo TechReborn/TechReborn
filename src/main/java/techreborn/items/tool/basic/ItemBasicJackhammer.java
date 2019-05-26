@@ -26,10 +26,10 @@ package techreborn.items.tool.basic;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -38,15 +38,15 @@ import techreborn.items.tool.ItemJackhammer;
 public class ItemBasicJackhammer extends ItemJackhammer {
 
 	public ItemBasicJackhammer() {
-		super(ItemTier.DIAMOND, ConfigTechReborn.BasicJackhammerCharge);
+		super(ToolMaterials.DIAMOND, ConfigTechReborn.BasicJackhammerCharge);
 		this.cost = 50;
-		this.efficiency = 12F;
+		this.blockBreakingSpeed = 12F;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.BASIC_JACKHAMMER);

@@ -25,7 +25,7 @@
 package techreborn.tiles.machine.multiblock;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import techreborn.init.TRContent;
@@ -68,10 +68,10 @@ public class MultiblockChecker {
 
 	public boolean checkAir(int offX, int offY, int offZ) {
 		BlockPos pos = downCenter.add(offX, offY, offZ);
-		return world.isAirBlock(pos);
+		return world.isAir(pos);
 	}
 
-	public IBlockState getBlock(int offX, int offY, int offZ) {
+	public BlockState getBlock(int offX, int offY, int offZ) {
 		BlockPos pos = downCenter.add(offX, offY, offZ);
 		return world.getBlockState(pos);
 	}

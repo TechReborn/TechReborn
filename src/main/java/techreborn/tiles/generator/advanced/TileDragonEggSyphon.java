@@ -24,11 +24,11 @@
 
 package techreborn.tiles.generator.advanced;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -74,16 +74,16 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	public void tick() {
 		super.tick();
 
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
 					.getBlock() == Blocks.DRAGON_EGG) {
 				if (tryAddingEnergy(energyPerTick))
-					lastOutput = world.getGameTime();
+					lastOutput = world.getTime();
 			}
 
-			if (world.getGameTime() - lastOutput < 30 && !isActive()) {
+			if (world.getTime() - lastOutput < 30 && !isActive()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-			} else if (world.getGameTime() - lastOutput > 30 && isActive()) {
+			} else if (world.getTime() - lastOutput > 30 && isActive()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 			}
 		}
@@ -95,12 +95,12 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return true;
 	}
 
@@ -116,7 +116,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return TRContent.Machine.DRAGON_EGG_SYPHON.getStack();
 	}
 

@@ -24,14 +24,14 @@
 
 package techreborn.tiles.transformers;
 
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
@@ -63,7 +63,7 @@ public class TileTransformer extends TilePowerAcceptor
 	public int maxOutput;
 	public int maxStorage;
 
-	public TileTransformer(TileEntityType<?> tileEntityType, String name, Block wrenchDrop, EnumPowerTier tier) {
+	public TileTransformer(BlockEntityType<?> tileEntityType, String name, Block wrenchDrop, EnumPowerTier tier) {
 		super(tileEntityType);
 		this.wrenchDrop = wrenchDrop;
 		this.inputTier = tier;
@@ -88,7 +88,7 @@ public class TileTransformer extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		if (IC2TransformersStyle == true){
 			return getFacingEnum() == direction;
 		}
@@ -96,7 +96,7 @@ public class TileTransformer extends TilePowerAcceptor
 	}
 	
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		if (IC2TransformersStyle == true){
 			return getFacingEnum() != direction;
 		}
@@ -130,7 +130,7 @@ public class TileTransformer extends TilePowerAcceptor
 	
 	// TileMachineBase
 	@Override
-	public EnumFacing getFacingEnum() {
+	public Direction getFacingEnum() {
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockTransformer) {
 			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
@@ -140,17 +140,17 @@ public class TileTransformer extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return new ItemStack(wrenchDrop);
 	}
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
-		info.add(new TextComponentString(TextFormatting.GRAY + "Input Rate: " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput())));
-		info.add(new TextComponentString(TextFormatting.GRAY + "Input Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString())));
-		info.add(new TextComponentString(TextFormatting.GRAY + "Output Rate: " + TextFormatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput())));
-		info.add(new TextComponentString(TextFormatting.GRAY + "Output Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString())));
+	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
+		info.add(new TextComponent(ChatFormat.GRAY + "Input Rate: " + ChatFormat.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput())));
+		info.add(new TextComponent(ChatFormat.GRAY + "Input Tier: " + ChatFormat.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString())));
+		info.add(new TextComponent(ChatFormat.GRAY + "Output Rate: " + ChatFormat.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput())));
+		info.add(new TextComponent(ChatFormat.GRAY + "Output Tier: " + ChatFormat.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString())));
 	}
 
 }

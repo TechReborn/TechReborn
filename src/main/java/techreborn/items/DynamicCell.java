@@ -25,28 +25,28 @@
 package techreborn.items;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlowingFluid;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidBlock;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+
+
+
+
+
+
+
 import org.apache.commons.lang3.Validate;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
@@ -62,19 +62,19 @@ public class DynamicCell extends Item {
 	public static final int CAPACITY = Fluid.BUCKET_VOLUME;
 
 	public DynamicCell() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		//Clearing tag because ItemUtils.isItemEqual doesn't handle tags ForgeCaps and display
 		//And breaks ability to use in recipes
 		//TODO: Property ItemUtils.isItemEquals tags equality handling?
 		if (stack.hasTag()) {
-			NBTTagCompound tag = stack.getTag();
-			if (tag.size() != 1 || tag.contains("Fluid")) {
-				NBTTagCompound clearTag = new NBTTagCompound();
+			CompoundTag tag = stack.getTag();
+			if (tag.getSize() != 1 || tag.containsKey("Fluid")) {
+				CompoundTag clearTag = new CompoundTag();
 				clearTag.put("Fluid", tag.getCompound("Fluid"));
 				stack.setTag(clearTag);
 			}
@@ -82,14 +82,14 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		ItemStack stack = playerIn.getHeldItem(hand);
-		if (!worldIn.isRemote) {
-			RayTraceResult result = rayTrace(worldIn, playerIn, true);
+	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
+		ItemStack stack = playerIn.getStackInHand(hand);
+		if (!worldIn.isClient) {
+			HitResult result = rayTrace(worldIn, playerIn, true);
 
-			if (result != null && result.type == RayTraceResult.Type.BLOCK) {
+			if (result != null && result.type == HitResult.Type.BLOCK) {
 				BlockPos pos = result.getBlockPos();
-				IBlockState state = worldIn.getBlockState(pos);
+				BlockState state = worldIn.getBlockState(pos);
 				Block block = state.getBlock();
 
 				if (block instanceof IFluidBlock) {
@@ -101,13 +101,13 @@ public class DynamicCell extends Item {
 						if (fluid != null && fluid.amount == DynamicCell.CAPACITY) {
 							if (tryAddCellToInventory(playerIn, stack, fluid.getFluid())) {
 								fluidBlock.drain(worldIn, pos, true);
-								return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+								return TypedActionResult.newResult(ActionResult.SUCCESS, stack);
 							}
 						}
 
 					}
 
-				} else if (block instanceof BlockFlowingFluid) {
+				} else if (block instanceof FluidBlock) {
 					//TODO 1.13 fix me
 //					Fluid fluid = state.getMaterial() == Material.LAVA ? Fluids.LAVA : Fluids.WATER;
 //
@@ -119,38 +119,38 @@ public class DynamicCell extends Item {
 
 				} else {
 					 ItemStack usedCell = stack.copy();
-					 usedCell.setCount(1);
+					 usedCell.setAmount(1);
 					 IFluidHandlerItem fluidHandler = FluidUtil.getFluidHandler(usedCell).orElseGet(null);
 					 if (fluidHandler != null) {
 						 FluidStack fluid = fluidHandler.drain(DynamicCell.CAPACITY, false);
 						 if (fluid != null){
 							 if(FluidUtil.tryPlaceFluid(playerIn, worldIn, pos.offset(result.sideHit), fluidHandler, fluid)){
-								 stack.shrink(1);
-								 playerIn.inventory.addItemStackToInventory(getEmptyCell(1));
-								 return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+								 stack.subtractAmount(1);
+								 playerIn.inventory.insertStack(getEmptyCell(1));
+								 return TypedActionResult.newResult(ActionResult.SUCCESS, stack);
 							 }
-							 return ActionResult.newResult(EnumActionResult.FAIL, stack);
+							 return TypedActionResult.newResult(ActionResult.FAIL, stack);
 						 }
-						 return ActionResult.newResult(EnumActionResult.FAIL, stack);				 
+						 return TypedActionResult.newResult(ActionResult.FAIL, stack);				 
 					 }
-					 return ActionResult.newResult(EnumActionResult.FAIL, stack);   
+					 return TypedActionResult.newResult(ActionResult.FAIL, stack);   
 				}
 			}
 		}
-		return ActionResult.newResult(EnumActionResult.FAIL, stack);
+		return TypedActionResult.newResult(ActionResult.FAIL, stack);
 	}
 
-	public boolean tryAddCellToInventory(EntityPlayer player, ItemStack stack, Fluid fluid) {
-		if (player.inventory.addItemStackToInventory(DynamicCell.getCellWithFluid(fluid))) {
-			stack.shrink(1);
+	public boolean tryAddCellToInventory(PlayerEntity player, ItemStack stack, Fluid fluid) {
+		if (player.inventory.insertStack(DynamicCell.getCellWithFluid(fluid))) {
+			stack.subtractAmount(1);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> subItems) {
-		if (!isInGroup(tab)) {
+	public void appendItemsForGroup(ItemGroup tab, DefaultedList<ItemStack> subItems) {
+		if (!isInItemGroup(tab)) {
 			return;
 		}
 		subItems.add(getEmptyCell(1));
@@ -168,7 +168,7 @@ public class DynamicCell extends Item {
 	}
 
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
 		return getFluidHandler(stack);
 	}
 
@@ -180,7 +180,7 @@ public class DynamicCell extends Item {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(TRContent.CELL);
 		getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
-		stack.setCount(stackSize);
+		stack.setAmount(stackSize);
 		return stack;
 	}
 
@@ -198,10 +198,10 @@ public class DynamicCell extends Item {
 			super(container, capacity);
 
 			//backwards compatibility
-			if (container.hasTag() && container.getTag().contains("FluidName")) {
+			if (container.hasTag() && container.getTag().containsKey("FluidName")) {
 				FluidStack stack = FluidStack.loadFluidStackFromNBT(container.getTag());
 				if (stack != null) {
-					container.setTag(new NBTTagCompound());
+					container.setTag(new CompoundTag());
 					fill(stack, true);
 				}
 			}

@@ -27,8 +27,8 @@ package techreborn.init;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IUpgrade;
 import reborncore.common.powerSystem.TilePowerAcceptor;
@@ -217,7 +217,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Cables implements IItemProvider {
+	public static enum Cables implements ItemConvertible {
 		COPPER(128, 12.0, true, EnumPowerTier.MEDIUM),
 		TIN(32, 12.0, true, EnumPowerTier.LOW),
 		GOLD(512, 12.0, true, EnumPowerTier.HIGH),
@@ -262,7 +262,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Ores implements IItemProvider {
+	public static enum Ores implements ItemConvertible {
 		BAUXITE, CINNABAR, COPPER, GALENA, IRIDIUM, LEAD, PERIDOT, PYRITE, RUBY, SAPPHIRE, SHELDONITE, SILVER, SODALITE,
 		SPHALERITE, TIN, TUNGSTEN;
 
@@ -281,7 +281,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum StorageBlocks implements IItemProvider {
+	public static enum StorageBlocks implements ItemConvertible {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, INVAR, IRIDIUM, IRIDIUM_REINFORCED_STONE,
 		IRIDIUM_REINFORCED_TUNGSTENSTEEL, LEAD, NICKEL, OSMIUM, PERIDOT, PLATINUM, RED_GARNET, REFINED_IRON, RUBY,
 		SAPPHIRE, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, YELLOW_GARNET, ZINC;
@@ -328,13 +328,13 @@ public class TRContent {
 	}
 	
 	
-	public static enum Machine implements IItemProvider {
+	public static enum Machine implements ItemConvertible {
 		ALLOY_SMELTER(new BlockAlloySmelter()),
 		ASSEMBLY_MACHINE(new BlockAssemblingMachine()),
 		AUTO_CRAFTING_TABLE(new BlockAutoCraftingTable()),
 		CHEMICAL_REACTOR(new BlockChemicalReactor()),
 		COMPRESSOR(new BlockCompressor()),
-		DISTILLATION_TOWER(new BlockDistillationTower()),
+		EnvTypeILLATION_TOWER(new BlockEnvTypeillationTower()),
 		EXTRACTOR(new BlockExtractor()),
 		FLUID_REPLICATOR(new BlockFluidReplicator()),
 		GRINDER(new BlockGrinder()),
@@ -411,7 +411,7 @@ public class TRContent {
 		}
 	}
 	
-	public static enum Dusts implements IItemProvider {
+	public static enum Dusts implements ItemConvertible {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE, NETHERRACK,
@@ -424,7 +424,7 @@ public class TRContent {
 
 		private Dusts() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_dust");
 		}
 
@@ -442,7 +442,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum SmallDusts implements IItemProvider {
+	public static enum SmallDusts implements ItemConvertible {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
 		FLINT, GALENA, GLOWSTONE, GOLD, GRANITE, GROSSULAR, INVAR, IRON, LAZURITE, LEAD, MAGNESIUM, MANGANESE, MARBLE,
@@ -455,7 +455,7 @@ public class TRContent {
 
 		private SmallDusts() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_small_dust");
 		}
 
@@ -473,7 +473,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Gems implements IItemProvider {
+	public static enum Gems implements ItemConvertible {
 		PERIDOT, RED_GARNET, RUBY, SAPPHIRE, YELLOW_GARNET;
 
 		public final String name;
@@ -481,7 +481,7 @@ public class TRContent {
 
 		private Gems() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_gem");
 		}
 
@@ -499,7 +499,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Ingots implements IItemProvider {
+	public static enum Ingots implements ItemConvertible {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CHROME, COPPER, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM_ALLOY, IRIDIUM,
 		LEAD, MIXED_METAL, NICKEL, PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -508,7 +508,7 @@ public class TRContent {
 
 		private Ingots() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_ingot");
 		}
 
@@ -526,7 +526,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Nuggets implements IItemProvider {
+	public static enum Nuggets implements ItemConvertible {
 		ALUMINUM, BRASS, BRONZE, CHROME, COPPER, DIAMOND, ELECTRUM, HOT_TUNGSTENSTEEL, INVAR, IRIDIUM, LEAD, NICKEL,
 		PLATINUM, REFINED_IRON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, ZINC;
 
@@ -535,7 +535,7 @@ public class TRContent {
 
 		private Nuggets() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_nugget");
 		}
 
@@ -553,7 +553,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Parts implements IItemProvider {
+	public static enum Parts implements ItemConvertible {
 		CARBON_FIBER,
 		CARBON_MESH,
 
@@ -602,7 +602,7 @@ public class TRContent {
 
 		private Parts() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name);
 		}
 
@@ -620,7 +620,7 @@ public class TRContent {
 		}
 	}
 
-	public static enum Plates implements IItemProvider {
+	public static enum Plates implements ItemConvertible {
 		ADVANCED_ALLOY, ALUMINUM, BRASS, BRONZE, CARBON, COAL, COPPER, DIAMOND, ELECTRUM, EMERALD, GOLD, INVAR,
 		IRIDIUM_ALLOY, IRIDIUM, IRON, LAPIS, LAZURITE, LEAD, MAGNALIUM, NICKEL, OBSIDIAN, PERIDOT, PLATINUM, RED_GARNET,
 		REDSTONE, REFINED_IRON, RUBY, SAPPHIRE, SILICON, SILVER, STEEL, TIN, TITANIUM, TUNGSTEN, TUNGSTENSTEEL, WOOD,
@@ -631,7 +631,7 @@ public class TRContent {
 
 		private Plates() {
 			name = this.toString().toLowerCase();
-			item = new Item(new Item.Properties().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_plate");
 		}
 
@@ -658,7 +658,7 @@ public class TRContent {
 	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")
 	public static double energyStoragePower = 40_000;
 
-	public static enum Upgrades implements IItemProvider {
+	public static enum Upgrades implements ItemConvertible {
 		OVERCLOCKER((tile, handler, stack) -> {
 			TilePowerAcceptor powerAcceptor = null;
 			if (tile instanceof TilePowerAcceptor) {

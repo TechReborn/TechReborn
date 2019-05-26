@@ -24,7 +24,7 @@
 
 package techreborn.init.recipes;
 
-import net.minecraftforge.fluids.Fluid;
+
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.init.ModFluids;

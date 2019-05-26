@@ -24,8 +24,8 @@
 
 package techreborn.blocks.transformers;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
 import techreborn.tiles.transformers.TileLVTransformer;
 
 /**
@@ -38,7 +38,7 @@ public class BlockLVTransformer extends BlockTransformer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileLVTransformer();
 	}
 }

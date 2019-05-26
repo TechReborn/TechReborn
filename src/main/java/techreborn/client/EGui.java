@@ -24,24 +24,23 @@
 
 package techreborn.client;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.ContainerScreen;
+import net.minecraft.container.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.ExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.network.NetworkHooks;
+
+
+
+
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.client.container.ContainerDestructoPack;
@@ -89,7 +88,7 @@ public enum EGui implements IMachineGuiHandler {
 	DESTRUCTOPACK(false),
 	DIESEL_GENERATOR(true),
 	DIGITAL_CHEST(true),
-	DISTILLATION_TOWER(true),
+	EnvTypeILLATION_TOWER(true),
 	ELECTRIC_FURNACE(true),
 	EXTRACTOR(true),
 	FUSION_CONTROLLER(true),
@@ -129,11 +128,11 @@ public enum EGui implements IMachineGuiHandler {
 		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, ()-> EGui::getClientGuiElement);
 	}
 
-	public static GuiContainer getClientGuiElement(FMLPlayMessages.OpenContainer msg) {
+	public static ContainerScreen getClientGuiElement(FMLPlayMessages.OpenContainer msg) {
 		EGui gui = byID(msg.getId());
-		EntityPlayer player = Minecraft.getInstance().player;
+		PlayerEntity player = MinecraftClient.getInstance().player;
 		BlockPos pos = msg.getAdditionalData().readBlockPos();
-		TileEntity tile = player.world.getTileEntity(pos);
+		BlockEntity tile = player.world.getBlockEntity(pos);
 
 		switch (gui) {
 			case AESU:
@@ -216,8 +215,8 @@ public enum EGui implements IMachineGuiHandler {
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
 			case PLASMA_GENERATOR:
 				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
-			case DISTILLATION_TOWER:
-				return new GuiDistillationTower(player, (TileDistillationTower) tile);
+			case EnvTypeILLATION_TOWER:
+				return new GuiEnvTypeillationTower(player, (TileEnvTypeillationTower) tile);
 			case FLUID_REPLICATOR:
 				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
 			default:
@@ -226,7 +225,7 @@ public enum EGui implements IMachineGuiHandler {
 		}
 	}
 
-	public static EGui byID(ResourceLocation resourceLocation){
+	public static EGui byID(Identifier resourceLocation){
 		return Arrays.stream(values())
 			.filter(eGui -> eGui.name().toLowerCase().equals(resourceLocation.getPath()))
 			.findFirst()
@@ -234,13 +233,13 @@ public enum EGui implements IMachineGuiHandler {
 	}
 
 	@Override
-	public void open(EntityPlayer player, BlockPos pos, World world) {
-		if(!world.isRemote){
+	public void open(PlayerEntity player, BlockPos pos, World world) {
+		if(!world.isClient){
 			EGui gui = this;
-			NetworkHooks.openGui((EntityPlayerMP) player, new IInteractionObject() {
+			NetworkHooks.openGui((ServerPlayerEntity) player, new IInteractionObject() {
 				@Override
-				public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
-					TileEntity tileEntity = playerIn.world.getTileEntity(pos);
+				public Container createContainer(PlayerInventory playerInventory, PlayerEntity playerIn) {
+					BlockEntity tileEntity = playerIn.world.getBlockEntity(pos);
 					if (tileEntity instanceof IContainerProvider) {
 						return ((IContainerProvider) tileEntity).createContainer(player);
 					}
@@ -253,8 +252,8 @@ public enum EGui implements IMachineGuiHandler {
 				}
 
 				@Override
-				public ITextComponent getName() {
-					return new TextComponentString(getGuiID());
+				public Component getName() {
+					return new TextComponent(getGuiID());
 				}
 
 				@Override
@@ -264,7 +263,7 @@ public enum EGui implements IMachineGuiHandler {
 
 				@Nullable
 				@Override
-				public ITextComponent getCustomName() {
+				public Component getCustomName() {
 					return null;
 				}
 			}, packetBuffer -> packetBuffer.writeBlockPos(pos));

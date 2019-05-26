@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.generator.advanced.TileGasTurbine;
@@ -33,14 +33,14 @@ public class GuiGasTurbine extends GuiBase {
 
 	TileGasTurbine tile;
 
-	public GuiGasTurbine(final EntityPlayer player, final TileGasTurbine tile) {
+	public GuiGasTurbine(final PlayerEntity player, final TileGasTurbine tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		drawSlot(25, 35, layer);
 		drawSlot(25, 55, layer);
@@ -49,8 +49,8 @@ public class GuiGasTurbine extends GuiBase {
 	
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 		
 		builder.drawProgressBar(this, tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

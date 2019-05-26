@@ -25,12 +25,12 @@
 package techreborn.utils;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.Tag;
-import net.minecraft.tags.TagCollection;
+import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagContainer;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -41,16 +41,16 @@ public class TagUtils {
 		return tag.contains(type);
 	}
 
-	public static TagCollection<Block> getAllBlockTags(World world) {
-		return world.getTags().getBlocks();
+	public static TagContainer<Block> getAllBlockTags(World world) {
+		return world.getTagManager().blocks();
 	}
 
-	public static TagCollection<Item> getAllItemTags(World world) {
-		return world.getTags().getItems();
+	public static TagContainer<Item> getAllItemTags(World world) {
+		return world.getTagManager().items();
 	}
 
-	public static TagCollection<Fluid> getAllFluidTags(World world) {
-		return world.getTags().getFluids();
+	public static TagContainer<Fluid> getAllFluidTags(World world) {
+		return world.getTagManager().fluids();
 	}
 
 	public static String toFirstLower(String string) {
@@ -105,7 +105,7 @@ public class TagUtils {
 
 
 	@Deprecated
-	public static boolean isOre(IBlockState state, String oreName) {
+	public static boolean isOre(BlockState state, String oreName) {
 		throw new UnsupportedOperationException("Move to tags");
 	}
 

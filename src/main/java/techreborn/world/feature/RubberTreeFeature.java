@@ -26,14 +26,13 @@ package techreborn.world.feature;
 
 import java.util.Random;
 import java.util.Set;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import techreborn.blocks.BlockRubberLog;
 import techreborn.init.TRContent;
 
@@ -41,13 +40,13 @@ import techreborn.init.TRContent;
  * @author drcrazy
  *
  */
-public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
+public class RubberTreeFeature extends AbstractTreeFeature<DefaultFeatureConfig> {
 	
 	//TODO: Configs
 	private int treeBaseHeight = 5;
 	private int sapRarity = 10;
 	private int spireHeight = 4;
-	final IBlockState leafState = TRContent.RUBBER_LEAVES.getDefaultState();
+	final BlockState leafState = TRContent.RUBBER_LEAVES.getDefaultState();
 
 	public RubberTreeFeature() {
 		super(false);
@@ -56,7 +55,7 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 	@Override
 	protected boolean place(Set<BlockPos> changedBlocks, IWorld worldIn, Random rand, BlockPos saplingPos) {
 		int treeHeight = rand.nextInt(5) + treeBaseHeight;
-		int worldHeight = worldIn.getWorld().getHeight();
+		int worldHeight = worldIn.getWorld().getTopPosition();
 		
 		int baseY = saplingPos.getY();
 		int baseX = saplingPos.getX();
@@ -64,10 +63,10 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 		if (baseY <= 1 && baseY + treeHeight + 1 >= worldHeight) { return false; }
 		
 		BlockPos rootBlockPos = saplingPos.down();
-		IBlockState rootBlockState = worldIn.getBlockState(rootBlockPos);
+		BlockState rootBlockState = worldIn.getBlockState(rootBlockPos);
 		boolean isSoil = rootBlockState.canSustainPlant(worldIn, rootBlockPos,
-				net.minecraft.util.EnumFacing.UP,
-				(net.minecraft.block.BlockSapling) TRContent.RUBBER_SAPLING.getBlock());
+				net.minecraft.util.math.Direction.UP,
+				(net.minecraft.block.SaplingBlock) TRContent.RUBBER_SAPLING.getBlock());
 		if (!isSoil) { return false; }
 		
 		int yOffset;
@@ -82,10 +81,10 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 				radius = 2;
 			}
 
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+			BlockPos.Mutable blockpos$mutableblockpos = new BlockPos.Mutable();
 			for (xOffset = baseX - radius; xOffset <= baseX + radius; ++xOffset) {
 				for (zOffset = baseZ - radius; zOffset <= baseZ + radius; ++zOffset) {
-					if (!this.canGrowInto(worldIn, blockpos$mutableblockpos.setPos(xOffset, yOffset, xOffset))) {
+					if (!this.canGrowInto(worldIn, blockpos$mutableblockpos.set(xOffset, yOffset, xOffset))) {
 						return false;
 					}
 				}
@@ -114,15 +113,15 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 		
 		// Trunk
 		BlockPos topLogPos = null;
-		IBlockState logState = TRContent.RUBBER_LOG.getDefaultState();
+		BlockState logState = TRContent.RUBBER_LOG.getDefaultState();
 		for (yOffset = 0; yOffset < treeHeight; ++yOffset) {
 			BlockPos blockpos = new BlockPos(baseX, baseY + yOffset, baseZ);
-			IBlockState state1 = worldIn.getBlockState(blockpos);
-			if (state1.isAir(worldIn, blockpos) || state1.isIn(BlockTags.LEAVES)) {
+			BlockState state1 = worldIn.getBlockState(blockpos);
+			if (state1.isAir(worldIn, blockpos) || state1.matches(BlockTags.LEAVES)) {
 				
 				if (rand.nextInt(sapRarity) == 0) {
 					logState = logState.with(BlockRubberLog.HAS_SAP, true)
-						.with(BlockRubberLog.SAP_SIDE, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
+						.with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontal(rand.nextInt(4)));
 				}
 	
 				//setBlockState(worldIn, blockpos, logState);
@@ -149,7 +148,7 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 	}
 	
 	private boolean growLeaves(IWorld worldIn, BlockPos pos) {
-        IBlockState state1 = worldIn.getBlockState(pos);
+        BlockState state1 = worldIn.getBlockState(pos);
         if (state1.canBeReplacedByLeaves(worldIn, pos)) {
       	  this.setBlockState(worldIn, pos, leafState);
       	  return true;

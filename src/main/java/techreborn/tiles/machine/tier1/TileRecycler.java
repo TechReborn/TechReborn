@@ -24,10 +24,10 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IUpgrade;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -79,27 +79,27 @@ public class TileRecycler extends TilePowerAcceptor
 	
 	public void recycleItems() {
 		ItemStack itemstack = TRContent.Parts.SCRAP.getStack();
-		final int randomchance = this.world.rand.nextInt(chance);
+		final int randomchance = this.world.random.nextInt(chance);
 
 		if (randomchance == 1) {
-			if (inventory.getStackInSlot(1).isEmpty()) {
+			if (inventory.getInvStack(1).isEmpty()) {
 				inventory.setStackInSlot(1, itemstack.copy());
 			}
 			else {
-				inventory.getStackInSlot(1).grow(itemstack.getCount());
+				inventory.getInvStack(1).addAmount(itemstack.getAmount());
 			}
 		}
 		inventory.shrinkSlot(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return !inventory.getStackInSlot(0) .isEmpty() && hasSlotGotSpace(1);
+		return !inventory.getInvStack(0) .isEmpty() && hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(int slot) {
-		if (inventory.getStackInSlot(slot).isEmpty()) {
+		if (inventory.getInvStack(slot).isEmpty()) {
 			return true;
-		} else if (inventory.getStackInSlot(slot).getCount() < inventory.getStackInSlot(slot).getMaxStackSize()) {
+		} else if (inventory.getInvStack(slot).getAmount() < inventory.getInvStack(slot).getMaxAmount()) {
 			return true;
 		}
 		return false;
@@ -114,7 +114,7 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = world.getBlockState(pos);
+		final BlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			boolean shouldBurn = isBurning || (canRecycle() && canUseEnergy(getEuPerTick(cost)));
@@ -128,7 +128,7 @@ public class TileRecycler extends TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		charge(2);
@@ -163,12 +163,12 @@ public class TileRecycler extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return false;
 	}
 
@@ -190,7 +190,7 @@ public class TileRecycler extends TilePowerAcceptor
 	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return TRContent.Machine.RECYCLER.getStack();
 	}
 
@@ -202,7 +202,7 @@ public class TileRecycler extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(EntityPlayer player) {
+	public BuiltContainer createContainer(PlayerEntity player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 55, 45, itemStack -> itemStack.getItem() instanceof IUpgrade).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);

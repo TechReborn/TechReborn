@@ -25,21 +25,20 @@
 package techreborn.init;
 
 import java.util.function.Supplier;
-
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Lazy;
 
 //TODO: Use tags
-public enum TRToolTier implements IItemTier {
+public enum TRToolTier implements ToolMaterial {
 	BRONZE(2, 375, 6.0f, 2.25f, 8, () -> {
-		return Ingredient.fromItems(TRContent.Ingots.BRONZE.asItem());
+		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
 	}), RUBY(2, 320, 6.2F, 2.7F, 10, () -> {
-		return Ingredient.fromItems(TRContent.Gems.RUBY.asItem());
+		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
 	}), SAPPHIRE(3, 620, 5.0F, 2F, 8, () -> {
-		return Ingredient.fromItems(TRContent.Gems.SAPPHIRE.asItem());
+		return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
 	}), PERIDOT(2, 400, 7.0F, 2.4F, 16, () -> {
-		return Ingredient.fromItems(TRContent.Gems.PERIDOT.asItem());
+		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	});
 
 	/**
@@ -61,7 +60,7 @@ public enum TRToolTier implements IItemTier {
 	private final float attackDamage;
 	/** Defines the natural enchantability factor of the material. */
 	private final int enchantability;
-	private final LazyLoadBase<Ingredient> repairMaterial;
+	private final Lazy<Ingredient> repairMaterial;
 
 	private TRToolTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
 			int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
@@ -70,16 +69,16 @@ public enum TRToolTier implements IItemTier {
 		this.efficiency = efficiencyIn;
 		this.attackDamage = attackDamageIn;
 		this.enchantability = enchantabilityIn;
-		this.repairMaterial = new LazyLoadBase<>(repairMaterialIn);
+		this.repairMaterial = new Lazy<>(repairMaterialIn);
 	}
 
 	@Override
-	public int getMaxUses() {
+	public int getDurability() {
 		return maxUses;
 	}
 
 	@Override
-	public float getEfficiency() {
+	public float getBlockBreakingSpeed() {
 		return efficiency;
 	}
 
@@ -89,7 +88,7 @@ public enum TRToolTier implements IItemTier {
 	}
 
 	@Override
-	public int getHarvestLevel() {
+	public int getMiningLevel() {
 		return harvestLevel;
 	}
 
@@ -99,7 +98,7 @@ public enum TRToolTier implements IItemTier {
 	}
 
 	@Override
-	public Ingredient getRepairMaterial() {
-		return repairMaterial.getValue();
+	public Ingredient getRepairIngredient() {
+		return repairMaterial.get();
 	}
 }

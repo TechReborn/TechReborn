@@ -24,7 +24,7 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -70,7 +70,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 	// TileGenericMachine
 	@Override
 	public void tick() {
-		if (!world.isRemote && getMultiBlock()) {
+		if (!world.isClient && getMultiBlock()) {
 			super.tick();
 		}
 	}
@@ -84,7 +84,7 @@ public class TileVacuumFreezer extends TileGenericMachine implements IContainerP
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this);

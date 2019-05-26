@@ -25,22 +25,22 @@
 package techreborn.blocks.tier1;
 
 import com.google.common.collect.Lists;
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.state.StateFactory;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
@@ -66,8 +66,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public static PropertyString TYPE;
 
 	public BlockPlayerDetector() {
-		super(Block.Properties.create(Material.IRON), true);
-		this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, types[0]));
+		super(Block.Settings.of(Material.METAL), true);
+		this.setDefaultState(this.stateFactory.getDefaultState().with(TYPE, types[0]));
 		for (int i = 0; i < types.length; i++) {
 			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
 		}
@@ -75,24 +75,24 @@ public class BlockPlayerDetector extends BlockMachineBase {
 
 	// BlockMachineBase
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TilePlayerDectector();
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
 	                            ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		TileEntity tile = worldIn.getTileEntity(pos);
+		super.onPlaced(worldIn, pos, state, placer, stack);
+		BlockEntity tile = worldIn.getBlockEntity(pos);
 		if (tile instanceof TilePlayerDectector) {
-			((TilePlayerDectector) tile).owenerUdid = placer.getUniqueID().toString();
+			((TilePlayerDectector) tile).owenerUdid = placer.getUuid().toString();
 		}
 	}
 	
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 			
 		if (tileEntity == null) {
 			return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
@@ -100,7 +100,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		
 		String type = state.get(TYPE);
 		String newType = type;
-		TextFormatting color = TextFormatting.GREEN;
+		ChatFormat color = ChatFormat.GREEN;
 		
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, side, false)) {
@@ -111,9 +111,9 @@ public class BlockPlayerDetector extends BlockMachineBase {
 							return false;
 						}
 						if (!drop.isEmpty()) {
-							spawnAsEntity(worldIn, pos, drop);
+							dropStack(worldIn, pos, drop);
 						}
-						if (!worldIn.isRemote) {
+						if (!worldIn.isClient) {
 							worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
 						return true;
@@ -121,10 +121,10 @@ public class BlockPlayerDetector extends BlockMachineBase {
 				} else {
 					if (type.equals("all")) {
 						newType = "others";
-						color = TextFormatting.RED;
+						color = ChatFormat.RED;
 					} else if (type.equals("others")) {
 						newType = "you";
-						color = TextFormatting.BLUE;
+						color = ChatFormat.BLUE;
 					} else if (type.equals("you")) {
 						newType = "all";
 					}
@@ -133,9 +133,9 @@ public class BlockPlayerDetector extends BlockMachineBase {
 			}
 		}
 
-		if (worldIn.isRemote) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
-				TextFormatting.GRAY + I18n.format("techreborn.message.detects") + " " + color
+		if (worldIn.isClient) {
+			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponent(
+				ChatFormat.GRAY + I18n.translate("techreborn.message.detects") + " " + color
 					+ StringUtils.toFirstCapital(newType)));
 		}
 		return true;
@@ -148,24 +148,24 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	
 	// Block
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
 		TYPE = new PropertyString("type", types);
 		builder.add(TYPE);
 	}
 
 	@Override
-	public boolean canConnectRedstone(IBlockState state, IBlockReader world, BlockPos pos, @Nullable EnumFacing side) {
+	public boolean canConnectRedstone(BlockState state, BlockView world, BlockPos pos, @Nullable Direction side) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvidePower(IBlockState state) {
+	public boolean emitsRedstonePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(IBlockState blockState, IBlockReader blockAccess, BlockPos pos, EnumFacing side) {
-		TileEntity entity = blockAccess.getTileEntity(pos);
+	public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
+		BlockEntity entity = blockAccess.getBlockEntity(pos);
 		if (entity instanceof TilePlayerDectector) {
 			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
 		}
@@ -173,8 +173,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 
 	@Override
-	public int getStrongPower(IBlockState blockState, IBlockReader blockAccess, BlockPos pos, EnumFacing side) {
-		TileEntity entity = blockAccess.getTileEntity(pos);
+	public int getStrongRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
+		BlockEntity entity = blockAccess.getBlockEntity(pos);
 		if (entity instanceof TilePlayerDectector) {
 			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
 		}

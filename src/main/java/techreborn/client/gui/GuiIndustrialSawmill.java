@@ -24,11 +24,11 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -43,7 +43,7 @@ public class GuiIndustrialSawmill extends GuiBase {
 
 	TileIndustrialSawmill tile;
 
-	public GuiIndustrialSawmill(final EntityPlayer player, final TileIndustrialSawmill tile) {
+	public GuiIndustrialSawmill(final PlayerEntity player, final TileIndustrialSawmill tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
@@ -55,8 +55,8 @@ public class GuiIndustrialSawmill extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+	protected void drawBackground(final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawBackground(partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		
 		// Battery slot
@@ -79,8 +79,8 @@ public class GuiIndustrialSawmill extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 		
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -101,8 +101,8 @@ public class GuiIndustrialSawmill extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-					IBlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+					BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
+					BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 					
 					addComponent(0, -1, 0, standardCasing, multiblock);
 					addComponent(1, -1, 0, standardCasing, multiblock);
@@ -140,9 +140,9 @@ public class GuiIndustrialSawmill extends GuiBase {
 					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
 							this.tile.getPos().getX()
-									- EnumFacing.byIndex(this.tile.getFacingInt()).getYOffset() * 2,
+									- Direction.byId(this.tile.getFacingInt()).getOffsetY() * 2,
 							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- EnumFacing.byIndex(this.tile.getFacingInt()).getYOffset() * 2);
+									- Direction.byId(this.tile.getFacingInt()).getOffsetY() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);
@@ -150,7 +150,7 @@ public class GuiIndustrialSawmill extends GuiBase {
 		}
 	}
 
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 }

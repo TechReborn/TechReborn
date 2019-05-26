@@ -24,8 +24,8 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import techreborn.init.TRContent;
 
 /**

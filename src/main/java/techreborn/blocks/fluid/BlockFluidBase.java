@@ -24,12 +24,12 @@
 
 package techreborn.blocks.fluid;
 
-import net.minecraft.block.BlockFlowingFluid;
-import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.fluid.BaseFluid;
 
-public class BlockFluidBase extends BlockFlowingFluid {
+public class BlockFluidBase extends FluidBlock {
 
-	public BlockFluidBase(FlowingFluid fluid, Properties properties) {
+	public BlockFluidBase(BaseFluid fluid, Settings properties) {
 		super(fluid, properties);
 	}
 

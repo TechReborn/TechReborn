@@ -24,25 +24,25 @@
 
 package techreborn.tiles.storage.idsu;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.PersistentState;
 import techreborn.TechReborn;
 
 /**
  * Created by modmuss50 on 13/06/2017.
  */
-public class IDSUSaveManger extends WorldSavedData implements IDataIDSU {
+public class IDSUSaveManger extends PersistentState implements IDataIDSU {
 	public IDSUSaveManger(String name) {
 		super(TechReborn.MOD_ID + "_IDSU");
 	}
 
 	@Override
-	public void read(NBTTagCompound nbt) {
+	public void fromTag(CompoundTag nbt) {
 		power = nbt.getDouble("power");
 	}
 
 	@Override
-	public NBTTagCompound write(NBTTagCompound compound) {
+	public CompoundTag toTag(CompoundTag compound) {
 		compound.putDouble("power", power);
 		return compound;
 	}

@@ -26,9 +26,9 @@ package techreborn.items.battery;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -40,10 +40,10 @@ public class ItemEnergyCrystal extends ItemBattery {
 		super(ConfigTechReborn.EnergyCrystalMaxCharge, 1_000);
 	}
 	
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-		if (!isInGroup(group)) {
+	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isInItemGroup(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.ENERGY_CRYSTAL);

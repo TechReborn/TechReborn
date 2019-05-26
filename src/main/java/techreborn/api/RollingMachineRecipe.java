@@ -24,10 +24,10 @@
 
 package techreborn.api;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 
@@ -35,19 +35,19 @@ public class RollingMachineRecipe {
 
 	public static final RollingMachineRecipe instance = new RollingMachineRecipe();
 
-	public void addShapedOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
+	public void addShapedOreRecipe(Identifier resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
 		throw new UnsupportedOperationException("Needs moving to json");
 	}
 
-	public void addShapelessOreRecipe(ResourceLocation resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
+	public void addShapelessOreRecipe(Identifier resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
 		throw new UnsupportedOperationException("Needs moving to json");
 	}
 
-	public ItemStack findMatchingRecipeOutput(InventoryCrafting inv, World world) {
+	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {
 		throw new UnsupportedOperationException("Needs moving to json");
 	}
 
-	public IRecipe findMatchingRecipe(InventoryCrafting inv, World world) {
+	public Recipe findMatchingRecipe(CraftingInventory inv, World world) {
 		throw new UnsupportedOperationException("Needs moving to json");
 	}
 

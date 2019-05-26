@@ -24,10 +24,10 @@
 
 package techreborn.client.container.builder.slot;
 
-import net.minecraft.init.Items;
+import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.items.IItemHandler;
+import net.minecraft.item.Items;
+
 import reborncore.client.gui.slots.BaseSlot;
 
 public class FurnaceFuelSlot extends BaseSlot {
@@ -37,15 +37,15 @@ public class FurnaceFuelSlot extends BaseSlot {
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack)
+	public boolean canInsert(ItemStack stack)
 	{
-		return TileEntityFurnace.isItemFuel(stack) || isBucket(stack);
+		return FurnaceBlockEntity.isItemFuel(stack) || isBucket(stack);
 	}
 
 	@Override
-	public int getItemStackLimit(ItemStack stack)
+	public int getMaxStackAmount(ItemStack stack)
 	{
-		return isBucket(stack) ? 1 : super.getItemStackLimit(stack);
+		return isBucket(stack) ? 1 : super.getMaxStackAmount(stack);
 	}
 
 	public static boolean isBucket(ItemStack stack)

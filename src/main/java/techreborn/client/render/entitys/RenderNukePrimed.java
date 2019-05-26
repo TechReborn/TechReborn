@@ -24,13 +24,14 @@
 
 package techreborn.client.render.entitys;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.block.BlockRenderManager;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import techreborn.blocks.BlockNuke;
 import techreborn.entities.EntityNukePrimed;
@@ -39,20 +40,20 @@ import techreborn.init.TRContent;
 /**
  * Created by Mark on 13/03/2016.
  */
-public class RenderNukePrimed extends Render<EntityNukePrimed> {
+public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 
-	public RenderNukePrimed(RenderManager renderManager) {
+	public RenderNukePrimed(EntityRenderDispatcher renderManager) {
 		super(renderManager);
-		this.shadowSize = 0.5F;
+		this.field_4673 = 0.5F;
 	}
 
 	@Override
 	public void doRender(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getInstance().getBlockRendererDispatcher();
+		BlockRenderManager blockrendererdispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		GlStateManager.pushMatrix();
 		GlStateManager.translatef((float) x, (float) y + 0.5F, (float) z);
-		if ((float) entity.getFuse() - partialTicks + 1.0F < 10.0F) {
-			float f = 1.0F - ((float) entity.getFuse() - partialTicks + 1.0F) / 10.0F;
+		if ((float) entity.getFuseTimer() - partialTicks + 1.0F < 10.0F) {
+			float f = 1.0F - ((float) entity.getFuseTimer() - partialTicks + 1.0F) / 10.0F;
 			f = MathHelper.clamp(f, 0.0F, 1.0F);
 			f = f * f;
 			f = f * f;
@@ -61,17 +62,17 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 		}
 		this.bindEntityTexture(entity);
 		GlStateManager.translatef(-0.5F, -0.5F, 0.5F);
-		blockrendererdispatcher.renderBlockBrightness(TRContent.NUKE.getDefaultState(),
-			entity.getBrightness());
+		blockrendererdispatcher.renderDynamic(TRContent.NUKE.getDefaultState(),
+			entity.getBrightnessAtEyes());
 		GlStateManager.translatef(0.0F, 0.0F, 1.0F);
-		if (entity.getFuse() / 5 % 2 == 0) {
+		if (entity.getFuseTimer() / 5 % 2 == 0) {
 			GlStateManager.disableLighting();
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(770, 772);
 			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1F);
 			GlStateManager.polygonOffset(-3.0F, -3.0F);
 			GlStateManager.enablePolygonOffset();
-			blockrendererdispatcher.renderBlockBrightness(
+			blockrendererdispatcher.renderDynamic(
 				TRContent.NUKE.getDefaultState().with(BlockNuke.OVERLAY, true), 1.0F);
 			GlStateManager.polygonOffset(0.0F, 0.0F);
 			GlStateManager.disablePolygonOffset();
@@ -80,11 +81,11 @@ public class RenderNukePrimed extends Render<EntityNukePrimed> {
 			GlStateManager.enableLighting();
 		}
 		GlStateManager.popMatrix();
-		super.doRender(entity, x, y, z, entityYaw, partialTicks);
+		super.render(entity, x, y, z, entityYaw, partialTicks);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityNukePrimed entity) {
-		return TextureMap.LOCATION_BLOCKS_TEXTURE;
+	protected Identifier getEntityTexture(EntityNukePrimed entity) {
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 }

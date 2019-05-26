@@ -24,9 +24,6 @@
 
 package techreborn.tiles;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import reborncore.api.IListInfoProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -43,6 +40,9 @@ import techreborn.init.TRTileEntities;
 import techreborn.items.DynamicCell;
 
 import java.util.List;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileIndustrialCentrifuge extends TileGenericMachine implements IContainerProvider, IListInfoProvider {
@@ -62,7 +62,7 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
@@ -74,8 +74,8 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<ITextComponent> info, final boolean isRealTile, boolean hasData) {
+	public void addInfo(final List<Component> info, final boolean isRealTile, boolean hasData) {
 		super.addInfo(info, isRealTile, hasData);
-		info.add(new TextComponentString("Round and round it goes"));
+		info.add(new TextComponent("Round and round it goes"));
 	}
 }

@@ -24,11 +24,11 @@
 
 package techreborn.tiles.machine.iron;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
+
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -76,7 +76,7 @@ public class TileIronFurnace extends TileMachineBase
 	@Override
 	public void tick() {
 		super.tick();
-		if(world.isRemote){
+		if(world.isClient){
 			return;
 		}
 		final boolean burning = this.isBurning();
@@ -86,15 +86,15 @@ public class TileIronFurnace extends TileMachineBase
 			this.updateState();
 		}
 		if (this.fuel <= 0 && this.canSmelt()) {
-			this.fuel = this.fuelGague = (int) (TileEntityFurnace.getBurnTimes().getOrDefault(inventory.getStackInSlot(this.fuelslot).getItem(), 0) * 1.25);
+			this.fuel = this.fuelGague = (int) (FurnaceBlockEntity.getBurnTimes().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
 			if (this.fuel > 0) {
 				// Fuel slot
-				ItemStack fuelStack = inventory.getStackInSlot(this.fuelslot);
-				if (fuelStack.getItem().hasContainerItem(fuelStack)) {
-					inventory.setStackInSlot(this.fuelslot, new ItemStack(fuelStack.getItem().getContainerItem()));
-				} else if (fuelStack.getCount() > 1) {
+				ItemStack fuelStack = inventory.getInvStack(this.fuelslot);
+				if (fuelStack.getItem().hasRecipeRemainder(fuelStack)) {
+					inventory.setStackInSlot(this.fuelslot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
+				} else if (fuelStack.getAmount() > 1) {
 					inventory.shrinkSlot(this.fuelslot, 1);
-				} else if (fuelStack.getCount() == 1) {
+				} else if (fuelStack.getAmount() == 1) {
 					inventory.setStackInSlot(this.fuelslot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
@@ -120,14 +120,14 @@ public class TileIronFurnace extends TileMachineBase
 
 	public void cookItems() {
 		if (this.canSmelt()) {
-			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(this.input1));
+			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(this.input1));
 
-			if (inventory.getStackInSlot(this.output).isEmpty()) {
+			if (inventory.getInvStack(this.output).isEmpty()) {
 				inventory.setStackInSlot(this.output, itemstack.copy());
-			} else if (inventory.getStackInSlot(this.output).isItemEqual(itemstack)) {
-				inventory.getStackInSlot(this.output).grow(itemstack.getCount());
+			} else if (inventory.getInvStack(this.output).isEqualIgnoreTags(itemstack)) {
+				inventory.getInvStack(this.output).addAmount(itemstack.getAmount());
 			}
-			if (inventory.getStackInSlot(this.input1).getCount() > 1) {
+			if (inventory.getInvStack(this.input1).getAmount() > 1) {
 				inventory.shrinkSlot(this.input1, 1);
 			} else {
 				inventory.setStackInSlot(this.input1, ItemStack.EMPTY);
@@ -136,17 +136,17 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	public boolean canSmelt() {
-		if (inventory.getStackInSlot(this.input1).isEmpty())
+		if (inventory.getInvStack(this.input1).isEmpty())
 			return false;
-		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getStackInSlot(this.input1));
+		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(this.input1));
 		if (itemstack.isEmpty())
 			return false;
-		if (inventory.getStackInSlot(this.output).isEmpty())
+		if (inventory.getInvStack(this.output).isEmpty())
 			return true;
-		if (!inventory.getStackInSlot(this.output).isItemEqual(itemstack))
+		if (!inventory.getInvStack(this.output).isEqualIgnoreTags(itemstack))
 			return false;
-		final int result = inventory.getStackInSlot(this.output).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= itemstack.getMaxStackSize();
+		final int result = inventory.getInvStack(this.output).getAmount() + itemstack.getAmount();
+		return result <= inventory.getStackLimit() && result <= itemstack.getMaxAmount();
 	}
 
 	public boolean isBurning() {
@@ -162,7 +162,7 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
+		final BlockState BlockStateContainer = this.world.getBlockState(this.pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
 			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != this.fuel > 0)
@@ -178,10 +178,10 @@ public class TileIronFurnace extends TileMachineBase
 	public static IInventoryAccess<TileIronFurnace> getInvetoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				boolean isFuel = TileEntityFurnace.isItemFuel(stack);
+				boolean isFuel = FurnaceBlockEntity.isItemFuel(stack);
 				if(isFuel){
-					ItemStack fuelSlotStack = tile.inventory.getStackInSlot(tile.fuelslot);
-					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxStackSize() != fuelSlotStack.getCount()){
+					ItemStack fuelSlotStack = tile.inventory.getInvStack(tile.fuelslot);
+					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxAmount() != fuelSlotStack.getAmount()){
 						return slotID == tile.fuelslot;
 					}
 				}
@@ -221,7 +221,7 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 				.addInventory().tile(this).fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime)

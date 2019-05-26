@@ -26,10 +26,10 @@ package techreborn.items.tool.advanced;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -39,16 +39,16 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedJackhammer() {
-		super(ItemTier.DIAMOND, ConfigTechReborn.AdvancedJackhammerCharge);
+		super(ToolMaterials.DIAMOND, ConfigTechReborn.AdvancedJackhammerCharge);
 		this.cost = 100;
-		this.efficiency = 16F;
+		this.blockBreakingSpeed = 16F;
 		this.transferLimit = 1000;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.ADVANCED_JACKHAMMER);

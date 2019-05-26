@@ -24,12 +24,12 @@
 
 package techreborn.items;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.crafting.Recipe;
 import reborncore.common.util.WorldUtils;
@@ -41,19 +41,19 @@ import java.util.List;
 public class ItemScrapBox extends Item {
 
 	public ItemScrapBox() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-		ItemStack stack = player.getHeldItemMainhand();
-		if (!world.isRemote) {
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getMainHandStack();
+		if (!world.isClient) {
 			List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(world);
-			int random = world.rand.nextInt(scrapboxRecipeList.size());
+			int random = world.random.nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
-			WorldUtils.dropItem(out, world, player.getPosition());
-			stack.shrink(1);
+			WorldUtils.dropItem(out, world, player.getBlockPos());
+			stack.subtractAmount(1);
 		}
-		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 	}
 }

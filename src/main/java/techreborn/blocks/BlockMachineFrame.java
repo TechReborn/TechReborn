@@ -25,13 +25,13 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.common.BaseBlock;
 
 public class BlockMachineFrame extends BaseBlock {
 
 	public BlockMachineFrame() {
-		super(Block.Properties.create(Material.IRON).hardnessAndResistance(1f).sound(SoundType.METAL));
+		super(Block.Settings.of(Material.METAL).strength(1f).sounds(BlockSoundGroup.METAL));
 	}
 }

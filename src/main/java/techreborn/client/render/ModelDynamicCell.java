@@ -26,34 +26,35 @@ package techreborn.client.render;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.ModelItemPropertyOverrideList;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.awt.*;
-import java.util.List;
 import java.util.*;
 import java.util.function.Function;
 
 //TODO 1.13 very broken, look at ModelDynBucket for help porting this fully
-@OnlyIn(Dist.CLIENT)
-public class ModelDynamicCell implements IUnbakedModel {
+@Environment(EnvType.CLIENT)
+public class ModelDynamicCell implements UnbakedModel {
 
 	public static final ModelDynamicCell MODEL = new ModelDynamicCell(
-		new ResourceLocation("techreborn:items/cell_cover"),
-		new ResourceLocation("techreborn:items/cell_empty")
+		new Identifier("techreborn:items/cell_cover"),
+		new Identifier("techreborn:items/cell_empty")
 	);
 
-	public static final ModelResourceLocation MODEL_LOCATION = new ModelResourceLocation(new ResourceLocation("techreborn", "dynamic_cell"), "default");
+	public static final ModelIdentifier MODEL_LOCATION = new ModelIdentifier(new Identifier("techreborn", "dynamic_cell"), "default");
 
 	private static final float NORTH_Z_FLUID = 7.6f / 16f;
 	private static final float SOUTH_Z_FLUID = 8.4f / 16f;
@@ -64,46 +65,46 @@ public class ModelDynamicCell implements IUnbakedModel {
 		ModelLoaderRegistry.registerLoader(new DynamicCellLoader());
 	}
 
-	private final ResourceLocation baseTexture;
-	private final ResourceLocation emptyTexture;
+	private final Identifier baseTexture;
+	private final Identifier emptyTexture;
 	private final Fluid fluid;
 
-	public ModelDynamicCell(ResourceLocation baseTexture, ResourceLocation emptyTexture) {
+	public ModelDynamicCell(Identifier baseTexture, Identifier emptyTexture) {
 		this(baseTexture, emptyTexture, null);
 	}
 
-	public ModelDynamicCell(ResourceLocation baseTexture, ResourceLocation emptyTexture, Fluid fluid) {
+	public ModelDynamicCell(Identifier baseTexture, Identifier emptyTexture, Fluid fluid) {
 		this.baseTexture = baseTexture;
 		this.emptyTexture = emptyTexture;
 		this.fluid = fluid;
 	}
 
 	@Override
-	public Collection<ResourceLocation> getDependencies() {
+	public Collection<Identifier> getModelDependencies() {
 		return ImmutableList.of();
 	}
 
 	@Override
-	public Collection<ResourceLocation> getTextures(Function<ResourceLocation, IUnbakedModel> modelGetter, Set<String> missingTextureErrors) {
+	public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> modelGetter, Set<String> missingTextureErrors) {
 		return ImmutableList.of(baseTexture, emptyTexture);
 	}
 
 	@Override
-	public IBakedModel bake(Function<ResourceLocation, IUnbakedModel> modelGetter, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, IModelState state, boolean uvlock, VertexFormat format) {
+	public BakedModel bake(Function<Identifier, UnbakedModel> modelGetter, Function<Identifier, Sprite> spriteGetter, IModelState state, boolean uvlock, VertexFormat format) {
 
-		ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
+		ImmutableMap<ModelTransformation.Type, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
 		TRSRTransformation transform = state.apply(Optional.empty()).orElse(TRSRTransformation.identity());
 
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 		builder.addAll(new ItemLayerModel(ImmutableList.of(baseTexture)).bake(modelGetter, spriteGetter, state, uvlock, format).getQuads(null, null, new Random()));
 
-		ResourceLocation sprite = fluid != null ? fluid.getStill() : emptyTexture;
+		Identifier sprite = fluid != null ? fluid.getStill() : emptyTexture;
 		int color = fluid != null ? fluid.getColor() : Color.WHITE.getRGB();
-		TextureAtlasSprite fluidSprite = spriteGetter.apply(sprite);
+		Sprite fluidSprite = spriteGetter.apply(sprite);
 		if (fluid != null) {
 			if (fluidSprite != null) {
-				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, EnumFacing.NORTH, color, -1));
-				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, SOUTH_Z_FLUID, fluidSprite, EnumFacing.SOUTH, color, -1));
+				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, NORTH_Z_FLUID, fluidSprite, Direction.NORTH, color, -1));
+				builder.add(ItemTextureQuadConverter.genQuad(format, transform, 5, 2, 11, 14, SOUTH_Z_FLUID, fluidSprite, Direction.SOUTH, color, -1));
 			}
 		}
 
@@ -119,17 +120,17 @@ public class ModelDynamicCell implements IUnbakedModel {
 	public static class DynamicCellLoader implements ICustomModelLoader {
 
 		@Override
-		public boolean accepts(ResourceLocation modelLocation) {
+		public boolean accepts(Identifier modelLocation) {
 			return modelLocation.getNamespace().equals("techreborn") && modelLocation.getPath().contains("dynamic_cell");
 		}
 
 		@Override
-		public IUnbakedModel loadModel(ResourceLocation modelLocation) {
+		public UnbakedModel loadModel(Identifier modelLocation) {
 			return MODEL;
 		}
 
 		@Override
-		public void onResourceManagerReload(IResourceManager resourceManager) {}
+		public void onResourceManagerReload(ResourceManager resourceManager) {}
 
 	}
 
@@ -137,15 +138,15 @@ public class ModelDynamicCell implements IUnbakedModel {
 
 		private final List<BakedQuad> quads;
 		private final ModelDynamicCell parent;
-		private final TextureAtlasSprite particle;
+		private final Sprite particle;
 		private final VertexFormat format;
-		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap;
+		private final ImmutableMap<ModelTransformation.Type, TRSRTransformation> transformMap;
 
 		public BakedDynamicCell(ImmutableList<BakedQuad> quads,
 		                        ModelDynamicCell parent,
-		                        TextureAtlasSprite particle,
+		                        Sprite particle,
 		                        VertexFormat format,
-		                        ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap) {
+		                        ImmutableMap<ModelTransformation.Type, TRSRTransformation> transformMap) {
 			super(quads, particle, transformMap, null /* TODO fix this */);
 			this.transformMap = transformMap;
 			this.quads = quads;
@@ -170,17 +171,17 @@ public class ModelDynamicCell implements IUnbakedModel {
 		}
 
 		@Override
-		public TextureAtlasSprite getParticleTexture() {
+		public Sprite getParticleTexture() {
 			return particle;
 		}
 
 		@Override
-		public ItemCameraTransforms getItemCameraTransforms() {
+		public ModelTransformation getItemCameraTransforms() {
 			return ModelHelper.DEFAULT_ITEM_TRANSFORMS;
 		}
 
 		@Override
-		public ItemOverrideList getOverrides() {
+		public ModelItemPropertyOverrideList getOverrides() {
 			return OVERRIDES;
 		}
 
@@ -188,9 +189,9 @@ public class ModelDynamicCell implements IUnbakedModel {
 
 	public static final OverrideHandler OVERRIDES = new OverrideHandler();
 
-	public static class OverrideHandler extends ItemOverrideList {
+	public static class OverrideHandler extends ModelItemPropertyOverrideList {
 
-		private final HashMap<String, IBakedModel> modelCache = new HashMap<>();
+		private final HashMap<String, BakedModel> modelCache = new HashMap<>();
 
 //		private final Function<ResourceLocation, TextureAtlasSprite> textureGetter = location ->
 //			Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString());

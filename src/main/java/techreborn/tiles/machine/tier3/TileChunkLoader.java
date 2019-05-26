@@ -24,9 +24,9 @@
 
 package techreborn.tiles.machine.tier3;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -60,7 +60,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
 
@@ -74,12 +74,12 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return false;
 	}
 
@@ -99,7 +99,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("chunkloader").player(player.inventory).inventory(8,84).hotbar(8,142).addInventory()
 			.create(this);
 	}

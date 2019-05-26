@@ -24,7 +24,7 @@
 
 package techreborn.utils.damageSources;
 
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.damage.DamageSource;
 
 /**
  * Created by modmuss50 on 06/03/2016.

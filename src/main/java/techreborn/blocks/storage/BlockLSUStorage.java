@@ -25,17 +25,17 @@
 package techreborn.blocks.storage;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.client.models.ModelCompound;
@@ -54,36 +54,36 @@ import techreborn.tiles.storage.lesu.TileLSUStorage;
 public class BlockLSUStorage extends BaseTileBlock {
 
 	public BlockLSUStorage() {
-		super(Block.Properties.create(Material.IRON).hardnessAndResistance(2f));
+		super(Block.Settings.of(Material.METAL).strength(2f));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	// BaseTileBlock
 	@Override
-	public void onReplaced(IBlockState state, World worldIn, BlockPos pos, IBlockState newState, boolean isMoving) {
+	public void onBlockRemoved(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() == newState.getBlock()) {
 			return;
 		}
-		if (worldIn.getTileEntity(pos) instanceof TileLSUStorage) {
-			TileLSUStorage tile = (TileLSUStorage) worldIn.getTileEntity(pos);
+		if (worldIn.getBlockEntity(pos) instanceof TileLSUStorage) {
+			TileLSUStorage tile = (TileLSUStorage) worldIn.getBlockEntity(pos);
 			if (tile != null) {
 				tile.removeFromNetwork();
 			}
 		}
-		super.onReplaced(state, worldIn, pos, newState, isMoving);
+		super.onBlockRemoved(state, worldIn, pos, newState, isMoving);
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileLSUStorage();
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack itemstack) {
-		super.onBlockPlacedBy(world, pos, state, player, itemstack);
-		if (world.getTileEntity(pos) instanceof TileLSUStorage) {
-			TileLSUStorage tile = (TileLSUStorage) world.getTileEntity(pos);
+	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
+		super.onPlaced(world, pos, state, player, itemstack);
+		if (world.getBlockEntity(pos) instanceof TileLSUStorage) {
+			TileLSUStorage tile = (TileLSUStorage) world.getBlockEntity(pos);
 			if (tile != null) {
 				tile.rebuildNetwork();
 			}
@@ -93,9 +93,9 @@ public class BlockLSUStorage extends BaseTileBlock {
 	// Block
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
+		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
 		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
 		if (tileEntity == null) {
@@ -112,7 +112,7 @@ public class BlockLSUStorage extends BaseTileBlock {
 	}
 
 	@Override
-	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		if (RebornCoreConfig.wrenchRequired) {
 			drops.add(new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
 		} else {

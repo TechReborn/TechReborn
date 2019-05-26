@@ -25,12 +25,12 @@
 package techreborn.events;
 
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.util.Identifier;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+
+
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
@@ -45,7 +45,7 @@ import java.util.Arrays;
  * @author drcrazy
  *
  */
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 @Mod.EventBusSubscriber(modid = TechReborn.MOD_ID)
 public class ModelRegistryEventHandler {
 
@@ -174,7 +174,7 @@ public class ModelRegistryEventHandler {
 		
 		// Gem armor & tools
 		if (ConfigTechReborn.enableGemArmorAndTools) {
-			ResourceLocation armourRL = new ResourceLocation(TechReborn.MOD_ID, "items/armour");
+			Identifier armourRL = new Identifier(TechReborn.MOD_ID, "items/armour");
 			registerBlockstateMultiItem(armourRL, TRContent.RUBY_HELMET, "ruby_helmet");
 			registerBlockstateMultiItem(armourRL, TRContent.RUBY_CHESTPLATE, "ruby_chestplate");
 			registerBlockstateMultiItem(armourRL, TRContent.RUBY_LEGGINGS, "ruby_leggings");
@@ -192,7 +192,7 @@ public class ModelRegistryEventHandler {
 			registerBlockstateMultiItem(armourRL, TRContent.BRONZE_LEGGINGS, "bronze_leggings");
 			registerBlockstateMultiItem(armourRL, TRContent.BRONZE_BOOTS, "bronze_boots");
 
-			ResourceLocation toolRL = new ResourceLocation(TechReborn.MOD_ID, "items/tool");
+			Identifier toolRL = new Identifier(TechReborn.MOD_ID, "items/tool");
 			registerBlockstateMultiItem(toolRL, TRContent.RUBY_PICKAXE, "ruby_pickaxe");
 			registerBlockstateMultiItem(toolRL, TRContent.RUBY_SWORD, "ruby_sword");
 			registerBlockstateMultiItem(toolRL, TRContent.RUBY_AXE, "ruby_axe");
@@ -215,28 +215,28 @@ public class ModelRegistryEventHandler {
 			registerBlockstateMultiItem(toolRL, TRContent.BRONZE_HOE, "bronze_hoe");
 		}
 		
-		ResourceLocation dustsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/dust");
+		Identifier dustsRL = new Identifier(TechReborn.MOD_ID, "items/material/dust");
 		Arrays.stream(Dusts.values()).forEach(value -> registerBlockstateMultiItem(dustsRL, value.item, value.name));
 
-		ResourceLocation dustsSmallRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/small_dust");
+		Identifier dustsSmallRL = new Identifier(TechReborn.MOD_ID, "items/material/small_dust");
 		Arrays.stream(SmallDusts.values()).forEach(value -> registerBlockstateMultiItem(dustsSmallRL, value.item, value.name));
 
-		ResourceLocation gemsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/gem");
+		Identifier gemsRL = new Identifier(TechReborn.MOD_ID, "items/material/gem");
 		Arrays.stream(Gems.values()).forEach(value -> registerBlockstateMultiItem(gemsRL, value.item, value.name));
 
-		ResourceLocation ingotsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/ingot");
+		Identifier ingotsRL = new Identifier(TechReborn.MOD_ID, "items/material/ingot");
 		Arrays.stream(Ingots.values()).forEach(value -> registerBlockstateMultiItem(ingotsRL, value.item, value.name));
 
-		ResourceLocation nuggetsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/nugget");
+		Identifier nuggetsRL = new Identifier(TechReborn.MOD_ID, "items/material/nugget");
 		Arrays.stream(Nuggets.values()).forEach(value -> registerBlockstateMultiItem(nuggetsRL, value.item, value.name));
 
-		ResourceLocation partsRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/part");
+		Identifier partsRL = new Identifier(TechReborn.MOD_ID, "items/material/part");
 		Arrays.stream(Parts.values()).forEach(value -> registerBlockstateMultiItem(partsRL, value.item, value.name));
 
-		ResourceLocation platesRL = new ResourceLocation(TechReborn.MOD_ID, "items/material/plate");
+		Identifier platesRL = new Identifier(TechReborn.MOD_ID, "items/material/plate");
 		Arrays.stream(Plates.values()).forEach(value -> registerBlockstateMultiItem(platesRL, value.item, value.name));
 		
-		ResourceLocation upgradeRL = new ResourceLocation(TechReborn.MOD_ID, "items/misc/upgrades");
+		Identifier upgradeRL = new Identifier(TechReborn.MOD_ID, "items/misc/upgrades");
 		Arrays.stream(Upgrades.values()).forEach(value -> registerBlockstateMultiItem(upgradeRL, value.item, value.name));
 		
 	}
@@ -270,7 +270,7 @@ public class ModelRegistryEventHandler {
 		RebornModelRegistry.registerItemModel(item, modelPath);
 	}
 	
-	private static void registerBlockstateMultiItem(ResourceLocation RL, Item item, String variantName) {
+	private static void registerBlockstateMultiItem(Identifier RL, Item item, String variantName) {
 		//ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(RL, "type=" + variantName));
 	}
 

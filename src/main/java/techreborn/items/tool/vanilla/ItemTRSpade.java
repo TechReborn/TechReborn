@@ -24,31 +24,31 @@
 
 package techreborn.items.tool.vanilla;
 
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
-public class ItemTRSpade extends ItemSpade {
+public class ItemTRSpade extends ShovelItem {
 
 	String repairOreDict = "";
 
-	public ItemTRSpade(IItemTier material) {
+	public ItemTRSpade(ToolMaterial material) {
 		this(material, "");
 	}
 
-	public ItemTRSpade(IItemTier material, String repairOreDict) {
-		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Properties().group(TechReborn.ITEMGROUP));
+	public ItemTRSpade(ToolMaterial material, String repairOreDict) {
+		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+	public boolean canRepair(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
 			return ItemUtils.isInputEqual(repairOreDict, repair, false, true);
 		}
-		return super.getIsRepairable(toRepair, repair);
+		return super.canRepair(toRepair, repair);
 	}
 }

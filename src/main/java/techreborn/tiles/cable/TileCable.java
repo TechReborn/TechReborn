@@ -24,22 +24,22 @@
 
 package techreborn.tiles.cable;
 
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraft.util.math.Direction;
+
+
+
+
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.RebornCoreConfig;
@@ -56,13 +56,13 @@ import java.util.List;
  * Created by modmuss50 on 19/05/2017.
  */
 
-public class TileCable extends TileEntity 
+public class TileCable extends BlockEntity 
 	implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop {
 	
 	public int power = 0;
 	private int transferRate = 0;
 	private TRContent.Cables cableType = null;
-	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
+	private ArrayList<Direction> sendingFace = new ArrayList<Direction>();
 	int ticksSinceLastChange = 0;
 
 	public TileCable() {
@@ -78,7 +78,7 @@ public class TileCable extends TileEntity
 		return TRContent.Cables.COPPER;
 	}
 	
-	public boolean canReceiveFromFace(EnumFacing face) {
+	public boolean canReceiveFromFace(Direction face) {
 		if (sendingFace.contains(face)) {
 			return false;
 		}
@@ -94,35 +94,35 @@ public class TileCable extends TileEntity
 	}
 	
 	@Override
-    public NBTTagCompound getUpdateTag() {
-        return write(new NBTTagCompound());
+    public CompoundTag toInitialChunkDataTag() {
+        return toTag(new CompoundTag());
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        write(nbtTag);
-        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+    public BlockEntityUpdateS2CPacket toUpdatePacket() {
+        CompoundTag nbtTag = new CompoundTag();
+        toTag(nbtTag);
+        return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        read(packet.getNbtCompound());
+    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
+        fromTag(packet.getCompoundTag());
     }
 
     @Override
-    public void read(NBTTagCompound compound) {
-        super.read(compound);
-        if (compound.contains("TileCable")) {
+    public void fromTag(CompoundTag compound) {
+        super.fromTag(compound);
+        if (compound.containsKey("TileCable")) {
             power = compound.getCompound("TileCable").getInt("power");
         }
     }
 
     @Override
-    public NBTTagCompound write(NBTTagCompound compound) {
-        super.write(compound);
+    public CompoundTag toTag(CompoundTag compound) {
+        super.toTag(compound);
         if (power > 0) {
-        	NBTTagCompound data = new NBTTagCompound();
+        	CompoundTag data = new CompoundTag();
     		data.putInt("power", getEnergyStored());
     		compound.put("TileCable", data);
         }
@@ -132,7 +132,7 @@ public class TileCable extends TileEntity
 	// ITickable
 	@Override
 	public void tick() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		
@@ -152,8 +152,8 @@ public class TileCable extends TileEntity
 		}
 
 		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-		for (EnumFacing face : EnumFacing.values()) {
-			TileEntity tile = world.getTileEntity(pos.offset(face));
+		for (Direction face : Direction.values()) {
+			BlockEntity tile = world.getBlockEntity(pos.offset(face));
 
 			if (tile == null) {
 				continue;
@@ -239,19 +239,19 @@ public class TileCable extends TileEntity
 
     // IListInfoProvider
 	@Override
-	public void addInfo(List<ITextComponent> info, boolean isRealTile, boolean hasData) {
+	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile) {
-			info.add(new TextComponentString(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
-				+ TextFormatting.GOLD
+			info.add(new TextComponent(ChatFormat.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
+				+ ChatFormat.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t"));
-			info.add(new TextComponentString(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-				+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
+			info.add(new TextComponent(ChatFormat.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
+				+ ChatFormat.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
 		}
 	}
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return new ItemStack(getCableType().block);
 	}
 }

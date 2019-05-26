@@ -25,18 +25,18 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 
-public class BlockRubberPlankSlab extends BlockSlab {
+public class BlockRubberPlankSlab extends SlabBlock {
 
 	public BlockRubberPlankSlab() {
-		super(Block.Properties.create(Material.WOOD, MaterialColor.OBSIDIAN).hardnessAndResistance(2.0F, 15.0F).sound(SoundType.WOOD));
+		super(Block.Settings.of(Material.WOOD, MaterialColor.SPRUCE).strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

@@ -24,13 +24,10 @@
 
 package techreborn.packets;
 
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent;
+
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.NetworkPacket;
@@ -47,12 +44,12 @@ import java.util.function.Consumer;
 
 public class ServerboundPackets {
 
-	public static final ResourceLocation AESU = new ResourceLocation("techreborn", "aesu");
-	public static final ResourceLocation AUTO_CRAFTING_LOCK = new ResourceLocation("techreborn", "auto_crafting_lock");
-	public static final ResourceLocation ROLLING_MACHINE_LOCK = new ResourceLocation("techreborn", "rolling_machine_lock");
-	public static final ResourceLocation FUSION_CONTROL_SIZE = new ResourceLocation("techreborn", "fusion_control_size");
-	public static final ResourceLocation IDSU = new ResourceLocation("techreborn", "idsu");
-	public static final ResourceLocation REFUND = new ResourceLocation("techreborn", "refund");
+	public static final Identifier AESU = new Identifier("techreborn", "aesu");
+	public static final Identifier AUTO_CRAFTING_LOCK = new Identifier("techreborn", "auto_crafting_lock");
+	public static final Identifier ROLLING_MACHINE_LOCK = new Identifier("techreborn", "rolling_machine_lock");
+	public static final Identifier FUSION_CONTROL_SIZE = new Identifier("techreborn", "fusion_control_size");
+	public static final Identifier IDSU = new Identifier("techreborn", "idsu");
+	public static final Identifier REFUND = new Identifier("techreborn", "refund");
 
 	public static void init() {
 		NetworkManager.registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {

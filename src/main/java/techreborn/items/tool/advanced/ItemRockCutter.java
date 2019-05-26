@@ -24,21 +24,20 @@
 
 package techreborn.items.tool.advanced;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -52,7 +51,7 @@ import techreborn.init.TRContent;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
+public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo {
 
 	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
 	public int transferLimit = 1_000;
@@ -60,33 +59,33 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
-		super(ItemTier.DIAMOND, 1, 1, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
-		efficiency = 16F;
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		blockBreakingSpeed = 16F;
 	}
 
 	// ItemPickaxe
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		if (Items.DIAMOND_PICKAXE.canHarvestBlock(state)) {
+	public boolean isEffectiveOn(BlockState state) {
+		if (Items.DIAMOND_PICKAXE.isEffectiveOn(state)) {
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
 		if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
 			return 2F;
 		} else {
-			return Items.DIAMOND_PICKAXE.getDestroySpeed(stack, state);
+			return Items.DIAMOND_PICKAXE.getBlockBreakingSpeed(stack, state);
 		}
 	}
 
 	// ItemTool
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
@@ -96,8 +95,8 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getHarvestLevel(ItemStack stack, ToolType toolType, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-		if (!stack.isEnchanted()) {
+	public int getHarvestLevel(ItemStack stack, ToolType toolType, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
+		if (!stack.hasEnchantments()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
 		return super.getHarvestLevel(stack, toolType, player, blockState);
@@ -110,8 +109,8 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-		if (!stack.isEnchanted()) {
+	public void onCrafted(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+		if (!stack.hasEnchantments()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
 	}
@@ -133,19 +132,19 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
 	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isItemEqual(oldStack));
+		return !(newStack.isEqualIgnoreTags(oldStack));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(this);

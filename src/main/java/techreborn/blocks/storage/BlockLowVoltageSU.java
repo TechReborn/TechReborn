@@ -24,8 +24,8 @@
 
 package techreborn.blocks.storage;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
 import techreborn.client.EGui;
 import techreborn.tiles.storage.TileLowVoltageSU;
 
@@ -39,7 +39,7 @@ public class BlockLowVoltageSU extends BlockEnergyStorage {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileLowVoltageSU();
 	}
 }

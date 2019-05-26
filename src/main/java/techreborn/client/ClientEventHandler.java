@@ -24,20 +24,20 @@
 
 package techreborn.client;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+
 import techreborn.init.TRContent;
 
 public class ClientEventHandler {
 
 	@SubscribeEvent
 	public static void renderPlayer(RenderPlayerEvent.Pre event) {
-		EntityPlayer player = event.getEntityPlayer();
-		Item chestslot = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty()
-		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
+		PlayerEntity player = event.getEntityPlayer();
+		Item chestslot = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()
+		                 ? player.getEquippedStack(EquipmentSlot.CHEST).getItem() : null;
 		if (chestslot != null && chestslot == TRContent.CLOAKING_DEVICE) {
 			event.setCanceled(true);
 		}

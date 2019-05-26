@@ -24,15 +24,15 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
@@ -56,23 +56,23 @@ public class BlockComputerCube extends BlockMachineBase {
 	}
 	
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
 
-		ItemStack tool = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
 			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
 				if (playerIn.isSneaking()) {
 					ItemStack drop = new ItemStack(TRContent.COMPUTER_CUBE, 1);
-					spawnAsEntity(worldIn, pos, drop);
-					worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSounds.BLOCK_DISMANTLE,
+					dropStack(worldIn, pos, drop);
+					worldIn.playSound(null, playerIn.x, playerIn.y, playerIn.z, ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);
-					if (!worldIn.isRemote) {
+					if (!worldIn.isClient) {
 						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 					}
 					return true;
 				}
 				else {
-					rotate(worldIn.getBlockState(pos), worldIn, pos, Rotation.CLOCKWISE_90);
+					rotate(worldIn.getBlockState(pos), worldIn, pos, BlockRotation.CLOCKWISE_90);
 					return true;
 				}
 			}

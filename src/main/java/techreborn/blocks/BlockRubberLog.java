@@ -25,27 +25,27 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
+import net.minecraft.block.LogBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.StateFactory;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -64,39 +64,39 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 19/02/2016.
  */
-public class BlockRubberLog extends BlockLog {
+public class BlockRubberLog extends LogBlock {
 
-	public static DirectionProperty SAP_SIDE = BlockStateProperties.HORIZONTAL_FACING;
+	public static DirectionProperty SAP_SIDE = Properties.FACING_HORIZONTAL;
 	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
 
 	public BlockRubberLog() {
-		super(MaterialColor.OBSIDIAN, Block.Properties.create(Material.WOOD, MaterialColor.BROWN).hardnessAndResistance(2.0F).sound(SoundType.WOOD).tickRandomly());
-		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, EnumFacing.NORTH).with(HAS_SAP, false).with(AXIS, EnumFacing.Axis.Y));
-		((BlockFire) Blocks.FIRE).setFireInfo(this, 5, 5);
+		super(MaterialColor.SPRUCE, Block.Settings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD).ticksRandomly());
+		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(AXIS, Direction.Axis.Y));
+		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 5, 5);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		super.fillStateContainer(builder);
+	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
 		builder.add(SAP_SIDE, HAS_SAP);
 	}
 
 	@Override
-	public boolean isIn(Tag<Block> tagIn) {
+	public boolean matches(Tag<Block> tagIn) {
 		return tagIn == BlockTags.LOGS;
 	}
 
 	@Override
-	public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+	public void onBreak(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
 		int i = 4;
 		int j = i + 1;
 		if (worldIn.isAreaLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
 			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
-				IBlockState state1 = worldIn.getBlockState(blockpos);
-				if (state1.isIn(BlockTags.LEAVES)) {
-					state1.tick(worldIn, blockpos, worldIn.getRandom());
-					state1.randomTick(worldIn, blockpos, worldIn.getRandom());
+				BlockState state1 = worldIn.getBlockState(blockpos);
+				if (state1.matches(BlockTags.LEAVES)) {
+					state1.scheduledTick(worldIn, blockpos, worldIn.getRandom());
+					state1.onRandomTick(worldIn, blockpos, worldIn.getRandom());
 				}
 			}
 		}
@@ -104,16 +104,16 @@ public class BlockRubberLog extends BlockLog {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void tick(IBlockState state, World worldIn, BlockPos pos, Random random) {
-		super.tick(state, worldIn, pos, random);
-		if (state.get(AXIS) != EnumFacing.Axis.Y) {
+	public void onScheduledTick(BlockState state, World worldIn, BlockPos pos, Random random) {
+		super.onScheduledTick(state, worldIn, pos, random);
+		if (state.get(AXIS) != Direction.Axis.Y) {
 			return;
 		}
 		if (state.get(HAS_SAP)) {
 			return;
 		}
 		if (random.nextInt(50) == 0) {
-			EnumFacing facing = EnumFacing.byHorizontalIndex(random.nextInt(4));
+			Direction facing = Direction.fromHorizontal(random.nextInt(4));
 			if (worldIn.getBlockState(pos.down()).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
@@ -123,10 +123,10 @@ public class BlockRubberLog extends BlockLog {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+			Hand hand, Direction side, float hitX, float hitY, float hitZ) {
 		super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
-		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
+		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -136,22 +136,22 @@ public class BlockRubberLog extends BlockLog {
 		}
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == side) {
-				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, EnumFacing.byHorizontalIndex(0)));
+				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
 						0.6F, 1F);
-				if (!worldIn.isRemote) {
+				if (!worldIn.isClient) {
 					if (capEnergy != null) {
 						capEnergy.extractEnergy(20, false);
 
 						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 					} else {
-						playerIn.getHeldItem(EnumHand.MAIN_HAND).damageItem(1, playerIn);
+						playerIn.getStackInHand(Hand.MAIN_HAND).damageItem(1, playerIn);
 					}
-					if (!playerIn.inventory.addItemStackToInventory(TRContent.Parts.SAP.getStack())) {
+					if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
 						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(side));
 					}
-					if (playerIn instanceof EntityPlayerMP) {
-						TRRecipeHandler.unlockTRRecipes((EntityPlayerMP) playerIn);
+					if (playerIn instanceof ServerPlayerEntity) {
+						TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);
 					}
 				}
 				return true;
@@ -161,7 +161,7 @@ public class BlockRubberLog extends BlockLog {
 	}
 
 	@Override
-	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		drops.add(new ItemStack(this));
 		if (state.get(HAS_SAP)) {
 			if (new Random().nextInt(4) == 0) {

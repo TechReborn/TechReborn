@@ -24,15 +24,15 @@
 
 package techreborn.proxies;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.ChatFormat;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
+
+
+
+
 import reborncore.api.tile.IUpgradeable;
 import reborncore.client.IconSupplier;
 import reborncore.client.gui.builder.GuiBase;
@@ -76,11 +76,11 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public String getUpgradeConfigText() {
-		if (Minecraft.getInstance().currentScreen instanceof GuiBase) {
-			GuiBase base = (GuiBase) Minecraft.getInstance().currentScreen;
+		if (MinecraftClient.getInstance().currentScreen instanceof GuiBase) {
+			GuiBase base = (GuiBase) MinecraftClient.getInstance().currentScreen;
 			if (base.tile instanceof IUpgradeable) {
 				if (((IUpgradeable) base.tile).canBeUpgraded()) {
-					return TextFormatting.LIGHT_PURPLE + "Right click to configure";
+					return ChatFormat.LIGHT_PURPLE + "Right click to configure";
 				}
 			}
 		}
@@ -90,14 +90,14 @@ public class ClientProxy extends CommonProxy {
 	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
 
 		@Override
-		public Render<? super EntityNukePrimed> createRenderFor(RenderManager manager) {
+		public EntityRenderer<? super EntityNukePrimed> createRenderFor(EntityRenderDispatcher manager) {
 			return new RenderNukePrimed(manager);
 		}
 	}
 
 	@Override
 	public boolean fancyGraphics() {
-		return Minecraft.getInstance().gameSettings.fancyGraphics;
+		return MinecraftClient.getInstance().options.fancyGraphics;
 	}
 
 }

@@ -24,9 +24,9 @@
 
 package techreborn.tiles.storage;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.IUpgrade;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -64,7 +64,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 		superconductors = 0;
 		for (int i = 0; i < getUpgradeSlotCount(); i++) {
-			ItemStack stack = getUpgradeInvetory().getStackInSlot(i);
+			ItemStack stack = getUpgradeInvetory().getInvStack(i);
 			if(false){ //TODO 1.13
 				superconductors++;
 			}
@@ -72,7 +72,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
-		if(world.getGameTime() % 20 == 0){
+		if(world.getTime() % 20 == 0){
 			checkTier();
 		}
 	}
@@ -114,10 +114,10 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	}
 
 	public ItemStack getDropWithNBT() {
-		NBTTagCompound tileEntity = new NBTTagCompound();
+		CompoundTag tileEntity = new CompoundTag();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		writeWithoutCoords(tileEntity);
-		dropStack.setTag(new NBTTagCompound());
+		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("tileEntity", tileEntity);
 		return dropStack;
 	}
@@ -132,7 +132,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	
 	// TileEnergyStorage
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return getDropWithNBT();
 	}
 	
@@ -162,23 +162,23 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	// TilePowerAcceptor
 	@Override
-	public NBTTagCompound write(NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
 		inventory.write(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public void read(NBTTagCompound nbttagcompound) {
-		super.read(nbttagcompound);
+	public void fromTag(CompoundTag nbttagcompound) {
+		super.fromTag(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 		inventory.read(nbttagcompound);
 	}
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(EntityPlayer player) {
+	public BuiltContainer createContainer(PlayerEntity player) {
 		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().syncIntegerValue(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this);

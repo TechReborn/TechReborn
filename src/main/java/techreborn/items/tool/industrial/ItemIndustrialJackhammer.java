@@ -26,10 +26,10 @@ package techreborn.items.tool.industrial;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -39,17 +39,17 @@ public class ItemIndustrialJackhammer extends ItemJackhammer {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialJackhammer() {
-		super(ItemTier.IRON, ConfigTechReborn.IndustrialJackhammerCharge);
+		super(ToolMaterials.IRON, ConfigTechReborn.IndustrialJackhammerCharge);
 		this.cost = 250;
-		this.efficiency = 60F;
+		this.blockBreakingSpeed = 60F;
 		this.transferLimit = 1000;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(
-		ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(
+		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_JACKHAMMER);

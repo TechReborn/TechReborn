@@ -25,10 +25,10 @@
 package techreborn.tiles.storage.lesu;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -67,15 +67,15 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		countedNetworks.clear();
 		connectedBlocks = 0;
-		for (EnumFacing dir : EnumFacing.values()) {
-			BlockPos adjucentBlockPos = new BlockPos(pos.getX() + dir.getXOffset(),
-					pos.getY() + dir.getXOffset(), pos.getZ() + dir.getXOffset());
-			TileEntity adjucentTile = world.getTileEntity(adjucentBlockPos);
+		for (Direction dir : Direction.values()) {
+			BlockPos adjucentBlockPos = new BlockPos(pos.getX() + dir.getOffsetX(),
+					pos.getY() + dir.getOffsetX(), pos.getZ() + dir.getOffsetX());
+			BlockEntity adjucentTile = world.getBlockEntity(adjucentBlockPos);
 			if (adjucentTile == null || !(adjucentTile instanceof TileLSUStorage)) {
 				continue;
 			}
@@ -98,7 +98,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	}
 
 	@Override
-	public EnumFacing getFacingEnum() {
+	public Direction getFacingEnum() {
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockLapotronicSU) {
 			return ((BlockLapotronicSU) block).getFacing(world.getBlockState(pos));
@@ -120,7 +120,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	
 	public void setConnectedBlocksNum(int value) {
 		this.connectedBlocks = value;
-		if (world.isRemote) {
+		if (world.isClient) {
 			setMaxStorage();
 		}
 	}
@@ -133,7 +133,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
 				.syncIntegerValue(this::getOutputRate, this::setOutputRate)

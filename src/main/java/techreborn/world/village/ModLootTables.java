@@ -24,12 +24,12 @@
 
 package techreborn.world.village;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.loot.LootTables;
 import techreborn.TechReborn;
 
 public class ModLootTables {
 
-	public static final ResourceLocation CHESTS_RUBBER_PLANTATION = LootTableList.register(new ResourceLocation(TechReborn.MOD_ID, "chests/rubber_plantation"));
+	public static final Identifier CHESTS_RUBBER_PLANTATION = LootTables.registerLootTable(new Identifier(TechReborn.MOD_ID, "chests/rubber_plantation"));
 
 }

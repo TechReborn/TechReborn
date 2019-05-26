@@ -24,56 +24,56 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
 
-public class GuiAlloyFurnace extends GuiContainer {
+public class GuiAlloyFurnace extends ContainerScreen {
 
-	private static final ResourceLocation texture = new ResourceLocation("techreborn",
+	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/alloy_furnace.png");
 
 	TileIronAlloyFurnace alloyfurnace;
 
-	public GuiAlloyFurnace(final EntityPlayer player, final TileIronAlloyFurnace alloyFurnace) {
+	public GuiAlloyFurnace(final PlayerEntity player, final TileIronAlloyFurnace alloyFurnace) {
 		super(alloyFurnace.createContainer(player));
-		this.xSize = 176;
-		this.ySize = 167;
+		this.containerWidth = 176;
+		this.containerHeight = 167;
 		this.alloyfurnace = alloyFurnace;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
+	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.getTextureManager().bindTexture(GuiAlloyFurnace.texture);
-		final int k = (this.width - this.xSize) / 2;
-		final int l = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+		final int k = (this.width - this.containerWidth) / 2;
+		final int l = (this.height - this.containerHeight) / 2;
+		this.blit(k, l, 0, 0, this.containerWidth, this.containerHeight);
 
 		if (this.alloyfurnace.isBurning()) {
 			int i1 = this.alloyfurnace.getBurnTimeRemainingScaled(13);
-			this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
+			this.blit(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
 			i1 = this.alloyfurnace.getCookProgressScaled(24);
-			this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
+			this.blit(k + 79, l + 34, 176, 14, i1 + 1, 16);
 		}
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.format("tile.techreborn.iron_alloy_furnace.name");
-		this.fontRenderer.drawString(name, this.xSize / 2 - this.fontRenderer.getStringWidth(name) / 2, 6,
+	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
+		final String name = I18n.translate("tile.techreborn.iron_alloy_furnace.name");
+		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
-		this.fontRenderer.drawString(I18n.format("container.inventory", new Object[0]), 8,
-			this.ySize - 96 + 2, 4210752);
+		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,
+			this.containerHeight - 96 + 2, 4210752);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		super.render(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+		this.drawMouseoverTooltip(mouseX, mouseY);
 	}
 }

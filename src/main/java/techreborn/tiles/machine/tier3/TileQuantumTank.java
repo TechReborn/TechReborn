@@ -24,14 +24,14 @@
 
 package techreborn.tiles.machine.tier3;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -64,24 +64,24 @@ public class TileQuantumTank extends TileMachineBase
 		this(TRTileEntities.QUANTUM_TANK);
 	}
 
-	public TileQuantumTank(TileEntityType<?> tileEntityTypeIn) {
+	public TileQuantumTank(BlockEntityType<?> tileEntityTypeIn) {
 		super(tileEntityTypeIn);
 	}
 
-	public void readWithoutCoords(final NBTTagCompound tagCompound) {
+	public void readWithoutCoords(final CompoundTag tagCompound) {
 		tank.read(tagCompound);
 	}
 	
-	public NBTTagCompound writeWithoutCoords(final NBTTagCompound tagCompound) {
+	public CompoundTag writeWithoutCoords(final CompoundTag tagCompound) {
 		tank.write(tagCompound);
 		return tagCompound;
 	}
 	
 	public ItemStack getDropWithNBT() {
-		final NBTTagCompound tileEntity = new NBTTagCompound();
+		final CompoundTag tileEntity = new CompoundTag();
 		final ItemStack dropStack = TRContent.Machine.QUANTUM_TANK.getStack();
 		this.writeWithoutCoords(tileEntity);
-		dropStack.setTag(new NBTTagCompound());
+		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("tileEntity", tileEntity);
 		return dropStack;
 	}
@@ -90,7 +90,7 @@ public class TileQuantumTank extends TileMachineBase
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isRemote) {
+		if (!world.isClient) {
 // TODO: Fix in 1.13
 //			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
 //					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType())) {
@@ -107,22 +107,22 @@ public class TileQuantumTank extends TileMachineBase
 	}
 	
 	@Override
-	public void read(final NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		readWithoutCoords(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound write(final NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(final CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
 	@Override
-	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
+	public void onDataPacket(final ClientConnection net, final BlockEntityUpdateS2CPacket packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		read(packet.getNbtCompound());
+		fromTag(packet.getCompoundTag());
 	}
 
 	// ItemHandlerProvider
@@ -133,26 +133,26 @@ public class TileQuantumTank extends TileMachineBase
 	
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return this.getDropWithNBT();
 	}
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<ITextComponent> info, final boolean isRealTile, boolean hasData) {
+	public void addInfo(final List<Component> info, final boolean isRealTile, boolean hasData) {
 		if (isRealTile | hasData) {
 			if (this.tank.getFluid() != null) {
-				info.add(new TextComponentString(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName()));
+				info.add(new TextComponent(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName()));
 			} else {
-				info.add(new TextComponentString("Empty"));
+				info.add(new TextComponent("Empty"));
 			}
 		}
-		info.add(new TextComponentString("Capacity " + this.tank.getCapacity() + " mb"));
+		info.add(new TextComponent("Capacity " + this.tank.getCapacity() + " mb"));
 	}
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).addInventory()
 			.create(this);

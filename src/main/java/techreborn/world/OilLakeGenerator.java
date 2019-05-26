@@ -25,9 +25,9 @@
 package techreborn.world;
 
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraft.world.chunk.ChunkManager;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
@@ -51,11 +51,11 @@ public class OilLakeGenerator implements IWorldGenerator {
 	public static int rareity = 30;
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
+	public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator chunkGenerator, ChunkManager chunkProvider) {
 		if (!enable) {
 			return;
 		}
-		if (!world.getDimension().isSurfaceWorld()) {
+		if (!world.getDimension().hasVisibleSky()) {
 			return;
 		}
 		if (random.nextInt(rareity) != 0) {

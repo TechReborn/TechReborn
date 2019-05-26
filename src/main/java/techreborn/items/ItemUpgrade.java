@@ -40,7 +40,7 @@ public class ItemUpgrade extends Item implements IUpgrade {
 	public final IUpgrade behavior;
 
 	public ItemUpgrade(String name, IUpgrade process) {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(16));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(16));
 		this.name = name;
 		this.behavior = process;
 	}

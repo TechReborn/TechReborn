@@ -24,11 +24,15 @@
 
 package techreborn.init;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.loot.LootPool;
+import net.minecraft.world.loot.LootTables;
+import net.minecraft.world.loot.UniformLootTableRange;
+import net.minecraft.world.loot.condition.LootCondition;
+import net.minecraft.world.loot.entry.LootTableEntry;
 import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
-import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 
@@ -37,30 +41,30 @@ import java.util.List;
 
 public class ModLoot {
 
-	public static List<ResourceLocation> lootTables = new ArrayList<ResourceLocation>();
+	public static List<Identifier> lootTables = new ArrayList<Identifier>();
 
 	public static void init() {
 		if (ConfigTechReborn.enableOverworldLoot) {
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/abandoned_mineshaft"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/desert_pyramid"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/igloo_chest"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/jungle_temple"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/simple_dungeon"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/stronghold_corridor"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/stronghold_crossing"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/stronghold_library"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/village_blacksmith"));
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/woodland_mansion"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/abandoned_mineshaft"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/desert_pyramid"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/igloo_chest"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/jungle_temple"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/simple_dungeon"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/stronghold_corridor"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/stronghold_crossing"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/stronghold_library"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/village_blacksmith"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/woodland_mansion"));
 		}
 		if (ConfigTechReborn.enableNetherLoot) {
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/nether_bridge"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/nether_bridge"));
 		}
 		if (ConfigTechReborn.enableEndLoot) {
-			lootTables.add(new ResourceLocation(TechReborn.MOD_ID, "chests/end_city_treasure"));
+			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/end_city_treasure"));
 		}
 
-		for (ResourceLocation lootTable : lootTables) {
-			LootTableList.register(lootTable);
+		for (Identifier lootTable : lootTables) {
+			LootTables.registerLootTable(lootTable);
 		}
 	}
 
@@ -69,7 +73,7 @@ public class ModLoot {
 		if (!event.getName().getNamespace().equals("minecraft")) {
 			return;
 		}
-		for (ResourceLocation lootTable : lootTables) {
+		for (Identifier lootTable : lootTables) {
 			if (event.getName().getNamespace().equals(lootTable.getPath())) {
 				event.getTable().addPool(getLootPool(lootTable));
 				TechReborn.LOGGER.debug("Loot pool injected into " + lootTable.getPath());
@@ -83,9 +87,9 @@ public class ModLoot {
 	 * @param lootTable ResourceLocation Loot table to inject
 	 * @return LootPool Loot pool to inject
 	 */
-	private LootPool getLootPool(ResourceLocation lootTable) {
-		LootEntry entry = new LootEntryTable(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString());
-		LootPool pool = new LootPool(new LootEntry[] { entry }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "lootPool_" + lootTable.toString());
+	private LootPool getLootPool(Identifier lootTable) {
+		LootEntry entry = new LootTableEntry(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString());
+		LootPool pool = new LootPool(new LootEntry[] { entry }, new LootCondition[0], new UniformLootTableRange(1), new UniformLootTableRange(0, 1), "lootPool_" + lootTable.toString());
 		return pool;
 	}
 }

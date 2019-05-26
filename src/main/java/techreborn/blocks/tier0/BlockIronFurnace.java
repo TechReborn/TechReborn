@@ -24,19 +24,19 @@
 
 package techreborn.blocks.tier0;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -55,8 +55,8 @@ public class BlockIronFurnace extends BlockMachineBase {
 	}
 
 	@SuppressWarnings("incomplete-switch")
-	@OnlyIn(Dist.CLIENT)
-	public void animateTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (this.isActive(stateIn)) {
 
 			final double d0 = pos.getX() + 0.5D;
@@ -67,33 +67,33 @@ public class BlockIronFurnace extends BlockMachineBase {
 						false);
 			}
 
-			final EnumFacing enumfacing = stateIn.get(BlockMachineBase.FACING);
+			final Direction enumfacing = stateIn.get(BlockMachineBase.FACING);
 			final double d3 = 0.52D;
 			final double d4 = rand.nextDouble() * 0.6D - 0.3D;
 
 			switch (enumfacing) {
 			case WEST:
-				worldIn.addParticle(Particles.SMOKE, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-				worldIn.addParticle(Particles.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.SMOKE, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 				break;
 			case EAST:
-				worldIn.addParticle(Particles.SMOKE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-				worldIn.addParticle(Particles.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.SMOKE, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 				break;
 			case NORTH:
-				worldIn.addParticle(Particles.SMOKE, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-				worldIn.addParticle(Particles.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.SMOKE, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
 				break;
 			case SOUTH:
-				worldIn.addParticle(Particles.SMOKE, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-				worldIn.addParticle(Particles.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.SMOKE, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+				worldIn.addParticle(ParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
 		
 	// BlockMachineBase
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileIronFurnace();
 	}
 
@@ -103,7 +103,7 @@ public class BlockIronFurnace extends BlockMachineBase {
 	}
 
 	@Override
-	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		drops.add(new ItemStack(this));
 	}
 }

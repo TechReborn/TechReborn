@@ -24,28 +24,29 @@
 
 package techreborn.items.tool.industrial;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.ChatFormat;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.*;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ChatUtils;
@@ -65,22 +66,22 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialDrill() {
-		super(ItemTier.DIAMOND, ConfigTechReborn.IndustrialDrillCharge, 2.0F, 10F);
+		super(ToolMaterials.DIAMOND, ConfigTechReborn.IndustrialDrillCharge, 2.0F, 10F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}
 
-	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable EntityPlayer playerIn) {
+	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable PlayerEntity playerIn) {
 		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
-		if (!(playerIn instanceof EntityPlayer)) {
+		if (!(playerIn instanceof PlayerEntity)) {
 			return new HashSet<BlockPos>();
 		}
-		RayTraceResult raytrace = rayTrace(worldIn, playerIn, false);
+		HitResult raytrace = rayTrace(worldIn, playerIn, false);
 		if(raytrace == null || raytrace.sideHit == null){
 			return Collections.emptySet();
 		}
-		EnumFacing enumfacing = raytrace.sideHit;
-		if (enumfacing == EnumFacing.SOUTH || enumfacing == EnumFacing.NORTH) {
+		Direction enumfacing = raytrace.sideHit;
+		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(i, j, 0);
@@ -89,7 +90,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 					}
 				}
 			}
-		} else if (enumfacing == EnumFacing.EAST || enumfacing == EnumFacing.WEST) {
+		} else if (enumfacing == Direction.EAST || enumfacing == Direction.WEST) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(0, j, i);
@@ -98,7 +99,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 					}
 				}
 			}
-		} else if (enumfacing == EnumFacing.DOWN || enumfacing == EnumFacing.UP) {
+		} else if (enumfacing == Direction.DOWN || enumfacing == Direction.UP) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					BlockPos newPos = pos.add(j, 0, i);
@@ -111,8 +112,8 @@ public class ItemIndustrialDrill extends ItemDrill {
 		return targetBlocks;
 	}
 
-	public void breakBlock(BlockPos pos, World world, EntityPlayer playerIn, ItemStack drill) {
-		IBlockState blockState = world.getBlockState(pos);
+	public void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
+		BlockState blockState = world.getBlockState(pos);
 
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
 
@@ -121,28 +122,28 @@ public class ItemIndustrialDrill extends ItemDrill {
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
 			blockState.getBlock().removedByPlayer(blockState, world, pos, playerIn, true, null);
-			blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
+			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
 			world.removeBlock(pos);
-			world.removeTileEntity(pos);
+			world.removeBlockEntity(pos);
 		}
 	}
 	
-	private boolean shouldBreak(EntityPlayer playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
+	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
 		if (originalPos.equals(pos)) {
 			return false;
 		}
-		IBlockState blockState = worldIn.getBlockState(pos);
+		BlockState blockState = worldIn.getBlockState(pos);
 		if (blockState.getMaterial() == Material.AIR) {
 			return false;
 		}
 		if (blockState.getMaterial().isLiquid()) {
 			return false;
 		}
-		float blockHardness = blockState.getPlayerRelativeBlockHardness(playerIn, worldIn, pos);
+		float blockHardness = blockState.calcBlockBreakingDelta(playerIn, worldIn, pos);
 		if (blockHardness == -1.0F) {
 			return false;
 		}
-		float originalHardness = worldIn.getBlockState(originalPos).getPlayerRelativeBlockHardness(playerIn, worldIn, originalPos);
+		float originalHardness = worldIn.getBlockState(originalPos).calcBlockBreakingDelta(playerIn, worldIn, originalPos);
 		if ((originalHardness / blockHardness) > 10.0F) {
 			return false;
 		}
@@ -152,90 +153,90 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	// ItemDrill
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
-		EntityPlayer playerIn = null;
-		if ((entityLiving instanceof EntityPlayer)) {
-			playerIn = (EntityPlayer) entityLiving;
+	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		PlayerEntity playerIn = null;
+		if ((entityLiving instanceof PlayerEntity)) {
+			playerIn = (PlayerEntity) entityLiving;
 		}
 		if(ItemUtils.isActive(stack)){
 			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
 				breakBlock(additionalPos, worldIn, playerIn, stack);
 			}
 		}
-		return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
+		return super.onBlockBroken(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
-		final ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
+		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ TextFormatting.GOLD + I18n
-						.format("techreborn.message.nanosaberActivate")));
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
+					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
+						+ ChatFormat.GOLD + I18n
+						.translate("techreborn.message.nanosaberActivate")));
 			} else {
 				if (!ItemUtils.isActive(stack)) {
 					if (stack.getTag() == null) {
-						stack.setTag(new NBTTagCompound());
+						stack.setTag(new CompoundTag());
 					}
 					stack.getTag().putBoolean("isActive", true);
-					if (world.isRemote) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
-								+ TextFormatting.GOLD + I18n
-								.format("techreborn.message.nanosaberActive")));
+					if (world.isClient) {
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
+							ChatFormat.GRAY + I18n.translate("techreborn.message.setTo") + " "
+								+ ChatFormat.GOLD + I18n
+								.translate("techreborn.message.nanosaberActive")));
 					}
 				} else {
 					stack.getTag().putBoolean("isActive", false);
-					if (world.isRemote) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
-								+ TextFormatting.GOLD + I18n
-								.format("techreborn.message.nanosaberInactive")));
+					if (world.isClient) {
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
+							ChatFormat.GRAY + I18n.translate("techreborn.message.setTo") + " "
+								+ ChatFormat.GOLD + I18n
+								.translate("techreborn.message.nanosaberInactive")));
 					}
 				}
 			}
-			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
-		return new ActionResult<>(EnumActionResult.PASS, stack);
+		return new TypedActionResult<>(ActionResult.PASS, stack);
 	}
 
 	@Override
-	public boolean onEntityItemUpdate(ItemStack stack, EntityItem entity) {
+	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
 		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
-			if(entity.world.isRemote){
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
-						+ TextFormatting.GOLD + I18n
-						.format("techreborn.message.nanosaberDeactivating")));
+			if(entity.world.isClient){
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
+					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
+						+ ChatFormat.GOLD + I18n
+						.translate("techreborn.message.nanosaberDeactivating")));
 			}
 			stack.getTag().putBoolean("isActive", false);
 		}
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(new TextComponentString(TextFormatting.YELLOW + "Shear: " + TextFormatting.RED + I18n.format("techreborn.message.nanosaberInactive")));
+			tooltip.add(new TextComponent(ChatFormat.YELLOW + "Shear: " + ChatFormat.RED + I18n.translate("techreborn.message.nanosaberInactive")));
 		} else {
-			tooltip.add(new TextComponentString(TextFormatting.YELLOW + "Shear: " + TextFormatting.GREEN + I18n.format("techreborn.message.nanosaberActive")));
+			tooltip.add(new TextComponent(ChatFormat.YELLOW + "Shear: " + ChatFormat.GREEN + I18n.translate("techreborn.message.nanosaberActive")));
 		}
 	}
 
 	// ItemPickaxe
 	@Override
-	public boolean canHarvestBlock(IBlockState blockIn) {
-		return (Items.DIAMOND_PICKAXE.canHarvestBlock(blockIn) || Items.DIAMOND_SHOVEL.canHarvestBlock(blockIn)) && !Items.DIAMOND_AXE.canHarvestBlock(blockIn);
+	public boolean isEffectiveOn(BlockState blockIn) {
+		return (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn) || Items.DIAMOND_SHOVEL.isEffectiveOn(blockIn)) && !Items.DIAMOND_AXE.isEffectiveOn(blockIn);
 	}
 
 	// Item
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_DRILL);

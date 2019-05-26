@@ -24,9 +24,9 @@
 
 package techreborn.api.recipe.recipes;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.Identifier;
+
 import reborncore.common.crafting.Recipe;
 import reborncore.common.crafting.RecipeType;
 import techreborn.tiles.machine.multiblock.TileIndustrialSawmill;
@@ -36,12 +36,12 @@ public class IndustrialSawmillRecipe extends Recipe {
 	//TODO 1.14 fluids
 	FluidStack fluidStack = null;
 
-	public IndustrialSawmillRecipe(RecipeType<?> type, ResourceLocation name) {
+	public IndustrialSawmillRecipe(RecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
 
 	@Override
-	public boolean canCraft(TileEntity tileEntity) {
+	public boolean canCraft(BlockEntity tileEntity) {
 		TileIndustrialSawmill tile = (TileIndustrialSawmill) tileEntity;
 		if (!tile.getMutliBlock()) {
 			return false;
@@ -63,7 +63,7 @@ public class IndustrialSawmillRecipe extends Recipe {
 	}
 
 	@Override
-	public boolean onCraft(TileEntity tileEntity) {
+	public boolean onCraft(BlockEntity tileEntity) {
 		TileIndustrialSawmill tile = (TileIndustrialSawmill) tileEntity;
 		final FluidStack recipeFluid = fluidStack;
 		final FluidStack tankFluid = tile.tank.getFluid();

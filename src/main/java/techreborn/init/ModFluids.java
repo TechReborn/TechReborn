@@ -24,8 +24,8 @@
 
 package techreborn.init;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.util.Identifier;
+
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 public enum ModFluids {
 	BERYLLIUM,
@@ -69,7 +69,7 @@ public enum ModFluids {
 
 	ModFluids() {
 		this.name = this.name().replace("_", "").toLowerCase(); //Is this ok?
-		fluid = new Fluid(name, new ResourceLocation("techreborn", "fixme"), new ResourceLocation("techrebonr", "alsofixme"));
+		fluid = new Fluid(name, new Identifier("techreborn", "fixme"), new Identifier("techrebonr", "alsofixme"));
 	}
 
 	public Fluid getFluid() {

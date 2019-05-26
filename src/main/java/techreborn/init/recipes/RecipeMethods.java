@@ -27,7 +27,7 @@ package techreborn.init.recipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.recipe.Ingredient;
 import reborncore.common.util.StringUtils;
 import techreborn.items.ItemCells;
 

@@ -24,7 +24,7 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -74,14 +74,14 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 			multiblockChecker = new MultiblockChecker(world, pos.down(3));
 		}
 		
-		if (!world.isRemote && getMutliBlock()){ 
+		if (!world.isClient && getMutliBlock()){ 
 			super.tick();
 		}	
 	}
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);

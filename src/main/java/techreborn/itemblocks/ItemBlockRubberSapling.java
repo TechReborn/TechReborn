@@ -25,16 +25,16 @@
 package techreborn.itemblocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import techreborn.TechReborn;
 
 /**
  * Created by modmuss50 on 20/02/2016.
  */
-public class ItemBlockRubberSapling extends ItemBlock {
+public class ItemBlockRubberSapling extends BlockItem {
 
 	public ItemBlockRubberSapling(Block block) {
-		super(block, new Item.Properties().group(TechReborn.ITEMGROUP));
+		super(block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
 	}
 }

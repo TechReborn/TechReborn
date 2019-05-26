@@ -24,18 +24,18 @@
 
 package techreborn;
 
-import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+
+
+
+
+
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.common.multiblock.MultiblockEventHandler;
@@ -66,7 +66,7 @@ public class TechReborn {
 	public static TechReborn INSTANCE;
 	
 	public static final ItemGroup ITEMGROUP = new ItemGroup(-1, MOD_ID) {
-		@OnlyIn(Dist.CLIENT)
+		@Environment(EnvType.CLIENT)
 		public ItemStack createIcon() {
 			return TRContent.Parts.MACHINE_PARTS.getStack();
 		}
@@ -127,7 +127,7 @@ public class TechReborn {
 
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			 BlockDispenser.registerDispenseBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
+			 DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);

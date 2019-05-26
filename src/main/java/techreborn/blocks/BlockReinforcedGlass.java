@@ -25,25 +25,25 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockGlass;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
 
 import java.util.Random;
 
-public class BlockReinforcedGlass extends BlockGlass {
+public class BlockReinforcedGlass extends GlassBlock {
 
 	public BlockReinforcedGlass() {
-		super(Block.Properties.create(Material.GLASS).hardnessAndResistance(4f, 60f).sound(SoundType.STONE));
+		super(Block.Settings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE));
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, Random random) {
+	public int quantityDropped(BlockState state, Random random) {
 		return 1;
 	}
 }

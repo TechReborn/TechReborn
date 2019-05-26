@@ -24,8 +24,8 @@
 
 package techreborn.tiles.machine.multiblock;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -90,8 +90,8 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
-		if (!world.isRemote && ticksSinceLastChange >= 10) {
-			if (!inventory.getStackInSlot(1).isEmpty()) {
+		if (!world.isClient && ticksSinceLastChange >= 10) {
+			if (!inventory.getInvStack(1).isEmpty()) {
 				FluidUtils.fillContainers(tank, inventory, 1, 2, tank.getFluidType());
 			}
 			ticksSinceLastChange = 0;
@@ -111,14 +111,14 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 
 	// TilePowerAcceptor
 	@Override
-	public void read(final NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound write(final NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(final CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;
 	}
@@ -126,7 +126,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	private static IInventoryAccess<TileFluidReplicator> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(slotID == 0){
-				return stack.isItemEqual(TRContent.Parts.UU_MATTER.getStack());
+				return stack.isEqualIgnoreTags(TRContent.Parts.UU_MATTER.getStack());
 			}
 			return true;
 		};
@@ -141,9 +141,9 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(EntityPlayer player) {
+	public BuiltContainer createContainer(PlayerEntity player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqual(TRContent.Parts.UU_MATTER.getStack()))
+				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isEqualIgnoreTags(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
 	}

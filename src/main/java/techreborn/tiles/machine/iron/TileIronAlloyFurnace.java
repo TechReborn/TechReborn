@@ -24,10 +24,10 @@
 
 package techreborn.tiles.machine.iron;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -71,7 +71,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		if (stack.isEmpty()) {
 			return 0;
 		} else {
-			return TileEntityFurnace.getBurnTimes().getOrDefault(stack.getItem(), 0);
+			return FurnaceBlockEntity.getBurnTimes().getOrDefault(stack.getItem(), 0);
 		}
 	}
 
@@ -83,13 +83,13 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		if (this.burnTime > 0) {
 			--this.burnTime;
 		}
-		if (!this.world.isRemote) {
-			if (this.burnTime != 0 || !inventory.getStackInSlot(this.input1).isEmpty()&& !inventory.getStackInSlot(this.fuel).isEmpty()) {
+		if (!this.world.isClient) {
+			if (this.burnTime != 0 || !inventory.getInvStack(this.input1).isEmpty()&& !inventory.getInvStack(this.fuel).isEmpty()) {
 				if (this.burnTime == 0 && this.canSmelt()) {
-					this.currentItemBurnTime = this.burnTime = TileIronAlloyFurnace.getItemBurnTime(inventory.getStackInSlot(this.fuel));
+					this.currentItemBurnTime = this.burnTime = TileIronAlloyFurnace.getItemBurnTime(inventory.getInvStack(this.fuel));
 					if (this.burnTime > 0) {
 						flag1 = true;
-						if (!inventory.getStackInSlot(this.fuel).isEmpty()) {
+						if (!inventory.getInvStack(this.fuel).isEmpty()) {
 							inventory.shrinkSlot(this.fuel, 1);
 						}
 					}
@@ -122,7 +122,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 			boolean hasItem = false;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ingredient.test(inventory.getStackInSlot(inputslot))) {
+				if (ingredient.test(inventory.getInvStack(inputslot))) {
 					hasItem = true;
 				}
 			}
@@ -133,7 +133,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	}
 
 	private boolean canSmelt() {
-		if (inventory.getStackInSlot(this.input1).isEmpty() || inventory.getStackInSlot(this.input2).isEmpty()) {
+		if (inventory.getInvStack(this.input1).isEmpty() || inventory.getInvStack(this.input2).isEmpty()) {
 			return false;
 		} else {
 			ItemStack itemstack = null;
@@ -146,12 +146,12 @@ public class TileIronAlloyFurnace extends TileMachineBase
 
 			if (itemstack == null)
 				return false;
-			if (inventory.getStackInSlot(this.output).isEmpty())
+			if (inventory.getInvStack(this.output).isEmpty())
 				return true;
-			if (!inventory.getStackInSlot(this.output).isItemEqual(itemstack))
+			if (!inventory.getInvStack(this.output).isEqualIgnoreTags(itemstack))
 				return false;
-			final int result = inventory.getStackInSlot(this.output).getCount() + itemstack.getCount();
-			return result <= inventory.getStackLimit() && result <= inventory.getStackInSlot(this.output).getMaxStackSize(); // Forge
+			final int result = inventory.getInvStack(this.output).getAmount() + itemstack.getAmount();
+			return result <= inventory.getStackLimit() && result <= inventory.getInvStack(this.output).getMaxAmount(); // Forge
 			// BugFix:
 			// Make
 			// it
@@ -179,10 +179,10 @@ public class TileIronAlloyFurnace extends TileMachineBase
 				}
 			}
 
-			if (inventory.getStackInSlot(this.output).isEmpty()) {
+			if (inventory.getInvStack(this.output).isEmpty()) {
 				inventory.setStackInSlot(this.output, itemstack.copy());
-			} else if (inventory.getStackInSlot(this.output).getItem() == itemstack.getItem()) {
-				inventory.shrinkSlot(this.output, -itemstack.getCount());
+			} else if (inventory.getInvStack(this.output).getItem() == itemstack.getItem()) {
+				inventory.shrinkSlot(this.output, -itemstack.getAmount());
 			}
 
 			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
@@ -195,7 +195,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 				if (hasAllRecipes) {
 					for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ingredient.test(this.inventory.getStackInSlot(inputSlot))) {
+							if (ingredient.test(this.inventory.getInvStack(inputSlot))) {
 								inventory.shrinkSlot(inputSlot, ingredient.getSize());
 								break;
 							}
@@ -228,12 +228,12 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	}
 
 	@Override
-	public EnumFacing getFacing() {
+	public Direction getFacing() {
 		return this.getFacingEnum();
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.IRON_ALLOY_FURNACE.getStack();
 	}
 
@@ -272,7 +272,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().tile(this)
 			.filterSlot(0, 47, 17,

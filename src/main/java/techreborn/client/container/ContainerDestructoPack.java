@@ -24,8 +24,8 @@
 
 package techreborn.client.container;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.container.Slot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.client.gui.slots.SlotFilteredVoid;
 import reborncore.common.container.RebornContainer;
@@ -34,10 +34,10 @@ import techreborn.init.TRContent;
 
 public class ContainerDestructoPack extends RebornContainer {
 
-	private EntityPlayer player;
+	private PlayerEntity player;
 	private Inventory<?> inv;
 
-	public ContainerDestructoPack(EntityPlayer player) {
+	public ContainerDestructoPack(PlayerEntity player) {
 		super(null);
 		this.player = player;
 		inv = new Inventory<>(1, "destructopack", 64, null);
@@ -45,7 +45,7 @@ public class ContainerDestructoPack extends RebornContainer {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer arg0) {
+	public boolean canUse(PlayerEntity arg0) {
 		return true;
 	}
 

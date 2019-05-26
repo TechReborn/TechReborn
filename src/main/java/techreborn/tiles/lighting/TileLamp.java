@@ -25,10 +25,10 @@
 package techreborn.tiles.lighting;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.blocks.lighting.BlockLamp;
@@ -47,10 +47,10 @@ public class TileLamp extends TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (world == null || world.isRemote) {
+		if (world == null || world.isClient) {
 			return;
 		}
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block b = state.getBlock();
 		if (b instanceof BlockLamp) {
 			double cost = getEuPerTick(((BlockLamp) b).getCost());
@@ -70,13 +70,13 @@ public class TileLamp extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
-		EnumFacing me = BlockLamp.getFacing(world.getBlockState(pos)).getOpposite();
+	public boolean canAcceptEnergy(final Direction direction) {
+		Direction me = BlockLamp.getFacing(world.getBlockState(pos)).getOpposite();
 		return direction == me;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return false;
 	}
 
@@ -92,7 +92,7 @@ public class TileLamp extends TilePowerAcceptor
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return new ItemStack(world.getBlockState(pos).getBlock());
 	}
 

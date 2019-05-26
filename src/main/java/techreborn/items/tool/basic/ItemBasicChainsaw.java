@@ -24,14 +24,14 @@
 
 package techreborn.items.tool.basic;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -40,14 +40,14 @@ import techreborn.items.tool.ItemChainsaw;
 public class ItemBasicChainsaw extends ItemChainsaw {
 
 	public ItemBasicChainsaw() {
-		super(ItemTier.IRON, ConfigTechReborn.BasicChainsawCharge, 0.5F);
+		super(ToolMaterials.IRON, ConfigTechReborn.BasicChainsawCharge, 0.5F);
 		this.cost = 50;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.BASIC_CHAINSAW);
@@ -60,7 +60,7 @@ public class ItemBasicChainsaw extends ItemChainsaw {
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		return Items.IRON_AXE.canHarvestBlock(state);
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.IRON_AXE.isEffectiveOn(state);
 	}
 }

@@ -24,27 +24,27 @@
 
 package techreborn.items;
 
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.ChatFormat;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
@@ -57,13 +57,13 @@ import java.util.List;
 public class ItemFrequencyTransmitter extends Item {
 
 	public ItemFrequencyTransmitter() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
-		this.addPropertyOverride(new ResourceLocation("techreborn", "coords"), new IItemPropertyGetter() {
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		this.addProperty(new Identifier("techreborn", "coords"), new ItemPropertyGetter() {
 			@Override
-			@OnlyIn(Dist.CLIENT)
-			public float call(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
-						&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
+			@Environment(EnvType.CLIENT)
+			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
+				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x")
+						&& stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -72,64 +72,64 @@ public class ItemFrequencyTransmitter extends Item {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext context) {
+	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
-		BlockPos pos = context.getPos();
-		ItemStack stack = context.getItem();
+		BlockPos pos = context.getBlockPos();
+		ItemStack stack = context.getItemStack();
 
-		stack.setTag(new NBTTagCompound());
+		stack.setTag(new CompoundTag());
 		stack.getTag().putInt("x", pos.getX());
 		stack.getTag().putInt("y", pos.getY());
 		stack.getTag().putInt("z", pos.getZ());
-		stack.getTag().putInt("dim", world.getDimension().getType().getId());
+		stack.getTag().putInt("dim", world.getDimension().getType().getRawId());
 
-		if (!world.isRemote) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
-				TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " X: " +
-					TextFormatting.GOLD + pos.getX() +
-					TextFormatting.GRAY + " Y: " +
-					TextFormatting.GOLD + pos.getY() +
-					TextFormatting.GRAY + " Z: " +
-					TextFormatting.GOLD + pos.getZ() +
-					TextFormatting.GRAY + " " + I18n.format("techreborn.message.in") + " " +
-					TextFormatting.GOLD + world.getDimension().getType().getRegistryName()
+		if (!world.isClient) {
+			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponent(
+				ChatFormat.GRAY + I18n.translate("techreborn.message.setTo") + " X: " +
+					ChatFormat.GOLD + pos.getX() +
+					ChatFormat.GRAY + " Y: " +
+					ChatFormat.GOLD + pos.getY() +
+					ChatFormat.GRAY + " Z: " +
+					ChatFormat.GOLD + pos.getZ() +
+					ChatFormat.GRAY + " " + I18n.translate("techreborn.message.in") + " " +
+					ChatFormat.GOLD + world.getDimension().getType().getRegistryName()
 					+ " (" + world.getDimension().getType().getRegistryName() + ")"));
 		}
-		return EnumActionResult.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player,
-	                                                EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player,
+	                                                Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			stack.setTag(null);
-			if (!world.isRemote) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponentString(
-					TextFormatting.GRAY + I18n.format("techreborn.message.coordsHaveBeen") + " "
-						+ TextFormatting.GOLD + I18n.format("techreborn.message.cleared")));
+			if (!world.isClient) {
+				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TextComponent(
+					ChatFormat.GRAY + I18n.translate("techreborn.message.coordsHaveBeen") + " "
+						+ ChatFormat.GOLD + I18n.translate("techreborn.message.cleared")));
 			}
 		}
 
-		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
+	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+		if (stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x") && stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
 			int x = stack.getTag().getInt("x");
 			int y = stack.getTag().getInt("y");
 			int z = stack.getTag().getInt("z");
 			int dim = stack.getTag().getInt("dim");
 
-			tooltip.add(new TextComponentString(TextFormatting.GRAY + "X: " + TextFormatting.GOLD + x));
-			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Y: " + TextFormatting.GOLD + y));
-			tooltip.add(new TextComponentString(TextFormatting.GRAY + "Z: " + TextFormatting.GOLD + z));
-			tooltip.add(new TextComponentString(TextFormatting.DARK_GRAY + IRegistry.DIMENSION_TYPE.get(dim).getRegistryName().toString()));
+			tooltip.add(new TextComponent(ChatFormat.GRAY + "X: " + ChatFormat.GOLD + x));
+			tooltip.add(new TextComponent(ChatFormat.GRAY + "Y: " + ChatFormat.GOLD + y));
+			tooltip.add(new TextComponent(ChatFormat.GRAY + "Z: " + ChatFormat.GOLD + z));
+			tooltip.add(new TextComponent(ChatFormat.DARK_GRAY + Registry.DIMENSION.get(dim).getRegistryName().toString()));
 
 		} else {
-			tooltip.add(new TextComponentString(TextFormatting.GRAY + I18n.format("techreborn.message.noCoordsSet")));
+			tooltip.add(new TextComponent(ChatFormat.GRAY + I18n.translate("techreborn.message.noCoordsSet")));
 		}
 	}
 
@@ -141,17 +141,17 @@ public class ItemFrequencyTransmitter extends Item {
 		@Override
 		public String getText(ItemStack stack) {
 			String text = "";
-			TextFormatting gold = TextFormatting.GOLD;
-			TextFormatting grey = TextFormatting.GRAY;
+			ChatFormat gold = ChatFormat.GOLD;
+			ChatFormat grey = ChatFormat.GRAY;
 			if (stack.getItem() instanceof ItemFrequencyTransmitter) {
-				if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
+				if (stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x") && stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
 					int coordX = stack.getTag().getInt("x");
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");
 					int coordDim = stack.getTag().getInt("dim");
-					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + IRegistry.DIMENSION_TYPE.get(coordDim).getRegistryName().toString() + " (" + coordDim + ")";
+					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + Registry.DIMENSION.get(coordDim).getRegistryName().toString() + " (" + coordDim + ")";
 				} else {
-					text = grey + I18n.format("techreborn.message.noCoordsSet");
+					text = grey + I18n.translate("techreborn.message.noCoordsSet");
 				}
 			}
 			return text;

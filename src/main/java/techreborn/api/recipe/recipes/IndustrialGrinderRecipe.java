@@ -24,9 +24,9 @@
 
 package techreborn.api.recipe.recipes;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.Identifier;
+
 import reborncore.common.crafting.Recipe;
 import reborncore.common.crafting.RecipeType;
 import techreborn.tiles.machine.multiblock.TileIndustrialGrinder;
@@ -36,12 +36,12 @@ public class IndustrialGrinderRecipe extends Recipe {
 	//TODO 1.14 fluids
 	FluidStack fluidStack = null;
 
-	public IndustrialGrinderRecipe(RecipeType<?> type, ResourceLocation name) {
+	public IndustrialGrinderRecipe(RecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
 
 	@Override
-	public boolean canCraft(final TileEntity tileEntity) {
+	public boolean canCraft(final BlockEntity tileEntity) {
 		TileIndustrialGrinder tile = (TileIndustrialGrinder) tileEntity;
 		if (!tile.getMultiBlock()) {
 			return false;
@@ -63,7 +63,7 @@ public class IndustrialGrinderRecipe extends Recipe {
 	}
 
 	@Override
-	public boolean onCraft(final TileEntity tileEntity) {
+	public boolean onCraft(final BlockEntity tileEntity) {
 		TileIndustrialGrinder tile = (TileIndustrialGrinder) tileEntity;
 		final FluidStack recipeFluid = fluidStack;
 		final FluidStack tankFluid = tile.tank.getFluid();

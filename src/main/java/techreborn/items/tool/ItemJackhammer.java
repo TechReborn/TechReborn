@@ -24,20 +24,20 @@
 
 package techreborn.items.tool;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTier;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -50,24 +50,24 @@ import techreborn.utils.TagUtils;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
+public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo {
 
 	public int maxCharge = 1;
 	public int cost = 250;
 	public int transferLimit = 100;
 
-	public ItemJackhammer(ItemTier material, int energyCapacity) {
-		super(material, (int) material.getAttackDamage(), 1f, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
-		efficiency = 20F;
+	public ItemJackhammer(ToolMaterials material, int energyCapacity) {
+		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		blockBreakingSpeed = 20F;
 		this.maxCharge = energyCapacity;
 	}
 
 	// ItemPickaxe
 	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
 		if ((TagUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
 			&& new ForgePowerItemManager(stack).getEnergyStored() >= cost) {
-			return efficiency;
+			return blockBreakingSpeed;
 		} else {
 			return 0.5F;
 		}
@@ -75,9 +75,9 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 
 	// ItemTool
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
@@ -87,15 +87,15 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
+	public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
 		return true;
 	}
 
 	// Item
 	@Override
-	public boolean canHarvestBlock( final ItemStack stack, final IBlockState state) {
+	public boolean canHarvestBlock( final ItemStack stack, final BlockState state) {
 		return TagUtils.isOre(state, "stone")
-			|| state.getMaterial() == Material.ROCK && new ForgePowerItemManager(stack).getEnergyStored() >= cost;
+			|| state.getMaterial() == Material.STONE && new ForgePowerItemManager(stack).getEnergyStored() >= cost;
 	}
 
 	@Override
@@ -122,13 +122,13 @@ public class ItemJackhammer extends ItemPickaxe implements IEnergyItemInfo {
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
-		                                            NBTTagCompound nbt) {
+		                                            CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
 	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isItemEqual(oldStack));
+		return !(newStack.isEqualIgnoreTags(oldStack));
 	}
 
 	// IEnergyItemInfo

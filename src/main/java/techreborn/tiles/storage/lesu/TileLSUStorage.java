@@ -24,10 +24,10 @@
 
 package techreborn.tiles.storage.lesu;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.tile.TileMachineBase;
@@ -46,11 +46,11 @@ public class TileLSUStorage extends TileMachineBase
 	public final void findAndJoinNetwork(World world, int x, int y, int z) {
 		network = new LesuNetwork();
 		network.addElement(this);
-		for (EnumFacing direction : EnumFacing.values()) {
-			if (world.getTileEntity(new BlockPos(x + direction.getXOffset(), y + direction.getYOffset(),
-					z + direction.getZOffset())) instanceof TileLSUStorage) {
-				TileLSUStorage lesu = (TileLSUStorage) world.getTileEntity(new BlockPos(x + direction.getXOffset(),
-						y + direction.getYOffset(), z + direction.getZOffset()));
+		for (Direction direction : Direction.values()) {
+			if (world.getBlockEntity(new BlockPos(x + direction.getOffsetX(), y + direction.getOffsetY(),
+					z + direction.getOffsetZ())) instanceof TileLSUStorage) {
+				TileLSUStorage lesu = (TileLSUStorage) world.getBlockEntity(new BlockPos(x + direction.getOffsetX(),
+						y + direction.getOffsetY(), z + direction.getOffsetZ()));
 				if (lesu.network != null) {
 					lesu.network.merge(network);
 				}
@@ -90,7 +90,7 @@ public class TileLSUStorage extends TileMachineBase
 			findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
 		} else {
 			if (network.master != null
-					&& network.master.getWorld().getTileEntity(new BlockPos(network.master.getPos().getX(),
+					&& network.master.getWorld().getBlockEntity(new BlockPos(network.master.getPos().getX(),
 							network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
 				network.master = null;
 			}
@@ -99,7 +99,7 @@ public class TileLSUStorage extends TileMachineBase
 
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return TRContent.Machine.LSU_STORAGE.getStack();
 	}
 }

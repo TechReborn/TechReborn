@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.machine.tier1.TileElectricFurnace;
@@ -33,14 +33,14 @@ public class GuiElectricFurnace extends GuiBase {
 
 	TileElectricFurnace tile;
 
-	public GuiElectricFurnace(final EntityPlayer player, final TileElectricFurnace tile) {
+	public GuiElectricFurnace(final PlayerEntity player, final TileElectricFurnace tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
+		super.drawBackground(partialTicks, mouseX, mouseY);
 		Layer layer = Layer.BACKGROUND;
 
 		drawSlot(8, 72, layer);
@@ -52,8 +52,8 @@ public class GuiElectricFurnace extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(int mouseX, int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, tile.gaugeProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);

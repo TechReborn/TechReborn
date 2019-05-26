@@ -24,8 +24,8 @@
 
 package techreborn.tiles.storage.idsu;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundTag;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -94,14 +94,14 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	}
 
 	@Override
-	public void read(NBTTagCompound nbttagcompound) {
-		super.read(nbttagcompound);
+	public void fromTag(CompoundTag nbttagcompound) {
+		super.fromTag(nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 
 	@Override
-	public NBTTagCompound write(NBTTagCompound nbttagcompound) {
-		super.write(nbttagcompound);
+	public CompoundTag toTag(CompoundTag nbttagcompound) {
+		super.toTag(nbttagcompound);
 		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
 			return nbttagcompound;
 		}
@@ -110,7 +110,7 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 			.syncEnergyValue().addInventory().create(this);

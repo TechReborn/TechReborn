@@ -25,14 +25,14 @@
 package techreborn.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.sound.BlockSoundGroup;
 
-public class BlockRefinedIronFence extends BlockFence {
+public class BlockRefinedIronFence extends FenceBlock {
 
 	public BlockRefinedIronFence() {
-		super(Block.Properties.create(Material.IRON, MaterialColor.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.METAL));
+		super(Block.Settings.of(Material.METAL, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.METAL));
 	}
 }

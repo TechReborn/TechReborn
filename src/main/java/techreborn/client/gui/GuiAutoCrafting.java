@@ -24,12 +24,13 @@
 
 package techreborn.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.render.GuiLighting;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
@@ -43,11 +44,11 @@ import static net.minecraft.item.ItemStack.EMPTY;
  */
 public class GuiAutoCrafting extends GuiBase {
 
-	static final ResourceLocation RECIPE_BOOK_TEXTURE = new ResourceLocation("textures/gui/recipe_book.png");
+	static final Identifier RECIPE_BOOK_TEXTURE = new Identifier("textures/gui/recipe_book.png");
 	boolean showGui = true;
 	TileAutoCraftingTable tileAutoCraftingTable;
 
-	public GuiAutoCrafting(EntityPlayer player, TileAutoCraftingTable tile) {
+	public GuiAutoCrafting(PlayerEntity player, TileAutoCraftingTable tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tileAutoCraftingTable = tile;
 	}
@@ -56,8 +57,8 @@ public class GuiAutoCrafting extends GuiBase {
 		if (stack != EMPTY) {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			RenderHelper.enableGUIStandardItemLighting();
-			itemRender.renderItemAndEffectIntoGUI(stack, x, y);
+			GuiLighting.enableForItems();
+			itemRenderer.renderGuiItem(stack, x, y);
 			GlStateManager.disableLighting();
 			GlStateManager.pushMatrix();
 			GlStateManager.disableDepthTest();
@@ -71,11 +72,11 @@ public class GuiAutoCrafting extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		IRecipe recipe = tileAutoCraftingTable.getIRecipe();
+	protected void drawForeground(int mouseX, int mouseY) {
+		super.drawForeground(mouseX, mouseY);
+		Recipe recipe = tileAutoCraftingTable.getIRecipe();
 		if (recipe != null) {
-			renderItemStack(recipe.getRecipeOutput(), 95, 42);
+			renderItemStack(recipe.getOutput(), 95, 42);
 		}
 		final Layer layer = Layer.FOREGROUND;
 		
@@ -84,8 +85,8 @@ public class GuiAutoCrafting extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, int mouseX, int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, int mouseX, int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -94,7 +95,7 @@ public class GuiAutoCrafting extends GuiBase {
 		}
 		drawOutputSlot(145, 42, layer);
 		drawOutputSlot(95, 42, layer);
-		drawString("Inventory", 8, 82, 4210752, layer);
+		draw("Inventory", 8, 82, 4210752, layer);
 
 		builder.drawLockButton(this, 145, 4, mouseX, mouseY, layer, tileAutoCraftingTable.locked);
 	}

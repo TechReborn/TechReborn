@@ -24,14 +24,14 @@
 
 package techreborn.tiles.machine.tier1;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.container.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -72,13 +72,13 @@ public class TileRollingMachine extends TilePowerAcceptor
 	public static int maxEnergy = 10000;
 
 	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-	private InventoryCrafting craftCache;
+	private CraftingInventory craftCache;
 	public Inventory<TileRollingMachine> inventory = new Inventory<>(12, "TileRollingMachine", 64, this).withConfiguredAccess();
 	public boolean isRunning;
 	public int tickTime;
 	@Nonnull
 	public ItemStack currentRecipeOutput;
-	public IRecipe currentRecipe;
+	public Recipe currentRecipe;
 	private int outputSlot;
 	public boolean locked = false;
 	public int balanceSlot = 0;
@@ -94,12 +94,12 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public boolean canAcceptEnergy(final EnumFacing direction) {
+	public boolean canAcceptEnergy(final Direction direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(final EnumFacing direction) {
+	public boolean canProvideEnergy(final Direction direction) {
 		return false;
 	}
 
@@ -116,22 +116,22 @@ public class TileRollingMachine extends TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		charge(10);
 
-		InventoryCrafting craftMatrix = getCraftingMatrix();
+		CraftingInventory craftMatrix = getCraftingMatrix();
 		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
 		if (currentRecipe != null) {
 			setIsActive(true);
-			if (world.getGameTime() % 2 == 0) {
-				Optional<InventoryCrafting> balanceResult = balanceRecipe(craftMatrix);
+			if (world.getTime() % 2 == 0) {
+				Optional<CraftingInventory> balanceResult = balanceRecipe(craftMatrix);
 				if (balanceResult.isPresent()) {
 					craftMatrix = balanceResult.get();
 				}
 			}
-			currentRecipeOutput = currentRecipe.getCraftingResult(craftMatrix);
+			currentRecipeOutput = currentRecipe.craft(craftMatrix);
 		} else {
 			currentRecipeOutput = ItemStack.EMPTY;
 		}
@@ -141,15 +141,15 @@ public class TileRollingMachine extends TilePowerAcceptor
 				currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, world);
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
-					if (inventory.getStackInSlot(outputSlot).isEmpty()) {
+					if (inventory.getInvStack(outputSlot).isEmpty()) {
 						inventory.setStackInSlot(outputSlot, currentRecipeOutput);
 						tickTime = 0;
 						hasCrafted = true;
 					} else {
-						if (inventory.getStackInSlot(outputSlot).getCount()
-								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxStackSize()) {
-							final ItemStack stack = inventory.getStackInSlot(outputSlot);
-							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
+						if (inventory.getInvStack(outputSlot).getAmount()
+								+ currentRecipeOutput.getAmount() <= currentRecipeOutput.getMaxAmount()) {
+							final ItemStack stack = inventory.getInvStack(outputSlot);
+							stack.setAmount(stack.getAmount() + currentRecipeOutput.getAmount());
 							inventory.setStackInSlot(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
@@ -158,7 +158,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 						}
 					}
 					if (hasCrafted) {
-						for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
+						for (int i = 0; i < craftMatrix.getInvSize(); i++) {
 							inventory.shrinkSlot(i, 1);
 						}
 						currentRecipeOutput = ItemStack.EMPTY;
@@ -195,36 +195,36 @@ public class TileRollingMachine extends TilePowerAcceptor
 			BlockMachineBase blockMachineBase = (BlockMachineBase)this.getWorld().getBlockState(this.getPos()).getBlock();
 			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
 		}
-		this.getWorld().notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
+		this.getWorld().updateListeners(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
 	}
 
-	public Optional<InventoryCrafting> balanceRecipe(InventoryCrafting craftCache) {
+	public Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache) {
 		if (currentRecipe == null) {
 			return Optional.empty();
 		}
-		if (world.isRemote) {
+		if (world.isClient) {
 			return Optional.empty();
 		}
 		if (!locked) {
 			return Optional.empty();
 		}
-		if (craftCache.isEmpty()) {
+		if (craftCache.isInvEmpty()) {
 			return Optional.empty();
 		}
 		balanceSlot++;
-		if (balanceSlot > craftCache.getSizeInventory()) {
+		if (balanceSlot > craftCache.getInvSize()) {
 			balanceSlot = 0;
 		}
 		//Find the best slot for each item in a recipe, and move it if needed
-		ItemStack sourceStack = inventory.getStackInSlot(balanceSlot);
+		ItemStack sourceStack = inventory.getInvStack(balanceSlot);
 		if (sourceStack.isEmpty()) {
 			return Optional.empty();
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
-		for (int s = 0; s < currentRecipe.getIngredients().size(); s++) {
-			ItemStack stackInSlot = inventory.getStackInSlot(s);
-			Ingredient ingredient = currentRecipe.getIngredients().get(s);
-			if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
+		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
+			ItemStack stackInSlot = inventory.getInvStack(s);
+			Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
+			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(s);
 				} else if (stackInSlot.getItem() == sourceStack.getItem()) {
@@ -235,10 +235,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 		if(!possibleSlots.isEmpty()){
 			int totalItems =  possibleSlots.stream()
-				.mapToInt(value -> inventory.getStackInSlot(value).getCount()).sum();
+				.mapToInt(value -> inventory.getInvStack(value).getAmount()).sum();
 			int slots = possibleSlots.size();
 
-			//This makes an array of ints with the best possible slot distribution
+			//This makes an array of ints with the best possible slot EnvTyperibution
 			int[] split = new int[slots];
 			int remainder = totalItems % slots;
 			Arrays.fill(split, totalItems / slots);
@@ -251,16 +251,16 @@ public class TileRollingMachine extends TilePowerAcceptor
 				}
 			}
 
-			List<Integer> slotDistrubution = possibleSlots.stream()
-				.mapToInt(value -> inventory.getStackInSlot(value).getCount())
+			List<Integer> slotEnvTyperubution = possibleSlots.stream()
+				.mapToInt(value -> inventory.getInvStack(value).getAmount())
 				.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
 			for (int i = 0; i < split.length; i++) {
 				int required = split[i];
-				if(slotDistrubution.contains(required)){
+				if(slotEnvTyperubution.contains(required)){
 					//We need to remove the int, not at the int, this seems to work around that
-					slotDistrubution.remove(new Integer(required));
+					slotEnvTyperubution.remove(new Integer(required));
 				} else {
 					needsBalance = true;
 				}
@@ -275,49 +275,49 @@ public class TileRollingMachine extends TilePowerAcceptor
 		//Slot, count
 		Pair<Integer, Integer> bestSlot = null;
 		for (Integer slot : possibleSlots) {
-			ItemStack slotStack = inventory.getStackInSlot(slot);
+			ItemStack slotStack = inventory.getInvStack(slot);
 			if (slotStack.isEmpty()) {
 				bestSlot = Pair.of(slot, 0);
 			}
 			if (bestSlot == null) {
-				bestSlot = Pair.of(slot, slotStack.getCount());
-			} else if (bestSlot.getRight() >= slotStack.getCount()) {
-				bestSlot = Pair.of(slot, slotStack.getCount());
+				bestSlot = Pair.of(slot, slotStack.getAmount());
+			} else if (bestSlot.getRight() >= slotStack.getAmount()) {
+				bestSlot = Pair.of(slot, slotStack.getAmount());
 			}
 		}
 		if (bestSlot == null
 			|| bestSlot.getLeft() == balanceSlot
-			|| bestSlot.getRight() == sourceStack.getCount()
-			|| inventory.getStackInSlot(bestSlot.getLeft()).isEmpty()
-			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStackInSlot(bestSlot.getLeft()), true, true)) {
+			|| bestSlot.getRight() == sourceStack.getAmount()
+			|| inventory.getInvStack(bestSlot.getLeft()).isEmpty()
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getInvStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
-		sourceStack.shrink(1);
-		inventory.getStackInSlot(bestSlot.getLeft()).grow(1);
+		sourceStack.subtractAmount(1);
+		inventory.getInvStack(bestSlot.getLeft()).addAmount(1);
 		inventory.setChanged();
 
 		return Optional.of(getCraftingMatrix());
 	}
 
-	private InventoryCrafting getCraftingMatrix() {
+	private CraftingInventory getCraftingMatrix() {
 		if (craftCache == null) {
-			craftCache = new InventoryCrafting(new RollingTileContainer(), 3, 3);
+			craftCache = new CraftingInventory(new RollingTileContainer(), 3, 3);
 		}
 		if (inventory.hasChanged()) {
 			for (int i = 0; i < 9; i++) {
-				craftCache.setInventorySlotContents(i, inventory.getStackInSlot(i).copy());
+				craftCache.setInvStack(i, inventory.getInvStack(i).copy());
 			}
 			inventory.resetChanged();
 		}
 		return craftCache;
 	}
 
-	public boolean canMake(InventoryCrafting craftMatrix) {
+	public boolean canMake(CraftingInventory craftMatrix) {
 		ItemStack stack = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, this.world);
 		if (locked) {
-			for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
-				ItemStack stack1 = craftMatrix.getStackInSlot(i);
-				if (!stack1.isEmpty() && stack1.getCount() < 2) {
+			for (int i = 0; i < craftMatrix.getInvSize(); i++) {
+				ItemStack stack1 = craftMatrix.getInvStack(i);
+				if (!stack1.isEmpty() && stack1.getAmount() < 2) {
 					return false;
 				}
 			}
@@ -325,7 +325,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		if (stack.isEmpty()) {
 			return false;
 		}
-		ItemStack output = inventory.getStackInSlot(outputSlot);
+		ItemStack output = inventory.getInvStack(outputSlot);
 		if (output.isEmpty()) {
 			return true;
 		}
@@ -333,21 +333,21 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.ROLLING_MACHINE.getStack();
 	}
 
 	@Override
-	public void read(final NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");
 	}
 
 	@Override
-	public NBTTagCompound write(final NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(final CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		tagCompound.putBoolean("isRunning", this.isRunning);
 		tagCompound.putInt("tickTime", this.tickTime);
 		tagCompound.putBoolean("locked", locked);
@@ -375,7 +375,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("rollingmachine").player(player.inventory)
 			.inventory().hotbar()
 			.addInventory().tile(this)
@@ -407,7 +407,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	private static class RollingTileContainer extends Container {
 
 		@Override
-		public boolean canInteractWith(final EntityPlayer entityplayer) {
+		public boolean canUse(final PlayerEntity entityplayer) {
 			return true;
 		}
 

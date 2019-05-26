@@ -24,13 +24,13 @@
 
 package techreborn.events;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+
+
 import techreborn.init.TRContent;
 
 public class TRTickHandler {
@@ -39,12 +39,12 @@ public class TRTickHandler {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onPlayerTick(TickEvent.PlayerTickEvent e) {
-		EntityPlayer player = e.player;
-		Item chestslot = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty()
-		                 ? player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() : null;
+		PlayerEntity player = e.player;
+		Item chestslot = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty()
+		                 ? player.getEquippedStack(EquipmentSlot.CHEST).getItem() : null;
 
 		if (previouslyWearing != chestslot && previouslyWearing == TRContent.CLOAKING_DEVICE && player.isInvisible()
-			&& !player.isPotionActive(MobEffects.INVISIBILITY)) {
+			&& !player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
 			player.setInvisible(false);
 		}
 

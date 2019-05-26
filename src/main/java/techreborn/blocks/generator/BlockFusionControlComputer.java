@@ -24,14 +24,14 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
@@ -54,20 +54,20 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) worldIn.getTileEntity(pos);
-		if(!playerIn.getHeldItem(hand).isEmpty() && (playerIn.getHeldItem(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())){
+	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+			Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) worldIn.getBlockEntity(pos);
+		if(!playerIn.getStackInHand(hand).isEmpty() && (playerIn.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())){
 			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
 			boolean placed = false;
 			for(BlockPos coil : coils){
-				if(playerIn.getHeldItem(hand).isEmpty()){
+				if(playerIn.getStackInHand(hand).isEmpty()){
 					return true;
 				}
-				if(worldIn.isAirBlock(coil) && !tileFusionControlComputer.isCoil(coil)){
+				if(worldIn.isAir(coil) && !tileFusionControlComputer.isCoil(coil)){
 					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
 					if(!playerIn.isCreative()){
-						playerIn.getHeldItem(hand).shrink(1);
+						playerIn.getStackInHand(hand).subtractAmount(1);
 					}
 					placed = true;
 				}
@@ -87,18 +87,18 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public void onEntityWalk(final World worldIn, final BlockPos pos, final Entity entityIn) {
-		super.onEntityWalk(worldIn, pos, entityIn);
-		if (worldIn.getTileEntity(pos) instanceof TileFusionControlComputer) {
-			if (((TileFusionControlComputer) worldIn.getTileEntity(pos)).crafingTickTime != 0
-					&& ((TileFusionControlComputer) worldIn.getTileEntity(pos)).checkCoils()) {
-				entityIn.attackEntityFrom(new FusionDamageSource(), 200F);
+	public void onSteppedOn(final World worldIn, final BlockPos pos, final Entity entityIn) {
+		super.onSteppedOn(worldIn, pos, entityIn);
+		if (worldIn.getBlockEntity(pos) instanceof TileFusionControlComputer) {
+			if (((TileFusionControlComputer) worldIn.getBlockEntity(pos)).crafingTickTime != 0
+					&& ((TileFusionControlComputer) worldIn.getBlockEntity(pos)).checkCoils()) {
+				entityIn.damage(new FusionDamageSource(), 200F);
 			}
 		}
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileFusionControlComputer();
 	}
 	

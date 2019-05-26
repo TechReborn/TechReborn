@@ -24,8 +24,9 @@
 
 package techreborn.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.tiles.storage.TileHighVoltageSU;
@@ -34,14 +35,14 @@ public class GuiMFSU extends GuiBase {
 
 	TileHighVoltageSU mfsu;
 
-	public GuiMFSU(final EntityPlayer player, final TileHighVoltageSU mfsu) {
+	public GuiMFSU(final PlayerEntity player, final TileHighVoltageSU mfsu) {
 		super(player, mfsu, mfsu.createContainer(player));
 		this.mfsu = mfsu;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(62, 45, layer);
@@ -50,8 +51,8 @@ public class GuiMFSU extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		GlStateManager.pushMatrix();

@@ -24,20 +24,20 @@
 
 package techreborn.items.tool;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Enchantments;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -49,7 +49,7 @@ import techreborn.TechReborn;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
+public class ItemChainsaw extends AxeItem implements IEnergyItemInfo {
 
 	public int maxCharge = 1;
 	public int cost = 250;
@@ -58,17 +58,17 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	public int transferLimit = 100;
 	public boolean isBreaking = false;
 
-	public ItemChainsaw(ItemTier material, int energyCapacity, float unpoweredSpeed) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
+	public ItemChainsaw(ToolMaterials material, int energyCapacity, float unpoweredSpeed) {
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 		this.maxCharge = energyCapacity;
-		this.efficiency = unpoweredSpeed;
+		this.blockBreakingSpeed = unpoweredSpeed;
 
-		this.addPropertyOverride(new ResourceLocation("techreborn", "animated"), new IItemPropertyGetter() {
+		this.addProperty(new Identifier("techreborn", "animated"), new ItemPropertyGetter() {
 			@Override
-			@OnlyIn(Dist.CLIENT)
-			public float call(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			@Environment(EnvType.CLIENT)
+			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
 				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() >= cost
-						&& entityIn != null && entityIn.getHeldItemMainhand().equals(stack)) {
+						&& entityIn != null && entityIn.getMainHandStack().equals(stack)) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -78,20 +78,20 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 
 	// ItemAxe
 	@Override
-	public float getDestroySpeed(ItemStack stack, IBlockState state) {
+	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
 		if (new ForgePowerItemManager(stack).getEnergyStored() >= cost
 				&& (state.getBlock().isToolEffective(state, ToolType.AXE) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
-			return super.getDestroySpeed(stack, state);
+			return super.getBlockBreakingSpeed(stack, state);
 		}
 	}
 
 	// ItemTool
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState blockIn, BlockPos pos, EntityLivingBase entityLiving) {
+	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
@@ -101,7 +101,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entityliving, EntityLivingBase entityliving1) {
+	public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
 		return true;
 	}
 
@@ -124,13 +124,13 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	@Nullable
 	public ICapabilityProvider initCapabilities(ItemStack stack,
 	                                            @Nullable
-		                                            NBTTagCompound nbt) {
+		                                            CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override
 	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isItemEqual(oldStack));
+		return !(newStack.isEqualIgnoreTags(oldStack));
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 	}
 
 	@Override
-	public int getItemEnchantability() {
+	public int getEnchantability() {
 		return 20;
 	}
 }

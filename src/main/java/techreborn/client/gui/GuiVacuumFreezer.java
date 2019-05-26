@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
@@ -41,7 +41,7 @@ public class GuiVacuumFreezer extends GuiBase {
 
 	TileVacuumFreezer tile;
 
-	public GuiVacuumFreezer(final EntityPlayer player, final TileVacuumFreezer tile) {
+	public GuiVacuumFreezer(final PlayerEntity player, final TileVacuumFreezer tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
@@ -53,8 +53,8 @@ public class GuiVacuumFreezer extends GuiBase {
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Battery slot
@@ -72,8 +72,8 @@ public class GuiVacuumFreezer extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
@@ -93,8 +93,8 @@ public class GuiVacuumFreezer extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					IBlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-					IBlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
+					BlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+					BlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
 
 					addComponent(0, -1, 0, advancedCasing, multiblock);
 					addComponent(1, -1, 0, advancedCasing, multiblock);
@@ -136,7 +136,7 @@ public class GuiVacuumFreezer extends GuiBase {
 		}
 	}
 	
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 }

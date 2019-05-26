@@ -27,13 +27,13 @@ package techreborn.items.tool.basic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
@@ -55,22 +55,22 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
-		super(new Item.Properties().group(TechReborn.ITEMGROUP).maxStackSize(1));
+		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 	}
 
 	// Item
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext context) {
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(context.getItem());
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(context.getItemStack());
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
-			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isRemote){
+			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isClient){
 				capEnergy.extractEnergy(cost, false);
 				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, context.getPlayer());
 
-				return EnumActionResult.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
-		return EnumActionResult.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
@@ -90,14 +90,14 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 
 	@Override
 	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return new PoweredItemContainerProvider(stack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void fillItemGroup(ItemGroup par2ItemGroup, NonNullList<ItemStack> itemList) {
-		if (!isInGroup(par2ItemGroup)) {
+	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isInItemGroup(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);

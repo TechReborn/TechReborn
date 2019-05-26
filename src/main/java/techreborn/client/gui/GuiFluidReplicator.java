@@ -24,10 +24,10 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -46,12 +46,12 @@ public class GuiFluidReplicator extends GuiBase {
 
 	TileFluidReplicator tile;
 
-	public GuiFluidReplicator(final EntityPlayer player, final TileFluidReplicator tile) {
+	public GuiFluidReplicator(final PlayerEntity player, final TileFluidReplicator tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
-	public void addComponent(final int x, final int y, final int z, final IBlockState blockState, final Multiblock multiblock) {
+	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
 		multiblock.addComponent(new BlockPos(x, y, z), blockState);
 	}
 
@@ -63,8 +63,8 @@ public class GuiFluidReplicator extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		// Battery slot
 		drawSlot(8, 72, layer);
@@ -82,8 +82,8 @@ public class GuiFluidReplicator extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawTank(this, 99, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
@@ -105,7 +105,7 @@ public class GuiFluidReplicator extends GuiBase {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
-					final IBlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+					final BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 
 					addComponent(1, 0, 0, reinforcedCasing, multiblock);
 					addComponent(0, 0, 1, reinforcedCasing, multiblock);
@@ -121,9 +121,9 @@ public class GuiFluidReplicator extends GuiBase {
 					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
 							this.tile.getPos().getX()
-									- EnumFacing.byIndex(this.tile.getFacingInt()).getXOffset() * 2,
+									- Direction.byId(this.tile.getFacingInt()).getOffsetX() * 2,
 							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- EnumFacing.byIndex(this.tile.getFacingInt()).getZOffset() * 2);
+									- Direction.byId(this.tile.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

@@ -24,10 +24,10 @@
 
 package techreborn.tiles.generator;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.Direction;
+
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -59,7 +59,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	 */
 	double pendingWithdraw = 0.0;
 
-	public TileBaseFluidGenerator(TileEntityType<?> tileEntityType, EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
+	public TileBaseFluidGenerator(BlockEntityType<?> tileEntityType, EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
 		super(tileEntityType);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		tank = new Tank(tileName, tankCapacity, this);
@@ -73,14 +73,14 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super.tick();
 		ticksSinceLastChange++;
 
-		if(world.isRemote){
+		if(world.isClient){
 			return;
 		}
 
 		// Check cells input slot 2 time per second
 		// Please, keep ticks counting on client also to report progress to GUI
 		if (ticksSinceLastChange >= 10) {
-			if (!inventory.getStackInSlot(0).isEmpty()) {
+			if (!inventory.getInvStack(0).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 0, 1);
 				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
 			}
@@ -103,15 +103,15 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
 					tank.drain(currentWithdraw, true);
-					lastOutput = world.getGameTime();
+					lastOutput = world.getTime();
 				}
 			}
 		}
 
-		if (world.getGameTime() - lastOutput < 30 && !isActive()) {
+		if (world.getTime() - lastOutput < 30 && !isActive()) {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		}
-		else if (world.getGameTime() - lastOutput > 30 && isActive()) {
+		else if (world.getTime() - lastOutput > 30 && isActive()) {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}
@@ -136,8 +136,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	protected boolean acceptFluid() {
-		if (!inventory.getStackInSlot(0).isEmpty()) {
-			FluidStack stack = FluidUtils.getFluidStackInContainer(inventory.getStackInSlot(0));
+		if (!inventory.getInvStack(0).isEmpty()) {
+			FluidStack stack = FluidUtils.getFluidStackInContainer(inventory.getInvStack(0));
 			if (stack != null)
 				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
 		}
@@ -159,12 +159,12 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public boolean canAcceptEnergy(Direction direction) {
 		return false;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(Direction direction) {
 		return true;
 	}
 
@@ -174,14 +174,14 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public void read(NBTTagCompound tagCompound) {
-		super.read(tagCompound);
+	public void fromTag(CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
 		tank.read(tagCompound);
 	}
 
 	@Override
-	public NBTTagCompound write(NBTTagCompound tagCompound) {
-		super.write(tagCompound);
+	public CompoundTag toTag(CompoundTag tagCompound) {
+		super.toTag(tagCompound);
 		tank.write(tagCompound);
 		return tagCompound;
 	}

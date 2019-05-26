@@ -24,8 +24,8 @@
 
 package techreborn.blocks.tier1;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -42,7 +42,7 @@ public class BlockCompressor extends BlockMachineBase {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TileCompressor();
 	}
 

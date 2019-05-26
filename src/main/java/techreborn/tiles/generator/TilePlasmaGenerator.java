@@ -24,7 +24,7 @@
 
 package techreborn.tiles.generator;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -53,7 +53,7 @@ public class TilePlasmaGenerator extends TileBaseFluidGenerator implements ICont
 	}
 
 	@Override
-	public ItemStack getToolDrop(EntityPlayer playerIn) {
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return TRContent.Machine.PLASMA_GENERATOR.getStack();
 	}
 
@@ -68,7 +68,7 @@ public class TilePlasmaGenerator extends TileBaseFluidGenerator implements ICont
 	}
 
 	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
+	public BuiltContainer createContainer(final PlayerEntity player) {
 		return new ContainerBuilder("plasmagenerator").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)

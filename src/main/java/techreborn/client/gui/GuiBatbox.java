@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.tiles.storage.TileLowVoltageSU;
@@ -34,14 +34,14 @@ public class GuiBatbox extends GuiBase {
 
 	TileLowVoltageSU tile;
 
-	public GuiBatbox(final EntityPlayer player, final TileLowVoltageSU tile) {
+	public GuiBatbox(final PlayerEntity player, final TileLowVoltageSU tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(62, 45, layer);
@@ -49,8 +49,8 @@ public class GuiBatbox extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		if(GuiBase.slotConfigType == SlotConfigType.NONE){

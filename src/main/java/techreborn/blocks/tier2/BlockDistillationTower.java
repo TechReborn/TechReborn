@@ -24,31 +24,31 @@
 
 package techreborn.blocks.tier2;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.multiblock.TileDistillationTower;
+import techreborn.tiles.machine.multiblock.TileEnvTypeillationTower;
 
-public class BlockDistillationTower extends BlockMachineBase {
+public class BlockEnvTypeillationTower extends BlockMachineBase {
 
-	public BlockDistillationTower() {
+	public BlockEnvTypeillationTower() {
 		super();
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
-		return new TileDistillationTower();
+	public BlockEntity createBlockEntity(BlockView worldIn) {
+		return new TileEnvTypeillationTower();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.DISTILLATION_TOWER;
+		return EGui.EnvTypeILLATION_TOWER;
 	}
 	
 	@Override

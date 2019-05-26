@@ -24,12 +24,12 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.ChatFormat;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -47,8 +47,8 @@ public class BlockMagicEnergyConverter extends BlockMachineBase {
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TextComponentString("WIP Coming Soon").applyTextStyle(TextFormatting.RED));
+	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Component> tooltip, TooltipContext flagIn) {
+		tooltip.add(new TextComponent("WIP Coming Soon").applyFormat(ChatFormat.RED));
 		// TODO 
 		// Remember to remove WIP override and imports once complete
 	}
