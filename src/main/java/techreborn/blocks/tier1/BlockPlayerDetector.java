@@ -24,7 +24,6 @@
 
 package techreborn.blocks.tier1;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -33,10 +32,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -45,32 +46,21 @@ import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.PropertyString;
-import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.TechReborn;
 import techreborn.tiles.machine.tier1.TilePlayerDectector;
 import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class BlockPlayerDetector extends BlockMachineBase {
 
-	public static final String[] types = new String[] { "all", "others", "you" };
-	static List<String> typeNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
-	public static PropertyString TYPE;
+	public static EnumProperty<PlayerDetectorType> TYPE;
 
 	public BlockPlayerDetector() {
 		super(Block.Properties.create(Material.IRON), true);
-		this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, types[0]));
-		for (int i = 0; i < types.length; i++) {
-			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
-		}
+		this.setDefaultState(this.stateContainer.getBaseState().with(TYPE, PlayerDetectorType.ALL));
 	}
 
 	// BlockMachineBase
@@ -78,30 +68,31 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return new TilePlayerDectector();
 	}
-	
+
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-	                            ItemStack stack) {
+			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		TileEntity tile = worldIn.getTileEntity(pos);
 		if (tile instanceof TilePlayerDectector) {
 			((TilePlayerDectector) tile).owenerUdid = placer.getUniqueID().toString();
 		}
 	}
-	
+
 	@Override
-	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(EnumHand.MAIN_HAND);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
-			
+
 		if (tileEntity == null) {
 			return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
 		}
-		
-		String type = state.get(TYPE);
-		String newType = type;
+
+		PlayerDetectorType type = state.get(TYPE);
+		PlayerDetectorType newType = type;
 		TextFormatting color = TextFormatting.GREEN;
-		
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, side, false)) {
 				if (playerIn.isSneaking()) {
@@ -119,14 +110,14 @@ public class BlockPlayerDetector extends BlockMachineBase {
 						return true;
 					}
 				} else {
-					if (type.equals("all")) {
-						newType = "others";
+					if (type == PlayerDetectorType.ALL) {
+						newType = PlayerDetectorType.OTHERS;
 						color = TextFormatting.RED;
-					} else if (type.equals("others")) {
-						newType = "you";
+					} else if (type == PlayerDetectorType.OTHERS) {
+						newType = PlayerDetectorType.YOU;
 						color = TextFormatting.BLUE;
-					} else if (type.equals("you")) {
-						newType = "all";
+					} else if (type == PlayerDetectorType.YOU) {
+						newType = PlayerDetectorType.ALL;
 					}
 					worldIn.setBlockState(pos, state.with(TYPE, newType));
 				}
@@ -134,22 +125,21 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		}
 
 		if (worldIn.isRemote) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(
-				TextFormatting.GRAY + I18n.format("techreborn.message.detects") + " " + color
-					+ StringUtils.toFirstCapital(newType)));
+			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new TextComponentString(TextFormatting.GRAY
+					+ I18n.format("techreborn.message.detects") + " " + color + StringUtils.toFirstCapital(newType.getName())));
 		}
 		return true;
 	}
-	
+
 	@Override
 	public IMachineGuiHandler getGui() {
 		return null;
 	}
-	
+
 	// Block
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		TYPE = new PropertyString("type", types);
+		TYPE = EnumProperty.create("type", PlayerDetectorType.class);
 		builder.add(TYPE);
 	}
 
@@ -179,5 +169,25 @@ public class BlockPlayerDetector extends BlockMachineBase {
 			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
 		}
 		return 0;
+	}
+
+	public enum PlayerDetectorType implements IStringSerializable {
+		ALL("all"), OTHERS("others"), YOU("you");
+
+		private final String name;
+
+		private PlayerDetectorType(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return this.getName();
+		}
+
+		@Override
+		public String getName() {
+			return this.name;
+		}
 	}
 }
