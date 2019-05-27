@@ -25,12 +25,13 @@
 package techreborn.client.gui;
 
 import net.minecraft.client.gui.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.container.Container;
 import net.minecraft.util.Identifier;
 
-public class GuiDestructoPack extends ContainerScreen {
+public class GuiDestructoPack extends AbstractContainerScreen {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/destructopack.png");

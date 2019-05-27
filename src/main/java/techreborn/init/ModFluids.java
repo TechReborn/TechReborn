@@ -26,6 +26,7 @@ package techreborn.init;
 
 import net.minecraft.util.Identifier;
 
+import reborncore.fluid.Fluid;
 import techreborn.blocks.fluid.BlockFluidTechReborn;
 public enum ModFluids {
 	BERYLLIUM,

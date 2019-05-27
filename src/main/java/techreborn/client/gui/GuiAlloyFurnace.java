@@ -24,14 +24,14 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.ContainerScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
 
-public class GuiAlloyFurnace extends ContainerScreen {
+public class GuiAlloyFurnace extends AbstractContainerScreen {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/alloy_furnace.png");

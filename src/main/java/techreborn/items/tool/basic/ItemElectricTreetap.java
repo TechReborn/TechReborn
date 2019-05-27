@@ -38,7 +38,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.TechRebornAPI;
@@ -61,7 +61,7 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	// Item
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(context.getItemStack());
+		ItemPowerManager capEnergy = new ItemPowerManager(context.getItemStack());
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isClient){
 				capEnergy.extractEnergy(cost, false);
@@ -102,7 +102,7 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 		}
 		ItemStack uncharged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);
 		ItemStack charged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);

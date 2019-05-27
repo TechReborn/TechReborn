@@ -45,7 +45,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.TechReborn;
@@ -79,7 +79,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo {
 	// ItemTool
 	@Override
 	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
 		capEnergy.extractEnergy(cost, false);
 		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
@@ -110,7 +110,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo {
 
 	@Override
 	public boolean onEntityDamaged(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() >= hitCost) {
 			capEnergy.extractEnergy(hitCost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityliving);
@@ -168,7 +168,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo {
 		}
 		ItemStack uncharged = new ItemStack(TRContent.OMNI_TOOL);
 		ItemStack charged = new ItemStack(TRContent.OMNI_TOOL);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);

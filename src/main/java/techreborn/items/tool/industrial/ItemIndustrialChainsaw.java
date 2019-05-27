@@ -48,7 +48,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
@@ -81,7 +81,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_CHAINSAW);
 		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);
@@ -136,7 +136,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
 					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ ChatFormat.GOLD + I18n
@@ -170,7 +170,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	@Override
 	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
-		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
 					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
@@ -202,7 +202,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			return;
 		}
 
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() < cost) {
 			return;
 		}

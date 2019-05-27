@@ -41,7 +41,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
@@ -65,7 +65,7 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo {
 	// ItemPickaxe
 	@Override
 	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
-		if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+		if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 			return unpoweredSpeed;
 		}
 		if (Items.WOODEN_PICKAXE.getBlockBreakingSpeed(stack, state) > 1.0F
@@ -81,7 +81,7 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo {
 	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);

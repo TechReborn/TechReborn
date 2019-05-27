@@ -38,7 +38,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
@@ -61,7 +61,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo 
 			return;
 		}
 
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(itemStack);
+		ItemPowerManager capEnergy = new ItemPowerManager(itemStack);
 
 		for (int i = 0; i < player.inventory.getInvSize(); i++) {
 			if (!player.inventory.getInvStack(i).isEmpty()) {
@@ -113,7 +113,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo 
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);
 		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		items.add(uncharged);
 		items.add(charged);

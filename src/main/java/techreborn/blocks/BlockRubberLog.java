@@ -50,7 +50,7 @@ import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
@@ -130,9 +130,9 @@ public class BlockRubberLog extends LogBlock {
 		if (stack.isEmpty()) {
 			return false;
 		}
-		ForgePowerItemManager capEnergy = null;
+		ItemPowerManager capEnergy = null;
 		if (stack.getItem() instanceof ItemElectricTreetap) {
-			capEnergy = new ForgePowerItemManager(stack);
+			capEnergy = new ItemPowerManager(stack);
 		}
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == side) {

@@ -42,7 +42,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
@@ -74,7 +74,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo {
 
 	@Override
 	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
-		if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+		if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 			return 2F;
 		} else {
 			return Items.DIAMOND_PICKAXE.getBlockBreakingSpeed(stack, state);
@@ -86,7 +86,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo {
 	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
@@ -151,7 +151,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo {
 		uncharged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		ItemStack charged = new ItemStack(TRContent.ROCK_CUTTER);
 		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);

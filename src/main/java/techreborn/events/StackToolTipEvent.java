@@ -44,7 +44,7 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 
@@ -61,7 +61,7 @@ public class StackToolTipEvent {
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(event.getToolTip(), false, false);
 		} else if (event.getItemStack().getItem() instanceof IEnergyItemInfo) {
-			IEnergyStorage capEnergy = new ForgePowerItemManager(event.getItemStack());
+			IEnergyStorage capEnergy = new ItemPowerManager(event.getItemStack());
 			TextComponent line1 = new TextComponent(PowerSystem
 					.getLocaliszedPowerFormattedNoSuffix(capEnergy.getEnergyStored() / RebornCoreConfig.euPerFU));
 			line1.append("/");

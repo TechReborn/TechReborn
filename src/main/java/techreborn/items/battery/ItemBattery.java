@@ -37,7 +37,7 @@ import net.fabricmc.api.Environment;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
@@ -56,7 +56,7 @@ public class ItemBattery extends Item implements IEnergyItemInfo {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() == 0) {
+				if (!stack.isEmpty() && new ItemPowerManager(stack).getEnergyStored() == 0) {
 					return 1.0F;
 				}
 				return 0.0F;

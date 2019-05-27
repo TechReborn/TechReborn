@@ -27,11 +27,8 @@ package techreborn.init;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-
-
-import reborncore.common.crafting.Recipe;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RecipeManager;
-import reborncore.common.crafting.RecipeType;
 import reborncore.common.registration.RebornRegister;
 import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
@@ -42,7 +39,7 @@ import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 public class ModRecipes {
 
 
-	public static final RecipeType<Recipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:alloy_smelter"));
+	public static final RecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:alloy_smelter"));
 	public static final RecipeType<Recipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:assembling_machine"));
 	public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE = RecipeManager.newRecipeType(BlastFurnaceRecipe.class, new Identifier("techreborn:blast_furnace"));
 	public static final RecipeType<Recipe> CENTRIFUGE = RecipeManager.newRecipeType(Recipe.class, new Identifier("techreborn:centrifuge"));

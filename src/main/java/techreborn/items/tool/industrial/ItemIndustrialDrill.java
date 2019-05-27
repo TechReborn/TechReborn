@@ -48,7 +48,7 @@ import net.minecraft.world.World;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
@@ -115,7 +115,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 	public void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
 		BlockState blockState = world.getBlockState(pos);
 
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
+		ItemPowerManager capEnergy = new ItemPowerManager(drill);
 
 		if(capEnergy.getEnergyStored() > cost){
 			capEnergy.extractEnergy(cost, false);
@@ -170,7 +170,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
 					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ ChatFormat.GOLD + I18n
@@ -204,7 +204,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	@Override
 	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
-		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
 					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
@@ -241,7 +241,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_DRILL);
 		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);

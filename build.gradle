@@ -19,7 +19,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.2.2-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.2.3-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 		//classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
@@ -73,16 +73,19 @@ license {
 group = 'TechReborn'
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.14"
-    mappings "net.fabricmc:yarn:1.14+build.21"
-	
-    modCompile "net.fabricmc:fabric-loader:0.4.8+build.154"
-            
-    modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0-pre+build.156"
+	minecraft "com.mojang:minecraft:1.14.2 Pre-Release 1"
+	mappings "net.fabricmc:yarn:1.14.2 Pre-Release 1+build.1"
+	modCompile "net.fabricmc:fabric-loader:0.4.7+build.147"
 
-	modCompile ('RebornCore:RebornCore-1.14:4.0.0.14') {
-		transitive = false
-	}
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0-pre+build.156"
+
+	modCompile "io.github.prospector.modmenu:ModMenu:1.5.4-85"
+
+//	modCompile ('RebornCore:RebornCore-1.14:4.0.0.14') {
+//		transitive = false
+//	}
+
+	compile 'RebornCore:RebornCore-1.14:4.0.0.14'
 
 	compileOnly "com.google.code.findbugs:jsr305:+"
 }

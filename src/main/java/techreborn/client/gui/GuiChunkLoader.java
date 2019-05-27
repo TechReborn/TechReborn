@@ -24,7 +24,9 @@
 
 package techreborn.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resource.language.I18n;
@@ -33,7 +35,7 @@ import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import techreborn.tiles.machine.tier3.TileChunkLoader;
 
-public class GuiChunkLoader extends ContainerScreen {
+public class GuiChunkLoader extends AbstractContainerScreen {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/industrial_chunkloader.png");

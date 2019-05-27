@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 
@@ -48,7 +48,7 @@ public class ItemLapotronCrystal extends ItemBattery {
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LAPOTRON_CRYSTAL);
 		ItemStack charged = new ItemStack(TRContent.LAPOTRON_CRYSTAL);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		items.add(uncharged);
 		items.add(charged);

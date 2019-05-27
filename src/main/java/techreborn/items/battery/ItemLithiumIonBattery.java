@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import techreborn.init.TRContent;
 
 public class ItemLithiumIonBattery extends ItemBattery {
@@ -47,7 +47,7 @@ public class ItemLithiumIonBattery extends ItemBattery {
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
 		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		items.add(uncharged);
 		items.add(charged);

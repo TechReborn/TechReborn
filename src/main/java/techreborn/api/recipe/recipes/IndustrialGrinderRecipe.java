@@ -27,8 +27,7 @@ package techreborn.api.recipe.recipes;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 
-import reborncore.common.crafting.Recipe;
-import reborncore.common.crafting.RecipeType;
+import reborncore.fluid.FluidStack;
 import techreborn.tiles.machine.multiblock.TileIndustrialGrinder;
 
 public class IndustrialGrinderRecipe extends Recipe {

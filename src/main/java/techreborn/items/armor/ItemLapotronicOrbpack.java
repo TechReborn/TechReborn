@@ -37,7 +37,7 @@ import net.fabricmc.api.Environment;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
@@ -63,7 +63,7 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo 
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
 		ItemStack charged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		items.add(uncharged);
 		items.add(charged);

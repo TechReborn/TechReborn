@@ -42,7 +42,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.TagUtils;
@@ -66,7 +66,7 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo {
 	@Override
 	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
 		if ((TagUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
-			&& new ForgePowerItemManager(stack).getEnergyStored() >= cost) {
+			&& new ItemPowerManager(stack).getEnergyStored() >= cost) {
 			return blockBreakingSpeed;
 		} else {
 			return 0.5F;
@@ -78,7 +78,7 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo {
 	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
@@ -95,7 +95,7 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo {
 	@Override
 	public boolean canHarvestBlock( final ItemStack stack, final BlockState state) {
 		return TagUtils.isOre(state, "stone")
-			|| state.getMaterial() == Material.STONE && new ForgePowerItemManager(stack).getEnergyStored() >= cost;
+			|| state.getMaterial() == Material.STONE && new ItemPowerManager(stack).getEnergyStored() >= cost;
 	}
 
 	@Override

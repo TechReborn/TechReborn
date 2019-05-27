@@ -49,7 +49,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
@@ -77,7 +77,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
 			                   @Nullable
 				                   LivingEntity entityIn) {
 				if (ItemUtils.isActive(stack)) {
-					ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+					ItemPowerManager capEnergy = new ItemPowerManager(stack);
 					if (capEnergy.getMaxEnergyStored() - capEnergy.getEnergyStored() >= 0.9	* capEnergy.getMaxEnergyStored()) {
 						return 0.5F;
 					}
@@ -91,7 +91,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
 	// ItemSword
 	@Override
 	public boolean onEntityDamaged(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() >= cost) {
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityHitter);
@@ -123,7 +123,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
 					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ ChatFormat.GOLD + I18n
@@ -157,7 +157,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
 
 	@Override
 	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(worldIn.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
 					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
@@ -210,13 +210,13 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
 		inactiveCharged.setTag(new CompoundTag());
 		inactiveCharged.getTag().putBoolean("isActive", false);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(inactiveCharged);
+		ItemPowerManager capEnergy = new ItemPowerManager(inactiveCharged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
 		activeCharged.setTag(new CompoundTag());
 		activeCharged.getTag().putBoolean("isActive", true);
-		ForgePowerItemManager capEnergy2 = new ForgePowerItemManager(activeCharged);
+		ItemPowerManager capEnergy2 = new ItemPowerManager(activeCharged);
 		capEnergy2.setEnergyStored(capEnergy2.getMaxEnergyStored());
 
 		itemList.add(inactiveUncharged);

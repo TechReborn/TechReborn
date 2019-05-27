@@ -42,7 +42,7 @@ import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
@@ -67,7 +67,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && new ForgePowerItemManager(stack).getEnergyStored() >= cost
+				if (!stack.isEmpty() && new ItemPowerManager(stack).getEnergyStored() >= cost
 						&& entityIn != null && entityIn.getMainHandStack().equals(stack)) {
 					return 1.0F;
 				}
@@ -79,7 +79,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo {
 	// ItemAxe
 	@Override
 	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
-		if (new ForgePowerItemManager(stack).getEnergyStored() >= cost
+		if (new ItemPowerManager(stack).getEnergyStored() >= cost
 				&& (state.getBlock().isToolEffective(state, ToolType.AXE) || state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
@@ -92,7 +92,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo {
 	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);

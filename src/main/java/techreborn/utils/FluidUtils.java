@@ -25,7 +25,7 @@
 package techreborn.utils;
 
 import net.minecraft.block.Block;
-
+import reborncore.fluid.Fluid;
 
 import java.util.Collections;
 import java.util.List;

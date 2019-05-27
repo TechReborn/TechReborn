@@ -24,6 +24,7 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.gui.screen.Screen;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.common.network.NetworkManager;
 

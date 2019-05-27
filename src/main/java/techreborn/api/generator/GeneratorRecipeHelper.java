@@ -26,6 +26,8 @@ package techreborn.api.generator;
 
 
 
+import reborncore.fluid.Fluid;
+
 import java.util.EnumMap;
 import java.util.Optional;
 

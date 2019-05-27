@@ -32,7 +32,7 @@ import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
@@ -52,7 +52,7 @@ public class ItemBasicDrill extends ItemDrill {
 		}
 		ItemStack stack = new ItemStack(TRContent.BASIC_DRILL);
 		ItemStack charged = stack.copy();
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(stack);

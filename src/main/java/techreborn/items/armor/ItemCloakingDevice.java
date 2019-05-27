@@ -40,7 +40,7 @@ import net.fabricmc.api.Environment;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
-import reborncore.common.powerSystem.forge.ForgePowerItemManager;
+import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
@@ -74,7 +74,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityIn;
-			IEnergyStorage capEnergy = new ForgePowerItemManager(stack);
+			IEnergyStorage capEnergy = new ItemPowerManager(stack);
 			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
 				capEnergy.extractEnergy(usage, false);
 				player.setInvisible(true);
@@ -98,7 +98,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		}
 		ItemStack uncharged = new ItemStack(TRContent.CLOAKING_DEVICE);
 		ItemStack charged = new ItemStack(TRContent.CLOAKING_DEVICE);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(charged);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 		items.add(uncharged);
 		items.add(charged);
