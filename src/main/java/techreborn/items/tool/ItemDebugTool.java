@@ -36,6 +36,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -68,10 +69,11 @@ public class ItemDebugTool extends Item {
 			if (tile instanceof IEnergyInterfaceTile) {
 				sendMessage(context, new TextComponentString(getRCPower((IEnergyInterfaceTile) tile)));
 			} else {
-				IEnergyStorage capEnergy = tile
-						.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing()).orElseGet(null);
-				if (capEnergy != null) {
-					sendMessage(context, new TextComponentString(getForgePower(capEnergy)));
+				LazyOptional<IEnergyStorage> capEnergy = tile
+						.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing());
+				
+				if (capEnergy.isPresent()) {
+					sendMessage(context, new TextComponentString(getForgePower((IEnergyStorage) capEnergy)));
 				}
 			}
 		}
