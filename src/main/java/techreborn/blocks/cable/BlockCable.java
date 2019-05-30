@@ -27,13 +27,17 @@ package techreborn.blocks.cable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.AbstractProperty;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -83,15 +87,6 @@ public class BlockCable extends BlockContainer {
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
-	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
-	public TileEntity getTileEntitySafely(IWorld blockAccess, BlockPos pos) {
-//		if (blockAccess instanceof ChunkCache) {
-//			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-//		} else {
-			return blockAccess.getTileEntity(pos);
-	//	}
-	}
-
 	public AbstractProperty<Boolean> getProperty(EnumFacing facing) {
 		switch (facing) {
 			case EAST:
@@ -109,6 +104,18 @@ public class BlockCable extends BlockContainer {
 			default:
 				return EAST;
 		}
+	}
+	
+	private IBlockState makeConnections(IBlockReader world, BlockPos pos) {
+		Boolean down = (world.getBlockState(pos.down()).getBlock() instanceof BlockCable) ? true : false;
+		Boolean up = (world.getBlockState(pos.up()).getBlock() instanceof BlockCable) ? true : false;
+		Boolean north = (world.getBlockState(pos.north()).getBlock() instanceof BlockCable) ? true : false;
+		Boolean east = (world.getBlockState(pos.east()).getBlock() instanceof BlockCable) ? true : false;
+		Boolean south = (world.getBlockState(pos.south()).getBlock() instanceof BlockCable) ? true : false;
+		Boolean west = (world.getBlockState(pos.west()).getBlock() instanceof BlockCable) ? true : false;
+
+		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
+				.with(SOUTH, south).with(WEST, west);
 	}
 	
 	// BlockContainer
@@ -148,18 +155,29 @@ public class BlockCable extends BlockContainer {
 		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN);
 	}
 
-	/*
-
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		return makeConnections(context.getWorld(), context.getPos());
+	}
+	
+	@Override
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
-
+	
 	@Override
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+		return BlockFaceShape.UNDEFINED;
+	}
+	
+
+	
+	/*
 	@Override
 	public boolean shouldSideBeRendered(IBlockState blockState, IWorld blockAccess, BlockPos pos, EnumFacing side) {
 		if (type == TRContent.Cables.GLASSFIBER)
@@ -173,15 +191,6 @@ public class BlockCable extends BlockContainer {
 		return false;
 	}
 
-	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getStateFromMeta(meta);
-	}
-
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
