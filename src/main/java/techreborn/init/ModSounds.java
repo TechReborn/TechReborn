@@ -48,20 +48,10 @@ public class ModSounds {
 	public static SoundEvent ALARM_3;
 
 	public static void init() {
-		CABLE_SHOCK = getSound("cable_shock");
-		BLOCK_DISMANTLE = getSound("block_dismantle");
-		SAP_EXTRACT = getSound("sap_extract");
-		AUTO_CRAFTING = getSound("auto_crafting");
-		MACHINE_RUN = getSound("machine_run");
-		MACHINE_START = getSound("machine_start");
-		ALARM = getSound("alarm");
-		ALARM_2 = getSound("alarm_2");
-		ALARM_3 = getSound("alarm_3");
-
 		RecipeCrafter.soundHanlder = new SoundHandler();
 	}
 
-	private static SoundEvent getSound(String str) {
+	public static SoundEvent getSound(String str) {
 		ResourceLocation resourceLocation = new ResourceLocation("techreborn", str);
 		SoundEvent soundEvent = new SoundEvent(resourceLocation);
 		soundEvent.setRegistryName(resourceLocation);

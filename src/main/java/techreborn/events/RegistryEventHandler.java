@@ -25,12 +25,14 @@
 package techreborn.events;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,6 +44,7 @@ import techreborn.TechReborn;
 import techreborn.blocks.*;
 import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.init.ModSounds;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
@@ -232,6 +235,20 @@ public class RegistryEventHandler {
 		TRContent.ENTITY_NUKE = EntityType.Builder.create(EntityNukePrimed.class, EntityNukePrimed::new).build("nuke");
 		TRContent.ENTITY_NUKE.setRegistryName(new ResourceLocation(TechReborn.MOD_ID, "nuke"));
 		event.getRegistry().register(TRContent.ENTITY_NUKE);
+		
+	}
+	
+	@SubscribeEvent
+	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
+		ModSounds.CABLE_SHOCK = ModSounds.getSound("cable_shock");
+		ModSounds.BLOCK_DISMANTLE = ModSounds.getSound("block_dismantle");
+		ModSounds.SAP_EXTRACT = ModSounds.getSound("sap_extract");
+		ModSounds.AUTO_CRAFTING = ModSounds.getSound("auto_crafting");
+		ModSounds.MACHINE_RUN = ModSounds.getSound("machine_run");
+		ModSounds.MACHINE_START = ModSounds.getSound("machine_start");
+		ModSounds.ALARM = ModSounds.getSound("alarm");
+		ModSounds.ALARM_2 = ModSounds.getSound("alarm_2");
+		ModSounds.ALARM_3 = ModSounds.getSound("alarm_3");
 		
 	}
 	

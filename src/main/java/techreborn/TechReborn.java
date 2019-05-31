@@ -101,9 +101,7 @@ public class TechReborn {
 		// Registers Chest Loot
 		ModLoot.init();
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
-		// Sounds
-		//TODO 1.13 registry events
-		//ModSounds.init();
+		ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
 		// WorldGen

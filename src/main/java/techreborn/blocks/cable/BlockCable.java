@@ -29,8 +29,10 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.init.Particles;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.AbstractProperty;
@@ -41,9 +43,9 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
@@ -51,8 +53,10 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.WrenchUtils;
 import techreborn.TechReborn;
+import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.tiles.cable.TileCable;
+import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
 
@@ -175,8 +179,45 @@ public class BlockCable extends BlockContainer {
 		return BlockFaceShape.UNDEFINED;
 	}
 	
+	@Override
+	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		super.onEntityCollision(state, worldIn, pos, entityIn);
+		if (!type.canKill) {
+			return;
+		}
+		if (!(entityIn instanceof EntityLivingBase)) {
+			return;
+		}
 
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		if (tileEntity == null) {
+			return;
+		}
+		if (!(tileEntity instanceof TileCable)) {
+			return;
+		}
+
+		TileCable tileCable = (TileCable) tileEntity;
+		if (tileCable.power <= 0) {
+			return;
+		}
+
+		if (uninsulatedElectrocutionDamage) {
+			if (type == TRContent.Cables.HV) {
+				entityIn.setFire(1);
+			}
+			entityIn.attackEntityFrom(new ElectrialShockSource(), 1F);
+		}
+		if (uninsulatedElectrocutionSound) {
+			worldIn.playSound(null, entityIn.posX, entityIn.posY, entityIn.posZ, ModSounds.CABLE_SHOCK,
+					SoundCategory.BLOCKS, 0.6F, 1F);
+		}
+		if (uninsulatedElectrocutionParticles) {
+			worldIn.addParticle(Particles.CRIT, entityIn.posX, entityIn.posY, entityIn.posZ, 0, 0, 0);
+		}
+	}
 	
+
 	/*
 	@Override
 	public boolean shouldSideBeRendered(IBlockState blockState, IWorld blockAccess, BlockPos pos, EnumFacing side) {
@@ -185,12 +226,6 @@ public class BlockCable extends BlockContainer {
 		else
 			return true;
 	}
-
-	@Override
-	public boolean isFullBlock(IBlockState state) {
-		return false;
-	}
-
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -211,45 +246,9 @@ public class BlockCable extends BlockContainer {
 		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY, (double) maxZ);
 	}
 
-	@Override
-	public IBlockState getActualState(IBlockState state, IWorld worldIn, BlockPos pos) {
-		IBlockState actualState = state;
-		for (EnumFacing facing : EnumFacing.values()) {
-			TileEntity tileEntity = getTileEntitySafely(worldIn, pos.offset(facing));
-			if (tileEntity != null) {
-				actualState = actualState.with(getProperty(facing), tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).isPresent());
-			}
-		}
-		return actualState;
-	}
 
-	@Override
-	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos,  Entity entity) {
-		super.onEntityCollision(state, worldIn, pos, entity);
-		if (type.canKill && entity instanceof EntityLivingBase) {
-			TileEntity tileEntity = worldIn.getTileEntity(pos);
-			if (tileEntity != null && tileEntity instanceof TileCable) {
-				TileCable tileCable = (TileCable) tileEntity;
-				if (tileCable.power != 0) {
-					if (uninsulatedElectrocutionDamage) {
-						if (type == TRContent.Cables.HV) {
-							entity.setFire(1);
-						}
-						entity.attackEntityFrom(new ElectrialShockSource(), 1F);
-					}
-					if (uninsulatedElectrocutionSound) {
-						worldIn.playSound(null, entity.posX, entity.posY,
-							entity.posZ, ModSounds.CABLE_SHOCK,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-					}
-					if (uninsulatedElectrocutionParticles) {
-						worldIn.spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0,
-							0, 0);
-					}
-				}
-			}
-		}
-	}
+
+
 
 	*/
 }
