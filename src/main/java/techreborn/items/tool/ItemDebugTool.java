@@ -69,11 +69,10 @@ public class ItemDebugTool extends Item {
 			if (tile instanceof IEnergyInterfaceTile) {
 				sendMessage(context, new TextComponentString(getRCPower((IEnergyInterfaceTile) tile)));
 			} else {
-				LazyOptional<IEnergyStorage> capEnergy = tile
-						.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing());
-				
-				if (capEnergy.isPresent()) {
-					sendMessage(context, new TextComponentString(getForgePower((IEnergyStorage) capEnergy)));
+				if (tile.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing()).isPresent()) {
+					tile.getCapability(CapabilityEnergy.ENERGY, context.getPlacementHorizontalFacing()).ifPresent(consumer -> {
+						sendMessage(context, new TextComponentString(getForgePower(consumer)));	
+					});
 				}
 			}
 		}

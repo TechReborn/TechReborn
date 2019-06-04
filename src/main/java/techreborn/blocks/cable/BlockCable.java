@@ -175,9 +175,9 @@ public class BlockCable extends BlockContainer {
 	}
 	
 	@Override
-	public IBlockState updatePostPlacement(IBlockState ourState, EnumFacing otherFacing, IBlockState otherState, IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
-		Boolean value = checkEnergyCapability(worldIn, otherPos, otherFacing);
-		return ourState.with(getProperty(otherFacing.getOpposite()), value);
+	public IBlockState updatePostPlacement(IBlockState ourState, EnumFacing ourFacing, IBlockState otherState, IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
+		Boolean value = checkEnergyCapability(worldIn, otherPos, ourFacing.getOpposite());
+		return ourState.with(getProperty(ourFacing), value);
 	}
 	
 	@Override
