@@ -27,15 +27,17 @@ package techreborn.api.recipe.recipes;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 
+import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeType;
 import reborncore.fluid.FluidStack;
 import techreborn.tiles.machine.multiblock.TileIndustrialSawmill;
 
-public class IndustrialSawmillRecipe extends Recipe {
+public class IndustrialSawmillRecipe extends RebornRecipe {
 
 	//TODO 1.14 fluids
 	FluidStack fluidStack = null;
 
-	public IndustrialSawmillRecipe(RecipeType<?> type, Identifier name) {
+	public IndustrialSawmillRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
 

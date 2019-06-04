@@ -24,6 +24,7 @@
 
 package techreborn.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
@@ -52,7 +53,7 @@ public class GuiIronFurnace extends GuiBase {
 		drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		builder.drawSlotTab(this, left - 24, top + 6, new ItemStack(TRContent.WRENCH));
-		mc.getTextureManager().bindTexture(GuiIronFurnace.texture);
+		minecraft.getTextureManager().bindTexture(GuiIronFurnace.texture);
 		final int k = (this.width - containerWidth) / 2;
 		final int l = (this.height - containerHeight) / 2;
 		blit(k, l, 0, 0, containerWidth, containerHeight);

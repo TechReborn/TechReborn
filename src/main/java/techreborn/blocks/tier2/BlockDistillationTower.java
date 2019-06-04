@@ -34,9 +34,9 @@ import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.multiblock.TileEnvTypeillationTower;
 
-public class BlockEnvTypeillationTower extends BlockMachineBase {
+public class BlockDistillationTower extends BlockMachineBase {
 
-	public BlockEnvTypeillationTower() {
+	public BlockDistillationTower() {
 		super();
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
 	}

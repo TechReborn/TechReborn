@@ -29,6 +29,7 @@ import net.minecraft.entity.MovementType;
 import net.minecraft.entity.PrimedTntEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
 import reborncore.common.registration.RebornRegister;
@@ -66,20 +67,27 @@ public class EntityNukePrimed extends PrimedTntEntity {
 		this.prevY = this.y;
 		this.prevZ = this.z;
 
+		Vec3d velocity = getVelocity();
+		double motionX = velocity.x;
+		double motionY = velocity.y;
+		double motionZ = velocity.z;
+
 		if (!this.hasNoGravity()) {
-			this.motionY -= 0.03999999910593033D;
+			motionY -= 0.03999999910593033D;
 		}
 
-		this.move(MovementType.SELF, this.motionX, this.motionY, this.motionZ);
-		this.motionX *= 0.9800000190734863D;
-		this.motionY *= 0.9800000190734863D;
-		this.motionZ *= 0.9800000190734863D;
+		this.move(MovementType.SELF, new Vec3d(motionX, motionZ, motionY));
+		motionX *= 0.9800000190734863D;
+		motionY *= 0.9800000190734863D;
+		motionZ *= 0.9800000190734863D;
 
 		if (this.onGround) {
-			this.motionX *= 0.699999988079071D;
-			this.motionZ *= 0.699999988079071D;
-			this.motionY *= -0.5D;
+			motionX *= 0.699999988079071D;
+			motionZ *= 0.699999988079071D;
+			motionY *= -0.5D;
 		}
+
+		setVelocity(new Vec3d(motionX, motionZ, motionY));
 
 		setFuse(getFuseTimer() - 1);
 

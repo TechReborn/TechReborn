@@ -39,6 +39,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop {
@@ -69,7 +70,7 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(euPerTick)) {
-				Iterator<PlayerEntity> tIterator = super.world.playerEntities.iterator();
+				Iterator<PlayerEntity> tIterator = super.world.getPlayers().iterator();
 				while (tIterator.hasNext()) {
 					PlayerEntity player = tIterator.next();
 					if (player.squaredEnvTypeanceTo((double) super.getPos().getX() + 0.5D,

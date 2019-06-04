@@ -49,7 +49,7 @@ public class GuiAlloyFurnace extends AbstractContainerScreen {
 	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiAlloyFurnace.texture);
+		this.minecraft.getTextureManager().bindTexture(GuiAlloyFurnace.texture);
 		final int k = (this.width - this.containerWidth) / 2;
 		final int l = (this.height - this.containerHeight) / 2;
 		this.blit(k, l, 0, 0, this.containerWidth, this.containerHeight);

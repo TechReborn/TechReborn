@@ -119,11 +119,6 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-		return new PoweredItemContainerProvider(stack);
-	}
 	
 	// IEnergyItemInfo
 	@Override

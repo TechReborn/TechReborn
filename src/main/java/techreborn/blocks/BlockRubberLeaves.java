@@ -24,6 +24,7 @@
 
 package techreborn.blocks;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -42,7 +43,7 @@ import techreborn.init.TRContent;
 public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
-		super(Block.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS));
+		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build());
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, EnvTypeANCE, PERSISTENT));
 	}

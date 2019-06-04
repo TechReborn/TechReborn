@@ -34,7 +34,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.crafting.RebornIngredient;
-import reborncore.common.crafting.Recipe;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
@@ -71,7 +71,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		if (stack.isEmpty()) {
 			return 0;
 		} else {
-			return FurnaceBlockEntity.getBurnTimes().getOrDefault(stack.getItem(), 0);
+			return FurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 		}
 	}
 
-	public boolean hasAllInputs(final Recipe recipeType) {
+	public boolean hasAllInputs(final RebornRecipe recipeType) {
 		if (recipeType == null) {
 			return false;
 		}
@@ -137,7 +137,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 			return false;
 		} else {
 			ItemStack itemstack = null;
-			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutputs().get(0);
 					break;
@@ -169,7 +169,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	public void smeltItem() {
 		if (this.canSmelt()) {
 			ItemStack itemstack = ItemStack.EMPTY;
-			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 				if (this.hasAllInputs(recipeType)) {
 					itemstack = recipeType.getOutputs().get(0);
 					break;
@@ -185,7 +185,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 				inventory.shrinkSlot(this.output, -itemstack.getAmount());
 			}
 
-			for (final Recipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
 				boolean hasAllRecipes = true;
 				if (this.hasAllInputs(recipeType)) {
 

@@ -44,6 +44,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -92,7 +93,7 @@ public class BlockRubberLog extends LogBlock {
 		int i = 4;
 		int j = i + 1;
 		if (worldIn.isAreaLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
-			for (BlockPos blockpos : BlockPos.getAllInBox(pos.add(-i, -i, -i), pos.add(i, i, i))) {
+			for (BlockPos blockpos : BlockPos.iterate(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 				BlockState state1 = worldIn.getBlockState(blockpos);
 				if (state1.matches(BlockTags.LEAVES)) {
 					state1.scheduledTick(worldIn, blockpos, worldIn.getRandom());
@@ -123,9 +124,9 @@ public class BlockRubberLog extends LogBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-			Hand hand, Direction side, float hitX, float hitY, float hitZ) {
-		super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
+	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+	                                Hand hand, BlockHitResult hitResult) {
+		super.activate(state, worldIn, pos, playerIn, hand, hitResult);
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (stack.isEmpty()) {
 			return false;
@@ -135,7 +136,7 @@ public class BlockRubberLog extends LogBlock {
 			capEnergy = new ItemPowerManager(stack);
 		}
 		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
-			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == side) {
+			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
 						0.6F, 1F);
@@ -148,7 +149,7 @@ public class BlockRubberLog extends LogBlock {
 						playerIn.getStackInHand(Hand.MAIN_HAND).damageItem(1, playerIn);
 					}
 					if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
-						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(side));
+						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
 					}
 					if (playerIn instanceof ServerPlayerEntity) {
 						TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);

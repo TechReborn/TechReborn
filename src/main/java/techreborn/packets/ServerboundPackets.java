@@ -24,10 +24,15 @@
 
 package techreborn.packets;
 
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.network.NetworkPacket;
@@ -40,7 +45,6 @@ import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class ServerboundPackets {
 
@@ -50,45 +54,45 @@ public class ServerboundPackets {
 	public static final Identifier FUSION_CONTROL_SIZE = new Identifier("techreborn", "fusion_control_size");
 	public static final Identifier IDSU = new Identifier("techreborn", "idsu");
 	public static final Identifier REFUND = new Identifier("techreborn", "refund");
-
+	
 	public static void init() {
-		NetworkManager.registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
+		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
-			context.enqueueWork(() -> {
-				TileEntity tile = context.getSender().world.getTileEntity(pos);
+			context.getTaskQueue().execute(() -> {
+				BlockEntity tile = context.getPlayer().world.getBlockEntity(pos);
 				if (tile instanceof TileAdjustableSU) {
 					((TileAdjustableSU) tile).handleGuiInputFromClient(buttonID, false, false);
 				}
 			});
 		});
 
-		NetworkManager.registerPacketHandler(AUTO_CRAFTING_LOCK, (extendedPacketBuffer, context) -> {
+		registerPacketHandler(AUTO_CRAFTING_LOCK, (extendedPacketBuffer, context) -> {
 			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
 			boolean locked = extendedPacketBuffer.readBoolean();
-			context.enqueueWork(() -> {
-				TileEntity tileEntity = context.getSender().world.getTileEntity(machinePos);
-				if (tileEntity instanceof TileAutoCraftingTable) {
-					((TileAutoCraftingTable) tileEntity).locked = locked;
+			context.getTaskQueue().execute(() -> {
+				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+				if (BlockEntity instanceof TileAutoCraftingTable) {
+					((TileAutoCraftingTable) BlockEntity).locked = locked;
 				}
 			});
 		});
 
-		NetworkManager.registerPacketHandler(FUSION_CONTROL_SIZE, (extendedPacketBuffer, context) -> {
+		registerPacketHandler(FUSION_CONTROL_SIZE, (extendedPacketBuffer, context) -> {
 			int sizeDelta = extendedPacketBuffer.readInt();
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
-			context.enqueueWork(() -> {
-				TileEntity tile = context.getSender().world.getTileEntity(pos);
+			context.getTaskQueue().execute(() -> {
+				BlockEntity tile = context.getPlayer().world.getBlockEntity(pos);
 				if (tile instanceof TileFusionControlComputer) {
 					((TileFusionControlComputer) tile).changeSize(sizeDelta);
 				}
 			});
 		});
 
-		NetworkManager.registerPacketHandler(IDSU, (extendedPacketBuffer, context) -> {
+		registerPacketHandler(IDSU, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
-			context.enqueueWork(() -> {
+			context.getTaskQueue().execute(() -> {
 				//TODO was commented out when I ported it, so ill leave it here, needs looking into tho
 				//		if (!pos.getWorld().isRemote) {
 				//			pos.handleGuiInputFromClient(buttonID);
@@ -96,27 +100,27 @@ public class ServerboundPackets {
 			});
 		});
 
-		NetworkManager.registerPacketHandler(ROLLING_MACHINE_LOCK, (extendedPacketBuffer, context) -> {
+		registerPacketHandler(ROLLING_MACHINE_LOCK, (extendedPacketBuffer, context) -> {
 			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
 			boolean locked = extendedPacketBuffer.readBoolean();
-			context.enqueueWork(() -> {
-				TileEntity tileEntity = context.getSender().world.getTileEntity(machinePos);
-				if (tileEntity instanceof TileRollingMachine) {
-					((TileRollingMachine) tileEntity).locked = locked;
+			context.getTaskQueue().execute(() -> {
+				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+				if (BlockEntity instanceof TileRollingMachine) {
+					((TileRollingMachine) BlockEntity).locked = locked;
 				}
 			});
 		});
 
-		NetworkManager.registerPacketHandler(REFUND, (extendedPacketBuffer, context) -> {
+		registerPacketHandler(REFUND, (extendedPacketBuffer, context) -> {
 			if(!ItemManual.allowRefund){
 				return;
 			}
-			context.enqueueWork(() -> {
-				EntityPlayerMP playerMP = context.getSender();
-				for (int i = 0; i < playerMP.inventory.getSizeInventory(); i++) {
-					ItemStack stack = playerMP.inventory.getStackInSlot(i);
+			context.getTaskQueue().execute(() -> {
+				PlayerEntity playerMP = context.getPlayer();
+				for (int i = 0; i < playerMP.inventory.getInvSize(); i++) {
+					ItemStack stack = playerMP.inventory.getInvStack(i);
 					if (stack.getItem() == TRContent.MANUAL) {
-						playerMP.inventory.removeStackFromSlot(i);
+						playerMP.inventory.removeInvStack(i);
 						playerMP.inventory.addItemStackToInventory(new ItemStack(Items.BOOK));
 						//TODO 1.13
 						//playerMP.inventory.addItemStackToInventory(OreUtil.getStackFromName("ingotRefinedIron"));
@@ -126,6 +130,10 @@ public class ServerboundPackets {
 			});
 
 		});
+	}
+
+	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer){
+		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
 	public static NetworkPacket createPacketAesu(int buttonID, TileAdjustableSU tile) {

@@ -37,8 +37,8 @@ import net.fabricmc.api.Environment;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
@@ -46,7 +46,7 @@ import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
-public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo {
+public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
 	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
 	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
@@ -91,12 +91,6 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo 
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override

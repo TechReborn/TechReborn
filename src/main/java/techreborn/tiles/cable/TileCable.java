@@ -34,7 +34,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
 
@@ -57,7 +57,7 @@ import java.util.List;
  */
 
 public class TileCable extends BlockEntity 
-	implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop {
+	implements Tickable, IEnergyStorage, IListInfoProvider, IToolDrop {
 	
 	public int power = 0;
 	private int transferRate = 0;
@@ -83,14 +83,6 @@ public class TileCable extends BlockEntity
 			return false;
 		}
 		return canReceive();
-	}
-
-	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability) {
-		if (capability == CapabilityEnergy.ENERGY) {
-			return LazyOptional.of(() -> (T)this);
-		}
-		return super.getCapability(capability);
 	}
 	
 	@Override
@@ -151,37 +143,39 @@ public class TileCable extends BlockEntity
 			return;
 		}
 
-		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-		for (Direction face : Direction.values()) {
-			BlockEntity tile = world.getBlockEntity(pos.offset(face));
+		//TODO needs a full recode to not use a specific power net
 
-			if (tile == null) {
-				continue;
-			} else if (tile instanceof TileCable) {
-				TileCable cable = (TileCable) tile;
-				if (power > cable.power && cable.canReceiveFromFace(face.getOpposite())) {
-					acceptors.add((IEnergyStorage) tile);
-					if (!sendingFace.contains(face)) {
-						sendingFace.add(face);
-					}					
-				}
-			} else if (tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent()) {
-				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
-				if (energyTile != null && energyTile.canReceive()) {
-					acceptors.add(energyTile);
-				}
-			}
-		}
-			
-		if (acceptors.size() > 0 ) {
-			for (IEnergyStorage tile : acceptors) {
-				int drain = Math.min(power, transferRate);
-				if (drain > 0 && tile.receiveEnergy(drain, true) > 0) {
-					int move = tile.receiveEnergy(drain, false);
-					extractEnergy(move, false);
-				}
-			}
-		}
+//		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
+//		for (Direction face : Direction.values()) {
+//			BlockEntity tile = world.getBlockEntity(pos.offset(face));
+//
+//			if (tile == null) {
+//				continue;
+//			} else if (tile instanceof TileCable) {
+//				TileCable cable = (TileCable) tile;
+//				if (power > cable.power && cable.canReceiveFromFace(face.getOpposite())) {
+//					acceptors.add((IEnergyStorage) tile);
+//					if (!sendingFace.contains(face)) {
+//						sendingFace.add(face);
+//					}
+//				}
+//			} else if (tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent()) {
+//				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
+//				if (energyTile != null && energyTile.canReceive()) {
+//					acceptors.add(energyTile);
+//				}
+//			}
+//		}
+//
+//		if (acceptors.size() > 0 ) {
+//			for (IEnergyStorage tile : acceptors) {
+//				int drain = Math.min(power, transferRate);
+//				if (drain > 0 && tile.receiveEnergy(drain, true) > 0) {
+//					int move = tile.receiveEnergy(drain, false);
+//					extractEnergy(move, false);
+//				}
+//			}
+//		}
 	}
 
 	// IEnergyStorage

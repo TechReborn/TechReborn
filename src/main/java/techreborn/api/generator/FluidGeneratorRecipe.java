@@ -25,8 +25,8 @@
 package techreborn.api.generator;
 
 
-import reborncore.common.util.FluidUtils;
 import reborncore.fluid.Fluid;
+import techreborn.utils.FluidUtils;
 
 public class FluidGeneratorRecipe {
 	private final EFluidGenerator generatorType;

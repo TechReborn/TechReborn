@@ -25,6 +25,7 @@
 package techreborn.init.recipes;
 
 
+import reborncore.fluid.Fluid;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.init.ModFluids;

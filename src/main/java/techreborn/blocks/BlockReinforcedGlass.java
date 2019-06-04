@@ -24,6 +24,7 @@
 
 package techreborn.blocks;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.GlassBlock;
@@ -38,12 +39,8 @@ import java.util.Random;
 public class BlockReinforcedGlass extends GlassBlock {
 
 	public BlockReinforcedGlass() {
-		super(Block.Settings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE));
+		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).build());
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
-	@Override
-	public int quantityDropped(BlockState state, Random random) {
-		return 1;
-	}
 }

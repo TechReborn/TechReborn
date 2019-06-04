@@ -51,6 +51,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ChatUtils;
+import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
@@ -60,7 +61,7 @@ import techreborn.utils.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
+public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 	public static final int maxCharge = ConfigTechReborn.nanoSaberCharge;
 	public int transferLimit = 1_000;
 	public int cost = 250;
@@ -186,14 +187,6 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo {
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack,
-	                                            @Nullable
-		                                            CompoundTag nbt) {
-		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Environment(EnvType.CLIENT)

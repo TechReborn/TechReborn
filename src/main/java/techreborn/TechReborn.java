@@ -24,18 +24,12 @@
 
 package techreborn;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-
-
-
-
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.common.multiblock.MultiblockEventHandler;
@@ -55,10 +49,8 @@ import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.village.ModLootTables;
-import techreborn.world.village.VillagePlantaionHandler;
 
-@Mod("techreborn")
-public class TechReborn {
+public class TechReborn implements ModInitializer {
 
 	public static final String MOD_ID = "techreborn";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
@@ -72,14 +64,8 @@ public class TechReborn {
 		}
 	};
 
-
-	public TechReborn() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-		eventBus.addListener(this::setup);
-		eventBus.addListener(this::loadComplete);
-	}
-	
-	private void setup(FMLCommonSetupEvent event) {
+	@Override
+	public void onInitialize() {
 		MinecraftForge.EVENT_BUS.register(this);
 		INSTANCE = this;
 
@@ -131,47 +117,13 @@ public class TechReborn {
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
-		LOGGER.info("TechReborn setup done!");
-	}
-	
-	private void loadComplete(FMLLoadCompleteEvent event) {
-		
+
 		proxy.postInit();
 
 		ModRecipes.postInit();
-		
-		//todo: remove, gens localization
-//		for (Item item : ForgeRegistries.ITEMS.getValues()) {
-//			if (item.getRegistryName().getNamespace().equals("techreborn")) {
-//				StringBuilder localName = new StringBuilder();
-//				String[] words = item.getRegistryName().getPath().split("_|\\.");
-//				for (String word : words) {
-//					if (!word.contains("techreborn")) {
-//						if (localName.length() > 0) {
-//							localName.append(" ");
-//						}
-//						localName.append(word);
-//					}
-//				}
-//				System.out.println(item.getRegistryName().getPath());
-//			}
-//		}
-		
-//		for (Block item : ForgeRegistries.BLOCKS.getValues()) {
-//			if (item.getRegistryName().getNamespace().equals("techreborn")) {
-//				StringBuilder localName = new StringBuilder();
-//				String[] words = item.getRegistryName().getPath().split("_|\\.");
-//				for (String word : words) {
-//					if (!word.contains("techreborn")) {
-//						if (localName.length() > 0) {
-//							localName.append(" ");
-//						}
-//						localName.append(word);
-//					}
-//				}
-//				System.out.println(item.getRegistryName().getPath());
-//			}
-//		}
-		
+
+
+		LOGGER.info("TechReborn setup done!");
 	}
+	
 }

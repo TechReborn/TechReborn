@@ -29,6 +29,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
@@ -36,7 +37,7 @@ import techreborn.events.TRRecipeHandler;
 /**
  * Created by modmuss50 on 26/02/2016.
  */
-public class ItemTRArmour extends ArmorItem {
+public class ItemTRArmour extends ArmorItem implements ItemDurabilityExtensions {
 
 	String repairOreDict = "";
 

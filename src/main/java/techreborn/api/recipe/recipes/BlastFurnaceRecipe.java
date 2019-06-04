@@ -28,15 +28,17 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.Recipe;
 import reborncore.common.crafting.RecipeType;
 import techreborn.tiles.machine.multiblock.TileIndustrialBlastFurnace;
 
-public class BlastFurnaceRecipe extends Recipe {
+public class BlastFurnaceRecipe extends RebornRecipe {
 
 	int heat;
 
-	public BlastFurnaceRecipe(RecipeType<?> type, Identifier name) {
+	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
 

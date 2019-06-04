@@ -25,7 +25,11 @@
 package techreborn.utils;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import reborncore.common.util.Inventory;
+import reborncore.common.util.Tank;
 import reborncore.fluid.Fluid;
+import reborncore.fluid.FluidStack;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,4 +48,19 @@ public class FluidUtils {
 		return null;
 	}
 
+	public static void drainContainers(Tank tank, Inventory<?> inventory, int i, int i1) {
+
+	}
+
+	public static void fillContainers(Tank tank, Inventory<?> inventory, int i, int i1, Fluid fluidType) {
+
+	}
+
+	public static boolean fluidEquals(Fluid fluid, Fluid fluid1) {
+		return false;
+	}
+
+	public static FluidStack getFluidStackInContainer(ItemStack invStack) {
+		return null;
+	}
 }

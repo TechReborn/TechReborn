@@ -218,22 +218,6 @@ public class TileTechStorageBase extends TileMachineBase
 		return tagCompound;
 	}
 
-	@Nonnull
-	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-
-			return LazyOptional.of(new NonNullSupplier<T>() {
-				@Nonnull
-				@Override
-				public T get() {
-					return (T) inventory;
-				}
-			});
-		}
-		return super.getCapability(cap);
-	}
-
 	// ItemHandlerProvider
 	@Override
 	public Inventory<TileTechStorageBase> getInventory() {

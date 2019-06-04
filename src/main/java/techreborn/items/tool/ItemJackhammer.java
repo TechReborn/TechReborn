@@ -43,6 +43,7 @@ import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.TagUtils;
@@ -50,7 +51,7 @@ import techreborn.utils.TagUtils;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo {
+public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
 	public int maxCharge = 1;
 	public int cost = 250;
@@ -116,14 +117,6 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo {
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack,
-	                                            @Nullable
-		                                            CompoundTag nbt) {
-		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Override

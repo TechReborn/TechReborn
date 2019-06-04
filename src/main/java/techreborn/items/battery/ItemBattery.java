@@ -80,14 +80,6 @@ public class ItemBattery extends Item implements IEnergyItemInfo {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack,
-	                                            @Nullable
-		                                            CompoundTag nbt) {
-		return new PoweredItemContainerProvider(stack);
-	}
-
 	// IEnergyItemInfo
 	@Override
 	public int getCapacity() {

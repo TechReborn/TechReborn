@@ -53,8 +53,8 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	public void init() {
+		super.init();
 		this.left = this.width / 2 - this.containerWidth / 2;
 		this.top = this.height / 2 - this.containerHeight / 2;
 		this.plusOneButton = new GuiButtonSimple(0, this.left + 5, this.top + 37, 40, 20, "+1");
@@ -73,7 +73,7 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
 		this.drawDefaultBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(GuiChunkLoader.texture);
+		minecraft.getTextureManager().bindTexture(GuiChunkLoader.texture);
 		final int k = (this.width - this.containerWidth) / 2;
 		final int l = (this.height - this.containerHeight) / 2;
 		this.blit(k, l, 0, 0, this.containerWidth, this.containerHeight);

@@ -334,7 +334,7 @@ public class TRContent {
 		AUTO_CRAFTING_TABLE(new BlockAutoCraftingTable()),
 		CHEMICAL_REACTOR(new BlockChemicalReactor()),
 		COMPRESSOR(new BlockCompressor()),
-		EnvTypeILLATION_TOWER(new BlockEnvTypeillationTower()),
+		EnvTypeILLATION_TOWER(new BlockDistillationTower()),
 		EXTRACTOR(new BlockExtractor()),
 		FLUID_REPLICATOR(new BlockFluidReplicator()),
 		GRINDER(new BlockGrinder()),

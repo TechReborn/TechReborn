@@ -431,7 +431,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public IItemHandler getInventory() {
+	public Inventory getInventory() {
 		return inventory;
 	}
 

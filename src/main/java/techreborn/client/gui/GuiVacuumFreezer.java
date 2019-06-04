@@ -47,8 +47,8 @@ public class GuiVacuumFreezer extends GuiBase {
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	public void init() {
+		super.init();
 		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 	

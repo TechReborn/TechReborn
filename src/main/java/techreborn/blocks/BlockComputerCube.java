@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -56,11 +57,11 @@ public class BlockComputerCube extends BlockMachineBase {
 	}
 	
 	@Override
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 
 		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
-			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
+			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, hitResult.getSide(), false)) {
 				if (playerIn.isSneaking()) {
 					ItemStack drop = new ItemStack(TRContent.COMPUTER_CUBE, 1);
 					dropStack(worldIn, pos, drop);
@@ -72,7 +73,7 @@ public class BlockComputerCube extends BlockMachineBase {
 					return true;
 				}
 				else {
-					rotate(worldIn.getBlockState(pos), worldIn, pos, BlockRotation.CLOCKWISE_90);
+					rotate(worldIn.getBlockState(pos), BlockRotation.CLOCKWISE_90);
 					return true;
 				}
 			}

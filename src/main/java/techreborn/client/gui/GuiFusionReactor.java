@@ -100,8 +100,8 @@ public class GuiFusionReactor extends GuiBase {
 			}
 		}
 		builder.drawUpDownButtons(this, 121, 79, layer);
-		draw("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
-		draw("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
+		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
+		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
 		buttons.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
 		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));

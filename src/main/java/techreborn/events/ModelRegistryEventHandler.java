@@ -34,7 +34,6 @@ import net.fabricmc.api.Environment;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.client.render.ModelDynamicCell;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
@@ -46,15 +45,12 @@ import java.util.Arrays;
  *
  */
 @Environment(EnvType.CLIENT)
-@Mod.EventBusSubscriber(modid = TechReborn.MOD_ID)
 public class ModelRegistryEventHandler {
 
-	@SubscribeEvent
-	public static void registerModels(ModelRegistryEvent event) {
+	public static void registerModels() {
 		registerBlocks();
 		registerFluidBlocks();
 		registerItems();
-		ModelDynamicCell.init();
 		//RebornModelRegistry.registerModels(TechReborn.MOD_ID);
 	}
 	

@@ -40,6 +40,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -142,29 +143,10 @@ public class BlockLamp extends BaseTileBlock {
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
-
-	@Override
-	public BlockFaceShape getBlockFaceShape(BlockView worldIn, BlockState state, BlockPos pos, Direction facing) {
-		// This makes only the back face of lamps connect to fences.
-		if (getFacing(state).getOpposite() == facing)
-			return BlockFaceShape.SOLID;
-		else
-			return BlockFaceShape.UNDEFINED;
-	}
-	
-	@Override
-	public VoxelShape getShape(BlockState state, BlockView worldIn, BlockPos pos) {
-		return shape[getFacing(state).getId()];
-	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
 
@@ -174,11 +156,11 @@ public class BlockLamp extends BaseTileBlock {
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
-			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, side)) {
+			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
 				return true;
 			}
 		}
 
-		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
+		return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 }

@@ -42,6 +42,7 @@ import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
+import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 

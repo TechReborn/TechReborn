@@ -29,6 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
@@ -54,8 +55,8 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-			Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+	                                Hand hand, BlockHitResult hitResult) {
 		final TileFusionControlComputer tileFusionControlComputer = (TileFusionControlComputer) worldIn.getBlockEntity(pos);
 		if(!playerIn.getStackInHand(hand).isEmpty() && (playerIn.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())){
 			List<BlockPos> coils = Torus.generate(tileFusionControlComputer.getPos(), tileFusionControlComputer.size);
@@ -78,7 +79,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 
 		}
 		tileFusionControlComputer.checkCoils();
-		return super.onBlockActivated(state, worldIn, pos, playerIn, hand, side, hitX, hitY, hitZ);
+		return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 	@Override

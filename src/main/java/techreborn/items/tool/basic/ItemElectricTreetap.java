@@ -39,6 +39,7 @@ import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.TechRebornAPI;
@@ -49,7 +50,7 @@ import javax.annotation.Nullable;
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
+public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDurabilityExtensions {
 
 	public static final int maxCharge = 10_000;
 	public int cost = 20;
@@ -86,12 +87,6 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo {
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	@Nullable
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-		return new PoweredItemContainerProvider(stack);
 	}
 
 	@Environment(EnvType.CLIENT)
