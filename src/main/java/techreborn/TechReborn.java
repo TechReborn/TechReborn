@@ -125,5 +125,5 @@ public class TechReborn implements ModInitializer {
 
 		LOGGER.info("TechReborn setup done!");
 	}
-	
+
 }

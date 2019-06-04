@@ -36,7 +36,7 @@ import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.SystemUtil;
 
-
+import net.minecraft.util.registry.Registry;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
@@ -66,12 +66,6 @@ public class ItemDebugTool extends Item {
 			sendMessage(context, new TextComponent(getTileEntityType(tile)));
 			if (tile instanceof IEnergyInterfaceTile) {
 				sendMessage(context, new TextComponent(getRCPower((IEnergyInterfaceTile) tile)));
-			} else {
-				IEnergyStorage capEnergy = tile
-						.getCapability(CapabilityEnergy.ENERGY, context.getPlayerHorizontalFacing()).orElseGet(null);
-				if (capEnergy != null) {
-					sendMessage(context, new TextComponent(getForgePower(capEnergy)));
-				}
 			}
 		}
 		return ActionResult.SUCCESS;
@@ -100,7 +94,7 @@ public class ItemDebugTool extends Item {
 		String s = "" + ChatFormat.GREEN;
 		s += "Block Registry Name: ";
 		s += ChatFormat.BLUE;
-		s += block.getRegistryName().toString();
+		s += Registry.BLOCK.getId(block);
 
 		return s;
 	}
@@ -121,18 +115,6 @@ public class ItemDebugTool extends Item {
 		s += PowerSystem.getLocaliszedPower(tile.getEnergy());
 		s += "/";
 		s += PowerSystem.getLocaliszedPower(tile.getMaxPower());
-		
-		return s;
-	}
-	
-	private String getForgePower(IEnergyStorage cap) {
-		String s = "" + ChatFormat.GREEN;
-		s += "Power: ";
-		s += ChatFormat.RED;
-		s += cap.getEnergyStored();
-		s += "/";
-		s += cap.getMaxEnergyStored();
-		s += " RF";
 		
 		return s;
 	}
