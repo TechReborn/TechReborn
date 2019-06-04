@@ -46,7 +46,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.registration.RebornRegister;
@@ -111,15 +113,23 @@ public class BlockCable extends BlockContainer {
 	}
 	
 	private IBlockState makeConnections(IBlockReader world, BlockPos pos) {
-		Boolean down = (world.getBlockState(pos.down()).getBlock() instanceof BlockCable) ? true : false;
-		Boolean up = (world.getBlockState(pos.up()).getBlock() instanceof BlockCable) ? true : false;
-		Boolean north = (world.getBlockState(pos.north()).getBlock() instanceof BlockCable) ? true : false;
-		Boolean east = (world.getBlockState(pos.east()).getBlock() instanceof BlockCable) ? true : false;
-		Boolean south = (world.getBlockState(pos.south()).getBlock() instanceof BlockCable) ? true : false;
-		Boolean west = (world.getBlockState(pos.west()).getBlock() instanceof BlockCable) ? true : false;
+		Boolean down = checkEnergyCapability(world, pos.down(), EnumFacing.UP);
+		Boolean up = checkEnergyCapability(world, pos.up(), EnumFacing.DOWN); 
+		Boolean north = checkEnergyCapability(world, pos.north(), EnumFacing.SOUTH); 
+		Boolean east = checkEnergyCapability(world, pos.east(), EnumFacing.WEST); 
+		Boolean south = checkEnergyCapability(world, pos.south(), EnumFacing.NORTH); 
+		Boolean west = checkEnergyCapability(world, pos.west(), EnumFacing.WEST); 
 
 		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
 				.with(SOUTH, south).with(WEST, west);
+	}
+	
+	private Boolean checkEnergyCapability(IBlockReader world, BlockPos pos, EnumFacing facing) {
+		TileEntity tileEntity = world.getTileEntity(pos);
+		if (tileEntity!= null && tileEntity.getCapability(CapabilityEnergy.ENERGY, facing).isPresent()) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
 	}
 	
 	// BlockContainer
@@ -165,6 +175,12 @@ public class BlockCable extends BlockContainer {
 	}
 	
 	@Override
+	public IBlockState updatePostPlacement(IBlockState ourState, EnumFacing otherFacing, IBlockState otherState, IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
+		Boolean value = checkEnergyCapability(worldIn, otherPos, otherFacing);
+		return ourState.with(getProperty(otherFacing.getOpposite()), value);
+	}
+	
+	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
@@ -179,6 +195,7 @@ public class BlockCable extends BlockContainer {
 		return BlockFaceShape.UNDEFINED;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		super.onEntityCollision(state, worldIn, pos, entityIn);
@@ -216,6 +233,7 @@ public class BlockCable extends BlockContainer {
 			worldIn.addParticle(Particles.CRIT, entityIn.posX, entityIn.posY, entityIn.posZ, 0, 0, 0);
 		}
 	}
+	
 	
 
 	/*

@@ -86,7 +86,7 @@ public class TileCable extends TileEntity
 	}
 
 	@Override
-	public <T> LazyOptional<T> getCapability(Capability<T> capability) {
+	public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing side) {
 		if (capability == CapabilityEnergy.ENERGY) {
 			return LazyOptional.of(() -> (T)this);
 		}
