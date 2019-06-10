@@ -61,6 +61,9 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
+		if (panel == null) {
+			return;
+		}
 		super.tick();
 		if (world.isRemote) {
 			return;
