@@ -11,7 +11,6 @@
 			},
 			"apply": {
 				"model": "techreborn:block/cable/copper_cable_side",
-				"uvlock": true,
 				"y": 90
 			}
 		},
@@ -21,7 +20,6 @@
 			},
 			"apply": {
 				"model": "techreborn:block/cable/copper_cable_side",
-				"uvlock": true,
 				"y": 180
 			}
 		},
@@ -31,8 +29,7 @@
 			},
 			"apply": {
 				"model": "techreborn:block/cable/copper_cable_side",
-				"y": 270,
-				"uvlock": true
+				"y": 270
 			}
 		},
 		{
@@ -40,8 +37,7 @@
 				"west": "true"
 			},
 			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side",
-				"uvlock": true
+				"model": "techreborn:block/cable/copper_cable_side"
 			}
 		},
 		{
@@ -50,8 +46,8 @@
 			},
 			"apply": {
 				"model": "techreborn:block/cable/copper_cable_side",
-				"z": 90,
-				"uvlock": true
+				"x": 270,
+				"y": 90
 			}
 		},
 		{
@@ -60,8 +56,8 @@
 			},
 			"apply": {
 				"model": "techreborn:block/cable/copper_cable_side",
-				"z": 270,
-				"uvlock": true
+				"x": 90,
+				"y": 90
 			}
 		}
 	]
