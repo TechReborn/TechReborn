@@ -24,17 +24,18 @@
 
 package techreborn;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
+import techreborn.client.GuiHandler;
+import techreborn.events.ModRegistry;
 import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
@@ -48,13 +49,8 @@ public class TechReborn implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static CommonProxy proxy = new CommonProxy();
 	public static TechReborn INSTANCE;
-	
-	public static final ItemGroup ITEMGROUP = new ItemGroup(-1, MOD_ID) {
-		@Environment(EnvType.CLIENT)
-		public ItemStack createIcon() {
-			return TRContent.Parts.MACHINE_PARTS.getStack();
-		}
-	};
+
+	public static final ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(new Identifier("techreborn", "item_group"), TRContent.Parts.MACHINE_PARTS::getStack);
 
 	@Override
 	public void onInitialize() {
@@ -73,6 +69,8 @@ public class TechReborn implements ModInitializer {
 		ClientboundPackets.init();
 		ServerboundPackets.init();
 
+		ModRegistry.setupShit();
+
 		proxy.preInit();
 
 		// Registers Chest Loot
@@ -80,7 +78,7 @@ public class TechReborn implements ModInitializer {
 		//MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
 		//TODO 1.13 registry events
-		//ModSounds.init();
+		ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
 		// WorldGen
@@ -95,6 +93,9 @@ public class TechReborn implements ModInitializer {
 //		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 //		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
 //		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
+
+		GuiHandler.register();
+
 		//Village stuff
 //		if (ConfigTechReborn.enableRubberTreePlantation) {
 //			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());

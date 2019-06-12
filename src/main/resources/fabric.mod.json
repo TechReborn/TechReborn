@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "techreborn",
+  "version": "${version}",
+  "name": "TechReborn",
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "techreborn.TechReborn"
+    ]
+  },
+  "requires": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  }
+}

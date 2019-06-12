@@ -138,7 +138,7 @@ public class TRTileEntities {
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {
 		BlockEntityType<T> tileEntityType = builder.build(null);
-		Registry.register(Registry.BLOCK_ENTITY, new Identifier("techrebonr", id), tileEntityType);
+		Registry.register(Registry.BLOCK_ENTITY, new Identifier(id), tileEntityType);
 		TRTileEntities.TYPES.add(tileEntityType);
 		return tileEntityType;
 	}

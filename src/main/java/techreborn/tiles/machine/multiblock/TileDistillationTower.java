@@ -55,7 +55,7 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new Inventory<>(7, "TileEnvTypeillationTower", 64, this).withConfiguredAccess();
-		this.crafter = new RecipeCrafter(ModRecipes.EnvTypeILLATION_TOWER, this, 2, 4, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(ModRecipes.DISTILLATION_TOWER, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
 	public boolean getMutliBlock() {

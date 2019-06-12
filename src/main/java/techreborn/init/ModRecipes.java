@@ -48,7 +48,7 @@ public class ModRecipes {
 	public static final RebornRecipeType<RebornRecipe> CENTRIFUGE = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:centrifuge"));
 	public static final RebornRecipeType<RebornRecipe> CHEMICAL_REACTOR = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:chemical_reactor"));
 	public static final RebornRecipeType<RebornRecipe> COMPRESSOR = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:compressor"));
-	public static final RebornRecipeType<RebornRecipe> EnvTypeILLATION_TOWER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:EnvTypeillation_tower"));
+	public static final RebornRecipeType<RebornRecipe> DISTILLATION_TOWER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:disteillation_tower"));
 	public static final RebornRecipeType<RebornRecipe> EXTRACTOR = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:extractor"));
 	public static final RebornRecipeType<RebornRecipe> GRINDER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:grinder"));
 	public static final RebornRecipeType<RebornRecipe> IMPLOSION_COMPRESSOR = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:implosion_compressor"));
