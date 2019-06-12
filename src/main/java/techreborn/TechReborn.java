@@ -85,7 +85,6 @@ public class TechReborn implements ModInitializer {
 		//GameRegistry.registerWorldGenerator(worldGen, 0);
 		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
-		//NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		// Event busses
 //		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 //		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
