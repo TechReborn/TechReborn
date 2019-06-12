@@ -24,15 +24,25 @@
 
 package techreborn.client;
 
+import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
+import net.fabricmc.fabric.api.container.ContainerFactory;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.ContainerScreenRegistry;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
+import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.gui.*;
-import techreborn.tiles.*;
+import techreborn.tiles.TileChargeOMat;
+import techreborn.tiles.TileDigitalChest;
+import techreborn.tiles.TileIndustrialCentrifuge;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.TilePlasmaGenerator;
 import techreborn.tiles.generator.advanced.TileDieselGenerator;
@@ -55,32 +65,23 @@ import techreborn.tiles.storage.TileMediumVoltageSU;
 import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 import techreborn.tiles.storage.lesu.TileLapotronicSU;
 
-public class GuiHandler implements IGuiHandler {
+import java.util.Arrays;
+import java.util.function.Consumer;
 
-	@Override
-	public Object getServerGuiElement(final int ID, final PlayerEntity player, final World world, final int x,
-	                                  final int y, final int z) {
+public class GuiHandler {
 
-		final EGui gui = EGui.values()[ID];
-		final BlockEntity tile = world.getBlockEntity(new BlockPos(x, y, z));
+	public static void register(){
 
-		if (gui.useContainerBuilder() && tile != null)
-			return ((IContainerProvider) tile).createContainer(player);
+		EGui.stream().forEach(gui -> ContainerProviderRegistry.INSTANCE.registerFactory(gui.getID(), (i, identifier, playerEntity, packetByteBuf) -> {
+			final BlockEntity tile = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
+			return ((IContainerProvider) tile).createContainer(playerEntity);
+		}));
 
-		switch (gui) {
-			case DESTRUCTOPACK:
-				return new ContainerDestructoPack(player);
-			default:
-				break;
-		}
-		return null;
+		EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (i, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos())));
 	}
 
-	@Override
-	public Object getClientGuiElement(final int ID, final PlayerEntity player, final World world, final int x,
-	                                  final int y, final int z) {
-		final EGui gui = EGui.values()[ID];
-		final BlockEntity tile = world.getBlockEntity(new BlockPos(x, y, z));
+	private static AbstractContainerScreen getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos) {
+		final BlockEntity tile = player.world.getBlockEntity(pos);
 
 		switch (gui) {
 			case AESU:
@@ -164,9 +165,7 @@ public class GuiHandler implements IGuiHandler {
 			case PLASMA_GENERATOR:
 				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
 			case EnvTypeILLATION_TOWER:
-				return new GuiEnvTypeillationTower(player, (TileEnvTypeillationTower) tile);
-			case MANUAL:
-				return new GuiManual(player);
+				return new GuiDistillationTower(player, (TileDistillationTower) tile);
 			case FLUID_REPLICATOR:
 				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
 			default:

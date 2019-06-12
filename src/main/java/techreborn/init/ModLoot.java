@@ -27,12 +27,6 @@ package techreborn.init;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.loot.LootPool;
 import net.minecraft.world.loot.LootTables;
-import net.minecraft.world.loot.UniformLootTableRange;
-import net.minecraft.world.loot.condition.LootCondition;
-import net.minecraft.world.loot.entry.LootTableEntry;
-import net.minecraft.world.storage.loot.*;
-
-
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 
@@ -64,32 +58,32 @@ public class ModLoot {
 		}
 
 		for (Identifier lootTable : lootTables) {
-			LootTables.registerLootTable(lootTable);
+			//LootTables.registerLootTable(lootTable);
 		}
 	}
 
-	@SubscribeEvent
-	public void lootLoad(LootTableLoadEvent event) {
-		if (!event.getName().getNamespace().equals("minecraft")) {
-			return;
-		}
-		for (Identifier lootTable : lootTables) {
-			if (event.getName().getNamespace().equals(lootTable.getPath())) {
-				event.getTable().addPool(getLootPool(lootTable));
-				TechReborn.LOGGER.debug("Loot pool injected into " + lootTable.getPath());
-			}
-		}
-	}
-
-	/**
-	 * Generates loot pool to be injected into vanilla loot pools
-	 *
-	 * @param lootTable ResourceLocation Loot table to inject
-	 * @return LootPool Loot pool to inject
-	 */
-	private LootPool getLootPool(Identifier lootTable) {
-		LootEntry entry = new LootTableEntry(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString());
-		LootPool pool = new LootPool(new LootEntry[] { entry }, new LootCondition[0], new UniformLootTableRange(1), new UniformLootTableRange(0, 1), "lootPool_" + lootTable.toString());
-		return pool;
-	}
+//	@SubscribeEvent
+//	public void lootLoad(LootTableLoadEvent event) {
+//		if (!event.getName().getNamespace().equals("minecraft")) {
+//			return;
+//		}
+//		for (Identifier lootTable : lootTables) {
+//			if (event.getName().getNamespace().equals(lootTable.getPath())) {
+//				event.getTable().addPool(getLootPool(lootTable));
+//				TechReborn.LOGGER.debug("Loot pool injected into " + lootTable.getPath());
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Generates loot pool to be injected into vanilla loot pools
+//	 *
+//	 * @param lootTable ResourceLocation Loot table to inject
+//	 * @return LootPool Loot pool to inject
+//	 */
+//	private LootPool getLootPool(Identifier lootTable) {
+//		LootEntry entry = new LootTableEntry(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString());
+//		LootPool pool = new LootPool(new LootEntry[] { entry }, new LootCondition[0], new UniformLootTableRange(1), new UniformLootTableRange(0, 1), "lootPool_" + lootTable.toString());
+//		return pool;
+//	}
 }

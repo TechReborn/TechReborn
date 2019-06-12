@@ -32,10 +32,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-
-
-
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -43,7 +39,6 @@ import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,12 +192,6 @@ public class TileTechStorageBase extends TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
-	}
-
-	@Override
-	public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		fromTag(packet.getCompoundTag());
 	}
 
 	@Override

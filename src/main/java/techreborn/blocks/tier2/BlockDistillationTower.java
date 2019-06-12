@@ -32,7 +32,7 @@ import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.TechReborn;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.multiblock.TileEnvTypeillationTower;
+import techreborn.tiles.machine.multiblock.TileDistillationTower;
 
 public class BlockDistillationTower extends BlockMachineBase {
 
@@ -43,7 +43,7 @@ public class BlockDistillationTower extends BlockMachineBase {
 	
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileEnvTypeillationTower();
+		return new TileDistillationTower();
 	}
 
 	@Override

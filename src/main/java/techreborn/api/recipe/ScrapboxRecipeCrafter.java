@@ -24,13 +24,13 @@
 
 package techreborn.api.recipe;
 
-import reborncore.common.crafting.Recipe;
+import net.minecraft.block.entity.BlockEntity;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModRecipes;
 
 import java.util.List;
-import net.minecraft.block.entity.BlockEntity;
 
 /**
  * @author drcrazy
@@ -50,7 +50,7 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 
 	@Override
 	public void updateCurrentRecipe(){
-		List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(tile.getWorld());
+		List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(tile.getWorld());
 		int random = tile.getWorld().random.nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));

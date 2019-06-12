@@ -24,6 +24,7 @@
 
 package techreborn.blocks;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -68,37 +69,38 @@ public class BlockOre extends Block {
 	public static int sphaleriteMaxQuantity = 2;
 
 	public BlockOre() {
-		super(Block.Settings.of(Material.STONE).strength(2f));
+		super(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
 	}
 
-	@Override
-	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-		Block ore = state.getBlock();
-		Random random = new Random();
-
-		// Secondary drop, like Yellow Garnet from Sphalerite ore added via event handler.
-		if (ore == TRContent.Ores.RUBY.block) {
-			OreDrop ruby = new OreDrop(TRContent.Gems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
-			drops.add(ruby.getDrops(fortune, random));
-		} else if (ore == TRContent.Ores.SAPPHIRE.block) {
-			OreDrop sapphire = new OreDrop(TRContent.Gems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
-			drops.add(sapphire.getDrops(fortune, random));
-		} else if (ore == TRContent.Ores.PYRITE.block) {
-			OreDrop pyriteDust = new OreDrop(TRContent.Dusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
-			drops.add(pyriteDust.getDrops(fortune, random));
-		} else if (ore == TRContent.Ores.SODALITE.block) {
-			OreDrop sodalite = new OreDrop(TRContent.Dusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
-			drops.add(sodalite.getDrops(fortune, random));
-		} else if (ore == TRContent.Ores.CINNABAR.block) {
-			OreDrop cinnabar = new OreDrop(TRContent.Dusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
-			drops.add(cinnabar.getDrops(fortune, random));
-		} else if (ore == TRContent.Ores.SPHALERITE.block) {
-			OreDrop sphalerite = new OreDrop(TRContent.Dusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
-			drops.add(sphalerite.getDrops(fortune, random));
-		} else {
-			drops.add(new ItemStack(this));
-		}
-
-		return;
-	}
+	//TODO move to json
+//	@Override
+//	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+//		Block ore = state.getBlock();
+//		Random random = new Random();
+//
+//		// Secondary drop, like Yellow Garnet from Sphalerite ore added via event handler.
+//		if (ore == TRContent.Ores.RUBY.block) {
+//			OreDrop ruby = new OreDrop(TRContent.Gems.RUBY.getStack(rubyMinQuatity), rubyMaxQuantity);
+//			drops.add(ruby.getDrops(fortune, random));
+//		} else if (ore == TRContent.Ores.SAPPHIRE.block) {
+//			OreDrop sapphire = new OreDrop(TRContent.Gems.SAPPHIRE.getStack(sapphireMinQuantity), sapphireMaxQuantity);
+//			drops.add(sapphire.getDrops(fortune, random));
+//		} else if (ore == TRContent.Ores.PYRITE.block) {
+//			OreDrop pyriteDust = new OreDrop(TRContent.Dusts.PYRITE.getStack(pyriteMinQuatity), pyriteMaxQuantity);
+//			drops.add(pyriteDust.getDrops(fortune, random));
+//		} else if (ore == TRContent.Ores.SODALITE.block) {
+//			OreDrop sodalite = new OreDrop(TRContent.Dusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
+//			drops.add(sodalite.getDrops(fortune, random));
+//		} else if (ore == TRContent.Ores.CINNABAR.block) {
+//			OreDrop cinnabar = new OreDrop(TRContent.Dusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
+//			drops.add(cinnabar.getDrops(fortune, random));
+//		} else if (ore == TRContent.Ores.SPHALERITE.block) {
+//			OreDrop sphalerite = new OreDrop(TRContent.Dusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
+//			drops.add(sphalerite.getDrops(fortune, random));
+//		} else {
+//			drops.add(new ItemStack(this));
+//		}
+//
+//		return;
+//	}
 }

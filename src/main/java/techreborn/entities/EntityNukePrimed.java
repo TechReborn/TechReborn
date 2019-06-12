@@ -24,6 +24,7 @@
 
 package techreborn.entities;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.PrimedTntEntity;
@@ -51,8 +52,8 @@ public class EntityNukePrimed extends PrimedTntEntity {
 	@ConfigRegistry(config = "misc", category = "nuke", key = "enabled", comment = "Should the nuke explode, set to false to prevent block damage")
 	public static boolean enabled = true;
 
-	public EntityNukePrimed(World world) {
-		super(world);
+	public EntityNukePrimed(EntityType<EntityNukePrimed> entityType,  World world) {
+		super(entityType, world);
 		setFuse(EntityNukePrimed.fuseTime);
 	}
 

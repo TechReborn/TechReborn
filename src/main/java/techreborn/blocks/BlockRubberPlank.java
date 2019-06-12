@@ -24,6 +24,7 @@
 
 package techreborn.blocks;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
@@ -39,7 +40,7 @@ import techreborn.TechReborn;
 public class BlockRubberPlank extends Block {
 
 	public BlockRubberPlank() {
-		super(Block.Settings.of(Material.WOOD).strength(2f).sounds(BlockSoundGroup.WOOD));
+		super(FabricBlockSettings.of(Material.WOOD).strength(2f, 2f).sounds(BlockSoundGroup.WOOD).build());
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 5, 20);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}

@@ -33,7 +33,6 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.FluidUtils;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;

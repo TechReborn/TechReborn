@@ -31,15 +31,10 @@ import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
-
-
-
-
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.RebornCoreConfig;
@@ -57,7 +52,7 @@ import java.util.List;
  */
 
 public class TileCable extends BlockEntity 
-	implements Tickable, IEnergyStorage, IListInfoProvider, IToolDrop {
+	implements Tickable, IListInfoProvider, IToolDrop {
 	
 	public int power = 0;
 	private int transferRate = 0;
@@ -77,14 +72,7 @@ public class TileCable extends BlockEntity
 		//Something has gone wrong if this happens
 		return TRContent.Cables.COPPER;
 	}
-	
-	public boolean canReceiveFromFace(Direction face) {
-		if (sendingFace.contains(face)) {
-			return false;
-		}
-		return canReceive();
-	}
-	
+
 	@Override
     public CompoundTag toInitialChunkDataTag() {
         return toTag(new CompoundTag());
@@ -97,10 +85,6 @@ public class TileCable extends BlockEntity
         return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
     }
 
-    @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        fromTag(packet.getCompoundTag());
-    }
 
     @Override
     public void fromTag(CompoundTag compound) {
@@ -115,7 +99,6 @@ public class TileCable extends BlockEntity
         super.toTag(compound);
         if (power > 0) {
         	CompoundTag data = new CompoundTag();
-    		data.putInt("power", getEnergyStored());
     		compound.put("TileCable", data);
         }
         return compound;
@@ -137,10 +120,6 @@ public class TileCable extends BlockEntity
 		if (ticksSinceLastChange >= 10) {
 			sendingFace.clear();
 			ticksSinceLastChange = 0;		
-		}
-		
-		if (!canExtract()) {
-			return;
 		}
 
 		//TODO needs a full recode to not use a specific power net
@@ -176,59 +155,6 @@ public class TileCable extends BlockEntity
 //				}
 //			}
 //		}
-	}
-
-	// IEnergyStorage
-	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate) {
-		if (!canReceive()) {
-			return 0;
-		}
-
-		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
-		if (!simulate) {
-			power += energyReceived;
-		}
-		return energyReceived;
-	}
-
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate) {
-		if (!canExtract()) {
-			return 0;
-		}
-
-		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
-		if (!simulate) {
-			power -= energyExtracted;
-		}
-		return energyExtracted;
-	}
-
-	@Override
-	public int getEnergyStored() {
-		return power;
-	}
-
-	@Override
-	public int getMaxEnergyStored() {
-		return transferRate * 5;
-	}
-
-	@Override
-	public boolean canExtract() {
-		if (getEnergyStored() == 0 ) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean canReceive() {
-		if (getMaxEnergyStored() == getEnergyStored()) {
-			return false;
-		}
-		return true;
 	}
 
     // IListInfoProvider

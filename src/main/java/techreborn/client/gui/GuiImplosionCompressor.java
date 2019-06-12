@@ -26,7 +26,6 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
@@ -93,7 +92,7 @@ public class GuiImplosionCompressor extends GuiBase {
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
+		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.

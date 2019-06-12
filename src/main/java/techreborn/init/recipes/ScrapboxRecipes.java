@@ -103,7 +103,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.SPIDER_EYE));
 		register(getStack(Items.SLIME_BALL));
 		register(getStack(Items.ROTTEN_FLESH));
-		register(getStack(Items.SIGN));
+		register(getStack(Items.OAK_SIGN));
 		register(getStack(Items.WRITABLE_BOOK));
 		register(getStack(Items.COOKED_BEEF));
 		register(getStack(Items.NAME_TAG));

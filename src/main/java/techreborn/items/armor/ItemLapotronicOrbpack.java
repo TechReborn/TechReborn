@@ -24,27 +24,22 @@
 
 package techreborn.items.armor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
-
-import javax.annotation.Nullable;
 
 public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
@@ -91,13 +86,6 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return "techreborn:" + "textures/models/armor/lapotronpack.png";
 	}
 
 	// IEnergyItemInfo

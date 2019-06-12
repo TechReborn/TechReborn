@@ -26,6 +26,7 @@ package techreborn.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -86,26 +87,26 @@ public class BlockNuke extends BaseBlock {
 			}
 			if (entityarrow.isOnFire()) {
 				ignite(worldIn, pos, state, shooter);
-				worldIn.removeBlock(pos);
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			}
 		}
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState) {
-		super.onBlockAdded(state, worldIn, pos, oldState);
+	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean b) {
+		super.onBlockAdded(state, worldIn, pos, oldState, b);
 		if (worldIn.isReceivingRedstonePower(pos)) {
 			ignite(worldIn, pos, state, null);
-			worldIn.removeBlock(pos);
+			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_) {
+	public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos p_189540_5_, boolean bo) {
 		if (worldIn.isReceivingRedstonePower(pos)) {
 			ignite(worldIn, pos, state, null);
-			worldIn.removeBlock(pos);
+			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
 	}
 	

@@ -160,18 +160,10 @@ public class BlockAlarm extends BaseTileBlock {
 		return BlockRenderType.MODEL;
 	}
 
-	@Override
-	public boolean isFullCube(BlockState state) {
-		return false;
-	}
 
 	@Override
 	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		tooltip.add(new TranslatableComponent("techreborn.tooltip.alarm").applyFormat(ChatFormat.GRAY));
 	}
-	
-	@Override
-	public VoxelShape getShape(BlockState state, BlockView worldIn, BlockPos pos) {
-		return shape[getFacing(state).getId()];
-	}
+
 }

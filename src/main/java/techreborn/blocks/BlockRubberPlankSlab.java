@@ -24,6 +24,7 @@
 
 package techreborn.blocks;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
@@ -36,7 +37,7 @@ import techreborn.TechReborn;
 public class BlockRubberPlankSlab extends SlabBlock {
 
 	public BlockRubberPlankSlab() {
-		super(Block.Settings.of(Material.WOOD, MaterialColor.SPRUCE).strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD));
+		super(FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE).strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD).build());
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

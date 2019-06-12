@@ -24,14 +24,11 @@
 
 package techreborn.blocks.lighting;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -54,6 +51,8 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.TechReborn;
 import techreborn.tiles.lighting.TileLamp;
+
+import javax.annotation.Nullable;
 
 public class BlockLamp extends BaseTileBlock {
 

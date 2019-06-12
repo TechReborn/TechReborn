@@ -24,6 +24,9 @@
 
 package techreborn.tiles;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import reborncore.api.IListInfoProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -40,9 +43,6 @@ import techreborn.init.TRTileEntities;
 import techreborn.items.DynamicCell;
 
 import java.util.List;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileIndustrialCentrifuge extends TileGenericMachine implements IContainerProvider, IListInfoProvider {

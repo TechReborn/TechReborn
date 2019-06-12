@@ -25,13 +25,13 @@
 package techreborn.client.render;
 
 import com.google.common.base.Charsets;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import techreborn.TechReborn;
 
 import java.io.BufferedReader;

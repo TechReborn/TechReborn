@@ -26,7 +26,6 @@ package techreborn.api.recipe.recipes;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
-
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.fluid.FluidStack;

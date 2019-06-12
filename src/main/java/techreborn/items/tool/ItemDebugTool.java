@@ -24,7 +24,6 @@
 
 package techreborn.items.tool;
 
-import java.util.Map.Entry;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -35,11 +34,12 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.SystemUtil;
-
 import net.minecraft.util.registry.Registry;
 import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
+
+import java.util.Map.Entry;
 
 /**
  * Created by Mark on 20/03/2016.

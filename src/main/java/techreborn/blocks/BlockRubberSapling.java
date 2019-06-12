@@ -24,7 +24,7 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.sound.BlockSoundGroup;
@@ -35,6 +35,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class BlockRubberSapling extends SaplingBlock {
 
 	public BlockRubberSapling() {
-		super(new RubberTree(), Block.Settings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS));
+		super(new RubberTree(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).build());
 	}
 }

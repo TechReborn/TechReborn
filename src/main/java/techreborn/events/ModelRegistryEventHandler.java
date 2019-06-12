@@ -24,13 +24,10 @@
 
 package techreborn.events;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-
-
-
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
@@ -263,7 +260,7 @@ public class ModelRegistryEventHandler {
 	*/
 	
 	private static void register(Item item, String modelPath) {
-		RebornModelRegistry.registerItemModel(item, modelPath);
+		//RebornModelRegistry.registerItemModel(item, modelPath);
 	}
 	
 	private static void registerBlockstateMultiItem(Identifier RL, Item item, String variantName) {

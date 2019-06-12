@@ -24,11 +24,12 @@
 
 package techreborn.blocks;
 
-import java.util.Random;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import techreborn.world.feature.RubberTreeFeature;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * @author drcrazy
@@ -36,8 +37,14 @@ import techreborn.world.feature.RubberTreeFeature;
  */
 public class RubberTree extends SaplingGenerator {
 
+	@Nullable
 	@Override
 	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
-		return new RubberTreeFeature();
+		return null;
 	}
+
+	//	@Override
+//	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
+//		return new RubberTreeFeature();
+//	}
 }

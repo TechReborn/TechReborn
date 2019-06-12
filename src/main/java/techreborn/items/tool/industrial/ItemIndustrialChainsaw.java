@@ -24,11 +24,13 @@
 
 package techreborn.items.tool.industrial;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,13 +42,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ChatUtils;
@@ -90,17 +92,6 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	@Override
 	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		if(ItemUtils.isActive(stack) && !worldIn.isClient){
-			BlockState state = worldIn.getBlockState(pos);
-			if(state.getBlock() instanceof IShearable){
-				if(((IShearable) state.getBlock()).isShearable(stack, worldIn, pos)){
-					List<ItemStack> results = ((IShearable) state.getBlock()).onSheared(stack, worldIn, pos, 0);
-					results.forEach(itemStack -> ItemScatterer.spawn(worldIn, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), itemStack));
-					return super.onBlockBroken(stack, worldIn, blockIn, pos, entityLiving);
-				}
-			}
-		}
-
 		List<BlockPos> wood = new ArrayList<>();
 		findWood(worldIn, pos, wood, new ArrayList<>());
 		wood.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
@@ -169,7 +160,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 	}
 
 	@Override
-	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
+	public void onUsingTick(World world, LivingEntity entity,  ItemStack stack, int i) {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
@@ -179,7 +170,6 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			}
 			stack.getTag().putBoolean("isActive", false);
 		}
-		return false;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -219,7 +209,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 
 		blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
-		world.removeBlock(pos);
+		world.setBlockState(pos, Blocks.AIR.getDefaultState());
 		world.removeBlockEntity(pos);
 	}
 }

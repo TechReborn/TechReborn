@@ -24,13 +24,8 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FireBlock;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -61,6 +56,7 @@ import techreborn.items.tool.ItemTreeTap;
 import techreborn.items.tool.basic.ItemElectricTreetap;
 
 import java.util.Random;
+import java.util.function.Consumer;
 
 /**
  * Created by modmuss50 on 19/02/2016.
@@ -71,7 +67,7 @@ public class BlockRubberLog extends LogBlock {
 	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
 
 	public BlockRubberLog() {
-		super(MaterialColor.SPRUCE, Block.Settings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD).ticksRandomly());
+		super(MaterialColor.SPRUCE, FabricBlockSettings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F, 2f).sounds(BlockSoundGroup.WOOD).ticksRandomly().build());
 		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(AXIS, Direction.Axis.Y));
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 5, 5);
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
@@ -146,7 +142,7 @@ public class BlockRubberLog extends LogBlock {
 
 						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 					} else {
-						playerIn.getStackInHand(Hand.MAIN_HAND).damageItem(1, playerIn);
+						playerIn.getStackInHand(Hand.MAIN_HAND).applyDamage(1, playerIn, playerEntity -> {});
 					}
 					if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
 						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
@@ -161,13 +157,13 @@ public class BlockRubberLog extends LogBlock {
 		return false;
 	}
 
-	@Override
-	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-		drops.add(new ItemStack(this));
-		if (state.get(HAS_SAP)) {
-			if (new Random().nextInt(4) == 0) {
-				drops.add(TRContent.Parts.SAP.getStack());
-			}
-		}
-	}
+//	@Override
+//	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+//		drops.add(new ItemStack(this));
+//		if (state.get(HAS_SAP)) {
+//			if (new Random().nextInt(4) == 0) {
+//				drops.add(TRContent.Parts.SAP.getStack());
+//			}
+//		}
+//	}
 }

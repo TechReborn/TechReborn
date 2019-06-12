@@ -24,6 +24,9 @@
 
 package techreborn.blocks.generator;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -38,11 +41,8 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import reborncore.api.ToolManager;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
@@ -55,7 +55,7 @@ import java.util.List;
 public class BlockFusionCoil extends Block {
 
 	public BlockFusionCoil() {
-		super(Block.Settings.of(Material.METAL).strength(2f).sounds(BlockSoundGroup.METAL));
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 
@@ -65,7 +65,7 @@ public class BlockFusionCoil extends Block {
 
 		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
-			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, side, false)) {
+			if (ToolManager.INSTANCE.handleTool(tool, pos, worldIn, playerIn, hitResult.getSide(), false)) {
 				if (playerIn.isSneaking()) {
 					ItemStack drop = new ItemStack(this);
 					dropStack(worldIn, pos, drop);

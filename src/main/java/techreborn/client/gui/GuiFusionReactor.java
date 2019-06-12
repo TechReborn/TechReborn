@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
@@ -79,14 +80,14 @@ public class GuiFusionReactor extends GuiBase {
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		if (tile.getCoilStatus() > 0) {
-			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
+			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
 			if(tile.state == 2){
 				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
-			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
+			addHologramButton(76, 56, 212, layer).clickHandler(this::hologramToggle);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 
 			Optional<Pair<Integer, Integer>> stackSize = getCoilStackCount();
@@ -103,30 +104,21 @@ public class GuiFusionReactor extends GuiBase {
 		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
 		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
-		buttons.add(new GuiButtonUpDown(300, 121, 79, this, GuiBase.Layer.FOREGROUND));
-		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, GuiBase.Layer.FOREGROUND));
-		buttons.add(new GuiButtonUpDown(302, 121 + 24, 79, this, GuiBase.Layer.FOREGROUND));
-		buttons.add(new GuiButtonUpDown(303, 121 + 36, 79, this, GuiBase.Layer.FOREGROUND));
+		buttons.add(new GuiButtonUpDown(121, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(5)));
+		buttons.add(new GuiButtonUpDown(121 + 12, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(1)));
+		buttons.add(new GuiButtonUpDown(121 + 24, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(-5)));
+		buttons.add(new GuiButtonUpDown(121 + 36, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(-1)));
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
-	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
+	public void hologramToggle(GuiButtonExtended button, double x, double y){
+		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				updateMultiBlockRender();
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);
 			}
-		}
-		if (button.id == 300){
-			sendSizeChange(5);
-		} else if (button.id == 301){
-			sendSizeChange(1);
-		} else if (button.id == 302){
-			sendSizeChange(-1);
-		} else if (button.id == 303){
-			sendSizeChange(-5);
 		}
 	}
 

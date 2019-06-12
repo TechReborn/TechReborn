@@ -54,9 +54,10 @@ public class ItemTRArmour extends ArmorItem implements ItemDurabilityExtensions 
 			//setTranslationKey(material.name().toLowerCase() + "Chestplate");
 		if (slot == EquipmentSlot.LEGS)
 			//setTranslationKey(material.name().toLowerCase() + "Leggings");
-		if (slot == EquipmentSlot.FEET)
+		if (slot == EquipmentSlot.FEET) {
+
+		}
 			//setTranslationKey(material.name().toLowerCase() + "Boots");
-		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override

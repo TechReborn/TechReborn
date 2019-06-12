@@ -155,11 +155,6 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 
 	@Override
-	public boolean canConnectRedstone(BlockState state, BlockView world, BlockPos pos, @Nullable Direction side) {
-		return true;
-	}
-
-	@Override
 	public boolean emitsRedstonePower(BlockState state) {
 		return true;
 	}

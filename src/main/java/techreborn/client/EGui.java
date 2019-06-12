@@ -24,53 +24,15 @@
 
 package techreborn.client;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.ContainerScreen;
-import net.minecraft.container.Container;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-
-
-
-
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.containerBuilder.IContainerProvider;
-import techreborn.client.container.ContainerDestructoPack;
-import techreborn.tiles.*;
-import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.tiles.generator.*;
-import techreborn.tiles.generator.advanced.TileDieselGenerator;
-import techreborn.tiles.generator.advanced.TileGasTurbine;
-import techreborn.tiles.generator.advanced.TileSemiFluidGenerator;
-import techreborn.tiles.generator.advanced.TileThermalGenerator;
-import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
-import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
-import techreborn.tiles.machine.iron.TileIronFurnace;
-import techreborn.tiles.machine.multiblock.*;
-import techreborn.tiles.machine.tier1.*;
-import techreborn.tiles.machine.tier3.TileChunkLoader;
-import techreborn.tiles.machine.tier3.TileMatterFabricator;
-import techreborn.tiles.machine.tier3.TileQuantumChest;
-import techreborn.tiles.machine.tier3.TileQuantumTank;
-import techreborn.tiles.storage.TileAdjustableSU;
-import techreborn.tiles.storage.TileHighVoltageSU;
-import techreborn.tiles.storage.TileLowVoltageSU;
-import techreborn.tiles.storage.TileMediumVoltageSU;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.function.Consumer;
-import techreborn.client.gui.*;
-import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
-import techreborn.tiles.storage.lesu.TileLapotronicSU;
+import java.util.stream.Stream;
 
 public enum EGui implements IMachineGuiHandler {
 
@@ -120,109 +82,8 @@ public enum EGui implements IMachineGuiHandler {
 
 	private final boolean containerBuilder;
 
-	private EGui(final boolean containerBuilder) {
+	EGui(final boolean containerBuilder) {
 		this.containerBuilder = containerBuilder;
-	}
-
-	static {
-		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, ()-> EGui::getClientGuiElement);
-	}
-
-	public static ContainerScreen getClientGuiElement(FMLPlayMessages.OpenContainer msg) {
-		EGui gui = byID(msg.getId());
-		PlayerEntity player = MinecraftClient.getInstance().player;
-		BlockPos pos = msg.getAdditionalData().readBlockPos();
-		BlockEntity tile = player.world.getBlockEntity(pos);
-
-		switch (gui) {
-			case AESU:
-				return new GuiAESU(player, (TileAdjustableSU) tile);
-			case ALLOY_FURNACE:
-				return new GuiAlloyFurnace(player, (TileIronAlloyFurnace) tile);
-			case ALLOY_SMELTER:
-				return new GuiAlloySmelter(player, (TileAlloySmelter) tile);
-			case ASSEMBLING_MACHINE:
-				return new GuiAssemblingMachine(player, (TileAssemblingMachine) tile);
-			case LOW_VOLTAGE_SU:
-				return new GuiBatbox(player, (TileLowVoltageSU) tile);
-			case BLAST_FURNACE:
-				return new GuiBlastFurnace(player, (TileIndustrialBlastFurnace) tile);
-			case CENTRIFUGE:
-				return new GuiCentrifuge(player, (TileIndustrialCentrifuge) tile);
-			case CHARGEBENCH:
-				return new GuiChargeBench(player, (TileChargeOMat) tile);
-			case CHEMICAL_REACTOR:
-				return new GuiChemicalReactor(player, (TileChemicalReactor) tile);
-			case CHUNK_LOADER:
-				return new GuiChunkLoader(player, (TileChunkLoader) tile);
-			case COMPRESSOR:
-				return new GuiCompressor(player, (TileCompressor) tile);
-			case DESTRUCTOPACK:
-				return new GuiDestructoPack(new ContainerDestructoPack(player));
-			case DIESEL_GENERATOR:
-				return new GuiDieselGenerator(player, (TileDieselGenerator) tile);
-			case DIGITAL_CHEST:
-				return new GuiDigitalChest(player, (TileDigitalChest) tile);
-			case ELECTRIC_FURNACE:
-				return new GuiElectricFurnace(player, (TileElectricFurnace) tile);
-			case EXTRACTOR:
-				return new GuiExtractor(player, (TileExtractor) tile);
-			case FUSION_CONTROLLER:
-				return new GuiFusionReactor(player, (TileFusionControlComputer) tile);
-			case GAS_TURBINE:
-				return new GuiGasTurbine(player, (TileGasTurbine) tile);
-			case GENERATOR:
-				return new GuiGenerator(player, (TileSolidFuelGenerator) tile);
-			case GRINDER:
-				return new GuiGrinder(player, (TileGrinder) tile);
-			case IDSU:
-				return new GuiIDSU(player, (TileInterdimensionalSU) tile);
-			case IMPLOSION_COMPRESSOR:
-				return new GuiImplosionCompressor(player, (TileImplosionCompressor) tile);
-			case INDUSTRIAL_ELECTROLYZER:
-				return new GuiIndustrialElectrolyzer(player, (TileIndustrialElectrolyzer) tile);
-			case INDUSTRIAL_GRINDER:
-				return new GuiIndustrialGrinder(player, (TileIndustrialGrinder) tile);
-			case IRON_FURNACE:
-				return new GuiIronFurnace(player, (TileIronFurnace) tile);
-			case LESU:
-				return new GuiLESU(player, (TileLapotronicSU) tile);
-			case MATTER_FABRICATOR:
-				return new GuiMatterFabricator(player, (TileMatterFabricator) tile);
-			case MEDIUM_VOLTAGE_SU:
-				return new GuiMFE(player, (TileMediumVoltageSU) tile);
-			case HIGH_VOLTAGE_SU:
-				return new GuiMFSU(player, (TileHighVoltageSU) tile);
-			case QUANTUM_CHEST:
-				return new GuiQuantumChest(player, (TileQuantumChest) tile);
-			case QUANTUM_TANK:
-				return new GuiQuantumTank(player, (TileQuantumTank) tile);
-			case RECYCLER:
-				return new GuiRecycler(player, (TileRecycler) tile);
-			case ROLLING_MACHINE:
-				return new GuiRollingMachine(player, (TileRollingMachine) tile);
-			case SAWMILL:
-				return new GuiIndustrialSawmill(player, (TileIndustrialSawmill) tile);
-			case SCRAPBOXINATOR:
-				return new GuiScrapboxinator(player, (TileScrapboxinator) tile);
-			case SEMIFLUID_GENERATOR:
-				return new GuiSemifluidGenerator(player, (TileSemiFluidGenerator) tile);
-			case THERMAL_GENERATOR:
-				return new GuiThermalGenerator(player, (TileThermalGenerator) tile);
-			case VACUUM_FREEZER:
-				return new GuiVacuumFreezer(player, (TileVacuumFreezer) tile);
-			case AUTO_CRAFTING_TABLE:
-				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
-			case PLASMA_GENERATOR:
-				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
-			case EnvTypeILLATION_TOWER:
-				return new GuiEnvTypeillationTower(player, (TileEnvTypeillationTower) tile);
-			case FLUID_REPLICATOR:
-				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
-			default:
-				throw new RuntimeException("No gui found for " + msg.getId());
-
-		}
 	}
 
 	public static EGui byID(Identifier resourceLocation){
@@ -232,41 +93,18 @@ public enum EGui implements IMachineGuiHandler {
 			.orElseThrow(() -> new RuntimeException("Failed to find gui for " + resourceLocation));
 	}
 
+	public static Stream<EGui> stream(){
+		return Arrays.stream(values());
+	}
+
+	public Identifier getID(){
+		return new Identifier("techreborn", name().toLowerCase());
+	}
+
 	@Override
 	public void open(PlayerEntity player, BlockPos pos, World world) {
 		if(!world.isClient){
-			EGui gui = this;
-			NetworkHooks.openGui((ServerPlayerEntity) player, new IInteractionObject() {
-				@Override
-				public Container createContainer(PlayerInventory playerInventory, PlayerEntity playerIn) {
-					BlockEntity tileEntity = playerIn.world.getBlockEntity(pos);
-					if (tileEntity instanceof IContainerProvider) {
-						return ((IContainerProvider) tileEntity).createContainer(player);
-					}
-					return null;
-				}
-
-				@Override
-				public String getGuiID() {
-					return "techreborn:" + gui.name().toLowerCase();
-				}
-
-				@Override
-				public Component getName() {
-					return new TextComponent(getGuiID());
-				}
-
-				@Override
-				public boolean hasCustomName() {
-					return false;
-				}
-
-				@Nullable
-				@Override
-				public Component getCustomName() {
-					return null;
-				}
-			}, packetBuffer -> packetBuffer.writeBlockPos(pos));
+			ContainerProviderRegistry.INSTANCE.openContainer(getID(), player, packetByteBuf -> packetByteBuf.writeBlockPos(pos));
 		}
 	}
 

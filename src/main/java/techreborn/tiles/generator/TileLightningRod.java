@@ -30,16 +30,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.Heightmap;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.init.ModTags;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
-import techreborn.utils.TagUtils;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
@@ -83,10 +82,12 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 					return;
 				}
 				final LightningEntity lightningBolt = new LightningEntity(world,
-					pos.getX() + 0.5F,
-					world.getTopPosition(),
+					pos.getX() + 0.5F, world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos()).getY(),
 					pos.getZ() + 0.5F, false);
-				world.addWeatherEffect(lightningBolt);
+				if(true){
+					throw new RuntimeException("fix me");
+				}
+				//world.addWeatherEffect(lightningBolt);
 				world.spawnEntity(lightningBolt);
 				addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
 				((BlockMachineBase) world.getBlockState(pos).getBlock()).setActive(true, world, pos);
@@ -97,8 +98,8 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	public float getLightningStrikeMultiplier() {
-		final float actualHeight = world.getDimension().getActualHeight();
-		final float groundLevel = world.getTopPosition();
+		final float actualHeight = 256;
+		final float groundLevel = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos()).getY();
 		for (int i = pos.getY() + 1; i < actualHeight; i++) {
 			if (!isValidIronFence(i)) {
 				if (groundLevel >= i)
@@ -113,7 +114,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 
 	public boolean isValidIronFence(int y) {
 		Block block = this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock();
-		if(TagUtils.hasTag(block, ModTags.FENCE_IRON)){
+		if(block == TRContent.REFINED_IRON_FENCE){
 			return true;
 		}
 		return false;

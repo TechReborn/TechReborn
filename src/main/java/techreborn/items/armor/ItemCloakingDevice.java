@@ -24,31 +24,25 @@
 
 package techreborn.items.armor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
-
-import javax.annotation.Nullable;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
@@ -63,18 +57,11 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		super(TRArmorMaterial.CLOAKING, EquipmentSlot.CHEST);
 	}
 
-	// Item
-	@Override
-	@Environment(EnvType.CLIENT)
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return "techreborn:" + "textures/models/armor/cloaking.png";
-	}
-	
 	@Override
 	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityIn;
-			IEnergyStorage capEnergy = new ItemPowerManager(stack);
+			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
 				capEnergy.extractEnergy(usage, false);
 				player.setInvisible(true);

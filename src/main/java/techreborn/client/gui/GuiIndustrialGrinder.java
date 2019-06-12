@@ -96,8 +96,8 @@ public class GuiIndustrialGrinder extends GuiBase {
 		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
-	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
+	public void onClick(GuiButtonExtended button, double mouseX, double mouseY){
+		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.

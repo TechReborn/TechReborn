@@ -24,11 +24,12 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.client.gui.ContainerScreen;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.container.Container;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Identifier;
 
 public class GuiDestructoPack extends AbstractContainerScreen {
@@ -37,16 +38,16 @@ public class GuiDestructoPack extends AbstractContainerScreen {
 		"textures/gui/destructopack.png");
 
 	public GuiDestructoPack(Container container) {
-		super(container);
+		super(container, MinecraftClient.getInstance().player.inventory, new TextComponent("techreborn.destructopack"));
 		this.containerWidth = 176;
 		this.containerHeight = 166;
 	}
 
 	@Override
 	protected void drawBackground(float arg0, int arg1, int arg2) {
-		this.drawDefaultBackground();
+		this.renderBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.getTextureManager().bindTexture(texture);
+		this.minecraft.getTextureManager().bindTexture(texture);
 		blit(left, top, 0, 0, 176, 166);
 	}
 

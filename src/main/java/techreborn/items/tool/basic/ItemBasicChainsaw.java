@@ -24,14 +24,14 @@
 
 package techreborn.items.tool.basic;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.ItemPowerManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;

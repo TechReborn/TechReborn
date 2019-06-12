@@ -25,7 +25,7 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -72,15 +72,13 @@ public class GuiAESU extends GuiBase {
 	
 		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 		
-		buttons.add(new GuiButtonUpDown(300, 121, 79, this, layer).clickHandler(this::onClick));
-		buttons.add(new GuiButtonUpDown(301, 121 + 12, 79, this, layer).clickHandler(this::onClick));
-		buttons.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer).clickHandler(this::onClick));
-		buttons.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer).clickHandler(this::onClick));
+		buttons.add(new GuiButtonUpDown(121, 79, this, layer, this::onClick));
+		buttons.add(new GuiButtonUpDown(121 + 12, 79, this, layer, this::onClick));
+		buttons.add(new GuiButtonUpDown(121 + 24, 79, this, layer, this::onClick));
+		buttons.add(new GuiButtonUpDown(121 + 36, 79, this, layer, this::onClick));
 	}
 
-	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (button.id >= 300 && button.id <= 303) {
-			NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(button.id, tile));
-		}
+	public void onClick(ButtonWidget button){
+		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(1, tile));
 	}
 }

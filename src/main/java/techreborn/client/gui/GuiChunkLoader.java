@@ -25,12 +25,11 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.gui.ContainerScreen;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import techreborn.tiles.machine.tier3.TileChunkLoader;
@@ -46,7 +45,7 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 	private ButtonWidget minusTenButton;
 
 	public GuiChunkLoader(final PlayerEntity player, final TileChunkLoader chunkLoader) {
-		super(chunkLoader.createContainer(player));
+		super(chunkLoader.createContainer(player), player.inventory, new TextComponent("techreborn.chunkloader"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
 		this.chunkloader = chunkLoader;
@@ -57,11 +56,11 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 		super.init();
 		this.left = this.width / 2 - this.containerWidth / 2;
 		this.top = this.height / 2 - this.containerHeight / 2;
-		this.plusOneButton = new GuiButtonSimple(0, this.left + 5, this.top + 37, 40, 20, "+1");
-		this.plusTenButton = new GuiButtonSimple(0, this.left + 45, this.top + 37, 40, 20, "+10");
+		this.plusOneButton = new GuiButtonSimple(this.left + 5, this.top + 37, 40, 20, "+1", buttonWidget -> {});
+		this.plusTenButton = new GuiButtonSimple(this.left + 45, this.top + 37, 40, 20, "+10", buttonWidget -> {});
 
-		this.minusOneButton = new GuiButtonSimple(0, this.left + 90, this.top + 37, 40, 20, "-1");
-		this.minusTenButton = new GuiButtonSimple(0, this.left + 130, this.top + 37, 40, 20, "-10");
+		this.minusOneButton = new GuiButtonSimple(this.left + 90, this.top + 37, 40, 20, "-1", buttonWidget -> {});
+		this.minusTenButton = new GuiButtonSimple(this.left + 130, this.top + 37, 40, 20, "-10", buttonWidget -> {});
 
 		this.buttons.add(this.plusOneButton);
 		this.buttons.add(this.plusTenButton);
@@ -71,7 +70,7 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 
 	@Override
 	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
+		this.renderBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		minecraft.getTextureManager().bindTexture(GuiChunkLoader.texture);
 		final int k = (this.width - this.containerWidth) / 2;

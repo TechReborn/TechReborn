@@ -27,8 +27,8 @@ package techreborn.tiles.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.math.Direction;
-
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -71,7 +71,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	public void cookItems() {
 		if (canSmelt()) {
-			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(input1));
+			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
 
 			if (inventory.getInvStack(output).isEmpty()) {
 				inventory.setStackInSlot(output, itemstack.copy());
@@ -90,7 +90,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (inventory.getInvStack(input1).isEmpty()) {
 			return false;
 		}
-		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(input1));
+		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
 		if (itemstack.isEmpty()) {
 			return false;
 		}
@@ -109,7 +109,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	}
 
 	public ItemStack getResultFor(ItemStack stack) {
-		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, stack);
+		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}

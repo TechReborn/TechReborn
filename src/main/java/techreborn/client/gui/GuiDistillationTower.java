@@ -26,7 +26,6 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -38,20 +37,20 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileEnvTypeillationTower;
+import techreborn.tiles.machine.multiblock.TileDistillationTower;
 
-public class GuiEnvTypeillationTower extends GuiBase {
+public class GuiDistillationTower extends GuiBase {
 	
-	public TileEnvTypeillationTower tile;
+	public TileDistillationTower tile;
 
-	public GuiEnvTypeillationTower(final PlayerEntity player, final TileEnvTypeillationTower tile) {
+	public GuiDistillationTower(final PlayerEntity player, final TileDistillationTower tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 	
 	@Override
-	public void initGui() {
-		super.initGui();
+	public void init() {
+		super.init();
 		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 	
@@ -91,7 +90,7 @@ public class GuiEnvTypeillationTower extends GuiBase {
 	}
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
+		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.

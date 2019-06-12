@@ -27,52 +27,24 @@ package techreborn.events;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
-
-
-
-
-
-
-import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TRRecipeHandler {
 
-	@SuppressWarnings("rawtypes")
-	private static List<IForgeRegistryEntry> hiddenEntrys = new ArrayList<>();
-
-	public static void hideEntry(IForgeRegistryEntry<?> entry) {
-		hiddenEntrys.add(entry);
-	}
-
-	@SubscribeEvent
-	public void pickupEvent(EntityItemPickupEvent entityItemPickupEvent) {
-		if(entityItemPickupEvent.getEntityPlayer() instanceof FakePlayer){
-			return;
-		}
-		World world = entityItemPickupEvent.getItem().world;
-		if (entityItemPickupEvent.getEntityPlayer() instanceof ServerPlayerEntity) {
-			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, true)) {
-				for (Recipe recipe : world.getRecipeManager().getRecipes()) {
-					if (recipe.getOutput().getItem() == TRContent.TREE_TAP) {
-						entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
-					}
-				}
-			}
-		}
-	}
 
 	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
-		List<Recipe> recipeList = new ArrayList<>();
-		for (Recipe recipe : getRecipes(playerMP.world, VanillaRecipeTypes.CRAFTING)) {
+		List<Recipe<?>> recipeList = new ArrayList<>();
+		for (Recipe recipe : getRecipes(playerMP.world, RecipeType.CRAFTING)) {
 			if (isRecipeValid(recipe)) {
 				recipeList.add(recipe);
 			}
@@ -80,8 +52,8 @@ public class TRRecipeHandler {
 		playerMP.unlockRecipes(recipeList);
 	}
 
-	public static <T extends Recipe> List<Recipe> getRecipes(World world, RecipeType<T> type){
-		return world.getRecipeManager().getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
+	public static <T extends Recipe<?>> List<Recipe> getRecipes(World world, RecipeType<T> type){
+		return world.getRecipeManager().values().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
 	}
 
 	/**
@@ -89,10 +61,10 @@ public class TRRecipeHandler {
 	 * Used to get the matching output of a recipe type that only has 1 input
 	 *
 	 */
-	public static <T extends Recipe> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
+	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
 		return getRecipes(world, type).stream()
-			.filter(iRecipe -> iRecipe.getIngredients().size() == 1 && iRecipe.getIngredients().get(0).test(input))
-			.map(Recipe::getRecipeOutput)
+			.filter(recipe -> recipe.getPreviewInputs().size() == 1 && ((Ingredient)recipe.getPreviewInputs().get(0)).test(input))
+			.map(Recipe::getOutput)
 			.findFirst()
 			.orElse(ItemStack.EMPTY);
 	}
@@ -104,19 +76,13 @@ public class TRRecipeHandler {
 		if (!recipe.getId().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		if (!recipe.getOutput().getItem().getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
-			return false;
-		}
+//		if (!recipe.getOutput().getItem().getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
+//			return false;
+//		}
 //		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {
 //			return false;
 //		}
-		//Hide uu recipes
-		for (Ingredient ingredient : recipe.getPreviewInputs()) {
-			if (ingredient.method_8093(TRContent.Parts.UU_MATTER.getStack())) {
-				return false;
-			}
-		}
-		return true;
+		return !recipe.getPreviewInputs().stream().anyMatch((Predicate<Ingredient>) ingredient -> ingredient.method_8093(TRContent.Parts.UU_MATTER.getStack()));
 	}
 
 }

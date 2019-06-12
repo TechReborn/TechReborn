@@ -25,7 +25,6 @@
 package techreborn.api.fluidreplicator;
 
 import net.minecraft.util.math.BlockPos;
-
 import reborncore.fluid.Fluid;
 import techreborn.init.TRContent;
 import techreborn.tiles.machine.multiblock.TileFluidReplicator;

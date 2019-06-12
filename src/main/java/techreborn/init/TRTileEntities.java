@@ -24,6 +24,10 @@
 
 package techreborn.init;
 
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import reborncore.common.tile.TileMachineBase;
 import techreborn.TechReborn;
 import techreborn.tiles.*;
@@ -41,12 +45,7 @@ import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
 import techreborn.tiles.machine.iron.TileIronFurnace;
 import techreborn.tiles.machine.multiblock.*;
 import techreborn.tiles.machine.tier1.*;
-import techreborn.tiles.machine.tier3.TileChunkLoader;
-import techreborn.tiles.machine.tier3.TileCreativeQuantumChest;
-import techreborn.tiles.machine.tier3.TileCreativeQuantumTank;
-import techreborn.tiles.machine.tier3.TileMatterFabricator;
-import techreborn.tiles.machine.tier3.TileQuantumChest;
-import techreborn.tiles.machine.tier3.TileQuantumTank;
+import techreborn.tiles.machine.tier3.*;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
@@ -60,9 +59,6 @@ import techreborn.tiles.transformers.TileMVTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.Identifier;
 
 public class TRTileEntities {
 	
@@ -96,7 +92,7 @@ public class TRTileEntities {
 	public static final BlockEntityType<TileAdjustableSU> ADJUSTABLE_SU = register(TileAdjustableSU.class, "adjustable_su");
 	public static final BlockEntityType<TileLapotronicSU> LAPOTRONIC_SU = register(TileLapotronicSU.class, "lapotronic_su");
 	public static final BlockEntityType<TileLSUStorage> LSU_STORAGE = register(TileLSUStorage.class, "lsu_storage");
-	public static final BlockEntityType<TileEnvTypeillationTower> EnvTypeILLATION_TOWER = register(TileEnvTypeillationTower.class, "EnvTypeillation_tower");
+	public static final BlockEntityType<TileDistillationTower> EnvTypeILLATION_TOWER = register(TileDistillationTower.class, "distillation_tower");
 	public static final BlockEntityType<TileVacuumFreezer> VACUUM_FREEZER = register(TileVacuumFreezer.class, "vacuum_freezer");
 	public static final BlockEntityType<TileFusionControlComputer> FUSION_CONTROL_COMPUTER = register(TileFusionControlComputer.class, "fusion_control_computer");
 	public static final BlockEntityType<TileLightningRod> LIGHTNING_ROD = register(TileLightningRod.class, "lightning_rod");
@@ -142,7 +138,7 @@ public class TRTileEntities {
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {
 		BlockEntityType<T> tileEntityType = builder.build(null);
-		tileEntityType.setRegistryName(new Identifier(id));
+		Registry.register(Registry.BLOCK_ENTITY, new Identifier("techrebonr", id), tileEntityType);
 		TRTileEntities.TYPES.add(tileEntityType);
 		return tileEntityType;
 	}

@@ -24,8 +24,6 @@
 
 package techreborn.init.recipes;
 
-import java.security.InvalidParameterException;
-
 import net.minecraft.item.ItemStack;
 
 

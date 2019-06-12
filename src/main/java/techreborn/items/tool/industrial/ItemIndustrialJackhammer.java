@@ -24,12 +24,12 @@
 
 package techreborn.items.tool.industrial;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.ItemPowerManager;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.TRContent;
@@ -41,7 +41,6 @@ public class ItemIndustrialJackhammer extends ItemJackhammer {
 	public ItemIndustrialJackhammer() {
 		super(ToolMaterials.IRON, ConfigTechReborn.IndustrialJackhammerCharge);
 		this.cost = 250;
-		this.blockBreakingSpeed = 60F;
 		this.transferLimit = 1000;
 	}
 

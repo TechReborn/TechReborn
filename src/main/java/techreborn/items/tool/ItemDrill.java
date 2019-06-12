@@ -28,25 +28,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
@@ -58,7 +50,6 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurab
 
 	public ItemDrill(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
 		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
-		this.blockBreakingSpeed = efficiencyOnProperMaterial;
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}
@@ -97,7 +88,7 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurab
 
 	//Item
 	@Override
-	public boolean isRepairable() {
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
 		return false;
 	}
 
@@ -114,11 +105,6 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurab
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isEqualIgnoreTags(oldStack));
 	}
 
 	// IEnergyItemInfo

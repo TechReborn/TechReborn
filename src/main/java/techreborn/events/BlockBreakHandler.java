@@ -24,24 +24,9 @@
 
 package techreborn.events;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
-
-
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
-import java.util.List;
-import java.util.Random;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class BlockBreakHandler {
@@ -59,51 +44,52 @@ public class BlockBreakHandler {
 	@ConfigRegistry(config = "misc", category = "blocks", key = "yellowGarnetDropChance", comment = "Chance to get Yellow Garnet gem from Sphalerite Ore")
 	public static double yellowGarnetDropChance = 0.125;
 
-	@SubscribeEvent
-	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		if (secondaryGemDrops && !event.isSilkTouching()) {
-			BlockState state = event.getState();
-			List<ItemStack> drops = event.getDrops();
-			Random random = new Random();
-		//TODO: fix tags
-			if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "ruby_ore")))) {
-				OreDrop redGarnet = new OreDrop(TRContent.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
-				drops.add(redGarnet.getDrops(event.getFortuneLevel(), random));
-			}
-			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sapphire_ore")))) {
-				OreDrop peridot = new OreDrop(TRContent.Gems.PERIDOT.getStack(), peridotDropChance, 1);
-				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
-			}
-			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sodalite_ore")))) {
-				OreDrop aluminium = new OreDrop(TRContent.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
-				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
-			}
-			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "cinnabar_ore")))) {
-				OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), redstoneDropChance, 1);
-				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
-			}
-			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sphalerite_ore")))) {
-				OreDrop yellowGarnet = new OreDrop(TRContent.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
-				drops.add(yellowGarnet.getDrops(event.getFortuneLevel(), random));
-			}	
-		}
-	}
-
-	@SubscribeEvent
-	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
-		if(event.getEntityPlayer().getHeldItem(Hand.MAIN_HAND).getItem() == TRContent.INDUSTRIAL_CHAINSAW && event.getOriginalSpeed() > 1.0f){
-			BlockPos pos = event.getPos();
-			World worldIn = event.getEntityPlayer().world;
-			float speed = 20F;
-			int blocks = 0;
-			for (int i = 1; i < 10; i++) {
-				BlockPos nextPos = pos.up(i);
-				BlockState nextState = worldIn.getBlockState(nextPos);
-				if(nextState.getBlock().matches(BlockTags.LOGS)){
-					blocks ++;
-				}
-			}
-			event.setNewSpeed(speed / blocks);
-		}
-	}
+	//TODO 1.14
+//	@SubscribeEvent
+//	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
+//		if (secondaryGemDrops && !event.isSilkTouching()) {
+//			BlockState state = event.getState();
+//			List<ItemStack> drops = event.getDrops();
+//			Random random = new Random();
+//		//TODO: fix tags
+//			if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "ruby_ore")))) {
+//				OreDrop redGarnet = new OreDrop(TRContent.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
+//				drops.add(redGarnet.getDrops(event.getFortuneLevel(), random));
+//			}
+//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sapphire_ore")))) {
+//				OreDrop peridot = new OreDrop(TRContent.Gems.PERIDOT.getStack(), peridotDropChance, 1);
+//				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
+//			}
+//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sodalite_ore")))) {
+//				OreDrop aluminium = new OreDrop(TRContent.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
+//				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
+//			}
+//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "cinnabar_ore")))) {
+//				OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), redstoneDropChance, 1);
+//				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
+//			}
+//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sphalerite_ore")))) {
+//				OreDrop yellowGarnet = new OreDrop(TRContent.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
+//				drops.add(yellowGarnet.getDrops(event.getFortuneLevel(), random));
+//			}
+//		}
+//	}
+//
+//	@SubscribeEvent
+//	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
+//		if(event.getEntityPlayer().getHeldItem(Hand.MAIN_HAND).getItem() == TRContent.INDUSTRIAL_CHAINSAW && event.getOriginalSpeed() > 1.0f){
+//			BlockPos pos = event.getPos();
+//			World worldIn = event.getEntityPlayer().world;
+//			float speed = 20F;
+//			int blocks = 0;
+//			for (int i = 1; i < 10; i++) {
+//				BlockPos nextPos = pos.up(i);
+//				BlockState nextState = worldIn.getBlockState(nextPos);
+//				if(nextState.getBlock().matches(BlockTags.LOGS)){
+//					blocks ++;
+//				}
+//			}
+//			event.setNewSpeed(speed / blocks);
+//		}
+//	}
 }

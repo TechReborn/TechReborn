@@ -24,6 +24,7 @@
 
 package techreborn.blocks;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -38,7 +39,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public final int heatCapacity;
 
 	public BlockMachineCasing(int heatCapacity) {
-		super(Block.Settings.of(Material.METAL).strength(2f).sounds(BlockSoundGroup.METAL));
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
 		this.heatCapacity = heatCapacity;
 	}
 

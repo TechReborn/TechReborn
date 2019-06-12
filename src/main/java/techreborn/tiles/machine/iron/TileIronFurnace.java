@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-
+import net.minecraft.recipe.RecipeType;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -86,11 +86,11 @@ public class TileIronFurnace extends TileMachineBase
 			this.updateState();
 		}
 		if (this.fuel <= 0 && this.canSmelt()) {
-			this.fuel = this.fuelGague = (int) (FurnaceBlockEntity.getBurnTimes().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
+			this.fuel = this.fuelGague = (int) (FurnaceBlockEntity.createFuelTimeMap().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
 			if (this.fuel > 0) {
 				// Fuel slot
 				ItemStack fuelStack = inventory.getInvStack(this.fuelslot);
-				if (fuelStack.getItem().hasRecipeRemainder(fuelStack)) {
+				if (fuelStack.getItem().hasRecipeRemainder()) {
 					inventory.setStackInSlot(this.fuelslot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
 				} else if (fuelStack.getAmount() > 1) {
 					inventory.shrinkSlot(this.fuelslot, 1);
@@ -120,7 +120,7 @@ public class TileIronFurnace extends TileMachineBase
 
 	public void cookItems() {
 		if (this.canSmelt()) {
-			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(this.input1));
+			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
 
 			if (inventory.getInvStack(this.output).isEmpty()) {
 				inventory.setStackInSlot(this.output, itemstack.copy());
@@ -138,7 +138,7 @@ public class TileIronFurnace extends TileMachineBase
 	public boolean canSmelt() {
 		if (inventory.getInvStack(this.input1).isEmpty())
 			return false;
-		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, inventory.getInvStack(this.input1));
+		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
 		if (itemstack.isEmpty())
 			return false;
 		if (inventory.getInvStack(this.output).isEmpty())
@@ -154,7 +154,7 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	public ItemStack getResultFor(final ItemStack stack) {
-		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, VanillaRecipeTypes.SMELTING, stack);
+		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}
@@ -178,7 +178,7 @@ public class TileIronFurnace extends TileMachineBase
 	public static IInventoryAccess<TileIronFurnace> getInvetoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				boolean isFuel = FurnaceBlockEntity.isItemFuel(stack);
+				boolean isFuel = FurnaceBlockEntity.canUseAsFuel(stack);
 				if(isFuel){
 					ItemStack fuelSlotStack = tile.inventory.getInvStack(tile.fuelslot);
 					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxAmount() != fuelSlotStack.getAmount()){

@@ -26,11 +26,13 @@ package techreborn.init;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.registration.RebornRegister;
+import reborncore.fluid.Fluid;
+import reborncore.fluid.FluidStack;
+import reborncore.fluid.FluidUtil;
 import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
@@ -368,7 +370,7 @@ public class ModRecipes {
 
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {
-		return FluidUtil.getFilledBucket(new FluidStack(fluid, Fluid.BUCKET_VOLUME));
+		return FluidUtil.getFilledBucket(new FluidStack(fluid, 1000));
 	}
 
 }

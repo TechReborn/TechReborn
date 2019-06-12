@@ -30,8 +30,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.crafting.Recipe;
-import reborncore.common.crafting.RecipeType;
 import techreborn.tiles.machine.multiblock.TileIndustrialBlastFurnace;
 
 public class BlastFurnaceRecipe extends RebornRecipe {

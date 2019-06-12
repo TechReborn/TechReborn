@@ -26,6 +26,8 @@ package techreborn.items.tool.industrial;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
@@ -42,14 +44,10 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -68,7 +66,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 
 	// 4M FE max charge with 1k charge rate
 	public ItemNanosaber() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).setNoRepair().maxStackSize(1));
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 		this.addProperty(new Identifier("techreborn:active"), new ItemPropertyGetter() {
 			@Override
 			@Environment(EnvType.CLIENT)
@@ -103,22 +101,23 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 		}
 	}
 
+	//TODO needs a stack aware version added in
 	// Item
-	@Override
-	public Multimap<String, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-		Multimap<String, EntityAttributeModifier> multimap = HashMultimap.<String, EntityAttributeModifier>create();
-		int modifier = 0;
-		if (ItemUtils.isActive(stack)) {
-			modifier = 9;
-		}
-		if (slot == EquipmentSlot.MAINHAND) {
-			multimap.put(EntityAttributes.ATTACK_DAMAGE.getId(),
-				new EntityAttributeModifier(MODIFIER_DAMAGE, "Weapon modifier", (double) modifier, 0));
-			multimap.put(EntityAttributes.ATTACK_SPEED.getId(),
-				new EntityAttributeModifier(MODIFIER_SWING_SPEED, "Weapon modifier", -2.4000000953674316D, 0));
-		}
-		return multimap;
-	}
+//	@Override
+//	public Multimap<String, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+//		Multimap<String, EntityAttributeModifier> multimap = HashMultimap.<String, EntityAttributeModifier>create();
+//		int modifier = 0;
+//		if (ItemUtils.isActive(stack)) {
+//			modifier = 9;
+//		}
+//		if (slot == EquipmentSlot.MAINHAND) {
+//			multimap.put(EntityAttributes.ATTACK_DAMAGE.getId(),
+//				new EntityAttributeModifier(MODIFIER_DAMAGE, "Weapon modifier", (double) modifier, 0));
+//			multimap.put(EntityAttributes.ATTACK_SPEED.getId(),
+//				new EntityAttributeModifier(MODIFIER_SWING_SPEED, "Weapon modifier", -2.4000000953674316D, 0));
+//		}
+//		return multimap;
+//	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
@@ -170,7 +169,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 	}
 
 	@Override
-	public boolean isRepairable() {
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
 		return false;
 	}
 

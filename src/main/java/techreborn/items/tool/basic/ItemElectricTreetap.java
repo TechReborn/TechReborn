@@ -24,28 +24,23 @@
 
 package techreborn.items.tool.basic;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.TechRebornAPI;
 import techreborn.init.TRContent;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by modmuss50 on 05/11/2016.

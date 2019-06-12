@@ -30,7 +30,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.ExtendedPacketBuffer;
@@ -121,7 +120,7 @@ public class ServerboundPackets {
 					ItemStack stack = playerMP.inventory.getInvStack(i);
 					if (stack.getItem() == TRContent.MANUAL) {
 						playerMP.inventory.removeInvStack(i);
-						playerMP.inventory.addItemStackToInventory(new ItemStack(Items.BOOK));
+						playerMP.inventory.insertStack(new ItemStack(Items.BOOK));
 						//TODO 1.13
 						//playerMP.inventory.addItemStackToInventory(OreUtil.getStackFromName("ingotRefinedIron"));
 						return;

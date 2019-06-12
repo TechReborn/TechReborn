@@ -24,7 +24,7 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.Block;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 import reborncore.common.BaseBlock;
@@ -32,6 +32,6 @@ import reborncore.common.BaseBlock;
 public class BlockMachineFrame extends BaseBlock {
 
 	public BlockMachineFrame() {
-		super(Block.Settings.of(Material.METAL).strength(1f).sounds(BlockSoundGroup.METAL));
+		super(FabricBlockSettings.of(Material.METAL).strength(1f, 1f).sounds(BlockSoundGroup.METAL).build());
 	}
 }

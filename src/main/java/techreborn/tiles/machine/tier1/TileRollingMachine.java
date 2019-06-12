@@ -25,6 +25,7 @@
 package techreborn.tiles.machine.tier1;
 
 import net.minecraft.container.Container;
+import net.minecraft.container.ContainerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -50,6 +51,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -223,7 +225,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		List<Integer> possibleSlots = new ArrayList<>();
 		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
 			ItemStack stackInSlot = inventory.getInvStack(s);
-			Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
+			Ingredient ingredient = (Ingredient) currentRecipe.getPreviewInputs().get(s);
 			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(s);
@@ -405,6 +407,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	private static class RollingTileContainer extends Container {
+
+		protected RollingTileContainer() {
+			super(null, 0);
+		}
 
 		@Override
 		public boolean canUse(final PlayerEntity entityplayer) {

@@ -24,6 +24,8 @@
 
 package techreborn.items.tool.industrial;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -31,21 +33,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
@@ -66,7 +63,6 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	// 4M FE max charge with 1k charge rate
 	public ItemOmniTool() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
-		blockBreakingSpeed = 13F;
 	}
 	
 	// ItemPickaxe
@@ -128,7 +124,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	}
 
 	@Override
-	public boolean isRepairable() {
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
 		return false;
 	}
 

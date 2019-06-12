@@ -30,8 +30,6 @@ import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
-
-
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -82,7 +80,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
 		final BlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = ((centerBlock.getBlock() instanceof FluidBlock
-				|| centerBlock.getBlock() instanceof IFluidBlock) 
+				|| centerBlock.getBlock() instanceof FluidBlock)
 				&& centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
 	}
@@ -90,7 +88,8 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	private static IInventoryAccess<TileIndustrialGrinder> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(slotID == 1){
-				return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
+				//TODO check if the item has fluid in it
+				//return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
 			}
 			return true;
 		};

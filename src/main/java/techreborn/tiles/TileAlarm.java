@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Tickable;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
@@ -42,7 +42,7 @@ import techreborn.init.TRTileEntities;
 import techreborn.utils.MessageIDs;
 
 public class TileAlarm extends BlockEntity 
-	implements ITickable, IToolDrop {
+	implements Tickable, IToolDrop {
 	private int selectedSound = 1;
 
 	public TileAlarm() {

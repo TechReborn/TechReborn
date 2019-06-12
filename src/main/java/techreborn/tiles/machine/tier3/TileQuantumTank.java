@@ -118,13 +118,7 @@ public class TileQuantumTank extends TileMachineBase
 		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
-
-	@Override
-	public void onDataPacket(final ClientConnection net, final BlockEntityUpdateS2CPacket packet) {
-		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		fromTag(packet.getCompoundTag());
-	}
-
+	
 	// ItemHandlerProvider
 	@Override
 	public Inventory<TileQuantumTank> getInventory() {

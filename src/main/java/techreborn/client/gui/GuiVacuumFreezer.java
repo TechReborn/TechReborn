@@ -88,7 +88,7 @@ public class GuiVacuumFreezer extends GuiBase {
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
+		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.

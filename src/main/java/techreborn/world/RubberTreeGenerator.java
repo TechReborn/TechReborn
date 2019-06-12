@@ -32,11 +32,10 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
-
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class RubberTreeGenerator extends SaplingGenerator implements IWorldGenerator {
+public class RubberTreeGenerator extends SaplingGenerator {
 
 	boolean isWorldGen = true;
 
@@ -179,8 +178,4 @@ public class RubberTreeGenerator extends SaplingGenerator implements IWorldGener
 		return false;
 	}
 
-	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator chunkGenerator, ChunkManager chunkProvider) {
-
-	}
 }

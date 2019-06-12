@@ -24,6 +24,7 @@
 
 package techreborn.blocks.transformers;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -56,7 +57,7 @@ public abstract class BlockTransformer extends BaseTileBlock {
 	public String name;
 
 	public BlockTransformer(String name) {
-		super(Block.Settings.of(Material.METAL).strength(2f));
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));

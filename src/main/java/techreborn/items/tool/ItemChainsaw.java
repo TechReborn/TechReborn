@@ -24,25 +24,21 @@
 
 package techreborn.items.tool;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
@@ -62,7 +58,6 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	public ItemChainsaw(ToolMaterials material, int energyCapacity, float unpoweredSpeed) {
 		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
 		this.maxCharge = energyCapacity;
-		this.blockBreakingSpeed = unpoweredSpeed;
 
 		this.addProperty(new Identifier("techreborn", "animated"), new ItemPropertyGetter() {
 			@Override
@@ -81,7 +76,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	@Override
 	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
 		if (new ItemPowerManager(stack).getEnergyStored() >= cost
-				&& (state.getBlock().isToolEffective(state, ToolType.AXE) || state.getMaterial() == Material.WOOD)) {
+				&& (state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
 			return super.getBlockBreakingSpeed(stack, state);
@@ -122,12 +117,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	}
 
 	@Override
-	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isEqualIgnoreTags(oldStack));
-	}
-
-	@Override
-	public boolean isRepairable() {
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
 		return false;
 	}
 

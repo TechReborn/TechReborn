@@ -26,24 +26,10 @@ package techreborn.proxies;
 
 import net.minecraft.ChatFormat;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.item.ItemStack;
-
-
-
-
 import reborncore.api.tile.IUpgradeable;
-import reborncore.client.IconSupplier;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.slot.GuiFluidConfiguration;
-import reborncore.client.gui.builder.slot.GuiSlotConfiguration;
 import reborncore.client.hud.StackInfoHUD;
-import techreborn.client.ClientEventHandler;
-import techreborn.client.keybindings.KeyBindings;
-import techreborn.client.render.entitys.RenderNukePrimed;
-import techreborn.entities.EntityNukePrimed;
-import techreborn.events.StackToolTipEvent;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
@@ -54,19 +40,19 @@ public class ClientProxy extends CommonProxy {
 	public void preInit() {
 		super.preInit();
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
-		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
-		MinecraftForge.EVENT_BUS.register(new IconSupplier());
-		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
+//		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
+//		MinecraftForge.EVENT_BUS.register(new IconSupplier());
+//		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 
 	@Override
 	public void init() {
 		super.init();
-		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
-		MinecraftForge.EVENT_BUS.register(GuiSlotConfiguration.class);
-		MinecraftForge.EVENT_BUS.register(GuiFluidConfiguration.class);
+//		MinecraftForge.EVENT_BUS.register(new StackToolTipEvent());
+//		MinecraftForge.EVENT_BUS.register(GuiSlotConfiguration.class);
+//		MinecraftForge.EVENT_BUS.register(GuiFluidConfiguration.class);
 		// TODO FIX ME
-		ClientRegistry.registerKeyBinding(KeyBindings.config);
+		//ClientRegistry.registerKeyBinding(KeyBindings.config);
 //		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 //		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
@@ -87,13 +73,13 @@ public class ClientProxy extends CommonProxy {
 		return super.getUpgradeConfigText();
 	}
 
-	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
-
-		@Override
-		public EntityRenderer<? super EntityNukePrimed> createRenderFor(EntityRenderDispatcher manager) {
-			return new RenderNukePrimed(manager);
-		}
-	}
+//	public class RenderManagerNuke implements IRenderFactory<EntityNukePrimed> {
+//
+//		@Override
+//		public EntityRenderer<? super EntityNukePrimed> createRenderFor(EntityRenderDispatcher manager) {
+//			return new RenderNukePrimed(manager);
+//		}
+//	}
 
 	@Override
 	public boolean fancyGraphics() {

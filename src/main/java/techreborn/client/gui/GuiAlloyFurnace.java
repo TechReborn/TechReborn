@@ -28,6 +28,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Identifier;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
 
@@ -39,7 +40,7 @@ public class GuiAlloyFurnace extends AbstractContainerScreen {
 	TileIronAlloyFurnace alloyfurnace;
 
 	public GuiAlloyFurnace(final PlayerEntity player, final TileIronAlloyFurnace alloyFurnace) {
-		super(alloyFurnace.createContainer(player));
+		super(alloyFurnace.createContainer(player), player.inventory, new TextComponent("techreborn.alloy_furnace"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
 		this.alloyfurnace = alloyFurnace;
@@ -47,7 +48,7 @@ public class GuiAlloyFurnace extends AbstractContainerScreen {
 
 	@Override
 	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.drawDefaultBackground();
+		this.renderBackground();
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.minecraft.getTextureManager().bindTexture(GuiAlloyFurnace.texture);
 		final int k = (this.width - this.containerWidth) / 2;

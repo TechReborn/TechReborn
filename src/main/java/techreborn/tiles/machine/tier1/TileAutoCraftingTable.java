@@ -31,10 +31,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.Direction;
-
-
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -93,7 +93,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 					return lastRecipe;
 				}
 			}
-			for (Recipe testRecipe : TRRecipeHandler.getRecipes(world, VanillaRecipeTypes.CRAFTING)) {
+			for (Recipe testRecipe : TRRecipeHandler.getRecipes(world, RecipeType.CRAFTING)) {
 				if (testRecipe.matches(crafting, world)) {
 					lastRecipe = testRecipe;
 					return testRecipe;
@@ -105,7 +105,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	public CraftingInventory getCraftingInventory() {
 		if (inventoryCrafting == null) {
-			inventoryCrafting = new CraftingInventory(new Container() {
+			inventoryCrafting = new CraftingInventory(new Container(null, -1) {
 				@Override
 				public boolean canUse(PlayerEntity playerIn) {
 					return false;
@@ -125,7 +125,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			for (int i = 0; i < 9; i++) {
 				stacksInSlots[i] = inventory.getInvStack(i).getAmount();
 			}
-			for (Ingredient ingredient : recipe.getPreviewInputs()) {
+
+			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
+			for (Ingredient ingredient : ingredients) {
 				if (ingredient != Ingredient.EMPTY) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
@@ -137,7 +139,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 						if (stacksInSlots[i] > requiredSize) {
 							if (ingredient.method_8093(stack)) {
 								if (stack.getItem().getRecipeRemainder() != null) {
-									if (!hasRoomForExtraItem(stack.getItem().getRecipeRemainder(stack))) {
+									if (!hasRoomForExtraItem(new ItemStack(stack.getItem().getRecipeRemainder()))) {
 										continue;
 									}
 								}
@@ -188,7 +190,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			return false;
 		}
 		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
-			Ingredient ingredient = recipe.getPreviewInputs().get(i);
+			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
+			Ingredient ingredient = ingredients.get(i);
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getInvStack(i);
 			if (ingredient.method_8093(bestSlot)) {
@@ -220,8 +223,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 	private void handleContainerItem(ItemStack stack) {
-		if (stack.getItem().hasRecipeRemainder(stack)) {
-			ItemStack containerItem = stack.getItem().getRecipeRemainder(stack);
+		if (stack.getItem().hasRecipeRemainder()) {
+			ItemStack containerItem = new ItemStack(stack.getItem().getRecipeRemainder());
 			ItemStack extraOutputSlot = inventory.getInvStack(10);
 			if (hasOutputSpace(containerItem, 10)) {
 				if (extraOutputSlot.isEmpty()) {
@@ -259,10 +262,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		if (recipe == null) {
 			return -1;
 		}
+		DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
 		List<Integer> possibleSlots = new ArrayList<>();
 		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
 			ItemStack stackInSlot = inventory.getInvStack(i);
-			Ingredient ingredient = recipe.getPreviewInputs().get(i);
+			Ingredient ingredient = ingredients.get(i);
 			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(stack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);

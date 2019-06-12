@@ -25,31 +25,21 @@
 package techreborn.blocks;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.Material;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
 
 public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
 		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build());
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, EnvTypeANCE, PERSISTENT));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, DISTANCE, PERSISTENT));
 	}
-	
-	@Override
-	public ItemConvertible getItemDropped(BlockState state, World worldIn, BlockPos pos, int fortune) {
-		return TRContent.RUBBER_SAPLING;
-	}
+
 }

@@ -24,10 +24,11 @@
 
 package techreborn.init;
 
-import java.util.function.Supplier;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Lazy;
+
+import java.util.function.Supplier;
 
 //TODO: Use tags
 public enum TRToolTier implements ToolMaterial {

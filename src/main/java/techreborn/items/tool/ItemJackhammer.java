@@ -34,21 +34,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.utils.TagUtils;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
@@ -59,7 +55,6 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 
 	public ItemJackhammer(ToolMaterials material, int energyCapacity) {
 		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
-		blockBreakingSpeed = 20F;
 		this.maxCharge = energyCapacity;
 	}
 
@@ -93,14 +88,9 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 	}
 
 	// Item
-	@Override
-	public boolean canHarvestBlock( final ItemStack stack, final BlockState state) {
-		return TagUtils.isOre(state, "stone")
-			|| state.getMaterial() == Material.STONE && new ItemPowerManager(stack).getEnergyStored() >= cost;
-	}
 
 	@Override
-	public boolean isRepairable() {
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
 		return false;
 	}
 
@@ -117,11 +107,6 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
-	public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
-		return !(newStack.isEqualIgnoreTags(oldStack));
 	}
 
 	// IEnergyItemInfo

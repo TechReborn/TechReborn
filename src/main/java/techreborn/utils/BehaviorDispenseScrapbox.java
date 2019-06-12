@@ -32,7 +32,7 @@ import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
-import reborncore.common.crafting.Recipe;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
@@ -50,7 +50,7 @@ public class BehaviorDispenseScrapbox extends ItemDispenserBehavior {
 	@Override
 	protected ItemStack dispenseStack(BlockPointer source, ItemStack stack) {
 		if (dispenseScrapboxes) {
-			List<Recipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(source.getWorld());
+			List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(source.getWorld());
 			int random = new Random().nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 			stack.split(1);

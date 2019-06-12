@@ -24,60 +24,6 @@
 
 package techreborn.events;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-
-
-
-
-import reborncore.RebornRegistry;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.BucketHandler;
-import techreborn.TechReborn;
-import techreborn.blocks.*;
-import techreborn.config.ConfigTechReborn;
-import techreborn.entities.EntityNukePrimed;
-import techreborn.init.TRArmorMaterial;
-import techreborn.init.TRContent;
-import techreborn.init.TRContent.*;
-import techreborn.init.TRTileEntities;
-import techreborn.init.TRToolTier;
-import techreborn.itemblocks.ItemBlockRubberSapling;
-import techreborn.items.DynamicCell;
-import techreborn.items.ItemFrequencyTransmitter;
-import techreborn.items.ItemManual;
-import techreborn.items.ItemScrapBox;
-import techreborn.items.armor.ItemCloakingDevice;
-import techreborn.items.armor.ItemLapotronicOrbpack;
-import techreborn.items.armor.ItemLithiumIonBatpack;
-import techreborn.items.armor.ItemTRArmour;
-import techreborn.items.battery.*;
-import techreborn.items.tool.ItemDebugTool;
-import techreborn.items.tool.ItemTreeTap;
-import techreborn.items.tool.ItemWrench;
-import techreborn.items.tool.advanced.ItemAdvancedChainsaw;
-import techreborn.items.tool.advanced.ItemAdvancedDrill;
-import techreborn.items.tool.advanced.ItemAdvancedJackhammer;
-import techreborn.items.tool.advanced.ItemRockCutter;
-import techreborn.items.tool.basic.ItemBasicChainsaw;
-import techreborn.items.tool.basic.ItemBasicDrill;
-import techreborn.items.tool.basic.ItemBasicJackhammer;
-import techreborn.items.tool.basic.ItemElectricTreetap;
-import techreborn.items.tool.industrial.*;
-import techreborn.items.tool.vanilla.ItemTRAxe;
-import techreborn.items.tool.vanilla.ItemTRHoe;
-import techreborn.items.tool.vanilla.ItemTRPickaxe;
-import techreborn.items.tool.vanilla.ItemTRSpade;
-import techreborn.items.tool.vanilla.ItemTRSword;
-import techreborn.utils.InitUtils;
-
-import java.util.Arrays;
-
 /**
  * @author drcrazy
  *

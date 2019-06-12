@@ -24,12 +24,14 @@
 
 package techreborn.items.tool.industrial;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,13 +42,17 @@ import net.minecraft.item.ToolMaterials;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BoundingBox;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.ChatUtils;
@@ -76,11 +82,12 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (!(playerIn instanceof PlayerEntity)) {
 			return new HashSet<BlockPos>();
 		}
-		HitResult raytrace = rayTrace(worldIn, playerIn, false);
-		if(raytrace == null || raytrace.sideHit == null){
-			return Collections.emptySet();
-		}
-		Direction enumfacing = raytrace.sideHit;
+//		HitResult hitResult = getHitResult(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
+//		if(hitResult == null || hitResult.sideHit == null){
+//			return Collections.emptySet();
+//		}
+		//TODO fix the raytracing for this side
+		Direction enumfacing = Direction.SOUTH;
 		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
@@ -121,9 +128,9 @@ public class ItemIndustrialDrill extends ItemDrill {
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
-			blockState.getBlock().removedByPlayer(blockState, world, pos, playerIn, true, null);
+			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);
 			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
-			world.removeBlock(pos);
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			world.removeBlockEntity(pos);
 		}
 	}
@@ -203,7 +210,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 	}
 
 	@Override
-	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
+	public void onUsingTick(World world, LivingEntity entity,  ItemStack stack, int i) {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
@@ -213,7 +220,6 @@ public class ItemIndustrialDrill extends ItemDrill {
 			}
 			stack.getTag().putBoolean("isActive", false);
 		}
-		return false;
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -27,6 +27,7 @@ package techreborn.client.container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.chat.TextComponent;
 import reborncore.client.gui.slots.SlotFilteredVoid;
 import reborncore.common.container.RebornContainer;
 import reborncore.common.util.Inventory;
@@ -38,7 +39,7 @@ public class ContainerDestructoPack extends RebornContainer {
 	private Inventory<?> inv;
 
 	public ContainerDestructoPack(PlayerEntity player) {
-		super(null);
+		super(null, new TextComponent("destructopack"));
 		this.player = player;
 		inv = new Inventory<>(1, "destructopack", 64, null);
 		buildContainer();

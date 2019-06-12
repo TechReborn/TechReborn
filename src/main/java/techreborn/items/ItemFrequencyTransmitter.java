@@ -24,6 +24,8 @@
 
 package techreborn.items;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
@@ -43,8 +45,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraft.world.dimension.DimensionType;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
@@ -92,8 +93,8 @@ public class ItemFrequencyTransmitter extends Item {
 					ChatFormat.GRAY + " Z: " +
 					ChatFormat.GOLD + pos.getZ() +
 					ChatFormat.GRAY + " " + I18n.translate("techreborn.message.in") + " " +
-					ChatFormat.GOLD + world.getDimension().getType().getRegistryName()
-					+ " (" + world.getDimension().getType().getRegistryName() + ")"));
+					ChatFormat.GOLD + getDimName(world.getDimension().getType())
+					+ " (" + getDimName(world.getDimension().getType()) + ")"));
 		}
 		return ActionResult.SUCCESS;
 	}
@@ -126,11 +127,15 @@ public class ItemFrequencyTransmitter extends Item {
 			tooltip.add(new TextComponent(ChatFormat.GRAY + "X: " + ChatFormat.GOLD + x));
 			tooltip.add(new TextComponent(ChatFormat.GRAY + "Y: " + ChatFormat.GOLD + y));
 			tooltip.add(new TextComponent(ChatFormat.GRAY + "Z: " + ChatFormat.GOLD + z));
-			tooltip.add(new TextComponent(ChatFormat.DARK_GRAY + Registry.DIMENSION.get(dim).getRegistryName().toString()));
+			tooltip.add(new TextComponent(ChatFormat.DARK_GRAY + getDimName(Registry.DIMENSION.get(dim)).toString()));
 
 		} else {
 			tooltip.add(new TextComponent(ChatFormat.GRAY + I18n.translate("techreborn.message.noCoordsSet")));
 		}
+	}
+
+	private static Identifier getDimName(DimensionType type){
+		return Registry.DIMENSION.getId(type);
 	}
 
 	public static class StackInfoFreqTransmitter extends StackInfoElement {
@@ -149,7 +154,7 @@ public class ItemFrequencyTransmitter extends Item {
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");
 					int coordDim = stack.getTag().getInt("dim");
-					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + Registry.DIMENSION.get(coordDim).getRegistryName().toString() + " (" + coordDim + ")";
+					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION.get(coordDim)).toString() + " (" + coordDim + ")";
 				} else {
 					text = grey + I18n.translate("techreborn.message.noCoordsSet");
 				}

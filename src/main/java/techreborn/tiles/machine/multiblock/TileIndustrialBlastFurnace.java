@@ -139,13 +139,6 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 			super.tick();
 		}		
 	}
-
-	// TileMachineBase
-	@Override
-	public void onDataPacket(final ClientConnection net, final BlockEntityUpdateS2CPacket packet) {
-		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());
-		fromTag(packet.getCompoundTag());
-	}
 	
 	// IContainerProvider
 	@Override

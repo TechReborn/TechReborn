@@ -27,10 +27,10 @@ package techreborn.tiles.generator.basic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
-
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -70,7 +70,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	public static int getItemBurnTime(ItemStack stack) {
-		return FurnaceBlockEntity.getBurnTimes().get(stack) / 4;
+		return FurnaceBlockEntity.createFuelTimeMap().get(stack) / 4;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 				updateState();
 				burnItem = inventory.getInvStack(fuelSlot);
 				if (inventory.getInvStack(fuelSlot).getAmount() == 1) {
-					if (inventory.getInvStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getInvStack(fuelSlot).getItem() == ForgeMod.getInstance().universalBucket) {
+					if (inventory.getInvStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getInvStack(fuelSlot).getItem() instanceof BucketItem) {
 						inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
 						inventory.setStackInSlot(fuelSlot, ItemStack.EMPTY);

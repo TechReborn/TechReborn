@@ -34,7 +34,7 @@ import java.security.InvalidParameterException;
  * @author drcrazy
  *
  */
-public class EnvTypeillationTowerRecipes extends RecipeMethods {
+public class DistillationTowerRecipes extends RecipeMethods {
 
 	public static void init() {
 		register(ItemCells.getCellByName("oil", 16), 1400, 13, getMaterial("diesel", 16, Type.CELL), getMaterial("sulfuricAcid", 16, Type.CELL), getMaterial("glyceryl", Type.CELL));

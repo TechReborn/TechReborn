@@ -25,16 +25,12 @@
 package techreborn.blocks;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-
-import java.util.Random;
 
 public class BlockReinforcedGlass extends GlassBlock {
 

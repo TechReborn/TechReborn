@@ -25,8 +25,8 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GuiLighting;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
@@ -54,21 +54,7 @@ public class GuiAutoCrafting extends GuiBase {
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
-		if (stack != EMPTY) {
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			GuiLighting.enableForItems();
-			itemRenderer.renderGuiItem(stack, x, y);
-			GlStateManager.disableLighting();
-			GlStateManager.pushMatrix();
-			GlStateManager.disableDepthTest();
-			GlStateManager.color4f(1, 1, 1, 1F / 3F);
-			drawRect(x - 4, y- 4, x + 20, y + 20, -2139062144);
-			GlStateManager.enableDepthTest();
-			GlStateManager.color4f(1F, 1F, 1F, 1F);
-			GlStateManager.enableBlend();
-			GlStateManager.popMatrix();
-		}
+		MinecraftClient.getInstance().getItemRenderer().renderGuiItem(stack, x, y);
 	}
 
 	@Override
@@ -95,7 +81,7 @@ public class GuiAutoCrafting extends GuiBase {
 		}
 		drawOutputSlot(145, 42, layer);
 		drawOutputSlot(95, 42, layer);
-		draw("Inventory", 8, 82, 4210752, layer);
+		drawString("Inventory", 8, 82, 4210752, layer);
 
 		builder.drawLockButton(this, 145, 4, mouseX, mouseY, layer, tileAutoCraftingTable.locked);
 	}

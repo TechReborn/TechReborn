@@ -32,23 +32,15 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import reborncore.common.multiblock.MultiblockEventHandler;
-import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
-import techreborn.config.ConfigTechReborn;
-import techreborn.events.BlockBreakHandler;
-import techreborn.events.TRRecipeHandler;
-import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
-import techreborn.utils.StackWIPHandler;
-import techreborn.world.village.ModLootTables;
 
 public class TechReborn implements ModInitializer {
 
@@ -66,7 +58,6 @@ public class TechReborn implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		MinecraftForge.EVENT_BUS.register(this);
 		INSTANCE = this;
 
 		RegistrationManager registrationManager = new RegistrationManager("techreborn");
@@ -86,7 +77,7 @@ public class TechReborn implements ModInitializer {
 
 		// Registers Chest Loot
 		ModLoot.init();
-		MinecraftForge.EVENT_BUS.register(new ModLoot());
+		//MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
 		//TODO 1.13 registry events
 		//ModSounds.init();
@@ -98,18 +89,18 @@ public class TechReborn implements ModInitializer {
 		// Register Gui Handler
 		//NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		// Event busses
-		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
-		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
-		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
-		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
-		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
+//		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
+//		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
+//		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
+//		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
+//		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
+//		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
 		//Village stuff
-		if (ConfigTechReborn.enableRubberTreePlantation) {
-			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
-			//MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
-			ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
-		}
+//		if (ConfigTechReborn.enableRubberTreePlantation) {
+//			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
+//			//MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
+//			ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
+//		}
 
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {

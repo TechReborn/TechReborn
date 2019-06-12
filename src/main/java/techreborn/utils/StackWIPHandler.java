@@ -24,6 +24,8 @@
 
 package techreborn.utils;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -31,10 +33,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.TextComponent;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-
-
 import reborncore.common.util.StringUtils;
 import techreborn.init.TRContent;
 
@@ -65,16 +63,16 @@ public class StackWIPHandler {
 		devHeads.add(head);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@SubscribeEvent
-	public void toolTip(ItemTooltipEvent event) {
-		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
-		if (block != null && wipBlocks.contains(block)) {
-			event.getToolTip().add(new TextComponent(ChatFormat.RED + StringUtils.t("techreborn.tooltip.wip")));
-		}
-
-		if (devHeads.contains(event.getItemStack())) {
-			event.getToolTip().add(new TextComponent(ChatFormat.GOLD + "TechReborn Developer"));
-		}
-	}
+//	@Environment(EnvType.CLIENT)
+//	@SubscribeEvent
+//	public void toolTip(ItemTooltipEvent event) {
+//		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
+//		if (block != null && wipBlocks.contains(block)) {
+//			event.getToolTip().add(new TextComponent(ChatFormat.RED + StringUtils.t("techreborn.tooltip.wip")));
+//		}
+//
+//		if (devHeads.contains(event.getItemStack())) {
+//			event.getToolTip().add(new TextComponent(ChatFormat.GOLD + "TechReborn Developer"));
+//		}
+//	}
 }

@@ -36,7 +36,6 @@ import org.apache.commons.lang3.Validate;
 import reborncore.fluid.Fluid;
 import reborncore.fluid.FluidStack;
 import techreborn.TechReborn;
-import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
@@ -49,7 +48,6 @@ public class DynamicCell extends Item {
 
 	public DynamicCell() {
 		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		TRRecipeHandler.hideEntry(this);
 	}
 
 	@Override
@@ -104,7 +102,7 @@ public class DynamicCell extends Item {
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(TRContent.CELL);
-		getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
+		//getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
 		stack.setAmount(stackSize);
 		return stack;
 	}

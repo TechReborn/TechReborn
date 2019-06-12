@@ -38,9 +38,6 @@ import techreborn.blocks.tier1.BlockPlayerDetector;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
-import java.util.Iterator;
-import java.util.function.Consumer;
-
 @RebornRegister(TechReborn.MOD_ID)
 public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop {
 
@@ -70,11 +67,8 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(euPerTick)) {
-				Iterator<PlayerEntity> tIterator = super.world.getPlayers().iterator();
-				while (tIterator.hasNext()) {
-					PlayerEntity player = tIterator.next();
-					if (player.squaredEnvTypeanceTo((double) super.getPos().getX() + 0.5D,
-						(double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
+				for(PlayerEntity player : world.getPlayers()){
+					if (player.distanceTo(player) <= 256.0D) {
 						String type = world.getBlockState(pos).get(BlockPlayerDetector.TYPE);
 						if (type.equals("all")) {// ALL
 							redstone = true;

@@ -24,9 +24,9 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.tiles.generator.advanced.TileDieselGenerator;

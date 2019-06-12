@@ -25,11 +25,9 @@
 package techreborn.tiles.storage.idsu;
 
 import net.minecraft.world.World;
-import net.minecraft.world.storage.WorldSavedDataStorage;
 
 public class IDSUManager {
 	public static IDataIDSU getData(World world) {
-		WorldSavedDataStorage storage = world.getSavedDataStorage();
 		throw new UnsupportedOperationException("needs rewriting anyway");
 //		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, TechReborn.MOD_ID + "_IDSU");
 //

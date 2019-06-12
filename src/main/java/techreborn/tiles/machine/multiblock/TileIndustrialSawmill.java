@@ -30,24 +30,21 @@ import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
-
-
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.FluidUtils;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
-
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
+import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 
@@ -83,7 +80,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
 		final BlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = ((centerBlock.getBlock() instanceof FluidBlock
-				|| centerBlock.getBlock() instanceof IFluidBlock) 
+				|| centerBlock.getBlock() instanceof FluidBlock)
 				&& centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
 	}
@@ -137,7 +134,8 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	private static IInventoryAccess<TileIndustrialSawmill> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
+				//TODO return if the stack can take fluids
+				//return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
 			}
 			return true;
 		};

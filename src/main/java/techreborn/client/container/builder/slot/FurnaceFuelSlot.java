@@ -25,21 +25,21 @@
 package techreborn.client.container.builder.slot;
 
 import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-
 import reborncore.client.gui.slots.BaseSlot;
 
 public class FurnaceFuelSlot extends BaseSlot {
 
-	public FurnaceFuelSlot(IItemHandler inventoryIn, int index, int xPosition, int yPosition) {
+	public FurnaceFuelSlot(Inventory inventoryIn, int index, int xPosition, int yPosition) {
 		super(inventoryIn, index, xPosition, yPosition);
 	}
 
 	@Override
 	public boolean canInsert(ItemStack stack)
 	{
-		return FurnaceBlockEntity.isItemFuel(stack) || isBucket(stack);
+		return FurnaceBlockEntity.canUseAsFuel(stack) || isBucket(stack);
 	}
 
 	@Override

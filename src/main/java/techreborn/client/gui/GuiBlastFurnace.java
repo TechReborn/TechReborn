@@ -24,8 +24,8 @@
 
 package techreborn.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -50,8 +50,8 @@ public class GuiBlastFurnace extends GuiBase {
 	}
 
 	@Override
-	public void initGui() {
-		super.initGui();
+	public void init() {
+		super.init();
 		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
 		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
@@ -96,7 +96,7 @@ public class GuiBlastFurnace extends GuiBase {
 	}
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (button.id == 212 && GuiBase.slotConfigType == SlotConfigType.NONE) {
+		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
 			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.

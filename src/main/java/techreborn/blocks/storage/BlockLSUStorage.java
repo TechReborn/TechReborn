@@ -24,6 +24,7 @@
 
 package techreborn.blocks.storage;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -35,7 +36,6 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
@@ -55,7 +55,7 @@ import techreborn.tiles.storage.lesu.TileLSUStorage;
 public class BlockLSUStorage extends BaseTileBlock {
 
 	public BlockLSUStorage() {
-		super(Block.Settings.of(Material.METAL).strength(2f));
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
 		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

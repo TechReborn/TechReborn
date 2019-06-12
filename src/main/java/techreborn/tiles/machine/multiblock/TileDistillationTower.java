@@ -41,7 +41,7 @@ import techreborn.init.TRTileEntities;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class TileEnvTypeillationTower extends TileGenericMachine implements IContainerProvider {
+public class TileDistillationTower extends TileGenericMachine implements IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "EnvTypeillation_tower", key = "EnvTypeillationTowerMaxInput", comment = "EnvTypeillation Tower Max Input (Value in EU)")
 	public static int maxInput = 128;
@@ -50,7 +50,7 @@ public class TileEnvTypeillationTower extends TileGenericMachine implements ICon
 	
 	public MultiblockChecker multiblockChecker;
 
-	public TileEnvTypeillationTower() {
+	public TileDistillationTower() {
 		super(TRTileEntities.EnvTypeILLATION_TOWER,"EnvTypeillationTower", maxInput, maxEnergy, TRContent.Machine.EnvTypeILLATION_TOWER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };

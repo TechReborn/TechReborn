@@ -29,13 +29,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import techreborn.blocks.BlockNuke;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -47,8 +48,14 @@ public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 		this.field_4673 = 0.5F;
 	}
 
+	@Nullable
 	@Override
-	public void doRender(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
+	protected Identifier getTexture(EntityNukePrimed entityNukePrimed) {
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
+	}
+
+	@Override
+	public void render(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		BlockRenderManager blockrendererdispatcher = MinecraftClient.getInstance().getBlockRenderManager();
 		GlStateManager.pushMatrix();
 		GlStateManager.translatef((float) x, (float) y + 0.5F, (float) z);
@@ -84,8 +91,4 @@ public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 		super.render(entity, x, y, z, entityYaw, partialTicks);
 	}
 
-	@Override
-	protected Identifier getEntityTexture(EntityNukePrimed entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
-	}
 }

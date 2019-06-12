@@ -28,7 +28,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-
+import net.minecraft.util.registry.Registry;
 import reborncore.common.recipes.ICrafterSoundHanlder;
 import reborncore.common.recipes.RecipeCrafter;
 
@@ -62,10 +62,9 @@ public class ModSounds {
 	}
 
 	private static SoundEvent getSound(String str) {
-		Identifier resourceLocation = new Identifier("techreborn", str);
-		SoundEvent soundEvent = new SoundEvent(resourceLocation);
-		soundEvent.setRegistryName(resourceLocation);
-		return GameData.register_impl(soundEvent);
+		Identifier identifier = new Identifier("techreborn", str);
+		SoundEvent soundEvent = new SoundEvent(identifier);
+		return Registry.register(Registry.SOUND_EVENT, identifier, soundEvent);
 	}
 
 	public static class SoundHandler implements ICrafterSoundHanlder {
