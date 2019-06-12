@@ -6,59 +6,28 @@
 			}
 		},
 		{
-			"when": {
-				"north": "true"
-			},
-			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side",
-				"y": 90
-			}
+			"when": { "north": "true" },
+			"apply": { "model": "techreborn:block/cable/copper_cable_side" }
 		},
 		{
-			"when": {
-				"east": "true"
-			},
-			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side",
-				"y": 180
-			}
+			"when": { "east": "true" },
+			"apply": { "model": "techreborn:block/cable/copper_cable_side", "y": 90 }
 		},
 		{
-			"when": {
-				"south": "true"
-			},
-			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side",
-				"y": 270
-			}
+			"when": { "south": "true" },
+			"apply": { "model": "techreborn:block/cable/copper_cable_side", "y": 180 }
 		},
 		{
-			"when": {
-				"west": "true"
-			},
-			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side"
-			}
+			"when": { "west": "true" },
+			"apply": { "model": "techreborn:block/cable/copper_cable_side", "y": 270 }
 		},
 		{
-			"when": {
-				"up": "true"
-			},
-			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side",
-				"x": 270,
-				"y": 90
-			}
+			"when": { "up": "true" },
+			"apply": { "model": "techreborn:block/cable/copper_cable_side", "x": 270}
 		},
 		{
-			"when": {
-				"down": "true"
-			},
-			"apply": {
-				"model": "techreborn:block/cable/copper_cable_side",
-				"x": 90,
-				"y": 90
-			}
+			"when": { "down": "true" },
+			"apply": { "model": "techreborn:block/cable/copper_cable_side", "x": 90 }
 		}
 	]
 }
