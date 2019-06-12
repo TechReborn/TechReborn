@@ -36,12 +36,14 @@ import reborncore.common.util.Torus;
 import techreborn.api.TechRebornAPI;
 import techreborn.client.GuiHandler;
 import techreborn.events.ModRegistry;
+import techreborn.events.StackToolTipHandler;
 import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
+import techreborn.utils.StackWIPHandler;
 
 public class TechReborn implements ModInitializer {
 
@@ -58,7 +60,6 @@ public class TechReborn implements ModInitializer {
 
 		RegistrationManager registrationManager = new RegistrationManager("techreborn");
 
-		//CommonProxy.isChiselAround = Loader.isModLoaded("ctm");
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		//Done like this to load them here
 		ModFluids.values();
@@ -81,12 +82,15 @@ public class TechReborn implements ModInitializer {
 		ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
+
+		StackToolTipHandler.setup();
+		StackWIPHandler.setup();
+
 		// WorldGen
 		//GameRegistry.registerWorldGenerator(worldGen, 0);
 		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
 		// Event busses
-//		MinecraftForge.EVENT_BUS.register(new StackWIPHandler());
 //		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
 //		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
 //		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());

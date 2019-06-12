@@ -24,8 +24,6 @@
 
 package techreborn.utils;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -33,6 +31,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.TextComponent;
+import reborncore.api.events.ItemTooltipCallback;
 import reborncore.common.util.StringUtils;
 import techreborn.init.TRContent;
 
@@ -42,10 +41,10 @@ import java.util.ArrayList;
  * Created by Mark on 23/03/2016.
  */
 public class StackWIPHandler {
-	ArrayList<Block> wipBlocks = new ArrayList<>();
+	private static ArrayList<Block> wipBlocks = new ArrayList<>();
 	public static ArrayList<ItemStack> devHeads = new ArrayList<>();
 
-	public StackWIPHandler() {
+	public static void setup() {
 		wipBlocks.add(TRContent.Machine.MAGIC_ENERGY_ABSORBER.block);
 		wipBlocks.add(TRContent.Machine.CHUNK_LOADER.block);
 		wipBlocks.add(TRContent.Machine.MAGIC_ENERGY_CONVERTER.block);
@@ -54,25 +53,24 @@ public class StackWIPHandler {
 		addHead("Gigabit101");
 		addHead("ProfProspector");
 		addHead("Rushmead");
+
+		ItemTooltipCallback.EVENT.register((stack, tooltipContext, components) -> {
+			Block block = Block.getBlockFromItem(stack.getItem());
+			if (block != null && wipBlocks.contains(block)) {
+				components.add(new TextComponent(ChatFormat.RED + StringUtils.t("techreborn.tooltip.wip")));
+			}
+
+			if (devHeads.contains(stack)) {
+				components.add(new TextComponent(ChatFormat.GOLD + "TechReborn Developer"));
+			}
+		});
 	}
 
-	private void addHead(String name) {
+	private static void addHead(String name) {
 		ItemStack head = new ItemStack(Items.PLAYER_HEAD, 3);
 		head.setTag(new CompoundTag());
 		head.getTag().put("SkullOwner", new StringTag(name));
 		devHeads.add(head);
 	}
 
-//	@Environment(EnvType.CLIENT)
-//	@SubscribeEvent
-//	public void toolTip(ItemTooltipEvent event) {
-//		Block block = Block.getBlockFromItem(event.getItemStack().getItem());
-//		if (block != null && wipBlocks.contains(block)) {
-//			event.getToolTip().add(new TextComponent(ChatFormat.RED + StringUtils.t("techreborn.tooltip.wip")));
-//		}
-//
-//		if (devHeads.contains(event.getItemStack())) {
-//			event.getToolTip().add(new TextComponent(ChatFormat.GOLD + "TechReborn Developer"));
-//		}
-//	}
 }
