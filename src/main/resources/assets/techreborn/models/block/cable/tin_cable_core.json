@@ -1,0 +1,6 @@
+{
+    "parent": "techreborn:block/template/template_thin_cable_core",
+    "textures": {
+        "cable": "techreborn:block/cables/tin_cable"
+    }
+}
