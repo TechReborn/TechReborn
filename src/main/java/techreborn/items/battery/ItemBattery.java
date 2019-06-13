@@ -47,10 +47,10 @@ public class ItemBattery extends Item implements IEnergyItemInfo, ItemDurability
 	int maxTransfer = 0;
 
 	public ItemBattery(int maxEnergy, int maxTransfer) {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1).durabilityIfNotSet(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;
-		this.addProperty(new Identifier("techreborn:empty"), new ItemPropertyGetter() {
+		this.addPropertyGetter(new Identifier("techreborn:empty"), new ItemPropertyGetter() {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {

@@ -46,7 +46,7 @@ public class ItemTRArmour extends ArmorItem implements ItemDurabilityExtensions 
 	}
 
 	public ItemTRArmour(ArmorMaterial material, EquipmentSlot slot, String repairOreDict) {
-		super(material, slot, (new Item.Settings()).itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(material, slot, (new Item.Settings()).group(TechReborn.ITEMGROUP).maxCount(1));
 		this.repairOreDict = repairOreDict;
 		if (slot == EquipmentSlot.HEAD)
 			//setTranslationKey(material.name().toLowerCase() + "Helmet");

@@ -30,6 +30,6 @@ import techreborn.TechReborn;
 public class ItemTreeTap extends Item {
 
 	public ItemTreeTap() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1).durabilityIfNotSet(20));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(20));
 	}
 }

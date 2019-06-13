@@ -139,7 +139,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 			return true;
 		}
 		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), stack, true, tags)) {
-			if (stack.getAmount() + inventory.getInvStack(slot).getAmount() <= stack.getMaxAmount()) {
+			if (stack.getCount() + inventory.getInvStack(slot).getCount() <= stack.getMaxCount()) {
 				return true;
 			}
 		}
@@ -241,9 +241,9 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				if (canUseEnergy(currentRecipe.getStartEU())) {
 					useEnergy(currentRecipe.getStartEU());
 					hasStartedCrafting = true;
-					inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getAmount());
+					inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getCount());
 					if (!currentRecipe.getBottomInput().isEmpty()) {
-						inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getAmount());
+						inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getCount());
 					}
 				}
 			}
@@ -264,13 +264,13 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 					if (inventory.getInvStack(outputStackSlot).isEmpty()) {
 						inventory.setStackInSlot(outputStackSlot, currentRecipe.getOutput().copy());
 					} else {
-						inventory.shrinkSlot(outputStackSlot, -currentRecipe.getOutput().getAmount());
+						inventory.shrinkSlot(outputStackSlot, -currentRecipe.getOutput().getCount());
 					}
 					if (validateReactorRecipe(this.currentRecipe)) {
 						crafingTickTime = 0;
-						inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getAmount());
+						inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getCount());
 						if (!currentRecipe.getBottomInput().isEmpty()) {
-							inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getAmount());
+							inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getCount());
 						}
 					} else {
 						resetCrafter();

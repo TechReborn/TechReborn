@@ -55,7 +55,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 
 	// 400k FE with 1k FE\t charge rate
 	public ItemRockCutter() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	// ItemPickaxe
@@ -68,17 +68,17 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 	}
 
 	@Override
-	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 			return 2F;
 		} else {
-			return Items.DIAMOND_PICKAXE.getBlockBreakingSpeed(stack, state);
+			return Items.DIAMOND_PICKAXE.getMiningSpeed(stack, state);
 		}
 	}
 
 	// ItemTool
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
@@ -104,7 +104,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 	}
 
 	@Override
-	public void onCrafted(ItemStack stack, World worldIn, PlayerEntity playerIn) {
+	public void onCraft(ItemStack stack, World worldIn, PlayerEntity playerIn) {
 		if (!stack.hasEnchantments()) {
 			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		}
@@ -127,8 +127,8 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(this);

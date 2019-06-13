@@ -51,13 +51,13 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDu
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	// Item
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
-		ItemPowerManager capEnergy = new ItemPowerManager(context.getItemStack());
+		ItemPowerManager capEnergy = new ItemPowerManager(context.getStack());
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isClient){
 				capEnergy.extractEnergy(cost, false);
@@ -86,8 +86,8 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDu
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);

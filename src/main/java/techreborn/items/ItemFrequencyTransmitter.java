@@ -58,8 +58,8 @@ import java.util.List;
 public class ItemFrequencyTransmitter extends Item {
 
 	public ItemFrequencyTransmitter() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
-		this.addProperty(new Identifier("techreborn", "coords"), new ItemPropertyGetter() {
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		this.addPropertyGetter(new Identifier("techreborn", "coords"), new ItemPropertyGetter() {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
@@ -76,7 +76,7 @@ public class ItemFrequencyTransmitter extends Item {
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
 		BlockPos pos = context.getBlockPos();
-		ItemStack stack = context.getItemStack();
+		ItemStack stack = context.getStack();
 
 		stack.setTag(new CompoundTag());
 		stack.getTag().putInt("x", pos.getX());
@@ -117,7 +117,7 @@ public class ItemFrequencyTransmitter extends Item {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		if (stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x") && stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
 			int x = stack.getTag().getInt("x");
 			int y = stack.getTag().getInt("y");

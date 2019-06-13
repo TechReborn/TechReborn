@@ -62,7 +62,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 
 	// 4M FE max charge with 1k charge rate
 	public ItemOmniTool() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 	
 	// ItemPickaxe
@@ -75,7 +75,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 
 	// ItemTool
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
 		capEnergy.extractEnergy(cost, false);
@@ -106,7 +106,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	// }
 
 	@Override
-	public boolean onEntityDamaged(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
+	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
 		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() >= hitCost) {
 			capEnergy.extractEnergy(hitCost, false);
@@ -129,7 +129,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	}
 
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		tooltip.add(new TextComponent("WIP Coming Soon").applyFormat(ChatFormat.RED));
 		// TODO 
 		// Remember to remove WIP override and imports once complete
@@ -152,9 +152,9 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(
+	public void appendStacks(
 		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.OMNI_TOOL);

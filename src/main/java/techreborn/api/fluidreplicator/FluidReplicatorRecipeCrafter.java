@@ -64,10 +64,10 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 			return false;
 		}
 		ItemStack inputStack = inventory.getInvStack(inputSlots[0]);
-		if (!inputStack.isEqualIgnoreTags(TRContent.Parts.UU_MATTER.getStack())) {
+		if (!inputStack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack())) {
 			return false;
 		}
-		if (inputStack.getAmount() < recipe.getInput()) {
+		if (inputStack.getCount() < recipe.getInput()) {
 			return false;
 		}
 

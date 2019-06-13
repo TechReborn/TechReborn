@@ -80,7 +80,7 @@ public class ModRecipes {
 		ScrapboxRecipes.init();
 		ChemicalReactorRecipes.init();
 		FusionReactorRecipes.init();
-		EnvTypeillationTowerRecipes.init();
+		DistillationTowerRecipes.init();
 		AlloySmelterRecipes.init();
 		FluidReplicatorRecipes.init();
 

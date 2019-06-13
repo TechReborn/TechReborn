@@ -55,12 +55,12 @@ import javax.annotation.Nullable;
 @RebornRegister(TechReborn.MOD_ID)
 public class BlockCable extends BlockWithEntity {
 
-	public static final BooleanProperty EAST = BooleanProperty.create("east");
-	public static final BooleanProperty WEST = BooleanProperty.create("west");
-	public static final BooleanProperty NORTH = BooleanProperty.create("north");
-	public static final BooleanProperty SOUTH = BooleanProperty.create("south");
-	public static final BooleanProperty UP = BooleanProperty.create("up");
-	public static final BooleanProperty DOWN = BooleanProperty.create("down");
+	public static final BooleanProperty EAST = BooleanProperty.of("east");
+	public static final BooleanProperty WEST = BooleanProperty.of("west");
+	public static final BooleanProperty NORTH = BooleanProperty.of("north");
+	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
+	public static final BooleanProperty UP = BooleanProperty.of("up");
+	public static final BooleanProperty DOWN = BooleanProperty.of("down");
 
 	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
 	public static boolean uninsulatedElectrocutionDamage = true;

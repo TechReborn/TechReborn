@@ -117,14 +117,14 @@ public class BlockLamp extends BaseTileBlock {
 	// Block
 	@Override
 	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
-		ACTIVE = BooleanProperty.create("active");
+		ACTIVE = BooleanProperty.of("active");
 		builder.add(FACING, ACTIVE);
 	}
 	
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		for (Direction enumfacing : context.getPlacementFacings()) {
+		for (Direction enumfacing : context.getPlacementDirections()) {
 			BlockState iblockstate = this.getDefaultState().with(FACING, enumfacing.getOpposite());
 			if (iblockstate.canPlaceAt(context.getWorld(), context.getBlockPos())) {
 				return iblockstate;

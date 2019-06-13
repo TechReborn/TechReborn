@@ -56,10 +56,10 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	public boolean isBreaking = false;
 
 	public ItemChainsaw(ToolMaterials material, int energyCapacity, float unpoweredSpeed) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
 
-		this.addProperty(new Identifier("techreborn", "animated"), new ItemPropertyGetter() {
+		this.addPropertyGetter(new Identifier("techreborn", "animated"), new ItemPropertyGetter() {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
@@ -74,18 +74,18 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 
 	// ItemAxe
 	@Override
-	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (new ItemPowerManager(stack).getEnergyStored() >= cost
 				&& (state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
-			return super.getBlockBreakingSpeed(stack, state);
+			return super.getMiningSpeed(stack, state);
 		}
 	}
 
 	// ItemTool
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
@@ -97,7 +97,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	}
 
 	@Override
-	public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
 		return true;
 	}
 

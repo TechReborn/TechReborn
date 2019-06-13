@@ -126,7 +126,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	private static IInventoryAccess<TileFluidReplicator> getInventoryAccess(){
 		return (slotID, stack, face, direction, tile) -> {
 			if(slotID == 0){
-				return stack.isEqualIgnoreTags(TRContent.Parts.UU_MATTER.getStack());
+				return stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack());
 			}
 			return true;
 		};
@@ -143,7 +143,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	@Override
 	public BuiltContainer createContainer(PlayerEntity player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isEqualIgnoreTags(TRContent.Parts.UU_MATTER.getStack()))
+				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this);
 	}

@@ -63,8 +63,8 @@ import java.util.function.Consumer;
  */
 public class BlockRubberLog extends LogBlock {
 
-	public static DirectionProperty SAP_SIDE = Properties.FACING_HORIZONTAL;
-	public static BooleanProperty HAS_SAP = BooleanProperty.create("hassap");
+	public static DirectionProperty SAP_SIDE = Properties.HORIZONTAL_FACING;
+	public static BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
 
 	public BlockRubberLog() {
 		super(MaterialColor.SPRUCE, FabricBlockSettings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F, 2f).sounds(BlockSoundGroup.WOOD).ticksRandomly().build());
@@ -142,7 +142,7 @@ public class BlockRubberLog extends LogBlock {
 
 						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 					} else {
-						playerIn.getStackInHand(Hand.MAIN_HAND).applyDamage(1, playerIn, playerEntity -> {});
+						playerIn.getStackInHand(Hand.MAIN_HAND).damage(1, playerIn, playerEntity -> {});
 					}
 					if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
 						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));

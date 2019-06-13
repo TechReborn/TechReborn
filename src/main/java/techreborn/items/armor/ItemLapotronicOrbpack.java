@@ -48,13 +48,13 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	// Item
 	@Override
-	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
-		if (!isInItemGroup(group)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isIn(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
@@ -66,7 +66,7 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 	}
 	   
 	@Override
-	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			ItemLithiumIonBatpack.EnvTypeributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack,
 					(int) transferLimit);

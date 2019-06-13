@@ -38,11 +38,11 @@ public class TileCreativeQuantumChest extends TileQuantumChest {
 		super.tick();
 		ItemStack stack = inventory.getInvStack(1);
 		if (!stack.isEmpty() && storedItem.isEmpty()) {
-			stack.setAmount(stack.getMaxAmount());
+			stack.setCount(stack.getMaxCount());
 			storedItem = stack.copy();
 		}
 
-		storedItem.setAmount(maxCapacity - storedItem.getMaxAmount());
+		storedItem.setCount(maxCapacity - storedItem.getMaxCount());
 	}
 
 	@Override

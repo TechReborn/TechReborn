@@ -92,9 +92,9 @@ public class TileIronFurnace extends TileMachineBase
 				ItemStack fuelStack = inventory.getInvStack(this.fuelslot);
 				if (fuelStack.getItem().hasRecipeRemainder()) {
 					inventory.setStackInSlot(this.fuelslot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
-				} else if (fuelStack.getAmount() > 1) {
+				} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(this.fuelslot, 1);
-				} else if (fuelStack.getAmount() == 1) {
+				} else if (fuelStack.getCount() == 1) {
 					inventory.setStackInSlot(this.fuelslot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
@@ -124,10 +124,10 @@ public class TileIronFurnace extends TileMachineBase
 
 			if (inventory.getInvStack(this.output).isEmpty()) {
 				inventory.setStackInSlot(this.output, itemstack.copy());
-			} else if (inventory.getInvStack(this.output).isEqualIgnoreTags(itemstack)) {
-				inventory.getInvStack(this.output).addAmount(itemstack.getAmount());
+			} else if (inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack)) {
+				inventory.getInvStack(this.output).increment(itemstack.getCount());
 			}
-			if (inventory.getInvStack(this.input1).getAmount() > 1) {
+			if (inventory.getInvStack(this.input1).getCount() > 1) {
 				inventory.shrinkSlot(this.input1, 1);
 			} else {
 				inventory.setStackInSlot(this.input1, ItemStack.EMPTY);
@@ -143,10 +143,10 @@ public class TileIronFurnace extends TileMachineBase
 			return false;
 		if (inventory.getInvStack(this.output).isEmpty())
 			return true;
-		if (!inventory.getInvStack(this.output).isEqualIgnoreTags(itemstack))
+		if (!inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack))
 			return false;
-		final int result = inventory.getInvStack(this.output).getAmount() + itemstack.getAmount();
-		return result <= inventory.getStackLimit() && result <= itemstack.getMaxAmount();
+		final int result = inventory.getInvStack(this.output).getCount() + itemstack.getCount();
+		return result <= inventory.getStackLimit() && result <= itemstack.getMaxCount();
 	}
 
 	public boolean isBurning() {
@@ -181,7 +181,7 @@ public class TileIronFurnace extends TileMachineBase
 				boolean isFuel = FurnaceBlockEntity.canUseAsFuel(stack);
 				if(isFuel){
 					ItemStack fuelSlotStack = tile.inventory.getInvStack(tile.fuelslot);
-					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxAmount() != fuelSlotStack.getAmount()){
+					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxCount() != fuelSlotStack.getCount()){
 						return slotID == tile.fuelslot;
 					}
 				}

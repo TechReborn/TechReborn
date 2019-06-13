@@ -42,8 +42,8 @@ public class ItemEnergyCrystal extends ItemBattery {
 	
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
-		if (!isInItemGroup(group)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isIn(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.ENERGY_CRYSTAL);

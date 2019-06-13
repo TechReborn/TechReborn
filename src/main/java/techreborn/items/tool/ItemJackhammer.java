@@ -54,16 +54,16 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 	public int transferLimit = 100;
 
 	public ItemJackhammer(ToolMaterials material, int energyCapacity) {
-		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
 	}
 
 	// ItemPickaxe
 	@Override
-	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if ((TagUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
 			&& new ItemPowerManager(stack).getEnergyStored() >= cost) {
-			return blockBreakingSpeed;
+			return miningSpeed;
 		} else {
 			return 0.5F;
 		}
@@ -71,7 +71,7 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 
 	// ItemTool
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
@@ -83,7 +83,7 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 	}
 
 	@Override
-	public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
 		return true;
 	}
 

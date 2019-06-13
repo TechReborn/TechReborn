@@ -92,7 +92,7 @@ public class TRTileEntities {
 	public static final BlockEntityType<TileAdjustableSU> ADJUSTABLE_SU = register(TileAdjustableSU.class, "adjustable_su");
 	public static final BlockEntityType<TileLapotronicSU> LAPOTRONIC_SU = register(TileLapotronicSU.class, "lapotronic_su");
 	public static final BlockEntityType<TileLSUStorage> LSU_STORAGE = register(TileLSUStorage.class, "lsu_storage");
-	public static final BlockEntityType<TileDistillationTower> EnvTypeILLATION_TOWER = register(TileDistillationTower.class, "distillation_tower");
+	public static final BlockEntityType<TileDistillationTower> DISTILLATION_TOWER = register(TileDistillationTower.class, "distillation_tower");
 	public static final BlockEntityType<TileVacuumFreezer> VACUUM_FREEZER = register(TileVacuumFreezer.class, "vacuum_freezer");
 	public static final BlockEntityType<TileFusionControlComputer> FUSION_CONTROL_COMPUTER = register(TileFusionControlComputer.class, "fusion_control_computer");
 	public static final BlockEntityType<TileLightningRod> LIGHTNING_ROD = register(TileLightningRod.class, "lightning_rod");

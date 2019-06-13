@@ -95,7 +95,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 					}
 				}
 			} catch (NullPointerException e) {
-				TechReborn.LOGGER.debug("Failed to load info for " + stack.getDisplayName());
+				TechReborn.LOGGER.debug("Failed to load info for " + stack.getCustomName());
 			}
 		}
 	}

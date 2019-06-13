@@ -164,7 +164,7 @@ public class GuiHandler {
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
 			case PLASMA_GENERATOR:
 				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
-			case EnvTypeILLATION_TOWER:
+			case DISTILLATION_TOWER:
 				return new GuiDistillationTower(player, (TileDistillationTower) tile);
 			case FLUID_REPLICATOR:
 				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);

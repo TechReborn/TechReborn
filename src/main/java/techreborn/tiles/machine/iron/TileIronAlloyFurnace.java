@@ -148,10 +148,10 @@ public class TileIronAlloyFurnace extends TileMachineBase
 				return false;
 			if (inventory.getInvStack(this.output).isEmpty())
 				return true;
-			if (!inventory.getInvStack(this.output).isEqualIgnoreTags(itemstack))
+			if (!inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack))
 				return false;
-			final int result = inventory.getInvStack(this.output).getAmount() + itemstack.getAmount();
-			return result <= inventory.getStackLimit() && result <= inventory.getInvStack(this.output).getMaxAmount(); // Forge
+			final int result = inventory.getInvStack(this.output).getCount() + itemstack.getCount();
+			return result <= inventory.getStackLimit() && result <= inventory.getInvStack(this.output).getMaxCount(); // Forge
 			// BugFix:
 			// Make
 			// it
@@ -182,7 +182,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 			if (inventory.getInvStack(this.output).isEmpty()) {
 				inventory.setStackInSlot(this.output, itemstack.copy());
 			} else if (inventory.getInvStack(this.output).getItem() == itemstack.getItem()) {
-				inventory.shrinkSlot(this.output, -itemstack.getAmount());
+				inventory.shrinkSlot(this.output, -itemstack.getCount());
 			}
 
 			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {

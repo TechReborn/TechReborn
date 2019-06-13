@@ -49,7 +49,7 @@ import techreborn.entities.EntityNukePrimed;
  * Created by Mark on 13/03/2016.
  */
 public class BlockNuke extends BaseBlock {
-	public static BooleanProperty OVERLAY = BooleanProperty.create("overlay");
+	public static BooleanProperty OVERLAY = BooleanProperty.of("overlay");
 
 	public BlockNuke() {
 		super(Block.Settings.of(Material.TNT));

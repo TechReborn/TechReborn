@@ -46,8 +46,8 @@ public class ItemBasicDrill extends ItemDrill {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.BASIC_DRILL);

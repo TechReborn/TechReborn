@@ -80,29 +80,29 @@ public class ModRegistry {
 	}
 
 	public static void registerBlocks() {
-		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
+		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
+		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
 		Arrays.stream(MachineBlocks.values()).forEach(value -> {
-			RebornRegistry.registerBlock(value.frame, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-			RebornRegistry.registerBlock(value.casing, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+			RebornRegistry.registerBlock(value.frame, new Item.Settings().group(TechReborn.ITEMGROUP));
+			RebornRegistry.registerBlock(value.casing, new Item.Settings().group(TechReborn.ITEMGROUP));
 		});
-		Arrays.stream(TRContent.SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
-		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP)));
+		Arrays.stream(TRContent.SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
+		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
+		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
 
 		// Misc. blocks
-		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), new Item.Settings().group(TechReborn.ITEMGROUP));
 //		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
 //				ItemBlockRubberSapling.class,
 //				"rubber_sapling");
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), new Item.Settings().group(TechReborn.ITEMGROUP));
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}

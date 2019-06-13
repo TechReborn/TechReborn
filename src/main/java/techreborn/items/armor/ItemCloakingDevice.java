@@ -58,7 +58,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	}
 
 	@Override
-	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityIn;
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
@@ -79,8 +79,8 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
-		if (!isInItemGroup(group)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isIn(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.CLOAKING_DEVICE);

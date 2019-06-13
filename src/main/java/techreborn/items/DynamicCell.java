@@ -47,11 +47,11 @@ public class DynamicCell extends Item {
 	public static final int CAPACITY = 1000;
 
 	public DynamicCell() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override
-	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		//Clearing tag because ItemUtils.isItemEqual doesn't handle tags ForgeCaps and display
 		//And breaks ability to use in recipes
 		//TODO: Property ItemUtils.isItemEquals tags equality handling?
@@ -68,15 +68,15 @@ public class DynamicCell extends Item {
 
 	public boolean tryAddCellToInventory(PlayerEntity player, ItemStack stack, Fluid fluid) {
 		if (player.inventory.insertStack(DynamicCell.getCellWithFluid(fluid))) {
-			stack.subtractAmount(1);
+			stack.decrement(1);
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void appendItemsForGroup(ItemGroup tab, DefaultedList<ItemStack> subItems) {
-		if (!isInItemGroup(tab)) {
+	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> subItems) {
+		if (!isIn(tab)) {
 			return;
 		}
 		subItems.add(getEmptyCell(1));
@@ -103,7 +103,7 @@ public class DynamicCell extends Item {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(TRContent.CELL);
 		//getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
-		stack.setAmount(stackSize);
+		stack.setCount(stackSize);
 		return stack;
 	}
 

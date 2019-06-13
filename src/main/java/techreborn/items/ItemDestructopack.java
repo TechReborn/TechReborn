@@ -38,7 +38,7 @@ import techreborn.client.EGui;
 public class ItemDestructopack extends Item {
 
 	public ItemDestructopack() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override

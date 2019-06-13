@@ -49,7 +49,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	public static void EnvTypeributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
@@ -69,7 +69,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 
 	// Item
 	@Override
-	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			EnvTypeributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, (int) transferLimit);
 		}
@@ -92,8 +92,8 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup group, DefaultedList<ItemStack> items) {
-		if (!isInItemGroup(group)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+		if (!isIn(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);

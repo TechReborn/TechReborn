@@ -160,7 +160,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	// ItemDrill
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		PlayerEntity playerIn = null;
 		if ((entityLiving instanceof PlayerEntity)) {
 			playerIn = (PlayerEntity) entityLiving;
@@ -170,7 +170,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 				breakBlock(additionalPos, worldIn, playerIn, stack);
 			}
 		}
-		return super.onBlockBroken(stack, worldIn, blockIn, pos, entityLiving);
+		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 	}
 
 	@Override
-	public void onUsingTick(World world, LivingEntity entity,  ItemStack stack, int i) {
+	public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
@@ -224,7 +224,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		if (!ItemUtils.isActive(stack)) {
 			tooltip.add(new TextComponent(ChatFormat.YELLOW + "Shear: " + ChatFormat.RED + I18n.translate("techreborn.message.nanosaberInactive")));
 		} else {
@@ -241,8 +241,8 @@ public class ItemIndustrialDrill extends ItemDrill {
 	// Item
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_DRILL);

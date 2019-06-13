@@ -148,10 +148,10 @@ public class TileRollingMachine extends TilePowerAcceptor
 						tickTime = 0;
 						hasCrafted = true;
 					} else {
-						if (inventory.getInvStack(outputSlot).getAmount()
-								+ currentRecipeOutput.getAmount() <= currentRecipeOutput.getMaxAmount()) {
+						if (inventory.getInvStack(outputSlot).getCount()
+								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxCount()) {
 							final ItemStack stack = inventory.getInvStack(outputSlot);
-							stack.setAmount(stack.getAmount() + currentRecipeOutput.getAmount());
+							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
 							inventory.setStackInSlot(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
@@ -237,7 +237,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 		if(!possibleSlots.isEmpty()){
 			int totalItems =  possibleSlots.stream()
-				.mapToInt(value -> inventory.getInvStack(value).getAmount()).sum();
+				.mapToInt(value -> inventory.getInvStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
 			//This makes an array of ints with the best possible slot EnvTyperibution
@@ -254,7 +254,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			}
 
 			List<Integer> slotEnvTyperubution = possibleSlots.stream()
-				.mapToInt(value -> inventory.getInvStack(value).getAmount())
+				.mapToInt(value -> inventory.getInvStack(value).getCount())
 				.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
@@ -282,20 +282,20 @@ public class TileRollingMachine extends TilePowerAcceptor
 				bestSlot = Pair.of(slot, 0);
 			}
 			if (bestSlot == null) {
-				bestSlot = Pair.of(slot, slotStack.getAmount());
-			} else if (bestSlot.getRight() >= slotStack.getAmount()) {
-				bestSlot = Pair.of(slot, slotStack.getAmount());
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			} else if (bestSlot.getRight() >= slotStack.getCount()) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
 			}
 		}
 		if (bestSlot == null
 			|| bestSlot.getLeft() == balanceSlot
-			|| bestSlot.getRight() == sourceStack.getAmount()
+			|| bestSlot.getRight() == sourceStack.getCount()
 			|| inventory.getInvStack(bestSlot.getLeft()).isEmpty()
 			|| !ItemUtils.isItemEqual(sourceStack, inventory.getInvStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
-		sourceStack.subtractAmount(1);
-		inventory.getInvStack(bestSlot.getLeft()).addAmount(1);
+		sourceStack.decrement(1);
+		inventory.getInvStack(bestSlot.getLeft()).increment(1);
 		inventory.setChanged();
 
 		return Optional.of(getCraftingMatrix());
@@ -319,7 +319,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 		if (locked) {
 			for (int i = 0; i < craftMatrix.getInvSize(); i++) {
 				ItemStack stack1 = craftMatrix.getInvStack(i);
-				if (!stack1.isEmpty() && stack1.getAmount() < 2) {
+				if (!stack1.isEmpty() && stack1.getCount() < 2) {
 					return false;
 				}
 			}

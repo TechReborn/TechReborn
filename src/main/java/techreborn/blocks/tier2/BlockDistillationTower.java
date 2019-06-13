@@ -48,7 +48,7 @@ public class BlockDistillationTower extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.EnvTypeILLATION_TOWER;
+		return EGui.DISTILLATION_TOWER;
 	}
 	
 	@Override

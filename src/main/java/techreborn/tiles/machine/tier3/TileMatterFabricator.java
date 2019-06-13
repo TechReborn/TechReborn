@@ -73,7 +73,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	private boolean spaceForOutput(int slot) {
 		return inventory.getInvStack(slot).isEmpty()
 				|| ItemUtils.isItemEqual(inventory.getInvStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)
-						&& inventory.getInvStack(slot).getAmount() < 64;
+						&& inventory.getInvStack(slot).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
@@ -90,7 +90,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 			inventory.setStackInSlot(slot, TRContent.Parts.UU_MATTER.getStack());
 		} 
 		else if (ItemUtils.isItemEqual(this.inventory.getInvStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
-			inventory.getInvStack(slot).setAmount((Math.min(64, 1 + inventory.getInvStack(slot).getAmount())));
+			inventory.getInvStack(slot).setCount((Math.min(64, 1 + inventory.getInvStack(slot).getCount())));
 		}
 	}
 
@@ -109,7 +109,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.isEqualIgnoreTags(TRContent.Parts.SCRAP.getStack())) {
+		if (itemStack.isItemEqualIgnoreDamage(TRContent.Parts.SCRAP.getStack())) {
 			return 200;
 		} else if (itemStack.getItem() == TRContent.SCRAP_BOX) {
 			return 2000;

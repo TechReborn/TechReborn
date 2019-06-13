@@ -67,7 +67,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 				if(worldIn.isAir(coil) && !tileFusionControlComputer.isCoil(coil)){
 					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
 					if(!playerIn.isCreative()){
-						playerIn.getStackInHand(hand).subtractAmount(1);
+						playerIn.getStackInHand(hand).decrement(1);
 					}
 					placed = true;
 				}

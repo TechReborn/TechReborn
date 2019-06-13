@@ -47,7 +47,7 @@ import java.util.Map.Entry;
 public class ItemDebugTool extends Item {
 
 	public ItemDebugTool() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override

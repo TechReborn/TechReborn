@@ -39,7 +39,7 @@ public class ItemManual extends Item {
 	public static boolean allowRefund = true;
 
 	public ItemManual() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	@Override

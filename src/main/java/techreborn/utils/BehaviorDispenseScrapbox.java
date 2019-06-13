@@ -48,7 +48,7 @@ public class BehaviorDispenseScrapbox extends ItemDispenserBehavior {
 	public static boolean dispenseScrapboxes = true;
 
 	@Override
-	protected ItemStack dispenseStack(BlockPointer source, ItemStack stack) {
+	protected ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
 		if (dispenseScrapboxes) {
 			List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(source.getWorld());
 			int random = new Random().nextInt(scrapboxRecipeList.size());
@@ -58,7 +58,7 @@ public class BehaviorDispenseScrapbox extends ItemDispenserBehavior {
 			DispenserBlockEntity tile = source.getBlockEntity();
 			Direction enumfacing = tile.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).get(DispenserBlock.FACING);
 			Position iposition = DispenserBlock.getOutputLocation(source);
-			dispenseItem(source.getWorld(), out, 6, enumfacing, iposition);
+			spawnItem(source.getWorld(), out, 6, enumfacing, iposition);
 		}
 		return stack;
 	}

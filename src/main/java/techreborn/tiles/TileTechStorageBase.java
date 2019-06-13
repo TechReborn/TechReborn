@@ -65,7 +65,7 @@ public class TileTechStorageBase extends TileMachineBase
 		}
 
 		if (!storedItem.isEmpty()) {
-			storedItem.setAmount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
+			storedItem.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
 		}
 
 		inventory.read(tagCompound);
@@ -74,11 +74,11 @@ public class TileTechStorageBase extends TileMachineBase
 	public CompoundTag writeWithoutCoords(CompoundTag tagCompound) {
 		if (!storedItem.isEmpty()) {
 			ItemStack temp = storedItem.copy();
-			if (storedItem.getAmount() > storedItem.getMaxAmount()) {
-				temp.setAmount(storedItem.getMaxAmount());
+			if (storedItem.getCount() > storedItem.getMaxCount()) {
+				temp.setCount(storedItem.getMaxCount());
 			}
 			tagCompound.put("storedStack", temp.toTag(new CompoundTag()));
-			tagCompound.putInt("storedQuantity", Math.min(storedItem.getAmount(), maxCapacity));
+			tagCompound.putInt("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
 		}
@@ -92,7 +92,7 @@ public class TileTechStorageBase extends TileMachineBase
 		writeWithoutCoords(tileEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("tileEntity", tileEntity);
-		storedItem.setAmount(0);
+		storedItem.setCount(0);
 		inventory.setStackInSlot(1, ItemStack.EMPTY);
 		syncWithAll();
 
@@ -100,7 +100,7 @@ public class TileTechStorageBase extends TileMachineBase
 	}
 
 	public int getStoredCount() {
-		return storedItem.getAmount();
+		return storedItem.getCount();
 	}
 
 	public List<ItemStack> getContentDrops() {
@@ -110,15 +110,15 @@ public class TileTechStorageBase extends TileMachineBase
 			if (!inventory.getInvStack(1).isEmpty()) {
 				stacks.add(inventory.getInvStack(1));
 			}
-			int size = storedItem.getMaxAmount();
+			int size = storedItem.getMaxCount();
 			for (int i = 0; i < getStoredCount() / size; i++) {
 				ItemStack droped = storedItem.copy();
-				droped.setAmount(size);
+				droped.setCount(size);
 				stacks.add(droped);
 			}
 			if (getStoredCount() % size != 0) {
 				ItemStack droped = storedItem.copy();
-				droped.setAmount(getStoredCount() % size);
+				droped.setCount(getStoredCount() % size);
 				stacks.add(droped);
 			}
 		}
@@ -136,7 +136,7 @@ public class TileTechStorageBase extends TileMachineBase
 				outputStack = inventory.getInvStack(1);
 			}
 			if (!inventory.getInvStack(0).isEmpty()
-					&& (storedItem.getAmount() + outputStack.getAmount()) < maxCapacity) {
+					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
 				ItemStack inputStack = inventory.getInvStack(0);
 				if (getStoredItemType().isEmpty()
 						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
@@ -144,13 +144,13 @@ public class TileTechStorageBase extends TileMachineBase
 					storedItem = inputStack;
 					inventory.setStackInSlot(0, ItemStack.EMPTY);
 				} else if (ItemUtils.isItemEqual(getStoredItemType(), inputStack, true, true)) {
-					int reminder = maxCapacity - storedItem.getAmount() - outputStack.getAmount();
-					if (inputStack.getAmount() <= reminder) {
-						setStoredItemCount(inputStack.getAmount());
+					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
+					if (inputStack.getCount() <= reminder) {
+						setStoredItemCount(inputStack.getCount());
 						inventory.setStackInSlot(0, ItemStack.EMPTY);
 					} else {
-						setStoredItemCount(maxCapacity - outputStack.getAmount());
-						inventory.getInvStack(0).subtractAmount(reminder);
+						setStoredItemCount(maxCapacity - outputStack.getCount());
+						inventory.getInvStack(0).decrement(reminder);
 					}
 				}
 				markDirty();
@@ -161,8 +161,8 @@ public class TileTechStorageBase extends TileMachineBase
 				if (outputStack.isEmpty()) {
 
 					ItemStack delivered = storedItem.copy();
-					delivered.setAmount(Math.min(storedItem.getAmount(), delivered.getMaxAmount()));
-					storedItem.subtractAmount(delivered.getAmount());
+					delivered.setCount(Math.min(storedItem.getCount(), delivered.getMaxCount()));
+					storedItem.decrement(delivered.getCount());
 
 					if (storedItem.isEmpty()) {
 						storedItem = ItemStack.EMPTY;
@@ -172,12 +172,12 @@ public class TileTechStorageBase extends TileMachineBase
 					markDirty();
 					syncWithAll();
 				} else if (ItemUtils.isItemEqual(storedItem, outputStack, true, true)
-						&& outputStack.getAmount() < outputStack.getMaxAmount()) {
+						&& outputStack.getCount() < outputStack.getMaxCount()) {
 
-					int wanted = Math.min(storedItem.getAmount(),
-							outputStack.getMaxAmount() - outputStack.getAmount());
-					outputStack.setAmount(outputStack.getAmount() + wanted);
-					storedItem.subtractAmount(wanted);
+					int wanted = Math.min(storedItem.getCount(),
+							outputStack.getMaxCount() - outputStack.getCount());
+					outputStack.setCount(outputStack.getCount() + wanted);
+					storedItem.decrement(wanted);
 
 					if (storedItem.isEmpty()) {
 						storedItem = ItemStack.EMPTY;
@@ -226,12 +226,12 @@ public class TileTechStorageBase extends TileMachineBase
 			int size = 0;
 			String name = "of nothing";
 			if (!storedItem.isEmpty()) {
-				name = storedItem.getDisplayName().getString();
-				size += storedItem.getAmount();
+				name = storedItem.getCustomName().getString();
+				size += storedItem.getCount();
 			}
 			if (!inventory.getInvStack(1).isEmpty()) {
-				name = inventory.getInvStack(1).getDisplayName().getString();
-				size += inventory.getInvStack(1).getAmount();
+				name = inventory.getInvStack(1).getCustomName().getString();
+				size += inventory.getInvStack(1).getCount();
 			}
 			info.add(new TextComponent(size + " " + name));
 		}
@@ -243,13 +243,13 @@ public class TileTechStorageBase extends TileMachineBase
 
 
 	public void setStoredItemCount(int amount) {
-		storedItem.addAmount(amount);
+		storedItem.increment(amount);
 		markDirty();
 	}
 
 	public void setStoredItemType(ItemStack type, int amount) {
 		storedItem = type;
-		storedItem.setAmount(amount);
+		storedItem.setCount(amount);
 		markDirty();
 	}
 

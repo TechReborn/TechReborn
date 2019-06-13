@@ -123,7 +123,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
 			for (int i = 0; i < 9; i++) {
-				stacksInSlots[i] = inventory.getInvStack(i).getAmount();
+				stacksInSlots[i] = inventory.getInvStack(i).getCount();
 			}
 
 			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
@@ -133,7 +133,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 					for (int i = 0; i < 9; i++) {
 						ItemStack stack = inventory.getInvStack(i);
 						int requiredSize = locked ? 1 : 0;
-						if (stack.getMaxAmount() == 1) {
+						if (stack.getMaxCount() == 1) {
 							requiredSize = 0;
 						}
 						if (stacksInSlots[i] > requiredSize) {
@@ -178,7 +178,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			return true;
 		}
 		if (ItemUtils.isItemEqual(stack, output, true, true)) {
-			if (stack.getMaxAmount() > stack.getAmount() + output.getAmount()) {
+			if (stack.getMaxCount() > stack.getCount() + output.getCount()) {
 				return true;
 			}
 		}
@@ -196,13 +196,13 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			ItemStack bestSlot = inventory.getInvStack(i);
 			if (ingredient.method_8093(bestSlot)) {
 				handleContainerItem(bestSlot);
-				bestSlot.subtractAmount(1);
+				bestSlot.decrement(1);
 			} else {
 				for (int j = 0; j < 9; j++) {
 					ItemStack stack = inventory.getInvStack(j);
 					if (ingredient.method_8093(stack)) {
 						handleContainerItem(stack);
-						stack.subtractAmount(1); // TODO is this right? or do I need
+						stack.decrement(1); // TODO is this right? or do I need
 											// to use it as an actull
 											// crafting grid
 						break;
@@ -217,7 +217,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			inventory.setStackInSlot(9, ouputStack.copy());
 		} else {
 			// TODO use ouputStack in someway?
-			output.addAmount(recipe.getOutput().getAmount());
+			output.increment(recipe.getOutput().getCount());
 		}
 		return true;
 	}
@@ -230,8 +230,8 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				if (extraOutputSlot.isEmpty()) {
 					inventory.setStackInSlot(10, containerItem.copy());
 				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true)
-						&& extraOutputSlot.getMaxAmount() < extraOutputSlot.getAmount() + containerItem.getAmount()) {
-					extraOutputSlot.addAmount(1);
+						&& extraOutputSlot.getMaxCount() < extraOutputSlot.getCount() + containerItem.getCount()) {
+					extraOutputSlot.increment(1);
 				}
 			}
 		}
@@ -271,7 +271,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);
 				} else if (stackInSlot.getItem() == stack.getItem()) {
-					if (stackInSlot.getMaxAmount() >= stackInSlot.getAmount() + stack.getAmount()) {
+					if (stackInSlot.getMaxCount() >= stackInSlot.getCount() + stack.getCount()) {
 						possibleSlots.add(i);
 					}
 				}
@@ -285,9 +285,9 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				return slot;
 			}
 			if (smallestCount == null) {
-				smallestCount = Pair.of(slot, slotStack.getAmount());
-			} else if (smallestCount.getRight() >= slotStack.getAmount()) {
-				smallestCount = Pair.of(slot, slotStack.getAmount());
+				smallestCount = Pair.of(slot, slotStack.getCount());
+			} else if (smallestCount.getRight() >= slotStack.getCount()) {
+				smallestCount = Pair.of(slot, slotStack.getCount());
 			}
 		}
 		if (smallestCount != null) {

@@ -43,18 +43,18 @@ import techreborn.tiles.TileGenericMachine;
 @RebornRegister(TechReborn.MOD_ID)
 public class TileDistillationTower extends TileGenericMachine implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "EnvTypeillation_tower", key = "EnvTypeillationTowerMaxInput", comment = "EnvTypeillation Tower Max Input (Value in EU)")
+	@ConfigRegistry(config = "machines", category = "Distillation_tower", key = "DistillationTowerMaxInput", comment = "Distillation Tower Max Input (Value in EU)")
 	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "EnvTypeillation_tower", key = "EnvTypeillationTowerMaxEnergy", comment = "EnvTypeillation Tower Max Energy (Value in EU)")
+	@ConfigRegistry(config = "machines", category = "Distillation_tower", key = "DistillationTowerMaxEnergy", comment = "Distillation Tower Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 	
 	public MultiblockChecker multiblockChecker;
 
 	public TileDistillationTower() {
-		super(TRTileEntities.EnvTypeILLATION_TOWER,"EnvTypeillationTower", maxInput, maxEnergy, TRContent.Machine.EnvTypeILLATION_TOWER.block, 6);
+		super(TRTileEntities.DISTILLATION_TOWER,"DistillationTower", maxInput, maxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory<>(7, "TileEnvTypeillationTower", 64, this).withConfiguredAccess();
+		this.inventory = new Inventory<>(7, "TileDistillationTower", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.DISTILLATION_TOWER, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
@@ -89,7 +89,7 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final PlayerEntity player) {
-		return new ContainerBuilder("EnvTypeillationtower").player(player.inventory).inventory().hotbar().addInventory()
+		return new ContainerBuilder("Distillationtower").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this);

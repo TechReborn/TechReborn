@@ -95,7 +95,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 			if (burnTime > 0) {
 				updateState();
 				burnItem = inventory.getInvStack(fuelSlot);
-				if (inventory.getInvStack(fuelSlot).getAmount() == 1) {
+				if (inventory.getInvStack(fuelSlot).getCount() == 1) {
 					if (inventory.getInvStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getInvStack(fuelSlot).getItem() instanceof BucketItem) {
 						inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {

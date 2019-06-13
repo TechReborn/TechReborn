@@ -75,10 +75,10 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 			if (inventory.getInvStack(output).isEmpty()) {
 				inventory.setStackInSlot(output, itemstack.copy());
-			} else if (inventory.getInvStack(output).isEqualIgnoreTags(itemstack)) {
-				inventory.getInvStack(output).addAmount(itemstack.getAmount());
+			} else if (inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack)) {
+				inventory.getInvStack(output).increment(itemstack.getCount());
 			}
-			if (inventory.getInvStack(input1).getAmount() > 1) {
+			if (inventory.getInvStack(input1).getCount() > 1) {
 				inventory.shrinkSlot(input1, 1);
 			} else {
 				inventory.setStackInSlot(input1, ItemStack.EMPTY);
@@ -97,11 +97,11 @@ public class TileElectricFurnace extends TilePowerAcceptor
 		if (inventory.getInvStack(output).isEmpty()) {
 			return true;
 		}
-		if (!inventory.getInvStack(output).isEqualIgnoreTags(itemstack)) {
+		if (!inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack)) {
 			return false;
 		}
-		final int result = inventory.getInvStack(output).getAmount() + itemstack.getAmount();
-		return result <= this.inventory.getStackLimit() && result <= itemstack.getMaxAmount();
+		final int result = inventory.getInvStack(output).getCount() + itemstack.getCount();
+		return result <= this.inventory.getStackLimit() && result <= itemstack.getMaxCount();
 	}
 
 	public boolean isBurning() {

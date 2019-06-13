@@ -66,8 +66,8 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 
 	// 4M FE max charge with 1k charge rate
 	public ItemNanosaber() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
-		this.addProperty(new Identifier("techreborn:active"), new ItemPropertyGetter() {
+		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		this.addPropertyGetter(new Identifier("techreborn:active"), new ItemPropertyGetter() {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack,
@@ -89,7 +89,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 	
 	// ItemSword
 	@Override
-	public boolean onEntityDamaged(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
+	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
 		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() >= cost) {
 			capEnergy.extractEnergy(cost, false);
@@ -156,7 +156,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 	}
 
 	@Override
-	public void onEntityTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(worldIn.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
@@ -190,9 +190,9 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(
+	public void appendStacks(
 		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
@@ -218,7 +218,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		if (!ItemUtils.isActive(stack)) {
 			tooltip.add(new TranslatableComponent("techreborn.message.nanosaberInactive").applyFormat(ChatFormat.GRAY));
 		} else {

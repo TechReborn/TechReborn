@@ -40,13 +40,13 @@ import techreborn.TechReborn;
 public class ItemWrench extends Item implements IToolHandler {
 
 	public ItemWrench() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	@Override
 	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
 		if (damage) {
-			stack.applyDamage(1, player.world.random, (ServerPlayerEntity) player);
+			stack.damage(1, player.world.random, (ServerPlayerEntity) player);
 		}
 		return true;
 	}

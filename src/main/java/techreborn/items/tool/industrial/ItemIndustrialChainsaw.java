@@ -77,8 +77,8 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_CHAINSAW);
@@ -91,11 +91,11 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 	}
 
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
 		findWood(worldIn, pos, wood, new ArrayList<>());
 		wood.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
-		return super.onBlockBroken(stack, worldIn, blockIn, pos, entityLiving);
+		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
 	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves){
@@ -160,7 +160,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 	}
 
 	@Override
-	public void onUsingTick(World world, LivingEntity entity,  ItemStack stack, int i) {
+	public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
@@ -174,7 +174,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
 		if (!ItemUtils.isActive(stack)) {
 			tooltip.add(new TextComponent(ChatFormat.YELLOW + "Shear: " + ChatFormat.RED + I18n.translate("techreborn.message.nanosaberInactive")));
 		} else {

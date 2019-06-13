@@ -86,7 +86,7 @@ public class TileRecycler extends TilePowerAcceptor
 				inventory.setStackInSlot(1, itemstack.copy());
 			}
 			else {
-				inventory.getInvStack(1).addAmount(itemstack.getAmount());
+				inventory.getInvStack(1).increment(itemstack.getCount());
 			}
 		}
 		inventory.shrinkSlot(0, 1);
@@ -99,7 +99,7 @@ public class TileRecycler extends TilePowerAcceptor
 	public boolean hasSlotGotSpace(int slot) {
 		if (inventory.getInvStack(slot).isEmpty()) {
 			return true;
-		} else if (inventory.getInvStack(slot).getAmount() < inventory.getInvStack(slot).getMaxAmount()) {
+		} else if (inventory.getInvStack(slot).getCount() < inventory.getInvStack(slot).getMaxCount()) {
 			return true;
 		}
 		return false;

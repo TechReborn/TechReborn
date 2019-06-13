@@ -40,7 +40,7 @@ public class ItemTRPickaxe extends PickaxeItem {
 	}
 
 	public ItemTRPickaxe(ToolMaterial material, String repairOreDict) {
-		super(material, 1, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(material, 1, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Settings().group(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 

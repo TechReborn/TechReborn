@@ -50,7 +50,7 @@ public enum EGui implements IMachineGuiHandler {
 	DESTRUCTOPACK(false),
 	DIESEL_GENERATOR(true),
 	DIGITAL_CHEST(true),
-	EnvTypeILLATION_TOWER(true),
+	DISTILLATION_TOWER(true),
 	ELECTRIC_FURNACE(true),
 	EXTRACTOR(true),
 	FUSION_CONTROLLER(true),

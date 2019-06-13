@@ -46,9 +46,9 @@ public class ItemIndustrialJackhammer extends ItemJackhammer {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendItemsForGroup(
+	public void appendStacks(
 		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isInItemGroup(par2ItemGroup)) {
+		if (!isIn(par2ItemGroup)) {
 			return;
 		}
 		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_JACKHAMMER);

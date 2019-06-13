@@ -49,28 +49,28 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurab
 	public int transferLimit = 100;
 
 	public ItemDrill(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().itemGroup(TechReborn.ITEMGROUP).stackSize(1));
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}
 
 	// ItemPickaxe
 	@Override
-	public float getBlockBreakingSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 			return unpoweredSpeed;
 		}
-		if (Items.WOODEN_PICKAXE.getBlockBreakingSpeed(stack, state) > 1.0F
-			|| Items.WOODEN_SHOVEL.getBlockBreakingSpeed(stack, state) > 1.0F) {
-			return blockBreakingSpeed;
+		if (Items.WOODEN_PICKAXE.getMiningSpeed(stack, state) > 1.0F
+			|| Items.WOODEN_SHOVEL.getMiningSpeed(stack, state) > 1.0F) {
+			return miningSpeed;
 		} else {
-			return super.getBlockBreakingSpeed(stack, state);
+			return super.getMiningSpeed(stack, state);
 		}
 	}
 
 	// ItemTool
 	@Override
-	public boolean onBlockBroken(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
@@ -82,7 +82,7 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurab
 	}
 
 	@Override
-	public boolean onEntityDamaged(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
 		return true;
 	}
 

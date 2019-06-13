@@ -41,7 +41,7 @@ import java.util.List;
 public class ItemScrapBox extends Item {
 
 	public ItemScrapBox() {
-		super(new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class ItemScrapBox extends Item {
 			int random = world.random.nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 			WorldUtils.dropItem(out, world, player.getBlockPos());
-			stack.subtractAmount(1);
+			stack.decrement(1);
 		}
 		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 	}

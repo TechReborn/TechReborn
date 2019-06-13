@@ -40,7 +40,7 @@ public class ItemTRSpade extends ShovelItem {
 	}
 
 	public ItemTRSpade(ToolMaterial material, String repairOreDict) {
-		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Settings().group(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 

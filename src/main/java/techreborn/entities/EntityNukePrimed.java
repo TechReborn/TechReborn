@@ -27,7 +27,7 @@ package techreborn.entities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
-import net.minecraft.entity.PrimedTntEntity;
+import net.minecraft.entity.TntEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -41,7 +41,7 @@ import techreborn.TechReborn;
  * Created by Mark on 13/03/2016.
  */
 @RebornRegister(TechReborn.MOD_ID)
-public class EntityNukePrimed extends PrimedTntEntity {
+public class EntityNukePrimed extends TntEntity {
 
 	@ConfigRegistry(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")
 	public static int fuseTime = 400;

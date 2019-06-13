@@ -35,6 +35,6 @@ import techreborn.TechReborn;
 public class ItemBlockRubberSapling extends BlockItem {
 
 	public ItemBlockRubberSapling(Block block) {
-		super(block, new Item.Settings().itemGroup(TechReborn.ITEMGROUP));
+		super(block, new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 }
