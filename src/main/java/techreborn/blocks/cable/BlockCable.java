@@ -133,11 +133,6 @@ public class BlockCable extends BlockContainer {
 		return Boolean.FALSE;
 	}
 	
-//	VoxelShape[] shapes = {
-//			Block.makeCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
-			
-			
-	
 	// BlockContainer
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
@@ -242,36 +237,10 @@ public class BlockCable extends BlockContainer {
 	
 	@Override
 	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+		if (type != null) {
+			double culling = type.cableThickness / 2 ;
+			return Block.makeCuboidShape(culling , culling, culling, 16.0D - culling, 16.0D - culling, 16.0D - culling);
+		}
 		return Block.makeCuboidShape(6, 6, 6, 10, 10, 10);
 	}
-	
-	
-
-	/*
-
-
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		state = state.getActualState(source, pos);
-		float minSize = 0.3125F;
-		float maxSize =  0.6875F;
-		int thinkness = (int) type.cableThickness;
-		if(thinkness == 6){
-			minSize = 0.35F;
-			maxSize = 0.65F;
-		}
-		float minX = state.get(WEST) ? 0.0F : minSize;
-		float minY = state.get(DOWN) ? 0.0F : minSize;
-		float minZ = state.get(NORTH) ? 0.0F : minSize;
-		float maxX = state.get(EAST) ? 1.0F : maxSize;
-		float maxY = state.get(UP) ? 1.0F : maxSize;
-		float maxZ = state.get(SOUTH) ? 1.0F : maxSize;
-		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY, (double) maxZ);
-	}
-
-
-
-
-
-	*/
 }
