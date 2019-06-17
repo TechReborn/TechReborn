@@ -1,0 +1,6 @@
+{
+    "parent": "techreborn:block/template/template_thick_cable_side",
+    "textures": {
+        "cable": "techreborn:block/cables/gold_insulated_cable"
+    }
+}

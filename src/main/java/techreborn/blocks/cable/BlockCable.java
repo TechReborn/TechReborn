@@ -45,6 +45,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -131,6 +132,11 @@ public class BlockCable extends BlockContainer {
 		}
 		return Boolean.FALSE;
 	}
+	
+//	VoxelShape[] shapes = {
+//			Block.makeCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
+			
+			
 	
 	// BlockContainer
 	@Override
@@ -234,16 +240,15 @@ public class BlockCable extends BlockContainer {
 		}
 	}
 	
+	@Override
+	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+		return Block.makeCuboidShape(6, 6, 6, 10, 10, 10);
+	}
+	
 	
 
 	/*
-	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IWorld blockAccess, BlockPos pos, EnumFacing side) {
-		if (type == TRContent.Cables.GLASSFIBER)
-			return false;
-		else
-			return true;
-	}
+
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
