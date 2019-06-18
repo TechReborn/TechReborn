@@ -211,7 +211,11 @@ public class TRContent {
 			this.generationRateD = generationRateD;
 			this.generationRateN = generationRateN;
 			// Buffer for 2 mins of work
-			internalCapacity = generationRateD * 2_400;
+			if (tier != EnumPowerTier.INFINITE) {
+				internalCapacity = generationRateD * 2_400;
+			} else {
+				internalCapacity = Integer.MAX_VALUE;
+			}
 			
 			InitUtils.setup(block, name + "_solar_panel");
 		}

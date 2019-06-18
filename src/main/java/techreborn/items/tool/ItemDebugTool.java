@@ -39,6 +39,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
 
@@ -119,9 +120,9 @@ public class ItemDebugTool extends Item {
 		String s = "" + TextFormatting.GREEN;
 		s += "Power: ";
 		s += TextFormatting.BLUE;
-		s += PowerSystem.getLocaliszedPower(tile.getEnergy());
+		s += PowerSystem.getLocaliszedPower(tile.getEnergy() / RebornCoreConfig.euPerFU);
 		s += "/";
-		s += PowerSystem.getLocaliszedPower(tile.getMaxPower());
+		s += PowerSystem.getLocaliszedPower(tile.getMaxPower() / RebornCoreConfig.euPerFU);
 		
 		return s;
 	}

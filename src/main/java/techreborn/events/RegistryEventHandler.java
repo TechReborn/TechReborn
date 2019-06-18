@@ -25,7 +25,6 @@
 package techreborn.events;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;

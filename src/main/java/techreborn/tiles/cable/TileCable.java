@@ -88,7 +88,7 @@ public class TileCable extends TileEntity
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, EnumFacing side) {
 		if (capability == CapabilityEnergy.ENERGY) {
-			return LazyOptional.of(() -> (T)this);
+			return LazyOptional.of(() -> this).cast();
 		}
 		return super.getCapability(capability);
 	}
@@ -166,10 +166,11 @@ public class TileCable extends TileEntity
 					}					
 				}
 			} else if (tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent()) {
-				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
-				if (energyTile != null && energyTile.canReceive()) {
-					acceptors.add(energyTile);
-				}
+				tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).ifPresent(energyTile -> {
+					if (energyTile.canReceive()) {
+						acceptors.add(energyTile);
+					}
+				});
 			}
 		}
 			
