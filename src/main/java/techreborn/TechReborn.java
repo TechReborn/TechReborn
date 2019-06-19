@@ -54,6 +54,7 @@ import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
+import techreborn.world.OreGenerator;
 import techreborn.world.village.ModLootTables;
 import techreborn.world.village.VillagePlantaionHandler;
 
@@ -105,6 +106,8 @@ public class TechReborn {
 		// Client only init, needs to be done before parts system
 		proxy.init();
 		// WorldGen
+		OreGenerator.init();
+		
 		//GameRegistry.registerWorldGenerator(worldGen, 0);
 		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
