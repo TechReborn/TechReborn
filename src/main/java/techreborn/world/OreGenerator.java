@@ -24,21 +24,16 @@
  
 package techreborn.world;
 
-import java.util.Random;
 import java.util.function.Predicate;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.MinableConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.registries.ForgeRegistries;
 import techreborn.init.TRContent;
 
@@ -46,7 +41,7 @@ import techreborn.init.TRContent;
  * @author drcrazy
  *
  */
-public class OreGenerator implements IWorldGenerator {
+public class OreGenerator {
 	
 	public static final Predicate<IBlockState> IS_NETHERRACK = (state) -> { return state != null && (state.getBlock() == Blocks.NETHERRACK); };
 	public static final Predicate<IBlockState> IS_ENDSTONE = (state) -> { return state != null && (state.getBlock() == Blocks.END_STONE); };
@@ -83,13 +78,4 @@ public class OreGenerator implements IWorldGenerator {
 						new MinableConfig(canReplaceIn, ore.block.getDefaultState(), ore.veinSize), Biome.COUNT_RANGE,
 						new CountRangeConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY)));
 	}
-
-
-	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-			IChunkProvider chunkProvider) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

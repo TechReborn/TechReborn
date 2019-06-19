@@ -119,7 +119,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 			capEnergy.extractEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
-			blockState.getBlock().removedByPlayer(blockState, world, pos, playerIn, true, null);
+			blockState.getBlock().removedByPlayer(blockState, world, pos, playerIn, true, world.getFluidState(pos));
 			blockState.getBlock().harvestBlock(world, playerIn, pos, blockState, world.getTileEntity(pos), drill);
 			world.removeBlock(pos);
 			world.removeTileEntity(pos);
