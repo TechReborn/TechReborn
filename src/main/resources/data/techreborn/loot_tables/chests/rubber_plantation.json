@@ -16,11 +16,7 @@
           "name": "techreborn:treetap",
           "weight": 6,
           "functions": [
-            {
-              "function": "set_data",
-              "data": 0
-            },
-            {
+              {
               "function": "set_count",
               "count": 1
             }
@@ -28,13 +24,9 @@
         },
         {
           "type": "item",
-          "name": "minecraft:dye",
+          "name": "minecraft:bone_meal",
           "weight": 4,
           "functions": [
-            {
-              "function": "set_data",
-              "data": 15
-            },
             {
               "function": "set_count",
               "count" : {
