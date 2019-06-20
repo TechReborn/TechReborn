@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
- 
+
 package techreborn.world;
 
 import java.util.function.Predicate;
@@ -32,21 +32,28 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.MinableConfig;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraftforge.registries.ForgeRegistries;
 import techreborn.init.TRContent;
+import techreborn.world.feature.RubberTreeFeature;
 
 /**
  * @author drcrazy
  *
  */
-public class OreGenerator {
-	
-	public static final Predicate<IBlockState> IS_NETHERRACK = (state) -> { return state != null && (state.getBlock() == Blocks.NETHERRACK); };
-	public static final Predicate<IBlockState> IS_ENDSTONE = (state) -> { return state != null && (state.getBlock() == Blocks.END_STONE); };
-	
-	public static void init() {
+public class WorldGenerator {
+
+	public static final Predicate<IBlockState> IS_NETHERRACK = (state) -> {
+		return state != null && (state.getBlock() == Blocks.NETHERRACK);
+	};
+	public static final Predicate<IBlockState> IS_ENDSTONE = (state) -> {
+		return state != null && (state.getBlock() == Blocks.END_STONE);
+	};
+
+	public static void initBiomeFeatures() {
 		for (Biome biome : ForgeRegistries.BIOMES) {
 			if (biome.getCategory() == Category.NETHER) {
 				addOre(biome, IS_NETHERRACK, TRContent.Ores.CINNABAR);
@@ -68,10 +75,15 @@ public class OreGenerator {
 				addOre(biome, MinableConfig.IS_ROCK, TRContent.Ores.SAPPHIRE);
 				addOre(biome, MinableConfig.IS_ROCK, TRContent.Ores.SILVER);
 				addOre(biome, MinableConfig.IS_ROCK, TRContent.Ores.TIN);
+				if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA) {
+					biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
+							Biome.createCompositeFeature(new RubberTreeFeature(), IFeatureConfig.NO_FEATURE_CONFIG,
+									Biome.AT_SURFACE_WITH_EXTRA, new AtSurfaceWithExtraConfig(10, 0.1F, 1)));
+				}
 			}
 		}
 	}
-	
+
 	private static void addOre(Biome biome, Predicate<IBlockState> canReplaceIn, TRContent.Ores ore) {
 		biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
 				Biome.createCompositeFeature(Feature.MINABLE,

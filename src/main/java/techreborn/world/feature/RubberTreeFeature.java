@@ -85,7 +85,7 @@ public class RubberTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 			for (xOffset = baseX - radius; xOffset <= baseX + radius; ++xOffset) {
 				for (zOffset = baseZ - radius; zOffset <= baseZ + radius; ++zOffset) {
-					if (!this.canGrowInto(worldIn, blockpos$mutableblockpos.setPos(xOffset, yOffset, xOffset))) {
+					if (!this.canGrowInto(worldIn, blockpos$mutableblockpos.setPos(xOffset, yOffset, zOffset))) {
 						return false;
 					}
 				}
