@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 23,
+  "time": 230,
+  "ingredients" : [
+    {
+      "item": "minecraft:cobblestone",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:sand",
+      "count": 1
+    }
+  ]
+}

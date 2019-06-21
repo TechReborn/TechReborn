@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 31,
+  "time": 270,
+  "ingredients" : [
+    {
+      "item": "techreborn:copper_ore",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:copper_dust",
+      "count": 2
+    }
+  ]
+}

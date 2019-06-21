@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 19,
+  "time": 170,
+  "ingredients" : [
+    {
+      "item": "minecraft:bone",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:bone_meal",
+      "count": 6
+    }
+  ]
+}

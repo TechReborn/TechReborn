@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 20,
+  "time": 200,
+  "ingredients" : [
+    {
+      "item": "minecraft:gravel",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:flint",
+      "count": 1
+    }
+  ]
+}

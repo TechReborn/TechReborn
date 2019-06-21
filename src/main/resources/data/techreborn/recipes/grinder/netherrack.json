@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 27,
+  "time": 300,
+  "ingredients" : [
+    {
+      "item": "minecraft:netherrack",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:netherrack_dust",
+      "count": 1
+    }
+  ]
+}

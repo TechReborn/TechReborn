@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 21,
+  "time": 220,
+  "ingredients" : [
+    {
+      "item": "minecraft:glowstone",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:glowstone_dust",
+      "count": 4
+    }
+  ]
+}
