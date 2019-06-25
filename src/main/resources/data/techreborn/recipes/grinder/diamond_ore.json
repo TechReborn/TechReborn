@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 31,
+  "time": 270,
+  "ingredients" : [
+    {
+      "item": "minecraft:diamond_ore",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:diamond",
+      "count": 1
+    }
+  ]
+}

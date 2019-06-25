@@ -173,26 +173,6 @@ public class ModRecipes {
 //					120, 10));
 //		}
 
-		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			"oreCoal", new ItemStack(Items.COAL, 2),
-//			270, 31));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			"oreDiamond", new ItemStack(Items.DIAMOND, 1),
-//			270, 31));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			"oreEmerald", new ItemStack(Items.EMERALD, 1),
-//			270, 31));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			"oreRedstone", new ItemStack(Items.REDSTONE, 8),
-//			270, 31));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			"oreQuartz", new ItemStack(Items.QUARTZ, 2),
-//			270, 31));
 
 
 //		for (String oreDictionaryName : OreDictionary.getOreNames()) {
@@ -200,21 +180,6 @@ public class ModRecipes {
 //				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
 //				String[] data = getDictData(oreDictionaryName);
 //
-//				//High-level ores shouldn't grind here
-//				if (data[0].equals("ore") && (
-//					data[1].equals("tungsten") ||
-//						data[1].equals("titanium") ||
-//						data[1].equals("aluminium") ||
-//						data[1].equals("iridium") ||
-//						data[1].equals("saltpeter")||
-//						data[1].equals("coal") || //Done here to skip going to dust so it can go to the output
-//						data[1].equals("diamond") || //For example diamond ore should go to diamonds not the diamond dust
-//						data[1].equals("emerald") || //TODO possibly remove this and make it a bit more dyamic? (Check for furnace recipes? and then the block drop?)
-//						data[1].equals("redstone") ||
-//						data[1].equals("quartz")
-//						) ||
-//					oreStack.isEmpty())
-//					continue;
 //
 //				boolean ore = data[0].equals("ore");
 //				TechReborn.LOGGER.debug("Ore: " + data[1]);

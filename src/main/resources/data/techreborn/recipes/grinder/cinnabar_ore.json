@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 31,
+  "time": 270,
+  "ingredients" : [
+    {
+      "item": "techreborn:cinnabar_ore",
+      "size": 1
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:cinnabar_dust",
+      "count": 2
+    }
+  ]
+}
