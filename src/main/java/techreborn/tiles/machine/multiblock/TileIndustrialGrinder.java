@@ -37,7 +37,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
@@ -65,7 +65,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		super(TRTileEntities.INDUSTRIAL_GRINDER, "IndustrialGrinder", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
-		this.inventory = new Inventory<>(8, "TileIndustrialGrinder", 64, this, getInventoryAccess());
+		this.inventory = new RebornInventory<>(8, "TileIndustrialGrinder", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_GRINDER, this, 1, 4, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;

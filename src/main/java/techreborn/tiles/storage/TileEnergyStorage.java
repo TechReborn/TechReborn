@@ -34,7 +34,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
 
 /**
@@ -43,7 +43,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
 public class TileEnergyStorage extends TilePowerAcceptor 
 		implements IToolDrop, ItemHandlerProvider {
 
-	public Inventory<TileEnergyStorage> inventory;
+	public RebornInventory<TileEnergyStorage> inventory;
 	public String name;
 	public Block wrenchDrop;
 	public EnumPowerTier tier;
@@ -53,7 +53,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 
 	public TileEnergyStorage(BlockEntityType<?> tileEntityType, String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
 		super(tileEntityType);
-		inventory = new Inventory<>(invSize, "Tile" + name, 64, this).withConfiguredAccess();
+		inventory = new RebornInventory<>(invSize, "Tile" + name, 64, this).withConfiguredAccess();
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
 		this.name = name;
@@ -136,7 +136,7 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileEnergyStorage> getInventory() {
+	public RebornInventory<TileEnergyStorage> getInventory() {
 		return inventory;
 	}
 }

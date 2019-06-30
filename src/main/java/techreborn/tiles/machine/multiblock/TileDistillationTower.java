@@ -33,7 +33,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
@@ -54,7 +54,7 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 		super(TRTileEntities.DISTILLATION_TOWER,"DistillationTower", maxInput, maxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory<>(7, "TileDistillationTower", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(7, "TileDistillationTower", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.DISTILLATION_TOWER, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

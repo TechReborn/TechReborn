@@ -25,11 +25,9 @@
 package techreborn.tiles.machine.tier3;
 
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
@@ -41,7 +39,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.tile.TileMachineBase;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
@@ -58,7 +56,7 @@ public class TileQuantumTank extends TileMachineBase
 	public static int maxStorage = Integer.MAX_VALUE;
 
 	public Tank tank = new Tank("TileQuantumTank", maxStorage, this);
-	public Inventory<TileQuantumTank> inventory = new Inventory<>(3, "TileQuantumTank", 64, this).withConfiguredAccess();
+	public RebornInventory<TileQuantumTank> inventory = new RebornInventory<>(3, "TileQuantumTank", 64, this).withConfiguredAccess();
 
 	public TileQuantumTank(){
 		this(TRTileEntities.QUANTUM_TANK);
@@ -121,7 +119,7 @@ public class TileQuantumTank extends TileMachineBase
 	
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileQuantumTank> getInventory() {
+	public RebornInventory<TileQuantumTank> getInventory() {
 		return this.inventory;
 	}
 	

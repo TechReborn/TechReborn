@@ -31,7 +31,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
@@ -50,7 +50,7 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 		super(TRTileEntities.ALLOY_SMELTER, "AlloySmelter", maxInput, maxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
-		this.inventory = new Inventory<>(4, "TileAlloySmelter", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(4, "TileAlloySmelter", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.ALLOY_SMELTER, this, 2, 1, this.inventory, inputs, outputs);
 	}
 

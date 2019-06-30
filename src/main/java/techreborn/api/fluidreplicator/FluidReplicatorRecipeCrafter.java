@@ -27,7 +27,7 @@ package techreborn.api.fluidreplicator;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import reborncore.fluid.Fluid;
 import reborncore.fluid.FluidStack;
@@ -52,7 +52,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	 * @param inputSlots This is the list of the slots that the crafting logic should look for the input UU-Matter.
 	 * @param outputSlots This is the list of slots that the crafting logic should look for output fluid
 	 */
-	public FluidReplicatorRecipeCrafter(BlockEntity parentTile, Inventory<?> inventory, int[] inputSlots, int[] outputSlots) {
+	public FluidReplicatorRecipeCrafter(BlockEntity parentTile, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
 		super(ModRecipes.FLUID_REPLICATOR, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 	

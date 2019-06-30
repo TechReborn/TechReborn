@@ -45,7 +45,7 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
@@ -69,7 +69,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterMaxEnergy", comment = "AutoCrafting Table Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
 
-	public Inventory<TileAutoCraftingTable> inventory = new Inventory<>(11, "TileAutoCraftingTable", 64, this, getInventoryAccess());
+	public RebornInventory<TileAutoCraftingTable> inventory = new RebornInventory<>(11, "TileAutoCraftingTable", 64, this, getInventoryAccess());
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
@@ -214,7 +214,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		// TODO fire forge recipe event
 		ItemStack ouputStack = recipe.craft(getCraftingInventory());
 		if (output.isEmpty()) {
-			inventory.setStackInSlot(9, ouputStack.copy());
+			inventory.setInvStack(9, ouputStack.copy());
 		} else {
 			// TODO use ouputStack in someway?
 			output.increment(recipe.getOutput().getCount());
@@ -228,7 +228,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 			ItemStack extraOutputSlot = inventory.getInvStack(10);
 			if (hasOutputSpace(containerItem, 10)) {
 				if (extraOutputSlot.isEmpty()) {
-					inventory.setStackInSlot(10, containerItem.copy());
+					inventory.setInvStack(10, containerItem.copy());
 				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true)
 						&& extraOutputSlot.getMaxCount() < extraOutputSlot.getCount() + containerItem.getCount()) {
 					extraOutputSlot.increment(1);
@@ -435,7 +435,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory getInventory() {
+	public RebornInventory getInventory() {
 		return inventory;
 	}
 

@@ -37,7 +37,7 @@ import reborncore.common.crafting.RebornIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.tile.TileMachineBase;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
@@ -48,7 +48,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
 
 	public int tickTime;
-	public Inventory<TileIronAlloyFurnace> inventory = new Inventory<>(4, "TileIronAlloyFurnace", 64, this).withConfiguredAccess();
+	public RebornInventory<TileIronAlloyFurnace> inventory = new RebornInventory<>(4, "TileIronAlloyFurnace", 64, this).withConfiguredAccess();
 	public int burnTime;
 	public int currentItemBurnTime;
 	public int cookTime;
@@ -180,7 +180,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 			}
 
 			if (inventory.getInvStack(this.output).isEmpty()) {
-				inventory.setStackInSlot(this.output, itemstack.copy());
+				inventory.setInvStack(this.output, itemstack.copy());
 			} else if (inventory.getInvStack(this.output).getItem() == itemstack.getItem()) {
 				inventory.shrinkSlot(this.output, -itemstack.getCount());
 			}
@@ -242,7 +242,7 @@ public class TileIronAlloyFurnace extends TileMachineBase
 	}
 
 	@Override
-	public Inventory<TileIronAlloyFurnace> getInventory() {
+	public RebornInventory<TileIronAlloyFurnace> getInventory() {
 		return this.inventory;
 	}
 

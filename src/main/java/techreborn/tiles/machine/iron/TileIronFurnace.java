@@ -36,7 +36,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.IInventoryAccess;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRTileEntities;
@@ -45,7 +45,7 @@ public class TileIronFurnace extends TileMachineBase
 		implements ItemHandlerProvider, IContainerProvider {
 
 	public int tickTime;
-	public Inventory<TileIronFurnace> inventory = new Inventory<>(3, "TileIronFurnace", 64, this, getInvetoryAccess());
+	public RebornInventory<TileIronFurnace> inventory = new RebornInventory<>(3, "TileIronFurnace", 64, this, getInvetoryAccess());
 	public int fuel;
 	public int fuelGague;
 	public int progress;
@@ -91,11 +91,11 @@ public class TileIronFurnace extends TileMachineBase
 				// Fuel slot
 				ItemStack fuelStack = inventory.getInvStack(this.fuelslot);
 				if (fuelStack.getItem().hasRecipeRemainder()) {
-					inventory.setStackInSlot(this.fuelslot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
+					inventory.setInvStack(this.fuelslot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
 				} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(this.fuelslot, 1);
 				} else if (fuelStack.getCount() == 1) {
-					inventory.setStackInSlot(this.fuelslot, ItemStack.EMPTY);
+					inventory.setInvStack(this.fuelslot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
 			}
@@ -123,14 +123,14 @@ public class TileIronFurnace extends TileMachineBase
 			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
 
 			if (inventory.getInvStack(this.output).isEmpty()) {
-				inventory.setStackInSlot(this.output, itemstack.copy());
+				inventory.setInvStack(this.output, itemstack.copy());
 			} else if (inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack)) {
 				inventory.getInvStack(this.output).increment(itemstack.getCount());
 			}
 			if (inventory.getInvStack(this.input1).getCount() > 1) {
 				inventory.shrinkSlot(this.input1, 1);
 			} else {
-				inventory.setStackInSlot(this.input1, ItemStack.EMPTY);
+				inventory.setInvStack(this.input1, ItemStack.EMPTY);
 			}
 		}
 	}
@@ -171,7 +171,7 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	@Override
-	public Inventory<TileIronFurnace> getInventory() {
+	public RebornInventory<TileIronFurnace> getInventory() {
 		return this.inventory;
 	}
 

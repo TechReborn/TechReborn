@@ -34,7 +34,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -49,7 +49,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
-	public Inventory<TileAdjustableSU> inventory = new Inventory<>(4, "TileAdjustableSU", 64, this).withConfiguredAccess();
+	public RebornInventory<TileAdjustableSU> inventory = new RebornInventory<>(4, "TileAdjustableSU", 64, this).withConfiguredAccess();
 	private int OUTPUT = 64; // The current output
 
 	public TileAdjustableSU() {

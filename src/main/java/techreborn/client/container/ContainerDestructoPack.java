@@ -30,18 +30,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import reborncore.client.gui.slots.SlotFilteredVoid;
 import reborncore.common.container.RebornContainer;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.init.TRContent;
 
 public class ContainerDestructoPack extends RebornContainer {
 
 	private PlayerEntity player;
-	private Inventory<?> inv;
+	private RebornInventory<?> inv;
 
 	public ContainerDestructoPack(PlayerEntity player) {
 		super(null, new LiteralText("destructopack"));
 		this.player = player;
-		inv = new Inventory<>(1, "destructopack", 64, null);
+		inv = new RebornInventory<>(1, "destructopack", 64, null);
 		buildContainer();
 	}
 

@@ -38,7 +38,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -54,7 +54,7 @@ public class TileRecycler extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "recycler", key = "produceIC2Scrap", comment = "When enabled and when ic2 is installed the recycler will make ic2 scrap")
 	public static boolean produceIC2Scrap = false;
 
-	private final Inventory<TileRecycler> inventory = new Inventory<>(3, "TileRecycler", 64, this).withConfiguredAccess();
+	private final RebornInventory<TileRecycler> inventory = new RebornInventory<>(3, "TileRecycler", 64, this).withConfiguredAccess();
 	private final int cost = 2;
 	private final int time = 15;
 	private final int chance = 6;
@@ -83,7 +83,7 @@ public class TileRecycler extends TilePowerAcceptor
 
 		if (randomchance == 1) {
 			if (inventory.getInvStack(1).isEmpty()) {
-				inventory.setStackInSlot(1, itemstack.copy());
+				inventory.setInvStack(1, itemstack.copy());
 			}
 			else {
 				inventory.getInvStack(1).increment(itemstack.getCount());
@@ -196,7 +196,7 @@ public class TileRecycler extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileRecycler> getInventory() {
+	public RebornInventory<TileRecycler> getInventory() {
 		return this.inventory;
 	}
 

@@ -38,7 +38,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRContent;
@@ -53,7 +53,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
 
-	public Inventory<TileElectricFurnace> inventory = new Inventory<>(3, "TileElectricFurnace", 64, this).withConfiguredAccess();
+	public RebornInventory<TileElectricFurnace> inventory = new RebornInventory<>(3, "TileElectricFurnace", 64, this).withConfiguredAccess();
 	public int progress;
 	public int fuelScale = 100;
 	public int cost = 6;
@@ -74,14 +74,14 @@ public class TileElectricFurnace extends TilePowerAcceptor
 			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
 
 			if (inventory.getInvStack(output).isEmpty()) {
-				inventory.setStackInSlot(output, itemstack.copy());
+				inventory.setInvStack(output, itemstack.copy());
 			} else if (inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack)) {
 				inventory.getInvStack(output).increment(itemstack.getCount());
 			}
 			if (inventory.getInvStack(input1).getCount() > 1) {
 				inventory.shrinkSlot(input1, 1);
 			} else {
-				inventory.setStackInSlot(input1, ItemStack.EMPTY);
+				inventory.setInvStack(input1, ItemStack.EMPTY);
 			}
 		}
 	}
@@ -210,7 +210,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileElectricFurnace> getInventory() {
+	public RebornInventory<TileElectricFurnace> getInventory() {
 		return inventory;
 	}
 

@@ -34,7 +34,7 @@ import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 
 /**
  * @author drcrazy
@@ -48,7 +48,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	public int maxEnergy;
 	public Block toolDrop;
 	public int energySlot;
-	public Inventory<?> inventory;
+	public RebornInventory<?> inventory;
 	public RecipeCrafter crafter;
 	
 	/**
@@ -117,7 +117,7 @@ public abstract class TileGenericMachine extends TilePowerAcceptor
 	
 	// ItemHandlerProvider
 	@Override
-	public Inventory<?> getInventory() {
+	public RebornInventory<?> getInventory() {
 		return inventory;
 	}
 	

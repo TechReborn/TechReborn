@@ -38,7 +38,7 @@ import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.Torus;
 import techreborn.TechReborn;
@@ -62,7 +62,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxCoilSize", comment = "Fusion Reactor Max Coil size (Radius)")
 	public static int maxCoilSize = 50;
 
-	public Inventory<TileFusionControlComputer> inventory;
+	public RebornInventory<TileFusionControlComputer> inventory;
 
 	public int coilCount = 0;
 	public int crafingTickTime = 0;
@@ -80,7 +80,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 	public TileFusionControlComputer() {
 		super(TRTileEntities.FUSION_CONTROL_COMPUTER);
 		checkOverfill = false;
-		this.inventory = new Inventory<>(3, "TileFusionControlComputer", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(3, "TileFusionControlComputer", 64, this).withConfiguredAccess();
 	}
 
 	/**
@@ -262,7 +262,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 			} else if (crafingTickTime >= finalTickTime) {
 				if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
 					if (inventory.getInvStack(outputStackSlot).isEmpty()) {
-						inventory.setStackInSlot(outputStackSlot, currentRecipe.getOutput().copy());
+						inventory.setInvStack(outputStackSlot, currentRecipe.getOutput().copy());
 					} else {
 						inventory.shrinkSlot(outputStackSlot, -currentRecipe.getOutput().getCount());
 					}
@@ -373,7 +373,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileFusionControlComputer> getInventory() {
+	public RebornInventory<TileFusionControlComputer> getInventory() {
 		return inventory;
 	}
 

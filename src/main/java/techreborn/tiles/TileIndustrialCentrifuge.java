@@ -34,7 +34,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
@@ -56,7 +56,7 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 		super(TRTileEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory<>(7, "TileIndustrialCentrifuge", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(7, "TileIndustrialCentrifuge", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.CENTRIFUGE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

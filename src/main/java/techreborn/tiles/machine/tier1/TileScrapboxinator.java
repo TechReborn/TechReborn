@@ -30,7 +30,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.api.recipe.ScrapboxRecipeCrafter;
 import techreborn.init.TRContent;
@@ -49,7 +49,7 @@ public class TileScrapboxinator extends TileGenericMachine implements IContainer
 		super(TRTileEntities.SCRAPBOXINATOR, "Scrapboxinator", maxInput, maxEnergy, TRContent.Machine.SCRAPBOXINATOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory<>(3, "TileScrapboxinator", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(3, "TileScrapboxinator", 64, this).withConfiguredAccess();
 		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
 	

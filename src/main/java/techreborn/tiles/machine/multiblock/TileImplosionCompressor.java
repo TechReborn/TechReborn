@@ -32,7 +32,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
@@ -53,7 +53,7 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 		super(TRTileEntities.IMPLOSION_COMPRESSOR, "ImplosionCompressor", maxInput, maxEnergy, TRContent.Machine.IMPLOSION_COMPRESSOR.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
-		this.inventory = new Inventory<>(5, "TileImplosionCompressor", 64, this);
+		this.inventory = new RebornInventory<>(5, "TileImplosionCompressor", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.IMPLOSION_COMPRESSOR, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	

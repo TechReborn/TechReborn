@@ -26,9 +26,7 @@ package techreborn.tiles.machine.multiblock;
 
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -38,7 +36,7 @@ import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.init.ModRecipes;
@@ -63,7 +61,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		super(TRTileEntities.INDUSTRIAL_BLAST_FURNACE, "IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
-		this.inventory = new Inventory<>(5, "TileIndustrialBlastFurnace", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(5, "TileIndustrialBlastFurnace", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.BLAST_FURNACE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	

@@ -34,7 +34,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
@@ -66,7 +66,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	public TileFluidReplicator() {
 		super(TRTileEntities.FLUID_REPLICATOR, "FluidReplicator", maxInput, maxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		final int[] inputs = new int[] { 0 };
-		this.inventory = new Inventory<>(4, "TileFluidReplicator", 64, this, getInventoryAccess());
+		this.inventory = new RebornInventory<>(4, "TileFluidReplicator", 64, this, getInventoryAccess());
 		this.crafter = new FluidReplicatorRecipeCrafter(this, this.inventory, inputs, null);
 		this.tank = new Tank("TileFluidReplicator", TileFluidReplicator.TANK_CAPACITY, this);
 	}

@@ -25,7 +25,6 @@
 package techreborn.tiles.machine.tier1;
 
 import net.minecraft.container.Container;
-import net.minecraft.container.ContainerType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -43,7 +42,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.api.RollingMachineRecipe;
@@ -51,7 +50,6 @@ import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,7 +73,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 
 	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	private CraftingInventory craftCache;
-	public Inventory<TileRollingMachine> inventory = new Inventory<>(12, "TileRollingMachine", 64, this).withConfiguredAccess();
+	public RebornInventory<TileRollingMachine> inventory = new RebornInventory<>(12, "TileRollingMachine", 64, this).withConfiguredAccess();
 	public boolean isRunning;
 	public int tickTime;
 	@Nonnull
@@ -144,7 +142,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
 					if (inventory.getInvStack(outputSlot).isEmpty()) {
-						inventory.setStackInSlot(outputSlot, currentRecipeOutput);
+						inventory.setInvStack(outputSlot, currentRecipeOutput);
 						tickTime = 0;
 						hasCrafted = true;
 					} else {
@@ -152,7 +150,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxCount()) {
 							final ItemStack stack = inventory.getInvStack(outputSlot);
 							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
-							inventory.setStackInSlot(outputSlot, stack);
+							inventory.setInvStack(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
 						} else {
@@ -357,7 +355,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public Inventory<TileRollingMachine> getInventory() {
+	public RebornInventory<TileRollingMachine> getInventory() {
 		return inventory;
 	}
 
@@ -384,7 +382,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
 			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
 			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
-			.onCraft(inv -> this.inventory.setStackInSlot(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+			.onCraft(inv -> this.inventory.setInvStack(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
 			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);

@@ -25,7 +25,6 @@
 package techreborn.tiles;
 
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -35,7 +34,7 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.tile.TileMachineBase;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 
 import java.util.ArrayList;
@@ -45,14 +44,14 @@ public class TileTechStorageBase extends TileMachineBase
 		implements ItemHandlerProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;
-	public final Inventory<TileTechStorageBase> inventory;
+	public final RebornInventory<TileTechStorageBase> inventory;
 	public ItemStack storedItem;
 
 	public TileTechStorageBase(BlockEntityType<?> tileEntityTypeIn, String name, int maxCapacity) {
 		super(tileEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storedItem = ItemStack.EMPTY;
-		inventory = new Inventory<>(3, name, maxCapacity, this).withConfiguredAccess();
+		inventory = new RebornInventory<>(3, name, maxCapacity, this).withConfiguredAccess();
 	}
 
 	public void readWithoutCoords(CompoundTag tagCompound) {
@@ -92,7 +91,7 @@ public class TileTechStorageBase extends TileMachineBase
 		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("tileEntity", tileEntity);
 		storedItem.setCount(0);
-		inventory.setStackInSlot(1, ItemStack.EMPTY);
+		inventory.setInvStack(1, ItemStack.EMPTY);
 		syncWithAll();
 
 		return dropStack;
@@ -141,12 +140,12 @@ public class TileTechStorageBase extends TileMachineBase
 						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
 
 					storedItem = inputStack;
-					inventory.setStackInSlot(0, ItemStack.EMPTY);
+					inventory.setInvStack(0, ItemStack.EMPTY);
 				} else if (ItemUtils.isItemEqual(getStoredItemType(), inputStack, true, true)) {
 					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
 					if (inputStack.getCount() <= reminder) {
 						setStoredItemCount(inputStack.getCount());
-						inventory.setStackInSlot(0, ItemStack.EMPTY);
+						inventory.setInvStack(0, ItemStack.EMPTY);
 					} else {
 						setStoredItemCount(maxCapacity - outputStack.getCount());
 						inventory.getInvStack(0).decrement(reminder);
@@ -167,7 +166,7 @@ public class TileTechStorageBase extends TileMachineBase
 						storedItem = ItemStack.EMPTY;
 					}
 
-					inventory.setStackInSlot(1, delivered);
+					inventory.setInvStack(1, delivered);
 					markDirty();
 					syncWithAll();
 				} else if (ItemUtils.isItemEqual(storedItem, outputStack, true, true)
@@ -208,7 +207,7 @@ public class TileTechStorageBase extends TileMachineBase
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileTechStorageBase> getInventory() {
+	public RebornInventory<TileTechStorageBase> getInventory() {
 		return inventory;
 	}
 

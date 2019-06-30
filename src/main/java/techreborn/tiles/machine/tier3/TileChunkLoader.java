@@ -35,7 +35,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -50,7 +50,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
-	public Inventory<TileChunkLoader> inventory = new Inventory<>(1, "TileChunkLoader", 64, this).withConfiguredAccess();
+	public RebornInventory<TileChunkLoader> inventory = new RebornInventory<>(1, "TileChunkLoader", 64, this).withConfiguredAccess();
 
 	public boolean isRunning;
 	public int tickTime;
@@ -94,7 +94,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Ite
 	}
 
 	@Override
-	public Inventory<TileChunkLoader> getInventory() {
+	public RebornInventory<TileChunkLoader> getInventory() {
 		return this.inventory;
 	}
 

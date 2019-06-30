@@ -40,7 +40,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -55,7 +55,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
 	public static int outputAmount = 10;
 
-	public Inventory<TileSolidFuelGenerator> inventory = new Inventory<>(2, "TileSolidFuelGenerator", 64, this).withConfiguredAccess();
+	public RebornInventory<TileSolidFuelGenerator> inventory = new RebornInventory<>(2, "TileSolidFuelGenerator", 64, this).withConfiguredAccess();
 	public int fuelSlot = 0;
 	public int burnTime;
 	public int totalBurnTime = 0;
@@ -97,9 +97,9 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 				burnItem = inventory.getInvStack(fuelSlot);
 				if (inventory.getInvStack(fuelSlot).getCount() == 1) {
 					if (inventory.getInvStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getInvStack(fuelSlot).getItem() instanceof BucketItem) {
-						inventory.setStackInSlot(fuelSlot, new ItemStack(Items.BUCKET));
+						inventory.setInvStack(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
-						inventory.setStackInSlot(fuelSlot, ItemStack.EMPTY);
+						inventory.setInvStack(fuelSlot, ItemStack.EMPTY);
 					}
 
 				} else {
@@ -152,7 +152,7 @@ public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDr
 	}
 
 	@Override
-	public Inventory<TileSolidFuelGenerator> getInventory() {
+	public RebornInventory<TileSolidFuelGenerator> getInventory() {
 		return inventory;
 	}
 

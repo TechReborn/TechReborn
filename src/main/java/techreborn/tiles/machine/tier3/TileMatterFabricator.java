@@ -35,7 +35,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
@@ -54,7 +54,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
 	public static int energyPerAmp = 5;
 
-	public Inventory<TileMatterFabricator> inventory = new Inventory<>(12, "TileMatterFabricator", 64, this).withConfiguredAccess();
+	public RebornInventory<TileMatterFabricator> inventory = new RebornInventory<>(12, "TileMatterFabricator", 64, this).withConfiguredAccess();
 	private int amplifier = 0;
 
 	public TileMatterFabricator() {
@@ -87,7 +87,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	private void addOutputProducts(int slot) {
 		if (inventory.getInvStack(slot).isEmpty()) {
-			inventory.setStackInSlot(slot, TRContent.Parts.UU_MATTER.getStack());
+			inventory.setInvStack(slot, TRContent.Parts.UU_MATTER.getStack());
 		} 
 		else if (ItemUtils.isItemEqual(this.inventory.getInvStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
 			inventory.getInvStack(slot).setCount((Math.min(64, 1 + inventory.getInvStack(slot).getCount())));
@@ -202,7 +202,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileMatterFabricator> getInventory() {
+	public RebornInventory<TileMatterFabricator> getInventory() {
 		return inventory;
 	}
 

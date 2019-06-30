@@ -31,7 +31,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
@@ -52,7 +52,7 @@ public class TileIndustrialElectrolyzer extends TileGenericMachine implements IC
 		super(TRTileEntities.INDUSTRIAL_ELECTROLYZER, "IndustrialElectrolyzer", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory<>(7, "TileIndustrialElectrolyzer", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(7, "TileIndustrialElectrolyzer", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_ELECTROLYZER, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

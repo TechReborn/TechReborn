@@ -37,7 +37,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
@@ -65,7 +65,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		super(TRTileEntities.INDUSTRIAL_SAWMILL, "IndustrialSawmill", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
-		this.inventory = new Inventory<>(7, "TileSawmill", 64, this, getInventoryAccess());
+		this.inventory = new RebornInventory<>(7, "TileSawmill", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_SAWMILL, this, 1, 3, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;

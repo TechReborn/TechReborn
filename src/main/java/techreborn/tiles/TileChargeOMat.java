@@ -36,7 +36,7 @@ import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -52,7 +52,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
-	public Inventory<TileChargeOMat> inventory = new Inventory<>(6, "TileChargeOMat", 64, this).withConfiguredAccess();
+	public RebornInventory<TileChargeOMat> inventory = new RebornInventory<>(6, "TileChargeOMat", 64, this).withConfiguredAccess();
 
 	public TileChargeOMat() {
 		super(TRTileEntities.CHARGE_O_MAT);
@@ -114,7 +114,7 @@ public class TileChargeOMat extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileChargeOMat> getInventory() {
+	public RebornInventory<TileChargeOMat> getInventory() {
 		return inventory;
 	}
 

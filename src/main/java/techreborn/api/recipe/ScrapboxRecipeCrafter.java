@@ -27,7 +27,7 @@ package techreborn.api.recipe;
 import net.minecraft.block.entity.BlockEntity;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.init.ModRecipes;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	 * @param inputSlots Slot IDs for input
 	 * @param outputSlots Slot IDs for output
 	 */
-	public ScrapboxRecipeCrafter(BlockEntity parentTile, Inventory<?> inventory, int[] inputSlots, int[] outputSlots) {
+	public ScrapboxRecipeCrafter(BlockEntity parentTile, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
 		super(ModRecipes.SCRAPBOX, parentTile, 1, 1, inventory, inputSlots, outputSlots);
 	}
 

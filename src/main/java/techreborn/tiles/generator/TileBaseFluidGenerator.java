@@ -31,7 +31,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import reborncore.fluid.FluidStack;
 import techreborn.api.generator.EFluidGenerator;
@@ -49,7 +49,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	private FluidGeneratorRecipe currentRecipe;
 	private int ticksSinceLastChange;
 	public final Tank tank;
-	public final Inventory<?> inventory;
+	public final RebornInventory<?> inventory;
 	protected long lastOutput = 0;
 
 	/*
@@ -63,7 +63,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super(tileEntityType);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		tank = new Tank(tileName, tankCapacity, this);
-		inventory = new Inventory<>(3, tileName, 64, this).withConfiguredAccess();
+		inventory = new RebornInventory<>(3, tileName, 64, this).withConfiguredAccess();
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
 	}
@@ -169,7 +169,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	}
 
 	@Override
-	public Inventory<?> getInventory() {
+	public RebornInventory<?> getInventory() {
 		return inventory;
 	}
 

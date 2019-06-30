@@ -35,7 +35,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.Inventory;
+import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
@@ -51,7 +51,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 4;
 
-	public Inventory<TileDragonEggSyphon> inventory = new Inventory<>(3, "TileDragonEggSyphon", 64, this).withConfiguredAccess();
+	public RebornInventory<TileDragonEggSyphon> inventory = new RebornInventory<>(3, "TileDragonEggSyphon", 64, this).withConfiguredAccess();
 	private long lastOutput = 0;
 
 	public TileDragonEggSyphon() {
@@ -122,7 +122,7 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 
 	// ItemHandlerProvider
 	@Override
-	public Inventory<TileDragonEggSyphon> getInventory() {
+	public RebornInventory<TileDragonEggSyphon> getInventory() {
 		return inventory;
 	}
 }
