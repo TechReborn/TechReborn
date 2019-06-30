@@ -38,6 +38,8 @@ import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.mixin.extensions.ContainerExtensions;
 import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.gui.*;
 import techreborn.tiles.TileChargeOMat;
@@ -74,7 +76,9 @@ public class GuiHandler {
 
 		EGui.stream().forEach(gui -> ContainerProviderRegistry.INSTANCE.registerFactory(gui.getID(), (i, identifier, playerEntity, packetByteBuf) -> {
 			final BlockEntity tile = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			return ((IContainerProvider) tile).createContainer(playerEntity);
+			BuiltContainer container = ((IContainerProvider) tile).createContainer(playerEntity);
+			((ContainerExtensions)container).setSyncID(i);
+			return container;
 		}));
 
 		EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (i, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos())));
