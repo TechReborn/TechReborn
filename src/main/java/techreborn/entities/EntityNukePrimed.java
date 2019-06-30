@@ -74,18 +74,13 @@ public class EntityNukePrimed extends TntEntity {
 		double motionZ = velocity.z;
 
 		if (!this.hasNoGravity()) {
-			motionY -= 0.03999999910593033D;
+			this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
 		}
 
-		this.move(MovementType.SELF, new Vec3d(motionX, motionZ, motionY));
-		motionX *= 0.9800000190734863D;
-		motionY *= 0.9800000190734863D;
-		motionZ *= 0.9800000190734863D;
-
+		this.move(MovementType.SELF, this.getVelocity());
+		this.setVelocity(this.getVelocity().multiply(0.98D));
 		if (this.onGround) {
-			motionX *= 0.699999988079071D;
-			motionZ *= 0.699999988079071D;
-			motionY *= -0.5D;
+			this.setVelocity(this.getVelocity().multiply(0.7D, -0.5D, 0.7D));
 		}
 
 		setVelocity(new Vec3d(motionX, motionZ, motionY));
