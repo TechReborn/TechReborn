@@ -29,9 +29,8 @@ import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -221,19 +220,19 @@ public class TileTechStorageBase extends TileMachineBase
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
+	public void addInfo(List<Text> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile || hasData) {
 			int size = 0;
 			String name = "of nothing";
 			if (!storedItem.isEmpty()) {
-				name = storedItem.getCustomName().getString();
+				name = storedItem.getName().getString();
 				size += storedItem.getCount();
 			}
 			if (!inventory.getInvStack(1).isEmpty()) {
-				name = inventory.getInvStack(1).getCustomName().getString();
+				name = inventory.getInvStack(1).getName().getString();
 				size += inventory.getInvStack(1).getCount();
 			}
-			info.add(new TextComponent(size + " " + name));
+			info.add(new LiteralText(size + " " + name));
 		}
 	}
 

@@ -24,13 +24,13 @@
 
 package techreborn.tiles.generator;
 
-import net.minecraft.ChatFormat;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
@@ -130,17 +130,17 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 	// TODO: Translate
 	@Override
-	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
-		info.add(new TextComponent(ChatFormat.GRAY + "Internal Energy Storage: " + ChatFormat.GOLD
+	public void addInfo(List<Text> info, boolean isRealTile, boolean hasData) {
+		info.add(new LiteralText(Formatting.GRAY + "Internal Energy Storage: " + Formatting.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower())));
 
-		info.add(new TextComponent(ChatFormat.GRAY + "Generation Rate Day: " + ChatFormat.GOLD
+		info.add(new LiteralText(Formatting.GRAY + "Generation Rate Day: " + Formatting.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
 
-		info.add(new TextComponent(ChatFormat.GRAY + "Generation Rate Night: " + ChatFormat.GOLD
+		info.add(new LiteralText(Formatting.GRAY + "Generation Rate Night: " + Formatting.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
 
-		info.add(new TextComponent(ChatFormat.GRAY + "Tier: " + ChatFormat.GOLD
+		info.add(new LiteralText(Formatting.GRAY + "Tier: " + Formatting.GOLD
 				+ StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
 	}
 	

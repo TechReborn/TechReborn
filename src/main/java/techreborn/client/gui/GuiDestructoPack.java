@@ -29,7 +29,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.container.Container;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 
 public class GuiDestructoPack extends AbstractContainerScreen {
@@ -38,7 +38,7 @@ public class GuiDestructoPack extends AbstractContainerScreen {
 		"textures/gui/destructopack.png");
 
 	public GuiDestructoPack(Container container) {
-		super(container, MinecraftClient.getInstance().player.inventory, new TextComponent("techreborn.destructopack"));
+		super(container, MinecraftClient.getInstance().player.inventory, new LiteralText("techreborn.destructopack"));
 		this.containerWidth = 176;
 		this.containerHeight = 166;
 	}

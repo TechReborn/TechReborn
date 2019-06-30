@@ -24,15 +24,15 @@
 
 package techreborn.tiles.cable;
 
-import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
@@ -159,13 +159,13 @@ public class TileCable extends BlockEntity
 
     // IListInfoProvider
 	@Override
-	public void addInfo(List<Component> info, boolean isRealTile, boolean hasData) {
+	public void addInfo(List<Text> info, boolean isRealTile, boolean hasData) {
 		if (isRealTile) {
-			info.add(new TextComponent(ChatFormat.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
-				+ ChatFormat.GOLD
+			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
+				+ Formatting.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t"));
-			info.add(new TextComponent(ChatFormat.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-				+ ChatFormat.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
+			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
+				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
 		}
 	}
 

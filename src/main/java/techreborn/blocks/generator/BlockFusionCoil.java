@@ -34,10 +34,10 @@ import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -83,10 +83,10 @@ public class BlockFusionCoil extends Block {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Component> tooltip,
+	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip,
 			TooltipContext flagIn) {
 		super.buildTooltip(stack, worldIn, tooltip, flagIn);
 		// TODO: Translate
-		tooltip.add(new TextComponent("Right click Fusion Control computer to auto place"));
+		tooltip.add(new LiteralText("Right click Fusion Control computer to auto place"));
 	}
 }

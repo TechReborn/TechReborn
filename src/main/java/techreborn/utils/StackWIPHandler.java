@@ -24,13 +24,13 @@
 
 package techreborn.utils;
 
-import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import reborncore.api.events.ItemTooltipCallback;
 import reborncore.common.util.StringUtils;
 import techreborn.init.TRContent;
@@ -57,11 +57,11 @@ public class StackWIPHandler {
 		ItemTooltipCallback.EVENT.register((stack, tooltipContext, components) -> {
 			Block block = Block.getBlockFromItem(stack.getItem());
 			if (block != null && wipBlocks.contains(block)) {
-				components.add(new TextComponent(ChatFormat.RED + StringUtils.t("techreborn.tooltip.wip")));
+				components.add(new LiteralText(Formatting.RED + StringUtils.t("techreborn.tooltip.wip")));
 			}
 
 			if (devHeads.contains(stack)) {
-				components.add(new TextComponent(ChatFormat.GOLD + "TechReborn Developer"));
+				components.add(new LiteralText(Formatting.GOLD + "TechReborn Developer"));
 			}
 		});
 	}

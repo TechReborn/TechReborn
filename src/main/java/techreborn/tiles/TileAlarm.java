@@ -24,12 +24,12 @@
 
 package techreborn.tiles;
 
-import net.minecraft.ChatFormat;
+import net.minecraft.util.Formatting;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Tickable;
 import reborncore.api.IToolDrop;
@@ -56,8 +56,8 @@ public class TileAlarm extends BlockEntity
 			} else {
 				selectedSound = 1;
 			}
-			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TextComponent(
-					ChatFormat.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new LiteralText(
+				Formatting.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
 		}
 	}
 	

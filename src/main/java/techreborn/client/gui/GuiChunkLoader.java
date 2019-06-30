@@ -29,7 +29,7 @@ import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import techreborn.tiles.machine.tier3.TileChunkLoader;
@@ -45,7 +45,7 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 	private ButtonWidget minusTenButton;
 
 	public GuiChunkLoader(final PlayerEntity player, final TileChunkLoader chunkLoader) {
-		super(chunkLoader.createContainer(player), player.inventory, new TextComponent("techreborn.chunkloader"));
+		super(chunkLoader.createContainer(player), player.inventory, new LiteralText("techreborn.chunkloader"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
 		this.chunkloader = chunkLoader;

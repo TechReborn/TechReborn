@@ -26,15 +26,15 @@ package techreborn.items.tool.industrial;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.ChatFormat;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -129,8 +129,8 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
-		tooltip.add(new TextComponent("WIP Coming Soon").applyFormat(ChatFormat.RED));
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+		tooltip.add(new LiteralText("WIP Coming Soon").formatted(Formatting.RED));
 		// TODO 
 		// Remember to remove WIP override and imports once complete
 	}

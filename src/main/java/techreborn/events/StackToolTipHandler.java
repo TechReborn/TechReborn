@@ -24,7 +24,7 @@
 
 package techreborn.events;
 
-import net.minecraft.ChatFormat;
+import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockWithEntity;
@@ -35,8 +35,8 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.events.ItemTooltipCallback;
@@ -56,27 +56,27 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	}
 
 	@Override
-	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Component> components) {
+	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> components) {
 		Item item = stack.getItem();
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(components, false, false);
 		} else if (stack.getItem() instanceof IEnergyItemInfo) {
 			ItemPowerManager itemPowerManager = new ItemPowerManager(stack);
-			TextComponent line1 = new TextComponent(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getEnergyStored() / RebornCoreConfig.euPerFU));
+			LiteralText line1 = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getEnergyStored() / RebornCoreConfig.euPerFU));
 			line1.append("/");
 			line1.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getMaxEnergyStored() / RebornCoreConfig.euPerFU));
 			line1.append(" ");
 			line1.append(PowerSystem.getDisplayPower().abbreviation);
-			line1.applyFormat(ChatFormat.GOLD);
+			line1.formatted(Formatting.GOLD);
 
 			components.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
 				int percentage = percentage(itemPowerManager.getMaxEnergyStored(), itemPowerManager.getEnergyStored());
-				ChatFormat color = StringUtils.getPercentageColour(percentage);
-				components.add(2, new TextComponent(color + "" + percentage + "%" + ChatFormat.GRAY + " Charged"));
+				Formatting color = StringUtils.getPercentageColour(percentage);
+				components.add(2, new LiteralText(color + "" + percentage + "%" + Formatting.GRAY + " Charged"));
 				// TODO: show both input and output rates
-				components.add(3, new TextComponent(ChatFormat.GRAY + "I/O Rate: " + ChatFormat.GOLD + PowerSystem.getLocaliszedPowerFormatted(((IEnergyItemInfo) item).getMaxInput())));
+				components.add(3, new LiteralText(Formatting.GRAY + "I/O Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(((IEnergyItemInfo) item).getMaxInput())));
 			}
 		} else {
 			try {
@@ -88,14 +88,14 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 						CompoundTag tileData = stack.getTag().getCompound("tile_data");
 						tile.fromTag(tileData);
 						hasData = true;
-						components.add(new TextComponent("Block data contained").applyFormat(ChatFormat.DARK_GREEN));
+						components.add(new LiteralText("Block data contained").formatted(Formatting.DARK_GREEN));
 					}
 					if (tile instanceof IListInfoProvider) {
 						((IListInfoProvider) tile).addInfo(components, false, hasData);
 					}
 				}
 			} catch (NullPointerException e) {
-				TechReborn.LOGGER.debug("Failed to load info for " + stack.getCustomName());
+				TechReborn.LOGGER.debug("Failed to load info for " + stack.getName());
 			}
 		}
 	}

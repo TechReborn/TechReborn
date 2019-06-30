@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import techreborn.items.ItemManual;
 
@@ -45,7 +45,7 @@ public class GuiManual extends Screen {
 	private static final String text3 = I18n.translate("techreborn.manual.refund");
 
 	public GuiManual(PlayerEntity player) {
-		super(new TextComponent("gui.manual"));
+		super(new LiteralText("gui.manual"));
 		this.player = player;
 	}
 

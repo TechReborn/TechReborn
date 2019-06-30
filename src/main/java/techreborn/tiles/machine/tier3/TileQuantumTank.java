@@ -30,8 +30,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.ClientConnection;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.ItemHandlerProvider;
@@ -133,15 +133,15 @@ public class TileQuantumTank extends TileMachineBase
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<Component> info, final boolean isRealTile, boolean hasData) {
+	public void addInfo(final List<Text> info, final boolean isRealTile, boolean hasData) {
 		if (isRealTile | hasData) {
 			if (this.tank.getFluid() != null) {
-				info.add(new TextComponent(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName()));
+				info.add(new LiteralText(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName()));
 			} else {
-				info.add(new TextComponent("Empty"));
+				info.add(new LiteralText("Empty"));
 			}
 		}
-		info.add(new TextComponent("Capacity " + this.tank.getCapacity() + " mb"));
+		info.add(new LiteralText("Capacity " + this.tank.getCapacity() + " mb"));
 	}
 
 	// IContainerProvider

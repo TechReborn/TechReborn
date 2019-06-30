@@ -24,6 +24,7 @@
 
 package techreborn.init;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
@@ -97,7 +98,7 @@ public class TRTileEntities {
 	public static final BlockEntityType<TileFusionControlComputer> FUSION_CONTROL_COMPUTER = register(TileFusionControlComputer.class, "fusion_control_computer");
 	public static final BlockEntityType<TileLightningRod> LIGHTNING_ROD = register(TileLightningRod.class, "lightning_rod");
 	public static final BlockEntityType<TileIndustrialSawmill> INDUSTRIAL_SAWMILL = register(TileIndustrialSawmill.class, "industrial_sawmill");
-	public static final BlockEntityType<TileGrinder> GRINDER = register(TileGrinder.class, "grinder");
+	public static final BlockEntityType<TileGrinder> GRINDER = register(TileGrinder.class, "grinder", TRContent.Machine.GRINDER.block);
 	public static final BlockEntityType<TileSolidFuelGenerator> SOLID_FUEL_GENEREATOR = register(TileSolidFuelGenerator.class, "solid_fuel_generator");
 	public static final BlockEntityType<TileExtractor> EXTRACTOR = register(TileExtractor.class, "extractor");
 	public static final BlockEntityType<TileCompressor> COMPRESSOR = register(TileCompressor.class, "compressor");
@@ -125,15 +126,16 @@ public class TRTileEntities {
 
 	
 
-	public static <T extends BlockEntity> BlockEntityType<T> register(Class<T> tClass, String name) {
-		return register(new Identifier(TechReborn.MOD_ID, name).toString(), BlockEntityType.Builder.create(() -> {
-			//TODO clean this up
-			try {
-				return tClass.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				throw new RuntimeException("Failed to create tile", e);
-			}
-		}));
+	public static <T extends BlockEntity> BlockEntityType<T> register(Class<T> tClass, String name, Block... blocks) {
+		return register(new Identifier(TechReborn.MOD_ID, name).toString(), BlockEntityType.Builder.create(() -> createBlockEntity(tClass), blocks));
+	}
+
+	private static <T extends BlockEntity> T createBlockEntity(Class<T> tClass){
+		try {
+			return tClass.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new RuntimeException("Failed to createBlockEntity tile", e);
+		}
 	}
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {

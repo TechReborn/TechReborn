@@ -98,7 +98,7 @@ public class EntityNukePrimed extends TntEntity {
 				explodeNuke();
 			}
 		} else {
-			this.method_5713();
+			this.checkWaterState();
 			this.world.addParticle(ParticleTypes.SMOKE, this.x, this.y + 0.5D, this.z, 0.0D, 0.0D, 0.0D);
 		}
 	}

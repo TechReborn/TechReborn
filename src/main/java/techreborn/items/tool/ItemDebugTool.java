@@ -24,15 +24,16 @@
 
 package techreborn.items.tool;
 
-import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.state.property.Property;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.SystemUtil;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.power.IEnergyInterfaceTile;
@@ -57,21 +58,21 @@ public class ItemDebugTool extends Item {
 		if (block == null) {
 			return ActionResult.FAIL;
 		}
-		sendMessage(context, new TextComponent(getRegistryName(block)));
+		sendMessage(context, new LiteralText(getRegistryName(block)));
 		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
-			sendMessage(context, new TextComponent(getPropertyString(entry)));
+			sendMessage(context, new LiteralText(getPropertyString(entry)));
 		}
 		BlockEntity tile = context.getWorld().getBlockEntity(context.getBlockPos());
 		if (tile != null) {
-			sendMessage(context, new TextComponent(getTileEntityType(tile)));
+			sendMessage(context, new LiteralText(getTileEntityType(tile)));
 			if (tile instanceof IEnergyInterfaceTile) {
-				sendMessage(context, new TextComponent(getRCPower((IEnergyInterfaceTile) tile)));
+				sendMessage(context, new LiteralText(getRCPower((IEnergyInterfaceTile) tile)));
 			}
 		}
 		return ActionResult.SUCCESS;
 	}
 
-	private void sendMessage(ItemUsageContext context, TextComponent string) {
+	private void sendMessage(ItemUsageContext context, Text string) {
 		if (!context.getWorld().isClient) {
 			context.getPlayer().sendMessage(string);
 		}
@@ -82,36 +83,36 @@ public class ItemDebugTool extends Item {
 		Comparable<?> comparable = entryIn.getValue();
 		String s = SystemUtil.getValueAsString(iproperty, comparable);
 		if (Boolean.TRUE.equals(comparable)) {
-			s = ChatFormat.GREEN + s;
+			s = Formatting.GREEN + s;
 		} else if (Boolean.FALSE.equals(comparable)) {
-			s = ChatFormat.RED + s;
+			s = Formatting.RED + s;
 		}
 
 		return iproperty.getName() + ": " + s;
 	}
 
 	private String getRegistryName(Block block) {
-		String s = "" + ChatFormat.GREEN;
+		String s = "" + Formatting.GREEN;
 		s += "Block Registry Name: ";
-		s += ChatFormat.BLUE;
+		s += Formatting.BLUE;
 		s += Registry.BLOCK.getId(block);
 
 		return s;
 	}
 	
 	private String getTileEntityType(BlockEntity tile) {
-		String s = "" + ChatFormat.GREEN;
+		String s = "" + Formatting.GREEN;
 		s += "Tile Entity: ";
-		s += ChatFormat.BLUE;
+		s += Formatting.BLUE;
 		s += tile.getType().toString();
 
 		return s;
 	}
 	
 	private String getRCPower(IEnergyInterfaceTile tile) {
-		String s = "" + ChatFormat.GREEN;
+		String s = "" + Formatting.GREEN;
 		s += "Power: ";
-		s += ChatFormat.BLUE;
+		s += Formatting.BLUE;
 		s += PowerSystem.getLocaliszedPower(tile.getEnergy());
 		s += "/";
 		s += PowerSystem.getLocaliszedPower(tile.getMaxPower());

@@ -28,7 +28,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.ChatFormat;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.Entity;
@@ -39,9 +38,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import reborncore.api.power.IEnergyItemInfo;
@@ -124,9 +123,9 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
-					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ ChatFormat.GOLD + I18n
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+					Formatting.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
+						+ Formatting.GOLD + I18n
 						.translate("techreborn.message.nanosaberActivate")));
 			} else {
 				if (!ItemUtils.isActive(stack)) {
@@ -135,17 +134,17 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 					}
 					stack.getTag().putBoolean("isActive", true);
 					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
-							ChatFormat.GRAY + I18n.translate("techreborn.message.setTo") + " "
-								+ ChatFormat.GOLD + I18n
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+							Formatting.GRAY + I18n.translate("techreborn.message.setTo") + " "
+								+ Formatting.GOLD + I18n
 								.translate("techreborn.message.nanosaberActive")));
 					}
 				} else {
 					stack.getTag().putBoolean("isActive", false);
 					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
-							ChatFormat.GRAY + I18n.translate("techreborn.message.setTo") + " "
-								+ ChatFormat.GOLD + I18n
+						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+							Formatting.GRAY + I18n.translate("techreborn.message.setTo") + " "
+								+ Formatting.GOLD + I18n
 								.translate("techreborn.message.nanosaberInactive")));
 					}
 				}
@@ -159,9 +158,9 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(worldIn.isClient){
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponent(
-					ChatFormat.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
-						+ ChatFormat.GOLD + I18n
+				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+					Formatting.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
+						+ Formatting.GOLD + I18n
 						.translate("techreborn.message.nanosaberDeactivating")));
 			}
 			stack.getTag().putBoolean("isActive", false);
@@ -218,11 +217,11 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Component> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(new TranslatableComponent("techreborn.message.nanosaberInactive").applyFormat(ChatFormat.GRAY));
+			tooltip.add(new TranslatableText("techreborn.message.nanosaberInactive").formatted(Formatting.GRAY));
 		} else {
-			tooltip.add(new TranslatableComponent("techreborn.message.nanosaberActive").applyFormat(ChatFormat.GRAY));
+			tooltip.add(new TranslatableText("techreborn.message.nanosaberActive").formatted(Formatting.GRAY));
 		}
 	}
 

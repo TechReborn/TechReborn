@@ -24,7 +24,9 @@
 
 package techreborn.blocks;
 
-import net.minecraft.ChatFormat;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -34,8 +36,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -162,8 +162,8 @@ public class BlockAlarm extends BaseTileBlock {
 
 
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Component> tooltip, TooltipContext flagIn) {
-		tooltip.add(new TranslatableComponent("techreborn.tooltip.alarm").applyFormat(ChatFormat.GRAY));
+	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
+		tooltip.add(new TranslatableText("techreborn.tooltip.alarm").formatted(Formatting.GRAY));
 	}
 
 }

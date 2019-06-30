@@ -24,7 +24,7 @@
 
 package techreborn.proxies;
 
-import net.minecraft.ChatFormat;
+import net.minecraft.util.Formatting;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import reborncore.api.tile.IUpgradeable;
@@ -66,7 +66,7 @@ public class ClientProxy extends CommonProxy {
 			GuiBase base = (GuiBase) MinecraftClient.getInstance().currentScreen;
 			if (base.tile instanceof IUpgradeable) {
 				if (((IUpgradeable) base.tile).canBeUpgraded()) {
-					return ChatFormat.LIGHT_PURPLE + "Right click to configure";
+					return Formatting.LIGHT_PURPLE + "Right click to configure";
 				}
 			}
 		}

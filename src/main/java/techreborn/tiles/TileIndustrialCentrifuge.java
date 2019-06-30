@@ -25,8 +25,8 @@
 package techreborn.tiles;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -74,8 +74,8 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	
 	// IListInfoProvider
 	@Override
-	public void addInfo(final List<Component> info, final boolean isRealTile, boolean hasData) {
+	public void addInfo(final List<Text> info, final boolean isRealTile, boolean hasData) {
 		super.addInfo(info, isRealTile, hasData);
-		info.add(new TextComponent("Round and round it goes"));
+		info.add(new LiteralText("Round and round it goes"));
 	}
 }
