@@ -28,7 +28,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -41,7 +41,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxInput", comment = "Chunk Loader Max Input (Value in EU)")
 	public static int maxInput = 32;

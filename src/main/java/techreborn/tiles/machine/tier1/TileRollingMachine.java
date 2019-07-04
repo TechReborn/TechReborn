@@ -34,7 +34,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -60,7 +60,7 @@ import java.util.stream.Collectors;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileRollingMachine extends TilePowerAcceptor
-	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+	implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxInput", comment = "Rolling Machine Max Input (Value in EU)")
 	public static int maxInput = 32;

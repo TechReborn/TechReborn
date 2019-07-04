@@ -30,7 +30,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -51,7 +51,7 @@ import java.util.List;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileFusionControlComputer extends TilePowerAcceptor
-		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Value in EU)")
 	public static int maxInput = 8192;

@@ -32,7 +32,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -50,7 +50,7 @@ import java.util.List;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileQuantumTank extends TileMachineBase
-	implements ItemHandlerProvider, IToolDrop, IListInfoProvider, IContainerProvider {
+	implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
 	public static int maxStorage = Integer.MAX_VALUE;

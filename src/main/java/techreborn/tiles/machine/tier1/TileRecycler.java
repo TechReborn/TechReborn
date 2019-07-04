@@ -30,7 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IUpgrade;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -45,7 +45,7 @@ import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileRecycler extends TilePowerAcceptor 
-		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, IContainerProvider {
 	
 	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
 	public static int maxInput = 32;

@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.recipe.IRecipeCrafterProvider;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -41,7 +41,7 @@ import reborncore.common.util.RebornInventory;
  *
  */
 public abstract class TileGenericMachine extends TilePowerAcceptor
-		implements IToolDrop, ItemHandlerProvider, IRecipeCrafterProvider{
+		implements IToolDrop, InventoryProvider, IRecipeCrafterProvider{
 
 	public String name;
 	public int maxInput;

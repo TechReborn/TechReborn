@@ -32,7 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -46,7 +46,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
-public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+public class TileSolidFuelGenerator extends TilePowerAcceptor implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "generators", category = "generator", key = "GeneratorMaxOutput", comment = "Solid Fuel Generator Max Output (Value in EU)")
 	public static int maxOutput = 32;

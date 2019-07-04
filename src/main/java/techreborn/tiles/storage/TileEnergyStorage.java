@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.RebornInventory;
@@ -41,7 +41,7 @@ import techreborn.blocks.storage.BlockEnergyStorage;
  * Created by Rushmead
  */
 public class TileEnergyStorage extends TilePowerAcceptor 
-		implements IToolDrop, ItemHandlerProvider {
+		implements IToolDrop, InventoryProvider {
 
 	public RebornInventory<TileEnergyStorage> inventory;
 	public String name;

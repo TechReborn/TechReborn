@@ -28,7 +28,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.RebornInventory;
@@ -42,7 +42,7 @@ import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 
-public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, ItemHandlerProvider {
+public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, InventoryProvider {
 
 	private final FluidGeneratorRecipeList recipes;
 	private final int euTick;

@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -45,7 +45,7 @@ import techreborn.init.TRTileEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TileIronAlloyFurnace extends TileMachineBase
-	implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+	implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	public int tickTime;
 	public RebornInventory<TileIronAlloyFurnace> inventory = new RebornInventory<>(4, "TileIronAlloyFurnace", 64, this).withConfiguredAccess();

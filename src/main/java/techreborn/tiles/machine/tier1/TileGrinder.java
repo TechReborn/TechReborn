@@ -52,7 +52,7 @@ public class TileGrinder extends TileGenericMachine implements IContainerProvide
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new RebornInventory<>(3, "TileGrinder", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.GRINDER, this, 2, 1, this.inventory, inputs, outputs);
-	}
+}
 
 	// IContainerProvider
 	@Override

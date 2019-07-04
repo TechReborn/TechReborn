@@ -32,7 +32,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileTechStorageBase extends TileMachineBase
-		implements ItemHandlerProvider, IToolDrop, IListInfoProvider {
+		implements InventoryProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;
 	public final RebornInventory<TileTechStorageBase> inventory;

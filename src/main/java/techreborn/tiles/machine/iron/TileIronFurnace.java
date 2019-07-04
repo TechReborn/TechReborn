@@ -29,7 +29,7 @@ import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -42,7 +42,7 @@ import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRTileEntities;
 
 public class TileIronFurnace extends TileMachineBase
-		implements ItemHandlerProvider, IContainerProvider {
+		implements InventoryProvider, IContainerProvider {
 
 	public int tickTime;
 	public RebornInventory<TileIronFurnace> inventory = new RebornInventory<>(3, "TileIronFurnace", 64, this, getInvetoryAccess());

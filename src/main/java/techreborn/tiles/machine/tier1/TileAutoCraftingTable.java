@@ -37,7 +37,7 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
-import reborncore.api.tile.ItemHandlerProvider;
+import reborncore.api.tile.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -62,7 +62,7 @@ import java.util.List;
  */
 @RebornRegister(TechReborn.MOD_ID)
 public class TileAutoCraftingTable extends TilePowerAcceptor
-		implements IToolDrop, ItemHandlerProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterInput", comment = "AutoCrafting Table Max Input (Value in EU)")
 	public static int maxInput = 32;
