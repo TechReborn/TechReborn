@@ -66,6 +66,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 			return;
 		}
 		if (panel == TRContent.SolarPanels.CREATIVE) {
+			checkOverfill = false;
 			setEnergy(Integer.MAX_VALUE);
 			return;
 		}

@@ -55,6 +55,8 @@ import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.function.Function;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class TRContent {
@@ -185,7 +187,7 @@ public class TRContent {
 	@Nullable
 	public static Item PERIDOT_BOOTS;
 		
-	public static enum SolarPanels {
+	public static enum SolarPanels implements ItemConvertible {
 		BASIC(EnumPowerTier.MICRO, ConfigTechReborn.basicGenerationRateD, ConfigTechReborn.basicGenerationRateN), 
 		ADVANCED(EnumPowerTier.LOW, ConfigTechReborn.advancedGenerationRateD, ConfigTechReborn.advancedGenerationRateN), 
 		INDUSTRIAL(EnumPowerTier.MEDIUM, ConfigTechReborn.industrialGenerationRateD, ConfigTechReborn.industrialGenerationRateN),
@@ -214,6 +216,11 @@ public class TRContent {
 			internalCapacity = generationRateD * 2_400;
 			
 			InitUtils.setup(block, name + "_solar_panel");
+		}
+
+		@Override
+		public Item asItem() {
+			return Item.fromBlock(block);
 		}
 	}
 
@@ -324,6 +331,10 @@ public class TRContent {
 
 		public Block getCasing() {
 			return casing;
+		}
+
+		public static ItemConvertible[] getCasings(){
+			return Arrays.stream(MachineBlocks.values()).map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> () -> Item.fromBlock(machineBlocks.casing)).toArray(ItemConvertible[]::new);
 		}
 	}
 	
