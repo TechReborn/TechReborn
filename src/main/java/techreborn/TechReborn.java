@@ -59,7 +59,7 @@ public class TechReborn implements ModInitializer {
 	public void onInitialize() {
 		INSTANCE = this;
 
-		RegistrationManager registrationManager = new RegistrationManager("techreborn");
+		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
 
 		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		//Done like this to load them here

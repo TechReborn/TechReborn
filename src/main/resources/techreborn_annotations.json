@@ -1,0 +1,5174 @@
+{
+  "classes": {
+    "techreborn/tiles/generator/basic/TileWindMill": {
+      "className": "techreborn/tiles/generator/basic/TileWindMill",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "wind_mill",
+                "key",
+                "WindMillMaxOutput",
+                "comment",
+                "Wind Mill Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "wind_mill",
+                "key",
+                "WindMillMaxEnergy",
+                "comment",
+                "Wind Mill Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "baseEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "wind_mill",
+                "key",
+                "WindMillEnergyPerTick",
+                "comment",
+                "Wind Mill Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "thunderMultiplier",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "wind_mill",
+                "key",
+                "WindMillThunderMultiplier",
+                "comment",
+                "Wind Mill Thunder Multiplier"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/TileBaseFluidGenerator": {
+      "className": "techreborn/tiles/generator/TileBaseFluidGenerator",
+      "methods": [
+        {
+          "access": 1,
+          "name": "getTank",
+          "desc": "()Lreborncore/common/util/Tank;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/advanced/TileGasTurbine": {
+      "className": "techreborn/tiles/generator/advanced/TileGasTurbine",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "gas_generator",
+                "key",
+                "GasGeneratorMaxOutput",
+                "comment",
+                "Gas Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "gas_generator",
+                "key",
+                "GasGeneratorMaxEnergy",
+                "comment",
+                "Gas Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "tankCapacity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "gas_generator",
+                "key",
+                "GasGeneratorTankCapacity",
+                "comment",
+                "Gas Generator Tank Capacity"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "gas_generator",
+                "key",
+                "GasGeneratorEnergyPerTick",
+                "comment",
+                "Gas Generator Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileIndustrialBlastFurnace": {
+      "className": "techreborn/tiles/machine/multiblock/TileIndustrialBlastFurnace",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_furnace",
+                "key",
+                "IndustrialFurnaceMaxInput",
+                "comment",
+                "Industrial Blast Furnace Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_furnace",
+                "key",
+                "IndustrialFurnaceMaxEnergy",
+                "comment",
+                "Industrial Blast Furnace Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/storage/idsu/TileInterdimensionalSU": {
+      "className": "techreborn/tiles/storage/idsu/TileInterdimensionalSU",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "idsu",
+                "key",
+                "IdsuMaxInput",
+                "comment",
+                "IDSU Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "idsu",
+                "key",
+                "IdsuMaxOutput",
+                "comment",
+                "IDSU Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "idsu",
+                "key",
+                "IdsuMaxEnergy",
+                "comment",
+                "IDSU Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/init/recipes/IndustrialSawmillRecipes": {
+      "className": "techreborn/init/recipes/IndustrialSawmillRecipes",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileExtractor": {
+      "className": "techreborn/tiles/machine/tier1/TileExtractor",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "extractor",
+                "key",
+                "ExtractorInput",
+                "comment",
+                "Extractor Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "extractor",
+                "key",
+                "ExtractorMaxEnergy",
+                "comment",
+                "Extractor Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/entities/EntityNukePrimed": {
+      "className": "techreborn/entities/EntityNukePrimed",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "fuseTime",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "nuke",
+                "key",
+                "fusetime",
+                "comment",
+                "Nuke fuse time (ticks)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "radius",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "nuke",
+                "key",
+                "radius",
+                "comment",
+                "Nuke explision radius"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "enabled",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "nuke",
+                "key",
+                "enabled",
+                "comment",
+                "Should the nuke explode, set to false to prevent block damage"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/blocks/BlockOre": {
+      "className": "techreborn/blocks/BlockOre",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "rubyMinQuatity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "rubyMinQuatity",
+                "comment",
+                "Minimum quantity of Ruby gems per Ruby ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "rubyMaxQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "rubyMaxQuantity",
+                "comment",
+                "Maximum quantity of Ruby gems per Ruby ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "sapphireMinQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "sapphireMinQuantity",
+                "comment",
+                "Minimum quantity of Sapphire gems per Sapphire ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "sapphireMaxQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "sapphireMaxQuantity",
+                "comment",
+                "Maximum quantity of Sapphire gems per Sapphire ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "pyriteMinQuatity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "pyriteMinQuatity",
+                "comment",
+                "Minimum quantity of Pyrite dust per Pyrite ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "pyriteMaxQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "pyriteMaxQuantity",
+                "comment",
+                "Maximum quantity of Pyrite dust per Pyrite ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "sodaliteMinQuatity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "sodaliteMinQuatity",
+                "comment",
+                "Minimum quantity of Sodalite dust per Sodalite ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "sodaliteMaxQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "sodaliteMaxQuantity",
+                "comment",
+                "Maximum quantity of Sodalite dust per Sodalite ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "cinnabarMinQuatity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "cinnabarMinQuatity",
+                "comment",
+                "Minimum quantity of Cinnabar dust per Cinnabar ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "cinnabarMaxQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "cinnabarMaxQuantity",
+                "comment",
+                "Maximum quantity of Cinnabar dust per Cinnabar ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "sphaleriteMinQuatity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "sphaleriteMinQuatity",
+                "comment",
+                "Minimum quantity of Sphalerite dust per Sphalerite ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "sphaleriteMaxQuantity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "sphaleriteMaxQuantity",
+                "comment",
+                "Maximum quantity of Sphalerite dust per Sphalerite ore"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/init/recipes/RecipeMethods": {
+      "className": "techreborn/init/recipes/RecipeMethods",
+      "methods": [
+        {
+          "access": 131081,
+          "name": "getOre",
+          "desc": "(Ljava/lang/String;I)Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 131081,
+          "name": "getOre",
+          "desc": "(Ljava/lang/String;)Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 131209,
+          "name": "oresExist",
+          "desc": "([Ljava/lang/String;)Z",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 131081,
+          "name": "getStack",
+          "desc": "(Lnet/minecraft/class_1792;IZ)Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/basic/TileSolidFuelGenerator": {
+      "className": "techreborn/tiles/generator/basic/TileSolidFuelGenerator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "generator",
+                "key",
+                "GeneratorMaxOutput",
+                "comment",
+                "Solid Fuel Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "generator",
+                "key",
+                "GeneratorMaxEnergy",
+                "comment",
+                "Solid Fuel Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "outputAmount",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "generator",
+                "key",
+                "GeneratorEnergyOutput",
+                "comment",
+                "Solid Fuel Generator Energy Output Amount (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/advanced/TileSemiFluidGenerator": {
+      "className": "techreborn/tiles/generator/advanced/TileSemiFluidGenerator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorMaxOutput",
+                "comment",
+                "Semifluid Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorMaxEnergy",
+                "comment",
+                "Semifluid Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "tankCapacity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorTankCapacity",
+                "comment",
+                "Semifluid Generator Tank Capacity"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorEnergyPerTick",
+                "comment",
+                "Semifluid Generator Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileAssemblingMachine": {
+      "className": "techreborn/tiles/machine/tier1/TileAssemblingMachine",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "assembling_machine",
+                "key",
+                "AssemblingMachineMaxInput",
+                "comment",
+                "Assembling Machine Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "assembling_machine",
+                "key",
+                "AssemblingMachineMaxEnergy",
+                "comment",
+                "Assembling Machine Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileElectricFurnace": {
+      "className": "techreborn/tiles/machine/tier1/TileElectricFurnace",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "electric_furnace",
+                "key",
+                "ElectricFurnaceInput",
+                "comment",
+                "Electric Furnace Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "electric_furnace",
+                "key",
+                "ElectricFurnaceMaxEnergy",
+                "comment",
+                "Electric Furnace Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/api/fluidreplicator/FluidReplicatorRecipe": {
+      "className": "techreborn/api/fluidreplicator/FluidReplicatorRecipe",
+      "fields": [
+        {
+          "access": 18,
+          "name": "input",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 18,
+          "name": "output",
+          "desc": "Lreborncore/fluid/Fluid;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/init/TRContent": {
+      "className": "techreborn/init/TRContent",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "BRONZE_SWORD",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_PICKAXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_SPADE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_AXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_HOE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_HELMET",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_CHESTPLATE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_LEGGINGS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BRONZE_BOOTS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_SWORD",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_PICKAXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_SPADE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_AXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_HOE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_HELMET",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_CHESTPLATE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_LEGGINGS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RUBY_BOOTS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_SWORD",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_PICKAXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_SPADE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_AXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_HOE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_HELMET",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_CHESTPLATE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_LEGGINGS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "SAPPHIRE_BOOTS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_SWORD",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_PICKAXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_SPADE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_AXE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_HOE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_HELMET",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_CHESTPLATE",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_LEGGINGS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "PERIDOT_BOOTS",
+          "desc": "Lnet/minecraft/class_1792;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "overclockerSpeed",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "upgrades",
+                "key",
+                "overclcoker_speed",
+                "comment",
+                "Overclocker behavior speed multipiler"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "overclockerPower",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "upgrades",
+                "key",
+                "overclcoker_power",
+                "comment",
+                "Overclocker behavior power multipiler"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyStoragePower",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "upgrades",
+                "key",
+                "energy_storage",
+                "comment",
+                "Energy storage behavior extra power"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileIndustrialGrinder": {
+      "className": "techreborn/tiles/machine/multiblock/TileIndustrialGrinder",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "getTank",
+          "desc": "()Lreborncore/common/util/Tank;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_grinder",
+                "key",
+                "IndustrialGrinderMaxInput",
+                "comment",
+                "Industrial Grinder Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_grinder",
+                "key",
+                "IndustrialGrinderMaxEnergy",
+                "comment",
+                "Industrial Grinder Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/advanced/TileDragonEggSyphon": {
+      "className": "techreborn/tiles/generator/advanced/TileDragonEggSyphon",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "dragon_egg_siphoner",
+                "key",
+                "DragonEggSiphonerMaxOutput",
+                "comment",
+                "Dragon Egg Siphoner Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "dragon_egg_siphoner",
+                "key",
+                "DragonEggSiphonerMaxEnergy",
+                "comment",
+                "Dragon Egg Siphoner Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "dragon_egg_siphoner",
+                "key",
+                "DragonEggSiphonerEnergyPerTick",
+                "comment",
+                "Dragon Egg Siphoner Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/transformers/TileTransformer": {
+      "className": "techreborn/tiles/transformers/TileTransformer",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "IC2TransformersStyle",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "general",
+                "key",
+                "IC2TransformersStyle",
+                "comment",
+                "Input from dots side, output from other sides, like in IC2."
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileVacuumFreezer": {
+      "className": "techreborn/tiles/machine/multiblock/TileVacuumFreezer",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "vacuumfreezer",
+                "key",
+                "VacuumFreezerInput",
+                "comment",
+                "Vacuum Freezer Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "vacuumfreezer",
+                "key",
+                "VacuumFreezerMaxEnergy",
+                "comment",
+                "Vacuum Freezer Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/config/ConfigTechReborn": {
+      "className": "techreborn/config/ConfigTechReborn",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "enableGemArmorAndTools",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "general",
+                "key",
+                "enableGemTools",
+                "comment",
+                "Enable Gem armor and tools"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "nanoSaberCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "nanoSaberCharge",
+                "comment",
+                "Energy Capacity for Nano Saber (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BasicDrillCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "basicDrillCharge",
+                "comment",
+                "Energy Capacity for Basic Drill (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "AdvancedDrillCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "advancedDrillCharge",
+                "comment",
+                "Energy Capacity for Advanced Drill (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "IndustrialDrillCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "industrialDrillCharge",
+                "comment",
+                "Energy Capacity for Industrial Drill (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BasicChainsawCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "basicChainsawCharge",
+                "comment",
+                "Energy Capacity for Basic Chainsaw (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "AdvancedChainsawCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "advancedChainsawCharge",
+                "comment",
+                "Energy Capacity for Advanced Chainsaw (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "IndustrialChainsawCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "industrialChainsawCharge",
+                "comment",
+                "Energy Capacity for Industrial Chainsaw (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "BasicJackhammerCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "basicJackhammerCharge",
+                "comment",
+                "Energy Capacity for Basic Jackhammer (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "AdvancedJackhammerCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "advancedJackhammerCharge",
+                "comment",
+                "Energy Capacity for Advanced Jackhammer (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "IndustrialJackhammerCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "industrialJackhammerCharge",
+                "comment",
+                "Energy Capacity for Industrial Jachammer (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "OmniToolCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "omniToolCharge",
+                "comment",
+                "Energy Capacity for Omni Tool (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "RockCutterCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "rockCutterCharge",
+                "comment",
+                "Energy Capacity for Rock Cutter (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "LapotronPackCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "lapotronPackCharge",
+                "comment",
+                "Energy Capacity for Lapotron Pack (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "LithiumBatpackCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "LithiumBatpackCharge",
+                "comment",
+                "Energy Capacity for Lithium Batpack (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "EnergyCrystalMaxCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "energyCrystalMaxCharge",
+                "comment",
+                "Energy Capacity for Energy Crystal (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "LapotronCrystalMaxCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "lapotronCrystalMaxCharge",
+                "comment",
+                "Energy Capacity for Lapotron Crystal (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "LapotronicOrbMaxCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "lapotronicOrbMaxCharge",
+                "comment",
+                "Energy Capacity for Lapotronic Orb (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "CloakingDeviceCharge",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "cloakingDeviceCharge",
+                "comment",
+                "Energy Capacity for Clocking Device (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "CloackingDeviceUsage",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "items",
+                "category",
+                "power",
+                "key",
+                "clockingDeviceEnergyUsage",
+                "comment",
+                "Cloacking device energy usesage (FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "basicGenerationRateD",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelBasic",
+                "key",
+                "basicDayRate",
+                "comment",
+                "Generation rate during day for Basic Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "basicGenerationRateN",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelBasic",
+                "key",
+                "basicNightRate",
+                "comment",
+                "Generation rate during night for Basic Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "advancedGenerationRateD",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelAdvanced",
+                "key",
+                "advancedDayRate",
+                "comment",
+                "Generation rate during day for Advanced Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "advancedGenerationRateN",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelAdvanced",
+                "key",
+                "advancedNightRate",
+                "comment",
+                "Generation rate during night for Advanced Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "industrialGenerationRateD",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelIndustrial",
+                "key",
+                "industrialDayRate",
+                "comment",
+                "Generation rate during day for Industrial Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "industrialGenerationRateN",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelIndustrial",
+                "key",
+                "industrialNightRate",
+                "comment",
+                "Generation rate during night for Industrial Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "ultimateGenerationRateD",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelUltimate",
+                "key",
+                "ultimateDayRate",
+                "comment",
+                "Generation rate during day for Ultimate Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "ultimateGenerationRateN",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelUltimate",
+                "key",
+                "ultimateNightRate",
+                "comment",
+                "Generation rate during night for Ultimate Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "quantumGenerationRateD",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelQuantum",
+                "key",
+                "quantumDayRate",
+                "comment",
+                "Generation rate during day for Quantum Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "quantumGenerationRateN",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "solarPanelQuantum",
+                "key",
+                "quantumNightRate",
+                "comment",
+                "Generation rate during night for Quantum Solar Panel (Value in FE)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "enableOverworldLoot",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "world",
+                "category",
+                "loot",
+                "key",
+                "enableOverworldLoot",
+                "comment",
+                "When true TechReborn will add ingots, machine frames and circuits to OverWorld loot chests."
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "enableNetherLoot",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "world",
+                "category",
+                "loot",
+                "key",
+                "enableNetherLoot",
+                "comment",
+                "When true TechReborn will add ingots, machine frames and circuits to Nether loot chests."
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "enableEndLoot",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "world",
+                "category",
+                "loot",
+                "key",
+                "enableEndLoot",
+                "comment",
+                "When true TechReborn will add ingots, machine frames and circuits to The End loot chests."
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "enableRubberTreePlantation",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "world",
+                "category",
+                "village",
+                "key",
+                "enableRubberTreePlantation",
+                "comment",
+                "When true TechReborn will add Rubber tree farm to villages."
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TilePlayerDectector": {
+      "className": "techreborn/tiles/machine/tier1/TilePlayerDectector",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "player_detector",
+                "key",
+                "PlayerDetectorMaxInput",
+                "comment",
+                "Player Detector Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "player_detector",
+                "key",
+                "PlayerDetectorMaxEnergy",
+                "comment",
+                "Player Detector Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "euPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "player_detector",
+                "key",
+                "PlayerDetectorEUPerSecond",
+                "comment",
+                "Player Detector Energy Consumption per second (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/advanced/TileThermalGenerator": {
+      "className": "techreborn/tiles/generator/advanced/TileThermalGenerator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "thermal_generator",
+                "key",
+                "ThermalGeneratorMaxOutput",
+                "comment",
+                "Thermal Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "thermal_generator",
+                "key",
+                "ThermalGeneratorMaxEnergy",
+                "comment",
+                "Thermal Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "tankCapacity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "thermal_generator",
+                "key",
+                "ThermalGeneratorTankCapacity",
+                "comment",
+                "Thermal Generator Tank Capacity"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "thermal_generator",
+                "key",
+                "ThermalGeneratorEnergyPerTick",
+                "comment",
+                "Thermal Generator Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/utils/BehaviorDispenseScrapbox": {
+      "className": "techreborn/utils/BehaviorDispenseScrapbox",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "dispenseScrapboxes",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "general",
+                "key",
+                "DispenserScrapbox",
+                "comment",
+                "Dispensers will open scrapboxes"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileRollingMachine": {
+      "className": "techreborn/tiles/machine/tier1/TileRollingMachine",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "rolling_machine",
+                "key",
+                "RollingMachineMaxInput",
+                "comment",
+                "Rolling Machine Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "rolling_machine",
+                "key",
+                "RollingMachineEnergyPerTick",
+                "comment",
+                "Rolling Machine Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "runTime",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "rolling_machine",
+                "key",
+                "RollingMachineEnergyRunTime",
+                "comment",
+                "Rolling Machine Run Time"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "rolling_machine",
+                "key",
+                "RollingMachineMaxEnergy",
+                "comment",
+                "Rolling Machine Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 1,
+          "name": "currentRecipeOutput",
+          "desc": "Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/fusionReactor/TileFusionControlComputer": {
+      "className": "techreborn/tiles/fusionReactor/TileFusionControlComputer",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxInput",
+                "comment",
+                "Fusion Reactor Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxOutput",
+                "comment",
+                "Fusion Reactor Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxEnergy",
+                "comment",
+                "Fusion Reactor Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxCoilSize",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxCoilSize",
+                "comment",
+                "Fusion Reactor Max Coil size (Radius)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier3/TileQuantumChest": {
+      "className": "techreborn/tiles/machine/tier3/TileQuantumChest",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxStorage",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "quantum_chest",
+                "key",
+                "QuantumChestMaxStorage",
+                "comment",
+                "Maximum amount of items a Quantum Chest can store"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/blocks/BlockAlarm": {
+      "className": "techreborn/blocks/BlockAlarm",
+      "methods": [
+        {
+          "access": 1,
+          "name": "method_10123",
+          "desc": "(Lnet/minecraft/class_1922;)Lnet/minecraft/class_2586;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 1,
+          "name": "method_9605",
+          "desc": "(Lnet/minecraft/class_1750;)Lnet/minecraft/class_2680;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/blocks/lighting/BlockLamp": {
+      "className": "techreborn/blocks/lighting/BlockLamp",
+      "methods": [
+        {
+          "access": 1,
+          "name": "method_9605",
+          "desc": "(Lnet/minecraft/class_1750;)Lnet/minecraft/class_2680;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileAlloySmelter": {
+      "className": "techreborn/tiles/machine/tier1/TileAlloySmelter",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "alloy_smelter",
+                "key",
+                "AlloySmelterMaxInput",
+                "comment",
+                "Alloy Smelter Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "alloy_smelter",
+                "key",
+                "AlloySmelterMaxEnergy",
+                "comment",
+                "Alloy Smelter Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileIndustrialElectrolyzer": {
+      "className": "techreborn/tiles/machine/tier1/TileIndustrialElectrolyzer",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_electrolyzer",
+                "key",
+                "IndustrialElectrolyzerMaxInput",
+                "comment",
+                "Industrial Electrolyzer Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_electrolyzer",
+                "key",
+                "IndustrialElectrolyzerMaxEnergy",
+                "comment",
+                "Industrial Electrolyzer Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileScrapboxinator": {
+      "className": "techreborn/tiles/machine/tier1/TileScrapboxinator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "scrapboxinator",
+                "key",
+                "ScrapboxinatorMaxInput",
+                "comment",
+                "Scrapboxinator Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "scrapboxinator",
+                "key",
+                "ScrapboxinatorMaxEnergy",
+                "comment",
+                "Scrapboxinator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileCompressor": {
+      "className": "techreborn/tiles/machine/tier1/TileCompressor",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "compressor",
+                "key",
+                "CompressorInput",
+                "comment",
+                "Compressor Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "compressor",
+                "key",
+                "CompressorMaxEnergy",
+                "comment",
+                "Compressor Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/iron/TileIronAlloyFurnace": {
+      "className": "techreborn/tiles/machine/iron/TileIronAlloyFurnace",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileDistillationTower": {
+      "className": "techreborn/tiles/machine/multiblock/TileDistillationTower",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "Distillation_tower",
+                "key",
+                "DistillationTowerMaxInput",
+                "comment",
+                "Distillation Tower Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "Distillation_tower",
+                "key",
+                "DistillationTowerMaxEnergy",
+                "comment",
+                "Distillation Tower Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/advanced/TileDieselGenerator": {
+      "className": "techreborn/tiles/generator/advanced/TileDieselGenerator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "diesel_generator",
+                "key",
+                "DieselGeneratorMaxOutput",
+                "comment",
+                "Diesel Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "diesel_generator",
+                "key",
+                "DieselGeneratorMaxEnergy",
+                "comment",
+                "Diesel Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "tankCapacity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "diesel_generator",
+                "key",
+                "DieselGeneratorTankCapacity",
+                "comment",
+                "Diesel Generator Tank Capacity"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "diesel_generator",
+                "key",
+                "DieselGeneratorEnergyPerTick",
+                "comment",
+                "Diesel Generator Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier3/TileMatterFabricator": {
+      "className": "techreborn/tiles/machine/tier3/TileMatterFabricator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "matter_fabricator",
+                "key",
+                "MatterFabricatorMaxInput",
+                "comment",
+                "Matter Fabricator Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "matter_fabricator",
+                "key",
+                "MatterFabricatorMaxEnergy",
+                "comment",
+                "Matter Fabricator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "fabricationRate",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "matter_fabricator",
+                "key",
+                "MatterFabricatorFabricationRate",
+                "comment",
+                "Matter Fabricator Fabrication Rate, amount of amplifier units per UUM"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerAmp",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "matter_fabricator",
+                "key",
+                "MatterFabricatorEnergyPerAmp",
+                "comment",
+                "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/basic/TileWaterMill": {
+      "className": "techreborn/tiles/generator/basic/TileWaterMill",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "water_mill",
+                "key",
+                "WaterMillMaxOutput",
+                "comment",
+                "Water Mill Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "water_mill",
+                "key",
+                "WaterMillMaxEnergy",
+                "comment",
+                "Water Mill Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyMultiplier",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "water_mill",
+                "key",
+                "WaterMillEnergyPerTick",
+                "comment",
+                "Water Mill Energy Multiplier"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/events/BlockBreakHandler": {
+      "className": "techreborn/events/BlockBreakHandler",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "secondaryGemDrops",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "compat",
+                "category",
+                "general",
+                "key",
+                "secondaryGemDrops",
+                "comment",
+                "Drop red and yellow garnets and peridot from any harvested oreRuby, oreSapphire, oreSphalerite. False will also disable drop from TechReborn ores."
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "redGarnetDropChance",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "redGarnetDropChance",
+                "comment",
+                "Chance to get Red Garnet from Ruby Ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "peridotDropChance",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "peridotDropChance",
+                "comment",
+                "Chance to get Peridot from Sapphire Ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "aluminiumDropChance",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "aluminiumDropChance",
+                "comment",
+                "Chance to get Aluminium dust from Sodalite Ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "redstoneDropChance",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "redstoneDropChance",
+                "comment",
+                "Chance to get Redstone from Cinnabar Ore"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "yellowGarnetDropChance",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "blocks",
+                "key",
+                "yellowGarnetDropChance",
+                "comment",
+                "Chance to get Yellow Garnet gem from Sphalerite Ore"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/items/ItemManual": {
+      "className": "techreborn/items/ItemManual",
+      "fields": [
+        {
+          "access": 9,
+          "name": "allowRefund",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "general",
+                "key",
+                "manualRefund",
+                "comment",
+                "Allow refunding items used to craft the manual"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/blocks/cable/BlockCable": {
+      "className": "techreborn/blocks/cable/BlockCable",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "method_10123",
+          "desc": "(Lnet/minecraft/class_1922;)Lnet/minecraft/class_2586;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "uninsulatedElectrocutionDamage",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "cable",
+                "key",
+                "uninsulatedElectrocutionDamage",
+                "comment",
+                "When true an uninsulated cable will cause damage to entities"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "uninsulatedElectrocutionSound",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "cable",
+                "key",
+                "uninsulatedElectrocutionSound",
+                "comment",
+                "When true an uninsulated cable will create a spark sound when an entity touches it"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "uninsulatedElectrocutionParticles",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "misc",
+                "category",
+                "cable",
+                "key",
+                "uninsulatedElectrocutionParticles",
+                "comment",
+                "When true an uninsulated cable will create a spark when an entity touches it"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/storage/TileAdjustableSU": {
+      "className": "techreborn/tiles/storage/TileAdjustableSU",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "aesu",
+                "key",
+                "AesuMaxInput",
+                "comment",
+                "AESU Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "aesu",
+                "key",
+                "AesuMaxOutput",
+                "comment",
+                "AESU Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "aesu",
+                "key",
+                "AesuMaxEnergy",
+                "comment",
+                "AESU Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileRecycler": {
+      "className": "techreborn/tiles/machine/tier1/TileRecycler",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "recycler",
+                "key",
+                "RecyclerInput",
+                "comment",
+                "Recycler Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "recycler",
+                "key",
+                "RecyclerMaxEnergy",
+                "comment",
+                "Recycler Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "produceIC2Scrap",
+          "desc": "Z",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "recycler",
+                "key",
+                "produceIC2Scrap",
+                "comment",
+                "When enabled and when ic2 is installed the recycler will make ic2 scrap"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/TileDigitalChest": {
+      "className": "techreborn/tiles/TileDigitalChest",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxStorage",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "digital_chest",
+                "key",
+                "DigitalChestMaxStorage",
+                "comment",
+                "Maximum amount of items a Digital Chest can store"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/blocks/RubberTree": {
+      "className": "techreborn/blocks/RubberTree",
+      "methods": [
+        {
+          "access": 4,
+          "name": "method_11430",
+          "desc": "(Ljava/util/Random;)Lnet/minecraft/class_2944;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/TileIndustrialCentrifuge": {
+      "className": "techreborn/tiles/TileIndustrialCentrifuge",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "centrifuge",
+                "key",
+                "CentrifugeMaxInput",
+                "comment",
+                "Centrifuge Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "centrifuge",
+                "key",
+                "CentrifugeMaxEnergy",
+                "comment",
+                "Centrifuge Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier3/TileChunkLoader": {
+      "className": "techreborn/tiles/machine/tier3/TileChunkLoader",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "chunk_loader",
+                "key",
+                "ChunkLoaderMaxInput",
+                "comment",
+                "Chunk Loader Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "chunk_loader",
+                "key",
+                "ChunkLoaderMaxEnergy",
+                "comment",
+                "Chunk Loader Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/storage/lesu/TileLapotronicSU": {
+      "className": "techreborn/tiles/storage/lesu/TileLapotronicSU",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "baseOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "lesu",
+                "key",
+                "LesuMaxOutput",
+                "comment",
+                "LESU Base Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "storagePerBlock",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "lesu",
+                "key",
+                "LesuMaxEnergyPerBlock",
+                "comment",
+                "LESU Max Energy Per Block (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "extraIOPerBlock",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "lesu",
+                "key",
+                "LesuExtraIO",
+                "comment",
+                "LESU Extra I/O Multiplier"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/api/generator/EFluidGenerator": {
+      "className": "techreborn/api/generator/EFluidGenerator",
+      "methods": [
+        {
+          "access": 1,
+          "name": "getRecipeID",
+          "desc": "()Ljava/lang/String;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 18,
+          "name": "recipeID",
+          "desc": "Ljava/lang/String;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/items/armor/ItemCloakingDevice": {
+      "className": "techreborn/items/armor/ItemCloakingDevice",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileIndustrialSawmill": {
+      "className": "techreborn/tiles/machine/multiblock/TileIndustrialSawmill",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "getTank",
+          "desc": "()Lreborncore/common/util/Tank;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_sawmill",
+                "key",
+                "IndustrialSawmillMaxInput",
+                "comment",
+                "Industrial Sawmill Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "industrial_sawmill",
+                "key",
+                "IndustrialSawmillMaxEnergy",
+                "comment",
+                "Industrial Sawmill Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/utils/TagUtils": {
+      "className": "techreborn/utils/TagUtils",
+      "methods": [
+        {
+          "access": 131081,
+          "name": "getDictOreOrEmpty",
+          "desc": "(Ljava/lang/String;I)Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            },
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 131081,
+          "name": "isOre",
+          "desc": "(Lnet/minecraft/class_2680;Ljava/lang/String;)Z",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 131081,
+          "name": "isOre",
+          "desc": "(Lnet/minecraft/class_1799;Ljava/lang/String;)Z",
+          "annotations": [
+            {
+              "desc": "Ljava/lang/Deprecated;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileAutoCraftingTable": {
+      "className": "techreborn/tiles/machine/tier1/TileAutoCraftingTable",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "getIRecipe",
+          "desc": "()Lnet/minecraft/class_1860;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "autocrafter",
+                "key",
+                "AutoCrafterInput",
+                "comment",
+                "AutoCrafting Table Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "autocrafter",
+                "key",
+                "AutoCrafterMaxEnergy",
+                "comment",
+                "AutoCrafting Table Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/TilePlasmaGenerator": {
+      "className": "techreborn/tiles/generator/TilePlasmaGenerator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "plasma_generator",
+                "key",
+                "PlasmaGeneratorMaxOutput",
+                "comment",
+                "Plasma Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "D",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "plasma_generator",
+                "key",
+                "PlasmaGeneratorMaxEnergy",
+                "comment",
+                "Plasma Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "tankCapacity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "plasma_generator",
+                "key",
+                "PlasmaGeneratorTankCapacity",
+                "comment",
+                "Plasma Generator Tank Capacity"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "plasma_generator",
+                "key",
+                "PlasmaGeneratorEnergyPerTick",
+                "comment",
+                "Plasma Generator Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/TileChargeOMat": {
+      "className": "techreborn/tiles/TileChargeOMat",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "charge_bench",
+                "key",
+                "ChargeBenchMaxOutput",
+                "comment",
+                "Charge Bench Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "charge_bench",
+                "key",
+                "ChargeBenchMaxInput",
+                "comment",
+                "Charge Bench Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "charge_bench",
+                "key",
+                "ChargeBenchMaxEnergy",
+                "comment",
+                "Charge Bench Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/client/render/entitys/RenderNukePrimed": {
+      "className": "techreborn/client/render/entitys/RenderNukePrimed",
+      "methods": [
+        {
+          "access": 4,
+          "name": "getTexture",
+          "desc": "(Ltechreborn/entities/EntityNukePrimed;)Lnet/minecraft/class_2960;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 4164,
+          "name": "method_3931",
+          "desc": "(Lnet/minecraft/class_1297;)Lnet/minecraft/class_2960;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileGrinder": {
+      "className": "techreborn/tiles/machine/tier1/TileGrinder",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "grinder",
+                "key",
+                "GrinderInput",
+                "comment",
+                "Grinder Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "grinder",
+                "key",
+                "GrinderMaxEnergy",
+                "comment",
+                "Grinder Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileFluidReplicator": {
+      "className": "techreborn/tiles/machine/multiblock/TileFluidReplicator",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "getTank",
+          "desc": "()Lreborncore/common/util/Tank;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fluidreplicator",
+                "key",
+                "FluidReplicatorMaxInput",
+                "comment",
+                "Fluid Replicator Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fluidreplicator",
+                "key",
+                "FluidReplicatorMaxEnergy",
+                "comment",
+                "Fluid Replicator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/multiblock/TileImplosionCompressor": {
+      "className": "techreborn/tiles/machine/multiblock/TileImplosionCompressor",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "implosion_compressor",
+                "key",
+                "ImplosionCompressorMaxInput",
+                "comment",
+                "Implosion Compressor Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "implosion_compressor",
+                "key",
+                "ImplosionCompressorMaxEnergy",
+                "comment",
+                "Implosion Compressor Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/generator/TileLightningRod": {
+      "className": "techreborn/tiles/generator/TileLightningRod",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "lightning_rod",
+                "key",
+                "LightningRodMaxOutput",
+                "comment",
+                "Lightning Rod Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "lightning_rod",
+                "key",
+                "LightningRodMaxEnergy",
+                "comment",
+                "Lightning Rod Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "chanceOfStrike",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "lightning_rod",
+                "key",
+                "LightningRodChanceOfStrike",
+                "comment",
+                "Chance of lightning striking a rod (Range: 0-70)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "baseEnergyStrike",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "lightning_rod",
+                "key",
+                "LightningRodBaseStrikeEnergy",
+                "comment",
+                "Base amount of energy per strike (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/utils/RecipeUtils": {
+      "className": "techreborn/utils/RecipeUtils",
+      "methods": [
+        {
+          "access": 9,
+          "name": "getEmptyCell",
+          "desc": "(I)Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/world/RubberTreeGenerator": {
+      "className": "techreborn/world/RubberTreeGenerator",
+      "methods": [
+        {
+          "access": 4,
+          "name": "method_11430",
+          "desc": "(Ljava/util/Random;)Lnet/minecraft/class_2944;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier3/TileQuantumTank": {
+      "className": "techreborn/tiles/machine/tier3/TileQuantumTank",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "getTank",
+          "desc": "()Lreborncore/common/util/Tank;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxStorage",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "quantum_tank",
+                "key",
+                "QuantumTankMaxStorage",
+                "comment",
+                "Maximum amount of millibuckets a Quantum Tank can store"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/init/ModRecipes": {
+      "className": "techreborn/init/ModRecipes",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ]
+    },
+    "techreborn/tiles/machine/tier1/TileChemicalReactor": {
+      "className": "techreborn/tiles/machine/tier1/TileChemicalReactor",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "chemical_reactor",
+                "key",
+                "ChemicalReactorMaxInput",
+                "comment",
+                "Chemical Reactor Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "chemical_reactor",
+                "key",
+                "ChemicalReactorMaxEnergy",
+                "comment",
+                "Chemical Reactor Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

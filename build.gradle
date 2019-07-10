@@ -49,6 +49,10 @@ repositories {
 		name "JEI"
 		url "http://dvs1.progwml6.com/files/maven"
 	}
+	maven {
+		name = 'sponge'
+		url = 'https://repo.spongepowered.org/maven'
+	}
 }
 
 version = "3.0.0"
