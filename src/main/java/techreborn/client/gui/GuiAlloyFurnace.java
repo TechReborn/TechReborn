@@ -30,9 +30,10 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
 
-public class GuiAlloyFurnace extends AbstractContainerScreen {
+public class GuiAlloyFurnace extends AbstractContainerScreen<BuiltContainer> {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/alloy_furnace.png");

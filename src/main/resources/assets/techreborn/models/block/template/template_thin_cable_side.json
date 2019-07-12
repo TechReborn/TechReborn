@@ -1,0 +1,41 @@
+{
+	"textures": {
+		"particle": "#cable"
+	},
+	"elements": [
+		{
+			"from": [ 6, 6,	0 ],
+			"to": [ 10, 10, 6 ],
+			"shade": true,
+			"faces": {
+				"north": {
+					"uv": [ 1, 1, 5, 5 ],
+					"texture": "#cable"
+				},
+				"east": {
+					"uv": [0, 7, 6, 11],
+					"texture": "#cable"
+				},
+				"south": { 
+					"uv": [ 1, 1, 5, 5 ],
+					"texture": "#cable",  
+					"cullface": "south" 
+				},
+				"west": {
+					"uv": [0, 7, 6, 11],
+					"texture": "#cable"
+				},
+				"up": {
+					"uv": [ 0, 7, 6, 11 ],
+					"texture": "#cable",
+					"rotation": 90
+				},
+				"down": {
+					"uv": [ 0, 7, 6, 11 ],
+					"texture": "#cable",
+					"rotation": 90
+				}
+			}
+		}
+	]
+}

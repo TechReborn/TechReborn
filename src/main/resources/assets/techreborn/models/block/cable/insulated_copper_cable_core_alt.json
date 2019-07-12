@@ -1,0 +1,7 @@
+{
+    "__comment": "Not used as for now. part of work aimed to hide core if there are side connections",
+    "parent": "techreborn:block/template/template_thick_cable_core_alt",
+    "textures": {
+        "cable": "techreborn:block/cables/copper_insulated_cable"
+    }
+}
