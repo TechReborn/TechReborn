@@ -47,6 +47,10 @@ repositories {
 		name "JEI"
 		url "https://dvs1.progwml6.com/files/maven"
 	}
+	maven { // IC2 repo
+		name = "ic2"
+		url = "http://maven.ic2.player.to/"
+	}
 }
 
 configurations {
@@ -62,7 +66,7 @@ if (ENV.BUILD_NUMBER) {
 }
 
 minecraft {
-	version = "1.12.2-14.23.5.2796"
+	version = "1.12.2-14.23.5.2838"
 	mappings = "snapshot_20171003"
 	replace "@MODVERSION@", project.version
 	useDepAts = true
@@ -86,6 +90,8 @@ dependencies {
 	}
 
 	deobfCompile "mezz.jei:jei_1.12.2:+"
+
+	deobfProvided "net.industrial-craft:industrialcraft-2:${ic2_version}:api" // IC2 Api
 }
 
 
