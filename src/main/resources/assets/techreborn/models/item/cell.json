@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "forge:items/bucket_base"
+    "layer0": "techreborn:item/cell_empty"
   }
 }
