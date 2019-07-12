@@ -24,6 +24,7 @@
 
 package techreborn.items.tools;
 
+import ic2.api.item.IMiningDrill;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,18 +36,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.common.Optional;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ItemUtils;
+import techreborn.init.ModItems;
+import techreborn.utils.StringUtilities;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
+@Optional.Interface(iface = "ic2.api.item.IMiningDrill", modid = "ic2")
+public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, IMiningDrill {
 
 	public int maxCharge = 1;
 	public int cost = 250;
@@ -147,4 +152,59 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo {
 	public double getMaxTransfer(ItemStack stack) {
 		return transferLimit;
 	}
+
+	// IC2 Drill Compatibility >>
+	@Optional.Method(modid = "ic2")
+	@Override
+	public int energyUse(ItemStack stack, World world, BlockPos pos, IBlockState state) {
+		if (stack.getItem() == ModItems.STEEL_DRILL)
+			return 6; // minerMineOperationCostDrill = 6
+		else if (stack.getItem() == ModItems.DIAMOND_DRILL)
+			return 20; // minerMineOperationCostDDrill = 20
+		else if (stack.getItem() == ModItems.ADVANCED_DRILL)
+			return 200; // minerMineOperationCostIDrill = 200
+		else
+			throw new IllegalArgumentException("Invalid drill: " + StringUtilities.stackToStringSafe(stack));
+	}
+
+	@Optional.Method(modid = "ic2")
+	@Override
+	public int breakTime(ItemStack stack, World world, BlockPos pos, IBlockState state) {
+		if (stack.getItem() == ModItems.STEEL_DRILL)
+			return 200; // minerMineOperationDurationDrill = 200
+		else if (stack.getItem() == ModItems.DIAMOND_DRILL)
+			return 50; // minerMineOperationDurationDDrill = 50
+		else if (stack.getItem() == ModItems.ADVANCED_DRILL)
+			return 20; // minerMineOperationDurationIDrill = 20
+		else
+			throw new IllegalArgumentException("Invalid drill: " + StringUtilities.stackToStringSafe(stack));
+	}
+
+	@Optional.Method(modid = "ic2")
+	@Override
+	public boolean breakBlock(ItemStack stack, World world, BlockPos pos, IBlockState state) {
+		if (stack.getItem() == ModItems.STEEL_DRILL)
+			return tryUsePower(stack, 50); // miningDrillCost = 50
+		else if (stack.getItem() == ModItems.DIAMOND_DRILL)
+			return tryUsePower(stack, 80); // mdiamondDrillCost = 80
+		else if (stack.getItem() == ModItems.ADVANCED_DRILL)
+			return tryUsePower(stack, 800); // iridiumDrillCost = 800
+		else
+			throw new IllegalArgumentException("Invalid drill: " + StringUtilities.stackToStringSafe(stack));
+	}
+
+	@Optional.Method(modid = "ic2")
+	@Override
+	public boolean tryUsePower(ItemStack drill, double amount) {
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(drill);
+
+		// check if there is enough energy
+		if (capEnergy.getEnergyStored() < (int) amount) return false;
+
+		// use energy
+		capEnergy.extractEnergy((int) amount, false);
+		return true;
+
+	}
+	// << IC2 Drill Compatibility
 }
