@@ -55,7 +55,7 @@ import java.util.List;
  * Created by modmuss50 on 19/05/2017.
  */
 
-public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop, IConnectivityChecker {
+public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop, ICable {
 	//MC calls this during world load. Keep it, please.
 	public TileCable() {
 		super();
@@ -66,22 +66,30 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 		this.transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
 	}
 
+	private void updateCableType() {
+		if (cableType == null) {
+			cableType = world.getBlockState(pos).getValue(BlockCable.TYPE);
+			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
+		}
+		return;
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
+		connectivity = compound.getByte("connectivity");
 		if (compound.hasKey("TileCable")) {
 			power = compound.getCompoundTag("TileCable").getInteger("power");
-			connectivity = compound.getByte("connectivity");
 		}
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
+		compound.setByte("connectivity", connectivity);
 		if (power > 0) {
 			NBTTagCompound data = new NBTTagCompound();
 			data.setInteger("power", getEnergyStored());
-			data.setByte("connectivity", connectivity);
 			compound.setTag("TileCable", data);
 		}
 		return compound;
@@ -96,14 +104,6 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
 		return oldState.getBlock() != newSate.getBlock();
-	}
-	
-	private void updateCableType() {
-		if (cableType == null) {
-			cableType = world.getBlockState(pos).getValue(BlockCable.TYPE);
-			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
-		}
-		return;
 	}
 	
 	public boolean canReceiveFromFace(EnumFacing face) {
@@ -156,7 +156,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	}
 	// << Networking
 
-	// IConnectivityChecker >>
+	// ICable >>
 	@Override
 	public void onNeighborChanged(Block neighbor, BlockPos neighborPos) {
 		if (!world.isRemote) updateConnectivity();
@@ -179,13 +179,7 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 
 		if (connectivity != newConnectivity) {
 			connectivity = newConnectivity;
-
-			IBlockState state = world.getBlockState(pos);
-			final BlockCable blockCable = (BlockCable) state.getBlock();
-
-			for (EnumFacing facing : EnumFacing.values()) state = state.withProperty(blockCable.getProperty(facing), (connectivity & (1 << facing.ordinal())) != 0);
-
-			world.setBlockState(pos, state, 3);
+			markDirty();
 		}
 	}
 
@@ -193,20 +187,16 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	public byte getConnectivity() {
 		return connectivity;
 	}
-	// << IConnectivityChecker
+	// << ICable
 
 
 	
 	// ITickable >>
 	@Override
 	public void update() {
-		if (world.isRemote) {
-			return;
-		}
-		
-		if (cableType == null ){
-			updateCableType(); 
-		}
+		if (world.isRemote) return;
+
+		if (cableType == null) updateCableType();
 
 		if (!checkedConnections) {
 			updateConnectivity();

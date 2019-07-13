@@ -57,7 +57,7 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.cable.IConnectivityChecker;
+import techreborn.tiles.cable.ICable;
 import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.cable.TileCableEU;
 import techreborn.utils.TechRebornCreativeTab;
@@ -284,8 +284,8 @@ public class BlockCable extends BlockContainer {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		TileEntity tileEntity = getTileEntitySafely(worldIn, pos);
 
-		if (tileEntity instanceof IConnectivityChecker) {
-			for (EnumFacing facing : EnumFacing.values()) state = state.withProperty(getProperty(facing), (((IConnectivityChecker) tileEntity).getConnectivity() & (1 << facing.ordinal())) != 0);
+		if (tileEntity instanceof ICable) {
+			for (EnumFacing facing : EnumFacing.values()) state = state.withProperty(getProperty(facing), (((ICable) tileEntity).getConnectivity() & (1 << facing.ordinal())) != 0);
 		}
 
 		return state;
@@ -298,7 +298,7 @@ public class BlockCable extends BlockContainer {
 		// CHeck for null just in case
 		if (tileEntity == null) return;
 
-		if (tileEntity instanceof IConnectivityChecker) ((IConnectivityChecker) tileEntity).onNeighborChanged(neighborBlock, neighborPos);
+		if (tileEntity instanceof ICable) ((ICable) tileEntity).onNeighborChanged(neighborBlock, neighborPos);
 	}
 
 	@Override

@@ -66,9 +66,10 @@ import java.util.List;
 
 @Optional.InterfaceList({
 	@Optional.Interface(iface = "ic2.api.energy.tile.IEnergyConductor", modid = "ic2"),
-	@Optional.Interface(iface = "techreborn.tiles.cable.IConnectivityChecker", modid = "ic2")
+	@Optional.Interface(iface = "techreborn.tiles.cable.ICable", modid = "ic2"),
+	@Optional.Interface(iface = "net.minecraft.util.ITickable", modid = "ic2")
 })
-public class TileCableEU extends TileEntity implements ITickable, IListInfoProvider, IToolDrop, IEnergyConductor, IConnectivityChecker {
+public class TileCableEU extends TileEntity implements ITickable, IListInfoProvider, IToolDrop, IEnergyConductor, ICable {
 	//MC calls this during world load. Keep it, please.
 	public TileCableEU() {
 		super();
@@ -149,7 +150,7 @@ public class TileCableEU extends TileEntity implements ITickable, IListInfoProvi
 	}
 	// << Networking
 
-	// IConnectivityChecker >>
+	// ICable >>
 	@Optional.Method(modid = "ic2")
 	@Override
 	public void onNeighborChanged(Block neighbor, BlockPos neighborPos) {
@@ -181,9 +182,10 @@ public class TileCableEU extends TileEntity implements ITickable, IListInfoProvi
 	public byte getConnectivity() {
 		return connectivity;
 	}
-	// << IConnectivityChecker
+	// << ICable
 
 	// ITickable
+	@Optional.Method(modid = "ic2")
 	@Override
 	public void update() {
 		if (world.isRemote) return;
