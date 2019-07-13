@@ -80,6 +80,9 @@ public class BlockCable extends BlockContainer {
 	public static final PropertyBool DOWN = PropertyBool.create("down");
 	public static final IProperty<EnumCableType> TYPE = PropertyEnum.create("type", EnumCableType.class);
 
+	@ConfigRegistry(config = "misc", category = "cable", key = "EU_cables_when_IC2_power_enabled", comment = "When true cables will provide EU support instead of FE")
+	public static boolean useEUCables = true;
+
 	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
 	public static boolean uninsulatedElectrocutionDamage = true;
 
@@ -149,7 +152,7 @@ public class BlockCable extends BlockContainer {
 	@Nullable
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		if (Loader.isModLoaded("ic2") && PowerSystem.EnergySystem.EU.enabled.get()) {
+		if (useEUCables && Loader.isModLoaded("ic2") && PowerSystem.EnergySystem.EU.enabled.get()) {
 			return new TileCableEU(getStateFromMeta(meta).getValue(TYPE));
 		}
 		else

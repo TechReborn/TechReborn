@@ -56,6 +56,16 @@ import java.util.List;
  */
 
 public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop, ICable {
+	// Fields >>
+	public int power = 0;
+	private int transferRate = 0;
+	private EnumCableType cableType = null;
+	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
+	int ticksSinceLastChange = 0;
+	protected boolean checkedConnections = false;
+	private byte connectivity = 0;
+	// << Fields
+
 	//MC calls this during world load. Keep it, please.
 	public TileCable() {
 		super();
@@ -318,14 +328,4 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 		return cableType.getStack();
 	}
 	// << IToolDrop
-
-	// Fields >>
-	public int power = 0;
-	private int transferRate = 0;
-	private EnumCableType cableType = null;
-	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
-	int ticksSinceLastChange = 0;
-	protected boolean checkedConnections = false;
-	private byte connectivity = 0;
-	// << Fields
 }

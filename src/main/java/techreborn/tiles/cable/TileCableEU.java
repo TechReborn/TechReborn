@@ -61,15 +61,22 @@ import techreborn.blocks.cable.EnumCableType;
 import java.util.List;
 
 /**
- * Created by modmuss50 on 19/05/2017.
+ * @author estebes, modmuss50
  */
-
 @Optional.InterfaceList({
 	@Optional.Interface(iface = "ic2.api.energy.tile.IEnergyConductor", modid = "ic2"),
 	@Optional.Interface(iface = "techreborn.tiles.cable.ICable", modid = "ic2"),
 	@Optional.Interface(iface = "net.minecraft.util.ITickable", modid = "ic2")
 })
 public class TileCableEU extends TileEntity implements ITickable, IListInfoProvider, IToolDrop, IEnergyConductor, ICable {
+	// Fields >>
+	private int transferRate = 0;
+	private EnumCableType cableType = null;
+	protected boolean addedToEnet = false;
+	protected boolean checkedConnections = false;
+	private byte connectivity = 0;
+	// << Fields
+
 	//MC calls this during world load. Keep it, please.
 	public TileCableEU() {
 		super();
@@ -310,12 +317,4 @@ public class TileCableEU extends TileEntity implements ITickable, IListInfoProvi
 		return true;
 	}
 	// << IEnergyConductor
-
-	// Fields >>
-	private int transferRate = 0;
-	private EnumCableType cableType = null;
-	protected boolean addedToEnet = false;
-	protected boolean checkedConnections = false;
-	private byte connectivity = 0;
-	// << Fields
 }
