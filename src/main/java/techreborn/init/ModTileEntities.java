@@ -35,6 +35,7 @@ import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
+import techreborn.tiles.cable.TileCableEU;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.*;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
@@ -64,6 +65,7 @@ public enum ModTileEntities {
 	ASSEMBLY_MACHINE(TileAssemblingMachine.class,  "assembly_machine", "TileAssemblyMachineTR"),
 	AUTO_CRAFTING_TABLE(TileAutoCraftingTable.class,  "auto_crafting_table", "TileAutoCraftingTableTR"),
 	CABLE(TileCable.class,  "cable", "TileCableTR"),
+	CABLE_EU(TileCableEU.class,  "cable_eu", "TileCableEUTR"),
 	CHARGE_O_MAT(TileChargeOMat.class,  "charge_o_mat", "TileChargeOMatTR"),
 	CHEMICAL_REACTOR(TileChemicalReactor.class,  "chemical_reactor", "TileChemicalReactorTR"),
 	CHUNK_LOADER(TileChunkLoader.class,  "chunk_loader", "TileChunkLoaderTR"),
