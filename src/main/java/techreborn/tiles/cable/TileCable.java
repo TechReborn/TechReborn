@@ -24,6 +24,8 @@
 
 package techreborn.tiles.cable;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,7 +34,9 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -51,15 +55,17 @@ import java.util.List;
  * Created by modmuss50 on 19/05/2017.
  */
 
-public class TileCable extends TileEntity 
-	implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop {
-	
+public class TileCable extends TileEntity implements ITickable, IEnergyStorage, IListInfoProvider, IToolDrop, ICable {
+	// Fields >>
 	public int power = 0;
 	private int transferRate = 0;
 	private EnumCableType cableType = null;
 	private ArrayList<EnumFacing> sendingFace = new ArrayList<EnumFacing>();
 	int ticksSinceLastChange = 0;
-	
+	protected boolean checkedConnections = false;
+	private byte connectivity = 0;
+	// << Fields
+
 	//MC calls this during world load. Keep it, please.
 	public TileCable() {
 		super();
@@ -69,13 +75,45 @@ public class TileCable extends TileEntity
 		this.cableType = cableType;
 		this.transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
 	}
-	
+
 	private void updateCableType() {
 		if (cableType == null) {
 			cableType = world.getBlockState(pos).getValue(BlockCable.TYPE);
 			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
 		}
 		return;
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
+		connectivity = compound.getByte("connectivity");
+		if (compound.hasKey("TileCable")) {
+			power = compound.getCompoundTag("TileCable").getInteger("power");
+		}
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
+		compound.setByte("connectivity", connectivity);
+		if (power > 0) {
+			NBTTagCompound data = new NBTTagCompound();
+			data.setInteger("power", getEnergyStored());
+			compound.setTag("TileCable", data);
+		}
+		return compound;
+	}
+
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		notifyBlockUpdate();
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		return oldState.getBlock() != newSate.getBlock();
 	}
 	
 	public boolean canReceiveFromFace(EnumFacing face) {
@@ -85,7 +123,7 @@ public class TileCable extends TileEntity
 		return canReceive();
 	}
 		
-	// TileEntity
+	// Capabilities >>
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityEnergy.ENERGY) {
@@ -101,52 +139,78 @@ public class TileCable extends TileEntity
 		}
 		return super.getCapability(capability, facing);
 	}
-	
+	// << Capabilities
+
+	// Networking >>
 	@Override
-    public NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
-    }
+	public NBTTagCompound getUpdateTag() {
+		return writeToNBT(new NBTTagCompound());
+	}
 
-    @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        writeToNBT(nbtTag);
-        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
-    }
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		writeToNBT(nbtTag);
+		return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+	}
 
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        readFromNBT(packet.getNbtCompound());
-    }
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+		readFromNBT(packet.getNbtCompound());
+		notifyBlockUpdate();
+	}
 
-    @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        if (compound.hasKey("TileCable")) {
-            power = compound.getCompoundTag("TileCable").getInteger("power");
-        }
-    }
+	private void notifyBlockUpdate() {
+		final IBlockState state = world.getBlockState(getPos());
+		world.notifyBlockUpdate(getPos(), state, state, 3);
+	}
+	// << Networking
 
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        if (power > 0) {
-        	NBTTagCompound data = new NBTTagCompound();
-    		data.setInteger("power", getEnergyStored());
-    		compound.setTag("TileCable", data);
-        }
-        return compound;
-    }
+	// ICable >>
+	@Override
+	public void onNeighborChanged(Block neighbor, BlockPos neighborPos) {
+		if (!world.isRemote) updateConnectivity();
+	}
+
+	@Override
+	public void updateConnectivity() {
+		World world = getWorld();
+		byte newConnectivity = 0;
+		int mask = 1;
+
+		for (EnumFacing facing : EnumFacing.values()) {
+			TileEntity tileEntity = world.getTileEntity(pos.offset(facing));
+			if (tileEntity != null) {
+				if (tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) newConnectivity |= mask;
+			}
+
+			mask *= 2;
+		}
+
+		if (connectivity != newConnectivity) {
+			connectivity = newConnectivity;
+			markDirty();
+		}
+	}
+
+	@Override
+	public byte getConnectivity() {
+		return connectivity;
+	}
+	// << ICable
+
+
 	
-	// ITickable
+	// ITickable >>
 	@Override
 	public void update() {
-		if (world.isRemote) {
-			return;
-		}
-		
-		if (cableType == null ){
-			updateCableType(); 
+		if (world.isRemote) return;
+
+		if (cableType == null) updateCableType();
+
+		if (!checkedConnections) {
+			updateConnectivity();
+			checkedConnections = true;
 		}
 		
 		ticksSinceLastChange++;
@@ -191,8 +255,9 @@ public class TileCable extends TileEntity
 			}
 		}
 	}
+	// << ITickable
 
-	// IEnergyStorage
+	// IEnergyStorage >>
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		if (!canReceive()) {
@@ -244,8 +309,9 @@ public class TileCable extends TileEntity
 		}
 		return true;
 	}
+	// << IEnergyStorage
 
-    // IListInfoProvider
+    // IListInfoProvider >>
 	@Override
 	public void addInfo(List<String> info, boolean isRealTile) {
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
@@ -254,10 +320,12 @@ public class TileCable extends TileEntity
 			info.add(TextFormatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
 					+ TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString()));
 	}
+	// << IListInfoProvider
 
-	// IToolDrop
+	// IToolDrop >>
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
 		return cableType.getStack();
 	}
+	// << IToolDrop
 }

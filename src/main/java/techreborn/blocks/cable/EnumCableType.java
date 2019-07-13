@@ -34,15 +34,15 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 public enum EnumCableType implements IStringSerializable {
-	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.MEDIUM),
-	TIN("tin", "techreborn:blocks/cables/tin_cable", 32, 12.0, true, EnumPowerTier.LOW),
-	GOLD("gold", "techreborn:blocks/cables/gold_cable", 512, 12.0, true, EnumPowerTier.HIGH),
-	HV("hv", "techreborn:blocks/cables/hv_cable", 2048, 12.0, true, EnumPowerTier.EXTREME),
-	GLASSFIBER("glassfiber", "techreborn:blocks/cables/glass_fiber_cable", 8192, 12.0, false, EnumPowerTier.INSANE),
-	ICOPPER("insulatedcopper", "techreborn:blocks/cables/copper_insulated_cable", 128, 10.0, false, EnumPowerTier.MEDIUM),
-	IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false, EnumPowerTier.HIGH),
-	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.EXTREME),
-	SUPERCONDUCTOR("superconductor", "techreborn:blocks/cables/superconductor_cable", Integer.MAX_VALUE / 4, 10.0, false, EnumPowerTier.INFINITE);
+	COPPER("copper", "techreborn:blocks/cables/copper_cable", 128, 12.0, true, EnumPowerTier.MEDIUM, 0.2f),
+	TIN("tin", "techreborn:blocks/cables/tin_cable", 32, 12.0, true, EnumPowerTier.LOW, 0.2f),
+	GOLD("gold", "techreborn:blocks/cables/gold_cable", 512, 12.0, true, EnumPowerTier.HIGH, 0.4f),
+	HV("hv", "techreborn:blocks/cables/hv_cable", 2048, 12.0, true, EnumPowerTier.EXTREME, 0.8f),
+	GLASSFIBER("glassfiber", "techreborn:blocks/cables/glass_fiber_cable", 8192, 12.0, false, EnumPowerTier.INSANE, 0.025f),
+	ICOPPER("insulatedcopper", "techreborn:blocks/cables/copper_insulated_cable", 128, 10.0, false, EnumPowerTier.MEDIUM, 0.2f),
+	IGOLD("insulatedgold", "techreborn:blocks/cables/gold_insulated_cable", 512, 10.0, false, EnumPowerTier.HIGH, 0.4f),
+	IHV("insulatedhv", "techreborn:blocks/cables/hv_insulated_cable", 2048, 10.0, false, EnumPowerTier.EXTREME, 0.8f),
+	SUPERCONDUCTOR("superconductor", "techreborn:blocks/cables/superconductor_cable", Integer.MAX_VALUE / 4, 10.0, false, EnumPowerTier.INFINITE, 0.0f);
 
 	public String textureName = "minecraft:blocks/iron_block";
 	public int transferRate = 128;
@@ -51,10 +51,11 @@ public enum EnumCableType implements IStringSerializable {
 	public boolean canKill = false;
 	public boolean defaultCanKill = false;
 	public EnumPowerTier tier;
+	public double euCableLoss;
 	private String friendlyName;
 
 	EnumCableType(String friendlyName, String textureName, int transferRate, double cableThickness, boolean canKill,
-	              EnumPowerTier tier) {
+	              EnumPowerTier tier, double euCableLoss) {
 		this.friendlyName = friendlyName;
 		this.textureName = textureName;
 		this.transferRate = transferRate;
@@ -63,6 +64,7 @@ public enum EnumCableType implements IStringSerializable {
 		this.canKill = canKill;
 		this.defaultCanKill = canKill;
 		this.tier = tier;
+		this.euCableLoss = euCableLoss;
 	}
 
 	@Override

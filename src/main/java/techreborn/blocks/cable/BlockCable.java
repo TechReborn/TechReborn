@@ -24,6 +24,7 @@
 
 package techreborn.blocks.cable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -45,17 +46,20 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fml.common.Loader;
 import reborncore.api.ToolManager;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.cable.ICable;
 import techreborn.tiles.cable.TileCable;
+import techreborn.tiles.cable.TileCableEU;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
@@ -75,6 +79,9 @@ public class BlockCable extends BlockContainer {
 	public static final PropertyBool UP = PropertyBool.create("up");
 	public static final PropertyBool DOWN = PropertyBool.create("down");
 	public static final IProperty<EnumCableType> TYPE = PropertyEnum.create("type", EnumCableType.class);
+
+	@ConfigRegistry(config = "misc", category = "cable", key = "EU_cables_when_IC2_power_enabled", comment = "When true cables will provide EU support instead of FE")
+	public static boolean useEUCables = true;
 
 	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
 	public static boolean uninsulatedElectrocutionDamage = true;
@@ -145,7 +152,11 @@ public class BlockCable extends BlockContainer {
 	@Nullable
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileCable(getStateFromMeta(meta).getValue(TYPE));
+		if (useEUCables && Loader.isModLoaded("ic2") && PowerSystem.EnergySystem.EU.enabled.get()) {
+			return new TileCableEU(getStateFromMeta(meta).getValue(TYPE));
+		}
+		else
+			return new TileCable(getStateFromMeta(meta).getValue(TYPE));
 	}
 
 	// Block
@@ -274,14 +285,23 @@ public class BlockCable extends BlockContainer {
 
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		IBlockState actualState = state;
-		for (EnumFacing facing : EnumFacing.values()) {
-			TileEntity tileEntity = getTileEntitySafely(worldIn, pos.offset(facing));
-			if (tileEntity != null) {
-				actualState = actualState.withProperty(getProperty(facing), tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()));
-			}
+		TileEntity tileEntity = getTileEntitySafely(worldIn, pos);
+
+		if (tileEntity instanceof ICable) {
+			for (EnumFacing facing : EnumFacing.values()) state = state.withProperty(getProperty(facing), (((ICable) tileEntity).getConnectivity() & (1 << facing.ordinal())) != 0);
 		}
-		return actualState;
+
+		return state;
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos) {
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+		// CHeck for null just in case
+		if (tileEntity == null) return;
+
+		if (tileEntity instanceof ICable) ((ICable) tileEntity).onNeighborChanged(neighborBlock, neighborPos);
 	}
 
 	@Override
