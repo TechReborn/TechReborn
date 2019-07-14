@@ -26,8 +26,14 @@ package techreborn.blocks.cable;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityContext;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
@@ -35,17 +41,21 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
+import reborncore.api.power.IEnergyInterfaceTile;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.WrenchUtils;
 import techreborn.TechReborn;
+import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.tiles.cable.TileCable;
+import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
 
@@ -80,15 +90,6 @@ public class BlockCable extends BlockWithEntity {
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
-	//see for more info https://www.reddit.com/r/feedthebeast/comments/5mxwq9/psa_mod_devs_do_you_call_worldgettileentity_from/
-	public BlockEntity getTileEntitySafely(IWorld blockAccess, BlockPos pos) {
-//		if (blockAccess instanceof ChunkCache) {
-//			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
-//		} else {
-			return blockAccess.getBlockEntity(pos);
-	//	}
-	}
-
 	public AbstractProperty<Boolean> getProperty(Direction facing) {
 		switch (facing) {
 			case EAST:
@@ -108,6 +109,26 @@ public class BlockCable extends BlockWithEntity {
 		}
 	}
 	
+	private BlockState makeConnections(World world, BlockPos pos) {
+		Boolean down = checkEnergyCapability(world, pos.down(), Direction.UP);
+		Boolean up = checkEnergyCapability(world, pos.up(), Direction.DOWN); 
+		Boolean north = checkEnergyCapability(world, pos.north(), Direction.SOUTH); 
+		Boolean east = checkEnergyCapability(world, pos.east(), Direction.WEST); 
+		Boolean south = checkEnergyCapability(world, pos.south(), Direction.NORTH); 
+		Boolean west = checkEnergyCapability(world, pos.west(), Direction.WEST); 
+
+		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
+				.with(SOUTH, south).with(WEST, west);
+	}
+	
+	private Boolean checkEnergyCapability(IWorld world, BlockPos pos, Direction facing) {
+		BlockEntity tileEntity = world.getBlockEntity(pos);
+		if (tileEntity!= null && (tileEntity instanceof IEnergyInterfaceTile)) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
+	}
+	
 	// BlockContainer
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
@@ -121,7 +142,6 @@ public class BlockCable extends BlockWithEntity {
 	}
 
 	// Block
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
@@ -145,99 +165,68 @@ public class BlockCable extends BlockWithEntity {
 		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN);
 	}
 
-	/*
-
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		return makeConnections(context.getWorld(), context.getBlockPos());
 	}
-
+	
+	@Override
+	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState, IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
+		Boolean value = checkEnergyCapability(worldIn, otherPos, ourFacing.getOpposite());
+		return ourState.with(getProperty(ourFacing), value);
+	}
+	
 	@Override
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-
+	
 	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IWorld blockAccess, BlockPos pos, EnumFacing side) {
-		if (type == TRContent.Cables.GLASSFIBER)
-			return false;
-		else
-			return true;
-	}
-
-	@Override
-	public boolean isFullBlock(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getStateFromMeta(meta);
-	}
-
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		state = state.getActualState(source, pos);
-		float minSize = 0.3125F;
-		float maxSize =  0.6875F;
-		int thinkness = (int) type.cableThickness;
-		if(thinkness == 6){
-			minSize = 0.35F;
-			maxSize = 0.65F;
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {
+		if (type != null) {
+			double culling = type.cableThickness / 2 ;
+			return Block.createCuboidShape(culling , culling, culling, 16.0D - culling, 16.0D - culling, 16.0D - culling);
 		}
-		float minX = state.get(WEST) ? 0.0F : minSize;
-		float minY = state.get(DOWN) ? 0.0F : minSize;
-		float minZ = state.get(NORTH) ? 0.0F : minSize;
-		float maxX = state.get(EAST) ? 1.0F : maxSize;
-		float maxY = state.get(UP) ? 1.0F : maxSize;
-		float maxZ = state.get(SOUTH) ? 1.0F : maxSize;
-		return new AxisAlignedBB((double) minX, (double) minY, (double) minZ, (double) maxX, (double) maxY, (double) maxZ);
+		return Block.createCuboidShape(6, 6, 6, 10, 10, 10);
 	}
-
+	
 	@Override
-	public IBlockState getActualState(IBlockState state, IWorld worldIn, BlockPos pos) {
-		IBlockState actualState = state;
-		for (EnumFacing facing : EnumFacing.values()) {
-			TileEntity tileEntity = getTileEntitySafely(worldIn, pos.offset(facing));
-			if (tileEntity != null) {
-				actualState = actualState.with(getProperty(facing), tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).isPresent());
+	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		super.onEntityCollision(state, worldIn, pos, entityIn);
+		if (!type.canKill) {
+			return;
+		}
+		if (!(entityIn instanceof LivingEntity)) {
+			return;
+		}
+
+		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
+		if (tileEntity == null) {
+			return;
+		}
+		if (!(tileEntity instanceof TileCable)) {
+			return;
+		}
+
+		TileCable tileCable = (TileCable) tileEntity;
+		if (tileCable.power <= 0) {
+			return;
+		}
+
+		if (uninsulatedElectrocutionDamage) {
+			if (type == TRContent.Cables.HV) {
+				entityIn.setOnFireFor(1);
 			}
+			entityIn.damage(new ElectrialShockSource(), 1F);
 		}
-		return actualState;
-	}
-
-	@Override
-	public void onEntityCollision(IBlockState state, World worldIn, BlockPos pos,  Entity entity) {
-		super.onEntityCollision(state, worldIn, pos, entity);
-		if (type.canKill && entity instanceof EntityLivingBase) {
-			TileEntity tileEntity = worldIn.getTileEntity(pos);
-			if (tileEntity != null && tileEntity instanceof TileCable) {
-				TileCable tileCable = (TileCable) tileEntity;
-				if (tileCable.power != 0) {
-					if (uninsulatedElectrocutionDamage) {
-						if (type == TRContent.Cables.HV) {
-							entity.setFire(1);
-						}
-						entity.attackEntityFrom(new ElectrialShockSource(), 1F);
-					}
-					if (uninsulatedElectrocutionSound) {
-						worldIn.playSound(null, entity.posX, entity.posY,
-							entity.posZ, ModSounds.CABLE_SHOCK,
-							SoundCategory.BLOCKS, 0.6F, 1F);
-					}
-					if (uninsulatedElectrocutionParticles) {
-						worldIn.spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0,
-							0, 0);
-					}
-				}
-			}
+		if (uninsulatedElectrocutionSound) {
+			worldIn.playSound(null, entityIn.x, entityIn.y, entityIn.z, ModSounds.CABLE_SHOCK,
+					SoundCategory.BLOCKS, 0.6F, 1F);
 		}
-	}
+		if (uninsulatedElectrocutionParticles) {
+			worldIn.addParticle(ParticleTypes.CRIT, entityIn.x, entityIn.y, entityIn.z, 0, 0, 0);
+		}
 
-	*/
+	}
+	
 }
