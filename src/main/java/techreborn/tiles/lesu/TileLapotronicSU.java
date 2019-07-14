@@ -135,6 +135,7 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
+				.syncIntegerValue(this::getRedstoneModeInt, this::setRedstoneModeInt)
 				.syncIntegerValue(this::getOutputRate, this::setOutputRate)
 				.syncIntegerValue(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this);
 	}

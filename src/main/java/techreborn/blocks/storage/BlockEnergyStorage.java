@@ -37,7 +37,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
@@ -46,8 +49,10 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.items.WrenchHelper;
 import techreborn.Core;
 import techreborn.lib.ModInfo;
+import techreborn.tiles.storage.TileEnergyStorage;
 import techreborn.utils.TechRebornCreativeTab;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -55,9 +60,11 @@ import java.util.Random;
  * Created by Rushmead
  */
 public abstract class BlockEnergyStorage extends BaseTileBlock {
+	// Fields >>
 	public static PropertyDirection FACING = PropertyDirection.create("facing", Facings.ALL);
 	public String name;
 	public int guiID;
+	// << Fields
 
 	public BlockEnergyStorage(String name, int guiID) {
 		super(Material.IRON);
@@ -190,6 +197,52 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		EnumFacing facing = getSideFromint(meta);
 		return this.getDefaultState().withProperty(FACING, facing);
 	}
+
+	// Redstone >>
+	public TileEntity getTileEntitySafely(IBlockAccess blockAccess, BlockPos pos) {
+		if (blockAccess instanceof ChunkCache) {
+			return ((ChunkCache) blockAccess).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
+		} else {
+			return blockAccess.getTileEntity(pos);
+		}
+	}
+
+	@Override
+	public int getWeakPower(IBlockState blockState, IBlockAccess world, BlockPos pos, EnumFacing side) {
+		TileEntity tileEntity = getTileEntitySafely(world, pos);
+
+		if (!(tileEntity instanceof TileEnergyStorage)) return 0;
+
+		return ((TileEnergyStorage) tileEntity).getRedstoneLevel();
+	}
+
+	@Override
+	public boolean canProvidePower(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EnumFacing side) {
+		TileEntity tileEntity = getTileEntitySafely(world, pos);
+
+		return tileEntity instanceof TileEnergyStorage;
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+		TileEntity tileEntity = getTileEntitySafely(world, pos);
+
+		if (!(tileEntity instanceof TileEnergyStorage)) return 0;
+
+		return ((TileEnergyStorage) tileEntity).getComparatorValue();
+	}
+
+	// << Redstone
 
 	public enum Facings implements Predicate<EnumFacing>, Iterable<EnumFacing> {
 		ALL;

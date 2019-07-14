@@ -62,7 +62,6 @@ public class GuiRollingMachine extends GuiBase {
 		drawOutputSlot(124, gridYPos + 18, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
-		builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
 	}
 
 	@Override
@@ -72,6 +71,7 @@ public class GuiRollingMachine extends GuiBase {
 
 		builder.drawProgressBar(this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
 	}
 
 	@Override

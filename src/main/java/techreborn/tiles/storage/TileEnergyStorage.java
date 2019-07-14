@@ -27,6 +27,7 @@ package techreborn.tiles.storage;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
@@ -35,13 +36,13 @@ import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.Inventory;
 import techreborn.blocks.storage.BlockEnergyStorage;
+import techreborn.tiles.IRedstoneHandler;
 
 /**
- * Created by Rushmead
+ * @author Rushmead, estebes
  */
-public class TileEnergyStorage extends TilePowerAcceptor 
-		implements IToolDrop, IInventoryProvider {
-
+public abstract class TileEnergyStorage extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IRedstoneHandler {
+	// Fields >>
 	public Inventory inventory;
 	public String name;
 	public Block wrenchDrop;
@@ -49,6 +50,12 @@ public class TileEnergyStorage extends TilePowerAcceptor
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
+
+	// redstone related
+	public byte redstoneMode = 0; // current redstone mode
+	public static byte redstoneModes = 5; // number of redstone modes
+	public int redstoneSignal = 0;
+	// << Fields
 
 	public TileEnergyStorage(String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
 		super();
@@ -63,17 +70,42 @@ public class TileEnergyStorage extends TilePowerAcceptor
 
 	// TilePowerAcceptor
 	@Override
+	public void readFromNBT(final NBTTagCompound tag) {
+		super.readFromNBT(tag);
+
+		this.redstoneMode = tag.getByte("redstoneMode");
+		this.redstoneSignal = tag.getInteger("redstoneSignal");
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(final NBTTagCompound tag) {
+		super.writeToNBT(tag);
+
+		tag.setByte("redstoneMode", this.redstoneMode);
+		tag.setInteger("redstoneSignal", this.redstoneSignal);
+
+		return tag;
+	}
+
+	@Override
 	public void update() {
 		super.update();
+
+		if (world.isRemote) return;
+
 		if (!inventory.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = inventory.getStackInSlot(0);
 
-			if (ExternalPowerSystems.isPoweredItem(stack)) {
-				ExternalPowerSystems.chargeItem(this, stack);
-			}
+			if (ExternalPowerSystems.isPoweredItem(stack)) ExternalPowerSystems.chargeItem(this, stack);
 		}
-		if (!inventory.getStackInSlot(1).isEmpty()) {
-			charge(1);
+
+		if (!inventory.getStackInSlot(1).isEmpty()) charge(1);
+
+		// handle redstone updates
+		int newRedstoneSignal = shouldEmitRedstoneSignal() ? 15 : 0;
+		if (redstoneSignal != newRedstoneSignal) {
+			redstoneSignal = newRedstoneSignal;
+			world.notifyNeighborsOfStateChange(pos, blockType, false);
 		}
 	}
 	
@@ -127,15 +159,51 @@ public class TileEnergyStorage extends TilePowerAcceptor
 		return false;
 	}
 
-	// IToolDrop
+	// IToolDrop >>
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(wrenchDrop);
 	}
+	// << IToolDrop
 	
 	// IInventoryProvider
 	@Override
 	public Inventory getInventory() {
 		return inventory;
 	}
+
+	// Redstone >>
+	@Override
+	public int getRedstoneLevel() {
+		return redstoneSignal;
+	}
+
+	@Override
+	public int getComparatorValue()  {
+		return Math.min((int) (getEnergy() * 15 / getBaseMaxPower()), 15);
+	}
+
+	protected boolean shouldEmitRedstoneSignal() {
+		switch (redstoneMode) {
+			case 1: // emit if full
+				return getEnergy() >= (getBaseMaxPower() - (maxOutput * 20));
+			case 2: // emit if partially full
+				return getEnergy() > maxOutput && getEnergy() < getBaseMaxPower() - maxOutput;
+			case 3: // emit if partially full or empty
+				return getEnergy() < getBaseMaxPower() - maxOutput;
+			case 4: // emit if empty
+				return getEnergy() < maxOutput;
+			default: // do nothing
+				return false;
+		}
+	}
+
+	public int getRedstoneModeInt() {
+		return redstoneMode & 0xff; // TODO: Add byteSuppliers to core
+	}
+
+	public void setRedstoneModeInt(int redstoneModeInt) {
+		redstoneMode = (byte) redstoneModeInt;
+	}
+	// << Redstone
 }

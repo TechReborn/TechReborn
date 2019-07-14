@@ -33,7 +33,9 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import techreborn.packets.PacketAesu;
+import techreborn.packets.PacketRedstoneMode;
 import techreborn.tiles.storage.TileAdjustableSU;
+import techreborn.tiles.storage.TileEnergyStorage;
 
 import java.io.IOException;
 
@@ -78,6 +80,8 @@ public class GuiAESU extends GuiBase {
 		buttonList.add(new GuiButtonUpDown(301, 121 + 12, 79, this, layer));
 		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer));
 		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer));
+
+		builder.drawEnergyStorageRedstoneModeButton(this, 150, 5, mouseX, mouseY, layer, tile.redstoneMode);
 	}
 	
 	@Override
@@ -88,5 +92,16 @@ public class GuiAESU extends GuiBase {
 			boolean ctrl = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
 			NetworkManager.sendToServer(new PacketAesu(button.id, tile, shift, ctrl));
 		} 
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		if (isPointInRect(150, 5, 20, 20, mouseX, mouseY)) {
+			byte currentMode = tile.redstoneMode;
+			NetworkManager.sendToServer(new PacketRedstoneMode(tile, (++currentMode >= TileEnergyStorage.redstoneModes ? 0 : currentMode)));
+			return;
+		}
+
+		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 }

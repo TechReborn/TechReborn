@@ -217,6 +217,7 @@ public class Core {
 		event.registerPacket(PacketFusionControlSize.class, Side.SERVER);
 		event.registerPacket(PacketAutoCraftingTableLock.class, Side.SERVER);
 		event.registerPacket(PacketRefund.class, Side.SERVER);
+		event.registerPacket(PacketRedstoneMode.class, Side.SERVER);
 	}
 
 	@Mod.EventHandler

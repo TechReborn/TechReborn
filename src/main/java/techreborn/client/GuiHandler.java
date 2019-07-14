@@ -76,6 +76,7 @@ public class GuiHandler implements IGuiHandler {
 		switch (gui) {
 			case AESU:
 				return new GuiAESU(player, (TileAdjustableSU) tile);
+//				return new GuiEnergyStorage<TileAdjustableSU>(player, (TileAdjustableSU) tile);
 			case ALLOY_FURNACE:
 				return new GuiAlloyFurnace(player, (TileIronAlloyFurnace) tile);
 			case ALLOY_SMELTER:
@@ -83,7 +84,7 @@ public class GuiHandler implements IGuiHandler {
 			case ASSEMBLING_MACHINE:
 				return new GuiAssemblingMachine(player, (TileAssemblingMachine) tile);
 			case LOW_VOLTAGE_SU:
-				return new GuiBatbox(player, (TileLowVoltageSU) tile);
+				return new GuiEnergyStorage<TileLowVoltageSU>(player, (TileLowVoltageSU) tile);
 			case BLAST_FURNACE:
 				return new GuiBlastFurnace(player, (TileIndustrialBlastFurnace) tile);
 			case CENTRIFUGE:
@@ -115,7 +116,7 @@ public class GuiHandler implements IGuiHandler {
 			case GRINDER:
 				return new GuiGrinder(player, (TileGrinder) tile);
 			case IDSU:
-				return new GuiIDSU(player, (TileInterdimensionalSU) tile);
+				return new GuiEnergyStorage<TileInterdimensionalSU>(player, (TileInterdimensionalSU) tile);
 			case IMPLOSION_COMPRESSOR:
 				return new GuiImplosionCompressor(player, (TileImplosionCompressor) tile);
 			case INDUSTRIAL_ELECTROLYZER:
@@ -125,13 +126,13 @@ public class GuiHandler implements IGuiHandler {
 			case IRON_FURNACE:
 				return new GuiIronFurnace(player, (TileIronFurnace) tile);
 			case LESU:
-				return new GuiLESU(player, (TileLapotronicSU) tile);
+				return new GuiEnergyStorage<TileLapotronicSU>(player, (TileLapotronicSU) tile);
 			case MATTER_FABRICATOR:
 				return new GuiMatterFabricator(player, (TileMatterFabricator) tile);
 			case MEDIUM_VOLTAGE_SU:
-				return new GuiMFE(player, (TileMediumVoltageSU) tile);
+				return new GuiEnergyStorage<TileMediumVoltageSU>(player, (TileMediumVoltageSU) tile);
 			case HIGH_VOLTAGE_SU:
-				return new GuiMFSU(player, (TileHighVoltageSU) tile);
+				return new GuiEnergyStorage<TileHighVoltageSU>(player, (TileHighVoltageSU) tile);
 			case QUANTUM_CHEST:
 				return new GuiQuantumChest(player, (TileQuantumChest) tile);
 			case QUANTUM_TANK:
