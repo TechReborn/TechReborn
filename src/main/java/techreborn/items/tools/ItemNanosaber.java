@@ -53,20 +53,26 @@ import reborncore.common.powerSystem.PoweredItemContainerProvider;
 import reborncore.common.powerSystem.forge.ForgePowerItemManager;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
+import techreborn.utils.ItemStackUtils;
+import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
+	// Fields >>
 	public static final int maxCharge = ConfigTechReborn.nanoSaberCharge;
+	public static final int damageWhenActive = ConfigTechReborn.nanoSaberDamage;
 	public int cost = 250;
+	// << Fields
 
 	public ItemNanosaber() {
 		super(ToolMaterial.DIAMOND);
+
 		setNoRepair();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
@@ -90,6 +96,8 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	// ItemSword
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase entityHit, EntityLivingBase entityHitter) {
+		if (!ItemUtils.isActive(stack)) return true;
+
 		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
 		if (capEnergy.getEnergyStored() >= cost) {
 			capEnergy.extractEnergy(cost, false);
@@ -104,17 +112,24 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	// Item
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		if (slot != EntityEquipmentSlot.MAINHAND) {
+			return super.getAttributeModifiers(slot, stack);
+		}
+
+		// Default damage is 4
+		int damage = 4;
+
+		ForgePowerItemManager capEnergy = new ForgePowerItemManager(stack);
+
+		if (capEnergy.getEnergyStored() >= cost) {
+			if (ItemUtils.isActive(stack)) damage = damageWhenActive;
+		}
+
 		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-		int modifier = 0;
-		if (ItemUtils.isActive(stack)) {
-			modifier = 9;
-		}
-		if (slot == EntityEquipmentSlot.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
-					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) modifier, 0));
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
-		}
+
+		multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) damage - 1, 0));
+		multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.4000000953674316D, 0));
+
 		return multimap;
 	}
 	
@@ -122,48 +137,43 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	public ActionResult<ItemStack> onItemRightClick(final World world, final EntityPlayer player, final EnumHand hand) {
 		final ItemStack stack = player.getHeldItem(hand);
 		if (player.isSneaking()) {
-			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ TextFormatting.GOLD + I18n
-						.format("techreborn.message.nanosaberActivate")));
+			if (new ForgePowerItemManager(stack).getEnergyStored() < cost) { // not enough energy
+				sendChatMessage(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo"),
+					TextFormatting.GOLD + I18n.format("techreborn.message.nanosaberActivate"));
 			} else {
-				if (!ItemUtils.isActive(stack)) {
-					if (stack.getTagCompound() == null) {
-						stack.setTagCompound(new NBTTagCompound());
-					}
-					stack.getTagCompound().setBoolean("isActive", true);
+				NBTTagCompound nbt = ItemStackUtils.getStackNbtData(stack); // get or create NBT
+
+				if (!ItemUtils.isActive(stack)) { // set to active
+					nbt.setBoolean("isActive", true);
+
 					if (world.isRemote) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
-								+ TextFormatting.GOLD + I18n
-								.format("techreborn.message.nanosaberActive")));
+						sendChatMessage(TextFormatting.GRAY + I18n.format("techreborn.message.setTo"),
+							TextFormatting.GOLD + I18n.format("techreborn.message.nanosaberActive"));
 					}
 				} else {
-					stack.getTagCompound().setBoolean("isActive", false);
+					nbt.setBoolean("isActive", false);
+
 					if (world.isRemote) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-							TextFormatting.GRAY + I18n.format("techreborn.message.setTo") + " "
-								+ TextFormatting.GOLD + I18n
-								.format("techreborn.message.nanosaberInactive")));
+						sendChatMessage(TextFormatting.GRAY + I18n.format("techreborn.message.setTo"),
+							TextFormatting.GOLD + I18n.format("techreborn.message.nanosaberInactive"));
 					}
 				}
 			}
-			return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}
-		return new ActionResult<>(EnumActionResult.PASS, stack);
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 	}
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (ItemUtils.isActive(stack) && new ForgePowerItemManager(stack).getEnergyStored() < cost) {
-			if(worldIn.isRemote){
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(
-					TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError") + " "
-						+ TextFormatting.GOLD + I18n
-						.format("techreborn.message.nanosaberDeactivating")));
+			if (worldIn.isRemote) {
+				sendChatMessage(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyError"),
+					TextFormatting.GOLD + I18n.format("techreborn.message.nanosaberDeactivating"));
 			}
-			stack.getTagCompound().setBoolean("isActive", false);
+
+			NBTTagCompound nbt = ItemStackUtils.getStackNbtData(stack);
+			nbt.setBoolean("isActive", false);
 		}
 	}
 
@@ -195,29 +205,29 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(
-		CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
-		if (!isInCreativeTab(par2CreativeTabs)) {
-			return;
-		}
+	public void getSubItems(CreativeTabs par2CreativeTabs, NonNullList<ItemStack> itemList) {
+		if (!isInCreativeTab(par2CreativeTabs)) return;
+
+		// Inactive Uncharged
 		ItemStack inactiveUncharged = new ItemStack(ModItems.NANOSABER);
-		inactiveUncharged.setTagCompound(new NBTTagCompound());
-		inactiveUncharged.getTagCompound().setBoolean("isActive", false);
-
-		ItemStack inactiveCharged = new ItemStack(ModItems.NANOSABER);
-		inactiveCharged.setTagCompound(new NBTTagCompound());
-		inactiveCharged.getTagCompound().setBoolean("isActive", false);
-		ForgePowerItemManager capEnergy = new ForgePowerItemManager(inactiveCharged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		ItemStack activeCharged = new ItemStack(ModItems.NANOSABER);
-		activeCharged.setTagCompound(new NBTTagCompound());
-		activeCharged.getTagCompound().setBoolean("isActive", true);
-		ForgePowerItemManager capEnergy2 = new ForgePowerItemManager(activeCharged);
-		capEnergy2.setEnergyStored(capEnergy2.getMaxEnergyStored());
-
+		NBTTagCompound nbtInactiveUncharged = ItemStackUtils.getStackNbtData(inactiveUncharged);
+		nbtInactiveUncharged.setBoolean("isActive", false);
 		itemList.add(inactiveUncharged);
+
+		// Inactive Charged
+		ItemStack inactiveCharged = new ItemStack(ModItems.NANOSABER);
+		NBTTagCompound nbtInactiveCharged = ItemStackUtils.getStackNbtData(inactiveCharged);
+		nbtInactiveCharged.setBoolean("isActive", false);
+		ForgePowerItemManager inactiveCapEnergy = new ForgePowerItemManager(inactiveCharged);
+		inactiveCapEnergy.setEnergyStored(inactiveCapEnergy.getMaxEnergyStored());
 		itemList.add(inactiveCharged);
+
+		// Active Charged
+		ItemStack activeCharged = new ItemStack(ModItems.NANOSABER);
+		NBTTagCompound nbtActiveCharged = ItemStackUtils.getStackNbtData(activeCharged);
+		nbtActiveCharged.setBoolean("isActive", true);
+		ForgePowerItemManager activeCapEnergy = new ForgePowerItemManager(activeCharged);
+		activeCapEnergy.setEnergyStored(activeCapEnergy.getMaxEnergyStored());
 		itemList.add(activeCharged);
 	}
 
@@ -250,5 +260,10 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 	@Override
 	public double getMaxTransfer(ItemStack stack) {
 		return 1000;
+	}
+
+	public void sendChatMessage(String... keys) {
+		String message = Arrays.stream(keys).reduce("", (temp, key) -> temp + " " + key).trim();
+		ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new TextComponentString(message));
 	}
 }

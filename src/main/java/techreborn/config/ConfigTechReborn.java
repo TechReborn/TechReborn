@@ -44,6 +44,9 @@ public class ConfigTechReborn {
 
 	@ConfigRegistry(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")
 	public static int nanoSaberCharge = 640_000;
+
+	@ConfigRegistry(config = "items", category = "stats", key = "nanoSaberDamage", comment = "Damage value for the Nano Saber (when active)")
+	public static int nanoSaberDamage = 20;
 	
 	@ConfigRegistry(config = "items", category = "power", key = "ironDrillCharge", comment = "Energy Capacity for Iron Drill (FE)")
 	public static int IronDrillCharge = 40_000;
