@@ -52,7 +52,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
-	public static void EnvTypeributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
+	public static void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
 		if (world.isClient) {
 			return;
 		}
@@ -71,7 +71,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
-			EnvTypeributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, (int) transferLimit);
+			distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, (int) transferLimit);
 		}
 	}
 

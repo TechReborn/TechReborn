@@ -25,7 +25,6 @@
 package techreborn.blocks.storage;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
@@ -92,7 +91,6 @@ public class BlockLSUStorage extends BaseTileBlock {
 	}
 
 	// Block
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);

@@ -25,18 +25,11 @@
 package techreborn.client;
 
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-import net.fabricmc.fabric.api.container.ContainerFactory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.ContainerScreenRegistry;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
-import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.mixin.extensions.ContainerExtensions;
@@ -66,9 +59,6 @@ import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
 import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
 import techreborn.tiles.storage.lesu.TileLapotronicSU;
-
-import java.util.Arrays;
-import java.util.function.Consumer;
 
 public class GuiHandler {
 

@@ -37,7 +37,6 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
-import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -56,7 +55,6 @@ import techreborn.items.tool.ItemTreeTap;
 import techreborn.items.tool.basic.ItemElectricTreetap;
 
 import java.util.Random;
-import java.util.function.Consumer;
 
 /**
  * Created by modmuss50 on 19/02/2016.
@@ -99,7 +97,6 @@ public class BlockRubberLog extends LogBlock {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onScheduledTick(BlockState state, World worldIn, BlockPos pos, Random random) {
 		super.onScheduledTick(state, worldIn, pos, random);
@@ -118,7 +115,6 @@ public class BlockRubberLog extends LogBlock {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
 	                                Hand hand, BlockHitResult hitResult) {

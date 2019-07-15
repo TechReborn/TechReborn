@@ -129,7 +129,6 @@ public class BlockAlarm extends BaseTileBlock {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);

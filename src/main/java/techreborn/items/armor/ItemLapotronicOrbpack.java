@@ -24,8 +24,6 @@
 
 package techreborn.items.armor;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -68,7 +66,7 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
-			ItemLithiumIonBatpack.EnvTypeributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack,
+			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack,
 					(int) transferLimit);
 		}
 	}

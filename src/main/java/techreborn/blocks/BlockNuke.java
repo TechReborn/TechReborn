@@ -92,7 +92,6 @@ public class BlockNuke extends BaseBlock {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean b) {
 		super.onBlockAdded(state, worldIn, pos, oldState, b);
