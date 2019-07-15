@@ -22,21 +22,20 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.sound.BlockSoundGroup;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
-import techreborn.TechReborn;
+import techreborn.world.RubberTreeGenerator;
 
-public class BlockReinforcedGlass extends GlassBlock {
+/**
+ * Created by modmuss50 on 20/02/2016.
+ */
+public class BlockRubberSapling extends SaplingBlock {
 
-	public BlockReinforcedGlass() {
-		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).build());
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
+	public BlockRubberSapling() {
+		super(new RubberTreeGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).build());
 	}
-
 }

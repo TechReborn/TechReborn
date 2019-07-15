@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.misc;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

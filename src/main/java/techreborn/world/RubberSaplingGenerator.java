@@ -26,20 +26,17 @@ package techreborn.world;
 
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkManager;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class RubberTreeGenerator extends SaplingGenerator {
+public class RubberSaplingGenerator extends SaplingGenerator {
 
 	boolean isWorldGen = true;
 
-	public RubberTreeGenerator() {
+	public RubberSaplingGenerator() {
 		super();
 	}
 
@@ -49,7 +46,7 @@ public class RubberTreeGenerator extends SaplingGenerator {
 		return null;
 	}
 
-	public RubberTreeGenerator(boolean isWorldGen) {
+	public RubberSaplingGenerator(boolean isWorldGen) {
 		super();
 		this.isWorldGen = isWorldGen;
 	}

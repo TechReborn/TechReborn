@@ -32,7 +32,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import techreborn.blocks.BlockNuke;
+import techreborn.blocks.misc.BlockNuke;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 

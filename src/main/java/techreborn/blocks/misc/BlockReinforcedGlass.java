@@ -22,29 +22,21 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.misc;
 
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
+import techreborn.TechReborn;
 
-import javax.annotation.Nullable;
-import java.util.Random;
+public class BlockReinforcedGlass extends GlassBlock {
 
-/**
- * @author drcrazy
- *
- */
-public class RubberTree extends SaplingGenerator {
-
-	@Nullable
-	@Override
-	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
-		return null;
+	public BlockReinforcedGlass() {
+		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).build());
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
-	//	@Override
-//	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
-//		return new RubberTreeFeature();
-//	}
 }

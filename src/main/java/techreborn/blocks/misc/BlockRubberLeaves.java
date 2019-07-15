@@ -22,19 +22,24 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.misc;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.StairsBlock;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FireBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.client.models.ModelCompound;
 import reborncore.client.models.RebornModelRegistry;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
 
-public class BlockRubberPlankStair extends StairsBlock {
+public class BlockRubberLeaves extends LeavesBlock {
 
-	public BlockRubberPlankStair() {
-		super(TRContent.RUBBER_PLANKS.getDefaultState(), Block.Settings.copy(TRContent.RUBBER_PLANKS));
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
+	public BlockRubberLeaves() {
+		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build());
+		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, DISTANCE, PERSISTENT));
 	}
+
 }

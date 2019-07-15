@@ -24,23 +24,26 @@
 
 package techreborn.events;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item.Settings;
 import reborncore.RebornRegistry;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.BucketHandler;
 import techreborn.TechReborn;
-import techreborn.blocks.*;
+import techreborn.blocks.misc.BlockComputerCube;
+import techreborn.blocks.misc.BlockNuke;
+import techreborn.blocks.misc.BlockRefinedIronFence;
+import techreborn.blocks.misc.BlockReinforcedGlass;
+import techreborn.blocks.misc.BlockRubberLeaves;
+import techreborn.blocks.misc.BlockRubberLog;
+import techreborn.blocks.misc.BlockRubberPlank;
+import techreborn.blocks.misc.BlockRubberPlankSlab;
+import techreborn.blocks.misc.BlockRubberPlankStair;
+import techreborn.blocks.misc.BlockRubberSapling;
 import techreborn.config.ConfigTechReborn;
-import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
-import techreborn.init.TRTileEntities;
 import techreborn.init.TRToolTier;
-import techreborn.itemblocks.ItemBlockRubberSapling;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.items.ItemManual;
@@ -80,29 +83,28 @@ public class ModRegistry {
 	}
 
 	public static void registerBlocks() {
-		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
+		Settings itemGroup = new Item.Settings().group(TechReborn.ITEMGROUP);
+		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(MachineBlocks.values()).forEach(value -> {
-			RebornRegistry.registerBlock(value.frame, new Item.Settings().group(TechReborn.ITEMGROUP));
-			RebornRegistry.registerBlock(value.casing, new Item.Settings().group(TechReborn.ITEMGROUP));
+			RebornRegistry.registerBlock(value.frame, itemGroup);
+			RebornRegistry.registerBlock(value.casing, itemGroup);
 		});
-		Arrays.stream(TRContent.SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
-		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
-		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, new Item.Settings().group(TechReborn.ITEMGROUP)));
+		Arrays.stream(TRContent.SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 
 		// Misc. blocks
-		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), new Item.Settings().group(TechReborn.ITEMGROUP));
-//		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"),
-//				ItemBlockRubberSapling.class,
-//				"rubber_sapling");
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), new Item.Settings().group(TechReborn.ITEMGROUP));
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), new Item.Settings().group(TechReborn.ITEMGROUP));
+		RebornRegistry.registerBlock(TRContent.COMPUTER_CUBE = InitUtils.setup(new BlockComputerCube(), "computer_cube"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), itemGroup);
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
@@ -204,17 +206,6 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCell(), "cell"));
 
-		// TODO: do we need this at all?
-		BlockMachineBase.advancedFrameStack = new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame());
-		BlockMachineBase.basicFrameStack = new ItemStack(TRContent.MachineBlocks.BASIC.getFrame());
-
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
 	}
-
-//	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
-//	public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-//		//Register ModRecipes
-//		ModRecipes.init();
-//	}
-
 }

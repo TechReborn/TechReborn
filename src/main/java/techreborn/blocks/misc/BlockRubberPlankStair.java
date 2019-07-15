@@ -22,19 +22,19 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Material;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.block.Block;
+import net.minecraft.block.StairsBlock;
+import reborncore.client.models.ModelCompound;
+import reborncore.client.models.RebornModelRegistry;
+import techreborn.TechReborn;
+import techreborn.init.TRContent;
 
-/**
- * Created by modmuss50 on 20/02/2016.
- */
-public class BlockRubberSapling extends SaplingBlock {
+public class BlockRubberPlankStair extends StairsBlock {
 
-	public BlockRubberSapling() {
-		super(new RubberTree(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).build());
+	public BlockRubberPlankStair() {
+		super(TRContent.RUBBER_PLANKS.getDefaultState(), Block.Settings.copy(TRContent.RUBBER_PLANKS));
+		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }
