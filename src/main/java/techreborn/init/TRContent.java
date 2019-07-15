@@ -270,15 +270,37 @@ public class TRContent {
 	}
 
 	public static enum Ores implements ItemConvertible {
-		BAUXITE, CINNABAR, COPPER, GALENA, IRIDIUM, LEAD, PERIDOT, PYRITE, RUBY, SAPPHIRE, SHELDONITE, SILVER, SODALITE,
-		SPHALERITE, TIN, TUNGSTEN;
+		BAUXITE(6, 10, 10, 60), 
+		CINNABAR(6, 3, 10, 126), 
+		COPPER(8, 16, 20, 60), 
+		GALENA(8, 16, 10, 60), 
+		IRIDIUM(3, 3, 5, 60), 
+		LEAD(6, 16, 20, 60), 
+		PERIDOT(6, 3, 10, 250), 
+		PYRITE(6, 3, 10, 126), 
+		RUBY(6, 3, 10, 60), 
+		SAPPHIRE(6, 3, 10, 60), 
+		SHELDONITE(6, 3, 10, 250), 
+		SILVER(6, 16, 20, 60), 
+		SODALITE(6, 3, 10, 250),
+		SPHALERITE(6, 3, 10, 126), 
+		TIN(8, 16, 20, 60), 
+		TUNGSTEN(6, 3, 10, 250);
 
 		public final String name;
 		public final Block block;
+		public final int veinSize;
+		public final int veinsPerChunk;
+		public final int minY;
+		public final int maxY;
 
-		private Ores() {
+		private Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
 			name = this.toString().toLowerCase();
 			block = new BlockOre();
+			this.veinSize = veinSize;
+			this.veinsPerChunk = veinsPerChunk;
+			this.minY = minY;
+			this.maxY = maxY;
 			InitUtils.setup(block, name + "_ore");
 		}
 

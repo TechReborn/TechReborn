@@ -26,7 +26,6 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
@@ -45,6 +44,7 @@ import techreborn.proxies.CommonProxy;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
+import techreborn.world.WorldGenerator;
 
 public class TechReborn implements ModInitializer {
 
@@ -83,12 +83,14 @@ public class TechReborn implements ModInitializer {
 		ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
+		
+		// WorldGen
+		WorldGenerator.initBiomeFeatures();
 
 		StackToolTipHandler.setup();
 		StackWIPHandler.setup();
 
 		// WorldGen
-		//GameRegistry.registerWorldGenerator(worldGen, 0);
 		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
 		// Event busses

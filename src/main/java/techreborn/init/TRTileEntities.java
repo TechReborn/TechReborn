@@ -31,7 +31,6 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
-import reborncore.common.tile.TileMachineBase;
 import techreborn.TechReborn;
 import techreborn.tiles.*;
 import techreborn.tiles.cable.TileCable;
@@ -63,7 +62,6 @@ import techreborn.tiles.transformers.TileMVTransformer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 public class TRTileEntities {
 	
