@@ -28,7 +28,7 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.sound.BlockSoundGroup;
-import techreborn.world.RubberTreeGenerator;
+import techreborn.world.RubberSaplingGenerator;
 
 /**
  * Created by modmuss50 on 20/02/2016.
@@ -36,6 +36,6 @@ import techreborn.world.RubberTreeGenerator;
 public class BlockRubberSapling extends SaplingBlock {
 
 	public BlockRubberSapling() {
-		super(new RubberTreeGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).build());
+		super(new RubberSaplingGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).build());
 	}
 }
