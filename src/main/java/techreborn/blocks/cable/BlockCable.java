@@ -86,55 +86,56 @@ public class BlockCable extends BlockWithEntity {
 	public BlockCable(TRContent.Cables type) {
 		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
 		this.type = type;
-		setDefaultState(this.stateFactory.getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false).with(SOUTH, false).with(UP, false).with(DOWN, false));
+		setDefaultState(this.stateFactory.getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
+				.with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
 	public AbstractProperty<Boolean> getProperty(Direction facing) {
 		switch (facing) {
-			case EAST:
-				return EAST;
-			case WEST:
-				return WEST;
-			case NORTH:
-				return NORTH;
-			case SOUTH:
-				return SOUTH;
-			case UP:
-				return UP;
-			case DOWN:
-				return DOWN;
-			default:
-				return EAST;
+		case EAST:
+			return EAST;
+		case WEST:
+			return WEST;
+		case NORTH:
+			return NORTH;
+		case SOUTH:
+			return SOUTH;
+		case UP:
+			return UP;
+		case DOWN:
+			return DOWN;
+		default:
+			return EAST;
 		}
 	}
-	
+
 	private BlockState makeConnections(World world, BlockPos pos) {
-		Boolean down = checkEnergyCapability(world, pos.down(), Direction.UP);
-		Boolean up = checkEnergyCapability(world, pos.up(), Direction.DOWN); 
-		Boolean north = checkEnergyCapability(world, pos.north(), Direction.SOUTH); 
-		Boolean east = checkEnergyCapability(world, pos.east(), Direction.WEST); 
-		Boolean south = checkEnergyCapability(world, pos.south(), Direction.NORTH); 
-		Boolean west = checkEnergyCapability(world, pos.west(), Direction.WEST); 
+		Boolean down = canConnectTo(world, pos.down(), Direction.UP);
+		Boolean up = canConnectTo(world, pos.up(), Direction.DOWN);
+		Boolean north = canConnectTo(world, pos.north(), Direction.SOUTH);
+		Boolean east = canConnectTo(world, pos.east(), Direction.WEST);
+		Boolean south = canConnectTo(world, pos.south(), Direction.NORTH);
+		Boolean west = canConnectTo(world, pos.west(), Direction.WEST);
 
 		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
 				.with(SOUTH, south).with(WEST, west);
 	}
-	
-	private Boolean checkEnergyCapability(IWorld world, BlockPos pos, Direction facing) {
+
+	private Boolean canConnectTo(IWorld world, BlockPos pos, Direction facing) {
 		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if (tileEntity!= null && (tileEntity instanceof IEnergyInterfaceTile)) {
+		if (tileEntity != null && (tileEntity instanceof IEnergyInterfaceTile)) {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
 	}
-	
+
 	// BlockContainer
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;
 	}
-	
+
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
@@ -151,7 +152,7 @@ public class BlockCable extends BlockWithEntity {
 		if (tileEntity == null) {
 			return false;
 		}
-		
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
 				return true;
@@ -169,27 +170,29 @@ public class BlockCable extends BlockWithEntity {
 	public BlockState getPlacementState(ItemPlacementContext context) {
 		return makeConnections(context.getWorld(), context.getBlockPos());
 	}
-	
+
 	@Override
-	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState, IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
-		Boolean value = checkEnergyCapability(worldIn, otherPos, ourFacing.getOpposite());
+	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState,
+			IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
+		Boolean value = canConnectTo(worldIn, otherPos, ourFacing.getOpposite());
 		return ourState.with(getProperty(ourFacing), value);
 	}
-	
+
 	@Override
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-	
+
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {
 		if (type != null) {
-			double culling = type.cableThickness / 2 ;
-			return Block.createCuboidShape(culling , culling, culling, 16.0D - culling, 16.0D - culling, 16.0D - culling);
+			double culling = type.cableThickness / 2;
+			return Block.createCuboidShape(culling, culling, culling, 16.0D - culling, 16.0D - culling,
+					16.0D - culling);
 		}
 		return Block.createCuboidShape(6, 6, 6, 10, 10, 10);
 	}
-	
+
 	@Override
 	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		super.onEntityCollision(state, worldIn, pos, entityIn);
@@ -220,13 +223,11 @@ public class BlockCable extends BlockWithEntity {
 			entityIn.damage(new ElectrialShockSource(), 1F);
 		}
 		if (uninsulatedElectrocutionSound) {
-			worldIn.playSound(null, entityIn.x, entityIn.y, entityIn.z, ModSounds.CABLE_SHOCK,
-					SoundCategory.BLOCKS, 0.6F, 1F);
+			worldIn.playSound(null, entityIn.x, entityIn.y, entityIn.z, ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
+					0.6F, 1F);
 		}
 		if (uninsulatedElectrocutionParticles) {
 			worldIn.addParticle(ParticleTypes.CRIT, entityIn.x, entityIn.y, entityIn.z, 0, 0, 0);
 		}
-
 	}
-	
 }
