@@ -97,11 +97,11 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 	public int getHeatFromState(IBlockState state) {
 		switch (getMetaFromState(state)) {
 			case 0:
-				return 1020 / 25;
+				return 30;
 			case 1:
-				return 1700 / 25;
+				return 50;
 			case 2:
-				return 2380 / 25;
+				return 70;
 		}
 		return 0;
 	}

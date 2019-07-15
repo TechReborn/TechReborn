@@ -38,9 +38,9 @@ import java.security.InvalidParameterException;
 
 public class ItemPlates extends ItemTR {
 
-	//Vanilla plates or plates not from ingots or gems
+	// Vanilla plates or plates not from ingots or gems
 	public static String[] types = new String[] {
-		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", ModItems.META_PLACEHOLDER, "coal", "obsidian", "lazurite"
+		"iron", "gold", "carbon", "wood", "redstone", "diamond", "emerald", ModItems.META_PLACEHOLDER, "coal", "obsidian", "lazurite", "silicon"
 	};
 
 	public ItemPlates() {

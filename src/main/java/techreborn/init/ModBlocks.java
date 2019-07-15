@@ -172,7 +172,7 @@ public class ModBlocks {
 		registerBlock(ROLLING_MACHINE, "rolling_machine");
 
 		INDUSTRIAL_BLAST_FURNACE = new BlockIndustrialBlastFurnace();
-		registerBlock(INDUSTRIAL_BLAST_FURNACE, "industrial_blast_furnace");
+		registerBlock(INDUSTRIAL_BLAST_FURNACE, ItemBlockIndustrialBlastFurnace.class, "industrial_blast_furnace");
 
 		ALLOY_SMELTER = new BlockAlloySmelter();
 		registerBlock(ALLOY_SMELTER, "alloy_smelter");

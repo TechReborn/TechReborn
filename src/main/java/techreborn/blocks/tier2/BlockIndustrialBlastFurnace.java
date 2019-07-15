@@ -24,17 +24,30 @@
 
 package techreborn.blocks.tier2;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.items.IBlastFurnaceCoil;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
+import techreborn.utils.ItemStackUtils;
+import techreborn.utils.TechRebornCreativeTab;
 
+/**
+ * @author modmuss50, estebes, drcrazy
+ */
 public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 
 	public BlockIndustrialBlastFurnace() {
@@ -57,4 +70,39 @@ public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 	public boolean isAdvanced() {
 		return true;
 	}
+
+	// Handle coils >>
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(hand);
+
+		if (ItemStackUtils.getSize(stack) >= 4) {
+			if (stack.getItem() instanceof IBlastFurnaceCoil) {
+				if (((IBlastFurnaceCoil) stack.getItem()).isValid(stack)) {
+					TileEntity tileEntity = worldIn.getTileEntity(pos);
+					if (tileEntity instanceof TileIndustrialBlastFurnace) {
+						boolean ret = ((TileIndustrialBlastFurnace) tileEntity).addCoils(stack);
+						if (ret) playerIn.setHeldItem(EnumHand.MAIN_HAND, ItemStackUtils.getSize(stack) == 4 ?
+						                                                  ItemStack.EMPTY : ItemStackUtils.decreaseSize(stack, 4));
+						return ret;
+					}
+				}
+			}
+		}
+
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+	}
+
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		if (tileEntity instanceof TileIndustrialBlastFurnace) {
+			NBTTagCompound nbt = ItemStackUtils.getStackNbtData(stack);
+			((TileIndustrialBlastFurnace) tileEntity).coils = nbt.getByte("coils");
+		}
+	}
+
+	// << Handle coils
 }

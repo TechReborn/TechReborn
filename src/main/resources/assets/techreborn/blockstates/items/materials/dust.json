@@ -315,6 +315,11 @@
         "textures": {
           "layer0": "techreborn:items/dust/granite_dust"
         }
+      },
+      "iridium": {
+        "textures": {
+          "layer0": "techreborn:items/dust/iridium_dust"
+        }
       }
     }
   }

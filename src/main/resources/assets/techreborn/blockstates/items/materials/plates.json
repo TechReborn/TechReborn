@@ -201,9 +201,14 @@
           "layer0": "techreborn:items/plate/yellow_garnet_plate"
         }
       },
-       "magnalium": {
+      "magnalium": {
         "textures": {
           "layer0": "techreborn:items/plate/magnalium_plate"
+        }
+      },
+      "silicon": {
+        "textures": {
+          "layer0": "techreborn:items/plate/silicon_plate"
         }
       }
     }

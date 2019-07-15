@@ -325,6 +325,11 @@
         "textures": {
           "layer0": "techreborn:items/smalldust/glowstone_smalldust"
         }
+      },
+      "iridium": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/iridium_smalldust"
+        }
       }
     }
   }

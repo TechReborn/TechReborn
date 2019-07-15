@@ -35,13 +35,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.Core;
 import techreborn.client.EGui;
+import techreborn.items.IBlastFurnaceCoil;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModItems;
 import techreborn.items.ItemTR;
 
 import java.security.InvalidParameterException;
 
-public class ItemParts extends ItemTR {
+public class ItemParts extends ItemTR implements IBlastFurnaceCoil {
 	public static final String[] types = new String[] { "energy_flow_circuit", "data_control_circuit", "data_storage_circuit",
 		"data_orb", "diamond_grinding_head", "diamond_saw_blade", "tungsten_grinding_head", "helium_coolant_simple",
 		"helium_coolant_triple", "helium_coolant_six", "nak_coolant_simple", "nak_coolant_triple", "nak_coolant_six",
@@ -123,17 +124,26 @@ public class ItemParts extends ItemTR {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean hasEffect(ItemStack stack) {
-		if(stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage()){
-			return true;
-		}
-		return false;
+		return stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage();
 	}
 
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
-		if(stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage()){
-			return EnumRarity.EPIC;
-		}
-		return super.getRarity(stack);
+		return stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage() ? EnumRarity.EPIC : super.getRarity(stack);
+
 	}
+
+	// IBlastFurnaceCoil >>
+	@Override
+	public boolean isValid(ItemStack stack) {
+		return stack.getItemDamage() == getPartByName("kanthal_heating_coil").getItemDamage()
+			|| stack.getItemDamage() == getPartByName("nichrome_heating_coil").getItemDamage();
+	}
+
+	@Override
+	public int getHeat(ItemStack stack) {
+		return stack.getItemDamage() == getPartByName("kanthal_heating_coil").getItemDamage()
+			|| stack.getItemDamage() == getPartByName("nichrome_heating_coil").getItemDamage() ? 500 : 0;
+	}
+	// << IBlastFurnaceCoil
 }
