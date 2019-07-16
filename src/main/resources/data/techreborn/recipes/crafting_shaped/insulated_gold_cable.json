@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "RIR",
+    "RRR"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:gold_ingot"
+    },
+    "R": {
+      "item": "techreborn:rubber"
+    }
+  },
+  "result": {
+    "item": "techreborn:insulated_gold_cable",
+    "count": 4
+  }
+}

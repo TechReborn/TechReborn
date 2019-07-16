@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "RUR",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "techreborn:ruby_dust"
+    }
+  },
+  "result": {
+    "item": "techreborn:glassfiber_cable",
+    "count": 3
+  }
+}

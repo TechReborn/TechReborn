@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "RIR",
+    "RRR"
+  ],
+  "key": {
+    "I": {
+      "item": "techreborn:refined_iron_ingot"
+    },
+    "R": {
+      "item": "techreborn:rubber"
+    }
+  },
+  "result": {
+    "item": "techreborn:insulated_hv_cable",
+    "count": 4
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "EDE",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "E": {
+      "item": "techreborn:electrum_dust"
+    },
+    "D": {
+      "item": "techreborn:diamond_dust"
+    }
+  },
+  "result": {
+    "item": "techreborn:glassfiber_cable",
+    "count": 8
+  }
+}
