@@ -52,7 +52,7 @@ import techreborn.lib.ModInfo;
 import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.tiles.TileGenericMachine;
 import techreborn.tiles.TileMachineCasing;
-import techreborn.utils.ItemStackUtils;
+import techreborn.utils.ItemUtilss;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -200,7 +200,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
 		ItemStack ret = new ItemStack(getBlockType(), 1);
-		NBTTagCompound nbt = ItemStackUtils.getStackNbtData(ret);
+		NBTTagCompound nbt = ItemUtilss.getStackNbtData(ret);
 		nbt.setByte("coils", coils);
 		return ret;
 	}

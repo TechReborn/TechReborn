@@ -96,7 +96,7 @@ public class ModItems {
 	public static Item WRENCH;
 	
 	// Misc
-	public static DynamicCell CELL;
+	public static ItemDynamicCell CELL;
 	public static Item FREQUENCY_TRANSMITTER;
 	public static Item MANUAL;
 	public static Item MISSING_RECIPE_PLACEHOLDER;
@@ -251,7 +251,7 @@ public class ModItems {
 		registerItem(WRENCH, "wrench");
 		
 		// Misc
-		CELL = new DynamicCell();
+		CELL = new ItemDynamicCell();
 		registerItem(CELL, "dynamicCell");
 		MinecraftForge.EVENT_BUS.register(BucketHandler.INSTANCE);		
 		FREQUENCY_TRANSMITTER = new ItemFrequencyTransmitter();

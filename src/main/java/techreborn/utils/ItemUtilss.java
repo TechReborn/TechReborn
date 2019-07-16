@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class ItemStackUtils {
+public class ItemUtilss {
 	/**
 	 * Get or create an ItemStack NBT data
 	 *

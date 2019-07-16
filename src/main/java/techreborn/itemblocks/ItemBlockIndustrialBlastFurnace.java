@@ -1,21 +1,14 @@
 package techreborn.itemblocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.tiles.TileQuantumChest;
-import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
-import techreborn.utils.ItemStackUtils;
+import techreborn.utils.ItemUtilss;
 
 import java.util.List;
 
@@ -27,8 +20,8 @@ public class ItemBlockIndustrialBlastFurnace extends ItemBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flag) {
-		if (!ItemStackUtils.isEmpty(stack)) {
-			NBTTagCompound nbt = ItemStackUtils.getStackNbtData(stack);
+		if (!ItemUtilss.isEmpty(stack)) {
+			NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack);
 			if (nbt.hasKey("coils")) {
 				byte coils = nbt.getByte("coils");
 				switch (coils) {
@@ -50,10 +43,10 @@ public class ItemBlockIndustrialBlastFurnace extends ItemBlock {
 //
 //		if (world.getBlockState(pos).getBlock() == block) world.getBlockState(pos).getBlock().onBlockPlacedBy(world, pos, newState, player, stack);
 //
-//		if (!ItemStackUtils.isEmpty(stack) && stack.hasTagCompound()) {
+//		if (!ItemUtilss.isEmpty(stack) && stack.hasTagCompound()) {
 //			TileEntity tileEntity = world.getTileEntity(pos);
 //			if (tileEntity instanceof TileIndustrialBlastFurnace) {
-//				NBTTagCompound nbt = ItemStackUtils.getStackNbtData(stack);
+//				NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack);
 //				((TileIndustrialBlastFurnace) tileEntity).coils = nbt.getByte("coils");
 //			}
 //		}

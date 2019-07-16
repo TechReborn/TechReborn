@@ -36,7 +36,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.lib.ModInfo;
 
 import java.util.List;
@@ -62,8 +62,8 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
-			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
-			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
+			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
+			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
 			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
 			.syncCrafterValue().addInventory().create(this);

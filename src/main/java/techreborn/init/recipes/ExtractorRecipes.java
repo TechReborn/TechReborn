@@ -32,7 +32,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.init.ModBlocks;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 
 /**
  * Created by Prospector
@@ -65,7 +65,7 @@ public class ExtractorRecipes extends RecipeMethods {
 		for (int i = 1; i < 15; i++)
 			register(getStack(Blocks.WOOL, 1, i), getStack(Blocks.WOOL, 1, 0), false);
 		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
-			register(DynamicCell.getCellWithFluid(fluid), DynamicCell.getEmptyCell(1), false);
+			register(ItemDynamicCell.getCellWithFluid(fluid), ItemDynamicCell.getEmptyCell(1), false);
 		}
 	}
 

@@ -42,10 +42,10 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import techreborn.init.ModItems;
-import techreborn.items.DynamicCell;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -218,17 +218,18 @@ public class ModelDynamicCell implements IModel {
 
 		@Override
 		public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
-			FluidStack fluidStack = DynamicCell.getFluidHandler(stack).getFluid();
-			if (fluidStack == null) {
-				//return default bucket
-				return originalModel;
-			}
+			FluidStack fluidStack = FluidUtil.getFluidContained(stack);
+
+			if (fluidStack == null)
+				return originalModel; //return default bucket
+
 			String name = fluidStack.getFluid().getName();
 			if (!modelCache.containsKey(name)) {
 				BakedDynamicCell bakedCell = (BakedDynamicCell) originalModel;
 				ModelDynamicCell model = new ModelDynamicCell(bakedCell.parent.baseTexture, bakedCell.parent.emptyTexture, fluidStack.getFluid());
 				modelCache.put(name, model.bake(new SimpleModelState(bakedCell.transformMap), bakedCell.format, textureGetter));
 			}
+
 			return modelCache.get(name);
 		}
 

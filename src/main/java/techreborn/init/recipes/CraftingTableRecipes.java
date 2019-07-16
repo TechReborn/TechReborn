@@ -44,7 +44,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrades;
 import techreborn.items.ingredients.ItemDustsSmall;
 import techreborn.items.ingredients.ItemNuggets;
@@ -75,9 +75,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShapeless(BlockStorage2.getStorageBlockByName("iridium_reinforced_tungstensteel", 1), BlockStorage2.getStorageBlockByName("iridium_reinforced_stone", 1), getMaterialObject("tungstensteel", Type.INGOT));
 		
 		if(newCellRecipe){
-			registerShaped(DynamicCell.getEmptyCell(16), " T ", "TGT", " T ", 'T', "ingotTin", 'G', "paneGlass"); // Blame thermal expansion for making gears have the same recipe
+			registerShaped(ItemDynamicCell.getEmptyCell(16), " T ", "TGT", " T ", 'T', "ingotTin", 'G', "paneGlass"); // Blame thermal expansion for making gears have the same recipe
 		} else {
-			registerShaped(DynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
+			registerShaped(ItemDynamicCell.getEmptyCell(16), " T ", "T T", " T ", 'T', "ingotTin");
 		}
 		
 		if (!IC2Duplicates.deduplicate()) {

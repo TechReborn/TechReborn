@@ -33,7 +33,7 @@ import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ingredients.ItemDusts;
 import techreborn.items.ingredients.ItemGems;
 import techreborn.items.ingredients.ItemNuggets;
@@ -115,7 +115,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.GOLD_NUGGET));
 		register(getStack(Items.SHULKER_SHELL));
 
-		register(DynamicCell.getEmptyCell(1));
+		register(ItemDynamicCell.getEmptyCell(1));
 		register(getMaterial("water", Type.CELL));
 		register(getMaterial("compressedair", Type.CELL));
 		register(getMaterial("sap", Type.PART));

@@ -55,7 +55,7 @@ import techreborn.events.FluidBlockModelHandler;
 import techreborn.events.StackToolTipEvent;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.lib.ModInfo;
 
@@ -84,7 +84,7 @@ public class ClientProxy extends CommonProxy {
 		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 		ModelLoader.setCustomStateMapper(ModBlocks.RUBBER_LEAVES, rubberLeavesStateMap);
 		GuiBase.wrenchStack = new ItemStack(ModItems.WRENCH);
-		GuiBase.fluidCellProvider = DynamicCell::getCellWithFluid;
+		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;
 	}
 
 	@Override
