@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "TRT",
+    "TRT"
+  ],
+  "key": {
+    "W": {
+      "item": "techreborn:insulated_copper_cable"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "T": {
+      "item": "techreborn:tin_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:red_cell_battery"
+  }
+}

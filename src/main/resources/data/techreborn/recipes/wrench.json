@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BNB",
+    "NBN",
+    " B "
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:bronze_ingot"
+    },
+    "N": {
+      "item": "techreborn:bronze_nugget"
+    }
+  },
+  "result": {
+    "item": "techreborn:wrench"
+  }
+}

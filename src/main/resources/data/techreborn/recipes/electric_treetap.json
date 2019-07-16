@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TB ",
+    "   ",
+    "T  "
+  ],
+  "key": {
+    "T": {
+      "item": "techreborn:treetap"
+    },
+    "B": {
+      "item": "techreborn:red_cell_battery"
+    }
+  },
+  "result": {
+    "item": "techreborn:electric_treetap"
+  }
+}
