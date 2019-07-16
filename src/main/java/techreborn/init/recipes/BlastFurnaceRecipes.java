@@ -153,32 +153,6 @@ public class BlastFurnaceRecipes extends RecipeMethods {
 			ItemIngots.getIngotByName("refined_iron", 2),
 			RecipeUtils.getEmptyCell(1),
 			100, 1500);
-
-		// Melting recipes
-//		register(new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Blocks.SAND), new ItemStack(Items.DIAMOND, 5),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Blocks.SAND), new ItemStack(Items.DIAMOND, 8),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.DIAMOND_LEGGINGS), new ItemStack(Blocks.SAND), new ItemStack(Items.DIAMOND, 7),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.DIAMOND_BOOTS), new ItemStack(Blocks.SAND), new ItemStack(Items.DIAMOND, 4),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Blocks.SAND), new ItemStack(Items.GOLD_INGOT, 5),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Blocks.SAND), new ItemStack(Items.GOLD_INGOT, 8),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Blocks.SAND), new ItemStack(Items.GOLD_INGOT, 7),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.GOLDEN_BOOTS), new ItemStack(Blocks.SAND), new ItemStack(Items.GOLD_INGOT, 4),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.IRON_HELMET), new ItemStack(Blocks.SAND), new ItemStack(Items.IRON_INGOT, 5),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Blocks.SAND), new ItemStack(Items.IRON_INGOT, 8),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Blocks.SAND), new ItemStack(Items.IRON_INGOT, 7),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
-//		register(new ItemStack(Items.IRON_BOOTS), new ItemStack(Blocks.SAND), new ItemStack(Items.IRON_INGOT, 4),
-//				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
 	}
 
 	private static void register(ItemStack in1, ItemStack in2, ItemStack out1, ItemStack out2, int tickTime,

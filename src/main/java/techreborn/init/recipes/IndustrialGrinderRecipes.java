@@ -37,13 +37,14 @@ import techreborn.init.ModFluids;
 import java.security.InvalidParameterException;
 
 /**
- * Created by Prospector
+ * @author Prospector, estebes
  */
 public class IndustrialGrinderRecipes extends RecipeMethods {
-
+	// Fields >>
 	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
 	static FluidStack MERCURY = new FluidStack(ModFluids.MERCURY, 1000);
 	static FluidStack SODIUM_PERSULFATE = new FluidStack(ModFluids.SODIUMPERSULFATE, 1000);
+	// << Fields
 
 	public static void init() {
 		//Vanilla ores
