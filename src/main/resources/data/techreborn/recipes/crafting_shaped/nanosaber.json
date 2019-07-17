@@ -1,8 +1,8 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
-		"DC",
-		"DC",
+		"DC ",
+		"DC ",
 		"GLG"
 	],
 	"key": {

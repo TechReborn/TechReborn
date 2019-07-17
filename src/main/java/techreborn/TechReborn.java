@@ -28,6 +28,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,19 +55,19 @@ public class TechReborn implements ModInitializer {
 	public static CommonProxy proxy = new CommonProxy();
 	public static TechReborn INSTANCE;
 
-	public static final ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(new Identifier("techreborn", "item_group"), TRContent.Parts.MACHINE_PARTS::getStack);
+	public static ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(
+			new Identifier("techreborn", "item_group"),
+			() -> new ItemStack(TRContent.NUKE));
 
 	@Override
 	public void onInitialize() {
 		INSTANCE = this;
-
-		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
-
-		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		//Done like this to load them here
+//		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
+//		TechRebornAPI.subItemRetriever = new SubItemRetriever();
+		// Done like this to load them here
 		ModFluids.values();
 
-		//Done to force the class to load
+		// Done to force the class to load
 		ModRecipes.GRINDER.getName();
 
 		ClientboundPackets.init();
@@ -77,13 +79,13 @@ public class TechReborn implements ModInitializer {
 
 		// Registers Chest Loot
 		ModLoot.init();
-		//MinecraftForge.EVENT_BUS.register(new ModLoot());
+		// MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Sounds
-		//TODO 1.13 registry events
+		// TODO 1.13 registry events
 		ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
-		
+
 		// WorldGen
 		WorldGenerator.initBiomeFeatures();
 
@@ -91,7 +93,7 @@ public class TechReborn implements ModInitializer {
 		StackWIPHandler.setup();
 
 		// WorldGen
-		//GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
+		// GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler
 		// Event busses
 //		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
@@ -102,7 +104,7 @@ public class TechReborn implements ModInitializer {
 
 		GuiHandler.register();
 
-		//Village stuff
+		// Village stuff
 //		if (ConfigTechReborn.enableRubberTreePlantation) {
 //			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
 //			//MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
@@ -111,7 +113,7 @@ public class TechReborn implements ModInitializer {
 
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
-			 DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
+			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
 		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
@@ -119,7 +121,6 @@ public class TechReborn implements ModInitializer {
 		proxy.postInit();
 
 		ModRecipes.postInit();
-
 
 		LOGGER.info("TechReborn setup done!");
 

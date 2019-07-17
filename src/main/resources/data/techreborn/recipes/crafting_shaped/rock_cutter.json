@@ -1,8 +1,8 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
-		"DT",
-		"DT",
+		"DT ",
+		"DT ",
 		"DCB"
 	],
 	"key": {

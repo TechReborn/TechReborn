@@ -90,7 +90,7 @@ public class ModRegistry {
 			RebornRegistry.registerBlock(value.frame, itemGroup);
 			RebornRegistry.registerBlock(value.casing, itemGroup);
 		});
-		Arrays.stream(TRContent.SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		Arrays.stream(SolarPanels.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Cables.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(Machine.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 
