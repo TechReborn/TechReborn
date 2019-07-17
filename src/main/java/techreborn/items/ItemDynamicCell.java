@@ -40,10 +40,10 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
+import reborncore.common.util.FluidUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModItems;
-import techreborn.utils.FluidUtils;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;

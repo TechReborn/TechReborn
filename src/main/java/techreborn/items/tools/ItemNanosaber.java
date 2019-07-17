@@ -56,7 +56,6 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModItems;
 import techreborn.lib.MessageIDs;
-import techreborn.utils.ItemUtilss;
 import techreborn.utils.TechRebornCreativeTab;
 
 import javax.annotation.Nullable;
@@ -141,7 +140,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 				sendChatMessage(TextFormatting.GRAY + I18n.format("techreborn.message.nanosaberEnergyErrorTo"),
 					TextFormatting.GOLD + I18n.format("techreborn.message.nanosaberActivate"));
 			} else {
-				NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack); // get or create NBT
+				NBTTagCompound nbt = ItemUtils.getStackNbtData(stack); // get or create NBT
 
 				if (!ItemUtils.isActive(stack)) { // set to active
 					nbt.setBoolean("isActive", true);
@@ -172,7 +171,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 					TextFormatting.GOLD + I18n.format("techreborn.message.nanosaberDeactivating"));
 			}
 
-			NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack);
+			NBTTagCompound nbt = ItemUtils.getStackNbtData(stack);
 			nbt.setBoolean("isActive", false);
 		}
 	}
@@ -210,13 +209,13 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 		// Inactive Uncharged
 		ItemStack inactiveUncharged = new ItemStack(ModItems.NANOSABER);
-		NBTTagCompound nbtInactiveUncharged = ItemUtilss.getStackNbtData(inactiveUncharged);
+		NBTTagCompound nbtInactiveUncharged = ItemUtils.getStackNbtData(inactiveUncharged);
 		nbtInactiveUncharged.setBoolean("isActive", false);
 		itemList.add(inactiveUncharged);
 
 		// Inactive Charged
 		ItemStack inactiveCharged = new ItemStack(ModItems.NANOSABER);
-		NBTTagCompound nbtInactiveCharged = ItemUtilss.getStackNbtData(inactiveCharged);
+		NBTTagCompound nbtInactiveCharged = ItemUtils.getStackNbtData(inactiveCharged);
 		nbtInactiveCharged.setBoolean("isActive", false);
 		ForgePowerItemManager inactiveCapEnergy = new ForgePowerItemManager(inactiveCharged);
 		inactiveCapEnergy.setEnergyStored(inactiveCapEnergy.getMaxEnergyStored());
@@ -224,7 +223,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 
 		// Active Charged
 		ItemStack activeCharged = new ItemStack(ModItems.NANOSABER);
-		NBTTagCompound nbtActiveCharged = ItemUtilss.getStackNbtData(activeCharged);
+		NBTTagCompound nbtActiveCharged = ItemUtils.getStackNbtData(activeCharged);
 		nbtActiveCharged.setBoolean("isActive", true);
 		ForgePowerItemManager activeCapEnergy = new ForgePowerItemManager(activeCharged);
 		activeCapEnergy.setEnergyStored(activeCapEnergy.getMaxEnergyStored());

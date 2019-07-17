@@ -29,7 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
-import techreborn.init.IC2Duplicates;
+import techreborn.init.ModBlocks;
 import techreborn.items.ItemDynamicCell;
 
 import java.security.InvalidParameterException;
@@ -39,6 +39,10 @@ import java.security.InvalidParameterException;
  */
 public class IndustrialCentrifugeRecipes extends RecipeMethods {
 	public static void init() {
+		// resin -> rubber
+		register(getOre("materialResin", 4), 1300, getMaterial("rubber", 14, Type.PART));
+		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));
+
 		register(getStack(Items.MAGMA_CREAM), 500, getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL));
 		register(getStack(Blocks.DIRT, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2));
 		register(getStack(Blocks.GRASS, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2), getStack(Items.WHEAT_SEEDS, 4));
@@ -78,9 +82,6 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 		register(getStack(Blocks.RED_MUSHROOM, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getStack(Items.NETHER_WART, 32), 5000, getMaterial("methane", Type.CELL));
 		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART));
-		ItemStack stack = IC2Duplicates.RUBBER_WOOD.getStackBasedOnConfig();
-		stack.setCount(16);
-		register(stack, 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));		
 		register(getStack(Blocks.SOUL_SAND, 16), 2500, getStack(Blocks.SAND, 10), getMaterial("saltpeter", 4, Type.DUST), getMaterial("coal", Type.DUST), getMaterial("oil", Type.CELL));
 		register(getOre("dustBronze"), 1500, getMaterial("copper", 6, Type.SMALL_DUST), getMaterial("tin", 2, Type.SMALL_DUST));
 		register(getOre("dustIron", 2), 1500, getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));

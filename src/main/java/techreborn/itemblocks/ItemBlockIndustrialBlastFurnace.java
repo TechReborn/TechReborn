@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.utils.ItemUtilss;
+import reborncore.common.util.ItemUtils;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class ItemBlockIndustrialBlastFurnace extends ItemBlock {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flag) {
-		if (!ItemUtilss.isEmpty(stack)) {
-			NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack);
+		if (!ItemUtils.isEmpty(stack)) {
+			NBTTagCompound nbt = ItemUtils.getStackNbtData(stack);
 			if (nbt.hasKey("coils")) {
 				byte coils = nbt.getByte("coils");
 				switch (coils) {
@@ -43,10 +43,10 @@ public class ItemBlockIndustrialBlastFurnace extends ItemBlock {
 //
 //		if (world.getBlockState(pos).getBlock() == block) world.getBlockState(pos).getBlock().onBlockPlacedBy(world, pos, newState, player, stack);
 //
-//		if (!ItemUtilss.isEmpty(stack) && stack.hasTagCompound()) {
+//		if (!ItemUtils.isEmpty(stack) && stack.hasTagCompound()) {
 //			TileEntity tileEntity = world.getTileEntity(pos);
 //			if (tileEntity instanceof TileIndustrialBlastFurnace) {
-//				NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack);
+//				NBTTagCompound nbt = ItemUtils.getStackNbtData(stack);
 //				((TileIndustrialBlastFurnace) tileEntity).coils = nbt.getByte("coils");
 //			}
 //		}

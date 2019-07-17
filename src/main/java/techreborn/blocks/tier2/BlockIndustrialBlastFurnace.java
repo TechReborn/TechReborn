@@ -38,11 +38,11 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.ItemUtils;
 import techreborn.client.EGui;
 import techreborn.items.IBlastFurnaceCoil;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
-import techreborn.utils.ItemUtilss;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**
@@ -76,14 +76,14 @@ public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(hand);
 
-		if (ItemUtilss.getSize(stack) >= 4) {
+		if (ItemUtils.getSize(stack) >= 4) {
 			if (stack.getItem() instanceof IBlastFurnaceCoil) {
 				if (((IBlastFurnaceCoil) stack.getItem()).isValid(stack)) {
 					TileEntity tileEntity = worldIn.getTileEntity(pos);
 					if (tileEntity instanceof TileIndustrialBlastFurnace) {
 						boolean ret = ((TileIndustrialBlastFurnace) tileEntity).addCoils(stack);
-						if (ret) playerIn.setHeldItem(EnumHand.MAIN_HAND, ItemUtilss.getSize(stack) == 4 ?
-						                                                  ItemStack.EMPTY : ItemUtilss.decreaseSize(stack, 4));
+						if (ret) playerIn.setHeldItem(EnumHand.MAIN_HAND, ItemUtils.getSize(stack) == 4 ?
+						                                                  ItemStack.EMPTY : ItemUtils.decreaseSize(stack, 4));
 						return ret;
 					}
 				}
@@ -99,7 +99,7 @@ public class BlockIndustrialBlastFurnace extends BlockMachineBase {
 
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		if (tileEntity instanceof TileIndustrialBlastFurnace) {
-			NBTTagCompound nbt = ItemUtilss.getStackNbtData(stack);
+			NBTTagCompound nbt = ItemUtils.getStackNbtData(stack);
 			((TileIndustrialBlastFurnace) tileEntity).coils = nbt.getByte("coils");
 		}
 	}
