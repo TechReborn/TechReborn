@@ -47,8 +47,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		// Tools and devices		
 
-
-
 		registerShaped(getStack(TRContent.NANOSABER), "DC ", "DC ", "GLG", 'L', "lapotronCrystal", 'C', "plateCarbon", 'D', "plateDiamond", 'G', "dustsmallGlowstone");
 		ItemStack rockCutter = getStack(TRContent.ROCK_CUTTER);
 		rockCutter.addEnchantment(Enchantments.SILK_TOUCH, 1);
@@ -67,19 +65,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 //		registerShaped(getStack(TRContent.LITHIUM_ION_BATTERY), " C ", "PFP", "PFP", 'F', getCell("lithium"), 'P', "plateAluminum", 'C', EnumCableType.IGOLD.getStack());
 		registerShaped(getStack(TRContent.LITHIUM_ION_BATPACK),	"BCB", "BPB", "B B", 'B', getStack(TRContent.LITHIUM_ION_BATTERY), 'P', "plateAluminum", 'C', "circuitAdvanced");
-		registerShaped(getStack(TRContent.ENERGY_CRYSTAL), "RRR", "RDR", "RRR", 'R', "dustRedstone", 'D', "gemDiamond");
-		registerShaped(getStack(TRContent.LAPOTRON_CRYSTAL), "LCL", "LEL", "LCL", 'L', "dyeBlue", 'E', "energyCrystal", 'C', "circuitBasic");
-		registerShaped(getStack(TRContent.LAPOTRONIC_ORB), "LLL", "LPL", "LLL", 'L', "lapotronCrystal", 'P', "plateIridiumAlloy");
+
 		registerShaped(getStack(TRContent.SCRAP_BOX), "SSS", "SSS", "SSS", 'S', TRContent.Parts.SCRAP.getStack());
 		//registerShapeless(getStack(TRContent.FREQUENCY_TRANSMITTER), EnumCableType.ICOPPER.getStack(), "circuitBasic");
 
-		if (ConfigTechReborn.enableGemArmorAndTools) {
-			addToolAndArmourRecipes(getStack(TRContent.RUBY_SWORD), getStack(TRContent.RUBY_PICKAXE), getStack(TRContent.RUBY_AXE), getStack(TRContent.RUBY_HOE), getStack(TRContent.RUBY_SPADE), getStack(TRContent.RUBY_HELMET), getStack(TRContent.RUBY_CHESTPLATE), getStack(TRContent.RUBY_LEGGINGS), getStack(TRContent.RUBY_BOOTS), "gemRuby");
-			addToolAndArmourRecipes(getStack(TRContent.SAPPHIRE_SWORD), getStack(TRContent.SAPPHIRE_PICKAXE), getStack(TRContent.SAPPHIRE_AXE), getStack(TRContent.SAPPHIRE_HOE), getStack(TRContent.SAPPHIRE_SPADE), getStack(TRContent.SAPPHIRE_HELMET), getStack(TRContent.SAPPHIRE_CHESTPLATE), getStack(TRContent.SAPPHIRE_LEGGINGS), getStack(TRContent.SAPPHIRE_BOOTS), "gemSapphire");
-			addToolAndArmourRecipes(getStack(TRContent.PERIDOT_SWORD), getStack(TRContent.PERIDOT_PICKAXE), getStack(TRContent.PERIDOT_AXE), getStack(TRContent.PERIDOT_HOE), getStack(TRContent.PERIDOT_SPADE), getStack(TRContent.PERIDOT_HELMET), getStack(TRContent.PERIDOT_CHESTPLATE), getStack(TRContent.PERIDOT_LEGGINGS), getStack(TRContent.PERIDOT_BOOTS), "gemPeridot");
-			addToolAndArmourRecipes(getStack(TRContent.BRONZE_SWORD), getStack(TRContent.BRONZE_PICKAXE), getStack(TRContent.BRONZE_AXE), getStack(TRContent.BRONZE_HOE), getStack(TRContent.BRONZE_SPADE), getStack(TRContent.BRONZE_HELMET), getStack(TRContent.BRONZE_CHESTPLATE), getStack(TRContent.BRONZE_LEGGINGS), getStack(TRContent.BRONZE_BOOTS), "ingotBronze");
-		}
-		
 		//Upgrades
 //		registerShaped(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P', "plankWood", 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic", 'B', "reBattery");
 //		registerShaped(ItemUpgrades.getUpgradeByName("overclock"), "TTT", "WCW", 'T', TRIngredients.Parts.COOLANT_SIMPLE.getStack(), 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic");
@@ -201,15 +190,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShapeless(getMaterial("carbon_mesh", Type.PART), getMaterial("carbon_fiber", Type.PART), getMaterial("carbon_fiber", Type.PART));
 //		registerShaped(getMaterial("electronic_circuit", Type.PART), "WWW", "SRS", "WWW", 'R', "ingotRefinedIron", 'S', Items.REDSTONE, 'W', EnumCableType.ICOPPER.getStack());
 //		registerShaped(getMaterial("advanced_circuit", Type.PART), "RGR", "LCL", "RGR", 'R', "dustRedstone", 'G', "dustGlowstone", 'L', "gemLapis", 'C', "circuitBasic");
-
-		// Cables
-
-		registerShapeless(getMaterial("insulatedcopper", Type.CABLE), "itemRubber", getMaterial("copper", Type.CABLE));
-
-		registerShapeless(getMaterial("insulatedgold", Type.CABLE), "itemRubber", "itemRubber", getMaterial("gold", Type.CABLE));
-
-		registerShapeless(getMaterial("insulatedhv", Type.CABLE), "itemRubber", "itemRubber", getMaterial("hv", Type.CABLE));
-
 
 		//UU-Matter
 		ItemStack uuStack = TRContent.Parts.UU_MATTER.getStack();

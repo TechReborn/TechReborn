@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LLL",
+		"LPL",
+		"LLL"
+	],
+	"key": {
+		"L": {
+			"item": "techreborn:lapotron_crystal"
+		},
+		"P": {
+			"item": "techreborn:iridium_alloy_plate"
+		}
+	},
+	"result": {
+		"item": "techreborn:lapotronic_orb"
+	}
+}

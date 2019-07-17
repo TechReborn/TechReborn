@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "techreborn:bronze_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:bronze_sword"
+  }
+}

@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LCL",
+		"LEL",
+		"LCL"
+	],
+	"key": {
+		"L": {
+			"item": "minecraft:lapis_lazuli"
+		},
+		"C": {
+			"item": "techreborn:electronic_circuit"
+		},
+		"E": {
+			"item": "techreborn:energy_crystal"
+		}
+	},
+	"result": {
+		"item": "techreborn:lapotron_crystal"
+	}
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:rubber"
+    },
+    {
+      "item": "techreborn:copper_cable"
+    }
+  ],
+  "result": {
+    "item": "techreborn:insulated_copper_cable"
+  }
+}

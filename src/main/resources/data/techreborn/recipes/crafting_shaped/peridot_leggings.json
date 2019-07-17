@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "X X",
+    "X X"
+  ],
+  "key": {
+    "X": {
+      "item": "techreborn:peridot_gem"
+    }
+  },
+  "result": {
+    "item": "techreborn:peridot_leggings"
+  }
+}
