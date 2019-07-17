@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "techreborn:electronic_circuit"
+		},
+		{
+			"item": "techreborn:insulated_gold_cable"
+		}
+	],
+	"result": {
+		"item": "techreborn:frequency_transmitter"
+	}
+}

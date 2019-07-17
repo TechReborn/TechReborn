@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" D ",
+		"DCD",
+		"TST"
+	],
+	"key": {
+		"D": {
+			"item": "minecraft:diamond"
+		},
+		"C": {
+			"item": "techreborn:advanced_circuit"
+		},
+		"T": {
+			"item": "techreborn:titanium_ingot"
+		},
+		"S": {
+			"item": "techreborn:basic_drill"
+		}
+	},
+	"result": {
+		"item": "techreborn:advanced_drill"
+	}
+}

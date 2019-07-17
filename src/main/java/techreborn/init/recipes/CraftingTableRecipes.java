@@ -47,12 +47,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		// Tools and devices		
 
-		registerShaped(getStack(TRContent.NANOSABER), "DC ", "DC ", "GLG", 'L', "lapotronCrystal", 'C', "plateCarbon", 'D', "plateDiamond", 'G', "dustsmallGlowstone");
-		ItemStack rockCutter = getStack(TRContent.ROCK_CUTTER);
-		rockCutter.addEnchantment(Enchantments.SILK_TOUCH, 1);
-		registerShaped(rockCutter, "DT ", "DT ", "DCB", 'D', "dustDiamond", 'T', "ingotTitanium", 'C', "circuitBasic", 'B', "reBattery");
-		registerShaped(getStack(TRContent.BASIC_DRILL), " S ", "SCS", "SBS", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
-		registerShaped(getStack(TRContent.ADVANCED_DRILL), " D ", "DCD", "TST", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', getStack(TRContent.BASIC_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
 		registerShaped(getStack(TRContent.INDUSTRIAL_DRILL), " I ", "NCN", "OAO", 'I', "plateIridiumAlloy", 'N', "nuggetIridium", 'A', getStack(TRContent.ADVANCED_DRILL, 1, OreDictionary.WILDCARD_VALUE), 'C', "circuitMaster", 'O', getMaterial("overclock", Type.UPGRADE));
 		registerShaped(getStack(TRContent.BASIC_CHAINSAW), " SS", "SCS", "BS ", 'S', "ingotSteel", 'C', "circuitBasic", 'B', "reBattery");
 		registerShaped(getStack(TRContent.ADVANCED_CHAINSAW), " DD", "TCD", "ST ", 'D', "gemDiamond", 'C', "circuitAdvanced", 'S', getStack(TRContent.BASIC_CHAINSAW, 1, OreDictionary.WILDCARD_VALUE), 'T', "ingotTitanium");
@@ -63,11 +57,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(TRContent.CLOAKING_DEVICE), "CIC", "IOI", "CIC", 'C', "ingotChrome", 'I', "plateIridiumAlloy", 'O', getStack(TRContent.LAPOTRONIC_ORB));
 		registerShaped(getStack(TRContent.LAPOTRONIC_ORBPACK), "FOF", "SPS", "FIF", 'F', "circuitMaster", 'O', getStack(TRContent.LAPOTRONIC_ORB), 'S', "craftingSuperconductor", 'I', "ingotIridium", 'P', getStack(TRContent.LITHIUM_ION_BATPACK));
 
-//		registerShaped(getStack(TRContent.LITHIUM_ION_BATTERY), " C ", "PFP", "PFP", 'F', getCell("lithium"), 'P', "plateAluminum", 'C', EnumCableType.IGOLD.getStack());
-		registerShaped(getStack(TRContent.LITHIUM_ION_BATPACK),	"BCB", "BPB", "B B", 'B', getStack(TRContent.LITHIUM_ION_BATTERY), 'P', "plateAluminum", 'C', "circuitAdvanced");
-
-		registerShaped(getStack(TRContent.SCRAP_BOX), "SSS", "SSS", "SSS", 'S', TRContent.Parts.SCRAP.getStack());
-		//registerShapeless(getStack(TRContent.FREQUENCY_TRANSMITTER), EnumCableType.ICOPPER.getStack(), "circuitBasic");
 
 		//Upgrades
 //		registerShaped(ItemUpgrades.getUpgradeByName("energy_storage"), "PPP", "WBW", "PCP", 'P', "plankWood", 'W', EnumCableType.ICOPPER.getStack(), 'C', "circuitBasic", 'B', "reBattery");
@@ -229,12 +218,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShaped(getMaterial("aluminum", 16, Type.DUST), 	" U ", " U ", "UUU", 'U', uuStack);
 //		registerShaped(getMaterial("iridium", 1, Type.ORE), 	"UUU", " U ", "UUU", 'U', uuStack);
 		
-//		for (String part : ItemParts.types) {
-//			if (part.endsWith("Gear")) {
-//				registerShaped(getMaterial(part, Type.PART), " O ", "OIO", " O ", 'I', getStack(Items.IRON_INGOT), 'O', "ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
-//			}
-//		}
-
 		registerShaped(new ItemStack(TRContent.RUBBER_LOG_SLAB_HALF),  "WWW", 'W', new ItemStack(TRContent.RUBBER_PLANKS));
 		registerShaped(new ItemStack(TRContent.RUBBER_LOG_STAIR),  "W  ", "WW ", "WWW", 'W', new ItemStack(TRContent.RUBBER_PLANKS));
 
@@ -339,27 +322,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 	static void registerShapeless(ItemStack output, Object... inputs) {
 		RebornCraftingHelper.addShapelessOreRecipe(output, inputs);
-	}
-
-	static void addToolAndArmourRecipes(ItemStack sword,
-	                                    ItemStack pickaxe,
-	                                    ItemStack axe,
-	                                    ItemStack hoe,
-	                                    ItemStack spade,
-	                                    ItemStack helmet,
-	                                    ItemStack chestplate,
-	                                    ItemStack leggings,
-	                                    ItemStack boots,
-	                                    String material) {
-		registerShaped(sword, "G", "G", "S", 'S', Items.STICK, 'G', material);
-		registerShaped(pickaxe, "GGG", " S ", " S ", 'S', Items.STICK, 'G', material);
-		registerShaped(axe, "GG", "GS", " S", 'S', Items.STICK, 'G', material);
-		registerShaped(hoe, "GG", " S", " S", 'S', Items.STICK, 'G', material);
-		registerShaped(spade, "G", "S", "S", 'S', Items.STICK, 'G', material);
-		registerShaped(helmet, "GGG", "G G", 'G', material);
-		registerShaped(chestplate, "G G", "GGG", "GGG", 'G', material);
-		registerShaped(leggings, "GGG", "G G", "G G", 'G', material);
-		registerShaped(boots, "G G", "G G", 'G', material);
 	}
 
 	*/
