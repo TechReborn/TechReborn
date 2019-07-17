@@ -32,7 +32,6 @@ import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.events.TRRecipeHandler;
 
 /**
  * Created by modmuss50 on 26/02/2016.
@@ -48,16 +47,6 @@ public class ItemTRArmour extends ArmorItem implements ItemDurabilityExtensions 
 	public ItemTRArmour(ArmorMaterial material, EquipmentSlot slot, String repairOreDict) {
 		super(material, slot, (new Item.Settings()).group(TechReborn.ITEMGROUP).maxCount(1));
 		this.repairOreDict = repairOreDict;
-		if (slot == EquipmentSlot.HEAD)
-			//setTranslationKey(material.name().toLowerCase() + "Helmet");
-		if (slot == EquipmentSlot.CHEST)
-			//setTranslationKey(material.name().toLowerCase() + "Chestplate");
-		if (slot == EquipmentSlot.LEGS)
-			//setTranslationKey(material.name().toLowerCase() + "Leggings");
-		if (slot == EquipmentSlot.FEET) {
-
-		}
-			//setTranslationKey(material.name().toLowerCase() + "Boots");
 	}
 
 	@Override

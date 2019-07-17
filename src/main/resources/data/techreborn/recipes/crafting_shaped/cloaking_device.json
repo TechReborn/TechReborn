@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CIC",
+		"IOI",
+		"CIC"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:chrome_ingot"
+		},
+		"I": {
+			"item": "techreborn:iridium_alloy_plate"
+		},
+		"O": {
+			"item": "techreborn:lapotronic_orb"
+		}
+	},
+	"result": {
+		"item": "techreborn:cloaking_device"
+	}
+}

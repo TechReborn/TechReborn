@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"NDN",
+		"OCO",
+		" I "
+	],
+	"key": {
+		"I": {
+			"item": "techreborn:iridium_alloy_plate"
+		},
+		"N": {
+			"item": "techreborn:iridium_nugget"
+		},
+		"C": {
+			"item": "techreborn:energy_flow_chip"
+		},
+		"O": {
+			"item": "techreborn:overclocker_upgrade"
+		},
+		"D": {
+			"item": "techreborn:advanced_jackhammer"
+		}
+	},
+	"result": {
+		"item": "techreborn:industrial_jackhammer"
+	}
+}

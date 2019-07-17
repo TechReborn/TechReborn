@@ -26,19 +26,10 @@ package techreborn.blocks;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.OreDrop;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
-
-import java.util.Random;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class BlockOre extends Block {
