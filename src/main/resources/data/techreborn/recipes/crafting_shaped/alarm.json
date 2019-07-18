@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "SRS",
+    "ICI"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "C": {
+      "item": "techreborn:copper_cable"
+    },
+    "S": {
+      "item": "techreborn:insulated_copper_cable"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:alarm"
+  }
+}

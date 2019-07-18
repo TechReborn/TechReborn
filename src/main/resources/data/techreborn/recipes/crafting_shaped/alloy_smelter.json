@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" C ",
+		"FMF",
+		"   "
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:electronic_circuit"
+		},
+		"F": {
+			"item": "techreborn:electric_furnace"
+		},
+		"M": {
+			"item": "techreborn:basic_machine_frame"
+		}
+	},
+	"result": {
+		"item": "techreborn:alloy_smelter"
+	}
+}

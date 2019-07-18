@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GAG",
+    "GGG",
+    "GAG"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_alloy_plate"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "techreborn:reinforced_glass",
+    "count": 7
+  }
+}
