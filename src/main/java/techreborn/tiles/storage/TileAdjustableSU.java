@@ -51,24 +51,18 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	public RebornInventory<TileAdjustableSU> inventory = new RebornInventory<>(4, "TileAdjustableSU", 64, this).withConfiguredAccess();
 	private int OUTPUT = 64; // The current output
+	public int superconductors = 0;
 
 	public TileAdjustableSU() {
 		super(TRTileEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
 	}
 
-	int superconductors = 0;
+
 
 	@Override
 	public void tick() {
 		super.tick();
 
-		superconductors = 0;
-		for (int i = 0; i < getUpgradeSlotCount(); i++) {
-			ItemStack stack = getUpgradeInvetory().getInvStack(i);
-			if(false){ //TODO 1.13
-				superconductors++;
-			}
-		}
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
@@ -191,6 +185,6 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	@Override
 	public boolean isUpgradeValid(IUpgrade upgrade, ItemStack stack) {
-		return false; //TODO 1.13
+		return stack.isItemEqual(new ItemStack(TRContent.Upgrades.SUPERCONDUCTOR.item));
 	}
 }

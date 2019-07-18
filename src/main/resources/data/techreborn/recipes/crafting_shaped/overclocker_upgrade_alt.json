@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "WCW"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "T": {
+      "item": "techreborn:helium_coolant_cell_180k"
+    },
+    "W": {
+      "item": "techreborn:insulated_copper_cable"
+    }
+  },
+  "result": {
+    "item": "techreborn:overclocker_upgrade",
+    "count": 2
+  }
+}

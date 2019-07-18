@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TST",
+    "SBS",
+    "TST"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:steel_storage_block"
+    },
+    "S": {
+      "item": "techreborn:steel_ingot"
+    },
+    "T": {
+      "item": "techreborn:tungsten_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:tungsten_grinding_head",
+    "count": 2
+  }
+}

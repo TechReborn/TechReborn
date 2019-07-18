@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "techreborn:rubber_log"
+    }
+  ],
+  "result": {
+    "item": "techreborn:rubber_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "techreborn:red_cell_battery"
+		},
+		{
+			"item": "techreborn:basic_machine_frame"
+		},
+		{
+			"item": "minecraft:furnace"
+		}
+	],
+	"result": {
+		"item": "techreborn:solid_fuel_generator"
+	}
+}

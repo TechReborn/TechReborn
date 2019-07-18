@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "SRS",
+    "WWW"
+  ],
+  "key": {
+    "R": {
+      "item": "techreborn:refined_iron_ingot"
+    },
+    "W": {
+      "item": "techreborn:insulated_copper_cable"
+    },
+    "S": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "techreborn:electronic_circuit"
+  }
+}

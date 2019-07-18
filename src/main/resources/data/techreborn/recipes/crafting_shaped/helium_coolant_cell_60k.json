@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "TCT",
+    " T "
+  ],
+  "key": {
+    "T": {
+      "item": "techreborn:tin_ingot"
+    },
+    "C": {
+      "item": "techreborn:cell"
+    }
+  },
+  "result": {
+    "item": "techreborn:helium_coolant_cell_60k"
+  }
+}

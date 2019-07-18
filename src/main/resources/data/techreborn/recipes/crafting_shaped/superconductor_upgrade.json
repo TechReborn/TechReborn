@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SOS",
+    "CMC",
+    "SOS"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:superconductor_cable"
+    },
+    "S": {
+      "item": "techreborn:superconductor"
+    },
+    "M": {
+      "item": "techreborn:industrial_machine_frame"
+    },
+    "O": {
+      "item": "techreborn:data_storage_chip"
+    }
+  },
+  "result": {
+    "item": "techreborn:superconductor_upgrade"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ADA",
+    "DGD",
+    "ADA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:aluminum_ingot"
+    },
+    "D": {
+      "item": "minecraft:ink_sac"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "techreborn:digital_display"
+  }
+}

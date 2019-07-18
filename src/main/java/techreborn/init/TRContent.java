@@ -53,6 +53,7 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
+import techreborn.tiles.storage.TileAdjustableSU;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -722,6 +723,15 @@ public class TRContent {
 			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerStoage += energyStoragePower;
+			}
+		}),
+		SUPERCONDUCTOR((tile, handler, stack) -> {
+			TileAdjustableSU aesu = null;
+			if (tile instanceof TileAdjustableSU) {
+				aesu = (TileAdjustableSU) tile;
+			}
+			if (aesu != null) {
+				aesu.superconductors++;
 			}
 		});
 

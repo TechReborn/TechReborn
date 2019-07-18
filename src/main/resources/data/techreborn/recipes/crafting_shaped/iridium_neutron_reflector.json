@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PIP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:thick_neutron_reflector"
+    },
+    "I": {
+      "item": "techreborn:iridium_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:iridium_neutron_reflector"
+  }
+}

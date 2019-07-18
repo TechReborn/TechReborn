@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "techreborn:iridium_alloy_plate"
+    }
+  ],
+  "result": {
+    "item": "techreborn:iridium_reinforced_stone_storage_block"
+  }
+}

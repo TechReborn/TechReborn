@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ATA",
+    "LIL",
+    "ATA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "T": {
+      "item": "techreborn:tungsten_ingot"
+    },
+    "I": {
+      "item": "techreborn:iridium_alloy_plate"
+    },
+    "L": {
+      "item": "techreborn:lapotron_crystal"
+    }
+  },
+  "result": {
+    "item": "techreborn:energy_flow_chip",
+    "count": 4
+  }
+}

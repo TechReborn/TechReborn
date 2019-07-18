@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "C C",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:coal_dust"
+    }
+  },
+  "result": {
+    "item": "techreborn:carbon_fiber"
+  }
+}

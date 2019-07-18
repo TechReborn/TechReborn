@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PCP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:neutron_reflector"
+    },
+    "C": {
+      "item": "techreborn:cell"
+    }
+
+  },
+  "result": {
+    "item": "techreborn:thick_neutron_reflector"
+  }
+}

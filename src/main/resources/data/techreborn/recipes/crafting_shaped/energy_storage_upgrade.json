@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "WBW",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "B": {
+      "item": "techreborn:red_cell_battery"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "W": {
+      "item": "techreborn:insulated_copper_cable"
+    }
+  },
+  "result": {
+    "item": "techreborn:energy_storage_upgrade"
+  }
+}

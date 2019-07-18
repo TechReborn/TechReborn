@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "AMA",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_alloy_plate"
+    },
+    "C": {
+      "item": "techreborn:carbon_plate"
+    },
+    "M": {
+      "item": "techreborn:basic_machine_frame"
+    }
+  },
+  "result": {
+    "item": "techreborn:advanced_machine_frame"
+  }
+}

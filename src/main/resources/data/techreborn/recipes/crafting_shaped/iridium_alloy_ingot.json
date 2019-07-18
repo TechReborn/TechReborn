@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IAI",
+    "ADA",
+    "IAI"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_alloy_plate"
+    },
+    "D": {
+      "item": "techreborn:diamond_dust"
+    },
+    "I": {
+      "item": "techreborn:iridium_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:iridium_alloy_ingot"
+  }
+}
