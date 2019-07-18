@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    " G ",
+    " I "
+  ],
+  "key": {
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "I": {
+      "item": "techreborn:magnalium_plate"
+    }
+  },
+  "result": {
+    "item": "techreborn:wind_mill"
+  }
+}

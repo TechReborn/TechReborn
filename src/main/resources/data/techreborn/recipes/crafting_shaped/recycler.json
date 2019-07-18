@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "DCD",
+    "GDG"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:compressor"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "E": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "result": {
+    "item": "techreborn:recycler"
+  }
+}

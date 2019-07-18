@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "CAC",
+    "RRR"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "R": {
+      "item": "techreborn:refined_iron_ingot"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_machine_casing",
+    "count": 4
+  }
+}

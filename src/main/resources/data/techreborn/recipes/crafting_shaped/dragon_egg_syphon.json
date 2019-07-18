@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CTC",
+    "PSP",
+    "CBC"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:iridium_alloy_plate"
+    },
+    "B": {
+      "item": "techreborn:lapotronic_orb"
+    },
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "S": {
+      "item": "techreborn:superconductor"
+    },
+    "T": {
+      "item": "techreborn:medium_voltage_su"
+    }
+  },
+  "result": {
+    "item": "techreborn:dragon_egg_syphon"
+  }
+}

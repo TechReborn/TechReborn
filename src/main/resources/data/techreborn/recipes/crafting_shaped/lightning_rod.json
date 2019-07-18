@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CAC",
+    "ACA",
+    "CAC"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_machine_casing"
+    },
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    }
+  },
+  "result": {
+    "item": "techreborn:lightning_rod"
+  }
+}

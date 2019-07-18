@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IHI",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "H": {
+      "item": "techreborn:reinforced_glass"
+    },
+    "I": {
+      "item": "techreborn:iron_plate"
+    }
+  },
+  "result": {
+    "item": "techreborn:semi_fluid_generator"
+  }
+}

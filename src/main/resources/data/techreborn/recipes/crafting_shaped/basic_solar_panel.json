@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DLD",
+    "LDL",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "D": {
+      "item": "techreborn:coal_dust"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "L": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_solar_panel"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "MBM",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "B": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "C": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "M": {
+      "item": "techreborn:compressor"
+    }
+  },
+  "result": {
+    "item": "techreborn:rolling_machine"
+  }
+}

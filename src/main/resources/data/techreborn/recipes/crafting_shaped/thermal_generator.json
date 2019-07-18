@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IRI",
+    "CGC"
+  ],
+  "key": {
+    "R": {
+      "item": "techreborn:reinforced_glass"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "I": {
+      "item": "techreborn:invar_plate"
+    }
+  },
+  "result": {
+    "item": "techreborn:thermal_generator"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "CAC",
+    "RRR"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:industrial_machine_frame"
+    },
+    "R": {
+      "item": "techreborn:chrome_plate"
+    },
+    "C": {
+      "item": "techreborn:data_storage_core"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_machine_casing",
+    "count": 4
+  }
+}

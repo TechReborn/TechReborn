@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "TLT",
+    "GGG"
+  ],
+  "key": {
+    "T": {
+      "item": "techreborn:tin_cable"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "L": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "result": {
+    "item": "techreborn:lamp_led"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SWS",
+    "WGW",
+    "SWS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    }
+  },
+  "result": {
+    "item": "techreborn:water_mill"
+  }
+}

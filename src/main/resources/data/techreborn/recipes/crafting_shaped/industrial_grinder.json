@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ECG",
+    "HHH",
+    "CBC"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:advanced_machine_frame"
+    },
+    "C": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "E": {
+      "item": "techreborn:industrial_electrolyzer"
+    },
+    "G": {
+      "item": "techreborn:grinder"
+    },
+    "H": {
+      "item": "techreborn:diamond_grinding_head"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_grinder"
+  }
+}

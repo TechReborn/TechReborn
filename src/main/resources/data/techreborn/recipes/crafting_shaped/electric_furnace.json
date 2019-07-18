@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "RFR",
+    "   "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "F": {
+      "item": "techreborn:iron_furnace"
+    }
+  },
+  "result": {
+    "item": "techreborn:electric_furnace"
+  }
+}

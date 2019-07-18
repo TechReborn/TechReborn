@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CHC",
+    "HBH",
+    "FHF"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:advanced_machine_frame"
+    },
+    "C": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "F": {
+      "item": "techreborn:electric_furnace"
+    },
+    "H": {
+      "item": "techreborn:cupronickel_heating_coil"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_blast_furnace"
+  }
+}

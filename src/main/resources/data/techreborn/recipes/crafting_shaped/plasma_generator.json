@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PTP",
+    "CGC"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:tungstensteel_plate"
+    },
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "T": {
+      "item": "techreborn:hv_transformer"
+    },
+    "G": {
+      "item": "techreborn:solid_fuel_generator"
+    }
+  },
+  "result": {
+    "item": "techreborn:plasma_generator"
+  }
+}

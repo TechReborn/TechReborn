@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EPE",
+    "PCP",
+    "EPE"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:platinum_plate"
+    },
+    "C": {
+      "item": "techreborn:quantum_chest"
+    },
+    "E": {
+      "item": "techreborn:advanced_circuit"
+    }
+  },
+  "result": {
+    "item": "techreborn:quantum_tank"
+  }
+}

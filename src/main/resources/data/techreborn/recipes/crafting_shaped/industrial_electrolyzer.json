@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RER",
+    "CFC",
+    "RER"
+  ],
+  "key": {
+    "R": {
+      "item": "techreborn:iron_plate"
+    },
+    "C": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "E": {
+      "item": "techreborn:extractor"
+    },
+    "F": {
+      "item": "techreborn:advanced_machine_frame"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_electrolyzer"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "CAC",
+    "RRR"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:basic_machine_casing"
+    },
+    "R": {
+      "item": "techreborn:steel_plate"
+    },
+    "C": {
+      "item": "techreborn:advanced_circuit"
+    }
+  },
+  "result": {
+    "item": "techreborn:advanced_machine_casing"
+  }
+}

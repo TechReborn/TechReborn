@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "PTP",
+    "CCC"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:energy_crystal"
+    },
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "T": {
+      "item": "techreborn:fusion_coil"
+    }
+  },
+  "result": {
+    "item": "techreborn:fusion_control_computer"
+  }
+}

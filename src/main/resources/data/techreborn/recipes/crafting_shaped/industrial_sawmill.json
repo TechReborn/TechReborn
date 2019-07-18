@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PAP",
+    "SSS",
+    "ACA"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:refined_iron_ingot"
+    },
+    "A": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "S": {
+      "item": "techreborn:diamond_saw_blade"
+    },
+    "C": {
+      "item": "techreborn:advanced_machine_frame"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_sawmill"
+  }
+}

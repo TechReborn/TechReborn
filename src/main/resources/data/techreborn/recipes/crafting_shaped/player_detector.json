@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "CFC",
+    " D "
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "D": {
+      "item": "techreborn:data_storage_core"
+    },
+    "F": {
+      "item": "techreborn:computer_cube"
+    }
+  },
+  "result": {
+    "item": "techreborn:player_detector"
+  }
+}

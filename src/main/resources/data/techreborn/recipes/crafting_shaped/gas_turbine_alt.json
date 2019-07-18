@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IAI",
+    "WGW",
+    "IAI"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "W": {
+      "item": "techreborn:wind_mill"
+    },
+    "G": {
+      "item": "techreborn:reinforced_glass"
+    },
+    "I": {
+      "item": "techreborn:aluminum_plate"
+    }
+  },
+  "result": {
+    "item": "techreborn:gas_turbine"
+  }
+}

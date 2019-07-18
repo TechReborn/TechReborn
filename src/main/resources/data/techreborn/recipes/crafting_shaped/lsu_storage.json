@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LCL",
+    "LLL"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    }
+  },
+  "result": {
+    "item": "techreborn:lsu_storage"
+  }
+}

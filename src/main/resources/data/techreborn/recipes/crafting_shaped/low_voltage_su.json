@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WCW",
+    "BBB",
+    "WWW"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:red_cell_battery"
+    },
+    "C": {
+      "item": "techreborn:insulated_copper_cable"
+    },
+    "W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "techreborn:low_voltage_su"
+  }
+}

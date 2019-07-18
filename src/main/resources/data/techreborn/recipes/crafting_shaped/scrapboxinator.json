@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "DSD",
+    "ICI"
+  ],
+  "key": {
+    "S": {
+      "item": "techreborn:scrap_box"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "I": {
+      "item": "techreborn:iron_plate"
+    }
+  },
+  "result": {
+    "item": "techreborn:scrapboxinator"
+  }
+}

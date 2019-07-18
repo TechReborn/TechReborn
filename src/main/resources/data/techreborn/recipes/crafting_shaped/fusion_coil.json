@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CSC",
+    "NAN",
+    "CRC"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:advanced_machine_casing"
+    },
+    "R": {
+      "item": "techreborn:iridium_neutron_reflector"
+    },
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "S": {
+      "item": "techreborn:superconductor"
+    },
+    "N": {
+      "item": "techreborn:nichrome_heating_coil"
+    }
+  },
+  "result": {
+    "item": "techreborn:fusion_coil"
+  }
+}

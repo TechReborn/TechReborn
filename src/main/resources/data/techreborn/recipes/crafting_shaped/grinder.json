@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"FFF",
+		"SMS",
+		" C "
+	],
+	"key": {
+		"F": {
+			"item": "minecraft:flint"
+		},
+		"S": {
+			"item": "minecraft:cobblestone"
+		},
+		"C": {
+			"item": "techreborn:electronic_circuit"
+		},
+		"M": {
+			"item": "techreborn:basic_machine_frame"
+		}
+	},
+	"result": {
+		"item": "techreborn:grinder"
+	}
+}

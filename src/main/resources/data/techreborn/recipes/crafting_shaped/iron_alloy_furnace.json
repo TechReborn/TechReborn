@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "F F",
+    "III"
+  ],
+  "key": {
+    "F": {
+      "item": "techreborn:iron_furnace"
+    },
+    "I": {
+      "item": "techreborn:refined_iron_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:iron_alloy_furnace"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OMC",
+    "MFM",
+    "CMO"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "F": {
+      "item": "techreborn:advanced_machine_frame"
+    },
+    "M": {
+      "item": "techreborn:digital_display"
+    },
+    "O": {
+      "item": "techreborn:data_storage_chip"
+    }
+  },
+  "result": {
+    "item": "techreborn:computer_cube"
+  }
+}

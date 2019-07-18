@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CMC",
+    "PBP",
+    "EME"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:extractor"
+    },
+    "B": {
+      "item": "techreborn:industrial_machine_frame"
+    },
+    "C": {
+      "item": "techreborn:industrial_centrifuge"
+    },
+    "E": {
+      "item": "techreborn:industrial_electrolyzer"
+    },
+    "M": {
+      "item": "techreborn:energy_flow_chip"
+    }
+  },
+  "result": {
+    "item": "techreborn:distillation_tower"
+  }
+}

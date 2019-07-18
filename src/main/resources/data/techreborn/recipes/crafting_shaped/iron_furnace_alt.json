@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "I I",
+    "IFI"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:iron_furnace"
+  }
+}
