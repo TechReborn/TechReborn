@@ -129,7 +129,7 @@ public class ItemParts extends ItemTR implements IBlastFurnaceCoil {
 
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
-		return stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage() ? EnumRarity.EPIC : super.getRarity(stack);
+		return stack.getItemDamage() == getPartByName("enhanced_super_conductor").getItemDamage() ? EnumRarity.EPIC : (EnumRarity) super.getForgeRarity(stack);
 
 	}
 
