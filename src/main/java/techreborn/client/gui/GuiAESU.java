@@ -81,7 +81,7 @@ public class GuiAESU extends GuiBase {
 		buttonList.add(new GuiButtonUpDown(302, 121 + 24, 79, this, layer));
 		buttonList.add(new GuiButtonUpDown(303, 121 + 36, 79, this, layer));
 
-		builder.drawEnergyStorageRedstoneModeButton(this, 150, 5, mouseX, mouseY, layer, tile.redstoneMode);
+		builder.drawEnergyStorageRedstoneModeButton(this, 154, 5, mouseX, mouseY, layer, tile.redstoneMode);
 	}
 	
 	@Override
@@ -96,7 +96,7 @@ public class GuiAESU extends GuiBase {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (isPointInRect(150, 5, 20, 20, mouseX, mouseY)) {
+		if (isPointInRect(154, 5, 16, 15, mouseX, mouseY)) {
 			byte currentMode = tile.redstoneMode;
 			NetworkManager.sendToServer(new PacketRedstoneMode(tile, (++currentMode >= TileEnergyStorage.redstoneModes ? 0 : currentMode)));
 			return;
