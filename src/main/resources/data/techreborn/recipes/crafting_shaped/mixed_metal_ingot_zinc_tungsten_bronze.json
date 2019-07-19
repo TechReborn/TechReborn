@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "MMM",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:zinc_ingot"
+    },
+    "T": {
+      "item": "techreborn:tungsten_ingot"
+    },
+    "M": {
+      "item": "techreborn:bronze_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:mixed_metal_ingot",
+    "count": 5
+  }
+}

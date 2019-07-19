@@ -33,7 +33,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 	public static void init() {
 
 		registerCompressionRecipes();
-		registerMixedMetalIngotRecipes();
 			
 		//UU-Matter
 		ItemStack uuStack = TRContent.Parts.UU_MATTER.getStack();
@@ -120,54 +119,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 //		registerShaped(getStack(Items.DIAMOND), "NNN", "NNN", "NNN", 'N', "nuggetDiamond");
 	}
 
-	static void registerMixedMetalIngotRecipes() {
-		registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotTin", 2);
-		registerMixedMetal("ingotRefinedIron", "ingotBronze", "ingotZinc", 2);
-
-		registerMixedMetal("ingotNickel", "ingotBronze", "ingotTin", 3);
-		registerMixedMetal("ingotNickel", "ingotBronze", "ingotZinc", 3);
-
-		registerMixedMetal("ingotNickel", "ingotBronze", "ingotAluminum", 4);
-		registerMixedMetal("ingotInvar", "ingotBronze", "ingotTin", 4);
-		registerMixedMetal("ingotInvar", "ingotBronze", "ingotZinc", 4);
-
-		registerMixedMetal("ingotInvar", "ingotBronze", "ingotAluminum", 5);
-		registerMixedMetal("ingotTitanium", "ingotBronze", "ingotTin", 5);
-		registerMixedMetal("ingotTitanium", "ingotBronze", "ingotZinc", 5);
-		registerMixedMetal("ingotTungsten", "ingotBronze", "ingotTin", 5);
-		registerMixedMetal("ingotTungsten", "ingotBronze", "ingotZinc", 5);
-
-		registerMixedMetal("ingotTitanium", "ingotBronze", "ingotAluminum", 6);
-		registerMixedMetal("ingotTungsten", "ingotBronze", "ingotAluminum", 6);
-
-		registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotTin", 8);
-		registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotZinc", 8);
-
-		registerMixedMetal("ingotTungstensteel", "ingotBronze", "ingotAluminum", 9);
-	}
-
-	static void registerMixedMetal(String top, String middle, String bottom, int amount) {
-		if (!OreDictionary.doesOreNameExist(top)) {
-			return;
-		}
-		if (!OreDictionary.doesOreNameExist(middle)) {
-			return;
-		}
-		if (!OreDictionary.doesOreNameExist(bottom)) {
-			return;
-		}
-//		if (top.equals("ingotRefinedIron")) {
-//			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', "ingotRefinedIron", 'M', middle, 'B', bottom);
-//		} else {
-//			registerShaped(getMaterial("mixed_metal", amount, Type.INGOT), "TTT", "MMM", "BBB", 'T', top, 'M', middle, 'B', bottom);
-//		}
-		if (middle.equals("ingotBronze")) {
-			registerMixedMetal(top, "ingotBrass", bottom, amount);
-		}
-		if (bottom.equals("ingotAluminum")) {
-			registerMixedMetal(top, middle, "ingotAluminium", amount);
-		}
-	}
 
 	static void registerShaped(ItemStack output, Object... inputs) {
 		RebornCraftingHelper.addShapedOreRecipe(output, inputs);
