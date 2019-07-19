@@ -49,6 +49,7 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.cable.EnumCableType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -219,11 +220,9 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 			ticksSinceLastChange = 0;		
 		}
 		
-		if (!canExtract()) {
-			return;
-		}
+		if (!canExtract()) return;
 
-		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
+		ArrayList<IEnergyStorage> acceptors = new ArrayList<>();
 		for (EnumFacing face : EnumFacing.VALUES) {
 			TileEntity tile = world.getTileEntity(pos.offset(face));
 
@@ -233,19 +232,16 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 				TileCable cable = (TileCable) tile;
 				if (power > cable.power && cable.canReceiveFromFace(face.getOpposite())) {
 					acceptors.add((IEnergyStorage) tile);
-					if (!sendingFace.contains(face)) {
-						sendingFace.add(face);
-					}					
+					if (!sendingFace.contains(face)) sendingFace.add(face);
 				}
 			} else if (tile.hasCapability(CapabilityEnergy.ENERGY, face.getOpposite())) {
 				IEnergyStorage energyTile = tile.getCapability(CapabilityEnergy.ENERGY, face.getOpposite());
-				if (energyTile != null && energyTile.canReceive()) {
-					acceptors.add(energyTile);
-				}
+				if (energyTile != null && energyTile.canReceive()) acceptors.add(energyTile);
 			}
 		}
-			
-		if (acceptors.size() > 0 ) {
+
+		Collections.shuffle(acceptors);
+		if (!acceptors.isEmpty()) {
 			for (IEnergyStorage tile : acceptors) {
 				int drain = Math.min(power, transferRate);
 				if (drain > 0 && tile.receiveEnergy(drain, true) > 0) {
@@ -260,27 +256,21 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 	// IEnergyStorage >>
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		if (!canReceive()) {
-			return 0;
-		}
+		if (!canReceive()) return 0;
 
 		int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(transferRate, maxReceive));
-		if (!simulate) {
-			power += energyReceived;
-		}
+		if (!simulate) power += energyReceived;
+
 		return energyReceived;
 	}
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		if (!canExtract()) {
-			return 0;
-		}
+		if (!canExtract()) return 0;
 
 		int energyExtracted = Math.min(getEnergyStored(), Math.min(transferRate, maxExtract));
-		if (!simulate) {
-			power -= energyExtracted;
-		}
+		if (!simulate) power -= energyExtracted;
+
 		return energyExtracted;
 	}
 
@@ -296,18 +286,12 @@ public class TileCable extends TileEntity implements ITickable, IEnergyStorage, 
 
 	@Override
 	public boolean canExtract() {
-		if (getEnergyStored() == 0 ) {
-			return false;
-		}
-		return true;
+		return getEnergyStored() != 0;
 	}
 
 	@Override
 	public boolean canReceive() {
-		if (getMaxEnergyStored() == getEnergyStored()) {
-			return false;
-		}
-		return true;
+		return getMaxEnergyStored() != getEnergyStored();
 	}
 	// << IEnergyStorage
 

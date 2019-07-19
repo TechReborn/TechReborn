@@ -22,11 +22,13 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.tier1;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -36,10 +38,18 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import reborncore.api.IToolDrop;
+import reborncore.api.tile.IInventoryProvider;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.util.FluidUtils;
+import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.lib.ModInfo;
 
@@ -47,30 +57,49 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Created by modmuss50 on 08/05/2016.
+ * @author estebes, modmuss50
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TilePump extends TilePowerAcceptor {
+public class TilePump extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
+	// Fields >>
+	@ConfigRegistry(config = "machines", category = "pump", key = "PumpInput", comment = "Pump max input (Value in EU)")
+	public static int maxInput = 32;
+
+	@ConfigRegistry(config = "machines", category = "pump", key = "PumpMaxEnergy", comment = "Pump max energy (Value in EU)")
+	public static int maxEnergy = 1_000;
 
 	@ConfigRegistry(config = "machines", category = "pump", key = "PumpEUCost", comment = "Pump cost for one block of fluid (Value in EU)")
 	public static int pumpExtractEU = 20;
 
-	public Tank tank = new Tank("TilePump", 10000, this);
+	public static final int TANK_CAPACITY = 8_000;
+
+	public final Inventory inventory;
+	public final Tank tank;
+	// << Fields
 
 	public TilePump() {
 		super();
+		this.inventory = new Inventory(3, "TilePump", 64, this);
+		this.tank = new Tank("TilePump", TANK_CAPACITY, this);
 	}
 
 	@Override
 	public void update() {
 		super.update();
-		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0 && !tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(pumpExtractEU)) {
-			FluidStack fluidStack = drainBlock(world, pos.down(), false);
-			if (fluidStack != null) {
-				tank.fill(drainBlock(world, pos.down(), true), true);
-				useEnergy(pumpExtractEU);
+
+		if (world.isRemote) return;
+
+		if (world.getTotalWorldTime() % 10 == 0) {
+			// handle fluid containers
+			if (FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType())) {
+				this.syncWithAll();
+				tank.compareAndUpdate();
 			}
-			tank.compareAndUpdate();
+
+			if (!tank.isFull() && tank.getCapacity() - tank.getFluidAmount() >= 1000 && canUseEnergy(pumpExtractEU)) {
+				useEnergy(pumpExtractEU);
+				tank.compareAndUpdate();
+			}
 		}
 	}
 
@@ -111,18 +140,34 @@ public class TilePump extends TilePowerAcceptor {
 		}
 	}
 
+	// NBT >>
 	@Override
-	public double getBaseMaxPower() {
-		return 10000;
+	public void readFromNBT(final NBTTagCompound tagCompound) {
+		super.readFromNBT(tagCompound);
+		tank.readFromNBT(tagCompound);
 	}
 
 	@Override
-	public boolean canAcceptEnergy(EnumFacing direction) {
+	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
+		super.writeToNBT(tagCompound);
+		tank.writeToNBT(tagCompound);
+		return tagCompound;
+	}
+	// << NBT
+
+	//
+	@Override
+	public double getBaseMaxPower() {
+		return maxEnergy;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(final EnumFacing direction) {
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy(EnumFacing direction) {
+	public boolean canProvideEnergy(final EnumFacing direction) {
 		return false;
 	}
 
@@ -133,36 +178,52 @@ public class TilePump extends TilePowerAcceptor {
 
 	@Override
 	public double getBaseMaxInput() {
-		return 32;
+		return maxInput;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		readFromNBTWithoutCoords(tagCompound);
+	public Inventory getInventory() {
+		return this.inventory;
 	}
 
+	// Inventory >>
 	@Override
-	public void readFromNBTWithoutCoords(NBTTagCompound tagCompound) {
-		tank.readFromNBT(tagCompound);
+	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
+		if (slotIndex == 1) {
+			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return super.isItemValidForSlot(slotIndex, itemStack);
 	}
+	// << Inventory
 
+	// IInventoryProvider >>
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		writeToNBTWithoutCoords(tagCompound);
-		return tagCompound;
+	public ItemStack getToolDrop(final EntityPlayer entityPlayer) {
+//		return new ItemStack(ModBlocks.PUMP, 1);
+		return ItemStack.EMPTY;
 	}
+	// << IInventoryProvider
 
+
+	// IContainerProvider >>
 	@Override
-	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound) {
-		tank.writeToNBT(tagCompound);
-		return tagCompound;
+	public BuiltContainer createContainer(final EntityPlayer player) {
+		return new ContainerBuilder("pump").player(player.inventory).inventory().hotbar().addInventory().tile(this)
+			.fluidSlot(0, 124, 35).outputSlot(1, 124, 55).energySlot(2, 8, 72)
+			.syncEnergyValue().addInventory().create(this);
 	}
+	// << IContainerProvider
 
+
+	// Tank >>
 	@Nullable
 	@Override
 	public Tank getTank() {
 		return tank;
 	}
+	// << Tank
 }
