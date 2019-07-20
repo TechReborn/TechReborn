@@ -40,6 +40,46 @@ public class ItemTRFluidContainer extends FluidHandlerItemStackSimple.Consumable
 	}
 
 	@Override
+	public int fill(FluidStack resource, boolean doFill) {
+		if (resource == null || resource.amount <= 0 || !canFillFluidType(resource)) return 0;
+
+		FluidStack contained = getFluid();
+		if (contained == null) {
+			int fillAmount = Math.min(capacity, resource.amount);
+			if (fillAmount == capacity) {
+				if (doFill) {
+					FluidStack filled = resource.copy();
+					filled.amount = fillAmount;
+					setFluid(filled);
+				}
+
+				return fillAmount;
+			}
+		}
+
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(int maxDrain, boolean doDrain) {
+		if (maxDrain <= 0) return null;
+
+		FluidStack contained = getFluid();
+		if (contained == null || contained.amount <= 0 || !canDrainFluidType(contained)) return null;
+
+		final int drainAmount = Math.min(contained.amount, maxDrain);
+		if (drainAmount == capacity) {
+			FluidStack drained = contained.copy();
+
+			if (doDrain) setContainerToEmpty();
+
+			return drained;
+		}
+
+		return null;
+	}
+
+	@Override
 	public boolean canFillFluidType(FluidStack fluid) {
 		return contentsAllowed(fluid);
 	}

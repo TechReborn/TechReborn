@@ -35,6 +35,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -44,9 +47,6 @@ import reborncore.common.util.Tank;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
@@ -55,7 +55,7 @@ import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialGrinder extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialGrinderRecipe> {
-	
+	// Fields >>
 	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxEnergy", comment = "Industrial Grinder Max Energy (Value in EU)")
@@ -64,7 +64,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
 	public MultiblockChecker multiblockChecker;
-	int ticksSinceLastChange;
+	// << Fields
 
 	public TileIndustrialGrinder() {
 		super("IndustrialGrinder", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_GRINDER, 7);
@@ -73,13 +73,11 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 		this.inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_GRINDER_RECIPE, this, 1, 4, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
-		this.ticksSinceLastChange = 0;
 	}
 
 	public boolean getMultiBlock() {
-		if (multiblockChecker == null) {
-			return false;
-		}
+		if (multiblockChecker == null) return false;
+
 		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
 		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
 		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
@@ -97,24 +95,20 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
-		
-		ticksSinceLastChange++;
-		// Check cells input slot 2 time per second
-		if (!world.isRemote && ticksSinceLastChange >= 10) {
+
+		// Check cells input slot 2 times per second
+		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
 			if (!inventory.getStackInSlot(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 6);
 				FluidUtils.fillContainers(tank, inventory, 1, 6, tank.getFluidType());
 			}
-			ticksSinceLastChange = 0;
 		}
 		
-		if (!world.isRemote && getMultiBlock()) {
-			super.update();
-		}
+		if (!world.isRemote && getMultiBlock()) super.update();
 
 		tank.compareAndUpdate();
 	}
-	
+
 	@Override
 	public void readFromNBT(final NBTTagCompound tagCompound) {
 		super.readFromNBT(tagCompound);
@@ -132,12 +126,7 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
 		if (slotIndex == 1) {
-			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)){
-				return true;
-			}
-			else {
-				return false;
-			}
+			return itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		}
 		return super.isItemValidForSlot(slotIndex, itemStack);
 	}

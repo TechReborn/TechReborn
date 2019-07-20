@@ -35,6 +35,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -44,9 +47,6 @@ import reborncore.common.util.Tank;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
@@ -55,7 +55,7 @@ import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
-
+	// Fields >>
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
 	public static int maxInput = 128;
 	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxEnergy", comment = "Industrial Sawmill Max Energy (Value in EU)")
@@ -65,6 +65,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 	public Tank tank;
 	public MultiblockChecker multiblockChecker;
 	int ticksSinceLastChange;
+	// << Fields
 
 	public TileIndustrialSawmill() {
 		super("IndustrialSawmill", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_SAWMILL, 6);
@@ -73,7 +74,6 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 		this.inventory = new Inventory(7, "TileSawmill", 64, this);
 		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs, outputs);
 		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
-		this.ticksSinceLastChange = 0;
 	}
 
 	public boolean getMutliBlock() {
@@ -98,19 +98,15 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 
-		ticksSinceLastChange++;
-		// Check cells input slot 2 time per second
-		if (!world.isRemote && ticksSinceLastChange >= 10) {
+		// Check cells input slot 2 times per second
+		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
 			if (!inventory.getStackInSlot(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 5);
 				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidType());
 			}
-			ticksSinceLastChange = 0;
 		}
 
-		if (!world.isRemote && getMutliBlock()) {
-			super.update();
-		}
+		if (!world.isRemote && getMutliBlock()) super.update();
 
 		tank.compareAndUpdate();
 	}

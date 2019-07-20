@@ -79,11 +79,16 @@ public class TileQuantumTank extends TileLegacyMachineBase
 	@Override
 	public void update() {
 		super.update();
-		if (!world.isRemote) {
-			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType()))
+
+		// Check cells input slot 10 times per second
+		if (!world.isRemote && world.getTotalWorldTime() % 2 == 0) {
+			if (!inventory.getStackInSlot(0).isEmpty()) {
+				FluidUtils.drainContainers(tank, inventory, 0, 1);
+				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
 				this.syncWithAll();
+			}
 		}
+
 		tank.compareAndUpdate();
 	}
 	

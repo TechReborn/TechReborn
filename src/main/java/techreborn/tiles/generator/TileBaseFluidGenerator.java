@@ -42,7 +42,7 @@ import techreborn.api.generator.GeneratorRecipeHelper;
 import javax.annotation.Nullable;
 
 public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider {
-
+	// Fields >>
 	private final FluidGeneratorRecipeList recipes;
 	private final int euTick;
 	private FluidGeneratorRecipe currentRecipe;
@@ -50,6 +50,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	public final Tank tank;
 	public final Inventory inventory;
 	protected long lastOutput = 0;
+	// << Fields
 
 	/*
 	 * We use this to keep track of fractional millibuckets, allowing us to hit
@@ -72,17 +73,16 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super.update();
 		ticksSinceLastChange++;
 
-		if(world.isRemote){
-			return;
-		}
+		if(world.isRemote) return;
 
-		// Check cells input slot 2 time per second
+		// Check cells input slot 2s time per second
 		// Please, keep ticks counting on client also to report progress to GUI
 		if (ticksSinceLastChange >= 10) {
 			if (!inventory.getStackInSlot(0).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 0, 1);
 				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
 			}
+
 			tank.setTileEntity(this);
 			tank.compareAndUpdate();
 
@@ -107,19 +107,14 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 			}
 		}
 
-		if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
+		if (world.getTotalWorldTime() - lastOutput < 30 && !isActive())
 			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, true));
-		}
-		else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
+		else if (world.getTotalWorldTime() - lastOutput > 30 && isActive())
 			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, false));
-		}
 	}
 	
 	public int getProgressScaled(int scale) {
-		if (isActive()){
-			return ticksSinceLastChange * scale;
-		}
-		return 0;
+		return isActive() ? ticksSinceLastChange * scale : 0;
 	}
 
 	protected boolean tryAddingEnergy(int amount) {

@@ -47,12 +47,10 @@ import javax.annotation.Nullable;
 
 /**
  * @author drcrazy
- *
  */
-
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileFluidReplicator extends TileGenericMachine implements IContainerProvider {
-
+	// Fields >>
 	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxInput", comment = "Fluid Replicator Max Input (Value in EU)")
 	public static int maxInput = 256;
 	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxEnergy", comment = "Fluid Replicator Max Energy (Value in EU)")
@@ -61,7 +59,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	public MultiblockChecker multiblockChecker;
 	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
-	int ticksSinceLastChange;
+	// << Fields
 
 	public TileFluidReplicator() {
 		super("FluidReplicator", maxInput, maxEnergy, ModBlocks.FLUID_REPLICATOR, 3);
@@ -88,18 +86,14 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 
-		ticksSinceLastChange++;
-		// Check cells input slot 2 time per second
-		if (!world.isRemote && ticksSinceLastChange >= 10) {
+		// Check cells input slot 2 times per second
+		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
 			if (!inventory.getStackInSlot(1).isEmpty()) {
 				FluidUtils.fillContainers(tank, inventory, 1, 2, tank.getFluidType());
 			}
-			ticksSinceLastChange = 0;
 		}
 
-		if (getMultiBlock()) {
-			super.update();
-		}
+		if (getMultiBlock()) super.update();
 
 		tank.compareAndUpdate();
 	}
@@ -126,14 +120,8 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 	// TileLegacyMachineBase
 	@Override
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 0) {
-			if (itemStack.isItemEqual(new ItemStack(ModItems.UU_MATTER))) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return super.isItemValidForSlot(slotIndex, itemStack);
+		return slotIndex == 0 ? itemStack.isItemEqual(new ItemStack(ModItems.UU_MATTER)) :
+		       super.isItemValidForSlot(slotIndex, itemStack);
 	}
 
 	// IContainerProvider
