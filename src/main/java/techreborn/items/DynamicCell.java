@@ -34,7 +34,6 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import reborncore.fluid.Fluid;
-import reborncore.fluid.FluidStack;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;

@@ -41,12 +41,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.TechReborn;
 
 /**
  * Created by Rushmead
@@ -60,7 +57,6 @@ public abstract class BlockTransformer extends BaseTileBlock {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

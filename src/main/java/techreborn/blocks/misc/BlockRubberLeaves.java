@@ -30,16 +30,12 @@ import net.minecraft.block.FireBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
-import techreborn.TechReborn;
 
 public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
 		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build());
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, DISTANCE, PERSISTENT));
 	}
 
 }

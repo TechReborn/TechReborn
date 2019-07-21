@@ -44,12 +44,9 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.TechReborn;
 import techreborn.tiles.lighting.TileLamp;
 
 import javax.annotation.Nullable;
@@ -69,7 +66,6 @@ public class BlockLamp extends BaseTileBlock {
 		this.shape = GenCuboidShapes(depth, width);
 		this.cost = cost;
 		this.brightness = brightness;
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	

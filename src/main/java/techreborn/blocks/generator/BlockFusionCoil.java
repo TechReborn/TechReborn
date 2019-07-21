@@ -44,9 +44,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
-import techreborn.TechReborn;
 import techreborn.init.ModSounds;
 
 import javax.annotation.Nullable;
@@ -56,7 +53,6 @@ public class BlockFusionCoil extends Block {
 
 	public BlockFusionCoil() {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
 	}
 
 	@Override

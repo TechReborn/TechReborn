@@ -27,19 +27,11 @@ package techreborn.blocks.tier1;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.tier1.TileRollingMachine;
 
 public class BlockRollingMachine extends BlockMachineBase {
-
-	public BlockRollingMachine() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier1_machines"));
-	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {

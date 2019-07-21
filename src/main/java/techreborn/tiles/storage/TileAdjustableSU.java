@@ -110,7 +110,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 	public ItemStack getDropWithNBT() {
 		CompoundTag tileEntity = new CompoundTag();
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
-		writeWithoutCoords(tileEntity);
+		toTag(tileEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("tileEntity", tileEntity);
 		return dropStack;
@@ -147,11 +147,6 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 			return getMaxConfigOutput();
 		}
 		return maxInput;
-	}
-
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return null;
 	}
 
 	// TilePowerAcceptor

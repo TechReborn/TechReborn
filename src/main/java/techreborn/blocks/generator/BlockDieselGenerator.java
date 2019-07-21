@@ -27,10 +27,7 @@ package techreborn.blocks.generator;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.generator.advanced.TileDieselGenerator;
 
@@ -38,11 +35,6 @@ import techreborn.tiles.generator.advanced.TileDieselGenerator;
  * Block for Diesel Generator
  */
 public class BlockDieselGenerator extends BlockMachineBase {
-
-	public BlockDieselGenerator() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
-	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {

@@ -29,14 +29,10 @@ import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.sound.BlockSoundGroup;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
-import techreborn.TechReborn;
 
 public class BlockRubberPlankSlab extends SlabBlock {
 
 	public BlockRubberPlankSlab() {
 		super(FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE).strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD).build());
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

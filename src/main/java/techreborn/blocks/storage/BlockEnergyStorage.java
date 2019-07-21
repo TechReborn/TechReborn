@@ -42,12 +42,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.TechReborn;
 
 /**
  * Created by Rushmead
@@ -62,7 +59,6 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		this.gui = gui;
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

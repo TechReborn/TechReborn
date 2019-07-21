@@ -48,12 +48,9 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.TechReborn;
 import techreborn.tiles.TileAlarm;
 
 import javax.annotation.Nullable;
@@ -68,7 +65,6 @@ public class BlockAlarm extends BaseTileBlock {
 		super(Block.Settings.of(Material.STONE));
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(3, 10);
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/lighting"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	

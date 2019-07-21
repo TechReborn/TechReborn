@@ -32,19 +32,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
 
 public class BlockIronAlloyFurnace extends BlockMachineBase {
-
-	public BlockIronAlloyFurnace() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier0_machines"));
-	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {

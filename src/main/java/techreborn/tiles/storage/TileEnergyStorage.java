@@ -103,11 +103,6 @@ public class TileEnergyStorage extends TilePowerAcceptor
 		return maxInput;
 	}
 
-	@Override
-	public EnumPowerTier getBaseTier() {
-		return tier;
-	}
-
 	// TileMachineBase
 	@Override
 	public void setFacing(Direction enumFacing) {

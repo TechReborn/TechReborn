@@ -26,15 +26,11 @@ package techreborn.blocks.misc;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.StairsBlock;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
-import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
 public class BlockRubberPlankStair extends StairsBlock {
 
 	public BlockRubberPlankStair() {
 		super(TRContent.RUBBER_PLANKS.getDefaultState(), Block.Settings.copy(TRContent.RUBBER_PLANKS));
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 }

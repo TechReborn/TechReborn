@@ -39,10 +39,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseBlock;
-import techreborn.TechReborn;
 import techreborn.entities.EntityNukePrimed;
 
 /**
@@ -54,7 +51,6 @@ public class BlockNuke extends BaseBlock {
 	public BlockNuke() {
 		super(Block.Settings.of(Material.TNT));
 		this.setDefaultState(this.stateFactory.getDefaultState().with(OVERLAY, false));
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	public void ignite(World worldIn, BlockPos pos, BlockState state, LivingEntity igniter) {

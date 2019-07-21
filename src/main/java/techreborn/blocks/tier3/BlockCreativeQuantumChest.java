@@ -30,19 +30,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.tier3.TileCreativeQuantumChest;
 
 public class BlockCreativeQuantumChest extends BlockMachineBase {
-
-	public BlockCreativeQuantumChest() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier3_machines"));
-	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {

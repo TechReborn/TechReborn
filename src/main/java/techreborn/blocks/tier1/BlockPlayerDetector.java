@@ -24,7 +24,6 @@
 
 package techreborn.blocks.tier1;
 
-import com.google.common.collect.Lists;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
@@ -37,7 +36,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateFactory;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.Hand;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -46,31 +47,19 @@ import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.blocks.PropertyString;
-import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.TechReborn;
 import techreborn.tiles.machine.tier1.TilePlayerDectector;
 import techreborn.utils.MessageIDs;
 
-import java.util.List;
-
 public class BlockPlayerDetector extends BlockMachineBase {
 
-	public static final String[] types = new String[] { "all", "others", "you" };
-	static List<String> typeNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
-	public static PropertyString TYPE;
+	public static EnumProperty<PlayerDetectorType> TYPE;
 
 	public BlockPlayerDetector() {
 		super(Block.Settings.of(Material.METAL), true);
-		this.setDefaultState(this.stateFactory.getDefaultState().with(TYPE, types[0]));
-		for (int i = 0; i < types.length; i++) {
-			RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, i, "machines/tier1_machines").setInvVariant("type=" + types[i]));
-		}
+		this.setDefaultState(this.stateFactory.getDefaultState().with(TYPE, PlayerDetectorType.ALL));
 	}
 
 	// BlockMachineBase
@@ -98,8 +87,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
 			return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 		
-		String type = state.get(TYPE);
-		String newType = type;
+		PlayerDetectorType type = state.get(TYPE);
+		PlayerDetectorType newType = type;
 		Formatting color = Formatting.GREEN;
 		
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
@@ -119,14 +108,14 @@ public class BlockPlayerDetector extends BlockMachineBase {
 						return true;
 					}
 				} else {
-					if (type.equals("all")) {
-						newType = "others";
+					if (type == PlayerDetectorType.ALL) {
+						newType = PlayerDetectorType.OTHERS;
 						color = Formatting.RED;
-					} else if (type.equals("others")) {
-						newType = "you";
+					} else if (type == PlayerDetectorType.OTHERS) {
+						newType = PlayerDetectorType.YOU;
 						color = Formatting.BLUE;
-					} else if (type.equals("you")) {
-						newType = "all";
+					} else if (type == PlayerDetectorType.YOU) {
+						newType = PlayerDetectorType.ALL;
 					}
 					worldIn.setBlockState(pos, state.with(TYPE, newType));
 				}
@@ -136,7 +125,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		if (worldIn.isClient) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new LiteralText(
 				Formatting.GRAY + I18n.translate("techreborn.message.detects") + " " + color
-					+ StringUtils.toFirstCapital(newType)));
+					+ StringUtils.toFirstCapital(newType.asString())));
 		}
 		return true;
 	}
@@ -149,7 +138,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	// Block
 	@Override
 	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
-		TYPE = new PropertyString("type", types);
+		TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 		builder.add(TYPE);
 	}
 
@@ -174,5 +163,25 @@ public class BlockPlayerDetector extends BlockMachineBase {
 			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
 		}
 		return 0;
+	}
+	
+	public enum PlayerDetectorType implements StringIdentifiable {
+		ALL("all"), OTHERS("others"), YOU("you");
+
+		private final String name;
+
+		private PlayerDetectorType(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
+		}
+
+		@Override
+		public String asString() {
+			return this.name;
+		}
 	}
 }

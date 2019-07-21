@@ -32,6 +32,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
 import techreborn.client.GuiHandler;
 import techreborn.events.ModRegistry;
@@ -59,7 +61,8 @@ public class TechReborn implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		INSTANCE = this;
-//		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
+		@SuppressWarnings("unused")
+		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
 //		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 		// Done like this to load them here
 		ModFluids.values();

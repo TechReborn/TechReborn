@@ -28,7 +28,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;

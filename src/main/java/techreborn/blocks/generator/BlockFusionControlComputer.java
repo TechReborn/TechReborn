@@ -34,11 +34,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
@@ -47,11 +44,6 @@ import techreborn.utils.damageSources.FusionDamageSource;
 import java.util.List;
 
 public class BlockFusionControlComputer extends BlockMachineBase {
-
-	public BlockFusionControlComputer() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
-	}
 
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,

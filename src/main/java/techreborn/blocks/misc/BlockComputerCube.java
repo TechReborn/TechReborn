@@ -36,19 +36,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 
 public class BlockComputerCube extends BlockMachineBase {
-
-	public BlockComputerCube() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
-	}
 
 	@Override
 	public IMachineGuiHandler getGui() {

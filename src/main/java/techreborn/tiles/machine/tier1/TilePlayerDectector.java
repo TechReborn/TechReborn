@@ -35,6 +35,7 @@ import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.blocks.tier1.BlockPlayerDetector;
+import techreborn.blocks.tier1.BlockPlayerDetector.PlayerDetectorType;
 import techreborn.init.TRContent;
 import techreborn.init.TRTileEntities;
 
@@ -69,10 +70,10 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 			if (canUseEnergy(euPerTick)) {
 				for(PlayerEntity player : world.getPlayers()){
 					if (player.distanceTo(player) <= 256.0D) {
-						String type = world.getBlockState(pos).get(BlockPlayerDetector.TYPE);
-						if (type.equals("all")) {// ALL
+						PlayerDetectorType type = world.getBlockState(pos).get(BlockPlayerDetector.TYPE);
+						if (type == PlayerDetectorType.ALL) {// ALL
 							redstone = true;
-						} else if (type.equals("others")) {// Others
+						} else if (type == PlayerDetectorType.OTHERS) {// Others
 							if (!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUuid().toString())) {
 								redstone = true;
 							}

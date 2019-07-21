@@ -25,8 +25,6 @@
 package techreborn.init;
 
 import net.minecraft.util.Identifier;
-import net.minecraft.world.loot.LootPool;
-import net.minecraft.world.loot.LootTables;
 import techreborn.TechReborn;
 import techreborn.config.ConfigTechReborn;
 

@@ -27,19 +27,11 @@ package techreborn.blocks.tier2;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.multiblock.TileIndustrialSawmill;
 
 public class BlockIndustrialSawmill extends BlockMachineBase {
-
-	public BlockIndustrialSawmill() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier2_machines"));
-	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {

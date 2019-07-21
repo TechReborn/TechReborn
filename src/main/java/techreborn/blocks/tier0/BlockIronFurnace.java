@@ -38,21 +38,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.client.EGui;
 import techreborn.tiles.machine.iron.TileIronFurnace;
 
 import java.util.Random;
 
 public class BlockIronFurnace extends BlockMachineBase {
-
-	public BlockIronFurnace() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/tier0_machines"));
-	}
 
 	@SuppressWarnings("incomplete-switch")
 	@Environment(EnvType.CLIENT)

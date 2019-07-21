@@ -27,18 +27,10 @@ package techreborn.blocks.generator;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.TechReborn;
 import techreborn.tiles.generator.TileLightningRod;
 
 public class BlockLightningRod extends BlockMachineBase {
-
-	public BlockLightningRod() {
-		super();
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/generators"));
-	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {

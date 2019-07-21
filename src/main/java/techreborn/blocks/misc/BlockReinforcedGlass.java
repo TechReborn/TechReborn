@@ -28,15 +28,11 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
-import techreborn.TechReborn;
 
 public class BlockReinforcedGlass extends GlassBlock {
 
 	public BlockReinforcedGlass() {
 		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).build());
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 }

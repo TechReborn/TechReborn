@@ -24,11 +24,7 @@
 
 package techreborn.events;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import techreborn.init.TRContent;
 
 public class TRTickHandler {
 

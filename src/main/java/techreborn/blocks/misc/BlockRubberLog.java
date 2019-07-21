@@ -42,12 +42,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.ItemPowerManager;
 import reborncore.common.util.WorldUtils;
-import techreborn.TechReborn;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
@@ -68,7 +65,6 @@ public class BlockRubberLog extends LogBlock {
 		super(MaterialColor.SPRUCE, FabricBlockSettings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F, 2f).sounds(BlockSoundGroup.WOOD).ticksRandomly().build());
 		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(AXIS, Direction.Axis.Y));
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 5, 5);
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this));
 	}
 
 	@Override

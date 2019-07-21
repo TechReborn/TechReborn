@@ -114,11 +114,6 @@ public class TileTransformer extends TilePowerAcceptor
 	}
 	
 	@Override
-	public EnumPowerTier getBaseTier() {
-		return inputTier;
-	}
-
-	@Override
 	public EnumPowerTier getPushingTier() {
 		return ouputTier;
 	}
@@ -126,6 +121,7 @@ public class TileTransformer extends TilePowerAcceptor
 	@Override
 	public void checkTier() {
 		//Nope
+		//TODO: really nope? needs review
 	}
 	
 	// TileMachineBase

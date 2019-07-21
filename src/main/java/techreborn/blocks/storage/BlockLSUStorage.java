@@ -38,13 +38,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.client.models.ModelCompound;
-import reborncore.client.models.RebornModelRegistry;
 import reborncore.common.BaseTileBlock;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.tiles.storage.lesu.TileLSUStorage;
 
@@ -55,7 +52,6 @@ public class BlockLSUStorage extends BaseTileBlock {
 
 	public BlockLSUStorage() {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
-		RebornModelRegistry.registerModel(new ModelCompound(TechReborn.MOD_ID, this, "machines/energy"));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 

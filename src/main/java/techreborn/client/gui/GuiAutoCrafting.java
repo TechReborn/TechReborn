@@ -24,9 +24,7 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.GuiLighting;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
@@ -36,8 +34,6 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.ServerboundPackets;
 import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
-
-import static net.minecraft.item.ItemStack.EMPTY;
 
 /**
  * Created by modmuss50 on 20/06/2017.

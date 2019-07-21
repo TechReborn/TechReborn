@@ -120,11 +120,6 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	}
 
 	@Override
-	public EnumPowerTier getBaseTier() {
-		return getTier();
-	}
-
-	@Override
 	public void checkTier() {
 		// Nope
 	}
