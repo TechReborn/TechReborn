@@ -97,6 +97,6 @@ public class ItemTRFluidContainer extends FluidHandlerItemStackSimple.Consumable
 	@Override
 	protected void setContainerToEmpty() {
 		assert container.getTagCompound() != null;
-		container.getTagCompound().removeTag(FLUID_NBT_KEY);
+		container.setTagCompound(null);
 	}
 }
