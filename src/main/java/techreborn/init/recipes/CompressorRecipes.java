@@ -51,7 +51,6 @@ public class CompressorRecipes extends RecipeMethods {
 		register(OreUtil.getStackFromName("blockYellowGarnet"), ItemPlates.getPlateByName("YellowGarnet", 9));
 		register(OreUtil.getStackFromName("dustRedGarnet"), ItemPlates.getPlateByName("RedGarnet"));
 		register(OreUtil.getStackFromName("blockRedGarnet"), ItemPlates.getPlateByName("RedGarnet", 9));
-		register("ingotRefinedIron", ItemPlates.getPlateByName("RefinedIron"));
 
 		ItemStack plate;
 		for (String ore : OreUtil.oreNames) {
@@ -70,16 +69,9 @@ public class CompressorRecipes extends RecipeMethods {
 			if (plate.isEmpty()) {
 				continue;
 			}
-			if (OreUtil.hasIngot(ore)) {
-				register(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore)), plate);
-			}
+
 			if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
 				register(OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore)), plate);
-			}
-			if (OreUtil.hasBlock(ore)) {
-				ItemStack morePlates = plate.copy();
-				morePlates.setCount(9);
-				register(OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore)), morePlates);
 			}
 		}
 	}

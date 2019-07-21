@@ -2,6 +2,7 @@
 itemGroup.techreborn=Tech Reborn
 
 #Machines
+tile.techreborn.plate_bending_machine.name=Plate Bending Machine
 tile.techreborn.pump.name=Pump
 tile.techreborn.gas_turbine.name=Gas Turbine
 tile.techreborn.thermal_generator.name=Thermal Generator

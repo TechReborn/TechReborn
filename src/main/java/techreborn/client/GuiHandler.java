@@ -153,8 +153,12 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiVacuumFreezer(player, (TileVacuumFreezer) tile);
 			case AUTO_CRAFTING_TABLE:
 				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
+			case PLATE_BENDING_MACHINE:
+				return new GuiPlateBendingMachine(player, (TilePlateBendingMachine) tile);
 			case PLASMA_GENERATOR:
 				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
+			case PUMP:
+				return new GuiPump(player, (TilePump) tile);
 			case DISTILLATION_TOWER:
 				return new GuiDistillationTower(player, (TileDistillationTower) tile);
 			case MANUAL:

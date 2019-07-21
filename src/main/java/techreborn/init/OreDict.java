@@ -42,13 +42,14 @@ import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
 
 public class OreDict {
-
+	// Fields >>
 	private static final ImmutableList<String> plateGenIgnores = ImmutableList.of(
 		"hot", //Hot ingots
 		"mixed_metal", //Mixed metal has own version of plate
 		"iridium_alloy", //Iridium alloy is plate itself
 		ModItems.META_PLACEHOLDER //...
 	);
+	// << Fields
 
 	public static void init() {
 
@@ -113,13 +114,13 @@ public class OreDict {
 		OreUtil.registerOre("ic2Extractor", ModBlocks.EXTRACTOR);
 		OreUtil.registerOre("ic2Windmill", ModBlocks.WIND_MILL);
 		OreUtil.registerOre("ic2Watermill", ModBlocks.WATER_MILL);
+		OreUtil.registerOre("ic2Pump", ModBlocks.PUMP);
 
 		//OreUtil.registerOre("uran235", nothing);
 		//OreUtil.registerOre("uran238", nothing);
 		//OreUtil.registerOre("smallUran235", nothing);
 
 		OreUtil.registerOre("fenceIron", ModBlocks.REFINED_IRON_FENCE);
-		//TODO ic2 bug? Disabled as it crashes with this line
 		OreUtil.registerOre("logWood", ModBlocks.RUBBER_LOG);
 		OreUtil.registerOre("logRubber", ModBlocks.RUBBER_LOG);
 		OreUtil.registerOre("glassReinforced", ModBlocks.REINFORCED_GLASS);
@@ -133,6 +134,11 @@ public class OreDict {
 		OreUtil.registerOre("itemRubber", ItemParts.getPartByName("rubber"));
 		OreUtil.registerOre("pulpWood", ItemDusts.getDustByName("saw_dust"));
 		OreUtil.registerOre("dustAsh", ItemDusts.getDustByName("ashes"));
+
+		OreUtil.registerOre("itemScrap", ItemParts.getPartByName("scrap"));
+		OreUtil.registerOre("materialScrap", ItemParts.getPartByName("scrap"));
+		OreUtil.registerOre("itemScrapBox", ModItems.SCRAP_BOX);
+		OreUtil.registerOre("materialScrapBox", ModItems.SCRAP_BOX);
 
 		for (String type : ItemPlates.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))

@@ -105,8 +105,10 @@ public enum ModTileEntities {
 	MATTER_FABRICATOR(TileMatterFabricator.class,  "matter_fabricator", "TileMatterFabricatorTR"),
 	MEDIUM_VOLTAGE_SU(TileMediumVoltageSU.class,  "medium_voltage_su", "TileMediumVoltageSUTR"),
 	MV_TRANSFORMER(TileMVTransformer.class,  "mv_transformer", "TileMVTransformerTR"),
+	PLATE_BENDING_MACHINE(TilePlateBendingMachine.class,  "plate_bending_machine", "TilePlateBendingMachineTR"),
 	PLASMA_GENERATOR(TilePlasmaGenerator.class,  "plasma_generator", "TilePlasmalGeneratorTR"),
 	PLAYER_DETECTOR(TilePlayerDectector.class,  "player_detector", "TilePlayerDectectorTR"),
+	PUMP(TilePump.class,  "pump", "TilePumpTR"),
 	QUANTUM_CHEST(TileQuantumChest.class,  "quantum_chest", "TileQuantumChestTR"),
 	QUANTUM_TANK(TileQuantumTank.class,  "quantum_tank", "TileQuantumTankTR"),
 	RECYCLER(TileRecycler.class,  "recycler", "TileRecyclerTR"),
@@ -120,18 +122,17 @@ public enum ModTileEntities {
 	WATER_MILL(TileWaterMill.class,  "water_mill", "TileWaterMillTR"),
 	WIND_MILL(TileWindMill.class,  "wind_mill", "TileWindMillTR");
 
-	public static Optional<ModTileEntities> getFromOldName(String name){
-		for(ModTileEntities entry : ModTileEntities.values()){
-			if(entry.oldName.isPresent() && entry.oldName.get().equalsIgnoreCase(name)){
-				return Optional.of(entry);
-			}
-		}
-		return Optional.empty();
+	public static Optional<ModTileEntities> getFromOldName(String name) {
+		return Arrays.stream(ModTileEntities.values())
+			.filter(entry -> entry.oldName.isPresent() && entry.oldName.get().equalsIgnoreCase(name))
+			.findFirst();
 	}
-	public static void init(){
+
+	public static void init() {
 		Arrays.stream(ModTileEntities.values())
 			.forEach(modTileEntities -> GameRegistry.registerTileEntity(modTileEntities.tileClass, modTileEntities.name));
 	}
+
 	public static void initDataFixer(ModFixs dataFixes){
 		dataFixes.registerFix(FixTypes.BLOCK_ENTITY, new IFixableData() {
 			@Override

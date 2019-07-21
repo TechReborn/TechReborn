@@ -36,7 +36,6 @@ apply plugin: 'net.covers1624.contained-deps'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-
 repositories {
 	maven {
 		name = "Modmuss50"
@@ -94,7 +93,6 @@ dependencies {
 	deobfProvided "net.industrial-craft:industrialcraft-2:${ic2_version}:api" // IC2 Api
 }
 
-
 processResources
 	{
 		// this will ensure that this task is redone when the versions change.
@@ -127,7 +125,6 @@ task deobfJar(type: Jar) {
 		attributes 'FMLAT': 'techreborn_at.cfg'
 	}
 }
-
 
 containedDeps {
 	configuration = "shade"
@@ -287,7 +284,6 @@ build.dependsOn signJar
 apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
 import com.google.gson.JsonArray
-import groovy.util.XmlSlurper
 import org.apache.commons.io.FileUtils
 
 task curseTools {

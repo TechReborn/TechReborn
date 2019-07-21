@@ -84,7 +84,7 @@ public class ModRecipes {
 		FluidReplicatorRecipes.init();
 		BlastFurnaceRecipes.init();
 		CompressorRecipes.init();
-
+		PlateBendingMachineRecipes.init();
 
 		addVacuumFreezerRecipes();
 		addIc2Recipes();

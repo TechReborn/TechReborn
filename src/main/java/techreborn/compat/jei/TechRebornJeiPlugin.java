@@ -99,6 +99,8 @@ import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeCategory;
 import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeWrapper;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeWrapper;
+import techreborn.compat.jei.platebendingmachine.PlateBendingMachineRecipeCategory;
+import techreborn.compat.jei.platebendingmachine.PlateBendingMachineRecipeWrapper;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeWrapper;
@@ -169,6 +171,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCategories(new IndustrialGrinderRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new IndustrialElectrolyzerRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new IndustrialSawmillRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new PlateBendingMachineRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new RollingMachineRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new VacuumFreezerRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new FluidReplicatorRecipeCategory(guiHelper));
@@ -268,6 +271,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(IndustrialElectrolyzerRecipe.class, recipe -> new IndustrialElectrolyzerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.handleRecipes(IndustrialGrinderRecipe.class, recipe -> new IndustrialGrinderRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.handleRecipes(IndustrialSawmillRecipe.class, recipe -> new IndustrialSawmillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
+		registry.handleRecipes(PlateBendingMachineRecipe.class, recipe -> new PlateBendingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.PLATE_BENDING_MACHINE);
 		registry.handleRecipes(VacuumFreezerRecipe.class, recipe -> new VacuumFreezerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.VACUUM_FREEZER);
 		registry.handleRecipes(DistillationTowerRecipe.class, recipe -> new DistillationTowerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.handleRecipes(FluidReplicatorRecipe.class, recipe -> new FluidReplicatorRecipeWrapper(jeiHelpers,recipe), RecipeCategoryUids.FLUID_REPLICATOR);
@@ -345,6 +349,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiGasTurbine.class, 158, 5, 12, 12, EFluidGenerator.GAS.getRecipeID());
 		addRecipeClickArea(GuiThermalGenerator.class, 158, 5, 12, 12, EFluidGenerator.THERMAL.getRecipeID());
 		addRecipeClickArea(GuiAlloySmelter.class, 158, 5, 12, 12, RecipeCategoryUids.ALLOY_SMELTER);
+		addRecipeClickArea(GuiPlateBendingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.PLATE_BENDING_MACHINE);
 		addRecipeClickArea(GuiPlasmaGenerator.class, 158, 5, 12, 12, EFluidGenerator.PLASMA.getRecipeID());
 		addRecipeClickArea(GuiDistillationTower.class, 158, 5, 12, 12, RecipeCategoryUids.DISTILLATION_TOWER);
 		addRecipeClickArea(GuiScrapboxinator.class, 158, 5, 12, 12, RecipeCategoryUids.SCRAPBOX);
@@ -382,6 +387,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_GRINDER), RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.INDUSTRIAL_SAWMILL), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.PLATE_BENDING_MACHINE), RecipeCategoryUids.PLATE_BENDING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ROLLING_MACHINE), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLATION_TOWER), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_REPLICATOR), RecipeCategoryUids.FLUID_REPLICATOR);
@@ -428,7 +434,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 				new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("autocraftingtable", VanillaRecipeCategoryUid.CRAFTING, 36, 9, 0, 36));
-
+		recipeTransferRegistry.addRecipeTransferHandler(
+			new BuiltContainerTransferInfo("platebendingmachine", RecipeCategoryUids.PLATE_BENDING_MACHINE, 36, 1, 0, 36));
 
 		registry.addAdvancedGuiHandlers(new AdvancedGuiHandler());
 	}

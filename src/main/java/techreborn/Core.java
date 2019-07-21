@@ -118,9 +118,7 @@ public class Core {
 		ModFixs dataFixes = FMLCommonHandler.instance().getDataFixer().init(ModInfo.MOD_ID, 1);
 		ModTileEntities.initDataFixer(dataFixes);
 
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.preInit(event);
-		}
+		CompatManager.INSTANCE.compatModules.forEach(compatModule -> compatModule.preInit(event));
 
 		//Ore Dictionary
 		OreDict.init();
@@ -130,21 +128,20 @@ public class Core {
 
 	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
 	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		//Register ModRecipes
-		ModRecipes.init();
+		// Register recipes but only if IC2 is not present
+//		if (!Loader.isModLoaded("ic2"))
+			ModRecipes.init();
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
+	public void init(FMLInitializationEvent event) {
 
 		ModLoot.init();
 		MinecraftForge.EVENT_BUS.register(new ModLoot());
 		ModSounds.init();
 		
 		// Compat
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.init(event);
-		}
+		CompatManager.INSTANCE.compatModules.forEach(compatModule -> compatModule.init(event));
 		
 		// Client only init, needs to be done before parts system
 		proxy.init(event);
@@ -188,17 +185,13 @@ public class Core {
 	@Mod.EventHandler
 	public void postinit(FMLPostInitializationEvent event) throws Exception {
 		// Has to be done here as Buildcraft registers their recipes late
-		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
-			compatModule.postInit(event);
-		}
+		CompatManager.INSTANCE.compatModules.forEach(compatModule -> compatModule.postInit(event));
+
 		proxy.postInit(event);
 
+//		if (!Loader.isModLoaded("ic2"))
 		ModRecipes.postInit();
 		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
-
-		// RecipeHandler.scanForDupeRecipes();
-		// RecipeConfigManager.save();
-		//recipeCompact.saveMissingItems(configDir);
 	}
 
 	@Mod.EventHandler

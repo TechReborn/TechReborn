@@ -34,6 +34,7 @@ public class RecipeCategoryUids {
 	public static final String INDUSTRIAL_GRINDER = "TechReborn.IndustrialGrinder";
 	public static final String IMPLOSION_COMPRESSOR = "TechReborn.ImplosionCompressor";
 	public static final String INDUSTRIAL_ELECTROLYZER = "TechReborn.IndustrialElectrolyzer";
+	public static final String PLATE_BENDING_MACHINE = "TechReborn.PlateBendingMachine";
 	public static final String ROLLING_MACHINE = "TechReborn.RollingMachine";
 	public static final String VACUUM_FREEZER = "TechReborn.VacuumFreezer";
 	public static final String GRINDER = "TechReborn.Grinder";
@@ -45,5 +46,6 @@ public class RecipeCategoryUids {
 	public static final String FLUID_REPLICATOR = "TechReborn.FluidReplicator";
 
 	private RecipeCategoryUids() {
+		// NO-OP
 	}
 }
