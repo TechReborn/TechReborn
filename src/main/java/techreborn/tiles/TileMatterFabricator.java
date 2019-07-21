@@ -29,19 +29,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModItems;
-import techreborn.items.ingredients.ItemParts;
 import techreborn.lib.ModInfo;
+import techreborn.utils.OreDictUtils;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileMatterFabricator extends TilePowerAcceptor
@@ -112,22 +111,12 @@ public class TileMatterFabricator extends TilePowerAcceptor
 	}
 
 	public int getValue(ItemStack itemStack) {
-		if (itemStack.getItem() == ModItems.PARTS
-				&& itemStack.getItemDamage() == ItemParts.getPartByName("scrap").getItemDamage()) {
-			return 200;
-		} else if (itemStack.getItem() == ModItems.SCRAP_BOX) {
-			return 2000;
-		}
-		if (IC2Duplicates.SCRAP.hasIC2Stack()) {
-			if (ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP.getIc2Stack(), true, true, true)) {
-				return 200;
-			}
-		}
-		if (IC2Duplicates.SCRAP_BOX.hasIC2Stack()) {
-			if (ItemUtils.isInputEqual(itemStack, IC2Duplicates.SCRAP_BOX.getIc2Stack(), true, true, true)) {
-				return 2000;
-			}
-		}
+		if (OreDictUtils.isOre(itemStack, "itemScrap") ||
+			OreDictUtils.isOre(itemStack, "materialScrap")) return 200;
+
+		if (OreDictUtils.isOre(itemStack, "itemScrapBox") ||
+			OreDictUtils.isOre(itemStack, "materialScrapBox")) return 2000;
+
 		return 0;
 	}
 
