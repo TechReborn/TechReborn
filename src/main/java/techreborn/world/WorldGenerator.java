@@ -56,10 +56,10 @@ public class WorldGenerator {
 				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
 
 			} else if (biome.getCategory() == Category.THEEND) {
-				// addOre(biome, IS_ENDSTONE, TRContent.Ores.PERIDOT);
-				// addOre(biome, IS_ENDSTONE, TRContent.Ores.SHELDONITE);
-				// addOre(biome, IS_ENDSTONE, TRContent.Ores.SODALITE);
-				// addOre(biome, IS_ENDSTONE, TRContent.Ores.TUNGSTEN);
+//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.PERIDOT);
+//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SHELDONITE);
+//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SODALITE);
+//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.TUNGSTEN);
 			} else {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
