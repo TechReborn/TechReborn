@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:iridium_storage_block"
+    }
+  ],
+  "result": {
+    "item": "techreborn:iridium_ingot",
+    "count": 9
+  }
+}

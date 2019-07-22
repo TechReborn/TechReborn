@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:tungsten_storage_block"
+    }
+  ],
+  "result": {
+    "item": "techreborn:tungsten_ingot",
+    "count": 9
+  }
+}

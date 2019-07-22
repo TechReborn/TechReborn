@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:lead_storage_block"
+    }
+  ],
+  "result": {
+    "item": "techreborn:lead_ingot",
+    "count": 9
+  }
+}

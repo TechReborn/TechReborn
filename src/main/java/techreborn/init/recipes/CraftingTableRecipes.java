@@ -40,14 +40,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 	}
 
 	static void registerCompressionRecipes() {
-//		for (String name : BlockStorage.types) {
-//			if (OreUtil.hasIngot(name)) {
-//				registerShapeless(getMaterial(name, 9, Type.INGOT), BlockStorage.getStorageBlockByName(name));
-//			} else if (OreUtil.hasGem(name)) {
-//				registerShaped(BlockStorage.getStorageBlockByName(name), "AAA", "AAA", "AAA", 'A', "gem" + StringUtils.toFirstCapital(name));
-//				registerShapeless(getMaterial(name, 9, Type.GEM), BlockStorage.getStorageBlockByName(name));
-//			}
-//		}
 		
 //		for (String block : BlockStorage2.types){
 //			block = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, block);

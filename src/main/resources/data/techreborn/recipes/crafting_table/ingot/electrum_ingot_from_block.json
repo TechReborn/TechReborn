@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:electrum_storage_block"
+    }
+  ],
+  "result": {
+    "item": "techreborn:electrum_ingot",
+    "count": 9
+  }
+}

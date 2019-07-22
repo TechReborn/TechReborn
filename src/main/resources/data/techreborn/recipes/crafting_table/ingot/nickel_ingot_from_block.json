@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:nickel_storage_block"
+    }
+  ],
+  "result": {
+    "item": "techreborn:nickel_ingot",
+    "count": 9
+  }
+}
