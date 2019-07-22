@@ -140,11 +140,11 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
+				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this, syncID);
 	}
 
 }

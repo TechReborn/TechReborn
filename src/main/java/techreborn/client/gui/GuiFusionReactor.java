@@ -51,8 +51,8 @@ import java.util.Optional;
 public class GuiFusionReactor extends GuiBase {
 	TileFusionControlComputer tile;
 
-	public GuiFusionReactor(final PlayerEntity player, final TileFusionControlComputer tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiFusionReactor(int syncID, final PlayerEntity player, final TileFusionControlComputer tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

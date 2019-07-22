@@ -441,13 +441,13 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25).slot(3, 28, 43).slot(4, 46, 43)
 				.slot(5, 64, 43).slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61).outputSlot(9, 145, 42)
 				.outputSlot(10, 145, 70).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
 				.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
-				.syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);
+				.syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	@Override

@@ -81,9 +81,9 @@ public class TileImplosionCompressor extends TileGenericMachine	implements ICont
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
-				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
+				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 }

@@ -40,8 +40,8 @@ public class GuiIronFurnace extends GuiBase {
 
 	TileIronFurnace furnace;
 
-	public GuiIronFurnace(final PlayerEntity player, final TileIronFurnace furnace) {
-		super(player, furnace,  furnace.createContainer(player));
+	public GuiIronFurnace(int syncID, final PlayerEntity player, final TileIronFurnace furnace) {
+		super(player, furnace,  furnace.createContainer(syncID, player));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
 		this.furnace = furnace;

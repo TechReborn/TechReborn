@@ -34,8 +34,8 @@ public class GuiIDSU extends GuiBase {
 
 	TileInterdimensionalSU idsu;
 
-	public GuiIDSU(PlayerEntity player, TileInterdimensionalSU tileIDSU) {
-		super(player, tileIDSU, tileIDSU.createContainer(player));
+	public GuiIDSU(int syncID, PlayerEntity player, TileInterdimensionalSU tileIDSU) {
+		super(player, tileIDSU, tileIDSU.createContainer(syncID, player));
 		idsu = tileIDSU;
 	}
 

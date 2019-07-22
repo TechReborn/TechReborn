@@ -33,8 +33,8 @@ public class GuiThermalGenerator extends GuiBase {
 
 	TileThermalGenerator tile;
 
-	public GuiThermalGenerator(final PlayerEntity player, final TileThermalGenerator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiThermalGenerator(int syncID, final PlayerEntity player, final TileThermalGenerator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

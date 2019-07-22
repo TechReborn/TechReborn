@@ -50,9 +50,9 @@ public class TileQuantumChest extends TileTechStorageBase implements IContainerP
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this);
+			.tile(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
 }

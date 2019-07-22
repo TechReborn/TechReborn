@@ -144,10 +144,10 @@ public class TileQuantumTank extends TileMachineBase
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).addInventory()
-			.create(this);
+			.create(this, syncID);
 	}
 
 	@Nullable

@@ -38,8 +38,8 @@ public class GuiAESU extends GuiBase {
 
 	TileAdjustableSU tile;
 
-	public GuiAESU(final PlayerEntity player, final TileAdjustableSU aesu) {
-		super(player, aesu, aesu.createContainer(player));
+	public GuiAESU(int syncID, final PlayerEntity player, final TileAdjustableSU aesu) {
+		super(player, aesu, aesu.createContainer(syncID, player));
 		this.tile = aesu;
 	}
 

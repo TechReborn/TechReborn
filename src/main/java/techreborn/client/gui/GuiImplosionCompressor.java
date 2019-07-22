@@ -42,8 +42,8 @@ public class GuiImplosionCompressor extends GuiBase {
 
 	TileImplosionCompressor tile;
 
-	public GuiImplosionCompressor(final PlayerEntity player, final TileImplosionCompressor tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiImplosionCompressor(int syncID, final PlayerEntity player, final TileImplosionCompressor tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

@@ -43,8 +43,8 @@ public class GuiIndustrialSawmill extends GuiBase {
 
 	TileIndustrialSawmill tile;
 
-	public GuiIndustrialSawmill(final PlayerEntity player, final TileIndustrialSawmill tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiIndustrialSawmill(int syncID, final PlayerEntity player, final TileIndustrialSawmill tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

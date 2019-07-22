@@ -216,9 +216,9 @@ public class TileElectricFurnace extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this);
+				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this, syncID);
 	}
 }

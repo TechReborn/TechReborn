@@ -42,8 +42,8 @@ public class TileLowVoltageSU extends TileEnergyStorage implements IContainerPro
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("batbox").player(player.inventory).inventory().hotbar().addInventory()
-			.tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create(this);
+			.tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

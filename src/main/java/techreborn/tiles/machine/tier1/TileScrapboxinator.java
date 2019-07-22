@@ -61,9 +61,9 @@ public class TileScrapboxinator extends TileGenericMachine implements IContainer
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).filterSlot(0, 55, 45, stack -> stack.getItem() == TRContent.SCRAP_BOX).outputSlot(1, 101, 45)
-				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
+				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 }

@@ -40,8 +40,8 @@ public class GuiAlloyFurnace extends AbstractContainerScreen<BuiltContainer> {
 
 	TileIronAlloyFurnace alloyfurnace;
 
-	public GuiAlloyFurnace(final PlayerEntity player, final TileIronAlloyFurnace alloyFurnace) {
-		super(alloyFurnace.createContainer(player), player.inventory, new LiteralText("techreborn.alloy_furnace"));
+	public GuiAlloyFurnace(int syncID, final PlayerEntity player, final TileIronAlloyFurnace alloyFurnace) {
+		super(alloyFurnace.createContainer(syncID, player), player.inventory, new LiteralText("techreborn.alloy_furnace"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
 		this.alloyfurnace = alloyFurnace;

@@ -44,8 +44,8 @@ public class GuiAutoCrafting extends GuiBase {
 	boolean showGui = true;
 	TileAutoCraftingTable tileAutoCraftingTable;
 
-	public GuiAutoCrafting(PlayerEntity player, TileAutoCraftingTable tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiAutoCrafting(int syncID, PlayerEntity player, TileAutoCraftingTable tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tileAutoCraftingTable = tile;
 	}
 

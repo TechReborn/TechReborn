@@ -167,10 +167,10 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-				.syncEnergyValue().syncIntegerValue(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this);
+				.syncEnergyValue().syncIntegerValue(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this, syncID);
 	}
 
 	@Override

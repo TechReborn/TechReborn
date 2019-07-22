@@ -32,8 +32,8 @@ public class GuiGenerator extends GuiBase {
 
 	TileSolidFuelGenerator tile;
 
-	public GuiGenerator(final PlayerEntity player, final TileSolidFuelGenerator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiGenerator(int syncID, final PlayerEntity player, final TileSolidFuelGenerator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

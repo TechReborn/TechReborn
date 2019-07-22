@@ -144,11 +144,11 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
 				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
+				.addInventory().create(this, syncID);
 	}
 
 }

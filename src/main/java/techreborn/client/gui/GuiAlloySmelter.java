@@ -33,8 +33,8 @@ public class GuiAlloySmelter extends GuiBase {
 
 	TileAlloySmelter tile;
 
-	public GuiAlloySmelter(final PlayerEntity player, final TileAlloySmelter tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiAlloySmelter(int syncID, final PlayerEntity player, final TileAlloySmelter tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 
 	}

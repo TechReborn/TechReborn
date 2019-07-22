@@ -33,8 +33,8 @@ public class GuiGasTurbine extends GuiBase {
 
 	TileGasTurbine tile;
 
-	public GuiGasTurbine(final PlayerEntity player, final TileGasTurbine tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiGasTurbine(int syncID, final PlayerEntity player, final TileGasTurbine tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 	

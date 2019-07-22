@@ -44,8 +44,8 @@ public class GuiBlastFurnace extends GuiBase {
 	public TileIndustrialBlastFurnace tile;
 	boolean hasMultiBlock;
 
-	public GuiBlastFurnace(final PlayerEntity player, final TileIndustrialBlastFurnace tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiBlastFurnace(int syncID, final PlayerEntity player, final TileIndustrialBlastFurnace tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

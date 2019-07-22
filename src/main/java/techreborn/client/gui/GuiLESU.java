@@ -34,8 +34,8 @@ public class GuiLESU extends GuiBase {
 
 	TileLapotronicSU tile;
 
-	public GuiLESU(final PlayerEntity player, final TileLapotronicSU tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiLESU(int syncID, final PlayerEntity player, final TileLapotronicSU tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

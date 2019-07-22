@@ -33,8 +33,8 @@ public class GuiAssemblingMachine extends GuiBase {
 
 	TileAssemblingMachine tile;
 
-	public GuiAssemblingMachine(final PlayerEntity player, final TileAssemblingMachine tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiAssemblingMachine(int syncID, final PlayerEntity player, final TileAssemblingMachine tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

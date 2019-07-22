@@ -33,8 +33,8 @@ public class GuiChemicalReactor extends GuiBase {
 
 	TileChemicalReactor tile;
 
-	public GuiChemicalReactor(final PlayerEntity player, final TileChemicalReactor tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiChemicalReactor(int syncID, final PlayerEntity player, final TileChemicalReactor tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

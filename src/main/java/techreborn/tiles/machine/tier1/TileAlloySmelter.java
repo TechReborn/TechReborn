@@ -56,7 +56,7 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.filterSlot(0, 34, 47,
@@ -64,6 +64,6 @@ public class TileAlloySmelter extends TileGenericMachine implements IContainerPr
 			.filterSlot(1, 126, 47,
 			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(1).test(stack)))
 			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
-			.create(this);
+			.create(this, syncID);
 	}
 }

@@ -44,8 +44,8 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 	private ButtonWidget minusOneButton;
 	private ButtonWidget minusTenButton;
 
-	public GuiChunkLoader(final PlayerEntity player, final TileChunkLoader chunkLoader) {
-		super(chunkLoader.createContainer(player), player.inventory, new LiteralText("techreborn.chunkloader"));
+	public GuiChunkLoader(int syncID, final PlayerEntity player, final TileChunkLoader chunkLoader) {
+		super(chunkLoader.createContainer(syncID, player), player.inventory, new LiteralText("techreborn.chunkloader"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
 		this.chunkloader = chunkLoader;

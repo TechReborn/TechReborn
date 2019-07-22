@@ -142,12 +142,12 @@ public class TileIndustrialGrinder extends TileGenericMachine implements IContai
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		// fluidSlot first to support automation and shift-click
 		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
-				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
+				.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 
 }

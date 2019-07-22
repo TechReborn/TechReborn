@@ -43,8 +43,8 @@ public class GuiDistillationTower extends GuiBase {
 	
 	public TileDistillationTower tile;
 
-	public GuiDistillationTower(final PlayerEntity player, final TileDistillationTower tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiDistillationTower(int syncID, final PlayerEntity player, final TileDistillationTower tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 	

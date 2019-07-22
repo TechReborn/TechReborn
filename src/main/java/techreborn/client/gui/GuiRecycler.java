@@ -33,8 +33,8 @@ public class GuiRecycler extends GuiBase {
 
 	TileRecycler tile;
 
-	public GuiRecycler(final PlayerEntity player, final TileRecycler tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiRecycler(int syncID, final PlayerEntity player, final TileRecycler tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

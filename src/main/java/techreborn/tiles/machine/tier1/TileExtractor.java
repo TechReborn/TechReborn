@@ -56,9 +56,9 @@ public class TileExtractor extends TileGenericMachine implements IContainerProvi
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().tile(this)
 				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
+				.addInventory().create(this, syncID);
 	}
 }

@@ -33,8 +33,8 @@ public class GuiSemifluidGenerator extends GuiBase {
 
 	TileSemiFluidGenerator tile;
 
-	public GuiSemifluidGenerator(final PlayerEntity player, final TileSemiFluidGenerator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiSemifluidGenerator(int syncID, final PlayerEntity player, final TileSemiFluidGenerator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 	

@@ -43,8 +43,8 @@ public class GuiIndustrialGrinder extends GuiBase {
 
 	TileIndustrialGrinder tile;
 
-	public GuiIndustrialGrinder(final PlayerEntity player, final TileIndustrialGrinder tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiIndustrialGrinder(int syncID, final PlayerEntity player, final TileIndustrialGrinder tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

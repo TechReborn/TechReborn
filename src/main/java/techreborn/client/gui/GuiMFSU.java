@@ -34,8 +34,8 @@ public class GuiMFSU extends GuiBase {
 
 	TileHighVoltageSU mfsu;
 
-	public GuiMFSU(final PlayerEntity player, final TileHighVoltageSU mfsu) {
-		super(player, mfsu, mfsu.createContainer(player));
+	public GuiMFSU(int syncID, final PlayerEntity player, final TileHighVoltageSU mfsu) {
+		super(player, mfsu, mfsu.createContainer(syncID, player));
 		this.mfsu = mfsu;
 	}
 

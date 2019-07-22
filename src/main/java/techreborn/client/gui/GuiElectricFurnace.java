@@ -33,8 +33,8 @@ public class GuiElectricFurnace extends GuiBase {
 
 	TileElectricFurnace tile;
 
-	public GuiElectricFurnace(final PlayerEntity player, final TileElectricFurnace tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiElectricFurnace(int syncID, final PlayerEntity player, final TileElectricFurnace tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

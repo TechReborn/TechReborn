@@ -110,10 +110,10 @@ public class TileInterdimensionalSU extends TileEnergyStorage implements IContai
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().addInventory().create(this);
+			.syncEnergyValue().addInventory().create(this, syncID);
 	}
 
 	@Override

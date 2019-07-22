@@ -33,8 +33,8 @@ public class GuiQuantumTank extends GuiBase {
 
 	TileQuantumTank quantumTank;
 
-	public GuiQuantumTank(final PlayerEntity player, final TileQuantumTank quantumTank) {
-		super(player, quantumTank, quantumTank.createContainer(player));
+	public GuiQuantumTank(int syncID, final PlayerEntity player, final TileQuantumTank quantumTank) {
+		super(player, quantumTank, quantumTank.createContainer(syncID, player));
 		this.quantumTank = quantumTank;
 	}
 

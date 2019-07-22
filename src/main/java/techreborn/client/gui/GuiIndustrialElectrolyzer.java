@@ -33,8 +33,8 @@ public class GuiIndustrialElectrolyzer extends GuiBase {
 	
 	TileIndustrialElectrolyzer tile;
 
-	public GuiIndustrialElectrolyzer(final PlayerEntity player, final TileIndustrialElectrolyzer tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiIndustrialElectrolyzer(int syncID, final PlayerEntity player, final TileIndustrialElectrolyzer tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 	

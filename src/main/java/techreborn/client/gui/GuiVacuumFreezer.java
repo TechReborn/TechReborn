@@ -41,8 +41,8 @@ public class GuiVacuumFreezer extends GuiBase {
 
 	TileVacuumFreezer tile;
 
-	public GuiVacuumFreezer(final PlayerEntity player, final TileVacuumFreezer tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiVacuumFreezer(int syncID, final PlayerEntity player, final TileVacuumFreezer tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

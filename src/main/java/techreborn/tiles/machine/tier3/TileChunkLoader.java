@@ -99,8 +99,8 @@ public class TileChunkLoader extends TilePowerAcceptor implements IToolDrop, Inv
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("chunkloader").player(player.inventory).inventory(8,84).hotbar(8,142).addInventory()
-			.create(this);
+			.create(this, syncID);
 	}
 }

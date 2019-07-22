@@ -62,14 +62,14 @@ public class TileIndustrialCentrifuge extends TileGenericMachine implements ICon
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
 			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
-			.syncCrafterValue().addInventory().create(this);
+			.syncCrafterValue().addInventory().create(this, syncID);
 	}
 	
 	// IListInfoProvider

@@ -46,8 +46,8 @@ public class GuiFluidReplicator extends GuiBase {
 
 	TileFluidReplicator tile;
 
-	public GuiFluidReplicator(final PlayerEntity player, final TileFluidReplicator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiFluidReplicator(int syncID, final PlayerEntity player, final TileFluidReplicator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

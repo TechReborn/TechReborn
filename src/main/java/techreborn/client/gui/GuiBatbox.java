@@ -34,8 +34,8 @@ public class GuiBatbox extends GuiBase {
 
 	TileLowVoltageSU tile;
 
-	public GuiBatbox(final PlayerEntity player, final TileLowVoltageSU tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiBatbox(int syncID, final PlayerEntity player, final TileLowVoltageSU tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

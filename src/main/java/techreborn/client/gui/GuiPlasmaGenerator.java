@@ -45,8 +45,8 @@ public class GuiPlasmaGenerator extends GuiBase {
 	 */
 	TilePlasmaGenerator tile;
 
-	public GuiPlasmaGenerator(final PlayerEntity player, final TilePlasmaGenerator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final TilePlasmaGenerator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 	

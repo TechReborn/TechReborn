@@ -36,8 +36,8 @@ public class GuiDieselGenerator extends GuiBase {
 
 	TileDieselGenerator tile;
 
-	public GuiDieselGenerator(final PlayerEntity player, final TileDieselGenerator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiDieselGenerator(int syncID, final PlayerEntity player, final TileDieselGenerator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 	

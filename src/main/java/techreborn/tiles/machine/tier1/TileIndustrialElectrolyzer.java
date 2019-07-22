@@ -58,12 +58,12 @@ public class TileIndustrialElectrolyzer extends TileGenericMachine implements IC
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("industrialelectrolyzer").player(player.inventory).inventory().hotbar()
 			.addInventory().tile(this)
 			.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCell.getEmptyCell(1), true, true))
 			.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
-			.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this);
+			.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 }

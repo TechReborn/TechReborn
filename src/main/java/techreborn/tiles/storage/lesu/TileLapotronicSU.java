@@ -133,10 +133,10 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().tile(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
 				.syncIntegerValue(this::getOutputRate, this::setOutputRate)
-				.syncIntegerValue(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this);
+				.syncIntegerValue(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
 	}
 }

@@ -32,8 +32,8 @@ public class GuiDigitalChest extends GuiBase {
 
 	TileDigitalChest tile;
 
-	public GuiDigitalChest(final PlayerEntity player, final TileDigitalChest tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiDigitalChest(int syncID, final PlayerEntity player, final TileDigitalChest tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

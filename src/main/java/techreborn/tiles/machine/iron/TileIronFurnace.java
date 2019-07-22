@@ -221,11 +221,11 @@ public class TileIronFurnace extends TileMachineBase
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 				.addInventory().tile(this).fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 				.syncIntegerValue(this::getProgress, this::setProgress)
-				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this);
+				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
 	}
 }

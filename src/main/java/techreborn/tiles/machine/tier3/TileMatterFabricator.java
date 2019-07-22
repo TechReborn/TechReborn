@@ -208,11 +208,11 @@ public class TileMatterFabricator extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("matterfabricator").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
-				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this);
+				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }

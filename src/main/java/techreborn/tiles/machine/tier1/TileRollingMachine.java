@@ -375,7 +375,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 	}
 
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("rollingmachine").player(player.inventory)
 			.inventory().hotbar()
 			.addInventory().tile(this)
@@ -385,7 +385,7 @@ public class TileRollingMachine extends TilePowerAcceptor
 			.onCraft(inv -> this.inventory.setInvStack(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
-			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);
+			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	//Easyest way to sync back to the client

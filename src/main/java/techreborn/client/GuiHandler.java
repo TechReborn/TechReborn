@@ -64,104 +64,102 @@ public class GuiHandler {
 
 	public static void register(){
 
-		EGui.stream().forEach(gui -> ContainerProviderRegistry.INSTANCE.registerFactory(gui.getID(), (i, identifier, playerEntity, packetByteBuf) -> {
+		EGui.stream().forEach(gui -> ContainerProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> {
 			final BlockEntity tile = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			BuiltContainer container = ((IContainerProvider) tile).createContainer(playerEntity);
-			((ContainerExtensions)container).setSyncID(i);
-			return container;
+			return ((IContainerProvider) tile).createContainer(syncID, playerEntity);
 		}));
 
-		EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (i, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos())));
+		EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos(), syncID)));
 	}
 
-	private static AbstractContainerScreen getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos) {
+	private static AbstractContainerScreen getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
 		final BlockEntity tile = player.world.getBlockEntity(pos);
 
 		switch (gui) {
 			case AESU:
-				return new GuiAESU(player, (TileAdjustableSU) tile);
+				return new GuiAESU(syncID, player, (TileAdjustableSU) tile);
 			case ALLOY_FURNACE:
-				return new GuiAlloyFurnace(player, (TileIronAlloyFurnace) tile);
+				return new GuiAlloyFurnace(syncID, player, (TileIronAlloyFurnace) tile);
 			case ALLOY_SMELTER:
-				return new GuiAlloySmelter(player, (TileAlloySmelter) tile);
+				return new GuiAlloySmelter(syncID, player, (TileAlloySmelter) tile);
 			case ASSEMBLING_MACHINE:
-				return new GuiAssemblingMachine(player, (TileAssemblingMachine) tile);
+				return new GuiAssemblingMachine(syncID, player, (TileAssemblingMachine) tile);
 			case LOW_VOLTAGE_SU:
-				return new GuiBatbox(player, (TileLowVoltageSU) tile);
+				return new GuiBatbox(syncID, player, (TileLowVoltageSU) tile);
 			case BLAST_FURNACE:
-				return new GuiBlastFurnace(player, (TileIndustrialBlastFurnace) tile);
+				return new GuiBlastFurnace(syncID, player, (TileIndustrialBlastFurnace) tile);
 			case CENTRIFUGE:
-				return new GuiCentrifuge(player, (TileIndustrialCentrifuge) tile);
+				return new GuiCentrifuge(syncID, player, (TileIndustrialCentrifuge) tile);
 			case CHARGEBENCH:
-				return new GuiChargeBench(player, (TileChargeOMat) tile);
+				return new GuiChargeBench(syncID, player, (TileChargeOMat) tile);
 			case CHEMICAL_REACTOR:
-				return new GuiChemicalReactor(player, (TileChemicalReactor) tile);
+				return new GuiChemicalReactor(syncID, player, (TileChemicalReactor) tile);
 			case CHUNK_LOADER:
-				return new GuiChunkLoader(player, (TileChunkLoader) tile);
+				return new GuiChunkLoader(syncID, player, (TileChunkLoader) tile);
 			case COMPRESSOR:
-				return new GuiCompressor(player, (TileCompressor) tile);
+				return new GuiCompressor(syncID, player, (TileCompressor) tile);
 			case DESTRUCTOPACK:
 				return new GuiDestructoPack(new ContainerDestructoPack(player));
 			case DIESEL_GENERATOR:
-				return new GuiDieselGenerator(player, (TileDieselGenerator) tile);
+				return new GuiDieselGenerator(syncID, player, (TileDieselGenerator) tile);
 			case DIGITAL_CHEST:
-				return new GuiDigitalChest(player, (TileDigitalChest) tile);
+				return new GuiDigitalChest(syncID, player, (TileDigitalChest) tile);
 			case ELECTRIC_FURNACE:
-				return new GuiElectricFurnace(player, (TileElectricFurnace) tile);
+				return new GuiElectricFurnace(syncID, player, (TileElectricFurnace) tile);
 			case EXTRACTOR:
-				return new GuiExtractor(player, (TileExtractor) tile);
+				return new GuiExtractor(syncID, player, (TileExtractor) tile);
 			case FUSION_CONTROLLER:
-				return new GuiFusionReactor(player, (TileFusionControlComputer) tile);
+				return new GuiFusionReactor(syncID, player, (TileFusionControlComputer) tile);
 			case GAS_TURBINE:
-				return new GuiGasTurbine(player, (TileGasTurbine) tile);
+				return new GuiGasTurbine(syncID, player, (TileGasTurbine) tile);
 			case GENERATOR:
-				return new GuiGenerator(player, (TileSolidFuelGenerator) tile);
+				return new GuiGenerator(syncID, player, (TileSolidFuelGenerator) tile);
 			case GRINDER:
-				return new GuiGrinder(player, (TileGrinder) tile);
+				return new GuiGrinder(syncID, player, (TileGrinder) tile);
 			case IDSU:
-				return new GuiIDSU(player, (TileInterdimensionalSU) tile);
+				return new GuiIDSU(syncID, player, (TileInterdimensionalSU) tile);
 			case IMPLOSION_COMPRESSOR:
-				return new GuiImplosionCompressor(player, (TileImplosionCompressor) tile);
+				return new GuiImplosionCompressor(syncID, player, (TileImplosionCompressor) tile);
 			case INDUSTRIAL_ELECTROLYZER:
-				return new GuiIndustrialElectrolyzer(player, (TileIndustrialElectrolyzer) tile);
+				return new GuiIndustrialElectrolyzer(syncID, player, (TileIndustrialElectrolyzer) tile);
 			case INDUSTRIAL_GRINDER:
-				return new GuiIndustrialGrinder(player, (TileIndustrialGrinder) tile);
+				return new GuiIndustrialGrinder(syncID, player, (TileIndustrialGrinder) tile);
 			case IRON_FURNACE:
-				return new GuiIronFurnace(player, (TileIronFurnace) tile);
+				return new GuiIronFurnace(syncID, player, (TileIronFurnace) tile);
 			case LESU:
-				return new GuiLESU(player, (TileLapotronicSU) tile);
+				return new GuiLESU(syncID, player, (TileLapotronicSU) tile);
 			case MATTER_FABRICATOR:
-				return new GuiMatterFabricator(player, (TileMatterFabricator) tile);
+				return new GuiMatterFabricator(syncID, player, (TileMatterFabricator) tile);
 			case MEDIUM_VOLTAGE_SU:
-				return new GuiMFE(player, (TileMediumVoltageSU) tile);
+				return new GuiMFE(syncID, player, (TileMediumVoltageSU) tile);
 			case HIGH_VOLTAGE_SU:
-				return new GuiMFSU(player, (TileHighVoltageSU) tile);
+				return new GuiMFSU(syncID, player, (TileHighVoltageSU) tile);
 			case QUANTUM_CHEST:
-				return new GuiQuantumChest(player, (TileQuantumChest) tile);
+				return new GuiQuantumChest(syncID, player, (TileQuantumChest) tile);
 			case QUANTUM_TANK:
-				return new GuiQuantumTank(player, (TileQuantumTank) tile);
+				return new GuiQuantumTank(syncID, player, (TileQuantumTank) tile);
 			case RECYCLER:
-				return new GuiRecycler(player, (TileRecycler) tile);
+				return new GuiRecycler(syncID, player, (TileRecycler) tile);
 			case ROLLING_MACHINE:
-				return new GuiRollingMachine(player, (TileRollingMachine) tile);
+				return new GuiRollingMachine(syncID, player, (TileRollingMachine) tile);
 			case SAWMILL:
-				return new GuiIndustrialSawmill(player, (TileIndustrialSawmill) tile);
+				return new GuiIndustrialSawmill(syncID, player, (TileIndustrialSawmill) tile);
 			case SCRAPBOXINATOR:
-				return new GuiScrapboxinator(player, (TileScrapboxinator) tile);
+				return new GuiScrapboxinator(syncID, player, (TileScrapboxinator) tile);
 			case SEMIFLUID_GENERATOR:
-				return new GuiSemifluidGenerator(player, (TileSemiFluidGenerator) tile);
+				return new GuiSemifluidGenerator(syncID, player, (TileSemiFluidGenerator) tile);
 			case THERMAL_GENERATOR:
-				return new GuiThermalGenerator(player, (TileThermalGenerator) tile);
+				return new GuiThermalGenerator(syncID, player, (TileThermalGenerator) tile);
 			case VACUUM_FREEZER:
-				return new GuiVacuumFreezer(player, (TileVacuumFreezer) tile);
+				return new GuiVacuumFreezer(syncID, player, (TileVacuumFreezer) tile);
 			case AUTO_CRAFTING_TABLE:
-				return new GuiAutoCrafting(player, (TileAutoCraftingTable) tile);
+				return new GuiAutoCrafting(syncID, player, (TileAutoCraftingTable) tile);
 			case PLASMA_GENERATOR:
-				return new GuiPlasmaGenerator(player, (TilePlasmaGenerator) tile);
+				return new GuiPlasmaGenerator(syncID, player, (TilePlasmaGenerator) tile);
 			case DISTILLATION_TOWER:
-				return new GuiDistillationTower(player, (TileDistillationTower) tile);
+				return new GuiDistillationTower(syncID, player, (TileDistillationTower) tile);
 			case FLUID_REPLICATOR:
-				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
+				return new GuiFluidReplicator(syncID, player, (TileFluidReplicator) tile);
 			default:
 				break;
 

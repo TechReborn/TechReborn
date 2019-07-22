@@ -32,8 +32,8 @@ public class GuiQuantumChest extends GuiBase {
 
 	TileQuantumChest quantumChest;
 
-	public GuiQuantumChest(final PlayerEntity player, final TileQuantumChest quantumChest) {
-		super(player, quantumChest, quantumChest.createContainer(player));
+	public GuiQuantumChest(int syncID, final PlayerEntity player, final TileQuantumChest quantumChest) {
+		super(player, quantumChest, quantumChest.createContainer(syncID, player));
 		this.quantumChest = quantumChest;
 	}
 

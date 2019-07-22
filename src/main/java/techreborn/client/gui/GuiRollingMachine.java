@@ -35,8 +35,8 @@ public class GuiRollingMachine extends GuiBase {
 
 	TileRollingMachine rollingMachine;
 
-	public GuiRollingMachine(final PlayerEntity player, final TileRollingMachine tileRollingmachine) {
-		super(player, tileRollingmachine,  tileRollingmachine.createContainer(player));
+	public GuiRollingMachine(int syncID, final PlayerEntity player, final TileRollingMachine tileRollingmachine) {
+		super(player, tileRollingmachine,  tileRollingmachine.createContainer(syncID, player));
 		this.rollingMachine = tileRollingmachine;
 	}
 

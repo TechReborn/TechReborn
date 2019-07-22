@@ -379,7 +379,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
 				.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
@@ -387,7 +387,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
 				.syncIntegerValue(this::getSize, this::setSize)
 				.syncIntegerValue(this::getState, this::setState)
-				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this);
+				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this, syncID);
 	}
 
 	public int getCoilStatus() {

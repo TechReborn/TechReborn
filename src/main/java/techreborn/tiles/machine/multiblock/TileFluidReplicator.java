@@ -141,10 +141,10 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
-				.create(this);
+				.create(this, syncID);
 	}
 }

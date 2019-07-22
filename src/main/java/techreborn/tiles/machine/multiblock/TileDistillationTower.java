@@ -88,10 +88,10 @@ public class TileDistillationTower extends TileGenericMachine implements IContai
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(final PlayerEntity player) {
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("Distillationtower").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
+				.addInventory().create(this, syncID);
 	}
 }

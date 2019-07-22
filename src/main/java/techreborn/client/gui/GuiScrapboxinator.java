@@ -33,8 +33,8 @@ public class GuiScrapboxinator extends GuiBase {
 
 	TileScrapboxinator tile;
 
-	public GuiScrapboxinator(final PlayerEntity player, final TileScrapboxinator tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiScrapboxinator(int syncID, final PlayerEntity player, final TileScrapboxinator tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

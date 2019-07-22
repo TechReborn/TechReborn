@@ -34,8 +34,8 @@ public class GuiMFE extends GuiBase {
 
 	TileMediumVoltageSU mfe;
 
-	public GuiMFE(final PlayerEntity player, final TileMediumVoltageSU mfe) {
-		super(player, mfe, mfe.createContainer(player));
+	public GuiMFE(int syncID, final PlayerEntity player, final TileMediumVoltageSU mfe) {
+		super(player, mfe, mfe.createContainer(syncID, player));
 		this.mfe = mfe;
 	}
 

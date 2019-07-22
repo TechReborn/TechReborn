@@ -33,8 +33,8 @@ public class GuiExtractor extends GuiBase {
 
 	TileExtractor tile;
 
-	public GuiExtractor(final PlayerEntity player, final TileExtractor tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiExtractor(int syncID, final PlayerEntity player, final TileExtractor tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

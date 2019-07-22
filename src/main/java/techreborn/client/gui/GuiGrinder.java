@@ -33,8 +33,8 @@ public class GuiGrinder extends GuiBase {
 
 	TileGrinder tile;
 
-	public GuiGrinder(final PlayerEntity player, final TileGrinder tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiGrinder(int syncID, final PlayerEntity player, final TileGrinder tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 

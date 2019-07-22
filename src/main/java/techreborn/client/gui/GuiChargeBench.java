@@ -32,8 +32,8 @@ public class GuiChargeBench extends GuiBase {
 
 	TileChargeOMat tile;
 
-	public GuiChargeBench(final PlayerEntity player, final TileChargeOMat tile) {
-		super(player, tile, tile.createContainer(player));
+	public GuiChargeBench(int syncID, final PlayerEntity player, final TileChargeOMat tile) {
+		super(player, tile, tile.createContainer(syncID, player));
 		this.tile = tile;
 	}
 
