@@ -27,15 +27,15 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import techreborn.tiles.TileIndustrialCentrifuge;
+import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
 
 public class GuiCentrifuge extends GuiBase {
 
-	TileIndustrialCentrifuge tile;
+	IndustrialCentrifugeBlockEntity blockEntity;
 
-	public GuiCentrifuge(int syncID, final PlayerEntity player, final TileIndustrialCentrifuge tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiCentrifuge(int syncID, final PlayerEntity player, final IndustrialCentrifugeBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class GuiCentrifuge extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 61, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

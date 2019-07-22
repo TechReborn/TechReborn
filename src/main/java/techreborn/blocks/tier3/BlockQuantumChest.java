@@ -26,16 +26,16 @@ package techreborn.blocks.tier3;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.tier3.TileQuantumChest;
+import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
 
 public class BlockQuantumChest extends BlockMachineBase {
 	
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileQuantumChest();
+		return new QuantumChestBlockEntity();
 	}
 
 	@Override

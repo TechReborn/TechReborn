@@ -28,13 +28,13 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.storage.TileHighVoltageSU;
+import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
 
 public class GuiMFSU extends GuiBase {
 
-	TileHighVoltageSU mfsu;
+	HighVoltageSUBlockEntity mfsu;
 
-	public GuiMFSU(int syncID, final PlayerEntity player, final TileHighVoltageSU mfsu) {
+	public GuiMFSU(int syncID, final PlayerEntity player, final HighVoltageSUBlockEntity mfsu) {
 		super(player, mfsu, mfsu.createContainer(syncID, player));
 		this.mfsu = mfsu;
 	}

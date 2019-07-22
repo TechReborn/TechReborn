@@ -26,15 +26,15 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.tiles.TileDigitalChest;
+import techreborn.blockentity.DigitalChestBlockEntity;
 
 public class GuiDigitalChest extends GuiBase {
 
-	TileDigitalChest tile;
+	DigitalChestBlockEntity blockEntity;
 
-	public GuiDigitalChest(int syncID, final PlayerEntity player, final TileDigitalChest tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiDigitalChest(int syncID, final PlayerEntity player, final DigitalChestBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -51,14 +51,14 @@ public class GuiDigitalChest extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if (!tile.storedItem.isEmpty() && tile.inventory.getInvStack(1) != null) {
+		if (!blockEntity.storedItem.isEmpty() && blockEntity.inventory.getInvStack(1) != null) {
 			builder.drawBigBlueBar(this, 31, 43,
-				tile.storedItem.getCount() + tile.inventory.getInvStack(1).getCount(),
-				tile.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
+				blockEntity.storedItem.getCount() + blockEntity.inventory.getInvStack(1).getCount(),
+				blockEntity.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
 		}
-		if (tile.storedItem.isEmpty() && tile.inventory.getInvStack(1) != null) {
-			builder.drawBigBlueBar(this, 31, 43, tile.inventory.getInvStack(1).getCount(),
-				tile.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
+		if (blockEntity.storedItem.isEmpty() && blockEntity.inventory.getInvStack(1) != null) {
+			builder.drawBigBlueBar(this, 31, 43, blockEntity.inventory.getInvStack(1).getCount(),
+				blockEntity.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
 		}
 	}
 }

@@ -82,16 +82,16 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			try {
 				Block block = Block.getBlockFromItem(item);
 				if (block != null && (block instanceof BlockWithEntity || block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
-					BlockEntity tile = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
+					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
-					if (stack.hasTag() && stack.getTag().containsKey("tile_data")) {
-						CompoundTag tileData = stack.getTag().getCompound("tile_data");
-						tile.fromTag(tileData);
+					if (stack.hasTag() && stack.getTag().containsKey("blockEntity_data")) {
+						CompoundTag blockEntityData = stack.getTag().getCompound("blockEntity_data");
+						blockEntity.fromTag(blockEntityData);
 						hasData = true;
 						components.add(new LiteralText("Block data contained").formatted(Formatting.DARK_GREEN));
 					}
-					if (tile instanceof IListInfoProvider) {
-						((IListInfoProvider) tile).addInfo(components, false, hasData);
+					if (blockEntity instanceof IListInfoProvider) {
+						((IListInfoProvider) blockEntity).addInfo(components, false, hasData);
 					}
 				}
 			} catch (NullPointerException e) {

@@ -26,10 +26,10 @@ package techreborn.blocks.generator;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.generator.TilePlasmaGenerator;
+import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 
 /**
  * Block for Plasma Generator
@@ -38,7 +38,7 @@ public class BlockPlasmaGenerator extends BlockMachineBase {
 	
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TilePlasmaGenerator();
+		return new PlasmaGeneratorBlockEntity();
 	}
 
 	@Override

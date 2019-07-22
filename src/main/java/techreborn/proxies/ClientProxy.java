@@ -27,7 +27,7 @@ package techreborn.proxies;
 import net.minecraft.util.Formatting;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import reborncore.api.tile.IUpgradeable;
+import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.hud.StackInfoHUD;
 import techreborn.init.TRContent;
@@ -64,8 +64,8 @@ public class ClientProxy extends CommonProxy {
 	public String getUpgradeConfigText() {
 		if (MinecraftClient.getInstance().currentScreen instanceof GuiBase) {
 			GuiBase base = (GuiBase) MinecraftClient.getInstance().currentScreen;
-			if (base.tile instanceof IUpgradeable) {
-				if (((IUpgradeable) base.tile).canBeUpgraded()) {
+			if (base.blockEntity instanceof IUpgradeable) {
+				if (((IUpgradeable) base.blockEntity).canBeUpgraded()) {
 					return Formatting.LIGHT_PURPLE + "Right click to configure";
 				}
 			}

@@ -27,7 +27,7 @@ package techreborn.api.fluidreplicator;
 import net.minecraft.util.math.BlockPos;
 import reborncore.fluid.Fluid;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileFluidReplicator;
+import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nonnull;
@@ -105,19 +105,19 @@ public class FluidReplicatorRecipe implements Cloneable {
 		return false;
 	}
 	
-	public boolean canCraft(TileFluidReplicator tile) {
-		if (!tile.getMultiBlock()) {
+	public boolean canCraft(FluidReplicatorBlockEntity blockEntity) {
+		if (!blockEntity.getMultiBlock()) {
 			return false;
 		}
-		final BlockPos hole = tile.getPos().offset(tile.getFacing().getOpposite(), 2);
-		final Fluid fluid = techreborn.utils.FluidUtils.fluidFromBlock(tile.getWorld().getBlockState(hole).getBlock());
+		final BlockPos hole = blockEntity.getPos().offset(blockEntity.getFacing().getOpposite(), 2);
+		final Fluid fluid = techreborn.utils.FluidUtils.fluidFromBlock(blockEntity.getWorld().getBlockState(hole).getBlock());
 		if (fluid == null) {
 			return false;
 		}
 		if (!FluidUtils.fluidEquals(fluid, output)) {
 			return false;
 		}
-		final Fluid tankFluid = tile.tank.getFluidType();
+		final Fluid tankFluid = blockEntity.tank.getFluidType();
 		if (tankFluid != null && !FluidUtils.fluidEquals(tankFluid, fluid)) {
 			return false;
 		}
@@ -125,7 +125,7 @@ public class FluidReplicatorRecipe implements Cloneable {
 		return true;
 	}
 	
-	public boolean onCraft(TileFluidReplicator tile) {
+	public boolean onCraft(FluidReplicatorBlockEntity blockEntity) {
 		return true;
 	}
 	

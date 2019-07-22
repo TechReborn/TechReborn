@@ -26,10 +26,10 @@ package techreborn.blocks.generator;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.init.TRContent.SolarPanels;
-import techreborn.tiles.generator.TileSolarPanel;
+import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -45,7 +45,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 	
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileSolarPanel();
+		return new SolarPanelBlockEntity();
 	}
 
 	@Override

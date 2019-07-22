@@ -27,15 +27,15 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import techreborn.tiles.machine.tier1.TileScrapboxinator;
+import techreborn.blockentity.machine.tier1.ScrapboxinatorBlockEntity;
 
 public class GuiScrapboxinator extends GuiBase {
 
-	TileScrapboxinator tile;
+	ScrapboxinatorBlockEntity blockEntity;
 
-	public GuiScrapboxinator(int syncID, final PlayerEntity player, final TileScrapboxinator tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiScrapboxinator(int syncID, final PlayerEntity player, final ScrapboxinatorBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class GuiScrapboxinator extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

@@ -33,7 +33,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.init.TRContent;
-import techreborn.tiles.transformers.TileMVTransformer;
+import techreborn.blockentity.transformers.MVTransformerBlockEntity;
 
 /**
  * Created by modmuss50 on 16/03/2016.
@@ -46,7 +46,7 @@ public class BlockMVTransformer extends BlockTransformer {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileMVTransformer();
+		return new MVTransformerBlockEntity();
 	}
 	
 	@Override

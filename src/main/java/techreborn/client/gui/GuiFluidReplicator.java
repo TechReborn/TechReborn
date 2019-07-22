@@ -36,7 +36,7 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileFluidReplicator;
+import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 
 /**
  * @author drcrazy
@@ -44,11 +44,11 @@ import techreborn.tiles.machine.multiblock.TileFluidReplicator;
  */
 public class GuiFluidReplicator extends GuiBase {
 
-	TileFluidReplicator tile;
+	FluidReplicatorBlockEntity blockEntity;
 
-	public GuiFluidReplicator(int syncID, final PlayerEntity player, final TileFluidReplicator tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiFluidReplicator(int syncID, final PlayerEntity player, final FluidReplicatorBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
@@ -76,7 +76,7 @@ public class GuiFluidReplicator extends GuiBase {
 		drawSlot(124, 55, layer);
 		// JEI button
 		builder.drawJEIButton(this, 158, 5, layer);
-		if (tile.getMultiBlock()) {
+		if (blockEntity.getMultiBlock()) {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -86,16 +86,16 @@ public class GuiFluidReplicator extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawTank(this, 99, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (tile.getMultiBlock()) {
+		builder.drawTank(this, 99, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		if (blockEntity.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	// GuiScreen
@@ -118,12 +118,12 @@ public class GuiFluidReplicator extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							this.tile.getPos().getX()
-									- Direction.byId(this.tile.getFacingInt()).getOffsetX() * 2,
-							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- Direction.byId(this.tile.getFacingInt()).getOffsetZ() * 2);
+							this.blockEntity.getPos().getX()
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetX() * 2,
+							this.blockEntity.getPos().getY() - 1, this.blockEntity.getPos().getZ()
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

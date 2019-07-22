@@ -36,7 +36,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.SystemUtil;
 import net.minecraft.util.registry.Registry;
-import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.api.power.EnergyBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
 
@@ -62,11 +62,11 @@ public class ItemDebugTool extends Item {
 		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
 			sendMessage(context, new LiteralText(getPropertyString(entry)));
 		}
-		BlockEntity tile = context.getWorld().getBlockEntity(context.getBlockPos());
-		if (tile != null) {
-			sendMessage(context, new LiteralText(getTileEntityType(tile)));
-			if (tile instanceof IEnergyInterfaceTile) {
-				sendMessage(context, new LiteralText(getRCPower((IEnergyInterfaceTile) tile)));
+		BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
+		if (blockEntity != null) {
+			sendMessage(context, new LiteralText(getBlockEntityType(blockEntity)));
+			if (blockEntity instanceof EnergyBlockEntity) {
+				sendMessage(context, new LiteralText(getRCPower((EnergyBlockEntity) blockEntity)));
 			}
 		}
 		return ActionResult.SUCCESS;
@@ -100,22 +100,22 @@ public class ItemDebugTool extends Item {
 		return s;
 	}
 	
-	private String getTileEntityType(BlockEntity tile) {
+	private String getBlockEntityType(BlockEntity blockEntity) {
 		String s = "" + Formatting.GREEN;
 		s += "Tile Entity: ";
 		s += Formatting.BLUE;
-		s += tile.getType().toString();
+		s += blockEntity.getType().toString();
 
 		return s;
 	}
 	
-	private String getRCPower(IEnergyInterfaceTile tile) {
+	private String getRCPower(EnergyBlockEntity blockEntity) {
 		String s = "" + Formatting.GREEN;
 		s += "Power: ";
 		s += Formatting.BLUE;
-		s += PowerSystem.getLocaliszedPower(tile.getEnergy());
+		s += PowerSystem.getLocaliszedPower(blockEntity.getEnergy());
 		s += "/";
-		s += PowerSystem.getLocaliszedPower(tile.getMaxPower());
+		s += PowerSystem.getLocaliszedPower(blockEntity.getMaxPower());
 		
 		return s;
 	}

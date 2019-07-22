@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

@@ -37,29 +37,29 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileIndustrialBlastFurnace;
+import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 
 public class GuiBlastFurnace extends GuiBase {
 
-	public TileIndustrialBlastFurnace tile;
+	public IndustrialBlastFurnaceBlockEntity blockEntity;
 	boolean hasMultiBlock;
 
-	public GuiBlastFurnace(int syncID, final PlayerEntity player, final TileIndustrialBlastFurnace tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiBlastFurnace(int syncID, final PlayerEntity player, final IndustrialBlastFurnaceBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
 	public void init() {
 		super.init();
-		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
+		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
 		ClientProxy.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
 	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(f, mouseX, mouseY);
-		this.hasMultiBlock = this.tile.getCachedHeat() != 0;
+		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
 
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
@@ -79,12 +79,12 @@ public class GuiBlastFurnace extends GuiBase {
 	@Override
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
-		this.hasMultiBlock = tile.getCachedHeat() != 0;
+		this.hasMultiBlock = blockEntity.getCachedHeat() != 0;
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 
-		builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
+		builder.drawBigHeatBar(this, 31, 71, blockEntity.getCachedHeat(), 3230, layer);
 		if (hasMultiBlock) {
 			addHologramButton(4, 4, 212, layer).clickHandler(this::onClick);
 		} else {
@@ -92,7 +92,7 @@ public class GuiBlastFurnace extends GuiBase {
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
@@ -143,11 +143,11 @@ public class GuiBlastFurnace extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							tile.getPos().getX() - Direction.byId(tile.getFacingInt()).getOffsetX() * 2,
-							tile.getPos().getY() - 1,
-							tile.getPos().getZ() - Direction.byId(tile.getFacingInt()).getOffsetZ() * 2);
+							blockEntity.getPos().getX() - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2,
+							blockEntity.getPos().getY() - 1,
+							blockEntity.getPos().getZ() - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

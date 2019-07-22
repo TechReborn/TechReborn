@@ -41,15 +41,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.BaseTileBlock;
+import reborncore.api.blockentity.IMachineGuiHandler;
+import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 
 /**
  * Created by Rushmead
  */
-public abstract class BlockEnergyStorage extends BaseTileBlock {
+public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
 	public static DirectionProperty FACING = Properties.FACING;
 	public String name;
 	public IMachineGuiHandler gui;
@@ -101,10 +101,10 @@ public abstract class BlockEnergyStorage extends BaseTileBlock {
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
-		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BlockTileBase. Thus we should always have tile entity. I hope.
-		if (tileEntity == null) {
+		// We extended BlockTileBase. Thus we should always have blockEntity entity. I hope.
+		if (blockEntity == null) {
 			return false;
 		}
 

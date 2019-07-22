@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
-import techreborn.tiles.storage.TileHighVoltageSU;
+import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -47,7 +47,7 @@ public class BlockHighVoltageSU extends BlockEnergyStorage {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileHighVoltageSU();
+		return new HighVoltageSUBlockEntity();
 	}
 	
 	@Override

@@ -55,8 +55,8 @@ public class BehaviorDispenseScrapbox extends ItemDispenserBehavior {
 			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
 			stack.split(1);
 
-			DispenserBlockEntity tile = source.getBlockEntity();
-			Direction enumfacing = tile.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).get(DispenserBlock.FACING);
+			DispenserBlockEntity blockEntity = source.getBlockEntity();
+			Direction enumfacing = blockEntity.getWorld().getBlockState(new BlockPos(source.getX(), source.getY(), source.getZ())).get(DispenserBlock.FACING);
 			Position iposition = DispenserBlock.getOutputLocation(source);
 			spawnItem(source.getWorld(), out, 6, enumfacing, iposition);
 		}

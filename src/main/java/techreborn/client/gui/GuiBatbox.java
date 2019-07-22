@@ -28,15 +28,15 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.storage.TileLowVoltageSU;
+import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
 
 public class GuiBatbox extends GuiBase {
 
-	TileLowVoltageSU tile;
+	LowVoltageSUBlockEntity blockEntity;
 
-	public GuiBatbox(int syncID, final PlayerEntity player, final TileLowVoltageSU tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiBatbox(int syncID, final PlayerEntity player, final LowVoltageSUBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -56,10 +56,10 @@ public class GuiBatbox extends GuiBase {
 		if(GuiBase.slotConfigType == SlotConfigType.NONE){
 			GlStateManager.pushMatrix();
 			GlStateManager.scaled(0.6, 0.6, 5);
-			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getEnergy()) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getMaxPower()) + " " + PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
+			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/" + PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxPower()) + " " + PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
 			GlStateManager.popMatrix();
 		}
 
-		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

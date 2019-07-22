@@ -37,11 +37,11 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.network.NetworkPacket;
 import techreborn.init.TRContent;
 import techreborn.items.ItemManual;
-import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
-import techreborn.tiles.machine.tier1.TileRollingMachine;
-import techreborn.tiles.storage.TileAdjustableSU;
-import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
+import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
+import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 
 import java.util.function.BiConsumer;
 
@@ -59,9 +59,9 @@ public class ServerboundPackets {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
 			context.getTaskQueue().execute(() -> {
-				BlockEntity tile = context.getPlayer().world.getBlockEntity(pos);
-				if (tile instanceof TileAdjustableSU) {
-					((TileAdjustableSU) tile).handleGuiInputFromClient(buttonID, false, false);
+				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+				if (blockEntity instanceof AdjustableSUBlockEntity) {
+					((AdjustableSUBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, false, false);
 				}
 			});
 		});
@@ -71,8 +71,8 @@ public class ServerboundPackets {
 			boolean locked = extendedPacketBuffer.readBoolean();
 			context.getTaskQueue().execute(() -> {
 				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
-				if (BlockEntity instanceof TileAutoCraftingTable) {
-					((TileAutoCraftingTable) BlockEntity).locked = locked;
+				if (BlockEntity instanceof AutoCraftingTableBlockEntity) {
+					((AutoCraftingTableBlockEntity) BlockEntity).locked = locked;
 				}
 			});
 		});
@@ -81,9 +81,9 @@ public class ServerboundPackets {
 			int sizeDelta = extendedPacketBuffer.readInt();
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			context.getTaskQueue().execute(() -> {
-				BlockEntity tile = context.getPlayer().world.getBlockEntity(pos);
-				if (tile instanceof TileFusionControlComputer) {
-					((TileFusionControlComputer) tile).changeSize(sizeDelta);
+				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+				if (blockEntity instanceof FusionControlComputerBlockEntity) {
+					((FusionControlComputerBlockEntity) blockEntity).changeSize(sizeDelta);
 				}
 			});
 		});
@@ -104,8 +104,8 @@ public class ServerboundPackets {
 			boolean locked = extendedPacketBuffer.readBoolean();
 			context.getTaskQueue().execute(() -> {
 				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
-				if (BlockEntity instanceof TileRollingMachine) {
-					((TileRollingMachine) BlockEntity).locked = locked;
+				if (BlockEntity instanceof RollingMachineBlockEntity) {
+					((RollingMachineBlockEntity) BlockEntity).locked = locked;
 				}
 			});
 		});
@@ -135,14 +135,14 @@ public class ServerboundPackets {
 		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
-	public static NetworkPacket createPacketAesu(int buttonID, TileAdjustableSU tile) {
+	public static NetworkPacket createPacketAesu(int buttonID, AdjustableSUBlockEntity blockEntity) {
 		return NetworkManager.createPacket(AESU, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(tile.getPos());
+			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
 		});
 	}
 
-	public static NetworkPacket createPacketAutoCraftingTableLock(TileAutoCraftingTable machine, boolean locked) {
+	public static NetworkPacket createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
 		return NetworkManager.createPacket(AUTO_CRAFTING_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
@@ -156,14 +156,14 @@ public class ServerboundPackets {
 		});
 	}
 
-	public static NetworkPacket createPacketIdsu(int buttonID, TileInterdimensionalSU tile) {
+	public static NetworkPacket createPacketIdsu(int buttonID, InterdimensionalSUBlockEntity blockEntity) {
 		return NetworkManager.createPacket(IDSU, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(tile.getPos());
+			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
 		});
 	}
 
-	public static NetworkPacket createPacketRollingMachineLock(TileRollingMachine machine, boolean locked) {
+	public static NetworkPacket createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
 		return NetworkManager.createPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);

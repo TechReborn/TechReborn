@@ -26,16 +26,16 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.tier1.TileGrinder;
+import techreborn.blockentity.machine.tier1.GrinderBlockEntity;
 
 public class BlockGrinder extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileGrinder();
+		return new GrinderBlockEntity();
 	}
 
 	@Override

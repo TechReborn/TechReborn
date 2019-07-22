@@ -29,7 +29,7 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.fluid.FluidStack;
-import techreborn.tiles.machine.multiblock.TileIndustrialGrinder;
+import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 
 public class IndustrialGrinderRecipe extends RebornRecipe {
 
@@ -41,13 +41,13 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean canCraft(final BlockEntity tileEntity) {
-		TileIndustrialGrinder tile = (TileIndustrialGrinder) tileEntity;
-		if (!tile.getMultiBlock()) {
+	public boolean canCraft(final BlockEntity be) {
+		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
+		if (!blockEntity.getMultiBlock()) {
 			return false;
 		}
 		final FluidStack recipeFluid = fluidStack;
-		final FluidStack tankFluid = tile.tank.getFluid();
+		final FluidStack tankFluid = blockEntity.tank.getFluid();
 		if (fluidStack == null) {
 			return true;
 		}
@@ -63,10 +63,10 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean onCraft(final BlockEntity tileEntity) {
-		TileIndustrialGrinder tile = (TileIndustrialGrinder) tileEntity;
+	public boolean onCraft(final BlockEntity be) {
+		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
 		final FluidStack recipeFluid = fluidStack;
-		final FluidStack tankFluid = tile.tank.getFluid();
+		final FluidStack tankFluid = blockEntity.tank.getFluid();
 		if (fluidStack == null) {
 			return true;
 		}
@@ -76,12 +76,12 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 		if (tankFluid.isFluidEqual(recipeFluid)) {
 			if (tankFluid.amount >= recipeFluid.amount) {
 				if (tankFluid.amount == recipeFluid.amount) {
-					tile.tank.setFluid(null);
+					blockEntity.tank.setFluid(null);
 				}
 				else {
 					tankFluid.amount -= recipeFluid.amount;
 				}
-				tile.syncWithAll();
+				blockEntity.syncWithAll();
 				return true;
 			}
 		}

@@ -36,15 +36,15 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileImplosionCompressor;
+import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
 
 public class GuiImplosionCompressor extends GuiBase {
 
-	TileImplosionCompressor tile;
+	ImplosionCompressorBlockEntity blockEntity;
 
-	public GuiImplosionCompressor(int syncID, final PlayerEntity player, final TileImplosionCompressor tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiImplosionCompressor(int syncID, final PlayerEntity player, final ImplosionCompressorBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class GuiImplosionCompressor extends GuiBase {
 		drawSlot(92, 36, layer);
 		drawSlot(110, 36, layer);
 
-		if (tile.getMutliBlock()) {
+		if (blockEntity.getMutliBlock()) {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 
@@ -79,15 +79,15 @@ public class GuiImplosionCompressor extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (tile.getMutliBlock()) {
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		if (blockEntity.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
 	}
 
@@ -109,8 +109,8 @@ public class GuiImplosionCompressor extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
-					MultiblockRenderEvent.anchor = new BlockPos(tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ());
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
+					MultiblockRenderEvent.anchor = new BlockPos(blockEntity.getPos().getX(), blockEntity.getPos().getY(), blockEntity.getPos().getZ());
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

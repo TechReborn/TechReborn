@@ -34,7 +34,7 @@ import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
-import reborncore.common.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
 import techreborn.blocks.BlockMachineCasing;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
@@ -124,7 +124,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 		// Now we run a simple check on each block within that volume.
 		// Any block deviating = NO DEAL SIR
 		BlockEntity te;
-		RectangularMultiblockTileEntityBase part;
+		RectangularMultiblockBlockEntityBase part;
 		Class<? extends RectangularMultiblockControllerBase> myClass = this.getClass();
 
 		for (int x = minimumCoord.getX(); x <= maximumCoord.getX(); x++) {
@@ -133,8 +133,8 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 					// Okay, figure out what sort of block this should be.
 
 					te = this.worldObj.getBlockEntity(new BlockPos(x, y, z));
-					if (te instanceof RectangularMultiblockTileEntityBase) {
-						part = (RectangularMultiblockTileEntityBase) te;
+					if (te instanceof RectangularMultiblockBlockEntityBase) {
+						part = (RectangularMultiblockBlockEntityBase) te;
 
 						// Ensure this part should actually be allowed within a
 						// cube of this controller's type
@@ -326,7 +326,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 		Block block = state.getBlock();
 		if (state.isAir()) {
 
-		} else if (block.getTranslationKey().equals("tile.lava")) {
+		} else if (block.getTranslationKey().equals("blockEntity.lava")) {
 			hasLava = true;
 		} else {
 			super.isBlockGoodForInterior(world, x, y, z);

@@ -33,7 +33,7 @@ import reborncore.fluid.Fluid;
 import reborncore.fluid.FluidStack;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileFluidReplicator;
+import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 
 /**
  * @author drcrazy
@@ -47,13 +47,13 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	/**
 	 * RecipeCrafter for Fluid Replicator
 	 * 
-	 * @param parentTile TileEntity Reference to the tile having this crafter
+	 * @param parent BlockEntity Reference to the blockEntity having this crafter
 	 * @param inventory Inventory reference to inventory used for crafting
 	 * @param inputSlots This is the list of the slots that the crafting logic should look for the input UU-Matter.
 	 * @param outputSlots This is the list of slots that the crafting logic should look for output fluid
 	 */
-	public FluidReplicatorRecipeCrafter(BlockEntity parentTile, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
-		super(ModRecipes.FLUID_REPLICATOR, parentTile, 1, 1, inventory, inputSlots, outputSlots);
+	public FluidReplicatorRecipeCrafter(BlockEntity parent, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
+		super(ModRecipes.FLUID_REPLICATOR, parent, 1, 1, inventory, inputSlots, outputSlots);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	// RecipeCrafter
 	@Override
 	public void updateEntity() {
-		if (tile.getWorld().isClient) {
+		if (blockEntity.getWorld().isClient) {
 			return;
 		}
 		ticksSinceLastChange++;
@@ -114,18 +114,18 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 			}
 			// If it has reached the recipe tick time
 			if (currentRecipe != null && currentTickTime >= currentNeededTicks && hasAllInputs()) {
-				TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) tile;
+				FluidReplicatorBlockEntity blockEntityFluidReplicator =  (FluidReplicatorBlockEntity) blockEntity;
 				// Checks to see if it can fit the output
 				// And fill tank with replicated fluid
-				if (canFit(currentRecipe.getFluid(), tileFluidReplicator.tank) && currentRecipe.onCraft(tileFluidReplicator)) {
-					tileFluidReplicator.tank.fill(new FluidStack(currentRecipe.getFluid(), 1000), true);
+				if (canFit(currentRecipe.getFluid(), blockEntityFluidReplicator.tank) && currentRecipe.onCraft(blockEntityFluidReplicator)) {
+					blockEntityFluidReplicator.tank.fill(new FluidStack(currentRecipe.getFluid(), 1000), true);
 					// This uses all the inputs
 					useAllInputs();
 					// Reset
 					currentRecipe = null;
 					currentTickTime = 0;
 					updateCurrentRecipe();
-					//Update active state if the tile isnt going to start crafting again
+					//Update active state if the blockEntity isnt going to start crafting again
 					if(currentRecipe == null){
 						setIsActive();
 					}
@@ -137,7 +137,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 					// Increase the ticktime
 					currentTickTime ++;
 					if(currentTickTime == 1 || currentTickTime % 20 == 0 && soundHanlder != null){
-						soundHanlder.playSound(false, tile);
+						soundHanlder.playSound(false, blockEntity);
 					}
 				}
 			}
@@ -147,10 +147,10 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	
 	@Override
 	public void updateCurrentRecipe() {
-		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) tile;
+		FluidReplicatorBlockEntity blockEntityFluidReplicator =  (FluidReplicatorBlockEntity) blockEntity;
 		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
-			if (recipe.canCraft(tileFluidReplicator) && hasAllInputs(recipe)) {
-				if (!canFit(recipe.getFluid(), tileFluidReplicator.tank)) {
+			if (recipe.canCraft(blockEntityFluidReplicator) && hasAllInputs(recipe)) {
+				if (!canFit(recipe.getFluid(), blockEntityFluidReplicator.tank)) {
 					this.currentRecipe = null;
 					currentTickTime = 0;
 					setIsActive();
@@ -187,10 +187,10 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	
 	@Override
 	public boolean canCraftAgain() {
-		TileFluidReplicator tileFluidReplicator =  (TileFluidReplicator) tile;
+		FluidReplicatorBlockEntity blockEntityFluidReplicator =  (FluidReplicatorBlockEntity) blockEntity;
 		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
-			if (recipe.canCraft(tileFluidReplicator) && hasAllInputs(recipe)) {
-				if (!canFit(recipe.getFluid(), tileFluidReplicator.tank)) {
+			if (recipe.canCraft(blockEntityFluidReplicator) && hasAllInputs(recipe)) {
+				if (!canFit(recipe.getFluid(), blockEntityFluidReplicator.tank)) {
 					return false;
 				}
 				if (energy.getEnergy() < recipe.getEuTick()) {

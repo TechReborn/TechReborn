@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
-import techreborn.tiles.storage.TileMediumVoltageSU;
+import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -47,7 +47,7 @@ public class BlockMediumVoltageSU extends BlockEnergyStorage {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileMediumVoltageSU();
+		return new MediumVoltageSUBlockEntity();
 	}
 	
 	@Override

@@ -27,15 +27,15 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import techreborn.tiles.machine.tier1.TileIndustrialElectrolyzer;
+import techreborn.blockentity.machine.tier1.IndustrialElectrolyzerBlockEntity;
 
 public class GuiIndustrialElectrolyzer extends GuiBase {
 	
-	TileIndustrialElectrolyzer tile;
+	IndustrialElectrolyzerBlockEntity blockEntity;
 
-	public GuiIndustrialElectrolyzer(int syncID, final PlayerEntity player, final TileIndustrialElectrolyzer tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiIndustrialElectrolyzer(int syncID, final PlayerEntity player, final IndustrialElectrolyzerBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 	
 	@Override
@@ -58,8 +58,8 @@ public class GuiIndustrialElectrolyzer extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, GuiBuilder.ProgressDirection.UP, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, GuiBuilder.ProgressDirection.UP, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 	
 	

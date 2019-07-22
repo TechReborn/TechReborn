@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
-import techreborn.tiles.storage.TileAdjustableSU;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 
 public class BlockAdjustableSU extends BlockEnergyStorage {
 	
@@ -44,7 +44,7 @@ public class BlockAdjustableSU extends BlockEnergyStorage {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileAdjustableSU();
+		return new AdjustableSUBlockEntity();
 	}
 	
 	@Override

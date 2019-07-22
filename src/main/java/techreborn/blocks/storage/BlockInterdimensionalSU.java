@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
-import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
+import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 
 public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	
@@ -46,14 +46,14 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileInterdimensionalSU();
+		return new InterdimensionalSUBlockEntity();
 	}
 
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		final BlockEntity tile = context.getWorld().getBlockEntity(context.getBlockPos());
-		if (tile instanceof TileInterdimensionalSU) {
-			((TileInterdimensionalSU) tile).ownerUdid = context.getPlayer().getUuid().toString();
+		final BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
+		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
+			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = context.getPlayer().getUuid().toString();
 		}
 		return this.getDefaultState();
 	}
@@ -61,9 +61,9 @@ public class BlockInterdimensionalSU extends BlockEnergyStorage {
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.onPlaced(world, pos, state, placer, stack);
-		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TileInterdimensionalSU) {
-			((TileInterdimensionalSU) tile).ownerUdid = placer.getUuid().toString();
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
+			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = placer.getUuid().toString();
 		}
 	}
 	

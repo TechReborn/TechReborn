@@ -38,17 +38,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.common.BaseTileBlock;
+import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.init.TRContent;
-import techreborn.tiles.storage.lesu.TileLSUStorage;
+import techreborn.blockentity.storage.lesu.LSUStorageBlockEntity;
 
 /**
  * Energy storage block for LESU
  */
-public class BlockLSUStorage extends BaseTileBlock {
+public class BlockLSUStorage extends BaseBlockEntityProvider {
 
 	public BlockLSUStorage() {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
@@ -61,10 +61,10 @@ public class BlockLSUStorage extends BaseTileBlock {
 		if (state.getBlock() == newState.getBlock()) {
 			return;
 		}
-		if (worldIn.getBlockEntity(pos) instanceof TileLSUStorage) {
-			TileLSUStorage tile = (TileLSUStorage) worldIn.getBlockEntity(pos);
-			if (tile != null) {
-				tile.removeFromNetwork();
+		if (worldIn.getBlockEntity(pos) instanceof LSUStorageBlockEntity) {
+			LSUStorageBlockEntity blockEntity = (LSUStorageBlockEntity) worldIn.getBlockEntity(pos);
+			if (blockEntity != null) {
+				blockEntity.removeFromNetwork();
 			}
 		}
 		super.onBlockRemoved(state, worldIn, pos, newState, isMoving);
@@ -72,16 +72,16 @@ public class BlockLSUStorage extends BaseTileBlock {
 	
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileLSUStorage();
+		return new LSUStorageBlockEntity();
 	}
 	
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
 		super.onPlaced(world, pos, state, player, itemstack);
-		if (world.getBlockEntity(pos) instanceof TileLSUStorage) {
-			TileLSUStorage tile = (TileLSUStorage) world.getBlockEntity(pos);
-			if (tile != null) {
-				tile.rebuildNetwork();
+		if (world.getBlockEntity(pos) instanceof LSUStorageBlockEntity) {
+			LSUStorageBlockEntity blockEntity = (LSUStorageBlockEntity) world.getBlockEntity(pos);
+			if (blockEntity != null) {
+				blockEntity.rebuildNetwork();
 			}
 		}
 	}
@@ -90,10 +90,10 @@ public class BlockLSUStorage extends BaseTileBlock {
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
-		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
-		if (tileEntity == null) {
+		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
+		if (blockEntity == null) {
 			return false;
 		}
 

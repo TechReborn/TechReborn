@@ -37,15 +37,15 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileIndustrialGrinder;
+import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 
 public class GuiIndustrialGrinder extends GuiBase {
 
-	TileIndustrialGrinder tile;
+	IndustrialGrinderBlockEntity blockEntity;
 
-	public GuiIndustrialGrinder(int syncID, final PlayerEntity player, final TileIndustrialGrinder tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiIndustrialGrinder(int syncID, final PlayerEntity player, final IndustrialGrinderBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class GuiIndustrialGrinder extends GuiBase {
 		drawSlot(126, 72, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
-		if (tile.getMultiBlock()) {
+		if (blockEntity.getMultiBlock()) {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -84,16 +84,16 @@ public class GuiIndustrialGrinder extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawTank(this, 53, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
-		if (tile.getMultiBlock()) {
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawTank(this, 53, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
+		if (blockEntity.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(GuiButtonExtended button, double mouseX, double mouseY){
@@ -138,12 +138,12 @@ public class GuiIndustrialGrinder extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							this.tile.getPos().getX()
-									- Direction.byId(this.tile.getFacingInt()).getOffsetX() * 2,
-							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- Direction.byId(this.tile.getFacingInt()).getOffsetZ() * 2);
+							this.blockEntity.getPos().getX()
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetX() * 2,
+							this.blockEntity.getPos().getY() - 1, this.blockEntity.getPos().getZ()
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

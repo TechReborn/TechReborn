@@ -26,10 +26,10 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.tier1.TileAlloySmelter;
+import techreborn.blockentity.machine.tier1.AlloySmelterBlockEntity;
 
 public class BlockAlloySmelter extends BlockMachineBase {
 
@@ -39,7 +39,7 @@ public class BlockAlloySmelter extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileAlloySmelter();
+		return new AlloySmelterBlockEntity();
 	}
 
 	@Override

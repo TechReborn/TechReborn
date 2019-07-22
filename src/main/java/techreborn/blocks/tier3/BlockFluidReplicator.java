@@ -26,16 +26,16 @@ package techreborn.blocks.tier3;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.multiblock.TileFluidReplicator;
+import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
 
 public class BlockFluidReplicator extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileFluidReplicator();
+		return new FluidReplicatorBlockEntity();
 	}
 
 	@Override

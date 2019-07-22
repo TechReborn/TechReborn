@@ -29,15 +29,15 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.ServerboundPackets;
-import techreborn.tiles.machine.tier1.TileRollingMachine;
+import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 
 public class GuiRollingMachine extends GuiBase {
 
-	TileRollingMachine rollingMachine;
+	RollingMachineBlockEntity rollingMachine;
 
-	public GuiRollingMachine(int syncID, final PlayerEntity player, final TileRollingMachine tileRollingmachine) {
-		super(player, tileRollingmachine,  tileRollingmachine.createContainer(syncID, player));
-		this.rollingMachine = tileRollingmachine;
+	public GuiRollingMachine(int syncID, final PlayerEntity player, final RollingMachineBlockEntity blockEntityRollingmachine) {
+		super(player, blockEntityRollingmachine,  blockEntityRollingmachine.createContainer(syncID, player));
+		this.rollingMachine = blockEntityRollingmachine;
 	}
 
 	@Override

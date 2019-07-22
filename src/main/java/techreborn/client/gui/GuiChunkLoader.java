@@ -32,19 +32,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
-import techreborn.tiles.machine.tier3.TileChunkLoader;
+import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 
 public class GuiChunkLoader extends AbstractContainerScreen {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/industrial_chunkloader.png");
-	TileChunkLoader chunkloader;
+	ChunkLoaderBlockEntity chunkloader;
 	private ButtonWidget plusOneButton;
 	private ButtonWidget plusTenButton;
 	private ButtonWidget minusOneButton;
 	private ButtonWidget minusTenButton;
 
-	public GuiChunkLoader(int syncID, final PlayerEntity player, final TileChunkLoader chunkLoader) {
+	public GuiChunkLoader(int syncID, final PlayerEntity player, final ChunkLoaderBlockEntity chunkLoader) {
 		super(chunkLoader.createContainer(syncID, player), player.inventory, new LiteralText("techreborn.chunkloader"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
@@ -80,7 +80,7 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 
 	@Override
 	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translate("tile.techreborn:chunk_loader.name");
+		final String name = I18n.translate("blockEntity.techreborn:chunk_loader.name");
 		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
 		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,

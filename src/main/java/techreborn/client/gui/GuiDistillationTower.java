@@ -37,15 +37,15 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileDistillationTower;
+import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
 
 public class GuiDistillationTower extends GuiBase {
 	
-	public TileDistillationTower tile;
+	public DistillationTowerBlockEntity blockEntity;
 
-	public GuiDistillationTower(int syncID, final PlayerEntity player, final TileDistillationTower tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiDistillationTower(int syncID, final PlayerEntity player, final DistillationTowerBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 	
 	@Override
@@ -76,8 +76,8 @@ public class GuiDistillationTower extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (tile.getMutliBlock()) {
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 55, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		if (blockEntity.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		} else {
@@ -85,7 +85,7 @@ public class GuiDistillationTower extends GuiBase {
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
 	}
 
@@ -138,11 +138,11 @@ public class GuiDistillationTower extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							tile.getPos().getX() - Direction.byId(tile.getFacingInt()).getOffsetX() * 2,
-							tile.getPos().getY() - 1,
-							tile.getPos().getZ() - Direction.byId(tile.getFacingInt()).getOffsetZ() * 2);
+							blockEntity.getPos().getX() - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2,
+							blockEntity.getPos().getY() - 1,
+							blockEntity.getPos().getZ() - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

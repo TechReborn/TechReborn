@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import reborncore.common.RebornCoreConfig;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
-import techreborn.tiles.storage.lesu.TileLapotronicSU;
+import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
 
 public class BlockLapotronicSU extends BlockEnergyStorage {
 	
@@ -44,7 +44,7 @@ public class BlockLapotronicSU extends BlockEnergyStorage {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileLapotronicSU();
+		return new LapotronicSUBlockEntity();
 	}
 	
 	@Override

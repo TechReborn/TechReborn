@@ -42,18 +42,18 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Torus;
 import techreborn.init.TRContent;
 import techreborn.packets.ServerboundPackets;
-import techreborn.tiles.fusionReactor.TileFusionControlComputer;
+import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 
 import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
 public class GuiFusionReactor extends GuiBase {
-	TileFusionControlComputer tile;
+	FusionControlComputerBlockEntity blockEntity;
 
-	public GuiFusionReactor(int syncID, final PlayerEntity player, final TileFusionControlComputer tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiFusionReactor(int syncID, final PlayerEntity player, final FusionControlComputerBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class GuiFusionReactor extends GuiBase {
 		drawOutputSlot(80, 47, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
-		if (tile.getCoilStatus() > 0) {
+		if (blockEntity.getCoilStatus() > 0) {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 
@@ -77,13 +77,13 @@ public class GuiFusionReactor extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
-		if (tile.getCoilStatus() > 0) {
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
+		if (blockEntity.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
-			drawCentredString(tile.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
-			if(tile.state == 2){
-				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) tile.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
+			drawCentredString(blockEntity.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
+			if(blockEntity.state == 2){
+				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) blockEntity.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
@@ -101,15 +101,15 @@ public class GuiFusionReactor extends GuiBase {
 			}
 		}
 		builder.drawUpDownButtons(this, 121, 79, layer);
-		drawString("Size: " + tile.size, 83, 81, 0xFFFFFF, layer);
-		drawString("" + tile.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
+		drawString("Size: " + blockEntity.size, 83, 81, 0xFFFFFF, layer);
+		drawString("" + blockEntity.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
 		buttons.add(new GuiButtonUpDown(121, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(5)));
 		buttons.add(new GuiButtonUpDown(121 + 12, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(1)));
 		buttons.add(new GuiButtonUpDown(121 + 24, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(-5)));
 		buttons.add(new GuiButtonUpDown(121 + 36, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(-1)));
 
-		builder.drawMultiEnergyBar(this, 9, 19, (int) this.tile.getEnergy(), (int) this.tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y){
@@ -123,7 +123,7 @@ public class GuiFusionReactor extends GuiBase {
 	}
 
 	private void sendSizeChange(int sizeDelta){
-		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, tile.getPos()));
+		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
 		//Reset the multiblock as it will be wrong now.
 		if(ClientProxy.multiblockRenderEvent.currentMultiblock != null){
 			updateMultiBlockRender();
@@ -134,14 +134,14 @@ public class GuiFusionReactor extends GuiBase {
 		final Multiblock multiblock = new Multiblock();
 		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
 
-		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), tile.size);
+		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), blockEntity.size);
 		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
 
 		final MultiblockSet set = new MultiblockSet(multiblock);
 		ClientProxy.multiblockRenderEvent.setMultiblock(set);
-		ClientProxy.multiblockRenderEvent.parent = tile.getPos();
-		MultiblockRenderEvent.anchor = new BlockPos(tile.getPos().getX(), tile.getPos().getY() - 1,
-				tile.getPos().getZ());
+		ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
+		MultiblockRenderEvent.anchor = new BlockPos(blockEntity.getPos().getX(), blockEntity.getPos().getY() - 1,
+				blockEntity.getPos().getZ());
 	}
 	
 	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
@@ -149,10 +149,10 @@ public class GuiFusionReactor extends GuiBase {
 	}
 
 	public Optional<Pair<Integer, Integer>> getCoilStackCount(){
-		if(!Torus.TORUS_SIZE_MAP.containsKey(tile.size)){
+		if(!Torus.TORUS_SIZE_MAP.containsKey(blockEntity.size)){
 			return Optional.empty();
 		}
-		int count = Torus.TORUS_SIZE_MAP.get(tile.size);
+		int count = Torus.TORUS_SIZE_MAP.get(blockEntity.size);
 		return Optional.of(Pair.of(count / 64, count % 64));
 	}
 }

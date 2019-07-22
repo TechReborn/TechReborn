@@ -33,7 +33,7 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.ServerboundPackets;
-import techreborn.tiles.machine.tier1.TileAutoCraftingTable;
+import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 
 /**
  * Created by modmuss50 on 20/06/2017.
@@ -42,11 +42,11 @@ public class GuiAutoCrafting extends GuiBase {
 
 	static final Identifier RECIPE_BOOK_TEXTURE = new Identifier("textures/gui/recipe_book.png");
 	boolean showGui = true;
-	TileAutoCraftingTable tileAutoCraftingTable;
+	AutoCraftingTableBlockEntity blockEntityAutoCraftingTable;
 
-	public GuiAutoCrafting(int syncID, PlayerEntity player, TileAutoCraftingTable tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tileAutoCraftingTable = tile;
+	public GuiAutoCrafting(int syncID, PlayerEntity player, AutoCraftingTableBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntityAutoCraftingTable = blockEntity;
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
@@ -56,14 +56,14 @@ public class GuiAutoCrafting extends GuiBase {
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
 		super.drawForeground(mouseX, mouseY);
-		Recipe recipe = tileAutoCraftingTable.getIRecipe();
+		Recipe recipe = blockEntityAutoCraftingTable.getIRecipe();
 		if (recipe != null) {
 			renderItemStack(recipe.getOutput(), 95, 42);
 		}
 		final Layer layer = Layer.FOREGROUND;
 		
-		builder.drawProgressBar(this, tileAutoCraftingTable.getProgress(), tileAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 26, (int) tileAutoCraftingTable.getEnergy(), (int) tileAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(this, blockEntityAutoCraftingTable.getProgress(), blockEntityAutoCraftingTable.getMaxProgress(), 120, 44, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 9, 26, (int) blockEntityAutoCraftingTable.getEnergy(), (int) blockEntityAutoCraftingTable.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override
@@ -79,13 +79,13 @@ public class GuiAutoCrafting extends GuiBase {
 		drawOutputSlot(95, 42, layer);
 		drawString("Inventory", 8, 82, 4210752, layer);
 
-		builder.drawLockButton(this, 145, 4, mouseX, mouseY, layer, tileAutoCraftingTable.locked);
+		builder.drawLockButton(this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
 	}
 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
 		if (isPointInRect(145, 4, 20, 12, mouseX, mouseY)) {
-			NetworkManager.sendToServer(ServerboundPackets.createPacketAutoCraftingTableLock(tileAutoCraftingTable, !tileAutoCraftingTable.locked));
+			NetworkManager.sendToServer(ServerboundPackets.createPacketAutoCraftingTableLock(blockEntityAutoCraftingTable, !blockEntityAutoCraftingTable.locked));
 			return true;
 		}
 		return super.mouseClicked(mouseX, mouseY, mouseButton);

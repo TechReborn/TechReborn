@@ -26,10 +26,10 @@ package techreborn.blocks.generator;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
+import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 
 public class BlockSolidFuelGenerator extends BlockMachineBase {
 
@@ -39,7 +39,7 @@ public class BlockSolidFuelGenerator extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileSolidFuelGenerator();
+		return new SolidFuelGeneratorBlockEntity();
 	}
 
 	@Override

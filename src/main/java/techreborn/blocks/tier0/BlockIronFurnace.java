@@ -37,10 +37,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.iron.TileIronFurnace;
+import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 
 import java.util.Random;
 
@@ -86,7 +86,7 @@ public class BlockIronFurnace extends BlockMachineBase {
 	// BlockMachineBase
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileIronFurnace();
+		return new IronFurnaceBlockEntity();
 	}
 
 	@Override

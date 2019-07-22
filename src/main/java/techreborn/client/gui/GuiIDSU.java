@@ -28,15 +28,15 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
+import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 
 public class GuiIDSU extends GuiBase {
 
-	TileInterdimensionalSU idsu;
+	InterdimensionalSUBlockEntity idsu;
 
-	public GuiIDSU(int syncID, PlayerEntity player, TileInterdimensionalSU tileIDSU) {
-		super(player, tileIDSU, tileIDSU.createContainer(syncID, player));
-		idsu = tileIDSU;
+	public GuiIDSU(int syncID, PlayerEntity player, InterdimensionalSUBlockEntity blockEntityIDSU) {
+		super(player, blockEntityIDSU, blockEntityIDSU.createContainer(syncID, player));
+		idsu = blockEntityIDSU;
 	}
 
 	@Override

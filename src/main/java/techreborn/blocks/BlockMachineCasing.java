@@ -32,7 +32,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.world.BlockView;
 import reborncore.common.multiblock.BlockMultiblockBase;
-import techreborn.tiles.TileMachineCasing;
+import techreborn.blockentity.MachineCasingBlockEntity;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 
@@ -54,7 +54,7 @@ public class BlockMachineCasing extends BlockMultiblockBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileMachineCasing();
+		return new MachineCasingBlockEntity();
 	}
 
 }

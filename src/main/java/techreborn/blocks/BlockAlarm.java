@@ -48,15 +48,15 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.common.BaseTileBlock;
+import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.tiles.TileAlarm;
+import techreborn.blockentity.AlarmBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockAlarm extends BaseTileBlock {
+public class BlockAlarm extends BaseBlockEntityProvider {
 	public static DirectionProperty FACING  = Properties.FACING;
 	public static BooleanProperty ACTIVE;
 	protected final VoxelShape[] shape;
@@ -103,7 +103,7 @@ public class BlockAlarm extends BaseTileBlock {
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileAlarm();
+		return new AlarmBlockEntity();
 	}
 	
 	// Block
@@ -128,10 +128,10 @@ public class BlockAlarm extends BaseTileBlock {
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
-		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BaseTileBlock. Thus we should always have tile entity. I hope.
-		if (tileEntity == null) {
+		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
+		if (blockEntity == null) {
 			return false;
 		}
 
@@ -142,7 +142,7 @@ public class BlockAlarm extends BaseTileBlock {
 		}
 
 		if (!worldIn.isClient && playerIn.isSneaking()) {
-			((TileAlarm) tileEntity).rightClick();
+			((AlarmBlockEntity) blockEntity).rightClick();
 			return true;
 
 		}

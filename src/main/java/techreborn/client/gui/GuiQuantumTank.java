@@ -27,13 +27,13 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.fluid.FluidStack;
-import techreborn.tiles.machine.tier3.TileQuantumTank;
+import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
 
 public class GuiQuantumTank extends GuiBase {
 
-	TileQuantumTank quantumTank;
+	QuantumTankBlockEntity quantumTank;
 
-	public GuiQuantumTank(int syncID, final PlayerEntity player, final TileQuantumTank quantumTank) {
+	public GuiQuantumTank(int syncID, final PlayerEntity player, final QuantumTankBlockEntity quantumTank) {
 		super(player, quantumTank, quantumTank.createContainer(syncID, player));
 		this.quantumTank = quantumTank;
 	}

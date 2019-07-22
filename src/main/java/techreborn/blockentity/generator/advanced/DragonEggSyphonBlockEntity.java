@@ -1,0 +1,128 @@
+/*
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2018 TechReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package techreborn.blockentity.generator.advanced;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import reborncore.api.IToolDrop;
+import reborncore.api.blockentity.InventoryProvider;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.registration.RebornRegister;
+import reborncore.common.registration.config.ConfigRegistry;
+import reborncore.common.util.RebornInventory;
+import techreborn.TechReborn;
+import techreborn.init.TRContent;
+import techreborn.init.TRBlockEntities;
+
+@RebornRegister(TechReborn.MOD_ID)
+public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
+	implements IToolDrop, InventoryProvider {
+
+	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
+	public static int maxOutput = 128;
+	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxEnergy", comment = "Dragon Egg Siphoner Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 4;
+
+	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this).withConfiguredAccess();
+	private long lastOutput = 0;
+
+	public DragonEggSyphonBlockEntity() {
+		super(TRBlockEntities.DRAGON_EGG_SYPHON);
+	}
+	
+	private boolean tryAddingEnergy(int amount) {
+		if (this.getMaxPower() - this.getEnergy() >= amount) {
+			addEnergy(amount);
+			return true;
+		} else if (this.getMaxPower() - this.getEnergy() > 0) {
+			addEnergy(this.getMaxPower() - this.getEnergy());
+			return true;
+		}
+		return false;
+	}
+	
+	// TilePowerAcceptor
+	@Override
+	public void tick() {
+		super.tick();
+
+		if (!world.isClient) {
+			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
+					.getBlock() == Blocks.DRAGON_EGG) {
+				if (tryAddingEnergy(energyPerTick))
+					lastOutput = world.getTime();
+			}
+
+			if (world.getTime() - lastOutput < 30 && !isActive()) {
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
+			} else if (world.getTime() - lastOutput > 30 && isActive()) {
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
+			}
+		}
+	}
+
+	@Override
+	public double getBaseMaxPower() {
+		return maxEnergy;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(Direction direction) {
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy(Direction direction) {
+		return true;
+	}
+
+	@Override
+	public double getBaseMaxOutput() {
+		return maxOutput;
+	}
+
+	@Override
+	public double getBaseMaxInput() {
+		return 0;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+		return TRContent.Machine.DRAGON_EGG_SYPHON.getStack();
+	}
+
+	// ItemHandlerProvider
+	@Override
+	public RebornInventory<DragonEggSyphonBlockEntity> getInventory() {
+		return inventory;
+	}
+}

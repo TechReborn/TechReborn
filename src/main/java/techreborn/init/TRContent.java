@@ -30,8 +30,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.api.tile.IUpgrade;
-import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.api.blockentity.IUpgrade;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
@@ -53,7 +53,7 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
-import techreborn.tiles.storage.TileAdjustableSU;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -695,10 +695,10 @@ public class TRContent {
 	public static double energyStoragePower = 40_000;
 
 	public enum Upgrades implements ItemConvertible {
-		OVERCLOCKER((tile, handler, stack) -> {
-			TilePowerAcceptor powerAcceptor = null;
-			if (tile instanceof TilePowerAcceptor) {
-				powerAcceptor = (TilePowerAcceptor) tile;
+		OVERCLOCKER((blockEntity, handler, stack) -> {
+			PowerAcceptorBlockEntity powerAcceptor = null;
+			if (blockEntity instanceof PowerAcceptorBlockEntity) {
+				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			handler.addSpeedMulti(overclockerSpeed);
 			handler.addPowerMulti(overclockerPower);
@@ -707,28 +707,28 @@ public class TRContent {
 				powerAcceptor.extraPowerStorage += powerAcceptor.getBaseMaxPower();
 			}
 		}),
-		TRANSFORMER((tile, handler, stack) -> {
-			TilePowerAcceptor powerAcceptor = null;
-			if (tile instanceof TilePowerAcceptor) {
-				powerAcceptor = (TilePowerAcceptor) tile;
+		TRANSFORMER((blockEntity, handler, stack) -> {
+			PowerAcceptorBlockEntity powerAcceptor = null;
+			if (blockEntity instanceof PowerAcceptorBlockEntity) {
+				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraTier += 1;
 			}
 		}),
-		ENERGY_STORAGE((tile, handler, stack) -> {
-			TilePowerAcceptor powerAcceptor = null;
-			if (tile instanceof TilePowerAcceptor) {
-				powerAcceptor = (TilePowerAcceptor) tile;
+		ENERGY_STORAGE((blockEntity, handler, stack) -> {
+			PowerAcceptorBlockEntity powerAcceptor = null;
+			if (blockEntity instanceof PowerAcceptorBlockEntity) {
+				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerStorage += energyStoragePower;
 			}
 		}),
-		SUPERCONDUCTOR((tile, handler, stack) -> {
-			TileAdjustableSU aesu = null;
-			if (tile instanceof TileAdjustableSU) {
-				aesu = (TileAdjustableSU) tile;
+		SUPERCONDUCTOR((blockEntity, handler, stack) -> {
+			AdjustableSUBlockEntity aesu = null;
+			if (blockEntity instanceof AdjustableSUBlockEntity) {
+				aesu = (AdjustableSUBlockEntity) blockEntity;
 			}
 			if (aesu != null) {
 				aesu.superconductors++;

@@ -26,15 +26,15 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
+import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 
 public class GuiGenerator extends GuiBase {
 
-	TileSolidFuelGenerator tile;
+	SolidFuelGeneratorBlockEntity blockEntity;
 
-	public GuiGenerator(int syncID, final PlayerEntity player, final TileSolidFuelGenerator tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiGenerator(int syncID, final PlayerEntity player, final SolidFuelGeneratorBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class GuiGenerator extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawBurnBar(this, tile.getScaledBurnTime(100), 100, 81, 38, mouseX, mouseY, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawBurnBar(this, blockEntity.getScaledBurnTime(100), 100, 81, 38, mouseX, mouseY, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

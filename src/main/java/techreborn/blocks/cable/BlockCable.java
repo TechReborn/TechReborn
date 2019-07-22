@@ -46,7 +46,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.api.power.IEnergyInterfaceTile;
+import reborncore.api.power.EnergyBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
@@ -54,7 +54,7 @@ import reborncore.common.util.WrenchUtils;
 import techreborn.TechReborn;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.tiles.cable.TileCable;
+import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
@@ -123,8 +123,8 @@ public class BlockCable extends BlockWithEntity {
 	}
 
 	private Boolean canConnectTo(IWorld world, BlockPos pos, Direction facing) {
-		BlockEntity tileEntity = world.getBlockEntity(pos);
-		if (tileEntity != null && (tileEntity instanceof IEnergyInterfaceTile)) {
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if (blockEntity != null && (blockEntity instanceof EnergyBlockEntity)) {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
@@ -139,17 +139,17 @@ public class BlockCable extends BlockWithEntity {
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileCable();
+		return new CableBlockEntity();
 	}
 
 	// Block
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
-		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We should always have tile entity. I hope.
-		if (tileEntity == null) {
+		// We should always have blockEntity entity. I hope.
+		if (blockEntity == null) {
 			return false;
 		}
 
@@ -203,16 +203,16 @@ public class BlockCable extends BlockWithEntity {
 			return;
 		}
 
-		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-		if (tileEntity == null) {
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+		if (blockEntity == null) {
 			return;
 		}
-		if (!(tileEntity instanceof TileCable)) {
+		if (!(blockEntity instanceof CableBlockEntity)) {
 			return;
 		}
 
-		TileCable tileCable = (TileCable) tileEntity;
-		if (tileCable.power <= 0) {
+		CableBlockEntity blockEntityCable = (CableBlockEntity) blockEntity;
+		if (blockEntityCable.power <= 0) {
 			return;
 		}
 

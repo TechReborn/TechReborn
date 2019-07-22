@@ -29,7 +29,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import techreborn.tiles.generator.TilePlasmaGenerator;
+import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 
 /**
  * @author drcrazy
@@ -40,14 +40,14 @@ public class GuiPlasmaGenerator extends GuiBase {
 
 	/**
 	 * @param player
-	 * @param tile
+	 * @param blockEntity
 	 * @param container
 	 */
-	TilePlasmaGenerator tile;
+	PlasmaGeneratorBlockEntity blockEntity;
 
-	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final TilePlasmaGenerator tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final PlasmaGeneratorBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 	
 	@Override
@@ -65,9 +65,9 @@ public class GuiPlasmaGenerator extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 		
-		builder.drawProgressBar(this, tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 130, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
-		builder.drawTank(this, 44, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(this, 130, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawTank(this, 44, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
 		
 	}
 

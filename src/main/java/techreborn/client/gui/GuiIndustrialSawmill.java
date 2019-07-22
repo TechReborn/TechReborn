@@ -37,15 +37,15 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileIndustrialSawmill;
+import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 
 public class GuiIndustrialSawmill extends GuiBase {
 
-	TileIndustrialSawmill tile;
+	IndustrialSawmillBlockEntity blockEntity;
 
-	public GuiIndustrialSawmill(int syncID, final PlayerEntity player, final TileIndustrialSawmill tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiIndustrialSawmill(int syncID, final PlayerEntity player, final IndustrialSawmillBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class GuiIndustrialSawmill extends GuiBase {
 		drawSlot(126, 61, layer);
 		
 		builder.drawJEIButton(this, 158, 5, layer);
-		if (tile.getMutliBlock()) {
+		if (blockEntity.getMutliBlock()) {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -83,16 +83,16 @@ public class GuiIndustrialSawmill extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 		
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawTank(this, 53, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
-		if (tile.getMutliBlock()) {
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawTank(this, 53, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
+		if (blockEntity.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}	
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
@@ -137,12 +137,12 @@ public class GuiIndustrialSawmill extends GuiBase {
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							this.tile.getPos().getX()
-									- Direction.byId(this.tile.getFacingInt()).getOffsetY() * 2,
-							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- Direction.byId(this.tile.getFacingInt()).getOffsetY() * 2);
+							this.blockEntity.getPos().getX()
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2,
+							this.blockEntity.getPos().getY() - 1, this.blockEntity.getPos().getZ()
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

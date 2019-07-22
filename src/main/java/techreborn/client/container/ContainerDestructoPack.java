@@ -24,22 +24,21 @@
 
 package techreborn.client.container;
 
+import net.minecraft.container.Container;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import reborncore.client.gui.slots.SlotFilteredVoid;
-import reborncore.common.container.RebornContainer;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.TRContent;
 
-public class ContainerDestructoPack extends RebornContainer {
+public class ContainerDestructoPack extends Container {
 
 	private PlayerEntity player;
 	private RebornInventory<?> inv;
 
-	public ContainerDestructoPack(PlayerEntity player) {
-		super(null, new LiteralText("destructopack"));
+	public ContainerDestructoPack(int syncID, PlayerEntity player) {
+		super(null, syncID);
 		this.player = player;
 		inv = new RebornInventory<>(1, "destructopack", 64, null);
 		buildContainer();

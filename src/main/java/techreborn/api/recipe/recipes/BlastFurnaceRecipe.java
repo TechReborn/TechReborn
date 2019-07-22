@@ -30,7 +30,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import techreborn.tiles.machine.multiblock.TileIndustrialBlastFurnace;
+import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 
 public class BlastFurnaceRecipe extends RebornRecipe {
 
@@ -53,16 +53,16 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean canCraft(final BlockEntity tile) {
-		if (tile instanceof TileIndustrialBlastFurnace) {
-			final TileIndustrialBlastFurnace blastFurnace = (TileIndustrialBlastFurnace) tile;
+	public boolean canCraft(final BlockEntity blockEntity) {
+		if (blockEntity instanceof IndustrialBlastFurnaceBlockEntity) {
+			final IndustrialBlastFurnaceBlockEntity blastFurnace = (IndustrialBlastFurnaceBlockEntity) blockEntity;
 			return blastFurnace.getHeat() >= heat;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean onCraft(final BlockEntity tile) {
+	public boolean onCraft(final BlockEntity blockEntity) {
 		return true;
 	}
 }

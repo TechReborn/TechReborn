@@ -31,16 +31,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
-import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
+import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 
 public class GuiAlloyFurnace extends AbstractContainerScreen<BuiltContainer> {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/alloy_furnace.png");
 
-	TileIronAlloyFurnace alloyfurnace;
+	IronAlloyFurnaceBlockEntity alloyfurnace;
 
-	public GuiAlloyFurnace(int syncID, final PlayerEntity player, final TileIronAlloyFurnace alloyFurnace) {
+	public GuiAlloyFurnace(int syncID, final PlayerEntity player, final IronAlloyFurnaceBlockEntity alloyFurnace) {
 		super(alloyFurnace.createContainer(syncID, player), player.inventory, new LiteralText("techreborn.alloy_furnace"));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
@@ -66,7 +66,7 @@ public class GuiAlloyFurnace extends AbstractContainerScreen<BuiltContainer> {
 
 	@Override
 	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translate("tile.techreborn.iron_alloy_furnace.name");
+		final String name = I18n.translate("blockEntity.techreborn.iron_alloy_furnace.name");
 		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
 		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,

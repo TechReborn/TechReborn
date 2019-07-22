@@ -35,15 +35,15 @@ import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.multiblock.TileVacuumFreezer;
+import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
 
 public class GuiVacuumFreezer extends GuiBase {
 
-	TileVacuumFreezer tile;
+	VacuumFreezerBlockEntity blockEntity;
 
-	public GuiVacuumFreezer(int syncID, final PlayerEntity player, final TileVacuumFreezer tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiVacuumFreezer(int syncID, final PlayerEntity player, final VacuumFreezerBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class GuiVacuumFreezer extends GuiBase {
 		drawOutputSlot(101, 45, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
-		if (tile.getMultiBlock()) {
+		if (blockEntity.getMultiBlock()) {
 			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -76,15 +76,15 @@ public class GuiVacuumFreezer extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (tile.getMultiBlock()) {
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		if (blockEntity.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
@@ -127,8 +127,8 @@ public class GuiVacuumFreezer extends GuiBase {
 					
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
-					MultiblockRenderEvent.anchor = tile.getPos().down();
+					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
+					MultiblockRenderEvent.anchor = blockEntity.getPos().down();
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

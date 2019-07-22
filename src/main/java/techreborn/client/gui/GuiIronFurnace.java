@@ -31,16 +31,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.init.TRContent;
-import techreborn.tiles.machine.iron.TileIronFurnace;
+import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 
 public class GuiIronFurnace extends GuiBase {
 
 	public static final Identifier texture = new Identifier("minecraft",
 		"textures/gui/container/furnace.png");
 
-	TileIronFurnace furnace;
+	IronFurnaceBlockEntity furnace;
 
-	public GuiIronFurnace(int syncID, final PlayerEntity player, final TileIronFurnace furnace) {
+	public GuiIronFurnace(int syncID, final PlayerEntity player, final IronFurnaceBlockEntity furnace) {
 		super(player, furnace,  furnace.createContainer(syncID, player));
 		this.containerWidth = 176;
 		this.containerHeight = 167;
@@ -72,7 +72,7 @@ public class GuiIronFurnace extends GuiBase {
 
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
-		final String name = I18n.translate("tile.techreborn.iron_furnace.name");
+		final String name = I18n.translate("blockEntity.techreborn.iron_furnace.name");
 		font.draw(name, containerWidth / 2 - font.getStringWidth(name) / 2, 6, 4210752);
 		font.draw(I18n.translate("container.inventory", new Object[0]), 8, containerHeight - 96 + 2, 4210752);
 

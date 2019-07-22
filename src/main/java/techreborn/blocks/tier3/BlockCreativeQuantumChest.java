@@ -29,16 +29,16 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.tiles.machine.tier3.TileCreativeQuantumChest;
+import techreborn.blockentity.machine.tier3.CreativeQuantumChestBlockEntity;
 
 public class BlockCreativeQuantumChest extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileCreativeQuantumChest();
+		return new CreativeQuantumChestBlockEntity();
 	}
 
 	@Override

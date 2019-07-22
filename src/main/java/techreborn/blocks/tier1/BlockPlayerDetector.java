@@ -46,11 +46,11 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.tiles.machine.tier1.TilePlayerDectector;
+import techreborn.blockentity.machine.tier1.PlayerDectectorBlockEntity;
 import techreborn.utils.MessageIDs;
 
 public class BlockPlayerDetector extends BlockMachineBase {
@@ -65,25 +65,25 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	// BlockMachineBase
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TilePlayerDectector();
+		return new PlayerDectectorBlockEntity();
 	}
 	
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
 	                            ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
-		BlockEntity tile = worldIn.getBlockEntity(pos);
-		if (tile instanceof TilePlayerDectector) {
-			((TilePlayerDectector) tile).owenerUdid = placer.getUuid().toString();
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+		if (blockEntity instanceof PlayerDectectorBlockEntity) {
+			((PlayerDectectorBlockEntity) blockEntity).owenerUdid = placer.getUuid().toString();
 		}
 	}
 	
 	@Override
 	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
-		BlockEntity tileEntity = worldIn.getBlockEntity(pos);
+		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 			
-		if (tileEntity == null) {
+		if (blockEntity == null) {
 			return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 		
@@ -94,8 +94,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, hitResult.getSide(), false)) {
 				if (playerIn.isSneaking()) {
-					if (tileEntity instanceof IToolDrop) {
-						ItemStack drop = ((IToolDrop) tileEntity).getToolDrop(playerIn);
+					if (blockEntity instanceof IToolDrop) {
+						ItemStack drop = ((IToolDrop) blockEntity).getToolDrop(playerIn);
 						if (drop == null) {
 							return false;
 						}
@@ -150,8 +150,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	@Override
 	public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
 		BlockEntity entity = blockAccess.getBlockEntity(pos);
-		if (entity instanceof TilePlayerDectector) {
-			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
+		if (entity instanceof PlayerDectectorBlockEntity) {
+			return ((PlayerDectectorBlockEntity) entity).isProvidingPower() ? 15 : 0;
 		}
 		return 0;
 	}
@@ -159,8 +159,8 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	@Override
 	public int getStrongRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
 		BlockEntity entity = blockAccess.getBlockEntity(pos);
-		if (entity instanceof TilePlayerDectector) {
-			return ((TilePlayerDectector) entity).isProvidingPower() ? 15 : 0;
+		if (entity instanceof PlayerDectectorBlockEntity) {
+			return ((PlayerDectectorBlockEntity) entity).isProvidingPower() ? 15 : 0;
 		}
 		return 0;
 	}

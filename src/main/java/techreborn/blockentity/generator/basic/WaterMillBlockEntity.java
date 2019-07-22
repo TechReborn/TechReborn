@@ -1,0 +1,113 @@
+/*
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2018 TechReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package techreborn.blockentity.generator.basic;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Direction;
+import reborncore.api.IToolDrop;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.registration.RebornRegister;
+import reborncore.common.registration.config.ConfigRegistry;
+import techreborn.TechReborn;
+import techreborn.blocks.generator.BlockWindMill;
+import techreborn.init.TRContent;
+import techreborn.init.TRBlockEntities;
+
+/**
+ * Created by modmuss50 on 25/02/2016.
+ */
+
+@RebornRegister(TechReborn.MOD_ID)
+public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
+
+	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")
+	public static int maxOutput = 32;
+	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxEnergy", comment = "Water Mill Max Energy (Value in EU)")
+	public static int maxEnergy = 1000;
+	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
+	public static double energyMultiplier = 0.1;
+
+	int waterblocks = 0;
+
+	public WaterMillBlockEntity() {
+		super(TRBlockEntities.WATER_MILL);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (world.getTime() % 20 == 0) {
+			checkForWater();
+		}
+		if (waterblocks > 0) {
+			addEnergy(waterblocks * energyMultiplier);
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockWindMill.ACTIVE, true));
+		}
+		else {
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockWindMill.ACTIVE, false));
+		}
+	}
+
+	public void checkForWater() {
+		waterblocks = 0;
+		for (Direction facing : Direction.values()) {
+			if (facing.getAxis().isHorizontal() && world.getBlockState(pos.offset(facing)).getBlock() == Blocks.WATER) {
+				waterblocks++;
+			}
+		}
+	}
+
+	@Override
+	public double getBaseMaxPower() {
+		return maxEnergy;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(Direction direction) {
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy(Direction direction) {
+		return true;
+	}
+
+	@Override
+	public double getBaseMaxOutput() {
+		return maxOutput;
+	}
+
+	@Override
+	public double getBaseMaxInput() {
+		return 0;
+	}
+
+	@Override
+	public ItemStack getToolDrop(PlayerEntity playerIn) {
+		return TRContent.Machine.WATER_MILL.getStack();
+	}
+}

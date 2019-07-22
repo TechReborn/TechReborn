@@ -26,9 +26,9 @@ package techreborn.items;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import reborncore.api.tile.IUpgrade;
+import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.recipes.IUpgradeHandler;
-import reborncore.common.tile.TileMachineBase;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.TechReborn;
 
 import javax.annotation.Nonnull;
@@ -47,12 +47,11 @@ public class ItemUpgrade extends Item implements IUpgrade {
 
 	@Override
 	public void process(
-		@Nonnull
-			TileMachineBase tile,
+		@Nonnull MachineBaseBlockEntity blockEntity,
 		@Nullable
 			IUpgradeHandler handler,
 		@Nonnull
 			ItemStack stack) {
-		behavior.process(tile, handler, stack);
+		behavior.process(blockEntity, handler, stack);
 	}
 }

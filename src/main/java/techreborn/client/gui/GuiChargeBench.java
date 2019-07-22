@@ -26,15 +26,15 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.tiles.TileChargeOMat;
+import techreborn.blockentity.ChargeOMatBlockEntity;
 
 public class GuiChargeBench extends GuiBase {
 
-	TileChargeOMat tile;
+	ChargeOMatBlockEntity blockEntity;
 
-	public GuiChargeBench(int syncID, final PlayerEntity player, final TileChargeOMat tile) {
-		super(player, tile, tile.createContainer(syncID, player));
-		this.tile = tile;
+	public GuiChargeBench(int syncID, final PlayerEntity player, final ChargeOMatBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -55,6 +55,6 @@ public class GuiChargeBench extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

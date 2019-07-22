@@ -26,9 +26,9 @@ package techreborn.blocks.generator;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.tiles.generator.basic.TileWindMill;
+import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -37,7 +37,7 @@ public class BlockWindMill extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new TileWindMill();
+		return new WindMillBlockEntity();
 	}
 
 	@Override

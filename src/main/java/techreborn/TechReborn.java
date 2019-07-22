@@ -42,7 +42,7 @@ import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.proxies.CommonProxy;
-import techreborn.tiles.fusionReactor.TileFusionControlComputer;
+import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.WorldGenerator;
@@ -116,7 +116,7 @@ public class TechReborn implements ModInitializer {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
-		Torus.genSizeMap(TileFusionControlComputer.maxCoilSize);
+		Torus.genSizeMap(FusionControlComputerBlockEntity.maxCoilSize);
 
 		proxy.postInit();
 

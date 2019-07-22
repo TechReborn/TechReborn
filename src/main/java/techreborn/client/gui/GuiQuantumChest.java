@@ -26,13 +26,13 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.tiles.machine.tier3.TileQuantumChest;
+import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
 
 public class GuiQuantumChest extends GuiBase {
 
-	TileQuantumChest quantumChest;
+	QuantumChestBlockEntity quantumChest;
 
-	public GuiQuantumChest(int syncID, final PlayerEntity player, final TileQuantumChest quantumChest) {
+	public GuiQuantumChest(int syncID, final PlayerEntity player, final QuantumChestBlockEntity quantumChest) {
 		super(player, quantumChest, quantumChest.createContainer(syncID, player));
 		this.quantumChest = quantumChest;
 	}

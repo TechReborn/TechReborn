@@ -32,15 +32,15 @@ import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.packets.ServerboundPackets;
-import techreborn.tiles.storage.TileAdjustableSU;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 
 public class GuiAESU extends GuiBase {
 
-	TileAdjustableSU tile;
+	AdjustableSUBlockEntity blockEntity;
 
-	public GuiAESU(int syncID, final PlayerEntity player, final TileAdjustableSU aesu) {
+	public GuiAESU(int syncID, final PlayerEntity player, final AdjustableSUBlockEntity aesu) {
 		super(player, aesu, aesu.createContainer(syncID, player));
-		this.tile = aesu;
+		this.blockEntity = aesu;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class GuiAESU extends GuiBase {
 		this.drawSlot(62, 45, layer);
 		this.drawSlot(98, 45, layer);
 		this.drawArmourSlots(8, 18, layer);
-		this.builder.drawEnergyOutput(this, 171, 61, this.tile.getCurrentOutput(), layer);
+		this.builder.drawEnergyOutput(this, 171, 61, this.blockEntity.getCurrentOutput(), layer);
 		this.builder.drawUpDownButtons(this, 121, 79, layer);
 	}
 
@@ -63,13 +63,13 @@ public class GuiAESU extends GuiBase {
 		if(GuiBase.slotConfigType == SlotConfigType.NONE){
 			GlStateManager.pushMatrix();
 			GlStateManager.scaled(0.6, 0.6, 1);
-			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getEnergy()) + "/"
-				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) tile.getMaxPower()) + " "
+			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/"
+				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxPower()) + " "
 				+ PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
 			GlStateManager.popMatrix();
 		}
 	
-		builder.drawMultiEnergyBar(this, 81, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 		
 		buttons.add(new GuiButtonUpDown(121, 79, this, layer, this::onClick));
 		buttons.add(new GuiButtonUpDown(121 + 12, 79, this, layer, this::onClick));
@@ -78,6 +78,6 @@ public class GuiAESU extends GuiBase {
 	}
 
 	public void onClick(ButtonWidget button){
-		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(1, tile));
+		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(1, blockEntity));
 	}
 }

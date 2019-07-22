@@ -39,19 +39,19 @@ import java.util.List;
 public class ScrapboxRecipeCrafter extends RecipeCrafter {
 
 	/**
-	 * @param parentTile Tile having this crafter
-	 * @param inventory Inventory from parent tile
+	 * @param parent Tile having this crafter
+	 * @param inventory Inventory from parent blockEntity
 	 * @param inputSlots Slot IDs for input
 	 * @param outputSlots Slot IDs for output
 	 */
-	public ScrapboxRecipeCrafter(BlockEntity parentTile, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
-		super(ModRecipes.SCRAPBOX, parentTile, 1, 1, inventory, inputSlots, outputSlots);
+	public ScrapboxRecipeCrafter(BlockEntity parent, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
+		super(ModRecipes.SCRAPBOX, parent, 1, 1, inventory, inputSlots, outputSlots);
 	}
 
 	@Override
 	public void updateCurrentRecipe(){
-		List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(tile.getWorld());
-		int random = tile.getWorld().random.nextInt(scrapboxRecipeList.size());
+		List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(blockEntity.getWorld());
+		int random = blockEntity.getWorld().random.nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));
 		this.currentNeededTicks = Math.max((int) (currentRecipe.getTime() * (1.0 - getSpeedMultiplier())), 1);

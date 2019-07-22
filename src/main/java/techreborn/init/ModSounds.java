@@ -70,9 +70,9 @@ public class ModSounds {
 	public static class SoundHandler implements ICrafterSoundHanlder {
 
 		@Override
-		public void playSound(boolean firstRun, BlockEntity tileEntity) {
-			tileEntity.getWorld().playSound(null, tileEntity.getPos().getX(), tileEntity.getPos().getY(),
-				tileEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
+		public void playSound(boolean firstRun, BlockEntity blockEntity) {
+			blockEntity.getWorld().playSound(null, blockEntity.getPos().getX(), blockEntity.getPos().getY(),
+				blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
 				SoundCategory.BLOCKS, 0.1F, 1F);
 		}
 	}

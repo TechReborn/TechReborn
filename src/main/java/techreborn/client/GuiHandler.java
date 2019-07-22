@@ -31,135 +31,133 @@ import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.mixin.extensions.ContainerExtensions;
 import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.gui.*;
-import techreborn.tiles.TileChargeOMat;
-import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileIndustrialCentrifuge;
-import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.tiles.generator.TilePlasmaGenerator;
-import techreborn.tiles.generator.advanced.TileDieselGenerator;
-import techreborn.tiles.generator.advanced.TileGasTurbine;
-import techreborn.tiles.generator.advanced.TileSemiFluidGenerator;
-import techreborn.tiles.generator.advanced.TileThermalGenerator;
-import techreborn.tiles.generator.basic.TileSolidFuelGenerator;
-import techreborn.tiles.machine.iron.TileIronAlloyFurnace;
-import techreborn.tiles.machine.iron.TileIronFurnace;
-import techreborn.tiles.machine.multiblock.*;
-import techreborn.tiles.machine.tier1.*;
-import techreborn.tiles.machine.tier3.TileChunkLoader;
-import techreborn.tiles.machine.tier3.TileMatterFabricator;
-import techreborn.tiles.machine.tier3.TileQuantumChest;
-import techreborn.tiles.machine.tier3.TileQuantumTank;
-import techreborn.tiles.storage.TileAdjustableSU;
-import techreborn.tiles.storage.TileHighVoltageSU;
-import techreborn.tiles.storage.TileLowVoltageSU;
-import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.storage.idsu.TileInterdimensionalSU;
-import techreborn.tiles.storage.lesu.TileLapotronicSU;
+import techreborn.blockentity.ChargeOMatBlockEntity;
+import techreborn.blockentity.DigitalChestBlockEntity;
+import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
+import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
+import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
+import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
+import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
+import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
+import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
+import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
+import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
+import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
 
 public class GuiHandler {
 
 	public static void register(){
 
 		EGui.stream().forEach(gui -> ContainerProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> {
-			final BlockEntity tile = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			return ((IContainerProvider) tile).createContainer(syncID, playerEntity);
+			final BlockEntity blockEntity = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
+			return ((IContainerProvider) blockEntity).createContainer(syncID, playerEntity);
 		}));
 
 		EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos(), syncID)));
 	}
 
 	private static AbstractContainerScreen getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
-		final BlockEntity tile = player.world.getBlockEntity(pos);
+		final BlockEntity blockEntity = player.world.getBlockEntity(pos);
 
 		switch (gui) {
 			case AESU:
-				return new GuiAESU(syncID, player, (TileAdjustableSU) tile);
+				return new GuiAESU(syncID, player, (AdjustableSUBlockEntity) blockEntity);
 			case ALLOY_FURNACE:
-				return new GuiAlloyFurnace(syncID, player, (TileIronAlloyFurnace) tile);
+				return new GuiAlloyFurnace(syncID, player, (IronAlloyFurnaceBlockEntity) blockEntity);
 			case ALLOY_SMELTER:
-				return new GuiAlloySmelter(syncID, player, (TileAlloySmelter) tile);
+				return new GuiAlloySmelter(syncID, player, (AlloySmelterBlockEntity) blockEntity);
 			case ASSEMBLING_MACHINE:
-				return new GuiAssemblingMachine(syncID, player, (TileAssemblingMachine) tile);
+				return new GuiAssemblingMachine(syncID, player, (AssemblingMachineBlockEntity) blockEntity);
 			case LOW_VOLTAGE_SU:
-				return new GuiBatbox(syncID, player, (TileLowVoltageSU) tile);
+				return new GuiBatbox(syncID, player, (LowVoltageSUBlockEntity) blockEntity);
 			case BLAST_FURNACE:
-				return new GuiBlastFurnace(syncID, player, (TileIndustrialBlastFurnace) tile);
+				return new GuiBlastFurnace(syncID, player, (IndustrialBlastFurnaceBlockEntity) blockEntity);
 			case CENTRIFUGE:
-				return new GuiCentrifuge(syncID, player, (TileIndustrialCentrifuge) tile);
+				return new GuiCentrifuge(syncID, player, (IndustrialCentrifugeBlockEntity) blockEntity);
 			case CHARGEBENCH:
-				return new GuiChargeBench(syncID, player, (TileChargeOMat) tile);
+				return new GuiChargeBench(syncID, player, (ChargeOMatBlockEntity) blockEntity);
 			case CHEMICAL_REACTOR:
-				return new GuiChemicalReactor(syncID, player, (TileChemicalReactor) tile);
+				return new GuiChemicalReactor(syncID, player, (ChemicalReactorBlockEntity) blockEntity);
 			case CHUNK_LOADER:
-				return new GuiChunkLoader(syncID, player, (TileChunkLoader) tile);
+				return new GuiChunkLoader(syncID, player, (ChunkLoaderBlockEntity) blockEntity);
 			case COMPRESSOR:
-				return new GuiCompressor(syncID, player, (TileCompressor) tile);
+				return new GuiCompressor(syncID, player, (CompressorBlockEntity) blockEntity);
 			case DESTRUCTOPACK:
-				return new GuiDestructoPack(new ContainerDestructoPack(player));
+				return new GuiDestructoPack(new ContainerDestructoPack(syncID, player));
 			case DIESEL_GENERATOR:
-				return new GuiDieselGenerator(syncID, player, (TileDieselGenerator) tile);
+				return new GuiDieselGenerator(syncID, player, (DieselGeneratorBlockEntity) blockEntity);
 			case DIGITAL_CHEST:
-				return new GuiDigitalChest(syncID, player, (TileDigitalChest) tile);
+				return new GuiDigitalChest(syncID, player, (DigitalChestBlockEntity) blockEntity);
 			case ELECTRIC_FURNACE:
-				return new GuiElectricFurnace(syncID, player, (TileElectricFurnace) tile);
+				return new GuiElectricFurnace(syncID, player, (ElectricFurnaceBlockEntity) blockEntity);
 			case EXTRACTOR:
-				return new GuiExtractor(syncID, player, (TileExtractor) tile);
+				return new GuiExtractor(syncID, player, (ExtractorBlockEntity) blockEntity);
 			case FUSION_CONTROLLER:
-				return new GuiFusionReactor(syncID, player, (TileFusionControlComputer) tile);
+				return new GuiFusionReactor(syncID, player, (FusionControlComputerBlockEntity) blockEntity);
 			case GAS_TURBINE:
-				return new GuiGasTurbine(syncID, player, (TileGasTurbine) tile);
+				return new GuiGasTurbine(syncID, player, (GasTurbineBlockEntity) blockEntity);
 			case GENERATOR:
-				return new GuiGenerator(syncID, player, (TileSolidFuelGenerator) tile);
+				return new GuiGenerator(syncID, player, (SolidFuelGeneratorBlockEntity) blockEntity);
 			case GRINDER:
-				return new GuiGrinder(syncID, player, (TileGrinder) tile);
+				return new GuiGrinder(syncID, player, (GrinderBlockEntity) blockEntity);
 			case IDSU:
-				return new GuiIDSU(syncID, player, (TileInterdimensionalSU) tile);
+				return new GuiIDSU(syncID, player, (InterdimensionalSUBlockEntity) blockEntity);
 			case IMPLOSION_COMPRESSOR:
-				return new GuiImplosionCompressor(syncID, player, (TileImplosionCompressor) tile);
+				return new GuiImplosionCompressor(syncID, player, (ImplosionCompressorBlockEntity) blockEntity);
 			case INDUSTRIAL_ELECTROLYZER:
-				return new GuiIndustrialElectrolyzer(syncID, player, (TileIndustrialElectrolyzer) tile);
+				return new GuiIndustrialElectrolyzer(syncID, player, (IndustrialElectrolyzerBlockEntity) blockEntity);
 			case INDUSTRIAL_GRINDER:
-				return new GuiIndustrialGrinder(syncID, player, (TileIndustrialGrinder) tile);
+				return new GuiIndustrialGrinder(syncID, player, (IndustrialGrinderBlockEntity) blockEntity);
 			case IRON_FURNACE:
-				return new GuiIronFurnace(syncID, player, (TileIronFurnace) tile);
+				return new GuiIronFurnace(syncID, player, (IronFurnaceBlockEntity) blockEntity);
 			case LESU:
-				return new GuiLESU(syncID, player, (TileLapotronicSU) tile);
+				return new GuiLESU(syncID, player, (LapotronicSUBlockEntity) blockEntity);
 			case MATTER_FABRICATOR:
-				return new GuiMatterFabricator(syncID, player, (TileMatterFabricator) tile);
+				return new GuiMatterFabricator(syncID, player, (MatterFabricatorBlockEntity) blockEntity);
 			case MEDIUM_VOLTAGE_SU:
-				return new GuiMFE(syncID, player, (TileMediumVoltageSU) tile);
+				return new GuiMFE(syncID, player, (MediumVoltageSUBlockEntity) blockEntity);
 			case HIGH_VOLTAGE_SU:
-				return new GuiMFSU(syncID, player, (TileHighVoltageSU) tile);
+				return new GuiMFSU(syncID, player, (HighVoltageSUBlockEntity) blockEntity);
 			case QUANTUM_CHEST:
-				return new GuiQuantumChest(syncID, player, (TileQuantumChest) tile);
+				return new GuiQuantumChest(syncID, player, (QuantumChestBlockEntity) blockEntity);
 			case QUANTUM_TANK:
-				return new GuiQuantumTank(syncID, player, (TileQuantumTank) tile);
+				return new GuiQuantumTank(syncID, player, (QuantumTankBlockEntity) blockEntity);
 			case RECYCLER:
-				return new GuiRecycler(syncID, player, (TileRecycler) tile);
+				return new GuiRecycler(syncID, player, (RecyclerBlockEntity) blockEntity);
 			case ROLLING_MACHINE:
-				return new GuiRollingMachine(syncID, player, (TileRollingMachine) tile);
+				return new GuiRollingMachine(syncID, player, (RollingMachineBlockEntity) blockEntity);
 			case SAWMILL:
-				return new GuiIndustrialSawmill(syncID, player, (TileIndustrialSawmill) tile);
+				return new GuiIndustrialSawmill(syncID, player, (IndustrialSawmillBlockEntity) blockEntity);
 			case SCRAPBOXINATOR:
-				return new GuiScrapboxinator(syncID, player, (TileScrapboxinator) tile);
+				return new GuiScrapboxinator(syncID, player, (ScrapboxinatorBlockEntity) blockEntity);
 			case SEMIFLUID_GENERATOR:
-				return new GuiSemifluidGenerator(syncID, player, (TileSemiFluidGenerator) tile);
+				return new GuiSemifluidGenerator(syncID, player, (SemiFluidGeneratorBlockEntity) blockEntity);
 			case THERMAL_GENERATOR:
-				return new GuiThermalGenerator(syncID, player, (TileThermalGenerator) tile);
+				return new GuiThermalGenerator(syncID, player, (ThermalGeneratorBlockEntity) blockEntity);
 			case VACUUM_FREEZER:
-				return new GuiVacuumFreezer(syncID, player, (TileVacuumFreezer) tile);
+				return new GuiVacuumFreezer(syncID, player, (VacuumFreezerBlockEntity) blockEntity);
 			case AUTO_CRAFTING_TABLE:
-				return new GuiAutoCrafting(syncID, player, (TileAutoCraftingTable) tile);
+				return new GuiAutoCrafting(syncID, player, (AutoCraftingTableBlockEntity) blockEntity);
 			case PLASMA_GENERATOR:
-				return new GuiPlasmaGenerator(syncID, player, (TilePlasmaGenerator) tile);
+				return new GuiPlasmaGenerator(syncID, player, (PlasmaGeneratorBlockEntity) blockEntity);
 			case DISTILLATION_TOWER:
-				return new GuiDistillationTower(syncID, player, (TileDistillationTower) tile);
+				return new GuiDistillationTower(syncID, player, (DistillationTowerBlockEntity) blockEntity);
 			case FLUID_REPLICATOR:
-				return new GuiFluidReplicator(syncID, player, (TileFluidReplicator) tile);
+				return new GuiFluidReplicator(syncID, player, (FluidReplicatorBlockEntity) blockEntity);
 			default:
 				break;
 

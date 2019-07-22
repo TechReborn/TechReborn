@@ -1,0 +1,424 @@
+/*
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2018 TechReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package techreborn.blockentity.machine.tier1;
+
+import net.minecraft.container.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.util.math.Direction;
+import org.apache.commons.lang3.tuple.Pair;
+import reborncore.api.IToolDrop;
+import reborncore.api.blockentity.InventoryProvider;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.registration.RebornRegister;
+import reborncore.common.registration.config.ConfigRegistry;
+import reborncore.common.util.RebornInventory;
+import reborncore.common.util.ItemUtils;
+import techreborn.TechReborn;
+import techreborn.api.RollingMachineRecipe;
+import techreborn.init.TRContent;
+import techreborn.init.TRBlockEntities;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+//TODO add tick and power bars.
+
+@RebornRegister(TechReborn.MOD_ID)
+public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
+	implements IToolDrop, InventoryProvider, IContainerProvider {
+
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxInput", comment = "Rolling Machine Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyPerTick", comment = "Rolling Machine Energy Per Tick (Value in EU)")
+	public static int energyPerTick = 5;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyRunTime", comment = "Rolling Machine Run Time")
+	public static int runTime = 250;
+	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
+	public static int maxEnergy = 10000;
+
+	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	private CraftingInventory craftCache;
+	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this).withConfiguredAccess();
+	public boolean isRunning;
+	public int tickTime;
+	@Nonnull
+	public ItemStack currentRecipeOutput;
+	public Recipe currentRecipe;
+	private int outputSlot;
+	public boolean locked = false;
+	public int balanceSlot = 0;
+
+	public RollingMachineBlockEntity() {
+		super(TRBlockEntities.ROLLING_MACHINE);
+		outputSlot = 9;
+	}
+
+	@Override
+	public double getBaseMaxPower() {
+		return maxEnergy;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(final Direction direction) {
+		return true;
+	}
+
+	@Override
+	public boolean canProvideEnergy(final Direction direction) {
+		return false;
+	}
+
+	@Override
+	public double getBaseMaxOutput() {
+		return 0;
+	}
+
+	@Override
+	public double getBaseMaxInput() {
+		return maxInput;
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (world.isClient) {
+			return;
+		}
+		charge(10);
+
+		CraftingInventory craftMatrix = getCraftingMatrix();
+		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
+		if (currentRecipe != null) {
+			setIsActive(true);
+			if (world.getTime() % 2 == 0) {
+				Optional<CraftingInventory> balanceResult = balanceRecipe(craftMatrix);
+				if (balanceResult.isPresent()) {
+					craftMatrix = balanceResult.get();
+				}
+			}
+			currentRecipeOutput = currentRecipe.craft(craftMatrix);
+		} else {
+			currentRecipeOutput = ItemStack.EMPTY;
+		}
+
+		if (!currentRecipeOutput.isEmpty() && canMake(craftMatrix)) {
+			if (tickTime >= Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)) {
+				currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, world);
+				if (!currentRecipeOutput.isEmpty()) {
+					boolean hasCrafted = false;
+					if (inventory.getInvStack(outputSlot).isEmpty()) {
+						inventory.setInvStack(outputSlot, currentRecipeOutput);
+						tickTime = 0;
+						hasCrafted = true;
+					} else {
+						if (inventory.getInvStack(outputSlot).getCount()
+								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxCount()) {
+							final ItemStack stack = inventory.getInvStack(outputSlot);
+							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
+							inventory.setInvStack(outputSlot, stack);
+							tickTime = 0;
+							hasCrafted = true;
+						} else {
+							setIsActive(false);
+						}
+					}
+					if (hasCrafted) {
+						for (int i = 0; i < craftMatrix.getInvSize(); i++) {
+							inventory.shrinkSlot(i, 1);
+						}
+						currentRecipeOutput = ItemStack.EMPTY;
+						currentRecipe = null;
+					}
+				}
+			}
+		} else {
+			tickTime = 0;
+		}
+		if (!currentRecipeOutput.isEmpty()) {
+			if (canUseEnergy(getEuPerTick(energyPerTick))
+					&& tickTime < Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)
+					&& canMake(craftMatrix)) {
+				useEnergy(getEuPerTick(energyPerTick));
+				tickTime++;
+			} else {
+				setIsActive(false);
+			}
+		}
+		if (currentRecipeOutput.isEmpty()) {
+			tickTime = 0;
+			currentRecipe = null;
+			setIsActive(canMake(getCraftingMatrix()));
+		}
+	}
+
+	public void setIsActive(boolean active) {
+		if (active == isRunning){
+			return;
+		}
+		isRunning = active;
+		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase)this.getWorld().getBlockState(this.getPos()).getBlock();
+			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
+		}
+		this.getWorld().updateListeners(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
+	}
+
+	public Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache) {
+		if (currentRecipe == null) {
+			return Optional.empty();
+		}
+		if (world.isClient) {
+			return Optional.empty();
+		}
+		if (!locked) {
+			return Optional.empty();
+		}
+		if (craftCache.isInvEmpty()) {
+			return Optional.empty();
+		}
+		balanceSlot++;
+		if (balanceSlot > craftCache.getInvSize()) {
+			balanceSlot = 0;
+		}
+		//Find the best slot for each item in a recipe, and move it if needed
+		ItemStack sourceStack = inventory.getInvStack(balanceSlot);
+		if (sourceStack.isEmpty()) {
+			return Optional.empty();
+		}
+		List<Integer> possibleSlots = new ArrayList<>();
+		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
+			ItemStack stackInSlot = inventory.getInvStack(s);
+			Ingredient ingredient = (Ingredient) currentRecipe.getPreviewInputs().get(s);
+			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(sourceStack)) {
+				if (stackInSlot.isEmpty()) {
+					possibleSlots.add(s);
+				} else if (stackInSlot.getItem() == sourceStack.getItem()) {
+					possibleSlots.add(s);
+				}
+			}
+		}
+
+		if(!possibleSlots.isEmpty()){
+			int totalItems =  possibleSlots.stream()
+				.mapToInt(value -> inventory.getInvStack(value).getCount()).sum();
+			int slots = possibleSlots.size();
+
+			//This makes an array of ints with the best possible slot EnvTyperibution
+			int[] split = new int[slots];
+			int remainder = totalItems % slots;
+			Arrays.fill(split, totalItems / slots);
+			while (remainder > 0){
+				for (int i = 0; i < split.length; i++) {
+					if(remainder > 0){
+						split[i] +=1;
+						remainder --;
+					}
+				}
+			}
+
+			List<Integer> slotEnvTyperubution = possibleSlots.stream()
+				.mapToInt(value -> inventory.getInvStack(value).getCount())
+				.boxed().collect(Collectors.toList());
+
+			boolean needsBalance = false;
+			for (int i = 0; i < split.length; i++) {
+				int required = split[i];
+				if(slotEnvTyperubution.contains(required)){
+					//We need to remove the int, not at the int, this seems to work around that
+					slotEnvTyperubution.remove(new Integer(required));
+				} else {
+					needsBalance = true;
+				}
+			}
+			if (!needsBalance) {
+				return Optional.empty();
+			}
+		} else {
+			return Optional.empty();
+		}
+
+		//Slot, count
+		Pair<Integer, Integer> bestSlot = null;
+		for (Integer slot : possibleSlots) {
+			ItemStack slotStack = inventory.getInvStack(slot);
+			if (slotStack.isEmpty()) {
+				bestSlot = Pair.of(slot, 0);
+			}
+			if (bestSlot == null) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			} else if (bestSlot.getRight() >= slotStack.getCount()) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			}
+		}
+		if (bestSlot == null
+			|| bestSlot.getLeft() == balanceSlot
+			|| bestSlot.getRight() == sourceStack.getCount()
+			|| inventory.getInvStack(bestSlot.getLeft()).isEmpty()
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getInvStack(bestSlot.getLeft()), true, true)) {
+			return Optional.empty();
+		}
+		sourceStack.decrement(1);
+		inventory.getInvStack(bestSlot.getLeft()).increment(1);
+		inventory.setChanged();
+
+		return Optional.of(getCraftingMatrix());
+	}
+
+	private CraftingInventory getCraftingMatrix() {
+		if (craftCache == null) {
+			craftCache = new CraftingInventory(new RollingBEContainer(), 3, 3);
+		}
+		if (inventory.hasChanged()) {
+			for (int i = 0; i < 9; i++) {
+				craftCache.setInvStack(i, inventory.getInvStack(i).copy());
+			}
+			inventory.resetChanged();
+		}
+		return craftCache;
+	}
+
+	public boolean canMake(CraftingInventory craftMatrix) {
+		ItemStack stack = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, this.world);
+		if (locked) {
+			for (int i = 0; i < craftMatrix.getInvSize(); i++) {
+				ItemStack stack1 = craftMatrix.getInvStack(i);
+				if (!stack1.isEmpty() && stack1.getCount() < 2) {
+					return false;
+				}
+			}
+		}
+		if (stack.isEmpty()) {
+			return false;
+		}
+		ItemStack output = inventory.getInvStack(outputSlot);
+		if (output.isEmpty()) {
+			return true;
+		}
+		return ItemUtils.isItemEqual(stack, output, true, true);
+	}
+
+	@Override
+	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+		return TRContent.Machine.ROLLING_MACHINE.getStack();
+	}
+
+	@Override
+	public void fromTag(final CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
+		this.isRunning = tagCompound.getBoolean("isRunning");
+		this.tickTime = tagCompound.getInt("tickTime");
+		this.locked = tagCompound.getBoolean("locked");
+	}
+
+	@Override
+	public CompoundTag toTag(final CompoundTag tagCompound) {
+		super.toTag(tagCompound);
+		tagCompound.putBoolean("isRunning", this.isRunning);
+		tagCompound.putInt("tickTime", this.tickTime);
+		tagCompound.putBoolean("locked", locked);
+		return tagCompound;
+	}
+
+	@Override
+	public RebornInventory<RollingMachineBlockEntity> getInventory() {
+		return inventory;
+	}
+
+	public int getBurnTime() {
+		return tickTime;
+	}
+
+	public void setBurnTime(final int burnTime) {
+		this.tickTime = burnTime;
+	}
+
+	public int getBurnTimeRemainingScaled(final int scale) {
+		if (tickTime == 0 || Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
+			return 0;
+		}
+		return tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
+	}
+
+	@Override
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
+		return new ContainerBuilder("rollingmachine").player(player.inventory)
+			.inventory().hotbar()
+			.addInventory().blockEntity(this)
+			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
+			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
+			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
+			.onCraft(inv -> this.inventory.setInvStack(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+			.outputSlot(9, 124, 40)
+			.energySlot(10, 8, 70)
+			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+	}
+
+	//Easyest way to sync back to the client
+	public int getLockedInt() {
+		return locked ? 1 : 0;
+	}
+
+	public void setLockedInt(int lockedInt) {
+		locked = lockedInt == 1;
+	}
+
+	public int getProgressScaled(final int scale) {
+		if (tickTime != 0 && Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) != 0) {
+			return tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
+		}
+		return 0;
+	}
+
+	private static class RollingBEContainer extends Container {
+
+		protected RollingBEContainer() {
+			super(null, 0);
+		}
+
+		@Override
+		public boolean canUse(final PlayerEntity entityplayer) {
+			return true;
+		}
+
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return true;
+	}
+}

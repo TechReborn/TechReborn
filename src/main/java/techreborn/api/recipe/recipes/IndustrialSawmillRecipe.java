@@ -29,7 +29,7 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.fluid.FluidStack;
-import techreborn.tiles.machine.multiblock.TileIndustrialSawmill;
+import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 
 public class IndustrialSawmillRecipe extends RebornRecipe {
 
@@ -41,13 +41,13 @@ public class IndustrialSawmillRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean canCraft(BlockEntity tileEntity) {
-		TileIndustrialSawmill tile = (TileIndustrialSawmill) tileEntity;
-		if (!tile.getMutliBlock()) {
+	public boolean canCraft(BlockEntity be) {
+		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
+		if (!blockEntity.getMutliBlock()) {
 			return false;
 		}
 		final FluidStack recipeFluid = fluidStack;
-		final FluidStack tankFluid = tile.tank.getFluid();
+		final FluidStack tankFluid = blockEntity.tank.getFluid();
 		if (fluidStack == null) {
 			return true;
 		}
@@ -63,10 +63,10 @@ public class IndustrialSawmillRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public boolean onCraft(BlockEntity tileEntity) {
-		TileIndustrialSawmill tile = (TileIndustrialSawmill) tileEntity;
+	public boolean onCraft(BlockEntity be) {
+		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
 		final FluidStack recipeFluid = fluidStack;
-		final FluidStack tankFluid = tile.tank.getFluid();
+		final FluidStack tankFluid = blockEntity.tank.getFluid();
 		if (fluidStack == null) {
 			return true;
 		}
@@ -76,11 +76,11 @@ public class IndustrialSawmillRecipe extends RebornRecipe {
 		if (tankFluid.isFluidEqual(recipeFluid)) {
 			if (tankFluid.amount >= recipeFluid.amount) {
 				if (tankFluid.amount == recipeFluid.amount) {
-					tile.tank.setFluid(null);
+					blockEntity.tank.setFluid(null);
 				} else {
 					tankFluid.amount -= recipeFluid.amount;
 				}
-				tile.syncWithAll();
+				blockEntity.syncWithAll();
 				return true;
 			}
 		}
