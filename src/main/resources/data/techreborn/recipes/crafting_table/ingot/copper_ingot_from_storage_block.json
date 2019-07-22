@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:copper_storage_block"
+    }
+  ],
+  "result": {
+    "item": "techreborn:copper_ingot",
+    "count": 9
+  }
+}

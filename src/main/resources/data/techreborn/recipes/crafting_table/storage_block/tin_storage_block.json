@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:tin_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:tin_storage_block"
+  }
+}

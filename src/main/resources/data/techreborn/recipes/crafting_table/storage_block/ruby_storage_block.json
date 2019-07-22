@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:ruby_gem"
+    }
+  },
+  "result": {
+    "item": "techreborn:ruby_storage_block"
+  }
+}

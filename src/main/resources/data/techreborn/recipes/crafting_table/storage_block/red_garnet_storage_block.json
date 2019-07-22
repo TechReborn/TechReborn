@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:red_garnet_gem"
+    }
+  },
+  "result": {
+    "item": "techreborn:red_garnet_storage_block"
+  }
+}
