@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:book"
+		},
+		{
+			"item": "techreborn:refined_iron_ingot"
+		}
+	],
+	"result": {
+		"item": "techreborn:manual"
+	}
+}
