@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:nickel_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:nickel_storage_block"
+  }
+}

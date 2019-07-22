@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:bronze_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:bronze_storage_block"
+  }
+}

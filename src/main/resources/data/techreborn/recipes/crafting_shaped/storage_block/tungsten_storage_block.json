@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:tungsten_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:tungsten_storage_block"
+  }
+}

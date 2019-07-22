@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:platinum_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:platinum_storage_block"
+  }
+}

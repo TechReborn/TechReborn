@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:lead_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:lead_storage_block"
+  }
+}
