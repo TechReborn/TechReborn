@@ -39,16 +39,18 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 
 public class AssemblingMachineRecipeCategory implements IRecipeCategory<AssemblingMachineRecipeWrapper> {
+	// Fields >>
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2 };
 
 	private final IDrawable background;
 	private final String title;
+	// << Fields
 
 	public AssemblingMachineRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(texture, 125, 65, 74, 42);
-		title = StringUtils.t("tile.techreborn.assembly_machine.name");
+		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
+		title = StringUtils.t("tile.techreborn.assembling_machine.name");
 	}
 
 	@Override
@@ -78,9 +80,9 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull AssemblingMachineRecipeWrapper recipeWrapper,
 			@Nonnull IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 2);
-		guiItemStacks.init(INPUT_SLOTS[1], true, 3, 22);
-		guiItemStacks.init(OUTPUT_SLOTS[0], false, 49, 12);
+		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
+		guiItemStacks.init(INPUT_SLOTS[1], true, 95, 7);
+		guiItemStacks.init(OUTPUT_SLOTS[0], false, 49, 7);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}

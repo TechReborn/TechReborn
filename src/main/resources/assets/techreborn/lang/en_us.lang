@@ -26,7 +26,7 @@ tile.techreborn.magic_energy_converter.name=Magic Energy Converter
 tile.techreborn.diesel_generator.name=Diesel Generator
 tile.techreborn.industrial_electrolyzer.name=Industrial Electrolyzer
 tile.techreborn.magic_energy_absorber.name=Magic Energy Absorber
-tile.techreborn.assembly_machine.name=Assembling Machine
+tile.techreborn.assembling_machine.name=Assembling Machine
 tile.techreborn.semi_fluid_generator.name=Semi Fluid Generator
 tile.techreborn.iron_alloy_furnace.name=Iron Alloy Furnace
 tile.techreborn.chemical_reactor.name=Chemical Reactor
@@ -452,6 +452,10 @@ item.techreborn.plate.yellow_garnet.name=Yellow Garnet Plate
 item.techreborn.plate.zinc.name=Zinc Plate
 
 #Parts
+item.techreborn.part.basic_circuit_board.name=Basic Circuit Board
+item.techreborn.part.advanced_circuit_board.name=Advanced Circuit Board
+item.techreborn.part.advanced_circuit_parts.name=Advanced Circuit Parts
+item.techreborn.part.processor_circuit_board.name=Processor Circuit Board
 item.techreborn.part.energy_flow_circuit.name=Energy Flow Circuit
 item.techreborn.part.data_control_circuit.name=Data Control Circuit
 item.techreborn.part.data_orb.name=Data Orb

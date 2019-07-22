@@ -62,7 +62,7 @@ public enum ModTileEntities {
 	ADJUSTABLE_SU(TileAdjustableSU.class,  "adjustable_su", "TileAdjustableSUTR"),
 	ALARM(TileAlarm.class,  "alarm", "TileAlarmTR"),
 	ALLOY_SMELTER(TileAlloySmelter.class,  "alloy_smelter", "TileAlloySmalterTR"),
-	ASSEMBLY_MACHINE(TileAssemblingMachine.class,  "assembly_machine", "TileAssemblyMachineTR"),
+	ASSEMBLING_MACHINE(TileAssemblingMachine.class,  "assembling_machine", "TileAssemblingMachineTR"),
 	AUTO_CRAFTING_TABLE(TileAutoCraftingTable.class,  "auto_crafting_table", "TileAutoCraftingTableTR"),
 	CABLE(TileCable.class,  "cable", "TileCableTR"),
 	CABLE_EU(TileCableEU.class,  "cable_eu", "TileCableEUTR"),

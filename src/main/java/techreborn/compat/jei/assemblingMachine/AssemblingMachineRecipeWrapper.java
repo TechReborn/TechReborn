@@ -29,26 +29,52 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import net.minecraft.client.Minecraft;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
+import reborncore.common.powerSystem.PowerSystem;
+import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 
 public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<AssemblingMachineRecipe> {
-	private final IDrawableAnimated progress;
+	// Fields >>
+	private final IDrawableAnimated progressright;
+	private final IDrawableAnimated progressleft;
+	//  << Fields
 
 	public AssemblingMachineRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull AssemblingMachineRecipe baseRecipe) {
 		super(baseRecipe);
+
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, 74, 150, 16, 10);
-		this.progress = guiHelper.createAnimatedDrawable(progressStatic, baseRecipe.tickTime(),
-				IDrawableAnimated.StartDirection.LEFT, false);
+
+		ProgressDirection right = ProgressDirection.RIGHT;
+		ProgressDirection left = ProgressDirection.LEFT;
+
+		IDrawableStatic progressrightStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
+			right.yActive, right.width, right.height);
+		IDrawableStatic progressleftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
+			left.yActive, left.width, left.height);
+		int ticksPerCycle = baseRecipe.tickTime();
+
+		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle,
+			IDrawableAnimated.StartDirection.LEFT, false);
+		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle,
+			IDrawableAnimated.StartDirection.RIGHT, false);
+
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 25, 16);
+
+		progressright.draw(minecraft, 25, 12);
+		progressleft.draw(minecraft, 75, 12);
+
+		int y = 31;
+		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
+
+		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight + 1, 0x444444);
 	}
 }

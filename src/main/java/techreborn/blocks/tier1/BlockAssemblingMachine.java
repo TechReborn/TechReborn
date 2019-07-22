@@ -36,9 +36,9 @@ import techreborn.lib.ModInfo;
 import techreborn.tiles.tier1.TileAssemblingMachine;
 
 public class BlockAssemblingMachine extends BlockMachineBase {
-
 	public BlockAssemblingMachine() {
 		super();
+
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}

@@ -133,26 +133,26 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		MinecraftForge.EVENT_BUS.register(TechRebornJeiPlugin.class);
 	}
 
-	private static void addDebugRecipes(IModRegistry registry) {
-		ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
-		ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
-		List<Object> debugRecipes = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			int time = (int) Math.round(200 + Math.random() * 100);
-			AssemblingMachineRecipe assemblingMachineRecipe = new AssemblingMachineRecipe(diamondBlock, diamondBlock,
-					dirtBlock, time, 120);
-			debugRecipes.add(assemblingMachineRecipe);
-		}
-		registry.addRecipes(debugRecipes, RecipeCategoryUids.ASSEMBLING_MACHINE);
-		debugRecipes.clear();
-		for (int i = 0; i < 10; i++) {
-			int time = (int) Math.round(200 + Math.random() * 100);
-			ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock,
-					dirtBlock, time, 120);
-			debugRecipes.add(recipe);
-		}
-		registry.addRecipes(debugRecipes, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
-	}
+//	private static void addDebugRecipes(IModRegistry registry) {
+//		ItemStack diamondBlock = new ItemStack(Blocks.DIAMOND_BLOCK);
+//		ItemStack dirtBlock = new ItemStack(Blocks.DIRT);
+//		List<Object> debugRecipes = new ArrayList<>();
+//		for (int i = 0; i < 10; i++) {
+//			int time = (int) Math.round(200 + Math.random() * 100);
+//			AssemblingMachineRecipe assemblingMachineRecipe = new AssemblingMachineRecipe(diamondBlock, diamondBlock,
+//					dirtBlock, time, 120);
+//			debugRecipes.add(assemblingMachineRecipe);
+//		}
+//		registry.addRecipes(debugRecipes, RecipeCategoryUids.ASSEMBLING_MACHINE);
+//		debugRecipes.clear();
+//		for (int i = 0; i < 10; i++) {
+//			int time = (int) Math.round(200 + Math.random() * 100);
+//			ImplosionCompressorRecipe recipe = new ImplosionCompressorRecipe(diamondBlock, diamondBlock, dirtBlock,
+//					dirtBlock, time, 120);
+//			debugRecipes.add(recipe);
+//		}
+//		registry.addRecipes(debugRecipes, RecipeCategoryUids.IMPLOSION_COMPRESSOR);
+//	}
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
@@ -318,9 +318,9 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			e.printStackTrace();
 		}
 
-		if (Config.isDebugModeEnabled()) {
-			TechRebornJeiPlugin.addDebugRecipes(registry);
-		}
+//		if (Config.isDebugModeEnabled()) {
+//			TechRebornJeiPlugin.addDebugRecipes(registry);
+//		}
 
 		// Descriptions
 		registry.addIngredientInfo(ItemParts.getPartByName("rubberSap"), ItemStack.class, StringUtils.t("techreborn.jei.desc.rubberSap"));
@@ -378,7 +378,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.VACUUM_FREEZER), RecipeCategoryUids.VACUUM_FREEZER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ELECTRIC_FURNACE), VanillaRecipeCategoryUid.SMELTING);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ALLOY_SMELTER), RecipeCategoryUids.ALLOY_SMELTER);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ASSEMBLY_MACHINE), RecipeCategoryUids.ASSEMBLING_MACHINE);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ASSEMBLING_MACHINE), RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.CHEMICAL_REACTOR), RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.FUSION_CONTROL_COMPUTER), RecipeCategoryUids.FUSION_REACTOR);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.IMPLOSION_COMPRESSOR), RecipeCategoryUids.IMPLOSION_COMPRESSOR);

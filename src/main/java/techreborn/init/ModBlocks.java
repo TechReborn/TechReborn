@@ -75,7 +75,7 @@ public class ModBlocks {
 	public static Block CHUNK_LOADER;
 	public static Block DRAGON_EGG_SYPHON;
 	public static Block MAGIC_ENERGY_CONVERTER;
-	public static Block ASSEMBLY_MACHINE;
+	public static Block ASSEMBLING_MACHINE;
 	public static Block DIESEL_GENERATOR;
 	public static Block INDUSTRIAL_ELECTROLYZER;
 	public static Block MAGICAL_ABSORBER;
@@ -221,8 +221,8 @@ public class ModBlocks {
 		MAGIC_ENERGY_CONVERTER = new BlockMagicEnergyConverter();
 		registerBlock(MAGIC_ENERGY_CONVERTER, "magic_energy_converter");
 
-		ASSEMBLY_MACHINE = new BlockAssemblingMachine();
-		registerBlock(ASSEMBLY_MACHINE, "assembly_machine");
+		ASSEMBLING_MACHINE = new BlockAssemblingMachine();
+		registerBlock(ASSEMBLING_MACHINE, "assembling_machine");
 
 		DIESEL_GENERATOR = new BlockDieselGenerator();
 		registerBlock(DIESEL_GENERATOR, "diesel_generator");

@@ -30,8 +30,9 @@ import reborncore.client.guibuilder.GuiBuilder;
 import techreborn.tiles.tier1.TileAssemblingMachine;
 
 public class GuiAssemblingMachine extends GuiBase {
-
+	// Fields >>
 	TileAssemblingMachine tile;
+	// << Fields
 
 	public GuiAssemblingMachine(final EntityPlayer player, final TileAssemblingMachine tile) {
 		super(player, tile, tile.createContainer(player));
@@ -39,18 +40,15 @@ public class GuiAssemblingMachine extends GuiBase {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		// Battery slot
 		drawSlot(8, 72, layer);
 
-		// Input slots
-		drawSlot(55, 35, layer);
-		drawSlot(55, 55, layer);
-		
-		drawOutputSlot(101, 45, layer);
+		drawSlot(34, 47, layer);
+		drawSlot(126, 47, layer);
+		drawOutputSlot(80, 47, layer);
 
 		builder.drawJEIButton(this, 158, 5, layer);
 	}
@@ -60,7 +58,8 @@ public class GuiAssemblingMachine extends GuiBase {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);		
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

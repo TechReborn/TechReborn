@@ -10,7 +10,6 @@ import techreborn.items.ingredients.ItemPlates;
 import java.security.InvalidParameterException;
 
 public class PlateBendingMachineRecipes extends RecipeMethods {
-
 	public static void init() {
 		// Advanced Alloy
 		register(ItemIngots.getIngotByName("advanced_alloy"), ItemPlates.getPlateByName("advanced_alloy"), 100, 8);

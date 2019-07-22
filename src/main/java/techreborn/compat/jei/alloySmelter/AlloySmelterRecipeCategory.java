@@ -39,12 +39,14 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 
 public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterRecipeWrapper> {
+	// Fields >>
 	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
 	private static final int[] INPUT_SLOTS = { 0, 1 };
 	private static final int[] OUTPUT_SLOTS = { 2 };
 
 	private final IDrawable background;
 	private final String title;
+	// << Fields
 
 	public AlloySmelterRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);

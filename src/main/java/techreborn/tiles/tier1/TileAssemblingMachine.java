@@ -25,39 +25,57 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
+import reborncore.api.recipe.RecipeHandler;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
+import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import techreborn.api.recipe.machines.AssemblingMachineRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAssemblingMachine extends TileGenericMachine implements IContainerProvider {
-
+	// Fields >>
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
-	public static int maxInput = 128;
+	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxEnergy", comment = "Assembling Machine Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
+	public static int maxEnergy = 1_000;
+	// << Fields
 
 	public TileAssemblingMachine() {
-		super("AssemblingMachine", maxInput, maxEnergy, ModBlocks.ASSEMBLY_MACHINE, 3);
+		super("AssemblingMachine", maxInput, maxEnergy, ModBlocks.ASSEMBLING_MACHINE, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new Inventory(4, "TileAssemblingMachine", 64, this);
-		this.crafter = new RecipeCrafter(Reference.ASSEMBLING_MACHINE_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
+		this.crafter = new RecipeCrafter(Reference.ASSEMBLING_MACHINE_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 55, 35).slot(1, 55, 55).outputSlot(2, 101, 45).energySlot(3, 8, 72)
-			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
+			.addInventory()
+			.tile(this)
+			.filterSlot(0, 34, 47,
+				stack -> RecipeHandler.recipeList.stream()
+					.anyMatch(recipe -> recipe instanceof AssemblingMachineRecipe
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+			.filterSlot(1, 126, 47,
+				stack -> RecipeHandler.recipeList.stream()
+					.anyMatch(recipe -> recipe instanceof AssemblingMachineRecipe
+						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+			.outputSlot(2, 80, 47)
+			.energySlot(3, 8, 72)
+			.syncEnergyValue()
+			.syncCrafterValue()
+			.addInventory()
+			.create(this);
 	}
 }

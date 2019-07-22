@@ -54,11 +54,12 @@ public class TilePlateBendingMachine extends TileGenericMachine implements ICont
 		this.crafter = new RecipeCrafter(Reference.PLATE_BENDING_MACHINE_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
 	}
 
-	// IContainerProvider
+	// IContainerProvider >>
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("platebendingmachine").player(player.inventory).inventory().hotbar().addInventory()
 			.tile(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncCrafterValue().addInventory().create(this);
 	}
+	// << IContainerProvider
 }

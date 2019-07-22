@@ -36,7 +36,6 @@ import techreborn.tiles.tier1.TilePlateBendingMachine;
 import techreborn.utils.TechRebornCreativeTab;
 
 public class BlockPlateBendingMachine extends BlockMachineBase {
-
 	public BlockPlateBendingMachine() {
 		super();
 

@@ -200,6 +200,26 @@
         "textures": {
           "layer0": "techreborn:items/part/super_conductor"
         }
+      },
+      "basic_circuit_board": {
+        "textures": {
+          "layer0": "techreborn:items/part/basic_circuit_board"
+        }
+      },
+      "advanced_circuit_board": {
+        "textures": {
+          "layer0": "techreborn:items/part/advanced_circuit_board"
+        }
+      },
+      "advanced_circuit_parts": {
+        "textures": {
+          "layer0": "techreborn:items/part/advanced_circuit_parts"
+        }
+      },
+      "processor_circuit_board": {
+        "textures": {
+          "layer0": "techreborn:items/part/processor_circuit_board"
+        }
       }
     }
   }
