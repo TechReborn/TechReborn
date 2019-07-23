@@ -34,7 +34,7 @@ import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 
 public enum ModFluids {
-	BERYLLIUM,
+	BERYLIUM,
 	CALCIUM,
 	CALCIUM_CARBONATE,
 	CHLORITE,
@@ -79,8 +79,15 @@ public enum ModFluids {
 	ModFluids() {
 		this.identifier = new Identifier("techreborn", this.name().replace("_", "").toLowerCase());
 
-		stillFluid = new RebornFluid(true, FluidSettings.create(), () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
-		flowingFluid = new RebornFluid(false, FluidSettings.create(), () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
+		FluidSettings fluidSettings = FluidSettings.create();
+
+		Identifier texture = new Identifier("techreborn", "block/fluids/" + this.name().replace("_", "").toLowerCase() + "_flowing");
+
+		fluidSettings.setStillTexture(texture);
+		fluidSettings.setFlowingTexture(texture);
+
+		stillFluid = new RebornFluid(true, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
+		flowingFluid = new RebornFluid(false, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
 
 		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing().build());
 		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP));
