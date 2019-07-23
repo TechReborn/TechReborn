@@ -146,6 +146,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
+		updatePanel();
 		super.fromTag(tag);
 	}
 
@@ -153,6 +154,10 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	@Override
 	public void onLoad() {
 		super.onLoad();
+		updatePanel();
+	}
+
+	private void updatePanel(){
 		Block panelBlock = world.getBlockState(pos).getBlock();
 		if (panelBlock instanceof BlockSolarPanel) {
 			BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
