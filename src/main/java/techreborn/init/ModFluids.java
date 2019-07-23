@@ -24,9 +24,14 @@
 
 package techreborn.init;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Material;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
-import reborncore.fluid.Fluid;
-import techreborn.blocks.fluid.BlockFluidTechReborn;
+import net.minecraft.util.registry.Registry;
+import reborncore.common.fluid.*;
+import techreborn.TechReborn;
+
 public enum ModFluids {
 	BERYLLIUM,
 	CALCIUM,
@@ -63,24 +68,34 @@ public enum ModFluids {
 	COMPRESSED_AIR,
 	ELECTROLYZED_WATER;
 
-	public Fluid fluid;
-	public BlockFluidTechReborn block;
-	public String name;
+	private final RebornFluid fluid;
+	private RebornFluidBlock block;
+	private RebornBucketItem bucket;
+	private final Identifier identifier;
 
 	ModFluids() {
-		this.name = this.name().replace("_", "").toLowerCase(); //Is this ok?
-		fluid = new Fluid(name, new Identifier("techreborn", "fixme"), new Identifier("techrebonr", "alsofixme"));
+		this.identifier = new Identifier("techreborn", this.name().replace("_", "").toLowerCase());
+		fluid = new RebornFluid(FluidSettings.create(), () -> block, () -> bucket);
+		block = new RebornFluidBlock(fluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing().build());
+		bucket = new RebornBucketItem(fluid, new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
+	public void register() {
+		RebornFluidManager.register(fluid, identifier);
+		Registry.register(Registry.BLOCK, identifier, block);
+		Registry.register(Registry.ITEM, identifier, bucket);
+	}
+
+	@Deprecated //TODO this is bad!
 	public Fluid getFluid() {
-		return fluid;
+		return new Fluid();
 	}
 
-	public BlockFluidTechReborn getBlock() {
+	public RebornFluidBlock getBlock() {
 		return block;
 	}
 
-	public String getName() {
-		return name;
+	public Identifier getIdentifier() {
+		return identifier;
 	}
 }

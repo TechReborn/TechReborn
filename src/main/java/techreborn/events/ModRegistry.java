@@ -40,6 +40,7 @@ import techreborn.blocks.misc.BlockRubberPlankSlab;
 import techreborn.blocks.misc.BlockRubberPlankStair;
 import techreborn.blocks.misc.BlockRubberSapling;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModFluids;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
@@ -69,6 +70,7 @@ import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 /**
  * @author drcrazy
@@ -80,6 +82,7 @@ public class ModRegistry {
 	public static void setupShit(){
 		registerBlocks();
 		registerItems();
+		registerFluids();
 	}
 
 	public static void registerBlocks() {
@@ -207,5 +210,9 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCell(), "cell"));
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
+	}
+
+	public static void registerFluids() {
+		Arrays.stream(ModFluids.values()).forEach(ModFluids::register);
 	}
 }

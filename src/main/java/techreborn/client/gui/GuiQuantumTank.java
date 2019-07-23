@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.fluid.FluidStack;
+import reborncore.common.fluid.FluidStack;
 import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
 
 public class GuiQuantumTank extends GuiBase {

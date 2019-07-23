@@ -28,7 +28,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.fluid.FluidStack;
+import reborncore.common.fluid.FluidStack;
 import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 
 public class IndustrialSawmillRecipe extends RebornRecipe {

@@ -28,8 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import reborncore.fluid.Fluid;
-import reborncore.fluid.FluidStack;
+import reborncore.common.fluid.Fluid;
+import reborncore.common.fluid.FluidStack;
 
 import java.util.Collections;
 import java.util.List;

@@ -26,7 +26,7 @@ package techreborn.items;
 
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.Validate;
-import reborncore.fluid.Fluid;
+import reborncore.common.fluid.Fluid;
 import techreborn.utils.FluidUtils;
 
 public class ItemCells {

@@ -64,8 +64,6 @@ public class TechReborn implements ModInitializer {
 		@SuppressWarnings("unused")
 		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
 //		TechRebornAPI.subItemRetriever = new SubItemRetriever();
-		// Done like this to load them here
-		ModFluids.values();
 
 		// Done to force the class to load
 		ModRecipes.GRINDER.getName();
