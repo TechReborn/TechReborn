@@ -68,20 +68,27 @@ public enum ModFluids {
 	COMPRESSED_AIR,
 	ELECTROLYZED_WATER;
 
-	private final RebornFluid fluid;
+	private RebornFluid stillFluid;
+	private RebornFluid flowingFluid;
+
 	private RebornFluidBlock block;
 	private RebornBucketItem bucket;
 	private final Identifier identifier;
 
 	ModFluids() {
 		this.identifier = new Identifier("techreborn", this.name().replace("_", "").toLowerCase());
-		fluid = new RebornFluid(FluidSettings.create(), () -> block, () -> bucket);
-		block = new RebornFluidBlock(fluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing().build());
-		bucket = new RebornBucketItem(fluid, new Item.Settings().group(TechReborn.ITEMGROUP));
+
+		stillFluid = new RebornFluid(true, FluidSettings.create(), () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
+		flowingFluid = new RebornFluid(false, FluidSettings.create(), () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
+
+		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing().build());
+		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
 	public void register() {
-		RebornFluidManager.register(fluid, identifier);
+		RebornFluidManager.register(stillFluid, identifier);
+		RebornFluidManager.register(flowingFluid, new Identifier("techreborn", identifier.getPath() + "_flowing"));
+
 		Registry.register(Registry.BLOCK, identifier, block);
 		Registry.register(Registry.ITEM, identifier, bucket);
 	}
