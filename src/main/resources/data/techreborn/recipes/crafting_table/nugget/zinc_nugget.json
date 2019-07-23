@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:zinc_ingot"
+    }
+  ],
+  "result": {
+    "item": "techreborn:zinc_nugget",
+    "count": 9
+  }
+}

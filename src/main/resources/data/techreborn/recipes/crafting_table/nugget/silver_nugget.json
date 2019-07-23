@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:silver_ingot"
+    }
+  ],
+  "result": {
+    "item": "techreborn:silver_nugget",
+    "count": 9
+  }
+}

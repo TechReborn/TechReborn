@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "item": "techreborn:brass_nugget"
+    }
+  },
+  "result": {
+    "item": "techreborn:brass_ingot"
+  }
+}

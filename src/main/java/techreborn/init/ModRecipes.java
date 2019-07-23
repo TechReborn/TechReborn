@@ -68,7 +68,6 @@ public class ModRecipes {
 
 		/*
 
-		CraftingTableRecipes.init();
 		SmeltingRecipes.init();
 		ExtractorRecipes.init();
 		RollingMachineRecipes.init();

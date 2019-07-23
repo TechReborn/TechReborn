@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:lead_ingot"
+    }
+  ],
+  "result": {
+    "item": "techreborn:lead_nugget",
+    "count": 9
+  }
+}
