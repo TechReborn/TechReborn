@@ -33,7 +33,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import reborncore.common.fluid.FluidStack;
+import io.github.prospector.silk.fluid.FluidInstance;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
@@ -137,7 +137,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 	protected boolean acceptFluid() {
 		if (!inventory.getInvStack(0).isEmpty()) {
-			FluidStack stack = FluidUtils.getFluidStackInContainer(inventory.getInvStack(0));
+			FluidInstance stack = FluidUtils.getFluidStackInContainer(inventory.getInvStack(0));
 			if (stack != null)
 				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
 		}

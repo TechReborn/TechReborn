@@ -134,7 +134,7 @@ public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal | hasData) {
 			if (this.tank.getFluid() != null) {
-				info.add(new LiteralText(this.tank.getFluidAmount() + " of " + this.tank.getFluidType().getName()));
+				info.add(new LiteralText(this.tank.getFluidAmount() + " of " + this.tank.getFluidType()));
 			} else {
 				info.add(new LiteralText("Empty"));
 			}

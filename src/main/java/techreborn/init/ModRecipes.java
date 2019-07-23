@@ -30,8 +30,8 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.fluid.Fluid;
-import reborncore.common.fluid.FluidStack;
+import net.minecraft.fluid.Fluid;
+import io.github.prospector.silk.fluid.FluidInstance;
 import reborncore.common.fluid.FluidUtil;
 import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
@@ -369,7 +369,7 @@ public class ModRecipes {
 
 
 	public static ItemStack getBucketWithFluid(Fluid fluid) {
-		return FluidUtil.getFilledBucket(new FluidStack(fluid, 1000));
+		return FluidUtil.getFilledBucket(new FluidInstance(fluid, 1000));
 	}
 
 }

@@ -28,13 +28,13 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.fluid.FluidStack;
+import io.github.prospector.silk.fluid.FluidInstance;
 import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 
 public class IndustrialGrinderRecipe extends RebornRecipe {
 
 	//TODO 1.14 fluids
-	FluidStack fluidStack = null;
+	FluidInstance fluidStack = null;
 
 	public IndustrialGrinderRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
@@ -46,16 +46,16 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 		if (!blockEntity.getMultiBlock()) {
 			return false;
 		}
-		final FluidStack recipeFluid = fluidStack;
-		final FluidStack tankFluid = blockEntity.tank.getFluid();
+		final FluidInstance recipeFluid = fluidStack;
+		final FluidInstance tankFluid = blockEntity.tank.getFluid();
 		if (fluidStack == null) {
 			return true;
 		}
 		if (tankFluid == null) {
 			return false;
 		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
+		if (tankFluid.getFluid().equals(recipeFluid.getFluid())) {
+			if (tankFluid.getAmount() >= recipeFluid.getAmount()) {
 				return true;
 			}
 		}
@@ -65,21 +65,21 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 	@Override
 	public boolean onCraft(final BlockEntity be) {
 		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
-		final FluidStack recipeFluid = fluidStack;
-		final FluidStack tankFluid = blockEntity.tank.getFluid();
+		final FluidInstance recipeFluid = fluidStack;
+		final FluidInstance tankFluid = blockEntity.tank.getFluid();
 		if (fluidStack == null) {
 			return true;
 		}
 		if (tankFluid == null) {
 			return false;
 		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				if (tankFluid.amount == recipeFluid.amount) {
+		if (tankFluid.getFluid().equals(recipeFluid.getFluid())) {
+			if (tankFluid.getAmount() >= recipeFluid.getAmount()) {
+				if (tankFluid.getAmount() == recipeFluid.getAmount()) {
 					blockEntity.tank.setFluid(null);
 				}
 				else {
-					tankFluid.amount -= recipeFluid.amount;
+					tankFluid.subtractAmount(recipeFluid.getAmount());
 				}
 				blockEntity.syncWithAll();
 				return true;

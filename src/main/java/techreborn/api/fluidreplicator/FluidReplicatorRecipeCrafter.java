@@ -29,8 +29,8 @@ import net.minecraft.item.ItemStack;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import reborncore.common.fluid.Fluid;
-import reborncore.common.fluid.FluidStack;
+import net.minecraft.fluid.Fluid;
+import io.github.prospector.silk.fluid.FluidInstance;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
@@ -75,7 +75,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 	}
 	
 	private boolean canFit(Fluid fluid, Tank tank) {
-		if (tank.fill(new FluidStack(fluid, 1000), false) != 1000) {
+		if (tank.fill(new FluidInstance(fluid, 1000), false) != 1000) {
 			return false;
 		}
 		return true;
@@ -118,7 +118,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 				// Checks to see if it can fit the output
 				// And fill tank with replicated fluid
 				if (canFit(currentRecipe.getFluid(), blockEntityFluidReplicator.tank) && currentRecipe.onCraft(blockEntityFluidReplicator)) {
-					blockEntityFluidReplicator.tank.fill(new FluidStack(currentRecipe.getFluid(), 1000), true);
+					blockEntityFluidReplicator.tank.fill(new FluidInstance(currentRecipe.getFluid(), 1000), true);
 					// This uses all the inputs
 					useAllInputs();
 					// Reset

@@ -25,7 +25,7 @@
 package techreborn.api.generator;
 
 
-import reborncore.common.fluid.Fluid;
+import net.minecraft.fluid.Fluid;
 import techreborn.utils.FluidUtils;
 
 public class FluidGeneratorRecipe {

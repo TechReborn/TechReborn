@@ -33,7 +33,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
-import reborncore.common.fluid.Fluid;
+import net.minecraft.fluid.Fluid;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;

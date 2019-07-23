@@ -85,6 +85,7 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.200"
 
 	modCompile "io.github.prospector.modmenu:ModMenu:1.5.4-85"
+	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
 
 //	modCompile ('RebornCore:RebornCore-1.14:4.0.0.14') {
 //		transitive = false

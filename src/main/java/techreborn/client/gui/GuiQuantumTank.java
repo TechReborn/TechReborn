@@ -24,9 +24,10 @@
 
 package techreborn.client.gui;
 
+import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.fluid.FluidStack;
+import reborncore.common.fluid.FluidUtil;
 import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
 
 public class GuiQuantumTank extends GuiBase {
@@ -52,10 +53,10 @@ public class GuiQuantumTank extends GuiBase {
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
 
-		FluidStack fluid = quantumTank.tank.getFluid();
+		FluidInstance fluid = quantumTank.tank.getFluid();
 		if(fluid != null){
 			font.draw( "Fluid Type:", 10, 20, 4210752);
-			font.draw(fluid.getLocalizedName() + "", 10, 30, 4210752);
+			font.draw(FluidUtil.getFluidName(fluid) + "", 10, 30, 4210752);
 
 			font.draw("Fluid Amount:", 10, 50, 4210752);
 			font.draw(quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);

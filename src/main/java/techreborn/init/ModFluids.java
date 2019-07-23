@@ -26,6 +26,7 @@ package techreborn.init;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Material;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -93,9 +94,8 @@ public enum ModFluids {
 		Registry.register(Registry.ITEM, identifier, bucket);
 	}
 
-	@Deprecated //TODO this is bad!
 	public Fluid getFluid() {
-		return new Fluid();
+		return stillFluid;
 	}
 
 	public RebornFluidBlock getBlock() {

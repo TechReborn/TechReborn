@@ -24,12 +24,12 @@
 
 package techreborn.utils;
 
+import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import reborncore.common.fluid.Fluid;
-import reborncore.common.fluid.FluidStack;
+import net.minecraft.fluid.Fluid;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +60,7 @@ public class FluidUtils {
 		return false;
 	}
 
-	public static FluidStack getFluidStackInContainer(ItemStack invStack) {
+	public static FluidInstance getFluidStackInContainer(ItemStack invStack) {
 		return null;
 	}
 }
