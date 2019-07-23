@@ -34,8 +34,7 @@ import techreborn.init.TRContent;
 public class SmeltingRecipes extends RecipeMethods {
 	public static void init() {
 
-		register(getStack(Items.IRON_INGOT), TRContent.Ingots.REFINED_IRON.getStack());
-		register(TRContent.Parts.SAP.getStack(), TRContent.Parts.RUBBER.getStack());
+
 		register(TRContent.Ingots.MIXED_METAL.getStack(), TRContent.Ingots.ADVANCED_ALLOY.getStack());
 //		register(BlockOre.getOreByName("silver"), TRIngredients.Ingots.SILVER.getStack());
 //		register(BlockOre2.getOreByName("tin"), TRIngredients.Ingots.TIN.getStack());
