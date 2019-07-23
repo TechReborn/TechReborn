@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:sapphire_dust"
+    }
+  ],
+  "result": {
+    "item": "techreborn:sapphire_small_dust",
+    "count": 4
+  }
+}

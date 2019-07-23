@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:gold_dust"
+    }
+  ],
+  "result": {
+    "item": "techreborn:gold_small_dust",
+    "count": 4
+  }
+}

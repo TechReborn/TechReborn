@@ -41,10 +41,6 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 	static void registerCompressionRecipes() {
 		
-//		for (String name : ItemDustsSmall.types) {
-//			registerShapeless(getMaterial(name, 4, Type.SMALL_DUST), getMaterialObject(name, Type.DUST));
-//			registerShapeless(getMaterial(name, Type.DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST), getMaterialObject(name, Type.SMALL_DUST));
-//		}
 
 // TODO: fix recipe
 //		for (String nuggets : ItemNuggets.types) {

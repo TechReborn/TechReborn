@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:platinum_dust"
+    }
+  ],
+  "result": {
+    "item": "techreborn:platinum_small_dust",
+    "count": 4
+  }
+}

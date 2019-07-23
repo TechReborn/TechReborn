@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:aluminum_dust"
+    }
+  ],
+  "result": {
+    "item": "techreborn:aluminum_small_dust",
+    "count": 4
+  }
+}
