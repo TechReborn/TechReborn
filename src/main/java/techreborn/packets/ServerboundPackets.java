@@ -30,11 +30,11 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.Packet;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
-import reborncore.common.network.NetworkPacket;
 import techreborn.init.TRContent;
 import techreborn.items.ItemManual;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
@@ -58,6 +58,7 @@ public class ServerboundPackets {
 		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
+
 			context.getTaskQueue().execute(() -> {
 				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
 				if (blockEntity instanceof AdjustableSUBlockEntity) {
@@ -69,6 +70,7 @@ public class ServerboundPackets {
 		registerPacketHandler(AUTO_CRAFTING_LOCK, (extendedPacketBuffer, context) -> {
 			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
 			boolean locked = extendedPacketBuffer.readBoolean();
+
 			context.getTaskQueue().execute(() -> {
 				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof AutoCraftingTableBlockEntity) {
@@ -80,6 +82,7 @@ public class ServerboundPackets {
 		registerPacketHandler(FUSION_CONTROL_SIZE, (extendedPacketBuffer, context) -> {
 			int sizeDelta = extendedPacketBuffer.readInt();
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
+
 			context.getTaskQueue().execute(() -> {
 				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
 				if (blockEntity instanceof FusionControlComputerBlockEntity) {
@@ -91,6 +94,7 @@ public class ServerboundPackets {
 		registerPacketHandler(IDSU, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
+
 			context.getTaskQueue().execute(() -> {
 				//TODO was commented out when I ported it, so ill leave it here, needs looking into tho
 				//		if (!pos.getWorld().isRemote) {
@@ -102,6 +106,7 @@ public class ServerboundPackets {
 		registerPacketHandler(ROLLING_MACHINE_LOCK, (extendedPacketBuffer, context) -> {
 			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
 			boolean locked = extendedPacketBuffer.readBoolean();
+
 			context.getTaskQueue().execute(() -> {
 				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof RollingMachineBlockEntity) {
@@ -135,43 +140,43 @@ public class ServerboundPackets {
 		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
-	public static NetworkPacket createPacketAesu(int buttonID, AdjustableSUBlockEntity blockEntity) {
-		return NetworkManager.createPacket(AESU, extendedPacketBuffer -> {
+	public static Packet createPacketAesu(int buttonID, AdjustableSUBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(AESU, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
 		});
 	}
 
-	public static NetworkPacket createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
-		return NetworkManager.createPacket(AUTO_CRAFTING_LOCK, extendedPacketBuffer -> {
+	public static Packet createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
+		return NetworkManager.createServerBoundPacket(AUTO_CRAFTING_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
 		});
 	}
 
-	public static NetworkPacket createPacketFusionControlSize(int sizeDelta, BlockPos pos) {
-		return NetworkManager.createPacket(FUSION_CONTROL_SIZE, extendedPacketBuffer -> {
+	public static Packet createPacketFusionControlSize(int sizeDelta, BlockPos pos) {
+		return NetworkManager.createServerBoundPacket(FUSION_CONTROL_SIZE, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeInt(sizeDelta);
 			extendedPacketBuffer.writeBlockPos(pos);
 		});
 	}
 
-	public static NetworkPacket createPacketIdsu(int buttonID, InterdimensionalSUBlockEntity blockEntity) {
-		return NetworkManager.createPacket(IDSU, extendedPacketBuffer -> {
+	public static Packet createPacketIdsu(int buttonID, InterdimensionalSUBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(IDSU, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
 		});
 	}
 
-	public static NetworkPacket createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
-		return NetworkManager.createPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
+	public static Packet createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
+		return NetworkManager.createServerBoundPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
 		});
 	}
 
-	public static NetworkPacket createRefundPacket(){
-		return NetworkManager.createPacket(REFUND, extendedPacketBuffer -> {
+	public static Packet createRefundPacket(){
+		return NetworkManager.createServerBoundPacket(REFUND, extendedPacketBuffer -> {
 
 		});
 	}
