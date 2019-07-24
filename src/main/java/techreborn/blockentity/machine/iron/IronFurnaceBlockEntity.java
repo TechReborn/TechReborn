@@ -45,7 +45,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IContainerProvider {
 
 	public int tickTime;
-	public RebornInventory<IronFurnaceBlockEntity> inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this, getInvetoryAccess());
+	public RebornInventory<IronFurnaceBlockEntity> inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this, getInvetoryAccess()).withConfiguredAccess();
 	public int fuel;
 	public int fuelGague;
 	public int progress;
