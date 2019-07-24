@@ -1,0 +1,9 @@
+{
+	"type": "minecraft:smelting",
+	"ingredient": {
+		"item": "techreborn:gold_dust"
+	},
+	"result": "minecraft:gold_ingot",
+	"experience": 0.5,
+	"cookingtime": 200
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "techreborn:mixed_metal_ingot"
+  },
+  "result": "techreborn:advanced_alloy_ingot",
+  "experience": 0.5,
+  "cookingtime": 200
+}
