@@ -45,7 +45,7 @@ import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
 import techreborn.init.TRToolTier;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.items.ItemManual;
 import techreborn.items.ItemScrapBox;
@@ -70,7 +70,6 @@ import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 /**
  * @author drcrazy
@@ -207,7 +206,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.SCRAP_BOX = InitUtils.setup(new ItemScrapBox(), "scrap_box"));
 		RebornRegistry.registerItem(TRContent.MANUAL = InitUtils.setup(new ItemManual(), "manual"));
 		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
-		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCell(), "cell"));
+		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new ItemDynamicCell(), "cell"));
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
 	}

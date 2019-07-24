@@ -27,7 +27,7 @@ package techreborn.init.recipes;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 
 import java.security.InvalidParameterException;
 
@@ -138,22 +138,22 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 
 		int cellCount = 0;
 		for (ItemStack stack : outputs) {
-			if (stack.getItem() instanceof DynamicCell) {
+			if (stack.getItem() instanceof ItemDynamicCell) {
 				cellCount += stack.getCount();
 			}
 
 		}
 
 		if (input instanceof ItemStack) {
-			if (((ItemStack) input).getItem() instanceof DynamicCell) {
+			if (((ItemStack) input).getItem() instanceof ItemDynamicCell) {
 				int inputCount = ((ItemStack) input).getCount();
 				if (cellCount < inputCount) {
 					if (output2 == null) {
-						output2 = DynamicCell.getEmptyCell(inputCount - cellCount);
+						output2 = ItemDynamicCell.getEmptyCell(inputCount - cellCount);
 					} else if (output3 == null) {
-						output3 = DynamicCell.getEmptyCell(inputCount - cellCount);
+						output3 = ItemDynamicCell.getEmptyCell(inputCount - cellCount);
 					} else if (output4 == null) {
-						output4 = DynamicCell.getEmptyCell(inputCount - cellCount);
+						output4 = ItemDynamicCell.getEmptyCell(inputCount - cellCount);
 					}
 				}
 				cellCount -= inputCount;
@@ -169,7 +169,7 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 			if (cellCount > 64) {
 				throw new InvalidParameterException("Invalid industrial centrifuge outputs: " + outputs + "(Recipe requires > 64 cells)");
 			}
-			cells = DynamicCell.getEmptyCell(cellCount);
+			cells = ItemDynamicCell.getEmptyCell(cellCount);
 		}
 		//RecipeHandler.addRecipe(Reference.CENTRIFUGE_RECIPE, new CentrifugeRecipe(input, cells, output1, output2, output3, output4, ticks, 5, oreDict));
 	}

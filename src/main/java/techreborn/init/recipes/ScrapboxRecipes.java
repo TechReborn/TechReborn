@@ -29,7 +29,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import techreborn.init.TRContent;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.utils.StackWIPHandler;
 
 /**
@@ -117,7 +117,7 @@ public class ScrapboxRecipes extends RecipeMethods {
 		register(getStack(Items.GOLD_NUGGET));
 		register(getStack(Items.SHULKER_SHELL));
 
-		register(DynamicCell.getEmptyCell(1));
+		register(ItemDynamicCell.getEmptyCell(1));
 		register(getMaterial("water", Type.CELL));
 		register(getMaterial("compressedair", Type.CELL));
 		register(TRContent.Parts.SAP.getStack());

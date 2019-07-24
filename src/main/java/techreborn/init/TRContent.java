@@ -50,7 +50,7 @@ import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
@@ -112,7 +112,7 @@ public class TRContent {
 	public static Item FREQUENCY_TRANSMITTER;
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
-	public static DynamicCell CELL;
+	public static ItemDynamicCell CELL;
 
 	// Gem armor & tools
 	@Nullable

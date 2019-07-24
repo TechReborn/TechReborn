@@ -32,7 +32,7 @@ import techreborn.utils.FluidUtils;
 public class ItemCells {
 	public static ItemStack getCellByName(String name, int count) {
 		if (name.equalsIgnoreCase("empty") || name.equalsIgnoreCase("cell")) {
-			return DynamicCell.getEmptyCell(count).copy();
+			return ItemDynamicCell.getEmptyCell(count).copy();
 		}
 		Fluid fluid = FluidUtils.getFluid("fluid" + name.toLowerCase());
 		if (fluid == null) {
@@ -42,7 +42,7 @@ public class ItemCells {
 			}
 		}
 		Validate.notNull(fluid, "The fluid " + name + " could not be found");
-		return DynamicCell.getCellWithFluid(fluid, count);
+		return ItemDynamicCell.getCellWithFluid(fluid, count);
 	}
 
 	public static ItemStack getCellByName(String name) {

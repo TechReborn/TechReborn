@@ -101,7 +101,7 @@ public enum ModFluids {
 		Registry.register(Registry.ITEM, identifier, bucket);
 	}
 
-	public Fluid getFluid() {
+	public RebornFluid getFluid() {
 		return stillFluid;
 	}
 

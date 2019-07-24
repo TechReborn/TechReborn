@@ -31,9 +31,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import net.minecraft.fluid.Fluid;
+import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
@@ -41,11 +43,11 @@ import techreborn.utils.FluidUtils;
 /**
  * Created by modmuss50 on 17/05/2016.
  */
-public class DynamicCell extends Item {
+public class ItemDynamicCell extends Item {
 
 	public static final int CAPACITY = 1000;
 
-	public DynamicCell() {
+	public ItemDynamicCell() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
@@ -65,13 +67,6 @@ public class DynamicCell extends Item {
 	}
 
 
-	public boolean tryAddCellToInventory(PlayerEntity player, ItemStack stack, Fluid fluid) {
-		if (player.inventory.insertStack(DynamicCell.getCellWithFluid(fluid))) {
-			stack.decrement(1);
-			return true;
-		}
-		return false;
-	}
 
 	@Override
 	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> subItems) {
@@ -101,7 +96,7 @@ public class DynamicCell extends Item {
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(TRContent.CELL);
-		//getFluidHandler(stack).fill(new FluidStack(fluid, CAPACITY), true);
+		ItemNBTHelper.getNBT(stack).putString("fluid", Registry.FLUID.getId(fluid).toString());
 		stack.setCount(stackSize);
 		return stack;
 	}

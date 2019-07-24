@@ -8,6 +8,9 @@
   "entrypoints": {
     "main": [
       "techreborn.TechReborn"
+    ],
+    "client": [
+      "techreborn.TechRebornClient"
     ]
   },
   "requires": {

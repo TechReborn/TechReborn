@@ -31,7 +31,7 @@ import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.hud.StackInfoHUD;
 import techreborn.init.TRContent;
-import techreborn.items.DynamicCell;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 
 public class ClientProxy extends CommonProxy {
@@ -56,7 +56,7 @@ public class ClientProxy extends CommonProxy {
 //		StateMap rubberLeavesStateMap = new StateMap.Builder().ignore(BlockRubberLeaves.CHECK_DECAY, BlockRubberLeaves.DECAYABLE).build();
 //		ModelLoader.setCustomStateMapper(TRContent.RUBBER_LEAVES, rubberLeavesStateMap);
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
-		GuiBase.fluidCellProvider = DynamicCell::getCellWithFluid;
+		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;
 	}
 
 

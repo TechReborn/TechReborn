@@ -27,12 +27,14 @@ package techreborn.utils;
 import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.registry.Registry;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import net.minecraft.fluid.Fluid;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FluidUtils {
 
@@ -41,7 +43,7 @@ public class FluidUtils {
 	}
 
 	public static List<Fluid> getAllFluids() {
-		return Collections.emptyList();
+		return Registry.FLUID.stream().collect(Collectors.toList());
 	}
 
 	public static Fluid getFluid(String name){
