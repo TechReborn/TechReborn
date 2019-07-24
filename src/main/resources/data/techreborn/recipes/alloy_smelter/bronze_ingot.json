@@ -1,0 +1,20 @@
+{
+  "type": "techreborn:alloy_smelter",
+  "power": 16,
+  "time": 200,
+  "ingredients" : [
+    {
+      "item": "techreborn:tin_ingot"
+    },
+    {
+      "item": "techreborn:copper_ingot",
+      "count": 3
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:bronze_ingot",
+      "count": 4
+    }
+  ]
+}

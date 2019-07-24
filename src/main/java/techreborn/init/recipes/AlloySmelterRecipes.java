@@ -39,18 +39,14 @@ public class AlloySmelterRecipes extends RecipeMethods {
 
 //		// Bronze
 ////		TODO: Fix Recipe
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(ingotCopper3, "ingotTin",
-//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
+
 //		RecipeHandler.addRecipe(
 //			new AlloySmelterRecipe(ingotCopper3, "dustTin",
 //				ItemIngots.getIngotByName("bronze", 4), 200, 16));
 //		RecipeHandler.addRecipe(
 //			new AlloySmelterRecipe(dustCopper3, "ingotTin",
 //				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(dustCopper3, "dustTin",
-//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
+
 //
 //		// Electrum
 //		RecipeHandler.addRecipe(
