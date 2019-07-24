@@ -85,7 +85,7 @@ public class GuiIndustrialGrinder extends GuiBase {
 		final Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawTank(this, 53, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
+		builder.drawTank(this, 53, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
 		if (blockEntity.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {

@@ -98,7 +98,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 		if (!world.isClient && ticksSinceLastChange >= 10) {
 			if (!inventory.getInvStack(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 5);
-				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidType());
+				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidInstance().getFluid());
 			}
 			ticksSinceLastChange = 0;
 		}
@@ -107,7 +107,6 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 			super.tick();
 		}
 
-		tank.compareAndUpdate();
 	}
 	
 	// TilePowerAcceptor
@@ -147,7 +146,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
-				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
+				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this, syncID);
 	}
 

@@ -24,17 +24,17 @@
 
 package techreborn.items;
 
+import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
-import net.minecraft.fluid.Fluid;
+import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
@@ -43,12 +43,12 @@ import techreborn.utils.FluidUtils;
 /**
  * Created by modmuss50 on 17/05/2016.
  */
-public class ItemDynamicCell extends Item {
+public class ItemDynamicCell extends Item implements GenericFluidContainer<ItemStack> {
 
 	public static final int CAPACITY = 1000;
 
 	public ItemDynamicCell() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP));
+		super(new Item.Settings().maxCount(1).group(TechReborn.ITEMGROUP));
 	}
 
 	@Override
@@ -66,8 +66,6 @@ public class ItemDynamicCell extends Item {
 		}
 	}
 
-
-
 	@Override
 	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> subItems) {
 		if (!isIn(tab)) {
@@ -81,22 +79,18 @@ public class ItemDynamicCell extends Item {
 
 //	@Override
 //	public String getTranslationKey(ItemStack stack) {
-//		FluidStack fluidStack = getFluidHandler(stack).getFluid();
+//		FluidStack fluidStack = getFluidHandler(stack).getFluidInstance();
 //		if (fluidStack == null)
 //			return super.getTranslationKey(stack);
 //		return StringUtils.t("item.techreborn.cell.fluid.name").replaceAll("\\$fluid\\$", fluidStack.getLocalizedName());
 //	}
-//
-//	@Override
-//	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
-//		return getFluidHandler(stack);
-//	}
-//
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
 		ItemStack stack = new ItemStack(TRContent.CELL);
-		ItemNBTHelper.getNBT(stack).putString("fluid", Registry.FLUID.getId(fluid).toString());
+		GenericFluidContainer<ItemStack> fluidContainer = GenericFluidContainer.fromStack(stack);
+		Validate.notNull(fluidContainer);
+		fluidContainer.setFluid(stack, new FluidInstance(fluid, fluidContainer.getCapacity(stack)));
 		stack.setCount(stackSize);
 		return stack;
 	}
@@ -110,4 +104,27 @@ public class ItemDynamicCell extends Item {
 	}
 
 
+	@Override
+	public void setFluid(ItemStack type, FluidInstance instance) {
+		Validate.notNull(type, "ItemStack cannot be null!");
+		CompoundTag compoundTag = new CompoundTag();
+		instance.toTag(compoundTag);
+		ItemNBTHelper.getNBT(type).put("fluid", compoundTag);
+	}
+
+	@Override
+	public FluidInstance getFluidInstance(ItemStack type) {
+		Validate.notNull(type, "ItemStack cannot be null!");
+		if(ItemNBTHelper.getNBT(type).containsKey("fluid")){
+			CompoundTag compoundTag = ItemNBTHelper.getNBT(type).getCompound("fluid");
+			return new FluidInstance(compoundTag);
+		}
+		return new FluidInstance();
+	}
+
+	@Override
+	public int getCapacity(ItemStack type) {
+		Validate.notNull(type, "ItemStack cannot be null!");
+		return CAPACITY;
+	}
 }

@@ -92,7 +92,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {
 			if (!inventory.getInvStack(1).isEmpty()) {
-				FluidUtils.fillContainers(tank, inventory, 1, 2, tank.getFluidType());
+				FluidUtils.fillContainers(tank, inventory, 1, 2, tank.getFluid());
 			}
 			ticksSinceLastChange = 0;
 		}
@@ -101,7 +101,6 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 			super.tick();
 		}
 
-		tank.compareAndUpdate();
 	}
 	
 	@Override
@@ -144,7 +143,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack()))
-				.outputSlot(2, 124, 55).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
+				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this, syncID);
 	}
 }

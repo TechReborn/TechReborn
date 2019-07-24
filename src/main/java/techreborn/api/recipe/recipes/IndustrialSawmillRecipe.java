@@ -47,7 +47,7 @@ public class IndustrialSawmillRecipe extends RebornRecipe {
 			return false;
 		}
 		final FluidInstance recipeFluid = fluidStack;
-		final FluidInstance tankFluid = blockEntity.tank.getFluid();
+		final FluidInstance tankFluid = blockEntity.tank.getFluidInstance();
 		if (fluidStack == null) {
 			return true;
 		}
@@ -66,7 +66,7 @@ public class IndustrialSawmillRecipe extends RebornRecipe {
 	public boolean onCraft(BlockEntity be) {
 		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
 		final FluidInstance recipeFluid = fluidStack;
-		final FluidInstance tankFluid = blockEntity.tank.getFluid();
+		final FluidInstance tankFluid = blockEntity.tank.getFluidInstance();
 		if (fluidStack == null) {
 			return true;
 		}

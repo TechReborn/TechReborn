@@ -10,7 +10,7 @@ import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.util.Identifier;
-import techreborn.client.render.DyamicCellBakedModel;
+import techreborn.client.render.DynamicCellBakedModel;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -46,7 +46,7 @@ public class TechRebornClient implements ClientModInitializer {
 				@Nullable
 				@Override
 				public BakedModel bake(ModelLoader modelLoader, Function<Identifier, Sprite> function, ModelBakeSettings modelBakeSettings) {
-					return new DyamicCellBakedModel();
+					return new DynamicCellBakedModel();
 				}
 			};
 		});

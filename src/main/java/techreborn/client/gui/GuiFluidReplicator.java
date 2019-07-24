@@ -86,7 +86,7 @@ public class GuiFluidReplicator extends GuiBase {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawTank(this, 99, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
+		builder.drawTank(this, 99, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
 		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		if (blockEntity.getMultiBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);

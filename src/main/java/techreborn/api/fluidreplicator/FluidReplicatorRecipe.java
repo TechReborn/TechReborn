@@ -117,7 +117,7 @@ public class FluidReplicatorRecipe implements Cloneable {
 		if (!FluidUtils.fluidEquals(fluid, output)) {
 			return false;
 		}
-		final Fluid tankFluid = blockEntity.tank.getFluidType();
+		final Fluid tankFluid = blockEntity.tank.getFluid();
 		if (tankFluid != null && !FluidUtils.fluidEquals(tankFluid, fluid)) {
 			return false;
 		}

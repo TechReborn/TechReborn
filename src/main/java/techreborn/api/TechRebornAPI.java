@@ -35,8 +35,6 @@ public final class TechRebornAPI {
 	 */
 	public static IRecipeCompact recipeCompact;
 
-	public static ISubItemRetriever subItemRetriever;
-
 	public static IC2Helper ic2Helper;
 
 	/**

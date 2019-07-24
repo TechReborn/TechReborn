@@ -108,7 +108,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		if (!world.isClient && ticksSinceLastChange >= 10) {
 			if (!inventory.getInvStack(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 6);
-				FluidUtils.fillContainers(tank, inventory, 1, 6, tank.getFluidType());
+				FluidUtils.fillContainers(tank, inventory, 1, 6, tank.getFluid());
 			}
 			ticksSinceLastChange = 0;
 		}
@@ -116,8 +116,6 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		if (!world.isClient && getMultiBlock()) {
 			super.tick();
 		}
-
-		tank.compareAndUpdate();
 	}
 	
 	@Override
@@ -147,7 +145,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
-				.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+				.sync(tank).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 
 }

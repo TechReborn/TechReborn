@@ -53,7 +53,7 @@ public class GuiQuantumTank extends GuiBase {
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
 
-		FluidInstance fluid = quantumTank.tank.getFluid();
+		FluidInstance fluid = quantumTank.tank.getFluidInstance();
 		if(fluid != null){
 			font.draw( "Fluid Type:", 10, 20, 4210752);
 			font.draw(FluidUtil.getFluidName(fluid) + "", 10, 30, 4210752);

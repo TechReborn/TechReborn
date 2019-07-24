@@ -44,6 +44,7 @@ import reborncore.common.util.Tank;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -89,14 +90,12 @@ public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	public void tick() {
 		super.tick();
 		if (!world.isClient) {
-// TODO: Fix in 1.13
-//			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-//					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType())) {
-//				this.syncWithAll();
-//			}
+			if (FluidUtils.drainContainers(tank, inventory, 0, 1)
+					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
+				this.syncWithAll();
+			}
 				
 		}
-		tank.compareAndUpdate();
 	}
 	
 	@Override
@@ -133,8 +132,8 @@ public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	@Override
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal | hasData) {
-			if (this.tank.getFluid() != null) {
-				info.add(new LiteralText(this.tank.getFluidAmount() + " of " + this.tank.getFluidType()));
+			if (!this.tank.getFluidInstance().isEmpty()) {
+				info.add(new LiteralText(this.tank.getFluidAmount() + " of " + this.tank.getFluid()));
 			} else {
 				info.add(new LiteralText("Empty"));
 			}
@@ -146,8 +145,8 @@ public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("quantumtank").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53).addInventory()
-			.create(this, syncID);
+			.addInventory().blockEntity(this).fluidSlot(0, 80, 17).outputSlot(1, 80, 53)
+			.sync(tank).addInventory().create(this, syncID);
 	}
 
 	@Nullable

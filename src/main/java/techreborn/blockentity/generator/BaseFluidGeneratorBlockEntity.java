@@ -82,17 +82,15 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		if (ticksSinceLastChange >= 10) {
 			if (!inventory.getInvStack(0).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 0, 1);
-				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
+				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());
 			}
-			tank.setBlockEntity(this);
-			tank.compareAndUpdate();
 
 			ticksSinceLastChange = 0;
 		}
 
 		if (tank.getFluidAmount() > 0) {
-			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluidType()))
-				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluidType()).orElse(null);
+			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluid()))
+				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluid()).orElse(null);
 
 			if (currentRecipe != null) {
 				final Integer euPerBucket = currentRecipe.getEnergyPerMb() * 1000;

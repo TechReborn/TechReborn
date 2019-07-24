@@ -29,7 +29,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import reborncore.common.util.StringUtils;
-import techreborn.items.ItemCells;
 
 /**
  * Created by Prospector
@@ -50,8 +49,8 @@ public abstract class RecipeMethods {
 //		} else if (type == Type.NUGGET) {
 //			return ItemNuggets.getNuggetByName(name, count);
 //		} else 
-			if (type == Type.CELL) {
-			return ItemCells.getCellByName(name, count);
+//			if (type == Type.CELL) {
+//			return ItemCells.getCellByName(name, count);
 //		} else if (type == Type.PART) {
 //			return ItemParts.getPartByName(name, count);
 //		} else if (type == Type.CABLE) {
@@ -64,7 +63,7 @@ public abstract class RecipeMethods {
 //			return ItemUpgrades.getUpgradeByName(name, count);
 //		} else if (type == Type.ORE) {
 //			return BlockOre.getOreByName(name, count);
-		}
+//		}
 		return ItemStack.EMPTY;
 	}
 

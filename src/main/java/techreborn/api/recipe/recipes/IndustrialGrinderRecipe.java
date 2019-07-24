@@ -47,7 +47,7 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 			return false;
 		}
 		final FluidInstance recipeFluid = fluidStack;
-		final FluidInstance tankFluid = blockEntity.tank.getFluid();
+		final FluidInstance tankFluid = blockEntity.tank.getFluidInstance();
 		if (fluidStack == null) {
 			return true;
 		}
@@ -66,7 +66,7 @@ public class IndustrialGrinderRecipe extends RebornRecipe {
 	public boolean onCraft(final BlockEntity be) {
 		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
 		final FluidInstance recipeFluid = fluidStack;
-		final FluidInstance tankFluid = blockEntity.tank.getFluid();
+		final FluidInstance tankFluid = blockEntity.tank.getFluidInstance();
 		if (fluidStack == null) {
 			return true;
 		}

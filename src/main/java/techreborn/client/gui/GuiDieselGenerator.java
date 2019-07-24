@@ -58,7 +58,7 @@ public class GuiDieselGenerator extends GuiBase {
 		
 		builder.drawProgressBar(this, blockEntity.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(this, 130, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
-		builder.drawTank(this, 44, 25, mouseX, mouseY, blockEntity.tank.getFluid(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
+		builder.drawTank(this, 44, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
 		
 	}
 	
