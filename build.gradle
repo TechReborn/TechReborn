@@ -19,7 +19,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.2.3-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.2.5-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 		//classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
@@ -92,11 +92,14 @@ dependencies {
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
 	modCompile "me.shedaniel:RoughlyEnoughItems:2.9.7+build.143"
 
-//	modCompile ('RebornCore:RebornCore-1.14:4.0.0.14') {
-//		transitive = false
-//	}
+	//Hopefully this doesnt break too much eek
+	if(Boolean.parseBoolean(System.getProperty("idea.sync.active", "false"))){
+		compile 'RebornCore:RebornCore-1.14.4:4.0.0.46'
+	} else {
+		modCompile ('RebornCore:RebornCore-1.14.4:4.0.0.46')
+	}
 
-	compile 'RebornCore:RebornCore-1.14.4:4.0.0.14'
+	include 'RebornCore:RebornCore-1.14.4:4.0.0.46'
 
 	compileOnly "com.google.code.findbugs:jsr305:+"
 }
@@ -118,27 +121,9 @@ processResources{
 }
 
 
-// task deobfJar(type: Jar) {
-// 	from sourceSets.main.output
-// 	exclude "**/*.psd"
-// 	classifier = 'dev'
-// 	manifest {
-// 		attributes 'FMLAT': 'techreborn_at.cfg'
-// 	}
-// }
-
-
-// containedDeps {
-// 	configuration = "shade"
-// 	tasks = "jar"
-// }
-
 jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
-	// manifest {
-	// 	attributes 'FMLAT': 'techreborn_at.cfg'
-	// }
 
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.lang"} : null}
 	dependsOn 'renameCrowdin'
@@ -180,10 +165,10 @@ task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 	}
 }
 
-//import techreborn.build.GenerateResourcesTask
-//task genResources(type: GenerateResourcesTask){
-//	outputDir = file("src/main/resources")
-//}
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = "sources"
+	from sourceSets.main.allSource
+}
 
 publishing {
 	publications {
@@ -192,7 +177,12 @@ publishing {
 			artifactId project.archivesBaseName
 			version project.version
 
-			from components.java
+			artifact(remapJar) {
+				builtBy remapJar
+			}
+			artifact(sourcesJar) {
+				builtBy remapSourcesJar
+			}
 		}
 	}
 	repositories {
@@ -207,25 +197,6 @@ publishing {
 		}
 	}
 }
-
-
-// task signJar(type: SignJar, dependsOn: reobfJar) {
-// 	onlyIf {
-// 		project.hasProperty('keyStore')
-// 	}
-
-// 	if (project.hasProperty('keyStore')) {
-// 		keyStore = project.keyStore
-// 		alias = project.keyStoreAlias
-// 		storePass = project.keyStorePass
-// 		keyPass = project.keyStoreKeyPass
-// 		inputFile = jar.archivePath
-// 		outputFile = jar.archivePath
-// 	}
-
-// }
-
-// build.dependsOn signJar
 
 // apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/ideconfig.gradle'
 
@@ -257,9 +228,7 @@ task curseTools {
 
 		logger.lifecycle(":launching CurseTools")
 		ant.java(jar: curseTools.getAbsolutePath(), fork: true, spawn: false) {
-			arg(value: jar.archivePath.getAbsolutePath())
-			arg(value: deobfJar.archivePath.getAbsolutePath())
-			arg(value: apiJar.archivePath.getAbsolutePath())
+			arg(value: remapJar.archivePath.getAbsolutePath())
 		}
 	}
 }
