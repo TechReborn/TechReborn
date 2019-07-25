@@ -34,47 +34,6 @@ public class AlloySmelterRecipes extends RecipeMethods {
 
 		/*
 
-//		OreRecipeInput ingotCopper3 = new OreRecipeInput("ingotCopper", 3);
-//		OreRecipeInput dustCopper3 = new OreRecipeInput("dustCopper", 3);
-
-//		// Bronze
-////		TODO: Fix Recipe
-
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(ingotCopper3, "dustTin",
-//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(dustCopper3, "ingotTin",
-//				ItemIngots.getIngotByName("bronze", 4), 200, 16));
-
-//
-//		// Electrum
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), "ingotSilver",
-//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(new ItemStack(Items.GOLD_INGOT, 1), "dustSilver",
-//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe("dustGold", "ingotSilver",
-//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe("dustGold", "dustSilver",
-//				ItemIngots.getIngotByName("electrum", 2), 200, 16));
-//
-//		// Invar
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), "ingotNickel",
-//				ItemIngots.getIngotByName("invar", 3), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(new ItemStack(Items.IRON_INGOT, 2), "dustNickel",
-//				ItemIngots.getIngotByName("invar", 3), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(new OreRecipeInput("dustIron", 2), "ingotNickel",
-//				ItemIngots.getIngotByName("invar", 3), 200, 16));
-//		RecipeHandler.addRecipe(
-//			new AlloySmelterRecipe(new OreRecipeInput("dustIron", 2), "dustNickel",
-//				ItemIngots.getIngotByName("invar", 3), 200, 16));
 //
 //		// Brass
 //		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
