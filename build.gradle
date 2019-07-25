@@ -53,6 +53,10 @@ repositories {
 		name = 'sponge'
 		url = 'https://repo.spongepowered.org/maven'
 	}
+	maven {
+		name = 'curseforge'
+		url = 'https://minecraft.curseforge.com/api/maven'
+	}
 }
 
 version = "3.0.0"
@@ -86,6 +90,7 @@ dependencies {
 
 	modCompile "io.github.prospector.modmenu:ModMenu:1.5.4-85"
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
+	modCompile "me.shedaniel:RoughlyEnoughItems:2.9.7+build.143"
 
 //	modCompile ('RebornCore:RebornCore-1.14:4.0.0.14') {
 //		transitive = false

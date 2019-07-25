@@ -11,6 +11,9 @@
     ],
     "client": [
       "techreborn.TechRebornClient"
+    ],
+    "rei_plugins": [
+      "techreborn.rei.ReiPlugin"
     ]
   },
   "requires": {

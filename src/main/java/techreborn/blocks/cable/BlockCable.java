@@ -124,7 +124,7 @@ public class BlockCable extends BlockWithEntity {
 
 	private Boolean canConnectTo(IWorld world, BlockPos pos, Direction facing) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity != null && (blockEntity instanceof EnergyBlockEntity)) {
+		if (blockEntity != null && (blockEntity instanceof EnergyBlockEntity || blockEntity instanceof CableBlockEntity)) {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
