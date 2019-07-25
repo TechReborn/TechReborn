@@ -212,7 +212,7 @@ public class BlockCable extends BlockWithEntity {
 		}
 
 		CableBlockEntity blockEntityCable = (CableBlockEntity) blockEntity;
-		if (blockEntityCable.power <= 0) {
+		if (blockEntityCable.getEnergy() <= 0) {
 			return;
 		}
 

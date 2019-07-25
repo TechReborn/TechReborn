@@ -37,6 +37,8 @@ import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
+import reborncore.api.power.EnergyBlockEntity;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
@@ -45,6 +47,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,9 +55,9 @@ import java.util.List;
  */
 
 public class CableBlockEntity extends BlockEntity
-	implements Tickable, IListInfoProvider, IToolDrop {
+	implements Tickable, IListInfoProvider, IToolDrop, EnergyBlockEntity {
 	
-	public int power = 0;
+	private double energy = 0;
 	private int transferRate = 0;
 	private TRContent.Cables cableType = null;
 	private ArrayList<Direction> sendingFace = new ArrayList<Direction>();
@@ -90,14 +93,14 @@ public class CableBlockEntity extends BlockEntity
     public void fromTag(CompoundTag compound) {
         super.fromTag(compound);
         if (compound.containsKey("CableBlockEntity")) {
-            power = compound.getCompound("CableBlockEntity").getInt("power");
+            energy = compound.getCompound("CableBlockEntity").getInt("power");
         }
     }
 
     @Override
     public CompoundTag toTag(CompoundTag compound) {
         super.toTag(compound);
-        if (power > 0) {
+        if (energy > 0) {
         	CompoundTag data = new CompoundTag();
     		compound.put("CableBlockEntity", data);
         }
@@ -110,51 +113,49 @@ public class CableBlockEntity extends BlockEntity
 		if (world.isClient) {
 			return;
 		}
-		
-		if (cableType == null ){
+
+		if (cableType == null) {
 			cableType = getCableType();
-			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU; 
+			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
 		}
-		
+
 		ticksSinceLastChange++;
-		if (ticksSinceLastChange >= 10) {
+		if (ticksSinceLastChange >= 20) {
 			sendingFace.clear();
-			ticksSinceLastChange = 0;		
+			ticksSinceLastChange = 0;
 		}
 
-		//TODO needs a full recode to not use a specific power net
+		// TODO needs a full recode to not use a specific power net
 
-//		ArrayList<IEnergyStorage> acceptors = new ArrayList<IEnergyStorage>();
-//		for (Direction face : Direction.values()) {
-//			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
-//
-//			if (blockEntity == null) {
-//				continue;
-//			} else if (blockEntity instanceof TileCable) {
-//				TileCable cable = (TileCable) blockEntity;
-//				if (power > cable.power && cable.canReceiveFromFace(face.getOpposite())) {
-//					acceptors.add((IEnergyStorage) blockEntity);
-//					if (!sendingFace.contains(face)) {
-//						sendingFace.add(face);
-//					}
-//				}
-//			} else if (blockEntity.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).isPresent()) {
-//				IEnergyStorage energyTile = blockEntity.getCapability(CapabilityEnergy.ENERGY, face.getOpposite()).orElse(null);
-//				if (energyTile != null && energyTile.canReceive()) {
-//					acceptors.add(energyTile);
-//				}
-//			}
-//		}
-//
-//		if (acceptors.size() > 0 ) {
-//			for (IEnergyStorage blockEntity : acceptors) {
-//				int drain = Math.min(power, transferRate);
-//				if (drain > 0 && blockEntity.receiveEnergy(drain, true) > 0) {
-//					int move = blockEntity.receiveEnergy(drain, false);
-//					extractEnergy(move, false);
-//				}
-//			}
-//		}
+		ArrayList<EnergyBlockEntity> acceptors = new ArrayList<EnergyBlockEntity>();
+		for (Direction face : Direction.values()) {
+			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
+
+			if (blockEntity == null) {
+				continue;
+			} else if (blockEntity instanceof EnergyBlockEntity) {
+				EnergyBlockEntity acceptor = (EnergyBlockEntity) blockEntity;
+				if (energy <= acceptor.getEnergy() || !acceptor.canAcceptEnergy(face.getOpposite())) {
+					continue;
+				}
+				acceptors.add(acceptor);
+				if (!sendingFace.contains(face)) {
+					sendingFace.add(face);
+				}
+			}
+		}
+
+		if (acceptors.size() == 0) {
+			return;
+		}
+		Collections.shuffle(acceptors);
+		for (EnergyBlockEntity blockEntity : acceptors) {
+			double drain = Math.min(energy, transferRate);
+			if (drain > 0 && blockEntity.addEnergy(drain, true) > 0) {
+				double move = blockEntity.addEnergy(drain, false);
+				useEnergy(move, false);
+			}
+		}
 	}
 
     // IListInfoProvider
@@ -173,5 +174,89 @@ public class CableBlockEntity extends BlockEntity
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerIn) {
 		return new ItemStack(getCableType().block);
+	}
+
+	@Override
+	public double getEnergy() {
+		return energy;
+	}
+
+	@Override
+	public void setEnergy(double energy) {
+		this.energy = energy;
+	}
+
+	@Override
+	public double getMaxPower() {
+		return transferRate * 4;
+	}
+
+	@Override
+	public boolean canAddEnergy(double energyIn) {
+		return getEnergy() + energyIn <= getMaxPower();
+	}
+
+	@Override
+	public double addEnergy(double energy) {
+		return addEnergy(energy, false);
+	}
+
+	@Override
+	public double addEnergy(double energyIn, boolean simulate) {
+		double energyReceived = Math.min(getMaxPower(), Math.min(getMaxPower() - getEnergy(), energyIn));
+
+		if (!simulate) {
+			setEnergy(getEnergy() + energyReceived);
+		}
+		return energyReceived;
+	}
+
+	@Override
+	public boolean canUseEnergy(double energy) {
+		return this.energy >= energy;
+	}
+
+	@Override
+	public double useEnergy(double energy) {
+		return useEnergy(energy, false);
+	}
+
+	@Override
+	public double useEnergy(double energyOut, boolean simulate) {
+		if (energyOut > energy) {
+			energyOut = energy;
+		}
+		if (!simulate) {
+			setEnergy(energy - energyOut);
+		}
+		return energyOut;
+	}
+
+	@Override
+	public boolean canAcceptEnergy(Direction direction) {
+		if (sendingFace.contains(direction)) {
+			return false;
+		}
+		return getMaxPower() != getEnergy();
+	}
+
+	@Override
+	public boolean canProvideEnergy(Direction direction) {
+		return true;
+	}
+
+	@Override
+	public double getMaxOutput() {
+		return transferRate;
+	}
+
+	@Override
+	public double getMaxInput() {
+		return transferRate;
+	}
+
+	@Override
+	public EnumPowerTier getTier() {
+		return EnumPowerTier.getTier(cableType.transferRate);
 	}
 }
