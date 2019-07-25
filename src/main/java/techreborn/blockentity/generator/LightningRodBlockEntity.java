@@ -28,6 +28,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.Heightmap;
@@ -62,12 +63,17 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	public void tick() {
 		super.tick();
 
-		if (onStatusHoldTicks > 0)
-			--onStatusHoldTicks;
+		if (onStatusHoldTicks > 0) { --onStatusHoldTicks; }
 
+		Block BEBlock = getCachedState().getBlock();
+		if (! (BEBlock instanceof BlockMachineBase)) {
+			return;
+		}
+		
+		BlockMachineBase machineBaseBlock = (BlockMachineBase) BEBlock;
+		
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
-			if (getCachedState().getBlock() instanceof BlockMachineBase)
-				((BlockMachineBase) getCachedState().getBlock()).setActive(false, world, pos);
+			machineBaseBlock.setActive(false, world, pos);
 			onStatusHoldTicks = -1;
 		}
 
@@ -84,13 +90,12 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				final LightningEntity lightningBolt = new LightningEntity(world,
 					pos.getX() + 0.5F, world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos()).getY(),
 					pos.getZ() + 0.5F, false);
-				if(true){
-					throw new RuntimeException("fix me");
+				
+				if (!world.isClient) {
+					((ServerWorld) world).addLightning(lightningBolt);
 				}
-				//world.addWeatherEffect(lightningBolt);
-				world.spawnEntity(lightningBolt);
 				addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
-				((BlockMachineBase) world.getBlockState(pos).getBlock()).setActive(true, world, pos);
+				machineBaseBlock.setActive(true, world, pos);
 				onStatusHoldTicks = 400;
 			}
 		}

@@ -26,20 +26,15 @@ package techreborn.utils;
 
 import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.block.Block;
-import net.minecraft.block.FluidBlock;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.fluid.container.GenericFluidContainer;
-import reborncore.common.util.ItemUtils;
-import reborncore.common.util.RebornInventory;
-import reborncore.common.util.Tank;
 import net.minecraft.fluid.Fluid;
 import reborncore.mixin.extensions.FluidBlockExtensions;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
