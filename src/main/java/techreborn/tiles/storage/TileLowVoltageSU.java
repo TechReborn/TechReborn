@@ -37,7 +37,7 @@ import techreborn.init.ModBlocks;
 public class TileLowVoltageSU extends TileEnergyStorage implements IContainerProvider {
 
 	public TileLowVoltageSU() {
-		super("BatBox", 2, ModBlocks.LOW_VOLTAGE_SU, EnumPowerTier.LOW, 32, 32, 40000);
+		super("BatBox", 2, ModBlocks.LOW_VOLTAGE_SU, EnumPowerTier.LOW, 32, 32, 40_000);
 	}
 
 	@Override

@@ -47,8 +47,8 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	private final int euTick;
 	private FluidGeneratorRecipe currentRecipe;
 	private int ticksSinceLastChange;
-	public final Tank tank;
-	public final Inventory inventory;
+	public Tank tank;
+	public Inventory inventory;
 	protected long lastOutput = 0;
 	// << Fields
 
@@ -63,29 +63,31 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		super();
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		tank = new Tank(tileName, tankCapacity, this);
-		inventory = new Inventory(3, tileName, 64, this);
+		inventory = new Inventory(2, tileName, 64, this);
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
 	}
 
 	@Override
 	public void update() {
-		super.update();
-		ticksSinceLastChange++;
-
-		if(world.isRemote) return;
-
-		// Check cells input slot 2s time per second
-		// Please, keep ticks counting on client also to report progress to GUI
-		if (ticksSinceLastChange >= 10) {
+		// Check cells input slot 2 times per second
+		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
 			if (!inventory.getStackInSlot(0).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 0, 1);
 				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluidType());
 			}
+		}
 
-			tank.setTileEntity(this);
-			tank.compareAndUpdate();
+		if (!world.isRemote) super.update();
 
+		tank.compareAndUpdate();
+
+
+		ticksSinceLastChange++;
+
+		// Check cells input slot 2s time per second
+		// Please, keep ticks counting on client also to report progress to GUI
+		if (ticksSinceLastChange >= 10) {
 			ticksSinceLastChange = 0;
 		}
 
@@ -126,15 +128,6 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 			return true;
 		}
 
-		return false;
-	}
-
-	protected boolean acceptFluid() {
-		if (!getStackInSlot(0).isEmpty()) {
-			FluidStack stack = FluidUtils.getFluidStackInContainer(getStackInSlot(0));
-			if (stack != null)
-				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
-		}
 		return false;
 	}
 
@@ -191,14 +184,6 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 	public void setTicksSinceLastChange(int ticksSinceLastChange) {
 		this.ticksSinceLastChange = ticksSinceLastChange;
-	}
-
-	public int getTankAmount(){
-		return tank.getFluidAmount();
-	}
-
-	public void setTankAmount(int amount){
-		tank.setFluidAmount(amount);
 	}
 
 	@Nullable
