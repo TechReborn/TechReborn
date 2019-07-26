@@ -617,6 +617,8 @@
   "techreborn.tooltip.inventory": "Inventory",
   "techreborn.tooltip.upgrades": "Upgrades",
   "techreborn.tooltip.alarm": "Shift rightclick to change sound",
+  "techreborn.tooltip.generationRate.day": "Generation Rate Day",
+  "techreborn.tooltip.generationRate.night": "Generation Rate Night",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",

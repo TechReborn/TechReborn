@@ -57,8 +57,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public boolean isSunOut() {
 		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaylight();
 	}
-	
-	private void updatePanel(){
+
+	private void updatePanel() {
 		if (world == null) {
 			return;
 		}
@@ -135,22 +135,21 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		// Nope
 	}
 
-	// TODO: Translate
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		info.add(new LiteralText(Formatting.GRAY + "Internal Energy Storage: " + Formatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted((int) getMaxPower())));
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.maxEnergy") + ": "
+				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(getMaxPower())));
 
-		info.add(new LiteralText(Formatting.GRAY + "Generation Rate Day: " + Formatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
+				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
 
-		info.add(new LiteralText(Formatting.GRAY + "Generation Rate Night: " + Formatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
+				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
 
-		info.add(new LiteralText(Formatting.GRAY + "Tier: " + Formatting.GOLD
-				+ StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.tier") + ": "
+				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
 	}
-	
+
 	@Override
 	public void fromTag(CompoundTag tag) {
 		if (world == null) {
@@ -167,7 +166,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		super.onLoad();
 		updatePanel();
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity playerIn) {
