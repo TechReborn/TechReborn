@@ -79,7 +79,7 @@ public class ModRecipes {
 		ChemicalReactorRecipes.init();
 		FusionReactorRecipes.init();
 		DistillationTowerRecipes.init();
-		AlloySmelterRecipes.init();
+
 		FluidReplicatorRecipes.init();
 
 		addBlastFurnaceRecipes();

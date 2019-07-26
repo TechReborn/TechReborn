@@ -97,7 +97,6 @@ public enum ModFluids {
 		RebornFluidManager.register(flowingFluid, new Identifier("techreborn", identifier.getPath() + "_flowing"));
 
 		Registry.register(Registry.BLOCK, identifier, block);
-		Registry.register(Registry.ITEM, identifier, bucket);
 	}
 
 	public RebornFluid getFluid() {

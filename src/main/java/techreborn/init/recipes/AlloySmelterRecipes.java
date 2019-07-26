@@ -34,25 +34,6 @@ public class AlloySmelterRecipes extends RecipeMethods {
 
 		/*
 
-//
-//		// Brass
-//		if (OreUtil.doesOreExistAndValid("ingotBrass")) {
-//			ItemStack brassStack = getOre("ingotBrass");
-//			brassStack.setCount(4);
-//			RecipeHandler.addRecipe(
-//				new AlloySmelterRecipe(ingotCopper3, "ingotZinc",
-//					brassStack, 200, 16));
-//			RecipeHandler.addRecipe(
-//				new AlloySmelterRecipe(ingotCopper3, "dustZinc",
-//					brassStack, 200, 16));
-//			RecipeHandler.addRecipe(
-//				new AlloySmelterRecipe(dustCopper3, "ingotZinc",
-//					brassStack, 200, 16));
-//			RecipeHandler.addRecipe(
-//				new AlloySmelterRecipe(dustCopper3, "dustZinc",
-//					brassStack, 200, 16));
-//		}
-
 		// Red Alloy
 //		if (OreUtil.doesOreExistAndValid("ingotRedAlloy")) {
 			ItemStack redAlloyStack = getOre("ingotRedAlloy");
