@@ -49,17 +49,19 @@ public class AlarmBlockEntity extends BlockEntity
 		super(TRBlockEntities.ALARM);
 	}
 
-	public void rightClick() {
-		if (!world.isClient) {
-			if (selectedSound < 3) {
-				selectedSound++;
-			} else {
-				selectedSound = 1;
-			}
-			ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new LiteralText(
-				Formatting.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
-		}
-	}
+    public void rightClick() {
+        if (world.isClient) {
+            return;
+        }
+
+        if (selectedSound < 3) {
+            selectedSound++;
+        } else {
+            selectedSound = 1;
+        }
+        ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new LiteralText(
+                Formatting.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+    }
 	
 	// BlockEntity
 	@Override
@@ -79,16 +81,16 @@ public class AlarmBlockEntity extends BlockEntity
 		super.fromTag(compound);
 	}
 
-	//TODO 1.13 seems to be gone?
-//	@Override
-//	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
-//		return false;
-//	}
-
 	// ITickable
 	@Override
 	public void tick() {
-		if (!world.isClient && world.getTime() % 25 == 0 && world.isReceivingRedstonePower(getPos())) {
+        if (world.isClient()){
+	        return;
+        }
+	    if (world.getTime() % 25 != 0) {
+	        return;
+        }
+		if (world.isReceivingRedstonePower(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {
 				case 1:
@@ -101,8 +103,7 @@ public class AlarmBlockEntity extends BlockEntity
 					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
 					break;
 			}
-
-		} else if (!world.isClient && world.getTime() % 25 == 0) {
+		} else  {
 			BlockAlarm.setActive(false, world, pos);
 		}
 	}

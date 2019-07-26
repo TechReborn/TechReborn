@@ -149,13 +149,13 @@ public class CableBlockEntity extends BlockEntity
 			return;
 		}
 		Collections.shuffle(acceptors);
-		for (EnergyBlockEntity blockEntity : acceptors) {
-			double drain = Math.min(energy, transferRate);
-			if (drain > 0 && blockEntity.addEnergy(drain, true) > 0) {
-				double move = blockEntity.addEnergy(drain, false);
-				useEnergy(move, false);
-			}
-		}
+        acceptors.forEach(blockEntity -> {
+            double drain = Math.min(energy, transferRate);
+            if (drain > 0 && blockEntity.addEnergy(drain, true) > 0) {
+                double move = blockEntity.addEnergy(drain, false);
+                useEnergy(move, false);
+            }
+        });
 	}
 
     // IListInfoProvider

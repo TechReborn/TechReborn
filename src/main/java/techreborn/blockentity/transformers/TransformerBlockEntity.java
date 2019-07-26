@@ -89,7 +89,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canAcceptEnergy(Direction direction) {
-		if (IC2TransformersStyle == true){
+		if (IC2TransformersStyle){
 			return getFacingEnum() == direction;
 		}
 		return getFacingEnum() != direction;
@@ -97,7 +97,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	
 	@Override
 	public boolean canProvideEnergy(Direction direction) {
-		if (IC2TransformersStyle == true){
+		if (IC2TransformersStyle){
 			return getFacingEnum() != direction;
 		}
 		return getFacing() == direction;
