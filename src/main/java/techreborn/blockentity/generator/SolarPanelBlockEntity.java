@@ -57,8 +57,19 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public boolean isSunOut() {
 		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaylight();
 	}
+	
+	private void updatePanel(){
+		if (world == null) {
+			return;
+		}
+		Block panelBlock = world.getBlockState(pos).getBlock();
+		if (panelBlock instanceof BlockSolarPanel) {
+			BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
+			panel = solarPanelBlock.panelType;
+		}
+	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
@@ -150,19 +161,11 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		super.fromTag(tag);
 	}
 
-	// TileMachineBase
+	// MachineBaseBlockEntity
 	@Override
 	public void onLoad() {
 		super.onLoad();
 		updatePanel();
-	}
-
-	private void updatePanel(){
-		Block panelBlock = world.getBlockState(pos).getBlock();
-		if (panelBlock instanceof BlockSolarPanel) {
-			BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
-			panel = solarPanelBlock.panelType;
-		}
 	}
 	
 	// IToolDrop
