@@ -26,7 +26,9 @@ package techreborn.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import reborncore.RebornRegistry;
 import techreborn.TechReborn;
 
@@ -39,5 +41,10 @@ public class InitUtils {
 	public static <B extends Block> B setup(B block, String name) {
 		RebornRegistry.registerIdent(block, new Identifier(TechReborn.MOD_ID, name));
 		return block;
+	}
+	
+	public static SoundEvent setup(String name) {
+		Identifier identifier = new Identifier(TechReborn.MOD_ID, name);
+		return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
 	}
 }

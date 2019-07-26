@@ -33,6 +33,7 @@ import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
 import techreborn.client.GuiHandler;
@@ -63,7 +64,6 @@ public class TechReborn implements ModInitializer {
 		INSTANCE = this;
 		@SuppressWarnings("unused")
 		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
-//		TechRebornAPI.subItemRetriever = new SubItemRetriever();
 
 		// Done to force the class to load
 		ModRecipes.GRINDER.getName();
@@ -72,15 +72,13 @@ public class TechReborn implements ModInitializer {
 		ServerboundPackets.init();
 
 		ModRegistry.setupShit();
+		RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
 
 		proxy.preInit();
 
 		// Registers Chest Loot
 		ModLoot.init();
 		// MinecraftForge.EVENT_BUS.register(new ModLoot());
-		// Sounds
-		// TODO 1.13 registry events
-		ModSounds.init();
 		// Client only init, needs to be done before parts system
 		proxy.init();
 

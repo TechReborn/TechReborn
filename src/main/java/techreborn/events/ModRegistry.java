@@ -41,6 +41,7 @@ import techreborn.blocks.misc.BlockRubberPlankStair;
 import techreborn.blocks.misc.BlockRubberSapling;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModFluids;
+import techreborn.init.ModSounds;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.*;
@@ -82,6 +83,7 @@ public class ModRegistry {
 		registerBlocks();
 		registerItems();
 		registerFluids();
+		registerSounds();
 	}
 
 	public static void registerBlocks() {
@@ -213,5 +215,17 @@ public class ModRegistry {
 
 	public static void registerFluids() {
 		Arrays.stream(ModFluids.values()).forEach(ModFluids::register);
+	}
+	
+	public static void registerSounds() {
+		ModSounds.ALARM = InitUtils.setup("alarm");
+		ModSounds.ALARM_2 = InitUtils.setup("alarm_2");
+		ModSounds.ALARM_3 = InitUtils.setup("alarm_3");
+		ModSounds.AUTO_CRAFTING = InitUtils.setup("auto_crafting");
+		ModSounds.BLOCK_DISMANTLE = InitUtils.setup("block_dismantle");
+		ModSounds.CABLE_SHOCK = InitUtils.setup("cable_shock");
+		ModSounds.MACHINE_RUN = InitUtils.setup("machine_run");
+		ModSounds.MACHINE_START = InitUtils.setup("machine_start");
+		ModSounds.SAP_EXTRACT = InitUtils.setup("sap_extract");
 	}
 }

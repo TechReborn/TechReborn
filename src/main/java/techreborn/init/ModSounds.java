@@ -27,10 +27,7 @@ package techreborn.init;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import reborncore.common.recipes.ICrafterSoundHanlder;
-import reborncore.common.recipes.RecipeCrafter;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -47,34 +44,12 @@ public class ModSounds {
 	public static SoundEvent ALARM_2;
 	public static SoundEvent ALARM_3;
 
-	public static void init() {
-		CABLE_SHOCK = getSound("cable_shock");
-		BLOCK_DISMANTLE = getSound("block_dismantle");
-		SAP_EXTRACT = getSound("sap_extract");
-		AUTO_CRAFTING = getSound("auto_crafting");
-		MACHINE_RUN = getSound("machine_run");
-		MACHINE_START = getSound("machine_start");
-		ALARM = getSound("alarm");
-		ALARM_2 = getSound("alarm_2");
-		ALARM_3 = getSound("alarm_3");
-
-		RecipeCrafter.soundHanlder = new SoundHandler();
-	}
-
-	private static SoundEvent getSound(String str) {
-		Identifier identifier = new Identifier("techreborn", str);
-		SoundEvent soundEvent = new SoundEvent(identifier);
-		return Registry.register(Registry.SOUND_EVENT, identifier, soundEvent);
-	}
-
 	public static class SoundHandler implements ICrafterSoundHanlder {
 
 		@Override
 		public void playSound(boolean firstRun, BlockEntity blockEntity) {
 			blockEntity.getWorld().playSound(null, blockEntity.getPos().getX(), blockEntity.getPos().getY(),
-				blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN,
-				SoundCategory.BLOCKS, 0.1F, 1F);
+					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, 0.1F, 1F);
 		}
 	}
-
 }
