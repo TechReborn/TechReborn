@@ -47,12 +47,6 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 	}
 
 	@Override
-	public void serialize(JsonObject jsonObject) {
-		super.serialize(jsonObject);
-		jsonObject.addProperty("heat", heat);
-	}
-
-	@Override
 	public boolean canCraft(final BlockEntity blockEntity) {
 		if (blockEntity instanceof IndustrialBlastFurnaceBlockEntity) {
 			final IndustrialBlastFurnaceBlockEntity blastFurnace = (IndustrialBlastFurnaceBlockEntity) blockEntity;

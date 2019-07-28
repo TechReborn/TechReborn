@@ -3,7 +3,7 @@ package techreborn.rei;
 import me.shedaniel.rei.api.RecipeDisplay;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import reborncore.common.crafting.RebornIngredient;
+import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.RebornRecipe;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
-		this.inputs = recipe.getRebornIngredients().stream().map(RebornIngredient::getStacks).collect(Collectors.toList());
+		this.inputs = recipe.getRebornIngredients().stream().map(RebornIngredient::getPreviewStacks).collect(Collectors.toList());
 		this.outputs = recipe.getOutputs();
 	}
 
