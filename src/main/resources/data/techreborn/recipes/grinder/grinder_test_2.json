@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:grinder",
+  "power": 10,
+  "time": 123,
+  "ingredients" : [
+    {
+      "item": "minecraft:diamond_sword",
+      "tag": {
+        "Damage": 2
+      }
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:diamond",
+      "count": 4
+    }
+  ]
+}

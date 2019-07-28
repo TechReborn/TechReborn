@@ -30,8 +30,10 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.ExtendedBlockView;
 import net.minecraft.world.World;
 import reborncore.common.fluid.container.GenericFluidContainer;
+import reborncore.common.fluid.container.ItemFluidInfo;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -52,13 +54,11 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 
 	@Override
 	public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
-		GenericFluidContainer<ItemStack> fluidContainer = GenericFluidContainer.fromStack(stack);
 		Fluid fluid = Fluids.EMPTY;
-		if(fluidContainer != null){
-			FluidInstance fluidInstance = fluidContainer.getFluidInstance(stack);
-			if(!fluidInstance.isEmpty()){
-				fluid = fluidContainer.getFluidInstance(stack).getFluid();
-			}
+		if(stack.getItem() instanceof ItemFluidInfo){
+			ItemFluidInfo fluidInfo = (ItemFluidInfo) stack.getItem();
+			fluid = fluidInfo.getFluid(stack);
+
 		}
 		context.meshConsumer().accept(getMesh(fluid));
 	}
@@ -85,10 +85,14 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 		if(fluid != Fluids.EMPTY){
 			FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 			if(fluidRenderHandler != null){
+				int color = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
+				//Does maths that works
+				color = new Color((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F,(float)(color & 255) / 255.0F).getRGB();
+
 				Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
 				emitter.square(Direction.SOUTH, 0.4F, 0.25F, 0.6F, 0.75F, -0.0001F)
 					.material(mat)
-					.spriteColor(0, -1, -1, -1, -1)
+					.spriteColor(0, color, color, color, color)
 					.spriteBake(0, fluidSprite, MutableQuadView.BAKE_LOCK_UV).emit();
 			}
 		}
