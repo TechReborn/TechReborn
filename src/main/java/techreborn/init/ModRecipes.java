@@ -319,9 +319,7 @@ public class ModRecipes {
 	}
 
 	static void addBlastFurnaceRecipes() {
-//		RecipeHandler.addRecipe(Reference.BLAST_FURNACE_RECIPE,
-//				new BlastFurnaceRecipe(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"),
-//						null, 3600, 120, 1500));
+
 //		RecipeHandler.addRecipe(Reference.BLAST_FURNACE_RECIPE,
 //				new BlastFurnaceRecipe(ItemDustsSmall.getSmallDustByName("titanium", 4), null,
 //						ItemIngots.getIngotByName("titanium"), null, 3600, 120, 1500));

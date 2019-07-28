@@ -3,6 +3,7 @@ package techreborn.rei;
 import me.shedaniel.rei.api.REIPluginEntry;
 import me.shedaniel.rei.api.RecipeHelper;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
@@ -24,6 +25,8 @@ public class ReiPlugin implements REIPluginEntry {
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, TRContent.Machine.ALLOY_SMELTER);
 		iconMap.put(ModRecipes.GRINDER, TRContent.Machine.GRINDER);
+		iconMap.put(ModRecipes.BLAST_FURNACE, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
+		iconMap.put(ModRecipes.CENTRIFUGE, TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
 		//TODO add the others here
 	}
 
@@ -41,6 +44,11 @@ public class ReiPlugin implements REIPluginEntry {
 	public void registerRecipeDisplays(RecipeHelper recipeHelper) {
 		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> registerMachineRecipe(recipeHelper, rebornRecipeType));
 	}
+	
+	@Override
+	public void registerOthers(RecipeHelper recipeHelper) {
+		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(), new ItemStack[]{new ItemStack(TRContent.Machine.ALLOY_SMELTER.asItem())});
+	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){
 		recipeHelper.registerRecipes(recipeType.getName(), (Predicate<Recipe>) recipe -> {
@@ -48,6 +56,6 @@ public class ReiPlugin implements REIPluginEntry {
 				return ((RebornRecipe) recipe).getRebornRecipeType() == recipeType;
 			}
 			return false;
-		}, recipe -> new MachineRecipeDisplay((RebornRecipe) recipe));
+		}, recipe -> new MachineRecipeDisplay<RebornRecipe>((RebornRecipe) recipe));
 	}
 }

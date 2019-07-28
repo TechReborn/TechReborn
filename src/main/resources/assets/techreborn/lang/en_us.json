@@ -642,5 +642,13 @@
   "techreborn:compressor": "Compressor",
   "techreborn:distillation_tower": "Distillation Tower",
   "techreborn:extractor": "Extrator",
-  "techreborn:grinder": "Grinder"
+  "techreborn:grinder": "Grinder",
+  "techreborn:implosion_compressor": "Implosion Compressor",
+  "techreborn:industrial_electrolyzer": "Industrial Electrolyzer",
+  "techreborn:industrial_grinder": "Industrial Grinder",
+  "techreborn:industrial_sawmill": "Industrial Sawmill",
+  "techreborn:recycler": "Recycler",
+  "techreborn:scrapbox": "Scrapbox",
+  "techreborn:vacuum_freezer": "Vacuum Freezer",
+  "techreborn:fluid_replicator": "Fluid Replicator"
 }
