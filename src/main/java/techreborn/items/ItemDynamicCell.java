@@ -30,10 +30,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
+import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
@@ -63,8 +66,13 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 	}
 
 	@Override
-	public String getTranslationKey(ItemStack itemStack_1) {
-		return super.getTranslationKey(itemStack_1);
+	public Text getName(ItemStack itemStack) {
+		Fluid fluid = getFluid(itemStack);
+		if(fluid != Fluids.EMPTY){
+			//TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
+			return new LiteralText(FluidUtil.getFluidName(fluid) + " Cell");
+		}
+		return super.getName(itemStack);
 	}
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {

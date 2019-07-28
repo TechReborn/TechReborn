@@ -85,7 +85,7 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 		if(fluid != Fluids.EMPTY){
 			FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 			if(fluidRenderHandler != null){
-				int color = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
+				int color = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
 				//Does maths that works
 				color = new Color((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F,(float)(color & 255) / 255.0F).getRGB();
 
