@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.util.StringUtils;
 
 import java.awt.*;
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 
 	@Override
 	public String getCategoryName() {
-		return rebornRecipeType.getName().toString();
+		return StringUtils.t(rebornRecipeType.getName().toString());
 	}
 
 	@Override

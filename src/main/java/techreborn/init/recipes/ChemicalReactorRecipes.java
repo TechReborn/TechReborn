@@ -24,9 +24,7 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 /**
  * @author drcrazy
@@ -34,13 +32,8 @@ import net.minecraft.item.Items;
  */
 public class ChemicalReactorRecipes extends RecipeMethods {
 	public static void init(){
-		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON_SLICE), getStack(Items.GLISTERING_MELON_SLICE), 40);
-		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.CARROT), getStack(Items.GOLDEN_CARROT), 40);
-		register(getStack(Items.GOLD_INGOT, 8), getStack(Items.APPLE), getStack(Items.GOLDEN_APPLE), 40);
-		register(getStack(Blocks.GOLD_BLOCK, 8), getStack(Items.APPLE, 1), getStack(Items.GOLDEN_APPLE), 100);
-		register(getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL), getStack(Items.MAGMA_CREAM), 40);
-		register(getStack(Items.BLAZE_POWDER), getStack(Items.ENDER_PEARL), getStack(Items.ENDER_EYE), 40);
-		
+
+
 		//Cells recipes. One cell should be cooked in 20 seconds
 		register(getMaterial("carbon", Type.CELL), getMaterial("calcium", Type.CELL), getMaterial("calciumCarbonate", 2, Type.CELL), 800);
 		register(getMaterial("carbon", Type.CELL), getMaterial("hydrogen", 4, Type.CELL), getMaterial("methane", 5, Type.CELL), 2000);

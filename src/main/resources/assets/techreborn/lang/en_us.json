@@ -631,5 +631,24 @@
   "advancements.techreborn.treetap": "TreeTap",
   "advancements.techreborn.treetap.desc": "Now that you have crafted a tree tap you will want to use it on a sap spot on a rubber tree.",
   "advancements.techreborn.sap": "Rubber Sap",
-  "advancements.techreborn.sap.desc": "Well done, you now have rubber sap. You will want to smelt it in a furnace to create rubber next."
+  "advancements.techreborn.sap.desc": "Well done, you now have rubber sap. You will want to smelt it in a furnace to create rubber next.",
+  
+  "_comment25": "REI Integration",
+  "techreborn:alloy_smelter": "Alloy Smelter",
+  "techreborn:assembling_machine": "Assembling Machine",
+  "techreborn:blast_furnace": "Blast Furnace",
+  "techreborn:centrifuge": "Industrial Centrifuge",
+  "techreborn:chemical_reactor": "Chemical Reactor",
+  "techreborn:compressor": "Compressor",
+  "techreborn:distillation_tower": "Distillation Tower",
+  "techreborn:extractor": "Extrator",
+  "techreborn:grinder": "Grinder",
+  "techreborn:implosion_compressor": "Implosion Compressor",
+  "techreborn:industrial_electrolyzer": "Industrial Electrolyzer",
+  "techreborn:industrial_grinder": "Industrial Grinder",
+  "techreborn:industrial_sawmill": "Industrial Sawmill",
+  "techreborn:recycler": "Recycler",
+  "techreborn:scrapbox": "Scrapbox",
+  "techreborn:vacuum_freezer": "Vacuum Freezer",
+  "techreborn:fluid_replicator": "Fluid Replicator"
 }

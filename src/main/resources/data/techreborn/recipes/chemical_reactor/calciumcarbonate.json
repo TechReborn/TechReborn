@@ -1,0 +1,21 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 30,
+	"time": 800,
+	"ingredients": [
+		{
+			"fluid": "techreborn:carbon"
+		},
+		{
+			"fluid": "techreborn:calcium"
+		}
+	],
+	"results": [
+		{
+			"item": "techreborn:cell",
+			"tag": {
+				"fluid": "techreborn:calciumcarbonate"
+			}
+		}
+	]
+}
