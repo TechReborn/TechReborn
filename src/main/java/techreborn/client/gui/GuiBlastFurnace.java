@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.ClientProxy;
+import reborncore.RebornCoreClient;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -53,7 +54,7 @@ public class GuiBlastFurnace extends GuiBase {
 	public void init() {
 		super.init();
 		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
-		ClientProxy.multiblockRenderEvent.setMultiblock(null);
+		RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class GuiBlastFurnace extends GuiBase {
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
@@ -142,15 +143,15 @@ public class GuiBlastFurnace extends GuiBase {
 					this.addComponent(1, 3, 1, standardCasing, multiblock);
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
-					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
+					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
+					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
 							blockEntity.getPos().getX() - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2,
 							blockEntity.getPos().getY() - 1,
 							blockEntity.getPos().getZ() - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2);
 				}
 			} else {
-				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 			}
 		}
 	}

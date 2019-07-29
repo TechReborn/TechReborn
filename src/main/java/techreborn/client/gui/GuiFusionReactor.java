@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.ClientProxy;
+import reborncore.RebornCoreClient;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -114,10 +115,10 @@ public class GuiFusionReactor extends GuiBase {
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
 				updateMultiBlockRender();
 			} else {
-				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 			}
 		}
 	}
@@ -125,7 +126,7 @@ public class GuiFusionReactor extends GuiBase {
 	private void sendSizeChange(int sizeDelta){
 		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
 		//Reset the multiblock as it will be wrong now.
-		if(ClientProxy.multiblockRenderEvent.currentMultiblock != null){
+		if(RebornCoreClient.multiblockRenderEvent.currentMultiblock != null){
 			updateMultiBlockRender();
 		}
 	}
@@ -138,8 +139,8 @@ public class GuiFusionReactor extends GuiBase {
 		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
 
 		final MultiblockSet set = new MultiblockSet(multiblock);
-		ClientProxy.multiblockRenderEvent.setMultiblock(set);
-		ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
+		RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
+		RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
 		MultiblockRenderEvent.anchor = new BlockPos(blockEntity.getPos().getX(), blockEntity.getPos().getY() - 1,
 				blockEntity.getPos().getZ());
 	}

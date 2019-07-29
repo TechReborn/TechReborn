@@ -29,6 +29,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
+import reborncore.RebornCoreClient;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -50,7 +51,7 @@ public class GuiImplosionCompressor extends GuiBase {
 	@Override
 	public void init() {
 		super.init();
-		ClientProxy.multiblockRenderEvent.setMultiblock(null);
+		RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class GuiImplosionCompressor extends GuiBase {
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
@@ -108,12 +109,12 @@ public class GuiImplosionCompressor extends GuiBase {
 					}
 
 					final MultiblockSet set = new MultiblockSet(multiblock);
-					ClientProxy.multiblockRenderEvent.setMultiblock(set);
-					ClientProxy.multiblockRenderEvent.parent = blockEntity.getPos();
+					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
+					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(blockEntity.getPos().getX(), blockEntity.getPos().getY(), blockEntity.getPos().getZ());
 				}
 			} else {
-				ClientProxy.multiblockRenderEvent.setMultiblock(null);
+				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 			}
 		}
 	}
