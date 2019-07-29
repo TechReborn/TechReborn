@@ -45,7 +45,6 @@ import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity

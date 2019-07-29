@@ -48,9 +48,9 @@ import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
+import techreborn.utils.RecipeUtils;
 import techreborn.init.TRBlockEntities;
 
 import javax.annotation.Nullable;
@@ -93,7 +93,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					return lastRecipe;
 				}
 			}
-			for (Recipe testRecipe : TRRecipeHandler.getRecipes(world, RecipeType.CRAFTING)) {
+			for (Recipe testRecipe : RecipeUtils.getRecipes(world, RecipeType.CRAFTING)) {
 				if (testRecipe.matches(crafting, world)) {
 					lastRecipe = testRecipe;
 					return testRecipe;
@@ -118,7 +118,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return inventoryCrafting;
 	}
 
-	public boolean canMake(Recipe recipe) {
+	public boolean canMake(Recipe<CraftingInventory> recipe) {
 		if (recipe != null && recipe.fits(3, 3)) {
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];

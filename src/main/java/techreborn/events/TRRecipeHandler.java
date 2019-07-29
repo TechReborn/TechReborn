@@ -24,26 +24,24 @@
 
 package techreborn.events;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+import techreborn.utils.RecipeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class TRRecipeHandler {
 
 
 	public static void unlockTRRecipes(ServerPlayerEntity playerMP) {
 		List<Recipe<?>> recipeList = new ArrayList<>();
-		for (Recipe recipe : getRecipes(playerMP.world, RecipeType.CRAFTING)) {
+		for (Recipe<?> recipe : RecipeUtils.getRecipes(playerMP.world, RecipeType.CRAFTING)) {
 			if (isRecipeValid(recipe)) {
 				recipeList.add(recipe);
 			}
@@ -51,36 +49,13 @@ public class TRRecipeHandler {
 		playerMP.unlockRecipes(recipeList);
 	}
 
-	public static <T extends Recipe<?>> List<Recipe> getRecipes(World world, RecipeType<T> type){
-		return world.getRecipeManager().values().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
-	}
-
-	/**
-	 *
-	 * Used to get the matching output of a recipe type that only has 1 input
-	 *
-	 */
-	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
-		return getRecipes(world, type).stream()
-			.filter(recipe -> recipe.getPreviewInputs().size() == 1 && ((Ingredient)recipe.getPreviewInputs().get(0)).test(input))
-			.map(Recipe::getOutput)
-			.findFirst()
-			.orElse(ItemStack.EMPTY);
-	}
-
-	private static boolean isRecipeValid(Recipe recipe) {
+	private static boolean isRecipeValid(Recipe<?> recipe) {
 		if (recipe.getId() == null) {
 			return false;
 		}
 		if (!recipe.getId().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-//		if (!recipe.getOutput().getItem().getRegistryName().getNamespace().equals(TechReborn.MOD_ID)) {
-//			return false;
-//		}
-//		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {
-//			return false;
-//		}
 		return !recipe.getPreviewInputs().stream().anyMatch((Predicate<Ingredient>) ingredient -> ingredient.method_8093(TRContent.Parts.UU_MATTER.getStack()));
 	}
 

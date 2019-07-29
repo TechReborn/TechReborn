@@ -25,7 +25,14 @@
 package techreborn.utils;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.world.World;
 import techreborn.items.ItemDynamicCell;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -33,5 +40,22 @@ public class RecipeUtils {
 	@Nonnull
 	public static ItemStack getEmptyCell(int stackSize) {
 		return ItemDynamicCell.getEmptyCell(stackSize);
+	}
+	
+	/**
+	 *
+	 * Used to get the matching output of a recipe type that only has 1 input
+	 *
+	 */
+	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
+		return getRecipes(world, type).stream()
+			.filter(recipe -> recipe.getPreviewInputs().size() == 1 && ((Ingredient)recipe.getPreviewInputs().get(0)).test(input))
+			.map(Recipe::getOutput)
+			.findFirst()
+			.orElse(ItemStack.EMPTY);
+	}
+	
+	public static <T extends Recipe<?>> List<Recipe<?>> getRecipes(World world, RecipeType<T> type){
+		return world.getRecipeManager().values().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
 	}
 }

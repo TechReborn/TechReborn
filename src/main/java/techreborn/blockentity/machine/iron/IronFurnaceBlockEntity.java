@@ -38,8 +38,8 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRBlockEntities;
+import techreborn.utils.RecipeUtils;
 
 public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IContainerProvider {
@@ -120,7 +120,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 
 	public void cookItems() {
 		if (this.canSmelt()) {
-			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
+			final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
 
 			if (inventory.getInvStack(this.output).isEmpty()) {
 				inventory.setInvStack(this.output, itemstack.copy());
@@ -138,7 +138,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	public boolean canSmelt() {
 		if (inventory.getInvStack(this.input1).isEmpty())
 			return false;
-		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
+		final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
 		if (itemstack.isEmpty())
 			return false;
 		if (inventory.getInvStack(this.output).isEmpty())
@@ -154,7 +154,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public ItemStack getResultFor(final ItemStack stack) {
-		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, stack);
+		final ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}

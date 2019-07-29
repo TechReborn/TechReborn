@@ -40,8 +40,8 @@ import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
-import techreborn.events.TRRecipeHandler;
 import techreborn.init.TRContent;
+import techreborn.utils.RecipeUtils;
 import techreborn.init.TRBlockEntities;
 
 @RebornRegister(TechReborn.MOD_ID)
@@ -71,7 +71,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	public void cookItems() {
 		if (canSmelt()) {
-			final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
+			final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
 
 			if (inventory.getInvStack(output).isEmpty()) {
 				inventory.setInvStack(output, itemstack.copy());
@@ -90,7 +90,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (inventory.getInvStack(input1).isEmpty()) {
 			return false;
 		}
-		final ItemStack itemstack = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
+		final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
 		if (itemstack.isEmpty()) {
 			return false;
 		}
@@ -109,7 +109,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public ItemStack getResultFor(ItemStack stack) {
-		final ItemStack result = TRRecipeHandler.getMatchingRecipes(world, RecipeType.SMELTING, stack);
+		final ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}
