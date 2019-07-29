@@ -94,17 +94,17 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
+	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
 	}
 
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
+	public boolean showDurability(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
+	public int getDurabilityColor(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
