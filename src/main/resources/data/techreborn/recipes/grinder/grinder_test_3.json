@@ -4,7 +4,8 @@
   "time": 123,
   "ingredients" : [
     {
-      "fluid": "minecraft:water"
+      "fluid": "minecraft:water",
+      "holder": "techreborn:cell"
     }
   ],
   "results" : [
