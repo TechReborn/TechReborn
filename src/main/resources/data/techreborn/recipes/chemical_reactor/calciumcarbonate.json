@@ -13,6 +13,7 @@
 	"results": [
 		{
 			"item": "techreborn:cell",
+			"count": 2,
 			"tag": {
 				"fluid": "techreborn:calciumcarbonate"
 			}

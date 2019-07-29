@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 100,
+  "heat": 1000,
+  "ingredients" : [
+    {
+      "item": "techreborn:steel_small_dust",
+      "count": 4
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:steel_ingot"
+    }
+  ]
+}

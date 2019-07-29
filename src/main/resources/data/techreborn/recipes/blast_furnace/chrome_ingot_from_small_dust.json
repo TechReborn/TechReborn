@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 800,
+  "heat": 1700,
+  "ingredients" : [
+    {
+      "item": "techreborn:chrome_small_dust",
+      "count": 4
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:chrome_ingot"
+    }
+  ]
+}

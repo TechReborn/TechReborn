@@ -1,0 +1,20 @@
+{
+	"type": "techreborn:blast_furnace",
+	"power": 128,
+	"time": 20,
+	"heat": 1500,
+	"ingredients": [
+		{
+			"item": "techreborn:galena_small_dust",
+			"count": 8
+		}
+	],
+	"results": [
+		{
+			"item": "techreborn:lead_ingot"
+		},
+		{
+			"item": "techreborn:silver_ingot"
+		}
+	]
+}

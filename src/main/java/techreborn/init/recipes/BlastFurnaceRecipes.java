@@ -33,32 +33,20 @@ import net.minecraft.item.ItemStack;
 public class BlastFurnaceRecipes extends RecipeMethods {
 
 	public static void init() {
-//		register(ItemDusts.getDustByName("titanium"), null, ItemIngots.getIngotByName("titanium"), null, 3600, 1500);
-//		register(ItemDustsSmall.getSmallDustByName("titanium", 4), null, ItemIngots.getIngotByName("titanium"), null,
-//				3600, 1500);
-//		register(ItemDusts.getDustByName("aluminum"), null, ItemIngots.getIngotByName("aluminum"), null, 2200, 1700);
-//		register(ItemDustsSmall.getSmallDustByName("aluminum", 4), null, ItemIngots.getIngotByName("aluminum"), null,
-//				2200, 1700);
-//		register(ItemDusts.getDustByName("tungsten"), null, ItemIngots.getIngotByName("tungsten"), null, 1800, 2500);
-//		register(ItemDustsSmall.getSmallDustByName("tungsten", 4), null, ItemIngots.getIngotByName("tungsten"), null,
-//				1800, 2500);
-//		register(ItemDusts.getDustByName("chrome"), null, ItemIngots.getIngotByName("chrome"), null, 4420, 1700);
-//		register(ItemDustsSmall.getSmallDustByName("chrome", 4), null, ItemIngots.getIngotByName("chrome"), null, 4420,
-//				1700);
-//		register(ItemDusts.getDustByName("steel"), null, ItemIngots.getIngotByName("steel"), null, 2800, 1000);
-//		register(ItemDustsSmall.getSmallDustByName("steel", 4), null, ItemIngots.getIngotByName("steel"), null, 2800,
-//				1000);
-//		register(ItemDusts.getDustByName("galena", 2), null, ItemIngots.getIngotByName("silver"),
-//				ItemIngots.getIngotByName("lead"), 80, 1500);
-//		register(new ItemStack(Items.IRON_INGOT), ItemDusts.getDustByName("coal", 2),
-//				ItemIngots.getIngotByName("steel"), ItemDusts.getDustByName("dark_ashes", 2), 500, 1000);
-//		register(ItemIngots.getIngotByName("tungsten"), ItemIngots.getIngotByName("steel"),
-//				ItemIngots.getIngotByName("hot_tungstensteel"), ItemDusts.getDustByName("dark_ashes", 4), 500, 128,
-//				3000);
+
+
+
+
+
+
+		
+		
+
 //		register(new ItemStack(Blocks.IRON_ORE), ItemDusts.getDustByName("calcite"), new ItemStack(Items.IRON_INGOT, 3),
 //				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
 //		register(BlockOre.getOreByName("Pyrite"), ItemDusts.getDustByName("calcite"),
 //				new ItemStack(Items.IRON_INGOT, 2), ItemDusts.getDustByName("dark_ashes"), 140, 1000);
+		
 //		register(new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Blocks.SAND), new ItemStack(Items.DIAMOND, 5),
 //				ItemDusts.getDustByName("dark_ashes"), 140, 1000);
 //		register(new ItemStack(Items.DIAMOND_CHESTPLATE), new ItemStack(Blocks.SAND), new ItemStack(Items.DIAMOND, 8),

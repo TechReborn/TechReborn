@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 2000,
+  "heat": 2500,
+  "ingredients" : [
+    {
+      "item": "techreborn:tungsten_small_dust",
+      "count": 4
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:tungsten_ingot"
+    }
+  ]
+}
