@@ -4,10 +4,12 @@
 	"time": 800,
 	"ingredients": [
 		{
-			"fluid": "techreborn:carbon"
+			"fluid": "techreborn:carbon",
+			"holder": "techreborn:cell"
 		},
 		{
-			"fluid": "techreborn:calcium"
+			"fluid": "techreborn:calcium",
+			"holder": "techreborn:cell"
 		}
 	],
 	"results": [

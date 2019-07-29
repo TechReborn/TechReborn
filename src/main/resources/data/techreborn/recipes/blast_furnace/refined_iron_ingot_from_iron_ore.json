@@ -1,0 +1,24 @@
+{
+	"type": "techreborn:blast_furnace",
+	"power": 128,
+	"time": 100,
+	"heat": 1000,
+	"ingredients": [
+		{
+			"item": "minecraft:iron_ore"
+		},
+		{
+			"fluid": "techreborn:calciumcarbonate",
+			"holder": "techreborn:cell"
+		}
+	],
+	"results": [
+		{
+			"item": "techreborn:refined_iron_ingot",
+			"count": 3
+		},
+		{
+			"item": "techreborn:cell"
+		}
+	]
+}

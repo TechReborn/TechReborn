@@ -5,7 +5,7 @@
   "ingredients" : [
     {
       "item": "minecraft:dirt",
-      "size": 2
+      "count": 2
     }
   ],
   "results" : [
