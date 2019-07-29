@@ -41,8 +41,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.ItemPowerManager;
@@ -54,6 +57,7 @@ import techreborn.items.tool.ItemDrill;
 import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -69,15 +73,19 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable PlayerEntity playerIn) {
 		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
-		if (!(playerIn instanceof PlayerEntity)) {
-			return new HashSet<BlockPos>();
+		if (playerIn == null) {
+			return new HashSet<>();
 		}
-//		HitResult hitResult = getHitResult(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
-//		if(hitResult == null || hitResult.sideHit == null){
-//			return Collections.emptySet();
-//		}
-		//TODO fix the raytracing for this side
-		Direction enumfacing = Direction.SOUTH;
+
+		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
+		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
+		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+
+		if(!(hitResult instanceof BlockHitResult)){
+			return Collections.emptySet();
+		}
+		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
 		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
@@ -140,7 +148,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (blockHardness == -1.0F) {
 			return false;
 		}
-		float originalHardness = worldIn.getBlockState(originalPos).calcBlockBreakingDelta(playerIn, worldIn, originalPos);
+		float originalHardness = worldIn.getBlockState(originalPos).getHardness(worldIn, originalPos);
 		if ((originalHardness / blockHardness) > 10.0F) {
 			return false;
 		}
