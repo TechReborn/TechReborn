@@ -36,7 +36,7 @@ import java.security.InvalidParameterException;
  */
 public class IndustrialCentrifugeRecipes extends RecipeMethods {
 	public static void init() {
-		register(getStack(Items.MAGMA_CREAM), 500, getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL));
+
 		register(getStack(Blocks.DIRT, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2));
 		register(getStack(Blocks.GRASS, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2), getStack(Items.WHEAT_SEEDS, 4));
 		register(getStack(Blocks.MYCELIUM, 8), 1640, getStack(Blocks.SAND, 4), getStack(Items.CLAY_BALL), getStack(Blocks.BROWN_MUSHROOM, 2), getStack(Blocks.RED_MUSHROOM, 2));

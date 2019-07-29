@@ -9,8 +9,9 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
+import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
+import techreborn.init.TRContent.Machine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,15 +19,16 @@ import java.util.function.Predicate;
 
 public class ReiPlugin implements REIPluginEntry {
 
-	public static final Identifier PLUGIN = new Identifier("techreborn", "techreborn_plugin");
+	public static final Identifier PLUGIN = new Identifier(TechReborn.MOD_ID, "techreborn_plugin");
 
 	public static final Map<RebornRecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
 
 	public ReiPlugin() {
-		iconMap.put(ModRecipes.ALLOY_SMELTER, TRContent.Machine.ALLOY_SMELTER);
-		iconMap.put(ModRecipes.GRINDER, TRContent.Machine.GRINDER);
-		iconMap.put(ModRecipes.BLAST_FURNACE, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
-		iconMap.put(ModRecipes.CENTRIFUGE, TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
+		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
+		iconMap.put(ModRecipes.GRINDER, Machine.GRINDER);
+		iconMap.put(ModRecipes.BLAST_FURNACE, Machine.INDUSTRIAL_BLAST_FURNACE);
+		iconMap.put(ModRecipes.CENTRIFUGE, Machine.INDUSTRIAL_CENTRIFUGE);
+		iconMap.put(ModRecipes.CHEMICAL_REACTOR, Machine.CHEMICAL_REACTOR);
 		//TODO add the others here
 	}
 
@@ -47,7 +49,13 @@ public class ReiPlugin implements REIPluginEntry {
 	
 	@Override
 	public void registerOthers(RecipeHelper recipeHelper) {
-		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(), new ItemStack[]{new ItemStack(TRContent.Machine.ALLOY_SMELTER.asItem())});
+		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(),
+				new ItemStack[] { new ItemStack(Machine.ALLOY_SMELTER.asItem()),
+								  new ItemStack(Machine.IRON_ALLOY_FURNACE.asItem())});
+		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.getName(), new ItemStack(Machine.GRINDER.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.BLAST_FURNACE.getName(), new ItemStack(Machine.INDUSTRIAL_BLAST_FURNACE.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.CENTRIFUGE.getName(), new ItemStack(Machine.INDUSTRIAL_CENTRIFUGE.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.CHEMICAL_REACTOR.getName(), new ItemStack(Machine.CHEMICAL_REACTOR.asItem()));
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){
