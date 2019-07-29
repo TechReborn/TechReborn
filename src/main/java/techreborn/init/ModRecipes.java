@@ -155,40 +155,7 @@ public class ModRecipes {
 		// int eutick = 2;
 		// int ticktime = 300;
 
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			new ItemStack(Items.BONE),
-//			new ItemStack(Items.DYE, 6, 15),
-//			170, 19));
 
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			new ItemStack(Blocks.COBBLESTONE),
-//			new ItemStack(Blocks.SAND),
-//			230, 23));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			new ItemStack(Blocks.GRAVEL),
-//			new ItemStack(Items.FLINT),
-//			200, 20));
-
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//				new ItemStack(Items.COAL),
-//				ItemDusts.getDustByName("coal"),
-//				230, 27));
-		
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//				new ItemStack(Items.COAL, 1, 1),
-//				ItemDusts.getDustByName("charcoal"),
-//				230, 27));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//				new ItemStack(net.minecraft.init.Items.CLAY_BALL),
-//				ItemDusts.getDustByName("clay"),
-//				200, 18));
-//
-//		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
-//			new ItemStack(Blocks.GLOWSTONE),
-//			ItemDusts.getDustByName("glowstone", 4), 220, 21));
-//
 //		RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(
 //			new ItemStack(Blocks.NETHERRACK),
 //			ItemDusts.getDustByName("netherrack"),

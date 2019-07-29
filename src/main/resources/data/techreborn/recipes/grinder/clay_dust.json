@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 18,
+  "time": 180,
+  "ingredients" : [
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "results" : [
+    {
+      "item": "techreborn:clay_dust"
+    }
+  ]
+}
