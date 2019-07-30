@@ -1,0 +1,40 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 2200,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "minecraft:redstone",
+      "count": 32
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 13,
+      "nbt": "null"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 3,
+      "tag": {
+        "fluid": "techreborn:silicon"
+      }
+    },
+    {
+      "item": "techreborn:pyrite_dust",
+      "count": 16
+    },
+    {
+      "item": "techreborn:ruby_dust",
+      "count": 3
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 10,
+      "tag": {
+        "fluid": "techreborn:mercury"
+      }
+    }
+  ]
+}

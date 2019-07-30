@@ -1,0 +1,28 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 2500,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "minecraft:grass",
+      "count": 16
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:sand",
+      "count": 8
+    },
+    {
+      "item": "minecraft:clay_ball"
+    },
+    {
+      "item": "minecraft:gravel",
+      "count": 2
+    },
+    {
+      "item": "minecraft:wheat_seeds",
+      "count": 4
+    }
+  ]
+}

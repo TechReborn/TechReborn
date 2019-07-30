@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "minecraft:dead_bush"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:stick"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 3000,
+  "time": 5,
+  "ingredients": [
+    {
+      "fluid": "techreborn:deuterium",
+      "holder": "techreborn:cell"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:tritium"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 3
+    }
+  ]
+}

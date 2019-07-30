@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 210,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "techreborn:tin_dust",
+      "count": 2
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:zinc_small_dust"
+    },
+    {
+      "item": "techreborn:iron_small_dust"
+    }
+  ]
+}

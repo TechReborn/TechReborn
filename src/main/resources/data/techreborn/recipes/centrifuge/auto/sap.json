@@ -1,0 +1,35 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5000,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "techreborn:rubber_log",
+      "count": 16
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 5,
+      "nbt": "null"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:sap",
+      "count": 8
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:methane"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 4,
+      "tag": {
+        "fluid": "techreborn:carbon"
+      }
+    }
+  ]
+}

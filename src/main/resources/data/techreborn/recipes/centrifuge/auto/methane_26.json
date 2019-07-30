@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5000,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "minecraft:cookie",
+      "count": 64
+    },
+    {
+      "item": "techreborn:cell",
+      "nbt": "null"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:methane"
+      }
+    }
+  ]
+}

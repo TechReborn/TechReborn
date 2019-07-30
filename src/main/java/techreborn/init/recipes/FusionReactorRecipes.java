@@ -24,20 +24,23 @@
 
 package techreborn.init.recipes;
 
+import net.minecraft.item.ItemStack;
+import techreborn.api.reactor.FusionReactorRecipe;
+import techreborn.api.reactor.FusionReactorRecipeHelper;
+import techreborn.init.ModFluids;
+import techreborn.init.TRContent;
+import techreborn.items.ItemDynamicCell;
+
 /**
  * @author drcrazy
  *
  */
 public class FusionReactorRecipes extends RecipeMethods {
 	public static void init() {
-//		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("helium3"),
-//				ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("heliumplasma"), 40000000, 32768, 1024));
-//		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tritium"),
-//				ItemCells.getCellByName("deuterium"), ItemCells.getCellByName("helium3"), 60000000, 16384, 2048));
-//		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"),
-//				ItemCells.getCellByName("Berylium"), TRContent.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
-		// TODO: Fix recipe
-//		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("wolframium"),
-//				ItemCells.getCellByName("lithium"), BlockOre.getOreByName("iridium"), 90000000, -2048, 1024));
+
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.HELIUM_3.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.DEUTERIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.HELIUMPLASMA.getFluid()), 40000000, 32768, 1024));
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.TRITIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.DEUTERIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.HELIUM_3.getFluid()), 60000000, 16384, 2048));
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.WOLFRAMIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.BERYLIUM.getFluid()), TRContent.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
+		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.WOLFRAMIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.LITHIUM.getFluid()), new ItemStack(TRContent.Ores.IRIDIUM.asItem()), 90000000, -2048, 1024));
 	}
 }

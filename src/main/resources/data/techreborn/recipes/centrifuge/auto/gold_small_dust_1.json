@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 2400,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "techreborn:copper_dust",
+      "count": 3
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:gold_small_dust"
+    },
+    {
+      "item": "techreborn:nickel_small_dust"
+    }
+  ]
+}

@@ -21,6 +21,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.Validate;
+import techreborn.items.ItemDynamicCell;
 
 import java.io.File;
 import java.io.IOException;
@@ -229,7 +231,7 @@ public class RecipeTemplate {
 
 			Function<ItemStack, JsonObject> toIngredient = stack -> {
 				JsonObject jsonObject = new JsonObject();
-				if(stack.getItem() == TRContent.CELL){
+				if(stack.getItem() == TRContent.CELL && TRContent.CELL.getFluid(stack) != Fluids.EMPTY){
 					jsonObject.addProperty("fluid", Registry.FLUID.getId(TRContent.CELL.getFluid(stack)).toString());
 					jsonObject.addProperty("holder", "techreborn:cell");
 				} else {
@@ -237,10 +239,14 @@ public class RecipeTemplate {
 					if(stack.getCount() > 1){
 						jsonObject.addProperty("count", stack.getCount());
 					}
+					if(stack.getItem() instanceof ItemDynamicCell){
+						//Force it to be an empty cell
+						jsonObject.addProperty("nbt", "null");
+					}
 				}
 				return jsonObject;
 			};
-			inputs.forEach(stack -> ingredients.add(toIngredient.apply(stack)));
+			inputs.stream().peek(Validate::notNull).forEach(stack -> ingredients.add(toIngredient.apply(stack)));
 
 			object.add("ingredients", ingredients);
 		}
@@ -275,6 +281,9 @@ public class RecipeTemplate {
 			String name = Registry.ITEM.getId(outputs.get(0).getItem()).getPath();
 			if(outputs.get(0).getItem() == TRContent.CELL){
 				name = Registry.FLUID.getId(TRContent.CELL.getFluid(outputs.get(0))).getPath();
+				if(name.equals("empty")){
+					name = "empty_cell";
+				}
 			}
 
 			String extraPath = auto ? "/auto/" : "/";

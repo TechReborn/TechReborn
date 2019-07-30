@@ -1,0 +1,27 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 1500,
+  "time": 5,
+  "ingredients": [
+    {
+      "fluid": "minecraft:lava",
+      "holder": "techreborn:cell"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:tin_ingot",
+      "count": 6
+    },
+    {
+      "item": "techreborn:copper_ingot",
+      "count": 4
+    },
+    {
+      "item": "techreborn:electrum_ingot"
+    },
+    {
+      "item": "techreborn:tungsten_small_dust"
+    }
+  ]
+}

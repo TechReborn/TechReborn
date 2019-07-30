@@ -1,0 +1,20 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 1840,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "techreborn:ender_eye_dust",
+      "count": 2
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:ender_pearl_dust",
+      "count": 2
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  ]
+}
