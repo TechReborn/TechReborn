@@ -87,8 +87,8 @@ public class RecipeTemplate {
 
 		}
 
-		boolean compressor = true;
-		boolean grinder = true;
+		boolean compressor = false;
+		boolean grinder = false;
 		boolean sawmill = false;
 
 		if(compressor){

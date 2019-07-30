@@ -49,7 +49,7 @@ import techreborn.utils.FluidUtils;
 public class ItemDynamicCell extends Item implements ItemFluidInfo {
 
 	public ItemDynamicCell() {
-		super(new Item.Settings().maxCount(1).group(TechReborn.ITEMGROUP));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 
 	@Override

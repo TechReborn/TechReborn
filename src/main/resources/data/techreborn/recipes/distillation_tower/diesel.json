@@ -1,0 +1,39 @@
+{
+  "type": "techreborn:distillation_tower",
+  "power": 20,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "techreborn:cell",
+      "count": 17,
+      "tag": "null"
+    },
+    {
+      "fluid": "techreborn:oil",
+      "holder": "techreborn:cell",
+      "count": 16
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 16,
+      "tag": {
+        "fluid": "techreborn:diesel"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 16,
+      "tag": {
+        "fluid": "techreborn:sulfuricacid"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:glyceryl"
+      }
+    }
+  ]
+}
