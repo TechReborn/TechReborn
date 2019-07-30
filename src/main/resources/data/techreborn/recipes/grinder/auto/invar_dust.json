@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 200,
+  "time": 22,
+  "ingredients": [
+    {
+      "item": "techreborn:invar_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:invar_dust"
+    }
+  ]
+}

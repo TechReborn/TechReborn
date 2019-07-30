@@ -1,0 +1,25 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 3500,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "techreborn:yellow_garnet_dust",
+      "count": 16
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:andradite_dust",
+      "count": 5
+    },
+    {
+      "item": "techreborn:grossular_dust",
+      "count": 8
+    },
+    {
+      "item": "techreborn:uvarovite_dust",
+      "count": 3
+    }
+  ]
+}

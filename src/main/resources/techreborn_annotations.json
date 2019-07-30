@@ -369,19 +369,6 @@
         }
       ]
     },
-    "techreborn/init/recipes/IndustrialSawmillRecipes": {
-      "className": "techreborn/init/recipes/IndustrialSawmillRecipes",
-      "annotations": [
-        {
-          "desc": "Lreborncore/common/registration/RebornRegister;",
-          "values": [
-            "value",
-            "techreborn"
-          ],
-          "api": 458752
-        }
-      ]
-    },
     "techreborn/entities/EntityNukePrimed": {
       "className": "techreborn/entities/EntityNukePrimed",
       "annotations": [

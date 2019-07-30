@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 270,
+  "time": 31,
+  "ingredients": [
+    {
+      "item": "techreborn:pyrite_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:pyrite_dust",
+      "count": 2
+    }
+  ]
+}

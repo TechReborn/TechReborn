@@ -25,46 +25,84 @@
 package techreborn.init.recipes;
 
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import reborncore.common.util.StringUtils;
+import techreborn.items.ItemDynamicCell;
 
 /**
  * Created by Prospector
  */
 public abstract class RecipeMethods {
 	public static ItemStack getMaterial(String name, int count, Type type) {
-//		if (type == Type.DUST) {
-//			return ItemDusts.getDustByName(name, count);
-//		} else if (type == Type.SMALL_DUST) {
-//			return ItemDustsSmall.getSmallDustByName(name, count);
-//		} else if (type == Type.INGOT) {
-//			return ItemIngots.getIngotByName(name, count);
-//		} else if (type == Type.GEM) {
-//			return ItemGems.getGemByName(name, count);
-//			TODO: fix recipe
-//		} else if (type == Type.PLATE) {
-//			return ItemPlates.getPlateByName(name, count);
-//		} else if (type == Type.NUGGET) {
-//			return ItemNuggets.getNuggetByName(name, count);
-//		} else 
-//			if (type == Type.CELL) {
-//			return ItemCells.getCellByName(name, count);
-//		} else if (type == Type.PART) {
-//			return ItemParts.getPartByName(name, count);
-//		} else if (type == Type.CABLE) {
-//			return BlockCable.getCableByName(name, count);
-//		} else if (type == Type.MACHINE_FRAME) {
-//			return BlockMachineFrames.getFrameByName(name, count);
-//		} else if (type == Type.MACHINE_CASING) {
-//			return BlockMachineCasing.getStackByName(name, count);
-//		} else if (type == Type.UPGRADE) {
-//			return ItemUpgrades.getUpgradeByName(name, count);
-//		} else if (type == Type.ORE) {
-//			return BlockOre.getOreByName(name, count);
-//		}
-		return ItemStack.EMPTY;
+		name = name.toLowerCase();
+		if(type == Type.CELL){
+
+			Fluid fluid = Registry.FLUID.get(new Identifier("techreborn", name.toLowerCase()));
+			if(name.equals("water")){
+				fluid = Fluids.WATER;
+			}
+			if(name.equals("lava")){
+				fluid = Fluids.LAVA;
+			}
+
+			if(fluid == Fluids.EMPTY){
+				throw new RuntimeException("could not find fluid " + name);
+			}
+			return ItemDynamicCell.getCellWithFluid(fluid, count);
+		}
+
+		if(type == Type.INGOT){
+			return find(name + "_ingot", count);
+		}
+
+		if(type == Type.DUST){
+			return find(name + "_dust", count);
+		}
+
+		if(type == Type.PLATE){
+			return find(name + "_plate", count);
+		}
+
+		if(type == Type.NUGGET){
+			return find(name + "_nugget", count);
+		}
+
+		if(type == Type.SMALL_DUST){
+			return find(name + "_small_dust", count);
+		}
+
+		if(type == Type.ORE){
+			return find(name + "_ore", count);
+		}
+
+		if(type == Type.PART){
+			return find(name, count);
+		}
+
+		throw new UnsupportedOperationException(type.name());
+	}
+
+	private static ItemStack find(String path, int count){
+		Identifier identifier = new Identifier(path);
+		Item item = Registry.ITEM.get(identifier);
+		if(item != Items.AIR){
+			return new ItemStack(item, count);
+		}
+
+		identifier = new Identifier("techreborn", path);
+		item = Registry.ITEM.get(identifier);
+		if(item != Items.AIR){
+			return new ItemStack(item, count);
+		}
+
+		throw new UnsupportedOperationException("Could not find" + path);
 	}
 
 	static Object getMaterialObjectFromType(String name, Type type) {
@@ -98,23 +136,25 @@ public abstract class RecipeMethods {
 		return getMaterial(name, 1, type);
 	}
 
-	public static Object getMaterialObject(String name, Type type) {
-		return getMaterialObjectFromType(name, type);
-	}
-
 	@Deprecated
 	public static ItemStack getOre(String name, int count) {
-		throw new UnsupportedOperationException("Use tags");
+		if(name.equals("dustRedstone")){
+			return new ItemStack(Items.REDSTONE, count);
+		}
+		if(name.startsWith("dust")){
+			return getMaterial(name.replace("dust", ""), count, Type.DUST);
+		}
+		return getMaterial(name, count, Type.ORE);
 	}
 
 	@Deprecated
 	public static ItemStack getOre(String name) {
-		throw new UnsupportedOperationException("Use tags");
+		return getOre(name, 1);
 	}
 
 	@Deprecated
 	public static boolean oresExist(String... names) {
-		throw new UnsupportedOperationException("Use tags");
+		return false;
 	}
 
 	public static ItemStack getStack(Item item) {
@@ -132,7 +172,7 @@ public abstract class RecipeMethods {
 
 	@Deprecated
 	public static ItemStack getStack(Item item, int count, boolean wildcard) {
-		throw new UnsupportedOperationException("Use tags");
+		return new ItemStack(item, count);
 	}
 
 	public static ItemStack getStack(Block block) {
@@ -140,7 +180,7 @@ public abstract class RecipeMethods {
 	}
 
 	public static ItemStack getStack(Block block, int count) {
-		return getStack(block, count);
+		return new ItemStack(block, count);
 	}
 
 	public static ItemStack getStack(Block block, boolean wildcard) {

@@ -1,0 +1,27 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 1500,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "minecraft:lapis_lazuli",
+      "count": 4
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:lazurite_dust",
+      "count": 3
+    },
+    {
+      "item": "techreborn:pyrite_small_dust"
+    },
+    {
+      "item": "techreborn:calcite_small_dust"
+    },
+    {
+      "item": "techreborn:sodalite_small_dust",
+      "count": 2
+    }
+  ]
+}

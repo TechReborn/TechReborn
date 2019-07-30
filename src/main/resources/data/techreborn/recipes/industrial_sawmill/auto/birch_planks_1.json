@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:industrial_sawmill",
+  "power": 128,
+  "time": 100,
+  "ingredients": [
+    {
+      "item": "minecraft:stripped_birch_log"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:birch_planks",
+      "count": 4
+    },
+    {
+      "item": "techreborn:saw_dust",
+      "count": 3
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ]
+}

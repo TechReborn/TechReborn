@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 5000,
+  "time": 5,
+  "ingredients": [
+    {
+      "fluid": "techreborn:helium",
+      "holder": "techreborn:cell"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:helium3"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 15
+    }
+  ]
+}

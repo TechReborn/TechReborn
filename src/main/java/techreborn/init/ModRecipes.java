@@ -63,8 +63,6 @@ public class ModRecipes {
 
 
 	public static void init() {
-		//Gonna rescan to make sure we have an uptodate list
-		//OreUtil.scanForOres();
 
 		/*
 
@@ -93,87 +91,5 @@ public class ModRecipes {
 		//IndustrialSawmillRecipes.init();
 	}
 
-	private static void addCompressorRecipes() {
-
-//		ItemStack plate;
-//		for (String ore : OreUtil.oreNames) {
-//			if (ore.equals("iridium")) {
-//				continue;
-//			}
-//			if (OreUtil.hasPlate(ore)) {
-//				try {
-//					plate = ItemPlates.getPlateByName(ore, 1);
-//				} catch (InvalidParameterException e) {
-//					plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore), 1);
-//				}
-//				if (plate.isEmpty()) {
-//					continue;
-//				}
-//				if (OreUtil.hasIngot(ore)) {
-//					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
-//							OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
-//				}
-//				if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
-//					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
-//							OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore), 1), plate, 300, 4));
-//				}
-//				if (OreUtil.hasBlock(ore)) {
-//					ItemStack morePlates = plate.copy();
-//					morePlates.setCount(9);
-//					RecipeHandler.addRecipe(Reference.COMPRESSOR_RECIPE, new CompressorRecipe(
-//							OreUtil.getStackFromName("block" + OreUtil.capitalizeFirstLetter(ore), 1), morePlates, 300, 4));
-//				}
-//			}
-//		}
-	}
-
-	static void addGrinderRecipes() {
-
-		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
-
-//		for (String oreDictionaryName : OreDictionary.getOreNames()) {
-//			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
-//				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
-//				String[] data = getDictData(oreDictionaryName);
-//
-//				//High-level ores shouldn't grind here
-//				if (data[0].equals("ore") && (
-//					data[1].equals("tungsten") ||
-//						data[1].equals("titanium") ||
-//						data[1].equals("aluminium") ||
-//						data[1].equals("iridium") ||
-//						data[1].equals("saltpeter")||
-//						data[1].equals("coal") || //Done here to skip going to dust so it can go to the output
-//						data[1].equals("diamond") || //For example diamond ore should go to diamonds not the diamond dust
-//						data[1].equals("emerald") || //TODO possibly remove this and make it a bit more dyamic? (Check for furnace recipes? and then the block drop?)
-//						data[1].equals("redstone") ||
-//						data[1].equals("quartz")
-//						) ||
-//					oreStack.isEmpty())
-//					continue;
-//
-//				boolean ore = data[0].equals("ore");
-//				TechReborn.LOGGER.debug("Ore: " + data[1]);
-//				ItemStack dust = getDictOreOrEmpty(joinDictName("dust", data[1]), ore ? 2 : 1);
-//				if (dust.isEmpty() || dust.getItem() == null) {
-//					continue;
-//				}
-//				dust = dust.copy();
-//				if (ore) {
-//					dust.setCount(2);
-//				}
-//				boolean useOreDict = true;
-//				//Disables the ore dict for lapis, this is becuase it is oredict with dye. This may cause some other lapis ores to not be grindable, but we can fix that when that arrises.
-//				if(data[1].equalsIgnoreCase("lapis")){
-//					useOreDict = false;
-//				}
-//				RecipeHandler.addRecipe(Reference.GRINDER_RECIPE, new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22, useOreDict));
-//			}
-//		}
-	}
-
-	public static ItemStack getBucketWithFluid(Fluid fluid) {
-		return FluidUtil.getFilledBucket(new FluidInstance(fluid, 1000));
-	}
 
 }

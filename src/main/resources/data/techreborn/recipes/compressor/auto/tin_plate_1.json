@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 250,
+  "ingredients": [
+    {
+      "item": "techreborn:tin_dust"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:tin_plate"
+    }
+  ]
+}

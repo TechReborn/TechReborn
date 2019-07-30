@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:centrifuge",
+  "power": 1040,
+  "time": 5,
+  "ingredients": [
+    {
+      "item": "techreborn:marble_dust"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:magnesium_dust"
+    },
+    {
+      "item": "techreborn:calcite_dust",
+      "count": 7
+    }
+  ]
+}

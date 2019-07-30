@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 270,
+  "time": 31,
+  "ingredients": [
+    {
+      "item": "techreborn:lead_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:lead_dust",
+      "count": 2
+    }
+  ]
+}
