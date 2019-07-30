@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:compressor",
+  "power": 20,
+  "time": 450,
+  "ingredients": [
+    {
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:obsidian_plate"
+    }
+  ]
+}

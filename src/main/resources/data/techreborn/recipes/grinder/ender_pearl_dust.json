@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 20,
+  "time": 200,
+  "ingredients": [
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:ender_pearl_dust",
+      "count": 2
+    }
+  ]
+}

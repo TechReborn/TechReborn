@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:compressor",
+  "power": 20,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "techreborn:lazurite_dust"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:lazurite_plate"
+    }
+  ]
+}

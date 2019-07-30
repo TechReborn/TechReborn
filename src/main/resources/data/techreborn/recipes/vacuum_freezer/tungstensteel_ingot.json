@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:vacuum_freezer",
+  "power": 64,
+  "time": 440,
+  "ingredients": [
+    {
+      "item": "techreborn:hot_tungstensteel_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:tungstensteel_ingot"
+    }
+  ]
+}

@@ -26,16 +26,18 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
+import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.client.GuiHandler;
 import techreborn.events.ModRegistry;
 import techreborn.events.StackToolTipHandler;
@@ -43,7 +45,6 @@ import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.proxies.CommonProxy;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.utils.StackWIPHandler;
 import techreborn.world.WorldGenerator;
@@ -117,6 +118,15 @@ public class TechReborn implements ModInitializer {
 		proxy.postInit();
 
 		ModRecipes.postInit();
+
+		CommandRegistry.INSTANCE.register(false, dispatcher -> dispatcher.register(CommandManager.literal("recipe").executes(context -> {
+			try {
+				RecipeTemplate.generate(context.getSource().getPlayer());
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			return 0;
+		})));
 
 		LOGGER.info("TechReborn setup done!");
 

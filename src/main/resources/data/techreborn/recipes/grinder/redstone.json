@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 30,
+  "time": 270,
+  "ingredients": [
+    {
+      "item": "minecraft:redstone_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:redstone",
+      "count": 8
+    }
+  ]
+}

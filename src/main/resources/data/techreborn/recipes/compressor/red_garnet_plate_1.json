@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:compressor",
+  "power": 20,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "techreborn:red_garnet_storage_block"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:red_garnet_plate",
+      "count": 9
+    }
+  ]
+}

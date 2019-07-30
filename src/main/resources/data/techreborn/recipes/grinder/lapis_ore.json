@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 20,
+  "time": 200,
+  "ingredients": [
+    {
+      "item": "minecraft:lapis_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:lapis_lazuli",
+      "count": 10
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:vacuum_freezer",
+  "power": 60,
+  "time": 64,
+  "ingredients": [
+    {
+      "item": "minecraft:ice",
+      "count": 2
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:packed_ice"
+    }
+  ]
+}
