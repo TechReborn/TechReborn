@@ -117,7 +117,6 @@ public class TechReborn implements ModInitializer {
 
 		proxy.postInit();
 
-		ModRecipes.postInit();
 
 		CommandRegistry.INSTANCE.register(false, dispatcher -> dispatcher.register(CommandManager.literal("recipe").executes(context -> {
 			try {

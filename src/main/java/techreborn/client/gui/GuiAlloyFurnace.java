@@ -66,7 +66,7 @@ public class GuiAlloyFurnace extends AbstractContainerScreen<BuiltContainer> {
 
 	@Override
 	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translate("blockEntity.techreborn.iron_alloy_furnace.name");
+		final String name = I18n.translate("block.techreborn.iron_alloy_furnace");
 		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
 		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,

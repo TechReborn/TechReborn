@@ -72,7 +72,7 @@ public class GuiIronFurnace extends GuiBase {
 
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
-		final String name = I18n.translate("blockEntity.techreborn.iron_furnace.name");
+		final String name = I18n.translate("block.techreborn.iron_furnace");
 		font.draw(name, containerWidth / 2 - font.getStringWidth(name) / 2, 6, 4210752);
 		font.draw(I18n.translate("container.inventory", new Object[0]), 8, containerHeight - 96 + 2, 4210752);
 
