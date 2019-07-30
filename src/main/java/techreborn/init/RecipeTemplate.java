@@ -16,7 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
@@ -27,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -75,7 +73,7 @@ public class RecipeTemplate {
 			String path = identifier.getPath();
 
 			if(path.contains("_")){
-				String name = path.substring(0, path.lastIndexOf('_'));
+				String name = path.substring(0, path.lastIndexOf('_')).replace("_storage", "");
 				String type = path.substring(path.lastIndexOf('_') + 1);
 
 				Map<String, Item> typeMap = map.computeIfAbsent(type, s -> new HashMap<>());
@@ -89,9 +87,9 @@ public class RecipeTemplate {
 
 		}
 
-		boolean compressor = false;
-		boolean grinder = false;
-		boolean sawmill = true;
+		boolean compressor = true;
+		boolean grinder = true;
+		boolean sawmill = false;
 
 		if(compressor){
 			//Compressor
