@@ -121,7 +121,7 @@ public class TechReborn implements ModInitializer {
 
 		CommandRegistry.INSTANCE.register(false, dispatcher -> dispatcher.register(CommandManager.literal("recipe").executes(context -> {
 			try {
-				RecipeTemplate.generate(context.getSource().getPlayer());
+				RecipeTemplate.generateFromInv(context.getSource().getPlayer());
 			} catch (Exception e){
 				e.printStackTrace();
 			}
