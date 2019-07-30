@@ -2,8 +2,15 @@
   "schemaVersion": 1,
   "id": "techreborn",
   "version": "${version}",
-  "name": "TechReborn",
+  "name": "Tech Reborn",
+  "icon": "assets/techreborn/icon.png",
+  "description": "A completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.",
   "license": "MIT",
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/techreborn",
+    "sources": "https://github.com/TechReborn/TechReborn",
+    "issues": "https://github.com/TechReborn/TechReborn/issues"
+  },
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -18,6 +25,31 @@
   },
   "requires": {
     "fabricloader": ">=0.4.0",
-    "fabric": "*"
-  }
+    "fabric": "*",
+    "reborncore": "*"
+  },
+  "authors": [
+    "modmuss50",
+    "drcrazy"
+  ],
+  "contributors": [
+    "Gigabit101",
+    "TheMattaBase",
+    "Mj11jM",
+    "Mazdallier",
+    "tntrololol",
+    "joflashstudios",
+    "lclc98",
+    "Lordmau5",
+    "mezz",
+    "Prospector",
+    "Rushmead",
+    "Yulife",
+    "Dragon2488",
+    "MrBretze",
+    "Ourten",
+    "Dimmerworld",
+    "coderbot",
+    "estebes"
+  ]
 }
