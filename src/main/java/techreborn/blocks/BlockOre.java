@@ -50,14 +50,8 @@ public class BlockOre extends Block {
 	public static int sodaliteMinQuatity = 1;
 	@ConfigRegistry(config = "misc", category = "blocks", key = "sodaliteMaxQuantity", comment = "Maximum quantity of Sodalite dust per Sodalite ore")
 	public static int sodaliteMaxQuantity = 2;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "cinnabarMinQuatity", comment = "Minimum quantity of Cinnabar dust per Cinnabar ore")
-	public static int cinnabarMinQuatity = 1;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "cinnabarMaxQuantity", comment = "Maximum quantity of Cinnabar dust per Cinnabar ore")
-	public static int cinnabarMaxQuantity = 2;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "sphaleriteMinQuatity", comment = "Minimum quantity of Sphalerite dust per Sphalerite ore")
-	public static int sphaleriteMinQuatity = 1;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "sphaleriteMaxQuantity", comment = "Maximum quantity of Sphalerite dust per Sphalerite ore")
-	public static int sphaleriteMaxQuantity = 2;
+
+
 
 	public BlockOre() {
 		super(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
@@ -82,12 +76,8 @@ public class BlockOre extends Block {
 //		} else if (ore == TRContent.Ores.SODALITE.block) {
 //			OreDrop sodalite = new OreDrop(TRContent.Dusts.SODALITE.getStack(sodaliteMinQuatity), sodaliteMaxQuantity);
 //			drops.add(sodalite.getDrops(fortune, random));
-//		} else if (ore == TRContent.Ores.CINNABAR.block) {
-//			OreDrop cinnabar = new OreDrop(TRContent.Dusts.CINNABAR.getStack(cinnabarMinQuatity), cinnabarMaxQuantity);
-//			drops.add(cinnabar.getDrops(fortune, random));
-//		} else if (ore == TRContent.Ores.SPHALERITE.block) {
-//			OreDrop sphalerite = new OreDrop(TRContent.Dusts.SPHALERITE.getStack(sphaleriteMinQuatity), sphaleriteMaxQuantity);
-//			drops.add(sphalerite.getDrops(fortune, random));
+
+	
 //		} else {
 //			drops.add(new ItemStack(this));
 //		}

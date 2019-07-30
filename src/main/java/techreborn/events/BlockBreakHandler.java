@@ -41,8 +41,7 @@ public class BlockBreakHandler {
 	public static double aluminiumDropChance = 0.50;
 	@ConfigRegistry(config = "misc", category = "blocks", key = "redstoneDropChance", comment = "Chance to get Redstone from Cinnabar Ore")
 	public static double redstoneDropChance = 0.25;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "yellowGarnetDropChance", comment = "Chance to get Yellow Garnet gem from Sphalerite Ore")
-	public static double yellowGarnetDropChance = 0.125;
+
 
 	//TODO 1.14
 //	@SubscribeEvent
@@ -68,10 +67,7 @@ public class BlockBreakHandler {
 //				OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), redstoneDropChance, 1);
 //				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
 //			}
-//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sphalerite_ore")))) {
-//				OreDrop yellowGarnet = new OreDrop(TRContent.Gems.YELLOW_GARNET.getStack(), yellowGarnetDropChance, 1);
-//				drops.add(yellowGarnet.getDrops(event.getFortuneLevel(), random));
-//			}
+
 //		}
 //	}
 //
