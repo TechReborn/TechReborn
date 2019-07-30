@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 270,
+  "time": 31,
+  "ingredients": [
+    {
+      "item": "techreborn:peridot_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:peridot_dust",
+      "count": 2
+    }
+  ]
+}

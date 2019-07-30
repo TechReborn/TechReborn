@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "techreborn:titanium_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:titanium_plate"
+    }
+  ]
+}

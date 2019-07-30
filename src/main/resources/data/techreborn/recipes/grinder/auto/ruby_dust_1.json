@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 200,
+  "time": 22,
+  "ingredients": [
+    {
+      "item": "techreborn:ruby_gem"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:ruby_dust"
+    }
+  ]
+}

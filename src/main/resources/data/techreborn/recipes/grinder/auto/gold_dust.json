@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 270,
+  "time": 31,
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:gold_dust",
+      "count": 2
+    }
+  ]
+}

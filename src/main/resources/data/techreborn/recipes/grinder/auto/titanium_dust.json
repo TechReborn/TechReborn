@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 200,
+  "time": 22,
+  "ingredients": [
+    {
+      "item": "techreborn:titanium_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:titanium_dust"
+    }
+  ]
+}
