@@ -51,26 +51,8 @@ public class TileWireMill extends TileMachine {
 	// << Fields
 
 	public TileWireMill() {
-		super("WireMill", maxInput, maxEnergy, 3, Recipes.wireMill);
+		super("WireMill", maxInput, maxEnergy, 2, 3, Recipes.wireMill);
 	}
-
-
-		public void fitStack(ItemStack stack, int slot) {// This fits a stack into a slot
-			if (stack.isEmpty()) {
-				return;
-			}
-			if (inventory.getStackInSlot(slot).isEmpty()) {// If the slot is empty set the contents
-				inventory.setInventorySlotContents(slot, stack);
-				return;
-			}
-			if (ItemUtils.isItemEqual(inventory.getStackInSlot(slot), stack, true, true)) {// If the slot has stuff in
-				if (stack.getCount() + inventory.getStackInSlot(slot).getCount() <= stack.getMaxStackSize()) {// Check to see if it fits
-					ItemStack newStack = stack.copy();
-					newStack.setCount(inventory.getStackInSlot(slot).getCount() + stack.getCount());// Sets
-					inventory.setInventorySlotContents(slot, newStack);
-				}
-			}
-		}
 
 	// IToolDrop >>
 	@Override
@@ -90,7 +72,7 @@ public class TileWireMill extends TileMachine {
 			.tile(this)
 			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(Recipes.wireMill))
 			.outputSlot(1, 101, 45)
-			.energySlot(2, 8, 72)
+			.energySlot(energySlot, 8, 72)
 			.syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress)
 			.syncIntegerValue(this::getOperationLength, this::setOperationLength)

@@ -48,18 +48,19 @@ import java.util.function.Predicate;
 
 public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 	// Constructors >>
-	public TileMachine(String name, int maxInput, int maxEnergy, int slots, RecipeHandler recipeHandler) {
-		this(name, maxInput, maxEnergy, slots, 64, recipeHandler);
+	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, RecipeHandler recipeHandler) {
+		this(name, maxInput, maxEnergy, energySlot, slots, 64, recipeHandler);
 	}
 
-	public TileMachine(String name, int maxInput, int maxEnergy, int slots, int slotSize, RecipeHandler recipeHandler) {
-		this(name, maxInput, maxEnergy, slots, 64, new int[] { 0 }, new int[] { 1 }, recipeHandler);
+	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, RecipeHandler recipeHandler) {
+		this(name, maxInput, maxEnergy, energySlot, slots, 64, new int[] { 0 }, new int[] { 1 }, recipeHandler);
 	}
 
-	public TileMachine(String name, int maxInput, int maxEnergy, int slots, int slotSize, int[] inputSlots, int[] outputSlots, RecipeHandler recipeHandler) {
+	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, int[] inputSlots, int[] outputSlots, RecipeHandler recipeHandler) {
 		this.name = "Tile" + name;
 		this.maxInput = maxInput;
 		this.maxEnergy = maxEnergy;
+		this.energySlot = energySlot;
 		this.inventory = new Inventory(slots, name, slotSize, this);
 		this.inputSlots = inputSlots;
 		this.outputSlots = outputSlots;
@@ -91,7 +92,11 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 
 	@Override
 	public void update() {
+		super.update();
+
 		if (world.isRemote) return;
+
+		charge(energySlot);
 
 		boolean needsInventoryUpdate = false; // To reduce update frequency of inventories, only call onInventory changed if this was set to true
 
@@ -190,6 +195,9 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 
 		// if a matching recipe exists update parameters
 		updateRecipe(maybeRecipe.get());
+
+		// we need to have enough energy
+		if (!canUseEnergy(getEuPerTick(recipe.getEnergyCostPerTick()))) return false;
 
 		// we need space for the outputs
 		return recipe.getOutputIngredients()
@@ -309,6 +317,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 	public final RecipeHandler recipeHandler;
 
 	// Slots
+	protected final int energySlot;
 	protected final int[] inputSlots;
 	protected final int[] outputSlots;
 
