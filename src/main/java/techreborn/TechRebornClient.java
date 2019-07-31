@@ -33,6 +33,7 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.util.Identifier;
 import techreborn.client.render.DynamicCellBakedModel;
 
@@ -47,13 +48,20 @@ public class TechRebornClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEX)
-			.register((spriteAtlasTexture, registry) -> registry.register(new Identifier("techreborn:item/cell_base")));
+				.register((spriteAtlasTexture, registry) -> registry.register(new Identifier("techreborn:item/cell_base")));
+
+		ModelLoadingRegistry.INSTANCE.registerAppender((manager, out) -> {
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory"));
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"));
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory"));
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory"));
+		});
 
 		ModelLoadingRegistry.INSTANCE.registerVariantProvider(resourceManager -> (modelIdentifier, modelProviderContext) -> {
-			if(!modelIdentifier.getNamespace().equals("techreborn")){
+			if (!modelIdentifier.getNamespace().equals("techreborn")) {
 				return null;
 			}
-			if(!modelIdentifier.getPath().equals("cell")){
+			if (!modelIdentifier.getPath().equals("cell")) {
 				return null;
 			}
 			return new UnbakedModel() {
@@ -75,7 +83,6 @@ public class TechRebornClient implements ClientModInitializer {
 			};
 		});
 	}
-
 
 
 }
