@@ -27,6 +27,7 @@ package techreborn.init;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.fluid.*;
@@ -76,28 +77,30 @@ public enum ModFluids {
 	private final Identifier identifier;
 
 	ModFluids() {
-		this.identifier = new Identifier("techreborn", this.name().replace("_", "").toLowerCase());
+		this.identifier = new Identifier(TechReborn.MOD_ID, this.name().replace("_", "").toLowerCase());
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture = new Identifier("techreborn", "block/fluids/" + this.name().replace("_", "").toLowerCase() + "_flowing");
+		Identifier texture = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.name().replace("_", "").toLowerCase() + "_flowing");
 
 		fluidSettings.setStillTexture(texture);
 		fluidSettings.setFlowingTexture(texture);
 
-		stillFluid = new RebornFluid(true, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
-		flowingFluid = new RebornFluid(false, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid){};
+		stillFluid = new RebornFluid(true, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid) {
+		};
+		flowingFluid = new RebornFluid(false, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid) {
+		};
 
 		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing().build());
-		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP));
+		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP).recipeRemainder(Items.BUCKET).maxCount(1));
 	}
 
 	public void register() {
 		RebornFluidManager.register(stillFluid, identifier);
-		RebornFluidManager.register(flowingFluid, new Identifier("techreborn", identifier.getPath() + "_flowing"));
+		RebornFluidManager.register(flowingFluid, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_flowing"));
 
 		Registry.register(Registry.BLOCK, identifier, block);
-		Registry.register(Registry.ITEM, identifier, bucket);
+		Registry.register(Registry.ITEM, new Identifier(TechReborn.MOD_ID, identifier.getPath() + "_bucket"), bucket);
 	}
 
 	public RebornFluid getFluid() {

@@ -59,12 +59,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
+public class DynamicBucketBakedModel implements BakedModel, FabricBakedModel {
 
-	private static final ModelIdentifier CELL_BASE = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_base"), "inventory");
-	private static final ModelIdentifier CELL_BACKGROUND = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory");
-	private static final ModelIdentifier CELL_FLUID = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory");
-	private static final ModelIdentifier CELL_GLASS = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory");
+	private final Fluid fluid;
+
+	private static final ModelIdentifier BUCKET_BASE = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory");
+	private static final ModelIdentifier BUCKET_BACKGROUND = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory");
+	private static final ModelIdentifier BUCKET_FLUID = new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory");
+
+	public DynamicBucketBakedModel(Fluid fluid) {
+		this.fluid = fluid;
+	}
 
 	@Override
 	public void emitBlockQuads(ExtendedBlockView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
@@ -80,12 +85,12 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 
 		}
 		BakedModelManager bakedModelManager = MinecraftClient.getInstance().getBakedModelManager();
-		context.fallbackConsumer().accept(bakedModelManager.getModel(CELL_BASE));
-		context.fallbackConsumer().accept(bakedModelManager.getModel(CELL_BACKGROUND));
+		context.fallbackConsumer().accept(bakedModelManager.getModel(BUCKET_BASE));
+		context.fallbackConsumer().accept(bakedModelManager.getModel(BUCKET_BACKGROUND));
 
 		if (fluid != Fluids.EMPTY) {
 			FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
-			BakedModel fluidModel = bakedModelManager.getModel(CELL_FLUID);
+			BakedModel fluidModel = bakedModelManager.getModel(BUCKET_FLUID);
 			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
 			Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
 			int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getRGB();
@@ -102,8 +107,6 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 			});
 			context.popTransform();
 		}
-
-		context.fallbackConsumer().accept(bakedModelManager.getModel(CELL_GLASS));
 	}
 
 	@Override
@@ -133,7 +136,7 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 
 	@Override
 	public Sprite getSprite() {
-		return MinecraftClient.getInstance().getSpriteAtlas().getSprite(new Identifier("techreborn:item/cell_base"));
+		return MinecraftClient.getInstance().getSpriteAtlas().getSprite(new Identifier("minecraft:item/bucket"));
 	}
 
 	@Override
@@ -148,7 +151,7 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 
 		@Override
 		public BakedModel apply(BakedModel bakedModel, ItemStack itemStack, World world, LivingEntity livingEntity) {
-			return DynamicCellBakedModel.this;
+			return DynamicBucketBakedModel.this;
 		}
 	}
 
