@@ -25,6 +25,7 @@
 package techreborn.api.fluidreplicator;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -74,12 +75,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 		return true;
 	}
 	
-	private boolean canFit(Fluid fluid, Tank tank) {
-		if (tank.fill(new FluidInstance(fluid, 1000), false) != 1000) {
-			return false;
-		}
-		return true;
-	}
+
 	
 	public void setCurrentRecipe(FluidReplicatorRecipe recipe) {
 		try {
@@ -117,8 +113,9 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 				FluidReplicatorBlockEntity blockEntityFluidReplicator =  (FluidReplicatorBlockEntity) blockEntity;
 				// Checks to see if it can fit the output
 				// And fill tank with replicated fluid
-				if (canFit(currentRecipe.getFluid(), blockEntityFluidReplicator.tank) && currentRecipe.onCraft(blockEntityFluidReplicator)) {
-					blockEntityFluidReplicator.tank.fill(new FluidInstance(currentRecipe.getFluid(), 1000), true);
+				if (blockEntityFluidReplicator.tank.canFit(currentRecipe.getFluid(), 1000) && currentRecipe.onCraft(blockEntityFluidReplicator)) {
+					blockEntityFluidReplicator.tank.getFluidInstance().setFluid(currentRecipe.getFluid());
+					blockEntityFluidReplicator.tank.getFluidInstance().addAmount(1000);
 					// This uses all the inputs
 					useAllInputs();
 					// Reset
@@ -150,7 +147,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 		FluidReplicatorBlockEntity blockEntityFluidReplicator =  (FluidReplicatorBlockEntity) blockEntity;
 		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
 			if (recipe.canCraft(blockEntityFluidReplicator) && hasAllInputs(recipe)) {
-				if (!canFit(recipe.getFluid(), blockEntityFluidReplicator.tank)) {
+				if (!blockEntityFluidReplicator.tank.canFit(recipe.getFluid(), 1000)) {
 					this.currentRecipe = null;
 					currentTickTime = 0;
 					setIsActive();
@@ -190,7 +187,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 		FluidReplicatorBlockEntity blockEntityFluidReplicator =  (FluidReplicatorBlockEntity) blockEntity;
 		for (FluidReplicatorRecipe recipe : FluidReplicatorRecipeList.recipes) {
 			if (recipe.canCraft(blockEntityFluidReplicator) && hasAllInputs(recipe)) {
-				if (!canFit(recipe.getFluid(), blockEntityFluidReplicator.tank)) {
+				if (!blockEntityFluidReplicator.tank.canFit(recipe.getFluid(), 1000)) {
 					return false;
 				}
 				if (energy.getEnergy() < recipe.getEuTick()) {

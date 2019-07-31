@@ -100,7 +100,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 					pendingWithdraw += millibucketsPerTick;
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
-					tank.drain(currentWithdraw, true);
+					tank.getFluidInstance().subtractAmount(currentWithdraw);
 					lastOutput = world.getTime();
 				}
 			}

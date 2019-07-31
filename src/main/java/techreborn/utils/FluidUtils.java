@@ -33,6 +33,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.fluid.container.GenericFluidContainer;
 import net.minecraft.fluid.Fluid;
+import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.mixin.extensions.FluidBlockExtensions;
 
 import java.util.List;
@@ -57,44 +58,81 @@ public class FluidUtils {
 
 		if (inputStack.isEmpty()) return false;
 
-		if(inputStack.getCount() > 1){
-			System.out.println("TODO make this support more than 1 item");
-			return false;
-		}
+		if(!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
 
 		if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 
-		GenericFluidContainer<ItemStack> source = GenericFluidContainer.fromStack(inputStack);
-		if(source == null || source.getFluidInstance(inputStack).isEmpty()){
+		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
+
+		if(itemFluidInfo.getFluid(inputStack) == Fluids.EMPTY) return false;
+
+		FluidInstance targetFluidInstance = target.getFluidInstance(null);
+		Fluid currentFluid = targetFluidInstance.getFluid();
+
+		if(currentFluid == Fluids.EMPTY || currentFluid == itemFluidInfo.getFluid(inputStack)) {
+			int freeSpace = target.getCapacity(null) - targetFluidInstance.getAmount();
+
+			if(!outputStack.isEmpty()){
+				if(outputStack.getCount() + 1 >= outputStack.getMaxCount()){
+					return false;
+				}
+			}
+
+			if(freeSpace >= 1000){
+				inputStack.decrement(1);
+				targetFluidInstance.setFluid(itemFluidInfo.getFluid(inputStack));
+				targetFluidInstance.addAmount(1000);
+
+				if(outputStack.isEmpty()){
+					inventory.setInvStack(outputSlot, itemFluidInfo.getEmpty());
+				} else {
+					outputStack.increment(1);
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot, Fluid fluidToFill) {
+		ItemStack inputStack = inventory.getInvStack(inputSlot);
+		ItemStack outputStack = inventory.getInvStack(outputSlot);
+
+		if (inputStack.isEmpty()) return false;
+
+		if(!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
+
+		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
+		if(itemFluidInfo.getFluid(inputStack) != Fluids.EMPTY) return false;
+
+		FluidInstance sourceFluid = source.getFluidInstance(null);
+
+		if(sourceFluid.getFluid() == Fluids.EMPTY || sourceFluid.getAmount() < 1000){
 			return false;
 		}
 
-		Fluid fluidType = source.getFluidInstance(inputStack).getFluid();
-		FluidInstance contained = target.getFluidInstance(null);
+		if(!outputStack.isEmpty()){
+			if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 
-		if(!contained.isEmpty()){
-			//Check that the fluid we are trying to insert into is the same
-			if(contained.getFluid() != fluidType){
+			if(!(outputStack.getItem() instanceof ItemFluidInfo)) return false;
+
+			ItemFluidInfo outputFluidInfo = (ItemFluidInfo) outputStack.getItem();
+
+			if(outputFluidInfo.getFluid(outputStack) != sourceFluid.getFluid()){
 				return false;
 			}
 		}
 
-		int transferAmount = 10;
+		sourceFluid.subtractAmount(1000);
 
-		if(source.canExtractFluid(inputStack, fluidType, transferAmount) && target.canInsertFluid(null, fluidType, transferAmount)){
-			target.insertFluid(null, fluidType, transferAmount);
-			source.extractFluid(inputStack, fluidType, transferAmount);
-			if(source.getCurrentFluidAmount(inputStack) < 1){
-				inventory.setInvStack(outputSlot, inputStack);
-				inventory.setInvStack(inputSlot, ItemStack.EMPTY);
-			}
-			return true;
+		if(outputStack.isEmpty()){
+			inventory.setInvStack(outputSlot, itemFluidInfo.getFull(sourceFluid.getFluid()));
+		} else {
+			outputStack.increment(1);
 		}
 
-		return false;
-	}
+		inputStack.decrement(1);
 
-	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot, Fluid fluidToFill) {
 		return false;
 	}
 
