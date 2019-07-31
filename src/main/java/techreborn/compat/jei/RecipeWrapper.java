@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.jei.wiremill;
+package techreborn.compat.jei;
 
 import net.minecraft.item.ItemStack;
 
@@ -37,6 +37,7 @@ import reborncore.api.praescriptum.ingredients.input.OreDictionaryInputIngredien
 import reborncore.api.praescriptum.ingredients.output.FluidStackOutputIngredient;
 import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
 import reborncore.api.praescriptum.recipes.Recipe;
+import reborncore.common.util.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,8 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
 
 		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof OreDictionaryInputIngredient)
-			.flatMap(entry -> OreDictionary.getOres((String) entry.ingredient).stream())
+			.flatMap(entry -> OreDictionary.getOres((String) entry.ingredient).stream()
+				.map(stack -> ItemUtils.setSize(stack, entry.getCount())))
 			.collect(Collectors.toCollection(() -> itemInputs)); // map OreDictionary entries
 
 		recipe.getInputIngredients().stream()

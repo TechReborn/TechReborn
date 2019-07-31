@@ -31,6 +31,11 @@ import reborncore.api.praescriptum.recipes.RecipeHandler;
  */
 public class Recipes {
 	/**
+	 * Recipe handler for assembling machine recipes.
+	 */
+	public static RecipeHandler assemblingMachine;
+
+	/**
 	 * Recipe handler for wire mill recipes.
 	 */
 	public static RecipeHandler wireMill;

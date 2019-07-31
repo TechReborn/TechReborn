@@ -37,28 +37,32 @@ public class WireMillRecipes {
 		Recipes.wireMill = new RecipeHandler();
 
 		// gold cable
-		Recipes.wireMill.createRecipe().withInput("ingotGold")
+		Recipes.wireMill.createRecipe()
+			.withInput("ingotGold")
 			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_GOLD, 6))
 			.withEnergyCostPerTick(1)
 			.withOperationDuration(200)
 			.register();
 
 		// copper cable
-		Recipes.wireMill.createRecipe().withInput("ingotCopper")
+		Recipes.wireMill.createRecipe()
+			.withInput("ingotCopper")
 			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_COPPER, 3))
 			.withEnergyCostPerTick(2)
 			.withOperationDuration(100)
 			.register();
 
 		// tin cable
-		Recipes.wireMill.createRecipe().withInput("ingotTin")
+		Recipes.wireMill.createRecipe()
+			.withInput("ingotTin")
 			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_TIN, 4))
 			.withEnergyCostPerTick(1)
 			.withOperationDuration(140)
 			.register();
 
 		// hv cable
-		Recipes.wireMill.createRecipe().withInput("ingotRefinedIron")
+		Recipes.wireMill.createRecipe()
+			.withInput("ingotRefinedIron")
 			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_HV, 6))
 			.withEnergyCostPerTick(2)
 			.withOperationDuration(200)

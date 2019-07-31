@@ -36,6 +36,7 @@ import reborncore.common.util.StringUtils;
 
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
+import techreborn.compat.jei.RecipeWrapper;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;

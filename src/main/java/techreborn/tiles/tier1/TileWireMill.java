@@ -32,7 +32,6 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.ItemUtils;
 
 import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
@@ -70,7 +69,7 @@ public class TileWireMill extends TileMachine {
 			.hotbar()
 			.addInventory()
 			.tile(this)
-			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(Recipes.wireMill))
+			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
 			.outputSlot(1, 101, 45)
 			.energySlot(energySlot, 8, 72)
 			.syncEnergyValue()

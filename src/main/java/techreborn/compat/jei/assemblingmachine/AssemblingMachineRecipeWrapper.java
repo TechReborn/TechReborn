@@ -22,29 +22,27 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.jei.assemblingMachine;
+package techreborn.compat.jei.assemblingmachine;
+
+import net.minecraft.client.Minecraft;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
+import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
-import javax.annotation.Nonnull;
+import techreborn.compat.jei.RecipeWrapper;
 
-public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<AssemblingMachineRecipe> {
-	// Fields >>
-	private final IDrawableAnimated progressright;
-	private final IDrawableAnimated progressleft;
-	//  << Fields
-
-	public AssemblingMachineRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull AssemblingMachineRecipe baseRecipe) {
-		super(baseRecipe);
+/**
+ * @author estebes
+ */
+public class AssemblingMachineRecipeWrapper extends RecipeWrapper {
+	public AssemblingMachineRecipeWrapper(IJeiHelpers jeiHelpers, Recipe recipe) {
+		super(recipe);
 
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
@@ -55,8 +53,8 @@ public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<Assembling
 			right.yActive, right.width, right.height);
 		IDrawableStatic progressleftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
 			left.yActive, left.width, left.height);
-		int ticksPerCycle = baseRecipe.tickTime();
 
+		int ticksPerCycle = recipe.getOperationDuration(); // speed up the animation
 		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.LEFT, false);
 		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle,
@@ -74,7 +72,15 @@ public class AssemblingMachineRecipeWrapper extends BaseRecipeWrapper<Assembling
 		int y = 31;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
-		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight + 1, 0x444444);
+		minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
+			(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration()),
+			(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration())) / 2),
+			y + lineHeight + 1, 0x444444);
 	}
+
+	// Fields >>
+	private final IDrawableAnimated progressright;
+	private final IDrawableAnimated progressleft;
+	//  << Fields
 }

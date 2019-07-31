@@ -32,7 +32,6 @@ import net.minecraft.util.EnumFacing;
 import com.google.common.collect.ImmutableList;
 import reborncore.api.IToolDrop;
 import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
-import reborncore.api.praescriptum.ingredients.output.OutputIngredient;
 import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.api.praescriptum.recipes.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
@@ -44,7 +43,6 @@ import reborncore.common.util.ItemUtils;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 	// Constructors >>
@@ -122,8 +120,6 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 				needsInventoryUpdate = true;
 			}
 		} else { // operation conditions not satisfied
-			reset();
-
 			if (isActive) {
 				isActive = false;
 				setActive(false);
@@ -185,7 +181,8 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 			return recipe.getOutputIngredients()
 				.stream()
 				.filter(output -> output instanceof ItemStackOutputIngredient)
-				.allMatch(hasSpaceForItemOutputs(this));
+				.map(output -> (ItemStack) output.ingredient)
+				.allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
 		}
 
 		// The current recipe is not usable anymore so we need to find a new one
@@ -203,7 +200,8 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 		return recipe.getOutputIngredients()
 			.stream()
 			.filter(output -> output instanceof ItemStackOutputIngredient)
-			.allMatch(hasSpaceForItemOutputs(this));
+			.map(output -> (ItemStack) output.ingredient)
+			.allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
 	}
 
 	protected void finishWork() {
@@ -223,7 +221,8 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 		recipe.getOutputIngredients()
 			.stream()
 			.filter(entry -> entry instanceof ItemStackOutputIngredient)
-			.forEach(entry -> addOutput(((ItemStack) entry.ingredient).copy(), 1));
+			.map(output -> (ItemStack) output.ingredient)
+			.forEach(output -> addToOutputs(output.copy(), false));
 
 		progress = 0;
 	}
@@ -277,35 +276,34 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 	// << Getters && Setters
 
 	// Helpers >>
-	public static Predicate<OutputIngredient> hasSpaceForItemOutputs(TileMachine tileMachine) {
-		return ingredient -> {
-			ItemStack stack = (ItemStack) ingredient.ingredient;
-			return !ItemUtils.isEmpty(stack) && Arrays.stream(tileMachine.outputSlots)
-				.anyMatch(slot -> {
-					ItemStack contents = tileMachine.inventory.getStackInSlot(slot);
-					if (contents.isEmpty())
-						return true;
+	// Distribute the provided stack across the available output slots
+	public int addToOutputs(ItemStack stack, boolean simulate) {
+		if (stack.isEmpty()) return 0;
 
-					return ItemUtils.isItemEqual(contents, stack, true, true) &&
-						stack.getCount() + contents.getCount() <= stack.getMaxStackSize();
-				});
-		};
-	}
+		int remaining = stack.getCount();
 
-	public void addOutput(ItemStack stack, int slot) {// This fits a stack into a slot
-		if (stack.isEmpty()) return;
+		for (int index : outputSlots) {
+			if (remaining <= 0) break;
 
-		ItemStack contents = inventory.getStackInSlot(slot);
+			ItemStack contents =  inventory.getStackInSlot(index);
 
-		if (contents.isEmpty()) {
-			inventory.setInventorySlotContents(slot, stack);
-			return;
+			int transfered = Math.min(remaining, Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize()) - contents.getCount());
+
+			if (!contents.isEmpty() && ItemUtils.isItemEqual(contents, stack, true, true)) {
+				if (!simulate) inventory.setInventorySlotContents(index, ItemUtils.increaseSize(contents, transfered));
+
+				remaining -= transfered;
+			} else if (contents.isEmpty()) {
+				if (!simulate) {
+					ItemStack temp = ItemUtils.setSize(stack.copy(), transfered);
+					inventory.setInventorySlotContents(index, temp);
+				}
+
+				remaining -= transfered;
+			}
 		}
 
-		if (ItemUtils.isItemEqual(contents, stack, true, true)) {
-			if (contents.getCount() + stack.getCount() <= contents.getMaxStackSize())
-				ItemUtils.increaseSize(contents, stack.getCount());
-		}
+		return stack.getCount() - remaining;
 	}
 	// << Helpers
 

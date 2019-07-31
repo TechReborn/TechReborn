@@ -34,6 +34,8 @@ import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 
+import techreborn.compat.jei.RecipeWrapper;
+
 /**
  * @author estebes
  */
@@ -42,7 +44,9 @@ public class WireMillRecipeWrapper extends RecipeWrapper {
 		super(recipe);
 
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+
 		GuiBuilder.ProgressDirection right = GuiBuilder.ProgressDirection.RIGHT;
+
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
 			right.yActive, right.width, right.height);
 

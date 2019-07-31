@@ -25,23 +25,20 @@
 package techreborn.tiles.tier1;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.api.recipe.RecipeHandler;
-import reborncore.client.containerBuilder.IContainerProvider;
+import net.minecraft.item.ItemStack;
+
+import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.Inventory;
-import reborncore.common.util.ItemUtils;
-import techreborn.api.Reference;
-import techreborn.api.recipe.machines.AssemblingMachineRecipe;
+
+import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileAssemblingMachine extends TileGenericMachine implements IContainerProvider {
+public class TileAssemblingMachine extends TileMachine {
 	// Fields >>
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
 	public static int maxInput = 32;
@@ -50,32 +47,32 @@ public class TileAssemblingMachine extends TileGenericMachine implements IContai
 	// << Fields
 
 	public TileAssemblingMachine() {
-		super("AssemblingMachine", maxInput, maxEnergy, ModBlocks.ASSEMBLING_MACHINE, 3);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2 };
-		this.inventory = new Inventory(4, "TileAssemblingMachine", 64, this);
-		this.crafter = new RecipeCrafter(Reference.ASSEMBLING_MACHINE_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
+		super("AssemblingMachine", maxInput, maxEnergy, 3, 4, 64,
+			new int[] { 0, 1 }, new int[] { 2 }, Recipes.assemblingMachine);
 	}
+
+	// IToolDrop >>
+	@Override
+	public ItemStack getToolDrop(EntityPlayer player) {
+		return new ItemStack(ModBlocks.ASSEMBLING_MACHINE, 1);
+	}
+	// << IToolDrop
 	
-	// IContainerProvider
+	// IContainerProvider >>
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
 		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
 			.addInventory()
 			.tile(this)
-			.filterSlot(0, 34, 47,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AssemblingMachineRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
-			.filterSlot(1, 126, 47,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AssemblingMachineRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+			.filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
 			.outputSlot(2, 80, 47)
-			.energySlot(3, 8, 72)
+			.energySlot(energySlot, 8, 72)
 			.syncEnergyValue()
-			.syncCrafterValue()
+			.syncIntegerValue(this::getProgress, this::setProgress)
+			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
 			.addInventory()
 			.create(this);
 	}
+	// << IContainerProvider
 }
