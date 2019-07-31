@@ -38,6 +38,9 @@ import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+/**
+ * @author estebes
+ */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileWireMill extends TileMachine {
 	// Fields >>

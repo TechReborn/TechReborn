@@ -166,6 +166,10 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.PLATE_BENDING_MACHINE), "PCP", "MBM", "PCP", 'P', getStack(Blocks.STICKY_PISTON), 'C', "circuitBasic", 'M', getStack(IC2Duplicates.COMPRESSOR), 'B', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.ASSEMBLING_MACHINE), "CIC", "PBP", "CPC", 'I', getStack(Blocks.PISTON), 'P', "plateRefinedIron", 'C', "circuitBasic", 'B', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.ASSEMBLING_MACHINE), "CIC", "PBP", "CPC", 'I', getStack(Blocks.PISTON), 'P', "plateAluminum", 'C', "circuitBasic", 'B', "machineBlockBasic");
+		//
+		registerShaped(getStack(ModBlocks.WIRE_MILL), "PEP", "CBC", "PSP", 'P', "plateBrass", 'C', "circuitBasic", 'E', getStack(IC2Duplicates.EXTRACTOR), 'B', "machineBlockBasic", 'S', getStack(Blocks.PISTON));
+		registerShaped(getStack(ModBlocks.WIRE_MILL), "PEP", "CBC", "PSP", 'P', "plateBrass", 'C', "circuitBasic", 'E', getStack(IC2Duplicates.EXTRACTOR), 'B', "machineBlockBasic", 'S', getStack(Blocks.STICKY_PISTON));
+		//
 		registerShaped(getStack(ModBlocks.CHEMICAL_REACTOR), "IMI", "CPC", "IEI", 'I', "plateInvar", 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.EXTRACTOR), 'P', getStack(IC2Duplicates.COMPRESSOR), 'E', getStack(IC2Duplicates.EXTRACTOR));
 		registerShaped(getStack(ModBlocks.ROLLING_MACHINE),  "PCP", "MBM", "PCP", 'P', getStack(Blocks.PISTON), 'C', "circuitAdvanced", 'M', getStack(IC2Duplicates.COMPRESSOR), 'B', "machineBlockBasic");
 		registerShaped(getStack(ModBlocks.AUTO_CRAFTING_TABLE), "MPM", "PCP", "MPM", 'M', "circuitAdvanced", 'C', "workbench", 'P', "plateIron");

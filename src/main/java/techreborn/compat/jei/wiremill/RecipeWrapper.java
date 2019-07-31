@@ -1,3 +1,27 @@
+/*
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2018 TechReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package techreborn.compat.jei.wiremill;
 
 import net.minecraft.item.ItemStack;
@@ -14,51 +38,59 @@ import reborncore.api.praescriptum.ingredients.output.FluidStackOutputIngredient
 import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
 import reborncore.api.praescriptum.recipes.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author estebes
+ */
 public abstract class RecipeWrapper implements IRecipeWrapper {
 	public RecipeWrapper(Recipe recipe) {
 		this.recipe = recipe;
-	}
 
-	@Override
-	public void getIngredients(IIngredients ingredients) {
 		// inputs
-		List<ItemStack> itemInputs = recipe.getInputIngredients().stream()
+		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof ItemStackInputIngredient)
 			.map(entry -> (ItemStack) entry.ingredient)
-			.collect(Collectors.toList()); // map ItemStacks
+			.collect(Collectors.toCollection(() -> itemInputs)); // map ItemStacks
 
 		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof OreDictionaryInputIngredient)
 			.flatMap(entry -> OreDictionary.getOres((String) entry.ingredient).stream())
 			.collect(Collectors.toCollection(() -> itemInputs)); // map OreDictionary entries
 
-		List<FluidStack> fluidInputs = recipe.getInputIngredients().stream()
+		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof FluidStackInputIngredient)
 			.map(entry -> (FluidStack) entry.ingredient)
-			.collect(Collectors.toList()); // map ItemStacks
-
-		ingredients.setInputs(VanillaTypes.ITEM, itemInputs);
-		ingredients.setInputs(VanillaTypes.FLUID, fluidInputs);
+			.collect(Collectors.toCollection(() -> fluidInputs)); // map FluidStacks
 
 		// outputs
-		List<ItemStack> itemOutputs = recipe.getOutputIngredients().stream()
+		recipe.getOutputIngredients().stream()
 			.filter(entry -> entry instanceof ItemStackOutputIngredient)
 			.map(entry -> (ItemStack) entry.ingredient)
-			.collect(Collectors.toList()); // map ItemStacks
+			.collect(Collectors.toCollection(() -> itemOutputs)); // map ItemStacks
 
-		List<FluidStack> fluidOutputs = recipe.getOutputIngredients().stream()
+		recipe.getOutputIngredients().stream()
 			.filter(entry -> entry instanceof FluidStackOutputIngredient)
 			.map(entry -> (FluidStack) entry.ingredient)
-			.collect(Collectors.toList()); // map ItemStacks
+			.collect(Collectors.toCollection(() -> fluidOutputs)); // map FluidStacks
+	}
 
+	@Override
+	public void getIngredients(IIngredients ingredients) {
+		ingredients.setInputs(VanillaTypes.ITEM, itemInputs);
+		ingredients.setInputs(VanillaTypes.FLUID, fluidInputs);
 		ingredients.setOutputs(VanillaTypes.ITEM, itemOutputs);
 		ingredients.setOutputs(VanillaTypes.FLUID, fluidOutputs);
 	}
 
 	// Fields >>
 	protected final Recipe recipe;
+
+	protected final List<ItemStack> itemInputs = new ArrayList<>();
+	protected final List<FluidStack> fluidInputs = new ArrayList<>();
+	protected final List<ItemStack> itemOutputs = new ArrayList<>();
+	protected final List<FluidStack> fluidOutputs = new ArrayList<>();
 	// << Fields
 }
