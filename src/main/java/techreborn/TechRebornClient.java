@@ -32,9 +32,15 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.hud.StackInfoHUD;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.events.StackToolTipHandler;
+import techreborn.init.TRContent;
+import techreborn.items.ItemDynamicCell;
+import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.utils.StackWIPHandler;
 
 import javax.annotation.Nullable;
@@ -82,6 +88,11 @@ public class TechRebornClient implements ClientModInitializer {
 
 		StackToolTipHandler.setup();
 		StackWIPHandler.setup();
+
+		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
+		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;
+
+		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 	}
 
 

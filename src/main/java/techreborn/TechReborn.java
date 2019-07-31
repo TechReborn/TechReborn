@@ -40,20 +40,16 @@ import reborncore.common.util.Torus;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.client.GuiHandler;
 import techreborn.events.ModRegistry;
-import techreborn.events.StackToolTipHandler;
 import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
-import techreborn.proxies.CommonProxy;
 import techreborn.utils.BehaviorDispenseScrapbox;
-import techreborn.utils.StackWIPHandler;
 import techreborn.world.WorldGenerator;
 
 public class TechReborn implements ModInitializer {
 
 	public static final String MOD_ID = "techreborn";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	public static CommonProxy proxy = new CommonProxy();
 	public static TechReborn INSTANCE;
 
 	public static ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(
@@ -75,11 +71,6 @@ public class TechReborn implements ModInitializer {
 		ModRegistry.setupShit();
 		RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
 		ModLoot.init();
-		
-		proxy.preInit();
-
-		// Client only init, needs to be done before parts system
-		proxy.init();
 
 		// WorldGen
 		WorldGenerator.initBiomeFeatures();
@@ -109,9 +100,6 @@ public class TechReborn implements ModInitializer {
 		}
 
 		Torus.genSizeMap(FusionControlComputerBlockEntity.maxCoilSize);
-
-		proxy.postInit();
-
 
 		CommandRegistry.INSTANCE.register(false, dispatcher -> dispatcher.register(CommandManager.literal("recipe").executes(context -> {
 			try {
