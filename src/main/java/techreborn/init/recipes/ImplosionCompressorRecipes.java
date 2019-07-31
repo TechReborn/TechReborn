@@ -42,28 +42,28 @@ public class ImplosionCompressorRecipes extends RecipeMethods {
 //		register(getOre("dustPeridot", 4), getMaterial("peridot", 3, Type.GEM), 12);
 //		register(getOre("dustRedGarnet", 4), getMaterial("red_garnet", 3, Type.GEM), 8);
 //		register(getOre("dustYellowGarnet", 4), getMaterial("yellow_garnet", 3, Type.GEM), 8);
-		if (oresExist("dustApatite", "gemApatite")) {
-			register(getOre("dustApatite", 4), getOre("gemApatite", 3), 12);
-		}
-
-		if (oresExist("dustCertusQuartz", "crystalCertusQuartz")) {
-			register(getOre("dustCertusQuartz", 4), getOre("crystalCertusQuartz", 3), 12);
-		}
-		if (oresExist("dustAmethyst", "gemAmethyst")) {
-			register(getOre("dustAmethyst", 4), getOre("gemAmethyst", 3), 12);
-		}
-
-		if (oresExist("dustTopaz", "gemTopaz")) {
-			register(getOre("dustTopaz", 4), getOre("gemTopaz", 3), 12);
-		}
-
-		if (oresExist("dustTanzanite", "gemTanzanite")) {
-			register(getOre("dustTanzanite", 4), getOre("gemTanzanite", 3), 12);
-		}
-
-		if (oresExist("dustMalachite", "gemMalachite")) {
-			register(getOre("dustMalachite", 4), getOre("gemMalachite", 3), 12);
-		}
+//		if (oresExist("dustApatite", "gemApatite")) {
+//			register(getOre("dustApatite", 4), getOre("gemApatite", 3), 12);
+//		}
+//
+//		if (oresExist("dustCertusQuartz", "crystalCertusQuartz")) {
+//			register(getOre("dustCertusQuartz", 4), getOre("crystalCertusQuartz", 3), 12);
+//		}
+//		if (oresExist("dustAmethyst", "gemAmethyst")) {
+//			register(getOre("dustAmethyst", 4), getOre("gemAmethyst", 3), 12);
+//		}
+//
+//		if (oresExist("dustTopaz", "gemTopaz")) {
+//			register(getOre("dustTopaz", 4), getOre("gemTopaz", 3), 12);
+//		}
+//
+//		if (oresExist("dustTanzanite", "gemTanzanite")) {
+//			register(getOre("dustTanzanite", 4), getOre("gemTanzanite", 3), 12);
+//		}
+//
+//		if (oresExist("dustMalachite", "gemMalachite")) {
+//			register(getOre("dustMalachite", 4), getOre("gemMalachite", 3), 12);
+//		}
 
 //		register(getOre("blockRedstone", 9), getOre("dustRedGarnet", 4), 4);
 	}

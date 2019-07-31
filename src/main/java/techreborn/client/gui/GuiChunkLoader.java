@@ -31,10 +31,11 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 
-public class GuiChunkLoader extends AbstractContainerScreen {
+public class GuiChunkLoader extends AbstractContainerScreen<BuiltContainer> {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/industrial_chunkloader.png");
@@ -80,7 +81,7 @@ public class GuiChunkLoader extends AbstractContainerScreen {
 
 	@Override
 	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translate("blockEntity.techreborn:chunk_loader.name");
+		final String name = I18n.translate("block.techreborn.chunk_loader");
 		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
 		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,

@@ -27,7 +27,7 @@
 							"name": "techreborn:sphalerite_ore"
 						},
 						{
-							"type": "minecraft:group",
+							"type": "minecraft:sequence",
 							"children": [
 								{
 									"type": "minecraft:item",
