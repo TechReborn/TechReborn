@@ -34,6 +34,8 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.util.Identifier;
 import techreborn.client.render.DynamicCellBakedModel;
+import techreborn.events.StackToolTipHandler;
+import techreborn.utils.StackWIPHandler;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -77,6 +79,9 @@ public class TechRebornClient implements ClientModInitializer {
 				}
 			};
 		});
+
+		StackToolTipHandler.setup();
+		StackWIPHandler.setup();
 	}
 
 

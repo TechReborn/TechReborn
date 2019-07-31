@@ -84,9 +84,6 @@ public class TechReborn implements ModInitializer {
 		// WorldGen
 		WorldGenerator.initBiomeFeatures();
 
-		StackToolTipHandler.setup();
-		StackWIPHandler.setup();
-
 		// WorldGen
 		// GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
 		// Register Gui Handler

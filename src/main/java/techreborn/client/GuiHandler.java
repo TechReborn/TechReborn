@@ -24,15 +24,16 @@
 
 package techreborn.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import reborncore.RebornCore;
 import reborncore.client.containerBuilder.IContainerProvider;
-import techreborn.client.container.ContainerDestructoPack;
-import techreborn.client.gui.*;
 import techreborn.blockentity.ChargeOMatBlockEntity;
 import techreborn.blockentity.DigitalChestBlockEntity;
 import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
@@ -57,6 +58,8 @@ import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.client.container.ContainerDestructoPack;
+import techreborn.client.gui.*;
 
 public class GuiHandler {
 
@@ -67,9 +70,10 @@ public class GuiHandler {
 			return ((IContainerProvider) blockEntity).createContainer(syncID, playerEntity);
 		}));
 
-		EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos(), syncID)));
+		RebornCore.clientOnly(() -> () -> EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos(), syncID))));
 	}
 
+	@Environment(EnvType.CLIENT)
 	private static AbstractContainerScreen getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
 		final BlockEntity blockEntity = player.world.getBlockEntity(pos);
 
