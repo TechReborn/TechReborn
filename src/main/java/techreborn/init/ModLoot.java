@@ -24,64 +24,141 @@
 
 package techreborn.init;
 
-import net.minecraft.util.Identifier;
-import techreborn.TechReborn;
+import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.world.loot.LootPool;
+import net.minecraft.world.loot.UniformLootTableRange;
+import net.minecraft.world.loot.entry.ItemEntry;
+import net.minecraft.world.loot.entry.LootEntry;
+import net.minecraft.world.loot.function.SetCountLootFunction;
 import techreborn.config.ConfigTechReborn;
-
-import java.util.ArrayList;
-import java.util.List;
+import techreborn.init.TRContent.Ingots;
+import techreborn.init.TRContent.Parts;
 
 public class ModLoot {
 
-	public static List<Identifier> lootTables = new ArrayList<Identifier>();
-
 	public static void init() {
-		if (ConfigTechReborn.enableOverworldLoot) {
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/abandoned_mineshaft"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/desert_pyramid"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/igloo_chest"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/jungle_temple"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/simple_dungeon"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/stronghold_corridor"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/stronghold_crossing"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/stronghold_library"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/village_blacksmith"));
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/woodland_mansion"));
-		}
-		if (ConfigTechReborn.enableNetherLoot) {
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/nether_bridge"));
-		}
-		if (ConfigTechReborn.enableEndLoot) {
-			lootTables.add(new Identifier(TechReborn.MOD_ID, "chests/end_city_treasure"));
-		}
 
-		for (Identifier lootTable : lootTables) {
-			//LootTables.registerLootTable(lootTable);
-		}
+		LootEntry copperIngot = makeEntry(Ingots.COPPER);
+		LootEntry tinIngot = makeEntry(Ingots.TIN);
+		LootEntry leadIngot = makeEntry(Ingots.LEAD);
+		LootEntry silverIngot = makeEntry(Ingots.SILVER);
+		LootEntry refinedronIngot = makeEntry(Ingots.REFINED_IRON);
+		LootEntry advancedalloyIngot = makeEntry(Ingots.ADVANCED_ALLOY);
+		LootEntry basicFrame = makeEntry(TRContent.MachineBlocks.BASIC.frame.asItem());
+		LootEntry basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
+		
+		LootEntry aluminumIngot = makeEntry(Ingots.ALUMINUM);
+		LootEntry electrumIngot = makeEntry(Ingots.ELECTRUM);
+		LootEntry invarIngot = makeEntry(Ingots.INVAR);
+		LootEntry nickelIngot = makeEntry(Ingots.NICKEL);
+		LootEntry steelIngot = makeEntry(Ingots.STEEL);
+		LootEntry zincIngot = makeEntry(Ingots.ZINC);
+		LootEntry advancedFrame = makeEntry(TRContent.MachineBlocks.ADVANCED.frame.asItem());
+		LootEntry advancedCircuit = makeEntry(Parts.ADVANCED_CIRCUIT);
+		LootEntry dataStorageChip = makeEntry(Parts.DATA_STORAGE_CHIP);
+		
+		LootEntry chromeIngot = makeEntry(Ingots.CHROME);		
+		LootEntry iridiumIngot = makeEntry(Ingots.IRIDIUM);		
+		LootEntry platinumIngot = makeEntry(Ingots.PLATINUM);
+		LootEntry titaniumIngot = makeEntry(Ingots.TITANIUM);
+		LootEntry tungstenIngot = makeEntry(Ingots.TUNGSTEN);
+		LootEntry tungstensteelIngot = makeEntry(Ingots.TUNGSTENSTEEL);
+		LootEntry industrialFrame = makeEntry(TRContent.MachineBlocks.INDUSTRIAL.frame.asItem());
+		LootEntry industrialCircuit = makeEntry(Parts.INDUSTRIAL_CIRCUIT);
+		LootEntry energyFlowChip = makeEntry(Parts.ENERGY_FLOW_CHIP);
+		
+		
+
+		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
+				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedronIngot).withEntry(advancedalloyIngot)
+				.withEntry(basicFrame).withEntry(basicCircuit).withRolls(UniformLootTableRange.between(1.0f, 2.0f))
+				.build();
+		
+		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
+				.withEntry(invarIngot).withEntry(nickelIngot).withEntry(steelIngot).withEntry(zincIngot)
+				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).withRolls(UniformLootTableRange.between(1.0f, 3.0f))
+				.build();
+
+		LootPool poolIndustrial = FabricLootPoolBuilder.builder().withEntry(chromeIngot).withEntry(iridiumIngot)
+				.withEntry(platinumIngot).withEntry(titaniumIngot).withEntry(tungstenIngot).withEntry(tungstensteelIngot)
+				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).withRolls(UniformLootTableRange.between(1.0f, 3.0f))
+				.build();
+		
+		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, ident, supplier, setter) -> {
+			String stringId = ident.toString();
+			if (!stringId.startsWith("minecraft:chests")) {
+				return;
+			}
+
+			if (ConfigTechReborn.enableOverworldLoot) {
+				switch (stringId) {
+				case "minecraft:chests/abandoned_mineshaft":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/desert_pyramid":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/igloo_chest":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/jungle_temple":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/simple_dungeon":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/village/village_weaponsmith":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/village/village_armorer":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/village/village_toolsmith":
+					supplier.withPool(poolBasic);
+					break;
+				case "minecraft:chests/stronghold_corridor":
+					supplier.withPool(poolAdvanced);
+					break;
+				case "minecraft:chests/stronghold_crossing":
+					supplier.withPool(poolAdvanced);
+					break;
+				case "minecraft:chests/stronghold_library":
+					supplier.withPool(poolAdvanced);
+					break;
+				case "minecraft:chests/woodland_mansion":
+					 supplier.withPool(poolIndustrial);
+					break;
+				}
+			}
+
+			if (ConfigTechReborn.enableNetherLoot) {
+				if (stringId.equals("minecraft:chests/nether_bridge")) {
+					supplier.withPool(poolAdvanced);
+				}
+			}
+
+			if (ConfigTechReborn.enableEndLoot) {
+				if (stringId.equals("minecraft:chests/end_city_treasure")) {
+					supplier.withPool(poolIndustrial);
+				}
+			}
+
+		});
 	}
 
-//	@SubscribeEvent
-//	public void lootLoad(LootTableLoadEvent event) {
-//		if (!event.getName().getNamespace().equals("minecraft")) {
-//			return;
-//		}
-//		for (Identifier lootTable : lootTables) {
-//			if (event.getName().getNamespace().equals(lootTable.getPath())) {
-//				event.getTable().addPool(getLootPool(lootTable));
-//				TechReborn.LOGGER.debug("Loot pool injected into " + lootTable.getPath());
-//			}
-//		}
-//	}
-//
-//	/**
-//	 * Generates loot pool to be injected into vanilla loot pools
-//	 *
-//	 * @param lootTable ResourceLocation Loot table to inject
-//	 * @return LootPool Loot pool to inject
-//	 */
-//	private LootPool getLootPool(Identifier lootTable) {
-//		LootEntry entry = new LootTableEntry(lootTable, 1, 0, new LootCondition[0], "lootEntry_" + lootTable.toString());
-//		LootPool pool = new LootPool(new LootEntry[] { entry }, new LootCondition[0], new UniformLootTableRange(1), new UniformLootTableRange(0, 1), "lootPool_" + lootTable.toString());
-//		return pool;
-//	}
+	/**
+	 * Makes loot entry from item provided
+	 * 
+	 * @param item Item to include into LootEntry
+	 * @return LootEntry for item provided
+	 */
+	private static LootEntry makeEntry(ItemConvertible item) {
+
+		return ItemEntry.builder(item).setWeight(5)
+				.withFunction(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
+	}
+
+
 }

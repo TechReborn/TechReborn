@@ -74,12 +74,10 @@ public class TechReborn implements ModInitializer {
 
 		ModRegistry.setupShit();
 		RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
-
+		ModLoot.init();
+		
 		proxy.preInit();
 
-		// Registers Chest Loot
-		ModLoot.init();
-		// MinecraftForge.EVENT_BUS.register(new ModLoot());
 		// Client only init, needs to be done before parts system
 		proxy.init();
 
