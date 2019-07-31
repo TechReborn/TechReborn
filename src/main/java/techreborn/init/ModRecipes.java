@@ -28,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -38,13 +39,34 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RebornCraftingHelper;
+
 import techreborn.Core;
 import techreborn.api.recipe.machines.GrinderRecipe;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
-import techreborn.init.recipes.*;
-import techreborn.items.*;
+import techreborn.init.recipes.AlloySmelterRecipes;
+import techreborn.init.recipes.AssemblingMachineRecipes;
+import techreborn.init.recipes.BlastFurnaceRecipes;
+import techreborn.init.recipes.ChemicalReactorRecipes;
+import techreborn.init.recipes.CompressorRecipes;
+import techreborn.init.recipes.CraftingTableRecipes;
+import techreborn.init.recipes.DistillationTowerRecipes;
+import techreborn.init.recipes.ExtractorRecipes;
+import techreborn.init.recipes.FluidGeneratorRecipes;
+import techreborn.init.recipes.FluidReplicatorRecipes;
+import techreborn.init.recipes.FusionReactorRecipes;
+import techreborn.init.recipes.ImplosionCompressorRecipes;
+import techreborn.init.recipes.IndustrialCentrifugeRecipes;
+import techreborn.init.recipes.IndustrialElectrolyzerRecipes;
+import techreborn.init.recipes.IndustrialGrinderRecipes;
+import techreborn.init.recipes.IndustrialSawmillRecipes;
+import techreborn.init.recipes.PlateBendingMachineRecipes;
+import techreborn.init.recipes.RollingMachineRecipes;
+import techreborn.init.recipes.ScrapboxRecipes;
+import techreborn.init.recipes.SmeltingRecipes;
+import techreborn.init.recipes.WireMillRecipes;
+import techreborn.items.ItemCells;
 import techreborn.items.ingredients.ItemDusts;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.lib.ModInfo;
@@ -86,6 +108,10 @@ public class ModRecipes {
 		CompressorRecipes.init();
 		PlateBendingMachineRecipes.init();
 		AssemblingMachineRecipes.init();
+
+		// Using Praescriptum >>
+		WireMillRecipes.init();
+		// << Using Praescriptum
 
 		addVacuumFreezerRecipes();
 		addIc2Recipes();

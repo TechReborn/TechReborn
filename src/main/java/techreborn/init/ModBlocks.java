@@ -115,6 +115,7 @@ public class ModBlocks {
 	public static Block AUTO_CRAFTING_TABLE;
 	public static Block PUMP;
 	public static Block PLATE_BENDING_MACHINE;
+	public static Block WIRE_MILL;
 
 	public static BlockOre ORE;
 	public static BlockOre2 ORE2;
@@ -307,6 +308,9 @@ public class ModBlocks {
 
 		WIND_MILL = new BlockWindMill();
 		registerBlock(WIND_MILL, "wind_mill");
+
+		WIRE_MILL = new BlockWireMill();
+		registerBlock(WIRE_MILL, "wire_mill");
 
 		RUBBER_LOG = new BlockRubberLog();
 		registerBlock(RUBBER_LOG, "rubber_log");

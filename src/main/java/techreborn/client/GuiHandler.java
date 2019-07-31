@@ -165,6 +165,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiManual(player);
 			case FLUID_REPLICATOR:
 				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
+			case WIRE_MILL:
+				return new GuiWireMill(player, (TileWireMill) tile);
 			default:
 				break;
 

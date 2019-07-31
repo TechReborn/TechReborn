@@ -31,14 +31,12 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import mezz.jei.collect.ListMultiMap;
-import mezz.jei.config.Config;
 import mezz.jei.gui.TooltipRenderer;
 import mezz.jei.gui.recipes.RecipeClickableArea;
 import mezz.jei.util.ErrorUtil;
 import mezz.jei.util.Translator;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -50,6 +48,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import org.lwjgl.input.Mouse;
+import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.StringUtils;
@@ -61,6 +60,7 @@ import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
+import techreborn.api.recipe.Recipes;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
@@ -114,11 +114,13 @@ import techreborn.init.ModBlocks;
 import techreborn.init.ModFluids;
 import techreborn.init.ModItems;
 import techreborn.items.ingredients.ItemParts;
+import techreborn.compat.jei.wiremill.WireMillRecipeCategory;
+import techreborn.compat.jei.wiremill.WireMillRecipeWrapper;
+import techreborn.tiles.tier1.TileWireMill;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -175,6 +177,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCategories(new RollingMachineRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new VacuumFreezerRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new FluidReplicatorRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new WireMillRecipeCategory(guiHelper));
 
 		for (EFluidGenerator type : EFluidGenerator.values())
 			registry.addRecipeCategories(new FluidGeneratorRecipeCategory(type, guiHelper));
@@ -279,6 +282,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(ShapedRecipes.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapedOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapelessOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
+		registry.handleRecipes(Recipe.class, recipe -> new WireMillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.WIRE_MILL);
 		
 		for (EFluidGenerator type : EFluidGenerator.values()) {
 			registry.handleRecipes(FluidGeneratorRecipe.class, recipe -> new FluidGeneratorRecipeWrapper(jeiHelpers, recipe), type.getRecipeID());
@@ -317,6 +321,10 @@ public class TechRebornJeiPlugin implements IModPlugin {
 				.error("Could not register rolling machine recipes. JEI may have changed its internal recipe wrapper locations.");
 			e.printStackTrace();
 		}
+
+		// Using Praescriptum >>
+		registry.addRecipes(Recipes.wireMill.getRecipes(), RecipeCategoryUids.WIRE_MILL);
+		// << Using Praescriptum
 
 //		if (Config.isDebugModeEnabled()) {
 //			TechRebornJeiPlugin.addDebugRecipes(registry);
@@ -357,6 +365,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiRollingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.ROLLING_MACHINE);
 		addRecipeClickArea(GuiFluidReplicator.class, 158, 5, 12, 12, RecipeCategoryUids.FLUID_REPLICATOR);
 		addRecipeClickArea(GuiAssemblingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.ASSEMBLING_MACHINE);
+		addRecipeClickArea(GuiWireMill.class, 158, 5, 12, 12, RecipeCategoryUids.WIRE_MILL);
 		
 		//OLD ONES
 		addRecipeClickArea(GuiAlloyFurnace.class, 80, 35, 26, 20, RecipeCategoryUids.ALLOY_SMELTER,
@@ -391,6 +400,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ROLLING_MACHINE), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLATION_TOWER), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_REPLICATOR), RecipeCategoryUids.FLUID_REPLICATOR);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.WIRE_MILL), RecipeCategoryUids.WIRE_MILL);
 		
 		if (CompatConfigs.showScrapbox) {
 			registry.addRecipeCatalyst(new ItemStack(ModItems.SCRAP_BOX), RecipeCategoryUids.SCRAPBOX);
@@ -436,6 +446,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			new BuiltContainerTransferInfo("autocraftingtable", VanillaRecipeCategoryUid.CRAFTING, 36, 9, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("platebendingmachine", RecipeCategoryUids.PLATE_BENDING_MACHINE, 36, 1, 0, 36));
+		recipeTransferRegistry.addRecipeTransferHandler(
+			new BuiltContainerTransferInfo("wiremill", RecipeCategoryUids.WIRE_MILL, 36, 1, 0, 36));
 
 		registry.addAdvancedGuiHandlers(new AdvancedGuiHandler());
 	}

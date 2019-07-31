@@ -63,6 +63,7 @@ tile.techreborn.solar_panel.quantum.name=Quantum Solar Panel
 tile.techreborn.creative_solar_panel.name=Creative Solar Panel
 tile.techreborn.water_mill.name=Water Mill
 tile.techreborn.wind_mill.name=Wind Mill
+tile.techreborn.wire_mill.name=Wire Mill
 tile.techreborn.iron_furnace.name=Iron Furnace
 tile.techreborn.recycler.name=Recycler
 tile.techreborn.scrapboxinator.name=Scrapbox-inator

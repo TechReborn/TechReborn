@@ -120,7 +120,8 @@ public enum ModTileEntities {
 	THERMAL_GEN(TileThermalGenerator.class,  "thermal_generator", "TileThermalGeneratorTR"),
 	VACUUM_FREEZER(TileVacuumFreezer.class,  "vacuum_freezer", "TileVacuumFreezerTR"),
 	WATER_MILL(TileWaterMill.class,  "water_mill", "TileWaterMillTR"),
-	WIND_MILL(TileWindMill.class,  "wind_mill", "TileWindMillTR");
+	WIND_MILL(TileWindMill.class,  "wind_mill", "TileWindMillTR"),
+	WIRE_MILL(TileWireMill.class,  "wire_mill", "TileWireMillTR");
 
 	public static Optional<ModTileEntities> getFromOldName(String name) {
 		return Arrays.stream(ModTileEntities.values())

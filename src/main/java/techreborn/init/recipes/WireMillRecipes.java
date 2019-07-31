@@ -22,41 +22,46 @@
  * SOFTWARE.
  */
 
-package techreborn.lib;
+package techreborn.init.recipes;
 
-import reborncore.common.IModInfo;
+import reborncore.api.praescriptum.recipes.RecipeHandler;
 
-public class ModInfo implements IModInfo {
-	public static final String MOD_NAME = "Tech Reborn";
-	public static final String MOD_ID = "techreborn";
-	public static final String MOD_VERSION = "@MODVERSION@";
-	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore@[3.15.4,);after:jei@[4.12,);after:ic2;required-before:techreborn_compat";
-	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
-	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
-	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+import techreborn.api.recipe.Recipes;
+import techreborn.init.IC2Duplicates;
 
-	@Override
-	public String MOD_NAME() {
-		return MOD_NAME;
-	}
+/**
+ * @author estebes
+ */
+public class WireMillRecipes {
+	public static void init() {
+		Recipes.wireMill = new RecipeHandler();
 
-	@Override
-	public String MOD_ID() {
-		return MOD_ID;
-	}
+		// gold cable
+		Recipes.wireMill.createRecipe().withInput("ingotGold")
+			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_GOLD, 6))
+			.withEnergyCostPerTick(1)
+			.withOperationDuration(200)
+			.register();
 
-	@Override
-	public String MOD_VERSION() {
-		return MOD_VERSION;
-	}
+		// copper cable
+		Recipes.wireMill.createRecipe().withInput("ingotCopper")
+			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_COPPER, 3))
+			.withEnergyCostPerTick(2)
+			.withOperationDuration(100)
+			.register();
 
-	@Override
-	public String MOD_DEPENDENCIES() {
-		return MOD_DEPENDENCIES;
-	}
+		// tin cable
+		Recipes.wireMill.createRecipe().withInput("ingotTin")
+			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_TIN, 4))
+			.withEnergyCostPerTick(1)
+			.withOperationDuration(140)
+			.register();
 
-	public static final class Keys {
-		public static final String CATEGORY = "keys.techreborn.category";
-		public static final String CONFIG = "keys.techreborn.config";
+		// hv cable
+		Recipes.wireMill.createRecipe().withInput("ingotRefinedIron")
+			.withOutput(RecipeMethods.getStack(IC2Duplicates.CABLE_HV, 6))
+			.withEnergyCostPerTick(2)
+			.withOperationDuration(200)
+			.register();
 	}
 }

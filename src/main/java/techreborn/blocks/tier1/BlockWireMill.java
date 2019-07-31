@@ -22,41 +22,36 @@
  * SOFTWARE.
  */
 
-package techreborn.lib;
+package techreborn.blocks.tier1;
 
-import reborncore.common.IModInfo;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
-public class ModInfo implements IModInfo {
-	public static final String MOD_NAME = "Tech Reborn";
-	public static final String MOD_ID = "techreborn";
-	public static final String MOD_VERSION = "@MODVERSION@";
-	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore@[3.15.4,);after:jei@[4.12,);after:ic2;required-before:techreborn_compat";
-	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
-	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
-	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
+import reborncore.api.tile.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
 
-	@Override
-	public String MOD_NAME() {
-		return MOD_NAME;
+import techreborn.client.EGui;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.tier1.TileWireMill;
+import techreborn.utils.TechRebornCreativeTab;
+
+public class BlockWireMill extends BlockMachineBase {
+	public BlockWireMill() {
+		super();
+
+		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}
 
 	@Override
-	public String MOD_ID() {
-		return MOD_ID;
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		return new TileWireMill();
 	}
 
 	@Override
-	public String MOD_VERSION() {
-		return MOD_VERSION;
-	}
-
-	@Override
-	public String MOD_DEPENDENCIES() {
-		return MOD_DEPENDENCIES;
-	}
-
-	public static final class Keys {
-		public static final String CATEGORY = "keys.techreborn.category";
-		public static final String CONFIG = "keys.techreborn.config";
+	public IMachineGuiHandler getGui() {
+		return EGui.WIRE_MILL;
 	}
 }
