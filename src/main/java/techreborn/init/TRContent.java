@@ -48,12 +48,14 @@ import techreborn.blocks.tier3.*;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
+import techreborn.client.EGui;
 import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.machine.tier1.*;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -364,14 +366,14 @@ public class TRContent {
 	
 	public enum Machine implements ItemConvertible {
 		ALLOY_SMELTER(new BlockAlloySmelter()),
-		ASSEMBLY_MACHINE(new BlockAssemblingMachine()),
+		ASSEMBLY_MACHINE(new GenericMachineBlock(EGui.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity.class)),
 		AUTO_CRAFTING_TABLE(new BlockAutoCraftingTable()),
 		CHEMICAL_REACTOR(new BlockChemicalReactor()),
 		COMPRESSOR(new BlockCompressor()),
 		DISTILLATION_TOWER(new BlockDistillationTower()),
 		EXTRACTOR(new BlockExtractor()),
 		FLUID_REPLICATOR(new BlockFluidReplicator()),
-		GRINDER(new BlockGrinder()),
+		GRINDER(new GenericMachineBlock(EGui.GRINDER, GrinderBlockEntity.class)),
 		ELECTRIC_FURNACE(new BlockElectricFurnace()),
 		IMPLOSION_COMPRESSOR(new BlockImplosionCompressor()),
 		INDUSTRIAL_BLAST_FURNACE(new BlockIndustrialBlastFurnace()),
