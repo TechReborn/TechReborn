@@ -4,7 +4,7 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "minecraft:oak_planks"
+      "tag": "minecraft:planks"
     }
   ],
   "results": [
