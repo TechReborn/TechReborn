@@ -95,39 +95,21 @@ public class ModLoot {
 			if (ConfigTechReborn.enableOverworldLoot) {
 				switch (stringId) {
 				case "minecraft:chests/abandoned_mineshaft":
-					supplier.withPool(poolBasic);
+                    case "minecraft:chests/desert_pyramid":
+                    case "minecraft:chests/igloo_chest":
+                    case "minecraft:chests/jungle_temple":
+                    case "minecraft:chests/simple_dungeon":
+                    case "minecraft:chests/village/village_weaponsmith":
+                    case "minecraft:chests/village/village_armorer":
+                    case "minecraft:chests/village/village_toolsmith":
+                        supplier.withPool(poolBasic);
 					break;
-				case "minecraft:chests/desert_pyramid":
-					supplier.withPool(poolBasic);
+                    case "minecraft:chests/stronghold_corridor":
+                    case "minecraft:chests/stronghold_crossing":
+                    case "minecraft:chests/stronghold_library":
+                        supplier.withPool(poolAdvanced);
 					break;
-				case "minecraft:chests/igloo_chest":
-					supplier.withPool(poolBasic);
-					break;
-				case "minecraft:chests/jungle_temple":
-					supplier.withPool(poolBasic);
-					break;
-				case "minecraft:chests/simple_dungeon":
-					supplier.withPool(poolBasic);
-					break;
-				case "minecraft:chests/village/village_weaponsmith":
-					supplier.withPool(poolBasic);
-					break;
-				case "minecraft:chests/village/village_armorer":
-					supplier.withPool(poolBasic);
-					break;
-				case "minecraft:chests/village/village_toolsmith":
-					supplier.withPool(poolBasic);
-					break;
-				case "minecraft:chests/stronghold_corridor":
-					supplier.withPool(poolAdvanced);
-					break;
-				case "minecraft:chests/stronghold_crossing":
-					supplier.withPool(poolAdvanced);
-					break;
-				case "minecraft:chests/stronghold_library":
-					supplier.withPool(poolAdvanced);
-					break;
-				case "minecraft:chests/woodland_mansion":
+                    case "minecraft:chests/woodland_mansion":
 					 supplier.withPool(poolIndustrial);
 					break;
 				}
