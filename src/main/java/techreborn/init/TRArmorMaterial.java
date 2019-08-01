@@ -99,7 +99,7 @@ public enum TRArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public String getName() {
-		return TechReborn.MOD_ID + ":" + this.toString().toLowerCase();
+		return this.toString().toLowerCase();
 	}
 
 	@Override
