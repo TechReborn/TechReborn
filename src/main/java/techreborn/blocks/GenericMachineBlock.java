@@ -3,6 +3,8 @@
  */
 package techreborn.blocks;
 
+import java.util.function.Supplier;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import reborncore.api.blockentity.IMachineGuiHandler;
@@ -11,15 +13,14 @@ import techreborn.client.EGui;
 
 /**
  * @author drcrazy
- * @param <T>
  *
  */
 public class GenericMachineBlock extends BlockMachineBase {
 
 	private EGui gui;
-	private Class<?> blockEntityClass;
+	private Supplier<BlockEntity> blockEntityClass;
 
-	public GenericMachineBlock(EGui gui, Class<?> blockEntityClass) {
+	public GenericMachineBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
 		super();
 		this.blockEntityClass = blockEntityClass;
 		this.gui = gui;
@@ -30,14 +31,7 @@ public class GenericMachineBlock extends BlockMachineBase {
 		if (blockEntityClass == null) {
 			return null;
 		}
-		BlockEntity blockEntity = null;
-		try {
-			blockEntity = (BlockEntity) blockEntityClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			throw new RuntimeException("Failed to create BlockEntity blockEntity", e);
-		}
-
-		return blockEntity;
+		return blockEntityClass.get();
 	}
 
 	@Override
