@@ -30,7 +30,6 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
-import techreborn.TechReborn;
 
 import java.util.function.Supplier;
 
@@ -59,8 +58,8 @@ public enum TRArmorMaterial implements ArmorMaterial {
 	private final float toughness;
 	private final Lazy<Ingredient> repairMaterial;
 
-	private TRArmorMaterial(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-			SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
+	TRArmorMaterial(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
+                    SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
 		this.maxDamageFactor = maxDamageFactor;
 		this.damageReductionAmountArray = damageReductionAmountArray;
 		this.enchantability = enchantability;
@@ -91,10 +90,7 @@ public enum TRArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public Ingredient getRepairIngredient() {
-		if (repairMaterial != null) {
-			return repairMaterial.get();
-		}
-		return null;
+		return repairMaterial.get();
 	}
 
 	@Override

@@ -86,7 +86,7 @@ public class ModRegistry {
 		registerSounds();
 	}
 
-	public static void registerBlocks() {
+	private static void registerBlocks() {
 		Settings itemGroup = new Item.Settings().group(TechReborn.ITEMGROUP);
 		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
 		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
@@ -113,7 +113,7 @@ public class ModRegistry {
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
 
-	public static void registerItems() {
+	private static void registerItems() {
 		Arrays.stream(Ingots.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Nuggets.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Gems.values()).forEach(value -> RebornRegistry.registerItem(value.item));
@@ -213,11 +213,11 @@ public class ModRegistry {
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
 	}
 
-	public static void registerFluids() {
+	private static void registerFluids() {
 		Arrays.stream(ModFluids.values()).forEach(ModFluids::register);
 	}
 	
-	public static void registerSounds() {
+	private static void registerSounds() {
 		ModSounds.ALARM = InitUtils.setup("alarm");
 		ModSounds.ALARM_2 = InitUtils.setup("alarm_2");
 		ModSounds.ALARM_3 = InitUtils.setup("alarm_3");
