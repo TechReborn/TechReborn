@@ -25,21 +25,21 @@
 package techreborn.init.recipes;
 
 import net.minecraft.item.ItemStack;
+
 import reborncore.api.recipe.RecipeHandler;
+
 import techreborn.api.recipe.machines.DistillationTowerRecipe;
-import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemCells;
+import techreborn.items.ItemDynamicCell;
 
 import java.security.InvalidParameterException;
 
 /**
  * @author drcrazy
- *
  */
 public class DistillationTowerRecipes extends RecipeMethods {
-
 	public static void init() {
-		register(ItemCells.getCellByName("oil", 16), 1400, 13, getMaterial("diesel", 16, Type.CELL), getMaterial("sulfuricAcid", 16, Type.CELL), getMaterial("glyceryl", Type.CELL));
+		register(ItemCells.getCellByName("oil", 16), 1600, 16, getMaterial("diesel", 16, Type.CELL), getMaterial("sulfuricAcid", 16, Type.CELL), getMaterial("glyceryl", Type.CELL), getMaterial("methane", Type.CELL));
 	}
 	
 	static void register(ItemStack input, int ticks, int euPerTick, boolean oreDict, ItemStack... outputs) {
