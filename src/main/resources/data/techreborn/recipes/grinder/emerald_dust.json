@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:grinder",
+  "power": 30,
+  "time": 270,
+  "ingredients": [
+    {
+      "item": "minecraft:emerald"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:emerald_dust"
+    }
+  ]
+}
