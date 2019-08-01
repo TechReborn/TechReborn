@@ -185,7 +185,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	public boolean make(Recipe recipe) {
+	public boolean make(Recipe<CraftingInventory> recipe) {
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
