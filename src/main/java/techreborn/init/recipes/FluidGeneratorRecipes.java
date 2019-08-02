@@ -37,7 +37,7 @@ public class FluidGeneratorRecipes extends RecipeMethods {
 	public static void init() {
 		register(EFluidGenerator.DIESEL, ModFluids.NITROFUEL, 24);
 		register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL, 48);
-		register(EFluidGenerator.DIESEL, ModFluids.DIESEL, 128);
+		register(EFluidGenerator.DIESEL, ModFluids.DIESEL, 384); // 384k eu
 		register(EFluidGenerator.DIESEL, ModFluids.NITRO_DIESEL, 400);
 		
 		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM, 30);
