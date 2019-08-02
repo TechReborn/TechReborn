@@ -20,13 +20,13 @@
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:sulfur"
       }
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:helium"
       }
     }

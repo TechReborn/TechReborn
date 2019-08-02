@@ -16,7 +16,7 @@
     {
       "item": "techreborn:cell",
       "count": 3,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:sulfuricacid"
       }
     }

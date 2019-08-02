@@ -16,13 +16,13 @@
   "results": [
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:helium3"
       }
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:helium"
       }
     },

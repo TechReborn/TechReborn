@@ -5,7 +5,7 @@
   "ingredients" : [
     {
       "item": "minecraft:diamond_sword",
-      "tag": {
+      "nbt": {
         "Damage": 2
       }
     }

@@ -19,7 +19,7 @@
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:methane"
       }
     }

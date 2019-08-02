@@ -16,7 +16,7 @@
     {
       "item": "techreborn:cell",
       "count": 2,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:sodiumsulfide"
       }
     }

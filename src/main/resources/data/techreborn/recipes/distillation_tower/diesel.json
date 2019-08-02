@@ -6,7 +6,7 @@
     {
       "item": "techreborn:cell",
       "count": 17,
-      "tag": "null"
+      "nbt": "empty"
     },
     {
       "fluid": "techreborn:oil",
@@ -18,20 +18,20 @@
     {
       "item": "techreborn:cell",
       "count": 16,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:diesel"
       }
     },
     {
       "item": "techreborn:cell",
       "count": 16,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:sulfuricacid"
       }
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:glyceryl"
       }
     }

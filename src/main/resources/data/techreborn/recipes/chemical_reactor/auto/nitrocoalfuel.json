@@ -16,7 +16,7 @@
     {
       "item": "techreborn:cell",
       "count": 5,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:nitrocoalfuel"
       }
     }
