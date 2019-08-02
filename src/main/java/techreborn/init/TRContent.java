@@ -43,17 +43,43 @@ import techreborn.blocks.storage.*;
 import techreborn.blocks.tier0.BlockIronAlloyFurnace;
 import techreborn.blocks.tier0.BlockIronFurnace;
 import techreborn.blocks.tier1.*;
-import techreborn.blocks.tier2.*;
 import techreborn.blocks.tier3.*;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
+import techreborn.client.EGui;
 import techreborn.config.ConfigTechReborn;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.ChargeOMatBlockEntity;
+import techreborn.blockentity.DigitalChestBlockEntity;
+import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.generator.LightningRodBlockEntity;
+import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.DragonEggSyphonBlockEntity;
+import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
+import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
+import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
+import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
+import techreborn.blockentity.generator.basic.WindMillBlockEntity;
+import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
+import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
+import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
+import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
+import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
+import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
+import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
+import techreborn.blockentity.machine.tier3.CreativeQuantumTankBlockEntity;
+import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
+import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -363,53 +389,53 @@ public class TRContent {
 	
 	
 	public enum Machine implements ItemConvertible {
-		ALLOY_SMELTER(new BlockAlloySmelter()),
-		ASSEMBLY_MACHINE(new BlockAssemblingMachine()),
-		AUTO_CRAFTING_TABLE(new BlockAutoCraftingTable()),
-		CHEMICAL_REACTOR(new BlockChemicalReactor()),
-		COMPRESSOR(new BlockCompressor()),
-		DISTILLATION_TOWER(new BlockDistillationTower()),
-		EXTRACTOR(new BlockExtractor()),
-		FLUID_REPLICATOR(new BlockFluidReplicator()),
-		GRINDER(new BlockGrinder()),
-		ELECTRIC_FURNACE(new BlockElectricFurnace()),
-		IMPLOSION_COMPRESSOR(new BlockImplosionCompressor()),
-		INDUSTRIAL_BLAST_FURNACE(new BlockIndustrialBlastFurnace()),
-		INDUSTRIAL_CENTRIFUGE(new BlockIndustrialCentrifuge()),
-		INDUSTRIAL_ELECTROLYZER(new BlockIndustrialElectrolyzer()),
-		INDUSTRIAL_GRINDER(new BlockIndustrialGrinder()),
-		INDUSTRIAL_SAWMILL(new BlockIndustrialSawmill()),
+		ALLOY_SMELTER(new GenericMachineBlock(EGui.ALLOY_SMELTER, () -> new AlloySmelterBlockEntity())),
+		ASSEMBLY_MACHINE(new GenericMachineBlock(EGui.ASSEMBLING_MACHINE, () -> new AssemblingMachineBlockEntity())),
+		AUTO_CRAFTING_TABLE(new GenericMachineBlock(EGui.AUTO_CRAFTING_TABLE, () -> new AutoCraftingTableBlockEntity())),
+		CHEMICAL_REACTOR(new GenericMachineBlock(EGui.CHEMICAL_REACTOR, () -> new ChemicalReactorBlockEntity())),
+		COMPRESSOR(new GenericMachineBlock(EGui.COMPRESSOR, () -> new CompressorBlockEntity())),
+		DISTILLATION_TOWER(new GenericMachineBlock(EGui.DISTILLATION_TOWER, () -> new DistillationTowerBlockEntity())),
+		EXTRACTOR(new GenericMachineBlock(EGui.EXTRACTOR, () -> new ExtractorBlockEntity())),
+		FLUID_REPLICATOR(new GenericMachineBlock(EGui.FLUID_REPLICATOR, () -> new FluidReplicatorBlockEntity())),
+		GRINDER(new GenericMachineBlock(EGui.GRINDER, () -> new GrinderBlockEntity())),
+		ELECTRIC_FURNACE(new GenericMachineBlock(EGui.ELECTRIC_FURNACE, () -> new ElectricFurnaceBlockEntity())),
+		IMPLOSION_COMPRESSOR(new GenericMachineBlock(EGui.IMPLOSION_COMPRESSOR, () -> new ImplosionCompressorBlockEntity())),
+		INDUSTRIAL_BLAST_FURNACE(new GenericMachineBlock(EGui.BLAST_FURNACE, () -> new IndustrialBlastFurnaceBlockEntity())),
+		INDUSTRIAL_CENTRIFUGE(new GenericMachineBlock(EGui.CENTRIFUGE, () -> new IndustrialCentrifugeBlockEntity())),
+		INDUSTRIAL_ELECTROLYZER(new GenericMachineBlock(EGui.INDUSTRIAL_ELECTROLYZER, () -> new IndustrialElectrolyzerBlockEntity())),
+		INDUSTRIAL_GRINDER(new GenericMachineBlock(EGui.INDUSTRIAL_GRINDER, () -> new IndustrialGrinderBlockEntity())),
+		INDUSTRIAL_SAWMILL(new GenericMachineBlock(EGui.SAWMILL, () -> new IndustrialSawmillBlockEntity())),
 		IRON_ALLOY_FURNACE(new BlockIronAlloyFurnace()),
 		IRON_FURNACE(new BlockIronFurnace()),
-		MATTER_FABRICATOR(new BlockMatterFabricator()),
-		RECYCLER(new BlockRecycler()),
-		ROLLING_MACHINE(new BlockRollingMachine()),
-		SCRAPBOXINATOR(new BlockScrapboxinator()),
-		VACUUM_FREEZER(new BlockVacuumFreezer()),
+		MATTER_FABRICATOR(new GenericMachineBlock(EGui.MATTER_FABRICATOR, () -> new MatterFabricatorBlockEntity())),
+		RECYCLER(new GenericMachineBlock(EGui.RECYCLER, () -> new RecyclerBlockEntity())),
+		ROLLING_MACHINE(new GenericMachineBlock(EGui.ROLLING_MACHINE, () -> new RollingMachineBlockEntity())),
+		SCRAPBOXINATOR(new GenericMachineBlock(EGui.SCRAPBOXINATOR, () -> new ScrapboxinatorBlockEntity())),
+		VACUUM_FREEZER(new GenericMachineBlock(EGui.VACUUM_FREEZER, () -> new VacuumFreezerBlockEntity())),
 		
-		DIESEL_GENERATOR(new BlockDieselGenerator()),
-		DRAGON_EGG_SYPHON(new BlockDragonEggSyphon()),
+		DIESEL_GENERATOR(new GenericMachineBlock(EGui.DIESEL_GENERATOR, () -> new DieselGeneratorBlockEntity())),
+		DRAGON_EGG_SYPHON(new GenericMachineBlock(null, () -> new DragonEggSyphonBlockEntity())),
 		FUSION_COIL(new BlockFusionCoil()),
 		FUSION_CONTROL_COMPUTER(new BlockFusionControlComputer()),
-		GAS_TURBINE(new BlockGasTurbine()),
-		LIGHTNING_ROD(new BlockLightningRod()),
+		GAS_TURBINE(new GenericMachineBlock(EGui.GAS_TURBINE, () -> new GasTurbineBlockEntity())),
+		LIGHTNING_ROD(new GenericMachineBlock(null, () -> new LightningRodBlockEntity())),
 		MAGIC_ENERGY_ABSORBER (new BlockMagicEnergyAbsorber()),
 		MAGIC_ENERGY_CONVERTER(new BlockMagicEnergyConverter()),
-		PLASMA_GENERATOR(new BlockPlasmaGenerator()),
-		SEMI_FLUID_GENERATOR(new BlockSemiFluidGenerator()),
-		SOLID_FUEL_GENERATOR(new BlockSolidFuelGenerator()),
-		THERMAL_GENERATOR(new BlockThermalGenerator()),
-		WATER_MILL(new BlockWaterMill()),
-		WIND_MILL(new BlockWindMill()),
+		PLASMA_GENERATOR(new GenericMachineBlock(EGui.PLASMA_GENERATOR, () -> new PlasmaGeneratorBlockEntity())),
+		SEMI_FLUID_GENERATOR(new GenericMachineBlock(EGui.SEMIFLUID_GENERATOR, () -> new SemiFluidGeneratorBlockEntity())),
+		SOLID_FUEL_GENERATOR(new GenericMachineBlock(EGui.GENERATOR, () -> new SolidFuelGeneratorBlockEntity())),
+		THERMAL_GENERATOR(new GenericMachineBlock(EGui.THERMAL_GENERATOR, () -> new ThermalGeneratorBlockEntity())),
+		WATER_MILL(new GenericMachineBlock(null, () -> new WaterMillBlockEntity())),
+		WIND_MILL(new GenericMachineBlock(null, () -> new WindMillBlockEntity())),
 		
 		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
-		CREATIVE_QUANTUM_TANK(new BlockCreativeQuantumTank()),
-		DIGITAL_CHEST(new BlockDigitalChest()),
-		QUANTUM_CHEST(new BlockQuantumChest()),
-		QUANTUM_TANK(new BlockQuantumTank()),
+		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, () -> new CreativeQuantumTankBlockEntity())),
+		DIGITAL_CHEST(new GenericMachineBlock(EGui.DIGITAL_CHEST, () -> new DigitalChestBlockEntity())),
+		QUANTUM_CHEST(new GenericMachineBlock(EGui.QUANTUM_CHEST, () -> new QuantumChestBlockEntity())),
+		QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, () -> new QuantumTankBlockEntity())),
 		
 		ADJUSTABLE_SU(new BlockAdjustableSU()),
-		CHARGE_O_MAT(new BlockChargeOMat()),
+		CHARGE_O_MAT(new GenericMachineBlock(EGui.CHARGEBENCH, () -> new ChargeOMatBlockEntity())),
 		INTERDIMENSIONAL_SU(new BlockInterdimensionalSU()),
 		LAPOTRONIC_SU(new BlockLapotronicSU()),
 		LSU_STORAGE(new BlockLSUStorage()),
@@ -421,7 +447,7 @@ public class TRContent {
 		HV_TRANSFORMER(new BlockHVTransformer()),
 		
 		ALARM(new BlockAlarm()),
-		CHUNK_LOADER(new BlockChunkLoader()),
+		CHUNK_LOADER(new GenericMachineBlock(EGui.CHUNK_LOADER, () -> new ChunkLoaderBlockEntity())),
 		LAMP_INCANDESCENT(new BlockLamp(14, 4, 10, 8)),
 		LAMP_LED(new BlockLamp(15, 1, 1, 12)),
 		PLAYER_DETECTOR(new BlockPlayerDetector());

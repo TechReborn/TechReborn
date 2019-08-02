@@ -35,6 +35,7 @@ import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
+import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
 
 import java.util.HashMap;
@@ -49,11 +50,21 @@ public class ReiPlugin implements REIPluginEntry {
 
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
-		iconMap.put(ModRecipes.GRINDER, Machine.GRINDER);
+		iconMap.put(ModRecipes.ASSEMBLING_MACHINE,Machine.ASSEMBLY_MACHINE);
 		iconMap.put(ModRecipes.BLAST_FURNACE, Machine.INDUSTRIAL_BLAST_FURNACE);
 		iconMap.put(ModRecipes.CENTRIFUGE, Machine.INDUSTRIAL_CENTRIFUGE);
 		iconMap.put(ModRecipes.CHEMICAL_REACTOR, Machine.CHEMICAL_REACTOR);
-		//TODO add the others here
+		iconMap.put(ModRecipes.COMPRESSOR, Machine.COMPRESSOR);
+		iconMap.put(ModRecipes.DISTILLATION_TOWER, Machine.DISTILLATION_TOWER);
+		iconMap.put(ModRecipes.EXTRACTOR, Machine.EXTRACTOR);
+		iconMap.put(ModRecipes.FLUID_REPLICATOR, Machine.FLUID_REPLICATOR);
+		iconMap.put(ModRecipes.GRINDER, Machine.GRINDER);
+		iconMap.put(ModRecipes.IMPLOSION_COMPRESSOR, Machine.IMPLOSION_COMPRESSOR);
+		iconMap.put(ModRecipes.INDUSTRIAL_ELECTROLYZER, Machine.INDUSTRIAL_ELECTROLYZER);
+		iconMap.put(ModRecipes.INDUSTRIAL_GRINDER, Machine.INDUSTRIAL_GRINDER);
+		iconMap.put(ModRecipes.INDUSTRIAL_SAWMILL, Machine.INDUSTRIAL_SAWMILL);
+		iconMap.put(ModRecipes.SCRAPBOX, TRContent.SCRAP_BOX);
+		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
 	}
 
 	@Override
@@ -76,10 +87,17 @@ public class ReiPlugin implements REIPluginEntry {
 		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(),
 				new ItemStack[] { new ItemStack(Machine.ALLOY_SMELTER.asItem()),
 								  new ItemStack(Machine.IRON_ALLOY_FURNACE.asItem())});
-		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.getName(), new ItemStack(Machine.GRINDER.asItem()));
+		
 		recipeHelper.registerWorkingStations(ModRecipes.BLAST_FURNACE.getName(), new ItemStack(Machine.INDUSTRIAL_BLAST_FURNACE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.CENTRIFUGE.getName(), new ItemStack(Machine.INDUSTRIAL_CENTRIFUGE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.CHEMICAL_REACTOR.getName(), new ItemStack(Machine.CHEMICAL_REACTOR.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.COMPRESSOR.getName(), new ItemStack(Machine.COMPRESSOR.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.DISTILLATION_TOWER.getName(), new ItemStack(Machine.DISTILLATION_TOWER.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.EXTRACTOR.getName(), new ItemStack(Machine.EXTRACTOR.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.getName(), new ItemStack(Machine.GRINDER.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.IMPLOSION_COMPRESSOR.getName(), new ItemStack(Machine.IMPLOSION_COMPRESSOR.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.getName(), new ItemStack(Machine.INDUSTRIAL_SAWMILL.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), new ItemStack(Machine.VACUUM_FREEZER.asItem()));
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){

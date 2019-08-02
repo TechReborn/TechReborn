@@ -32,10 +32,14 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.hud.StackInfoHUD;
+import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.events.StackToolTipHandler;
 import techreborn.init.TRContent;
@@ -43,7 +47,6 @@ import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.utils.StackWIPHandler;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -58,32 +61,53 @@ public class TechRebornClient implements ClientModInitializer {
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_fluid"), "inventory"));
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_background"), "inventory"));
 			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "cell_glass"), "inventory"));
+
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_base"), "inventory"));
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_fluid"), "inventory"));
+			out.accept(new ModelIdentifier(new Identifier(TechReborn.MOD_ID, "bucket_background"), "inventory"));
 		});
 
 		ModelLoadingRegistry.INSTANCE.registerVariantProvider(resourceManager -> (modelIdentifier, modelProviderContext) -> {
-			if (!modelIdentifier.getNamespace().equals("techreborn")) {
-				return null;
-			}
-			if (!modelIdentifier.getPath().equals("cell")) {
-				return null;
-			}
-			return new UnbakedModel() {
-				@Override
-				public Collection<Identifier> getModelDependencies() {
-					return Collections.emptyList();
-				}
+			if (modelIdentifier.getNamespace().equals(TechReborn.MOD_ID)) {
+				if (modelIdentifier.getPath().equals("cell")) {
+					return new UnbakedModel() {
+						@Override
+						public Collection<Identifier> getModelDependencies() {
+							return Collections.emptyList();
+						}
 
-				@Override
-				public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> function, Set<String> set) {
-					return Collections.emptyList();
-				}
+						@Override
+						public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> function, Set<String> set) {
+							return Collections.emptyList();
+						}
 
-				@Nullable
-				@Override
-				public BakedModel bake(ModelLoader modelLoader, Function<Identifier, Sprite> function, ModelBakeSettings modelBakeSettings) {
-					return new DynamicCellBakedModel();
+						@Override
+						public BakedModel bake(ModelLoader modelLoader, Function<Identifier, Sprite> function, ModelBakeSettings modelBakeSettings) {
+							return new DynamicCellBakedModel();
+						}
+					};
 				}
-			};
+				Fluid fluid = Registry.FLUID.get(new Identifier(TechReborn.MOD_ID, modelIdentifier.getPath().split("_bucket")[0]));
+				if (modelIdentifier.getPath().endsWith("_bucket") && fluid != Fluids.EMPTY) {
+					return new UnbakedModel() {
+						@Override
+						public Collection<Identifier> getModelDependencies() {
+							return Collections.emptyList();
+						}
+
+						@Override
+						public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> function, Set<String> set) {
+							return Collections.emptyList();
+						}
+
+						@Override
+						public BakedModel bake(ModelLoader modelLoader, Function<Identifier, Sprite> function, ModelBakeSettings modelBakeSettings) {
+							return new DynamicBucketBakedModel(fluid);
+						}
+					};
+				}
+			}
+			return null;
 		});
 
 		StackToolTipHandler.setup();

@@ -63,7 +63,7 @@ public enum TRToolTier implements ToolMaterial {
 	private final int enchantability;
 	private final Lazy<Ingredient> repairMaterial;
 
-	private TRToolTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
+	TRToolTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
 			int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
 		this.harvestLevel = harvestLevelIn;
 		this.maxUses = maxUsesIn;

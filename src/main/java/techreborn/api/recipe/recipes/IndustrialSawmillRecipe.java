@@ -29,14 +29,16 @@ import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Identifier;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import javax.annotation.Nonnull;
+
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 
 public class IndustrialSawmillRecipe extends RebornRecipe {
 
-	@NonNull
+	@Nonnull
 	private FluidInstance fluidInstance = FluidInstance.EMPTY;
 
 	public IndustrialSawmillRecipe(RebornRecipeType<?> type, Identifier name) {

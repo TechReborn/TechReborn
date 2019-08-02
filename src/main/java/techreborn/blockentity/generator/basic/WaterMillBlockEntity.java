@@ -29,11 +29,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.blocks.generator.BlockWindMill;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
@@ -65,10 +65,10 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 		}
 		if (waterblocks > 0) {
 			addEnergy(waterblocks * energyMultiplier);
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockWindMill.ACTIVE, true));
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		}
 		else {
-			world.setBlockState(pos, world.getBlockState(pos).with(BlockWindMill.ACTIVE, false));
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}
 

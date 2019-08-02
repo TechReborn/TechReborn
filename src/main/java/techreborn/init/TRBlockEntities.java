@@ -65,7 +65,7 @@ import java.util.List;
 
 public class TRBlockEntities {
 	
-	public static List<BlockEntityType<?>> TYPES = new ArrayList<>();
+	private static List<BlockEntityType<?>> TYPES = new ArrayList<>();
 
 	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity.class, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
 	public static final BlockEntityType<QuantumTankBlockEntity> QUANTUM_TANK = register(QuantumTankBlockEntity.class, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
