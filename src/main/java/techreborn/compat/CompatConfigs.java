@@ -30,16 +30,9 @@ import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class CompatConfigs {
-	@ConfigRegistry(config = "compat", category = "buildcraft", key = "ExpensiveQuarryRecipe", comment = "Buildcraft's quarry will require an advanced circuit and diamond drill if enabled")
-	public static boolean expensiveQuarry = true;
-
-	@ConfigRegistry(config = "compat", category = "buildcraft", key = "EnableBuildcraftFuels", comment = "Allow Buildcraft fuels to be used in fuel generators")
-	public static boolean allowBCFuels = true;
-
 	@ConfigRegistry(config = "compat", category = "theoneprobe", key = "EnableTOPSupport", comment = "Display machine info in The One Probe's HUD")
 	public static boolean enableTOP = true;
 	
 	@ConfigRegistry(config = "compat", category = "jei", key = "ShowScrabpox", comment = "Show Scrapbox loot in JEI")
 	public static boolean showScrapbox = false;
-
 }
