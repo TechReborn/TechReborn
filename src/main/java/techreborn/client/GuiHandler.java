@@ -28,30 +28,103 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import techreborn.client.container.ContainerDestructoPack;
 import reborncore.client.containerBuilder.IContainerProvider;
-import techreborn.client.gui.*;
+
+import techreborn.client.container.ContainerDestructoPack;
+import techreborn.client.gui.GuiAESU;
+import techreborn.client.gui.GuiAlloyFurnace;
+import techreborn.client.gui.GuiAlloySmelter;
+import techreborn.client.gui.GuiAssemblingMachine;
 import techreborn.client.gui.GuiAutoCrafting;
-import techreborn.tiles.*;
+import techreborn.client.gui.GuiBlastFurnace;
+import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.GuiChargeBench;
+import techreborn.client.gui.GuiChemicalReactor;
+import techreborn.client.gui.GuiChunkLoader;
+import techreborn.client.gui.GuiCompressor;
+import techreborn.client.gui.GuiDestructoPack;
+import techreborn.client.gui.GuiDieselGenerator;
+import techreborn.client.gui.GuiDigitalChest;
+import techreborn.client.gui.GuiDistillationTower;
+import techreborn.client.gui.GuiElectricFurnace;
+import techreborn.client.gui.GuiEnergyStorage;
+import techreborn.client.gui.GuiExtractor;
+import techreborn.client.gui.GuiFluidReplicator;
+import techreborn.client.gui.GuiFusionReactor;
+import techreborn.client.gui.GuiGasTurbine;
+import techreborn.client.gui.GuiGenerator;
+import techreborn.client.gui.GuiGrinder;
+import techreborn.client.gui.GuiImplosionCompressor;
+import techreborn.client.gui.GuiIndustrialElectrolyzer;
+import techreborn.client.gui.GuiIndustrialGrinder;
+import techreborn.client.gui.GuiIndustrialSawmill;
+import techreborn.client.gui.GuiIronFurnace;
+import techreborn.client.gui.GuiManual;
+import techreborn.client.gui.GuiMatterFabricator;
+import techreborn.client.gui.GuiPlasmaGenerator;
+import techreborn.client.gui.GuiPlateBendingMachine;
+import techreborn.client.gui.GuiPump;
+import techreborn.client.gui.GuiQuantumChest;
+import techreborn.client.gui.GuiQuantumTank;
+import techreborn.client.gui.GuiRecycler;
+import techreborn.client.gui.GuiRollingMachine;
+import techreborn.client.gui.GuiScrapboxinator;
+import techreborn.client.gui.GuiSemifluidGenerator;
+import techreborn.client.gui.GuiSolidCanningMachine;
+import techreborn.client.gui.GuiThermalGenerator;
+import techreborn.client.gui.GuiVacuumFreezer;
+import techreborn.client.gui.GuiWireMill;
+import techreborn.tiles.TileChargeOMat;
+import techreborn.tiles.TileChunkLoader;
+import techreborn.tiles.TileDigitalChest;
+import techreborn.tiles.TileIndustrialCentrifuge;
+import techreborn.tiles.TileMatterFabricator;
+import techreborn.tiles.TileQuantumChest;
+import techreborn.tiles.TileQuantumTank;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
-import techreborn.tiles.generator.*;
+import techreborn.tiles.generator.TileDieselGenerator;
+import techreborn.tiles.generator.TileGasTurbine;
+import techreborn.tiles.generator.TilePlasmaGenerator;
+import techreborn.tiles.generator.TileSemiFluidGenerator;
+import techreborn.tiles.generator.TileSolidFuelGenerator;
+import techreborn.tiles.generator.TileThermalGenerator;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
 import techreborn.tiles.lesu.TileLapotronicSU;
-import techreborn.tiles.multiblock.*;
+import techreborn.tiles.multiblock.TileDistillationTower;
+import techreborn.tiles.multiblock.TileFluidReplicator;
+import techreborn.tiles.multiblock.TileImplosionCompressor;
+import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
+import techreborn.tiles.multiblock.TileIndustrialGrinder;
+import techreborn.tiles.multiblock.TileIndustrialSawmill;
+import techreborn.tiles.multiblock.TileVacuumFreezer;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
-import techreborn.tiles.tier0.*;
-import techreborn.tiles.tier1.*;
+import techreborn.tiles.tier0.TileIronAlloyFurnace;
+import techreborn.tiles.tier0.TileIronFurnace;
+import techreborn.tiles.tier1.TileAlloySmelter;
+import techreborn.tiles.tier1.TileAssemblingMachine;
+import techreborn.tiles.tier1.TileAutoCraftingTable;
+import techreborn.tiles.tier1.TileChemicalReactor;
+import techreborn.tiles.tier1.TileCompressor;
+import techreborn.tiles.tier1.TileElectricFurnace;
+import techreborn.tiles.tier1.TileExtractor;
+import techreborn.tiles.tier1.TileGrinder;
+import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
+import techreborn.tiles.tier1.TilePlateBendingMachine;
+import techreborn.tiles.tier1.TilePump;
+import techreborn.tiles.tier1.TileRecycler;
+import techreborn.tiles.tier1.TileRollingMachine;
+import techreborn.tiles.tier1.TileScrapboxinator;
+import techreborn.tiles.tier1.TileSolidCanningMachine;
+import techreborn.tiles.tier1.TileWireMill;
 
 public class GuiHandler implements IGuiHandler {
-
 	@Override
-	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x,
-	                                  final int y, final int z) {
-
+	public Object getServerGuiElement(final int ID, final EntityPlayer player, final World world, final int x, final int y, final int z) {
 		final EGui gui = EGui.values()[ID];
 		final TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 
@@ -165,6 +238,8 @@ public class GuiHandler implements IGuiHandler {
 				return new GuiManual(player);
 			case FLUID_REPLICATOR:
 				return new GuiFluidReplicator(player, (TileFluidReplicator) tile);
+			case SOLID_CANNING_MACHINE:
+				return new GuiSolidCanningMachine(player, (TileSolidCanningMachine) tile);
 			case WIRE_MILL:
 				return new GuiWireMill(player, (TileWireMill) tile);
 			default:

@@ -49,6 +49,7 @@ public enum EGui implements IMachineGuiHandler {
 	DISTILLATION_TOWER(true),
 	ELECTRIC_FURNACE(true),
 	EXTRACTOR(true),
+	FLUID_REPLICATOR(true),
 	FUSION_CONTROLLER(true),
 	GAS_TURBINE(true),
 	GENERATOR(true),
@@ -74,9 +75,9 @@ public enum EGui implements IMachineGuiHandler {
 	SAWMILL(true),
 	SCRAPBOXINATOR(true),
 	SEMIFLUID_GENERATOR(true),
+	SOLID_CANNING_MACHINE(true),
 	THERMAL_GENERATOR(true),
 	VACUUM_FREEZER(true),
-	FLUID_REPLICATOR(true),
 	WIRE_MILL(true);
 
 	private final boolean containerBuilder;

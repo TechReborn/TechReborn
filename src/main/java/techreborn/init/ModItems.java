@@ -27,6 +27,7 @@ package techreborn.init;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import reborncore.RebornRegistry;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.BucketHandler;
@@ -48,6 +49,7 @@ import techreborn.items.ingredients.ItemNuggets;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
 import techreborn.items.ingredients.ItemUUmatter;
+import techreborn.items.reactor.ItemIridiumNeutronReflector;
 import techreborn.items.tools.*;
 
 import javax.annotation.Nullable;
@@ -94,6 +96,11 @@ public class ModItems {
 	public static Item STEEL_JACKHAMMER;
 	public static Item TREE_TAP;
 	public static Item WRENCH;
+
+	// Nuclear >>
+	public static Item THORIUM_CELL;
+	public static Item IRIDIUM_NEUTRON_REFLECTOR;
+	// << Nuclear
 	
 	// Misc
 	public static ItemDynamicCell CELL;
@@ -249,6 +256,15 @@ public class ModItems {
 		registerItem(TREE_TAP, "treetap");		
 		WRENCH = new ItemWrench();
 		registerItem(WRENCH, "wrench");
+
+		// Nuclear >>
+
+//		registerItem(THORIUM_CELL, "thorium_cell");
+//		if (Loader.isModLoaded("ic2")) {
+			IRIDIUM_NEUTRON_REFLECTOR = new ItemIridiumNeutronReflector();
+			registerItem(IRIDIUM_NEUTRON_REFLECTOR, "iridiumNeutronReflector");
+//		}
+		// << Nuclear
 		
 		// Misc
 		CELL = new ItemDynamicCell();

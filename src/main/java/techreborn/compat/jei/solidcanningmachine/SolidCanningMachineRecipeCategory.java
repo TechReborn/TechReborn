@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.jei.assemblingmachine;
+package techreborn.compat.jei.solidcanningmachine;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -43,10 +43,10 @@ import javax.annotation.Nonnull;
 /**
  * @author estebes
  */
-public class AssemblingMachineRecipeCategory implements IRecipeCategory<AssemblingMachineRecipeWrapper> {
-	public AssemblingMachineRecipeCategory(IGuiHelper guiHelper) {
+public class SolidCanningMachineRecipeCategory implements IRecipeCategory<SolidCanningMachineRecipeWrapper> {
+	public SolidCanningMachineRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
-		title = StringUtils.t("tile.techreborn.assembling_machine.name");
+		title = StringUtils.t("tile.techreborn.solid_canning_machine.name");
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 	@Nonnull
 	@Override
 	public String getUid() {
-		return RecipeCategoryUids.ASSEMBLING_MACHINE;
+		return RecipeCategoryUids.SOLID_CANNING_MACHINE;
 	}
 
 	@Nonnull
@@ -73,7 +73,7 @@ public class AssemblingMachineRecipeCategory implements IRecipeCategory<Assembli
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, AssemblingMachineRecipeWrapper recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, SolidCanningMachineRecipeWrapper recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 95, 7);

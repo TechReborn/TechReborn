@@ -106,6 +106,8 @@ import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeWrapper;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeWrapper;
+import techreborn.compat.jei.solidcanningmachine.SolidCanningMachineRecipeCategory;
+import techreborn.compat.jei.solidcanningmachine.SolidCanningMachineRecipeWrapper;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeWrapper;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
@@ -176,6 +178,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCategories(new RollingMachineRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new VacuumFreezerRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new FluidReplicatorRecipeCategory(guiHelper));
+		registry.addRecipeCategories(new SolidCanningMachineRecipeCategory(guiHelper));
 		registry.addRecipeCategories(new WireMillRecipeCategory(guiHelper));
 
 		for (EFluidGenerator type : EFluidGenerator.values())
@@ -281,6 +284,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(ShapedRecipes.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapedOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapelessOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
+		registry.handleRecipes(Recipe.class, recipe -> new SolidCanningMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SOLID_CANNING_MACHINE);
 		registry.handleRecipes(Recipe.class, recipe -> new WireMillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.WIRE_MILL);
 		
 		for (EFluidGenerator type : EFluidGenerator.values()) {
@@ -323,6 +327,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 
 		// Using Praescriptum >>
 		registry.addRecipes(Recipes.assemblingMachine.getRecipes(), RecipeCategoryUids.ASSEMBLING_MACHINE);
+		registry.addRecipes(Recipes.solidCanningMachine.getRecipes(), RecipeCategoryUids.SOLID_CANNING_MACHINE);
 		registry.addRecipes(Recipes.wireMill.getRecipes(), RecipeCategoryUids.WIRE_MILL);
 		// << Using Praescriptum
 
@@ -365,6 +370,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		addRecipeClickArea(GuiRollingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.ROLLING_MACHINE);
 		addRecipeClickArea(GuiFluidReplicator.class, 158, 5, 12, 12, RecipeCategoryUids.FLUID_REPLICATOR);
 		addRecipeClickArea(GuiAssemblingMachine.class, 158, 5, 12, 12, RecipeCategoryUids.ASSEMBLING_MACHINE);
+		addRecipeClickArea(GuiSolidCanningMachine.class, 158, 5, 12, 12, RecipeCategoryUids.SOLID_CANNING_MACHINE);
 		addRecipeClickArea(GuiWireMill.class, 158, 5, 12, 12, RecipeCategoryUids.WIRE_MILL);
 		
 		//OLD ONES
@@ -400,6 +406,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.ROLLING_MACHINE), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.DISTILLATION_TOWER), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.FLUID_REPLICATOR), RecipeCategoryUids.FLUID_REPLICATOR);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.SOLID_CANNING_MACHINE), RecipeCategoryUids.SOLID_CANNING_MACHINE);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.WIRE_MILL), RecipeCategoryUids.WIRE_MILL);
 		
 		if (CompatConfigs.showScrapbox) {
@@ -446,6 +453,8 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			new BuiltContainerTransferInfo("autocraftingtable", VanillaRecipeCategoryUid.CRAFTING, 36, 9, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("platebendingmachine", RecipeCategoryUids.PLATE_BENDING_MACHINE, 36, 1, 0, 36));
+		recipeTransferRegistry.addRecipeTransferHandler(
+			new BuiltContainerTransferInfo("solidcanningmachine", RecipeCategoryUids.SOLID_CANNING_MACHINE, 36, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
 			new BuiltContainerTransferInfo("wiremill", RecipeCategoryUids.WIRE_MILL, 36, 1, 0, 36));
 

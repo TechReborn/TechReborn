@@ -58,7 +58,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum ModTileEntities {
-
 	ADJUSTABLE_SU(TileAdjustableSU.class,  "adjustable_su", "TileAdjustableSUTR"),
 	ALARM(TileAlarm.class,  "alarm", "TileAlarmTR"),
 	ALLOY_SMELTER(TileAlloySmelter.class,  "alloy_smelter", "TileAlloySmalterTR"),
@@ -116,6 +115,7 @@ public enum ModTileEntities {
 	SCRAPBOXINATOR(TileScrapboxinator.class,  "scrapboxinator", "TileScrapboxinatorTR"),
 	SEMI_FLUID_GENERATOR(TileSemiFluidGenerator.class,  "semi_fluid_generator", "TileSemiFluidGeneratorTR"),
 	SOLAR_PANEL(TileSolarPanel.class,  "solar_panel", "TileSolarPanelTR"),
+	SOLID_CANNING_MACHINE(TileSolidCanningMachine.class,  "solid_canning_machine", "TileSolidCanningMachineTR"),
 	SOLID_FUEL_GENEREATOR(TileSolidFuelGenerator.class,  "solid_fuel_generator", "TileSolidFuelGeneratorTR"),
 	THERMAL_GEN(TileThermalGenerator.class,  "thermal_generator", "TileThermalGeneratorTR"),
 	VACUUM_FREEZER(TileVacuumFreezer.class,  "vacuum_freezer", "TileVacuumFreezerTR"),

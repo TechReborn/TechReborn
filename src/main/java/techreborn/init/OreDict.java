@@ -91,7 +91,7 @@ public class OreDict {
 		
 		OreUtil.registerOre("reflectorBasic", ItemParts.getPartByName("neutron_reflector"));
 		OreUtil.registerOre("reflectorThick", ItemParts.getPartByName("thick_neutron_reflector"));
-		OreUtil.registerOre("reflectorIridium", ItemParts.getPartByName("iridium_neutron_reflector"));
+//		OreUtil.registerOre("reflectorIridium", ItemParts.getPartByName("iridium_neutron_reflector"));
 
 		OreUtil.registerOre("machineBlockBasic", BlockMachineFrames.getFrameByName("machine", 1));
 		OreUtil.registerOre("machineBlockAdvanced", BlockMachineFrames.getFrameByName("advancedMachine", 1));

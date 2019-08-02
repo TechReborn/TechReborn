@@ -85,7 +85,11 @@ public class RegisterItemJsons {
 		register(ModItems.STEEL_DRILL, "tool/steel_drill");
 		register(ModItems.STEEL_JACKHAMMER, "tool/steel_jackhammer");
 		register(ModItems.TREE_TAP, "tool/treetap");
-		register(ModItems.WRENCH, "tool/wrench");		
+		register(ModItems.WRENCH, "tool/wrench");
+
+		// Reactor >>
+		register(ModItems.IRIDIUM_NEUTRON_REFLECTOR, "reactor/iridium_neutron_reflector");
+		// << Reactor
 
 		// Misc
 		register(ModItems.FREQUENCY_TRANSMITTER, "misc/frequency_transmitter");

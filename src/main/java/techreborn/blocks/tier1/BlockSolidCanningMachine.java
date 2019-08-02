@@ -34,14 +34,14 @@ import reborncore.common.blocks.BlockMachineBase;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileWireMill;
+import techreborn.tiles.tier1.TileSolidCanningMachine;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**
  * @author estebes
  */
-public class BlockWireMill extends BlockMachineBase {
-	public BlockWireMill() {
+public class BlockSolidCanningMachine extends BlockMachineBase {
+	public BlockSolidCanningMachine() {
 		super();
 
 		setCreativeTab(TechRebornCreativeTab.instance);
@@ -50,11 +50,11 @@ public class BlockWireMill extends BlockMachineBase {
 
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileWireMill();
+		return new TileSolidCanningMachine();
 	}
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.WIRE_MILL;
+		return EGui.SOLID_CANNING_MACHINE;
 	}
 }

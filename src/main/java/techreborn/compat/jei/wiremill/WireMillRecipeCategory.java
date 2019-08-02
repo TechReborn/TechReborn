@@ -36,7 +36,6 @@ import reborncore.common.util.StringUtils;
 
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
-import techreborn.compat.jei.RecipeWrapper;
 import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
@@ -44,7 +43,7 @@ import javax.annotation.Nonnull;
 /**
  * @author estebes
  */
-public class WireMillRecipeCategory implements IRecipeCategory<RecipeWrapper> {
+public class WireMillRecipeCategory implements IRecipeCategory<WireMillRecipeWrapper> {
 	public WireMillRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 74, 52);
 		title = StringUtils.t("tile.techreborn.wire_mill.name");
@@ -74,7 +73,7 @@ public class WireMillRecipeCategory implements IRecipeCategory<RecipeWrapper> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, RecipeWrapper recipeWrapper, IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, WireMillRecipeWrapper recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
 		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);

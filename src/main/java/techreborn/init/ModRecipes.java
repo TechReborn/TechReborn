@@ -65,6 +65,7 @@ import techreborn.init.recipes.PlateBendingMachineRecipes;
 import techreborn.init.recipes.RollingMachineRecipes;
 import techreborn.init.recipes.ScrapboxRecipes;
 import techreborn.init.recipes.SmeltingRecipes;
+import techreborn.init.recipes.SolidCanningMachineRecipes;
 import techreborn.init.recipes.WireMillRecipes;
 import techreborn.items.ItemCells;
 import techreborn.items.ingredients.ItemDusts;
@@ -107,9 +108,10 @@ public class ModRecipes {
 		BlastFurnaceRecipes.init();
 		CompressorRecipes.init();
 		PlateBendingMachineRecipes.init();
-		AssemblingMachineRecipes.init();
 
 		// Using Praescriptum >>
+		AssemblingMachineRecipes.init();
+		SolidCanningMachineRecipes.init();
 		WireMillRecipes.init();
 		// << Using Praescriptum
 
@@ -207,11 +209,16 @@ public class ModRecipes {
 				new ItemStack(Blocks.OBSIDIAN),
 				ItemDusts.getDustByName("obsidian", 4),
 				170, 19));
-		
+
 		RecipeHandler.addRecipe(new GrinderRecipe(
-				new ItemStack(Items.BLAZE_ROD),
-				new ItemStack(Items.BLAZE_POWDER, 4),
-				170, 19));
+			new ItemStack(Items.BLAZE_ROD),
+			new ItemStack(Items.BLAZE_POWDER, 4),
+			170, 19));
+
+		RecipeHandler.addRecipe(new GrinderRecipe(
+			new ItemStack(Blocks.MAGMA),
+			new ItemStack(Items.MAGMA_CREAM, 4),
+			170, 19));
 
 		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
 			ItemStack marbleStack = getOre("stoneMarble");

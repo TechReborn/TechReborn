@@ -22,39 +22,26 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier1;
+package techreborn.init.recipes;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
+import reborncore.api.praescriptum.recipes.RecipeHandler;
 
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
-import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
-
-import techreborn.client.EGui;
-import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileWireMill;
-import techreborn.utils.TechRebornCreativeTab;
+import techreborn.api.recipe.Recipes;
+import techreborn.items.ingredients.ItemParts;
 
 /**
  * @author estebes
  */
-public class BlockWireMill extends BlockMachineBase {
-	public BlockWireMill() {
-		super();
+public class SolidCanningMachineRecipes {
+	public static void init() {
+		Recipes.solidCanningMachine = new RecipeHandler();
 
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileWireMill();
-	}
-
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.WIRE_MILL;
+		Recipes.solidCanningMachine.createRecipe()
+			.withInput("plateRefinedIron")
+			.withInput("plateElectrum", 2)
+			.withOutput(ItemParts.getPartByName("basic_circuit_board", 2))
+			.withEnergyCostPerTick(1)
+			.withOperationDuration(800)
+			.register();
 	}
 }

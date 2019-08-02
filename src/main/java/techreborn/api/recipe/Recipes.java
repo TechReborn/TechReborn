@@ -36,6 +36,11 @@ public class Recipes {
 	public static RecipeHandler assemblingMachine;
 
 	/**
+	 * Recipe handler for solid canning machine recipes.
+	 */
+	public static RecipeHandler solidCanningMachine;
+
+	/**
 	 * Recipe handler for wire mill recipes.
 	 */
 	public static RecipeHandler wireMill;

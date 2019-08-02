@@ -115,6 +115,7 @@ public class ModBlocks {
 	public static Block AUTO_CRAFTING_TABLE;
 	public static Block PUMP;
 	public static Block PLATE_BENDING_MACHINE;
+	public static Block SOLID_CANNING_MACHINE;
 	public static Block WIRE_MILL;
 
 	public static BlockOre ORE;
@@ -302,6 +303,9 @@ public class ModBlocks {
 
 		CREATIVE_SOLAR_PANEL = new BlockCreativeSolarPanel();
 		registerBlock(CREATIVE_SOLAR_PANEL, "creative_solar_panel");
+
+		SOLID_CANNING_MACHINE = new BlockSolidCanningMachine();
+		registerBlock(SOLID_CANNING_MACHINE, "solid_canning_machine");
 
 		WATER_MILL = new BlockWaterMill();
 		registerBlock(WATER_MILL, "water_mill");

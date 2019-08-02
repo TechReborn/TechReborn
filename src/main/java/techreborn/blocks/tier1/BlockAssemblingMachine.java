@@ -35,6 +35,9 @@ import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.tier1.TileAssemblingMachine;
 
+/**
+ * @author estebes, modmuss50
+ */
 public class BlockAssemblingMachine extends BlockMachineBase {
 	public BlockAssemblingMachine() {
 		super();
