@@ -39,7 +39,7 @@ import java.security.InvalidParameterException;
  */
 public class DistillationTowerRecipes extends RecipeMethods {
 	public static void init() {
-		register(ItemCells.getCellByName("oil", 16), 1600, 16, getMaterial("diesel", 16, Type.CELL), getMaterial("sulfuricAcid", 16, Type.CELL), getMaterial("glyceryl", Type.CELL), getMaterial("methane", Type.CELL));
+		register(ItemCells.getCellByName("oil", 16), 1600, 16, getMaterial("diesel", 16, Type.CELL), getMaterial("sulfuricAcid", 16, Type.CELL), getMaterial("glyceryl", Type.CELL), getMaterial("methane", 16, Type.CELL));
 	}
 	
 	static void register(ItemStack input, int ticks, int euPerTick, boolean oreDict, ItemStack... outputs) {
