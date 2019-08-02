@@ -4,7 +4,7 @@
   "time": 5,
   "ingredients": [
     {
-      "item": "minecraft:grass",
+      "item": "minecraft:grass_block",
       "count": 16
     }
   ],
