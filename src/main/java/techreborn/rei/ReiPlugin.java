@@ -96,6 +96,7 @@ public class ReiPlugin implements REIPluginEntry {
 		recipeHelper.registerWorkingStations(ModRecipes.EXTRACTOR.getName(), new ItemStack(Machine.EXTRACTOR.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.getName(), new ItemStack(Machine.GRINDER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.IMPLOSION_COMPRESSOR.getName(), new ItemStack(Machine.IMPLOSION_COMPRESSOR.asItem()));
+        recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_ELECTROLYZER.getName(), new ItemStack(Machine.INDUSTRIAL_ELECTROLYZER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.getName(), new ItemStack(Machine.INDUSTRIAL_SAWMILL.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), new ItemStack(Machine.VACUUM_FREEZER.asItem()));
 	}

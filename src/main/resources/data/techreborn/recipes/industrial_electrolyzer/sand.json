@@ -1,0 +1,26 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 25,
+  "time": 1000,
+  "ingredients": [
+    {
+      "item": "minecraft:sand",
+      "count": 16
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "nbt": "null"
+    }
+  ],
+  "results": [
+    {
+      "fluid": "techreborn:silicon",
+      "holder": "techreborn:cell"
+    },
+    {
+      "fluid": "techreborn:compressedair",
+      "holder": "techreborn:cell"
+    }
+  ]
+}
