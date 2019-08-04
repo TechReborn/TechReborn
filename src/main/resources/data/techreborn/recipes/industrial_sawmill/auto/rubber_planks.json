@@ -2,6 +2,10 @@
   "type": "techreborn:industrial_sawmill",
   "power": 128,
   "time": 100,
+  "tank" : {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
   "ingredients": [
     {
       "item": "techreborn:rubber_log"

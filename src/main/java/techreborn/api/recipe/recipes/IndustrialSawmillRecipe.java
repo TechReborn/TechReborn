@@ -24,31 +24,23 @@
 
 package techreborn.api.recipe.recipes;
 
-import com.google.gson.JsonObject;
-import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.Identifier;
-
-import javax.annotation.Nonnull;
-
-import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
 
-public class IndustrialSawmillRecipe extends RebornRecipe {
-
-	@Nonnull
-	private FluidInstance fluidInstance = FluidInstance.EMPTY;
+public class IndustrialSawmillRecipe extends RebornFluidRecipe {
 
 	public IndustrialSawmillRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
 
 	@Override
-	public void deserialize(JsonObject jsonObject) {
-		super.deserialize(jsonObject);
-		fluidInstance = new FluidInstance(Fluids.WATER, 1000);
+	public Tank getTank(BlockEntity be) {
+		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
+		return blockEntity.getTank();
 	}
 
 	@Override
@@ -57,39 +49,7 @@ public class IndustrialSawmillRecipe extends RebornRecipe {
 		if (!blockEntity.getMutliBlock()) {
 			return false;
 		}
-		final FluidInstance recipeFluid = fluidInstance;
-		final FluidInstance tankFluid = blockEntity.tank.getFluidInstance();
-		if (fluidInstance.isEmpty()) {
-			return true;
-		}
-		if (tankFluid.isEmpty()) {
-			return false;
-		}
-		if (tankFluid.getFluid().equals(recipeFluid.getFluid())) {
-			if (tankFluid.getAmount() >= recipeFluid.getAmount()) {
-				return true;
-			}
-		}
-		return false;
+		return super.canCraft(be);
 	}
 
-	@Override
-	public boolean onCraft(BlockEntity be) {
-		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
-		final FluidInstance recipeFluid = fluidInstance;
-		final FluidInstance tankFluid = blockEntity.tank.getFluidInstance();
-		if (fluidInstance.isEmpty()) {
-			return true;
-		}
-		if (tankFluid.isEmpty()) {
-			return false;
-		}
-		if (tankFluid.getFluid().equals(recipeFluid.getFluid())) {
-			if (tankFluid.getAmount() >= recipeFluid.getAmount()) {
-				tankFluid.subtractAmount(recipeFluid.getAmount());
-				return true;
-			}
-		}
-		return false;
-	}
 }

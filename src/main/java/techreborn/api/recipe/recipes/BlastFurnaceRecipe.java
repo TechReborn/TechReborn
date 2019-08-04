@@ -34,7 +34,7 @@ import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEnti
 
 public class BlastFurnaceRecipe extends RebornRecipe {
 
-	int heat;
+	private int heat;
 
 	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
@@ -61,8 +61,4 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 		return false;
 	}
 
-	@Override
-	public boolean onCraft(final BlockEntity blockEntity) {
-		return true;
-	}
 }
