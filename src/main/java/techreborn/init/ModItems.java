@@ -258,12 +258,8 @@ public class ModItems {
 		registerItem(WRENCH, "wrench");
 
 		// Nuclear >>
-
-//		registerItem(THORIUM_CELL, "thorium_cell");
-//		if (Loader.isModLoaded("ic2")) {
-			IRIDIUM_NEUTRON_REFLECTOR = new ItemIridiumNeutronReflector();
-			registerItem(IRIDIUM_NEUTRON_REFLECTOR, "iridiumNeutronReflector");
-//		}
+		IRIDIUM_NEUTRON_REFLECTOR = new ItemIridiumNeutronReflector();
+		registerItem(IRIDIUM_NEUTRON_REFLECTOR, "iridiumNeutronReflector");
 		// << Nuclear
 		
 		// Misc
