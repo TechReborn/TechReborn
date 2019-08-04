@@ -31,14 +31,9 @@ public class IndustrialElectrolyzerRecipes extends RecipeMethods {
 	/* TODO 1.13 :D
 
 	public static void init() {
-		register(getMaterial("electrolyzedwater", 6, Type.CELL), 760, 120, getMaterial("hydrogen", 4, Type.CELL), getMaterial("compressedair", Type.CELL));
-		register(getMaterial("water", Type.CELL), 20, 50, getMaterial("electrolyzedwater", Type.CELL));
-		register(getStack(Items.DYE, 3, 15), 20, 106, false, getMaterial("calcium", Type.CELL));
-		register(getStack(Items.SUGAR, 32), 200, 32, getMaterial("carbon", 2, Type.CELL), getMaterial("water", 5, Type.CELL));
-//		TODO: Fix recipe
 
-		register(getStack(Blocks.SAND, 16), 1000, 25, getMaterial("silicon", Type.CELL), getMaterial("compressedair", Type.CELL));
-//		register(getOre("dustClay", 8), 200, 50, getMaterial("lithium", Type.CELL), getMaterial("silicon", 2, Type.CELL), getMaterial("aluminum", 2, Type.DUST), getMaterial("sodium", 2, Type.CELL));
+
+
 //		register(getOre("dustCoal"), 40, 50, getMaterial("carbon", 2, Type.CELL));
 //		register(getOre("dustCharcoal"), 20, 50, getMaterial("carbon", Type.CELL));
 //		register(getOre("dustEnderPearl", 16), 1300, 50, getMaterial("nitrogen", 5, Type.CELL), getMaterial("berylium", 1, Type.CELL), getMaterial("potassium", 4, Type.CELL), getMaterial("chlorite", 6, Type.CELL));

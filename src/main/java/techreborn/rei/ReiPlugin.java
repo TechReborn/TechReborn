@@ -74,7 +74,21 @@ public class ReiPlugin implements REIPluginEntry {
 
 	@Override
 	public void registerPluginCategories(RecipeHelper recipeHelper) {
-		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> recipeHelper.registerCategory(new MachineRecipeCategory(rebornRecipeType)));
+	    recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.ALLOY_SMELTER));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.ASSEMBLING_MACHINE));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.BLAST_FURNACE));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.CENTRIFUGE, 4));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.CHEMICAL_REACTOR));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.COMPRESSOR, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.DISTILLATION_TOWER, 3));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.EXTRACTOR, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.GRINDER, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.IMPLOSION_COMPRESSOR));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.INDUSTRIAL_ELECTROLYZER, 4));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.INDUSTRIAL_GRINDER));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.INDUSTRIAL_SAWMILL, 3));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.SCRAPBOX));
+        recipeHelper.registerCategory(new MachineRecipeCategory(ModRecipes.VACUUM_FREEZER, 1));
 	}
 
 	@Override

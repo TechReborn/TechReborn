@@ -24,6 +24,8 @@
 
 package techreborn.rei;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+import me.shedaniel.rei.api.DisplaySettings;
 import me.shedaniel.rei.api.RecipeCategory;
 import me.shedaniel.rei.api.Renderable;
 import me.shedaniel.rei.api.Renderer;
@@ -31,14 +33,19 @@ import me.shedaniel.rei.gui.renderables.RecipeRenderer;
 import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
 import me.shedaniel.rei.gui.widget.SlotWidget;
 import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.rei.plugin.DefaultPlugin;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.GuiLighting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,10 +54,16 @@ import java.util.function.Supplier;
 public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCategory<MachineRecipeDisplay<R>> {
 
 	private final RebornRecipeType<R> rebornRecipeType;
+	private int recipeLines;
 
-	public MachineRecipeCategory(RebornRecipeType<R> rebornRecipeType) {
-		this.rebornRecipeType = rebornRecipeType;
+	MachineRecipeCategory(RebornRecipeType<R> rebornRecipeType) {
+        this(rebornRecipeType, 2);
 	}
+
+    MachineRecipeCategory(RebornRecipeType<R> rebornRecipeType, int lines) {
+        this.rebornRecipeType = rebornRecipeType;
+        this.recipeLines = lines;
+    }
 
 	@Override
 	public Identifier getIdentifier() {
@@ -77,9 +90,23 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 
 		MachineRecipeDisplay<R> machineRecipe = recipeDisplaySupplier.get();
 
-		Point startPoint = new Point((int) bounds.getCenterX() - 41, (int) bounds.getCenterY() - 27);
-		List<Widget> widgets = new LinkedList<>();
-		widgets.add(new RecipeBaseWidget(bounds));
+		Point startPoint = new Point((int) bounds.getCenterX() - 41, (int) bounds.getCenterY() - recipeLines*12 -1);
+
+        class RecipeBackgroundWidget extends RecipeBaseWidget {
+            RecipeBackgroundWidget(Rectangle bounds) {
+                super(bounds);
+            }
+
+            public void render(int mouseX, int mouseY, float delta) {
+                super.render(mouseX, mouseY, delta);
+                GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+                GuiLighting.disable();
+                MinecraftClient.getInstance().getTextureManager().bindTexture(DefaultPlugin.getDisplayTexture());
+                int width = MathHelper.ceil((double)(System.currentTimeMillis() / 50L) % 24.0D / 1.0D);
+                this.blit(startPoint.x + 24, startPoint.y + 1, 82, 91, width, 17);
+            }
+        }
+        List<Widget> widgets = new LinkedList(Arrays.asList(new RecipeBackgroundWidget(bounds)));
 
 		int i = 0;
 		for (List<ItemStack> inputs : machineRecipe.getInput()){
@@ -93,4 +120,31 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 
 		return widgets;
 	}
+
+    @Override
+    public DisplaySettings getDisplaySettings() {
+        return new DisplaySettings<MachineRecipeDisplay>() {
+            public int getDisplayHeight(RecipeCategory category) {
+
+                if (recipeLines == 1) {
+                    return 36;
+                }
+                else if (recipeLines == 3) {
+                    return 90;
+                }
+                else if (recipeLines == 4) {
+                    return 110;
+                }
+                return 66;
+            }
+
+            public int getDisplayWidth(RecipeCategory category, MachineRecipeDisplay display) {
+                return 150;
+            }
+
+            public int getMaximumRecipePerPage(RecipeCategory category) {
+                return 99;
+            }
+        };
+    }
 }
