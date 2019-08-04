@@ -1,0 +1,25 @@
+{
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ore"
+    },
+    {
+    	"fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:iron_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:tin_small_dust"
+    },
+    {
+      "item": "techreborn:nickel_small_dust"
+    }
+  ]
+}

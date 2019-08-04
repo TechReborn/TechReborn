@@ -65,7 +65,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 		super(TRBlockEntities.INDUSTRIAL_GRINDER, "IndustrialGrinder", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
-		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this, getInventoryAccess());
+		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this).withConfiguredAccess();
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_GRINDER, this, 1, 4, this.inventory, inputs, outputs);
 		this.tank = new Tank("IndustrialGrinderBlockEntity", IndustrialGrinderBlockEntity.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
