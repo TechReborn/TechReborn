@@ -112,6 +112,7 @@ public class ModBlocks {
 	public static Block LV_TRANSFORMER;
 	public static Block MV_TRANSFORMER;
 	public static Block HV_TRANSFORMER;
+	public static Block EV_TRANSFORMER;
 	public static Block AUTO_CRAFTING_TABLE;
 	public static Block PUMP;
 	public static Block PLATE_BENDING_MACHINE;
@@ -363,6 +364,9 @@ public class ModBlocks {
 
 		HV_TRANSFORMER = new BlockHVTransformer();
 		registerBlock(HV_TRANSFORMER, "hv_transformer");
+
+		EV_TRANSFORMER = new BlockHVTransformer();
+		registerBlock(EV_TRANSFORMER, "ev_transformer");
 
 		AUTO_CRAFTING_TABLE = new BlockAutoCraftingTable();
 		registerBlock(AUTO_CRAFTING_TABLE, "auto_crafting_table");

@@ -189,22 +189,29 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.PLAYER_DETECTOR, true), " D ", "CFC", " D ", 'D', "circuitStorage", 'C', "circuitAdvanced", 'F',  getStack(ModBlocks.COMPUTER_CUBE));
 		registerShaped(getStack(ModBlocks.DRAGON_EGG_SYPHON), "CTC", "PSP", "CBC", 'C', "circuitMaster", 'T', getStack(IC2Duplicates.MFE), 'P', "plateIridiumAlloy", 'S', "craftingSuperconductor", 'B', getStack(ModItems.LAPOTRONIC_ORB));
 		registerShaped(getStack(ModBlocks.PLASMA_GENERATOR), "PPP", "PTP", "CGC", 'P', "plateTungstensteel", 'T', getStack(IC2Duplicates.HVT), 'C', "circuitMaster", 'G', getStack(IC2Duplicates.GENERATOR));
+
+		// Transformers >>
+		if (!IC2Duplicates.deduplicate()) {
+			registerShaped(getStack(IC2Duplicates.LVT), "PWP", "CCC", "PPP", 'P', "plankWood", 'C', "ingotCopper", 'W', getStack(IC2Duplicates.CABLE_TIN));
+			registerShaped(getStack(IC2Duplicates.MVT), " G ", " M ", " G ", 'M', "machineBlockBasic", 'G', getStack(IC2Duplicates.CABLE_ICOPPER));
+			registerShaped(getStack(IC2Duplicates.HVT), " H ", "CML", " H ", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_GOLD), 'C', "circuitBasic", 'L', getStack(ModItems.LITHIUM_BATTERY));
+		}
+		registerShaped(getStack(ModBlocks.EV_TRANSFORMER), " H ", "CML", " H ", 'M', getStack(IC2Duplicates.HVT), 'H', getStack(IC2Duplicates.CABLE_IHV), 'C', "circuitAdvanced", 'L', getStack(IC2Duplicates.ENERGY_CRYSTAL));
+		// << Transformers
+
+		// Solar Panels >>
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 0), "DLD", "LDL", "CGC", 'D', "dustCoal", 'L', "paneGlass", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 0));
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "DLD", "LDL", "CPC", 'D', "dustCoal", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', "machineBlockBasic");
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 2), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 1));
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 2), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "blockGlass", 'C', "circuitAdvanced", 'P', "machineBlockBasic");
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 3), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "glassReinforced", 'C', "circuitAdvanced", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 2));
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 3), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "glassReinforced", 'C', "circuitAdvanced", 'P', "machineBlockAdvanced");
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 4), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "glassReinforced", 'C', "circuitMaster", 'P', getStack(ModBlocks.SOLAR_PANEL, 1, 3));
-		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 4), "DLD", "LDL", "CPC", 'D', "dustDiamond", 'L', "glassReinforced", 'C', "circuitMaster", 'P', "machineBlockElite");
+		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 1), "SSS", "STS", "SSS", 'S', getStack(ModBlocks.SOLAR_PANEL, 1, 0), 'T', getStack(ModBlocks.LV_TRANSFORMER));
+		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 2), "SSS", "STS", "SSS", 'S', getStack(ModBlocks.SOLAR_PANEL, 1, 1), 'T', getStack(ModBlocks.MV_TRANSFORMER));
+		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 3), "SSS", "STS", "SSS", 'S', getStack(ModBlocks.SOLAR_PANEL, 1, 2), 'T', getStack(ModBlocks.HV_TRANSFORMER));
+		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 4), "SSS", "STS", "SSS", 'S', getStack(ModBlocks.SOLAR_PANEL, 1, 3), 'T', getStack(ModBlocks.EV_TRANSFORMER));
+		// << Solar Panels
+
+
 		registerShaped(getStack(ModBlocks.ALARM, 1, 0), "ICI", "SRS", "ICI", 'I', "ingotIron", 'C', getMaterial("copper", Type.CABLE), 'S', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'R', "blockRedstone" );
 		registerShaped(getStack(ModBlocks.FLUID_REPLICATOR), "PCP", "CFC", "ESR", 'P', "plateTungstensteel", 'F', "machineBlockElite", 'C', "circuitMaster", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'S', "craftingSuperconductor",'R', getStack(ModBlocks.CHEMICAL_REACTOR));
 
 		if (!IC2Duplicates.deduplicate()) {
-			registerShaped(getStack(IC2Duplicates.HVT), " H ", " M ", " H ", 'M', getStack(IC2Duplicates.MVT), 'H', getStack(IC2Duplicates.CABLE_IHV));
-			registerShaped(getStack(IC2Duplicates.MVT), " G ", " M ", " G ", 'M', "machineBlockBasic", 'G', getStack(IC2Duplicates.CABLE_IGOLD));
-			registerShaped(getStack(IC2Duplicates.LVT), "PWP", "CCC", "PPP", 'P', "plankWood", 'C', "ingotCopper", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getStack(IC2Duplicates.BAT_BOX), "WCW", "BBB", "WWW", 'W', "plankWood", 'B', "reBattery", 'C', getStack(IC2Duplicates.CABLE_ICOPPER));
 			registerShaped(getStack(IC2Duplicates.MFE), "GEG", "EME", "GEG", 'M', "machineBlockBasic", 'E', "energyCrystal", 'G', getStack(IC2Duplicates.CABLE_IGOLD));
 			registerShaped(getStack(IC2Duplicates.MFSU), "LAL", "LML", "LOL", 'A', "circuitAdvanced", 'L', "lapotronCrystal", 'M', getStack(IC2Duplicates.MFE), 'O', "machineBlockAdvanced");

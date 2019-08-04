@@ -50,6 +50,7 @@ import techreborn.tiles.storage.TileMediumVoltageSU;
 import techreborn.tiles.tier0.TileIronAlloyFurnace;
 import techreborn.tiles.tier0.TileIronFurnace;
 import techreborn.tiles.tier1.*;
+import techreborn.tiles.transformers.TileEVTransformer;
 import techreborn.tiles.transformers.TileHVTransformer;
 import techreborn.tiles.transformers.TileLVTransformer;
 import techreborn.tiles.transformers.TileMVTransformer;
@@ -84,6 +85,7 @@ public enum ModTileEntities {
 	GRINDER(TileGrinder.class,  "grinder", "TileGrinderTR"),
 	HIGH_VOLTAGE_SU(TileHighVoltageSU.class,  "high_voltage_su", "TileHighVoltageSUTR"),
 	HV_TRANSFORMER(TileHVTransformer.class,  "hv_transformer", "TileHVTransformerTR"),
+	EV_TRANSFORMER(TileEVTransformer.class,  "ev_transformer", "TileEVTransformerTR"),
 	IMPLOSION_COMPRESSOR(TileImplosionCompressor.class,  "implosion_compressor", "TileImplosionCompressorTR"),
 	INDUSTRIAL_BLAST_FURNACE(TileIndustrialBlastFurnace.class,  "industrial_blast_furnace", "TileIndustrialBlastFurnaceTR"),
 	INDUSTRIAL_CENTRIFUGE(TileIndustrialCentrifuge.class,  "industrial_centrifuge", "TileIndustrialCentrifugeTR"),
