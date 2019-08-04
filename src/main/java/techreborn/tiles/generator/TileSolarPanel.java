@@ -61,21 +61,25 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	@Override
 	public void update() {
 		super.update();
-		if (world.isRemote) {
-			return;
-		}
+		if (world.isRemote) return;
+
 		if (world.getTotalWorldTime() % 20 == 0) {
 			canSeeSky = world.canBlockSeeSky(pos.up());
-			if(lastSate != isSunOut()){
+			if (lastSate != isSunnyDay()){
 				world.setBlockState(pos,
-					world.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, isSunOut()));
-				lastSate = isSunOut();
+					world.getBlockState(pos).withProperty(BlockSolarPanel.ACTIVE, isSunnyDay()));
+				lastSate = isSunnyDay();
 			}
 
 		}
-		if (isSunOut()) {
+
+		if (isSunnyDay()) {
 			powerToAdd = panel.generationRateD;
-		} else if (canSeeSky) {
+		} else if (isRainyDay()) {
+			powerToAdd = panel.generationRateN;
+		} else if (isStormyDay()) {
+			powerToAdd = 0;
+		} else if (isClearNight()) {
 			powerToAdd = panel.generationRateN;
 		} else {
 			powerToAdd = 0;
@@ -84,8 +88,20 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		addEnergy(powerToAdd);
 	}
 
-	public boolean isSunOut() {
+	public boolean isSunnyDay() {
 		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaytime();
+	}
+
+	public boolean isRainyDay() {
+		return canSeeSky && world.isRaining() && !world.isThundering() && world.isDaytime();
+	}
+
+	public boolean isStormyDay() {
+		return canSeeSky && world.isRaining() && world.isThundering() && world.isDaytime();
+	}
+
+	public boolean isClearNight() {
+		return canSeeSky && !world.isRaining() && !world.isThundering() && !world.isDaytime();
 	}
 
 	@Override
@@ -165,6 +181,12 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 
 		info.add(TextFormatting.GRAY + "Generation Rate Night: " + TextFormatting.GOLD
 			+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN));
+
+		info.add(TextFormatting.GRAY + "Generation Rate Rain: " + TextFormatting.GOLD
+			+ PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN));
+
+		info.add(TextFormatting.GRAY + "Generation Rate Storm: " + TextFormatting.GOLD
+			+ PowerSystem.getLocaliszedPowerFormatted(0));
 
 		info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString()));
 	}
