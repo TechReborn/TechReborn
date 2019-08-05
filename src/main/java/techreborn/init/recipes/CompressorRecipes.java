@@ -24,25 +24,26 @@
 
 package techreborn.init.recipes;
 
-import java.security.InvalidParameterException;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
+
 import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.init.IC2Duplicates;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
 
+import java.security.InvalidParameterException;
+
 /**
  * @author drcrazy
  *
  */
 public class CompressorRecipes extends RecipeMethods {
-	
 	public static void init() {
 		register(ItemIngots.getIngotByName("advanced_alloy"), ItemPlates.getPlateByName("advanced_alloy"), 400, 20);
 		register(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig(), ItemPlates.getPlateByName("carbon"), 400, 2);
@@ -62,12 +63,12 @@ public class CompressorRecipes extends RecipeMethods {
 		register(new ItemStack(Items.REEDS, 8), ItemParts.getPartByName("compressed_plantball"));
 		register(new ItemStack(Blocks.CACTUS, 8), ItemParts.getPartByName("compressed_plantball"));
 		register(new ItemStack(Items.WHEAT, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Items.CARROT, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Items.POTATO, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Items.APPLE, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Items.MELON, 64), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Blocks.PUMPKIN, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Blocks.MELON_BLOCK, 8), ItemParts.getPartByName("compressed_plantball"));
+//		register(new ItemStack(Items.CARROT, 8), ItemParts.getPartByName("compressed_plantball"));
+//		register(new ItemStack(Items.POTATO, 8), ItemParts.getPartByName("compressed_plantball"));
+//		register(new ItemStack(Items.APPLE, 8), ItemParts.getPartByName("compressed_plantball"));
+//		register(new ItemStack(Items.MELON, 64), ItemParts.getPartByName("compressed_plantball"));
+//		register(new ItemStack(Blocks.PUMPKIN, 8), ItemParts.getPartByName("compressed_plantball"));
+//		register(new ItemStack(Blocks.MELON_BLOCK, 8), ItemParts.getPartByName("compressed_plantball"));
 		// << Compressed Plantball
 
 		ItemStack plate;

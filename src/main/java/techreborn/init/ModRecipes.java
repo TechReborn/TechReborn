@@ -70,6 +70,7 @@ import techreborn.init.recipes.WireMillRecipes;
 import techreborn.items.ItemCells;
 import techreborn.items.ingredients.ItemDusts;
 import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemParts;
 import techreborn.lib.ModInfo;
 
 import java.util.Iterator;
@@ -147,114 +148,120 @@ public class ModRecipes {
 		// int ticktime = 300;
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
+			ItemParts.getPartByName("plantball"),
+			new ItemStack(Blocks.DIRT),
+			300, 2));
+
+		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Items.BONE),
 			new ItemStack(Items.DYE, 6, 15),
-			170, 19));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.COBBLESTONE),
 			new ItemStack(Blocks.SAND),
-			230, 23));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GRAVEL),
 			new ItemStack(Items.FLINT),
-			200, 20));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.COAL),
 				ItemDusts.getDustByName("coal"),
-				230, 27));
+			300, 2));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.COAL, 1, 1),
 				ItemDusts.getDustByName("charcoal"),
-				230, 27));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(net.minecraft.init.Items.CLAY_BALL),
 				ItemDusts.getDustByName("clay"),
-				200, 18));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GLOWSTONE),
-			ItemDusts.getDustByName("glowstone", 4), 220, 21));
+			ItemDusts.getDustByName("glowstone", 4),
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.NETHERRACK),
 			ItemDusts.getDustByName("netherrack"),
-			300, 27));
+			300, 2));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Blocks.END_STONE),
 				ItemDusts.getDustByName("endstone"),
-				300, 16));
+			300, 2));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.ENDER_EYE),
 				ItemDusts.getDustByName("ender_eye", 2),
-				200, 22));
+			300, 2));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.ENDER_PEARL),
 				ItemDusts.getDustByName("ender_pearl", 2),
-				200, 22));
+			300, 2));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Blocks.LAPIS_ORE),
 				new ItemStack(Items.DYE, 10, 4),
-				170, 19));
+			300, 2));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Blocks.OBSIDIAN),
 				ItemDusts.getDustByName("obsidian", 4),
-				170, 19));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Items.BLAZE_ROD),
 			new ItemStack(Items.BLAZE_POWDER, 4),
-			170, 19));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.MAGMA),
 			new ItemStack(Items.MAGMA_CREAM, 4),
-			170, 19));
+			300, 2));
 
 		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
 			ItemStack marbleStack = getOre("stoneMarble");
 			marbleStack.setCount(1);
 			RecipeHandler.addRecipe(new GrinderRecipe(
-					marbleStack, ItemDusts.getDustByName("marble"), 
-					120, 10));
+					marbleStack, ItemDusts.getDustByName("marble"),
+				300, 2));
 		}
 		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
 			ItemStack marbleStack = getOre("stoneBasalt");
 			marbleStack.setCount(1);
 			RecipeHandler.addRecipe(new GrinderRecipe(
-					marbleStack, ItemDusts.getDustByName("basalt"), 
-					120, 10));
+					marbleStack, ItemDusts.getDustByName("basalt"),
+				300, 2));
 		}
 
 		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreCoal", new ItemStack(Items.COAL, 2),
-			270, 31));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreDiamond", new ItemStack(Items.DIAMOND, 1),
-			270, 31));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreEmerald", new ItemStack(Items.EMERALD, 1),
-			270, 31));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreRedstone", new ItemStack(Items.REDSTONE, 8),
-			270, 31));
+			300, 2));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreQuartz", new ItemStack(Items.QUARTZ, 2),
-			270, 31));
+			300, 2));
 
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
@@ -293,7 +300,7 @@ public class ModRecipes {
 				if(data[1].equalsIgnoreCase("lapis")){
 					useOreDict = false;
 				}
-				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, ore ? 270 : 200, ore ? 31 : 22, useOreDict));
+				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, 300, 2, useOreDict));
 			}
 		}
 	}

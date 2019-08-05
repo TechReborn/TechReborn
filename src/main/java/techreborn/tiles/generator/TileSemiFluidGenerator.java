@@ -39,11 +39,11 @@ import techreborn.lib.ModInfo;
 public class TileSemiFluidGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
 	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorMaxOutput", comment = "Semifluid Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
+	public static int maxOutput = 32;
 	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorMaxEnergy", comment = "Semifluid Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1000000;
+	public static int maxEnergy = 10_000;
 	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorTankCapacity", comment = "Semifluid Generator Tank Capacity")
-	public static int tankCapacity = 10000;
+	public static int tankCapacity = 10_000;
 	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorEnergyPerTick", comment = "Semifluid Generator Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 8;
 

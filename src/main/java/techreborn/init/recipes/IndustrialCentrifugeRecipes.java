@@ -27,7 +27,9 @@ package techreborn.init.recipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+
 import reborncore.api.recipe.RecipeHandler;
+
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDynamicCell;
@@ -40,14 +42,20 @@ import java.security.InvalidParameterException;
  */
 public class IndustrialCentrifugeRecipes extends RecipeMethods {
 	public static void init() {
-		// resin -> rubber
-//		register(getOre("materialResin", 4), 1300, getMaterial("rubber", 14, Type.PART));
+		// Sap
 		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART), ItemParts.getPartByName("plantball"), ItemParts.getPartByName("compressed_plantball"));
+
+		// Rubber wood
 		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), ItemParts.getPartByName("plantball", 6), getMaterial("carbon", 4, Type.CELL), getMaterial("methane", Type.CELL));
 
+		// Dirt
+		register(getStack(Blocks.DIRT, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), ItemParts.getPartByName("plantball"), ItemParts.getPartByName("compressed_plantball"));
+
+		// Grass
+		register(getStack(Blocks.GRASS, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), ItemParts.getPartByName("plantball", 2), ItemParts.getPartByName("compressed_plantball", 2));
+
+
 		register(getStack(Items.MAGMA_CREAM), 500, getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL));
-		register(getStack(Blocks.DIRT, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2));
-		register(getStack(Blocks.GRASS, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2), getStack(Items.WHEAT_SEEDS, 4));
 		register(getStack(Blocks.MYCELIUM, 8), 1640, getStack(Blocks.SAND, 4), getStack(Items.CLAY_BALL), getStack(Blocks.BROWN_MUSHROOM, 2), getStack(Blocks.RED_MUSHROOM, 2));
 		register(getStack(Items.GOLDEN_APPLE), 5000, getStack(Items.GOLD_INGOT, 6), getMaterial("methane", Type.CELL));
 		register(getStack(Items.GOLDEN_APPLE, 1, 1), 5000, getStack(Items.GOLD_INGOT, 64), getMaterial("methane", Type.CELL));
