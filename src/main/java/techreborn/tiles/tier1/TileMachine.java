@@ -63,6 +63,8 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 		this.inputSlots = inputSlots;
 		this.outputSlots = outputSlots;
 		this.recipeHandler = recipeHandler;
+
+		checkTeir();
 	}
 	// << Constructors
 
