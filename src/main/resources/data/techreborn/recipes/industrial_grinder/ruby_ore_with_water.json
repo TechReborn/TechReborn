@@ -1,0 +1,27 @@
+{
+	"type": "techreborn:industrial_grinder",
+	"power": 64,
+	"time": 100,
+	"tank": {
+		"fluid": "minecraft:water",
+		"amount": 1000
+	},
+	"ingredients": [
+		{
+			"item": "techreborn:ruby_ore"
+		}
+	],
+	"results": [
+		{
+			"item": "techreborn:ruby_gem"
+		},
+		{
+			"item": "techreborn:ruby_small_dust",
+			"count": 6
+		},
+		{
+			"item": "techreborn:red_garnet_small_dust",
+			"count": 2
+		}
+	]
+}
