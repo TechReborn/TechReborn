@@ -220,6 +220,21 @@
         "textures": {
           "layer0": "techreborn:items/part/processor_circuit_board"
         }
+      },
+      "plantball": {
+        "textures": {
+          "layer0": "techreborn:items/part/plantball"
+        }
+      },
+      "compressed_plantball": {
+        "textures": {
+          "layer0": "techreborn:items/part/compressed_plantball"
+        }
+      },
+      "bio_cell": {
+        "textures": {
+          "layer0": "techreborn:items/part/bio_cell"
+        }
       }
     }
   }

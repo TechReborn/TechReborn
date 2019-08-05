@@ -144,8 +144,7 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getMaterial("advanced", 1, Type.MACHINE_CASING), "RRR", "CAC", "RRR", 'R',  "plateChrome", 'C', "circuitElite", 'A', getMaterial("reinforced", Type.MACHINE_CASING));		
 		registerShaped(getStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateIron", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
 		registerShaped(getStack(ModBlocks.SEMI_FLUID_GENERATOR), "III", "IHI", "CGC", 'I', "plateAluminum", 'H', "glassReinforced", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "ingotRefinedIron", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
-		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateAluminum", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
+
 		registerShaped(getStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateInvar", 'A', "circuitAdvanced", 'W', getStack(ModBlocks.WIND_MILL), 'G', "glassReinforced");
 		registerShaped(getStack(ModBlocks.GAS_TURBINE), "IAI", "WGW", "IAI", 'I', "plateAluminum", 'A', "circuitAdvanced", 'W', getStack(ModBlocks.WIND_MILL), 'G', "glassReinforced");
 		registerShaped(getStack(ModBlocks.THERMAL_GENERATOR), "III", "IRI", "CGC", 'I', "plateInvar", 'R', "glassReinforced", 'G', getStack(IC2Duplicates.GENERATOR), 'C', "circuitBasic");
@@ -207,6 +206,14 @@ public class CraftingTableRecipes extends RecipeMethods {
 		registerShaped(getStack(ModBlocks.SOLAR_PANEL, 1, 4), "SSS", "STS", "SSS", 'S', getStack(ModBlocks.SOLAR_PANEL, 1, 3), 'T', getStack(ModBlocks.EV_TRANSFORMER));
 		// << Solar Panels
 
+		// Fluid Generators >>
+		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateRefinedIron", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
+		registerShaped(getStack(ModBlocks.DIESEL_GENERATOR), "III", "I I", "CGC", 'I', "plateAluminum", 'C', "circuitBasic", 'G', getStack(IC2Duplicates.GENERATOR));
+		// << Fluid Generators
+
+		// Tier 1 Machines >>
+		registerShaped(getStack(ModBlocks.SOLID_CANNING_MACHINE), "TCT", "TBT", "TTT", 'T', "ingotTin", 'C', "circuitBasic", 'B', "machineBlockBasic");
+		// << Tier 1 Machines
 
 		registerShaped(getStack(ModBlocks.ALARM, 1, 0), "ICI", "SRS", "ICI", 'I', "ingotIron", 'C', getMaterial("copper", Type.CABLE), 'S', IC2Duplicates.CABLE_ICOPPER.getStackBasedOnConfig(), 'R', "blockRedstone" );
 		registerShaped(getStack(ModBlocks.FLUID_REPLICATOR), "PCP", "CFC", "ESR", 'P', "plateTungstensteel", 'F', "machineBlockElite", 'C', "circuitMaster", 'E', getStack(ModBlocks.INDUSTRIAL_ELECTROLYZER), 'S', "craftingSuperconductor",'R', getStack(ModBlocks.CHEMICAL_REACTOR));

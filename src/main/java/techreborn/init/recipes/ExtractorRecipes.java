@@ -33,6 +33,7 @@ import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.ExtractorRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDynamicCell;
+import techreborn.items.ingredients.ItemParts;
 
 /**
  * Created by Prospector
@@ -67,6 +68,9 @@ public class ExtractorRecipes extends RecipeMethods {
 		for (Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
 			register(ItemDynamicCell.getCellWithFluid(fluid), ItemDynamicCell.getEmptyCell(1), false);
 		}
+
+		// Bio Fuel
+		register(ItemParts.getPartByName("bio_cell"), RecipeMethods.getMaterial("biofuel", 1, RecipeMethods.Type.CELL));
 	}
 
 	static void register(ItemStack input, ItemStack output) {

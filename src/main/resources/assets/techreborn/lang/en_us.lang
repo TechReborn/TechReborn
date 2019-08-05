@@ -186,6 +186,7 @@ tile.techreborn.sulfur.name=Sulfur
 tile.techreborn.sulfuricacid.name=Sulfuric Acid
 tile.techreborn.tritium.name=Tritium
 tile.techreborn.wolframium.name=Wolframium
+tile.techreborn.biofuel.name=Biofuel
 
 #Fluids
 fluid.fluidberylium=Beryllium
@@ -222,6 +223,7 @@ fluid.fluidSulfur=Sulfur
 fluid.fluidsulfuricacid=Sulfuric Acid
 fluid.fluidtritium=Tritium
 fluid.fluidwolframium=Wolframium
+fluid.fluidbiofuel=Biofuel
 
 #Dusts
 item.techreborn.dust.almandine.name=Almandine Dust
@@ -497,6 +499,9 @@ item.techreborn.part.carbon_mesh.name=Carbon Mesh
 item.techreborn.part.carbon_fiber.name=Carbon Fiber
 item.techreborn.part.uuMatter.name=UU-Matter
 item.techreborn.part.enhanced_super_conductor.name=Enhanced Superconductor
+item.techreborn.part.plantball.name=Plantball
+item.techreborn.part.compressed_plantball.name=Compressed Plantball
+item.techreborn.part.bio_cell.name=Bio Cell
 
 #Items-Armor
 item.techreborn.cloakingdevice.name=Cloaking Device

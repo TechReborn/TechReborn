@@ -51,7 +51,7 @@ public class ItemParts extends ItemTR implements IBlastFurnaceCoil {
 		"quad_plutonium_cell", "computer_monitor", "machine_parts", "neutron_reflector", ModItems.META_PLACEHOLDER,
 		"thick_neutron_reflector", "electronic_circuit", "advanced_circuit", "sap", "rubber", "scrap",
 		"carbon_mesh", "carbon_fiber", "coolant_simple", "coolant_triple", "coolant_six", "enhanced_super_conductor", "basic_circuit_board",
-		"advanced_circuit_board", "advanced_circuit_parts", "processor_circuit_board" };
+		"advanced_circuit_board", "advanced_circuit_parts", "processor_circuit_board", "plantball", "compressed_plantball", "bio_cell" };
 
 	public ItemParts() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);

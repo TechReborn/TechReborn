@@ -26,12 +26,15 @@ package techreborn.init.recipes;
 
 import java.security.InvalidParameterException;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.OreUtil;
 import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.init.IC2Duplicates;
 import techreborn.items.ingredients.ItemIngots;
+import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
 
 /**
@@ -51,6 +54,21 @@ public class CompressorRecipes extends RecipeMethods {
 		register(OreUtil.getStackFromName("blockYellowGarnet"), ItemPlates.getPlateByName("YellowGarnet", 9));
 		register(OreUtil.getStackFromName("dustRedGarnet"), ItemPlates.getPlateByName("RedGarnet"));
 		register(OreUtil.getStackFromName("blockRedGarnet"), ItemPlates.getPlateByName("RedGarnet", 9));
+
+		// Compressed Plantball >>
+		register(ItemParts.getPartByName("plantball"), ItemParts.getPartByName("compressed_plantball"));
+		register(OreUtil.getStackFromName("treeLeaves", 8), ItemParts.getPartByName("compressed_plantball"));
+		register(OreUtil.getStackFromName("treeSapling", 4), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Items.REEDS, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Blocks.CACTUS, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Items.WHEAT, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Items.CARROT, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Items.POTATO, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Items.APPLE, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Items.MELON, 64), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Blocks.PUMPKIN, 8), ItemParts.getPartByName("compressed_plantball"));
+		register(new ItemStack(Blocks.MELON_BLOCK, 8), ItemParts.getPartByName("compressed_plantball"));
+		// << Compressed Plantball
 
 		ItemStack plate;
 		for (String ore : OreUtil.oreNames) {
@@ -77,7 +95,7 @@ public class CompressorRecipes extends RecipeMethods {
 	}
 	
 	static void register(Object input, ItemStack output) {
-		register(input,  output, 300, 4);
+		register(input,  output, 400, 2);
 	}
 
 	static void register(Object input, ItemStack output, int tickTime, int euPerTick) {

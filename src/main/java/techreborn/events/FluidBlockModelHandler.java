@@ -83,6 +83,7 @@ public class FluidBlockModelHandler {
 		registerFluidBlockModel(ModFluids.BLOCK_SULFURIC_ACID);
 		registerFluidBlockModel(ModFluids.BLOCK_COMPRESSED_AIR);
 		registerFluidBlockModel(ModFluids.BLOCK_ELECTROLYZED_WATER);
+		registerFluidBlockModel(ModFluids.BLOCK_BIO_FUEL);
 	}
 
 	private static void registerFluidBlockModel(BlockFluidTechReborn block) {

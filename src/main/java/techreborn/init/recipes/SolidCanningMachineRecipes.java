@@ -27,6 +27,7 @@ package techreborn.init.recipes;
 import reborncore.api.praescriptum.recipes.RecipeHandler;
 
 import techreborn.api.recipe.Recipes;
+import techreborn.items.ItemDynamicCell;
 import techreborn.items.ingredients.ItemParts;
 
 /**
@@ -37,11 +38,11 @@ public class SolidCanningMachineRecipes {
 		Recipes.solidCanningMachine = new RecipeHandler();
 
 		Recipes.solidCanningMachine.createRecipe()
-			.withInput("plateRefinedIron")
-			.withInput("plateElectrum", 2)
-			.withOutput(ItemParts.getPartByName("basic_circuit_board", 2))
+			.withInput(ItemDynamicCell.getEmptyCell(1))
+			.withInput(ItemParts.getPartByName("compressed_plantball"))
+			.withOutput(ItemParts.getPartByName("bio_cell"))
 			.withEnergyCostPerTick(1)
-			.withOperationDuration(800)
+			.withOperationDuration(100)
 			.register();
 	}
 }

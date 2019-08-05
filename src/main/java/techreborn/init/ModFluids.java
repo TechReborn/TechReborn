@@ -137,6 +137,9 @@ public class ModFluids {
 	public static Fluid ELECTROLYZED_WATER = new TechRebornFluid("fluidelectrolyzedwater");
 	public static BlockFluidTechReborn BLOCK_ELECTROLYZED_WATER;
 
+	public static Fluid BIO_FUEL = new TechRebornFluid("fluidbiofuel");
+	public static BlockFluidTechReborn BLOCK_BIO_FUEL;
+
 	public static void init() {
 		FluidRegistry.registerFluid(BERYLLIUM);
 		BLOCK_BERYLLIUM = new BlockFluidTechReborn(BERYLLIUM, Material.WATER, "techreborn.berylium");
@@ -312,6 +315,11 @@ public class ModFluids {
 		BLOCK_ELECTROLYZED_WATER = new BlockFluidTechReborn(ELECTROLYZED_WATER, Material.WATER, "techreborn.electrolyzedwater");
 		registerBlock(BLOCK_ELECTROLYZED_WATER,
 			ModInfo.MOD_ID + "_" + BLOCK_ELECTROLYZED_WATER.getUnlocalizedName().substring(5));
+
+		FluidRegistry.registerFluid(BIO_FUEL);
+		BLOCK_BIO_FUEL = new BlockFluidTechReborn(BIO_FUEL, Material.WATER, "techreborn.biofuel");
+		registerBlock(BLOCK_BIO_FUEL,
+			ModInfo.MOD_ID + "_" + BLOCK_BIO_FUEL.getUnlocalizedName().substring(5));
 	}
 
 	public static void registerBlock(Block block, String name) {

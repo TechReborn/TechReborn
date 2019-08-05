@@ -39,9 +39,9 @@ import techreborn.lib.ModInfo;
 public class TileDieselGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
 	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
+	public static int maxOutput = 32;
 	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000_000;
+	public static int maxEnergy = 10_000;
 	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
 	public static int tankCapacity = 10_000;
 	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")

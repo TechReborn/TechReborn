@@ -31,6 +31,7 @@ import reborncore.api.praescriptum.recipes.RecipeHandler;
 
 import techreborn.api.recipe.Recipes;
 import techreborn.init.IC2Duplicates;
+import techreborn.init.ModBlocks;
 import techreborn.items.ingredients.ItemParts;
 
 /**
@@ -176,6 +177,32 @@ public class AssemblingMachineRecipes {
 			.withOutput(ItemParts.getPartByName("data_orb"))
 			.withEnergyCostPerTick(16)
 			.withOperationDuration(12800)
+			.register();
+
+		// Wind Mill
+		Recipes.assemblingMachine.createRecipe()
+			.withInput(RecipeMethods.getStack(IC2Duplicates.GENERATOR))
+			.withInput("plateCarbon", 4)
+			.withOutput(RecipeMethods.getStack(ModBlocks.WIND_MILL))
+			.withEnergyCostPerTick(8)
+			.withOperationDuration(6400)
+			.register();
+
+		Recipes.assemblingMachine.createRecipe()
+			.withInput(RecipeMethods.getStack(IC2Duplicates.GENERATOR))
+			.withInput("plateMagnalium", 2)
+			.withOutput(RecipeMethods.getStack(ModBlocks.WIND_MILL))
+			.withEnergyCostPerTick(8)
+			.withOperationDuration(6400)
+			.register();
+
+		// Water Mill
+		Recipes.assemblingMachine.createRecipe()
+			.withInput(RecipeMethods.getStack(IC2Duplicates.GENERATOR))
+			.withInput("plateAluminum", 4)
+			.withOutput(RecipeMethods.getStack(ModBlocks.WATER_MILL, 2))
+			.withEnergyCostPerTick(8)
+			.withOperationDuration(6400)
 			.register();
 	}
 }

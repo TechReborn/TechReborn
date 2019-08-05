@@ -31,6 +31,7 @@ import reborncore.api.recipe.RecipeHandler;
 import techreborn.api.recipe.machines.CentrifugeRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDynamicCell;
+import techreborn.items.ingredients.ItemParts;
 
 import java.security.InvalidParameterException;
 
@@ -41,8 +42,8 @@ public class IndustrialCentrifugeRecipes extends RecipeMethods {
 	public static void init() {
 		// resin -> rubber
 //		register(getOre("materialResin", 4), 1300, getMaterial("rubber", 14, Type.PART));
-		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART));
-		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), getMaterial("methane", Type.CELL), getMaterial("carbon", 4, Type.CELL));
+		register(getMaterial("sap", 4, Type.PART), 1300, getMaterial("rubber", 14, Type.PART), ItemParts.getPartByName("plantball"), ItemParts.getPartByName("compressed_plantball"));
+		register(getStack(ModBlocks.RUBBER_LOG, 16), 5000, false, getMaterial("sap", 8, Type.PART), ItemParts.getPartByName("plantball", 6), getMaterial("carbon", 4, Type.CELL), getMaterial("methane", Type.CELL));
 
 		register(getStack(Items.MAGMA_CREAM), 500, getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL));
 		register(getStack(Blocks.DIRT, 16), 2500, getStack(Blocks.SAND, 8), getStack(Items.CLAY_BALL), getStack(Blocks.GRAVEL, 2));

@@ -204,6 +204,12 @@
       "custom": {
         "fluid": "fluidwolframium"
       }
+    },
+    "techreborn.biofuel": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "fluidbiofuel"
+      }
     }
   }
 }

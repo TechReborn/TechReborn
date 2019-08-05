@@ -43,6 +43,7 @@ public class FluidGeneratorRecipes extends RecipeMethods {
 		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM, 30);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM, 60);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL, 16);
+		register(EFluidGenerator.SEMIFLUID, ModFluids.BIO_FUEL, 6);
 
 		register(EFluidGenerator.THERMAL, FluidRegistry.LAVA, 60);
 
