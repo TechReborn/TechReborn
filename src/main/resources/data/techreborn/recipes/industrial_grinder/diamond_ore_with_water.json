@@ -8,19 +8,19 @@
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:iron_ore"
+			"item": "minecraft:diamond_ore"
 		}
 	],
 	"results": [
 		{
-			"item": "techreborn:iron_dust",
-			"count": 2
+			"item": "minecraft:diamond"
 		},
 		{
-			"item": "techreborn:tin_small_dust"
+			"item": "techreborn:diamond_small_dust",
+			"count": 6
 		},
 		{
-			"item": "techreborn:nickel_small_dust"
+			"item": "techreborn:coal_dust"
 		}
 	]
 }

@@ -8,19 +8,17 @@
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:iron_ore"
+			"item": "minecraft:lapis_ore"
 		}
 	],
 	"results": [
 		{
-			"item": "techreborn:iron_dust",
-			"count": 2
+			"item": "minecraft:lapis_lazuli",
+			"count": 12
 		},
 		{
-			"item": "techreborn:tin_small_dust"
-		},
-		{
-			"item": "techreborn:nickel_small_dust"
+			"item": "techreborn:lazurite_dust",
+			"count": 3
 		}
 	]
 }

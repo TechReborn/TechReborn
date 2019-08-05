@@ -3,24 +3,24 @@
 	"power": 64,
 	"time": 100,
 	"tank": {
-		"fluid": "minecraft:water",
+		"fluid": "techreborn:sodiumpersulfate",
 		"amount": 1000
 	},
 	"ingredients": [
 		{
-			"item": "minecraft:iron_ore"
+			"item": "minecraft:gold_ore"
 		}
 	],
 	"results": [
 		{
-			"item": "techreborn:iron_dust",
+			"item": "techreborn:gold_dust",
 			"count": 2
 		},
 		{
-			"item": "techreborn:tin_small_dust"
+			"item": "techreborn:copper_dust"
 		},
 		{
-			"item": "techreborn:nickel_small_dust"
+			"item": "techreborn:nickel_dust"
 		}
 	]
 }

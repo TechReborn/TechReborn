@@ -29,33 +29,16 @@ package techreborn.init.recipes;
  */
 public class IndustrialGrinderRecipes extends RecipeMethods {
 
-	/* TODO 1.13 :D
+//	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
+//	static FluidStack MERCURY = new FluidStack(ModFluids.MERCURY, 1000);
+//	static FluidStack SODIUM_PERSULFATE = new FluidStack(ModFluids.SODIUMPERSULFATE, 1000);
+//
+//	public static void init() {
+//
+//			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 3));
+//			register(getOre("oreCoal"), MERCURY, 100, 64, getStack(Items.COAL, 4));
 
-	static FluidStack WATER = new FluidStack(FluidRegistry.WATER, 1000);
-	static FluidStack MERCURY = new FluidStack(ModFluids.MERCURY, 1000);
-	static FluidStack SODIUM_PERSULFATE = new FluidStack(ModFluids.SODIUMPERSULFATE, 1000);
 
-	public static void init() {
-		//Vanilla ores
-		if (oresExist("dustSmallThorium")) {
-			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 2), getOre("dustSmallThorium"));
-		} else {
-			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 3));
-			register(getOre("oreCoal"), MERCURY, 100, 64, getStack(Items.COAL, 4));
-		}
-
-//		TODO: Fix recipe
-//		register(getOre("oreIron"), WATER, 100, 64, getMaterial("iron", 2, Type.DUST), getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", 1, Type.DUST));
-		
-//		register(getOre("oreGold"), WATER, 100, 64, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-//		register(getOre("oreGold"), MERCURY, 100, 64, getMaterial("gold", 3, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-//		register(getOre("oreGold"), SODIUM_PERSULFATE, 100, 64, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.DUST), getMaterial("nickel", Type.SMALL_DUST));
-		
-//		register(getOre("oreLapis"), WATER, 100, 64, getStack(Items.DYE, 12, 4), getMaterial("lazurite", 3, Type.DUST));
-		
-//		register(getOre("oreRedstone"), WATER, 100, 64, getStack(Items.REDSTONE, 10), getMaterial("glowstone", 2, Type.SMALL_DUST));
-
-//		register(getOre("oreDiamond"), WATER, 100, 64, getStack(Items.DIAMOND), getMaterial("diamond", 6, Type.SMALL_DUST), getMaterial("coal", Type.DUST));
 //
 //		register(getOre("oreEmerald"), WATER, 100, 64, getStack(Items.EMERALD), getMaterial("emerald", 6, Type.SMALL_DUST));
 
@@ -79,19 +62,6 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 //		register(getOre("oreIridium"), WATER, 100, 64, getMaterial("iridium", Type.INGOT), getMaterial("platinum", 2, Type.SMALL_DUST));
 //		register(getOre("oreIridium"), MERCURY, 100, 64, getMaterial("iridium", Type.INGOT), getMaterial("platinum", Type.DUST));
 
-		if (oresExist("oreUranium", "dustUranium", "smallDustPlutonium")) {
-			register(getOre("oreUranium"), WATER, 100, 64, getOre("dustUranium", 2), getOre("smallDustPlutonium"));
-		}
-		
-		if (oresExist("oreUranium", "uran238", "smallUran235")) {
-			register(getOre("oreUranium"), WATER, 100, 64, getOre("uran238", 8), getOre("smallUran235", 2));
-		}
-
-		if (oresExist("orePitchblende", "uran238", "uran235")) {
-			register(getOre("orePitchblende"), WATER, 100, 64, getOre("uran238", 8), getOre("smallUran235", 2));
-		}
-
-
 		
 //		register(getOre("oreQuartz"), WATER, 100, 64, getStack(Items.QUARTZ, 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
 		
@@ -113,72 +83,6 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		
 //		register(getOre("oreSodalite"), WATER, 100, 64, getMaterial("sodalite", 12, Type.DUST), getMaterial("aluminum", 3, Type.DUST));
 
-		if (oresExist("oreApatite", "gemApatite")) {
-			register(getOre("oreApatite"), WATER, 100, 64, getOre("gemApatite", 8), getMaterial("phosphorous", 2, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreCertusQuartz", "crystalCertusQuartz", "dustCertusQuartz")) {
-			register(getOre("oreCertusQuartz"), WATER, 100, 64, getOre("crystalCertusQuartz", 2), getOre("dustCertusQuartz"));
-		}
-
-		if (oresExist("oreChargedCertusQuartz", "crystalChargedCertusQuartz", "dustCertusQuartz")) {
-			register(getOre("oreChargedCertusQuartz"), WATER, 100, 64, getOre("crystalChargedCertusQuartz", 2), getOre("dustCertusQuartz", 2));
-		}
-
-		if (oresExist("oreNickel")) {
-//			register(getOre("oreNickel"), WATER, 100, 64, getMaterial("nickel", 2, Type.DUST), getMaterial("iron", Type.SMALL_DUST), getMaterial("platinum", Type.SMALL_DUST));
-//			register(getOre("oreNickel"), MERCURY, 100, 64, getMaterial("nickel", 3, Type.DUST), getMaterial("iron", Type.SMALL_DUST), getMaterial("platinum", Type.DUST));
-//			register(getOre("oreNickel"), SODIUM_PERSULFATE, 100, 64, getMaterial("nickel", 3, Type.DUST), getMaterial("iron", Type.SMALL_DUST), getMaterial("platinum", Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreZinc")) {
-//			register(getOre("oreZinc"), WATER, 100, 64, getMaterial("zinc", 2, Type.DUST), getMaterial("iron", 2, Type.SMALL_DUST), getMaterial("tin", Type.SMALL_DUST));
-//			register(getOre("oreZinc"), SODIUM_PERSULFATE, 100, 64, getMaterial("zinc", 2, Type.DUST), getMaterial("iron", Type.DUST), getMaterial("tin", Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreAmethyst", "gemAmethyst")) {
-			register(getOre("oreAmethyst"), WATER, 100, 64, getOre("gemAmethyst", 2));
-		}
-
-		if (oresExist("oreTopaz", "gemTopaz")) {
-			register(getOre("oreTopaz"), WATER, 100, 64, getOre("gemTopaz", 2));
-		}
-
-		if (oresExist("oreTanzanite", "gemTanzanite")) {
-			register(getOre("oreTanzanite"), WATER, 100, 64, getOre("gemTanzanite", 2));
-		}
-
-		if (oresExist("oreMalachite", "gemMalachite")) {
-			register(getOre("oreMalachite"), WATER, 100, 64, getOre("gemMalachite", 2));
-		}
-
-		if (oresExist("oreAluminum")) {
-//			register(getOre("oreAluminum"), WATER, 100, 64, getMaterial("aluminum", 2, Type.DUST), getMaterial("bauxite", 2, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreArdite", "dustArdite")) {
-			register(getOre("oreArdite"), WATER, 100, 64, getOre("dustArdite", 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreCobalt", "dustCobalt")) {
-			register(getOre("oreCobalt"), WATER, 100, 64, getOre("dustCobalt", 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreOsmium", "dustOsmium")) {
-			register(getOre("oreOsmium"), WATER, 100, 64, getOre("dustOsmium", 2), getMaterial("platinum", 2, Type.SMALL_DUST), getMaterial("iron", 1, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreTeslatite", "dustTeslatite")) {
-			register(getOre("oreTeslatite"), WATER, 100, 64, getOre("dustTeslatite", 2), getMaterial("redstone", 3, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreSulfur")) {
-//			register(getOre("oreSulfur"), WATER, 100, 64, getMaterial("sulfur", 2, Type.DUST), getMaterial("sulfur", Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreSaltpeter")) {
-//			register(getOre("oreSaltpeter"), WATER, 100, 64, getMaterial("saltpeter", 2, Type.DUST), getMaterial("saltpeter", Type.SMALL_DUST));
-		}
 
 //		register(getStack(Blocks.NETHERRACK, 16), WATER, 1600, 64, getMaterial("netherrack", 16, Type.DUST), getStack(Items.GOLD_NUGGET));
 //		register(getStack(Blocks.NETHERRACK, 8), MERCURY, 800, 64, getMaterial("netherrack", 8, Type.DUST), getStack(Items.GOLD_NUGGET));
