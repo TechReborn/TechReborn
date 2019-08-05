@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:fluid_replicator",
+  "power": 20,
+  "time": 100,
+  "ingredients": [
+    {
+      "item": "techreborn:uu_matter",
+      "count": 2
+    }
+  ],
+  "results": [
+    {
+      "fluid": "techreborn:compressedair"
+    }
+  ]
+}

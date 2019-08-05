@@ -33,9 +33,7 @@ public class FluidReplicatorRecipes {
 	/* TODO 1.13 :D
 
 	public static void init() {
-		register(1, FluidRegistry.WATER, 40, 2);
-		register(1, FluidRegistry.LAVA, 80, 2);
-		register(2, ModFluids.COMPRESSED_AIR, 100, 20);
+
 		register(2, ModFluids.CARBON, 100, 20);
 		register(2, ModFluids.CALCIUM, 100, 20);
 		register(2, ModFluids.CARBON_FIBER, 100, 20);
