@@ -41,6 +41,8 @@ import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.client.GuiHandler;
 import techreborn.events.ModRegistry;
 import techreborn.init.*;
+import techreborn.init.recipes.FluidGeneratorRecipes;
+import techreborn.init.recipes.FusionReactorRecipes;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.BehaviorDispenseScrapbox;
@@ -71,28 +73,11 @@ public class TechReborn implements ModInitializer {
 		ModRegistry.setupShit();
 		RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
 		ModLoot.init();
-
-		// WorldGen
 		WorldGenerator.initBiomeFeatures();
-
-		// WorldGen
-		// GameRegistry.registerWorldGenerator(new OilLakeGenerator(), 0);
-		// Register Gui Handler
-		// Event busses
-//		MinecraftForge.EVENT_BUS.register(new BlockBreakHandler());
-//		MinecraftForge.EVENT_BUS.register(new TRRecipeHandler());
-//		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-//		MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
-//		MinecraftForge.EVENT_BUS.register(new TRTickHandler());
-
 		GuiHandler.register();
+		FluidGeneratorRecipes.init();
+		FusionReactorRecipes.init();
 
-		// Village stuff
-//		if (ConfigTechReborn.enableRubberTreePlantation) {
-//			VillagerRegistry.instance().registerVillageCreationHandler(new VillagePlantaionHandler());
-//			//MapGenStructureIO.registerStructureComponent(VillageComponentRubberPlantaion.class, new ResourceLocation(MOD_ID, "rubberplantation").toString());
-//			ModLootTables.CHESTS_RUBBER_PLANTATION.toString(); //Done to make it load, then it will be read from disk
-//		}
 
 		// Scrapbox
 		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {

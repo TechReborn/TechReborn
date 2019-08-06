@@ -1,0 +1,29 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 50,
+  "time": 400,
+  "ingredients": [
+    {
+      "item": "techreborn:sapphire_dust",
+      "count": 8
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 3,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:aluminum_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 3,
+      "tag": {
+        "fluid": "techreborn:compressedair"
+      }
+    }
+  ]
+}

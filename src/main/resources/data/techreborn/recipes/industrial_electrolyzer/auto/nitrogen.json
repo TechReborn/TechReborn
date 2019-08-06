@@ -1,0 +1,45 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 50,
+  "time": 1300,
+  "ingredients": [
+    {
+      "item": "techreborn:ender_pearl_dust",
+      "count": 16
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 16,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 5,
+      "tag": {
+        "fluid": "techreborn:nitrogen"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:berylium"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 4,
+      "tag": {
+        "fluid": "techreborn:potassium"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 6,
+      "tag": {
+        "fluid": "techreborn:chlorite"
+      }
+    }
+  ]
+}

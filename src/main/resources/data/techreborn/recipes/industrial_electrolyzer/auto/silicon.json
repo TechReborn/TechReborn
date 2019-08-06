@@ -1,0 +1,30 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 5,
+  "time": 1000,
+  "ingredients": [
+    {
+      "item": "techreborn:flint_dust",
+      "count": 8
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:silicon"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:compressedair"
+      }
+    }
+  ]
+}

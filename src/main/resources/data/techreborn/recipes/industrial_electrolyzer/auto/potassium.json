@@ -1,0 +1,39 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 110,
+  "time": 40,
+  "ingredients": [
+    {
+      "item": "techreborn:saltpeter_dust",
+      "count": 10
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 7,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "tag": {
+        "fluid": "techreborn:potassium"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "tag": {
+        "fluid": "techreborn:nitrogen"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 3,
+      "tag": {
+        "fluid": "techreborn:compressedair"
+      }
+    }
+  ]
+}

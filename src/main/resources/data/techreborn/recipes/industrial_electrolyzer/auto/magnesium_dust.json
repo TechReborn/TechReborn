@@ -1,0 +1,39 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 60,
+  "time": 600,
+  "ingredients": [
+    {
+      "item": "techreborn:peridot_dust",
+      "count": 9
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 3,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:magnesium_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:iron_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:silicon"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "tag": {
+        "fluid": "techreborn:compressedair"
+      }
+    }
+  ]
+}

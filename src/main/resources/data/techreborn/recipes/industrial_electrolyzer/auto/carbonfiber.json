@@ -1,0 +1,23 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 50,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:ashes_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:cell",
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:carbonfiber"
+      }
+    }
+  ]
+}

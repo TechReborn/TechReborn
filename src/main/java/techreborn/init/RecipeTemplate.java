@@ -26,6 +26,7 @@ package techreborn.init;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.JsonOps;
@@ -39,6 +40,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.text.LiteralText;
@@ -264,8 +266,13 @@ public class RecipeTemplate {
 						jsonObject.addProperty("count", stack.getCount());
 					}
 					if(stack.getItem() instanceof ItemDynamicCell){
-						//Force it to be an empty cell
-						jsonObject.addProperty("nbt", "null");
+						if(((ItemDynamicCell) stack.getItem()).getFluid(stack) == Fluids.EMPTY){
+							jsonObject.addProperty("nbt", "empty");
+						} else {
+							JsonElement jsonElement = Dynamic.convert(NbtOps.INSTANCE, JsonOps.INSTANCE, stack.getTag());
+							jsonObject.add("nbt", jsonElement);
+						}
+
 					}
 				}
 				return jsonObject;

@@ -1,0 +1,40 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 128,
+  "time": 2000,
+  "ingredients": [
+    {
+      "item": "techreborn:bauxite_dust",
+      "count": 12
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 8,
+      "nbt": "empty"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:aluminum_dust",
+      "count": 8
+    },
+    {
+      "item": "techreborn:titanium_small_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 5,
+      "tag": {
+        "fluid": "techreborn:hydrogen"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 3,
+      "tag": {
+        "fluid": "techreborn:compressedair"
+      }
+    }
+  ]
+}

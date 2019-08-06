@@ -1,0 +1,37 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 100,
+  "time": 40,
+  "ingredients": [
+    {
+      "fluid": "techreborn:sulfuricacid",
+      "holder": "techreborn:cell"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "tag": {
+        "fluid": "techreborn:hydrogen"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:sulfur"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "tag": {
+        "fluid": "techreborn:compressedair"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2
+    }
+  ]
+}

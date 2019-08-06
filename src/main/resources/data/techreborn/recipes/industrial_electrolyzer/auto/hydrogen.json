@@ -1,0 +1,26 @@
+{
+  "type": "techreborn:industrial_electrolyzer",
+  "power": 50,
+  "time": 140,
+  "ingredients": [
+    {
+      "fluid": "techreborn:methane",
+      "holder": "techreborn:cell"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 4,
+      "tag": {
+        "fluid": "techreborn:hydrogen"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "techreborn:carbon"
+      }
+    }
+  ]
+}
