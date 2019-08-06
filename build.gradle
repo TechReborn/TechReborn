@@ -103,6 +103,7 @@ dependencies {
 
 	include rcVersion
 
+	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 }
 
