@@ -53,7 +53,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 
 	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
 		super(blockEntityType);
-		inventory = new RebornInventory<>(invSize, name + "BlockEntity", 64, this).withConfiguredAccess();
+		inventory = new RebornInventory<>(invSize, name + "BlockEntity", 64, this);
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
 		this.name = name;

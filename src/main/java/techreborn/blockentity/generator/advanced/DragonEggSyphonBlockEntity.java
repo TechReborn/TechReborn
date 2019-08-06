@@ -51,7 +51,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
 	public static int energyPerTick = 4;
 
-	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this);
 	private long lastOutput = 0;
 
 	public DragonEggSyphonBlockEntity() {

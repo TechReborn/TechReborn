@@ -50,7 +50,7 @@ public class AssemblingMachineBlockEntity extends GenericMachineBlockEntity impl
 		super(TRBlockEntities.ASSEMBLY_MACHINE, "AssemblingMachine", maxInput, maxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
-		this.inventory = new RebornInventory<>(4, "AssemblingMachineBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(4, "AssemblingMachineBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.ASSEMBLING_MACHINE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	

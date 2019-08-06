@@ -80,7 +80,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	public FusionControlComputerBlockEntity() {
 		super(TRBlockEntities.FUSION_CONTROL_COMPUTER);
 		checkOverfill = false;
-		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
 
 	/**

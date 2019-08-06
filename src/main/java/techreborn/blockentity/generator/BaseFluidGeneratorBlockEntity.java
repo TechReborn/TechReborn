@@ -63,7 +63,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		super(blockEntityType);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		tank = new Tank(blockEntityName, tankCapacity, this);
-		inventory = new RebornInventory<>(3, blockEntityName, 64, this).withConfiguredAccess();
+		inventory = new RebornInventory<>(3, blockEntityName, 64, this);
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
 	}

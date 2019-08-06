@@ -50,7 +50,7 @@ public class ExtractorBlockEntity extends GenericMachineBlockEntity implements I
 		super(TRBlockEntities.EXTRACTOR, "Extractor", maxInput, maxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
-		this.inventory = new RebornInventory<>(3, "ExtractorBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(3, "ExtractorBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.EXTRACTOR, this, 2, 1, this.inventory, inputs, outputs);
 	}
 	

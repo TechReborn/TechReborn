@@ -50,7 +50,7 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
 	public static float wrenchDropRate = 1.0F;
 
-	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(1, "ChunkLoaderBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(1, "ChunkLoaderBlockEntity", 64, this);
 
 	public boolean isRunning;
 	public int tickTime;

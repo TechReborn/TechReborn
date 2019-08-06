@@ -49,7 +49,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
-	public RebornInventory<AdjustableSUBlockEntity> inventory = new RebornInventory<>(4, "AdjustableSUBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<AdjustableSUBlockEntity> inventory = new RebornInventory<>(4, "AdjustableSUBlockEntity", 64, this);
 	private int OUTPUT = 64; // The current output
 	public int superconductors = 0;
 

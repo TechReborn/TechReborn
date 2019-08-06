@@ -61,7 +61,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		super(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, "IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
-		this.inventory = new RebornInventory<>(5, "IndustrialBlastFurnaceBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(5, "IndustrialBlastFurnaceBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.BLAST_FURNACE, this, 2, 2, this.inventory, inputs, outputs);
 	}
 	

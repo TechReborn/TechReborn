@@ -51,7 +51,7 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	public int tickTime;
-	public RebornInventory<IronAlloyFurnaceBlockEntity> inventory = new RebornInventory<>(4, "IronAlloyFurnaceBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<IronAlloyFurnaceBlockEntity> inventory = new RebornInventory<>(4, "IronAlloyFurnaceBlockEntity", 64, this);
 	public int burnTime;
 	public int currentItemBurnTime;
 	public int cookTime;

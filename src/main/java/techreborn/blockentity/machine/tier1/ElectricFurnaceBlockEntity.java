@@ -53,7 +53,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int maxEnergy = 1000;
 
-	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
 	public int progress;
 	public int fuelScale = 100;
 	public int cost = 6;

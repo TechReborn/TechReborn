@@ -50,7 +50,7 @@ public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implem
 		super(TRBlockEntities.CHEMICAL_REACTOR, "ChemicalReactor", maxInput, maxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
-		this.inventory = new RebornInventory<>(4, "ChemicalReactorBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(4, "ChemicalReactorBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.CHEMICAL_REACTOR, this, 2, 2, this.inventory, inputs, outputs);
 	}
 

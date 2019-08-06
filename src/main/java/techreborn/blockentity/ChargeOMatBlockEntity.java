@@ -52,7 +52,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
 	public static int maxEnergy = 100_000_000;
 
-	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
 
 	public ChargeOMatBlockEntity() {
 		super(TRBlockEntities.CHARGE_O_MAT);

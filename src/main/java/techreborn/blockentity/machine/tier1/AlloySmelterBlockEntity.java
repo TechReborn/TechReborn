@@ -50,7 +50,7 @@ public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implement
 		super(TRBlockEntities.ALLOY_SMELTER, "AlloySmelter", maxInput, maxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
-		this.inventory = new RebornInventory<>(4, "AlloySmelterBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(4, "AlloySmelterBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.ALLOY_SMELTER, this, 2, 1, this.inventory, inputs, outputs);
 	}
 

@@ -54,7 +54,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
 	public static int energyPerAmp = 5;
 
-	public RebornInventory<MatterFabricatorBlockEntity> inventory = new RebornInventory<>(12, "MatterFabricatorBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<MatterFabricatorBlockEntity> inventory = new RebornInventory<>(12, "MatterFabricatorBlockEntity", 64, this);
 	private int amplifier = 0;
 
 	public MatterFabricatorBlockEntity() {

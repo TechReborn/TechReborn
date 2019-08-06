@@ -54,7 +54,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	@ConfigRegistry(config = "machines", category = "recycler", key = "produceIC2Scrap", comment = "When enabled and when ic2 is installed the recycler will make ic2 scrap")
 	public static boolean produceIC2Scrap = false;
 
-	private final RebornInventory<RecyclerBlockEntity> inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this).withConfiguredAccess();
+	private final RebornInventory<RecyclerBlockEntity> inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
 	private final int cost = 2;
 	private final int time = 15;
 	private final int chance = 6;

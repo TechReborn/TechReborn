@@ -51,7 +51,7 @@ public class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storedItem = ItemStack.EMPTY;
-		inventory = new RebornInventory<>(3, name, maxCapacity, this).withConfiguredAccess();
+		inventory = new RebornInventory<>(3, name, maxCapacity, this);
 	}
 
 	public void readWithoutCoords(CompoundTag tagCompound) {

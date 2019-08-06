@@ -65,7 +65,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 		super(TRBlockEntities.INDUSTRIAL_SAWMILL, "IndustrialSawmill", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
-		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this, getInventoryAccess()).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_SAWMILL, this, 1, 3, this.inventory, inputs, outputs);
 		this.tank = new Tank("SawmillBlockEntity", IndustrialSawmillBlockEntity.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;

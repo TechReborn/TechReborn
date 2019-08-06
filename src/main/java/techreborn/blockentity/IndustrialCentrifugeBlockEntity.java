@@ -56,7 +56,7 @@ public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity i
 		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new RebornInventory<>(7, "IndustrialCentrifugeBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(7, "IndustrialCentrifugeBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.CENTRIFUGE, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	

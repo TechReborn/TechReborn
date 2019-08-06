@@ -73,7 +73,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	private CraftingInventory craftCache;
-	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this);
 	public boolean isRunning;
 	public int tickTime;
 	@Nonnull

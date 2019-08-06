@@ -57,7 +57,7 @@ public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	public static int maxStorage = Integer.MAX_VALUE;
 
 	public Tank tank = new Tank("QuantumTankBlockEntity", maxStorage, this);
-	public RebornInventory<QuantumTankBlockEntity> inventory = new RebornInventory<>(3, "QuantumTankBlockEntity", 64, this).withConfiguredAccess();
+	public RebornInventory<QuantumTankBlockEntity> inventory = new RebornInventory<>(3, "QuantumTankBlockEntity", 64, this);
 
 	public QuantumTankBlockEntity(){
 		this(TRBlockEntities.QUANTUM_TANK);

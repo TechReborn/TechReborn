@@ -52,7 +52,7 @@ public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity
 		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, "IndustrialElectrolyzer", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new RebornInventory<>(7, "IndustrialElectrolyzerBlockEntity", 64, this).withConfiguredAccess();
+		this.inventory = new RebornInventory<>(7, "IndustrialElectrolyzerBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_ELECTROLYZER, this, 2, 4, this.inventory, inputs, outputs);
 	}
 	
