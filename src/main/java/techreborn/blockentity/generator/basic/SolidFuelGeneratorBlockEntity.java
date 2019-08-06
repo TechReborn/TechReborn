@@ -28,9 +28,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -44,6 +46,8 @@ import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+
+import java.util.Map;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -69,8 +73,12 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		super(TRBlockEntities.SOLID_FUEL_GENEREATOR);
 	}
 
-	public static int getItemBurnTime(ItemStack stack) {
-		return FurnaceBlockEntity.createFuelTimeMap().get(stack) / 4;
+	public static int getItemBurnTime(@NonNull ItemStack stack) {
+		Map<Item, Integer> burnMap = FurnaceBlockEntity.createFuelTimeMap();
+		if(burnMap.containsKey(stack.getItem())){
+			return burnMap.get(stack.getItem()) / 4;
+		}
+		return 0;
 	}
 
 	@Override

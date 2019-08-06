@@ -24,6 +24,8 @@
 
 package techreborn.world;
 
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
@@ -38,6 +40,9 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
 import techreborn.init.TRContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author drcrazy
  *
@@ -48,34 +53,50 @@ public class WorldGenerator {
 //		return state != null && (state.getBlock() == Blocks.END_STONE);
 //	};
 
+	private static List<Biome> checkedBiomes = new ArrayList<>();
+
 	public static void initBiomeFeatures() {
 		for (Biome biome : Registry.BIOME) {
-			if (biome.getCategory() == Category.NETHER) {
-				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.CINNABAR);
-				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.PYRITE);
-				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
+			addToBiome(biome);
+		}
 
-			} else if (biome.getCategory() == Category.THEEND) {
-//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.PERIDOT);
-//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SHELDONITE);
-//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SODALITE);
-//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.TUNGSTEN);
-			} else {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.GALENA);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.IRIDIUM);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.LEAD);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.RUBY);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SAPPHIRE);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SILVER);
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
-				if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA) {
-					biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
-							Biome.configureFeature(new RubberTreeFeature(DefaultFeatureConfig::deserialize, false),
-									FeatureConfig.DEFAULT, Decorator.COUNT_EXTRA_HEIGHTMAP,
-									new CountExtraChanceDecoratorConfig(10, 0.1F, 1)));
-				}
+		//Handles modded biomes
+		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> addToBiome(biome));
+	}
+
+	private static void addToBiome(Biome biome){
+		if(checkedBiomes.contains(biome)){
+			//Just to be sure we dont add the stuff twice to the same biome
+			return;
+		}
+		checkedBiomes.add(biome);
+
+		if (biome.getCategory() == Category.NETHER) {
+			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.CINNABAR);
+			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.PYRITE);
+			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
+
+		} else if (biome.getCategory() == Category.THEEND) {
+			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.PERIDOT);
+			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SHELDONITE);
+			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SODALITE);
+			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.TUNGSTEN);
+		} else {
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.GALENA);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.IRIDIUM);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.LEAD);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.RUBY);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SAPPHIRE);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SILVER);
+			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
+
+			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA) {
+				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
+				                 Biome.configureFeature(new RubberTreeFeature(DefaultFeatureConfig::deserialize, false),
+				                                        FeatureConfig.DEFAULT, Decorator.COUNT_EXTRA_HEIGHTMAP,
+				                                        new CountExtraChanceDecoratorConfig(1, 0.1F, 1)));
 			}
 		}
 	}
