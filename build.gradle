@@ -101,28 +101,25 @@ dependencies {
 		modCompile (rcVersion)
 	}
 
-	include rcVersion
+	//TODO enable this again at somepoint
+	//include rcVersion
 
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 }
 
-processResources{
-    inputs.property 'version', project.version
-    inputs.property 'mcversion', '1.14'
+processResources {
+	inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META_INF/mods.toml'     
-        expand 'version':project.version, 'mcversion': '1.14'
-    }
+	from(sourceSets.main.resources.srcDirs) {
+		include "fabric.mod.json"
+		expand "version": project.version
+	}
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META_INF/mods.toml'
-    }
-
-	rename '(.+_at.cfg)', 'META-INF/$1'
+	from(sourceSets.main.resources.srcDirs) {
+		exclude "fabric.mod.json"
+	}
 }
-
 
 jar {
 	exclude "**/*.psd"
