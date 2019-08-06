@@ -37,7 +37,7 @@ import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.TechReborn;
-import techreborn.api.fluidreplicator.FluidReplicatorRecipeCrafter;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
@@ -65,9 +65,8 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	public FluidReplicatorBlockEntity() {
 		super(TRBlockEntities.FLUID_REPLICATOR, "FluidReplicator", maxInput, maxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
-		final int[] inputs = new int[] { 0 };
 		this.inventory = new RebornInventory<>(4, "FluidReplicatorBlockEntity", 64, this, getInventoryAccess());
-		this.crafter = new FluidReplicatorRecipeCrafter(this, this.inventory, inputs, null);
+		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[] {0}, null);
 		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY, this);
 	}
 

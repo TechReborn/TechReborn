@@ -1148,6 +1148,105 @@
         }
       ]
     },
+    "techreborn/blockentity/generator/advanced/SemiFluidGeneratorBlockEntity": {
+      "className": "techreborn/blockentity/generator/advanced/SemiFluidGeneratorBlockEntity",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorMaxOutput",
+                "comment",
+                "Semifluid Generator Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorMaxEnergy",
+                "comment",
+                "Semifluid Generator Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "tankCapacity",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorTankCapacity",
+                "comment",
+                "Semifluid Generator Tank Capacity"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "energyPerTick",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "generators",
+                "category",
+                "semifluid_generator",
+                "key",
+                "SemifluidGeneratorEnergyPerTick",
+                "comment",
+                "Semifluid Generator Energy Per Tick (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
     "techreborn/blockentity/machine/tier1/RollingMachineBlockEntity": {
       "className": "techreborn/blockentity/machine/tier1/RollingMachineBlockEntity",
       "annotations": [
@@ -1249,132 +1348,6 @@
           "access": 1,
           "name": "currentRecipeOutput",
           "desc": "Lnet/minecraft/class_1799;",
-          "annotations": [
-            {
-              "desc": "Ljavax/annotation/Nonnull;",
-              "api": 458752
-            }
-          ]
-        }
-      ]
-    },
-    "techreborn/blockentity/generator/advanced/SemiFluidGeneratorBlockEntity": {
-      "className": "techreborn/blockentity/generator/advanced/SemiFluidGeneratorBlockEntity",
-      "annotations": [
-        {
-          "desc": "Lreborncore/common/registration/RebornRegister;",
-          "values": [
-            "value",
-            "techreborn"
-          ],
-          "api": 458752
-        }
-      ],
-      "fields": [
-        {
-          "access": 9,
-          "name": "maxOutput",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "generators",
-                "category",
-                "semifluid_generator",
-                "key",
-                "SemifluidGeneratorMaxOutput",
-                "comment",
-                "Semifluid Generator Max Output (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "maxEnergy",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "generators",
-                "category",
-                "semifluid_generator",
-                "key",
-                "SemifluidGeneratorMaxEnergy",
-                "comment",
-                "Semifluid Generator Max Energy (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "tankCapacity",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "generators",
-                "category",
-                "semifluid_generator",
-                "key",
-                "SemifluidGeneratorTankCapacity",
-                "comment",
-                "Semifluid Generator Tank Capacity"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "energyPerTick",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "generators",
-                "category",
-                "semifluid_generator",
-                "key",
-                "SemifluidGeneratorEnergyPerTick",
-                "comment",
-                "Semifluid Generator Energy Per Tick (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        }
-      ]
-    },
-    "techreborn/api/fluidreplicator/FluidReplicatorRecipe": {
-      "className": "techreborn/api/fluidreplicator/FluidReplicatorRecipe",
-      "fields": [
-        {
-          "access": 18,
-          "name": "input",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Ljavax/annotation/Nonnull;",
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 18,
-          "name": "output",
-          "desc": "Lreborncore/fluid/Fluid;",
           "annotations": [
             {
               "desc": "Ljavax/annotation/Nonnull;",
@@ -2206,6 +2179,105 @@
         }
       ]
     },
+    "techreborn/blockentity/fusionReactor/FusionControlComputerBlockEntity": {
+      "className": "techreborn/blockentity/fusionReactor/FusionControlComputerBlockEntity",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxInput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxInput",
+                "comment",
+                "Fusion Reactor Max Input (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxOutput",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxOutput",
+                "comment",
+                "Fusion Reactor Max Output (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxEnergy",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxEnergy",
+                "comment",
+                "Fusion Reactor Max Energy (Value in EU)"
+              ],
+              "api": 458752
+            }
+          ]
+        },
+        {
+          "access": 9,
+          "name": "maxCoilSize",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "fusion_reactor",
+                "key",
+                "FusionReactorMaxCoilSize",
+                "comment",
+                "Fusion Reactor Max Coil size (Radius)"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
     "techreborn/config/ConfigTechReborn": {
       "className": "techreborn/config/ConfigTechReborn",
       "annotations": [
@@ -2935,105 +3007,6 @@
         }
       ]
     },
-    "techreborn/blockentity/fusionReactor/FusionControlComputerBlockEntity": {
-      "className": "techreborn/blockentity/fusionReactor/FusionControlComputerBlockEntity",
-      "annotations": [
-        {
-          "desc": "Lreborncore/common/registration/RebornRegister;",
-          "values": [
-            "value",
-            "techreborn"
-          ],
-          "api": 458752
-        }
-      ],
-      "fields": [
-        {
-          "access": 9,
-          "name": "maxInput",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "machines",
-                "category",
-                "fusion_reactor",
-                "key",
-                "FusionReactorMaxInput",
-                "comment",
-                "Fusion Reactor Max Input (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "maxOutput",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "machines",
-                "category",
-                "fusion_reactor",
-                "key",
-                "FusionReactorMaxOutput",
-                "comment",
-                "Fusion Reactor Max Output (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "maxEnergy",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "machines",
-                "category",
-                "fusion_reactor",
-                "key",
-                "FusionReactorMaxEnergy",
-                "comment",
-                "Fusion Reactor Max Energy (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "maxCoilSize",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "machines",
-                "category",
-                "fusion_reactor",
-                "key",
-                "FusionReactorMaxCoilSize",
-                "comment",
-                "Fusion Reactor Max Coil size (Radius)"
-              ],
-              "api": 458752
-            }
-          ]
-        }
-      ]
-    },
     "techreborn/blockentity/machine/tier1/RecyclerBlockEntity": {
       "className": "techreborn/blockentity/machine/tier1/RecyclerBlockEntity",
       "annotations": [
@@ -3112,6 +3085,55 @@
         }
       ]
     },
+    "techreborn/blockentity/machine/tier3/QuantumTankBlockEntity": {
+      "className": "techreborn/blockentity/machine/tier3/QuantumTankBlockEntity",
+      "annotations": [
+        {
+          "desc": "Lreborncore/common/registration/RebornRegister;",
+          "values": [
+            "value",
+            "techreborn"
+          ],
+          "api": 458752
+        }
+      ],
+      "methods": [
+        {
+          "access": 1,
+          "name": "getTank",
+          "desc": "()Lreborncore/common/util/Tank;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nullable;",
+              "api": 458752
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "access": 9,
+          "name": "maxStorage",
+          "desc": "I",
+          "annotations": [
+            {
+              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
+              "values": [
+                "config",
+                "machines",
+                "category",
+                "quantum_tank",
+                "key",
+                "QuantumTankMaxStorage",
+                "comment",
+                "Maximum amount of millibuckets a Quantum Tank can store"
+              ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
     "techreborn/blockentity/machine/multiblock/IndustrialSawmillBlockEntity": {
       "className": "techreborn/blockentity/machine/multiblock/IndustrialSawmillBlockEntity",
       "annotations": [
@@ -3175,55 +3197,6 @@
                 "IndustrialSawmillMaxEnergy",
                 "comment",
                 "Industrial Sawmill Max Energy (Value in EU)"
-              ],
-              "api": 458752
-            }
-          ]
-        }
-      ]
-    },
-    "techreborn/blockentity/machine/tier3/QuantumTankBlockEntity": {
-      "className": "techreborn/blockentity/machine/tier3/QuantumTankBlockEntity",
-      "annotations": [
-        {
-          "desc": "Lreborncore/common/registration/RebornRegister;",
-          "values": [
-            "value",
-            "techreborn"
-          ],
-          "api": 458752
-        }
-      ],
-      "methods": [
-        {
-          "access": 1,
-          "name": "getTank",
-          "desc": "()Lreborncore/common/util/Tank;",
-          "annotations": [
-            {
-              "desc": "Ljavax/annotation/Nullable;",
-              "api": 458752
-            }
-          ]
-        }
-      ],
-      "fields": [
-        {
-          "access": 9,
-          "name": "maxStorage",
-          "desc": "I",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "machines",
-                "category",
-                "quantum_tank",
-                "key",
-                "QuantumTankMaxStorage",
-                "comment",
-                "Maximum amount of millibuckets a Quantum Tank can store"
               ],
               "api": 458752
             }
@@ -3611,134 +3584,6 @@
             "techreborn"
           ],
           "api": 458752
-        }
-      ],
-      "fields": [
-        {
-          "access": 9,
-          "name": "secondaryGemDrops",
-          "desc": "Z",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "compat",
-                "category",
-                "general",
-                "key",
-                "secondaryGemDrops",
-                "comment",
-                "Drop red and yellow garnets and peridot from any harvested oreRuby, oreSapphire, oreSphalerite. False will also disable drop from TechReborn ores."
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "redGarnetDropChance",
-          "desc": "D",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "misc",
-                "category",
-                "blocks",
-                "key",
-                "redGarnetDropChance",
-                "comment",
-                "Chance to get Red Garnet from Ruby Ore"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "peridotDropChance",
-          "desc": "D",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "misc",
-                "category",
-                "blocks",
-                "key",
-                "peridotDropChance",
-                "comment",
-                "Chance to get Peridot from Sapphire Ore"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "aluminiumDropChance",
-          "desc": "D",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "misc",
-                "category",
-                "blocks",
-                "key",
-                "aluminiumDropChance",
-                "comment",
-                "Chance to get Aluminium dust from Sodalite Ore"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "redstoneDropChance",
-          "desc": "D",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "misc",
-                "category",
-                "blocks",
-                "key",
-                "redstoneDropChance",
-                "comment",
-                "Chance to get Redstone from Cinnabar Ore"
-              ],
-              "api": 458752
-            }
-          ]
-        },
-        {
-          "access": 9,
-          "name": "yellowGarnetDropChance",
-          "desc": "D",
-          "annotations": [
-            {
-              "desc": "Lreborncore/common/registration/config/ConfigRegistry;",
-              "values": [
-                "config",
-                "misc",
-                "category",
-                "blocks",
-                "key",
-                "yellowGarnetDropChance",
-                "comment",
-                "Chance to get Yellow Garnet gem from Sphalerite Ore"
-              ],
-              "api": 458752
-            }
-          ]
         }
       ]
     },
@@ -4689,22 +4534,6 @@
         }
       ]
     },
-    "techreborn/utils/RecipeUtils": {
-      "className": "techreborn/utils/RecipeUtils",
-      "methods": [
-        {
-          "access": 9,
-          "name": "getEmptyCell",
-          "desc": "(I)Lnet/minecraft/class_1799;",
-          "annotations": [
-            {
-              "desc": "Ljavax/annotation/Nonnull;",
-              "api": 458752
-            }
-          ]
-        }
-      ]
-    },
     "techreborn/blockentity/machine/tier1/ExtractorBlockEntity": {
       "className": "techreborn/blockentity/machine/tier1/ExtractorBlockEntity",
       "annotations": [
@@ -4756,6 +4585,22 @@
                 "comment",
                 "Extractor Max Energy (Value in EU)"
               ],
+              "api": 458752
+            }
+          ]
+        }
+      ]
+    },
+    "techreborn/utils/RecipeUtils": {
+      "className": "techreborn/utils/RecipeUtils",
+      "methods": [
+        {
+          "access": 9,
+          "name": "getEmptyCell",
+          "desc": "(I)Lnet/minecraft/class_1799;",
+          "annotations": [
+            {
+              "desc": "Ljavax/annotation/Nonnull;",
               "api": 458752
             }
           ]
@@ -4858,19 +4703,6 @@
               "api": 458752
             }
           ]
-        }
-      ]
-    },
-    "techreborn/init/ModRecipes": {
-      "className": "techreborn/init/ModRecipes",
-      "annotations": [
-        {
-          "desc": "Lreborncore/common/registration/RebornRegister;",
-          "values": [
-            "value",
-            "techreborn"
-          ],
-          "api": 458752
         }
       ]
     }

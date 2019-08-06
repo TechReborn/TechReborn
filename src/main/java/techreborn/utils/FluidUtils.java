@@ -31,6 +31,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import reborncore.common.fluid.container.GenericFluidContainer;
 import net.minecraft.fluid.Fluid;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
 
 public class FluidUtils {
 
+	@NonNull
 	public static Fluid fluidFromBlock(Block block){
 		if(block instanceof FluidBlockExtensions){
 			return ((FluidBlockExtensions) block).getFluid();
@@ -136,11 +138,11 @@ public class FluidUtils {
 		return false;
 	}
 
-	public static boolean fluidEquals(Fluid fluid, Fluid fluid1) {
-		return false;
+	public static boolean fluidEquals(@NonNull Fluid fluid, @NonNull Fluid fluid1) {
+		return fluid == fluid1;
 	}
 
-	public static FluidInstance getFluidStackInContainer(ItemStack invStack) {
+	public static FluidInstance getFluidStackInContainer(@NonNull ItemStack invStack) {
 		return null;
 	}
 }

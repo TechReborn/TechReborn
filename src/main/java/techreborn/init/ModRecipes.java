@@ -28,15 +28,12 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
-import reborncore.common.registration.RebornRegister;
-import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ModRecipes {
-
 
 	public static final RebornRecipeType<RebornRecipe> ALLOY_SMELTER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:alloy_smelter"));
 	public static final RebornRecipeType<RebornRecipe> ASSEMBLING_MACHINE = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:assembling_machine"));
@@ -54,28 +51,6 @@ public class ModRecipes {
 	public static final RebornRecipeType<RebornRecipe> RECYCLER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:recycler"));
 	public static final RebornRecipeType<RebornRecipe> SCRAPBOX = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:scrapbox"));
 	public static final RebornRecipeType<RebornRecipe> VACUUM_FREEZER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:vacuum_freezer"));
-	public static final RebornRecipeType<RebornRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:fluid_replicator"));
-
-
-
-	public static void init() {
-
-		/*
-
-		RollingMachineRecipes.init();
-		FluidGeneratorRecipes.init();
-
-		IndustrialElectrolyzerRecipes.init();
-		ScrapboxRecipes.init();
-
-		FusionReactorRecipes.init();
-
-		FluidReplicatorRecipes.init();
-
-
-		*/
-	}
-
-
+	public static final RebornRecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(FluidReplicatorRecipe.class, new Identifier("techreborn:fluid_replicator"));
 
 }
