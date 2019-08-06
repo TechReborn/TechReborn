@@ -35,7 +35,7 @@
                   ]
                 }
               ],
-              "name": "minecraft:rubber_leaves"
+              "name": "techreborn:rubber_leaves"
             },
             {
               "type": "minecraft:item",
@@ -54,7 +54,7 @@
                   ]
                 }
               ],
-              "name": "minecraft:rubber_sapling"
+              "name": "techreborn:rubber_sapling"
             }
           ]
         }
