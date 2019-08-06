@@ -25,51 +25,15 @@
 package techreborn.events;
 
 import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class BlockBreakHandler {
 
-	@ConfigRegistry(config = "compat", category = "general", key = "secondaryGemDrops", comment = "Drop red and yellow garnets and peridot from any harvested oreRuby, oreSapphire, oreSphalerite. False will also disable drop from TechReborn ores.")
-	public static boolean secondaryGemDrops = true;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "redGarnetDropChance", comment = "Chance to get Red Garnet from Ruby Ore")
-	public static double redGarnetDropChance = 0.125;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "peridotDropChance", comment = "Chance to get Peridot from Sapphire Ore")
-	public static double peridotDropChance = 0.125;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "aluminiumDropChance", comment = "Chance to get Aluminium dust from Sodalite Ore")
-	public static double aluminiumDropChance = 0.50;
-	@ConfigRegistry(config = "misc", category = "blocks", key = "redstoneDropChance", comment = "Chance to get Redstone from Cinnabar Ore")
-	public static double redstoneDropChance = 0.25;
 
 
 	//TODO 1.14
-//	@SubscribeEvent
-//	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-//		if (secondaryGemDrops && !event.isSilkTouching()) {
-//			BlockState state = event.getState();
-//			List<ItemStack> drops = event.getDrops();
-//			Random random = new Random();
-//		//TODO: fix tags
-//			if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "ruby_ore")))) {
-//				OreDrop redGarnet = new OreDrop(TRContent.Gems.RED_GARNET.getStack(), redGarnetDropChance, 1);
-//				drops.add(redGarnet.getDrops(event.getFortuneLevel(), random));
-//			}
-//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sapphire_ore")))) {
-//				OreDrop peridot = new OreDrop(TRContent.Gems.PERIDOT.getStack(), peridotDropChance, 1);
-//				drops.add(peridot.getDrops(event.getFortuneLevel(), random));
-//			}
-//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "sodalite_ore")))) {
-//				OreDrop aluminium = new OreDrop(TRContent.Dusts.ALUMINUM.getStack(), aluminiumDropChance, 1);
-//				drops.add(aluminium.getDrops(event.getFortuneLevel(), random));
-//			}
-//			else if (state.getBlock().matches(new BlockTags.CachingTag(new Identifier(TechReborn.MOD_ID, "cinnabar_ore")))) {
-//				OreDrop redstone = new OreDrop(new ItemStack(Items.REDSTONE), redstoneDropChance, 1);
-//				drops.add(redstone.getDrops(event.getFortuneLevel(), random));
-//			}
 
-//		}
-//	}
 //
 //	@SubscribeEvent
 //	public void getBreakSpeedEvent(PlayerEvent.BreakSpeed event){
