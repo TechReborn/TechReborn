@@ -30,6 +30,7 @@ import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 
@@ -52,5 +53,6 @@ public class ModRecipes {
 	public static final RebornRecipeType<RebornRecipe> SCRAPBOX = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:scrapbox"));
 	public static final RebornRecipeType<RebornRecipe> VACUUM_FREEZER = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:vacuum_freezer"));
 	public static final RebornRecipeType<FluidReplicatorRecipe> FLUID_REPLICATOR = RecipeManager.newRecipeType(FluidReplicatorRecipe.class, new Identifier("techreborn:fluid_replicator"));
+	public static final RebornRecipeType<FusionReactorRecipe> FUSION_REACTOR = RecipeManager.newRecipeType(FusionReactorRecipe.class, new Identifier("techreborn:fusion_reactor"));
 
 }

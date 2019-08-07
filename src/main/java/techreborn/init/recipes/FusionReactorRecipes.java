@@ -24,13 +24,6 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.item.ItemStack;
-import techreborn.api.reactor.FusionReactorRecipe;
-import techreborn.api.reactor.FusionReactorRecipeHelper;
-import techreborn.init.ModFluids;
-import techreborn.init.TRContent;
-import techreborn.items.ItemDynamicCell;
-
 /**
  * @author drcrazy
  *
@@ -38,9 +31,18 @@ import techreborn.items.ItemDynamicCell;
 public class FusionReactorRecipes extends RecipeMethods {
 	public static void init() {
 
-		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.HELIUM_3.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.DEUTERIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.HELIUMPLASMA.getFluid()), 40000000, 32768, 1024));
-		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.TRITIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.DEUTERIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.HELIUM_3.getFluid()), 60000000, 16384, 2048));
-		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.WOLFRAMIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.BERYLIUM.getFluid()), TRContent.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
-		FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.WOLFRAMIUM.getFluid()), ItemDynamicCell.getCellWithFluid(ModFluids.LITHIUM.getFluid()), new ItemStack(TRContent.Ores.IRIDIUM.asItem()), 90000000, -2048, 1024));
+//		FusionReactorRecipeHelper
+//				.registerRecipe(new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.HELIUM_3.getFluid()),
+//						ItemDynamicCell.getCellWithFluid(ModFluids.DEUTERIUM.getFluid()),
+//						ItemDynamicCell.getCellWithFluid(ModFluids.HELIUMPLASMA.getFluid()), 40000000, 32768, 1024));
+//
+//		FusionReactorRecipeHelper.registerRecipe(
+//				new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.WOLFRAMIUM.getFluid()),
+//						ItemDynamicCell.getCellWithFluid(ModFluids.BERYLIUM.getFluid()),
+//						TRContent.Dusts.PLATINUM.getStack(), 80000000, -2048, 1024));
+//		FusionReactorRecipeHelper.registerRecipe(
+//				new FusionReactorRecipe(ItemDynamicCell.getCellWithFluid(ModFluids.WOLFRAMIUM.getFluid()),
+//						ItemDynamicCell.getCellWithFluid(ModFluids.LITHIUM.getFluid()),
+//						new ItemStack(TRContent.Ores.IRIDIUM.asItem()), 90000000, -2048, 1024));
 	}
 }

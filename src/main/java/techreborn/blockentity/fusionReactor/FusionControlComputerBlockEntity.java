@@ -35,6 +35,9 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.RebornCoreConfig;
+import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.crafting.ingredient.StackIngredient;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
@@ -42,12 +45,13 @@ import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.Torus;
 import techreborn.TechReborn;
-import techreborn.api.reactor.FusionReactorRecipe;
-import techreborn.api.reactor.FusionReactorRecipeHelper;
+import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import techreborn.init.TRContent;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RebornRegister(TechReborn.MOD_ID)
 public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
@@ -163,42 +167,70 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	 * Tries to set current recipe based in inputs in reactor
 	 */
 	private void updateCurrentRecipe() {
-		for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
-			if (validateReactorRecipe(reactorRecipe)) {
-				currentRecipe = reactorRecipe;
+		for (RebornRecipe recipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
+			if (recipe.canCraft(this) && validateRecipe((FusionReactorRecipe) recipe)) {
+				currentRecipe = (FusionReactorRecipe) recipe;
 				crafingTickTime = 0;
-				finalTickTime = currentRecipe.getTickTime();
-				neededPower = (int) currentRecipe.getStartEU();
+				finalTickTime = currentRecipe.getTime();
+				neededPower = currentRecipe.getStartEnergy();
 				hasStartedCrafting = false;
 				break;
 			}
 		}
 	}
-
+	
 	/**
-	 * Validates that reactor can execute recipe provided, e.g. has all inputs and can fit output
+	 * Validates if reactor has all inputs and can output result
 	 * 
-	 * @param recipe FusionReactorRecipe Recipe to validate
-	 * @return boolean True if reactor can execute recipe provided 
+	 * @param recipe
+	 * @return
 	 */
-	private boolean validateReactorRecipe(FusionReactorRecipe recipe) {
-		boolean validRecipe = validateReactorRecipeInputs(recipe, inventory.getInvStack(topStackSlot), inventory.getInvStack(bottomStackSlot)) || validateReactorRecipeInputs(recipe, inventory.getInvStack(bottomStackSlot), inventory.getInvStack(topStackSlot));
-		return validRecipe && getSize() >= recipe.getMinSize();
+	private boolean validateRecipe(FusionReactorRecipe recipe) {
+		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs().get(0), outputStackSlot, true);	
 	}
-
-	private boolean validateReactorRecipeInputs(FusionReactorRecipe recipe, ItemStack slot1, ItemStack slot2) {
-		if (ItemUtils.isItemEqual(slot1, recipe.getTopInput(), true, true)) {
-			if (recipe.getBottomInput() != null) {
-				if (!ItemUtils.isItemEqual(slot2, recipe.getBottomInput(), true, true)) {
-					return false;
-				}
+	
+	/**
+	 * Check if BlockEntity has all necessary inputs for recipe provided
+	 * 
+	 * @param recipeType RebornRecipe Recipe to check inputs
+	 * @return Boolean True if reactor has all inputs for recipe
+	 */
+	private boolean hasAllInputs(RebornRecipe recipeType) {
+		if (recipeType == null) {
+			return false;
+		}
+		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
+			boolean hasItem = false;
+			if (ingredient.test(inventory.getInvStack(topStackSlot))
+					|| ingredient.test(inventory.getInvStack(bottomStackSlot))) {
+				hasItem = true;
 			}
-			if (canFitStack(recipe.getOutput(), outputStackSlot, true)) {
-				return true;
+			if (!hasItem) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
+	
+	/**
+	 * Decrease stack size on the given slot according to recipe input
+	 * 
+	 * @param slot int Slot number
+	 */
+	private void useInput(int slot) {
+		if (currentRecipe == null) {
+			return;
+		}
+		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
+			if (ingredient.test(inventory.getInvStack(slot))) {
+				AtomicInteger count = new AtomicInteger(1);
+				ingredient.ifType(StackIngredient.class, stackIngredient -> count.set(stackIngredient.getCount()));
+				inventory.shrinkSlot(slot, count.get());
+				break;
+			}
+		}
+	}
+
 
 	// TilePowerAcceptor
 	@Override
@@ -231,47 +263,44 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (currentRecipe != null) {
-			if (!hasStartedCrafting && inventory.hasChanged() && !validateReactorRecipe(currentRecipe)) {
+			if (!hasStartedCrafting && inventory.hasChanged() && !validateRecipe(currentRecipe)) {
 				resetCrafter();
 				return;
 			}
 
 			if (!hasStartedCrafting) {
 				// Ignition!
-				if (canUseEnergy(currentRecipe.getStartEU())) {
-					useEnergy(currentRecipe.getStartEU());
+				if (canUseEnergy(currentRecipe.getStartEnergy())) {
+					useEnergy(currentRecipe.getStartEnergy());
 					hasStartedCrafting = true;
-					inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getCount());
-					if (!currentRecipe.getBottomInput().isEmpty()) {
-						inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getCount());
-					}
+					useInput(topStackSlot);
+					useInput(bottomStackSlot);
 				}
 			}
 			if (hasStartedCrafting && crafingTickTime < finalTickTime) {
 				crafingTickTime++;
 				// Power gen
-				if (currentRecipe.getEuTick() > 0) {
+				if (currentRecipe.getPower() > 0) {
 					// Waste power if it has no where to go
-					addEnergy(currentRecipe.getEuTick() * getPowerMultiplier());
-					powerChange = currentRecipe.getEuTick() * getPowerMultiplier();
+					addEnergy(currentRecipe.getPower() * getPowerMultiplier());
+					powerChange = currentRecipe.getPower() * getPowerMultiplier();
 				} else { // Power user
-					if (canUseEnergy(currentRecipe.getEuTick() * -1)) {
-						setEnergy(getEnergy() - currentRecipe.getEuTick() * -1);
+					if (canUseEnergy(currentRecipe.getPower() * -1)) {
+						setEnergy(getEnergy() - currentRecipe.getPower() * -1);
 					}
 				}
 			} else if (crafingTickTime >= finalTickTime) {
-				if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
+				ItemStack result = currentRecipe.getOutputs().get(0);
+				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getInvStack(outputStackSlot).isEmpty()) {
-						inventory.setInvStack(outputStackSlot, currentRecipe.getOutput().copy());
+						inventory.setInvStack(outputStackSlot, result.copy());
 					} else {
-						inventory.shrinkSlot(outputStackSlot, -currentRecipe.getOutput().getCount());
+						inventory.shrinkSlot(outputStackSlot, -result.getCount());
 					}
-					if (validateReactorRecipe(this.currentRecipe)) {
+					if (validateRecipe(this.currentRecipe)) {
 						crafingTickTime = 0;
-						inventory.shrinkSlot(topStackSlot, currentRecipe.getTopInput().getCount());
-						if (!currentRecipe.getBottomInput().isEmpty()) {
-							inventory.shrinkSlot(bottomStackSlot, currentRecipe.getBottomInput().getCount());
-						}
+						useInput(topStackSlot);
+						useInput(bottomStackSlot);
 					} else {
 						resetCrafter();
 					}
@@ -329,9 +358,9 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
 		if(tagCompound.containsKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
-			for (final FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
-				if (validateReactorRecipe(reactorRecipe)) {
-					this.currentRecipe = reactorRecipe;
+			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
+				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
+					this.currentRecipe = (FusionReactorRecipe) reactorRecipe;
 				}
 			}
 		}
