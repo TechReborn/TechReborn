@@ -29,7 +29,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
-import reborncore.common.powerSystem.ItemPowerManager;
+import reborncore.api.power.ItemPowerManager;
 import techreborn.init.TRContent;
 
 public class ItemLithiumIonBattery extends ItemBattery {
