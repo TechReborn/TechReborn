@@ -86,7 +86,7 @@ public class BlastFurnaceRecipes extends RecipeMethods {
 			ItemIngots.getIngotByName("lead"),
 			20, 1500);
 
-		// 1700 Heat - Aluminium, Chrome
+		// 1700 Heat - Aluminium, Chrome, Iridium
 		// Aluminium
 		register(ItemDusts.getDustByName("aluminum"),
 			null,
@@ -110,6 +110,18 @@ public class BlastFurnaceRecipes extends RecipeMethods {
 			ItemIngots.getIngotByName("chrome"),
 			null,
 			800, 1700);
+
+		// Iridium
+		register(ItemDusts.getDustByName("iridium"),
+			null,
+			ItemIngots.getIngotByName("iridium"),
+			null,
+			1700, 1700);
+		register(ItemDustsSmall.getSmallDustByName("iridium", 4),
+			null,
+			ItemIngots.getIngotByName("iridium"),
+			null,
+			1700, 1700);
 
 		// 2500 Heat - Tungsten
 		// Tungsten

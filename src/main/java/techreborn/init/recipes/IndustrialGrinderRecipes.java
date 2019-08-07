@@ -88,11 +88,14 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		
 		register(BlockOre.getOreByName("bauxite"), WATER, 100, 64, getMaterial("bauxite", 4, Type.DUST), getMaterial("aluminum", Type.DUST));
 
-		register(getOre("oreIridium"), WATER, 100, 64, getMaterial("iridium", 2, Type.DUST), getMaterial("platinum", 1, Type.DUST));
-		register(getOre("oreIridium"), MERCURY, 100, 64, getMaterial("iridium", 3, Type.DUST), getMaterial("platinum", 1, Type.DUST));
+		// Iridium
+		register(getOre("oreIridium"), WATER, 100, 128, getMaterial("iridium", 1, Type.DUST), getMaterial("iridium", 6, Type.SMALL_DUST),
+			getMaterial("platinum", 2, Type.SMALL_DUST));
+		register(getOre("oreIridium"), WATER, 100, 128, getMaterial("iridium", 1, Type.DUST), getMaterial("iridium", 6, Type.SMALL_DUST),
+			getMaterial("platinum", 2, Type.DUST));
 
 		if (oresExist("oreUranium", "dustUranium", "smallDustPlutonium")) {
-			register(getOre("oreUranium"), WATER, 100, 64, getOre("dustUranium", 2), getOre("smallDustPlutonium"));
+			register(getOre("oreUranium"), WATER, 100, 128, getOre("dustUranium", 2), getOre("smallDustPlutonium"));
 		}
 		
 		if (oresExist("oreUranium", "uran238", "smallUran235")) {
