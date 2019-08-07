@@ -204,7 +204,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).slot(0, 55, 45, itemStack -> itemStack.getItem() instanceof IUpgrade).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+			.blockEntity(this).slot(0, 55, 45, itemStack -> !(itemStack.getItem() instanceof IUpgrade)).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }
