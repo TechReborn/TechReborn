@@ -24,17 +24,26 @@
 
 package techreborn.items;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.IWorld;
 import org.apache.commons.lang3.Validate;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -42,6 +51,8 @@ import reborncore.common.util.ItemNBTHelper;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by modmuss50 on 17/05/2016.
@@ -108,5 +119,37 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
 		}
 		return Fluids.EMPTY;
+	}
+
+	@Override
+	public ActionResult useOnBlock(ItemUsageContext usageContext) {
+		ItemStack stack = usageContext.getStack();
+		Fluid containedFluid = getFluid(stack);
+		BlockPos pos = usageContext.getBlockPos().offset(usageContext.getSide());
+		BlockState blockState = usageContext.getWorld().getBlockState(pos);
+
+		if(containedFluid == Fluids.EMPTY){
+			FluidState fluidState = usageContext.getWorld().getFluidState(pos);
+			if(fluidState.getFluid() != Fluids.EMPTY && fluidState.isStill()){
+				stack.decrement(1);
+				usageContext.getPlayer().inventory.insertStack(getCellWithFluid(fluidState.getFluid(), 1));
+				usageContext.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
+				playEmptyingSound(usageContext.getPlayer(), usageContext.getWorld(), pos, fluidState.getFluid());
+			}
+		} else {
+			if(blockState.canReplace(new ItemPlacementContext(usageContext))){
+				usageContext.getWorld().setBlockState(pos, containedFluid.getDefaultState().getBlockState());
+				stack.decrement(1);
+				usageContext.getPlayer().inventory.insertStack(getEmpty());
+				playEmptyingSound(usageContext.getPlayer(), usageContext.getWorld(), pos, containedFluid);
+			}
+		}
+		return super.useOnBlock(usageContext);
+	}
+
+	//Thanks vanilla :)
+	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, IWorld world, BlockPos blockPos, Fluid fluid) {
+		SoundEvent soundEvent = fluid.matches(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
+		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
 	}
 }
