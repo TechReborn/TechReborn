@@ -59,7 +59,7 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
 		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof OreDictionaryInputIngredient)
 			.flatMap(entry -> OreDictionary.getOres((String) entry.ingredient).stream()
-				.map(stack -> ItemUtils.setSize(stack, entry.getCount())))
+				.map(stack -> copyWithSize(stack, entry.getCount())))
 			.collect(Collectors.toCollection(() -> itemInputs)); // map OreDictionary entries
 
 		recipe.getInputIngredients().stream()
@@ -85,6 +85,12 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
 		ingredients.setInputs(VanillaTypes.FLUID, fluidInputs);
 		ingredients.setOutputs(VanillaTypes.ITEM, itemOutputs);
 		ingredients.setOutputs(VanillaTypes.FLUID, fluidOutputs);
+	}
+
+	public static ItemStack copyWithSize(ItemStack stack, int size) {
+		if (ItemUtils.isEmpty(stack)) return ItemStack.EMPTY;
+
+		return ItemUtils.setSize(stack.copy(), size);
 	}
 
 	// Fields >>
