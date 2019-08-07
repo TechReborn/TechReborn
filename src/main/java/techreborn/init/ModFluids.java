@@ -34,7 +34,7 @@ import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 
 public enum ModFluids {
-	BERYLIUM,
+	BERYLLIUM,
 	CALCIUM,
 	CALCIUM_CARBONATE,
 	CARBON,
@@ -46,7 +46,7 @@ public enum ModFluids {
 	ELECTROLYZED_WATER,
 	GLYCERYL,
 	HELIUM,
-	HELIUM_3,
+	HELIUM3,
 	HELIUMPLASMA,
 	HYDROGEN,
 	LITHIUM,
@@ -57,13 +57,13 @@ public enum ModFluids {
 	NITROCOAL_FUEL,
 	NITROFUEL,
 	NITROGEN,
-	NITROGENDIOXIDE,
+	NITROGEN_DIOXIDE,
 	OIL,
 	POTASSIUM,
 	SILICON,
 	SODIUM,
 	SODIUM_SULFIDE,
-	SODIUMPERSULFATE,
+	SODIUM_PERSULFATE,
 	SULFUR,
 	SULFURIC_ACID,
 	TRITIUM,
@@ -77,11 +77,11 @@ public enum ModFluids {
 	private final Identifier identifier;
 
 	ModFluids() {
-		this.identifier = new Identifier(TechReborn.MOD_ID, this.name().replace("_", "").toLowerCase());
+		this.identifier = new Identifier(TechReborn.MOD_ID, this.toString().toLowerCase());
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.name().replace("_", "").toLowerCase() + "_flowing");
+		Identifier texture = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase() + "_flowing");
 
 		fluidSettings.setStillTexture(texture);
 		fluidSettings.setFlowingTexture(texture);

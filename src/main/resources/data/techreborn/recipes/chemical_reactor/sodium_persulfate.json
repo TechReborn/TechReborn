@@ -1,0 +1,24 @@
+{
+  "type": "techreborn:chemical_reactor",
+  "power": 30,
+  "time": 800,
+  "ingredients": [
+    {
+      "fluid": "techreborn:sodium_sulfide",
+      "holder": "techreborn:cell"
+    },
+    {
+      "fluid": "techreborn:compressed_air",
+      "holder": "techreborn:cell"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "nbt": {
+        "fluid": "techreborn:sodium_persulfate"
+      }
+    }
+  ]
+}

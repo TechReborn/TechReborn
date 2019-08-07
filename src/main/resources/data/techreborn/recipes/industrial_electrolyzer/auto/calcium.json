@@ -32,7 +32,7 @@
       "item": "techreborn:cell",
       "count": 3,
       "tag": {
-        "fluid": "techreborn:compressedair"
+        "fluid": "techreborn:compressed_air"
       }
     }
   ]

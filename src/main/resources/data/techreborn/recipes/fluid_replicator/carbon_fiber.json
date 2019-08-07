@@ -3,7 +3,7 @@
   "power": 20,
   "time": 100,
   "tank": {
-    "fluid": "techreborn:carbonfiber",
+    "fluid": "techreborn:carbon_fiber",
     "amount": 1000
   },
   "ingredients": [

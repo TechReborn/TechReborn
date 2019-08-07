@@ -23,7 +23,7 @@
     {
       "item": "techreborn:cell",
       "tag": {
-        "fluid": "techreborn:compressedair"
+        "fluid": "techreborn:compressed_air"
       }
     }
   ]

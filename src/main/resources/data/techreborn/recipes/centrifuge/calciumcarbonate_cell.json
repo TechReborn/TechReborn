@@ -4,7 +4,7 @@
   "time": 5,
   "ingredients": [
     {
-      "fluid": "techreborn:calciumcarbonate",
+      "fluid": "techreborn:calcium_carbonate",
       "holder": "techreborn:cell"
     }
   ],

@@ -3,7 +3,7 @@
   "power": 20,
   "time": 100,
   "tank": {
-    "fluid": "techreborn:compressedair",
+    "fluid": "techreborn:compressed_air",
     "amount": 1000
   },
   "ingredients": [

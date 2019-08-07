@@ -5,7 +5,7 @@
 	"heat": 1500,
 	"ingredients": [
 		{
-			"fluid": "techreborn:calciumcarbonate",
+			"fluid": "techreborn:silicon",
 			"holder": "techreborn:cell",
 			"count": 2
 		}

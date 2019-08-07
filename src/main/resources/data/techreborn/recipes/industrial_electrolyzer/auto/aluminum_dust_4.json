@@ -22,7 +22,7 @@
       "item": "techreborn:cell",
       "count": 3,
       "tag": {
-        "fluid": "techreborn:berylium"
+        "fluid": "techreborn:beryllium"
       }
     },
     {
@@ -36,7 +36,7 @@
       "item": "techreborn:cell",
       "count": 9,
       "tag": {
-        "fluid": "techreborn:compressedair"
+        "fluid": "techreborn:compressed_air"
       }
     }
   ]

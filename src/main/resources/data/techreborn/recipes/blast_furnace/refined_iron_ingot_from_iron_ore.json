@@ -8,7 +8,7 @@
 			"item": "minecraft:iron_ore"
 		},
 		{
-			"fluid": "techreborn:calciumcarbonate",
+			"fluid": "techreborn:calcium_carbonate",
 			"holder": "techreborn:cell"
 		}
 	],
