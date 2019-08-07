@@ -35,6 +35,7 @@ import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
+import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
 import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
 import techreborn.init.ModRecipes;
@@ -85,6 +86,7 @@ public class ReiPlugin implements REIPluginEntry {
         recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.COMPRESSOR, 1));
         recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.DISTILLATION_TOWER, 3));
         recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.EXTRACTOR, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory<FluidReplicatorRecipe>(ModRecipes.FLUID_REPLICATOR, 1));
         recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.GRINDER, 1));
         recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.IMPLOSION_COMPRESSOR));
         recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.INDUSTRIAL_ELECTROLYZER, 4));
@@ -111,6 +113,7 @@ public class ReiPlugin implements REIPluginEntry {
 		recipeHelper.registerWorkingStations(ModRecipes.COMPRESSOR.getName(), new ItemStack(Machine.COMPRESSOR.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.DISTILLATION_TOWER.getName(), new ItemStack(Machine.DISTILLATION_TOWER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.EXTRACTOR.getName(), new ItemStack(Machine.EXTRACTOR.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.FLUID_REPLICATOR.getName(), new ItemStack(Machine.FLUID_REPLICATOR.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.GRINDER.getName(), new ItemStack(Machine.GRINDER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.IMPLOSION_COMPRESSOR.getName(), new ItemStack(Machine.IMPLOSION_COMPRESSOR.asItem()));
         recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_ELECTROLYZER.getName(), new ItemStack(Machine.INDUSTRIAL_ELECTROLYZER.asItem()));
