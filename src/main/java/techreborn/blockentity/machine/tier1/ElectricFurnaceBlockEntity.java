@@ -146,12 +146,12 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
+		super.tick();
+		charge(2);
+
 		if (world.isClient) {
 			return;
 		}
-
-		super.tick();
-		charge(2);
 
 		final boolean burning = isBurning();
 		boolean updateInventory = false;
