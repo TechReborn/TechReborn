@@ -77,6 +77,8 @@ public class TechReborn implements ModInitializer {
 		GuiHandler.register();
 		FluidGeneratorRecipes.init();
 		FusionReactorRecipes.init();
+		//Force loads the block entities at the right time
+		TRBlockEntities.THERMAL_GEN.toString();
 
 
 		// Scrapbox
