@@ -24,6 +24,8 @@
 
 package techreborn.items;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -49,9 +51,13 @@ public class ItemManual extends Item {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player,
 	                                                final Hand hand) {
 		if(world.isClient){
-			MinecraftClient.getInstance().openScreen(new GuiManual(player));
+			openGui(player);
 		}
-
 		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
+	}
+
+	@Environment(EnvType.CLIENT)
+	private void openGui(PlayerEntity playerEntity){
+		MinecraftClient.getInstance().openScreen(new GuiManual(playerEntity));
 	}
 }
