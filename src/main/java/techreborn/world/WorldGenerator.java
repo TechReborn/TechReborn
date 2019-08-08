@@ -25,6 +25,7 @@
 package techreborn.world;
 
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
@@ -37,6 +38,8 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
+import reborncore.common.world.CustomOreFeature;
+import reborncore.common.world.CustomOreFeatureConfig;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
@@ -76,10 +79,10 @@ public class WorldGenerator {
 			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
 
 		} else if (biome.getCategory() == Category.THEEND) {
-			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.PERIDOT);
-			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SHELDONITE);
-			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.SODALITE);
-			//				 addOre(biome, IS_ENDSTONE, TRContent.Ores.TUNGSTEN);
+			addEndOre(biome, TRContent.Ores.PERIDOT);
+			addEndOre(biome, TRContent.Ores.SHELDONITE);
+			addEndOre(biome, TRContent.Ores.SODALITE);
+			addEndOre(biome, TRContent.Ores.TUNGSTEN);
 		} else {
 			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
 			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
@@ -104,5 +107,11 @@ public class WorldGenerator {
 		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Biome.configureFeature(Feature.ORE,
 				new OreFeatureConfig(canReplaceIn, ore.block.getDefaultState(), ore.veinSize), Decorator.COUNT_RANGE,
 				new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY)));
+	}
+
+	private static void addEndOre(Biome biome, TRContent.Ores ore) {
+		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Biome.configureFeature(CustomOreFeature.CUSTOM_ORE_FEATURE,
+		                                                                                 new CustomOreFeatureConfig(blockState -> blockState.getBlock() == Blocks.END_STONE, ore.block.getDefaultState(), ore.veinSize), Decorator.COUNT_RANGE,
+		                                                                                 new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY)));
 	}
 }
