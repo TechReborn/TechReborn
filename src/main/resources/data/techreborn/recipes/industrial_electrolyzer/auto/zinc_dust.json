@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 100,
-  "time": 140,
+  "power": 50,
+  "time": 1200,
   "ingredients": [
     {
       "item": "techreborn:sphalerite_dust",

@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 1640,
-  "time": 5,
+  "power": 5,
+  "time": 1640,
   "ingredients": [
     {
       "item": "minecraft:mycelium",

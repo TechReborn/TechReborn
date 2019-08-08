@@ -1,7 +1,7 @@
 {
   "type": "techreborn:fluid_replicator",
-  "power": 2,
-  "time": 40,
+  "power": 20,
+  "time": 20,
   "tank": {
     "fluid": "minecraft:water",
     "amount": 1000

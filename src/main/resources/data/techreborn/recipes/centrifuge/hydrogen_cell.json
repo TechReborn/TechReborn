@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 3000,
-  "time": 5,
+  "power": 10,
+  "time": 4000,
   "ingredients": [
     {
       "fluid": "techreborn:hydrogen",

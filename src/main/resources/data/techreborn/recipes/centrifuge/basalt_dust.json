@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 2040,
-  "time": 5,
+  "power": 10,
+  "time": 2040,
   "ingredients": [
     {
       "item": "techreborn:basalt_dust",

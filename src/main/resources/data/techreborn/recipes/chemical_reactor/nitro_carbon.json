@@ -1,7 +1,7 @@
 {
   "type": "techreborn:chemical_reactor",
   "power": 30,
-  "time": 800,
+  "time": 1000,
   "ingredients": [
     {
       "fluid": "techreborn:carbon",

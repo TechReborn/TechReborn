@@ -1,6 +1,6 @@
 {
   "type": "techreborn:alloy_smelter",
-  "power": 16,
+  "power": 6,
   "time": 200,
   "ingredients" : [
     {

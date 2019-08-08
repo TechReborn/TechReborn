@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 240,
-  "time": 5,
+  "power": 10,
+  "time": 240,
   "ingredients": [
     {
       "item": "techreborn:ashes_dust",

@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
-  "power": 18,
-  "time": 300,
+  "power": 4,
+  "time": 200,
   "ingredients" : [
     {
       "item": "minecraft:netherrack"

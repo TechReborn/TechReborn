@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
-  "power": 20,
-  "time": 300,
+  "power": 6,
+  "time": 400,
   "ingredients": [
     {
       "item": "minecraft:obsidian"

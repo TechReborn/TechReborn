@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
-  "power": 200,
-  "time": 22,
+  "power": 4,
+  "time": 220,
   "ingredients": [
     {
       "item": "techreborn:titanium_ingot"

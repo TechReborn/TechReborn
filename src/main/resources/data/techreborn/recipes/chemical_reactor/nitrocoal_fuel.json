@@ -1,7 +1,7 @@
 {
   "type": "techreborn:chemical_reactor",
   "power": 30,
-  "time": 250,
+  "time": 300,
   "ingredients": [
     {
       "fluid": "techreborn:glyceryl",

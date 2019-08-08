@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 128,
-  "time": 120,
+  "power": 60,
+  "time": 1200,
   "ingredients": [
     {
       "item": "techreborn:pyrite_dust",

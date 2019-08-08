@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 2200,
-  "time": 5,
+  "power": 5,
+  "time": 2200,
   "ingredients": [
     {
       "item": "minecraft:redstone",

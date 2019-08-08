@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 1300,
-  "time": 5,
+  "power": 5,
+  "time": 1300,
   "ingredients": [
     {
       "item": "techreborn:sap",

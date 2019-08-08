@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 128,
-  "time": 100,
+  "power": 50,
+  "time": 1500,
   "ingredients": [
     {
       "item": "techreborn:cinnabar_dust",

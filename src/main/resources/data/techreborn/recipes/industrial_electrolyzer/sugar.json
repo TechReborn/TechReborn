@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 32,
-  "time": 200,
+  "power": 20,
+  "time": 600,
   "ingredients": [
     {
       "item": "minecraft:sugar",

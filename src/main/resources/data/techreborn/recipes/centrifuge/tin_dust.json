@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 210,
-  "time": 5,
+  "power": 5,
+  "time": 2100,
   "ingredients": [
     {
       "item": "techreborn:tin_dust",

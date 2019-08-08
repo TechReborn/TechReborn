@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
   "power": 20,
-  "time": 50,
+  "time": 200,
   "ingredients": [
     {
       "item": "techreborn:cell",

@@ -1,6 +1,6 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 128,
+  "power": 60,
   "time": 2000,
   "ingredients": [
     {

@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 4800,
-  "time": 5,
+  "power": 5,
+  "time": 4800,
   "ingredients": [
     {
       "item": "techreborn:endstone_dust",

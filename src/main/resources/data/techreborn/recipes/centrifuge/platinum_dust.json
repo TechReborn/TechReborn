@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 3000,
-  "time": 5,
+  "power": 5,
+  "time": 3000,
   "ingredients": [
     {
       "item": "techreborn:platinum_dust",

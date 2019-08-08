@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
   "power": 50,
-  "time": 204,
+  "time": 1200,
   "ingredients": [
     {
       "item": "techreborn:grossular_dust",

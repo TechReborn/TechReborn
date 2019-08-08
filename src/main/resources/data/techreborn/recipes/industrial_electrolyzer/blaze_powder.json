@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 25,
-  "time": 300,
+  "power": 50,
+  "time": 1100,
   "ingredients": [
     {
       "item": "minecraft:blaze_powder",

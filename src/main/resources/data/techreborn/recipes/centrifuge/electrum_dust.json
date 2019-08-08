@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 960,
-  "time": 5,
+  "power": 10,
+  "time": 3600,
   "ingredients": [
     {
       "item": "techreborn:electrum_dust"

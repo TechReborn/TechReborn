@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 3440,
-  "time": 5,
+  "power": 5,
+  "time": 3440,
   "ingredients": [
     {
       "item": "techreborn:nickel_dust",

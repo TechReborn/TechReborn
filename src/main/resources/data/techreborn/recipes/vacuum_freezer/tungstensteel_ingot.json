@@ -1,6 +1,6 @@
 {
   "type": "techreborn:vacuum_freezer",
-  "power": 64,
+  "power": 60,
   "time": 440,
   "ingredients": [
     {

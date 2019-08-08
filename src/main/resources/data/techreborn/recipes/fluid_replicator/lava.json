@@ -1,6 +1,6 @@
 {
   "type": "techreborn:fluid_replicator",
-  "power": 2,
+  "power": 40,
   "time": 80,
   "tank": {
     "fluid": "minecraft:lava",

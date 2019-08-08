@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
-  "power": 200,
-  "time": 22,
+  "power": 6,
+  "time": 250,
   "ingredients": [
     {
       "item": "techreborn:chrome_ingot"

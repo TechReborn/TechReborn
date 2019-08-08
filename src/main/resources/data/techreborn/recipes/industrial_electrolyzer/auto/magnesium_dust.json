@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
   "power": 60,
-  "time": 600,
+  "time": 1600,
   "ingredients": [
     {
       "item": "techreborn:peridot_dust",

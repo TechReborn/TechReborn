@@ -56,7 +56,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
 	public int progress;
 	public int fuelScale = 100;
-	public int cost = 6;
+	public int cost = 4;
 	int input1 = 0;
 	int output = 1;
 	boolean wasBurning = false;

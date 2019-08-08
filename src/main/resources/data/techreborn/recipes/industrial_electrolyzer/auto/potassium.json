@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 110,
-  "time": 40,
+  "power": 60,
+  "time": 1400,
   "ingredients": [
     {
       "item": "techreborn:saltpeter_dust",

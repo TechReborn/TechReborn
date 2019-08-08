@@ -1,6 +1,6 @@
 {
   "type": "techreborn:fluid_replicator",
-  "power": 20,
+  "power": 40,
   "time": 100,
   "tank": {
     "fluid": "techreborn:carbon",

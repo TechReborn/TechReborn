@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
-  "power": 200,
-  "time": 22,
+  "power": 2,
+  "time": 200,
   "ingredients": [
     {
       "item": "techreborn:invar_ingot"

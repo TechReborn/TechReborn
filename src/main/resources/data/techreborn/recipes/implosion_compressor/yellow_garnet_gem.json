@@ -1,7 +1,7 @@
 {
   "type": "techreborn:implosion_compressor",
-  "power": 32,
-  "time": 20,
+  "power": 30,
+  "time": 2000,
   "ingredients" : [
     {
       "item": "minecraft:tnt",

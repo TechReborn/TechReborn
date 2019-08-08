@@ -1,7 +1,7 @@
 {
 	"type": "techreborn:chemical_reactor",
 	"power": 30,
-	"time": 40,
+	"time": 400,
 	"ingredients": [
 		{
 			"item": "minecraft:blaze_powder"

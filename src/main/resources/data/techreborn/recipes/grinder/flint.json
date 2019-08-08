@@ -1,6 +1,6 @@
 {
   "type": "techreborn:grinder",
-  "power": 20,
+  "power": 2,
   "time": 200,
   "ingredients" : [
     {

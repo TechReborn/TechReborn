@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 120,
-  "time": 1000,
+  "power": 50,
+  "time": 1100,
   "ingredients": [
     {
       "item": "techreborn:galena_dust",

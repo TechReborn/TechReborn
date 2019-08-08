@@ -1,7 +1,7 @@
 {
   "type": "techreborn:industrial_electrolyzer",
   "power": 50,
-  "time": 40,
+  "time": 1400,
   "ingredients": [
     {
       "item": "techreborn:coal_dust"

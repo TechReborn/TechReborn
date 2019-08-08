@@ -1,7 +1,7 @@
 {
   "type": "techreborn:centrifuge",
-  "power": 1040,
-  "time": 5,
+  "power": 5,
+  "time": 2050,
   "ingredients": [
     {
       "item": "techreborn:marble_dust"
