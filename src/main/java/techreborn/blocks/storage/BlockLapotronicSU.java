@@ -24,17 +24,10 @@
 
 package techreborn.blocks.storage;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import reborncore.common.RebornCoreConfig;
-import techreborn.client.EGui;
-import techreborn.init.TRContent;
 import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.client.EGui;
 
 public class BlockLapotronicSU extends BlockEnergyStorage {
 	
@@ -46,13 +39,5 @@ public class BlockLapotronicSU extends BlockEnergyStorage {
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new LapotronicSUBlockEntity();
 	}
-	
-	@Override
-	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-		if (RebornCoreConfig.wrenchRequired) {
-			drops.add(new ItemStack(TRContent.MachineBlocks.ADVANCED.getFrame()));
-		} else {
-			super.getDrops(state, drops, world, pos, fortune);
-		}
-	}
+
 }

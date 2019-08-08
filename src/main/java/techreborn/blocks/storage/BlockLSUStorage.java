@@ -31,7 +31,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -39,10 +38,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.init.TRContent;
 import techreborn.blockentity.storage.lesu.LSUStorageBlockEntity;
 
 /**
@@ -106,12 +103,4 @@ public class BlockLSUStorage extends BaseBlockEntityProvider {
 		return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
-	@Override
-	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-		if (RebornCoreConfig.wrenchRequired) {
-			drops.add(new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
-		} else {
-			super.getDrops(state, drops, world, pos, fortune);
-		}
-	}
 }

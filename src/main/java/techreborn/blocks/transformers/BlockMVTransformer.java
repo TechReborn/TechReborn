@@ -24,15 +24,8 @@
 
 package techreborn.blocks.transformers;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import reborncore.common.RebornCoreConfig;
-import techreborn.init.TRContent;
 import techreborn.blockentity.transformers.MVTransformerBlockEntity;
 
 /**
@@ -48,14 +41,5 @@ public class BlockMVTransformer extends BlockTransformer {
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new MVTransformerBlockEntity();
 	}
-	
-	@Override
-	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-		if (RebornCoreConfig.wrenchRequired){
-			drops.add(new ItemStack(TRContent.MachineBlocks.BASIC.getFrame()));
-		}
-		else {
-			drops.add(new ItemStack(this));
-		}
-	}	
+
 }
