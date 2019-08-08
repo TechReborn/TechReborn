@@ -24,7 +24,7 @@
 
 package techreborn.events;
 
-import net.minecraft.util.Formatting;
+import net.fabricmc.fabric.api.event.client.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockWithEntity;
@@ -35,11 +35,11 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.Text;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
-import reborncore.api.events.ItemTooltipCallback;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
 import reborncore.common.RebornCoreConfig;

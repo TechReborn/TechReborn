@@ -24,6 +24,7 @@
 
 package techreborn.utils;
 
+import net.fabricmc.fabric.api.event.client.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -31,7 +32,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
-import reborncore.api.events.ItemTooltipCallback;
 import reborncore.common.util.StringUtils;
 import techreborn.init.TRContent;
 

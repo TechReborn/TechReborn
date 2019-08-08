@@ -86,7 +86,7 @@ dependencies {
 	modCompile "net.fabricmc:fabric-loader:0.4.8+build.157"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.0+build.200"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.1+build.208"
 
 	modCompile "io.github.prospector.modmenu:ModMenu:1.5.4-85"
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
