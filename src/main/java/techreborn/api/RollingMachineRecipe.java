@@ -36,19 +36,19 @@ public class RollingMachineRecipe {
 	public static final RollingMachineRecipe instance = new RollingMachineRecipe();
 
 	public void addShapedOreRecipe(Identifier resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-		throw new UnsupportedOperationException("Needs moving to json");
+
 	}
 
 	public void addShapelessOreRecipe(Identifier resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-		throw new UnsupportedOperationException("Needs moving to json");
+
 	}
 
 	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {
-		throw new UnsupportedOperationException("Needs moving to json");
+		return ItemStack.EMPTY;
 	}
 
 	public Recipe findMatchingRecipe(CraftingInventory inv, World world) {
-		throw new UnsupportedOperationException("Needs moving to json");
+		return null;
 	}
 
 }
