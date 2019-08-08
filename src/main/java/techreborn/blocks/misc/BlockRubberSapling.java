@@ -36,6 +36,6 @@ import techreborn.world.RubberSaplingGenerator;
 public class BlockRubberSapling extends SaplingBlock {
 
 	public BlockRubberSapling() {
-		super(new RubberSaplingGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).build());
+		super(new RubberSaplingGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly().breakInstantly().build());
 	}
 }
