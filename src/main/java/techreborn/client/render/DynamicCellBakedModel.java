@@ -36,6 +36,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.ModelItemPropertyOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
@@ -57,6 +58,7 @@ import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
@@ -141,19 +143,8 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 		return ModelHelper.DEFAULT_ITEM_TRANSFORMS;
 	}
 
-	protected class ItemProxy extends ModelItemPropertyOverrideList {
-		public ItemProxy() {
-			super(null, null, null, Collections.emptyList());
-		}
-
-		@Override
-		public BakedModel apply(BakedModel bakedModel, ItemStack itemStack, World world, LivingEntity livingEntity) {
-			return DynamicCellBakedModel.this;
-		}
-	}
-
 	@Override
 	public ModelItemPropertyOverrideList getItemPropertyOverrides() {
-		return new ItemProxy();
+		return ModelItemPropertyOverrideList.EMPTY;
 	}
 }

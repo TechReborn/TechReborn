@@ -144,19 +144,8 @@ public class DynamicBucketBakedModel implements BakedModel, FabricBakedModel {
 		return ModelHelper.DEFAULT_ITEM_TRANSFORMS;
 	}
 
-	protected class ItemProxy extends ModelItemPropertyOverrideList {
-		public ItemProxy() {
-			super(null, null, null, Collections.emptyList());
-		}
-
-		@Override
-		public BakedModel apply(BakedModel bakedModel, ItemStack itemStack, World world, LivingEntity livingEntity) {
-			return DynamicBucketBakedModel.this;
-		}
-	}
-
 	@Override
 	public ModelItemPropertyOverrideList getItemPropertyOverrides() {
-		return new ItemProxy();
+		return ModelItemPropertyOverrideList.EMPTY;
 	}
 }
