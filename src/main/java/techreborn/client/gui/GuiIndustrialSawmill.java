@@ -36,8 +36,8 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
-import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
+import techreborn.init.TRContent;
 
 public class GuiIndustrialSawmill extends GuiBase {
 
@@ -142,7 +142,7 @@ public class GuiIndustrialSawmill extends GuiBase {
 							this.blockEntity.getPos().getX()
 									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2,
 							this.blockEntity.getPos().getY() - 1, this.blockEntity.getPos().getZ()
-									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2);
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2).offset(blockEntity.getFacing().getOpposite(), 2);
 				}
 			} else {
 				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
