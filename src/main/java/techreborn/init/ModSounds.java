@@ -54,7 +54,7 @@ public class ModSounds {
                 return;
             }
 			world.playSound(null, blockEntity.getPos().getX(), blockEntity.getPos().getY(),
-					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, 0.1F, 1F);
+					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, 1F, 1F);
 		}
 	}
 }
