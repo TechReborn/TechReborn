@@ -24,14 +24,17 @@
 
 package techreborn.items;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
+import techreborn.client.gui.GuiManual;
 
 public class ItemManual extends Item {
 
@@ -45,9 +48,10 @@ public class ItemManual extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player,
 	                                                final Hand hand) {
-		throw new UnsupportedOperationException("1.13 fix me");
-		//player.openGui(TechReborn.INSTANCE, EGui.MANUAL.ordinal(), world, (int) player.posX, (int) player.posY, (int) player.posY);
+		if(world.isClient){
+			MinecraftClient.getInstance().openScreen(new GuiManual(player));
+		}
 
-		//return new ActionResult<>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 	}
 }

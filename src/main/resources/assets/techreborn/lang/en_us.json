@@ -625,6 +625,8 @@
   "techreborn.manual.discord": "Our discord",
   "techreborn.manual.wikibtn": "Open",
   "techreborn.manual.discordbtn": "Join",
+  "techreborn.manual.refund": "I want a refund",
+  "techreborn.manual.refundbtn": "Refund",
 
   "_comment24": "Advancements",
   "advancements.techreborn.root.desc": "Now that you have acquired Tech Reborn ore, you might find a tree tap usefull.",

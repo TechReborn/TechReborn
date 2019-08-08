@@ -24,13 +24,17 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.SystemUtil;
+import reborncore.client.gui.builder.widget.GuiButtonExtended;
+import reborncore.common.network.NetworkManager;
 import techreborn.items.ItemManual;
-
+import techreborn.packets.ServerboundPackets;
 
 public class GuiManual extends Screen {
 
@@ -52,11 +56,24 @@ public class GuiManual extends Screen {
 	@Override
 	public void init() {
 		int y = height / 4;
-		//		buttons.add(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, I18n.translate("techreborn.manual.wikibtn")));
-		//		buttons.add(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, I18n.translate("techreborn.manual.discordbtn")));
-		//		if(ItemManual.allowRefund){
-		//			buttons.add(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, I18n.translate("techreborn.manual.refundbtn")));
-		//		}
+		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, I18n.translate("techreborn.manual.wikibtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
+			if(t){
+				SystemUtil.getOperatingSystem().open("http://wiki.techreborn.ovh");
+				this.minecraft.openScreen(this);
+			}
+		}, "http://wiki.techreborn.ovh", false))));
+		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, I18n.translate("techreborn.manual.discordbtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
+			if(t){
+				SystemUtil.getOperatingSystem().open("https://discord.gg/teamreborn");
+				this.minecraft.openScreen(this);
+			}
+		}, "https://discord.gg/teamreborn", false))));
+		if(ItemManual.allowRefund){
+			addButton(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, I18n.translate("techreborn.manual.refundbtn"), var1 -> {
+				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
+				this.minecraft.openScreen(null);
+			}));
+		}
 	}
 
 	@Override
@@ -75,49 +92,5 @@ public class GuiManual extends Screen {
 		super.render(mouseX, mouseY, partialTicks);
 	}
 }
-
-//	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-//		switch (button.id) {
-//			case 1:
-//				minecraft.openScreen(new ConfirmChatLinkScreen(this, "http://wiki.techreborn.ovh", 1, false));
-//				break;
-//			case 2:
-//				this.minecraft.openScreen(new ConfirmChatLinkScreen(this, "https://discord.gg/teamreborn", 2, false));
-//				break;
-//			case 3:
-//				minecraft.openScreen(null);
-//				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
-//				break;
-//		}
-//	}
-//
-//	@Override
-//	public void confirmResult(boolean result, int id) {
-//		switch(id) {
-//			case 1:
-//				if(result == true) {
-//					try {
-//						Desktop.getDesktop().browse(new java.net.URI("http://wiki.techreborn.ovh"));
-//					} catch (Exception e) {
-//						System.err.print(e);
-//					}
-//				}else {
-//					minecraft.openScreen(this);
-//				}
-//				break;
-//			case 2:
-//				if(result == true) {
-//					try {
-//						Desktop.getDesktop().browse(new java.net.URI("https://discord.gg/teamreborn"));
-//					} catch (Exception e) {
-//						System.err.print(e);
-//					}
-//				}else {
-//					minecraft.openScreen(this);
-//				}
-//				break;
-//		}
-//		}
-//	}
 
 
