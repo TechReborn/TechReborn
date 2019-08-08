@@ -51,6 +51,10 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	@Override
 	public void updateCurrentRecipe(){
 		List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(blockEntity.getWorld());
+		if(scrapboxRecipeList.isEmpty()){
+			setCurrentRecipe(null);
+			return;
+		}
 		int random = blockEntity.getWorld().random.nextInt(scrapboxRecipeList.size());
 		// Sets the current recipe then syncs
 		setCurrentRecipe(scrapboxRecipeList.get(random));

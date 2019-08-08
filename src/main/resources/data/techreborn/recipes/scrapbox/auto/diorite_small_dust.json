@@ -1,0 +1,15 @@
+{
+  "power": 10,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:scrap_box"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:diorite_small_dust"
+    }
+  ],
+  "type": "techreborn:scrapbox"
+}

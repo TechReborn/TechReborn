@@ -1,0 +1,18 @@
+{
+  "power": 10,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:scrap_box"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "tag": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "type": "techreborn:scrapbox"
+}

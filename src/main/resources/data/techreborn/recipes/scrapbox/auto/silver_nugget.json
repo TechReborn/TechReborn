@@ -1,0 +1,15 @@
+{
+  "power": 10,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:scrap_box"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:silver_nugget"
+    }
+  ],
+  "type": "techreborn:scrapbox"
+}

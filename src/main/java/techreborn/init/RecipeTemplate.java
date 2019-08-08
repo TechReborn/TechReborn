@@ -30,7 +30,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.JsonOps;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.container.Container;
 import net.minecraft.datafixers.NbtOps;
 import net.minecraft.entity.player.PlayerEntity;
@@ -247,7 +246,6 @@ public class RecipeTemplate {
 
 	public static File generate(Identifier type, boolean auto, int power, int time, List<ItemStack> inputs, List<ItemStack> outputs) throws IOException {
 		JsonObject object = new JsonObject();
-		object.addProperty("type", type.toString());
 		object.addProperty("power", power);
 		object.addProperty("time", time);
 
@@ -300,6 +298,13 @@ public class RecipeTemplate {
 			object.add("results", results);
 		}
 
+		return generate(type, auto, object, outputs.get(0));
+	}
+
+	public static File generate(Identifier type, boolean auto, JsonObject object, ItemStack namingStack) throws IOException {
+
+		object.addProperty("type", type.toString());
+
 		String json = new GsonBuilder().setPrettyPrinting().create().toJson(object);
 
 		File dir = new File("C:\\Users\\mark\\Documents\\Modding\\1.14\\TechReborn\\");
@@ -308,9 +313,9 @@ public class RecipeTemplate {
 
 		int i = 0;
 		while (file == null || file.exists()){
-			String name = Registry.ITEM.getId(outputs.get(0).getItem()).getPath();
-			if(outputs.get(0).getItem() == TRContent.CELL){
-				name = Registry.FLUID.getId(TRContent.CELL.getFluid(outputs.get(0))).getPath();
+			String name = Registry.ITEM.getId(namingStack.getItem()).getPath();
+			if(namingStack.getItem() == TRContent.CELL){
+				name = Registry.FLUID.getId(TRContent.CELL.getFluid(namingStack)).getPath();
 				if(name.equals("empty")){
 					name = "empty_cell";
 				}
@@ -323,8 +328,6 @@ public class RecipeTemplate {
 		}
 
 		FileUtils.writeStringToFile(file, json, StandardCharsets.UTF_8);
-
-		MinecraftClient.getInstance().keyboard.setClipboard(file.getAbsolutePath());
 
 		return file;
 

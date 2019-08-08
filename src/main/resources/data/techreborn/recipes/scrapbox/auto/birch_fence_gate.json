@@ -1,0 +1,15 @@
+{
+  "power": 10,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:scrap_box"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:birch_fence_gate"
+    }
+  ],
+  "type": "techreborn:scrapbox"
+}

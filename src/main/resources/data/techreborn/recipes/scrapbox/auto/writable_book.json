@@ -1,0 +1,15 @@
+{
+  "power": 10,
+  "time": 20,
+  "ingredients": [
+    {
+      "item": "techreborn:scrap_box"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:writable_book"
+    }
+  ],
+  "type": "techreborn:scrapbox"
+}
