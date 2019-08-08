@@ -33,14 +33,13 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
-import techreborn.blocks.storage.BlockLapotronicSU;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
+import techreborn.blocks.storage.BlockLapotronicSU;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 
@@ -127,8 +126,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	
 	public void setMaxStorage(){
 		maxStorage  = (connectedBlocks + 1) * storagePerBlock;
-		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE / RebornCoreConfig.euPerFU) {
-			maxStorage = Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
+		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE) {
+			maxStorage = Integer.MAX_VALUE;
 		}
 	}
 

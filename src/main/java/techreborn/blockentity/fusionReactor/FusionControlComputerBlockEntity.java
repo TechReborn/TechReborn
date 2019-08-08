@@ -34,21 +34,20 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.ingredient.StackIngredient;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Torus;
 import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
-import techreborn.init.TRContent;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -321,7 +320,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return Math.min(maxEnergy * getPowerMultiplier(), Integer.MAX_VALUE / RebornCoreConfig.euPerFU);
+		return Math.min(maxEnergy * getPowerMultiplier(), Integer.MAX_VALUE);
 	}
 
 	@Override
@@ -339,7 +338,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		if (!hasStartedCrafting) {
 			return 0;
 		}
-		return Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override

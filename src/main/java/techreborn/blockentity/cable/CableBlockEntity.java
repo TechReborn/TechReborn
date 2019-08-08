@@ -39,12 +39,11 @@ import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnergyBlockEntity;
 import reborncore.api.power.EnumPowerTier;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.cable.BlockCable;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,7 +115,7 @@ public class CableBlockEntity extends BlockEntity
 
 		if (cableType == null) {
 			cableType = getCableType();
-			transferRate = cableType.transferRate * RebornCoreConfig.euPerFU;
+			transferRate = cableType.transferRate;
 		}
 
 		ticksSinceLastChange++;
@@ -164,7 +163,7 @@ public class CableBlockEntity extends BlockEntity
 		if (isReal) {
 			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
 				+ Formatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(transferRate / RebornCoreConfig.euPerFU) + "/t"));
+				+ PowerSystem.getLocaliszedPowerFormatted(transferRate) + "/t"));
 			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
 				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
 		}

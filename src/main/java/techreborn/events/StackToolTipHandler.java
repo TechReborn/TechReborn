@@ -42,7 +42,6 @@ import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
-import reborncore.common.RebornCoreConfig;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
@@ -62,9 +61,9 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			((IListInfoProvider) item).addInfo(components, false, false);
 		} else if (stack.getItem() instanceof IEnergyItemInfo) {
 			ItemPowerManager itemPowerManager = new ItemPowerManager(stack);
-			LiteralText line1 = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getEnergyStored() / RebornCoreConfig.euPerFU));
+			LiteralText line1 = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getEnergyStored()));
 			line1.append("/");
-			line1.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getMaxEnergyStored() / RebornCoreConfig.euPerFU));
+			line1.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getMaxEnergyStored()));
 			line1.append(" ");
 			line1.append(PowerSystem.getDisplayPower().abbreviation);
 			line1.formatted(Formatting.GOLD);
