@@ -291,7 +291,7 @@ public class TileCableEU extends TileEntity implements ITickable, IListInfoProvi
 		world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_BURN, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
 		for(int l = 0; l < 8; l++)  {
-			Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, pos.getX() + Math.random(), pos.getY() + 1.2, pos.getZ() + Math.random(), 0, 0, 0);
+			world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, pos.getX() + Math.random(), pos.getY() + 1.2, pos.getZ() + Math.random(), 0, 0, 0);
 		}
 
 		world.setBlockToAir(pos); // Just destroy the block
