@@ -27,12 +27,13 @@ package techreborn.client.gui;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
 
 @Environment(EnvType.CLIENT)
-public class GuiDieselGenerator extends GuiBase {
+public class GuiDieselGenerator extends GuiBase<BuiltContainer> {
 
 	DieselGeneratorBlockEntity blockEntity;
 

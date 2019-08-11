@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
@@ -38,7 +39,7 @@ import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-public class GuiAutoCrafting extends GuiBase {
+public class GuiAutoCrafting extends GuiBase<BuiltContainer> {
 
 	static final Identifier RECIPE_BOOK_TEXTURE = new Identifier("textures/gui/recipe_book.png");
 	boolean showGui = true;

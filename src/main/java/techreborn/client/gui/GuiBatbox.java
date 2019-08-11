@@ -26,11 +26,12 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
 
-public class GuiBatbox extends GuiBase {
+public class GuiBatbox extends GuiBase<BuiltContainer> {
 
 	LowVoltageSUBlockEntity blockEntity;
 

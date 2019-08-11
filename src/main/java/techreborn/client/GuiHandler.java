@@ -74,7 +74,7 @@ public class GuiHandler {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private static AbstractContainerScreen getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
+	private static AbstractContainerScreen<?> getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
 		final BlockEntity blockEntity = player.world.getBlockEntity(pos);
 
 		switch (gui) {

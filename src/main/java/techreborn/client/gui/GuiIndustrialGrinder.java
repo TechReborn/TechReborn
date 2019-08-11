@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.RebornCoreClient;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -39,7 +40,7 @@ import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 
-public class GuiIndustrialGrinder extends GuiBase {
+public class GuiIndustrialGrinder extends GuiBase<BuiltContainer> {
 
 	IndustrialGrinderBlockEntity blockEntity;
 

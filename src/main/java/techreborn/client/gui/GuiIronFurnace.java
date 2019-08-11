@@ -25,26 +25,24 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 
-public class GuiIronFurnace extends GuiBase {
+public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 
 	public static final Identifier texture = new Identifier("minecraft",
 		"textures/gui/container/furnace.png");
 
-	IronFurnaceBlockEntity furnace;
+	IronFurnaceBlockEntity blockEntity;
 
 	public GuiIronFurnace(int syncID, final PlayerEntity player, final IronFurnaceBlockEntity furnace) {
 		super(player, furnace,  furnace.createContainer(syncID, player));
-		this.containerWidth = 176;
-		this.containerHeight = 167;
-		this.furnace = furnace;
+		this.blockEntity = furnace;
 	}
 
 	@Override
@@ -59,30 +57,14 @@ public class GuiIronFurnace extends GuiBase {
 
 		int j = 0;
 
-		j = furnace.gaugeProgressScaled(24);
+		j = blockEntity.gaugeProgressScaled(24);
 		if (j > 0) {
 			blit(k + 78, l + 35, 176, 14, j + 1, 16);
 		}
 
-		j = furnace.gaugeFuelScaled(12);
+		j = blockEntity.gaugeFuelScaled(12);
 		if (j > 0) {
 			blit(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
 		}
 	}
-
-	@Override
-	protected void drawForeground(int mouseX, int mouseY) {
-		final String name = I18n.translate("block.techreborn.iron_furnace");
-		font.draw(name, containerWidth / 2 - font.getStringWidth(name) / 2, 6, 4210752);
-		font.draw(I18n.translate("container.inventory", new Object[0]), 8, containerHeight - 96 + 2, 4210752);
-
-		super.drawForeground(mouseX, mouseY);
-	}
-
-	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		super.render(mouseX, mouseY, partialTicks);
-		drawMouseoverTooltip(mouseX, mouseY);
-	}
-
 }

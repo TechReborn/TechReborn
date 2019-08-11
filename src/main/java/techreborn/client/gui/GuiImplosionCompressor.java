@@ -29,6 +29,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCoreClient;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -38,7 +39,7 @@ import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
 
-public class GuiImplosionCompressor extends GuiBase {
+public class GuiImplosionCompressor extends GuiBase<BuiltContainer> {
 
 	ImplosionCompressorBlockEntity blockEntity;
 

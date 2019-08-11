@@ -25,10 +25,11 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 
-public class GuiGenerator extends GuiBase {
+public class GuiGenerator extends GuiBase<BuiltContainer> {
 
 	SolidFuelGeneratorBlockEntity blockEntity;
 

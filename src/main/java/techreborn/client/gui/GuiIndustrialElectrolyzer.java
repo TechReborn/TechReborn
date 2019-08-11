@@ -25,11 +25,12 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.machine.tier1.IndustrialElectrolyzerBlockEntity;
 
-public class GuiIndustrialElectrolyzer extends GuiBase {
+public class GuiIndustrialElectrolyzer extends GuiBase<BuiltContainer> {
 	
 	IndustrialElectrolyzerBlockEntity blockEntity;
 

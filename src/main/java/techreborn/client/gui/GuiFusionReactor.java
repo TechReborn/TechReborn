@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.RebornCoreClient;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -48,7 +49,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
-public class GuiFusionReactor extends GuiBase {
+public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	FusionControlComputerBlockEntity blockEntity;
 
 	public GuiFusionReactor(int syncID, final PlayerEntity player, final FusionControlComputerBlockEntity blockEntity) {
