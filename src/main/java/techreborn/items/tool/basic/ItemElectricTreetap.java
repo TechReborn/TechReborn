@@ -60,7 +60,7 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDu
 		ItemPowerManager capEnergy = new ItemPowerManager(context.getStack());
 		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
 			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isClient){
-				capEnergy.extractEnergy(cost, false);
+				capEnergy.useEnergy(cost, false);
 				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, context.getPlayer());
 
 				return ActionResult.SUCCESS;

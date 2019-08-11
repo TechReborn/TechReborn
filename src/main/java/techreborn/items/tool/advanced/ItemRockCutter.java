@@ -83,7 +83,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
-			capEnergy.extractEnergy(cost, false);
+			capEnergy.useEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 		}
 		return true;

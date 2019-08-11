@@ -119,6 +119,8 @@ public class BlockRubberLog extends LogBlock {
 		if (stack.isEmpty()) {
 			return false;
 		}
+		
+		//TODO: Should it be here??
 		ItemPowerManager capEnergy = null;
 		if (stack.getItem() instanceof ItemElectricTreetap) {
 			capEnergy = new ItemPowerManager(stack);
@@ -130,7 +132,7 @@ public class BlockRubberLog extends LogBlock {
 						0.6F, 1F);
 				if (!worldIn.isClient) {
 					if (capEnergy != null) {
-						capEnergy.extractEnergy(20, false);
+						capEnergy.useEnergy(20, false);
 
 						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 					} else {

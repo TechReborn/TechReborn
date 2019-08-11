@@ -86,7 +86,7 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
 		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() >= cost) {
-			capEnergy.extractEnergy(cost, false);
+			capEnergy.useEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityHitter);
 
 			return true;

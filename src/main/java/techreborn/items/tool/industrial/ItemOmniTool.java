@@ -78,7 +78,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
-		capEnergy.extractEnergy(cost, false);
+		capEnergy.useEnergy(cost, false);
 		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 
 		return true;
@@ -109,7 +109,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
 		ItemPowerManager capEnergy = new ItemPowerManager(stack);
 		if (capEnergy.getEnergyStored() >= hitCost) {
-			capEnergy.extractEnergy(hitCost, false);
+			capEnergy.useEnergy(hitCost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityliving);
 
 			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);

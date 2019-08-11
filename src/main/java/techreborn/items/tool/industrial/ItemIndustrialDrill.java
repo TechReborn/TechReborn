@@ -123,7 +123,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		ItemPowerManager capEnergy = new ItemPowerManager(drill);
 
 		if(capEnergy.getEnergyStored() > cost){
-			capEnergy.extractEnergy(cost, false);
+			capEnergy.useEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
 
 			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);

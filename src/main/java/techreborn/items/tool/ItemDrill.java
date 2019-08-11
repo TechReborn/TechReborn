@@ -75,7 +75,7 @@ public class ItemDrill extends PickaxeItem implements IEnergyItemInfo, ItemDurab
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
-			capEnergy.extractEnergy(cost, false);
+			capEnergy.useEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 		}
 		return true;

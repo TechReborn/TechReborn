@@ -90,7 +90,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 
-			capEnergy.extractEnergy(cost, false);
+			capEnergy.useEnergy(cost, false);
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 		}
 		return true;

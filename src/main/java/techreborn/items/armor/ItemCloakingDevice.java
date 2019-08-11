@@ -63,7 +63,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 			PlayerEntity player = (PlayerEntity) entityIn;
 			ItemPowerManager capEnergy = new ItemPowerManager(stack);
 			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
-				capEnergy.extractEnergy(usage, false);
+				capEnergy.useEnergy(usage, false);
 				player.setInvisible(true);
 			} else {
 				if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {

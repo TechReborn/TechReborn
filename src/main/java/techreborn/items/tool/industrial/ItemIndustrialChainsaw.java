@@ -200,7 +200,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			return;
 		}
 
-		capEnergy.extractEnergy(cost, false);
+		capEnergy.useEnergy(cost, false);
 		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
 
 		blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
