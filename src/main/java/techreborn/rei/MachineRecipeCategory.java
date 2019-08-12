@@ -40,8 +40,6 @@ import net.minecraft.util.math.MathHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
-import techreborn.init.ModRecipes;
-
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collections;

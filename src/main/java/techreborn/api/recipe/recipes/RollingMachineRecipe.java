@@ -48,31 +48,26 @@ public class RollingMachineRecipe extends RebornRecipe {
 		return Collections.singletonList(shapedRecipe.getOutput());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getOutput() {
 		return shapedRecipe.getOutput();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public DefaultedList<Ingredient> getPreviewInputs() {
 		return shapedRecipe.getPreviewInputs();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean matches(Inventory inv, World worldIn) {
 		return shapedRecipe.matches((CraftingInventory) inv, worldIn);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack craft(Inventory inv) {
 		return shapedRecipe.craft((CraftingInventory) inv);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean fits(int width, int height) {
 		return shapedRecipe.fits(width, height);
