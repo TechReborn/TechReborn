@@ -154,7 +154,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	 * Tries to set current recipe based in inputs in reactor
 	 */
 	private void updateCurrentRecipe() {
-		for (RebornRecipe recipe : ModRecipes.ROLLING_MACHINE.getRecipes(getWorld())) {
+		for (RebornRecipe recipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
 			if (recipe.canCraft(this) && validateRecipe((FusionReactorRecipe) recipe)) {
 				currentRecipe = (FusionReactorRecipe) recipe;
 				crafingTickTime = 0;
@@ -345,7 +345,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
 		if(tagCompound.containsKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
-			for (final RebornRecipe reactorRecipe : ModRecipes.ROLLING_MACHINE.getRecipes(getWorld())) {
+			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
 				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
 					this.currentRecipe = (FusionReactorRecipe) reactorRecipe;
 				}
