@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:rolling_machine",
+  "shaped": {
+    "pattern": [
+      "III",
+      "III"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "minecraft:iron_bars",
+      "count": 24
+    }
+  }
+}

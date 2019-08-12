@@ -25,10 +25,7 @@
 package techreborn.rei;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import me.shedaniel.rei.api.DisplaySettings;
-import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.api.Renderable;
-import me.shedaniel.rei.api.Renderer;
+import me.shedaniel.rei.api.*;
 import me.shedaniel.rei.gui.renderables.RecipeRenderer;
 import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
 import me.shedaniel.rei.gui.widget.SlotWidget;
@@ -43,6 +40,7 @@ import net.minecraft.util.math.MathHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
+import techreborn.init.ModRecipes;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -123,7 +121,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 
     @Override
     public DisplaySettings getDisplaySettings() {
-        return new DisplaySettings<MachineRecipeDisplay>() {
+		return new DisplaySettings<MachineRecipeDisplay>() {
             public int getDisplayHeight(RecipeCategory category) {
 
                 if (recipeLines == 1) {

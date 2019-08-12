@@ -1,0 +1,22 @@
+{
+  "type": "techreborn:rolling_machine",
+  "shaped": {
+    "pattern": [
+      "I I",
+      "ISI",
+      "I I"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "minecraft:rail",
+      "count": 24
+    }
+  }
+}

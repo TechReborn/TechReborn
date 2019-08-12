@@ -22,33 +22,40 @@
  * SOFTWARE.
  */
 
-package techreborn.api;
+package techreborn.rei.rollingmachine;
 
-import net.minecraft.inventory.CraftingInventory;
+import me.shedaniel.rei.api.Renderable;
+import me.shedaniel.rei.api.Renderer;
+import me.shedaniel.rei.plugin.DefaultCraftingCategory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.util.StringUtils;
+import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.rei.ReiPlugin;
 
+public class RollingMachineCategory extends DefaultCraftingCategory {
 
-public class RollingMachineRecipe {
+	private final RebornRecipeType<RollingMachineRecipe> rebornRecipeType;
 
-	public static final RollingMachineRecipe instance = new RollingMachineRecipe();
-
-	public void addShapedOreRecipe(Identifier resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-
+	public RollingMachineCategory(RebornRecipeType<RollingMachineRecipe> rebornRecipeType) {
+		this.rebornRecipeType = rebornRecipeType;
 	}
 
-	public void addShapelessOreRecipe(Identifier resourceLocation, ItemStack outputItemStack, Object... objectInputs) {
-
+	@Override
+	public Identifier getIdentifier() {
+		return rebornRecipeType.getName();
 	}
 
-	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {
-		return ItemStack.EMPTY;
+	@Override
+	public String getCategoryName() {
+		return StringUtils.t(rebornRecipeType.getName().toString());
 	}
 
-	public Recipe findMatchingRecipe(CraftingInventory inv, World world) {
-		return null;
+	@Override
+	public Renderer getIcon() {
+		return Renderable.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
 	}
 
 }

@@ -1,0 +1,22 @@
+{
+  "type": "techreborn:rolling_machine",
+  "shaped": {
+    "pattern": [
+      "AAA",
+      "MMM",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "techreborn:aluminum_ingot"
+      },
+      "M": {
+        "item": "techreborn:magnesium_dust"
+      }
+    },
+    "result": {
+      "item": "techreborn:magnalium_plate",
+      "count": 3
+    }
+  }
+}

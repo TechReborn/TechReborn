@@ -1,0 +1,25 @@
+{
+  "type": "techreborn:rolling_machine",
+  "shaped": {
+    "pattern": [
+      "ISI",
+      "IRI",
+      "ISI"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      },
+      "R": {
+        "item": "minecraft:redstone_torch"
+      }
+    },
+    "result": {
+      "item": "minecraft:activator_rail",
+      "count": 8
+    }
+  }
+}

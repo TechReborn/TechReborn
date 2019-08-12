@@ -88,9 +88,12 @@ dependencies {
 	//Fabric api
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.1+build.208"
 
-	modCompile "io.github.prospector.modmenu:ModMenu:1.5.4-85"
+	modCompile "io.github.prospector:modmenu:1.7.7+build.116"
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
-	modCompile "me.shedaniel:RoughlyEnoughItems:2.9.7+build.143"
+	modCompile ("me.shedaniel:RoughlyEnoughItems:2.9.7+build.145") {
+		//Thanks for moving the project breaking gradle...
+		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
+	}
 
 	def rcVersion = 'RebornCore:RebornCore-1.14.4:+'
 

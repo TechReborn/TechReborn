@@ -25,6 +25,7 @@
 package techreborn.rei;
 
 import me.shedaniel.rei.api.REIPluginEntry;
+import me.shedaniel.rei.api.RecipeDisplay;
 import me.shedaniel.rei.api.RecipeHelper;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -34,16 +35,16 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.TechReborn;
-import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
-import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.api.recipe.recipes.IndustrialGrinderRecipe;
-import techreborn.api.recipe.recipes.IndustrialSawmillRecipe;
+import techreborn.api.recipe.recipes.*;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
+import techreborn.rei.rollingmachine.RollingMachineCategory;
+import techreborn.rei.rollingmachine.RollingMachineDisplay;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class ReiPlugin implements REIPluginEntry {
@@ -69,6 +70,7 @@ public class ReiPlugin implements REIPluginEntry {
 		iconMap.put(ModRecipes.INDUSTRIAL_SAWMILL, Machine.INDUSTRIAL_SAWMILL);
 		iconMap.put(ModRecipes.SCRAPBOX, TRContent.SCRAP_BOX);
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
+		iconMap.put(ModRecipes.ROLLING_MACHINE, Machine.ROLLING_MACHINE);
 	}
 
 	@Override
@@ -78,35 +80,33 @@ public class ReiPlugin implements REIPluginEntry {
 
 	@Override
 	public void registerPluginCategories(RecipeHelper recipeHelper) {
-	    recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.ALLOY_SMELTER));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.ASSEMBLING_MACHINE));
-        recipeHelper.registerCategory(new MachineRecipeCategory<BlastFurnaceRecipe>(ModRecipes.BLAST_FURNACE));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.CENTRIFUGE, 4));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.CHEMICAL_REACTOR));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.COMPRESSOR, 1));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.DISTILLATION_TOWER, 3));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.EXTRACTOR, 1));
-        recipeHelper.registerCategory(new MachineRecipeCategory<FluidReplicatorRecipe>(ModRecipes.FLUID_REPLICATOR, 1));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.GRINDER, 1));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.IMPLOSION_COMPRESSOR));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.INDUSTRIAL_ELECTROLYZER, 4));
-        recipeHelper.registerCategory(new MachineRecipeCategory<IndustrialGrinderRecipe>(ModRecipes.INDUSTRIAL_GRINDER, 3));
-        recipeHelper.registerCategory(new MachineRecipeCategory<IndustrialSawmillRecipe>(ModRecipes.INDUSTRIAL_SAWMILL, 3));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.SCRAPBOX));
-        recipeHelper.registerCategory(new MachineRecipeCategory<RebornRecipe>(ModRecipes.VACUUM_FREEZER, 1));
+	    recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ALLOY_SMELTER));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ASSEMBLING_MACHINE));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.BLAST_FURNACE));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.CENTRIFUGE, 4));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.CHEMICAL_REACTOR));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.COMPRESSOR, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.DISTILLATION_TOWER, 3));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.EXTRACTOR, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.FLUID_REPLICATOR, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.GRINDER, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.IMPLOSION_COMPRESSOR));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_ELECTROLYZER, 4));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_GRINDER, 3));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_SAWMILL, 3));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SCRAPBOX));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.VACUUM_FREEZER, 1));
+		recipeHelper.registerCategory(new RollingMachineCategory(ModRecipes.ROLLING_MACHINE));
 	}
 
 	@Override
 	public void registerRecipeDisplays(RecipeHelper recipeHelper) {
 		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> registerMachineRecipe(recipeHelper, rebornRecipeType));
-	}
+}
 	
 	@Override
 	public void registerOthers(RecipeHelper recipeHelper) {
-		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(),
-				new ItemStack[] { new ItemStack(Machine.ALLOY_SMELTER.asItem()),
-								  new ItemStack(Machine.IRON_ALLOY_FURNACE.asItem())});
-		
+		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(), new ItemStack(Machine.ALLOY_SMELTER.asItem()), new ItemStack(Machine.IRON_ALLOY_FURNACE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.BLAST_FURNACE.getName(), new ItemStack(Machine.INDUSTRIAL_BLAST_FURNACE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.CENTRIFUGE.getName(), new ItemStack(Machine.INDUSTRIAL_CENTRIFUGE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.CHEMICAL_REACTOR.getName(), new ItemStack(Machine.CHEMICAL_REACTOR.asItem()));
@@ -119,14 +119,24 @@ public class ReiPlugin implements REIPluginEntry {
         recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_ELECTROLYZER.getName(), new ItemStack(Machine.INDUSTRIAL_ELECTROLYZER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.getName(), new ItemStack(Machine.INDUSTRIAL_SAWMILL.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), new ItemStack(Machine.VACUUM_FREEZER.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.ROLLING_MACHINE.getName(), new ItemStack(Machine.ROLLING_MACHINE.asItem()));
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){
+		Function<R, RecipeDisplay> recipeDisplay = r -> new MachineRecipeDisplay<>((RebornRecipe) r);
+
+		if(recipeType == ModRecipes.ROLLING_MACHINE){
+			recipeDisplay = r -> {
+				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r;
+				return new RollingMachineDisplay(rollingMachineRecipe.getShapedRecipe());
+			};
+		}
+
 		recipeHelper.registerRecipes(recipeType.getName(), (Predicate<Recipe>) recipe -> {
 			if (recipe instanceof RebornRecipe) {
 				return ((RebornRecipe) recipe).getRebornRecipeType() == recipeType;
 			}
 			return false;
-		}, recipe -> new MachineRecipeDisplay<RebornRecipe>((RebornRecipe) recipe));
+		}, recipeDisplay);
 	}
 }

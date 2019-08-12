@@ -1,0 +1,22 @@
+{
+  "type": "techreborn:rolling_machine",
+  "shaped": {
+    "pattern": [
+      " N ",
+      "NCN",
+      " N "
+    ],
+    "key": {
+      "N": {
+        "item": "techreborn:nickel_ingot"
+      },
+      "C": {
+        "item": "techreborn:chrome_ingot"
+      }
+    },
+    "result": {
+      "item": "techreborn:nichrome_heating_coil",
+      "count": 2
+    }
+  }
+}

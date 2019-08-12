@@ -32,6 +32,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -39,13 +40,15 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.crafting.RecipeManager;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.registration.RebornRegister;
 import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.RollingMachineRecipe;
+import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
@@ -122,7 +125,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		charge(10);
 
 		CraftingInventory craftMatrix = getCraftingMatrix();
-		currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, world);
+		currentRecipe = findMatchingRecipe(craftMatrix, world);
 		if (currentRecipe != null) {
 			setIsActive(true);
 			if (world.getTime() % 2 == 0) {
@@ -138,7 +141,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 		if (!currentRecipeOutput.isEmpty() && canMake(craftMatrix)) {
 			if (tickTime >= Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)) {
-				currentRecipeOutput = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, world);
+				currentRecipeOutput = findMatchingRecipeOutput(craftMatrix, world);
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
 					if (inventory.getInvStack(outputSlot).isEmpty()) {
@@ -313,7 +316,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public boolean canMake(CraftingInventory craftMatrix) {
-		ItemStack stack = RollingMachineRecipe.instance.findMatchingRecipeOutput(craftMatrix, this.world);
+		ItemStack stack = findMatchingRecipeOutput(craftMatrix, this.world);
 		if (locked) {
 			for (int i = 0; i < craftMatrix.getInvSize(); i++) {
 				ItemStack stack1 = craftMatrix.getInvStack(i);
@@ -332,6 +335,27 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		return ItemUtils.isItemEqual(stack, output, true, true);
 	}
 
+	public List<RollingMachineRecipe> getAllRecipe(World world){
+		return ModRecipes.ROLLING_MACHINE.getRecipes(world);
+	}
+
+	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {
+		Recipe recipe = findMatchingRecipe(inv, world);
+		if(recipe == null){
+			return ItemStack.EMPTY;
+		}
+		return recipe.getOutput();
+	}
+
+	public Recipe findMatchingRecipe(CraftingInventory inv, World world) {
+		for (RollingMachineRecipe recipe : getAllRecipe(world)) {
+			if (recipe.matches(inv, world)) {
+				return recipe;
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.ROLLING_MACHINE.getStack();
@@ -382,7 +406,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
 			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
 			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
-			.onCraft(inv -> this.inventory.setInvStack(1, RollingMachineRecipe.instance.findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+			.onCraft(inv -> this.inventory.setInvStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
 			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
