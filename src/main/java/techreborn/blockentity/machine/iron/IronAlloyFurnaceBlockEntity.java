@@ -38,7 +38,6 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.StackIngredient;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;

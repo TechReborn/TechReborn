@@ -37,9 +37,7 @@ import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.config.Config;
 import reborncore.common.util.StringUtils;
-import techreborn.TechReborn;
 import techreborn.blocks.transformers.BlockTransformer;
 import techreborn.config.TechRebornConfig;
 
