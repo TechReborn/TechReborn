@@ -40,6 +40,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import reborncore.common.BaseBlock;
+import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 
 /**
@@ -68,7 +69,7 @@ public class BlockNuke extends BaseBlock {
 		if (!worldIn.isClient) {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
 					(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getCausingEntity());
-			entitynukeprimed.setFuse(worldIn.random.nextInt(EntityNukePrimed.fuseTime / 4) + EntityNukePrimed.fuseTime / 8);
+			entitynukeprimed.setFuse(worldIn.random.nextInt(TechRebornConfig.nukeFuseTime / 4) + TechRebornConfig.nukeFuseTime / 8);
 			worldIn.spawnEntity(entitynukeprimed);
 		}
 	}

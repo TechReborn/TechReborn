@@ -33,27 +33,14 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
-import techreborn.init.TRContent;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxInput", comment = "Chunk Loader Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxEnergy", comment = "Chunk Loader Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	//  @ConfigRegistry(config = "machines", category = "chunk_loader", key = "ChunkLoaderWrenchDropRate", comment = "Chunk Loader Wrench Drop Rate")
-	public static float wrenchDropRate = 1.0F;
-
 	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(1, "ChunkLoaderBlockEntity", 64, this);
-
-	public boolean isRunning;
-	public int tickTime;
 
 	public ChunkLoaderBlockEntity() {
 		super(TRBlockEntities.CHUNK_LOADER );
@@ -64,13 +51,9 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
 
-	public boolean isComplete() {
-		return false;
-	}
-
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.chunkLoaderMaxEnergy;
 	}
 
 	@Override
@@ -90,7 +73,7 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.chunkLoaderMaxInput;
 	}
 
 	@Override

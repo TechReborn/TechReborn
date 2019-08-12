@@ -40,8 +40,8 @@ import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.items.ItemManual;
 
 import java.util.function.BiConsumer;
 
@@ -116,7 +116,7 @@ public class ServerboundPackets {
 		});
 
 		registerPacketHandler(REFUND, (extendedPacketBuffer, context) -> {
-			if(!ItemManual.allowRefund){
+			if(!TechRebornConfig.allowManualRefund){
 				return;
 			}
 			context.getTaskQueue().execute(() -> {

@@ -29,27 +29,19 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.items.ItemDynamicCell;
 import techreborn.blockentity.GenericMachineBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxInput", comment = "Industrial Electrolyzer Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "industrial_electrolyzer", key = "IndustrialElectrolyzerMaxEnergy", comment = "Industrial Electrolyzer Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-
 	public IndustrialElectrolyzerBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, "IndustrialElectrolyzer", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
+		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, "IndustrialElectrolyzer", TechRebornConfig.industrialElectrolyzerMaxInput, TechRebornConfig.industrialElectrolyzerMaxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new RebornInventory<>(7, "IndustrialElectrolyzerBlockEntity", 64, this);

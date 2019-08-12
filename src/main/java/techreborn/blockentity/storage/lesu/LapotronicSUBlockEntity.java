@@ -33,33 +33,21 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
 import techreborn.blocks.storage.BlockLapotronicSU;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider{
-
-//	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxInput", comment = "LESU Max Input (Value in EU)")
-//	public static int maxInput = 8192;
-	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxOutput", comment = "LESU Base Output (Value in EU)")
-	public static int baseOutput = 16;
-	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block (Value in EU)")
-	public static int storagePerBlock = 1_000_000;
-	@ConfigRegistry(config = "machines", category = "lesu", key = "LesuExtraIO", comment = "LESU Extra I/O Multiplier")
-	public static int extraIOPerBlock = 8;
 
 	public int connectedBlocks = 0;
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public LapotronicSUBlockEntity() {
-		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnumPowerTier.INSANE, 8192, baseOutput, 1_000_000);
+		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnumPowerTier.INSANE, 8192, TechRebornConfig.lesuBaseOutput, 1_000_000);
 		checkOverfill = false;
 	}
 
@@ -93,7 +81,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 
 		}
 		setMaxStorage();
-		maxOutput = (connectedBlocks * extraIOPerBlock) + baseOutput;
+		maxOutput = (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock) + TechRebornConfig.lesuBaseOutput;
 	}
 
 	@Override
@@ -125,7 +113,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 	
 	public void setMaxStorage(){
-		maxStorage  = (connectedBlocks + 1) * storagePerBlock;
+		maxStorage  = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
 		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE) {
 			maxStorage = Integer.MAX_VALUE;
 		}

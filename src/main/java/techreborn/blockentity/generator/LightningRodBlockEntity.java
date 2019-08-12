@@ -35,23 +35,12 @@ import net.minecraft.world.Heightmap;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
-import techreborn.init.TRContent;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
-	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
-	public static int maxOutput = 2048;
-	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodMaxEnergy", comment = "Lightning Rod Max Energy (Value in EU)")
-	public static int maxEnergy = 100_000_000;
-	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodChanceOfStrike", comment = "Chance of lightning striking a rod (Range: 0-70)")
-	public static int chanceOfStrike = 24;
-	@ConfigRegistry(config = "generators", category = "lightning_rod", key = "LightningRodBaseStrikeEnergy", comment = "Base amount of energy per strike (Value in EU)")
-	public static int baseEnergyStrike = 262_144;
 
 	private int onStatusHoldTicks = -1;
 
@@ -80,7 +69,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 		final float weatherStrength = world.getThunderGradient(1.0F);
 		if (weatherStrength > 0.2F) {
 			//lightStrikeChance = (MAX - (CHANCE * WEATHER_STRENGTH)
-			final float lightStrikeChance = (100F - chanceOfStrike) * 20F;
+			final float lightStrikeChance = (100F - TechRebornConfig.lightningRodChanceOfStrike) * 20F;
 			final float totalChance = lightStrikeChance * getLightningStrikeMultiplier() * (1.1F - weatherStrength);
 			if (world.random.nextInt((int) Math.floor(totalChance)) == 0) {
 				if (!isValidIronFence(pos.up().getY())) {
@@ -94,7 +83,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				if (!world.isClient) {
 					((ServerWorld) world).addLightning(lightningBolt);
 				}
-				addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
+				addEnergy(TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength));
 				machineBaseBlock.setActive(true, world, pos);
 				onStatusHoldTicks = 400;
 			}
@@ -127,7 +116,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.lightningRodMaxEnergy;
 	}
 
 	@Override
@@ -142,7 +131,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.lightningRodMaxOutput;
 	}
 
 	@Override

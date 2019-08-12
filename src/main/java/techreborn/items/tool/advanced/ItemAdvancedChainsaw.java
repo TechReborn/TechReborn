@@ -33,7 +33,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.ItemPowerManager;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
 
@@ -41,7 +41,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedChainsaw() {
-		super(ToolMaterials.DIAMOND, ConfigTechReborn.AdvancedChainsawCharge, 1.0F);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.AdvancedChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

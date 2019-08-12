@@ -34,23 +34,13 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")
-	public static int maxOutput = 512;
-	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxInput", comment = "Charge Bench Max Input (Value in EU)")
-	public static int maxInput = 512;
-	@ConfigRegistry(config = "machines", category = "charge_bench", key = "ChargeBenchMaxEnergy", comment = "Charge Bench Max Energy (Value in EU)")
-	public static int maxEnergy = 100_000_000;
 
 	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
 
@@ -77,7 +67,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.chargeOMatBMaxEnergy;
 	}
 
 	@Override
@@ -92,12 +82,12 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.chargeOMatBMaxOutput;
 	}
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.chargeOMatBMaxInput;
 	}
 	
 	// TileMachineBase

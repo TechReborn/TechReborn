@@ -36,12 +36,10 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.utils.FluidUtils;
@@ -49,14 +47,10 @@ import techreborn.utils.FluidUtils;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
-	public static int maxStorage = Integer.MAX_VALUE;
-
-	public Tank tank = new Tank("QuantumTankBlockEntity", maxStorage, this);
+	public Tank tank = new Tank("QuantumTankBlockEntity", TechRebornConfig.quantumTankMaxStorage, this);
 	public RebornInventory<QuantumTankBlockEntity> inventory = new RebornInventory<>(3, "QuantumTankBlockEntity", 64, this);
 
 	public QuantumTankBlockEntity(){

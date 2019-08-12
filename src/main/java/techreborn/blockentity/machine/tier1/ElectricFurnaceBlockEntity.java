@@ -36,22 +36,14 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceInput", comment = "Electric Furnace Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
 
 	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
 	public int progress;
@@ -179,7 +171,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.electricFurnaceMaxEnergy;
 	}
 
 	@Override
@@ -199,7 +191,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.electricFurnaceMaxInput;
 	}
 
 	// IToolDrop

@@ -48,10 +48,8 @@ import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.power.EnergyBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.WrenchUtils;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.blockentity.cable.CableBlockEntity;
@@ -62,7 +60,6 @@ import javax.annotation.Nullable;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
-@RebornRegister(TechReborn.MOD_ID)
 public class BlockCable extends BlockWithEntity {
 
 	public static final BooleanProperty EAST = BooleanProperty.of("east");
@@ -71,15 +68,6 @@ public class BlockCable extends BlockWithEntity {
 	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
 	public static final BooleanProperty UP = BooleanProperty.of("up");
 	public static final BooleanProperty DOWN = BooleanProperty.of("down");
-
-	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
-	public static boolean uninsulatedElectrocutionDamage = true;
-
-	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionSound", comment = "When true an uninsulated cable will create a spark sound when an entity touches it")
-	public static boolean uninsulatedElectrocutionSound = true;
-
-	@ConfigRegistry(config = "misc", category = "cable", key = "uninsulatedElectrocutionParticles", comment = "When true an uninsulated cable will create a spark when an entity touches it")
-	public static boolean uninsulatedElectrocutionParticles = true;
 
 	public final TRContent.Cables type;
 
@@ -216,17 +204,17 @@ public class BlockCable extends BlockWithEntity {
 			return;
 		}
 
-		if (uninsulatedElectrocutionDamage) {
+		if (TechRebornConfig.uninsulatedElectrocutionDamage) {
 			if (type == TRContent.Cables.HV) {
 				entityIn.setOnFireFor(1);
 			}
 			entityIn.damage(new ElectrialShockSource(), 1F);
 		}
-		if (uninsulatedElectrocutionSound) {
+		if (TechRebornConfig.uninsulatedElectrocutionSound) {
 			worldIn.playSound(null, entityIn.x, entityIn.y, entityIn.z, ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
 					0.6F, 1F);
 		}
-		if (uninsulatedElectrocutionParticles) {
+		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
 			worldIn.addParticle(ParticleTypes.CRIT, entityIn.x, entityIn.y, entityIn.z, 0, 0, 0);
 		}
 	}

@@ -29,28 +29,16 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxOutput", comment = "Thermal Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
-	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxEnergy", comment = "Thermal Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000_000;
-	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorTankCapacity", comment = "Thermal Generator Tank Capacity")
-	public static int tankCapacity = 10_000;
-	@ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorEnergyPerTick", comment = "Thermal Generator Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 16;
-
 	public ThermalGeneratorBlockEntity() {
-		super(TRBlockEntities.THERMAL_GEN, EFluidGenerator.THERMAL, "ThermalGeneratorBlockEntity", tankCapacity, energyPerTick);
+		super(TRBlockEntities.THERMAL_GEN, EFluidGenerator.THERMAL, "ThermalGeneratorBlockEntity", TechRebornConfig.thermalGeneratorTankCapacity, TechRebornConfig.thermalGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -60,12 +48,12 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.thermalGeneratorMaxEnergy;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.thermalGeneratorMaxOutput;
 	}
 
 	@Override

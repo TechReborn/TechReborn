@@ -31,25 +31,15 @@ import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
+
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-
-@RebornRegister(TechReborn.MOD_ID)
 public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
-
-	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")
-	public static int maxOutput = 32;
-	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillMaxEnergy", comment = "Water Mill Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "generators", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
-	public static double energyMultiplier = 0.1;
 
 	int waterblocks = 0;
 
@@ -64,7 +54,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 			checkForWater();
 		}
 		if (waterblocks > 0) {
-			addEnergy(waterblocks * energyMultiplier);
+			addEnergy(waterblocks * TechRebornConfig.waterMillEnergyMultiplier);
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
 		}
 		else {
@@ -83,7 +73,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.waterMillMaxEnergy;
 	}
 
 	@Override
@@ -98,7 +88,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.waterMillMaxOutput;
 	}
 
 	@Override

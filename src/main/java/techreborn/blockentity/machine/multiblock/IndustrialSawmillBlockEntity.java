@@ -34,12 +34,10 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
@@ -48,13 +46,7 @@ import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxEnergy", comment = "Industrial Sawmill Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
 
 	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
@@ -62,7 +54,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	int ticksSinceLastChange;
 
 	public IndustrialSawmillBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_SAWMILL, "IndustrialSawmill", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
+		super(TRBlockEntities.INDUSTRIAL_SAWMILL, "IndustrialSawmill", TechRebornConfig.industrialSawmillMaxInput, TechRebornConfig.industrialSawmillMaxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
 		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this, getInventoryAccess());

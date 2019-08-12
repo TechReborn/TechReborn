@@ -34,8 +34,6 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.BlockCable;
@@ -50,7 +48,7 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.client.EGui;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
@@ -87,7 +85,6 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Function;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class TRContent {
 	
 	// Misc Blocks
@@ -217,11 +214,11 @@ public class TRContent {
 	public static Item PERIDOT_BOOTS;
 		
 	public enum SolarPanels implements ItemConvertible {
-		BASIC(EnumPowerTier.MICRO, ConfigTechReborn.basicGenerationRateD, ConfigTechReborn.basicGenerationRateN), 
-		ADVANCED(EnumPowerTier.LOW, ConfigTechReborn.advancedGenerationRateD, ConfigTechReborn.advancedGenerationRateN), 
-		INDUSTRIAL(EnumPowerTier.MEDIUM, ConfigTechReborn.industrialGenerationRateD, ConfigTechReborn.industrialGenerationRateN),
-		ULTIMATE(EnumPowerTier.HIGH, ConfigTechReborn.ultimateGenerationRateD, ConfigTechReborn.ultimateGenerationRateN), 
-		QUANTUM(EnumPowerTier.EXTREME, ConfigTechReborn.quantumGenerationRateD, ConfigTechReborn.quantumGenerationRateN), 
+		BASIC(EnumPowerTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
+		ADVANCED(EnumPowerTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
+		INDUSTRIAL(EnumPowerTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
+		ULTIMATE(EnumPowerTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
+		QUANTUM(EnumPowerTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
 		CREATIVE(EnumPowerTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
 		
 		public final String name;
@@ -713,23 +710,14 @@ public class TRContent {
 		}
 	}
 
-	@ConfigRegistry(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker behavior speed multipiler")
-	public static double overclockerSpeed = 0.25;
-
-	@ConfigRegistry(config = "items", category = "upgrades", key = "overclcoker_power", comment = "Overclocker behavior power multipiler")
-	public static double overclockerPower = 0.75;
-
-	@ConfigRegistry(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")
-	public static double energyStoragePower = 40_000;
-
 	public enum Upgrades implements ItemConvertible {
 		OVERCLOCKER((blockEntity, handler, stack) -> {
 			PowerAcceptorBlockEntity powerAcceptor = null;
 			if (blockEntity instanceof PowerAcceptorBlockEntity) {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
-			handler.addSpeedMulti(overclockerSpeed);
-			handler.addPowerMulti(overclockerPower);
+			handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
+			handler.addPowerMulti(TechRebornConfig.overclockerPower);
 			if (powerAcceptor != null) {
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput();
 				powerAcceptor.extraPowerStorage += powerAcceptor.getBaseMaxPower();
@@ -750,7 +738,7 @@ public class TRContent {
 				powerAcceptor = (PowerAcceptorBlockEntity) blockEntity;
 			}
 			if (powerAcceptor != null) {
-				powerAcceptor.extraPowerStorage += energyStoragePower;
+				powerAcceptor.extraPowerStorage += TechRebornConfig.energyStoragePower;
 			}
 		}),
 		SUPERCONDUCTOR((blockEntity, handler, stack) -> {

@@ -46,7 +46,7 @@ import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDurabilityExtensions {
-	public static final int maxCharge = ConfigTechReborn.nanoSaberCharge;
+	public static final int maxCharge = TechRebornConfig.nanoSaberCharge;
 	public int transferLimit = 1_000;
 	public int cost = 250;
 

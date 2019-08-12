@@ -32,32 +32,20 @@ import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
-	public static int maxInput = 16192;
-	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxOutput", comment = "AESU Max Output (Value in EU)")
-	public static int maxOutput = 16192;
-	@ConfigRegistry(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
-	public static int maxEnergy = 100_000_000;
 
 	public RebornInventory<AdjustableSUBlockEntity> inventory = new RebornInventory<>(4, "AdjustableSUBlockEntity", 64, this);
 	private int OUTPUT = 64; // The current output
 	public int superconductors = 0;
 
 	public AdjustableSUBlockEntity() {
-		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, maxInput, maxOutput, maxEnergy);
+		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, TechRebornConfig.aesuMaxInput, TechRebornConfig.aesuMaxOutput, TechRebornConfig.aesuMaxEnergy);
 	}
-
-
 
 	@Override
 	public void tick() {

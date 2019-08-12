@@ -34,11 +34,9 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
 import techreborn.blocks.BlockMachineCasing;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
@@ -46,19 +44,13 @@ import techreborn.multiblocks.MultiBlockCasing;
 import techreborn.blockentity.GenericMachineBlockEntity;
 import techreborn.blockentity.MachineCasingBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-	
-	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxInput", comment = "Industrial Blast Furnace Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "industrial_furnace", key = "IndustrialFurnaceMaxEnergy", comment = "Industrial Blast Furnace Max Energy (Value in EU)")
-	public static int maxEnergy = 40_000;
 
 	public MultiblockChecker multiblockChecker;
 	private int cachedHeat;
 
 	public IndustrialBlastFurnaceBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, "IndustrialBlastFurnace", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
+		super(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, "IndustrialBlastFurnace", TechRebornConfig.industrialBlastFurnaceMaxInput, TechRebornConfig.industrialBlastFurnaceMaxEnergy, TRContent.Machine.INDUSTRIAL_BLAST_FURNACE.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new RebornInventory<>(5, "IndustrialBlastFurnaceBlockEntity", 64, this);

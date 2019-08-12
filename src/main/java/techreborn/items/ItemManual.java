@@ -34,14 +34,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import reborncore.common.registration.config.ConfigRegistry;
+import reborncore.common.config.Config;
 import techreborn.TechReborn;
 import techreborn.client.gui.GuiManual;
 
 public class ItemManual extends Item {
-
-	@ConfigRegistry(config = "misc", category = "general", key = "manualRefund", comment = "Allow refunding items used to craft the manual")
-	public static boolean allowRefund = true;
 
 	public ItemManual() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));

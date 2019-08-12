@@ -34,12 +34,10 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
@@ -48,21 +46,15 @@ import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity implements IContainerProvider{
-	
-	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxEnergy", comment = "Industrial Grinder Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	
+
 	public static final int TANK_CAPACITY = 16_000;
 	public Tank tank;
 	public MultiblockChecker multiblockChecker;
 	int ticksSinceLastChange;
 
 	public IndustrialGrinderBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_GRINDER, "IndustrialGrinder", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
+		super(TRBlockEntities.INDUSTRIAL_GRINDER, "IndustrialGrinder", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] {2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this);

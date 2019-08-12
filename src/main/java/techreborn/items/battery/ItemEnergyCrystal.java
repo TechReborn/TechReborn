@@ -30,14 +30,14 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.ItemPowerManager;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 public class ItemEnergyCrystal extends ItemBattery {
 
 	// 4M FE storage with 1k charge rate
 	public ItemEnergyCrystal() {
-		super(ConfigTechReborn.EnergyCrystalMaxCharge, 1_000);
+		super(TechRebornConfig.EnergyCrystalMaxCharge, 1_000);
 	}
 	
 	@Environment(EnvType.CLIENT)

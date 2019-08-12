@@ -38,13 +38,13 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
 	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
-	public static final int maxCharge = ConfigTechReborn.LithiumBatpackCharge;
+	public static final int maxCharge = TechRebornConfig.LithiumBatpackCharge;
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {

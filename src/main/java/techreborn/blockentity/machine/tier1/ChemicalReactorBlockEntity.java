@@ -29,25 +29,17 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-
 	public ChemicalReactorBlockEntity() {
-		super(TRBlockEntities.CHEMICAL_REACTOR, "ChemicalReactor", maxInput, maxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
+		super(TRBlockEntities.CHEMICAL_REACTOR, "ChemicalReactor", TechRebornConfig.chemicalReactorMaxInput, TechRebornConfig.chemicalReactorMaxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new RebornInventory<>(4, "ChemicalReactorBlockEntity", 64, this);

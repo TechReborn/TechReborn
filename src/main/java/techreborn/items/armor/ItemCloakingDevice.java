@@ -37,18 +37,15 @@ import net.minecraft.world.World;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.registration.RebornRegister;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
-	public static int maxCharge = ConfigTechReborn.CloakingDeviceCharge;
-	public static int usage = ConfigTechReborn.CloackingDeviceUsage;
+	public static int maxCharge = TechRebornConfig.CloakingDeviceCharge;
+	public static int usage = TechRebornConfig.CloackingDeviceUsage;
 	public static int transferLimit = 10_000;
 	public static boolean isActive;
 

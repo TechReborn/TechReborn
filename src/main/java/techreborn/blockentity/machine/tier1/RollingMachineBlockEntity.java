@@ -40,17 +40,14 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.crafting.RecipeManager;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
+import reborncore.common.util.RebornInventory;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -61,18 +58,8 @@ import java.util.stream.Collectors;
 
 //TODO add tick and power bars.
 
-@RebornRegister(TechReborn.MOD_ID)
 public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxInput", comment = "Rolling Machine Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyPerTick", comment = "Rolling Machine Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 5;
-	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineEnergyRunTime", comment = "Rolling Machine Run Time")
-	public static int runTime = 250;
-	@ConfigRegistry(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
 
 	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	private CraftingInventory craftCache;
@@ -93,7 +80,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.rollingMachineMaxEnergy;
 	}
 
 	@Override
@@ -113,7 +100,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.rollingMachineMaxInput;
 	}
 
 	@Override
@@ -140,7 +127,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (!currentRecipeOutput.isEmpty() && canMake(craftMatrix)) {
-			if (tickTime >= Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)) {
+			if (tickTime >= Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)) {
 				currentRecipeOutput = findMatchingRecipeOutput(craftMatrix, world);
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
@@ -173,10 +160,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			tickTime = 0;
 		}
 		if (!currentRecipeOutput.isEmpty()) {
-			if (canUseEnergy(getEuPerTick(energyPerTick))
-					&& tickTime < Math.max((int) (runTime * (1.0 - getSpeedMultiplier())), 1)
+			if (canUseEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick))
+					&& tickTime < Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1)
 					&& canMake(craftMatrix)) {
-				useEnergy(getEuPerTick(energyPerTick));
+				useEnergy(getEuPerTick(TechRebornConfig.rollingMachineEnergyPerTick));
 				tickTime++;
 			} else {
 				setIsActive(false);
@@ -392,10 +379,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (tickTime == 0 || Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
+		if (tickTime == 0 || Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
 			return 0;
 		}
-		return tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
+		return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	@Override
@@ -422,8 +409,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (tickTime != 0 && Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1) != 0) {
-			return tickTime * scale / Math.max((int) (runTime* (1.0 - getSpeedMultiplier())), 1);
+		if (tickTime != 0 && Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1) != 0) {
+			return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1);
 		}
 		return 0;
 	}

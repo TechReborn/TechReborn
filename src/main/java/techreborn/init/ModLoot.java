@@ -32,7 +32,7 @@ import net.minecraft.world.loot.UniformLootTableRange;
 import net.minecraft.world.loot.entry.ItemEntry;
 import net.minecraft.world.loot.entry.LootEntry;
 import net.minecraft.world.loot.function.SetCountLootFunction;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent.Ingots;
 import techreborn.init.TRContent.Parts;
 
@@ -92,7 +92,7 @@ public class ModLoot {
 				return;
 			}
 
-			if (ConfigTechReborn.enableOverworldLoot) {
+			if (TechRebornConfig.enableOverworldLoot) {
 				switch (stringId) {
 				case "minecraft:chests/abandoned_mineshaft":
                     case "minecraft:chests/desert_pyramid":
@@ -115,13 +115,13 @@ public class ModLoot {
 				}
 			}
 
-			if (ConfigTechReborn.enableNetherLoot) {
+			if (TechRebornConfig.enableNetherLoot) {
 				if (stringId.equals("minecraft:chests/nether_bridge")) {
 					supplier.withPool(poolAdvanced);
 				}
 			}
 
-			if (ConfigTechReborn.enableEndLoot) {
+			if (TechRebornConfig.enableEndLoot) {
 				if (stringId.equals("minecraft:chests/end_city_treasure")) {
 					supplier.withPool(poolIndustrial);
 				}

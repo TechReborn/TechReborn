@@ -29,28 +29,16 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000_000;
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
-	public static int tankCapacity = 10_000;
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 20;
-
 	public DieselGeneratorBlockEntity() {
-		super(TRBlockEntities.DIESEL_GENERATOR, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", tankCapacity, energyPerTick);
+		super(TRBlockEntities.DIESEL_GENERATOR, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", TechRebornConfig.dieselGeneratorTankCapacity, TechRebornConfig.dieselGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -60,12 +48,12 @@ public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.dieselGeneratorMaxEnergy;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.dieselGeneratorMaxOutput;
 	}
 
 	@Override

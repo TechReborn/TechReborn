@@ -29,25 +29,17 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
-import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000;
-
 	public AlloySmelterBlockEntity() {
-		super(TRBlockEntities.ALLOY_SMELTER, "AlloySmelter", maxInput, maxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
+		super(TRBlockEntities.ALLOY_SMELTER, "AlloySmelter", TechRebornConfig.alloySmelterMaxInput, TechRebornConfig.alloySmelterMaxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2 };
 		this.inventory = new RebornInventory<>(4, "AlloySmelterBlockEntity", 64, this);

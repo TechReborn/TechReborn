@@ -51,7 +51,7 @@ import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
 import techreborn.utils.MessageIDs;
@@ -66,7 +66,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialDrill() {
-		super(ToolMaterials.DIAMOND, ConfigTechReborn.IndustrialDrillCharge, 2.0F, 10F);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.IndustrialDrillCharge, 2.0F, 10F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

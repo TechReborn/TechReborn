@@ -33,23 +33,13 @@ import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	implements IToolDrop, InventoryProvider {
-
-	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
-	public static int maxOutput = 128;
-	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxEnergy", comment = "Dragon Egg Siphoner Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerEnergyPerTick", comment = "Dragon Egg Siphoner Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 4;
 
 	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this);
 	private long lastOutput = 0;
@@ -77,7 +67,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 		if (!world.isClient) {
 			if (world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()))
 					.getBlock() == Blocks.DRAGON_EGG) {
-				if (tryAddingEnergy(energyPerTick))
+				if (tryAddingEnergy(TechRebornConfig.dragonEggSyphonEnergyPerTick))
 					lastOutput = world.getTime();
 			}
 
@@ -91,7 +81,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.dragonEggSyphonMaxEnergy;
 	}
 
 	@Override
@@ -106,7 +96,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.dragonEggSyphonMaxOutput;
 	}
 
 	@Override

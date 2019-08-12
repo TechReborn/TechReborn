@@ -30,14 +30,14 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.ItemPowerManager;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 public class ItemLapotronCrystal extends ItemBattery {
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemLapotronCrystal() {
-		super(ConfigTechReborn.LapotronCrystalMaxCharge, 10_000);
+		super(TechRebornConfig.LapotronCrystalMaxCharge, 10_000);
 	}
 	
 	@Environment(EnvType.CLIENT)

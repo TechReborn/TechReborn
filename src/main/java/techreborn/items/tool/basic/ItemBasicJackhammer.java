@@ -31,14 +31,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.ItemPowerManager;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemJackhammer;
 
 public class ItemBasicJackhammer extends ItemJackhammer {
 
 	public ItemBasicJackhammer() {
-		super(ToolMaterials.DIAMOND, ConfigTechReborn.BasicJackhammerCharge);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.BasicJackhammerCharge);
 		this.cost = 50;
 	}
 

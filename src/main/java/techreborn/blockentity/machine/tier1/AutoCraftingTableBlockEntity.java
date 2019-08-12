@@ -42,12 +42,10 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
@@ -60,14 +58,8 @@ import java.util.List;
 /**
  * Created by modmuss50 on 20/06/2017.
  */
-@RebornRegister(TechReborn.MOD_ID)
 public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterInput", comment = "AutoCrafting Table Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "autocrafter", key = "AutoCrafterMaxEnergy", comment = "AutoCrafting Table Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
 
 	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this, getInventoryAccess());
 	public int progress;
@@ -359,7 +351,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.autoCraftingTableMaxEnergy;
 	}
 
 	@Override
@@ -369,7 +361,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.autoCraftingTableMaxInput;
 	}
 
 	@Override

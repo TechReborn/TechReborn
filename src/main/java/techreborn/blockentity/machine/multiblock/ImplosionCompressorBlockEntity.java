@@ -30,27 +30,19 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-	
-	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxInput", comment = "Implosion Compressor Max Input (Value in EU)")
-	public static int maxInput = 64;
-	@ConfigRegistry(config = "machines", category = "implosion_compressor", key = "ImplosionCompressorMaxEnergy", comment = "Implosion Compressor Max Energy (Value in EU)")
-	public static int maxEnergy = 64_000;
 
 	public MultiblockChecker multiblockChecker;
 
 	public ImplosionCompressorBlockEntity() {
-		super(TRBlockEntities.IMPLOSION_COMPRESSOR, "ImplosionCompressor", maxInput, maxEnergy, TRContent.Machine.IMPLOSION_COMPRESSOR.block, 4);
+		super(TRBlockEntities.IMPLOSION_COMPRESSOR, "ImplosionCompressor", TechRebornConfig.implosionCompressorMaxInput, TechRebornConfig.implosionCompressorMaxEnergy, TRContent.Machine.IMPLOSION_COMPRESSOR.block, 4);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3 };
 		this.inventory = new RebornInventory<>(5, "ImplosionCompressorBlockEntity", 64, this);

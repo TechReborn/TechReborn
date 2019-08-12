@@ -39,7 +39,7 @@ import techreborn.blocks.misc.BlockRubberPlank;
 import techreborn.blocks.misc.BlockRubberPlankSlab;
 import techreborn.blocks.misc.BlockRubberPlankStair;
 import techreborn.blocks.misc.BlockRubberSapling;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModFluids;
 import techreborn.init.ModSounds;
 import techreborn.init.TRArmorMaterial;
@@ -124,7 +124,7 @@ public class ModRegistry {
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 
 		// Gem armor & tools
-		if (ConfigTechReborn.enableGemArmorAndTools) {
+		if (TechRebornConfig.enableGemArmorAndTools) {
 			//Todo: repair with tags
 			RebornRegistry.registerItem(TRContent.BRONZE_SWORD = InitUtils.setup(new ItemTRSword(TRToolTier.BRONZE), "bronze_sword"));
 			RebornRegistry.registerItem(TRContent.BRONZE_PICKAXE = InitUtils.setup(new ItemTRPickaxe(TRToolTier.BRONZE), "bronze_pickaxe"));

@@ -29,25 +29,17 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
-import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class GrinderBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "grinder", key = "GrinderMaxEnergy", comment = "Grinder Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000;
-
 	public GrinderBlockEntity() {
-		super(TRBlockEntities.GRINDER, "Grinder", maxInput, maxEnergy, TRContent.Machine.GRINDER.block, 2);
+		super(TRBlockEntities.GRINDER, "Grinder", TechRebornConfig.grinderMaxInput, TechRebornConfig.grinderMaxEnergy, TRContent.Machine.GRINDER.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new RebornInventory<>(3, "GrinderBlockEntity", 64, this);

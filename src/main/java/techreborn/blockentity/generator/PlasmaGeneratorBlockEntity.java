@@ -29,27 +29,15 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxOutput", comment = "Plasma Generator Max Output (Value in EU)")
-	public static int maxOutput = 2048;
-	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxEnergy", comment = "Plasma Generator Max Energy (Value in EU)")
-	public static double maxEnergy = 500_000_000;
-	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorTankCapacity", comment = "Plasma Generator Tank Capacity")
-	public static int tankCapacity = 10_000;
-	@ConfigRegistry(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorEnergyPerTick", comment = "Plasma Generator Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 400;
-
 	public PlasmaGeneratorBlockEntity() {
-		super(TRBlockEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", tankCapacity, energyPerTick);
+		super(TRBlockEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", TechRebornConfig.plasmaGeneratorTankCapacity, TechRebornConfig.plasmaGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -59,12 +47,12 @@ public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.plasmaGeneratorMaxEnergy;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.plasmaGeneratorMaxOutput;
 	}
 
 	@Override

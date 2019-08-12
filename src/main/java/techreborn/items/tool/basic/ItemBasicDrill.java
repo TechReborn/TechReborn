@@ -33,14 +33,14 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.ItemPowerManager;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
 
 public class ItemBasicDrill extends ItemDrill {
 
 	public ItemBasicDrill() {
-		super(ToolMaterials.IRON, ConfigTechReborn.BasicDrillCharge, 0.5F, 10F);
+		super(ToolMaterials.IRON, TechRebornConfig.BasicDrillCharge, 0.5F, 10F);
 		this.cost = 50;
 	}
 

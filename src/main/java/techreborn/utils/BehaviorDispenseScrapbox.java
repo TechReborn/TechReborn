@@ -33,23 +33,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 
 import java.util.List;
 import java.util.Random;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class BehaviorDispenseScrapbox extends ItemDispenserBehavior {
-
-	@ConfigRegistry(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")
-	public static boolean dispenseScrapboxes = true;
 
 	@Override
 	protected ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
-		if (dispenseScrapboxes) {
+		if (TechRebornConfig.dispenseScrapboxes) {
 			List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(source.getWorld());
 			int random = new Random().nextInt(scrapboxRecipeList.size());
 			ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);

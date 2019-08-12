@@ -29,28 +29,16 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorMaxOutput", comment = "Semifluid Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
-	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorMaxEnergy", comment = "Semifluid Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1000000;
-	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorTankCapacity", comment = "Semifluid Generator Tank Capacity")
-	public static int tankCapacity = 10000;
-	@ConfigRegistry(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorEnergyPerTick", comment = "Semifluid Generator Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 8;
-
 	public SemiFluidGeneratorBlockEntity() {
-		super(TRBlockEntities.SEMI_FLUID_GENERATOR, EFluidGenerator.SEMIFLUID, "SemiFluidGeneratorBlockEntity", tankCapacity, energyPerTick);
+		super(TRBlockEntities.SEMI_FLUID_GENERATOR, EFluidGenerator.SEMIFLUID, "SemiFluidGeneratorBlockEntity", TechRebornConfig.semiFluidGeneratorTankCapacity, TechRebornConfig.semiFluidGeneratorEnergyPerTick);
 	}
 
 	@Override
@@ -60,12 +48,12 @@ public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.semiFluidGeneratorMaxEnergy;
 	}
 	
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.semiFluidGeneratorMaxOutput;
 	}
 
 	@Override

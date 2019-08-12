@@ -38,13 +38,11 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.ingredient.StackIngredient;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Torus;
-import techreborn.TechReborn;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -52,18 +50,8 @@ import techreborn.init.TRContent;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Value in EU)")
-	public static int maxInput = 8192;
-	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxOutput", comment = "Fusion Reactor Max Output (Value in EU)")
-	public static int maxOutput = 1_000_000;
-	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxEnergy", comment = "Fusion Reactor Max Energy (Value in EU)")
-	public static int maxEnergy = 100_000_000;
-	@ConfigRegistry(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxCoilSize", comment = "Fusion Reactor Max Coil size (Radius)")
-	public static int maxCoilSize = 50;
 
 	public RebornInventory<FusionControlComputerBlockEntity> inventory;
 
@@ -320,7 +308,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return Math.min(maxEnergy * getPowerMultiplier(), Integer.MAX_VALUE);
+		return Math.min(TechRebornConfig.fusionControlComputerMaxEnergy * getPowerMultiplier(), Integer.MAX_VALUE);
 	}
 
 	@Override
@@ -346,7 +334,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		if (hasStartedCrafting) {
 			return 0;
 		}
-		return maxInput;
+		return TechRebornConfig.fusionControlComputerMaxInput;
 	}
 
 	@Override
@@ -366,7 +354,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		if(tagCompound.containsKey("size")){
 			this.size = tagCompound.getInt("size");
 		}
-		this.size = Math.min(size, maxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
+		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
 	}
 
 	@Override
@@ -460,7 +448,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	public void changeSize(int sizeDelta){
 		int newSize = size + sizeDelta;
-		this.size = Math.max(6, Math.min(maxCoilSize, newSize));
+		this.size = Math.max(6, Math.min(TechRebornConfig.fusionControlComputerMaxCoilSize, newSize));
 	}
 
 	public int getState(){

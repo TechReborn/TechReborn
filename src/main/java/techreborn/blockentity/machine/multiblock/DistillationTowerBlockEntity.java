@@ -31,27 +31,21 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
-import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "machines", category = "Distillation_tower", key = "DistillationTowerMaxInput", comment = "Distillation Tower Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "Distillation_tower", key = "DistillationTowerMaxEnergy", comment = "Distillation Tower Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
+
 	
 	public MultiblockChecker multiblockChecker;
 
 	public DistillationTowerBlockEntity() {
-		super(TRBlockEntities.DISTILLATION_TOWER, "DistillationTower", maxInput, maxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
+		super(TRBlockEntities.DISTILLATION_TOWER, "DistillationTower", TechRebornConfig.distillationTowerMaxInput, TechRebornConfig.distillationTowerMaxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new RebornInventory<>(7, "DistillationTowerBlockEntity", 64, this);

@@ -32,11 +32,9 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
@@ -44,16 +42,10 @@ import techreborn.items.ItemDynamicCell;
 
 import java.util.List;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity implements IContainerProvider, IListInfoProvider {
 
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-
 	public IndustrialCentrifugeBlockEntity() {
-		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", maxInput, maxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
+		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", TechRebornConfig.industrialCentrifugeMaxInput, TechRebornConfig.industrialCentrifugeMaxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4, 5 };
 		this.inventory = new RebornInventory<>(7, "IndustrialCentrifugeBlockEntity", 64, this);

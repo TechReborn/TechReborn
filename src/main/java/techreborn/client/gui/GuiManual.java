@@ -33,6 +33,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.SystemUtil;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.common.network.NetworkManager;
+import techreborn.config.TechRebornConfig;
 import techreborn.items.ItemManual;
 import techreborn.packets.ServerboundPackets;
 
@@ -68,7 +69,7 @@ public class GuiManual extends Screen {
 				this.minecraft.openScreen(this);
 			}
 		}, "https://discord.gg/teamreborn", false))));
-		if(ItemManual.allowRefund){
+		if(TechRebornConfig.allowManualRefund){
 			addButton(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, I18n.translate("techreborn.manual.refundbtn"), var1 -> {
 				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
 				this.minecraft.openScreen(null);
@@ -86,7 +87,7 @@ public class GuiManual extends Screen {
 		int y = height / 4;
 		font.draw(text1, ((width / 2) - font.getStringWidth(text1) / 2), height / 2 - (guiHeight / 4), 4210752);
 		font.draw(text2, ((width / 2) - font.getStringWidth(text2) / 2), height / 2 + 5, 4210752);
-		if (ItemManual.allowRefund) {
+		if (TechRebornConfig.allowManualRefund) {
 			font.draw(text3, ((width / 2) - font.getStringWidth(text3) / 2), y + 100, 4210752);
 		}
 		super.render(mouseX, mouseY, partialTicks);

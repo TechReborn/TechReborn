@@ -47,7 +47,7 @@ import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
 import techreborn.TechReborn;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
@@ -55,7 +55,7 @@ import java.util.List;
 
 public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
-	public static final int maxCharge = ConfigTechReborn.OmniToolCharge;
+	public static final int maxCharge = TechRebornConfig.OmniToolCharge;
 	public int transferLimit = 1_000;
 	public int cost = 100;
 	public int hitCost = 125;

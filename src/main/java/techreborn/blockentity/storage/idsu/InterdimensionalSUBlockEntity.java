@@ -31,27 +31,17 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxInput", comment = "IDSU Max Input (Value in EU)")
-	public static int maxInput = 8192;
-	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxOutput", comment = "IDSU Max Output (Value in EU)")
-	public static int maxOutput = 8192;
-	@ConfigRegistry(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy (Value in EU)")
-	public static int maxEnergy = 100_000_000;
 
 	public String ownerUdid;
 
 	public InterdimensionalSUBlockEntity() {
-		super(TRBlockEntities.INTERDIMENSIONAL_SU, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnumPowerTier.EXTREME, maxInput, maxOutput, maxEnergy);
+		super(TRBlockEntities.INTERDIMENSIONAL_SU, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnumPowerTier.EXTREME, TechRebornConfig.idsuMaxInput, TechRebornConfig.idsuMaxOutput, TechRebornConfig.idsuMaxEnergy);
 	}
 
 	@Override

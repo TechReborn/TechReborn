@@ -48,7 +48,7 @@ import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
 import techreborn.utils.MessageIDs;
@@ -65,7 +65,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialChainsaw() {
-		super(ToolMaterials.DIAMOND, ConfigTechReborn.IndustrialChainsawCharge, 1.0F);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.IndustrialChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

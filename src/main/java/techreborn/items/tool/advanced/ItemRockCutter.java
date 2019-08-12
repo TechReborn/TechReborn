@@ -42,14 +42,14 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Random;
 
 public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
-	public static final int maxCharge = ConfigTechReborn.RockCutterCharge;
+	public static final int maxCharge = TechRebornConfig.RockCutterCharge;
 	public int transferLimit = 1_000;
 	public int cost = 500;
 

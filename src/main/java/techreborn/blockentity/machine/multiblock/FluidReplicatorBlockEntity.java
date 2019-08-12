@@ -31,12 +31,10 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
@@ -49,14 +47,7 @@ import javax.annotation.Nullable;
  * @author drcrazy
  *
  */
-
-@RebornRegister(TechReborn.MOD_ID)
 public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxInput", comment = "Fluid Replicator Max Input (Value in EU)")
-	public static int maxInput = 256;
-	@ConfigRegistry(config = "machines", category = "fluidreplicator", key = "FluidReplicatorMaxEnergy", comment = "Fluid Replicator Max Energy (Value in EU)")
-	public static int maxEnergy = 400_000;
 
 	public MultiblockChecker multiblockChecker;
 	public static final int TANK_CAPACITY = 16_000;
@@ -64,7 +55,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	int ticksSinceLastChange;
 
 	public FluidReplicatorBlockEntity() {
-		super(TRBlockEntities.FLUID_REPLICATOR, "FluidReplicator", maxInput, maxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
+		super(TRBlockEntities.FLUID_REPLICATOR, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput, TechRebornConfig.fluidReplicatorMaxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		this.inventory = new RebornInventory<>(4, "FluidReplicatorBlockEntity", 64, this, getInventoryAccess());
 		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[] {0}, null);
 		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY, this);

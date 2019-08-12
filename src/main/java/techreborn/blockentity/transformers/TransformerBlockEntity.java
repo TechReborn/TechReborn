@@ -37,23 +37,20 @@ import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
+import reborncore.common.config.Config;
 import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.blocks.transformers.BlockTransformer;
+import techreborn.config.TechRebornConfig;
 
 import java.util.List;
 
 /**
  * Created by Rushmead
  */
-@RebornRegister(TechReborn.MOD_ID)
 public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, IListInfoProvider {
-	
-	@ConfigRegistry(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
-	public static boolean IC2TransformersStyle = true;
+
 
 	public String name;
 	public Block wrenchDrop;
@@ -89,7 +86,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canAcceptEnergy(Direction direction) {
-		if (IC2TransformersStyle){
+		if (TechRebornConfig.IC2TransformersStyle){
 			return getFacingEnum() == direction;
 		}
 		return getFacingEnum() != direction;
@@ -97,7 +94,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	
 	@Override
 	public boolean canProvideEnergy(Direction direction) {
-		if (IC2TransformersStyle){
+		if (TechRebornConfig.IC2TransformersStyle){
 			return getFacingEnum() != direction;
 		}
 		return getFacing() == direction;

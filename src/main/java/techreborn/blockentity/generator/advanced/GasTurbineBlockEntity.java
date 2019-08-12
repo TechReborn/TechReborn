@@ -29,28 +29,16 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class GasTurbineBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
-	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorMaxOutput", comment = "Gas Generator Max Output (Value in EU)")
-	public static int maxOutput = 128;
-	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorMaxEnergy", comment = "Gas Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 1000000;
-	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorTankCapacity", comment = "Gas Generator Tank Capacity")
-	public static int tankCapacity = 10000;
-	@ConfigRegistry(config = "generators", category = "gas_generator", key = "GasGeneratorEnergyPerTick", comment = "Gas Generator Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 16;
-
 	public GasTurbineBlockEntity() {
-		super(TRBlockEntities.GAS_TURBINE, EFluidGenerator.GAS, "GasTurbineBlockEntity", tankCapacity, energyPerTick);
+		super(TRBlockEntities.GAS_TURBINE, EFluidGenerator.GAS, "GasTurbineBlockEntity", TechRebornConfig.gasTurbineTankCapacity, TechRebornConfig.gasTurbineEnergyPerTick);
 	}
 
 	@Override
@@ -60,12 +48,12 @@ public class GasTurbineBlockEntity extends BaseFluidGeneratorBlockEntity impleme
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.gasTurbineMaxEnergy;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.gasTurbineMaxOutput;
 	}
 
 	@Override

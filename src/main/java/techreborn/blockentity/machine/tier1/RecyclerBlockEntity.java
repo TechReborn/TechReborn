@@ -36,23 +36,13 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
-	
-	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-	@ConfigRegistry(config = "machines", category = "recycler", key = "produceIC2Scrap", comment = "When enabled and when ic2 is installed the recycler will make ic2 scrap")
-	public static boolean produceIC2Scrap = false;
 
 	private final RebornInventory<RecyclerBlockEntity> inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
 	private final int cost = 2;
@@ -159,7 +149,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.recyclerMaxEnergy;
 	}
 
 	@Override
@@ -179,7 +169,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.recyclerMaxInput;
 	}
 	
 	// TileMachineBase

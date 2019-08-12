@@ -33,33 +33,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 
 /**
  * Created by Mark on 13/03/2016.
  */
-@RebornRegister(TechReborn.MOD_ID)
 public class EntityNukePrimed extends TntEntity {
-
-	@ConfigRegistry(config = "misc", category = "nuke", key = "fusetime", comment = "Nuke fuse time (ticks)")
-	public static int fuseTime = 400;
-
-	@ConfigRegistry(config = "misc", category = "nuke", key = "radius", comment = "Nuke explision radius")
-	public static int radius = 40;
-
-	@ConfigRegistry(config = "misc", category = "nuke", key = "enabled", comment = "Should the nuke explode, set to false to prevent block damage")
-	public static boolean enabled = true;
 
 	public EntityNukePrimed(EntityType<EntityNukePrimed> entityType,  World world) {
 		super(entityType, world);
-		setFuse(EntityNukePrimed.fuseTime);
+		setFuse(TechRebornConfig.nukeFuseTime);
 	}
 
 	public EntityNukePrimed(World world, double x, double y, double z, LivingEntity tntPlacedBy) {
 		super(world, x, y, z, tntPlacedBy);
-		setFuse(EntityNukePrimed.fuseTime);
+		setFuse(TechRebornConfig.nukeFuseTime);
 	}
 
 	@Override
@@ -99,10 +87,10 @@ public class EntityNukePrimed extends TntEntity {
 	}
 
 	public void explodeNuke() {
-		if (!enabled) {
+		if (!TechRebornConfig.nukeEnabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(x, y, z), world, radius);
+		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(x, y, z), world, TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getCausingEntity());
 		nukeExplosion.explode();
 	}

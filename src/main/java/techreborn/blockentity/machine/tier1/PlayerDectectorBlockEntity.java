@@ -30,24 +30,17 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
+import reborncore.common.config.Config;
 import reborncore.common.util.WorldUtils;
 import techreborn.TechReborn;
 import techreborn.blocks.tier1.BlockPlayerDetector;
 import techreborn.blocks.tier1.BlockPlayerDetector.PlayerDetectorType;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
-	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorMaxEnergy", comment = "Player Detector Max Energy (Value in EU)")
-	public static int maxEnergy = 10000;
-	@ConfigRegistry(config = "machines", category = "player_detector", key = "PlayerDetectorEUPerSecond", comment = "Player Detector Energy Consumption per second (Value in EU)")
-	public static int euPerTick = 10;
 
 	public String owenerUdid = "";
 	boolean redstone = false;
@@ -67,7 +60,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 		if (!world.isClient && world.getTime() % 20 == 0) {
 			boolean lastRedstone = redstone;
 			redstone = false;
-			if (canUseEnergy(euPerTick)) {
+			if (canUseEnergy(TechRebornConfig.playerDetectorEuPerTick)) {
 				for(PlayerEntity player : world.getPlayers()){
 					if (player.distanceTo(player) <= 256.0D) {
 						PlayerDetectorType type = world.getBlockState(pos).get(BlockPlayerDetector.TYPE);
@@ -84,7 +77,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 						}
 					}
 				}
-				useEnergy(euPerTick);
+				useEnergy(TechRebornConfig.playerDetectorEuPerTick);
 			}
 			if (lastRedstone != redstone) {
 				WorldUtils.updateBlock(world, pos);
@@ -95,7 +88,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.playerDetectorMaxEnergy;
 	}
 
 	@Override
@@ -115,7 +108,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.playerDetectorMaxInput;
 	}
 
 	@Override

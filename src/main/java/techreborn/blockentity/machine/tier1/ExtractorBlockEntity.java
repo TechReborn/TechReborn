@@ -29,25 +29,17 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
-import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.ModRecipes;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class ExtractorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-	
-	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000;
 
 	public ExtractorBlockEntity() {
-		super(TRBlockEntities.EXTRACTOR, "Extractor", maxInput, maxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
+		super(TRBlockEntities.EXTRACTOR, "Extractor", TechRebornConfig.extractorMaxInput, TechRebornConfig.extractorMaxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new RebornInventory<>(3, "ExtractorBlockEntity", 64, this);

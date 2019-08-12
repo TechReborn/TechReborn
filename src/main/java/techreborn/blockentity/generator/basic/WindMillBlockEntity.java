@@ -29,9 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
@@ -39,17 +37,7 @@ import techreborn.init.TRBlockEntities;
  * Created by modmuss50 on 25/02/2016.
  */
 
-@RebornRegister(TechReborn.MOD_ID)
 public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
-
-	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillMaxOutput", comment = "Wind Mill Max Output (Value in EU)")
-	public static int maxOutput = 128;
-	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillMaxEnergy", comment = "Wind Mill Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillEnergyPerTick", comment = "Wind Mill Energy Per Tick (Value in EU)")
-	public static int baseEnergy = 2;
-	@ConfigRegistry(config = "generators", category = "wind_mill", key = "WindMillThunderMultiplier", comment = "Wind Mill Thunder Multiplier")
-	public static double thunderMultiplier = 1.25;
 
 	public WindMillBlockEntity() {
 		super(TRBlockEntities.WIND_MILL);
@@ -59,9 +47,9 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	public void tick() {
 		super.tick();
 		if (pos.getY() > 64) {
-			int actualPower = baseEnergy;
+			int actualPower = TechRebornConfig.windMillBaseEnergy;
 			if (world.isThundering()) {
-				actualPower *= thunderMultiplier;
+				actualPower *= TechRebornConfig.windMillThunderMultiplier;
 			}
 			addEnergy(actualPower); // Value taken from
 			// http://wiki.industrial-craft.net/?title=Wind_Mill
@@ -71,7 +59,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.windMillMaxEnergy;
 	}
 
 	@Override
@@ -86,7 +74,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 	@Override
 	public double getBaseMaxOutput() {
-		return maxOutput;
+		return TechRebornConfig.windMillMaxOutput;
 	}
 
 	@Override

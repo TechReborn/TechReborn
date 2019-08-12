@@ -33,26 +33,16 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
+import reborncore.common.config.Config;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxInput", comment = "Matter Fabricator Max Input (Value in EU)")
-	public static int maxInput = 8192;
-	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorMaxEnergy", comment = "Matter Fabricator Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000_000;
-	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorFabricationRate", comment = "Matter Fabricator Fabrication Rate, amount of amplifier units per UUM")
-	public static int fabricationRate = 6_000;
-	@ConfigRegistry(config = "machines", category = "matter_fabricator", key = "MatterFabricatorEnergyPerAmp", comment = "Matter Fabricator EU per amplifier unit, multiply this with the rate for total EU")
-	public static int energyPerAmp = 5;
 
 	public RebornInventory<MatterFabricatorBlockEntity> inventory = new RebornInventory<>(12, "MatterFabricatorBlockEntity", 64, this);
 	private int amplifier = 0;
@@ -127,7 +117,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	public int getProgressScaled(int scale) {
 		if (amplifier != 0) {
-			return Math.min(amplifier * scale / fabricationRate, 100);
+			return Math.min(amplifier * scale / TechRebornConfig.matterFabricatorFabricationRate, 100);
 		}
 		return 0;
 	}
@@ -146,7 +136,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 			final ItemStack stack = inventory.getInvStack(i);
 			if (!stack.isEmpty() && spaceForOutput()) {
 				final int amp = getValue(stack);
-				final int euNeeded = amp * energyPerAmp;
+				final int euNeeded = amp * TechRebornConfig.matterFabricatorEnergyPerAmp;
 				if (amp != 0 && this.canUseEnergy(euNeeded)) {
 					useEnergy(euNeeded);
 					amplifier += amp;
@@ -155,17 +145,17 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
-		if (amplifier >= fabricationRate) {
+		if (amplifier >= TechRebornConfig.matterFabricatorFabricationRate) {
 			if (spaceForOutput()) {
 				addOutputProducts();
-				amplifier -= fabricationRate;
+				amplifier -= TechRebornConfig.matterFabricatorFabricationRate;
 			}
 		}
 	}
 
 	@Override
 	public double getBaseMaxPower() {
-		return maxEnergy;
+		return TechRebornConfig.matterFabricatorMaxEnergy;
 	}
 
 	@Override
@@ -185,7 +175,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getBaseMaxInput() {
-		return maxInput;
+		return TechRebornConfig.matterFabricatorMaxInput;
 	}
 
 	// TileMachineBase

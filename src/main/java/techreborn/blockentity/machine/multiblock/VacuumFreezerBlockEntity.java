@@ -30,27 +30,19 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
 import reborncore.common.util.RebornInventory;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.GenericMachineBlockEntity;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-	
-	@ConfigRegistry(config = "machines", category = "vacuumfreezer", key = "VacuumFreezerInput", comment = "Vacuum Freezer Max Input (Value in EU)")
-	public static int maxInput = 64;
-	@ConfigRegistry(config = "machines", category = "vacuumfreezer", key = "VacuumFreezerMaxEnergy", comment = "Vacuum Freezer Max Energy (Value in EU)")
-	public static int maxEnergy = 64_000;
 
 	public MultiblockChecker multiblockChecker;
 
 	public VacuumFreezerBlockEntity() {
-		super(TRBlockEntities.VACUUM_FREEZER, "VacuumFreezer", maxInput, maxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
+		super(TRBlockEntities.VACUUM_FREEZER, "VacuumFreezer", TechRebornConfig.vacuumFreezerMaxInput, TechRebornConfig.vacuumFreezerMaxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
 		final int[] inputs = new int[] { 0 };
 		final int[] outputs = new int[] { 1 };
 		this.inventory = new RebornInventory<>(3, "VacuumFreezerBlockEntity", 64, this);

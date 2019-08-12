@@ -33,14 +33,14 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.ItemPowerManager;
-import techreborn.config.ConfigTechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
 
 public class ItemBasicChainsaw extends ItemChainsaw {
 
 	public ItemBasicChainsaw() {
-		super(ToolMaterials.IRON, ConfigTechReborn.BasicChainsawCharge, 0.5F);
+		super(ToolMaterials.IRON, TechRebornConfig.BasicChainsawCharge, 0.5F);
 		this.cost = 50;
 	}
 

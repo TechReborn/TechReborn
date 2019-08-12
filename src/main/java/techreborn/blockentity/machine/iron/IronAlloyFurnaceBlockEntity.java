@@ -36,7 +36,6 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.StackIngredient;
-import reborncore.common.registration.RebornRegister;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.RebornInventory;
 import techreborn.TechReborn;
@@ -46,7 +45,6 @@ import techreborn.init.TRBlockEntities;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
 

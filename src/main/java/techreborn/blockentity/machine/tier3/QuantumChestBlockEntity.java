@@ -29,24 +29,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegister;
-import reborncore.common.registration.config.ConfigRegistry;
-import techreborn.TechReborn;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.TechStorageBaseBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
 
-@RebornRegister(TechReborn.MOD_ID)
 public class QuantumChestBlockEntity extends TechStorageBaseBlockEntity implements IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "quantum_chest", key = "QuantumChestMaxStorage", comment = "Maximum amount of items a Quantum Chest can store")
-	public static int maxStorage = Integer.MAX_VALUE;
 
 	public QuantumChestBlockEntity() {
 		this(TRBlockEntities.QUANTUM_CHEST);
 	}
 
 	public QuantumChestBlockEntity(BlockEntityType<?> blockEntityType) {
-		super(blockEntityType, "QuantumChestBlockEntity", maxStorage);
+		super(blockEntityType, "QuantumChestBlockEntity", TechRebornConfig.quantumChestMaxStorage);
 	}
 
 	@Override

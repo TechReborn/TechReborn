@@ -26,22 +26,19 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RegistrationManager;
 import reborncore.common.util.Torus;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.client.GuiHandler;
+import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
 import techreborn.init.*;
-import techreborn.init.FluidGeneratorRecipes;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.BehaviorDispenseScrapbox;
@@ -60,8 +57,8 @@ public class TechReborn implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		INSTANCE = this;
-		@SuppressWarnings("unused")
-		RegistrationManager registrationManager = new RegistrationManager("techreborn", getClass());
+		new Configuration(TechRebornConfig.class, "techreborn");
+
 
 		// Done to force the class to load
 		ModRecipes.GRINDER.getName();
@@ -80,11 +77,11 @@ public class TechReborn implements ModInitializer {
 
 
 		// Scrapbox
-		if (BehaviorDispenseScrapbox.dispenseScrapboxes) {
+		if (TechRebornConfig.dispenseScrapboxes) {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
 		}
 
-		Torus.genSizeMap(FusionControlComputerBlockEntity.maxCoilSize);
+		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
 		LOGGER.info("TechReborn setup done!");
 
