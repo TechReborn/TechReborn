@@ -1,0 +1,22 @@
+{
+	"type": "techreborn:fusion_reactor",
+	"power": -2048,
+	"time": 1024,
+	"start-power": 80000000,
+	"min-size": 1,
+	"ingredients": [
+		{
+			"fluid": "techreborn:wolframium",
+			"holder": "techreborn:cell"
+		},
+		{
+			"fluid": "techreborn:beryllium",
+			"holder": "techreborn:cell"
+		}
+	],
+	"results": [
+		{
+			"item": "techreborn:platinum_dust"
+		}
+	]
+}

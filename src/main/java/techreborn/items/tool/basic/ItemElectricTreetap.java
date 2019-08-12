@@ -39,7 +39,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.api.TechRebornAPI;
+
 import techreborn.init.TRContent;
 
 /**
@@ -52,21 +52,6 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDu
 
 	public ItemElectricTreetap() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
-	}
-
-	// Item
-	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		ItemPowerManager capEnergy = new ItemPowerManager(context.getStack());
-		if(TechRebornAPI.ic2Helper != null && capEnergy.getEnergyStored() >= cost){
-			if(TechRebornAPI.ic2Helper.extractSap(context,  null) && !context.getWorld().isClient){
-				capEnergy.useEnergy(cost, false);
-				ExternalPowerSystems.requestEnergyFromArmor(capEnergy, context.getPlayer());
-
-				return ActionResult.SUCCESS;
-			}
-		}
-		return ActionResult.PASS;
 	}
 
 	@Override

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.init.recipes;
+package techreborn.init;
 
 
 import net.minecraft.fluid.Fluid;
@@ -33,7 +33,7 @@ import techreborn.init.ModFluids;
 /**
  * Created by Prospector
  */
-public class FluidGeneratorRecipes extends RecipeMethods {
+public class FluidGeneratorRecipes {
 	public static void init() {
 		register(EFluidGenerator.DIESEL, ModFluids.NITROFUEL.getFluid(), 24);
 		register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL.getFluid(), 48);

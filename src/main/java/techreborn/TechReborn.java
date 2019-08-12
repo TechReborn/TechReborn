@@ -41,8 +41,7 @@ import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.client.GuiHandler;
 import techreborn.events.ModRegistry;
 import techreborn.init.*;
-import techreborn.init.recipes.FluidGeneratorRecipes;
-import techreborn.init.recipes.FusionReactorRecipes;
+import techreborn.init.FluidGeneratorRecipes;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.BehaviorDispenseScrapbox;
@@ -76,7 +75,6 @@ public class TechReborn implements ModInitializer {
 		WorldGenerator.initBiomeFeatures();
 		GuiHandler.register();
 		FluidGeneratorRecipes.init();
-		FusionReactorRecipes.init();
 		//Force loads the block entities at the right time
 		TRBlockEntities.THERMAL_GEN.toString();
 
@@ -87,15 +85,6 @@ public class TechReborn implements ModInitializer {
 		}
 
 		Torus.genSizeMap(FusionControlComputerBlockEntity.maxCoilSize);
-
-		CommandRegistry.INSTANCE.register(false, dispatcher -> dispatcher.register(CommandManager.literal("recipe").executes(context -> {
-			try {
-				RecipeTemplate.generateFromInv(context.getSource().getPlayer());
-			} catch (Exception e){
-				e.printStackTrace();
-			}
-			return 0;
-		})));
 
 		LOGGER.info("TechReborn setup done!");
 

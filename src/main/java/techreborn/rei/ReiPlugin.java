@@ -96,6 +96,7 @@ public class ReiPlugin implements REIPluginEntry {
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_SAWMILL, 3));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SCRAPBOX));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.VACUUM_FREEZER, 1));
+		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.FUSION_REACTOR, 2));
 		recipeHelper.registerCategory(new RollingMachineCategory(ModRecipes.ROLLING_MACHINE));
 	}
 
@@ -120,6 +121,7 @@ public class ReiPlugin implements REIPluginEntry {
 		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.getName(), new ItemStack(Machine.INDUSTRIAL_SAWMILL.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), new ItemStack(Machine.VACUUM_FREEZER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.ROLLING_MACHINE.getName(), new ItemStack(Machine.ROLLING_MACHINE.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.FUSION_REACTOR.getName(), new ItemStack(Machine.FUSION_CONTROL_COMPUTER.asItem()));
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){
