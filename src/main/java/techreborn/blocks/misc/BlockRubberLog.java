@@ -91,6 +91,7 @@ public class BlockRubberLog extends LogBlock {
 				}
 			}
 		}
+		super.onBreak(worldIn, pos, state, player);
 	}
 
 	@Override
