@@ -10,10 +10,10 @@
       "item": "minecraft:glass"
     },
     "E": {
-      "item": "techreborn:electrum_dust"
+      "tag": "c:electrum_dust"
     },
     "D": {
-      "item": "techreborn:diamond_dust"
+      "tag": "c:diamond_dust"
     }
   },
   "result": {

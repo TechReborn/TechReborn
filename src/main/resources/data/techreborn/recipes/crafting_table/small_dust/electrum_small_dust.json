@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:electrum_dust"
+      "tag": "c:electrum_dust"
     }
   ],
   "result": {

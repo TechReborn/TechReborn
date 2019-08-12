@@ -4,7 +4,7 @@
   "time": 270,
   "ingredients": [
     {
-      "item": "techreborn:tin_ore"
+      "tag": "c:tin_ore"
     }
   ],
   "results": [

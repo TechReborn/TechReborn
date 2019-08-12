@@ -4,7 +4,7 @@
   "time": 220,
   "ingredients": [
     {
-      "item": "techreborn:tungsten_ingot"
+      "tag": "c:tungsten_ingot"
     }
   ],
   "results": [

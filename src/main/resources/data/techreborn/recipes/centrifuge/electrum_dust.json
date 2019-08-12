@@ -4,7 +4,7 @@
   "time": 3600,
   "ingredients": [
     {
-      "item": "techreborn:electrum_dust"
+      "tag": "c:electrum_dust"
     }
   ],
   "results": [

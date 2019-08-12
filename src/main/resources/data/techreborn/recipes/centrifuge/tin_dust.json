@@ -4,8 +4,8 @@
   "time": 2100,
   "ingredients": [
     {
-      "item": "techreborn:tin_dust",
-      "count": 2
+      "count": 2,
+      "tag": "c:tin_dust"
     }
   ],
   "results": [

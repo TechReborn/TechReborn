@@ -7,13 +7,13 @@
   ],
   "key": {
     "B": {
-      "item": "techreborn:aluminum_ingot"
+      "tag": "c:aluminum_ingot"
     },
     "T": {
       "item": "techreborn:invar_ingot"
     },
     "M": {
-      "item": "techreborn:brass_ingot"
+      "tag": "c:brass_ingot"
     }
   },
   "result": {

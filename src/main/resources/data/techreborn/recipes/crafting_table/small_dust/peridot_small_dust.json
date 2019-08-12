@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:peridot_dust"
+      "tag": "c:peridot_dust"
     }
   ],
   "result": {

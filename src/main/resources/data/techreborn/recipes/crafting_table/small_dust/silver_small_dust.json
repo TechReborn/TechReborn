@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:silver_dust"
+      "tag": "c:silver_dust"
     }
   ],
   "result": {

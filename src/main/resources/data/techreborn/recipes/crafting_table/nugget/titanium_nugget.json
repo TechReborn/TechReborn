@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:titanium_ingot"
+      "tag": "c:titanium_ingot"
     }
   ],
   "result": {

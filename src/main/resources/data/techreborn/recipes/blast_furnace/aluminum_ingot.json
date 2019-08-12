@@ -3,12 +3,12 @@
   "power": 128,
   "time": 200,
   "heat": 1700,
-  "ingredients" : [
+  "ingredients": [
     {
-      "item": "techreborn:aluminum_dust"
+      "tag": "c:aluminum_dust"
     }
   ],
-  "results" : [
+  "results": [
     {
       "item": "techreborn:aluminum_ingot"
     }

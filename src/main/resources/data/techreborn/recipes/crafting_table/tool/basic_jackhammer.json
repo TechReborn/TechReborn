@@ -1,22 +1,22 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"SBS",
-		"SCS",
-		" S "
-	],
-	"key": {
-		"S": {
-			"item": "techreborn:steel_ingot"
-		},
-		"C": {
-			"item": "techreborn:electronic_circuit"
-		},
-		"B": {
-			"item": "techreborn:red_cell_battery"
-		}
-	},
-	"result": {
-		"item": "techreborn:basic_jackhammer"
-	}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SBS",
+    "SCS",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "tag": "c:steel_ingot"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "B": {
+      "item": "techreborn:red_cell_battery"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_jackhammer"
+  }
 }

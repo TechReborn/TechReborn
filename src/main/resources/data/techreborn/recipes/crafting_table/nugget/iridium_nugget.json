@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:iridium_ingot"
+      "tag": "c:iridium_ingot"
     }
   ],
   "result": {

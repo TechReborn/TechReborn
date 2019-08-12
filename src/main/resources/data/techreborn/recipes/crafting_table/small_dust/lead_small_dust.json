@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:lead_dust"
+      "tag": "c:lead_dust"
     }
   ],
   "result": {

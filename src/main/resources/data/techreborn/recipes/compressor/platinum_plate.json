@@ -4,7 +4,7 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "techreborn:platinum_ingot"
+      "tag": "c:platinum_ingot"
     }
   ],
   "results": [

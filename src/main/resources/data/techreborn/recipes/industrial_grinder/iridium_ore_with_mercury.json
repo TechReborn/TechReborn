@@ -1,22 +1,22 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "techreborn:mercury",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:iridium_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:iridium_ingot"
-		},
-		{
-			"item": "techreborn:platinum_dust"
-		}
-	]
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+    "fluid": "techreborn:mercury",
+    "amount": 1000
+  },
+  "ingredients": [
+    {
+      "tag": "c:iridium_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:iridium_ingot"
+    },
+    {
+      "item": "techreborn:platinum_dust"
+    }
+  ]
 }

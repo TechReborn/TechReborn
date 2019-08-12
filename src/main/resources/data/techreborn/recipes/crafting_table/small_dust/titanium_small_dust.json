@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:titanium_dust"
+      "tag": "c:titanium_dust"
     }
   ],
   "result": {

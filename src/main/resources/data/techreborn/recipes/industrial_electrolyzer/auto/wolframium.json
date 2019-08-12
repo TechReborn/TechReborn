@@ -4,7 +4,7 @@
   "time": 1200,
   "ingredients": [
     {
-      "item": "techreborn:tungsten_dust"
+      "tag": "c:tungsten_dust"
     },
     {
       "item": "techreborn:cell",

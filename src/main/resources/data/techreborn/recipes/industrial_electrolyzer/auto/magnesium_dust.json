@@ -4,8 +4,8 @@
   "time": 1600,
   "ingredients": [
     {
-      "item": "techreborn:peridot_dust",
-      "count": 9
+      "count": 9,
+      "tag": "c:peridot_dust"
     },
     {
       "item": "techreborn:cell",

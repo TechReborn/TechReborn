@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:zinc_dust"
+      "tag": "c:zinc_dust"
     }
   ],
   "result": {

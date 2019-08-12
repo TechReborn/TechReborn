@@ -4,8 +4,8 @@
   "time": 2400,
   "ingredients": [
     {
-      "item": "techreborn:copper_dust",
-      "count": 3
+      "count": 3,
+      "tag": "c:copper_dust"
     }
   ],
   "results": [

@@ -13,7 +13,7 @@
       "item": "minecraft:redstone"
     },
     "D": {
-      "item": "techreborn:diamond_dust"
+      "tag": "c:diamond_dust"
     }
   },
   "result": {

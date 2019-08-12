@@ -13,7 +13,7 @@
       "item": "techreborn:energy_flow_chip"
     },
     "D": {
-      "item": "techreborn:diamond_dust"
+      "tag": "c:diamond_dust"
     },
     "L": {
       "item": "techreborn:reinforced_glass"

@@ -16,7 +16,7 @@
       "item": "techreborn:reinforced_glass"
     },
     "I": {
-      "item": "techreborn:aluminum_plate"
+      "tag": "c:aluminum_plate"
     }
   },
   "result": {

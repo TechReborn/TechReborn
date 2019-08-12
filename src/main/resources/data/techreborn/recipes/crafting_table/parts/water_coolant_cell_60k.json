@@ -7,13 +7,13 @@
   ],
   "key": {
     "P": {
-      "item": "techreborn:copper_plate"
+      "tag": "c:copper_plate"
     },
     "C": {
       "item": "techreborn:water_coolant_cell_30k"
     },
     "T": {
-      "item": "techreborn:tin_ingot"
+      "tag": "c:tin_ingot"
     }
   },
   "result": {

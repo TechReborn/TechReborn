@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:aluminum_dust"
+      "tag": "c:aluminum_dust"
     }
   ],
   "result": {

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:lead_ingot"
+      "tag": "c:lead_ingot"
     }
   ],
   "result": {

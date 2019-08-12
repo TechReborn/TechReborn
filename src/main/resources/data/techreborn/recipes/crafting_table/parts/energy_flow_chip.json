@@ -10,7 +10,7 @@
       "item": "techreborn:advanced_circuit"
     },
     "T": {
-      "item": "techreborn:tungsten_ingot"
+      "tag": "c:tungsten_ingot"
     },
     "I": {
       "item": "techreborn:iridium_alloy_plate"

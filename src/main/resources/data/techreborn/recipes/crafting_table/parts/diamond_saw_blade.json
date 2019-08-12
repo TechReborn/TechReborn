@@ -7,10 +7,10 @@
   ],
   "key": {
     "S": {
-      "item": "techreborn:steel_ingot"
+      "tag": "c:steel_ingot"
     },
     "D": {
-      "item": "techreborn:diamond_dust"
+      "tag": "c:diamond_dust"
     }
   },
   "result": {

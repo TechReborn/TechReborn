@@ -10,10 +10,10 @@
       "item": "techreborn:steel_storage_block"
     },
     "S": {
-      "item": "techreborn:steel_ingot"
+      "tag": "c:steel_ingot"
     },
     "T": {
-      "item": "techreborn:tungsten_ingot"
+      "tag": "c:tungsten_ingot"
     }
   },
   "result": {

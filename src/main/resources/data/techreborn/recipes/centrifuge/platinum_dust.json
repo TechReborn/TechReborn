@@ -4,8 +4,8 @@
   "time": 3000,
   "ingredients": [
     {
-      "item": "techreborn:platinum_dust",
-      "count": 2
+      "count": 2,
+      "tag": "c:platinum_dust"
     }
   ],
   "results": [

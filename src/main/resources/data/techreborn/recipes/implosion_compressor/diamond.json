@@ -2,17 +2,17 @@
   "type": "techreborn:implosion_compressor",
   "power": 30,
   "time": 2000,
-  "ingredients" : [
+  "ingredients": [
     {
       "item": "minecraft:tnt",
       "count": 16
     },
     {
-      "item": "techreborn:diamond_dust",
-      "count": 4
+      "count": 4,
+      "tag": "c:diamond_dust"
     }
   ],
-  "results" : [
+  "results": [
     {
       "item": "minecraft:diamond",
       "count": 3

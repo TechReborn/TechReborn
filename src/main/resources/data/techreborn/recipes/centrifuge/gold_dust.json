@@ -4,8 +4,8 @@
   "time": 2400,
   "ingredients": [
     {
-      "item": "techreborn:gold_dust",
-      "count": 3
+      "count": 3,
+      "tag": "c:gold_dust"
     }
   ],
   "results": [

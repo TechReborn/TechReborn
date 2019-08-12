@@ -4,7 +4,7 @@
   "time": 240,
   "ingredients": [
     {
-      "item": "techreborn:steel_ingot"
+      "tag": "c:steel_ingot"
     }
   ],
   "results": [

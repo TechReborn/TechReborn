@@ -4,7 +4,7 @@
   "time": 250,
   "ingredients": [
     {
-      "item": "techreborn:peridot_dust"
+      "tag": "c:peridot_dust"
     }
   ],
   "results": [

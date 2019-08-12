@@ -7,10 +7,10 @@
   ],
   "key": {
     "B": {
-      "item": "techreborn:zinc_ingot"
+      "tag": "c:zinc_ingot"
     },
     "T": {
-      "item": "techreborn:titanium_ingot"
+      "tag": "c:titanium_ingot"
     },
     "M": {
       "item": "techreborn:bronze_ingot"

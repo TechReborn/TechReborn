@@ -1,25 +1,25 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"TST",
-		"PCP",
-		"TST"
-	],
-	"key": {
-		"C": {
-			"item": "techreborn:water_coolant_cell_10k"
-		},
-		"T": {
-			"item": "techreborn:tin_ingot"
-		},
-		"S": {
-			"item": "techreborn:cell"
-		},
-		"P": {
-			"item": "techreborn:cell"
-		}
-	},
-	"result": {
-		"item": "techreborn:nak_coolant_cell_60k"
-	}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TST",
+    "PCP",
+    "TST"
+  ],
+  "key": {
+    "C": {
+      "item": "techreborn:water_coolant_cell_10k"
+    },
+    "T": {
+      "tag": "c:tin_ingot"
+    },
+    "S": {
+      "item": "techreborn:cell"
+    },
+    "P": {
+      "item": "techreborn:cell"
+    }
+  },
+  "result": {
+    "item": "techreborn:nak_coolant_cell_60k"
+  }
 }

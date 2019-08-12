@@ -1,26 +1,26 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "techreborn:sodium_persulfate",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:copper_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:copper_dust",
-			"count": 2
-		},
-		{
-			"item": "techreborn:gold_dust"
-		},
-		{
-			"item": "techreborn:nickel_dust"
-		}
-	]
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+    "fluid": "techreborn:sodium_persulfate",
+    "amount": 1000
+  },
+  "ingredients": [
+    {
+      "tag": "c:copper_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:copper_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:gold_dust"
+    },
+    {
+      "item": "techreborn:nickel_dust"
+    }
+  ]
 }

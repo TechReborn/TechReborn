@@ -1,25 +1,25 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"DT ",
-		"DT ",
-		"DCB"
-	],
-	"key": {
-		"D": {
-			"item": "techreborn:diamond_dust"
-		},
-		"T": {
-			"item": "techreborn:titanium_ingot"
-		},
-		"C": {
-			"item": "techreborn:electronic_circuit"
-		},
-		"B": {
-			"item": "techreborn:red_cell_battery"
-		}
-	},
-	"result": {
-		"item": "techreborn:rock_cutter"
-	}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DT ",
+    "DT ",
+    "DCB"
+  ],
+  "key": {
+    "D": {
+      "tag": "c:diamond_dust"
+    },
+    "T": {
+      "tag": "c:titanium_ingot"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "B": {
+      "item": "techreborn:red_cell_battery"
+    }
+  },
+  "result": {
+    "item": "techreborn:rock_cutter"
+  }
 }

@@ -1,28 +1,28 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"FOF",
-		"SPS",
-		"FIF"
-	],
-	"key": {
-		"F": {
-			"item": "techreborn:energy_flow_chip"
-		},
-		"O": {
-			"item": "techreborn:lapotronic_orb"
-		},
-		"S": {
-			"item": "techreborn:superconductor"
-		},
-		"P": {
-			"item": "techreborn:lithium_ion_batpack"
-		},
-		"I": {
-			"item": "techreborn:iridium_ingot"
-		}
-	},
-	"result": {
-		"item": "techreborn:lapotronic_orbpack"
-	}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FOF",
+    "SPS",
+    "FIF"
+  ],
+  "key": {
+    "F": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "O": {
+      "item": "techreborn:lapotronic_orb"
+    },
+    "S": {
+      "item": "techreborn:superconductor"
+    },
+    "P": {
+      "item": "techreborn:lithium_ion_batpack"
+    },
+    "I": {
+      "tag": "c:iridium_ingot"
+    }
+  },
+  "result": {
+    "item": "techreborn:lapotronic_orbpack"
+  }
 }

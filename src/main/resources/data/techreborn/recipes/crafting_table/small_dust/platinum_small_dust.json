@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:platinum_dust"
+      "tag": "c:platinum_dust"
     }
   ],
   "result": {

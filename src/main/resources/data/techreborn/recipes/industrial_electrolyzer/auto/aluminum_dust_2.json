@@ -4,8 +4,8 @@
   "time": 500,
   "ingredients": [
     {
-      "item": "techreborn:ruby_dust",
-      "count": 9
+      "count": 9,
+      "tag": "c:ruby_dust"
     },
     {
       "item": "techreborn:cell",

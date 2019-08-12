@@ -7,13 +7,13 @@
   ],
   "key": {
     "P": {
-      "item": "techreborn:copper_plate"
+      "tag": "c:copper_plate"
     },
     "C": {
       "item": "techreborn:coal_dust"
     },
     "T": {
-      "item": "techreborn:tin_dust"
+      "tag": "c:tin_dust"
     }
   },
   "result": {

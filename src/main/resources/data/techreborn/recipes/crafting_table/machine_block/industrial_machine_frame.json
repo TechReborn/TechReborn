@@ -13,7 +13,7 @@
       "item": "techreborn:chrome_plate"
     },
     "T": {
-      "item": "techreborn:titanium_plate"
+      "tag": "c:titanium_plate"
     }
   },
   "result": {

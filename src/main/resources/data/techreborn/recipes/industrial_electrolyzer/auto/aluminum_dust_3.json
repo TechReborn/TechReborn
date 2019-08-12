@@ -4,8 +4,8 @@
   "time": 400,
   "ingredients": [
     {
-      "item": "techreborn:sapphire_dust",
-      "count": 8
+      "count": 8,
+      "tag": "c:sapphire_dust"
     },
     {
       "item": "techreborn:cell",

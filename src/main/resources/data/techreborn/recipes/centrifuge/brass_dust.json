@@ -4,7 +4,7 @@
   "time": 1500,
   "ingredients": [
     {
-      "item": "techreborn:brass_dust"
+      "tag": "c:brass_dust"
     }
   ],
   "results": [

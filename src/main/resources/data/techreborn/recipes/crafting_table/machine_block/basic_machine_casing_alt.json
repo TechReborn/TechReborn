@@ -10,7 +10,7 @@
       "item": "techreborn:basic_machine_frame"
     },
     "R": {
-      "item": "techreborn:iron_plate"
+      "tag": "c:iron_plate"
     },
     "C": {
       "item": "techreborn:electronic_circuit"

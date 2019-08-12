@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "techreborn:aluminum_ingot"
+      "tag": "c:aluminum_ingot"
     },
     "D": {
       "item": "minecraft:ink_sac"

@@ -1,24 +1,24 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "minecraft:water",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:lead_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:lead_dust",
-			"count": 2
-		},
-		{
-			"item": "techreborn:galena_small_dust",
-			"count": 2
-		}
-	]
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+  "ingredients": [
+    {
+      "tag": "c:lead_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:lead_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:galena_small_dust",
+      "count": 2
+    }
+  ]
 }

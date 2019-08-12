@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "item": "techreborn:iron_plate"
+      "tag": "c:iron_plate"
     },
     "C": {
       "item": "minecraft:crafting_table"

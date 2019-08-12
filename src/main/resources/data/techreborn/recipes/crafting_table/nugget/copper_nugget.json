@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:copper_ingot"
+      "tag": "c:copper_ingot"
     }
   ],
   "result": {

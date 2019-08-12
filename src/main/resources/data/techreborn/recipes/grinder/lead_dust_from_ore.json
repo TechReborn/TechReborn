@@ -4,7 +4,7 @@
   "time": 270,
   "ingredients": [
     {
-      "item": "techreborn:lead_ore"
+      "tag": "c:lead_ore"
     }
   ],
   "results": [

@@ -3,12 +3,12 @@
   "power": 128,
   "time": 3600,
   "heat": 1500,
-  "ingredients" : [
+  "ingredients": [
     {
-      "item": "techreborn:titanium_dust"
+      "tag": "c:titanium_dust"
     }
   ],
-  "results" : [
+  "results": [
     {
       "item": "techreborn:titanium_ingot"
     }

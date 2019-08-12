@@ -1,28 +1,28 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		" I ",
-		"NCN",
-		"OAO"
-	],
-	"key": {
-		"I": {
-			"item": "techreborn:iridium_alloy_plate"
-		},
-		"N": {
-			"item": "techreborn:iridium_nugget"
-		},
-		"C": {
-			"item": "techreborn:energy_flow_chip"
-		},
-		"O": {
-			"item": "techreborn:overclocker_upgrade"
-		},
-		"A": {
-			"item": "techreborn:advanced_drill"
-		}
-	},
-	"result": {
-		"item": "techreborn:industrial_drill"
-	}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "NCN",
+    "OAO"
+  ],
+  "key": {
+    "I": {
+      "item": "techreborn:iridium_alloy_plate"
+    },
+    "N": {
+      "tag": "c:iridium_nugget"
+    },
+    "C": {
+      "item": "techreborn:energy_flow_chip"
+    },
+    "O": {
+      "item": "techreborn:overclocker_upgrade"
+    },
+    "A": {
+      "item": "techreborn:advanced_drill"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_drill"
+  }
 }

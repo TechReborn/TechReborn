@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:diamond_dust"
+      "tag": "c:diamond_dust"
     }
   ],
   "result": {

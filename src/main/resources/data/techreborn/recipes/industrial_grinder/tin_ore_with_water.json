@@ -1,26 +1,26 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "minecraft:water",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:tin_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:tin_dust",
-			"count": 2
-		},
-		{
-			"item": "techreborn:iron_small_dust"
-		},
-		{
-			"item": "techreborn:zinc_small_dust"
-		}
-	]
+  "type": "techreborn:industrial_grinder",
+  "power": 64,
+  "time": 100,
+  "tank": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+  "ingredients": [
+    {
+      "tag": "c:tin_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:tin_dust",
+      "count": 2
+    },
+    {
+      "item": "techreborn:iron_small_dust"
+    },
+    {
+      "item": "techreborn:zinc_small_dust"
+    }
+  ]
 }

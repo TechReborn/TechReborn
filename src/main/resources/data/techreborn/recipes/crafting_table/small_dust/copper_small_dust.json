@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:copper_dust"
+      "tag": "c:copper_dust"
     }
   ],
   "result": {

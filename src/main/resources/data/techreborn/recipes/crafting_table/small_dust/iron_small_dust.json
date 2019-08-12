@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:iron_dust"
+      "tag": "c:iron_dust"
     }
   ],
   "result": {

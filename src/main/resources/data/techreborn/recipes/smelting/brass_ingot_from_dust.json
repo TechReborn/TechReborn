@@ -1,9 +1,9 @@
 {
-	"type": "minecraft:smelting",
-	"ingredient": {
-		"item": "techreborn:brass_dust"
-	},
-	"result": "techreborn:brass_ingot",
-	"experience": 0.5,
-	"cookingtime": 200
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "c:brass_dust"
+  },
+  "result": "techreborn:brass_ingot",
+  "experience": 0.5,
+  "cookingtime": 200
 }

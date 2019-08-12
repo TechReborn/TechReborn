@@ -3,12 +3,12 @@
   "power": 128,
   "time": 100,
   "heat": 1000,
-  "ingredients" : [
+  "ingredients": [
     {
-      "item": "techreborn:steel_dust"
+      "tag": "c:steel_dust"
     }
   ],
-  "results" : [
+  "results": [
     {
       "item": "techreborn:steel_ingot"
     }

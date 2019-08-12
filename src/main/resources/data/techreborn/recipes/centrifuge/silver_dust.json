@@ -4,8 +4,8 @@
   "time": 2400,
   "ingredients": [
     {
-      "item": "techreborn:silver_dust",
-      "count": 2
+      "count": 2,
+      "tag": "c:silver_dust"
     }
   ],
   "results": [

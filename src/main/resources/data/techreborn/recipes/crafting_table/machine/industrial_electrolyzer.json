@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "item": "techreborn:iron_plate"
+      "tag": "c:iron_plate"
     },
     "C": {
       "item": "techreborn:advanced_circuit"

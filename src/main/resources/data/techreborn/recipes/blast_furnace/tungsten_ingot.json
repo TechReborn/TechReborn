@@ -3,12 +3,12 @@
   "power": 128,
   "time": 2000,
   "heat": 2500,
-  "ingredients" : [
+  "ingredients": [
     {
-      "item": "techreborn:tungsten_dust"
+      "tag": "c:tungsten_dust"
     }
   ],
-  "results" : [
+  "results": [
     {
       "item": "techreborn:tungsten_ingot"
     }

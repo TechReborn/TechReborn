@@ -4,8 +4,8 @@
   "time": 2400,
   "ingredients": [
     {
-      "item": "techreborn:lead_dust",
-      "count": 2
+      "count": 2,
+      "tag": "c:lead_dust"
     }
   ],
   "results": [
