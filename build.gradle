@@ -57,6 +57,9 @@ repositories {
 		name = 'curseforge'
 		url = 'https://minecraft.curseforge.com/api/maven'
 	}
+	maven {
+		url 'https://jitpack.io'
+	}
 }
 
 version = "3.0.5"
@@ -109,6 +112,10 @@ dependencies {
 
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
+
+	modCompile ('com.github.Virtuoel:Towelette:519538e54b') {
+		transitive = false
+	}
 }
 
 processResources {

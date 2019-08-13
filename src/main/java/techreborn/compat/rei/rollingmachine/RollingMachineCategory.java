@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.rei.rollingmachine;
+package techreborn.compat.rei.rollingmachine;
 
 import me.shedaniel.rei.api.Renderable;
 import me.shedaniel.rei.api.Renderer;
@@ -33,7 +33,7 @@ import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
-import techreborn.rei.ReiPlugin;
+import techreborn.compat.rei.ReiPlugin;
 
 public class RollingMachineCategory extends DefaultCraftingCategory {
 

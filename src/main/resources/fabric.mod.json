@@ -20,7 +20,10 @@
       "techreborn.TechRebornClient"
     ],
     "rei_plugins": [
-      "techreborn.rei.ReiPlugin"
+      "techreborn.compat.rei.ReiPlugin"
+    ],
+    "towelette": [
+      "techreborn.compat.towelette.TowelettePlugin"
     ]
   },
   "depends": {

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.rei;
+package techreborn.compat.rei;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import me.shedaniel.rei.api.*;

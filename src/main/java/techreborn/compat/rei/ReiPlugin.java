@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.rei;
+package techreborn.compat.rei;
 
 import me.shedaniel.rei.api.REIPluginEntry;
 import me.shedaniel.rei.api.RecipeDisplay;
@@ -39,8 +39,8 @@ import techreborn.api.recipe.recipes.*;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
-import techreborn.rei.rollingmachine.RollingMachineCategory;
-import techreborn.rei.rollingmachine.RollingMachineDisplay;
+import techreborn.compat.rei.rollingmachine.RollingMachineCategory;
+import techreborn.compat.rei.rollingmachine.RollingMachineDisplay;
 
 import java.util.HashMap;
 import java.util.Map;

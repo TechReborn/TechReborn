@@ -107,6 +107,10 @@ public enum ModFluids {
 		return stillFluid;
 	}
 
+	public RebornFluid getFlowingFluid() {
+		return flowingFluid;
+	}
+
 	public RebornFluidBlock getBlock() {
 		return block;
 	}

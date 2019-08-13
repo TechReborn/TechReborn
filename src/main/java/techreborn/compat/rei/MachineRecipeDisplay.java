@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.rei;
+package techreborn.compat.rei;
 
 import me.shedaniel.rei.api.RecipeDisplay;
 import net.minecraft.item.ItemStack;

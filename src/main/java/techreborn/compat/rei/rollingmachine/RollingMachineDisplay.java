@@ -1,4 +1,4 @@
-package techreborn.rei.rollingmachine;
+package techreborn.compat.rei.rollingmachine;
 
 import me.shedaniel.rei.plugin.DefaultShapedDisplay;
 import net.minecraft.recipe.ShapedRecipe;
