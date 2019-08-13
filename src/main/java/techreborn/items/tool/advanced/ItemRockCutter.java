@@ -139,7 +139,7 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
 
 		itemList.add(uncharged);
-//		itemList.add(charged);
+		itemList.add(charged);
 	}
 
 	// IEnergyItemInfo

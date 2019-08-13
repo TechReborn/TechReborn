@@ -31,13 +31,13 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 /**
  * Created by modmuss50 on 05/11/2016.
@@ -72,13 +72,7 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDu
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);
-		ItemStack charged = new ItemStack(TRContent.ELECTRIC_TREE_TAP);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(uncharged);
-		itemList.add(charged);
+		InitUtils.initPoweredItems(TRContent.ELECTRIC_TREE_TAP, itemList);
 	}
 
 	// IEnergyItemInfo

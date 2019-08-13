@@ -49,6 +49,7 @@ import reborncore.common.util.TorchHelper;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -157,13 +158,7 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.OMNI_TOOL);
-		ItemStack charged = new ItemStack(TRContent.OMNI_TOOL);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(uncharged);
-		itemList.add(charged);
+		InitUtils.initPoweredItems(TRContent.OMNI_TOOL, itemList);
 	}
 	
 	// IEnergyItemInfo

@@ -29,8 +29,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
-import reborncore.api.power.ItemPowerManager;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 public class ItemLithiumIonBattery extends ItemBattery {
 
@@ -41,16 +41,11 @@ public class ItemLithiumIonBattery extends ItemBattery {
 	
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
 		if (!isIn(group)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
-		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATTERY);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		items.add(uncharged);
-		items.add(charged);
+		InitUtils.initPoweredItems(TRContent.LITHIUM_ION_BATTERY, itemList);
 	}
 }
 

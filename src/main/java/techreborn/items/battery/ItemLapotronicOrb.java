@@ -29,9 +29,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
-import reborncore.api.power.ItemPowerManager;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 public class ItemLapotronicOrb extends ItemBattery {
 
@@ -42,15 +42,10 @@ public class ItemLapotronicOrb extends ItemBattery {
 	
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
 		if (!isIn(group)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORB);
-		ItemStack charged = new ItemStack(TRContent.LAPOTRONIC_ORB);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		items.add(uncharged);
-		items.add(charged);
+		InitUtils.initPoweredItems(TRContent.LAPOTRONIC_ORB, itemList);
 	}
 }
