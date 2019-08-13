@@ -26,6 +26,7 @@ package techreborn.init;
 
 
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.init.ModFluids;
@@ -44,8 +45,7 @@ public class FluidGeneratorRecipes {
 		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM.getFluid(), 60);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL.getFluid(), 16);
 
-		//TODO 1.13 forge and mc fluids are 2 diffrent things, fix later
-		//register(EFluidGenerator.THERMAL, Fluids.LAVA, 60);
+		register(EFluidGenerator.THERMAL, Fluids.LAVA, 60);
 
 		register(EFluidGenerator.GAS, ModFluids.HYDROGEN.getFluid(), 15);
 		register(EFluidGenerator.GAS, ModFluids.METHANE.getFluid(), 45);

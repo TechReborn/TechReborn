@@ -27,6 +27,7 @@ package techreborn.blockentity.generator;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
+import org.apache.commons.lang3.Validate;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
@@ -62,6 +63,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, EFluidGenerator type, String blockEntityName, int tankCapacity, int euTick) {
 		super(blockEntityType);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
+		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
 		tank = new Tank(blockEntityName, tankCapacity, this);
 		inventory = new RebornInventory<>(3, blockEntityName, 64, this);
 		this.euTick = euTick;

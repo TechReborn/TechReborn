@@ -62,6 +62,7 @@ public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity
 			.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 			.syncIntegerValue(this::getTankAmount, this::setTankAmount)
+			.sync(tank)
 			.addInventory().create(this, syncID);
 	}
 }
