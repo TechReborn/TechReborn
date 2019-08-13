@@ -24,8 +24,8 @@
 
 package techreborn.items.tool;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -42,8 +42,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
-import techreborn.utils.TagUtils;
-
 import java.util.Random;
 
 public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
@@ -60,8 +58,7 @@ public class ItemJackhammer extends PickaxeItem implements IEnergyItemInfo, Item
 	// ItemPickaxe
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
-		if ((TagUtils.isOre(state, "stone") || state.getBlock() == Blocks.STONE)
-			&& new ItemPowerManager(stack).getEnergyStored() >= cost) {
+		if (Block.isNaturalStone(state.getBlock()) && new ItemPowerManager(stack).getEnergyStored() >= cost) {
 			return miningSpeed;
 		} else {
 			return 0.5F;
