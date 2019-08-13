@@ -35,6 +35,8 @@ import org.apache.logging.log4j.Logger;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
+import reborncore.common.world.DataAttachment;
+import techreborn.blockentity.storage.idsu.IDSUManager;
 import techreborn.client.GuiHandler;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
@@ -43,6 +45,8 @@ import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.world.WorldGenerator;
+
+import java.util.function.Supplier;
 
 public class TechReborn implements ModInitializer {
 
@@ -82,6 +86,8 @@ public class TechReborn implements ModInitializer {
 		}
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
+
+		DataAttachment.REGISTRY.register(IDSUManager.class, IDSUManager::new);
 
 		LOGGER.info("TechReborn setup done!");
 

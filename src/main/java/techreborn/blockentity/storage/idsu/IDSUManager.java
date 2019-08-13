@@ -24,18 +24,79 @@
 
 package techreborn.blockentity.storage.idsu;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import reborncore.common.util.NBTSerializable;
+import reborncore.common.world.DataAttachment;
+import reborncore.common.world.DataAttachmentProvider;
 
-public class IDSUManager {
-	public static IDataIDSU getData(World world) {
-		throw new UnsupportedOperationException("needs rewriting anyway");
-//		IDSUSaveManger instance = (IDSUSaveManger) storage.getOrLoadData(IDSUSaveManger.class, TechReborn.MOD_ID + "_IDSU");
-//
-//		if (instance == null) {
-//			instance = new IDSUSaveManger(TechReborn.MOD_ID + "_IDSU");
-//			storage.setData(TechReborn.MOD_ID + "_IDSU", instance);
-//		}
-//		return instance;
+import java.util.HashMap;
+
+public class IDSUManager implements DataAttachment {
+
+	@NonNull
+	public static IDSUPlayer getPlayer(World world, String uuid){
+		return get(world).getPlayer(uuid);
+	}
+
+	public static IDSUManager get(World world){
+		return DataAttachmentProvider.get(world, IDSUManager.class);
+	}
+
+	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
+
+	@NonNull
+	public IDSUPlayer getPlayer(String uuid){
+		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
+	}
+
+	@Override
+	public void read(@NonNull CompoundTag tag) {
+		for(String uuid : tag.getKeys()){
+			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
+		}
+	}
+
+	@NonNull
+	@Override
+	public CompoundTag write() {
+		CompoundTag tag = new CompoundTag();
+		playerHashMap.forEach((uuid, player) -> tag.put(uuid, player.write()));
+		return tag;
+	}
+
+	public static class IDSUPlayer implements NBTSerializable {
+
+		private double energy;
+
+		private IDSUPlayer() {
+		}
+
+		private IDSUPlayer(CompoundTag compoundTag){
+			read(compoundTag);
+		}
+
+		@NonNull
+		@Override
+		public CompoundTag write() {
+			CompoundTag tag = new CompoundTag();
+			tag.putDouble("energy", energy);
+			return tag;
+		}
+
+		@Override
+		public void read(@NonNull CompoundTag tag) {
+			energy = tag.getDouble("energy");
+		}
+
+		public double getEnergy() {
+			return energy;
+		}
+
+		public void setEnergy(double energy) {
+			this.energy = energy;
+		}
 	}
 
 }

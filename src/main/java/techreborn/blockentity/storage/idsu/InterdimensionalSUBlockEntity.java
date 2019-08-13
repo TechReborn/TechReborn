@@ -40,6 +40,9 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 
 	public String ownerUdid;
 
+	//This is the energy value that is synced to the client
+	private double clientEnergy;
+
 	public InterdimensionalSUBlockEntity() {
 		super(TRBlockEntities.INTERDIMENSIONAL_SU, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnumPowerTier.EXTREME, TechRebornConfig.idsuMaxInput, TechRebornConfig.idsuMaxOutput, TechRebornConfig.idsuMaxEnergy);
 	}
@@ -49,7 +52,10 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0.0;
 		}
-		return IDSUManager.getData(world).getStoredPower();
+		if(world.isClient){
+			return clientEnergy;
+		}
+		return IDSUManager.getPlayer(world, ownerUdid).getEnergy();
 	}
 
 	@Override
@@ -57,7 +63,11 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
-		IDSUManager.getData(world).setStoredPower(energy);
+		if(world.isClient){
+			clientEnergy = energy;
+		} else {
+			IDSUManager.getPlayer(world, ownerUdid).setEnergy(energy);
+		}
 	}
 	
 	@Override
@@ -65,7 +75,10 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0.0;
 		}
-		double energy = IDSUManager.getData(world).getStoredPower();
+		if(world.isClient){
+			throw new UnsupportedOperationException("cannot set energy on the client!");
+		}
+		double energy = IDSUManager.getPlayer(world, ownerUdid).getEnergy();
 		if (extract > energy) {
 			extract = energy;
 		}
@@ -80,7 +93,10 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return false;
 		}
-		return input <= IDSUManager.getData(world).getStoredPower();
+		if(world.isClient){
+			throw new UnsupportedOperationException("cannot set energy on the client!");
+		}
+		return input <= IDSUManager.getPlayer(world, ownerUdid).getEnergy();
 	}
 
 	@Override
