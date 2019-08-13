@@ -46,8 +46,6 @@ import techreborn.packets.ServerboundPackets;
 import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.world.WorldGenerator;
 
-import java.util.function.Supplier;
-
 public class TechReborn implements ModInitializer {
 
 	public static final String MOD_ID = "techreborn";

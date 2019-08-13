@@ -34,6 +34,7 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
+import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -61,8 +62,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 
 		for (int i = 0; i < player.inventory.getInvSize(); i++) {
 			if (!player.inventory.getInvStack(i).isEmpty()) {
-				//TODO fix me
-				//ExternalPowerSystems.chargeItem(capEnergy, player.inventory.getInvStack(i));
+				ExternalPowerSystems.chargeItem(capEnergy, player.inventory.getInvStack(i));
 			}
 		}
 	}
