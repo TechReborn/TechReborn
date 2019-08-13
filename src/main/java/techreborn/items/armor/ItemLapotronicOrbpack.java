@@ -31,13 +31,13 @@ import net.minecraft.item.*;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
 import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
@@ -51,16 +51,11 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 
 	// Item
 	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
 		if (!isIn(group)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
-		ItemStack charged = new ItemStack(TRContent.LAPOTRONIC_ORBPACK);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		items.add(uncharged);
-		items.add(charged);
+		InitUtils.initPoweredItems(TRContent.LAPOTRONIC_ORBPACK, itemList);
 	}
 	   
 	@Override

@@ -40,6 +40,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
@@ -91,16 +92,11 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
 		if (!isIn(group)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);
-		ItemStack charged = new ItemStack(TRContent.LITHIUM_ION_BATPACK);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		items.add(uncharged);
-		items.add(charged);
+		InitUtils.initPoweredItems(TRContent.LITHIUM_ION_BATPACK, itemList);
 	}
 	
 	// IEnergyItemInfo

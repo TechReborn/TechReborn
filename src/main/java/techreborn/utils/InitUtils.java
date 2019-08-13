@@ -26,10 +26,13 @@ package techreborn.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.RebornRegistry;
+import reborncore.api.power.ItemPowerManager;
 import techreborn.TechReborn;
 
 public class InitUtils {
@@ -46,5 +49,15 @@ public class InitUtils {
 	public static SoundEvent setup(String name) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, name);
 		return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
+	}
+	
+	public static void initPoweredItems(Item item, DefaultedList<ItemStack> itemList) {
+		ItemStack uncharged = new ItemStack(item);
+		ItemStack charged = new ItemStack(item);
+		ItemPowerManager capEnergy = new ItemPowerManager(charged);
+		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+
+		itemList.add(uncharged);
+		itemList.add(charged);
 	}
 }

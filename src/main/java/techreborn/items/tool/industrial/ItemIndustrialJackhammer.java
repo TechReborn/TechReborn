@@ -30,10 +30,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
-import reborncore.api.power.ItemPowerManager;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemJackhammer;
+import techreborn.utils.InitUtils;
 
 public class ItemIndustrialJackhammer extends ItemJackhammer {
 
@@ -51,12 +51,6 @@ public class ItemIndustrialJackhammer extends ItemJackhammer {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_JACKHAMMER);
-		ItemStack charged = stack.copy();
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(stack);
-		itemList.add(charged);
+		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_JACKHAMMER, itemList);
 	}
 }

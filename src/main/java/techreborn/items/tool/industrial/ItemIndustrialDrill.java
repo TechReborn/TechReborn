@@ -54,6 +54,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
+import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
@@ -71,7 +72,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		this.transferLimit = 1000;
 	}
 
-	public Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable PlayerEntity playerIn) {
+	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable PlayerEntity playerIn) {
 		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
 		if (playerIn == null) {
 			return new HashSet<>();
@@ -117,7 +118,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 		return targetBlocks;
 	}
 
-	public void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
+	private void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
 		BlockState blockState = world.getBlockState(pos);
 
 		ItemPowerManager capEnergy = new ItemPowerManager(drill);
@@ -243,12 +244,6 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_DRILL);
-		ItemStack charged = stack.copy();
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(stack);
-		itemList.add(charged);
+		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_DRILL, itemList);
 	}
 }

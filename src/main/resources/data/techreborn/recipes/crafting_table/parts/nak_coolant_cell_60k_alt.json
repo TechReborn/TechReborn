@@ -13,10 +13,10 @@
       "tag": "c:tin_ingot"
     },
     "P": {
-      "item": "techreborn:cell"
+      "item": "techreborn:potassium_bucket"
     },
     "S": {
-      "item": "techreborn:cell"
+      "item": "techreborn:sodium_bucket"
     }
   },
   "result": {

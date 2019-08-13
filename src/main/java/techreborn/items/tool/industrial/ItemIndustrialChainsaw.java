@@ -51,6 +51,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
+import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.TagUtils;
 
@@ -76,13 +77,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		ItemStack stack = new ItemStack(TRContent.INDUSTRIAL_CHAINSAW);
-		ItemStack charged = stack.copy();
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-
-		itemList.add(stack);
-		itemList.add(charged);
+		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_CHAINSAW, itemList);
 	}
 
 	@Override

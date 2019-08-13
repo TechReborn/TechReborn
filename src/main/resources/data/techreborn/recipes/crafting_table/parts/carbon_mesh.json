@@ -1,14 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "CC"
-  ],
-  "key": {
-    "C": {
-      "item": "techreborn:carbon_fiber"
-    }
-  },
-  "result": {
-    "item": "techreborn:carbon_mesh"
-  }
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "techreborn:carbon_fiber"
+		},
+		{
+			"item": "techreborn:carbon_fiber"
+		}
+	],
+	"result": {
+		"item": "techreborn:carbon_mesh"
+	}
 }

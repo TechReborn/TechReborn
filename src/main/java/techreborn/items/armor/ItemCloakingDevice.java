@@ -41,6 +41,7 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
@@ -76,16 +77,11 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> items) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
 		if (!isIn(group)) {
 			return;
 		}
-		ItemStack uncharged = new ItemStack(TRContent.CLOAKING_DEVICE);
-		ItemStack charged = new ItemStack(TRContent.CLOAKING_DEVICE);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
-		items.add(uncharged);
-		items.add(charged);
+		InitUtils.initPoweredItems(TRContent.CLOAKING_DEVICE, itemList);
 	}
 	
 	@Override
