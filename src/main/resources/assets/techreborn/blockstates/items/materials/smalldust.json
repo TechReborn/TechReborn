@@ -330,6 +330,21 @@
         "textures": {
           "layer0": "techreborn:items/smalldust/iridium_smalldust"
         }
+      },
+      "thorium": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/thorium_smalldust"
+        }
+      },
+      "uranium": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/uranium_smalldust"
+        }
+      },
+      "plutonium": {
+        "textures": {
+          "layer0": "techreborn:items/smalldust/plutonium_smalldust"
+        }
       }
     }
   }

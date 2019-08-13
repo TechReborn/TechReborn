@@ -27,9 +27,11 @@ package techreborn.init.recipes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import reborncore.api.recipe.RecipeHandler;
+
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
 import techreborn.blocks.BlockOre;
 import techreborn.init.ModFluids;
@@ -47,19 +49,23 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 	// << Fields
 
 	public static void init() {
-		//Vanilla ores
-		if (oresExist("dustSmallThorium")) {
-			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 2), getOre("dustSmallThorium"));
-		} else {
-			register(getOre("oreCoal"), WATER, 100, 64, getStack(Items.COAL, 3));
-			register(getOre("oreCoal"), MERCURY, 100, 64, getStack(Items.COAL, 4));
-		}
+		// Vanilla ores >>
+		// Coal
+		register(getOre("oreCoal"), WATER, 100, 128, getStack(Items.COAL, 1), getMaterial("coal", Type.DUST),getMaterial("thorium", Type.SMALL_DUST));
 
-		register(getOre("oreIron"), WATER, 100, 64, getMaterial("iron", 2, Type.DUST), getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", 1, Type.DUST));
+		// Iron
+		register(getOre("oreIron"), WATER, 100, 128, getMaterial("iron", 2, Type.DUST), getMaterial("tin", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
+
+		// Gold
+		register(getOre("oreGold"), WATER, 100, 128, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
+		register(getOre("oreGold"), MERCURY, 100, 128, getMaterial("gold", 3, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
+		register(getOre("oreGold"), SODIUM_PERSULFATE, 100, 128, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.DUST), getMaterial("nickel", Type.SMALL_DUST));
+		// << Vanilla ores
+
+
 		
-		register(getOre("oreGold"), WATER, 100, 64, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-		register(getOre("oreGold"), MERCURY, 100, 64, getMaterial("gold", 3, Type.DUST), getMaterial("copper", Type.SMALL_DUST), getMaterial("nickel", Type.SMALL_DUST));
-		register(getOre("oreGold"), SODIUM_PERSULFATE, 100, 64, getMaterial("gold", 2, Type.DUST), getMaterial("copper", Type.DUST), getMaterial("nickel", Type.SMALL_DUST));
+
+
 		
 		register(getOre("oreLapis"), WATER, 100, 64, getStack(Items.DYE, 12, 4), getMaterial("lazurite", 3, Type.DUST));
 		
@@ -94,8 +100,8 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		register(getOre("oreIridium"), WATER, 100, 128, getMaterial("iridium", 1, Type.DUST), getMaterial("iridium", 6, Type.SMALL_DUST),
 			getMaterial("platinum", 2, Type.DUST));
 
-		if (oresExist("oreUranium", "dustUranium", "smallDustPlutonium")) {
-			register(getOre("oreUranium"), WATER, 100, 128, getOre("dustUranium", 2), getOre("smallDustPlutonium"));
+		if (oresExist("oreUranium")) {
+			register(getOre("oreUranium"), WATER, 100, 128, getMaterial("uranium", 2, Type.DUST), getMaterial("plutonium", 2, Type.SMALL_DUST), getMaterial("thorium", 1, Type.DUST));
 		}
 		
 		if (oresExist("oreUranium", "uran238", "smallUran235")) {
@@ -130,14 +136,6 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 
 		if (oresExist("oreApatite", "gemApatite")) {
 			register(getOre("oreApatite"), WATER, 100, 64, getOre("gemApatite", 8), getMaterial("phosphorous", 2, Type.SMALL_DUST));
-		}
-
-		if (oresExist("oreCertusQuartz", "crystalCertusQuartz", "dustCertusQuartz")) {
-			register(getOre("oreCertusQuartz"), WATER, 100, 64, getOre("crystalCertusQuartz", 2), getOre("dustCertusQuartz"));
-		}
-
-		if (oresExist("oreChargedCertusQuartz", "crystalChargedCertusQuartz", "dustCertusQuartz")) {
-			register(getOre("oreChargedCertusQuartz"), WATER, 100, 64, getOre("crystalChargedCertusQuartz", 2), getOre("dustCertusQuartz", 2));
 		}
 
 		if (oresExist("oreNickel")) {

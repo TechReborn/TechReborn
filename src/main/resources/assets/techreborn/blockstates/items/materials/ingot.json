@@ -120,6 +120,21 @@
         "textures": {
           "layer0": "techreborn:items/ingot/iridium_alloy_ingot"
         }
+      },
+      "thorium": {
+        "textures": {
+          "layer0": "techreborn:items/ingot/thorium_ingot"
+        }
+      },
+      "uranium": {
+        "textures": {
+          "layer0": "techreborn:items/ingot/uranium_ingot"
+        }
+      },
+      "plutonium": {
+        "textures": {
+          "layer0": "techreborn:items/ingot/plutonium_ingot"
+        }
       }
     }
   }

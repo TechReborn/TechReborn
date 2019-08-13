@@ -47,7 +47,9 @@ public class OreDict {
 		"hot", //Hot ingots
 		"mixed_metal", //Mixed metal has own version of plate
 		"iridium_alloy", //Iridium alloy is plate itself
-		"aluminum", // it breaks registering with stack size 4
+		"thorium",
+		"uranium",
+		"plutonium",
 		ModItems.META_PLACEHOLDER //...
 	);
 	// << Fields
@@ -145,8 +147,6 @@ public class OreDict {
 			if (type.equals(ModItems.META_PLACEHOLDER))
 				continue; //Aware of placeholders!
 
-			if (type.equals("aluminum")) continue;
-
 			OreUtil.registerOre(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "plate_" + type), ItemPlates.getPlateByName(type));
 		}
 		
@@ -155,10 +155,6 @@ public class OreDict {
 		OreUtil.registerOre("plateMagnalium", ItemPlates.getPlateByName("magnalium"));
 		ItemPlates.registerType("iridium_alloy");
 		OreUtil.registerOre("plateIridiumAlloy", ItemPlates.getPlateByName("iridiumAlloy"));
-		ItemPlates.registerType("aluminum");
-		ItemStack aluminumPlate = ItemPlates.getPlateByName("aluminum", 1);
-		OreUtil.registerOre("plateAluminum", aluminumPlate);
-		OreUtil.registerOre("plateAluminium", aluminumPlate);
 
 		for (String type : ItemDusts.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))

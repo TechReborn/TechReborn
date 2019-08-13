@@ -271,6 +271,7 @@ item.techreborn.dust.olivine.name=Olivine Dust
 item.techreborn.dust.peridot.name=Peridot Dust
 item.techreborn.dust.phosphorous.name=Phosphorous Dust
 item.techreborn.dust.platinum.name=Platinum Dust
+item.techreborn.dust.plutonium.name=Plutonium Dust
 item.techreborn.dust.pyrite.name=Pyrite Dust
 item.techreborn.dust.pyrope.name=Pyrope Dust
 item.techreborn.dust.red_garnet.name=Red Garnet Dust
@@ -284,9 +285,11 @@ item.techreborn.dust.spessartine.name=Spessartine Dust
 item.techreborn.dust.sphalerite.name=Sphalerite Dust
 item.techreborn.dust.steel.name=Steel Dust
 item.techreborn.dust.sulfur.name=Sulfur Dust
+item.techreborn.dust.thorium.name=Thorium Dust
 item.techreborn.dust.tin.name=Tin Dust
 item.techreborn.dust.titanium.name=Titanium Dust
 item.techreborn.dust.tungsten.name=Tungsten Dust
+item.techreborn.dust.uranium.name=Uranium Dust
 item.techreborn.dust.uvarovite.name=Uvarovite Dust
 item.techreborn.dust.yellow_garnet.name=Yellow Garnet Dust
 item.techreborn.dust.zinc.name=Zinc Dust
@@ -337,6 +340,7 @@ item.techreborn.dustsmall.olivine.name=Small Pile of Olivine Dust
 item.techreborn.dustsmall.peridot.name=Small Pile of Peridot
 item.techreborn.dustsmall.phosphorous.name=Small Pile of Phosphorous Dust
 item.techreborn.dustsmall.platinum.name=Small Pile of Platinum Dust
+item.techreborn.dustsmall.plutonium.name=Small Pile of Plutonium Dust
 item.techreborn.dustsmall.pyrite.name=Small Pile of Pyrite Dust
 item.techreborn.dustsmall.pyrope.name=Small Pile of Pyrope Dust
 item.techreborn.dustsmall.red_garnet.name=Small Pile of Red Garnet Dust
@@ -351,9 +355,11 @@ item.techreborn.dustsmall.spessartine.name=Small Pile of Spessartine Dust
 item.techreborn.dustsmall.sphalerite.name=Small Pile of Sphalerite Dust
 item.techreborn.dustsmall.steel.name=Small Pile of Steel Dust
 item.techreborn.dustsmall.sulfur.name=Small Pile of Sulfur Dust
+item.techreborn.dustsmall.thorium.name=Small Pile of Thorium Dust
 item.techreborn.dustsmall.tin.name=Small Pile of Tin Dust
 item.techreborn.dustsmall.titanium.name=Small Pile of Titanium Dust
 item.techreborn.dustsmall.tungsten.name=Small Pile of Tungsten Dust
+item.techreborn.dustsmall.uranium.name=Small Pile of Uranium Dust
 item.techreborn.dustsmall.uvarovite.name=Small Pile of Uvarovite Dust
 item.techreborn.dustsmall.yellow_garnet.name=Small Pile of Yellow Garnet Dust
 item.techreborn.dustsmall.zinc.name=Small Pile of Zinc Dust
@@ -381,13 +387,16 @@ item.techreborn.ingot.lead.name=Lead Ingot
 item.techreborn.ingot.mixed_metal.name=Mixed Metal Ingot
 item.techreborn.ingot.nickel.name=Nickel Ingot
 item.techreborn.ingot.platinum.name=Platinum Ingot
+item.techreborn.ingot.plutonium.name=Plutonium Ingot
 item.techreborn.ingot.refined_iron.name=Refined Iron Ingot
 item.techreborn.ingot.silver.name=Silver Ingot
 item.techreborn.ingot.steel.name=Steel Ingot
+item.techreborn.ingot.thorium.name=Thorium Ingot
 item.techreborn.ingot.tin.name=Tin Ingot
 item.techreborn.ingot.titanium.name=Titanium Ingot
 item.techreborn.ingot.tungsten.name=Tungsten Ingot
 item.techreborn.ingot.tungstensteel.name=Tungstensteel Ingot
+item.techreborn.ingot.uranium.name=Uranium Ingot
 item.techreborn.ingot.zinc.name=Zinc Ingot
 
 #Nuggets
@@ -533,7 +542,13 @@ item.techreborn.steelJackhammer.name=Steel Jackhammer
 item.techreborn.treetap.name=Treetap
 item.techreborn.wrench.name=Wrench
 
-#Items-Reactor
+# Items-Reactor
+item.techreborn.single_thorium_fuel_rod.name=Thorium Fuel Rod (Single)
+item.techreborn.dual_thorium_fuel_rod.name=Thorium Fuel Rod (Dual)
+item.techreborn.quad_thorium_fuel_rod.name=Thorium Fuel Rod (Quad)
+item.techreborn.depleted_single_thorium_fuel_rod.name=Depleted Thorium Fuel Rod (Single)
+item.techreborn.depleted_dual_thorium_fuel_rod.name=Depleted Thorium Fuel Rod (Dual)
+item.techreborn.depleted_quad_thorium_fuel_rod.name=Depleted Thorium Fuel Rod (Quad)
 item.techreborn.iridium_neutron_reflector.name=Iridium Neutron Reflector
 
 #Items-Misc

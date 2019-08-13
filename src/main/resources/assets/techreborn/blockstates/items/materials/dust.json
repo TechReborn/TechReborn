@@ -320,6 +320,21 @@
         "textures": {
           "layer0": "techreborn:items/dust/iridium_dust"
         }
+      },
+      "thorium": {
+        "textures": {
+          "layer0": "techreborn:items/dust/thorium_dust"
+        }
+      },
+      "uranium": {
+        "textures": {
+          "layer0": "techreborn:items/dust/uranium_dust"
+        }
+      },
+      "plutonium": {
+        "textures": {
+          "layer0": "techreborn:items/dust/plutonium_dust"
+        }
       }
     }
   }

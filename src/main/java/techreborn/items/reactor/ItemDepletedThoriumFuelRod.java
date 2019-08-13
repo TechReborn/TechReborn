@@ -24,41 +24,58 @@
 
 package techreborn.items.reactor;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
 
+import ic2.api.info.Info;
+import ic2.api.item.IHazmatLike;
+import ic2.api.reactor.IBaseReactorComponent;
 import ic2.api.reactor.IReactor;
-import ic2.api.reactor.IReactorComponent;
 import net.minecraftforge.fml.common.Optional;
+
+import techreborn.items.ItemTR;
 
 /**
  * @author estebes
  */
+@Optional.Interface(iface = "ic2.api.info.Info", modid = "ic2")
+@Optional.Interface(iface = "ic2.api.item.IHazmatLike", modid = "ic2")
+@Optional.Interface(iface = "ic2.api.reactor.IBaseReactorComponent", modid = "ic2")
 @Optional.Interface(iface = "ic2.api.reactor.IReactor", modid = "ic2")
-@Optional.Interface(iface = "ic2.api.reactor.IReactorComponent", modid = "ic2")
-public class ItemIridiumNeutronReflector extends ItemReactorComponent {
-	// Constructor >>
-	public ItemIridiumNeutronReflector() {
-		super("iridium_neutron_reflector");
-	}
-	// << Constructor
+public class ItemDepletedThoriumFuelRod extends ItemTR implements IBaseReactorComponent {
+	public ItemDepletedThoriumFuelRod(String name, int rodCount) {
+		setUnlocalizedName("techreborn." + name);
 
-	// IReactorComponent >>
+		this.rodCount = rodCount;
+	}
+
+	// ItemTR >>
 	@Optional.Method(modid = "ic2")
 	@Override
-	public boolean acceptUraniumPulse(ItemStack stack, IReactor reactor, ItemStack pulsingStack, int youX, int youY, int pulseX, int pulseY, boolean heatrun) {
-		if (!heatrun) {
-			IReactorComponent source = (IReactorComponent) pulsingStack.getItem();
-			// apply a pulse at the source
-			source.acceptUraniumPulse(pulsingStack, reactor, stack, pulseX, pulseY, youX, youY, heatrun);
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slotIndex, boolean isCurrentItem) {
+		if (entity instanceof EntityLivingBase) {
+			EntityLivingBase entityLiving = (EntityLivingBase) entity;
+
+			if (!IHazmatLike.hasCompleteHazmat(entityLiving)) {
+				PotionEffect effect = new PotionEffect(Info.POTION_RADIATION, 2000, 20);
+				entityLiving.addPotionEffect(effect);
+			}
 		}
-
-		return true;
 	}
+	// << ItemTR
 
+	// IBaseReactorComponent >>
 	@Optional.Method(modid = "ic2")
 	@Override
-	public float influenceExplosion(ItemStack stack, IReactor reactor) {
-		return -1;
+	public boolean canBePlacedIn(ItemStack itemStack, IReactor iReactor) {
+		return false;
 	}
-	// << IReactorComponent
+	// << IBaseReactorComponent
+
+	// Fields >>
+	public final int rodCount;
+	// << Fields
 }

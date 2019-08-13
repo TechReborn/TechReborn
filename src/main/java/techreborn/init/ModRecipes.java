@@ -62,6 +62,7 @@ import techreborn.init.recipes.IndustrialElectrolyzerRecipes;
 import techreborn.init.recipes.IndustrialGrinderRecipes;
 import techreborn.init.recipes.IndustrialSawmillRecipes;
 import techreborn.init.recipes.PlateBendingMachineRecipes;
+import techreborn.init.recipes.RecipeMethods;
 import techreborn.init.recipes.RollingMachineRecipes;
 import techreborn.init.recipes.ScrapboxRecipes;
 import techreborn.init.recipes.SmeltingRecipes;
@@ -259,11 +260,6 @@ public class ModRecipes {
 			"oreRedstone", new ItemStack(Items.REDSTONE, 8),
 			300, 2));
 
-		RecipeHandler.addRecipe(new GrinderRecipe(
-			"oreQuartz", new ItemStack(Items.QUARTZ, 2),
-			300, 2));
-
-
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
 				ItemStack oreStack = getDictOreOrEmpty(oreDictionaryName, 1);
@@ -279,8 +275,7 @@ public class ModRecipes {
 						data[1].equals("coal") || //Done here to skip going to dust so it can go to the output
 						data[1].equals("diamond") || //For example diamond ore should go to diamonds not the diamond dust
 						data[1].equals("emerald") || //TODO possibly remove this and make it a bit more dyamic? (Check for furnace recipes? and then the block drop?)
-						data[1].equals("redstone") ||
-						data[1].equals("quartz")
+						data[1].equals("redstone")
 						) ||
 					oreStack.isEmpty())
 					continue;

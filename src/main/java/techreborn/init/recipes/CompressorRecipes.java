@@ -33,6 +33,7 @@ import reborncore.common.util.OreUtil;
 
 import techreborn.api.recipe.machines.CompressorRecipe;
 import techreborn.init.IC2Duplicates;
+import techreborn.items.ingredients.ItemDusts;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
@@ -70,6 +71,10 @@ public class CompressorRecipes extends RecipeMethods {
 //		register(new ItemStack(Blocks.PUMPKIN, 8), ItemParts.getPartByName("compressed_plantball"));
 //		register(new ItemStack(Blocks.MELON_BLOCK, 8), ItemParts.getPartByName("compressed_plantball"));
 		// << Compressed Plantball
+
+		// Nuclear >>
+		register(ItemDusts.getDustByName("thorium"), ItemIngots.getIngotByName("thorium"));
+		// << Nuclear
 
 		ItemStack plate;
 		for (String ore : OreUtil.oreNames) {

@@ -88,6 +88,12 @@ public class RegisterItemJsons {
 		register(ModItems.WRENCH, "tool/wrench");
 
 		// Reactor >>
+		register(ModItems.THORIUM_FUEL_ROD_SINGLE, "reactor/thorium_fuel_rod_single");
+		register(ModItems.THORIUM_FUEL_ROD_DUAL, "reactor/thorium_fuel_rod_dual");
+		register(ModItems.THORIUM_FUEL_ROD_QUAD, "reactor/thorium_fuel_rod_quad");
+		register(ModItems.DEPLETED_THORIUM_FUEL_ROD_SINGLE, "reactor/depleted_thorium_fuel_rod_single");
+		register(ModItems.DEPLETED_THORIUM_FUEL_ROD_DUAL, "reactor/depleted_thorium_fuel_rod_dual");
+		register(ModItems.DEPLETED_THORIUM_FUEL_ROD_QUAD, "reactor/depleted_thorium_fuel_rod_quad");
 		register(ModItems.IRIDIUM_NEUTRON_REFLECTOR, "reactor/iridium_neutron_reflector");
 		// << Reactor
 

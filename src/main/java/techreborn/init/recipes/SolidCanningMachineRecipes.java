@@ -24,10 +24,14 @@
 
 package techreborn.init.recipes;
 
+import net.minecraft.item.ItemStack;
+
 import reborncore.api.praescriptum.recipes.RecipeHandler;
 
 import techreborn.api.recipe.Recipes;
+import techreborn.init.ModItems;
 import techreborn.items.ItemDynamicCell;
+import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
 
 /**
@@ -44,5 +48,15 @@ public class SolidCanningMachineRecipes {
 			.withEnergyCostPerTick(1)
 			.withOperationDuration(100)
 			.register();
+
+		// Nuclear >>
+		Recipes.solidCanningMachine.createRecipe()
+			.withInput(ItemDynamicCell.getEmptyCell(1))
+			.withInput(ItemIngots.getIngotByName("thorium"))
+			.withOutput(new ItemStack(ModItems.THORIUM_FUEL_ROD_SINGLE))
+			.withEnergyCostPerTick(1)
+			.withOperationDuration(100)
+			.register();
+		// << Nuclear
 	}
 }

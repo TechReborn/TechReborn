@@ -39,7 +39,7 @@ public class ItemIngots extends ItemTR {
 	public static final String[] types = new String[] { "aluminum", "brass", "bronze", "chrome", "copper", "electrum",
 		"invar", "iridium", "lead", "nickel", "platinum", "silver", "steel", "tin", "titanium", "tungsten",
 		"hot_tungstensteel", "tungstensteel", "zinc", "refined_iron", "advanced_alloy", "mixed_metal",
-		"iridium_alloy" };
+		"iridium_alloy", "thorium", "uranium", "plutonium" };
 
 	public ItemIngots() {
 		setHasSubtypes(true);

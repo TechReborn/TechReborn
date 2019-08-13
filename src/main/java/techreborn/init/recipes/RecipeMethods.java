@@ -45,6 +45,8 @@ import techreborn.items.ingredients.ItemNuggets;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
 
+import java.util.Arrays;
+
 /**
  * Created by Prospector
  */
@@ -125,16 +127,13 @@ public abstract class RecipeMethods {
 		return getOre(name, 1);
 	}
 
-	public static boolean oresExist(String... names) {
-		for (String name : names) {
-			if (!OreDictionary.doesOreNameExist(name)) {
-				return false;
-			}
-			if(OreDictionary.getOres(name).isEmpty()){
-				return false;
-			}
-		}
-		return true;
+	public static boolean oreExists(String entry) {
+		return OreDictionary.doesOreNameExist(entry) && !OreDictionary.getOres(entry).isEmpty();
+	}
+
+	public static boolean oresExist(String... entries) {
+		return Arrays.stream(entries)
+			.allMatch(entry -> OreDictionary.doesOreNameExist(entry) && !OreDictionary.getOres(entry).isEmpty());
 	}
 
 	public static ItemStack getStack(Item item) {
