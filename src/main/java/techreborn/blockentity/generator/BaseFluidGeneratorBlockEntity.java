@@ -25,12 +25,14 @@
 package techreborn.blockentity.generator;
 
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.Validate;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
@@ -80,11 +82,15 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		}
 
 		// Check cells input slot 2 time per second
-		// Please, keep ticks counting on client also to report progress to GUI
 		if (ticksSinceLastChange >= 10) {
-			if (!inventory.getInvStack(0).isEmpty()) {
-				FluidUtils.drainContainers(tank, inventory, 0, 1);
-				FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());
+			ItemStack inputStack = inventory.getInvStack(0);
+			if (!inputStack.isEmpty()) {
+				if (FluidUtils.isContainerEmpty(inputStack) && tank.getFluidAmount() > 0) {
+					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());	
+				}
+				else if (getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
+					FluidUtils.drainContainers(tank, inventory, 0, 1);
+				}
 			}
 
 			ticksSinceLastChange = 0;
