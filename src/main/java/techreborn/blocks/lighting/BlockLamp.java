@@ -61,7 +61,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	private int brightness;
 
 	public BlockLamp(int brightness, int cost, double depth, double width) {
-		super(Block.Settings.of(Material.REDSTONE_LAMP));
+		super(Block.Settings.of(Material.REDSTONE_LAMP).strength(2f, 2f));
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		this.shape = GenCuboidShapes(depth, width);
 		this.cost = cost;

@@ -58,7 +58,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public static EnumProperty<PlayerDetectorType> TYPE;
 
 	public BlockPlayerDetector() {
-		super(Block.Settings.of(Material.METAL), true);
+		super(Block.Settings.of(Material.METAL).strength(2f, 2f), true);
 		this.setDefaultState(this.stateFactory.getDefaultState().with(TYPE, PlayerDetectorType.ALL));
 	}
 
