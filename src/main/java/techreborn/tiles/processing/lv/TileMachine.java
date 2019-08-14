@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.tier1;
+package techreborn.tiles.processing.lv;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

@@ -27,13 +27,13 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
-import techreborn.tiles.tier1.TilePlateBendingMachine;
 
+import techreborn.tiles.processing.lv.TilePlateBendingMachine;
+
+/**
+ * @author estebes
+ */
 public class GuiPlateBendingMachine extends GuiBase {
-	// Fields >>
-	TilePlateBendingMachine tile;
-	// << Fields
-
 	public GuiPlateBendingMachine(final EntityPlayer player, final TilePlateBendingMachine tile) {
 		super(player, tile, tile.createContainer(player));
 
@@ -61,4 +61,8 @@ public class GuiPlateBendingMachine extends GuiBase {
 		this.builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
+
+	// Fields >>
+	TilePlateBendingMachine tile;
+	// << Fields
 }

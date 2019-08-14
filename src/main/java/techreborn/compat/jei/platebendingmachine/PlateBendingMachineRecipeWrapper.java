@@ -24,32 +24,33 @@
 
 package techreborn.compat.jei.platebendingmachine;
 
+import net.minecraft.client.Minecraft;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
+import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.client.guibuilder.GuiBuilder;
-import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.recipe.machines.PlateBendingMachineRecipe;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
-import javax.annotation.Nonnull;
+import techreborn.compat.jei.RecipeWrapper;
 
-public class PlateBendingMachineRecipeWrapper extends BaseRecipeWrapper<PlateBendingMachineRecipe> {
-	private final IDrawableAnimated progress;
-
-	public PlateBendingMachineRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull PlateBendingMachineRecipe baseRecipe) {
-		super(baseRecipe);
+/**
+ * @author estebes
+ */
+public class PlateBendingMachineRecipeWrapper extends RecipeWrapper {
+	public PlateBendingMachineRecipeWrapper(IJeiHelpers jeiHelpers, Recipe recipe) {
+		super(recipe);
 
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		ProgressDirection right = ProgressDirection.RIGHT;
+
+		GuiBuilder.ProgressDirection right = GuiBuilder.ProgressDirection.RIGHT;
+
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
-				right.yActive, right.width, right.height);
+			right.yActive, right.width, right.height);
 
-		int ticksPerCycle = baseRecipe.tickTime(); // speed up the animation
-
+		int ticksPerCycle = recipe.getOperationDuration(); // speed up the animation
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.LEFT, false);
 	}
@@ -62,7 +63,14 @@ public class PlateBendingMachineRecipeWrapper extends BaseRecipeWrapper<PlateBen
 		int y = 31;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
-		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight + 1, 0x444444);
+		minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
+			(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration()),
+			(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration())) / 2),
+			y + lineHeight + 1, 0x444444);
 	}
+
+	// Fields >>
+	private final IDrawableAnimated progress;
+	// << Fields
 }

@@ -26,6 +26,7 @@ package techreborn.compat.jei;
 
 import net.minecraft.item.ItemStack;
 
+import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -53,18 +54,18 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
 		// inputs
 		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof ItemStackInputIngredient)
-			.map(entry -> (ItemStack) entry.ingredient)
+			.map(entry -> ImmutableList.of((ItemStack) entry.ingredient))
 			.collect(Collectors.toCollection(() -> itemInputs)); // map ItemStacks
 
 		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof OreDictionaryInputIngredient)
-			.flatMap(entry -> OreDictionary.getOres((String) entry.ingredient).stream()
-				.map(stack -> copyWithSize(stack, entry.getCount())))
+			.map(entry -> OreDictionary.getOres((String) entry.ingredient).stream()
+				.map(stack -> copyWithSize(stack, entry.getCount())).collect(Collectors.toList()))
 			.collect(Collectors.toCollection(() -> itemInputs)); // map OreDictionary entries
 
 		recipe.getInputIngredients().stream()
 			.filter(entry -> entry instanceof FluidStackInputIngredient)
-			.map(entry -> (FluidStack) entry.ingredient)
+			.map(entry -> ImmutableList.of((FluidStack) entry.ingredient))
 			.collect(Collectors.toCollection(() -> fluidInputs)); // map FluidStacks
 
 		// outputs
@@ -81,8 +82,8 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputs(VanillaTypes.ITEM, itemInputs);
-		ingredients.setInputs(VanillaTypes.FLUID, fluidInputs);
+		ingredients.setInputLists(VanillaTypes.ITEM, itemInputs);
+		ingredients.setInputLists(VanillaTypes.FLUID, fluidInputs);
 		ingredients.setOutputs(VanillaTypes.ITEM, itemOutputs);
 		ingredients.setOutputs(VanillaTypes.FLUID, fluidOutputs);
 	}
@@ -96,8 +97,8 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
 	// Fields >>
 	protected final Recipe recipe;
 
-	protected final List<ItemStack> itemInputs = new ArrayList<>();
-	protected final List<FluidStack> fluidInputs = new ArrayList<>();
+	protected final List<List<ItemStack>> itemInputs = new ArrayList<>();
+	protected final List<List<FluidStack>> fluidInputs = new ArrayList<>();
 	protected final List<ItemStack> itemOutputs = new ArrayList<>();
 	protected final List<FluidStack> fluidOutputs = new ArrayList<>();
 	// << Fields

@@ -91,21 +91,6 @@
           "layer0": "techreborn:items/part/super_conductor"
         }
       },
-      "thorium_cell": {
-        "textures": {
-          "layer0": "techreborn:items/part/thorium_cell"
-        }
-      },
-      "double_thorium_cell": {
-        "textures": {
-          "layer0": "techreborn:items/part/double_thorium_cell"
-        }
-      },
-      "quad_thorium_cell": {
-        "textures": {
-          "layer0": "techreborn:items/part/quad_thorium_cell"
-        }
-      },
       "plutonium_cell": {
         "textures": {
           "layer0": "techreborn:items/part/plutonium_cell"
@@ -134,11 +119,6 @@
       "neutron_reflector": {
         "textures": {
           "layer0": "techreborn:items/part/neutron_reflector"
-        }
-      },
-      "iridium_neutron_reflector": {
-        "textures": {
-          "layer0": "techreborn:items/part/iridium_neutron_reflector"
         }
       },
       "thick_neutron_reflector": {

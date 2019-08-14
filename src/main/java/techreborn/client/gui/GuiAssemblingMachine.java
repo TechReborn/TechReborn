@@ -27,21 +27,20 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
-import techreborn.tiles.tier1.TileAssemblingMachine;
+import techreborn.tiles.processing.lv.TileAssemblingMachine;
 
+/**
+ * @author estebes
+ */
 public class GuiAssemblingMachine extends GuiBase {
-	// Fields >>
-	TileAssemblingMachine tile;
-	// << Fields
-
 	public GuiAssemblingMachine(final EntityPlayer player, final TileAssemblingMachine tile) {
 		super(player, tile, tile.createContainer(player));
 		this.tile = tile;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+	protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		drawSlot(8, 72, layer);
@@ -62,4 +61,8 @@ public class GuiAssemblingMachine extends GuiBase {
 		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
+
+	// Fields >>
+	TileAssemblingMachine tile;
+	// << Fields
 }

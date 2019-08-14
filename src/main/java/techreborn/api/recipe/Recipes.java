@@ -31,9 +31,24 @@ import reborncore.api.praescriptum.recipes.RecipeHandler;
  */
 public class Recipes {
 	/**
+	 * Recipe handler for alloy smelter recipes.
+	 */
+	public static RecipeHandler alloySmelter;
+
+	/**
 	 * Recipe handler for assembling machine recipes.
 	 */
 	public static RecipeHandler assemblingMachine;
+
+	/**
+	 * Recipe handler for chemical reactor recipes.
+	 */
+	public static RecipeHandler chemicalReactor;
+
+	/**
+	 * Recipe handler for plate bending machine recipes.
+	 */
+	public static RecipeHandler plateBendingMachine;
 
 	/**
 	 * Recipe handler for solid canning machine recipes.

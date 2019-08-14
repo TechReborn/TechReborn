@@ -22,42 +22,61 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.tier1;
+package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
-import reborncore.client.containerBuilder.IContainerProvider;
+import net.minecraft.item.ItemStack;
+
+import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+
+import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileGenericMachine;
 
+/**
+ * @author estebes
+ */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileChemicalReactor extends TileGenericMachine	implements IContainerProvider {
-
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
+public class TilePlateBendingMachine extends TileMachine {
+	// Config >>
+	@ConfigRegistry(config = "machines", category = "plate_bending_machine", key = "PlateBendingMachineInput", comment = "Plate Bending Machine Max Input (Value in EU)")
+	public static int maxInput = 32;
+	@ConfigRegistry(config = "machines", category = "plate_bending_machine", key = "PlateBendingMachineMaxEnergy", comment = "Plate Bending Machine Max Energy (Value in EU)")
 	public static int maxEnergy = 10_000;
+	// << Config
 
-	public TileChemicalReactor() {
-		super("ChemicalReactor", maxInput, maxEnergy, ModBlocks.CHEMICAL_REACTOR, 3);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2 };
-		this.inventory = new Inventory(4, "TileChemicalReactor", 64, this);
-		this.crafter = new RecipeCrafter(Reference.CHEMICAL_REACTOR_RECIPE, this, 2, 2, this.inventory, inputs, outputs);
+	public TilePlateBendingMachine() {
+		super("PlateBendingMachine", maxInput, maxEnergy, 2, 3, Recipes.plateBendingMachine);
 	}
 
-	// IContainerProvider
+	// IToolDrop >>
+	@Override
+	public ItemStack getToolDrop(EntityPlayer player) {
+		return new ItemStack(ModBlocks.PLATE_BENDING_MACHINE, 1);
+	}
+	// << IToolDrop
+
+	// IContainerProvider >>
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
-			.syncEnergyValue().syncCrafterValue().addInventory().create(this);
+		return new ContainerBuilder("platebendingmachine")
+			.player(player.inventory)
+			.inventory()
+			.hotbar()
+			.addInventory()
+			.tile(this)
+			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.outputSlot(1, 101, 45)
+			.energySlot(energySlot, 8, 72)
+			.syncEnergyValue()
+			.syncIntegerValue(this::getProgress, this::setProgress)
+			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
+			.addInventory()
+			.create(this);
 	}
+	// << IContainerProvider
 }

@@ -33,7 +33,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileAssemblingMachine;
+import techreborn.tiles.processing.lv.TileAssemblingMachine;
 
 /**
  * @author estebes, modmuss50

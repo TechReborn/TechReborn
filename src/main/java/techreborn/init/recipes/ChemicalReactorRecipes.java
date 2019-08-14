@@ -24,47 +24,132 @@
 
 package techreborn.init.recipes;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import reborncore.api.recipe.RecipeHandler;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import reborncore.api.praescriptum.recipes.RecipeHandler;
+
+import techreborn.api.recipe.Recipes;
 
 /**
- * @author drcrazy
- *
+ * @author drcrazy, estebes
  */
 public class ChemicalReactorRecipes extends RecipeMethods {
-	public static void init(){
-		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON), getStack(Items.SPECKLED_MELON), 40);
-		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.CARROT), getStack(Items.GOLDEN_CARROT), 40);
-		register(getStack(Items.GOLD_INGOT, 8), getStack(Items.APPLE), getStack(Items.GOLDEN_APPLE), 40);
-		register(getStack(Blocks.GOLD_BLOCK, 8), getStack(Items.APPLE, 1), getStack(Items.GOLDEN_APPLE, 1, 1), 100);
-		register(getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL), getStack(Items.MAGMA_CREAM), 40);
-		register(getStack(Items.BLAZE_POWDER), getStack(Items.ENDER_PEARL), getStack(Items.ENDER_EYE), 40);
-		
-		//Cells recipes. One cell should be cooked in 20 seconds
-		register(getMaterial("carbon", Type.CELL), getMaterial("calcium", Type.CELL), getMaterial("calciumCarbonate", 2, Type.CELL), 800);
-		register(getMaterial("carbon", Type.CELL), getMaterial("hydrogen", 4, Type.CELL), getMaterial("methane", 5, Type.CELL), 2000);
-		register(getMaterial("carbon", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrocarbon", 2, Type.CELL), 800);
-		register(getMaterial("nitrocarbon", Type.CELL), getMaterial("water", Type.CELL), getMaterial("glyceryl", 2, Type.CELL), 600);
-		register(getMaterial("glyceryl", Type.CELL), getMaterial("diesel", 4, Type.CELL), getMaterial("nitroDiesel", 5, Type.CELL), 250);
-		register(getMaterial("glyceryl", Type.CELL), getMaterial("carbon", 4, Type.CELL), getMaterial("nitrocoalFuel", 5, Type.CELL), 250);
-		register(getMaterial("sulfur", Type.CELL), getMaterial("water", 2, Type.CELL), getMaterial("sulfuricAcid", 3, Type.CELL), 1200);
-		register(getMaterial("sulfur", Type.CELL), getMaterial("sodium", Type.CELL), getMaterial("sodiumSulfide", 2, Type.CELL), 800);
-		register(getMaterial("sodiumSulfide", Type.CELL), getMaterial("compressedair", Type.CELL), getMaterial("sodiumPersulfate", 2, Type.CELL), 800);
-		register(getMaterial("compressedair", Type.CELL), getMaterial("hydrogen", 2, Type.CELL), getMaterial("water", Type.CELL), 400);
-		register(getMaterial("compressedair", 2, Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrogenDioxide", Type.CELL), 400);
-		register(getMaterial("oil", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrofuel", 2, Type.CELL), 800);
+	public static void init() {
+		Recipes.chemicalReactor = new RecipeHandler();
 
-	}
-	
-	public static void register(ItemStack in1, ItemStack in2,  ItemStack out, int tickTime, int euPerTick){
-		RecipeHandler.addRecipe(new ChemicalReactorRecipe(in1, in2, out, tickTime, euPerTick));
-	}
+		// Calcite Dust
+//		Recipes.chemicalReactor.createRecipe()
+//			.withInput(getMaterial("calcium", 1, Type.DUST))
+//			.withInput(getMaterial("carbon", 1, Type.DUST))
+//			.withOutput(getMaterial("calcite", 2, Type.DUST))
+//			.withEnergyCostPerTick(30)
+//			.withOperationDuration(250)
+//			.register();
 
-	public static void register (ItemStack in1, ItemStack in2,  ItemStack out, int tickTime){
-		register(in1, in2, out, tickTime, 30);
-	}
+		// Water
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("compressedair", 1, Type.CELL))
+			.withInput(getMaterial("hydrogen", 4, Type.CELL))
+			.withOutput(getMaterial("water", 5, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(10)
+			.register();
 
+		// Sulfuric acid
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("sulfur", 1, Type.CELL))
+			.withInput(getMaterial("water", 2, Type.CELL))
+			.withOutput(getMaterial("sulfuricAcid", 3, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(1150)
+			.register();
+
+		// Sodium Sulfide
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("sulfur", 1, Type.CELL))
+			.withInput(getMaterial("sodium", 1, Type.CELL))
+			.withOutput(getMaterial("sodiumSulfide", 2, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(100)
+			.register();
+
+		// Glyceryl
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("water", 1, Type.CELL))
+			.withInput(getMaterial("nitrocarbon", 1, Type.CELL))
+			.withOutput(getMaterial("glyceryl", 2, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(583)
+			.register();
+
+		// Nitro-Diesel
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("glyceryl", 1, Type.CELL))
+			.withInput(getMaterial("diesel", 4, Type.CELL))
+			.withOutput(getMaterial("nitroDiesel", 5, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(1000)
+			.register();
+
+		// Nitro-Coalfuel
+//		Recipes.chemicalReactor.createRecipe()
+//			.withInput(getMaterial("glyceryl", 1, Type.CELL))
+//			.withInput(getMaterial("diesel", 4, Type.CELL))
+//			.withOutput(getMaterial("nitroDiesel", 5, Type.CELL))
+//			.withEnergyCostPerTick(30)
+//			.withOperationDuration(1000)
+//			.register();
+
+		// Nitro-Carbon
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("nitrogen", 1, Type.CELL))
+			.withInput(getMaterial("carbon", 1, Type.CELL))
+			.withOutput(getMaterial("nitrocarbon", 2, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(1500)
+			.register();
+
+		// Methane
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("hydrogen", 4, Type.CELL))
+			.withInput(getMaterial("carbon", 1, Type.CELL))
+			.withOutput(getMaterial("methane", 5, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(3500)
+			.register();
+
+		// Sodium Persulfate
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("sodiumSulfide", 1, Type.CELL))
+			.withInput(getMaterial("compressedair", 1, Type.CELL))
+			.withOutput(getMaterial("sodiumPersulfate", 2, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(2000)
+			.register();
+
+		// Nitrogen Dioxide
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("nitrogen", 1, Type.CELL))
+			.withInput(getMaterial("compressedair", 1, Type.CELL))
+			.withOutput(getMaterial("nitrogenDioxide", 2, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(1250)
+			.register();
+
+//		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON), getStack(Items.SPECKLED_MELON), 40);
+//		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.CARROT), getStack(Items.GOLDEN_CARROT), 40);
+//		register(getStack(Items.GOLD_INGOT, 8), getStack(Items.APPLE), getStack(Items.GOLDEN_APPLE), 40);
+//		register(getStack(Blocks.GOLD_BLOCK, 8), getStack(Items.APPLE, 1), getStack(Items.GOLDEN_APPLE, 1, 1), 100);
+//		register(getStack(Items.BLAZE_POWDER), getStack(Items.SLIME_BALL), getStack(Items.MAGMA_CREAM), 40);
+//		register(getStack(Items.BLAZE_POWDER), getStack(Items.ENDER_PEARL), getStack(Items.ENDER_EYE), 40);
+//
+//
+//
+//		//Cells recipes. One cell should be cooked in 20 seconds
+//		register(getMaterial("carbon", Type.CELL), getMaterial("calcium", Type.CELL), getMaterial("calciumCarbonate", 2, Type.CELL), 800);
+//
+//
+//
+//		register(getMaterial("glyceryl", Type.CELL), getMaterial("carbon", 4, Type.CELL), getMaterial("nitrocoalFuel", 5, Type.CELL), 250);
+//
+//		register(getMaterial("oil", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrofuel", 2, Type.CELL), 800);
+	}
 }

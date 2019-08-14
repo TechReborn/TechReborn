@@ -34,7 +34,7 @@ import reborncore.common.blocks.BlockMachineBase;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileSolidCanningMachine;
+import techreborn.tiles.processing.lv.TileSolidCanningMachine;
 import techreborn.utils.TechRebornCreativeTab;
 
 /**

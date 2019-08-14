@@ -116,7 +116,7 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		
 		register(getOre("oreSapphire"), WATER, 100, 64, getMaterial("sapphire", Type.GEM), getMaterial("sapphire", 6, Type.SMALL_DUST), getMaterial("peridot", 2, Type.SMALL_DUST));
 		
-		register(getOre("oreQuartz"), WATER, 100, 64, getStack(Items.QUARTZ, 2), getMaterial("sulfur", 2, Type.SMALL_DUST));
+		register(getOre("oreQuartz"), WATER, 100, 128, getStack(Items.QUARTZ, 4), getMaterial("netherrack", 1, Type.DUST));
 		
 		register(getOre("orePyrite"), WATER, 100, 64, getMaterial("pyrite", 5, Type.DUST), getMaterial("sulfur", 2, Type.DUST));
 		

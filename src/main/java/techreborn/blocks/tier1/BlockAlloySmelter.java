@@ -31,9 +31,9 @@ import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
+import techreborn.tiles.processing.lv.TileAlloySmelter;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileAlloySmelter;
 
 public class BlockAlloySmelter extends BlockMachineBase {
 

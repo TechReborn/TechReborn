@@ -22,55 +22,61 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.jei.chemicalReactor;
+package techreborn.compat.jei.alloysmelter;
+
+import net.minecraft.client.Minecraft;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
-import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.recipe.machines.ChemicalReactorRecipe;
+import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
-import techreborn.compat.jei.BaseRecipeWrapper;
+import reborncore.common.powerSystem.PowerSystem;
 
-import javax.annotation.Nonnull;
+import techreborn.compat.jei.RecipeWrapper;
 
-public class ChemicalReactorRecipeWrapper extends BaseRecipeWrapper<ChemicalReactorRecipe> {
-	private final IDrawableAnimated progressright;
-	private final IDrawableAnimated progressleft;
+public class AlloySmelterRecipeWrapper extends RecipeWrapper {
+	public AlloySmelterRecipeWrapper(IJeiHelpers jeiHelpers, Recipe recipe) {
+		super(recipe);
 
-	public ChemicalReactorRecipeWrapper(
-		@Nonnull
-			IJeiHelpers jeiHelpers,
-		@Nonnull
-			ChemicalReactorRecipe baseRecipe) {
-		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+
 		ProgressDirection right = ProgressDirection.RIGHT;
 		ProgressDirection left = ProgressDirection.LEFT;
+
 		IDrawableStatic progressrightStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
-				right.yActive, right.width, right.height);
+			right.yActive, right.width, right.height);
 		IDrawableStatic progressleftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
-				left.yActive, left.width, left.height);
+			left.yActive, left.width, left.height);
 
-		int ticksPerCycle = baseRecipe.tickTime(); // speed up the animation
-
-		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle, IDrawableAnimated.StartDirection.LEFT, false);
-		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle, IDrawableAnimated.StartDirection.RIGHT, false);
+		int ticksPerCycle = recipe.getOperationDuration(); // speed up the animation
+		this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle,
+			IDrawableAnimated.StartDirection.LEFT, false);
+		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle,
+			IDrawableAnimated.StartDirection.RIGHT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
+
 		progressright.draw(minecraft, 25, 12);
 		progressleft.draw(minecraft, 75, 12);
 
-		int y = 30;
+		int y = 31;
 		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-		minecraft.fontRenderer.drawString(baseRecipe.tickTime / 20 + " seconds", (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(baseRecipe.tickTime / 20 + " seconds") / 2), y, 0x444444);
-		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime), (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(baseRecipe.euPerTick * baseRecipe.tickTime)) / 2), y + lineHeight, 0x444444);
+		minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
+			(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration()),
+			(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration())) / 2),
+			y + lineHeight + 1, 0x444444);
 	}
+
+	// Fields >>
+	private final IDrawableAnimated progressright;
+	private final IDrawableAnimated progressleft;
+	//  << Fields
 }

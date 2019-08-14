@@ -29,13 +29,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.tiles.tier1.TileWireMill;
+import techreborn.tiles.processing.lv.TileWireMill;
 
 public class GuiWireMill extends GuiBase {
-	// Fields >>
-	TileWireMill tile;
-	// << Fields
-
 	public GuiWireMill(final EntityPlayer player, final TileWireMill tile) {
 		super(player, tile, tile.createContainer(player));
 
@@ -63,4 +59,8 @@ public class GuiWireMill extends GuiBase {
 		this.builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		this.builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
+
+	// Fields >>
+	TileWireMill tile;
+	// << Fields
 }

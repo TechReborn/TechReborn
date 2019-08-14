@@ -26,15 +26,20 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TilePlateBendingMachine;
+import techreborn.tiles.processing.lv.TilePlateBendingMachine;
 import techreborn.utils.TechRebornCreativeTab;
 
+/**
+ * @author estebes
+ */
 public class BlockPlateBendingMachine extends BlockMachineBase {
 	public BlockPlateBendingMachine() {
 		super();

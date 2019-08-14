@@ -61,7 +61,7 @@ import java.util.List;
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TilePump extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
-	// Fields >>
+	// Config >>
 	@ConfigRegistry(config = "machines", category = "pump", key = "PumpInput", comment = "Pump max input (Value in EU)")
 	public static int maxInput = 32;
 
@@ -70,12 +70,7 @@ public class TilePump extends TilePowerAcceptor implements IToolDrop, IInventory
 
 	@ConfigRegistry(config = "machines", category = "pump", key = "PumpEUCost", comment = "Pump cost for one block of fluid (Value in EU)")
 	public static int pumpExtractEU = 20;
-
-	public static final int TANK_CAPACITY = 8_000;
-
-	public final Inventory inventory;
-	public final Tank tank;
-	// << Fields
+	// << Config
 
 	public TilePump() {
 		super();
@@ -226,4 +221,11 @@ public class TilePump extends TilePowerAcceptor implements IToolDrop, IInventory
 		return tank;
 	}
 	// << Tank
+
+	// Fields >>
+	public static final int TANK_CAPACITY = 8_000;
+
+	public final Inventory inventory;
+	public final Tank tank;
+	// << Fields
 }

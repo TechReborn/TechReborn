@@ -280,6 +280,10 @@ public class ModRecipes {
 					oreStack.isEmpty())
 					continue;
 
+				if (data[0].equals("ore") && (data[1].equals("quartz") || data[1].equals("certuzQuartz"))) {
+					continue;
+				}
+
 				boolean ore = data[0].equals("ore");
 				Core.logHelper.debug("Ore: " + data[1]);
 				ItemStack dust = getDictOreOrEmpty(joinDictName("dust", data[1]), ore ? 2 : 1);

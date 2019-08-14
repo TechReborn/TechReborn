@@ -22,7 +22,9 @@
  * SOFTWARE.
  */
 
-package techreborn.compat.jei.alloySmelter;
+package techreborn.compat.jei.alloysmelter;
+
+import net.minecraft.util.ResourceLocation;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -30,8 +32,8 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import net.minecraft.util.ResourceLocation;
 import reborncore.common.util.StringUtils;
+
 import techreborn.compat.jei.RecipeCategoryUids;
 import techreborn.compat.jei.RecipeUtil;
 import techreborn.lib.ModInfo;
@@ -39,15 +41,6 @@ import techreborn.lib.ModInfo;
 import javax.annotation.Nonnull;
 
 public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterRecipeWrapper> {
-	// Fields >>
-	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
-	private static final int[] INPUT_SLOTS = { 0, 1 };
-	private static final int[] OUTPUT_SLOTS = { 2 };
-
-	private final IDrawable background;
-	private final String title;
-	// << Fields
-
 	public AlloySmelterRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createDrawable(texture, 0, 172, 116, 52);
 		title = StringUtils.t("tile.techreborn.alloy_smelter.name");
@@ -77,8 +70,7 @@ public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterR
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull AlloySmelterRecipeWrapper recipeWrapper,
-			@Nonnull IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, AlloySmelterRecipeWrapper recipeWrapper, IIngredients ingredients) {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 		guiItemStacks.init(INPUT_SLOTS[0], true, 3, 7);
 		guiItemStacks.init(INPUT_SLOTS[1], true, 95, 7);
@@ -86,4 +78,14 @@ public class AlloySmelterRecipeCategory implements IRecipeCategory<AlloySmelterR
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, null, null);
 	}
+
+	// Fields >>
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei.png");
+
+	private static final int[] INPUT_SLOTS = { 0, 1 };
+	private static final int[] OUTPUT_SLOTS = { 2 };
+
+	private final IDrawable background;
+	private final String title;
+	// << Fields
 }

@@ -59,7 +59,6 @@ public class AssemblingMachineRecipeWrapper extends RecipeWrapper {
 			IDrawableAnimated.StartDirection.LEFT, false);
 		this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle,
 			IDrawableAnimated.StartDirection.RIGHT, false);
-
 	}
 
 	@Override

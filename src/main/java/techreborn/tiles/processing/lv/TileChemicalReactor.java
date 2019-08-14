@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.tier1;
+package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -37,40 +37,36 @@ import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
-/**
- * @author estebes
- */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileWireMill extends TileMachine {
-	// Fields >>
-	@ConfigRegistry(config = "machines", category = "wire_mill", key = "WireMillInput", comment = "Wire Mill Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "wire_mill", key = "WireMillMaxEnergy", comment = "Wire Mill Max Energy (Value in EU)")
-	public static int maxEnergy = 1000;
-	// << Fields
+public class TileChemicalReactor extends TileMachine {
+	// Config >>
+	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
+	public static int maxInput = 128;
+	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
+	public static int maxEnergy = 10_000;
+	// << Config
 
-	public TileWireMill() {
-		super("WireMill", maxInput, maxEnergy, 2, 3, Recipes.wireMill);
+	public TileChemicalReactor() {
+		super("ChemicalReactor", maxInput, maxEnergy, 3, 4, 64,
+			new int[] { 0, 1 }, new int[] { 2 }, Recipes.solidCanningMachine);
 	}
 
 	// IToolDrop >>
 	@Override
 	public ItemStack getToolDrop(EntityPlayer player) {
-		return new ItemStack(ModBlocks.WIRE_MILL, 1);
+		return new ItemStack(ModBlocks.CHEMICAL_REACTOR, 1);
 	}
 	// << IToolDrop
 
 	// IContainerProvider >>
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("wiremill")
-			.player(player.inventory)
-			.inventory()
-			.hotbar()
+		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
 			.addInventory()
 			.tile(this)
-			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.outputSlot(1, 101, 45)
+			.filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.outputSlot(2, 80, 47)
 			.energySlot(energySlot, 8, 72)
 			.syncEnergyValue()
 			.syncIntegerValue(this::getProgress, this::setProgress)

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.tier1;
+package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -30,38 +30,38 @@ import net.minecraft.item.ItemStack;
 import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 
 import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
-import techreborn.lib.ModInfo;
 
-@RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileAssemblingMachine extends TileMachine {
-	// Fields >>
-	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
+/**
+ * @author estebes
+ */
+public class TileSolidCanningMachine extends TileMachine {
+	// Config >>
+	@ConfigRegistry(config = "machines", category = "solid_canning_machine", key = "SolidCanningMachineMaxInput", comment = "Solid Canning Machine Max Input (Value in EU)")
 	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxEnergy", comment = "Assembling Machine Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000;
-	// << Fields
+	@ConfigRegistry(config = "machines", category = "solid_canning_machine", key = "SolidCanningMachineMaxEnergy", comment = "Solid Canning Machine Max Energy (Value in EU)")
+	public static int maxEnergy = 10_000;
+	// << Config
 
-	public TileAssemblingMachine() {
-		super("AssemblingMachine", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.assemblingMachine);
+	public TileSolidCanningMachine() {
+		super("SolidCanningMachine", maxInput, maxEnergy, 3, 4, 64,
+			new int[] { 0, 1 }, new int[] { 2 }, Recipes.solidCanningMachine);
 	}
 
 	// IToolDrop >>
 	@Override
 	public ItemStack getToolDrop(EntityPlayer player) {
-		return new ItemStack(ModBlocks.ASSEMBLING_MACHINE, 1);
+		return new ItemStack(ModBlocks.SOLID_CANNING_MACHINE, 1);
 	}
 	// << IToolDrop
-	
+
 	// IContainerProvider >>
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
+		return new ContainerBuilder("solidcanningmachine").player(player.inventory).inventory().hotbar()
 			.addInventory()
 			.tile(this)
 			.filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))

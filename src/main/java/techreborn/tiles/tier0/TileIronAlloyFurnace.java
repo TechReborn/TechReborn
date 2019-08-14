@@ -39,7 +39,6 @@ import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.Reference;
-import techreborn.api.recipe.machines.AlloySmelterRecipe;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -272,19 +271,20 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-			.addInventory().tile(this)
-			.filterSlot(0, 47, 17,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
-			.filterSlot(1, 65, 17,
-				stack -> RecipeHandler.recipeList.stream()
-					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
-			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
-			.syncIntegerValue(this::getCookTime, this::setCookTime)
-			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);
+//		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+//			.addInventory().tile(this)
+//			.filterSlot(0, 47, 17,
+//				stack -> RecipeHandler.recipeList.stream()
+//					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+//						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
+//			.filterSlot(1, 65, 17,
+//				stack -> RecipeHandler.recipeList.stream()
+//					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
+//						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
+//			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
+//			.syncIntegerValue(this::getCookTime, this::setCookTime)
+//			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);
+		return null;
 	}
 	
 	public int getBurnTime() {

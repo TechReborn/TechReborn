@@ -99,28 +99,28 @@ import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 import techreborn.tiles.multiblock.TileVacuumFreezer;
+import techreborn.tiles.processing.lv.TileAssemblingMachine;
+import techreborn.tiles.processing.lv.TilePlateBendingMachine;
+import techreborn.tiles.processing.lv.TileAlloySmelter;
+import techreborn.tiles.processing.lv.TileSolidCanningMachine;
+import techreborn.tiles.processing.lv.TileWireMill;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
 import techreborn.tiles.storage.TileMediumVoltageSU;
 import techreborn.tiles.tier0.TileIronAlloyFurnace;
 import techreborn.tiles.tier0.TileIronFurnace;
-import techreborn.tiles.tier1.TileAlloySmelter;
-import techreborn.tiles.tier1.TileAssemblingMachine;
 import techreborn.tiles.tier1.TileAutoCraftingTable;
-import techreborn.tiles.tier1.TileChemicalReactor;
+import techreborn.tiles.processing.lv.TileChemicalReactor;
 import techreborn.tiles.tier1.TileCompressor;
 import techreborn.tiles.tier1.TileElectricFurnace;
 import techreborn.tiles.tier1.TileExtractor;
 import techreborn.tiles.tier1.TileGrinder;
 import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
-import techreborn.tiles.tier1.TilePlateBendingMachine;
 import techreborn.tiles.tier1.TilePump;
 import techreborn.tiles.tier1.TileRecycler;
 import techreborn.tiles.tier1.TileRollingMachine;
 import techreborn.tiles.tier1.TileScrapboxinator;
-import techreborn.tiles.tier1.TileSolidCanningMachine;
-import techreborn.tiles.tier1.TileWireMill;
 
 public class GuiHandler implements IGuiHandler {
 	@Override
@@ -157,7 +157,7 @@ public class GuiHandler implements IGuiHandler {
 			case ASSEMBLING_MACHINE:
 				return new GuiAssemblingMachine(player, (TileAssemblingMachine) tile);
 			case LOW_VOLTAGE_SU:
-				return new GuiEnergyStorage<TileLowVoltageSU>(player, (TileLowVoltageSU) tile);
+				return new GuiEnergyStorage<>(player, (TileLowVoltageSU) tile);
 			case BLAST_FURNACE:
 				return new GuiBlastFurnace(player, (TileIndustrialBlastFurnace) tile);
 			case CENTRIFUGE:
@@ -199,13 +199,13 @@ public class GuiHandler implements IGuiHandler {
 			case IRON_FURNACE:
 				return new GuiIronFurnace(player, (TileIronFurnace) tile);
 			case LESU:
-				return new GuiEnergyStorage<TileLapotronicSU>(player, (TileLapotronicSU) tile);
+				return new GuiEnergyStorage<>(player, (TileLapotronicSU) tile);
 			case MATTER_FABRICATOR:
 				return new GuiMatterFabricator(player, (TileMatterFabricator) tile);
 			case MEDIUM_VOLTAGE_SU:
-				return new GuiEnergyStorage<TileMediumVoltageSU>(player, (TileMediumVoltageSU) tile);
+				return new GuiEnergyStorage<>(player, (TileMediumVoltageSU) tile);
 			case HIGH_VOLTAGE_SU:
-				return new GuiEnergyStorage<TileHighVoltageSU>(player, (TileHighVoltageSU) tile);
+				return new GuiEnergyStorage<>(player, (TileHighVoltageSU) tile);
 			case QUANTUM_CHEST:
 				return new GuiQuantumChest(player, (TileQuantumChest) tile);
 			case QUANTUM_TANK:
