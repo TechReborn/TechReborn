@@ -36,6 +36,7 @@ import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
@@ -46,7 +47,7 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(TRArmorMaterial.LAPOTRONPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	// Item

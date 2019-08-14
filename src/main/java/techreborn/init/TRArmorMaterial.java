@@ -48,7 +48,10 @@ public enum TRArmorMaterial implements ArmorMaterial {
 	PERIDOT(17, new int[] { 3, 8, 3, 2 }, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	}), 
-	CLOAKING(5, new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, null);
+	CLOAKING(5, new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, null),
+	LITHIUMBATPACK(25, new int[]{2, 5, 6, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, null),
+	LAPOTRONPACK(33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, null);
+	
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
 	private final int maxDamageFactor;

@@ -40,6 +40,7 @@ import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
@@ -50,7 +51,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo,
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(TRArmorMaterial.LITHIUMBATPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	public static void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
