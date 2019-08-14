@@ -29,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
@@ -48,12 +49,12 @@ import reborncore.common.util.ItemUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.utils.RecipeUtils;
 import techreborn.init.TRBlockEntities;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by modmuss50 on 20/06/2017.
@@ -67,8 +68,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public int euTick = 10;
 
 	CraftingInventory inventoryCrafting = null;
-	Recipe lastCustomRecipe = null;
-	Recipe lastRecipe = null;
+	CraftingRecipe lastCustomRecipe = null;
+	CraftingRecipe lastRecipe = null;
 
 	public boolean locked = true;
 
@@ -77,7 +78,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Nullable
-	public Recipe getIRecipe() {
+	public CraftingRecipe getIRecipe() {
 		CraftingInventory crafting = getCraftingInventory();
 		if (!crafting.isInvEmpty()) {
 			if (lastRecipe != null) {
@@ -85,11 +86,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					return lastRecipe;
 				}
 			}
-			for (Recipe testRecipe : RecipeUtils.getRecipes(world, RecipeType.CRAFTING)) {
-				if (testRecipe.matches(crafting, world)) {
-					lastRecipe = testRecipe;
-					return testRecipe;
-				}
+			Optional<CraftingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, crafting, world);
+			if (testRecipe.isPresent()) {
+				lastRecipe = testRecipe.get();
+				return lastRecipe;
 			}
 		}
 		return null;
@@ -110,7 +110,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return inventoryCrafting;
 	}
 
-	public boolean canMake(Recipe<CraftingInventory> recipe) {
+	public boolean canMake(CraftingRecipe recipe) {
 		if (recipe != null && recipe.fits(3, 3)) {
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
@@ -177,7 +177,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	public boolean make(Recipe<CraftingInventory> recipe) {
+	public boolean make(CraftingRecipe recipe) {
 		if (recipe == null || !canMake(recipe)) {
 			return false;
 		}
@@ -203,10 +203,9 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		ItemStack output = inventory.getInvStack(9);
-		// TODO fire forge recipe event
-		ItemStack ouputStack = recipe.craft(getCraftingInventory());
+		ItemStack outputStack = recipe.craft(getCraftingInventory());
 		if (output.isEmpty()) {
-			inventory.setInvStack(9, ouputStack.copy());
+			inventory.setInvStack(9, outputStack.copy());
 		} else {
 			// TODO use ouputStack in someway?
 			output.increment(recipe.getOutput().getCount());
@@ -239,7 +238,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	public boolean isItemValidForRecipeSlot(Recipe recipe, ItemStack stack, int slotID) {
+	public boolean isItemValidForRecipeSlot(Recipe<CraftingInventory> recipe, ItemStack stack, int slotID) {
 		if (recipe == null) {
 			return true;
 		}
@@ -250,7 +249,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return true;
 	}
 
-	public int findBestSlotForStack(Recipe recipe, ItemStack stack) {
+	public int findBestSlotForStack(Recipe<CraftingInventory> recipe, ItemStack stack) {
 		if (recipe == null) {
 			return -1;
 		}
@@ -314,7 +313,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (world.isClient) {
 			return;
 		}
-		Recipe recipe = getIRecipe();
+		CraftingRecipe recipe = getIRecipe();
 		if (recipe != null) {
 			if (progress >= maxProgress) {
 				if (make(recipe)) {
@@ -427,7 +426,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	// ItemHandlerProvider
 	@Override
-	public RebornInventory getInventory() {
+	public RebornInventory<AutoCraftingTableBlockEntity> getInventory() {
 		return inventory;
 	}
 

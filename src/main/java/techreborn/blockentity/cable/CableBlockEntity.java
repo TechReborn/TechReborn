@@ -134,7 +134,10 @@ public class CableBlockEntity extends BlockEntity
 				continue;
 			} else if (blockEntity instanceof EnergyBlockEntity) {
 				EnergyBlockEntity acceptor = (EnergyBlockEntity) blockEntity;
-				if (energy <= acceptor.getEnergy() || !acceptor.canAcceptEnergy(face.getOpposite())) {
+				if (blockEntity instanceof CableBlockEntity && energy <= acceptor.getEnergy()) {
+					continue;
+				}
+				if (!acceptor.canAcceptEnergy(face.getOpposite())) {
 					continue;
 				}
 				acceptors.add(acceptor);

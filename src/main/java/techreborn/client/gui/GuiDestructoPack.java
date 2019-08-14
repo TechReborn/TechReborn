@@ -32,7 +32,7 @@ import net.minecraft.container.Container;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 
-public class GuiDestructoPack extends AbstractContainerScreen {
+public class GuiDestructoPack extends AbstractContainerScreen<Container> {
 
 	private static final Identifier texture = new Identifier("techreborn",
 		"textures/gui/destructopack.png");
@@ -53,7 +53,7 @@ public class GuiDestructoPack extends AbstractContainerScreen {
 
 	@Override
 	protected void drawForeground(int arg0, int arg1) {
-		String name = I18n.translate("item.techreborn.part.destructoPack.name");
+		String name = I18n.translate("item.techreborn.destructopack");
 		font.draw(name, containerWidth / 2 - font.getStringWidth(name) / 2, 5, 4210752);
 		this.font.draw(I18n.translate("container.inventory"), 8, this.containerHeight - 96 + 2,
 			4210752);

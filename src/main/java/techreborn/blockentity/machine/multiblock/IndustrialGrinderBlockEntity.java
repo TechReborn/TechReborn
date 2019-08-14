@@ -34,7 +34,6 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.config.TechRebornConfig;
@@ -75,16 +74,6 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 				|| centerBlock.getBlock() instanceof FluidBlock)
 				&& centerBlock.getMaterial() == Material.WATER);
 		return down && center && blade && up;
-	}
-	
-	private static IInventoryAccess<IndustrialGrinderBlockEntity> getInventoryAccess(){
-		return (slotID, stack, face, direction, blockEntity) -> {
-			if(slotID == 1){
-				//TODO check if the item has fluid in it
-				//return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
-			}
-			return true;
-		};
 	}
 
 	// TilePowerAcceptor

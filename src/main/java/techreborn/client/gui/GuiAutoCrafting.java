@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.util.Identifier;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
@@ -57,7 +57,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltContainer> {
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
 		super.drawForeground(mouseX, mouseY);
-		Recipe recipe = blockEntityAutoCraftingTable.getIRecipe();
+		CraftingRecipe recipe = blockEntityAutoCraftingTable.getIRecipe();
 		if (recipe != null) {
 			renderItemStack(recipe.getOutput(), 95, 42);
 		}
