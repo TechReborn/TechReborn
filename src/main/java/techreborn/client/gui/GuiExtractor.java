@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
-import techreborn.tiles.tier1.TileExtractor;
+import techreborn.tiles.processing.lv.TileExtractor;
 
 public class GuiExtractor extends GuiBase {
 

@@ -46,6 +46,11 @@ public class Recipes {
 	public static RecipeHandler chemicalReactor;
 
 	/**
+	 * Recipe handler for extractor recipes.
+	 */
+	public static RecipeHandler extractor;
+
+	/**
 	 * Recipe handler for plate bending machine recipes.
 	 */
 	public static RecipeHandler plateBendingMachine;

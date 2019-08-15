@@ -33,7 +33,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileExtractor;
+import techreborn.tiles.processing.lv.TileExtractor;
 
 public class BlockExtractor extends BlockMachineBase {
 

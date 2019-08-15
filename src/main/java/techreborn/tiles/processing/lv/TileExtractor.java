@@ -22,42 +22,50 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.tier1;
+package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.Inventory;
-import techreborn.api.Reference;
-import reborncore.client.containerBuilder.IContainerProvider;
+
+import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+
+import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.TileGenericMachine;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileExtractor extends TileGenericMachine implements IContainerProvider {
-	
+public class TileExtractor extends TileMachine {
+	// Config >>
 	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
 	public static int maxInput = 32;
 	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
-	public static int maxEnergy = 1_000;
+	public static int maxEnergy = 10_000;
+	// << Config
 
 	public TileExtractor() {
-		super("Extractor", maxInput, maxEnergy, ModBlocks.EXTRACTOR, 2);
-		final int[] inputs = new int[] { 0 };
-		final int[] outputs = new int[] { 1 };
-		this.inventory = new Inventory(3, "TileExtractor", 64, this);
-		this.crafter = new RecipeCrafter(Reference.EXTRACTOR_RECIPE, this, 2, 1, this.inventory, inputs, outputs);
+		super("Extractor", maxInput, maxEnergy, 2, 3, Recipes.extractor, ModBlocks.EXTRACTOR);
 	}
-	
-	// IContainerProvider
+
+	// IContainerProvider >>
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("extractor").player(player.inventory).inventory().hotbar().addInventory().tile(this)
-				.slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
+		return new ContainerBuilder("extractor")
+			.player(player.inventory)
+			.inventory()
+			.hotbar()
+			.addInventory()
+			.tile(this)
+			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.outputSlot(1, 101, 45)
+			.energySlot(energySlot, 8, 72)
+			.syncEnergyValue()
+			.syncIntegerValue(this::getProgress, this::setProgress)
+			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
+			.addInventory()
+			.create(this);
 	}
+	// << IContainerProvider
 }

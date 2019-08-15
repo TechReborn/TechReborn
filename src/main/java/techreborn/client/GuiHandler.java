@@ -114,7 +114,7 @@ import techreborn.tiles.tier1.TileAutoCraftingTable;
 import techreborn.tiles.processing.lv.TileChemicalReactor;
 import techreborn.tiles.tier1.TileCompressor;
 import techreborn.tiles.tier1.TileElectricFurnace;
-import techreborn.tiles.tier1.TileExtractor;
+import techreborn.tiles.processing.lv.TileExtractor;
 import techreborn.tiles.tier1.TileGrinder;
 import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
 import techreborn.tiles.tier1.TilePump;

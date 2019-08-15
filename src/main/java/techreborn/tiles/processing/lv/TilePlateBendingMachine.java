@@ -25,7 +25,6 @@
 package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -50,15 +49,8 @@ public class TilePlateBendingMachine extends TileMachine {
 	// << Config
 
 	public TilePlateBendingMachine() {
-		super("PlateBendingMachine", maxInput, maxEnergy, 2, 3, Recipes.plateBendingMachine);
+		super("PlateBendingMachine", maxInput, maxEnergy, 2, 3, Recipes.plateBendingMachine, ModBlocks.PLATE_BENDING_MACHINE);
 	}
-
-	// IToolDrop >>
-	@Override
-	public ItemStack getToolDrop(EntityPlayer player) {
-		return new ItemStack(ModBlocks.PLATE_BENDING_MACHINE, 1);
-	}
-	// << IToolDrop
 
 	// IContainerProvider >>
 	@Override

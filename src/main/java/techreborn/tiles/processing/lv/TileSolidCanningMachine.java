@@ -25,7 +25,6 @@
 package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -48,15 +47,8 @@ public class TileSolidCanningMachine extends TileMachine {
 
 	public TileSolidCanningMachine() {
 		super("SolidCanningMachine", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.solidCanningMachine);
+			new int[] { 0, 1 }, new int[] { 2 }, Recipes.solidCanningMachine, ModBlocks.SOLID_CANNING_MACHINE);
 	}
-
-	// IToolDrop >>
-	@Override
-	public ItemStack getToolDrop(EntityPlayer player) {
-		return new ItemStack(ModBlocks.SOLID_CANNING_MACHINE, 1);
-	}
-	// << IToolDrop
 
 	// IContainerProvider >>
 	@Override

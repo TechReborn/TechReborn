@@ -25,7 +25,6 @@
 package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -51,15 +50,8 @@ public class TileAlloySmelter extends TileMachine {
 
 	public TileAlloySmelter() {
 		super("AlloySmelter", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.alloySmelter);
+			new int[] { 0, 1 }, new int[] { 2 }, Recipes.alloySmelter, ModBlocks.ALLOY_SMELTER);
 	}
-
-	// IToolDrop >>
-	@Override
-	public ItemStack getToolDrop(EntityPlayer player) {
-		return new ItemStack(ModBlocks.ALLOY_SMELTER, 1);
-	}
-	// << IToolDrop
 
 	// IContainerProvider >>
 	@Override

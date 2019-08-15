@@ -291,18 +291,15 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		}
 
 		// Recipes
-		registry.handleRecipes(Recipe.class, recipe -> new AlloySmelterRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ALLOY_SMELTER);
-		registry.handleRecipes(Recipe.class, recipe -> new AssemblingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ASSEMBLING_MACHINE);
+
 		registry.handleRecipes(BlastFurnaceRecipe.class, recipe -> new BlastFurnaceRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.BLAST_FURNACE);
 		registry.handleRecipes(CentrifugeRecipe.class, recipe -> new CentrifugeRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CENTRIFUGE);
-		registry.handleRecipes(Recipe.class, recipe -> new ChemicalReactorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CHEMICAL_REACTOR);
 		registry.handleRecipes(FusionReactorRecipe.class, FusionReactorRecipeWrapper::new, RecipeCategoryUids.FUSION_REACTOR);
 		registry.handleRecipes(GrinderRecipe.class, recipe -> new GrinderRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.GRINDER);
 		registry.handleRecipes(ImplosionCompressorRecipe.class, recipe -> new ImplosionCompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.IMPLOSION_COMPRESSOR);
 		registry.handleRecipes(IndustrialElectrolyzerRecipe.class, recipe -> new IndustrialElectrolyzerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
 		registry.handleRecipes(IndustrialGrinderRecipe.class, recipe -> new IndustrialGrinderRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_GRINDER);
 		registry.handleRecipes(IndustrialSawmillRecipe.class, recipe -> new IndustrialSawmillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_SAWMILL);
-		registry.handleRecipes(Recipe.class, recipe -> new PlateBendingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.PLATE_BENDING_MACHINE);
 		registry.handleRecipes(VacuumFreezerRecipe.class, recipe -> new VacuumFreezerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.VACUUM_FREEZER);
 		registry.handleRecipes(DistillationTowerRecipe.class, recipe -> new DistillationTowerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.DISTILLATION_TOWER);
 		registry.handleRecipes(FluidReplicatorRecipe.class, recipe -> new FluidReplicatorRecipeWrapper(jeiHelpers,recipe), RecipeCategoryUids.FLUID_REPLICATOR);
@@ -310,8 +307,16 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(ShapedRecipes.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapedOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
 		registry.handleRecipes(ShapelessOreRecipe.class, recipe -> new RollingMachineRecipeWrapper((IRecipeWrapper) recipe), RecipeCategoryUids.ROLLING_MACHINE);
+
+		// Using Praescriptum >>
+		registry.handleRecipes(Recipe.class, recipe -> new AlloySmelterRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ALLOY_SMELTER);
+		registry.handleRecipes(Recipe.class, recipe -> new AssemblingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ASSEMBLING_MACHINE);
+		registry.handleRecipes(Recipe.class, recipe -> new ChemicalReactorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CHEMICAL_REACTOR);
+		registry.handleRecipes(Recipe.class, recipe -> new ExtractorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.EXTRACTOR);
+		registry.handleRecipes(Recipe.class, recipe -> new PlateBendingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.PLATE_BENDING_MACHINE);
 		registry.handleRecipes(Recipe.class, recipe -> new SolidCanningMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SOLID_CANNING_MACHINE);
 		registry.handleRecipes(Recipe.class, recipe -> new WireMillRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.WIRE_MILL);
+		// << Using Praescriptum
 		
 		for (EFluidGenerator type : EFluidGenerator.values()) {
 			registry.handleRecipes(FluidGeneratorRecipe.class, recipe -> new FluidGeneratorRecipeWrapper(jeiHelpers, recipe), type.getRecipeID());
@@ -323,7 +328,6 @@ public class TechRebornJeiPlugin implements IModPlugin {
 
 		if (!IC2Duplicates.deduplicate()) {
 			registry.handleRecipes(CompressorRecipe.class, recipe -> new CompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.COMPRESSOR);
-			registry.handleRecipes(ExtractorRecipe.class, recipe -> new ExtractorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.EXTRACTOR);
 		}
 
 		registry.addRecipes(RecipeHandler.recipeList.stream().filter(recipe -> {
@@ -331,9 +335,6 @@ public class TechRebornJeiPlugin implements IModPlugin {
 				return CompatConfigs.showScrapbox;
 			}
 			if (IC2Duplicates.deduplicate() && (recipe instanceof CompressorRecipe)) {
-				return false;
-			}
-			if (IC2Duplicates.deduplicate() && (recipe instanceof ExtractorRecipe)) {
 				return false;
 			}
 			return true;
@@ -355,6 +356,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipes(Recipes.alloySmelter.getRecipes(), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipes(Recipes.assemblingMachine.getRecipes(), RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipes(Recipes.chemicalReactor.getRecipes(), RecipeCategoryUids.CHEMICAL_REACTOR);
+		registry.addRecipes(Recipes.extractor.getRecipes(), RecipeCategoryUids.EXTRACTOR);
 		registry.addRecipes(Recipes.plateBendingMachine.getRecipes(), RecipeCategoryUids.PLATE_BENDING_MACHINE);
 		registry.addRecipes(Recipes.solidCanningMachine.getRecipes(), RecipeCategoryUids.SOLID_CANNING_MACHINE);
 		registry.addRecipes(Recipes.wireMill.getRecipes(), RecipeCategoryUids.WIRE_MILL);

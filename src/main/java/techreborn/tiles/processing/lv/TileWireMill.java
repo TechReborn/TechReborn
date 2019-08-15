@@ -25,7 +25,6 @@
 package techreborn.tiles.processing.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -50,15 +49,8 @@ public class TileWireMill extends TileMachine {
 	// << Config
 
 	public TileWireMill() {
-		super("WireMill", maxInput, maxEnergy, 2, 3, Recipes.wireMill);
+		super("WireMill", maxInput, maxEnergy, 2, 3, Recipes.wireMill, ModBlocks.WIRE_MILL);
 	}
-
-	// IToolDrop >>
-	@Override
-	public ItemStack getToolDrop(EntityPlayer player) {
-		return new ItemStack(ModBlocks.WIRE_MILL, 1);
-	}
-	// << IToolDrop
 
 	// IContainerProvider >>
 	@Override

@@ -25,6 +25,7 @@
 package techreborn.tiles.processing.lv;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -44,17 +45,20 @@ import reborncore.common.util.ItemUtils;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * @author estebes
+ */
 public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
 	// Constructors >>
-	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, RecipeHandler recipeHandler) {
-		this(name, maxInput, maxEnergy, energySlot, slots, 64, recipeHandler);
+	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, RecipeHandler recipeHandler, Block drop) {
+		this(name, maxInput, maxEnergy, energySlot, slots, 64, recipeHandler, drop);
 	}
 
-	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, RecipeHandler recipeHandler) {
-		this(name, maxInput, maxEnergy, energySlot, slots, 64, new int[] { 0 }, new int[] { 1 }, recipeHandler);
+	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, RecipeHandler recipeHandler, Block drop) {
+		this(name, maxInput, maxEnergy, energySlot, slots, 64, new int[] { 0 }, new int[] { 1 }, recipeHandler, drop);
 	}
 
-	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, int[] inputSlots, int[] outputSlots, RecipeHandler recipeHandler) {
+	public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, int[] inputSlots, int[] outputSlots, RecipeHandler recipeHandler, Block drop) {
 		this.name = "Tile" + name;
 		this.maxInput = maxInput;
 		this.maxEnergy = maxEnergy;
@@ -63,6 +67,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 		this.inputSlots = inputSlots;
 		this.outputSlots = outputSlots;
 		this.recipeHandler = recipeHandler;
+		this.drop = drop;
 
 		checkTeir();
 	}
@@ -255,6 +260,13 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 	}
 	// << IInventoryProvider
 
+	// IToolDrop >>
+	@Override
+	public ItemStack getToolDrop(EntityPlayer player) {
+		return new ItemStack(drop, 1);
+	}
+	// << IToolDrop
+
 	// Getters && Setters >>
 	public int getProgress() {
 		return progress;
@@ -315,6 +327,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 	public final int maxEnergy;
 	public final Inventory inventory;
 	public final RecipeHandler recipeHandler;
+	public final Block drop;
 
 	// Slots
 	protected final int energySlot;
