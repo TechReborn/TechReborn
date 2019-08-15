@@ -57,7 +57,7 @@ public class GuiElectricFurnace extends GuiBase<BuiltContainer> {
 		super.drawForeground(mouseX, mouseY);
 		Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, blockEntity.gaugeProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

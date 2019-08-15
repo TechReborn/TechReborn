@@ -24,10 +24,13 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.BlockState;
+import java.util.Optional;
+
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -36,137 +39,206 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.recipes.RecipeCrafter;
+import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.utils.RecipeUtils;
 import techreborn.init.TRBlockEntities;
 
 public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
-	public int progress;
-	public int fuelScale = 100;
-	public int cost = 4;
-	int input1 = 0;
-	int output = 1;
-	boolean wasBurning = false;
-
+	int inputSlot = 0;
+	int outputSlot = 1;
+	int ticksSinceLastChange;
+	private SmeltingRecipe currentRecipe;
+	private int cookTime;
+	private int cookTimeTotal;
+	// Energy cost per tick of cooking
+	final int EnergyPerTick = 4;
+	
 	public ElectricFurnaceBlockEntity() {
 		super(TRBlockEntities.ELECTRIC_FURNACE );
 	}
-
-	public int gaugeProgressScaled(int scale) {
-		return progress * scale / (int) (fuelScale * (1.0 - getSpeedMultiplier()));
+	
+	private void setInvDirty(boolean isDiry) {
+		inventory.setChanged(isDiry);
 	}
-
-	public void cookItems() {
-		if (canSmelt()) {
-			final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
-
-			if (inventory.getInvStack(output).isEmpty()) {
-				inventory.setInvStack(output, itemstack.copy());
-			} else if (inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack)) {
-				inventory.getInvStack(output).increment(itemstack.getCount());
-			}
-			if (inventory.getInvStack(input1).getCount() > 1) {
-				inventory.shrinkSlot(input1, 1);
-			} else {
-				inventory.setInvStack(input1, ItemStack.EMPTY);
-			}
+	
+	private boolean isInvDirty() {
+		return inventory.hasChanged();
+	}
+	
+	private void updateCurrentRecipe() {
+		if (inventory.getInvStack(inputSlot).isEmpty()) {
+			resetCrafter();
+			return;
 		}
+		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, world);
+		if (!testRecipe.isPresent()) {
+			resetCrafter();
+			return;
+		}
+		if (!canAcceptOutput(testRecipe.get(), outputSlot)) {
+			resetCrafter();
+		}
+		currentRecipe = testRecipe.get();
+		cookTime = 0;
+		cookTimeTotal = Math.max((int) (currentRecipe.getCookTime() * (1.0 - getSpeedMultiplier())), 1);
+		updateState();
 	}
-
-	public boolean canSmelt() {
-		if (inventory.getInvStack(input1).isEmpty()) {
+	
+	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
+		ItemStack recipeOutput = recipe.getOutput();
+		if (recipeOutput.isEmpty()) {
 			return false;
 		}
-		final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(input1));
-		if (itemstack.isEmpty()) {
-			return false;
-		}
-		if (inventory.getInvStack(output).isEmpty()) {
+		if (inventory.getInvStack(slot).isEmpty()) {
 			return true;
 		}
-		if (!inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack)) {
+		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), recipeOutput, true, true)) {
+			if (recipeOutput.getCount() + inventory.getInvStack(slot).getCount() <= recipeOutput.getMaxCount()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean canCraftAgain() {
+		if (inventory.getInvStack(inputSlot).isEmpty()) {
 			return false;
 		}
-		final int result = inventory.getInvStack(output).getCount() + itemstack.getCount();
-		return result <= this.inventory.getStackLimit() && result <= itemstack.getMaxCount();
-	}
-
-	public boolean isBurning() {
-		return getEnergy() > getEuPerTick(cost);
-	}
-
-	public ItemStack getResultFor(ItemStack stack) {
-		final ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
-		if (!result.isEmpty()) {
-			return result.copy();
+		if (currentRecipe == null) {
+			return false;
 		}
-		return ItemStack.EMPTY;
-	}
-
-	public void updateState() {
-		if (wasBurning != (progress > 0)) {
-			// skips updating the block state for 1 tick, to prevent the machine from
-			// turning on/off rapidly causing fps drops
-			if (wasBurning && progress == 0 && canSmelt()) {
-				wasBurning = true;
-				return;
-			}
-			final BlockState BlockStateContainer = world.getBlockState(pos);
-			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-				if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != progress > 0)
-					blockMachineBase.setActive(progress > 0, world, pos);
-			}
-			wasBurning = (progress > 0);
+		if (!canAcceptOutput(currentRecipe, outputSlot)) {
+			return false;
 		}
+		if (getEnergy() < currentRecipe.getCookTime() * getEuPerTick(EnergyPerTick)) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private void resetCrafter() {
+		currentRecipe = null;
+		cookTime = 0;
+		cookTimeTotal = 0;
+	}
+	
+	private void updateState() {
+		Block furnaceBlock = getWorld().getBlockState(pos).getBlock();
 
+		if (furnaceBlock instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase) furnaceBlock;
+			boolean isActive = isActive() || canCraftAgain();
+			blockMachineBase.setActive(isActive, world, pos);
+		}
+		world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+	}
+	
+	private boolean hasAllInputs(SmeltingRecipe recipe) {
+		if (recipe == null) {
+			return false;
+		}
+		if (inventory.getInvStack(inputSlot).isEmpty()) {
+			return false;
+		}
+		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, world);
+		if (!testRecipe.isPresent()) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private void craftRecipe(SmeltingRecipe recipe) {
+		if (recipe == null) {
+			return;
+		}
+		if (!canAcceptOutput(recipe, outputSlot)) {
+			return;
+		}
+		ItemStack outputStack = inventory.getInvStack(outputSlot);
+		if (outputStack.isEmpty()) {
+			inventory.setInvStack(outputSlot, recipe.getOutput().copy());
+		}
+		else {
+			// Just increment. We already checked stack match and stack size
+			outputStack.increment(1);
+		}
+		
+		inventory.getInvStack(inputSlot).decrement(1);
+	}
+	
+	public int getProgressScaled(int scale) {
+		if (cookTimeTotal != 0) {
+			return cookTime * scale / cookTimeTotal;
+		}
+		return 0;		
+	}
+	
+	public int getCookTime() {
+		return cookTime;
 	}
 
-	public int getBurnTime() {
-		return progress;
+	public void setCookTime(int cookTime) {
+		this.cookTime = cookTime;
+	}
+	
+	public int getCookTimeTotal() {
+		return cookTimeTotal;
 	}
 
-	public void setBurnTime(final int burnTime) {
-		this.progress = burnTime;
+	public void setCookTimeTotal(int cookTimeTotal) {
+		this.cookTimeTotal = cookTimeTotal;
 	}
-
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
 		super.tick();
 		charge(2);
-
+		
 		if (world.isClient) {
+			setInvDirty(false);
 			return;
 		}
 
-		final boolean burning = isBurning();
-		boolean updateInventory = false;
-		if (isBurning() && canSmelt()) {
-			updateState();
-			if (canUseEnergy(getEuPerTick(cost))) {
-				useEnergy(getEuPerTick(cost));
-				progress++;
-				if (progress >= Math.max((int) (fuelScale * (1.0 - getSpeedMultiplier())), 5)) {
-					progress = 0;
-					cookItems();
-					updateInventory = true;
+		ticksSinceLastChange++;
+		// Force a has chanced every second
+		if (ticksSinceLastChange == 20) {
+			setInvDirty(true);
+			ticksSinceLastChange = 0;
+		}
+
+		if (isInvDirty()) {
+			if (currentRecipe == null) {
+				updateCurrentRecipe();	
+			}
+			if (currentRecipe != null && !hasAllInputs(currentRecipe)) {
+				resetCrafter();
+				updateState();
+			}
+		}
+
+		if (currentRecipe != null) {
+			if (cookTime >= cookTimeTotal && hasAllInputs(currentRecipe)) {
+				craftRecipe(currentRecipe);
+				updateCurrentRecipe();
+			} else if (cookTime < cookTimeTotal) {
+				if (canUseEnergy(getEuPerTick(EnergyPerTick))) {
+					useEnergy(getEuPerTick(EnergyPerTick));
+					cookTime++;
+					if (cookTime == 1 || cookTime % 20 == 0 && RecipeCrafter.soundHanlder != null) {
+						RecipeCrafter.soundHanlder.playSound(false, this);
+					}
 				}
 			}
-		} else {
-			updateState();
 		}
-		if (burning != isBurning()) {
-			updateInventory = true;
-		}
-		if (updateInventory) {
-			markDirty();
-		}
+		setInvDirty(false);
 	}
 
 	@Override
@@ -211,6 +283,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime).addInventory().create(this, syncID);
+				.syncIntegerValue(this::getCookTime, this::setCookTime).syncIntegerValue(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}
 }
