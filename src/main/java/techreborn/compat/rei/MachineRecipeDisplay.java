@@ -39,11 +39,17 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	private final R recipe;
 	private List<List<ItemStack>> inputs;
 	private List<ItemStack> outputs;
+	private int energy = 0;
 
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
 		this.inputs = recipe.getRebornIngredients().stream().map(RebornIngredient::getPreviewStacks).collect(Collectors.toList());
 		this.outputs = recipe.getOutputs();
+		this.energy = recipe.getPower();
+	}
+	
+	public int getEnergy() {
+		return energy;
 	}
 
 	@Override

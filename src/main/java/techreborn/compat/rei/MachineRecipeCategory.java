@@ -27,6 +27,7 @@ package techreborn.compat.rei;
 import com.mojang.blaze3d.platform.GlStateManager;
 import me.shedaniel.rei.api.*;
 import me.shedaniel.rei.gui.renderables.RecipeRenderer;
+import me.shedaniel.rei.gui.widget.LabelWidget;
 import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
 import me.shedaniel.rei.gui.widget.SlotWidget;
 import me.shedaniel.rei.gui.widget.Widget;
@@ -35,13 +36,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GuiLighting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,12 +104,15 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
                 this.blit(startPoint.x + 24, startPoint.y + 1, 82, 91, width, 17);
             }
         }
-        List<Widget> widgets = new LinkedList(Arrays.asList(new RecipeBackgroundWidget(bounds)));
+        List<Widget> widgets = new LinkedList<>();
+        widgets.add(new RecipeBackgroundWidget(bounds));
 
 		int i = 0;
 		for (List<ItemStack> inputs : machineRecipe.getInput()){
 			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), inputs, true, true, true));
 		}
+		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
+		widgets.add(new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()));
 
 		i = 0;
 		for (ItemStack outputs : machineRecipe.getOutput()){
@@ -118,8 +123,9 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	}
 
     @Override
-    public DisplaySettings getDisplaySettings() {
-		return new DisplaySettings<MachineRecipeDisplay>() {
+    public DisplaySettings<MachineRecipeDisplay<R>> getDisplaySettings() {
+		return new DisplaySettings<MachineRecipeDisplay<R>>() {
+			
             public int getDisplayHeight(RecipeCategory category) {
 
                 if (recipeLines == 1) {
@@ -134,13 +140,14 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
                 return 66;
             }
 
-            public int getDisplayWidth(RecipeCategory category, MachineRecipeDisplay display) {
+            public int getDisplayWidth(RecipeCategory category, MachineRecipeDisplay<R> display) {
                 return 150;
             }
 
             public int getMaximumRecipePerPage(RecipeCategory category) {
                 return 99;
             }
+
         };
     }
 }
