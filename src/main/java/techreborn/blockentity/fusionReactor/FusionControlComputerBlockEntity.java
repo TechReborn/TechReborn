@@ -36,7 +36,6 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
-import reborncore.common.crafting.ingredient.StackIngredient;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
@@ -48,7 +47,6 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -210,9 +208,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
 			if (ingredient.test(inventory.getInvStack(slot))) {
-				AtomicInteger count = new AtomicInteger(1);
-				ingredient.ifType(StackIngredient.class, stackIngredient -> count.set(stackIngredient.getCount()));
-				inventory.shrinkSlot(slot, count.get());
+				inventory.shrinkSlot(slot, ingredient.getCount());
 				break;
 			}
 		}

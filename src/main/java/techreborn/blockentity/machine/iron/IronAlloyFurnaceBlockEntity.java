@@ -33,16 +33,13 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.crafting.ingredient.RebornIngredient;
-import reborncore.common.crafting.RebornRecipe;
-import reborncore.common.crafting.ingredient.StackIngredient;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.crafting.RebornRecipe;
+import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import techreborn.init.TRContent;
 
 public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -196,9 +193,7 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 					for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
 							if (ingredient.test(this.inventory.getInvStack(inputSlot))) {
-								AtomicInteger count = new AtomicInteger(1);
-								ingredient.ifType(StackIngredient.class, stackIngredient -> count.set(stackIngredient.getCount()));
-								inventory.shrinkSlot(inputSlot, count.get());
+								inventory.shrinkSlot(inputSlot, ingredient.getCount());
 								break;
 							}
 						}
