@@ -89,7 +89,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		cookTimeTotal = Math.max((int) (currentRecipe.getCookTime() * (1.0 - getSpeedMultiplier())), 1);
 		updateState();
 	}
-	
+
 	private boolean canAcceptOutput(SmeltingRecipe recipe, int slot) {
 		ItemStack recipeOutput = recipe.getOutput();
 		if (recipeOutput.isEmpty()) {
@@ -218,7 +218,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			if (currentRecipe == null) {
 				updateCurrentRecipe();	
 			}
-			if (currentRecipe != null && !hasAllInputs(currentRecipe)) {
+			if (currentRecipe != null && (!hasAllInputs(currentRecipe) || !canAcceptOutput(currentRecipe, outputSlot))) {
 				resetCrafter();
 				updateState();
 			}
