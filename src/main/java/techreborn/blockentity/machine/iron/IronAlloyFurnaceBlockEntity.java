@@ -272,10 +272,8 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
 			.addInventory().blockEntity(this)
-			.filterSlot(0, 47, 17,
-			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(0).test(stack)))
-			.filterSlot(1, 65, 17,
-			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(1).test(stack)))
+			.slot(0, 47, 17)
+			.slot(1, 65, 17)
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
 			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this, syncID);

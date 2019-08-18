@@ -51,10 +51,8 @@ public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implement
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
-			.filterSlot(0, 34, 47,
-				stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(0).test(stack)))
-			.filterSlot(1, 126, 47,
-			            stack -> ModRecipes.ALLOY_SMELTER.getRecipes(player.world).stream().anyMatch(recipe -> recipe.getRebornIngredients().get(1).test(stack)))
+			.slot(0, 34, 47)
+			.slot(1, 126, 47)
 			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
 			.create(this, syncID);
 	}
