@@ -25,6 +25,7 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -45,6 +46,12 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 	}
 
 	@Override
+	public void init() {
+		super.init();
+
+	}
+
+	@Override
 	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
@@ -52,7 +59,7 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		this.drawSlot(62, 45, layer);
 		this.drawSlot(98, 45, layer);
 		this.drawArmourSlots(8, 18, layer);
-		this.builder.drawEnergyOutput(this, 171, 61, this.blockEntity.getCurrentOutput(), layer);
+		this.builder.drawEnergyOutput(this, 155, 61, this.blockEntity.getCurrentOutput(), layer);
 		this.builder.drawUpDownButtons(this, 121, 79, layer);
 	}
 
@@ -71,14 +78,16 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		}
 	
 		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+
+		addButton(new GuiButtonUpDown(left + 121, top + 79, this, b -> onClick(256)));
+		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, b -> onClick(64)));
+		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, b -> onClick(-64)));
+		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, b -> onClick(-256)));
 		
-		buttons.add(new GuiButtonUpDown(121, 79, this, layer, this::onClick));
-		buttons.add(new GuiButtonUpDown(121 + 12, 79, this, layer, this::onClick));
-		buttons.add(new GuiButtonUpDown(121 + 24, 79, this, layer, this::onClick));
-		buttons.add(new GuiButtonUpDown(121 + 36, 79, this, layer, this::onClick));
+
 	}
 
-	public void onClick(ButtonWidget button){
-		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(1, blockEntity));
+	public void onClick(int amount){
+		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(amount, Screen.hasShiftDown(), Screen.hasControlDown(), blockEntity));
 	}
 }

@@ -58,11 +58,13 @@ public class ServerboundPackets {
 		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
+			boolean shift = extendedPacketBuffer.readBoolean();
+			boolean ctrl = extendedPacketBuffer.readBoolean();
 
 			context.getTaskQueue().execute(() -> {
 				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
 				if (blockEntity instanceof AdjustableSUBlockEntity) {
-					((AdjustableSUBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, false, false);
+					((AdjustableSUBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, shift, ctrl);
 				}
 			});
 		});
@@ -139,10 +141,12 @@ public class ServerboundPackets {
 		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
-	public static Packet createPacketAesu(int buttonID, AdjustableSUBlockEntity blockEntity) {
+	public static Packet createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
 		return NetworkManager.createServerBoundPacket(AESU, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
+			extendedPacketBuffer.writeBoolean(shift);
+			extendedPacketBuffer.writeBoolean(ctrl);
 		});
 	}
 

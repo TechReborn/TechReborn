@@ -68,29 +68,19 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	public void handleGuiInputFromClient(int id, boolean shift, boolean ctrl) {
-		if (id == 300) {
-			OUTPUT += shift ? 4096 : 256;
-			if(ctrl){
-				//Set to max, limited to the max later
-				OUTPUT = Integer.MAX_VALUE;
-			}
+		if(shift){
+			id *= 4;
 		}
-		if (id == 301) {
-			OUTPUT += shift ? 512 : 64;
+		if(ctrl){
+			id *= 8;
 		}
-		if (id == 302) {
-			OUTPUT -= shift ? 512 : 64;
-		}
-		if (id == 303) {
-			OUTPUT -= shift ? 4096 : 256;
-			if(ctrl){
-				OUTPUT = 1;
-			}
-		}
+
+		OUTPUT += id;
+
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
-		if (OUTPUT <= -1) {
+		if (OUTPUT <= 0) {
 			OUTPUT = 0;
 		}
 	}

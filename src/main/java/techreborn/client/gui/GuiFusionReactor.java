@@ -72,7 +72,7 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 		}
 
 	}
-	
+
 	@Override
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
@@ -105,10 +105,10 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 		drawString("Size: " + blockEntity.size, 83, 81, 0xFFFFFF, layer);
 		drawString("" + blockEntity.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
 
-		buttons.add(new GuiButtonUpDown(121, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(5)));
-		buttons.add(new GuiButtonUpDown(121 + 12, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(1)));
-		buttons.add(new GuiButtonUpDown(121 + 24, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(-5)));
-		buttons.add(new GuiButtonUpDown(121 + 36, 79, this, GuiBase.Layer.FOREGROUND, (ButtonWidget buttonWidget) -> sendSizeChange(-1)));
+		addButton(new GuiButtonUpDown(left + 121, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5)));
+		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1)));
+		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5)));
+		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1)));
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
