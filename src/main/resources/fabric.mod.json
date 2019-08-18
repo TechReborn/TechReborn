@@ -19,7 +19,7 @@
     "client": [
       "techreborn.TechRebornClient"
     ],
-    "rei_plugins": [
+    "rei_plugins_v0": [
       "techreborn.compat.rei.ReiPlugin"
     ],
     "towelette": [
