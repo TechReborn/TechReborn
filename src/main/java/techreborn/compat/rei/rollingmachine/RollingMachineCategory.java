@@ -24,9 +24,8 @@
 
 package techreborn.compat.rei.rollingmachine;
 
-import me.shedaniel.rei.api.Renderable;
 import me.shedaniel.rei.api.Renderer;
-import me.shedaniel.rei.plugin.DefaultCraftingCategory;
+import me.shedaniel.rei.plugin.crafting.DefaultCraftingCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
@@ -55,7 +54,7 @@ public class RollingMachineCategory extends DefaultCraftingCategory {
 
 	@Override
 	public Renderer getIcon() {
-		return Renderable.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
+		return Renderer.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
 	}
 
 }

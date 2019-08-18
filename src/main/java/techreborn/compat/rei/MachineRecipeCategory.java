@@ -25,12 +25,13 @@
 package techreborn.compat.rei;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import me.shedaniel.rei.api.*;
-import me.shedaniel.rei.gui.renderables.RecipeRenderer;
-import me.shedaniel.rei.gui.widget.LabelWidget;
-import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
-import me.shedaniel.rei.gui.widget.SlotWidget;
-import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.math.api.Point;
+import me.shedaniel.math.api.Rectangle;
+import me.shedaniel.rei.api.RecipeCategory;
+import me.shedaniel.rei.api.Renderer;
+import me.shedaniel.rei.gui.renderers.RecipeRenderer;
+import me.shedaniel.rei.gui.widget.*;
+import me.shedaniel.rei.impl.ScreenHelper;
 import me.shedaniel.rei.plugin.DefaultPlugin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GuiLighting;
@@ -43,7 +44,7 @@ import net.minecraft.util.math.MathHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
-import java.awt.*;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -75,12 +76,12 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 
 	@Override
 	public Renderer getIcon() {
-		return Renderable.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
+		return Renderer.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
 	}
 
 	@Override
 	public RecipeRenderer getSimpleRenderer(MachineRecipeDisplay<R> recipe) {
-		return Renderable.fromRecipe(() -> Collections.singletonList(recipe.getInput().get(0)), recipe::getOutput);
+		return Renderer.fromRecipe(() -> Collections.singletonList(recipe.getInput().get(0)), recipe::getOutput);
 	}
 
 	@Override
@@ -88,66 +89,43 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 
 		MachineRecipeDisplay<R> machineRecipe = recipeDisplaySupplier.get();
 
-		Point startPoint = new Point((int) bounds.getCenterX() - 41, (int) bounds.getCenterY() - recipeLines*12 -1);
+		Point startPoint = new Point( bounds.getCenterX() - 41, bounds.getCenterY() - recipeLines*12 -1);
 
-        class RecipeBackgroundWidget extends RecipeBaseWidget {
-            RecipeBackgroundWidget(Rectangle bounds) {
-                super(bounds);
-            }
-
-            public void render(int mouseX, int mouseY, float delta) {
-                super.render(mouseX, mouseY, delta);
-                GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-                GuiLighting.disable();
-                MinecraftClient.getInstance().getTextureManager().bindTexture(DefaultPlugin.getDisplayTexture());
-                int width = MathHelper.ceil((double)(System.currentTimeMillis() / 50L) % 24.0D / 1.0D);
-                this.blit(startPoint.x + 24, startPoint.y + 1, 82, 91, width, 17);
-            }
-        }
         List<Widget> widgets = new LinkedList<>();
-        widgets.add(new RecipeBackgroundWidget(bounds));
+        widgets.add(new RecipeArrowWidget(startPoint.x + 24, startPoint.y + 1, true));
 
 		int i = 0;
 		for (List<ItemStack> inputs : machineRecipe.getInput()){
-			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), inputs, true, true, true));
+			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStacks(inputs), true, true, true));
 		}
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
-		widgets.add(new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()));
+		widgets.add(new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()){
+			@Override
+			public void render(int mouseX, int mouseY, float delta) {
+				font.draw(text, x - font.getStringWidth(text) / 2, y, ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
+			}
+		});
 
 		i = 0;
 		for (ItemStack outputs : machineRecipe.getOutput()){
-			widgets.add(new SlotWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), Collections.singletonList(outputs), true, true, true));
+			widgets.add(new SlotWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStack(outputs), true, true, true));
 		}
 
 		return widgets;
 	}
 
-    @Override
-    public DisplaySettings<MachineRecipeDisplay<R>> getDisplaySettings() {
-		return new DisplaySettings<MachineRecipeDisplay<R>>() {
-			
-            public int getDisplayHeight(RecipeCategory category) {
+	@Override
+	public int getDisplayHeight() {
+		if (recipeLines == 1) {
+			return 36;
+		}
+		else if (recipeLines == 3) {
+			return 90;
+		}
+		else if (recipeLines == 4) {
+			return 110;
+		}
+		return 66;
+	}
 
-                if (recipeLines == 1) {
-                    return 36;
-                }
-                else if (recipeLines == 3) {
-                    return 90;
-                }
-                else if (recipeLines == 4) {
-                    return 110;
-                }
-                return 66;
-            }
-
-            public int getDisplayWidth(RecipeCategory category, MachineRecipeDisplay<R> display) {
-                return 150;
-            }
-
-            public int getMaximumRecipePerPage(RecipeCategory category) {
-                return 99;
-            }
-
-        };
-    }
 }
