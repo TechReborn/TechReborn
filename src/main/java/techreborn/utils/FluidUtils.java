@@ -26,6 +26,7 @@ package techreborn.utils;
 
 import io.github.prospector.silk.fluid.FluidInstance;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import reborncore.common.fluid.container.GenericFluidContainer;
-import net.minecraft.fluid.Fluid;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.mixin.extensions.FluidBlockExtensions;
 
@@ -58,6 +58,7 @@ public class FluidUtils {
 		ItemStack inputStack = inventory.getInvStack(inputSlot);
 		ItemStack outputStack = inventory.getInvStack(outputSlot);
 
+		if(!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
 		if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 		if (FluidUtils.isContainerEmpty(inputStack)) return false;
 
@@ -93,7 +94,8 @@ public class FluidUtils {
 	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot, Fluid fluidToFill) {
 		ItemStack inputStack = inventory.getInvStack(inputSlot);
 		ItemStack outputStack = inventory.getInvStack(outputSlot);
-		
+
+		if(!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
 		if (!FluidUtils.isContainerEmpty(inputStack)) return false;
 
 		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
