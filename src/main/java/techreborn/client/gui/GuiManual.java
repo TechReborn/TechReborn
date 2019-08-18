@@ -56,16 +56,21 @@ public class GuiManual extends Screen {
 
 	@Override
 	public void init() {
-		int y = height / 4;
+		int y = (height / 2) - guiHeight / 2;
+		y+= 40;
 		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, I18n.translate("techreborn.manual.wikibtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
 				SystemUtil.getOperatingSystem().open("http://wiki.techreborn.ovh");
+				this.minecraft.openScreen(this);
+			} else {
 				this.minecraft.openScreen(this);
 			}
 		}, "http://wiki.techreborn.ovh", false))));
 		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, I18n.translate("techreborn.manual.discordbtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
 				SystemUtil.getOperatingSystem().open("https://discord.gg/teamreborn");
+				this.minecraft.openScreen(this);
+			}else {
 				this.minecraft.openScreen(this);
 			}
 		}, "https://discord.gg/teamreborn", false))));
@@ -85,10 +90,10 @@ public class GuiManual extends Screen {
 		int centerY = (height / 2) - guiHeight / 2;
 		blit(centerX, centerY, 0, 0, guiWidth, guiHeight);
 		int y = height / 4;
-		font.draw(text1, ((width / 2) - font.getStringWidth(text1) / 2), height / 2 - (guiHeight / 4), 4210752);
-		font.draw(text2, ((width / 2) - font.getStringWidth(text2) / 2), height / 2 + 5, 4210752);
+		font.draw(text1, ((width / 2) - font.getStringWidth(text1) / 2), centerY + 40, 4210752);
+		font.draw(text2, ((width / 2) - font.getStringWidth(text2) / 2), centerY + 90, 4210752);
 		if (TechRebornConfig.allowManualRefund) {
-			font.draw(text3, ((width / 2) - font.getStringWidth(text3) / 2), y + 100, 4210752);
+			font.draw(text3, ((width / 2) - font.getStringWidth(text3) / 2), centerY + 140, 4210752);
 		}
 		super.render(mouseX, mouseY, partialTicks);
 	}
