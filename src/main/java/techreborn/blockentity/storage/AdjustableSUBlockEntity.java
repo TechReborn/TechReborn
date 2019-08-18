@@ -67,6 +67,12 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		return maxOutput + extra;
 	}
 
+	@Override
+	public void resetUpgrades() {
+		super.resetUpgrades();
+		superconductors = 0;
+	}
+
 	public void handleGuiInputFromClient(int id, boolean shift, boolean ctrl) {
 		if(shift){
 			id *= 4;
