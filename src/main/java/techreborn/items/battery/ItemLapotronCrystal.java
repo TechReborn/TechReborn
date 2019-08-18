@@ -37,7 +37,7 @@ public class ItemLapotronCrystal extends ItemBattery {
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemLapotronCrystal() {
-		super(TechRebornConfig.LapotronCrystalMaxCharge, 10_000);
+		super(TechRebornConfig.lapotronCrystalMaxCharge, 10_000);
 	}
 	
 	@Environment(EnvType.CLIENT)

@@ -40,7 +40,7 @@ import techreborn.utils.InitUtils;
 public class ItemBasicChainsaw extends ItemChainsaw {
 
 	public ItemBasicChainsaw() {
-		super(ToolMaterials.IRON, TechRebornConfig.BasicChainsawCharge, 0.5F);
+		super(ToolMaterials.IRON, TechRebornConfig.basicChainsawCharge, 0.5F);
 		this.cost = 50;
 	}
 

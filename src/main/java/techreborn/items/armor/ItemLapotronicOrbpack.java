@@ -43,7 +43,7 @@ import techreborn.utils.InitUtils;
 public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
 	// 400M FE maxCharge and 100k FE\t charge rate. Fully charged in 3 mins.
-	public static final int maxCharge = TechRebornConfig.LapotronPackCharge;
+	public static final int maxCharge = TechRebornConfig.lapotronPackCharge;
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {

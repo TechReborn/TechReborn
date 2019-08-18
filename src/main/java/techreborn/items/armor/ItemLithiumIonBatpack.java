@@ -47,7 +47,7 @@ import techreborn.utils.InitUtils;
 public class ItemLithiumIonBatpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
 	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
-	public static final int maxCharge = TechRebornConfig.LithiumBatpackCharge;
+	public static final int maxCharge = TechRebornConfig.lithiumBatpackCharge;
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {

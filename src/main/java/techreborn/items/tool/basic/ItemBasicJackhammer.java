@@ -38,7 +38,7 @@ import techreborn.utils.InitUtils;
 public class ItemBasicJackhammer extends ItemJackhammer {
 
 	public ItemBasicJackhammer() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.BasicJackhammerCharge);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.basicJackhammerCharge);
 		this.cost = 50;
 	}
 

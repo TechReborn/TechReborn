@@ -37,7 +37,7 @@ public class ItemLapotronicOrb extends ItemBattery {
 
 	// 400M capacity with 100k FE\t charge rate
 	public ItemLapotronicOrb() {
-		super(TechRebornConfig.LapotronicOrbMaxCharge, 100_000);
+		super(TechRebornConfig.lapotronicOrbMaxCharge, 100_000);
 	}
 	
 	@Environment(EnvType.CLIENT)

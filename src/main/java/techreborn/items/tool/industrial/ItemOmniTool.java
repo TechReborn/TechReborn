@@ -56,7 +56,7 @@ import java.util.List;
 
 public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
-	public static final int maxCharge = TechRebornConfig.OmniToolCharge;
+	public static final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int transferLimit = 1_000;
 	public int cost = 100;
 	public int hitCost = 125;

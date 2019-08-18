@@ -45,8 +45,8 @@ import techreborn.utils.InitUtils;
 
 public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
 
-	public static int maxCharge = TechRebornConfig.CloakingDeviceCharge;
-	public static int usage = TechRebornConfig.CloackingDeviceUsage;
+	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
+	public static int usage = TechRebornConfig.cloackingDeviceUsage;
 	public static int transferLimit = 10_000;
 	public static boolean isActive;
 

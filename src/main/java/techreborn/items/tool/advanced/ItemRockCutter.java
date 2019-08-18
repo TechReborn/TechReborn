@@ -49,7 +49,7 @@ import java.util.Random;
 
 public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
 
-	public static final int maxCharge = TechRebornConfig.RockCutterCharge;
+	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
 	public int transferLimit = 1_000;
 	public int cost = 500;
 

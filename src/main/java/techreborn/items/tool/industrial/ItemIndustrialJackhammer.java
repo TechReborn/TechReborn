@@ -39,7 +39,7 @@ public class ItemIndustrialJackhammer extends ItemJackhammer {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialJackhammer() {
-		super(ToolMaterials.IRON, TechRebornConfig.IndustrialJackhammerCharge);
+		super(ToolMaterials.IRON, TechRebornConfig.industrialJackhammerCharge);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

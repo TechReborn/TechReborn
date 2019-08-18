@@ -41,7 +41,7 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedChainsaw() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.AdvancedChainsawCharge, 1.0F);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

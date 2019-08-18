@@ -66,7 +66,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	// 4M FE max charge with 1k charge rate
 	public ItemIndustrialChainsaw() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.IndustrialChainsawCharge, 1.0F);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}

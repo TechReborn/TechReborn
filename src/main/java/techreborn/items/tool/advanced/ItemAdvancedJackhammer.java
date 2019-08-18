@@ -39,7 +39,7 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 
 	// 400k max charge with 1k charge rate
 	public ItemAdvancedJackhammer() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.AdvancedJackhammerCharge);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedJackhammerCharge);
 		this.cost = 100;
 		this.transferLimit = 1000;
 	}

@@ -40,7 +40,7 @@ import techreborn.utils.InitUtils;
 public class ItemBasicDrill extends ItemDrill {
 
 	public ItemBasicDrill() {
-		super(ToolMaterials.IRON, TechRebornConfig.BasicDrillCharge, 0.5F, 10F);
+		super(ToolMaterials.IRON, TechRebornConfig.basicDrillCharge, 0.5F, 10F);
 		this.cost = 50;
 	}
 

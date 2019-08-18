@@ -36,58 +36,58 @@ public class TechRebornConfig {
 	public static int nanoSaberCharge = 4_000_000;
 	
 	@Config(config = "items", category = "power", key = "basicDrillCharge", comment = "Energy Capacity for Basic Drill (FE)")
-	public static int BasicDrillCharge = 40_000;
+	public static int basicDrillCharge = 40_000;
 
 	@Config(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill (FE)")
-	public static int AdvancedDrillCharge = 400_000;
+	public static int advancedDrillCharge = 400_000;
 
 	@Config(config = "items", category = "power", key = "industrialDrillCharge", comment = "Energy Capacity for Industrial Drill (FE)")
-	public static int IndustrialDrillCharge = 4_000_000;
+	public static int industrialDrillCharge = 4_000_000;
 
 	@Config(config = "items", category = "power", key = "basicChainsawCharge", comment = "Energy Capacity for Basic Chainsaw (FE)")
-	public static int BasicChainsawCharge = 40_000;
+	public static int basicChainsawCharge = 40_000;
 
 	@Config(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw (FE)")
-	public static int AdvancedChainsawCharge = 400_000;
+	public static int advancedChainsawCharge = 400_000;
 
 	@Config(config = "items", category = "power", key = "industrialChainsawCharge", comment = "Energy Capacity for Industrial Chainsaw (FE)")
-	public static int IndustrialChainsawCharge = 4_000_000;
+	public static int industrialChainsawCharge = 4_000_000;
 
 	@Config(config = "items", category = "power", key = "basicJackhammerCharge", comment = "Energy Capacity for Basic Jackhammer (FE)")
-	public static int BasicJackhammerCharge = 40_000;
+	public static int basicJackhammerCharge = 40_000;
 
 	@Config(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jackhammer (FE)")
-	public static int AdvancedJackhammerCharge = 400_000;
+	public static int advancedJackhammerCharge = 400_000;
 
 	@Config(config = "items", category = "power", key = "industrialJackhammerCharge", comment = "Energy Capacity for Industrial Jachammer (FE)")
-	public static int IndustrialJackhammerCharge = 4_000_000;
+	public static int industrialJackhammerCharge = 4_000_000;
 
 	@Config(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool (FE)")
-	public static int OmniToolCharge = 4_000_000;
+	public static int omniToolCharge = 4_000_000;
 
 	@Config(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter (FE)")
-	public static int RockCutterCharge = 400_000;
+	public static int rockCutterCharge = 400_000;
 
 	@Config(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack (FE)")
-	public static int LapotronPackCharge = 400_000_000;
+	public static int lapotronPackCharge = 400_000_000;
 
 	@Config(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack (FE)")
-	public static int LithiumBatpackCharge = 8_000_000;
+	public static int lithiumBatpackCharge = 8_000_000;
 
 	@Config(config = "items", category = "power", key = "energyCrystalMaxCharge", comment = "Energy Capacity for Energy Crystal (FE)")
-	public static int EnergyCrystalMaxCharge = 4_000_000;
+	public static int energyCrystalMaxCharge = 4_000_000;
 	
 	@Config(config = "items", category = "power", key = "lapotronCrystalMaxCharge", comment = "Energy Capacity for Lapotron Crystal (FE)")
-	public static int LapotronCrystalMaxCharge = 40_000_000;
+	public static int lapotronCrystalMaxCharge = 40_000_000;
 
 	@Config(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb (FE)")
-	public static int LapotronicOrbMaxCharge = 400_000_000;
+	public static int lapotronicOrbMaxCharge = 400_000_000;
 
 	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Clocking Device (FE)")
-	public static int CloakingDeviceCharge = 40_000_000;
+	public static int cloakingDeviceCharge = 40_000_000;
 	
 	@Config(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (FE)")
-	public static int CloackingDeviceUsage = 10;
+	public static int cloackingDeviceUsage = 10;
 
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
