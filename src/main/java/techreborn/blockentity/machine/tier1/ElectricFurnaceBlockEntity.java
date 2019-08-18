@@ -127,6 +127,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		currentRecipe = null;
 		cookTime = 0;
 		cookTimeTotal = 0;
+		updateState();
 	}
 	
 	private void updateState() {
@@ -134,7 +135,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 		if (furnaceBlock instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) furnaceBlock;
-			boolean isActive = isActive() || canCraftAgain();
+			boolean isActive = currentRecipe != null || canCraftAgain();
 			blockMachineBase.setActive(isActive, world, pos);
 		}
 		world.updateListeners(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
@@ -220,7 +221,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			}
 			if (currentRecipe != null && (!hasAllInputs(currentRecipe) || !canAcceptOutput(currentRecipe, outputSlot))) {
 				resetCrafter();
-				updateState();
 			}
 		}
 
