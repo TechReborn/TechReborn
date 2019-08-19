@@ -44,12 +44,12 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.IInventoryAccess;
-import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -111,7 +111,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public boolean canMake(CraftingRecipe recipe) {
-		if (recipe != null && recipe.fits(3, 3)) {
+		if (recipe != null) {
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
 			for (int i = 0; i < 9; i++) {
