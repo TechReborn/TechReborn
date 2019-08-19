@@ -55,6 +55,7 @@ import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.lesu.LSUStorageBlockEntity;
 import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.transformers.EVTransformerBlockEntity;
 import techreborn.blockentity.transformers.HVTransformerBlockEntity;
 import techreborn.blockentity.transformers.LVTransformerBlockEntity;
 import techreborn.blockentity.transformers.MVTransformerBlockEntity;
@@ -117,6 +118,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<LVTransformerBlockEntity> LV_TRANSFORMER = register(LVTransformerBlockEntity.class, "lv_transformer", TRContent.Machine.LV_TRANSFORMER);
 	public static final BlockEntityType<MVTransformerBlockEntity> MV_TRANSFORMER = register(MVTransformerBlockEntity.class, "mv_transformer", TRContent.Machine.MV_TRANSFORMER);
 	public static final BlockEntityType<HVTransformerBlockEntity> HV_TRANSFORMER = register(HVTransformerBlockEntity.class, "hv_transformer", TRContent.Machine.HV_TRANSFORMER);
+	public static final BlockEntityType<EVTransformerBlockEntity> EV_TRANSFORMER = register(EVTransformerBlockEntity.class, "ev_transformer", TRContent.Machine.EV_TRANSFORMER);
 	public static final BlockEntityType<AutoCraftingTableBlockEntity> AUTO_CRAFTING_TABLE = register(AutoCraftingTableBlockEntity.class, "auto_crafting_table", TRContent.Machine.AUTO_CRAFTING_TABLE);
 	public static final BlockEntityType<IronFurnaceBlockEntity> IRON_FURNACE = register(IronFurnaceBlockEntity.class, "iron_furnace", TRContent.Machine.IRON_FURNACE);
 	public static final BlockEntityType<ScrapboxinatorBlockEntity> SCRAPBOXINATOR = register(ScrapboxinatorBlockEntity.class, "scrapboxinator", TRContent.Machine.SCRAPBOXINATOR);

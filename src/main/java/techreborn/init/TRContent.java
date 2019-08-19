@@ -57,6 +57,7 @@ import techreborn.blocks.tier0.BlockIronAlloyFurnace;
 import techreborn.blocks.tier0.BlockIronFurnace;
 import techreborn.blocks.tier1.BlockPlayerDetector;
 import techreborn.blocks.tier3.BlockCreativeQuantumChest;
+import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
@@ -431,6 +432,7 @@ public class TRContent {
 		LV_TRANSFORMER(new BlockLVTransformer()),
 		MV_TRANSFORMER(new BlockMVTransformer()),
 		HV_TRANSFORMER(new BlockHVTransformer()),
+		EV_TRANSFORMER(new BlockEVTransformer()),
 		
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(EGui.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),
