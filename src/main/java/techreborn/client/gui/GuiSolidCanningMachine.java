@@ -28,7 +28,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import techreborn.blockentity.machine.tier1.AlloySmelterBlockEntity;
 import techreborn.blockentity.machine.tier1.SoildCanningMachineBlockEntity;
 
 public class GuiSolidCanningMachine extends GuiBase<BuiltContainer> {

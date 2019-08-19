@@ -659,6 +659,8 @@
   "techreborn:scrapbox": "Scrapbox",
   "techreborn:vacuum_freezer": "Vacuum Freezer",
   "techreborn:fluid_replicator": "Fluid Replicator",
+  "techreborn:fusion_reactor": "Fusion Reactor",
+  "techreborn:rolling_machine": "Rolling Machine",
   
   "_comment26": "Fluid buckets",
    "item.techreborn.beryllium_bucket": "Beryllium",

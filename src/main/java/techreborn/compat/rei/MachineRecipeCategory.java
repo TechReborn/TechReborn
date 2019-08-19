@@ -24,7 +24,6 @@
 
 package techreborn.compat.rei;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import me.shedaniel.math.api.Point;
 import me.shedaniel.math.api.Rectangle;
 import me.shedaniel.rei.api.RecipeCategory;
@@ -32,15 +31,11 @@ import me.shedaniel.rei.api.Renderer;
 import me.shedaniel.rei.gui.renderers.RecipeRenderer;
 import me.shedaniel.rei.gui.widget.*;
 import me.shedaniel.rei.impl.ScreenHelper;
-import me.shedaniel.rei.plugin.DefaultPlugin;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.GuiLighting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
@@ -92,6 +87,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		Point startPoint = new Point( bounds.getCenterX() - 41, bounds.getCenterY() - recipeLines*12 -1);
 
         List<Widget> widgets = new LinkedList<>();
+        widgets.add(new RecipeBaseWidget(bounds));
         widgets.add(new RecipeArrowWidget(startPoint.x + 24, startPoint.y + 1, true));
 
 		int i = 0;
@@ -117,15 +113,15 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	@Override
 	public int getDisplayHeight() {
 		if (recipeLines == 1) {
-			return 36;
+			return 37;
 		}
 		else if (recipeLines == 3) {
-			return 90;
+			return 80;
 		}
 		else if (recipeLines == 4) {
-			return 110;
+			return 105;
 		}
-		return 66;
+		return 60;
 	}
 
 }

@@ -11,7 +11,7 @@
         "item": "techreborn:nickel_ingot"
       },
       "C": {
-        "item": "techreborn:copper_ingot"
+        "tag": "c:copper_ingot"
       }
     },
     "result": {

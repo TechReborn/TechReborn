@@ -27,7 +27,6 @@ package techreborn.blocks.transformers;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import techreborn.blockentity.transformers.EVTransformerBlockEntity;
-import techreborn.blockentity.transformers.HVTransformerBlockEntity;
 
 /**
  * Created by modmuss50 on 16/03/2016.
