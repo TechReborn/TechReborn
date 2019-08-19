@@ -1,0 +1,22 @@
+{
+  "type": "techreborn:solid_canning_machine",
+  "power": 1,
+  "time": 100,
+  "ingredients": [
+    {
+      "item": "techreborn:cell",
+      "nbt": "empty"
+    },
+    {
+      "item": "techreborn:compressed_plantball"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:cell",
+      "nbt": {
+        "fluid": "techreborn:biofuel"
+      }
+    }
+  ]
+}

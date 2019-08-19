@@ -162,6 +162,8 @@ public class GuiHandler {
 				return new GuiDistillationTower(syncID, player, (DistillationTowerBlockEntity) blockEntity);
 			case FLUID_REPLICATOR:
 				return new GuiFluidReplicator(syncID, player, (FluidReplicatorBlockEntity) blockEntity);
+			case SOLID_CANNING_MACHINE:
+				return new GuiSolidCanningMachine(syncID, player, (SoildCanningMachineBlockEntity) blockEntity);
 			default:
 				break;
 

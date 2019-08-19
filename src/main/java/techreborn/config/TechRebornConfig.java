@@ -484,4 +484,10 @@ public class TechRebornConfig {
 
 	@Config(config = "misc", category = "general", key = "manualRefund", comment = "Allow refunding items used to craft the manual")
 	public static boolean allowManualRefund = true;
+
+	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxInput", comment = "Solid Canning Machine Max Input (Value in EU)")
+	public static int solidCanningMachineMaxInput = 32;
+
+	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxInput", comment = "Solid Canning Machine Max Energy (Value in EU)")
+	public static int solidCanningMachineMaxEnergy = 1_000;
 }
