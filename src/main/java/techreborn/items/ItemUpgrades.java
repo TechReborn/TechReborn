@@ -107,34 +107,28 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 
 	// IUpgrade
 	@Override
-	public void process(
-		@Nonnull
-			TileLegacyMachineBase machineBase,
-		@Nullable
-			IUpgradeHandler handler,
-		@Nonnull
-			ItemStack stack) {
+	public void process(IUpgradeHandler handler, ItemStack stack) {
 
 		if (stack.getItemDamage() == 0) {
 			handler.addSpeedMulti(overclockerSpeed);
 			handler.addPowerMulti(overclockerPower);
-			if(machineBase instanceof TilePowerAcceptor){
-				TilePowerAcceptor powerAcceptor = (TilePowerAcceptor) machineBase;
+			if(handler instanceof TilePowerAcceptor) {
+				TilePowerAcceptor powerAcceptor = (TilePowerAcceptor) handler;
 				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput();
 				powerAcceptor.extraPowerStoage += powerAcceptor.getBaseMaxPower();
 			}
 		}
-		if (machineBase instanceof TilePowerAcceptor) {
+		if (handler instanceof TilePowerAcceptor) {
 			if (stack.getItemDamage() == 2) {
-				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
+				TilePowerAcceptor acceptor = (TilePowerAcceptor) handler;
 				acceptor.extraPowerStoage += energyStoragePower;
 			}
 			if (stack.getItemDamage() == 1) {
-				TilePowerAcceptor acceptor = (TilePowerAcceptor) machineBase;
+				TilePowerAcceptor acceptor = (TilePowerAcceptor) handler;
 				acceptor.extraTeir += 1;
 			}
 		}
-		if(machineBase instanceof TileAdjustableSU){
+		if(handler instanceof TileAdjustableSU){
 
 		}
 	}
