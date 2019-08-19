@@ -83,14 +83,12 @@ public class ExtractorRecipes extends RecipeMethods {
 
 		// Cells
 		FluidRegistry.getRegisteredFluids().values()
-			.forEach(fluid -> {
-				Recipes.extractor.createRecipe()
-					.withInput(ItemDynamicCell.getCellWithFluid(fluid, 1))
-					.withOutput(ItemDynamicCell.getEmptyCell(1))
-					.withEnergyCostPerTick(2)
-					.withOperationDuration(40)
-					.register();
-			});
+			.forEach(fluid -> Recipes.extractor.createRecipe()
+				.withInput(ItemDynamicCell.getCellWithFluid(fluid, 1))
+				.withOutput(ItemDynamicCell.getEmptyCell(1))
+				.withEnergyCostPerTick(2)
+				.withOperationDuration(40)
+				.register());
 
 		// Flowers
 		// Red Flower

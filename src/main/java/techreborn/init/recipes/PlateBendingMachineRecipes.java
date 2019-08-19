@@ -73,7 +73,7 @@ public class PlateBendingMachineRecipes extends RecipeMethods {
 
 			if (OreUtil.hasIngot(entry))
 				Recipes.plateBendingMachine.createRecipe()
-					.withInput(OreUtil.getStackFromName("ingot" + OreUtil.capitalizeFirstLetter(entry)))
+					.withInput("ingot" + OreUtil.capitalizeFirstLetter(entry))
 					.withOutput(plate)
 					.withEnergyCostPerTick(25)
 					.withOperationDuration(40)
