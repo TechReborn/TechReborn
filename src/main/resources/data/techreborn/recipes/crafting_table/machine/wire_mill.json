@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PEP",
+    "CMC",
+    "PGP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:brass_plate"
+    },
+    "E": {
+      "item": "techreborn:extractor"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "M": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "G": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "item": "techreborn:wire_mill"
+  }
+}
