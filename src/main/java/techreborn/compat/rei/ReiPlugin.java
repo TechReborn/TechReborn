@@ -24,9 +24,11 @@
 
 package techreborn.compat.rei;
 
-import me.shedaniel.rei.api.REIPluginEntry;
 import me.shedaniel.rei.api.RecipeDisplay;
 import me.shedaniel.rei.api.RecipeHelper;
+import me.shedaniel.rei.api.plugins.REIPluginV0;
+import net.fabricmc.loader.api.SemanticVersion;
+import net.fabricmc.loader.util.version.VersionParsingException;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
@@ -35,19 +37,19 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.TechReborn;
-import techreborn.api.recipe.recipes.*;
+import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.compat.rei.rollingmachine.RollingMachineCategory;
+import techreborn.compat.rei.rollingmachine.RollingMachineDisplay;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
-import techreborn.compat.rei.rollingmachine.RollingMachineCategory;
-import techreborn.compat.rei.rollingmachine.RollingMachineDisplay;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ReiPlugin implements REIPluginEntry {
+public class ReiPlugin implements REIPluginV0 {
 
 	public static final Identifier PLUGIN = new Identifier(TechReborn.MOD_ID, "techreborn_plugin");
 
@@ -55,7 +57,7 @@ public class ReiPlugin implements REIPluginEntry {
 
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
-		iconMap.put(ModRecipes.ASSEMBLING_MACHINE,Machine.ASSEMBLY_MACHINE);
+		iconMap.put(ModRecipes.ASSEMBLING_MACHINE, Machine.ASSEMBLY_MACHINE);
 		iconMap.put(ModRecipes.BLAST_FURNACE, Machine.INDUSTRIAL_BLAST_FURNACE);
 		iconMap.put(ModRecipes.CENTRIFUGE, Machine.INDUSTRIAL_CENTRIFUGE);
 		iconMap.put(ModRecipes.CHEMICAL_REACTOR, Machine.CHEMICAL_REACTOR);
@@ -72,12 +74,17 @@ public class ReiPlugin implements REIPluginEntry {
 		iconMap.put(ModRecipes.ROLLING_MACHINE, Machine.ROLLING_MACHINE);
 		iconMap.put(ModRecipes.SCRAPBOX, TRContent.SCRAP_BOX);
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
-		
+
 	}
 
 	@Override
 	public Identifier getPluginIdentifier() {
 		return PLUGIN;
+	}
+
+	@Override
+	public SemanticVersion getMinimumVersion() throws VersionParsingException {
+		return SemanticVersion.parse("3.0-pre");
 	}
 
 	@Override

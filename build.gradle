@@ -93,7 +93,7 @@ dependencies {
 
 	modCompile "io.github.prospector:modmenu:1.7.7+build.116"
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
-	modCompile ("me.shedaniel:RoughlyEnoughItems:2.9.7+build.145") {
+	modCompile ("me.shedaniel:RoughlyEnoughItems:3.0-pre+build.1") {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
 	}

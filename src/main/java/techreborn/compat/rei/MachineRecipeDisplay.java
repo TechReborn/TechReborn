@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDisplay<R> {
+public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDisplay {
 
 	private final R recipe;
 	private List<List<ItemStack>> inputs;
@@ -53,8 +53,8 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	}
 
 	@Override
-	public Optional<R> getRecipe() {
-		return Optional.ofNullable(recipe);
+	public Optional<Identifier> getRecipeLocation() {
+		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
 
 	@Override
