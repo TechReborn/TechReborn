@@ -45,6 +45,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.text.WordUtils;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.ItemNBTHelper;
@@ -81,7 +82,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 		Fluid fluid = getFluid(itemStack);
 		if(fluid != Fluids.EMPTY){
 			//TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
-			return new LiteralText(FluidUtil.getFluidName(fluid) + " Cell");
+			return new LiteralText(WordUtils.capitalizeFully(FluidUtil.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
 		}
 		return super.getName(itemStack);
 	}
