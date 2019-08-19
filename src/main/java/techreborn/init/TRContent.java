@@ -31,10 +31,23 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.blockentity.IUpgrade;
+import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.TechReborn;
+import techreborn.blockentity.ChargeOMatBlockEntity;
+import techreborn.blockentity.DigitalChestBlockEntity;
+import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.generator.LightningRodBlockEntity;
+import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
+import techreborn.blockentity.generator.advanced.*;
+import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
+import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
+import techreborn.blockentity.generator.basic.WindMillBlockEntity;
+import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.tier1.*;
+import techreborn.blockentity.machine.tier3.*;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
@@ -42,8 +55,8 @@ import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.storage.*;
 import techreborn.blocks.tier0.BlockIronAlloyFurnace;
 import techreborn.blocks.tier0.BlockIronFurnace;
-import techreborn.blocks.tier1.*;
-import techreborn.blocks.tier3.*;
+import techreborn.blocks.tier1.BlockPlayerDetector;
+import techreborn.blocks.tier3.BlockCreativeQuantumChest;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
@@ -53,33 +66,6 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.InitUtils;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
-import techreborn.blockentity.ChargeOMatBlockEntity;
-import techreborn.blockentity.DigitalChestBlockEntity;
-import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
-import techreborn.blockentity.generator.LightningRodBlockEntity;
-import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
-import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
-import techreborn.blockentity.generator.advanced.DragonEggSyphonBlockEntity;
-import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
-import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
-import techreborn.blockentity.generator.advanced.ThermalGeneratorBlockEntity;
-import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
-import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
-import techreborn.blockentity.generator.basic.WindMillBlockEntity;
-import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
-import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
-import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
-import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
-import techreborn.blockentity.machine.tier1.*;
-import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
-import techreborn.blockentity.machine.tier3.CreativeQuantumTankBlockEntity;
-import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
-import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
-import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -656,7 +642,9 @@ public class TRContent {
 		RUBBER,
 		SAP,
 		SCRAP,
-		UU_MATTER;
+		UU_MATTER,
+		PLANTBALL,
+		COMPRESSED_PLANTBALL;
 
 		public final String name;
 		public final Item item;

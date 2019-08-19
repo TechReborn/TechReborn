@@ -183,6 +183,7 @@
   "block.techreborn.sulfuricacid": "Sulfuric Acid",
   "block.techreborn.tritium": "Tritium",
   "block.techreborn.wolframium": "Wolframium",
+  "block.techreborn.biofuel": "BioFuel",
 
   "_comment6": "Fluids",
   "fluid.fluidberylium": "Beryllium",
@@ -219,6 +220,7 @@
   "fluid.fluidsulfuricacid": "Sulfuric Acid",
   "fluid.fluidtritium": "Tritium",
   "fluid.fluidwolframium": "Wolframium",
+  "fluid.fluidbiofuel": "BioFuel",
 
   "_comment7": "Dusts",
   "item.techreborn.almandine_dust": "Almandine Dust",
@@ -481,6 +483,8 @@
   "item.techreborn.sap": "Sap",
   "item.techreborn.scrap": "Scrap",
   "item.techreborn.uu_matter": "UU-Matter",
+  "item.techreborn.plantball": "Plantball",
+  "item.techreborn.compressed_plantball": "Compressed Plantball",
 
   "_comment14": "Items-Armor",
   "item.techreborn.cloaking_device": "Cloaking Device",
@@ -689,5 +693,6 @@
   "item.techreborn.sulfur_bucket": "Sulfur",
   "item.techreborn.sulfuric_acid_bucket": "Sulfuric Acid",
   "item.techreborn.tritium_bucket": "Tritium",
-  "item.techreborn.wolframium_bucket": "Wolframium"
+  "item.techreborn.wolframium_bucket": "Wolframium",
+  "item.techreborn.biofuel_bucket": "Biofuel"
 }

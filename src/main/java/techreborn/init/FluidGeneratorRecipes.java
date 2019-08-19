@@ -24,12 +24,10 @@
 
 package techreborn.init;
 
-
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
-import techreborn.init.ModFluids;
 
 /**
  * Created by Prospector
@@ -44,6 +42,7 @@ public class FluidGeneratorRecipes {
 		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM.getFluid(), 30);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM.getFluid(), 60);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL.getFluid(), 16);
+		register(EFluidGenerator.SEMIFLUID, ModFluids.BIOFUEL.getFluid(), 6);
 
 		register(EFluidGenerator.THERMAL, Fluids.LAVA, 60);
 

@@ -306,10 +306,10 @@ public class TechRebornConfig {
 	public static int industrialBlastFurnaceMaxEnergy = 40_000;
 
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
-	public static int dieselGeneratorMaxOutput = 128;
+	public static int dieselGeneratorMaxOutput = 32;
 
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
-	public static int dieselGeneratorMaxEnergy = 1_000_000;
+	public static int dieselGeneratorMaxEnergy = 10_000;
 
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
 	public static int dieselGeneratorTankCapacity = 10_000;
