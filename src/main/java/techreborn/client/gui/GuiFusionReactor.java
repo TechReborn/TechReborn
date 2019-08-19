@@ -40,12 +40,12 @@ import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
 import techreborn.init.TRContent;
 import techreborn.packets.ServerboundPackets;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,9 +82,9 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
 		if (blockEntity.getCoilStatus() > 0) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
-			drawCentredString(blockEntity.getStateString(), 20, Color.BLUE.darker().getRGB(), layer);
+			drawCentredString(blockEntity.getStateString(), 20, Color.BLUE.darker().getColor(), layer);
 			if(blockEntity.state == 2){
-				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) blockEntity.getPowerChange()) + "/t", 30, Color.GREEN.darker().getRGB(), layer);
+				drawCentredString( PowerSystem.getLocaliszedPowerFormatted((int) blockEntity.getPowerChange()) + "/t", 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);

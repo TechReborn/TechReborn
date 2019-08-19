@@ -48,10 +48,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ExtendedBlockView;
 import reborncore.common.fluid.container.ItemFluidInfo;
+import reborncore.common.util.Color;
 import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -86,7 +86,7 @@ public class DynamicCellBakedModel implements BakedModel, FabricBakedModel {
 			BakedModel fluidModel = bakedModelManager.getModel(CELL_FLUID);
 			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
 			Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
-			int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getRGB();
+			int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getColor();
 			context.pushTransform(quad -> {
 				quad.nominalFace(GeometryHelper.lightFace(quad));
 				quad.spriteColor(0, color, color, color, color);
