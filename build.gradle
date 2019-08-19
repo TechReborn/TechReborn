@@ -106,10 +106,7 @@ dependencies {
 	} else {
 		modCompile (rcVersion)
 	}
-
-	//TODO enable this again at somepoint
-	include rcVersion
-
+	
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
