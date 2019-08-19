@@ -164,6 +164,8 @@ public class GuiHandler {
 				return new GuiFluidReplicator(syncID, player, (FluidReplicatorBlockEntity) blockEntity);
 			case SOLID_CANNING_MACHINE:
 				return new GuiSolidCanningMachine(syncID, player, (SoildCanningMachineBlockEntity) blockEntity);
+			case WIRE_MILL:
+				return new GuiWireMill(syncID, player, (WireMillBlockEntity) blockEntity);
 			default:
 				break;
 

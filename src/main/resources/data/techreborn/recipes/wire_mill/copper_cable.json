@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:wire_mill",
+  "power": 2,
+  "time": 200,
+  "ingredients": [
+    {
+      "tag": "c:copper_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:copper_cable",
+      "count": 6
+    }
+  ]
+}

@@ -79,6 +79,7 @@ public enum EGui implements IMachineGuiHandler {
 	THERMAL_GENERATOR(true),
 	VACUUM_FREEZER(true),
 	SOLID_CANNING_MACHINE(true),
+	WIRE_MILL(true),
 	FLUID_REPLICATOR(true);
 
 	private final boolean containerBuilder;

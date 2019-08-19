@@ -52,4 +52,5 @@ public class ModRecipes {
 	public static final RebornRecipeType<FusionReactorRecipe> FUSION_REACTOR = RecipeManager.newRecipeType(FusionReactorRecipe.class, new Identifier("techreborn:fusion_reactor"));
 	public static final RebornRecipeType<RollingMachineRecipe> ROLLING_MACHINE = RecipeManager.newRecipeType(RollingMachineRecipe.class, new Identifier("techreborn:rolling_machine"));
 	public static final RebornRecipeType<RebornRecipe> SOLID_CANNING_MACHINE = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:solid_canning_machine"));
+	public static final RebornRecipeType<RebornRecipe> WIRE_MILL = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:wire_mill"));
 }

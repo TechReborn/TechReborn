@@ -399,6 +399,7 @@ public class TRContent {
 		SCRAPBOXINATOR(new GenericMachineBlock(EGui.SCRAPBOXINATOR, ScrapboxinatorBlockEntity::new)),
 		VACUUM_FREEZER(new GenericMachineBlock(EGui.VACUUM_FREEZER, VacuumFreezerBlockEntity::new)),
 		SOLID_CANNING_MACHINE(new GenericMachineBlock(EGui.SOLID_CANNING_MACHINE, SoildCanningMachineBlockEntity::new)),
+		WIRE_MILL(new GenericMachineBlock(EGui.WIRE_MILL, WireMillBlockEntity::new)),
 		
 		DIESEL_GENERATOR(new GenericMachineBlock(EGui.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericMachineBlock(null, DragonEggSyphonBlockEntity::new)),
