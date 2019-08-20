@@ -24,9 +24,16 @@
 
 package techreborn.events;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.RebornRegistry;
 import techreborn.TechReborn;
 import techreborn.blocks.misc.BlockComputerCube;
@@ -36,7 +43,6 @@ import techreborn.blocks.misc.BlockReinforcedGlass;
 import techreborn.blocks.misc.BlockRubberLeaves;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.blocks.misc.BlockRubberPlank;
-import techreborn.blocks.misc.BlockRubberPlankSlab;
 import techreborn.blocks.misc.BlockRubberPlankStair;
 import techreborn.blocks.misc.BlockRubberSapling;
 import techreborn.config.TechRebornConfig;
@@ -107,9 +113,23 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"), itemGroup);
-		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new BlockRubberPlankSlab(), "rubber_plank_slab"), itemGroup);
+		RebornRegistry.registerBlock(
+				TRContent.RUBBER_PLANK_SLAB = InitUtils
+						.setup(new SlabBlock(FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE)
+								.strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD).build()), "rubber_plank_slab"),
+				itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), itemGroup);
-
+		RebornRegistry.registerBlock(
+				TRContent.RUBBER_FENCE = InitUtils
+						.setup(new FenceBlock(FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE)
+								.strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD).build()), "rubber_fence"),
+				itemGroup);
+		RebornRegistry.registerBlock(
+				TRContent.RUBBER_FENCE_GATE = InitUtils
+						.setup(new FenceGateBlock(FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE)
+								.strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD).build()), "rubber_fence_gate"),
+				itemGroup);
+		
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
 

@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/rubber_leaves" }
+        "": { "model": "techreborn:block/rubber/rubber_leaves" }
     }
 }

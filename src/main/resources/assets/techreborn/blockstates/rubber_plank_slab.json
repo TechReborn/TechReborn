@@ -1,7 +1,7 @@
 {
     "variants": {
-        "type=bottom": { "model": "techreborn:block/rubber_plank_slab" },
-        "type=top": { "model": "techreborn:block/rubber_plank_slab_top" },
-        "type=double": { "model": "techreborn:block/rubber_planks" }
+        "type=bottom": { "model": "techreborn:block/rubber/rubber_plank_slab" },
+        "type=top": { "model": "techreborn:block/rubber/rubber_plank_slab_top" },
+        "type=double": { "model": "techreborn:block/rubber/rubber_planks" }
     }
 }

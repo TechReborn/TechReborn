@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/rubber_planks" }
+        "": { "model": "techreborn:block/rubber/rubber_planks" }
     }
 }

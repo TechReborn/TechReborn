@@ -86,6 +86,8 @@ public class TRContent {
 	public static Block RUBBER_PLANK_STAIR;
 	public static Block RUBBER_PLANKS;
 	public static Block RUBBER_SAPLING;
+	public static Block RUBBER_FENCE;
+	public static Block RUBBER_FENCE_GATE;
 	
 	// Armor
 	public static Item CLOAKING_DEVICE;

@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/rubber_sapling" }
+        "": { "model": "techreborn:block/rubber/rubber_sapling" }
     }
 }
