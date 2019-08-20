@@ -83,8 +83,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 					heat += BlockMachineCasing.getHeatFromState(part.getCachedState());
 				}
 
-				if (world.getBlockState(location.offset(Direction.UP, 1)).getBlock().getTranslationKey().equals("blockEntity.lava")
-						&& world.getBlockState(location.offset(Direction.UP, 2)).getBlock().getTranslationKey().equals("blockEntity.lava")) {
+				if (world.getBlockState(location.offset(Direction.UP, 1)).getMaterial().equals(Material.LAVA)
+						&& world.getBlockState(location.offset(Direction.UP, 2)).getMaterial().equals(Material.LAVA)) {
 					heat += 500;
 				}
 				return heat;

@@ -26,6 +26,7 @@ package techreborn.multiblocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
@@ -323,10 +324,10 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 	@Override
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
 		BlockState state = world.getBlockState(new BlockPos(x, y, z));
-		Block block = state.getBlock();
-		if (state.isAir()) {
 
-		} else if (block.getTranslationKey().equals("blockEntity.lava")) {
+		if (state.getMaterial().equals(Material.AIR)) {
+
+		} else if (state.getMaterial().equals(Material.LAVA)) {
 			hasLava = true;
 		} else {
 			super.isBlockGoodForInterior(world, x, y, z);

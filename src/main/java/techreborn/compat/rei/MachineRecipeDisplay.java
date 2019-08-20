@@ -28,6 +28,7 @@ import me.shedaniel.rei.api.RecipeDisplay;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 import reborncore.common.crafting.RebornRecipe;
 
 import java.util.List;
@@ -40,16 +41,24 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	private List<List<ItemStack>> inputs;
 	private List<ItemStack> outputs;
 	private int energy = 0;
+	private int heat = 0;
 
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
 		this.inputs = recipe.getRebornIngredients().stream().map(RebornIngredient::getPreviewStacks).collect(Collectors.toList());
 		this.outputs = recipe.getOutputs();
 		this.energy = recipe.getPower();
+		if (recipe instanceof BlastFurnaceRecipe) {
+			this.heat = ((BlastFurnaceRecipe) recipe).getHeat();
+		}
 	}
 	
 	public int getEnergy() {
 		return energy;
+	}
+	
+	public int getHeat() {
+		return heat;
 	}
 
 	@Override

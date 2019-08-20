@@ -597,6 +597,7 @@
   "techreborn.jei.recipe.running.cost": "%s/t: %s",
   "techreborn.jei.recipe.processing.time.1": "Time: %s ticks",
   "techreborn.jei.recipe.processing.time.2": "(%s sec)",
+  "techreborn.jei.recipe.heat": "Heat",
 
   "techreborn.jei.desc.rubberSap": "In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow \"sap\" spots. To harvest the sap, use a treetap and use it on the log.",
   "techreborn.jei.desc.scrapBox": "Scrapboxes can be opened by either a simple use in hand, or by dispensers. That's right, just throw your scrapboxes into dispensers and give them a redstone signal, and boom! Random item!",
@@ -659,6 +660,8 @@
   "techreborn:scrapbox": "Scrapbox",
   "techreborn:vacuum_freezer": "Vacuum Freezer",
   "techreborn:fluid_replicator": "Fluid Replicator",
+  "techreborn:fusion_reactor": "Fusion Reactor",
+  "techreborn:rolling_machine": "Rolling Machine",
   
   "_comment26": "Fluid buckets",
    "item.techreborn.beryllium_bucket": "Beryllium",

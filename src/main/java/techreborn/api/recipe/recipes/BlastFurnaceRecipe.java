@@ -39,6 +39,10 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
 	}
+	
+	public int getHeat() {
+		return heat;
+	}
 
 	@Override
 	public void deserialize(JsonObject jsonObject) {
