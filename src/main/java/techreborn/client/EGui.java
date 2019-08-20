@@ -56,7 +56,6 @@ public enum EGui implements IMachineGuiHandler {
 	FUSION_CONTROLLER,
 	GAS_TURBINE,
 	GENERATOR,
-	GRINDER,
 	HIGH_VOLTAGE_SU,
 	IDSU,
 	IMPLOSION_COMPRESSOR,
@@ -80,7 +79,9 @@ public enum EGui implements IMachineGuiHandler {
 	VACUUM_FREEZER,
 	SOLID_CANNING_MACHINE,
 	WIRE_MILL,
-	FLUID_REPLICATOR;
+	FLUID_REPLICATOR,
+
+	DATA_DRIVEN;
 
 	private final boolean containerBuilder;
 

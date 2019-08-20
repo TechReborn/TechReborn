@@ -1,0 +1,35 @@
+{
+  "name": "techreborn:grinder",
+  "energy": 1000,
+  "maxInput": 32,
+  "slots": [
+    {
+      "type": "input",
+      "x": 55,
+      "y": 45
+    },
+    {
+      "type": "output",
+      "x": 101,
+      "y": 45
+    },
+    {
+      "type": "energy",
+      "x": 7,
+      "y": 72
+    }
+  ],
+  "gui": [
+    {
+      "type": "progress_bar",
+      "x": 76,
+      "y": 48,
+      "direction": "right"
+    },
+    {
+      "type": "energy_bar",
+      "x": 9,
+      "y": 19
+    }
+  ]
+}

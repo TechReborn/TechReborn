@@ -25,6 +25,7 @@
 package techreborn.init;
 
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
@@ -53,4 +54,8 @@ public class ModRecipes {
 	public static final RebornRecipeType<RollingMachineRecipe> ROLLING_MACHINE = RecipeManager.newRecipeType(RollingMachineRecipe.class, new Identifier("techreborn:rolling_machine"));
 	public static final RebornRecipeType<RebornRecipe> SOLID_CANNING_MACHINE = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:solid_canning_machine"));
 	public static final RebornRecipeType<RebornRecipe> WIRE_MILL = RecipeManager.newRecipeType(RebornRecipe.class, new Identifier("techreborn:wire_mill"));
+
+	public static RebornRecipeType byName(Identifier identifier){
+		return (RebornRecipeType) Registry.RECIPE_SERIALIZER.get(identifier);
+	}
 }

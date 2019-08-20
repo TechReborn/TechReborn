@@ -24,40 +24,22 @@
 
 package techreborn.blocks;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.BlockView;
-import reborncore.api.blockentity.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import net.minecraft.util.Identifier;
+import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.client.EGui;
 
-import java.util.function.Supplier;
-
 /**
- * @author drcrazy
+ * @author modmuss50
  *
  */
-public class GenericMachineBlock extends BlockMachineBase {
+public class DataDrivenMachineBlock extends GenericMachineBlock {
 
-	private EGui gui;
-	Supplier<BlockEntity> blockEntityClass;
+	private final DataDrivenBEProvider provider;
 
-	public GenericMachineBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
-		super();
-		this.blockEntityClass = blockEntityClass;
-		this.gui = gui;
-	}
-
-	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		if (blockEntityClass == null) {
-			return null;
-		}
-		return blockEntityClass.get();
-	}
-
-	@Override
-	public IMachineGuiHandler getGui() {
-		return gui;
+	public DataDrivenMachineBlock(String ident){
+		super(EGui.DATA_DRIVEN, null);
+		provider = DataDrivenBEProvider.create(this, new Identifier(ident));
+		blockEntityClass = provider;
 	}
 
 }

@@ -384,7 +384,7 @@ public class TRContent {
 		DISTILLATION_TOWER(new GenericMachineBlock(EGui.DISTILLATION_TOWER, DistillationTowerBlockEntity::new)),
 		EXTRACTOR(new GenericMachineBlock(EGui.EXTRACTOR, ExtractorBlockEntity::new)),
 		FLUID_REPLICATOR(new GenericMachineBlock(EGui.FLUID_REPLICATOR, FluidReplicatorBlockEntity::new)),
-		GRINDER(new GenericMachineBlock(EGui.GRINDER, GrinderBlockEntity::new)),
+		GRINDER(new DataDrivenMachineBlock("techreborn:grinder")),
 		ELECTRIC_FURNACE(new GenericMachineBlock(EGui.ELECTRIC_FURNACE, ElectricFurnaceBlockEntity::new)),
 		IMPLOSION_COMPRESSOR(new GenericMachineBlock(EGui.IMPLOSION_COMPRESSOR, ImplosionCompressorBlockEntity::new)),
 		INDUSTRIAL_BLAST_FURNACE(new GenericMachineBlock(EGui.BLAST_FURNACE, IndustrialBlastFurnaceBlockEntity::new)),

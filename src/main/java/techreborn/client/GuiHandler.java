@@ -37,6 +37,8 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.blockentity.ChargeOMatBlockEntity;
 import techreborn.blockentity.DigitalChestBlockEntity;
 import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.data.DataDrivenBEProvider;
+import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
@@ -58,7 +60,6 @@ import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
-import techreborn.client.container.ContainerDestructoPack;
 import techreborn.client.gui.*;
 
 public class GuiHandler {
@@ -76,6 +77,10 @@ public class GuiHandler {
 	@Environment(EnvType.CLIENT)
 	private static AbstractContainerScreen<?> getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
 		final BlockEntity blockEntity = player.world.getBlockEntity(pos);
+
+		if(blockEntity instanceof DataDrivenBEProvider.DataDrivenBlockEntity){
+			return new DataDrivenGui(syncID, player, (DataDrivenBEProvider.DataDrivenBlockEntity) blockEntity);
+		}
 
 		switch (gui) {
 			case AESU:
@@ -114,8 +119,6 @@ public class GuiHandler {
 				return new GuiGasTurbine(syncID, player, (GasTurbineBlockEntity) blockEntity);
 			case GENERATOR:
 				return new GuiGenerator(syncID, player, (SolidFuelGeneratorBlockEntity) blockEntity);
-			case GRINDER:
-				return new GuiGrinder(syncID, player, (GrinderBlockEntity) blockEntity);
 			case IDSU:
 				return new GuiIDSU(syncID, player, (InterdimensionalSUBlockEntity) blockEntity);
 			case IMPLOSION_COMPRESSOR:

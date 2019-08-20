@@ -101,7 +101,6 @@ public class TRBlockEntities {
 	public static final BlockEntityType<FusionControlComputerBlockEntity> FUSION_CONTROL_COMPUTER = register(FusionControlComputerBlockEntity.class, "fusion_control_computer", TRContent.Machine.FUSION_CONTROL_COMPUTER);
 	public static final BlockEntityType<LightningRodBlockEntity> LIGHTNING_ROD = register(LightningRodBlockEntity.class, "lightning_rod", TRContent.Machine.LIGHTNING_ROD);
 	public static final BlockEntityType<IndustrialSawmillBlockEntity> INDUSTRIAL_SAWMILL = register(IndustrialSawmillBlockEntity.class, "industrial_sawmill", TRContent.Machine.INDUSTRIAL_SAWMILL);
-	public static final BlockEntityType<GrinderBlockEntity> GRINDER = register(GrinderBlockEntity.class, "grinder", TRContent.Machine.GRINDER);
 	public static final BlockEntityType<SolidFuelGeneratorBlockEntity> SOLID_FUEL_GENEREATOR = register(SolidFuelGeneratorBlockEntity.class, "solid_fuel_generator", TRContent.Machine.SOLID_FUEL_GENERATOR);
 	public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = register(ExtractorBlockEntity.class, "extractor", TRContent.Machine.EXTRACTOR);
 	public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = register(CompressorBlockEntity.class, "compressor", TRContent.Machine.COMPRESSOR);
