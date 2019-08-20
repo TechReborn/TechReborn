@@ -51,7 +51,6 @@ public class ServerboundPackets {
 	public static final Identifier AUTO_CRAFTING_LOCK = new Identifier("techreborn", "auto_crafting_lock");
 	public static final Identifier ROLLING_MACHINE_LOCK = new Identifier("techreborn", "rolling_machine_lock");
 	public static final Identifier FUSION_CONTROL_SIZE = new Identifier("techreborn", "fusion_control_size");
-	public static final Identifier IDSU = new Identifier("techreborn", "idsu");
 	public static final Identifier REFUND = new Identifier("techreborn", "refund");
 	
 	public static void init() {
@@ -90,18 +89,6 @@ public class ServerboundPackets {
 				if (blockEntity instanceof FusionControlComputerBlockEntity) {
 					((FusionControlComputerBlockEntity) blockEntity).changeSize(sizeDelta);
 				}
-			});
-		});
-
-		registerPacketHandler(IDSU, (extendedPacketBuffer, context) -> {
-			BlockPos pos = extendedPacketBuffer.readBlockPos();
-			int buttonID = extendedPacketBuffer.readInt();
-
-			context.getTaskQueue().execute(() -> {
-				//TODO was commented out when I ported it, so ill leave it here, needs looking into tho
-				//		if (!pos.getWorld().isRemote) {
-				//			pos.handleGuiInputFromClient(buttonID);
-				//		}
 			});
 		});
 
@@ -164,12 +151,6 @@ public class ServerboundPackets {
 		});
 	}
 
-	public static Packet createPacketIdsu(int buttonID, InterdimensionalSUBlockEntity blockEntity) {
-		return NetworkManager.createServerBoundPacket(IDSU, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
-			extendedPacketBuffer.writeInt(buttonID);
-		});
-	}
 
 	public static Packet createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
 		return NetworkManager.createServerBoundPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {

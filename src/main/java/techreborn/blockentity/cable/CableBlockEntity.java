@@ -124,8 +124,6 @@ public class CableBlockEntity extends BlockEntity
 			ticksSinceLastChange = 0;
 		}
 
-		// TODO needs a full recode to not use a specific power net
-
 		ArrayList<EnergyBlockEntity> acceptors = new ArrayList<EnergyBlockEntity>();
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));

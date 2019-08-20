@@ -116,7 +116,6 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void checkTier() {
 		//Nope
-		//TODO: really nope? needs review
 	}
 	
 	// TileMachineBase

@@ -100,8 +100,6 @@ public class GuiHandler {
 				return new GuiChunkLoader(syncID, player, (ChunkLoaderBlockEntity) blockEntity);
 			case COMPRESSOR:
 				return new GuiCompressor(syncID, player, (CompressorBlockEntity) blockEntity);
-			case DESTRUCTOPACK:
-				return new GuiDestructoPack(new ContainerDestructoPack(syncID, player));
 			case DIESEL_GENERATOR:
 				return new GuiDieselGenerator(syncID, player, (DieselGeneratorBlockEntity) blockEntity);
 			case DIGITAL_CHEST:

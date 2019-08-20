@@ -104,7 +104,6 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 			}
 			if (flag != this.burnTime > 0) {
 				flag1 = true;
-				// TODO sync on/off
 			}
 		}
 		if (flag1) {

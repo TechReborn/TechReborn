@@ -57,7 +57,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 		super(TRBlockEntities.INDUSTRIAL_SAWMILL, "IndustrialSawmill", TechRebornConfig.industrialSawmillMaxInput, TechRebornConfig.industrialSawmillMaxEnergy, TRContent.Machine.INDUSTRIAL_SAWMILL.block, 6);
 		final int[] inputs = new int[] { 0, 1 };
 		final int[] outputs = new int[] { 2, 3, 4 };
-		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this, getInventoryAccess());
+		this.inventory = new RebornInventory<>(7, "SawmillBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_SAWMILL, this, 1, 3, this.inventory, inputs, outputs);
 		this.tank = new Tank("SawmillBlockEntity", IndustrialSawmillBlockEntity.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
@@ -119,17 +119,6 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	public Tank getTank() {
 		return tank;
 	}
-
-	private static IInventoryAccess<IndustrialSawmillBlockEntity> getInventoryAccess(){
-		return (slotID, stack, face, direction, blockEntity) -> {
-			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				//TODO return if the stack can take fluids
-				//return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null).isPresent();
-			}
-			return true;
-		};
-	}
-
 
 	// IContainerProvider
 	@Override

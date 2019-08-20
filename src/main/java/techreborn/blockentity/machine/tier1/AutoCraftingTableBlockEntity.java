@@ -194,9 +194,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					ItemStack stack = inventory.getInvStack(j);
 					if (ingredient.method_8093(stack)) {
 						handleContainerItem(stack);
-						stack.decrement(1); // TODO is this right? or do I need
-											// to use it as an actull
-											// crafting grid
+						stack.decrement(1);
 						break;
 					}
 				}
@@ -207,7 +205,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (output.isEmpty()) {
 			inventory.setInvStack(9, outputStack.copy());
 		} else {
-			// TODO use ouputStack in someway?
 			output.increment(recipe.getOutput().getCount());
 		}
 		return true;
