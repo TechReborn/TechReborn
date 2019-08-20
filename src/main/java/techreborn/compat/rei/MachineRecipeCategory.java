@@ -94,6 +94,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		for (List<ItemStack> inputs : machineRecipe.getInput()){
 			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStacks(inputs), true, true, true));
 		}
+		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		widgets.add(new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()){
 			@Override
@@ -105,6 +106,17 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		i = 0;
 		for (ItemStack outputs : machineRecipe.getOutput()){
 			widgets.add(new SlotWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStack(outputs), true, true, true));
+		}
+		
+		int heat = machineRecipe.getHeat();
+		if (heat > 0) {
+			String neededHeat = heat + " " + StringUtils.t("techreborn.jei.recipe.heat");
+			widgets.add(new LabelWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), neededHeat){
+				@Override
+				public void render(int mouseX, int mouseY, float delta) {
+					font.draw(text, x - font.getStringWidth(text) / 2, y, ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
+				}
+			});			
 		}
 
 		return widgets;
