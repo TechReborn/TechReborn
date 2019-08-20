@@ -35,14 +35,14 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
+import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.blockentity.MachineCasingBlockEntity;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 import techreborn.multiblocks.MultiBlockCasing;
-import techreborn.blockentity.GenericMachineBlockEntity;
-import techreborn.blockentity.MachineCasingBlockEntity;
 
 public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
@@ -124,10 +124,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
-		
-		if (getMutliBlock()){
-			super.tick();
-		}		
+		super.tick();
 	}
 	
 	// IContainerProvider
