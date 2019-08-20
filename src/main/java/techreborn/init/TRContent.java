@@ -89,6 +89,7 @@ public class TRContent {
 	public static Block RUBBER_FENCE;
 	public static Block RUBBER_FENCE_GATE;
 	public static Block RUBBER_TRAPDOOR;
+	public static Block RUBBER_BUTTON;
 	
 	// Armor
 	public static Item CLOAKING_DEVICE;

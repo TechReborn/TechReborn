@@ -45,6 +45,7 @@ import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.blocks.misc.BlockRubberPlank;
 import techreborn.blocks.misc.BlockRubberPlankStair;
 import techreborn.blocks.misc.BlockRubberSapling;
+import techreborn.blocks.misc.RubberButtonBlock;
 import techreborn.blocks.misc.RubberTrapdoorBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModFluids;
@@ -128,6 +129,7 @@ public class ModRegistry {
 								.strength(2.0F, 15.0F).sounds(BlockSoundGroup.WOOD).build()), "rubber_fence_gate"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_STAIR = InitUtils.setup(new BlockRubberPlankStair(), "rubber_plank_stair"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_TRAPDOOR = InitUtils.setup(new RubberTrapdoorBlock(), "rubber_trapdoor"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_BUTTON = InitUtils.setup(new RubberButtonBlock(), "rubber_button"), itemGroup);
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}

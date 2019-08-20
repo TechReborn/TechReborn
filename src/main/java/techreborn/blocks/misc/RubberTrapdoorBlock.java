@@ -1,6 +1,3 @@
-/**
- * 
- */
 package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
