@@ -24,53 +24,42 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Identifier;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 
-public class GuiAlloyFurnace extends AbstractContainerScreen<BuiltContainer> {
-
-	private static final Identifier texture = new Identifier("techreborn",
-		"textures/gui/alloy_furnace.png");
+public class GuiAlloyFurnace extends GuiBase<BuiltContainer> {
 
 	IronAlloyFurnaceBlockEntity alloyfurnace;
 
 	public GuiAlloyFurnace(int syncID, final PlayerEntity player, final IronAlloyFurnaceBlockEntity alloyFurnace) {
-		super(alloyFurnace.createContainer(syncID, player), player.inventory, new LiteralText("techreborn.alloy_furnace"));
-		this.containerWidth = 176;
-		this.containerHeight = 167;
+		super(player, alloyFurnace, alloyFurnace.createContainer(syncID, player));
 		this.alloyfurnace = alloyFurnace;
 	}
 
 	@Override
-	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.renderBackground();
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.minecraft.getTextureManager().bindTexture(GuiAlloyFurnace.texture);
-		final int k = (this.width - this.containerWidth) / 2;
-		final int l = (this.height - this.containerHeight) / 2;
-		this.blit(k, l, 0, 0, this.containerWidth, this.containerHeight);
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
 
-		if (this.alloyfurnace.isBurning()) {
-			int i1 = this.alloyfurnace.getBurnTimeRemainingScaled(13);
-			this.blit(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 1);
-			i1 = this.alloyfurnace.getCookProgressScaled(24);
-			this.blit(k + 79, l + 34, 176, 14, i1 + 1, 16);
-		}
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+
+		drawSlot(47, 17, layer);
+		drawSlot(65, 17, layer);
+
+		drawSlot(56, 53, layer);
+
+		drawOutputSlot(116, 35, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translate("block.techreborn.iron_alloy_furnace");
-		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
-			4210752);
-		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,
-			this.containerHeight - 96 + 2, 4210752);
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+
+		builder.drawProgressBar(this, alloyfurnace.getCookProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(this, alloyfurnace.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
 	}
 
 	@Override

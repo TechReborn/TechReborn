@@ -270,7 +270,7 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
 			.slot(0, 47, 17)
 			.slot(1, 65, 17)
