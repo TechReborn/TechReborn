@@ -33,6 +33,8 @@ import net.minecraft.util.registry.Registry;
 import reborncore.common.fluid.*;
 import techreborn.TechReborn;
 
+import java.util.Locale;
+
 public enum ModFluids {
 	BERYLLIUM,
 	CALCIUM,
@@ -78,11 +80,11 @@ public enum ModFluids {
 	private final Identifier identifier;
 
 	ModFluids() {
-		this.identifier = new Identifier(TechReborn.MOD_ID, this.toString().toLowerCase());
+		this.identifier = new Identifier(TechReborn.MOD_ID, this.toString().toLowerCase(Locale.ROOT));
 
 		FluidSettings fluidSettings = FluidSettings.create();
 
-		Identifier texture = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase() + "_flowing");
+		Identifier texture = new Identifier(TechReborn.MOD_ID, "block/fluids/" + this.toString().toLowerCase(Locale.ROOT) + "_flowing");
 
 		fluidSettings.setStillTexture(texture);
 		fluidSettings.setFlowingTexture(texture);

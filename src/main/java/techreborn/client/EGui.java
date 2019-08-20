@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 public enum EGui implements IMachineGuiHandler {
@@ -93,7 +94,7 @@ public enum EGui implements IMachineGuiHandler {
 
 	public static EGui byID(Identifier resourceLocation){
 		return Arrays.stream(values())
-			.filter(eGui -> eGui.name().toLowerCase().equals(resourceLocation.getPath()))
+			.filter(eGui -> eGui.name().toLowerCase(Locale.ROOT).equals(resourceLocation.getPath()))
 			.findFirst()
 			.orElseThrow(() -> new RuntimeException("Failed to find gui for " + resourceLocation));
 	}
@@ -103,7 +104,7 @@ public enum EGui implements IMachineGuiHandler {
 	}
 
 	public Identifier getID(){
-		return new Identifier("techreborn", name().toLowerCase());
+		return new Identifier("techreborn", name().toLowerCase(Locale.ROOT));
 	}
 
 	@Override

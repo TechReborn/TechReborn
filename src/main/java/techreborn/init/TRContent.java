@@ -70,6 +70,7 @@ import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.function.Function;
 
 public class TRContent {
@@ -220,7 +221,7 @@ public class TRContent {
 		public final EnumPowerTier powerTier;
 		
 		SolarPanels(EnumPowerTier tier, int generationRateD, int generationRateN) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			powerTier = tier;
 			block = new BlockSolarPanel(this);
 			this.generationRateD = generationRateD;
@@ -261,7 +262,7 @@ public class TRContent {
 		
 		
 		Cables(int transferRate, double cableThickness, boolean canKill, EnumPowerTier tier) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
 			this.cableThickness = cableThickness / 2;
@@ -308,7 +309,7 @@ public class TRContent {
 		public final int maxY;
 
 		Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new Block(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
 			this.veinSize = veinSize;
 			this.veinsPerChunk = veinsPerChunk;
@@ -332,7 +333,7 @@ public class TRContent {
 		public final Block block;
 
 		StorageBlocks() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
 		}
@@ -353,7 +354,7 @@ public class TRContent {
 		public final Block casing;
 
 		MachineBlocks(int casingHeatCapacity) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			frame = new BlockMachineFrame();
 			InitUtils.setup(frame, name + "_machine_frame");
 			casing = new BlockMachineCasing(casingHeatCapacity);
@@ -445,7 +446,7 @@ public class TRContent {
 		public final Block block;
 
 		<B extends Block> Machine(B block) {
-			this.name = this.toString().toLowerCase();
+			this.name = this.toString().toLowerCase(Locale.ROOT);
 			this.block = block;
 			InitUtils.setup(block, name);
 		}
@@ -472,7 +473,7 @@ public class TRContent {
 		public final Item item;
 
 		Dusts() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_dust");
 		}
@@ -503,7 +504,7 @@ public class TRContent {
 		public final Item item;
 
 		SmallDusts() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_small_dust");
 		}
@@ -529,7 +530,7 @@ public class TRContent {
 		public final Item item;
 
 		Gems() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_gem");
 		}
@@ -556,7 +557,7 @@ public class TRContent {
 		public final Item item;
 
 		Ingots() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_ingot");
 		}
@@ -583,7 +584,7 @@ public class TRContent {
 		public final Item item;
 
 		Nuggets() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_nugget");
 		}
@@ -654,7 +655,7 @@ public class TRContent {
 		public final Item item;
 
 		Parts() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name);
 		}
@@ -683,7 +684,7 @@ public class TRContent {
 		public final Item item;
 
 		Plates() {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
 			InitUtils.setup(item, name + "_plate");
 		}
@@ -747,7 +748,7 @@ public class TRContent {
 		public Item item;
 
 		Upgrades(IUpgrade upgrade) {
-			name = this.toString().toLowerCase();
+			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new ItemUpgrade(name, upgrade);
 			InitUtils.setup(item, name + "_upgrade");
 		}

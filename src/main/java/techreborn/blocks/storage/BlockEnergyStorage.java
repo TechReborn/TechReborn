@@ -46,6 +46,8 @@ import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 
+import java.util.Locale;
+
 /**
  * Created by Rushmead
  */
@@ -89,7 +91,7 @@ public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
 		if (fullName.equalsIgnoreCase("LESU")) {
 			return "ev_multi";
 		}
-		return fullName.toLowerCase();
+		return fullName.toLowerCase(Locale.ROOT);
 	}
 
 	// Block

@@ -31,6 +31,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
 
+import java.util.Locale;
 import java.util.function.Supplier;
 
 
@@ -98,7 +99,7 @@ public enum TRArmorMaterial implements ArmorMaterial {
 
 	@Override
 	public String getName() {
-		return this.toString().toLowerCase();
+		return this.toString().toLowerCase(Locale.ROOT);
 	}
 
 	@Override
