@@ -63,8 +63,8 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		super(TRBlockEntities.ELECTRIC_FURNACE );
 	}
 	
-	private void setInvDirty(boolean isDiry) {
-		inventory.setChanged(isDiry);
+	private void setInvDirty(boolean isDirty) {
+		inventory.setChanged(isDirty);
 	}
 	
 	private boolean isInvDirty() {
@@ -148,11 +148,11 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (inventory.getInvStack(inputSlot).isEmpty()) {
 			return false;
 		}
-		Optional<SmeltingRecipe> testRecipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, inventory, world);
-		if (!testRecipe.isPresent()) {
+		
+		if (!recipe.matches(inventory, world)) {
 			return false;
 		}
-		
+	
 		return true;
 	}
 	
@@ -204,7 +204,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		charge(2);
 		
 		if (world.isClient) {
-			setInvDirty(false);
 			return;
 		}
 
