@@ -30,7 +30,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.resource.language.I18n;
+import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
@@ -51,6 +51,7 @@ import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.StringUtils;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
@@ -178,9 +179,8 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (player.isSneaking()) {
 			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
-					Formatting.GRAY + I18n.translate("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ Formatting.GOLD + I18n
-						.translate("techreborn.message.nanosaberActivate")));
+					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
+						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
 			} else {
 				if (!ItemUtils.isActive(stack)) {
 					if (stack.getTag() == null) {
@@ -189,17 +189,15 @@ public class ItemIndustrialDrill extends ItemDrill {
 					stack.getTag().putBoolean("isActive", true);
 					if (world.isClient) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
-							Formatting.GRAY + I18n.translate("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + I18n
-								.translate("techreborn.message.nanosaberActive")));
+							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
+								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActive")));
 					}
 				} else {
 					stack.getTag().putBoolean("isActive", false);
 					if (world.isClient) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
-							Formatting.GRAY + I18n.translate("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + I18n
-								.translate("techreborn.message.nanosaberInactive")));
+							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
+								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberInactive")));
 					}
 				}
 			}
@@ -213,9 +211,8 @@ public class ItemIndustrialDrill extends ItemDrill {
 		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
-					Formatting.GRAY + I18n.translate("techreborn.message.nanosaberEnergyError") + " "
-						+ Formatting.GOLD + I18n
-						.translate("techreborn.message.nanosaberDeactivating")));
+					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "
+						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberDeactivating")));
 			}
 			stack.getTag().putBoolean("isActive", false);
 		}
@@ -225,9 +222,9 @@ public class ItemIndustrialDrill extends ItemDrill {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(new LiteralText(Formatting.YELLOW + "Shear: " + Formatting.RED + I18n.translate("techreborn.message.nanosaberInactive")));
+			tooltip.add(new LiteralText(Formatting.YELLOW + "Shear: " + Formatting.RED + StringUtils.t("techreborn.message.nanosaberInactive")));
 		} else {
-			tooltip.add(new LiteralText(Formatting.YELLOW + "Shear: " + Formatting.GREEN + I18n.translate("techreborn.message.nanosaberActive")));
+			tooltip.add(new LiteralText(Formatting.YELLOW + "Shear: " + Formatting.GREEN + StringUtils.t("techreborn.message.nanosaberActive")));
 		}
 	}
 

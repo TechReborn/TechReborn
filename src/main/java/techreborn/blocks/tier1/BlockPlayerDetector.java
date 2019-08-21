@@ -31,7 +31,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.resource.language.I18n;
+import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -124,7 +124,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 
 		if (worldIn.isClient) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new LiteralText(
-				Formatting.GRAY + I18n.translate("techreborn.message.detects") + " " + color
+				Formatting.GRAY + StringUtils.t("techreborn.message.detects") + " " + color
 					+ StringUtils.toFirstCapital(newType.asString())));
 		}
 		return true;

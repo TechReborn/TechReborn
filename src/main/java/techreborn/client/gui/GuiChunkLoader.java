@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.resource.language.I18n;
+import reborncore.common.util.StringUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
@@ -81,10 +81,10 @@ public class GuiChunkLoader extends AbstractContainerScreen<BuiltContainer> {
 
 	@Override
 	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = I18n.translate("block.techreborn.chunk_loader");
+		final String name = StringUtils.t("block.techreborn.chunk_loader");
 		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
 			4210752);
-		this.font.draw(I18n.translate("container.inventory", new Object[0]), 8,
+		this.font.draw(StringUtils.t("container.inventory", new Object[0]), 8,
 			this.containerHeight - 96 + 2, 4210752);
 	}
 

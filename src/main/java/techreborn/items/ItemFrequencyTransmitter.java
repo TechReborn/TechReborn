@@ -29,7 +29,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.resource.language.I18n;
+import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -83,13 +83,13 @@ public class ItemFrequencyTransmitter extends Item {
 
 		if (!world.isClient) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new LiteralText(
-				Formatting.GRAY + I18n.translate("techreborn.message.setTo") + " X: " +
+				Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " X: " +
 					Formatting.GOLD + pos.getX() +
 					Formatting.GRAY + " Y: " +
 					Formatting.GOLD + pos.getY() +
 					Formatting.GRAY + " Z: " +
 					Formatting.GOLD + pos.getZ() +
-					Formatting.GRAY + " " + I18n.translate("techreborn.message.in") + " " +
+					Formatting.GRAY + " " + StringUtils.t("techreborn.message.in") + " " +
 					Formatting.GOLD + getDimName(world.getDimension().getType())
 					+ " (" + getDimName(world.getDimension().getType()) + ")"));
 		}
@@ -104,8 +104,8 @@ public class ItemFrequencyTransmitter extends Item {
 			stack.setTag(null);
 			if (!world.isClient) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new LiteralText(
-					Formatting.GRAY + I18n.translate("techreborn.message.coordsHaveBeen") + " "
-						+ Formatting.GOLD + I18n.translate("techreborn.message.cleared")));
+					Formatting.GRAY + StringUtils.t("techreborn.message.coordsHaveBeen") + " "
+						+ Formatting.GOLD + StringUtils.t("techreborn.message.cleared")));
 			}
 		}
 
@@ -127,7 +127,7 @@ public class ItemFrequencyTransmitter extends Item {
 			tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(Registry.DIMENSION.get(dim)).toString()));
 
 		} else {
-			tooltip.add(new LiteralText(Formatting.GRAY + I18n.translate("techreborn.message.noCoordsSet")));
+			tooltip.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.noCoordsSet")));
 		}
 	}
 
@@ -153,7 +153,7 @@ public class ItemFrequencyTransmitter extends Item {
 					int coordDim = stack.getTag().getInt("dim");
 					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION.get(coordDim)).toString() + " (" + coordDim + ")";
 				} else {
-					text = grey + I18n.translate("techreborn.message.noCoordsSet");
+					text = grey + StringUtils.t("techreborn.message.noCoordsSet");
 				}
 			}
 			return text;
