@@ -35,6 +35,7 @@ import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.generator.BlockSolarPanel;
@@ -84,7 +85,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		if (world.getTime() % 20 == 0) {
 			canSeeSky = world.method_8626(pos.up());
 			if (lastState != isSunOut()) {
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockSolarPanel.ACTIVE, isSunOut()));
+				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isSunOut()));
 				lastState = isSunOut();
 			}
 		}

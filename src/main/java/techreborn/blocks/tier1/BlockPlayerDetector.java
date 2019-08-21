@@ -49,7 +49,6 @@ import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.ChatUtils;
-import reborncore.common.util.StringUtils;
 import techreborn.blockentity.machine.tier1.PlayerDectectorBlockEntity;
 import techreborn.utils.MessageIDs;
 

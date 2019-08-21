@@ -39,7 +39,6 @@ import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 

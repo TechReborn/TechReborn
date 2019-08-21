@@ -89,7 +89,6 @@ public class GuiManual extends Screen {
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		blit(centerX, centerY, 0, 0, guiWidth, guiHeight);
-		int y = height / 4;
 		font.draw(text1, ((width / 2) - font.getStringWidth(text1) / 2), centerY + 40, 4210752);
 		font.draw(text2, ((width / 2) - font.getStringWidth(text2) / 2), centerY + 90, 4210752);
 		if (TechRebornConfig.allowManualRefund) {

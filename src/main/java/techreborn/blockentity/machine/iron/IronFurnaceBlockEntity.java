@@ -25,7 +25,7 @@
 package techreborn.blockentity.machine.iron;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
@@ -86,7 +86,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 			this.updateState();
 		}
 		if (this.fuel <= 0 && this.canSmelt()) {
-			this.fuel = this.fuelGague = (int) (FurnaceBlockEntity.createFuelTimeMap().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
+			this.fuel = this.fuelGague = (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
 			if (this.fuel > 0) {
 				// Fuel slot
 				ItemStack fuelStack = inventory.getInvStack(this.fuelslot);
@@ -178,7 +178,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	public static IInventoryAccess<IronFurnaceBlockEntity> getInvetoryAccess(){
 		return (slotID, stack, face, direction, blockEntity) -> {
 			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				boolean isFuel = FurnaceBlockEntity.canUseAsFuel(stack);
+				boolean isFuel = AbstractFurnaceBlockEntity.canUseAsFuel(stack);
 				if(isFuel){
 					ItemStack fuelSlotStack = blockEntity.inventory.getInvStack(blockEntity.fuelslot);
 					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxCount() != fuelSlotStack.getCount()){

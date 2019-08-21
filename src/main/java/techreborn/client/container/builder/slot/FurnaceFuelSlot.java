@@ -24,7 +24,7 @@
 
 package techreborn.client.container.builder.slot;
 
-import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -39,7 +39,7 @@ public class FurnaceFuelSlot extends BaseSlot {
 	@Override
 	public boolean canInsert(ItemStack stack)
 	{
-		return FurnaceBlockEntity.canUseAsFuel(stack) || isBucket(stack);
+		return AbstractFurnaceBlockEntity.canUseAsFuel(stack) || isBucket(stack);
 	}
 
 	@Override

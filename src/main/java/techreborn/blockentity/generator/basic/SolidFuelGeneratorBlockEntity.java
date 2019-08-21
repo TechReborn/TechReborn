@@ -25,7 +25,7 @@
 package techreborn.blockentity.generator.basic;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
@@ -64,7 +64,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	public static int getItemBurnTime(@NonNull ItemStack stack) {
-		Map<Item, Integer> burnMap = FurnaceBlockEntity.createFuelTimeMap();
+		Map<Item, Integer> burnMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
 		if(burnMap.containsKey(stack.getItem())){
 			return burnMap.get(stack.getItem()) / 4;
 		}

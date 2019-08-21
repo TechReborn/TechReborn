@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.machine.iron;
 
-import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
@@ -67,9 +67,8 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	public static int getItemBurnTime(ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
-		} else {
-			return FurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0);
 		}
+		return AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0);
 	}
 
 	@Override
