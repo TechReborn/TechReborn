@@ -1,21 +1,12 @@
 buildscript {
 	repositories {
 		mavenCentral()
-		jcenter()
 		maven {
-			name = "sonatype"
-			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+			name = "Modmuss50"
+			url = "https://maven.modmuss50.me/"
 		}
 		maven {
 			url "https://plugins.gradle.org/m2/"
-		}
-		maven {
-			name = "CB Repo"
-			url = "http://chickenbones.net/maven"
-		}
-		maven {
-			name = "Modmuss50"
-			url = "http://maven.modmuss50.me/"
 		}
 	}
 	dependencies {
@@ -42,12 +33,7 @@ targetCompatibility = 1.8
 repositories {
 	maven {
 		name = "Modmuss50"
-		url = "http://maven.modmuss50.me/"
-	}
-	maven {
-		// JEI
-		name "JEI"
-		url "http://dvs1.progwml6.com/files/maven"
+		url = "https://maven.modmuss50.me/"
 	}
 	maven {
 		name = 'sponge'
