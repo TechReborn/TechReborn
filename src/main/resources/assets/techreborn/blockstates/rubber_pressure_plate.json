@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "powered=false": { "model": "techreborn:block/rubber/rubber_pressure_plate" },
+        "powered=true": { "model": "techreborn:block/rubber/rubber_pressure_plate_down" }
+    }
+}
