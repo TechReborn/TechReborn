@@ -91,6 +91,7 @@ public class TRContent {
 	public static Block RUBBER_TRAPDOOR;
 	public static Block RUBBER_BUTTON;
 	public static Block RUBBER_PRESSURE_PLATE;
+	public static Block RUBBER_DOOR;
 	
 	// Armor
 	public static Item CLOAKING_DEVICE;

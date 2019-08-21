@@ -46,6 +46,7 @@ import techreborn.blocks.misc.BlockRubberPlank;
 import techreborn.blocks.misc.BlockRubberPlankStair;
 import techreborn.blocks.misc.BlockRubberSapling;
 import techreborn.blocks.misc.RubberButtonBlock;
+import techreborn.blocks.misc.RubberDoorBlock;
 import techreborn.blocks.misc.RubberPressurePlateBlock;
 import techreborn.blocks.misc.RubberTrapdoorBlock;
 import techreborn.config.TechRebornConfig;
@@ -132,6 +133,7 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_TRAPDOOR = InitUtils.setup(new RubberTrapdoorBlock(), "rubber_trapdoor"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_BUTTON = InitUtils.setup(new RubberButtonBlock(), "rubber_button"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PRESSURE_PLATE = InitUtils.setup(new RubberPressurePlateBlock(), "rubber_pressure_plate"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_DOOR = InitUtils.setup(new RubberDoorBlock(), "rubber_door"), itemGroup);
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}
