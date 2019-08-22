@@ -45,6 +45,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import io.github.prospector.silk.fluid.FluidInstance;
+
 public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCategory<MachineRecipeDisplay<R>> {
 
 	private final RebornRecipeType<R> rebornRecipeType;
@@ -93,6 +95,11 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		int i = 0;
 		for (List<ItemStack> inputs : machineRecipe.getInput()){
 			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStacks(inputs), true, true, true));
+		}
+		
+		FluidInstance fluidInstance = machineRecipe.getFluidInstance();
+		if (fluidInstance != null) {
+			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), Renderer.fromFluid(fluidInstance.getFluid()), true, true, true));
 		}
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());

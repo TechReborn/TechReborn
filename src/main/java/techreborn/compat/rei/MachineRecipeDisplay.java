@@ -29,11 +29,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
+import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import io.github.prospector.silk.fluid.FluidInstance;
 
 public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDisplay {
 
@@ -42,6 +45,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	private List<ItemStack> outputs;
 	private int energy = 0;
 	private int heat = 0;
+	private FluidInstance fluidInstance = null;
 
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
@@ -51,6 +55,9 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 		if (recipe instanceof BlastFurnaceRecipe) {
 			this.heat = ((BlastFurnaceRecipe) recipe).getHeat();
 		}
+		if (recipe instanceof RebornFluidRecipe) {
+			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
+		}
 	}
 	
 	public int getEnergy() {
@@ -59,6 +66,10 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	
 	public int getHeat() {
 		return heat;
+	}
+	
+	public FluidInstance getFluidInstance() {
+		return fluidInstance;
 	}
 
 	@Override

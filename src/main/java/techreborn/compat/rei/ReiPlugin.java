@@ -37,7 +37,10 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.TechReborn;
+import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.compat.rei.fluidreplicator.FluidReplicatorRecipeCategory;
+import techreborn.compat.rei.fluidreplicator.FluidReplicatorRecipeDisplay;
 import techreborn.compat.rei.rollingmachine.RollingMachineCategory;
 import techreborn.compat.rei.rollingmachine.RollingMachineDisplay;
 import techreborn.init.ModRecipes;
@@ -97,7 +100,7 @@ public class ReiPlugin implements REIPluginV0 {
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.COMPRESSOR, 1));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.DISTILLATION_TOWER, 3));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.EXTRACTOR, 1));
-        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.FLUID_REPLICATOR, 1));
+        recipeHelper.registerCategory(new FluidReplicatorRecipeCategory(ModRecipes.FLUID_REPLICATOR));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.FUSION_REACTOR, 2));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.GRINDER, 1));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.IMPLOSION_COMPRESSOR));
@@ -143,6 +146,14 @@ public class ReiPlugin implements REIPluginV0 {
 				return new RollingMachineDisplay(rollingMachineRecipe.getShapedRecipe());
 			};
 		}
+		
+		if(recipeType == ModRecipes.FLUID_REPLICATOR){
+			recipeDisplay = r -> {
+				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r;
+				return new FluidReplicatorRecipeDisplay(recipe);
+			};
+		}
+		
 
 		recipeHelper.registerRecipes(recipeType.getName(), (Predicate<Recipe>) recipe -> {
 			if (recipe instanceof RebornRecipe) {
