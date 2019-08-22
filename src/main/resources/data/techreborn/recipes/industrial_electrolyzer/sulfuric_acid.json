@@ -4,34 +4,33 @@
   "time": 1400,
   "ingredients": [
     {
-      "fluid": "techreborn:sulfuric_acid",
-      "holder": "techreborn:cell"
+      "item": "techreborn:cell",
+      "count": 5,
+      "nbt": {
+        "fluid": "techreborn:sulfuric_acid"
+      }
     }
   ],
   "results": [
     {
       "item": "techreborn:cell",
       "count": 2,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:hydrogen"
       }
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:sulfur"
       }
     },
     {
       "item": "techreborn:cell",
       "count": 2,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:compressed_air"
       }
-    },
-    {
-      "item": "techreborn:cell",
-      "count": 2
     }
   ]
 }

@@ -4,7 +4,8 @@
   "time": 1200,
   "ingredients": [
     {
-      "item": "techreborn:charcoal_dust"
+      "item": "techreborn:ashes_dust",
+      "count": 2
     },
     {
       "item": "techreborn:cell",
@@ -14,8 +15,8 @@
   "results": [
     {
       "item": "techreborn:cell",
-      "tag": {
-        "fluid": "techreborn:carbon"
+      "nbt": {
+        "fluid": "techreborn:carbon_fiber"
       }
     }
   ]

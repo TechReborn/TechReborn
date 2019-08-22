@@ -24,14 +24,14 @@
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:silicon"
       }
     },
     {
       "item": "techreborn:cell",
       "count": 2,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:compressed_air"
       }
     }

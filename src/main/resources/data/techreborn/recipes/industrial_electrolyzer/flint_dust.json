@@ -1,41 +1,28 @@
 {
   "type": "techreborn:industrial_electrolyzer",
   "power": 50,
-  "time": 1280,
+  "time": 1100,
   "ingredients": [
     {
-      "item": "techreborn:andradite_dust",
-      "count": 20
+      "item": "techreborn:flint_dust",
+      "count": 8
     },
     {
       "item": "techreborn:cell",
-      "count": 12,
+      "count": 2,
       "nbt": "empty"
     }
   ],
   "results": [
     {
       "item": "techreborn:cell",
-      "count": 3,
-      "tag": {
-        "fluid": "techreborn:calcium"
-      }
-    },
-    {
-      "item": "techreborn:iron_dust",
-      "count": 2
-    },
-    {
-      "item": "techreborn:cell",
-      "count": 3,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:silicon"
       }
     },
     {
       "item": "techreborn:cell",
-      "count": 6,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:compressed_air"
       }
     }

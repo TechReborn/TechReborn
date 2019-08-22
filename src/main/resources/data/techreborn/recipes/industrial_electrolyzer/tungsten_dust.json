@@ -4,8 +4,7 @@
   "time": 1200,
   "ingredients": [
     {
-      "item": "techreborn:ashes_dust",
-      "count": 2
+      "tag": "c:tungsten_dust"
     },
     {
       "item": "techreborn:cell",
@@ -15,8 +14,8 @@
   "results": [
     {
       "item": "techreborn:cell",
-      "tag": {
-        "fluid": "techreborn:carbon_fiber"
+      "nbt": {
+        "fluid": "techreborn:wolframium"
       }
     }
   ]

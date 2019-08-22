@@ -17,27 +17,27 @@
     {
       "item": "techreborn:cell",
       "count": 5,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:nitrogen"
       }
     },
     {
       "item": "techreborn:cell",
-      "tag": {
-        "fluid": "techreborn:berylium"
+      "nbt": {
+        "fluid": "techreborn:beryllium"
       }
     },
     {
       "item": "techreborn:cell",
       "count": 4,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:potassium"
       }
     },
     {
       "item": "techreborn:cell",
       "count": 6,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:chlorite"
       }
     }

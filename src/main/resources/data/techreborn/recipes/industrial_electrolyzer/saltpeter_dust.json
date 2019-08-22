@@ -1,41 +1,37 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 50,
-  "time": 600,
+  "power": 60,
+  "time": 1400,
   "ingredients": [
     {
-      "item": "techreborn:emerald_dust",
-      "count": 29
+      "item": "techreborn:saltpeter_dust",
+      "count": 10
     },
     {
       "item": "techreborn:cell",
-      "count": 18,
+      "count": 7,
       "nbt": "empty"
     }
   ],
   "results": [
     {
-      "item": "techreborn:aluminum_dust",
-      "count": 2
+      "item": "techreborn:cell",
+      "count": 2,
+      "nbt": {
+        "fluid": "techreborn:potassium"
+      }
+    },
+    {
+      "item": "techreborn:cell",
+      "count": 2,
+      "nbt": {
+        "fluid": "techreborn:nitrogen"
+      }
     },
     {
       "item": "techreborn:cell",
       "count": 3,
-      "tag": {
-        "fluid": "techreborn:beryllium"
-      }
-    },
-    {
-      "item": "techreborn:cell",
-      "count": 6,
-      "tag": {
-        "fluid": "techreborn:silicon"
-      }
-    },
-    {
-      "item": "techreborn:cell",
-      "count": 9,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:compressed_air"
       }
     }

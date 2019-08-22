@@ -1,11 +1,11 @@
 {
   "type": "techreborn:industrial_electrolyzer",
-  "power": 60,
-  "time": 500,
+  "power": 50,
+  "time": 400,
   "ingredients": [
     {
-      "count": 9,
-      "tag": "c:ruby_dust"
+      "count": 8,
+      "tag": "c:sapphire_dust"
     },
     {
       "item": "techreborn:cell",
@@ -19,12 +19,9 @@
       "count": 2
     },
     {
-      "item": "techreborn:chrome_dust"
-    },
-    {
       "item": "techreborn:cell",
       "count": 3,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:compressed_air"
       }
     }

@@ -12,13 +12,13 @@
     {
       "item": "techreborn:cell",
       "count": 4,
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:hydrogen"
       }
     },
     {
       "item": "techreborn:cell",
-      "tag": {
+      "nbt": {
         "fluid": "techreborn:carbon"
       }
     }

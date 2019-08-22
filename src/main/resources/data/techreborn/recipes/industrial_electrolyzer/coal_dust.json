@@ -1,21 +1,23 @@
 {
   "type": "techreborn:industrial_electrolyzer",
   "power": 50,
-  "time": 1200,
+  "time": 1400,
   "ingredients": [
     {
-      "tag": "c:tungsten_dust"
+      "item": "techreborn:coal_dust"
     },
     {
       "item": "techreborn:cell",
+      "count": 2,
       "nbt": "empty"
     }
   ],
   "results": [
     {
       "item": "techreborn:cell",
-      "tag": {
-        "fluid": "techreborn:wolframium"
+      "count": 2,
+      "nbt": {
+        "fluid": "techreborn:carbon"
       }
     }
   ]
