@@ -170,15 +170,16 @@ public class BlockCable extends BlockWithEntity {
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-
+	
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {
 		if (type != null) {
-			double culling = type.cableThickness / 2;
+			// outline is 1px bigger then model to ease selection
+			double culling = type.cableThickness - 1;
 			return Block.createCuboidShape(culling, culling, culling, 16.0D - culling, 16.0D - culling,
 					16.0D - culling);
 		}
-		return Block.createCuboidShape(6, 6, 6, 10, 10, 10);
+		return Block.createCuboidShape(4, 4, 4, 12, 12, 12);
 	}
 
 	@Override
