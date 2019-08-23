@@ -24,74 +24,51 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.gui.screen.ingame.AbstractContainerScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import reborncore.common.util.StringUtils;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Identifier;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.gui.builder.widget.GuiButtonSimple;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown;
+import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
+import techreborn.packets.ServerboundPackets;
 
-public class GuiChunkLoader extends AbstractContainerScreen<BuiltContainer> {
+public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 
-	private static final Identifier texture = new Identifier("techreborn",
-		"textures/gui/industrial_chunkloader.png");
-	ChunkLoaderBlockEntity chunkloader;
-	private ButtonWidget plusOneButton;
-	private ButtonWidget plusTenButton;
-	private ButtonWidget minusOneButton;
-	private ButtonWidget minusTenButton;
+	ChunkLoaderBlockEntity blockEntity;
 
-	public GuiChunkLoader(int syncID, final PlayerEntity player, final ChunkLoaderBlockEntity chunkLoader) {
-		super(chunkLoader.createContainer(syncID, player), player.inventory, new LiteralText("techreborn.chunkloader"));
-		this.containerWidth = 176;
-		this.containerHeight = 167;
-		this.chunkloader = chunkLoader;
+	public GuiChunkLoader(int syncID, PlayerEntity player, ChunkLoaderBlockEntity blockEntity) {
+		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		this.blockEntity = blockEntity;
 	}
-
+	
 	@Override
-	public void init() {
-		super.init();
-		this.left = this.width / 2 - this.containerWidth / 2;
-		this.top = this.height / 2 - this.containerHeight / 2;
-		this.plusOneButton = new GuiButtonSimple(this.left + 5, this.top + 37, 40, 20, "+1", buttonWidget -> {});
-		this.plusTenButton = new GuiButtonSimple(this.left + 45, this.top + 37, 40, 20, "+10", buttonWidget -> {});
-
-		this.minusOneButton = new GuiButtonSimple(this.left + 90, this.top + 37, 40, 20, "-1", buttonWidget -> {});
-		this.minusTenButton = new GuiButtonSimple(this.left + 130, this.top + 37, 40, 20, "-10", buttonWidget -> {});
-
-		this.buttons.add(this.plusOneButton);
-		this.buttons.add(this.plusTenButton);
-		this.buttons.add(this.minusOneButton);
-		this.buttons.add(this.minusTenButton);
+	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
+		super.drawBackground(partialTicks, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
+		
+		// Battery slot
+		drawSlot(8, 72, layer);
+		builder.drawUpDownButtons(this, 64, 40, layer);
+		if (GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE) {
+			return;
+		}
+		String text = "Raidus: " + String.valueOf(blockEntity.getRadius());
+		drawCentredString(text, 25, 4210752, layer);
 	}
-
+	
 	@Override
-	protected void drawBackground(final float p_146976_1_, final int p_146976_2_, final int p_146976_3_) {
-		this.renderBackground();
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		minecraft.getTextureManager().bindTexture(GuiChunkLoader.texture);
-		final int k = (this.width - this.containerWidth) / 2;
-		final int l = (this.height - this.containerHeight) / 2;
-		this.blit(k, l, 0, 0, this.containerWidth, this.containerHeight);
-	}
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-	@Override
-	protected void drawForeground(final int p_146979_1_, final int p_146979_2_) {
-		final String name = StringUtils.t("block.techreborn.chunk_loader");
-		this.font.draw(name, this.containerWidth / 2 - this.font.getStringWidth(name) / 2, 6,
-			4210752);
-		this.font.draw(StringUtils.t("container.inventory", new Object[0]), 8,
-			this.containerHeight - 96 + 2, 4210752);
+		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		addButton(new GuiButtonUpDown(left + 64, top + 40, this, b -> onClick(5)));
+		addButton(new GuiButtonUpDown(left + 64 + 12, top + 40, this, b -> onClick(1)));
+		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1)));
+		addButton(new GuiButtonUpDown(left + 64 + 36, top + 40, this, b -> onClick(-5)));
 	}
-
-	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		super.render(mouseX, mouseY, partialTicks);
-		this.drawMouseoverTooltip(mouseX, mouseY);
-	}
-
+	
+	public void onClick(int amount){
+		NetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity));
+	}	
 }

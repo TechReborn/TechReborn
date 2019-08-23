@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.tier3;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -41,16 +42,50 @@ import techreborn.init.TRContent;
 public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
 
 	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(1, "ChunkLoaderBlockEntity", 64, this);
+	private int radius;
 
 	public ChunkLoaderBlockEntity() {
 		super(TRBlockEntities.CHUNK_LOADER );
+		this.radius = 1;
+	}
+	
+	public void handleGuiInputFromClient(int buttonID) {
+		radius += buttonID;
+
+		if (radius > TechRebornConfig.chunkLoaderMaxRadius) {
+			radius = TechRebornConfig.chunkLoaderMaxRadius;
+		}
+		if (radius <= 1) {
+			radius = 1;
+		}
 	}
 
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
+	
+	@Override
+	public void tick() {
+		super.tick();
+		// TODO: chunkload
+	}
 
+	@Override
+	public CompoundTag toTag(CompoundTag tagCompound) {
+		super.toTag(tagCompound);
+		tagCompound.putInt("radius", radius);
+		inventory.write(tagCompound);
+		return tagCompound;
+	}
+
+	@Override
+	public void fromTag(CompoundTag nbttagcompound) {
+		super.fromTag(nbttagcompound);
+		this.radius = nbttagcompound.getInt("radius");
+		inventory.read(nbttagcompound);
+	}
+	
 	@Override
 	public double getBaseMaxPower() {
 		return TechRebornConfig.chunkLoaderMaxEnergy;
@@ -80,10 +115,18 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 	public RebornInventory<ChunkLoaderBlockEntity> getInventory() {
 		return this.inventory;
 	}
+	
+	public int getRadius() {
+		return radius;
+	}
+	
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("chunkloader").player(player.inventory).inventory(8,84).hotbar(8,142).addInventory()
-			.create(this, syncID);
+	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
+		return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
+				.blockEntity(this).energySlot(0, 8, 72).syncEnergyValue().syncIntegerValue(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 }

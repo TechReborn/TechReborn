@@ -45,12 +45,6 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 	}
 
 	@Override
-	public void init() {
-		super.init();
-
-	}
-
-	@Override
 	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;

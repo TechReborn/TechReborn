@@ -31,13 +31,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
+import techreborn.TechReborn;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
+import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -46,11 +49,12 @@ import java.util.function.BiConsumer;
 
 public class ServerboundPackets {
 
-	public static final Identifier AESU = new Identifier("techreborn", "aesu");
-	public static final Identifier AUTO_CRAFTING_LOCK = new Identifier("techreborn", "auto_crafting_lock");
-	public static final Identifier ROLLING_MACHINE_LOCK = new Identifier("techreborn", "rolling_machine_lock");
-	public static final Identifier FUSION_CONTROL_SIZE = new Identifier("techreborn", "fusion_control_size");
-	public static final Identifier REFUND = new Identifier("techreborn", "refund");
+	public static final Identifier AESU = new Identifier(TechReborn.MOD_ID, "aesu");
+	public static final Identifier AUTO_CRAFTING_LOCK = new Identifier(TechReborn.MOD_ID, "auto_crafting_lock");
+	public static final Identifier ROLLING_MACHINE_LOCK = new Identifier(TechReborn.MOD_ID, "rolling_machine_lock");
+	public static final Identifier FUSION_CONTROL_SIZE = new Identifier(TechReborn.MOD_ID, "fusion_control_size");
+	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
+	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
 	
 	public static void init() {
 		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
@@ -121,13 +125,25 @@ public class ServerboundPackets {
 			});
 
 		});
+		
+		registerPacketHandler(CHUNKLOADER, (extendedPacketBuffer, context) -> {
+			BlockPos pos = extendedPacketBuffer.readBlockPos();
+			int buttonID = extendedPacketBuffer.readInt();
+			
+			context.getTaskQueue().execute(() -> {
+				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+				if (blockEntity instanceof ChunkLoaderBlockEntity) {
+					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID);
+				}
+			});
+		});
 	}
 
 	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer){
 		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
-	public static Packet createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
+	public static Packet<ServerPlayPacketListener> createPacketAesu(int buttonID, boolean shift, boolean ctrl, AdjustableSUBlockEntity blockEntity) {
 		return NetworkManager.createServerBoundPacket(AESU, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
@@ -136,14 +152,14 @@ public class ServerboundPackets {
 		});
 	}
 
-	public static Packet createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
+	public static Packet<ServerPlayPacketListener> createPacketAutoCraftingTableLock(AutoCraftingTableBlockEntity machine, boolean locked) {
 		return NetworkManager.createServerBoundPacket(AUTO_CRAFTING_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
 		});
 	}
 
-	public static Packet createPacketFusionControlSize(int sizeDelta, BlockPos pos) {
+	public static Packet<ServerPlayPacketListener> createPacketFusionControlSize(int sizeDelta, BlockPos pos) {
 		return NetworkManager.createServerBoundPacket(FUSION_CONTROL_SIZE, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeInt(sizeDelta);
 			extendedPacketBuffer.writeBlockPos(pos);
@@ -151,16 +167,23 @@ public class ServerboundPackets {
 	}
 
 
-	public static Packet createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
+	public static Packet<ServerPlayPacketListener> createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
 		return NetworkManager.createServerBoundPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
 		});
 	}
 
-	public static Packet createRefundPacket(){
+	public static Packet<ServerPlayPacketListener> createRefundPacket(){
 		return NetworkManager.createServerBoundPacket(REFUND, extendedPacketBuffer -> {
 
+		});
+	}
+	
+	public static Packet<ServerPlayPacketListener> createPacketChunkloader(int buttonID, ChunkLoaderBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(CHUNKLOADER, extendedPacketBuffer -> {
+			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
+			extendedPacketBuffer.writeInt(buttonID);
 		});
 	}
 
