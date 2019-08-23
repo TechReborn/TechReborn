@@ -83,7 +83,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
-		
+
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {
@@ -93,12 +93,10 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 			}
 			ticksSinceLastChange = 0;
 		}
-		
-		if (!world.isClient && getMultiBlock()) {
-			super.tick();
-		}
+
+		super.tick();
 	}
-	
+
 	@Override
 	public void fromTag(final CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
