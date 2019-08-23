@@ -76,7 +76,9 @@ public class ReiPlugin implements REIPluginV0 {
 		iconMap.put(ModRecipes.INDUSTRIAL_SAWMILL, Machine.INDUSTRIAL_SAWMILL);
 		iconMap.put(ModRecipes.ROLLING_MACHINE, Machine.ROLLING_MACHINE);
 		iconMap.put(ModRecipes.SCRAPBOX, TRContent.SCRAP_BOX);
+		iconMap.put(ModRecipes.SOLID_CANNING_MACHINE, Machine.SOLID_CANNING_MACHINE);
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
+		iconMap.put(ModRecipes.WIRE_MILL, Machine.WIRE_MILL);
 
 	}
 
@@ -109,7 +111,9 @@ public class ReiPlugin implements REIPluginV0 {
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_SAWMILL, 3));
         recipeHelper.registerCategory(new RollingMachineCategory(ModRecipes.ROLLING_MACHINE));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SCRAPBOX));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SOLID_CANNING_MACHINE));
         recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.VACUUM_FREEZER, 1));
+        recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.WIRE_MILL, 1));
 	}
 
 	@Override
@@ -134,7 +138,9 @@ public class ReiPlugin implements REIPluginV0 {
         recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_GRINDER.getName(), new ItemStack(Machine.INDUSTRIAL_GRINDER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.INDUSTRIAL_SAWMILL.getName(), new ItemStack(Machine.INDUSTRIAL_SAWMILL.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.ROLLING_MACHINE.getName(), new ItemStack(Machine.ROLLING_MACHINE.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.SOLID_CANNING_MACHINE.getName(), new ItemStack(Machine.SOLID_CANNING_MACHINE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), new ItemStack(Machine.VACUUM_FREEZER.asItem()));
+		recipeHelper.registerWorkingStations(ModRecipes.WIRE_MILL.getName(), new ItemStack(Machine.WIRE_MILL.asItem()));
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){

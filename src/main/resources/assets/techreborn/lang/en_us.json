@@ -668,6 +668,8 @@
   "techreborn:fluid_replicator": "Fluid Replicator",
   "techreborn:fusion_reactor": "Fusion Reactor",
   "techreborn:rolling_machine": "Rolling Machine",
+  "techreborn:solid_canning_machine": "Solid Canning Machine",
+  "techreborn:wire_mill": "Wire Mill",
   
   "_comment26": "Fluid buckets",
    "item.techreborn.beryllium_bucket": "Beryllium",
