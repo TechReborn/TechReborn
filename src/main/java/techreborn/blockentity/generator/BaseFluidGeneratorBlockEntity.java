@@ -88,7 +88,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 				if (FluidUtils.isContainerEmpty(inputStack) && tank.getFluidAmount() > 0) {
 					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());	
 				}
-				else if (getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
+				else if (inputStack.getItem() instanceof ItemFluidInfo && getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
 				}
 			}
