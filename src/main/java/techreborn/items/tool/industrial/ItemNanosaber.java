@@ -24,9 +24,14 @@
 
 package techreborn.items.tool.industrial;
 
+import com.google.common.collect.Multimap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
+import reborncore.api.items.ItemStackModifiers;
 import reborncore.common.util.StringUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -53,7 +58,7 @@ import techreborn.utils.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDurabilityExtensions, ItemStackModifiers {
 	public static final int maxCharge = TechRebornConfig.nanoSaberCharge;
 	public int transferLimit = 1_000;
 	public int cost = 250;
@@ -94,23 +99,16 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 		return false;
 	}
 
-	//TODO needs a stack aware version added in
-	// Item
-//	@Override
-//	public Multimap<String, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-//		Multimap<String, EntityAttributeModifier> multimap = HashMultimap.<String, EntityAttributeModifier>create();
-//		int modifier = 0;
-//		if (ItemUtils.isActive(stack)) {
-//			modifier = 9;
-//		}
-//		if (slot == EquipmentSlot.MAINHAND) {
-//			multimap.put(EntityAttributes.ATTACK_DAMAGE.getId(),
-//				new EntityAttributeModifier(MODIFIER_DAMAGE, "Weapon modifier", (double) modifier, 0));
-//			multimap.put(EntityAttributes.ATTACK_SPEED.getId(),
-//				new EntityAttributeModifier(MODIFIER_SWING_SPEED, "Weapon modifier", -2.4000000953674316D, 0));
-//		}
-//		return multimap;
-//	}
+	@Override
+	public void getAttributeModifiers(EquipmentSlot slot, ItemStack stack, Multimap<String, EntityAttributeModifier> attributes) {
+		attributes.removeAll(EntityAttributes.ATTACK_DAMAGE.getId());
+		attributes.removeAll(EntityAttributes.ATTACK_SPEED.getId());
+
+		if (slot== EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
+			attributes.put(EntityAttributes.ATTACK_DAMAGE.getId(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_UUID, "Weapon modifier", 12, EntityAttributeModifier.Operation.ADDITION));
+			attributes.put(EntityAttributes.ATTACK_SPEED.getId(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_UUID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
+		}
+	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
