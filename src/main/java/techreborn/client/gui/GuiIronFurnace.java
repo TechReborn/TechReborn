@@ -28,7 +28,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
+import techreborn.packets.ServerboundPackets;
 
 public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 
@@ -38,6 +40,10 @@ public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 		super(player, furnace,  furnace.createContainer(syncID, player));
 		this.blockEntity = furnace;
 	}
+	
+	public void onClick(int amount){
+		NetworkManager.sendToServer(ServerboundPackets.createPacketExperience(blockEntity));
+	}	
 	
 	@Override
 	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {

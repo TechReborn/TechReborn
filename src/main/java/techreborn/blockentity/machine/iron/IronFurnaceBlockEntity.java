@@ -24,11 +24,17 @@
 
 package techreborn.blockentity.machine.iron;
 
+import java.util.Optional;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.server.network.ServerPlayerEntity;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
@@ -54,9 +60,26 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	int outputSlot = 1;
 	int fuelSlot = 2;
 	boolean active = false;
+	private float experience;
 
 	public IronFurnaceBlockEntity() {
 		super(TRBlockEntities.IRON_FURNACE);
+	}
+	
+	public static IInventoryAccess<IronFurnaceBlockEntity> getInvetoryAccess(){
+		return (slotID, stack, face, direction, blockEntity) -> {
+			if(direction == IInventoryAccess.AccessDirection.INSERT){
+				boolean isFuel = AbstractFurnaceBlockEntity.canUseAsFuel(stack);
+				if(isFuel){
+					ItemStack fuelSlotStack = blockEntity.inventory.getInvStack(blockEntity.fuelSlot);
+					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxCount() != fuelSlotStack.getCount()){
+						return slotID == blockEntity.fuelSlot;
+					}
+				}
+				return slotID != blockEntity.outputSlot;
+			}
+			return true;
+		};
 	}
 
 	public int gaugeProgressScaled(int scale) {
@@ -71,6 +94,98 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 			}
 		}
 		return burnTime * scale / totalBurnTime;
+	}
+	
+	private void cookItems() {
+		if (!canSmelt()) {
+			return;
+		}
+		ItemStack inputStack = inventory.getInvStack(inputSlot);
+		ItemStack outputStack = getResultFor(inputStack);
+		float recipeExp = getExperienceFor(inputStack);
+		
+		if (inventory.getInvStack(outputSlot).isEmpty()) {
+			inventory.setInvStack(outputSlot, outputStack.copy());
+		} else if (inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack)) {
+			inventory.getInvStack(outputSlot).increment(outputStack.getCount());
+		}
+		if (inputStack.getCount() > 1) {
+			inventory.shrinkSlot(inputSlot, 1);
+		} else {
+			inventory.setInvStack(inputSlot, ItemStack.EMPTY);
+		}
+		experience += recipeExp;
+	}
+
+	private boolean canSmelt() {
+		if (inventory.getInvStack(inputSlot).isEmpty()) {
+			return false;
+		}		
+		ItemStack outputStack = getResultFor(inventory.getInvStack(inputSlot));
+		if (outputStack.isEmpty())
+			return false;
+		if (inventory.getInvStack(outputSlot).isEmpty())
+			return true;
+		if (!inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
+			return false;
+		int result = inventory.getInvStack(outputSlot).getCount() + outputStack.getCount();
+		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
+	}
+
+	public boolean isBurning() {
+		return burnTime > 0;
+	}
+
+	private ItemStack getResultFor(ItemStack stack) {
+		ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
+		if (!result.isEmpty()) {
+			return result.copy();
+		}
+		return ItemStack.EMPTY;
+	}
+	
+	private float getExperienceFor(ItemStack stack) {
+		Optional<SmeltingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, this, world);
+		if (recipe.isPresent()) {
+			return recipe.get().getExperience();
+		}
+		return 0;
+	}
+	
+	public void handleGuiInputFromClient(PlayerEntity playerIn) {
+		if (playerIn instanceof ServerPlayerEntity) {
+			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
+			int totalExperience = (int) experience;
+			while (totalExperience > 0) {
+				int expToDrop = ExperienceOrbEntity.roundToOrbSize(totalExperience);
+				totalExperience -= expToDrop;
+				player.world.spawnEntity(new ExperienceOrbEntity(player.world, player.x, player.y + 0.5D, player.z + 0.5D, expToDrop));
+			}
+			experience = 0;
+		}
+	}
+
+	private void updateState() {
+		BlockState state = world.getBlockState(pos);
+		if (state.getBlock() instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
+			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
+				blockMachineBase.setActive(burnTime > 0, world, pos);
+		}
+	}
+		
+	// MachineBaseBlockEntity
+	@Override
+	public void fromTag(CompoundTag compoundTag) {
+		super.fromTag(compoundTag);
+		experience = compoundTag.getFloat("Experience");
+	}
+	
+	@Override
+	public CompoundTag toTag(CompoundTag compoundTag) {
+		 super.toTag(compoundTag);
+		 compoundTag.putFloat("Experience", experience);
+		 return compoundTag;
 	}
 
 	@Override
@@ -118,86 +233,19 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 			markDirty();
 		}
 	}
-
-	public void cookItems() {
-		if (!canSmelt()) {
-			return;
-		}
-		ItemStack outputStack = getResultFor(inventory.getInvStack(inputSlot));
-		if (inventory.getInvStack(outputSlot).isEmpty()) {
-			inventory.setInvStack(outputSlot, outputStack.copy());
-		} else if (inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack)) {
-			inventory.getInvStack(outputSlot).increment(outputStack.getCount());
-		}
-		if (inventory.getInvStack(inputSlot).getCount() > 1) {
-			inventory.shrinkSlot(inputSlot, 1);
-		} else {
-			inventory.setInvStack(inputSlot, ItemStack.EMPTY);
-		}
-	}
-
-	public boolean canSmelt() {
-		if (inventory.getInvStack(inputSlot).isEmpty()) {
-			return false;
-		}		
-		ItemStack outputStack = getResultFor(inventory.getInvStack(inputSlot));
-		if (outputStack.isEmpty())
-			return false;
-		if (inventory.getInvStack(outputSlot).isEmpty())
-			return true;
-		if (!inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
-			return false;
-		int result = inventory.getInvStack(outputSlot).getCount() + outputStack.getCount();
-		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
-	}
-
-	public boolean isBurning() {
-		return burnTime > 0;
-	}
-
-	private ItemStack getResultFor(ItemStack stack) {
-		ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
-		if (!result.isEmpty()) {
-			return result.copy();
-		}
-		return ItemStack.EMPTY;
-	}
-
-	private void updateState() {
-		BlockState state = world.getBlockState(pos);
-		if (state.getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
-			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
-				blockMachineBase.setActive(burnTime > 0, world, pos);
-		}
-	}
-
-	@Override
-	public RebornInventory<IronFurnaceBlockEntity> getInventory() {
-		return this.inventory;
-	}
-
-	public static IInventoryAccess<IronFurnaceBlockEntity> getInvetoryAccess(){
-		return (slotID, stack, face, direction, blockEntity) -> {
-			if(direction == IInventoryAccess.AccessDirection.INSERT){
-				boolean isFuel = AbstractFurnaceBlockEntity.canUseAsFuel(stack);
-				if(isFuel){
-					ItemStack fuelSlotStack = blockEntity.inventory.getInvStack(blockEntity.fuelSlot);
-					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxCount() != fuelSlotStack.getCount()){
-						return slotID == blockEntity.fuelSlot;
-					}
-				}
-				return slotID != blockEntity.outputSlot;
-			}
-			return true;
-		};
-	}
 	
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
 	}
 
+	// InventoryProvider
+	@Override
+	public RebornInventory<IronFurnaceBlockEntity> getInventory() {
+		return this.inventory;
+	}
+
+	// IContainerProvider
 	public int getBurnTime() {
 		return this.burnTime;
 	}

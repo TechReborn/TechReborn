@@ -38,6 +38,7 @@ import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
@@ -55,6 +56,7 @@ public class ServerboundPackets {
 	public static final Identifier FUSION_CONTROL_SIZE = new Identifier(TechReborn.MOD_ID, "fusion_control_size");
 	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
 	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
+	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
 	
 	public static void init() {
 		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
@@ -137,6 +139,17 @@ public class ServerboundPackets {
 				}
 			});
 		});
+		
+		registerPacketHandler(EXPERIENCE, (extendedPacketBuffer, context) -> {
+			BlockPos pos = extendedPacketBuffer.readBlockPos();
+			
+			context.getTaskQueue().execute(() -> {
+				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
+				if (blockEntity instanceof IronFurnaceBlockEntity) {
+					((IronFurnaceBlockEntity) blockEntity).handleGuiInputFromClient(context.getPlayer());
+				}
+			});
+		});
 	}
 
 	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer){
@@ -184,6 +197,12 @@ public class ServerboundPackets {
 		return NetworkManager.createServerBoundPacket(CHUNKLOADER, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
+		});
+	}
+	
+	public static Packet<ServerPlayPacketListener> createPacketExperience(IronFurnaceBlockEntity blockEntity) {
+		return NetworkManager.createServerBoundPacket(EXPERIENCE, extendedPacketBuffer -> {
+			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 		});
 	}
 
