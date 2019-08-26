@@ -46,31 +46,31 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 
 	public int tickTime;
 	public RebornInventory<IronFurnaceBlockEntity> inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this, getInvetoryAccess());
-	public int fuel;
-	public int fuelGague;
+	public int burnTime;
+	public int totalBurnTime;
 	public int progress;
 	public int fuelScale = 160;
-	int input1 = 0;
-	int output = 1;
-	int fuelslot = 2;
+	int inputSlot = 0;
+	int outputSlot = 1;
+	int fuelSlot = 2;
 	boolean active = false;
 
 	public IronFurnaceBlockEntity() {
 		super(TRBlockEntities.IRON_FURNACE);
 	}
 
-	public int gaugeProgressScaled(final int scale) {
-		return this.progress * scale / this.fuelScale;
+	public int gaugeProgressScaled(int scale) {
+		return progress * scale / fuelScale;
 	}
 
-	public int gaugeFuelScaled(final int scale) {
-		if (this.fuelGague == 0) {
-			this.fuelGague = this.fuel;
-			if (this.fuelGague == 0) {
-				this.fuelGague = this.fuelScale;
+	public int gaugeFuelScaled(int scale) {
+		if (totalBurnTime == 0) {
+			totalBurnTime = burnTime;
+			if (totalBurnTime == 0) {
+				totalBurnTime = fuelScale;
 			}
 		}
-		return this.fuel * scale / this.fuelGague;
+		return burnTime * scale / totalBurnTime;
 	}
 
 	@Override
@@ -79,94 +79,96 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 		if(world.isClient){
 			return;
 		}
-		final boolean burning = this.isBurning();
+		boolean isBurning = isBurning();
 		boolean updateInventory = false;
-		if (this.fuel > 0) {
-			fuel--;
+		if (isBurning) {
+			--burnTime;
 		}
-		updateState();
-		if (this.fuel <= 0 && this.canSmelt()) {
-			this.fuel = this.fuelGague = (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
-			if (this.fuel > 0) {
+		
+		if (burnTime <= 0 && canSmelt()) {
+			burnTime = totalBurnTime = (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(inventory.getInvStack(fuelSlot).getItem(), 0) * 1.25);
+			if (burnTime > 0) {
 				// Fuel slot
-				ItemStack fuelStack = inventory.getInvStack(this.fuelslot);
+				ItemStack fuelStack = inventory.getInvStack(fuelSlot);
 				if (fuelStack.getItem().hasRecipeRemainder()) {
-					inventory.setInvStack(this.fuelslot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
+					inventory.setInvStack(fuelSlot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
 				} else if (fuelStack.getCount() > 1) {
-					inventory.shrinkSlot(this.fuelslot, 1);
+					inventory.shrinkSlot(fuelSlot, 1);
 				} else if (fuelStack.getCount() == 1) {
-					inventory.setInvStack(this.fuelslot, ItemStack.EMPTY);
+					inventory.setInvStack(fuelSlot, ItemStack.EMPTY);
 				}
 				updateInventory = true;
 			}
 		}
-		if (this.isBurning() && this.canSmelt()) {
-			this.progress++;
-			if (this.progress >= this.fuelScale) {
-				this.progress = 0;
-				this.cookItems();
+		if (isBurning() && canSmelt()) {
+			progress++;
+			if (progress >= fuelScale) {
+				progress = 0;
+				cookItems();
 				updateInventory = true;
 			}
 		} else {
-			this.progress = 0;
+			progress = 0;
 		}
-		if (burning != this.isBurning()) {
+		if (isBurning != isBurning()) {
 			updateInventory = true;
+			updateState();
 		}
 		if (updateInventory) {
-			this.markDirty();
+			markDirty();
 		}
 	}
 
 	public void cookItems() {
-		if (this.canSmelt()) {
-			final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
-
-			if (inventory.getInvStack(this.output).isEmpty()) {
-				inventory.setInvStack(this.output, itemstack.copy());
-			} else if (inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack)) {
-				inventory.getInvStack(this.output).increment(itemstack.getCount());
-			}
-			if (inventory.getInvStack(this.input1).getCount() > 1) {
-				inventory.shrinkSlot(this.input1, 1);
-			} else {
-				inventory.setInvStack(this.input1, ItemStack.EMPTY);
-			}
+		if (!canSmelt()) {
+			return;
+		}
+		ItemStack outputStack = getResultFor(inventory.getInvStack(inputSlot));
+		if (inventory.getInvStack(outputSlot).isEmpty()) {
+			inventory.setInvStack(outputSlot, outputStack.copy());
+		} else if (inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack)) {
+			inventory.getInvStack(outputSlot).increment(outputStack.getCount());
+		}
+		if (inventory.getInvStack(inputSlot).getCount() > 1) {
+			inventory.shrinkSlot(inputSlot, 1);
+		} else {
+			inventory.setInvStack(inputSlot, ItemStack.EMPTY);
 		}
 	}
 
 	public boolean canSmelt() {
-		if (inventory.getInvStack(this.input1).isEmpty())
+		if (inventory.getInvStack(inputSlot).isEmpty()) {
 			return false;
-		final ItemStack itemstack = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, inventory.getInvStack(this.input1));
-		if (itemstack.isEmpty())
+		}		
+		ItemStack outputStack = getResultFor(inventory.getInvStack(inputSlot));
+		if (outputStack.isEmpty())
 			return false;
-		if (inventory.getInvStack(this.output).isEmpty())
+		if (inventory.getInvStack(outputSlot).isEmpty())
 			return true;
-		if (!inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack))
+		if (!inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
 			return false;
-		final int result = inventory.getInvStack(this.output).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= itemstack.getMaxCount();
+		int result = inventory.getInvStack(outputSlot).getCount() + outputStack.getCount();
+		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
 	}
 
 	public boolean isBurning() {
-		return this.fuel > 0;
+		return burnTime > 0;
 	}
 
-	public ItemStack getResultFor(final ItemStack stack) {
-		final ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
+	private ItemStack getResultFor(ItemStack stack) {
+		ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
 		if (!result.isEmpty()) {
 			return result.copy();
 		}
 		return ItemStack.EMPTY;
 	}
 
-	public void updateState() {
-		BlockState state = world.getBlockState(this.pos);
+	private void updateState() {
+		BlockState state = world.getBlockState(pos);
 		if (state.getBlock() instanceof BlockMachineBase) {
 			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
-			if (state.get(BlockMachineBase.ACTIVE) != this.fuel > 0)
-				blockMachineBase.setActive(this.fuel > 0, this.world, this.pos);
+			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
+				blockMachineBase.setActive(burnTime > 0, world, pos);
 		}
 	}
 
@@ -180,12 +182,12 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 			if(direction == IInventoryAccess.AccessDirection.INSERT){
 				boolean isFuel = AbstractFurnaceBlockEntity.canUseAsFuel(stack);
 				if(isFuel){
-					ItemStack fuelSlotStack = blockEntity.inventory.getInvStack(blockEntity.fuelslot);
+					ItemStack fuelSlotStack = blockEntity.inventory.getInvStack(blockEntity.fuelSlot);
 					if(fuelSlotStack.isEmpty() || ItemUtils.isItemEqual(stack, fuelSlotStack, true, true) && fuelSlotStack.getMaxCount() != fuelSlotStack.getCount()){
-						return slotID == blockEntity.fuelslot;
+						return slotID == blockEntity.fuelSlot;
 					}
 				}
-				return slotID != blockEntity.output;
+				return slotID != blockEntity.outputSlot;
 			}
 			return true;
 		};
@@ -197,19 +199,19 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public int getBurnTime() {
-		return this.fuel;
+		return this.burnTime;
 	}
 
-	public void setBurnTime(final int burnTime) {
-		this.fuel = burnTime;
+	public void setBurnTime(int burnTime) {
+		this.burnTime = burnTime;
 	}
 
 	public int getTotalBurnTime() {
-		return this.fuelGague;
+		return this.totalBurnTime;
 	}
 
-	public void setTotalBurnTime(final int totalBurnTime) {
-		this.fuelGague = totalBurnTime;
+	public void setTotalBurnTime(int totalBurnTime) {
+		this.totalBurnTime = totalBurnTime;
 	}
 
 	public int getProgress() {
@@ -222,7 +224,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 				.syncIntegerValue(this::getProgress, this::setProgress)

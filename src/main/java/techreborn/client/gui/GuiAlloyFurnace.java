@@ -32,39 +32,40 @@ import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 
 public class GuiAlloyFurnace extends GuiBase<BuiltContainer> {
 
-	IronAlloyFurnaceBlockEntity alloyfurnace;
+	IronAlloyFurnaceBlockEntity blockEntity;
 
-	public GuiAlloyFurnace(int syncID, final PlayerEntity player, final IronAlloyFurnaceBlockEntity alloyFurnace) {
+	public GuiAlloyFurnace(int syncID, PlayerEntity player, IronAlloyFurnaceBlockEntity alloyFurnace) {
 		super(player, alloyFurnace, alloyFurnace.createContainer(syncID, player));
-		this.alloyfurnace = alloyFurnace;
+		this.blockEntity = alloyFurnace;
 	}
 
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(lastFrameDuration, mouseX, mouseY);
 
-		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+		GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
+		// Input slots
 		drawSlot(47, 17, layer);
 		drawSlot(65, 17, layer);
-
+		// Fuel slot
 		drawSlot(56, 53, layer);
 
 		drawOutputSlot(116, 35, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
+	protected void drawForeground(int mouseX, int mouseY) {
 		super.drawForeground(mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+		GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, alloyfurnace.getCookProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawBurnBar(this, alloyfurnace.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
+		builder.drawProgressBar(this, blockEntity.getCookProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		super.render(mouseX, mouseY, partialTicks);
+	public void render(int mouseX, int mouseY, float lastFrameDuration) {
+		super.render(mouseX, mouseY, lastFrameDuration);
 		this.drawMouseoverTooltip(mouseX, mouseY);
 	}
 }

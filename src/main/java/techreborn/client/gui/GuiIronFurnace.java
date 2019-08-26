@@ -24,47 +24,46 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.init.TRContent;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 
 public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 
-	public static final Identifier texture = new Identifier("minecraft",
-		"textures/gui/container/furnace.png");
-
 	IronFurnaceBlockEntity blockEntity;
 
-	public GuiIronFurnace(int syncID, final PlayerEntity player, final IronFurnaceBlockEntity furnace) {
+	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
 		super(player, furnace,  furnace.createContainer(syncID, player));
 		this.blockEntity = furnace;
 	}
+	
+	@Override
+	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(lastFrameDuration, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+
+		// Input slot
+		drawSlot(56, 17, layer);
+		// Fuel slot
+		drawSlot(56, 53, layer);
+
+		drawOutputSlot(116, 35, layer);
+	}
+	
+	@Override
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+
+		builder.drawProgressBar(this, blockEntity.gaugeProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(this, blockEntity.gaugeFuelScaled(100), 100, 56, 36, mouseX, mouseY, layer);
+	}
 
 	@Override
-	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
-		renderBackground();
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		builder.drawSlotTab(this, left - 24, top + 6, new ItemStack(TRContent.WRENCH));
-		minecraft.getTextureManager().bindTexture(GuiIronFurnace.texture);
-		final int k = (this.width - containerWidth) / 2;
-		final int l = (this.height - containerHeight) / 2;
-		blit(k, l, 0, 0, containerWidth, containerHeight);
-
-		int j = 0;
-
-		j = blockEntity.gaugeProgressScaled(24);
-		if (j > 0) {
-			blit(k + 78, l + 35, 176, 14, j + 1, 16);
-		}
-
-		j = blockEntity.gaugeFuelScaled(12);
-		if (j > 0) {
-			blit(k + 57, l + 36 + 12 - j, 176, 12 - j, 14, j + 2);
-		}
+	public void render(int mouseX, int mouseY, float lastFrameDuration) {
+		super.render(mouseX, mouseY, lastFrameDuration);
+		this.drawMouseoverTooltip(mouseX, mouseY);
 	}
 }

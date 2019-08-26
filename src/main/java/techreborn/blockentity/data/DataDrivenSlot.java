@@ -82,7 +82,7 @@ public class DataDrivenSlot {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void draw(GuiBase guiBase, GuiBase.Layer layer){
+	public void draw(GuiBase<?> guiBase, GuiBase.Layer layer){
 		//TODO find a better way to do this
 		if(getType() == SlotType.OUTPUT){
 			guiBase.drawOutputSlot(getX(), getY(), layer);

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.iron;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.RebornInventory;
@@ -47,7 +49,7 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	public int tickTime;
 	public RebornInventory<IronAlloyFurnaceBlockEntity> inventory = new RebornInventory<>(4, "IronAlloyFurnaceBlockEntity", 64, this);
 	public int burnTime;
-	public int currentItemBurnTime;
+	public int totalBurnTime;
 	public int cookTime;
 	int input1 = 0;
 	int input2 = 1;
@@ -74,43 +76,47 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-		final boolean flag = this.burnTime > 0;
-		boolean flag1 = false;
-		if (this.burnTime > 0) {
-			--this.burnTime;
+		if(world.isClient){
+			return;
 		}
-		if (!this.world.isClient) {
-			if (this.burnTime != 0 || !inventory.getInvStack(this.input1).isEmpty()&& !inventory.getInvStack(this.fuel).isEmpty()) {
-				if (this.burnTime == 0 && this.canSmelt()) {
-					this.currentItemBurnTime = this.burnTime = IronAlloyFurnaceBlockEntity.getItemBurnTime(inventory.getInvStack(this.fuel));
-					if (this.burnTime > 0) {
-						flag1 = true;
-						if (!inventory.getInvStack(this.fuel).isEmpty()) {
-							inventory.shrinkSlot(this.fuel, 1);
-						}
+		
+		boolean isBurning = isBurning();
+		boolean updateInventory = false;
+		if (isBurning) {
+			--burnTime;
+		}
+		if (burnTime != 0 || !inventory.getInvStack(input1).isEmpty() && !inventory.getInvStack(fuel).isEmpty()) {
+			if (burnTime == 0 && canSmelt()) {
+				totalBurnTime = burnTime = getItemBurnTime(inventory.getInvStack(fuel));
+				if (burnTime > 0) {
+					updateInventory = true;
+					if (!inventory.getInvStack(fuel).isEmpty()) {
+						inventory.shrinkSlot(fuel, 1);
 					}
 				}
-				if (this.isBurning() && this.canSmelt()) {
-					++this.cookTime;
-					if (this.cookTime == 200) {
-						this.cookTime = 0;
-						this.smeltItem();
-						flag1 = true;
-					}
-				} else {
-					this.cookTime = 0;
-				}
 			}
-			if (flag != this.burnTime > 0) {
-				flag1 = true;
+			if (isBurning() && canSmelt()) {
+				++cookTime;
+				if (cookTime == 200) {
+					cookTime = 0;
+					smeltItem();
+					updateInventory = true;
+				}
+			} else {
+				cookTime = 0;
 			}
 		}
-		if (flag1) {
-			this.markDirty();
+		if (isBurning != isBurning()) {
+			updateInventory = true;
+			updateState();
+		}
+		
+		if (updateInventory) {
+			markDirty();
 		}
 	}
 
-	public boolean hasAllInputs(final RebornRecipe recipeType) {
+	public boolean hasAllInputs(RebornRecipe recipeType) {
 		if (recipeType == null) {
 			return false;
 		}
@@ -128,12 +134,12 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	}
 
 	private boolean canSmelt() {
-		if (inventory.getInvStack(this.input1).isEmpty() || inventory.getInvStack(this.input2).isEmpty()) {
+		if (inventory.getInvStack(input1).isEmpty() || inventory.getInvStack(input2).isEmpty()) {
 			return false;
 		}
 		ItemStack itemstack = null;
-		for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
-			if (this.hasAllInputs(recipeType)) {
+		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			if (hasAllInputs(recipeType)) {
 				itemstack = recipeType.getOutputs().get(0);
 				break;
 			}
@@ -141,12 +147,12 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 
 		if (itemstack == null)
 			return false;
-		if (inventory.getInvStack(this.output).isEmpty())
+		if (inventory.getInvStack(output).isEmpty())
 			return true;
-		if (!inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack))
+		if (!inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack))
 			return false;
-		final int result = inventory.getInvStack(this.output).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= inventory.getInvStack(this.output).getMaxCount(); 
+		int result = inventory.getInvStack(output).getCount() + itemstack.getCount();
+		return result <= inventory.getStackLimit() && result <= inventory.getInvStack(output).getMaxCount(); 
 	}
 
 	/**
@@ -154,44 +160,39 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	 * item in the furnace result stack
 	 */
 	public void smeltItem() {
-		if (this.canSmelt()) {
-			ItemStack itemstack = ItemStack.EMPTY;
-			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
-				if (this.hasAllInputs(recipeType)) {
-					itemstack = recipeType.getOutputs().get(0);
-					break;
-				}
-				if (!itemstack.isEmpty()) {
-					break;
-				}
-			}
-
-			if (inventory.getInvStack(this.output).isEmpty()) {
-				inventory.setInvStack(this.output, itemstack.copy());
-			} else if (inventory.getInvStack(this.output).getItem() == itemstack.getItem()) {
-				inventory.shrinkSlot(this.output, -itemstack.getCount());
-			}
-
-			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
-				boolean hasAllRecipes = true;
-				if (this.hasAllInputs(recipeType)) {
-
-				} else {
-					hasAllRecipes = false;
-				}
-				if (hasAllRecipes) {
-					for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
-						for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-							if (ingredient.test(this.inventory.getInvStack(inputSlot))) {
-								inventory.shrinkSlot(inputSlot, ingredient.getCount());
-								break;
-							}
-						}
-					}
-				}
-			}
-
+		if (!canSmelt()) {
+			return;
 		}
+
+		ItemStack outputStack = ItemStack.EMPTY;
+		RebornRecipe currentRecipe = null;
+		for (RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			if (hasAllInputs(recipeType)) {
+				currentRecipe = recipeType;
+				break;
+			}
+		}
+		if (currentRecipe == null) {
+			return;
+		}
+		outputStack = currentRecipe.getOutputs().get(0);
+		if (outputStack.isEmpty()) {
+			return;
+		}
+		if (inventory.getInvStack(output).isEmpty()) {
+			inventory.setInvStack(output, outputStack.copy());
+		} else if (inventory.getInvStack(output).getItem() == outputStack.getItem()) {
+			inventory.shrinkSlot(output, -outputStack.getCount());
+		}
+
+		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
+			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
+				if (ingredient.test(inventory.getInvStack(inputSlot))) {
+					inventory.shrinkSlot(inputSlot, ingredient.getCount());
+					break;
+				}
+			}
+		}	
 	}
 
 	/**
@@ -199,57 +200,66 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	 * @return Boolean True if furnace is burning
 	 */
 	public boolean isBurning() {
-		return this.burnTime > 0;
+		return burnTime > 0;
 	}
 
-	public int getBurnTimeRemainingScaled(final int scale) {
-		if (this.currentItemBurnTime == 0) {
-			this.currentItemBurnTime = 200;
+	public int getBurnTimeRemainingScaled(int scale) {
+		if (totalBurnTime == 0) {
+			totalBurnTime = 200;
 		}
 
-		return this.burnTime * scale / this.currentItemBurnTime;
+		return burnTime * scale / totalBurnTime;
 	}
 
-	public int getCookProgressScaled(final int scale) {
-		return this.cookTime * scale / 200;
+	public int getCookProgressScaled(int scale) {
+		return cookTime * scale / 200;
+	}
+	
+	public void updateState() {
+		BlockState state = world.getBlockState(pos);
+		if (state.getBlock() instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
+			if (state.get(BlockMachineBase.ACTIVE) != burnTime > 0)
+				blockMachineBase.setActive(burnTime > 0, world, pos);
+		}
 	}
 
 	@Override
 	public Direction getFacing() {
-		return this.getFacingEnum();
+		return getFacingEnum();
 	}
 
 	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return TRContent.Machine.IRON_ALLOY_FURNACE.getStack();
 	}
 
 	@Override
 	public RebornInventory<IronAlloyFurnaceBlockEntity> getInventory() {
-		return this.inventory;
+		return inventory;
 	}
 
 	public int getBurnTime() {
-		return this.burnTime;
+		return burnTime;
 	}
 
-	public void setBurnTime(final int burnTime) {
+	public void setBurnTime(int burnTime) {
 		this.burnTime = burnTime;
 	}
 
-	public int getCurrentItemBurnTime() {
-		return this.currentItemBurnTime;
+	public int getTotalBurnTime() {
+		return totalBurnTime;
 	}
 
-	public void setCurrentItemBurnTime(final int currentItemBurnTime) {
-		this.currentItemBurnTime = currentItemBurnTime;
+	public void setTotalBurnTime(int currentItemBurnTime) {
+		this.totalBurnTime = currentItemBurnTime;
 	}
 
 	public int getCookTime() {
-		return this.cookTime;
+		return cookTime;
 	}
 
-	public void setCookTime(final int cookTime) {
+	public void setCookTime(int cookTime) {
 		this.cookTime = cookTime;
 	}
 
@@ -261,7 +271,7 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 			.slot(1, 65, 17)
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
 			.syncIntegerValue(this::getCookTime, this::setCookTime)
-			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this, syncID);
+			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
 	}
 
 	@Override
