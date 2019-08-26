@@ -90,9 +90,8 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityHitter);
 
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	//TODO needs a stack aware version added in

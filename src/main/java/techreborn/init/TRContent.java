@@ -53,8 +53,8 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.storage.*;
-import techreborn.blocks.tier0.BlockIronAlloyFurnace;
-import techreborn.blocks.tier0.BlockIronFurnace;
+import techreborn.blocks.tier0.IronAlloyFurnaceBlock;
+import techreborn.blocks.tier0.IronFurnaceBlock;
 import techreborn.blocks.tier1.BlockPlayerDetector;
 import techreborn.blocks.tier3.BlockCreativeQuantumChest;
 import techreborn.blocks.transformers.BlockEVTransformer;
@@ -398,8 +398,8 @@ public class TRContent {
 		INDUSTRIAL_ELECTROLYZER(new GenericMachineBlock(EGui.INDUSTRIAL_ELECTROLYZER, IndustrialElectrolyzerBlockEntity::new)),
 		INDUSTRIAL_GRINDER(new GenericMachineBlock(EGui.INDUSTRIAL_GRINDER, IndustrialGrinderBlockEntity::new)),
 		INDUSTRIAL_SAWMILL(new GenericMachineBlock(EGui.SAWMILL, IndustrialSawmillBlockEntity::new)),
-		IRON_ALLOY_FURNACE(new BlockIronAlloyFurnace()),
-		IRON_FURNACE(new BlockIronFurnace()),
+		IRON_ALLOY_FURNACE(new IronAlloyFurnaceBlock()),
+		IRON_FURNACE(new IronFurnaceBlock()),
 		MATTER_FABRICATOR(new GenericMachineBlock(EGui.MATTER_FABRICATOR, MatterFabricatorBlockEntity::new)),
 		RECYCLER(new GenericMachineBlock(EGui.RECYCLER, RecyclerBlockEntity::new)),
 		ROLLING_MACHINE(new GenericMachineBlock(EGui.ROLLING_MACHINE, RollingMachineBlockEntity::new)),

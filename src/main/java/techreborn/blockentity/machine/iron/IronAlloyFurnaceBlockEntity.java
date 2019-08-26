@@ -130,31 +130,23 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	private boolean canSmelt() {
 		if (inventory.getInvStack(this.input1).isEmpty() || inventory.getInvStack(this.input2).isEmpty()) {
 			return false;
-		} else {
-			ItemStack itemstack = null;
-			for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
-				if (this.hasAllInputs(recipeType)) {
-					itemstack = recipeType.getOutputs().get(0);
-					break;
-				}
-			}
-
-			if (itemstack == null)
-				return false;
-			if (inventory.getInvStack(this.output).isEmpty())
-				return true;
-			if (!inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack))
-				return false;
-			final int result = inventory.getInvStack(this.output).getCount() + itemstack.getCount();
-			return result <= inventory.getStackLimit() && result <= inventory.getInvStack(this.output).getMaxCount(); // Forge
-			// BugFix:
-			// Make
-			// it
-			// respect
-			// stack
-			// sizes
-			// properly.
 		}
+		ItemStack itemstack = null;
+		for (final RebornRecipe recipeType : ModRecipes.ALLOY_SMELTER.getRecipes(world)) {
+			if (this.hasAllInputs(recipeType)) {
+				itemstack = recipeType.getOutputs().get(0);
+				break;
+			}
+		}
+
+		if (itemstack == null)
+			return false;
+		if (inventory.getInvStack(this.output).isEmpty())
+			return true;
+		if (!inventory.getInvStack(this.output).isItemEqualIgnoreDamage(itemstack))
+			return false;
+		final int result = inventory.getInvStack(this.output).getCount() + itemstack.getCount();
+		return result <= inventory.getStackLimit() && result <= inventory.getInvStack(this.output).getMaxCount(); 
 	}
 
 	/**
@@ -232,15 +224,10 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 		return TRContent.Machine.IRON_ALLOY_FURNACE.getStack();
 	}
 
-	public boolean isComplete() {
-		return false;
-	}
-
 	@Override
 	public RebornInventory<IronAlloyFurnaceBlockEntity> getInventory() {
 		return this.inventory;
 	}
-
 
 	public int getBurnTime() {
 		return this.burnTime;

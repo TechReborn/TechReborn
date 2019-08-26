@@ -82,9 +82,9 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 		final boolean burning = this.isBurning();
 		boolean updateInventory = false;
 		if (this.fuel > 0) {
-			this.fuel--;
-			this.updateState();
+			fuel--;
 		}
+		updateState();
 		if (this.fuel <= 0 && this.canSmelt()) {
 			this.fuel = this.fuelGague = (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(inventory.getInvStack(this.fuelslot).getItem(), 0) * 1.25);
 			if (this.fuel > 0) {
@@ -162,10 +162,10 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public void updateState() {
-		final BlockState BlockStateContainer = this.world.getBlockState(this.pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != this.fuel > 0)
+		BlockState state = world.getBlockState(this.pos);
+		if (state.getBlock() instanceof BlockMachineBase) {
+			BlockMachineBase blockMachineBase = (BlockMachineBase) state.getBlock();
+			if (state.get(BlockMachineBase.ACTIVE) != this.fuel > 0)
 				blockMachineBase.setActive(this.fuel > 0, this.world, this.pos);
 		}
 	}
