@@ -24,9 +24,17 @@
 
 package techreborn.client.gui;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.mojang.blaze3d.platform.GlStateManager;
+
+import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
@@ -41,9 +49,26 @@ public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 		this.blockEntity = furnace;
 	}
 	
-	public void onClick(int amount){
+	public void onClick(){
 		NetworkManager.sendToServer(ServerboundPackets.createPacketExperience(blockEntity));
 	}	
+	
+	@Override
+	public void init() {
+		super.init();
+		addButton(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, "Exp", b -> onClick()) {
+
+			
+			@Override
+			public void renderToolTip(int mouseX, int mouseY) {
+					List<String> list = new ArrayList<>();
+					list.add("Expirience accumulated: " + blockEntity.experience);
+					renderTooltip(list, mouseX - getGuiLeft(), mouseY - getGuiTop());
+					GlStateManager.disableLighting();
+					GlStateManager.color4f(1, 1, 1, 1);			
+			}
+		});		
+	}
 	
 	@Override
 	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
@@ -59,17 +84,20 @@ public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 	}
 	
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
+	protected void drawForeground(int mouseX, int mouseY) {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawProgressBar(this, blockEntity.gaugeProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawBurnBar(this, blockEntity.gaugeFuelScaled(100), 100, 56, 36, mouseX, mouseY, layer);
-	}
+		Iterator<AbstractButtonWidget> buttonsList = this.buttons.iterator();
 
-	@Override
-	public void render(int mouseX, int mouseY, float lastFrameDuration) {
-		super.render(mouseX, mouseY, lastFrameDuration);
-		this.drawMouseoverTooltip(mouseX, mouseY);
+		while (buttonsList.hasNext()) {
+			AbstractButtonWidget abstractButtonWidget = (AbstractButtonWidget) buttonsList.next();
+			if (abstractButtonWidget.isHovered()) {
+				abstractButtonWidget.renderToolTip(mouseX, mouseY);
+				break;
+			}
+		}
 	}
 }

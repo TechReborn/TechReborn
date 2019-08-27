@@ -42,7 +42,6 @@ public class GuiAlloyFurnace extends GuiBase<BuiltContainer> {
 	@Override
 	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
 		super.drawBackground(lastFrameDuration, mouseX, mouseY);
-
 		GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slots
@@ -61,11 +60,5 @@ public class GuiAlloyFurnace extends GuiBase<BuiltContainer> {
 
 		builder.drawProgressBar(this, blockEntity.getCookProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawBurnBar(this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
-	}
-
-	@Override
-	public void render(int mouseX, int mouseY, float lastFrameDuration) {
-		super.render(mouseX, mouseY, lastFrameDuration);
-		this.drawMouseoverTooltip(mouseX, mouseY);
 	}
 }

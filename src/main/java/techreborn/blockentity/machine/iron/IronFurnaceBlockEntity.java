@@ -60,7 +60,7 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	int outputSlot = 1;
 	int fuelSlot = 2;
 	boolean active = false;
-	private float experience;
+	public float experience;
 
 	public IronFurnaceBlockEntity() {
 		super(TRBlockEntities.IRON_FURNACE);
@@ -161,10 +161,10 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 				totalExperience -= expToDrop;
 				player.world.spawnEntity(new ExperienceOrbEntity(player.world, player.x, player.y + 0.5D, player.z + 0.5D, expToDrop));
 			}
-			experience = 0;
 		}
+		experience = 0;
 	}
-
+	
 	private void updateState() {
 		BlockState state = world.getBlockState(pos);
 		if (state.getBlock() instanceof BlockMachineBase) {
@@ -269,6 +269,14 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
+	
+	public float getExperience() {
+		return experience;
+	}
+	
+	public void setExperience(float experience) {
+		this.experience = experience;
+	}
 
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
@@ -276,6 +284,8 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 				.addInventory().blockEntity(this).fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
 				.syncIntegerValue(this::getProgress, this::setProgress)
-				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
+				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(this::getExperience, this::setExperience)
+				.addInventory().create(this, syncID);
 	}
 }

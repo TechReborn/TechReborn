@@ -43,6 +43,14 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		super(player, aesu, aesu.createContainer(syncID, player));
 		this.blockEntity = aesu;
 	}
+	
+	@Override
+	public void init() {
+		addButton(new GuiButtonUpDown(left + 121, top + 79, this, b -> onClick(256)));
+		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, b -> onClick(64)));
+		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, b -> onClick(-64)));
+		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, b -> onClick(-256)));
+	}
 
 	@Override
 	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
@@ -71,13 +79,6 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		}
 	
 		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
-
-		addButton(new GuiButtonUpDown(left + 121, top + 79, this, b -> onClick(256)));
-		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, b -> onClick(64)));
-		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, b -> onClick(-64)));
-		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, b -> onClick(-256)));
-		
-
 	}
 
 	public void onClick(int amount){
