@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -58,7 +58,7 @@ public class GuiImplosionCompressor extends GuiBase<BuiltContainer> {
 	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(f, mouseX, mouseY);
 
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
 		drawSlot(8, 72, layer);

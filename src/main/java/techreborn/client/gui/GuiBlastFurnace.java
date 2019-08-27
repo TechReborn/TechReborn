@@ -24,7 +24,7 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -62,7 +62,7 @@ public class GuiBlastFurnace extends GuiBase<BuiltContainer> {
 		super.drawBackground(f, mouseX, mouseY);
 		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
 
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 		
 		drawSlot(8, 72, layer);

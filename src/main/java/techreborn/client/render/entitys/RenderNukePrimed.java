@@ -24,7 +24,7 @@
 
 package techreborn.client.render.entitys;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
@@ -57,37 +57,37 @@ public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 	@Override
 	public void render(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		BlockRenderManager blockrendererdispatcher = MinecraftClient.getInstance().getBlockRenderManager();
-		GlStateManager.pushMatrix();
-		GlStateManager.translatef((float) x, (float) y + 0.5F, (float) z);
+		RenderSystem.pushMatrix();
+		RenderSystem.translatef((float) x, (float) y + 0.5F, (float) z);
 		if ((float) entity.getFuseTimer() - partialTicks + 1.0F < 10.0F) {
 			float f = 1.0F - ((float) entity.getFuseTimer() - partialTicks + 1.0F) / 10.0F;
 			f = MathHelper.clamp(f, 0.0F, 1.0F);
 			f = f * f;
 			f = f * f;
 			float f1 = 1.0F + f * 0.3F;
-			GlStateManager.scalef(f1, f1, f1);
+			RenderSystem.scalef(f1, f1, f1);
 		}
 		this.bindEntityTexture(entity);
-		GlStateManager.translatef(-0.5F, -0.5F, 0.5F);
+		RenderSystem.translatef(-0.5F, -0.5F, 0.5F);
 		blockrendererdispatcher.renderDynamic(TRContent.NUKE.getDefaultState(),
 			entity.getBrightnessAtEyes());
-		GlStateManager.translatef(0.0F, 0.0F, 1.0F);
+		RenderSystem.translatef(0.0F, 0.0F, 1.0F);
 		if (entity.getFuseTimer() / 5 % 2 == 0) {
-			GlStateManager.disableLighting();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(770, 772);
-			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1F);
-			GlStateManager.polygonOffset(-3.0F, -3.0F);
-			GlStateManager.enablePolygonOffset();
+			RenderSystem.disableLighting();
+			RenderSystem.enableBlend();
+			RenderSystem.blendFunc(770, 772);
+			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1F);
+			RenderSystem.polygonOffset(-3.0F, -3.0F);
+			RenderSystem.enablePolygonOffset();
 			blockrendererdispatcher.renderDynamic(
 				TRContent.NUKE.getDefaultState().with(BlockNuke.OVERLAY, true), 1.0F);
-			GlStateManager.polygonOffset(0.0F, 0.0F);
-			GlStateManager.disablePolygonOffset();
-			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GlStateManager.disableBlend();
-			GlStateManager.enableLighting();
+			RenderSystem.polygonOffset(0.0F, 0.0F);
+			RenderSystem.disablePolygonOffset();
+			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+			RenderSystem.disableBlend();
+			RenderSystem.enableLighting();
 		}
-		GlStateManager.popMatrix();
+		RenderSystem.popMatrix();
 		super.render(entity, x, y, z, entityYaw, partialTicks);
 	}
 

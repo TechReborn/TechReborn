@@ -70,29 +70,27 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.14.4"
-	mappings "net.fabricmc:yarn:1.14.4+build.2"
-	modCompile "net.fabricmc:fabric-loader:0.4.8+build.159"
+	minecraft "com.mojang:minecraft:19w34a"
+	mappings "net.fabricmc:yarn:19w34a+build.12"
+	modCompile "net.fabricmc:fabric-loader:0.6.0+build.163"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.1+build.208"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.212-1.15"
 
-	modCompile "io.github.prospector:modmenu:1.7.7+build.116"
+	modCompile "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
-	modCompile ("me.shedaniel:RoughlyEnoughItems:3.0-pre+build.1") {
+	modCompile ("me.shedaniel:RoughlyEnoughItems:3.1-pre+build.4") {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
 	}
 
-	def rcVersion = 'RebornCore:RebornCore-1.14.4:+'
+	def rcVersion = 'RebornCore:RebornCore-1.15:+'
 
-	//Hopefully this doesnt break too much eek
-	if(Boolean.parseBoolean(System.getProperty("idea.sync.active", "false"))){
-		compile rcVersion
-	} else {
-		modCompile (rcVersion)
+	modCompile (rcVersion) {
+		transitive = false
 	}
-	
+
+	compile 'org.spongepowered:configurate-hocon:3.6'
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
