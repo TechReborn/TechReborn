@@ -43,6 +43,7 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 	}
 	
 	public void init() {
+		super.init();
 		addButton(new GuiButtonUpDown(left + 64, top + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
 		addButton(new GuiButtonUpDown(left + 64 + 12, top + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
 		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));

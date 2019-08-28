@@ -60,6 +60,7 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	
 	@Override
 	public void init() {
+		super.init();
 		addButton(new GuiButtonUpDown(left + 121, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
 		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
 		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
