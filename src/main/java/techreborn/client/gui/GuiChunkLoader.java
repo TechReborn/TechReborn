@@ -28,6 +28,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.packets.ServerboundPackets;
@@ -41,6 +42,13 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		this.blockEntity = blockEntity;
 	}
 	
+	public void init() {
+		addButton(new GuiButtonUpDown(left + 64, top + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
+		addButton(new GuiButtonUpDown(left + 64 + 12, top + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
+		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
+		addButton(new GuiButtonUpDown(left + 64 + 36, top + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
+	}
+	
 	@Override
 	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
 		super.drawBackground(partialTicks, mouseX, mouseY);
@@ -48,7 +56,6 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		
 		// Battery slot
 		drawSlot(8, 72, layer);
-		builder.drawUpDownButtons(this, 64, 40, layer);
 		if (GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE) {
 			return;
 		}
@@ -62,10 +69,6 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
-		addButton(new GuiButtonUpDown(left + 64, top + 40, this, b -> onClick(5)));
-		addButton(new GuiButtonUpDown(left + 64 + 12, top + 40, this, b -> onClick(1)));
-		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1)));
-		addButton(new GuiButtonUpDown(left + 64 + 36, top + 40, this, b -> onClick(-5)));
 	}
 	
 	public void onClick(int amount){
