@@ -104,9 +104,9 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 			register(getOre("oreUranium"), WATER, 100, 128, getMaterial("uranium", 2, Type.DUST), getMaterial("plutonium", 2, Type.SMALL_DUST), getMaterial("thorium", 1, Type.DUST));
 		}
 		
-		if (oresExist("oreUranium", "uran238", "smallUran235")) {
-			register(getOre("oreUranium"), WATER, 100, 64, getOre("uran238", 8), getOre("smallUran235", 2));
-		}
+//		if (oresExist("oreUranium", "uran238", "smallUran235")) {
+//			register(getOre("oreUranium"), WATER, 100, 64, getOre("uran238", 8), getOre("smallUran235", 2));
+//		}
 
 		if (oresExist("orePitchblende", "uran238", "uran235")) {
 			register(getOre("orePitchblende"), WATER, 100, 64, getOre("uran238", 8), getOre("smallUran235", 2));
