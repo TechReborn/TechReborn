@@ -25,13 +25,14 @@
 package techreborn.client.gui;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
@@ -39,6 +40,7 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.packets.ServerboundPackets;
+import techreborn.utils.PlayerUtils;
 
 public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 
@@ -56,16 +58,48 @@ public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, "Exp", b -> onClick()) {
+		addButton(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, "", b -> onClick()) {
 
-			
 			@Override
 			public void renderToolTip(int mouseX, int mouseY) {
-					List<String> list = new ArrayList<>();
-					list.add("Expirience accumulated: " + blockEntity.experience);
-					renderTooltip(list, mouseX - getGuiLeft(), mouseY - getGuiTop());
-					GlStateManager.disableLighting();
-					GlStateManager.color4f(1, 1, 1, 1);			
+				PlayerEntity player = playerInventory.player;
+				if (player == null) {
+					return;
+				}
+				String message = "Experience: ";
+
+				float furnaceExp = blockEntity.experience;
+				if (furnaceExp <= 0) {
+					message = message + "0";
+				} else {
+					float expTillLevel = (1.0F - player.experienceProgress) * player.getNextLevelExperience();
+					if (furnaceExp <= expTillLevel) {
+						int percentage = (int) (blockEntity.experience * 100 / player.getNextLevelExperience());
+						message = message + "+"
+								+ (percentage > 0 ? String.valueOf(percentage) : "<1")
+								+ "%";
+					} else {
+						int levels = 0;
+						furnaceExp -= expTillLevel;
+						while (furnaceExp > 0) {
+							furnaceExp -= PlayerUtils.getLevelExperience(player.experienceLevel);
+							++levels;
+						}
+						message = message + "+" + String.valueOf(levels) + "L";
+					}
+				}
+
+				List<String> list = new ArrayList<>();				
+				list.add(message);
+				renderTooltip(list, mouseX, mouseY);
+				GlStateManager.disableLighting();
+				GlStateManager.color4f(1, 1, 1, 1);				
+					
+			}
+			
+			@Override
+			public void renderBg(MinecraftClient mc, int mouseX, int mouseY) {
+				mc.getItemRenderer().renderGuiItem(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
 			}
 		});		
 	}
@@ -90,14 +124,5 @@ public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 
 		builder.drawProgressBar(this, blockEntity.gaugeProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawBurnBar(this, blockEntity.gaugeFuelScaled(100), 100, 56, 36, mouseX, mouseY, layer);
-		Iterator<AbstractButtonWidget> buttonsList = this.buttons.iterator();
-
-		while (buttonsList.hasNext()) {
-			AbstractButtonWidget abstractButtonWidget = (AbstractButtonWidget) buttonsList.next();
-			if (abstractButtonWidget.isHovered()) {
-				abstractButtonWidget.renderToolTip(mouseX, mouseY);
-				break;
-			}
-		}
 	}
 }

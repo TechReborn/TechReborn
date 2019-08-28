@@ -50,7 +50,6 @@ import techreborn.utils.RecipeUtils;
 public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IContainerProvider {
 
-	public int tickTime;
 	public RebornInventory<IronFurnaceBlockEntity> inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this, getInvetoryAccess());
 	public int burnTime;
 	public int totalBurnTime;
@@ -179,12 +178,18 @@ public class IronFurnaceBlockEntity extends MachineBaseBlockEntity
 	public void fromTag(CompoundTag compoundTag) {
 		super.fromTag(compoundTag);
 		experience = compoundTag.getFloat("Experience");
+		burnTime = compoundTag.getInt("BurnTime");
+		totalBurnTime = compoundTag.getInt("TotalBurnTime");
+		progress = compoundTag.getInt("Progress");
 	}
 	
 	@Override
 	public CompoundTag toTag(CompoundTag compoundTag) {
 		 super.toTag(compoundTag);
 		 compoundTag.putFloat("Experience", experience);
+		 compoundTag.putInt("BurnTime", burnTime);
+		 compoundTag.putInt("TotalBurnTime", totalBurnTime);
+		 compoundTag.putInt("Progress", progress);
 		 return compoundTag;
 	}
 

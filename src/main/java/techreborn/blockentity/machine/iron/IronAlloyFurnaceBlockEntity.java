@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -46,11 +47,10 @@ import techreborn.init.TRContent;
 public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
 
-	public int tickTime;
 	public RebornInventory<IronAlloyFurnaceBlockEntity> inventory = new RebornInventory<>(4, "IronAlloyFurnaceBlockEntity", 64, this);
 	public int burnTime;
 	public int totalBurnTime;
-	public int cookTime;
+	public int progress;
 	int input1 = 0;
 	int input2 = 1;
 	int output = 2;
@@ -71,6 +71,23 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 			return 0;
 		}
 		return AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0);
+	}
+	
+	@Override
+	public void fromTag(CompoundTag compoundTag) {
+		super.fromTag(compoundTag);
+		burnTime = compoundTag.getInt("BurnTime");
+		totalBurnTime = compoundTag.getInt("TotalBurnTime");
+		progress = compoundTag.getInt("Progress");
+	}
+	
+	@Override
+	public CompoundTag toTag(CompoundTag compoundTag) {
+		 super.toTag(compoundTag);
+		 compoundTag.putInt("BurnTime", burnTime);
+		 compoundTag.putInt("TotalBurnTime", totalBurnTime);
+		 compoundTag.putInt("Progress", progress);
+		 return compoundTag;
 	}
 
 	@Override
@@ -96,14 +113,14 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 				}
 			}
 			if (isBurning() && canSmelt()) {
-				++cookTime;
-				if (cookTime == 200) {
-					cookTime = 0;
+				++progress;
+				if (progress == 200) {
+					progress = 0;
 					smeltItem();
 					updateInventory = true;
 				}
 			} else {
-				cookTime = 0;
+				progress = 0;
 			}
 		}
 		if (isBurning != isBurning()) {
@@ -212,7 +229,7 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public int getCookProgressScaled(int scale) {
-		return cookTime * scale / 200;
+		return progress * scale / 200;
 	}
 	
 	public void updateState() {
@@ -256,11 +273,11 @@ public class IronAlloyFurnaceBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public int getCookTime() {
-		return cookTime;
+		return progress;
 	}
 
 	public void setCookTime(int cookTime) {
-		this.cookTime = cookTime;
+		this.progress = cookTime;
 	}
 
 	@Override
