@@ -32,7 +32,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.api.IToolDrop;
@@ -41,7 +40,6 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -85,7 +83,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	private void reload(){
-		unLoadAll();
+		unloadAll();
 		load();
 	}
 
@@ -110,7 +108,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		if(world.isClient){
 			return;
 		}
-		unLoadAll();
+		unloadAll();
 		ChunkLoaderManager.get(world).clearClient((ServerPlayerEntity) playerEntity);
 	}
 
@@ -123,7 +121,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		reload();
 	}
 
-	private void unLoadAll(){
+	private void unloadAll(){
 		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
 		manager.unloadChunkLoader(world, getPos());
 	}
