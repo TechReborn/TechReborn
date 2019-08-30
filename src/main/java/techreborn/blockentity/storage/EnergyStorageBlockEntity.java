@@ -66,6 +66,9 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
+		if (world.isClient) {
+			return;
+		}
 		if (!inventory.getInvStack(0).isEmpty()) {
 			ItemStack stack = inventory.getInvStack(0);
 
