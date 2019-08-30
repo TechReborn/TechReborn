@@ -46,7 +46,6 @@ public class StackWIPHandler {
 
 	public static void setup() {
 		wipBlocks.add(TRContent.Machine.MAGIC_ENERGY_ABSORBER.block);
-		wipBlocks.add(TRContent.Machine.CHUNK_LOADER.block);
 		wipBlocks.add(TRContent.Machine.MAGIC_ENERGY_CONVERTER.block);
 
 		addHead("modmuss50");

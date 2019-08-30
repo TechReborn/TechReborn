@@ -313,12 +313,6 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
 	public static int rollingMachineMaxEnergy = 10000;
-
-	@Config(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxInput", comment = "Chunk Loader Max Input")
-	public static int chunkLoaderMaxInput = 32;
-
-	@Config(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxEnergy", comment = "Chunk Loader Max Energy")
-	public static int chunkLoaderMaxEnergy = 10_000;
 	
 	@Config(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxRadius", comment = "Chunk Loader Max Radius")
 	public static int chunkLoaderMaxRadius = 5;

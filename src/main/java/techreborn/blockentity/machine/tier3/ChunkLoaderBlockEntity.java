@@ -34,11 +34,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.StringUtils;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
@@ -48,10 +50,11 @@ import reborncore.common.chunkloading.ChunkLoaderManager;
 
 import javax.annotation.Nullable;
 
-public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
+public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
 
-	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(1, "ChunkLoaderBlockEntity", 64, this);
+	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(0, "ChunkLoaderBlockEntity", 64, this);
 	private int radius;
+	private String ownerUdid;
 
 	public ChunkLoaderBlockEntity() {
 		super(TRBlockEntities.CHUNK_LOADER );
@@ -95,7 +98,7 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 				ChunkPos loadPos = new ChunkPos(rootPos.x + i, rootPos.z + j);
 
 				if(!manager.isChunkLoaded(getWorld(), loadPos, getPos())){
-					manager.loadChunk(getWorld(), loadPos, getPos(), "todo");
+					manager.loadChunk(getWorld(), loadPos, getPos(), ownerUdid);
 				}
 			}
 		}
@@ -116,6 +119,7 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 		if(world.isClient){
 			return;
 		}
+		ownerUdid = placer.getUuidAsString();
 		reload();
 	}
 
@@ -140,39 +144,18 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 	public void fromTag(CompoundTag nbttagcompound) {
 		super.fromTag(nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
+		this.ownerUdid = nbttagcompound.getString("ownerUdid");
+		if(!StringUtils.isBlank(ownerUdid)){
+			nbttagcompound.putString("ownerUdid", this.ownerUdid);
+		}
 		inventory.read(nbttagcompound);
-	}
-	
-	@Override
-	public double getBaseMaxPower() {
-		return TechRebornConfig.chunkLoaderMaxEnergy;
-	}
-
-	@Override
-	public boolean canAcceptEnergy(final Direction direction) {
-		return true;
-	}
-
-	@Override
-	public boolean canProvideEnergy(final Direction direction) {
-		return false;
-	}
-
-	@Override
-	public double getBaseMaxOutput() {
-		return 0;
-	}
-
-	@Override
-	public double getBaseMaxInput() {
-		return TechRebornConfig.chunkLoaderMaxInput;
 	}
 
 	@Override
 	public RebornInventory<ChunkLoaderBlockEntity> getInventory() {
 		return this.inventory;
 	}
-	
+
 	public int getRadius() {
 		return radius;
 	}
@@ -184,7 +167,7 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 	@Override
 	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).energySlot(0, 8, 72).syncEnergyValue().syncIntegerValue(this::getRadius, this::setRadius).addInventory().create(this, syncID);
+				.blockEntity(this).syncIntegerValue(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 }

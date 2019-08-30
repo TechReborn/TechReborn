@@ -51,31 +51,21 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
 		addButton(new GuiButtonUpDown(left + 64 + 36, top + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addButton(new GuiButtonSimple(left + 30, top + 70, 140, 20, "Toggle Loaded Chunks", b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
+		addButton(new GuiButtonSimple(left + 10, top + 70, 155, 20, "Toggle Loaded Chunks", b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
 	
 	@Override
 	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
 		super.drawBackground(partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
-		
-		// Battery slot
-		drawSlot(8, 72, layer);
+
 		if (GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE) {
 			return;
 		}
-		String text = "Raidus: " + String.valueOf(blockEntity.getRadius());
+		String text = "Radius: " + blockEntity.getRadius();
 		drawCentredString(text, 25, 4210752, layer);
 	}
-	
-	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
-	}
-	
 	public void onClick(int amount){
 		NetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity, ClientChunkManager.hasChunksForLoader(blockEntity.getPos())));
 	}	
