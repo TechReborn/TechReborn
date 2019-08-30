@@ -122,7 +122,7 @@ public class GuiIronFurnace extends GuiBase<BuiltContainer> {
 		super.drawForeground(mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, blockEntity.gaugeProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawBurnBar(this, blockEntity.gaugeFuelScaled(100), 100, 56, 36, mouseX, mouseY, layer);
+		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
 	}
 }

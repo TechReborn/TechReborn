@@ -68,14 +68,14 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 		checkTier();
 	}
 	
-	public int getProgressScaled(final int scale) {
+	public int getProgressScaled(int scale) {
 		if (crafter != null && crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
 		}
 		return 0;
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
@@ -115,7 +115,7 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 		return new ItemStack(toolDrop, 1);
 	}
 	
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<?> getInventory() {
 		return inventory;

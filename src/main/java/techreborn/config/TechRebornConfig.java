@@ -241,10 +241,6 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")
 	public static double energyStoragePower = 40_000;
 
-
-
-
-
 	// Machines
 	@Config(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
 	public static int grinderMaxInput = 32;
@@ -465,7 +461,12 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxInput", comment = "Solid Canning Machine Max Energy (Value in EU)")
 	public static int solidCanningMachineMaxEnergy = 1_000;
 	
+	@Config(config = "machines", category = "iron_machine", key = "fuel_scale", comment = "Multiplier for vanilla furnace item burn time")
+	public static double fuelScale = 1.25;
 	
+	@Config(config = "machines", category = "iron_machine", key = "cooking_scale", comment = "Multiplier for vanilla furnace item cook time")
+	public static double cookingScale = 1.25;
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
