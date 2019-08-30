@@ -44,6 +44,7 @@ import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.BehaviorDispenseScrapbox;
+import reborncore.common.chunkloading.ChunkLoaderManager;
 import techreborn.world.WorldGenerator;
 
 public class TechReborn implements ModInitializer {

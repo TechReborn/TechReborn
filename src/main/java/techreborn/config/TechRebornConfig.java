@@ -321,7 +321,7 @@ public class TechRebornConfig {
 	public static int chunkLoaderMaxEnergy = 10_000;
 	
 	@Config(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxRadius", comment = "Chunk Loader Max Radius")
-	public static int chunkLoaderMaxRadius = 10;
+	public static int chunkLoaderMaxRadius = 5;
 	
 	@Config(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
 	public static int assemblingMachineMaxInput = 128;

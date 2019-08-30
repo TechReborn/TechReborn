@@ -25,8 +25,10 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.ClientChunkManager;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.network.NetworkManager;
@@ -48,6 +50,8 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		addButton(new GuiButtonUpDown(left + 64 + 12, top + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
 		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
 		addButton(new GuiButtonUpDown(left + 64 + 36, top + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
+
+		addButton(new GuiButtonSimple(left + 30, top + 70, 140, 20, "Toggle Loaded Chunks", b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
 	
 	@Override
@@ -73,6 +77,6 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 	}
 	
 	public void onClick(int amount){
-		NetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity));
+		NetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity, ClientChunkManager.hasChunksForLoader(blockEntity.getPos())));
 	}	
 }

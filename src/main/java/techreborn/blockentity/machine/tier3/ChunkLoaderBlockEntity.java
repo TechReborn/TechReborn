@@ -24,10 +24,16 @@
 
 package techreborn.blockentity.machine.tier3;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
@@ -38,6 +44,9 @@ import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
+import reborncore.common.chunkloading.ChunkLoaderManager;
+
+import javax.annotation.Nullable;
 
 public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
 
@@ -49,7 +58,7 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 		this.radius = 1;
 	}
 	
-	public void handleGuiInputFromClient(int buttonID) {
+	public void handleGuiInputFromClient(int buttonID, @Nullable PlayerEntity playerEntity) {
 		radius += buttonID;
 
 		if (radius > TechRebornConfig.chunkLoaderMaxRadius) {
@@ -58,17 +67,65 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 		if (radius <= 1) {
 			radius = 1;
 		}
+
+		reload();
+
+		if(playerEntity != null){
+			ChunkLoaderManager manager = ChunkLoaderManager.get(getWorld());
+			manager.syncChunkLoaderToClient((ServerPlayerEntity) playerEntity, getPos());
+		}
 	}
 
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
-	
+
+	private void reload(){
+		unLoadAll();
+		load();
+	}
+
+	private void load(){
+		ChunkLoaderManager manager = ChunkLoaderManager.get(getWorld());
+		ChunkPos rootPos = getChunkPos();
+		int loadRadius = radius -1;
+		for (int i = -loadRadius; i <= loadRadius; i++) {
+			for (int j = -loadRadius; j <= loadRadius; j++) {
+				ChunkPos loadPos = new ChunkPos(rootPos.x + i, rootPos.z + j);
+
+				if(!manager.isChunkLoaded(getWorld(), loadPos, getPos())){
+					manager.loadChunk(getWorld(), loadPos, getPos(), "todo");
+				}
+			}
+		}
+	}
+
+
 	@Override
-	public void tick() {
-		super.tick();
-		// TODO: chunkload
+	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
+		if(world.isClient){
+			return;
+		}
+		unLoadAll();
+		ChunkLoaderManager.get(world).clearClient((ServerPlayerEntity) playerEntity);
+	}
+
+	@Override
+	public void onPlace(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		if(world.isClient){
+			return;
+		}
+		reload();
+	}
+
+	private void unLoadAll(){
+		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
+		manager.unloadChunkLoader(world, getPos());
+	}
+
+	public ChunkPos getChunkPos(){
+		return new ChunkPos(getPos());
 	}
 
 	@Override
@@ -129,4 +186,5 @@ public class ChunkLoaderBlockEntity extends PowerAcceptorBlockEntity implements 
 		return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).energySlot(0, 8, 72).syncEnergyValue().syncIntegerValue(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
+
 }
