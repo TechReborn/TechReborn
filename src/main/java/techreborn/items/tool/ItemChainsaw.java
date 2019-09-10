@@ -35,18 +35,20 @@ import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemChainsaw extends AxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public int maxCharge = 1;
 	public int cost = 250;
@@ -123,17 +125,22 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public EnergyTier getTier() {
+		return EnergyTier.MEDIUM;
+	}
+
+	@Override
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 

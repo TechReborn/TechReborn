@@ -29,10 +29,10 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
 import techreborn.blocks.storage.BlockLapotronicSU;
 import techreborn.config.TechRebornConfig;
@@ -47,7 +47,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public LapotronicSUBlockEntity() {
-		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnumPowerTier.INSANE, 8192, TechRebornConfig.lesuBaseOutput, 1_000_000);
+		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.INSANE, 8192, TechRebornConfig.lesuBaseOutput, 1_000_000);
 		checkOverfill = false;
 	}
 

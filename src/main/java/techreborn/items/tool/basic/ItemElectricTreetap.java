@@ -30,19 +30,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
 /**
  * Created by modmuss50 on 05/11/2016.
  */
-public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemElectricTreetap extends Item implements EnergyHolder, ItemDurabilityExtensions {
 
 	public static final int maxCharge = 10_000;
 	public int cost = 20;
@@ -77,17 +77,12 @@ public class ItemElectricTreetap extends Item implements IEnergyItemInfo, ItemDu
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
-		return 200;
-	}
-
-	@Override
-	public int getMaxOutput() {
-		return 0;
+	public EnergyTier getTier() {
+		return EnergyTier.MEDIUM;
 	}
 }

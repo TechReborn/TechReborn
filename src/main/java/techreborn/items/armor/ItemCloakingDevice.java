@@ -34,16 +34,18 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
 	public static int usage = TechRebornConfig.cloackingDeviceUsage;
@@ -102,17 +104,22 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public EnergyTier getTier() {
+		return EnergyTier.HIGH;
+	}
+
+	@Override
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 }

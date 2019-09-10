@@ -27,14 +27,14 @@ package techreborn.blockentity.storage.idsu;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import org.apache.commons.lang3.StringUtils;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
+import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
@@ -44,7 +44,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	private double clientEnergy;
 
 	public InterdimensionalSUBlockEntity() {
-		super(TRBlockEntities.INTERDIMENSIONAL_SU, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnumPowerTier.EXTREME, TechRebornConfig.idsuMaxInput, TechRebornConfig.idsuMaxOutput, TechRebornConfig.idsuMaxEnergy);
+		super(TRBlockEntities.INTERDIMENSIONAL_SU, "IDSU", 2, TRContent.Machine.INTERDIMENSIONAL_SU.block, EnergyTier.EXTREME, TechRebornConfig.idsuMaxInput, TechRebornConfig.idsuMaxOutput, TechRebornConfig.idsuMaxEnergy);
 	}
 
 	@Override

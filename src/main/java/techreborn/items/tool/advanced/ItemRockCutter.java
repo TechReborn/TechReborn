@@ -35,19 +35,21 @@ import net.minecraft.item.*;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Random;
 
-public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemRockCutter extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
 	public int transferLimit = 1_000;
@@ -144,17 +146,22 @@ public class ItemRockCutter extends PickaxeItem implements IEnergyItemInfo, Item
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public EnergyTier getTier() {
+		return EnergyTier.HIGH;
+	}
+
+	@Override
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 }

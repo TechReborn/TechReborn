@@ -25,12 +25,12 @@
 package techreborn.blockentity.storage;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.init.TRContent;
+import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -38,7 +38,7 @@ import techreborn.init.TRBlockEntities;
 public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
 	public LowVoltageSUBlockEntity() {
-		super(TRBlockEntities.LOW_VOLTAGE_SU, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, EnumPowerTier.LOW, 32, 32, 40000);
+		super(TRBlockEntities.LOW_VOLTAGE_SU, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, EnergyTier.LOW, 32, 32, 40000);
 	}
 
 	@Override

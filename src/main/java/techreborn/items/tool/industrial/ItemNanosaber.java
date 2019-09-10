@@ -28,13 +28,11 @@ import com.google.common.collect.Multimap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import reborncore.api.items.ItemStackModifiers;
-import reborncore.common.util.StringUtils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
@@ -43,13 +41,17 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
+import reborncore.api.items.ItemStackModifiers;
 import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.StringUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -58,7 +60,7 @@ import techreborn.utils.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDurabilityExtensions, ItemStackModifiers {
+public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {
 	public static final int maxCharge = TechRebornConfig.nanoSaberCharge;
 	public int transferLimit = 1_000;
 	public int cost = 250;
@@ -215,17 +217,22 @@ public class ItemNanosaber extends SwordItem implements IEnergyItemInfo, ItemDur
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public EnergyTier getTier() {
+		return EnergyTier.HIGH;
+	}
+
+	@Override
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 }
