@@ -24,10 +24,8 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Material;
 import net.minecraft.block.WoodButtonBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
@@ -36,6 +34,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class RubberButtonBlock extends WoodButtonBlock {
 
 	public RubberButtonBlock() {
-		super(FabricBlockSettings.of(Material.PART).noCollision().strength(0.5f, 0.5f).sounds(BlockSoundGroup.WOOD).build());
+		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F));
 	}
 }

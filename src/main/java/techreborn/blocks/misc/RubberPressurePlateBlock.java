@@ -24,11 +24,8 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.sound.BlockSoundGroup;
+import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
@@ -37,7 +34,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class RubberPressurePlateBlock extends PressurePlateBlock {
 
 	public RubberPressurePlateBlock() {
-		super(PressurePlateBlock.ActivationRule.EVERYTHING, FabricBlockSettings.of(Material.WOOD, MaterialColor.SPRUCE).noCollision().strength(0.5f, 0.5f).sounds(BlockSoundGroup.WOOD).build());
+		super(PressurePlateBlock.ActivationRule.EVERYTHING, InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F));
 	}
 
 }

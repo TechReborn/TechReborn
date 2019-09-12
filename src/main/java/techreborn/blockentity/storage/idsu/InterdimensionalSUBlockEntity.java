@@ -108,7 +108,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	@Override
 	public CompoundTag toTag(CompoundTag nbttagcompound) {
 		super.toTag(nbttagcompound);
-		if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
+		if (ownerUdid == null || StringUtils.isEmpty(ownerUdid)) {
 			return nbttagcompound;
 		}
 		nbttagcompound.putString("ownerUdid", this.ownerUdid);

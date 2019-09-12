@@ -131,11 +131,12 @@ public class ServerboundPackets {
 		registerPacketHandler(CHUNKLOADER, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
+			boolean sync = extendedPacketBuffer.readBoolean();
 			
 			context.getTaskQueue().execute(() -> {
 				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
 				if (blockEntity instanceof ChunkLoaderBlockEntity) {
-					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID);
+					((ChunkLoaderBlockEntity) blockEntity).handleGuiInputFromClient(buttonID, sync ? context.getPlayer() : null);
 				}
 			});
 		});
@@ -193,10 +194,11 @@ public class ServerboundPackets {
 		});
 	}
 	
-	public static Packet<ServerPlayPacketListener> createPacketChunkloader(int buttonID, ChunkLoaderBlockEntity blockEntity) {
+	public static Packet<ServerPlayPacketListener> createPacketChunkloader(int buttonID, ChunkLoaderBlockEntity blockEntity, boolean sync) {
 		return NetworkManager.createServerBoundPacket(CHUNKLOADER, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
 			extendedPacketBuffer.writeInt(buttonID);
+			extendedPacketBuffer.writeBoolean(sync);
 		});
 	}
 	

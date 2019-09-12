@@ -34,6 +34,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
 import reborncore.client.multiblock.MultiblockRenderEvent;
@@ -55,6 +56,15 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	public GuiFusionReactor(int syncID, final PlayerEntity player, final FusionControlComputerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createContainer(syncID, player));
 		this.blockEntity = blockEntity;
+	}
+	
+	@Override
+	public void init() {
+		super.init();
+		addButton(new GuiButtonUpDown(left + 121, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
+		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
+		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
+		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
@@ -101,14 +111,8 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 
 			}
 		}
-		builder.drawUpDownButtons(this, 121, 79, layer);
 		drawString("Size: " + blockEntity.size, 83, 81, 0xFFFFFF, layer);
 		drawString("" + blockEntity.getPowerMultiplier() + "x", 10, 81, 0xFFFFFF, layer);
-
-		addButton(new GuiButtonUpDown(left + 121, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5)));
-		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1)));
-		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5)));
-		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1)));
 
 		builder.drawMultiEnergyBar(this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}

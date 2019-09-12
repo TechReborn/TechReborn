@@ -30,6 +30,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
+import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.packets.ServerboundPackets;
@@ -43,6 +44,15 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		super(player, aesu, aesu.createContainer(syncID, player));
 		this.blockEntity = aesu;
 	}
+	
+	@Override
+	public void init() {
+		super.init();
+		addButton(new GuiButtonUpDown(left + 121, top + 79, this, b -> onClick(256), UpDownButtonType.FASTFORWARD));
+		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, b -> onClick(64), UpDownButtonType.FORWARD));
+		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, b -> onClick(-64), UpDownButtonType.REWIND));
+		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, b -> onClick(-256), UpDownButtonType.FASTREWIND));
+	}
 
 	@Override
 	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
@@ -53,7 +63,6 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		this.drawSlot(98, 45, layer);
 		this.drawArmourSlots(8, 18, layer);
 		this.builder.drawEnergyOutput(this, 155, 61, this.blockEntity.getCurrentOutput(), layer);
-		this.builder.drawUpDownButtons(this, 121, 79, layer);
 	}
 
 	@Override
@@ -71,13 +80,6 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		}
 	
 		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
-
-		addButton(new GuiButtonUpDown(left + 121, top + 79, this, b -> onClick(256)));
-		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, b -> onClick(64)));
-		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, b -> onClick(-64)));
-		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, b -> onClick(-256)));
-		
-
 	}
 
 	public void onClick(int amount){

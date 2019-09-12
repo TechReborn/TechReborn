@@ -1,7 +1,7 @@
 {
     "parent": "minecraft:block/door_top",
     "textures": {
-        "bottom": "techreborn:block/rubber_planks",
-        "top": "techreborn:block/rubber_planks"
+        "bottom": "techreborn:block/rubber_door_bottom",
+        "top": "techreborn:block/rubber_door_top"
     }
 }

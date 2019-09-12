@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "item": "techreborn:emerald_nugget"
+    }
+  },
+  "result": {
+    "item": "minecraft:emerald"
+  }
+}

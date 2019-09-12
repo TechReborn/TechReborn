@@ -24,16 +24,21 @@
 
 package techreborn.api.recipe.recipes;
 
+import com.google.common.collect.Iterables;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
@@ -53,13 +58,35 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	@Override
 	public void deserialize(JsonObject jsonObject) {
-		shaped = JsonHelper.getObject(jsonObject, "shaped");
-		shapedRecipe = RecipeSerializer.SHAPED.read(getId(), shaped);
+		JsonObject json = JsonHelper.getObject(jsonObject, "shaped");
+		shapedRecipe = RecipeSerializer.SHAPED.read(getId(), json);
+		shaped = withoutTags(json);
 	}
 
 	@Override
 	public void serialize(JsonObject jsonObject) {
 		jsonObject.add("shaped", shaped);
+	}
+
+	//This needs to be done to remove the item tags, and replace them with just items for when syncing to the server
+	private JsonObject withoutTags(JsonObject jsonObject) {
+		JsonObject key = jsonObject.get("key").getAsJsonObject();
+		key.entrySet().forEach(entry -> {
+			if(entry.getValue().isJsonObject()){
+				JsonObject value = entry.getValue().getAsJsonObject();
+				if(value.has("tag")){
+
+					Identifier tag = new Identifier(value.get("tag").getAsString());
+					Tag<Item> itemTag = ItemTags.getContainer().get(tag);
+					Item item = Iterables.get(itemTag.values(), 0);
+
+					//Remove the tag, and replace it with a basic s
+					value.remove("tag");
+					value.addProperty("item", Registry.ITEM.getId(item).toString());
+				}
+			}
+		});
+		return jsonObject;
 	}
 
 	@Override
