@@ -29,6 +29,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateFactory;
@@ -82,12 +83,12 @@ public class BlockRubberLog extends LogBlock {
 	public void onBreak(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
 		int i = 4;
 		int j = i + 1;
-		if (worldIn.isAreaLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
+		if (worldIn instanceof ServerWorld && worldIn.isRegionLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
 			for (BlockPos blockpos : BlockPos.iterate(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 				BlockState state1 = worldIn.getBlockState(blockpos);
 				if (state1.matches(BlockTags.LEAVES)) {
-					state1.scheduledTick(worldIn, blockpos, worldIn.getRandom());
-					state1.onRandomTick(worldIn, blockpos, worldIn.getRandom());
+					state1.scheduledTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
+					state1.onRandomTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
 				}
 			}
 		}
@@ -95,7 +96,7 @@ public class BlockRubberLog extends LogBlock {
 	}
 
 	@Override
-	public void onScheduledTick(BlockState state, World worldIn, BlockPos pos, Random random) {
+	public void onScheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		super.onScheduledTick(state, worldIn, pos, random);
 		if (state.get(AXIS) != Direction.Axis.Y) {
 			return;

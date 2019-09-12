@@ -83,7 +83,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			return;
 		}
 		if (world.getTime() % 20 == 0) {
-			canSeeSky = world.method_8626(pos.up());
+			canSeeSky = world.isSkyVisible(pos.up());
 			if (lastState != isSunOut()) {
 				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isSunOut()));
 				lastState = isSunOut();

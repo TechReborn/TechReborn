@@ -31,9 +31,9 @@ import java.util.function.Function;
 import com.mojang.datafixers.Dynamic;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MutableIntBoundingBox;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -58,7 +58,7 @@ public class RubberTreeFeature extends AbstractTreeFeature<DefaultFeatureConfig>
 
 	@Override
 	protected boolean generate(Set<BlockPos> changedBlocks, ModifiableTestableWorld worldIn, Random rand,
-			BlockPos saplingPos, MutableIntBoundingBox mutableBoundingBox) {
+			BlockPos saplingPos, BlockBox mutableBoundingBox) {
 		int treeHeight = rand.nextInt(5) + treeBaseHeight;
 		int baseY = saplingPos.getY();
 		int baseX = saplingPos.getX();

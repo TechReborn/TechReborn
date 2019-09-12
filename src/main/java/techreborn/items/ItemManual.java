@@ -49,7 +49,7 @@ public class ItemManual extends Item {
 		if(world.isClient){
 			openGui(player);
 		}
-		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
+		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand), true);
 	}
 
 	@Environment(EnvType.CLIENT)

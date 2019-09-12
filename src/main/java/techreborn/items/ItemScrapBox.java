@@ -54,6 +54,6 @@ public class ItemScrapBox extends Item {
 			WorldUtils.dropItem(out, world, player.getBlockPos());
 			stack.decrement(1);
 		}
-		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, stack, true);
 	}
 }

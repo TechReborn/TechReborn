@@ -200,9 +200,9 @@ public class ItemIndustrialDrill extends ItemDrill {
 					}
 				}
 			}
-			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+			return new TypedActionResult<>(ActionResult.SUCCESS, stack, true);
 		}
-		return new TypedActionResult<>(ActionResult.PASS, stack);
+		return new TypedActionResult<>(ActionResult.PASS, stack, true);
 	}
 
 	@Override

@@ -109,7 +109,7 @@ public class ItemFrequencyTransmitter extends Item {
 			}
 		}
 
-		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, stack, true);
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -69,8 +69,8 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 
 	// BlockEntity
 	@Override
-	public void validate() {
-		super.validate();
+	public void cancelRemoval() {
+		super.cancelRemoval();
 		multiblockChecker = new MultiblockChecker(world, pos.down());
 	}
 

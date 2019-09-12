@@ -69,12 +69,12 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:19w34a"
-	mappings "net.fabricmc:yarn:19w34a+build.12"
+	minecraft "com.mojang:minecraft:19w37a"
+	mappings "net.fabricmc:yarn:19w37a+build.9"
 	modCompile "net.fabricmc:fabric-loader:0.6.0+build.163"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.212-1.15"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.227-1.15"
 
 	modCompile "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
 	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
@@ -93,7 +93,7 @@ dependencies {
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
-	modCompile ('com.github.Virtuoel:Towelette:519538e54b') {
+	modCompileOnly ('com.github.Virtuoel:Towelette:519538e54b') {
 		transitive = false
 	}
 }
