@@ -102,7 +102,7 @@ public class TechRebornClient implements ClientModInitializer {
 
 						@Override
 						public BakedModel bake(ModelLoader modelLoader, Function<Identifier, Sprite> function, ModelBakeSettings modelBakeSettings) {
-							return new DynamicBucketBakedModel(fluid);
+							return new DynamicBucketBakedModel();
 						}
 					};
 				}
