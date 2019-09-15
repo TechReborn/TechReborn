@@ -28,6 +28,7 @@ import me.shedaniel.rei.api.RecipeDisplay;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.BlastFurnaceRecipe;
 import reborncore.common.crafting.RebornFluidRecipe;
 import reborncore.common.crafting.RebornRecipe;
@@ -35,8 +36,6 @@ import reborncore.common.crafting.RebornRecipe;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import io.github.prospector.silk.fluid.FluidInstance;
 
 public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDisplay {
 

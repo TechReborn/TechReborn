@@ -76,7 +76,6 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.1+build.208"
 
 	modCompile "io.github.prospector:modmenu:1.7.7+build.116"
-	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
 	modCompile ("me.shedaniel:RoughlyEnoughItems:3.0-pre+build.1") {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
@@ -90,17 +89,20 @@ dependencies {
 			transitive = false
 		}
 	} else {
-		modCompile (rcVersion){
+		modCompile (rcVersion) {
 			transitive = false
 		}
 	}
-	
+
 	include rcVersion
-	
+
+	compile 'org.checkerframework:checker-qual:2.10.0'
+	compile 'org.spongepowered:configurate-hocon:3.6'
+
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
-	modCompile ('com.github.Virtuoel:Towelette:519538e54b') {
+	modCompileOnly ('com.github.Virtuoel:Towelette:519538e54b') {
 		transitive = false
 	}
 }
