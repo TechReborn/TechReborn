@@ -26,26 +26,28 @@ package techreborn.items.tool.industrial;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.TorchHelper;
+import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -54,7 +56,7 @@ import techreborn.utils.InitUtils;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public static final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int transferLimit = 1_000;
@@ -77,11 +79,8 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	// ItemTool
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		ItemPowerManager capEnergy = new ItemPowerManager(stack);
-
-		capEnergy.useEnergy(cost, false);
-		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
-
+		Energy.of(stack).use(cost);
+		ExternalPowerSystems.requestEnergyFromArmor(stack, entityLiving);
 		return true;
 	}
 
@@ -108,13 +107,8 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
-		ItemPowerManager capEnergy = new ItemPowerManager(stack);
-		if (capEnergy.getEnergyStored() >= hitCost) {
-			capEnergy.useEnergy(hitCost, false);
-			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityliving);
-
-			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
-		}
+		Energy.of(stack).use(hitCost, () -> entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F));
+		ExternalPowerSystems.requestEnergyFromArmor(stack, entityliving);
 		return false;
 	}
 
@@ -163,17 +157,22 @@ public class ItemOmniTool extends PickaxeItem implements IEnergyItemInfo, ItemDu
 	
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
+	}
+
+	@Override
+	public EnergyTier getTier() {
+		return EnergyTier.HIGH;
 	}
 }

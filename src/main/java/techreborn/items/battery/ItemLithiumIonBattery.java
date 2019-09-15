@@ -29,6 +29,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
+import team.reborn.energy.EnergyTier;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
@@ -36,7 +37,7 @@ public class ItemLithiumIonBattery extends ItemBattery {
 
 	// 400k FE with 1k FE\t charge rate
 	public ItemLithiumIonBattery() {
-		super(400_000, 1_000);
+		super(400_000, EnergyTier.HIGH);
 	}
 	
 	@Environment(EnvType.CLIENT)

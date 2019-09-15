@@ -42,9 +42,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.WorldUtils;
+import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
@@ -120,22 +120,16 @@ public class BlockRubberLog extends LogBlock {
 		if (stack.isEmpty()) {
 			return false;
 		}
-		
-		//TODO: Should it be here??
-		ItemPowerManager capEnergy = null;
-		if (stack.getItem() instanceof ItemElectricTreetap) {
-			capEnergy = new ItemPowerManager(stack);
-		}
-		if ((capEnergy != null && capEnergy.getEnergyStored() > 20) || stack.getItem() instanceof ItemTreeTap) {
+
+		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
 						0.6F, 1F);
 				if (!worldIn.isClient) {
-					if (capEnergy != null) {
-						capEnergy.useEnergy(20, false);
-
-						ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+					if (Energy.valid(stack)) {
+						Energy.of(stack).use(20);
+						ExternalPowerSystems.requestEnergyFromArmor(stack, playerIn);
 					} else {
 						playerIn.getStackInHand(Hand.MAIN_HAND).damage(1, playerIn, playerEntity -> {});
 					}
@@ -151,14 +145,4 @@ public class BlockRubberLog extends LogBlock {
 		}
 		return false;
 	}
-
-//	@Override
-//	public void getDrops(BlockState state, DefaultedList<ItemStack> drops, World world, BlockPos pos, int fortune) {
-//		drops.add(new ItemStack(this));
-//		if (state.get(HAS_SAP)) {
-//			if (new Random().nextInt(4) == 0) {
-//				drops.add(TRContent.Parts.SAP.getStack());
-//			}
-//		}
-//	}
 }

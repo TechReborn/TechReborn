@@ -32,29 +32,30 @@ import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 
-public class ItemBattery extends Item implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemBattery extends Item implements EnergyHolder, ItemDurabilityExtensions {
 
-	int maxEnergy = 0;
-	int maxTransfer = 0;
+	private final int maxEnergy;
+	private final EnergyTier tier;
 
-	public ItemBattery(int maxEnergy, int maxTransfer) {
+	public ItemBattery(int maxEnergy, EnergyTier tier) {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
 		this.maxEnergy = maxEnergy;
-		this.maxTransfer = maxTransfer;
+		this.tier = tier;
 		this.addPropertyGetter(new Identifier("techreborn:empty"), new ItemPropertyGetter() {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && new ItemPowerManager(stack).getEnergyStored() == 0) {
+				if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -80,17 +81,12 @@ public class ItemBattery extends Item implements IEnergyItemInfo, ItemDurability
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxEnergy;
 	}
 
 	@Override
-	public int getMaxInput() {
-		return maxTransfer;
-	}
-
-	@Override
-	public int getMaxOutput() {
-		return maxTransfer;
+	public EnergyTier getTier() {
+		return tier;
 	}
 }

@@ -105,6 +105,8 @@ dependencies {
 	modCompileOnly ('com.github.Virtuoel:Towelette:519538e54b') {
 		transitive = false
 	}
+
+	compile 'teamreborn:energy:0.0.6'
 }
 
 processResources {

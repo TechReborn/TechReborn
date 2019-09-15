@@ -35,18 +35,20 @@ import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemChainsaw extends AxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public int maxCharge = 1;
 	public int cost = 250;
@@ -63,7 +65,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && new ItemPowerManager(stack).getEnergyStored() >= cost
+				if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= cost
 						&& entityIn != null && entityIn.getMainHandStack().equals(stack)) {
 					return 1.0F;
 				}
@@ -75,7 +77,7 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	// ItemAxe
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
-		if (new ItemPowerManager(stack).getEnergyStored() >= cost
+		if (Energy.of(stack).getEnergy() >= cost
 				&& (state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
 		} else {
@@ -88,10 +90,8 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
-			ItemPowerManager capEnergy = new ItemPowerManager(stack);
-
-			capEnergy.useEnergy(cost, false);
-			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
+			Energy.of(stack).use(cost);
+			ExternalPowerSystems.requestEnergyFromArmor(stack, entityLiving);
 		}
 		return true;
 	}
@@ -123,17 +123,22 @@ public class ItemChainsaw extends AxeItem implements IEnergyItemInfo, ItemDurabi
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public EnergyTier getTier() {
+		return EnergyTier.MEDIUM;
+	}
+
+	@Override
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 

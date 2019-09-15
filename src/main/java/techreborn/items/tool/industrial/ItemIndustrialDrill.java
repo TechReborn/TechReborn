@@ -47,10 +47,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemDrill;
@@ -121,17 +121,14 @@ public class ItemIndustrialDrill extends ItemDrill {
 	private void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
 		BlockState blockState = world.getBlockState(pos);
 
-		ItemPowerManager capEnergy = new ItemPowerManager(drill);
-
-		if(capEnergy.getEnergyStored() > cost){
-			capEnergy.useEnergy(cost, false);
-			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, playerIn);
+		Energy.of(drill).use(cost, () -> {
+			ExternalPowerSystems.requestEnergyFromArmor(drill, playerIn);
 
 			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);
 			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			world.removeBlockEntity(pos);
-		}
+		});
 	}
 	
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -176,7 +173,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
+			if (Energy.of(stack).getEnergy() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
@@ -207,7 +204,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 
 	@Override
 	public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
-		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && Energy.of(stack).getEnergy() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "

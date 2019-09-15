@@ -29,6 +29,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
@@ -37,7 +38,7 @@ public class ItemEnergyCrystal extends ItemBattery {
 
 	// 4M FE storage with 1k charge rate
 	public ItemEnergyCrystal() {
-		super(TechRebornConfig.energyCrystalMaxCharge, 1_000);
+		super(TechRebornConfig.energyCrystalMaxCharge, EnergyTier.HIGH);
 	}
 	
 	@Environment(EnvType.CLIENT)

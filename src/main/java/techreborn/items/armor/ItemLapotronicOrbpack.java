@@ -27,20 +27,24 @@ package techreborn.items.armor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo, ItemDurabilityExtensions {
+public class ItemLapotronicOrbpack extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	// 400M FE maxCharge and 100k FE\t charge rate. Fully charged in 3 mins.
 	public static final int maxCharge = TechRebornConfig.lapotronPackCharge;
@@ -62,8 +66,7 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
-			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack,
-					(int) transferLimit);
+			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, transferLimit);
 		}
 	}
 
@@ -84,17 +87,12 @@ public class ItemLapotronicOrbpack extends ArmorItem implements IEnergyItemInfo,
 
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
-		return transferLimit;
-	}
-
-	@Override
-	public int getMaxOutput() {
-		return transferLimit;
+	public EnergyTier getTier() {
+		return EnergyTier.EXTREME;
 	}
 }

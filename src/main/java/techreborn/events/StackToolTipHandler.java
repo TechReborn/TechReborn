@@ -40,10 +40,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
-import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
+import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
 
 import java.util.List;
@@ -59,11 +60,10 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		Item item = stack.getItem();
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(components, false, false);
-		} else if (stack.getItem() instanceof IEnergyItemInfo) {
-			ItemPowerManager itemPowerManager = new ItemPowerManager(stack);
-			LiteralText line1 = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getEnergyStored()));
+		} else if (stack.getItem() instanceof EnergyHolder) {
+			LiteralText line1 = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix(Energy.of(stack).getEnergy()));
 			line1.append("/");
-			line1.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix(itemPowerManager.getMaxEnergyStored()));
+			line1.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix(Energy.of(stack).getMaxStored()));
 			line1.append(" ");
 			line1.append(PowerSystem.getDisplayPower().abbreviation);
 			line1.formatted(Formatting.GOLD);
@@ -71,11 +71,11 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			components.add(1, line1);
 
 			if (Screen.hasShiftDown()) {
-				int percentage = percentage(itemPowerManager.getMaxEnergyStored(), itemPowerManager.getEnergyStored());
+				int percentage = percentage(Energy.of(stack).getMaxStored(), Energy.of(stack).getEnergy());
 				Formatting color = StringUtils.getPercentageColour(percentage);
 				components.add(2, new LiteralText(color + "" + percentage + "%" + Formatting.GRAY + " Charged"));
 				// TODO: show both input and output rates
-				components.add(3, new LiteralText(Formatting.GRAY + "I/O Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(((IEnergyItemInfo) item).getMaxInput())));
+				components.add(3, new LiteralText(Formatting.GRAY + "I/O Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(((EnergyHolder) item).getMaxInput(EnergySide.UNKNOWN))));
 			}
 		} else {
 			try {
@@ -100,6 +100,12 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	}
 
 	public int percentage(int MaxValue, int CurrentValue) {
+		if (CurrentValue == 0)
+			return 0;
+		return (int) ((CurrentValue * 100.0f) / MaxValue);
+	}
+
+	public int percentage(double MaxValue, double CurrentValue) {
 		if (CurrentValue == 0)
 			return 0;
 		return (int) ((CurrentValue * 100.0f) / MaxValue);

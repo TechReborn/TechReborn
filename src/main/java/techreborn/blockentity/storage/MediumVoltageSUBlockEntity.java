@@ -25,12 +25,12 @@
 package techreborn.blockentity.storage;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.init.TRContent;
+import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -42,7 +42,7 @@ public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity impleme
 	 *  MFE should store 1.2M FE with 512 FE/t I/O
 	 */
 	public MediumVoltageSUBlockEntity() {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnumPowerTier.MEDIUM, 128, 128, 300000);
+		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 128, 128, 300000);
 	}
 
 	@Override

@@ -25,12 +25,12 @@
 package techreborn.blockentity.storage;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.init.TRContent;
+import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -42,7 +42,7 @@ public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implement
 	 *  MFSU should store 40M FE with 2048 FE/t I/O
 	 */
 	public HighVoltageSUBlockEntity() {
-		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnumPowerTier.HIGH, 512, 512, 10_000_000);
+		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnergyTier.HIGH, 512, 512, 10_000_000);
 	}
 
 	@Override
