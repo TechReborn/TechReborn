@@ -444,8 +444,8 @@ public class TRContent {
 		
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(EGui.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),
-		LAMP_INCANDESCENT(new BlockLamp(14, 4, 10, 8)),
-		LAMP_LED(new BlockLamp(15, 1, 1, 12)),
+		LAMP_INCANDESCENT(new BlockLamp(4, 10, 8)),
+		LAMP_LED(new BlockLamp(1, 1, 12)),
 		PLAYER_DETECTOR(new BlockPlayerDetector());
 		
 		public final String name;
