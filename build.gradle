@@ -81,7 +81,7 @@ dependencies {
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
 	}
 
-	def rcVersion = 'RebornCore:RebornCore-1.14.4:+'
+	def rcVersion = 'RebornCore:RebornCore-1.14.4:4.0.14+build.166'
 
 	//Hopefully this doesnt break too much eek
 	if(Boolean.parseBoolean(System.getProperty("idea.sync.active", "false"))){
