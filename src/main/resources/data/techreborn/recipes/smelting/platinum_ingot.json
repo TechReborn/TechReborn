@@ -1,9 +1,9 @@
 {
-	"type": "minecraft:smelting",
-	"ingredient": {
-		"item": "techreborn:sheldonite_ore"
-	},
-	"result": "techreborn:platinum_ingot",
-	"experience": 0.5,
-	"cookingtime": 200
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "tag": "c:sheldonite_ore"
+    },
+    "result": "techreborn:platinum_ingot",
+    "experience": 0.5,
+    "cookingtime": 200
 }

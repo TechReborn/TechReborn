@@ -1,27 +1,27 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "minecraft:water",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:sheldonite_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:platinum_dust",
-			"count": 2
-		},
-		{
-			"item": "techreborn:nickel_dust"
-		},
-		{
-			"item": "techreborn:iridium_nugget",
-			"count": 2
-		}
-	]
+    "type": "techreborn:industrial_grinder",
+    "power": 64,
+    "time": 100,
+    "tank": {
+        "fluid": "minecraft:water",
+        "amount": 1000
+    },
+    "ingredients": [
+        {
+            "tag": "c:sheldonite_ore"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:platinum_dust",
+            "count": 2
+        },
+        {
+            "item": "techreborn:nickel_dust"
+        },
+        {
+            "item": "techreborn:iridium_nugget",
+            "count": 2
+        }
+    ]
 }

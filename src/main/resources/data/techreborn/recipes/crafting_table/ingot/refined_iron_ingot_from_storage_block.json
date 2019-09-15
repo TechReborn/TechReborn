@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "techreborn:refined_iron_storage_block"
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "c:refined_iron_block"
+        }
+    ],
+    "result": {
+        "item": "techreborn:refined_iron_ingot",
+        "count": 9
     }
-  ],
-  "result": {
-    "item": "techreborn:refined_iron_ingot",
-    "count": 9
-  }
 }

@@ -1,24 +1,24 @@
 {
-	"type": "techreborn:blast_furnace",
-	"power": 128,
-	"time": 100,
-	"heat": 1500,
-	"ingredients": [
-		{
-			"item": "techreborn:pyrite_ore"
-		},
-		{
-			"fluid": "techreborn:calcium_carbonate",
-			"holder": "techreborn:cell"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:refined_iron_ingot",
-			"count": 2
-		},
-		{
-			"item": "techreborn:cell"
-		}
-	]
+    "type": "techreborn:blast_furnace",
+    "power": 128,
+    "time": 100,
+    "heat": 1500,
+    "ingredients": [
+        {
+            "tag": "c:pyrite_ore"
+        },
+        {
+            "fluid": "techreborn:calcium_carbonate",
+            "holder": "techreborn:cell"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:refined_iron_ingot",
+            "count": 2
+        },
+        {
+            "item": "techreborn:cell"
+        }
+    ]
 }

@@ -1,16 +1,16 @@
 {
-  "type": "techreborn:compressor",
-  "power": 10,
-  "time": 300,
-  "ingredients": [
-    {
-      "item": "techreborn:bronze_storage_block"
-    }
-  ],
-  "results": [
-    {
-      "item": "techreborn:bronze_plate",
-      "count": 9
-    }
-  ]
+    "type": "techreborn:compressor",
+    "power": 10,
+    "time": 300,
+    "ingredients": [
+        {
+            "tag": "c:bronze_block"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:bronze_plate",
+            "count": 9
+        }
+    ]
 }

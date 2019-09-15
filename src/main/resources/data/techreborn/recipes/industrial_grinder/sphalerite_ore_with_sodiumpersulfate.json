@@ -1,27 +1,27 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "techreborn:sodium_persulfate",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:sphalerite_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:sphalerite_dust",
-			"count": 5
-		},
-		{
-			"item": "techreborn:zinc_dust",
-			"count": 3
-		},
-		{
-			"item": "techreborn:yellow_garnet_dust"
-		}
-	]
+    "type": "techreborn:industrial_grinder",
+    "power": 64,
+    "time": 100,
+    "tank": {
+        "fluid": "techreborn:sodium_persulfate",
+        "amount": 1000
+    },
+    "ingredients": [
+        {
+            "tag": "c:sphalerite_ore"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:sphalerite_dust",
+            "count": 5
+        },
+        {
+            "item": "techreborn:zinc_dust",
+            "count": 3
+        },
+        {
+            "item": "techreborn:yellow_garnet_dust"
+        }
+    ]
 }

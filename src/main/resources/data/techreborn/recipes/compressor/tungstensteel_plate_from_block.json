@@ -1,16 +1,16 @@
 {
-  "type": "techreborn:compressor",
-  "power": 10,
-  "time": 300,
-  "ingredients": [
-    {
-      "item": "techreborn:tungstensteel_storage_block"
-    }
-  ],
-  "results": [
-    {
-      "item": "techreborn:tungstensteel_plate",
-      "count": 9
-    }
-  ]
+    "type": "techreborn:compressor",
+    "power": 10,
+    "time": 300,
+    "ingredients": [
+        {
+            "tag": "c:tungstensteel_block"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:tungstensteel_plate",
+            "count": 9
+        }
+    ]
 }
