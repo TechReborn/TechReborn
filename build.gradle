@@ -55,11 +55,9 @@ configurations {
 	compile.extendsFrom shade
 }
 
-
 def ENV = System.getenv()
-if (ENV.BUILD_NUMBER) {
-	version = version + "." + "${System.getenv().BUILD_NUMBER}"
-}
+def build_number = ENV.BUILD_NUMBER ?: "local"
+version = "${version}+build.$build_number"
 
 license {
 	header file('HEADER')
@@ -88,10 +86,16 @@ dependencies {
 
 	//Hopefully this doesnt break too much eek
 	if(Boolean.parseBoolean(System.getProperty("idea.sync.active", "false"))){
-		compile rcVersion
+		compile (rcVersion) {
+			transitive = false
+		}
 	} else {
-		modCompile (rcVersion)
+		modCompile (rcVersion){
+			transitive = false
+		}
 	}
+	
+	include rcVersion
 	
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
