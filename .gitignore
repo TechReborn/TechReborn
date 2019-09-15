@@ -28,3 +28,5 @@ java_pid2412.hprof
 /gradle.properties
 /buildSrc/.gradle/
 /buildSrc/build/
+/src/main/resources/package-lock.json
+/src/main/resources/node_modules/
