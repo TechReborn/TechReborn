@@ -100,7 +100,7 @@ dependencies {
 		transitive = false
 	}
 
-	compile 'teamreborn:energy:0.0.5'
+	compile 'teamreborn:energy:0.0.6'
 }
 
 processResources {

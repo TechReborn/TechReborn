@@ -34,9 +34,9 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
@@ -61,20 +61,15 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityIn;
-			ItemPowerManager capEnergy = new ItemPowerManager(stack);
-			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
-				capEnergy.useEnergy(usage, false);
-				player.setInvisible(true);
-			} else {
-				if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
-					player.setInvisible(false);
-				}
+
+			if (Energy.valid(stack)) {
+				Energy.of(stack).use(usage, () -> player.setInvisible(true), () -> {
+					if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
+						player.setInvisible(false);
+					}
+				});
 			}
 		}
-	}
-	
-	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
-
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -85,7 +80,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 		}
 		InitUtils.initPoweredItems(TRContent.CLOAKING_DEVICE, itemList);
 	}
-	
+
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -101,7 +96,6 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	
 	// IEnergyItemInfo
 	@Override
 	public double getMaxStoredPower() {

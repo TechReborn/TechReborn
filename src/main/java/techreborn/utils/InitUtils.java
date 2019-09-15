@@ -32,7 +32,7 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.RebornRegistry;
-import reborncore.api.power.ItemPowerManager;
+import team.reborn.energy.Energy;
 import techreborn.TechReborn;
 
 public class InitUtils {
@@ -54,8 +54,8 @@ public class InitUtils {
 	public static void initPoweredItems(Item item, DefaultedList<ItemStack> itemList) {
 		ItemStack uncharged = new ItemStack(item);
 		ItemStack charged = new ItemStack(item);
-		ItemPowerManager capEnergy = new ItemPowerManager(charged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+
+		Energy.of(charged).set(Energy.of(charged).getMaxStored());
 
 		itemList.add(uncharged);
 		itemList.add(charged);

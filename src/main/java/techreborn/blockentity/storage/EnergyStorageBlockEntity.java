@@ -114,6 +114,9 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	
 	@Override
 	public Direction getFacingEnum() {
+		if(world == null){
+			return null;
+		}
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockEnergyStorage) {
 			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));

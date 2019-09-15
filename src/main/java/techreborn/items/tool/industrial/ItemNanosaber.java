@@ -42,13 +42,13 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import reborncore.api.items.ItemStackModifiers;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.StringUtils;
+import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
@@ -77,8 +77,7 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 			                   @Nullable
 				                   LivingEntity entityIn) {
 				if (ItemUtils.isActive(stack)) {
-					ItemPowerManager capEnergy = new ItemPowerManager(stack);
-					if (capEnergy.getMaxEnergyStored() - capEnergy.getEnergyStored() >= 0.9	* capEnergy.getMaxEnergyStored()) {
+					if (Energy.of(stack).getMaxStored() - Energy.of(stack).getEnergy() >= 0.9 * Energy.of(stack).getMaxStored()) {
 						return 0.5F;
 					}
 					return 1.0F;
@@ -91,14 +90,9 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 	// ItemSword
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		ItemPowerManager capEnergy = new ItemPowerManager(stack);
-		if (capEnergy.getEnergyStored() >= cost) {
-			capEnergy.useEnergy(cost, false);
-			ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityHitter);
-
-			return true;
-		}
-		return false;
+		boolean used = Energy.of(stack).use(cost);
+		ExternalPowerSystems.requestEnergyFromArmor(stack, entityHitter);
+		return used;
 	}
 
 	@Override
@@ -116,7 +110,7 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
+			if (Energy.of(stack).getEnergy() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
@@ -147,7 +141,7 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && Energy.of(stack).getEnergy() < cost) {
 			if(worldIn.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "
@@ -191,14 +185,12 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
 		inactiveCharged.setTag(new CompoundTag());
 		inactiveCharged.getTag().putBoolean("isActive", false);
-		ItemPowerManager capEnergy = new ItemPowerManager(inactiveCharged);
-		capEnergy.setEnergyStored(capEnergy.getMaxEnergyStored());
+		Energy.of(inactiveCharged).set(Energy.of(inactiveCharged).getMaxStored());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
 		activeCharged.setTag(new CompoundTag());
 		activeCharged.getTag().putBoolean("isActive", true);
-		ItemPowerManager capEnergy2 = new ItemPowerManager(activeCharged);
-		capEnergy2.setEnergyStored(capEnergy2.getMaxEnergyStored());
+		Energy.of(activeCharged).set(Energy.of(activeCharged).getMaxStored());
 
 		itemList.add(inactiveUncharged);
 		itemList.add(inactiveCharged);

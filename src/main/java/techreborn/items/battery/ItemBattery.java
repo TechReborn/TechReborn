@@ -32,10 +32,10 @@ import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
@@ -55,7 +55,7 @@ public class ItemBattery extends Item implements EnergyHolder, ItemDurabilityExt
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && new ItemPowerManager(stack).getEnergyStored() == 0) {
+				if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
 					return 1.0F;
 				}
 				return 0.0F;

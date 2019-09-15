@@ -148,11 +148,9 @@ public class CableBlockEntity extends BlockEntity
 			return;
 		}
 		Collections.shuffle(acceptors);
-        acceptors.forEach(blockEntity -> {
-        	Energy.of(this)
-		        .into(Energy.of(blockEntity))
-		        .move();
-        });
+        acceptors.forEach(blockEntity -> Energy.of(this)
+	        .into(Energy.of(blockEntity))
+	        .move());
 	}
 
     // IListInfoProvider
