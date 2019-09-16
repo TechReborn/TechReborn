@@ -178,7 +178,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			return;
 		}
 
-		Energy.of(stack).use(cost, () -> {
+		if(Energy.of(stack).use(cost)){
 			BlockState blockState = world.getBlockState(pos);
 			if (blockState.getHardness(world, pos) == -1.0F) {
 				return;
@@ -192,7 +192,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			world.removeBlockEntity(pos);
-		});
+		}
 
 	}
 }

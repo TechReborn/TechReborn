@@ -107,7 +107,9 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
-		Energy.of(stack).use(hitCost, () -> entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F));
+		if(Energy.of(stack).use(hitCost)) {
+			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
+		}
 		ExternalPowerSystems.requestEnergyFromArmor(stack, entityliving);
 		return false;
 	}

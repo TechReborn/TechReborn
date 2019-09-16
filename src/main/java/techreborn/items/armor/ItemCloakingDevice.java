@@ -63,11 +63,13 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 			PlayerEntity player = (PlayerEntity) entityIn;
 
 			if (Energy.valid(stack)) {
-				Energy.of(stack).use(usage, () -> player.setInvisible(true), () -> {
+				if(Energy.of(stack).use(usage)){
+					player.setInvisible(true);
+				} else {
 					if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
 						player.setInvisible(false);
 					}
-				});
+				}
 			}
 		}
 	}

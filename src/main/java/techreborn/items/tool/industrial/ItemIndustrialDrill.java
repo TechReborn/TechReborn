@@ -121,14 +121,14 @@ public class ItemIndustrialDrill extends ItemDrill {
 	private void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
 		BlockState blockState = world.getBlockState(pos);
 
-		Energy.of(drill).use(cost, () -> {
+		if(Energy.of(drill).use(cost)){
 			ExternalPowerSystems.requestEnergyFromArmor(drill, playerIn);
 
 			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);
 			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			world.removeBlockEntity(pos);
-		});
+		}
 	}
 	
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
