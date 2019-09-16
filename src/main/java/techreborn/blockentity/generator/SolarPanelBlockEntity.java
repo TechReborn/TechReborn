@@ -37,7 +37,6 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
-import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
 import techreborn.blocks.generator.BlockSolarPanel;
 import techreborn.init.TRBlockEntities;

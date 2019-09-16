@@ -71,6 +71,10 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canAcceptEnergy(final Direction direction) {
+		if (world == null) {
+			// Blame tooltip for this
+			return true;
+		}
 		Direction me = BlockLamp.getFacing(world.getBlockState(pos)).getOpposite();
 		return direction == me;
 	}

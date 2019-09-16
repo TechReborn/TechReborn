@@ -49,8 +49,6 @@ import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemTreeTap;
-import techreborn.items.tool.basic.ItemElectricTreetap;
-
 import java.util.Random;
 
 /**
