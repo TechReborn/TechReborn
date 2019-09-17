@@ -56,7 +56,7 @@ tile.techreborn.electric_furnace.name=Electric Furnace
 tile.techreborn.machine_frame.highly_advanced.name=Highly Advanced Machine Frame
 tile.techreborn.machine_frame.advanced.name=Advanced Machine Frame
 tile.techreborn.machine_frame.basic.name=Basic Machine Frame
-tile.techreborn.solar_panel.basic.name==Solar Panel
+tile.techreborn.solar_panel.basic.name=Solar Panel
 tile.techreborn.solar_panel.hybrid.name=LV Solar Array
 tile.techreborn.solar_panel.advanced.name=MV Solar Array
 tile.techreborn.solar_panel.ultimate.name=HV Solar Array
