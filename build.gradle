@@ -76,7 +76,7 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.226-1.14"
 
 	modCompile "io.github.prospector:modmenu:1.7.7+build.116"
-	modCompile ("me.shedaniel:RoughlyEnoughItems:3.0-pre+build.1") {
+	modCompile ("me.shedaniel:RoughlyEnoughItems:3.0-pre+build.3") {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
 	}
