@@ -137,9 +137,6 @@ jar {
 	manifest {
 		attributes 'FMLAT': 'techreborn_at.cfg'
 	}
-
-	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.lang"} : null}
-	dependsOn 'renameCrowdin'
 }
 
 task apiJar(type: Jar) {
@@ -153,41 +150,6 @@ task apiJar(type: Jar) {
 apiJar.mustRunAfter deobfJar
 
 build.dependsOn deobfJar, apiJar
-
-//Triggers crowdin to export the latest translations
-task crowdinExport() {
-	onlyIf {
-		project.hasProperty('crowdinKey')
-	}
-	doLast{
-		def apiKey = project.crowdinKey
-		def projectId = 'techreborn'
-		def response = new URL(sprintf('https://api.crowdin.com/api/project/%1$s/export?key=%2$s', [projectId, apiKey])).text
-		def metadata = new XmlParser().parseText(response)
-		project.logger.lifecycle("crowdin export status: " + metadata.@status)
-	}
-}
-
-
-task crowdin(type: Download, dependsOn: 'crowdinExport'){
-	src 'https://crowdin.com/backend/download/project/techreborn.zip'
-	dest file("build/translations.zip")
-	overwrite true
-}
-
-task cleanCrowdin(type: Delete){
-	delete 'build/translations'
-}
-
-//Renames the translation files to be all lower case
-task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
-	mustRunAfter 'crowdin'
-	from zipTree(file("build/translations.zip"))
-	into file('build/translations')
-	rename {
-		String filename -> return filename.toLowerCase()
-	}
-}
 
 publishing {
 	publications {

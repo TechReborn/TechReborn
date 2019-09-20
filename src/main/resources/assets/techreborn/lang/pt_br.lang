@@ -1,0 +1,621 @@
+
+itemGroup.techreborn=Tech Reborn
+
+#Machines
+tile.techreborn.pump.name=Bomba de Fluidos
+tile.techreborn.gas_turbine.name=Turbina à Gás
+tile.techreborn.thermal_generator.name=Gerador Térmico
+tile.techreborn.quantum_tank.name=Tanque Quântico
+tile.techreborn.quantum_chest.name=Baú Quântico
+tile.techreborn.digital_chest.name=Baú Digital
+tile.techreborn.industrial_centrifuge.name=Centrífuga Industrial
+tile.techreborn.rolling_machine.name=Máquina de Rolagem
+tile.techreborn.machine_casing.standard.name=Estrutura de Máquina Padrão
+tile.techreborn.machine_casing.reinforced.name=Estrutura de Máquina Reforçada
+tile.techreborn.machine_casing.advanced.name=Estrutura de Máquina Avançada
+tile.techreborn.industrial_blast_furnace.name=Fornalha Industrial
+tile.techreborn.alloy_smelter.name=Fundidora de Ligas
+tile.techreborn.matter_fabricator.name=Fabricador de Matéria
+tile.techreborn.implosion_compressor.name=Compressor à Implosão
+tile.techreborn.industrial_grinder.name=Triturador Industrial
+tile.techreborn.chunk_loader.name=Chunkloader Industrial
+tile.techreborn.magic_energy_converter.name=Conversor de Energia Mágica
+tile.techreborn.diesel_generator.name=Gerador à Diesel
+tile.techreborn.industrial_electrolyzer.name=Eletrolizador Industrial
+tile.techreborn.magic_energy_absorber.name=Absorvedor de Energia Mágica
+tile.techreborn.semi_fluid_generator.name=Gerador à Semi-fluidos
+tile.techreborn.iron_alloy_furnace.name=Fornalha de Ferro para Ligas
+tile.techreborn.chemical_reactor.name=Reator Químico
+tile.techreborn.interdimensional_su.name=Cubo de Energia Transdimensional
+tile.techreborn.adjustable_su.name=Cubo de Energia Ajustável
+tile.techreborn.lapotronic_su.name=Controlador de UAEL
+tile.techreborn.lsu_storage.name=Unidade de Armazenamento de Energia Lapotrônica (UAEL)
+tile.techreborn.distillation_tower.name=Torre de Destilação
+tile.techreborn.vacuum_freezer.name=Congelador à Vacuo
+tile.techreborn.plasma_generator.name=Greador à Plasma
+tile.techreborn.fusion_control_computer.name=Controlador de Fusão
+tile.techreborn.computer_cube.name=Computador em Cubo do Tech Reborn
+tile.techreborn.fusion_coil.name=Bobina de Fusão
+tile.techreborn.lightning_rod.name=Para-raios
+tile.techreborn.industrial_sawmill.name=Serraria
+tile.techreborn.charge_o_mat.name=Carregador
+tile.techreborn.player_detector.all.name=Detector de Players (Todos)
+tile.techreborn.player_detector.others.name=Detector de Players (Outros)
+tile.techreborn.player_detector.you.name=Detector de Players (Você)
+tile.techreborn.solid_fuel_generator.name=Gerador
+tile.techreborn.extractor.name=Extrator
+tile.techreborn.grinder.name=Triturador
+tile.techreborn.electric_furnace.name=Fornalha Elétrica
+tile.techreborn.machine_frame.highly_advanced.name=Estrutura de Máquina Altamente Avançada
+tile.techreborn.machine_frame.advanced.name=Estrutura de Máquina Avançada
+tile.techreborn.machine_frame.basic.name=Estrutura de Máquina Básica
+tile.techreborn.solar_panel.basic.name=Painel Solar Básico
+tile.techreborn.solar_panel.hybrid.name=Painel Solar Híbrido
+tile.techreborn.solar_panel.advanced.name=Painel Solar Avançado
+tile.techreborn.solar_panel.ultimate.name=Painel Solar Ultimate
+tile.techreborn.solar_panel.quantum.name=Painel Solar Quântico
+tile.techreborn.creative_solar_panel.name=Painel Criativo
+tile.techreborn.water_mill.name=Moinho D'água
+tile.techreborn.wind_mill.name=Gerador Eólico
+tile.techreborn.iron_furnace.name=Fornalha de Ferro
+tile.techreborn.recycler.name=Reciclador
+tile.techreborn.scrapboxinator.name=Sucateira
+tile.techreborn.low_voltage_su.name=Caixa de Baterias
+tile.techreborn.medium_voltage_su.name=Transmissor de Energia Multi-funcional
+tile.techreborn.high_voltage_su.name=Unidade de Armazenamento Multi-funcional
+tile.techreborn.nuke.name=Bomba Nuke
+tile.techreborn.lv_transformer.name=Transformador de Baixa Voltagem
+tile.techreborn.mv_transformer.name=Transformador de Média Voltagem
+tile.techreborn.hv_transformer.name=Transformador de Alta Voltagem
+tile.techreborn.ev_transformer.name=Transformador de Voltagem Extrema
+tile.techreborn.auto_crafting_table.name=Mesa de Auto-Fabricação
+tile.techreborn.lamp_incandescent.name=Lâmpada Incandescente
+tile.techreborn.lamp_led.name=Lâmpada de LED
+tile.techreborn.alarm.name=Alarme
+
+#Blocks
+tile.techreborn.rubber_log.name=Madeira de Seringueira
+tile.techreborn.rubber_planks.name=Tábuas de Madeira de Seringueira
+tile.techreborn.rubber_leaves.name=Folhas de Seringueira
+tile.techreborn.rubber_sapling.name=Muda de Seringueira
+tile.techreborn.refined_iron_fence.name=Cerca de Ferro
+tile.techreborn.reinforced_glass.name=Vidro Reforçado
+
+#Ores
+tile.techreborn.ore.bauxite.name=Minério de Bauxita
+tile.techreborn.ore.cinnabar.name=Minério de Cinábrio
+tile.techreborn.ore2.copper.name=Minério de Cobre
+tile.techreborn.ore.galena.name=Minério de Galena
+tile.techreborn.ore.iridium.name=Minério de Irídio
+tile.techreborn.ore.lead.name=Minério de Chumbo
+tile.techreborn.ore.peridot.name=Minério de Peridoto
+tile.techreborn.ore.pyrite.name=Minério de Pirita
+tile.techreborn.ore.ruby.name=Minério de Rubi
+tile.techreborn.ore.sapphire.name=Minério de Safira
+tile.techreborn.ore.sheldonite.name=Minério de Sheldonite
+tile.techreborn.ore.silver.name=Minério de Prata
+tile.techreborn.ore.sodalite.name=Minério de Sodalite
+tile.techreborn.ore.sphalerite.name=Minério de Esfarelite
+tile.techreborn.ore2.tin.name=Minério de Estanho
+tile.techreborn.ore.tungsten.name=Minério de Tungstênio
+
+#Storage
+tile.techreborn.storage.aluminum.name=Bloco de Alumínio
+tile.techreborn.storage.brass.name=Bloco de Latão
+tile.techreborn.storage.bronze.name=Bloco de Bronze
+tile.techreborn.storage.chrome.name=Bloco de Crômo
+tile.techreborn.storage2.copper.name=Bloco de Cobre
+tile.techreborn.storage.electrum.name=Bloco de Electro
+tile.techreborn.storage.invar.name=Bloco de Invar
+tile.techreborn.storage.iridium.name=Bloco de Irídio
+tile.techreborn.storage2.iridium_reinforced_stone.name=Pedra Reforçada com Irídio
+tile.techreborn.storage2.iridium_reinforced_tungstensteel.name=Bloco de Aço de Tungstênio Reforçado com Irídio
+tile.techreborn.storage.lead.name=Bloco de Chumbo
+tile.techreborn.storage.nickel.name=Bloco de Níquel
+tile.techreborn.storage.osmium.name=Bloco de Ósmio
+tile.techreborn.storage2.peridot.name=Bloco de Peridoto
+tile.techreborn.storage.platinum.name=Bloco de Platina
+tile.techreborn.storage2.red_garnet.name=Bloco de Cristal Vermelho
+tile.techreborn.storage2.refined_iron.name=Bloco de Ferro Refinado
+tile.techreborn.storage2.ruby.name=Bloco de Rubi
+tile.techreborn.storage2.sapphire.name=Bloco de Safira
+tile.techreborn.storage.silver.name=Bloco de Prata
+tile.techreborn.storage.steel.name=Bloco de Aço
+tile.techreborn.storage2.tin.name=Bloco de Estanho
+tile.techreborn.storage.titanium.name=Bloco de Titanio
+tile.techreborn.storage.tungsten.name=Bloco de Tungstênio
+tile.techreborn.storage2.tungstensteel.name=Bloco de Aço de Tungstênio
+tile.techreborn.storage2.yellow_garnet.name=Bloco de Cristal Amarelo
+tile.techreborn.storage.zinc.name=Bloco de Zinco
+
+#Cables
+tile.techreborn.cable.copper.name=Cabo de Cobre
+tile.techreborn.cable.tin.name=Cabo de Estanho
+tile.techreborn.cable.gold.name=Cabo de Ouro
+tile.techreborn.cable.hv.name=Cabo de Alta Voltagem
+tile.techreborn.cable.glassfiber.name=Cabo de Fibra de Vidro
+tile.techreborn.cable.insulatedcopper.name=Cabo de Cobre Isolado
+tile.techreborn.cable.insulatedgold.name=Cabo de Ouro Isolado
+tile.techreborn.cable.insulatedhv.name=Cabo de Alta Voltagem Isolado
+
+#Fluid blocks
+tile.techreborn.berylium.name=Berílo Líquido
+tile.techreborn.calcium.name=Calcio Líquido
+tile.techreborn.calciumcarbonate.name=Carbonato de Cálcio Líquido
+tile.techreborn.carbon.name=Carbono
+tile.techreborn.carbonfiber.name=Fibra de Carbono
+tile.techreborn.chlorite.name=Clorite Líquido
+tile.techreborn.compressedair.name=Ar Comprimido
+tile.techreborn.deuterium.name=Deutério Líquido
+tile.techreborn.diesel.name=Diesel
+tile.techreborn.electrolyzedwater.name=Água Eletrolizada
+tile.techreborn.glyceryl.name=Glicerilo Líquido
+tile.techreborn.helium.name=Hélio
+tile.techreborn.helium3.name=Hélio3
+tile.techreborn.heliumplasma.name=Plasma de Hélio
+tile.techreborn.hydrogen.name=Hidrogênio
+tile.techreborn.lithium.name=Lítio Líquido
+tile.techreborn.mercury.name=Mercúrio Líquido
+tile.techreborn.methane.name=Metano Líquido
+tile.techreborn.nitrocarbon.name=Carbono Nitroso
+tile.techreborn.nitrocoalfuel.name=Combustível de Nitrogênio Líquido
+tile.techreborn.nitrodiesel.name=Diesel Nitroso
+tile.techreborn.nitrofuel.name=Combustível Nitroso Líquido
+tile.techreborn.nitrogen.name=Nitrogênio Líquido
+tile.techreborn.nitrogendioxide.name=Dióxido de Nitrogênio Líquido
+tile.techreborn.oil.name=Óleo
+tile.techreborn.potassium.name=Potássio Líquido
+tile.techreborn.silicon.name=Silicone Líquido
+tile.techreborn.sodium.name=Sódio Líquido
+tile.techreborn.sodiumpersulfate.name=Persulfato de Sódio Líquido
+tile.techreborn.sodiumsulfide.name=Sulfeto de Sódio
+tile.techreborn.sulfur.name=Enxofre
+tile.techreborn.sulfuricacid.name=Ácido Sulfúrico
+tile.techreborn.tritium.name=Tritio Líquido
+tile.techreborn.wolframium.name=Wolframium Líquido
+
+#Fluids
+fluid.fluidberylium=Berílo
+fluid.fluidcalcium=Cálcio
+fluid.fluidcalciumcarbonate=Carbonato de Cálcio
+fluid.fluidcarbon=Carbono
+fluid.fluidcarbonfiber=Fibra de Carbono
+fluid.fluidchlorite=Clorite
+fluid.fluidcompressedair=Ar Comprimido
+fluid.fluiddeuterium=Deutério
+fluid.fluiddiesel=Diesel
+fluid.fluidelectrolyzedwater=Água Eletrolizada
+fluid.fluidglyceryl=Glicerilo
+fluid.fluidhelium=Hélio
+fluid.fluidhelium3=Hélio3
+fluid.fluidheliumplasma=Plasma de Hélio
+fluid.fluidhydrogen=Hidrogênio
+fluid.fluidlithium=Lítio
+fluid.fluidmercury=Mercúrio
+fluid.fluidmethane=Metano
+fluid.fluidnitrocarbon=Carbono Nitroso
+fluid.fluidnitrocoalfuel=Combustível de Nitrogênio
+fluid.fluidnitrodiesel=Diesel Nitroso
+fluid.fluidnitrofuel=Combustível Nitroso
+fluid.fluidnitrogen=Nitrogênio
+fluid.fluidnitrogendioxide=Dióxido de Nitrogênio
+fluid.fluidoil=Óleo
+fluid.fluidpotassium=Potássio
+fluid.fluidsilicon=Silicone
+fluid.fluidsodium=Sódio
+fluid.fluidsodiumpersulfate=Persulfato de Sódio
+fluid.fluidsodiumSulfide=Sulfeto de Sódio
+fluid.fluidSulfur=Enxofre
+fluid.fluidsulfuricacid=Ácido Sulfúrico
+fluid.fluidtritium=Tritio
+
+#Dusts
+item.techreborn.dust.almandine.name=Pó de Almandine
+item.techreborn.dust.aluminum.name=Pó de Alumínio
+item.techreborn.dust.aluminumBrass.name=Pó de Alumínio-bronze
+item.techreborn.dust.andesite.name=Pó de Andesito
+item.techreborn.dust.andradite.name=Pó de Andradite
+item.techreborn.dust.ashes.name=Cinzas
+item.techreborn.dust.basalt.name=Pó de Basalto
+item.techreborn.dust.bauxite.name=Pó de Bauxita
+item.techreborn.dust.brass.name=Pó de Latão
+item.techreborn.dust.bronze.name=Pó de Bronze
+item.techreborn.dust.calcite.name=Pó de Calcita
+item.techreborn.dust.charcoal.name=Pó de Carvão Vegetal
+item.techreborn.dust.chrome.name=Pó de Crômo
+item.techreborn.dust.cinnabar.name=Pó de Cinábrio
+item.techreborn.dust.clay.name=Pó de Argila
+item.techreborn.dust.coal.name=Pó de Carvão
+item.techreborn.dust.copper.name=Pó de Cobre
+item.techreborn.dust.dark_ashes.name=Cinzas Negras
+item.techreborn.dust.diamond.name=Pó de Diamante
+item.techreborn.dust.diorite.name=Pó de Diorito
+item.techreborn.dust.electrum.name=Pó de Electro
+item.techreborn.dust.emerald.name=Pó de Esmeralda
+item.techreborn.dust.ender_eye.name=Pó de Olho do End
+item.techreborn.dust.ender_pearl.name=Pó de Pérola do End
+item.techreborn.dust.endstone.name=Pó de Rocha do End
+item.techreborn.dust.flint.name=Pó de Pederneira
+item.techreborn.dust.galena.name=Pó de Galena
+item.techreborn.dust.gold.name=Pó de Ouro
+item.techreborn.dust.granite.name=Pó de Granito
+item.techreborn.dust.grossular.name=Pó de Grossular
+item.techreborn.dust.invar.name=Pó de Invar
+item.techreborn.dust.iron.name=Pó de Ferro
+item.techreborn.dust.lazurite.name=Pó de Lazurita
+item.techreborn.dust.lead.name=Pó de Chumbo
+item.techreborn.dust.magnesium.name=Pó de Magnésio
+item.techreborn.dust.manganese.name=Pó de Manganês
+item.techreborn.dust.marble.name=Pó de Marble
+item.techreborn.dust.netherrack.name=Pó de Rocha do Nether
+item.techreborn.dust.nickel.name=Pó de Níquel
+item.techreborn.dust.obsidian.name=Pó de Obsidiana
+item.techreborn.dust.olivine.name=Pó de Olivine
+item.techreborn.dust.peridot.name=Pó de Peridoto
+item.techreborn.dust.phosphorous.name=Pó de Fósforo
+item.techreborn.dust.platinum.name=Pó de Platina
+item.techreborn.dust.pyrite.name=Pó de Pirita
+item.techreborn.dust.pyrope.name=Pó de Piropa
+item.techreborn.dust.red_garnet.name=Pó de Cristal Vermelho
+item.techreborn.dust.ruby.name=Pó de Rubi
+item.techreborn.dust.saltpeter.name=Pó de Salitre
+item.techreborn.dust.sapphire.name=Pó de Safira
+item.techreborn.dust.saw_dust.name=Serragem
+item.techreborn.dust.silver.name=Pó de Prata
+item.techreborn.dust.sodalite.name=Pó de Sodalite
+item.techreborn.dust.spessartine.name=Pó de Espessartine
+item.techreborn.dust.sphalerite.name=Pó de Esfalerita
+item.techreborn.dust.steel.name=Pó de Aço
+item.techreborn.dust.sulfur.name=Pó de Enxofre
+item.techreborn.dust.tin.name=Pó de Estanho
+item.techreborn.dust.titanium.name=Pó de Titânio
+item.techreborn.dust.tungsten.name=Pó de Tungstênio
+item.techreborn.dust.uvarovite.name=Pó de Uvarovite
+item.techreborn.dust.yellow_garnet.name=Pó de Cristal Amarelo
+item.techreborn.dust.zinc.name=Pó de Zinco
+
+#Small Dusts
+item.techreborn.dustsmall.almandine.name=Um Pouco de Pó de Almandine
+item.techreborn.dustsmall.aluminum.name=Um Pouco de Pó de Alumínio
+item.techreborn.dustsmall.andesite.name=Um Pouco de Pó de Andesito
+item.techreborn.dustsmall.andradite.name=Um Pouco de Pó de Andradite
+item.techreborn.dustsmall.ashes.name=Um Pouco de Cinzas
+item.techreborn.dustsmall.basalt.name=Um Pouco de Pó de Basalto
+item.techreborn.dustsmall.bauxite.name=Um Pouco de Pó de Bauxita
+item.techreborn.dustsmall.brass.name=Um Pouco de Pó de Latão
+item.techreborn.dustsmall.bronze.name=Um Pouco de Pó de Bronze
+item.techreborn.dustsmall.calcite.name=Um Pouco de Pó de Calcita
+item.techreborn.dustsmall.charcoal.name=Um Pouco de Pó de Carvão Vegetal
+item.techreborn.dustsmall.chrome.name=Um Pouco de Pó de Crômo
+item.techreborn.dustsmall.cinnabar.name=Um Pouco de Pó de Cinábrio
+item.techreborn.dustsmall.clay.name=Um Pouco de Pó de Argila
+item.techreborn.dustsmall.coal.name=Um Pouco de Pó de Carvão
+item.techreborn.dustsmall.copper.name=Um Pouco de Pó de Cobre
+item.techreborn.dustsmall.dark_ashes.name=Um Pouco de Cinzas Negras
+item.techreborn.dustsmall.diamond.name=Um Pouco de Pó de Diamante
+item.techreborn.dustsmall.diorite.name=Um Pouco de Pó de Diorito
+item.techreborn.dustsmall.electrum.name=Um Pouco de Pó de Electro
+item.techreborn.dustsmall.emerald.name=Um Pouco de Pó de Esmeralda
+item.techreborn.dustsmall.ender_eye.name=Um Pouco de Pó de Olho do End
+item.techreborn.dustsmall.ender_pearl.name=Um Pouco de Pó de Pérola do End
+item.techreborn.dustsmall.endstone.name=Um Pouco de Pó de Rocha do End
+item.techreborn.dustsmall.flint.name=Um Pouco de Pó de Pederneira
+item.techreborn.dustsmall.galena.name=Um Pouco de Pó de Galena
+item.techreborn.dustsmall.glowstone.name=Um Pouco de Pó de Pedra Luminosa
+item.techreborn.dustsmall.gold.name=Um Pouco de Pó de Ouro
+item.techreborn.dustsmall.granite.name=Um Pouco de Pó de Granito
+item.techreborn.dustsmall.grossular.name=Um Pouco de Pó de Grossular
+item.techreborn.dustsmall.invar.name=Um Pouco de Pó de Invar
+item.techreborn.dustsmall.iron.name=Um Pouco de Pó de Ferro
+item.techreborn.dustsmall.lazurite.name=Um Pouco de Pó de Lazurita
+item.techreborn.dustsmall.lead.name=Um Pouco de Pó de Chumbo
+item.techreborn.dustsmall.magnesium.name=Um Pouco de Pó de Magnésio
+item.techreborn.dustsmall.manganese.name=Um Pouco de Pó de Manganês
+item.techreborn.dustsmall.marble.name=Um Pouco de Pó de Marble
+item.techreborn.dustsmall.netherrack.name=Um Pouco de Pó de Rocha do Nether
+item.techreborn.dustsmall.nickel.name=Um Pouco de Pó de Níquel
+item.techreborn.dustsmall.obsidian.name=Um Pouco de Pó de Obsidiana
+item.techreborn.dustsmall.olivine.name=Um Pouco de Pó de Olivine
+item.techreborn.dustsmall.peridot.name=Um Pouco de Pó de Peridoto
+item.techreborn.dustsmall.phosphorous.name=Um Pouco de Pó de Fósforo
+item.techreborn.dustsmall.platinum.name=Um Pouco de Pó de Platina
+item.techreborn.dustsmall.pyrite.name=Um Pouco de Pó de Pirita
+item.techreborn.dustsmall.pyrope.name=Um Pouco de Pó de Piropa
+item.techreborn.dustsmall.red_garnet.name=Um Pouco de Pó de Cristal Vermelho
+item.techreborn.dustsmall.redstone.name=Um Pouco de Pó de Redstone
+item.techreborn.dustsmall.ruby.name=Um Pouco de Pó de Rubi
+item.techreborn.dustsmall.saltpeter.name=Um Pouco de Pó de Salitre
+item.techreborn.dustsmall.sapphire.name=Um Pouco de Pó de Safira
+item.techreborn.dustsmall.saw_dust.name=Um Pouco de Serragem
+item.techreborn.dustsmall.silver.name=Um Pouco de Pó de Prata
+item.techreborn.dustsmall.sodalite.name=Um Pouco de Pó de Sodalite
+item.techreborn.dustsmall.spessartine.name=Um Pouco de Pó de Espessartine
+item.techreborn.dustsmall.sphalerite.name=Um Pouco de Pó de Esfalerita
+item.techreborn.dustsmall.steel.name=Um Pouco de Pó de Aço
+item.techreborn.dustsmall.sulfur.name=Um Pouco de Pó de Enxofre
+item.techreborn.dustsmall.tin.name=Um Pouco de Pó de Estanho
+item.techreborn.dustsmall.titanium.name=Um Pouco de Pó de Titânio
+item.techreborn.dustsmall.tungsten.name=Um Pouco de Pó de Tungstênio
+item.techreborn.dustsmall.uvarovite.name=Um Pouco de Pó de Uvarovite
+item.techreborn.dustsmall.yellow_garnet.name=Um Pouco de Pó de Cristal Amarelo
+item.techreborn.dustsmall.zinc.name=Um Pouco de Pó de Zinco
+
+#Gems
+item.techreborn.gem.ruby.name=Rubi
+item.techreborn.gem.sapphire.name=Safira
+item.techreborn.gem.peridot.name=Peridoto
+item.techreborn.gem.red_garnet.name=Cristal Vermelho
+item.techreborn.gem.yellow_garnet.name=Cristal Amarelo
+
+#Ingots
+item.techreborn.ingot.advanced_alloy.name=Lingote de Liga Avançada
+item.techreborn.ingot.aluminum.name=Lingote de Alumínio
+item.techreborn.ingot.brass.name=Lingote de Latão
+item.techreborn.ingot.bronze.name=Lingote de Bronze
+item.techreborn.ingot.chrome.name=Lingote de Crômo
+item.techreborn.ingot.copper.name=Lingote de Cobre
+item.techreborn.ingot.electrum.name=Lingote de Electro
+item.techreborn.ingot.hot_tungstensteel.name=Lingote de Aço de Tungstênio Quente
+item.techreborn.ingot.invar.name=Lingote de Invar
+item.techreborn.ingot.iridium_alloy.name=Lingote de Liga de Irídio
+item.techreborn.ingot.iridium.name=Lingote de Irídio
+item.techreborn.ingot.lead.name=Lingote de Chumbo
+item.techreborn.ingot.mixed_metal.name=Lingote de Metal Misturado
+item.techreborn.ingot.nickel.name=Lingote de Níquel
+item.techreborn.ingot.platinum.name=Lingote de Platina
+item.techreborn.ingot.refined_iron.name=Lingote de Ferro Refinado
+item.techreborn.ingot.silver.name=Lingote de Prata
+item.techreborn.ingot.steel.name=Lingote de Aço
+item.techreborn.ingot.tin.name=Lingote de Estanho
+item.techreborn.ingot.titanium.name=Lingote de Titânio
+item.techreborn.ingot.tungsten.name=Lingote de Tungstênio
+item.techreborn.ingot.tungstensteel.name=Lingote de Aço de Tungstênio
+item.techreborn.ingot.zinc.name=Lingote de Zinco
+
+#Nuggets
+item.techreborn.nuggets.aluminum.name=Pepita de Alumínio
+item.techreborn.nuggets.brass.name=Pepita de Latão
+item.techreborn.nuggets.bronze.name=Pepita de Bronze
+item.techreborn.nuggets.chrome.name=Pepita de Crômo
+item.techreborn.nuggets.copper.name=Pepita de Cobre
+item.techreborn.nuggets.diamond.name=Pepita de Diamante
+item.techreborn.nuggets.electrum.name=Pepita de Electro
+item.techreborn.nuggets.hot_tungstensteel.name=Pepita de Aço de Tungstênio Quente
+item.techreborn.nuggets.invar.name=Pepita de Invar
+item.techreborn.nuggets.iridium.name=Pepita de Irídio
+item.techreborn.nuggets.iron.name=Pepita de Ferro
+item.techreborn.nuggets.lead.name=Pepita de Chumbo
+item.techreborn.nuggets.nickel.name=Pepita de Níquel
+item.techreborn.nuggets.platinum.name=Pepita de Platina
+item.techreborn.nuggets.refined_iron.name=Pepita de Ferro Refinado
+item.techreborn.nuggets.silver.name=Pepita de Prata
+item.techreborn.nuggets.steel.name=Pepita de Aço
+item.techreborn.nuggets.tin.name=Pepita de Estanho
+item.techreborn.nuggets.titanium.name=Pepita de Titânio
+item.techreborn.nuggets.tungsten.name=Pepita de Tungstênio
+item.techreborn.nuggets.tungstensteel.name=Pepita de Aço de Tungstênio
+item.techreborn.nuggets.zinc.name=Pepita de Zinco
+
+#Plates
+item.techreborn.plate.advanced_alloy.name=Placa de Liga Avançada
+item.techreborn.plate.aluminum.name=Placa de Alumínio
+item.techreborn.plate.brass.name=Placa de Latão
+item.techreborn.plate.bronze.name=Placa de Bronze
+item.techreborn.plate.carbon.name=Placa de Carbono
+item.techreborn.plate.chrome.name=Placa de Crômo
+item.techreborn.plate.coal.name=Placa de Carvão
+item.techreborn.plate.copper.name=Placa de Cobre
+item.techreborn.plate.diamond.name=Placa de Diamante
+item.techreborn.plate.electrum.name=Placa de Electro
+item.techreborn.plate.emerald.name=Placa de Esmeralda
+item.techreborn.plate.gold.name=Placa de Ouro
+item.techreborn.plate.invar.name=Placa de Invar
+item.techreborn.plate.iridium_alloy.name=Placa de Liga de Irídio
+item.techreborn.plate.iridium.name=Placa de Irídio
+item.techreborn.plate.iron.name=Placa de Ferro
+item.techreborn.plate.lapis.name=Placa de Lápis-Lazuli
+item.techreborn.plate.lazurite.name=Placa de Lazurita
+item.techreborn.plate.lead.name=Placa de Chumbo
+item.techreborn.plate.magnalium.name=Placa de Magnálio
+item.techreborn.plate.nickel.name=Placa de Níquel
+item.techreborn.plate.obsidian.name=Placa de Obsidiana
+item.techreborn.plate.peridot.name=Placa de Peridoto
+item.techreborn.plate.platinum.name=Placa de Platina
+item.techreborn.plate.red_garnet.name=Placa de Cristal Vermelho
+item.techreborn.plate.redstone.name=Placa de Redstone
+item.techreborn.plate.refined_iron.name=Placa de Ferro Refinado
+item.techreborn.plate.ruby.name=Placa de Rubi
+item.techreborn.plate.sapphire.name=Placa de Safira
+item.techreborn.plate.silicon.name=Placa de Silicone
+item.techreborn.plate.silver.name=Placa de Prata
+item.techreborn.plate.steel.name=Placa de Aço
+item.techreborn.plate.tin.name=Placa de Estanho
+item.techreborn.plate.titanium.name=Placa de Titânio
+item.techreborn.plate.tungsten.name=Placa de Tungstênio
+item.techreborn.plate.tungstensteel.name=Placa de Aço de Tungstênio
+item.techreborn.plate.wood.name=Placa de Madeira
+item.techreborn.plate.yellow_garnet.name=Placa de Cristal Amarelo
+item.techreborn.plate.zinc.name=Placa de Zinco
+
+#Parts
+item.techreborn.part.energy_flow_circuit.name=Circuito de Fluxo de Energia
+item.techreborn.part.data_control_circuit.name=Circuito de Controle de Dados
+item.techreborn.part.data_orb.name=Orbe de Dados
+item.techreborn.part.data_storage_circuit.name=Circuito de Armazenamento de Dados
+item.techreborn.part.diamond_grinding_head.name=Cabeça de Trituração de Diamante
+item.techreborn.part.diamond_saw_blade.name=Serra de Diamante
+item.techreborn.part.tungsten_grinding_head.name=Cabeça de Trituração de Tungstênio
+item.techreborn.part.helium_coolant_simple.name=Célula Refrigerante de Hélio de 60k
+item.techreborn.part.helium_coolant_triple.name=Célula Refrigerante de Hélio de 180k
+item.techreborn.part.helium_coolant_six.name=Célula Refrigerante de Hélio de 360k
+item.techreborn.part.nak_coolant_simple.name=Célula Refrigerante de SPA de 60k
+item.techreborn.part.nak_coolant_triple.name=Célula Refrigerante de SPA de 180k
+item.techreborn.part.nak_coolant_six.name=Célula Refrigerante de SPA de 360k
+item.techreborn.part.cupronickel_heating_coil.name=Bobina de Aquacimento de Cobre-níquel
+item.techreborn.part.nichrome_heating_coil.name=Bobina de Aquacimento de Crômo-níquel
+item.techreborn.part.kanthal_heating_coil.name=Bobina de Aquacimento de CromAFeR
+item.techreborn.part.super_conductor.name=Supercondutor
+item.techreborn.part.thorium_cell.name=Haste de Combustível (Tório)
+item.techreborn.part.double_thorium_cell.name=Haste Dupla de Combustível (Tório)
+item.techreborn.part.quad_thorium_cell.name=Haste Quadrupla de Combustível (Tório)
+item.techreborn.part.plutonium_cell.name=Haste de Combustível (Plutônio)
+item.techreborn.part.double_plutonium_cell.name=Haste Dupla de Combustível (Plutônio)
+item.techreborn.part.quad_plutonium_cell.name=Haste Quadrupla de Combustível (Plutônio)
+item.techreborn.part.computer_monitor.name=Monitor de Computador
+item.techreborn.part.machine_parts.name=Partes de Máquina
+item.techreborn.part.neutron_reflector.name=Refletor de Neutrons
+item.techreborn.part.thick_neutron_reflector.name=Refletor de Neutrons Grosso
+item.techreborn.part.sap.name=Seiva
+item.techreborn.part.rubber.name=Borracha
+item.techreborn.part.scrap.name=Sucata
+item.techreborn.part.electronic_circuit.name=Circuito Eletrônico
+item.techreborn.part.advanced_circuit.name=Circuito Eletrônico Avançado
+item.techreborn.part.coolant_simple.name=Célula Refrigerante de 10k
+item.techreborn.part.coolant_triple.name=Célula Refrigerante de 30k
+item.techreborn.part.coolant_six.name=Célula Refrigerante de 60k
+item.techreborn.part.carbon_mesh.name=Malha de Carbono
+item.techreborn.part.carbon_fiber.name=Fibra de Carbono
+item.techreborn.part.uuMatter.name=Matéria UU
+
+#Items-Armor
+item.techreborn.cloakingdevice.name=Dispositivo de Camuflagem
+item.techreborn.lapotronpack.name=Mochila-Orbe Lapotrônica
+item.techreborn.lithiumbatpack.name=Mochila-Bateria de Lítio
+
+#Items-Battery
+item.techreborn.energyCrystal.name=Cristal de Energia
+item.techreborn.lapotronCrystal.name=Cristal Lapotron
+item.techreborn.lapotronicorb.name=Orbe de Energia Lapotrônica
+item.techreborn.lithiumBattery.name=Bateria de Lítio
+item.techreborn.rebattery.name=Bateria
+
+#Items-Tools
+item.techreborn.advancedChainsaw.name=Motosserra Avançada
+item.techreborn.advancedDrill.name=Broca Avançada
+item.techreborn.advancedJackhammer.name=Martelo Hidráulico Avançado
+item.techreborn.debug.name=Ferramenta de Debug
+item.techreborn.diamondChainsaw.name=Motosserra de Diamante
+item.techreborn.diamondDrill.name=Broca de Diamante
+item.techreborn.diamondJackhammer.name=Martelo Hidráulico de Diamante
+item.techreborn.electric_treetap.name=Atualização (Drenagem)
+item.techreborn.nanosaber.name=Nano-Sabre
+item.techreborn.omniTool.name=Ferramenta Todo-Uso
+item.techreborn.rockcutter.name=Cortador de Rochas
+item.techreborn.ironChainsaw.name=Motosserra de Aço
+item.techreborn.ironDrill.name=Broca de Aço
+item.techreborn.steelJackhammer.name=Martelo Hidráulico de Aço
+item.techreborn.treetap.name=Drenador
+item.techreborn.wrench.name=Chave Inglesa
+
+#Items-Reactor
+
+#Items-Misc
+item.techreborn.cell.name=Célula Vazia
+item.techreborn.cell.fluid.name=Célula com $fluid$
+item.techreborn.frequencyTransmitter.name=Transmissor de Frequências
+item.techreborn.manual.name=Manual Tech Reborn
+item.techreborn.missingRecipe.name=Faltando um Marcador de Receita
+item.techreborn.scrapbox.name=Caixa de Sucata
+item.techreborn.upgrade.overclock.name=Atualização (Overclock)
+item.techreborn.upgrade.transformer.name=Atualização (Transformador Interno)
+item.techreborn.upgrade.energy_storage.name=Atualização (Armazenamento de Energia)
+
+
+item.bronzeSword.name=Espada de Bronze
+item.bronzePickaxe.name=Picareta de Bronze
+item.bronzeSpade.name=Pá de Bronze
+item.bronzeAxe.name=Machado de Bronze
+item.bronzeHoe.name=Enxada de Bronze
+item.bronzeHelmet.name=Elmo de Bronze
+item.bronzeChestplate.name=Armadura de Bronze
+item.bronzeLeggings.name=Calças de Bronze
+item.bronzeBoots.name=Botas de Bronze
+
+item.rubySword.name=Espada de Rubi
+item.rubyPickaxe.name=Picareta de Rubi
+item.rubySpade.name=Pá de Rubi
+item.rubyAxe.name=Machado de Rubi
+item.rubyHoe.name=Enxada de Rubi
+item.rubyHelmet.name=Elmo de Rubi
+item.rubyChestplate.name=Armadura de Rubi
+item.rubyLeggings.name=Calças de Rubi
+item.rubyBoots.name=Botas de Rubi
+
+item.sapphireSword.name=Espada de Safira
+item.sapphirePickaxe.name=Picareta de Safira
+item.sapphireSpade.name=Pá de Safira
+item.sapphireAxe.name=Machado de Safira
+item.sapphireHoe.name=Enxada de Safira
+item.sapphireHelmet.name=Elmo de Safira 
+item.sapphireChestplate.name=Armadura de Safira
+item.sapphireLeggings.name=Calças de Safira
+item.sapphireBoots.name=Botas de Safira
+
+item.peridotSword.name=Espada de Peridoto
+item.peridotPickaxe.name=Picareta de Peridoto
+item.peridotSpade.name=Pá de Peridoto
+item.peridotAxe.name=Machado de Peridoto
+item.peridotHoe.name=Enxada de Peridoto
+item.peridotHelmet.name=Elmo de Peridoto
+item.peridotChestplate.name=Armadura de Peridoto
+item.peridotLeggings.name=Calças de Peridoto
+item.peridotBoots.name=Botas de Peridoto
+
+#Message
+techreborn.message.missingmultiblock=Estrutura Incompleta
+techreborn.message.setTo=Marcado em
+techreborn.message.in=em
+techreborn.message.noCoordsSet=Nenhuma Coordenada
+techreborn.message.coordsHaveBeen=As coordenadas foram
+techreborn.message.cleared=Limpas
+techreborn.message.detects=Detecta
+techreborn.message.allPlayers=Todos os Players
+techreborn.message.onlyOtherPlayers=Apenas Outros Players
+techreborn.message.onlyYou=Apenas Você
+techreborn.message.nanosaberActive=Ativo
+techreborn.message.nanosaberActivate=Ativar
+techreborn.message.nanosaberDeactivating=Desativando
+techreborn.message.nanosaberInactive=Inactivo
+techreborn.message.nanosaberEnergyErrorTo=Sem energia suficiente para
+techreborn.message.nanosaberEnergyError=Sem energia suficiente:
+
+keys.techreborn.category=Categoria: TechReborn
+
+# JEI Integration
+techreborn.jei.recipe.start.cost=Começa aos: %s
+techreborn.jei.recipe.processing.time.1=Tempo: %s ticks
+techreborn.jei.recipe.processing.time.2=(%s segundos)
+
+techreborn.jei.desc.rubberSap=Para obter seiva, você precisa encontrar uma seringueira, ou obter uma muda de seringueira e fazê-la crescer. Depois de obter uma seringueira, procure por pequenas manchas amareladas na árvore. Se você não vir nenhuma, espere um pouco e, eventualmente, estes pontos de seiva amarelada aparecerão. Para colher a seiva, use um drenador no tronco.
+techreborn.jei.desc.scrapBox=Caixas de Sucata podem ser abertas simplesmente com as mãos, ou por ejetores. Isso mesmo! Basta jogar suas caixas de sucata em ejetores e lhes dar um sinal redstone, e boom! Item aleatório!
+techreborn.jei.desc.scrapBoxNoDispenser=Caixas de Sucata podem ser abertas com as mãos!
+
+techreborn.jei.category.alloy.furnace=Fundidora de Ligas
+techreborn.jei.category.scrapbox=Abrindo Caixas de Sucata
+techreborn.jei.category.generator.gas=Gerador à Gás
+techreborn.jei.category.generator.semifluid=Gerador à Semi-fluidos
+techreborn.jei.category.generator.diesel=Gerador à Diesel
+techreborn.jei.category.generator.thermal=Gerador Térmico
+techreborn.jei.category.generator.plasma=Gerador à Plasma
+
+#Death Messages
+death.attack.shock=%s foi Eletrocutado
+
+#Entities
+entity.nuke.name=Bomba Nuke
+
+#Tooltips
+techreborn.tooltip.transferRate=Taxa de Tranferência
+techreborn.tooltip.tier=Nível
+techreborn.tooltip.wip=WIP Em desenvolvimento
+techreborn.tooltip.inventory=Inventário
+techreborn.tooltip.upgrades=Melhorias
+
+#ManualUI
+
+#Advancements
+advancements.techreborn.root.desc=Agora que você achou um minério do Tech Reborn, você pode achar um drenador muito útil.
+advancements.techreborn.treetap=Drenador
+advancements.techreborn.treetap.desc=Agora que você fez seu drenador, você vai querer usá-lo na seiva de uma seringueira.
+advancements.techreborn.sap=Seiva de Borracha
+advancements.techreborn.sap.desc=Muito bem. Você agora tem uma seiva de borracha. Você agora vai querer queimá-la numa fornalha para conseguir borracha.

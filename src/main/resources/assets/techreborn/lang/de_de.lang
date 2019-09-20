@@ -1,0 +1,377 @@
+
+itemGroup.techreborn=Tech Reborn
+
+#Machines
+tile.techreborn.pump.name=Pumpe
+tile.techreborn.gas_turbine.name=Gasturbine
+tile.techreborn.thermal_generator.name=Thermalgenerator
+tile.techreborn.industrial_centrifuge.name=Industrielle Zentrifuge
+tile.techreborn.rolling_machine.name=Walzmaschine
+tile.techreborn.machine_casing.standard.name=Standart Maschinenhülle
+tile.techreborn.machine_casing.reinforced.name=Verstärkte Maschinenhülle
+tile.techreborn.machine_casing.advanced.name=Fortgeschrittene Maschinehülle
+tile.techreborn.industrial_blast_furnace.name=Industrieller Hochofen
+tile.techreborn.alloy_smelter.name=Legierungsschmelze
+tile.techreborn.implosion_compressor.name=Implosionskompressor
+tile.techreborn.industrial_grinder.name=Industriezerhackstückler
+tile.techreborn.chunk_loader.name=Industrieller Chunkloader
+tile.techreborn.diesel_generator.name=Dieselgenerator
+tile.techreborn.industrial_electrolyzer.name=Industrieller Elektrolyseur
+tile.techreborn.semi_fluid_generator.name=Flüssigverbrennungsgenerator
+tile.techreborn.iron_alloy_furnace.name=Eiserner Legierungsofen
+tile.techreborn.chemical_reactor.name=Chemische Reaktionskammer
+tile.techreborn.dragon_egg_syphon.name=Dracheneisuperpositionsenergiefeldextraktor
+tile.techreborn.interdimensional_su.name=Interdimensionale SE
+tile.techreborn.adjustable_su.name=Einstellbare SE
+tile.techreborn.lapotronic_su.name=LESE Steuercomputer
+tile.techreborn.lsu_storage.name=LESE Energiezelle
+tile.techreborn.distillation_tower.name=Destillationsturm
+tile.techreborn.vacuum_freezer.name=Vakuumgefrierkammer
+tile.techreborn.plasma_generator.name=Plasmagenerator
+tile.techreborn.fusion_control_computer.name=Fusionskontrollcomputer
+tile.techreborn.computer_cube.name=Tech Reborn-Würfelcomputer
+tile.techreborn.fusion_coil.name=Fusionsreaktormagnetspule
+tile.techreborn.industrial_sawmill.name=Sägemühle
+tile.techreborn.charge_o_mat.name=Ladungsmessungsdingsbums
+tile.techreborn.player_detector.all.name=Spielerdetektor (Alle)
+tile.techreborn.player_detector.others.name=Spielerdetektor (Andere)
+tile.techreborn.player_detector.you.name=Spielerdetektor (Ich)
+tile.techreborn.solid_fuel_generator.name=Verbrennungsgenerator
+tile.techreborn.extractor.name=Extraktor
+tile.techreborn.grinder.name=Zerhackstückler
+tile.techreborn.compressor.name=Kompressor
+tile.techreborn.electric_furnace.name=Elektrischer Ofen
+tile.techreborn.water_mill.name=Wassermühle
+tile.techreborn.wind_mill.name=Windmühle
+tile.techreborn.iron_furnace.name=Eiserner Ofen
+tile.techreborn.recycler.name=Recycler
+tile.techreborn.medium_voltage_su.name=MFE
+tile.techreborn.high_voltage_su.name=MFSE
+tile.techreborn.nuke.name=Atombombe
+tile.techreborn.lv_transformer.name=NS-Transformator
+tile.techreborn.mv_transformer.name=MS-Transformator
+tile.techreborn.hv_transformer.name=HS-Transformator
+tile.techreborn.ev_transformer.name=ES-Transformator
+tile.techreborn.auto_crafting_table.name=Automatische Werkbank
+tile.techreborn.lamp_led.name=Leuchtdioden-Lampe
+tile.techreborn.alarm.name=Alarm
+
+#Blocks
+tile.techreborn.rubber_log.name=Gummibaumholz
+tile.techreborn.rubber_leaves.name=Gummibaumblätter
+tile.techreborn.rubber_sapling.name=Kautschukbaumsetzling
+tile.techreborn.refined_iron_fence.name=Eisenzaun
+
+#Ores
+tile.techreborn.ore2.copper.name=Kupfererz
+tile.techreborn.ore.iridium.name=Iridiumerz
+tile.techreborn.ore.lead.name=Bleierz
+tile.techreborn.ore.peridot.name=Peridoterz
+tile.techreborn.ore.pyrite.name=Pyriterz
+tile.techreborn.ore.ruby.name=Rubinerz
+tile.techreborn.ore.sapphire.name=Saphirerz
+tile.techreborn.ore.sheldonite.name=Sheldoniterz
+tile.techreborn.ore.silver.name=Silbererz
+tile.techreborn.ore.sodalite.name=Sodalitherz
+tile.techreborn.ore.sphalerite.name=Sphaleriterz
+tile.techreborn.ore2.tin.name=Zinnerz
+tile.techreborn.ore.tungsten.name=Wolframerz
+
+#Storage
+tile.techreborn.storage.aluminum.name=Aluminiumblock
+tile.techreborn.storage.brass.name=Messingblock
+tile.techreborn.storage.bronze.name=Bronzeblock
+tile.techreborn.storage.chrome.name=Chromblock
+tile.techreborn.storage2.copper.name=Kupferblock
+tile.techreborn.storage.electrum.name=Elektrumblock
+tile.techreborn.storage.invar.name=Invarblock
+tile.techreborn.storage.iridium.name=Iridiumblock
+tile.techreborn.storage2.iridium_reinforced_stone.name=Iridiumverstärkter Stein
+tile.techreborn.storage2.iridium_reinforced_tungstensteel.name=Iridiumverstärkter Wolframblock
+tile.techreborn.storage.lead.name=Bleiblock
+tile.techreborn.storage.nickel.name=Nickelblock
+tile.techreborn.storage.osmium.name=Osmiumblock
+tile.techreborn.storage2.peridot.name=Peridotblock
+tile.techreborn.storage.platinum.name=Platinblock
+tile.techreborn.storage2.red_garnet.name=Roter Granatblock
+tile.techreborn.storage2.refined_iron.name=Schmiedeeisenblock
+tile.techreborn.storage2.ruby.name=Rubinblock
+tile.techreborn.storage2.sapphire.name=Saphirblock
+tile.techreborn.storage.silver.name=Silberblock
+tile.techreborn.storage.steel.name=Stahlblock
+tile.techreborn.storage2.tin.name=Zinnblock
+tile.techreborn.storage.titanium.name=Titanblock
+tile.techreborn.storage.tungsten.name=Wolframblock
+tile.techreborn.storage2.tungstensteel.name=Wolframstahlblock
+tile.techreborn.storage2.yellow_garnet.name=Gelber Granatblock
+tile.techreborn.storage.zinc.name=Zinkblock
+
+#Cables
+tile.techreborn.cable.copper.name=Kupferkabel
+tile.techreborn.cable.tin.name=Zinnkabel
+tile.techreborn.cable.gold.name=Goldkabel
+tile.techreborn.cable.hv.name=Hochspannungskabel
+tile.techreborn.cable.glassfiber.name=Glasfaserkabel
+tile.techreborn.cable.insulatedcopper.name=Isoliertes Kupferkabel
+tile.techreborn.cable.insulatedgold.name=Isoliertes Goldkabel
+tile.techreborn.cable.insulatedhv.name=Isoliertes Hochspannungskabel
+
+#Fluid blocks
+tile.techreborn.berylium.name=Beryllium
+tile.techreborn.calcium.name=Kalzium
+tile.techreborn.calciumcarbonate.name=Kalziumkarbonat
+tile.techreborn.carbon.name=Kohlenstoff
+tile.techreborn.diesel.name=Diesel
+tile.techreborn.oil.name=Öl
+tile.techreborn.silicon.name=Silizium
+tile.techreborn.sulfur.name=Schwefel
+
+#Fluids
+fluid.fluidberylium=Beryllium
+fluid.fluidcalcium=Kalzium
+fluid.fluidcalciumcarbonate=Kalziumkarbonat
+fluid.fluidcarbon=Kohlenstoff
+fluid.fluiddiesel=Diesel
+fluid.fluidnitrodiesel=Bölkstoff
+fluid.fluidnitrofuel=Nitrotreibstoff
+fluid.fluidnitrogen=Stickstoff
+fluid.fluidnitrogendioxide=Stickstoffdioxid
+fluid.fluidoil=Öl
+fluid.fluidpotassium=Kalium
+fluid.fluidsilicon=Silizium
+fluid.fluidsodium=Natrium
+fluid.fluidsodiumpersulfate=Natriumpersulfat
+fluid.fluidsodiumSulfide=Natriumsulfat
+fluid.fluidSulfur=Schwefel
+fluid.fluidsulfuricacid=Schwefelsäure
+fluid.fluidtritium=Tritium
+fluid.fluidwolframium=Wolfram
+
+#Dusts
+item.techreborn.dust.almandine.name=Almandinstaub
+item.techreborn.dust.aluminum.name=Aluminiumstaub
+item.techreborn.dust.aluminumBrass.name=Aluminiummessingstaub
+item.techreborn.dust.andesite.name=Andesitstaub
+item.techreborn.dust.andradite.name=Andraditstaub
+item.techreborn.dust.ashes.name=Asche
+item.techreborn.dust.basalt.name=Basaltstaub
+item.techreborn.dust.bauxite.name=Bauxitstaub
+item.techreborn.dust.brass.name=Messingstaub
+item.techreborn.dust.bronze.name=Bronzestaub
+item.techreborn.dust.calcite.name=Calcitstaub
+item.techreborn.dust.charcoal.name=Holzkohlestaub
+item.techreborn.dust.chrome.name=Chromstaub
+item.techreborn.dust.cinnabar.name=Zinnoberstaub
+item.techreborn.dust.clay.name=Lehmstaub
+item.techreborn.dust.coal.name=Kohlestaub
+item.techreborn.dust.copper.name=Kupferstaub
+item.techreborn.dust.dark_ashes.name=Dunkle Asche
+item.techreborn.dust.diamond.name=Diamantenstaub
+item.techreborn.dust.diorite.name=Dioritstaub
+item.techreborn.dust.electrum.name=Elektrumstaub
+item.techreborn.dust.emerald.name=Smaragdstaub
+item.techreborn.dust.ender_eye.name=Enderaugenstaub
+item.techreborn.dust.ender_pearl.name=Enderperlenstaub
+item.techreborn.dust.endstone.name=Endsteinstaub
+item.techreborn.dust.flint.name=Feuersteinstaub
+item.techreborn.dust.galena.name=Galenastaub
+item.techreborn.dust.gold.name=Goldstaub
+item.techreborn.dust.granite.name=Granitstaub
+item.techreborn.dust.grossular.name=Grossularstaub
+item.techreborn.dust.invar.name=Invarstaub
+item.techreborn.dust.iron.name=Eisenstaub
+item.techreborn.dust.lazurite.name=Lazuritstaub
+item.techreborn.dust.lead.name=Bleistaub
+item.techreborn.dust.magnesium.name=Magnesiumstaub
+item.techreborn.dust.manganese.name=Manganstaub
+item.techreborn.dust.marble.name=Marmorstaub
+item.techreborn.dust.netherrack.name=Netherrackstaub
+item.techreborn.dust.nickel.name=Nickelstaub
+item.techreborn.dust.obsidian.name=Obsidianstaub
+item.techreborn.dust.saltpeter.name=Salpeter
+item.techreborn.dust.silver.name=Silberstaub
+item.techreborn.dust.steel.name=Stahlmischung
+item.techreborn.dust.sulfur.name=Schwefelstaub
+item.techreborn.dust.tin.name=Zinnstaub
+item.techreborn.dust.titanium.name=Titanstaub
+
+#Small Dusts
+item.techreborn.dustsmall.bronze.name=Winziges Häufchen Bronzestaub
+item.techreborn.dustsmall.copper.name=Winziges Häufchen Kupferstaub
+item.techreborn.dustsmall.gold.name=Winziges Häufchen Goldstaub
+item.techreborn.dustsmall.iron.name=Winziges Häufchen Eisenstaub
+item.techreborn.dustsmall.lead.name=Winziges Häufchen Bleistaub
+item.techreborn.dustsmall.obsidian.name=Winziges Häufchen Obsidianstaub
+item.techreborn.dustsmall.silver.name=Winziges Häufchen Silberstaub
+item.techreborn.dustsmall.sulfur.name=Winziges Häufchen Schwefelstaub
+item.techreborn.dustsmall.tin.name=Winziges Häufchen Zinnstaub
+
+#Gems
+
+#Ingots
+item.techreborn.ingot.aluminum.name=Aluminiumbarren
+item.techreborn.ingot.bronze.name=Bronzebarren
+item.techreborn.ingot.chrome.name=Chrombarren
+item.techreborn.ingot.copper.name=Kupferbarren
+item.techreborn.ingot.electrum.name=Elektrumbarren
+item.techreborn.ingot.invar.name=Invarbarren
+item.techreborn.ingot.lead.name=Bleibarren
+item.techreborn.ingot.nickel.name=Nickelbarren
+item.techreborn.ingot.platinum.name=Platinbarren
+item.techreborn.ingot.silver.name=Silberbarren
+item.techreborn.ingot.steel.name=Stahlbarren
+item.techreborn.ingot.tin.name=Zinnbarren
+item.techreborn.ingot.titanium.name=Titanbarren
+item.techreborn.ingot.zinc.name=Zinkbarren
+
+#Nuggets
+item.techreborn.nuggets.aluminum.name=Aluminiumklumpen
+item.techreborn.nuggets.bronze.name=Bronzeklumpen
+item.techreborn.nuggets.copper.name=Kupferklumpen
+item.techreborn.nuggets.diamond.name=Diamantklumpen
+item.techreborn.nuggets.electrum.name=Elektrumklumpen
+item.techreborn.nuggets.invar.name=Invarklumpen
+item.techreborn.nuggets.iron.name=Eisenklumpen
+item.techreborn.nuggets.lead.name=Bleiklumpen
+item.techreborn.nuggets.nickel.name=Nickelklumpen
+item.techreborn.nuggets.platinum.name=Platinklumpen
+item.techreborn.nuggets.silver.name=Silberklumpen
+item.techreborn.nuggets.steel.name=Stahlklumpen
+item.techreborn.nuggets.tin.name=Zinnklumpen
+
+#Plates
+item.techreborn.plate.aluminum.name=Aluminiumplatte
+item.techreborn.plate.bronze.name=Bronzeplatte
+item.techreborn.plate.carbon.name=Carbonplatte
+item.techreborn.plate.chrome.name=Chromplatte
+item.techreborn.plate.copper.name=Kupferplatte
+item.techreborn.plate.electrum.name=Elektrumplatte
+item.techreborn.plate.gold.name=Goldplatte
+item.techreborn.plate.invar.name=Invarplatte
+item.techreborn.plate.iridium.name=Iridiumplatte
+item.techreborn.plate.iron.name=Eisenplatte
+item.techreborn.plate.lead.name=Bleiplatte
+item.techreborn.plate.nickel.name=Nickelplatte
+item.techreborn.plate.obsidian.name=Obsidianplatte
+item.techreborn.plate.platinum.name=Platinplatte
+item.techreborn.plate.silver.name=Silberplatte
+item.techreborn.plate.steel.name=Stahlplatte
+item.techreborn.plate.tin.name=Zinnplatte
+item.techreborn.plate.titanium.name=Titanplatte
+item.techreborn.plate.zinc.name=Zinkplatte
+
+#Parts
+item.techreborn.part.energy_flow_circuit.name=Energieflussschaltkreis
+item.techreborn.part.data_control_circuit.name=Datenflussschaltkreis
+item.techreborn.part.data_orb.name=Datenspeicherkristall
+item.techreborn.part.data_storage_circuit.name=Datenspeicherschaltkreis
+item.techreborn.part.diamond_grinding_head.name=Diamantzerhackstückelungskopf
+item.techreborn.part.diamond_saw_blade.name=Diamantsägeblatt
+item.techreborn.part.tungsten_grinding_head.name=Wolframzerhackstückelungskopf
+item.techreborn.part.helium_coolant_simple.name=60k Heliumkühlzelle
+item.techreborn.part.helium_coolant_triple.name=180k Heliumkühlzelle
+item.techreborn.part.helium_coolant_six.name=360k Heliumkühlzelle
+item.techreborn.part.nak_coolant_simple.name=60k NaK-Kühlzelle
+item.techreborn.part.nak_coolant_triple.name=180k NaK-Kühlzelle
+item.techreborn.part.nak_coolant_six.name=360k NaK-Kühlzelle
+item.techreborn.part.super_conductor.name=Supraleiter
+item.techreborn.part.sap.name=Kautschuk
+item.techreborn.part.rubber.name=Gummi
+item.techreborn.part.scrap.name=Schrott
+item.techreborn.part.electronic_circuit.name=Elektrischer Schaltkreis
+item.techreborn.part.advanced_circuit.name=Erweiterter Schaltkreis
+item.techreborn.part.carbon_mesh.name=Carbongewebe
+item.techreborn.part.carbon_fiber.name=Kohlenstofffasern
+
+#Items-Armor
+item.techreborn.cloakingdevice.name=Elektroeinhandphotonenoptiktarnfeldgenerator
+
+#Items-Battery
+item.techreborn.energyCrystal.name=Energiekristall
+item.techreborn.lapotronCrystal.name=Lapotronkristall
+item.techreborn.lithiumBattery.name=Lithiumbatterie
+item.techreborn.rebattery.name=Batterie
+
+#Items-Tools
+item.techreborn.advancedChainsaw.name=Fortgeschrittene Kettensäge
+item.techreborn.debug.name=Käferentfernungswerkzeug
+item.techreborn.diamondChainsaw.name=Diamantkettensäge
+item.techreborn.nanosaber.name=LED-Schwert
+item.techreborn.omniTool.name=Omnifunktionswerkzeug
+item.techreborn.rockcutter.name=Felsschneider
+item.techreborn.ironChainsaw.name=Stahlkettensäge
+item.techreborn.wrench.name=Schraubenschlüssel
+
+#Items-Reactor
+
+#Items-Misc
+item.techreborn.manual.name=TechReborn Handbuch
+item.techreborn.scrapbox.name=Schrottkasten
+item.techreborn.upgrade.overclock.name=Übertaktungsverbesserung
+item.techreborn.upgrade.transformer.name=Transformatorverbesserung
+item.techreborn.upgrade.energy_storage.name=Energiespeicherverbesserung
+
+
+item.bronzeSword.name=Bronzeschwert
+item.bronzePickaxe.name=Bronzespitzhacke
+item.bronzeSpade.name=Bronzeschaufel
+item.bronzeAxe.name=Bronzeaxt
+item.bronzeHoe.name=Bronzehacke
+item.bronzeHelmet.name=Bronzehelm
+item.bronzeChestplate.name=Bronzebrustpanzer
+item.bronzeLeggings.name=Bronzebeinschutz
+item.bronzeBoots.name=Bronzestiefel
+
+
+
+
+#Message
+techreborn.message.alarm=Gewechselt zu:
+techreborn.message.allPlayers=Alle Spieler
+techreborn.message.onlyOtherPlayers=Nur Andere Spieler
+techreborn.message.onlyYou=Nur Du
+techreborn.message.nanosaberActive=Aktiv
+techreborn.message.nanosaberActivate=Aktivieren
+techreborn.message.nanosaberDeactivating=Deaktivieren
+techreborn.message.nanosaberInactive=Inaktiv
+techreborn.message.nanosaberEnergyErrorTo=Nicht Genug Energie, um
+techreborn.message.nanosaberEnergyError=Nicht Genug Energie:
+
+keys.techreborn.category=TechReborn Kategorie
+keys.techreborn.config=Konfiguration
+
+# JEI Integration
+techreborn.jei.recipe.start.cost=Start: %s
+techreborn.jei.recipe.running.cost=%s/T: %s
+techreborn.jei.recipe.processing.time.1=Zeit: %s Ticks
+techreborn.jei.recipe.processing.time.2=(%s Sek)
+
+
+techreborn.jei.category.alloy.furnace=Legierungsofen
+techreborn.jei.category.generator.gas=Gasgenerator
+techreborn.jei.category.generator.semifluid=Flüssigverbrennungsgenerator
+techreborn.jei.category.generator.diesel=Dieselgenerator
+techreborn.jei.category.generator.thermal=Thermalgenerator
+techreborn.jei.category.generator.plasma=Plasma-Generator
+
+#Death Messages
+death.attack.shock=%s wurde durch Stromschlag getötet
+
+#Entities
+entity.nuke.name=Kernwaffe
+
+#Tooltips
+techreborn.tooltip.transferRate=Übertragungsrate
+techreborn.tooltip.tier=Stufe
+techreborn.tooltip.wip=Arbeit im Gange; Erscheint bald
+techreborn.tooltip.inventory=Inventar
+techreborn.tooltip.upgrades=Verbesserungen
+techreborn.tooltip.alarm=Umschalttaste-rechtsklicken um den Ton zu ändern
+
+#ManualUI
+techreborn.manual.wiki=Online-Wiki
+techreborn.manual.discord=Unser Discord-Server
+techreborn.manual.wikibtn=Offen
+techreborn.manual.discordbtn=Beitreten
+
+#Advancements

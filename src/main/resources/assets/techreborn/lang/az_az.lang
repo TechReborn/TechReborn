@@ -1,0 +1,82 @@
+
+itemGroup.techreborn=Tech Reborn
+
+#Machines
+tile.techreborn.pump.name=Nasos
+tile.techreborn.gas_turbine.name=Qaz Turbini
+tile.techreborn.thermal_generator.name=İstilik Generatoru
+tile.techreborn.quantum_tank.name=Kvant Tankı
+tile.techreborn.creative_quantum_tank.name=Yaradıcı Kvant Tankı
+tile.techreborn.quantum_chest.name=Kvant Sandığı
+tile.techreborn.creative_quantum_chest.name=Yaradıcı Kvant Sandığı
+tile.techreborn.digital_chest.name=Rəqəmsal Sandıq
+tile.techreborn.industrial_centrifuge.name=Sənayə Sentrifuqası
+tile.techreborn.rolling_machine.name=Yayma Dəzgahı
+tile.techreborn.machine_casing.standard.name=Maşının Standart Tikməsi
+tile.techreborn.machine_casing.reinforced.name=Maşının Gücləndirilmiş Tikməsi
+tile.techreborn.machine_casing.advanced.name=Maşının Yaxşılaşdırılmış Tikməsi
+tile.techreborn.industrial_blast_furnace.name=Sənaye Domna Sobası
+tile.techreborn.alloy_smelter.name=Əritmə Sobası
+tile.techreborn.matter_fabricator.name=Maddə İstehsalçısı
+tile.techreborn.implosion_compressor.name=Daxili Partlayış Kompressoru
+tile.techreborn.industrial_grinder.name=Sənayə Çarxçı
+
+#Blocks
+
+#Ores
+
+#Storage
+
+#Cables
+
+#Fluid blocks
+
+#Fluids
+
+#Dusts
+
+#Small Dusts
+
+#Gems
+
+#Ingots
+
+#Nuggets
+
+#Plates
+
+#Parts
+
+#Items-Armor
+
+#Items-Battery
+
+#Items-Tools
+
+#Items-Reactor
+
+#Items-Misc
+
+
+
+
+
+
+#Message
+
+
+# JEI Integration
+techreborn.jei.recipe.processing.time.1=Vaxt: %s tik
+techreborn.jei.recipe.processing.time.2=(%s san)
+
+
+
+#Death Messages
+
+#Entities
+
+#Tooltips
+
+#ManualUI
+
+#Advancements
