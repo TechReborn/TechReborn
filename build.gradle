@@ -126,7 +126,7 @@ jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
 
-	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.lang"} : null}
+	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
 	dependsOn 'renameCrowdin'
 }
 
