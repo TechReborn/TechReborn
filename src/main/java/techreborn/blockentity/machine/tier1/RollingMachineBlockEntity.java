@@ -132,7 +132,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
 					if (inventory.getInvStack(outputSlot).isEmpty()) {
-						inventory.setInvStack(outputSlot, currentRecipeOutput);
+						inventory.setInvStack(outputSlot, currentRecipeOutput.copy());
 						tickTime = 0;
 						hasCrafted = true;
 					} else {
