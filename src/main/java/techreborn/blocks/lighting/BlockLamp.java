@@ -24,11 +24,8 @@
 
 package techreborn.blocks.lighting;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderLayer;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -59,14 +56,13 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	protected final VoxelShape[] shape;
 
 	private int cost;
-	private int brightness;
+	private static int brightness = 15;
 
-	public BlockLamp(int brightness, int cost, double depth, double width) {
-		super(Block.Settings.of(Material.REDSTONE_LAMP).strength(2f, 2f));
-		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
+	public BlockLamp(int cost, double depth, double width) {
+		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness).build());
 		this.shape = GenCuboidShapes(depth, width);
 		this.cost = cost;
-		this.brightness = brightness;
+		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	
@@ -134,6 +130,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	public int getLuminance(BlockState state) {
 		return state.get(ACTIVE) ? brightness : 0;
 	}
+
 
 	@Override
 	public BlockRenderLayer getRenderLayer() {

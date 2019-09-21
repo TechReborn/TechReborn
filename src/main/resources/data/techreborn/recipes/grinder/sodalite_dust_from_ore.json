@@ -1,16 +1,16 @@
 {
-  "type": "techreborn:grinder",
-  "power": 4,
-  "time": 220,
-  "ingredients": [
-    {
-      "item": "techreborn:sodalite_ore"
-    }
-  ],
-  "results": [
-    {
-      "item": "techreborn:sodalite_dust",
-      "count": 2
-    }
-  ]
+    "type": "techreborn:grinder",
+    "power": 4,
+    "time": 220,
+    "ingredients": [
+        {
+            "tag": "c:sodalite_ore"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:sodalite_dust",
+            "count": 2
+        }
+    ]
 }

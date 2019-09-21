@@ -24,24 +24,24 @@
 
 package techreborn.blockentity.generator;
 
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.power.EnumPowerTier;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
+import team.reborn.energy.EnergyTier;
 import techreborn.blocks.generator.BlockSolarPanel;
+import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
-import techreborn.init.TRBlockEntities;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	boolean canSeeSky = false;
 	boolean lastState = false;
-	SolarPanels panel;
+	private SolarPanels panel;
 
 	public SolarPanelBlockEntity() {
 		super(TRBlockEntities.SOLAR_PANEL);
@@ -77,7 +77,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		if (world.isClient) {
 			return;
 		}
-		if (panel == TRContent.SolarPanels.CREATIVE) {
+		if (getPanel() == TRContent.SolarPanels.CREATIVE) {
 			checkOverfill = false;
 			setEnergy(Integer.MAX_VALUE);
 			return;
@@ -91,9 +91,9 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		}
 		int powerToAdd;
 		if (isSunOut()) {
-			powerToAdd = panel.generationRateD;
+			powerToAdd = getPanel().generationRateD;
 		} else if (canSeeSky) {
-			powerToAdd = panel.generationRateN;
+			powerToAdd = getPanel().generationRateN;
 		} else {
 			powerToAdd = 0;
 		}
@@ -103,7 +103,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public double getBaseMaxPower() {
-		return panel.internalCapacity;
+		return getPanel().internalCapacity;
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public double getBaseMaxOutput() {
-		return panel.generationRateD;
+		return getPanel().generationRateD;
 	}
 
 	@Override
@@ -127,13 +127,20 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public EnumPowerTier getTier() {
-		return panel.powerTier;
+	public EnergyTier getTier() {
+		return getPanel().powerTier;
 	}
 
 	@Override
 	public void checkTier() {
 		// Nope
+	}
+
+	public SolarPanels getPanel() {
+		if(panel == null){
+			updatePanel();
+		}
+		return panel;
 	}
 
 	@Override

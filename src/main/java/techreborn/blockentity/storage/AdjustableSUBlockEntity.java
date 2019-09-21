@@ -27,15 +27,16 @@ package techreborn.blockentity.storage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
@@ -44,7 +45,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public int superconductors = 0;
 
 	public AdjustableSUBlockEntity() {
-		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnumPowerTier.INSANE, TechRebornConfig.aesuMaxInput, TechRebornConfig.aesuMaxOutput, TechRebornConfig.aesuMaxEnergy);
+		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxInput, TechRebornConfig.aesuMaxOutput, TechRebornConfig.aesuMaxEnergy);
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public double getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return OUTPUT;
 	}
 

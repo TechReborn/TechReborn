@@ -1,16 +1,16 @@
 {
-  "type": "techreborn:compressor",
-  "power": 10,
-  "time": 300,
-  "ingredients": [
-    {
-      "item": "techreborn:platinum_storage_block"
-    }
-  ],
-  "results": [
-    {
-      "item": "techreborn:platinum_plate",
-      "count": 9
-    }
-  ]
+    "type": "techreborn:compressor",
+    "power": 10,
+    "time": 300,
+    "ingredients": [
+        {
+            "tag": "c:platinum_block"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:platinum_plate",
+            "count": 9
+        }
+    ]
 }

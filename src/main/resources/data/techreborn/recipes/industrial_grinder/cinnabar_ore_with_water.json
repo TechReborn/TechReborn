@@ -1,27 +1,27 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "minecraft:water",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:cinnabar_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:cinnabar_dust",
-			"count": 5
-		},
-		{
-			"item": "techreborn:redstone_small_dust",
-			"count": 2
-		},
-		{
-			"item": "techreborn:glowstone_small_dust"
-		}
-	]
+    "type": "techreborn:industrial_grinder",
+    "power": 64,
+    "time": 100,
+    "tank": {
+        "fluid": "minecraft:water",
+        "amount": 1000
+    },
+    "ingredients": [
+        {
+            "tag": "c:cinnabar_ore"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:cinnabar_dust",
+            "count": 5
+        },
+        {
+            "item": "techreborn:redstone_small_dust",
+            "count": 2
+        },
+        {
+            "item": "techreborn:glowstone_small_dust"
+        }
+    ]
 }

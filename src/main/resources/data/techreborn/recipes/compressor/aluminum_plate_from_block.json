@@ -1,16 +1,16 @@
 {
-  "type": "techreborn:compressor",
-  "power": 10,
-  "time": 300,
-  "ingredients": [
-    {
-      "item": "techreborn:aluminum_storage_block"
-    }
-  ],
-  "results": [
-    {
-      "item": "techreborn:aluminum_plate",
-      "count": 9
-    }
-  ]
+    "type": "techreborn:compressor",
+    "power": 10,
+    "time": 300,
+    "ingredients": [
+        {
+            "tag": "c:aluminum_block"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:aluminum_plate",
+            "count": 9
+        }
+    ]
 }

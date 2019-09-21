@@ -48,7 +48,7 @@ repositories {
 	}
 }
 
-version = "3.0.13"
+version = "3.0.14"
 
 configurations {
 	shade
@@ -56,9 +56,8 @@ configurations {
 }
 
 def ENV = System.getenv()
-if (ENV.BUILD_NUMBER) {
-	version = version + "." + "${System.getenv().BUILD_NUMBER}"
-}
+def build_number = ENV.BUILD_NUMBER ?: "local"
+version = "${version}+build.$build_number"
 
 license {
 	header file('HEADER')
@@ -89,13 +88,17 @@ dependencies {
 		transitive = false
 	}
 
+	compile 'org.checkerframework:checker-qual:2.10.0'
 	compile 'org.spongepowered:configurate-hocon:3.6'
+	
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
 	modCompileOnly ('com.github.Virtuoel:Towelette:519538e54b') {
 		transitive = false
 	}
+
+	compile 'teamreborn:energy:0.0.7'
 }
 
 processResources {
@@ -115,7 +118,7 @@ jar {
 	exclude "**/*.psd"
 	classifier = 'universal'
 
-	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.lang"} : null}
+	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
 	dependsOn 'renameCrowdin'
 }
 

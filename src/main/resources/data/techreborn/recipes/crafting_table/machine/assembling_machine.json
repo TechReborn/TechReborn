@@ -1,0 +1,28 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"EDE",
+		"CFC",
+		"EPE"
+	],
+	"key": {
+		"C": {
+			"item": "techreborn:advanced_circuit"
+		},
+		"F": {
+			"item": "techreborn:advanced_machine_frame"
+		},
+		"E": {
+			"tag": "c:electrum_plate"
+		},
+		"P": {
+			"item": "minecraft:piston"
+		},
+		"D": {
+			"item": "techreborn:digital_display"
+		}
+	},
+	"result": {
+		"item": "techreborn:assembly_machine"
+	}
+}

@@ -32,8 +32,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import reborncore.api.blockentity.IUpgrade;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.ChargeOMatBlockEntity;
 import techreborn.blockentity.DigitalChestBlockEntity;
@@ -208,12 +209,12 @@ public class TRContent {
 	public static Item PERIDOT_BOOTS;
 		
 	public enum SolarPanels implements ItemConvertible {
-		BASIC(EnumPowerTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
-		ADVANCED(EnumPowerTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
-		INDUSTRIAL(EnumPowerTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
-		ULTIMATE(EnumPowerTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
-		QUANTUM(EnumPowerTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
-		CREATIVE(EnumPowerTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
+		BASIC(EnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
+		ADVANCED(EnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
+		INDUSTRIAL(EnergyTier.MEDIUM, TechRebornConfig.industrialGenerationRateD, TechRebornConfig.industrialGenerationRateN),
+		ULTIMATE(EnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
+		QUANTUM(EnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
+		CREATIVE(EnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
 		
 		public final String name;
 		public final Block block;
@@ -224,9 +225,9 @@ public class TRContent {
 		public int generationRateN;
 		// Internal EU storage of solar panel
 		public int internalCapacity;
-		public final EnumPowerTier powerTier;
+		public final EnergyTier powerTier;
 		
-		SolarPanels(EnumPowerTier tier, int generationRateD, int generationRateN) {
+		SolarPanels(EnergyTier tier, int generationRateD, int generationRateN) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			powerTier = tier;
 			block = new BlockSolarPanel(this);
@@ -245,15 +246,15 @@ public class TRContent {
 	}
 
 	public enum Cables implements ItemConvertible {
-		COPPER(128, 12.0, true, EnumPowerTier.MEDIUM),
-		TIN(32, 12.0, true, EnumPowerTier.LOW),
-		GOLD(512, 12.0, true, EnumPowerTier.HIGH),
-		HV(2048, 12.0, true, EnumPowerTier.EXTREME),
-		GLASSFIBER(8192, 12.0, false, EnumPowerTier.INSANE),
-		INSULATED_COPPER(128, 10.0, false, EnumPowerTier.MEDIUM),
-		INSULATED_GOLD(512, 10.0, false, EnumPowerTier.HIGH),
-		INSULATED_HV(2048, 10.0, false, EnumPowerTier.EXTREME),
-		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, EnumPowerTier.INFINITE);
+		COPPER(128, 12.0, true, EnergyTier.MEDIUM),
+		TIN(32, 12.0, true, EnergyTier.LOW),
+		GOLD(512, 12.0, true, EnergyTier.HIGH),
+		HV(2048, 12.0, true, EnergyTier.EXTREME),
+		GLASSFIBER(8192, 12.0, false, EnergyTier.INSANE),
+		INSULATED_COPPER(128, 10.0, false, EnergyTier.MEDIUM),
+		INSULATED_GOLD(512, 10.0, false, EnergyTier.HIGH),
+		INSULATED_HV(2048, 10.0, false, EnergyTier.EXTREME),
+		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, EnergyTier.INFINITE);
 		
 
 		public final String name;
@@ -264,10 +265,10 @@ public class TRContent {
 		public double cableThickness;
 		public boolean canKill;
 		public boolean defaultCanKill;
-		public EnumPowerTier tier;
+		public EnergyTier tier;
 		
 		
-		Cables(int transferRate, double cableThickness, boolean canKill, EnumPowerTier tier) {
+		Cables(int transferRate, double cableThickness, boolean canKill, EnergyTier tier) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
 			this.defaultTransferRate = transferRate;
@@ -444,8 +445,8 @@ public class TRContent {
 		
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(EGui.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),
-		LAMP_INCANDESCENT(new BlockLamp(14, 4, 10, 8)),
-		LAMP_LED(new BlockLamp(15, 1, 1, 12)),
+		LAMP_INCANDESCENT(new BlockLamp(4, 10, 8)),
+		LAMP_LED(new BlockLamp(1, 1, 12)),
 		PLAYER_DETECTOR(new BlockPlayerDetector());
 		
 		public final String name;
@@ -718,7 +719,7 @@ public class TRContent {
 			handler.addSpeedMulti(TechRebornConfig.overclockerSpeed);
 			handler.addPowerMulti(TechRebornConfig.overclockerPower);
 			if (powerAcceptor != null) {
-				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput();
+				powerAcceptor.extraPowerInput += powerAcceptor.getMaxInput(EnergySide.UNKNOWN);
 				powerAcceptor.extraPowerStorage += powerAcceptor.getBaseMaxPower();
 			}
 		}),

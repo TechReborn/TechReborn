@@ -30,11 +30,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.api.power.EnumPowerTier;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.EnergyTier;
 import techreborn.blocks.storage.BlockEnergyStorage;
 
 /**
@@ -46,12 +46,12 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<EnergyStorageBlockEntity> inventory;
 	public String name;
 	public Block wrenchDrop;
-	public EnumPowerTier tier;
+	public EnergyTier tier;
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
 
-	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnumPowerTier tier, int maxInput, int maxOuput, int maxStorage) {
+	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnergyTier tier, int maxInput, int maxOuput, int maxStorage) {
 		super(blockEntityType);
 		inventory = new RebornInventory<>(invSize, name + "BlockEntity", 64, this);
 		this.wrenchDrop = wrenchDrop;
@@ -90,7 +90,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	public boolean canAcceptEnergy(Direction direction) {
 		return getFacing() != direction;
 	}
-	
+
 	@Override
 	public boolean canProvideEnergy(Direction direction) {
 		return getFacing() == direction;
@@ -114,6 +114,9 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	
 	@Override
 	public Direction getFacingEnum() {
+		if(world == null){
+			return null;
+		}
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockEnergyStorage) {
 			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));

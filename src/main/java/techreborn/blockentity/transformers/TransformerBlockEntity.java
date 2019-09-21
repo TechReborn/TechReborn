@@ -24,20 +24,21 @@
 
 package techreborn.blockentity.transformers;
 
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
-import reborncore.api.power.EnumPowerTier;
-import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.blocks.transformers.BlockTransformer;
 import techreborn.config.TechRebornConfig;
 
@@ -52,20 +53,20 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 
 	public String name;
 	public Block wrenchDrop;
-	public EnumPowerTier inputTier;
-	public EnumPowerTier ouputTier;
+	public EnergyTier inputTier;
+	public EnergyTier ouputTier;
 	public int maxInput;
 	public int maxOutput;
 	public int maxStorage;
 
-	public TransformerBlockEntity(BlockEntityType<?> blockEntityType, String name, Block wrenchDrop, EnumPowerTier tier) {
+	public TransformerBlockEntity(BlockEntityType<?> blockEntityType, String name, Block wrenchDrop, EnergyTier tier) {
 		super(blockEntityType);
 		this.wrenchDrop = wrenchDrop;
 		this.inputTier = tier;
-		if (tier != EnumPowerTier.MICRO) {
-			ouputTier = EnumPowerTier.values()[tier.ordinal() - 1];
+		if (tier != EnergyTier.MICRO) {
+			ouputTier = EnergyTier.values()[tier.ordinal() - 1];
 		} else {
-			ouputTier = EnumPowerTier.MICRO;
+			ouputTier = EnergyTier.MICRO;
 		}
 		this.name = name;
 		this.maxInput = tier.getMaxInput();
@@ -109,7 +110,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	}
 	
 	@Override
-	public EnumPowerTier getPushingTier() {
+	public EnergyTier getPushingTier() {
 		return ouputTier;
 	}
 
@@ -137,9 +138,9 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	// IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput())));
+		info.add(new LiteralText(Formatting.GRAY + "Input Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxInput(EnergySide.UNKNOWN))));
 		info.add(new LiteralText(Formatting.GRAY + "Input Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(inputTier.toString())));
-		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput())));
+		info.add(new LiteralText(Formatting.GRAY + "Output Rate: " + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted((int) getMaxOutput(EnergySide.UNKNOWN))));
 		info.add(new LiteralText(Formatting.GRAY + "Output Tier: " + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(ouputTier.toString())));
 	}
 

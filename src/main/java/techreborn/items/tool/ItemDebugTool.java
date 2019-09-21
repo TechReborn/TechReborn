@@ -36,8 +36,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.SystemUtil;
 import net.minecraft.util.registry.Registry;
-import reborncore.api.power.EnergyBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
+import team.reborn.energy.Energy;
 import techreborn.TechReborn;
 
 import java.util.Map.Entry;
@@ -65,8 +65,8 @@ public class ItemDebugTool extends Item {
 		BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
 		if (blockEntity != null) {
 			sendMessage(context, new LiteralText(getBlockEntityType(blockEntity)));
-			if (blockEntity instanceof EnergyBlockEntity) {
-				sendMessage(context, new LiteralText(getRCPower((EnergyBlockEntity) blockEntity)));
+			if (Energy.valid(blockEntity)) {
+				sendMessage(context, new LiteralText(getRCPower(blockEntity)));
 			}
 		}
 		return ActionResult.SUCCESS;
@@ -109,13 +109,13 @@ public class ItemDebugTool extends Item {
 		return s;
 	}
 	
-	private String getRCPower(EnergyBlockEntity blockEntity) {
+	private String getRCPower(BlockEntity blockEntity) {
 		String s = "" + Formatting.GREEN;
 		s += "Power: ";
 		s += Formatting.BLUE;
-		s += PowerSystem.getLocaliszedPower(blockEntity.getEnergy());
+		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getEnergy());
 		s += "/";
-		s += PowerSystem.getLocaliszedPower(blockEntity.getMaxPower());
+		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored());
 		
 		return s;
 	}

@@ -13,7 +13,7 @@
       "item": "techreborn:electronic_circuit"
     },
     "E": {
-      "item": "techreborn:emerald_plate"
+      "tag": "c:peridot_plate"
     },
     "G": {
       "item": "minecraft:glowstone_dust"

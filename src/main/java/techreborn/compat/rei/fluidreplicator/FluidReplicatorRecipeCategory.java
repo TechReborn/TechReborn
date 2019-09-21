@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import io.github.prospector.silk.fluid.FluidInstance;
 import me.shedaniel.math.api.Point;
 import me.shedaniel.math.api.Rectangle;
 import me.shedaniel.rei.api.RecipeCategory;
@@ -21,6 +20,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.StringUtils;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.compat.rei.ReiPlugin;

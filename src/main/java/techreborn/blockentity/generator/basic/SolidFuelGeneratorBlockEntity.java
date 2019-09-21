@@ -77,6 +77,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		if (world.isClient) {
 			return;
 		}
+		discharge(1);
 		if (getEnergy() < getMaxPower()) {
 			if (burnTime > 0) {
 				burnTime--;
@@ -85,6 +86,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 			}
 		} else {
 			isBurning = false;
+			updateState();
 		}
 
 		if (burnTime == 0) {
@@ -113,8 +115,9 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		final BlockState BlockStateContainer = world.getBlockState(pos);
 		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
 			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != burnTime > 0) {
-				blockMachineBase.setActive(burnTime > 0, world, pos);
+			boolean active = burnTime > 0 && getEnergy() < getMaxPower();
+			if (BlockStateContainer.get(BlockMachineBase.ACTIVE) != active) {
+				blockMachineBase.setActive(active, world, pos);
 			}
 		}
 	}

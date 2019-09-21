@@ -24,7 +24,7 @@
 
 package techreborn.utils;
 
-import io.github.prospector.silk.fluid.FluidInstance;
+import reborncore.common.fluid.container.FluidInstance;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -66,7 +66,7 @@ public class FluidUtils {
 		FluidInstance targetFluidInstance = target.getFluidInstance(null);
 		Fluid currentFluid = targetFluidInstance.getFluid();
 
-		if(currentFluid == Fluids.EMPTY || currentFluid == itemFluidInfo.getFluid(inputStack)) {
+		if(targetFluidInstance.isEmpty() || currentFluid == itemFluidInfo.getFluid(inputStack)) {
 			int freeSpace = target.getCapacity(null) - targetFluidInstance.getAmount();
 
 			if(!outputStack.isEmpty()){

@@ -29,6 +29,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
@@ -37,7 +38,7 @@ public class ItemLapotronCrystal extends ItemBattery {
 
 	// 40M FE capacity with 10k FE\t charge rate
 	public ItemLapotronCrystal() {
-		super(TechRebornConfig.lapotronCrystalMaxCharge, 10_000);
+		super(TechRebornConfig.lapotronCrystalMaxCharge, EnergyTier.EXTREME);
 	}
 	
 	@Environment(EnvType.CLIENT)

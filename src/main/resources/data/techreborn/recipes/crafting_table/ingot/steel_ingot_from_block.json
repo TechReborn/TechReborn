@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "techreborn:steel_storage_block"
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "tag": "c:steel_block"
+        }
+    ],
+    "result": {
+        "item": "techreborn:steel_ingot",
+        "count": 9
     }
-  ],
-  "result": {
-    "item": "techreborn:steel_ingot",
-    "count": 9
-  }
 }

@@ -24,9 +24,9 @@
 
 package techreborn.blockentity.transformers;
 
-import reborncore.api.power.EnumPowerTier;
-import techreborn.init.TRContent;
+import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 16/03/2016.
@@ -34,7 +34,7 @@ import techreborn.init.TRBlockEntities;
 public class LVTransformerBlockEntity extends TransformerBlockEntity {
 
 	public LVTransformerBlockEntity() {
-		super(TRBlockEntities.LV_TRANSFORMER, "LVTransformer", TRContent.Machine.LV_TRANSFORMER.block, EnumPowerTier.MEDIUM);
+		super(TRBlockEntities.LV_TRANSFORMER, "LVTransformer", TRContent.Machine.LV_TRANSFORMER.block, EnergyTier.MEDIUM);
 	}
 
 }

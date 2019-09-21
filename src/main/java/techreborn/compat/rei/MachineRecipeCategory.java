@@ -38,14 +38,13 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.StringUtils;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
-
-import io.github.prospector.silk.fluid.FluidInstance;
 
 public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCategory<MachineRecipeDisplay<R>> {
 

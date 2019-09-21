@@ -34,16 +34,18 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import reborncore.api.power.IEnergyItemInfo;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergySide;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo {
+public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
 	public static int usage = TechRebornConfig.cloackingDeviceUsage;
@@ -59,20 +61,17 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityIn;
-			ItemPowerManager capEnergy = new ItemPowerManager(stack);
-			if (capEnergy != null && capEnergy.getEnergyStored() >= usage) {
-				capEnergy.useEnergy(usage, false);
-				player.setInvisible(true);
-			} else {
-				if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
-					player.setInvisible(false);
+
+			if (Energy.valid(stack)) {
+				if(Energy.of(stack).use(usage)){
+					player.setInvisible(true);
+				} else {
+					if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
+						player.setInvisible(false);
+					}
 				}
 			}
 		}
-	}
-	
-	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
-
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -83,7 +82,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		}
 		InitUtils.initPoweredItems(TRContent.CLOAKING_DEVICE, itemList);
 	}
-	
+
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -99,20 +98,24 @@ public class ItemCloakingDevice extends ItemTRArmour implements IEnergyItemInfo 
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	
 	// IEnergyItemInfo
 	@Override
-	public int getCapacity() {
+	public double getMaxStoredPower() {
 		return maxCharge;
 	}
 
 	@Override
-	public int getMaxInput() {
+	public EnergyTier getTier() {
+		return EnergyTier.HIGH;
+	}
+
+	@Override
+	public double getMaxInput(EnergySide side) {
 		return transferLimit;
 	}
 
 	@Override
-	public int getMaxOutput() {
+	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 }

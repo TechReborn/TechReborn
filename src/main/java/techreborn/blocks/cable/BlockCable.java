@@ -46,13 +46,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.api.power.EnergyBlockEntity;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
+import team.reborn.energy.Energy;
+import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
@@ -112,7 +112,7 @@ public class BlockCable extends BlockWithEntity {
 
 	private Boolean canConnectTo(IWorld world, BlockPos pos, Direction facing) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity != null && (blockEntity instanceof EnergyBlockEntity || blockEntity instanceof CableBlockEntity)) {
+		if (blockEntity != null && (Energy.valid(blockEntity) || blockEntity instanceof CableBlockEntity)) {
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;

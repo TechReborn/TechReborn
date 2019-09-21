@@ -44,10 +44,10 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.api.power.ItemPowerManager;
 import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.ItemChainsaw;
@@ -117,7 +117,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (new ItemPowerManager(stack).getEnergyStored() < cost) {
+			if (Energy.of(stack).getEnergy() < cost) {
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
@@ -148,7 +148,7 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 
 	@Override
 	public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
-		if (ItemUtils.isActive(stack) && new ItemPowerManager(stack).getEnergyStored() < cost) {
+		if (ItemUtils.isActive(stack) && Energy.of(stack).getEnergy() < cost) {
 			if(entity.world.isClient){
 				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "
@@ -178,24 +178,21 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			return;
 		}
 
-		ItemPowerManager capEnergy = new ItemPowerManager(stack);
-		if (capEnergy.getEnergyStored() < cost) {
-			return;
+		if(Energy.of(stack).use(cost)){
+			BlockState blockState = world.getBlockState(pos);
+			if (blockState.getHardness(world, pos) == -1.0F) {
+				return;
+			}
+			if(!(entityLiving instanceof PlayerEntity)){
+				return;
+			}
+
+			ExternalPowerSystems.requestEnergyFromArmor(stack, entityLiving);
+
+			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			world.removeBlockEntity(pos);
 		}
 
-		BlockState blockState = world.getBlockState(pos);
-		if (blockState.getHardness(world, pos) == -1.0F) {
-			return;
-		}
-		if(!(entityLiving instanceof PlayerEntity)){
-			return;
-		}
-
-		capEnergy.useEnergy(cost, false);
-		ExternalPowerSystems.requestEnergyFromArmor(capEnergy, entityLiving);
-
-		blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
-		world.setBlockState(pos, Blocks.AIR.getDefaultState());
-		world.removeBlockEntity(pos);
 	}
 }

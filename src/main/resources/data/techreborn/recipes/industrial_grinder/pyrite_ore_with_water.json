@@ -1,24 +1,24 @@
 {
-	"type": "techreborn:industrial_grinder",
-	"power": 64,
-	"time": 100,
-	"tank": {
-		"fluid": "minecraft:water",
-		"amount": 1000
-	},
-	"ingredients": [
-		{
-			"item": "techreborn:pyrite_ore"
-		}
-	],
-	"results": [
-		{
-			"item": "techreborn:pyrite_dust",
-			"count": 5
-		},
-		{
-			"item": "techreborn:sulfur_dust",
-			"count": 2
-		}
-	]
+    "type": "techreborn:industrial_grinder",
+    "power": 64,
+    "time": 100,
+    "tank": {
+        "fluid": "minecraft:water",
+        "amount": 1000
+    },
+    "ingredients": [
+        {
+            "tag": "c:pyrite_ore"
+        }
+    ],
+    "results": [
+        {
+            "item": "techreborn:pyrite_dust",
+            "count": 5
+        },
+        {
+            "item": "techreborn:sulfur_dust",
+            "count": 2
+        }
+    ]
 }
