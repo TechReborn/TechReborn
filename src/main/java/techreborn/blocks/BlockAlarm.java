@@ -153,11 +153,6 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		return BlockRenderType.MODEL;
 	}
 
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
-
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {

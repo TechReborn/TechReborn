@@ -130,12 +130,6 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	public int getLuminance(BlockState state) {
 		return state.get(ACTIVE) ? brightness : 0;
 	}
-
-
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
 	
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {

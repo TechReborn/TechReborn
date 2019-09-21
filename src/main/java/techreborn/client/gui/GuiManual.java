@@ -85,7 +85,7 @@ public class GuiManual extends Screen {
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		renderBackground();
-		minecraft.getTextureManager().bindTexture(GuiManual.texture);
+		minecraft.getTextureManager().method_22813(GuiManual.texture);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		blit(centerX, centerY, 0, 0, guiWidth, guiHeight);

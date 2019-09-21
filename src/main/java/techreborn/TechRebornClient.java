@@ -25,7 +25,9 @@
 package techreborn;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.minecraft.block.BlockRenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
@@ -47,9 +49,11 @@ import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
 import techreborn.utils.StackWIPHandler;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class TechRebornClient implements ClientModInitializer {
@@ -117,6 +121,12 @@ public class TechRebornClient implements ClientModInitializer {
 		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;
 
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
+
+		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.INSTANCE.putBlock(cable.block, BlockRenderLayer.field_9174));
+
+		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.LAMP_INCANDESCENT.block, BlockRenderLayer.field_9174);
+		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.LAMP_LED.block, BlockRenderLayer.field_9174);
+		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.ALARM.block, BlockRenderLayer.field_9174);
 	}
 
 

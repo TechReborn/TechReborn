@@ -68,21 +68,20 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:19w37a"
-	mappings "net.fabricmc:yarn:19w37a+build.9"
-	modCompile "net.fabricmc:fabric-loader:0.6.0+build.163"
+	minecraft "com.mojang:minecraft:19w38b"
+	mappings "net.fabricmc:yarn:19w38b+build.4"
+	modCompile "net.fabricmc:fabric-loader:0.6.2+build.166"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.227-1.15"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.232-1.15"
 
-	modCompile "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
-	modCompile "io.github.prospector.silk:SilkAPI:1.2.4-43"
-	modCompile ("me.shedaniel:RoughlyEnoughItems:3.1-pre+build.4") {
+	modCompileOnly "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
+	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.1-pre+build.4") {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
 	}
 
-	def rcVersion = 'RebornCore:RebornCore-1.15:+'
+	def rcVersion = 'RebornCore:RebornCore-1.15:4.0.16+build.10'
 
 	modCompile (rcVersion) {
 		transitive = false
@@ -90,7 +89,7 @@ dependencies {
 
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compile 'org.spongepowered:configurate-hocon:3.6'
-	
+
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
