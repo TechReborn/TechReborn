@@ -88,12 +88,12 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canAcceptEnergy(Direction direction) {
-		return getFacing() != direction;
+		return direction == null || getFacing() != direction;
 	}
 
 	@Override
 	public boolean canProvideEnergy(Direction direction) {
-		return getFacing() == direction;
+		return direction == null || getFacing() == direction;
 	}
 
 	@Override
