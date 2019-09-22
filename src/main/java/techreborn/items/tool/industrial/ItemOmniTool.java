@@ -39,7 +39,6 @@ import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -80,7 +79,6 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Energy.of(stack).use(cost);
-		ExternalPowerSystems.requestEnergyFromArmor(stack, entityLiving);
 		return true;
 	}
 
@@ -110,7 +108,6 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 		if(Energy.of(stack).use(hitCost)) {
 			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
 		}
-		ExternalPowerSystems.requestEnergyFromArmor(stack, entityliving);
 		return false;
 	}
 

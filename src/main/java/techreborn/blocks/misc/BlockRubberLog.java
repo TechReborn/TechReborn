@@ -42,7 +42,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.WorldUtils;
 import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
@@ -127,7 +126,6 @@ public class BlockRubberLog extends LogBlock {
 				if (!worldIn.isClient) {
 					if (Energy.valid(stack)) {
 						Energy.of(stack).use(20);
-						ExternalPowerSystems.requestEnergyFromArmor(stack, playerIn);
 					} else {
 						playerIn.getStackInHand(Hand.MAIN_HAND).damage(1, playerIn, playerEntity -> {});
 					}

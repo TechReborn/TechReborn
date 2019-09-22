@@ -44,7 +44,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
@@ -186,8 +185,6 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 			if(!(entityLiving instanceof PlayerEntity)){
 				return;
 			}
-
-			ExternalPowerSystems.requestEnergyFromArmor(stack, entityLiving);
 
 			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());

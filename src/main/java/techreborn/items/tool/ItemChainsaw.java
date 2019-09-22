@@ -35,7 +35,6 @@ import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -91,7 +90,6 @@ public class ItemChainsaw extends AxeItem implements EnergyHolder, ItemDurabilit
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			Energy.of(stack).use(cost);
-			ExternalPowerSystems.requestEnergyFromArmor(stack, entityLiving);
 		}
 		return true;
 	}

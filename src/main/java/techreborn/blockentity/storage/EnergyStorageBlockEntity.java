@@ -31,9 +31,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
 import techreborn.blocks.storage.BlockEnergyStorage;
 
@@ -72,8 +72,13 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		if (!inventory.getInvStack(0).isEmpty()) {
 			ItemStack stack = inventory.getInvStack(0);
 
-			if (ExternalPowerSystems.isPoweredItem(stack)) {
-				ExternalPowerSystems.chargeItem(this, stack);
+			if (Energy.valid(stack)) {
+				Energy.of(this)
+					.into(
+						Energy
+							.of(stack)
+					)
+					.move();
 			}
 		}
 		if (!inventory.getInvStack(1).isEmpty()) {
