@@ -13,7 +13,7 @@ buildscript {
 		classpath "net.fabricmc:fabric-loom:0.2.5-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
-		//classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
+		classpath "com.wynprice.cursemaven:CurseMaven:1.2.2"
 	}
 }
 
@@ -24,7 +24,7 @@ apply plugin: net.minecrell.gradle.licenser.Licenser
 apply plugin: 'de.undercouch.download'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-//apply plugin: 'net.covers1624.contained-deps'
+apply plugin: "com.wynprice.cursemaven"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -106,7 +106,15 @@ dependencies {
 		transitive = false
 	}
 
+
 	compile 'teamreborn:energy:0.0.7'
+
+	//Test Generators mod
+	if (false){
+		modCompile curse.resolve("energies", "2771235")
+		modCompile curse.resolve("protos", "2771226")
+		modCompile curse.resolve("generators", "2790134")
+	}
 }
 
 processResources {

@@ -131,11 +131,16 @@ public class CableBlockEntity extends BlockEntity
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
-			if (blockEntity == null) {
-				continue;
-			} else if (Energy.valid(blockEntity)) {
+			if (blockEntity != null && Energy.valid(blockEntity)) {
 				if (blockEntity instanceof CableBlockEntity && energy <= Energy.of(blockEntity).side(EnergySide.fromMinecraft(face)).getEnergy()) {
 					continue;
+				}
+				if(!(blockEntity instanceof EnergyStorage)){
+					//Pull energy out of none TR blocks
+					if(Energy.of(blockEntity).getMaxOutput() > 0){
+						Energy.of(blockEntity).into(Energy.of(this)).move();
+						continue;
+					}
 				}
 				acceptors.add(blockEntity);
 				if (!sendingFace.contains(face)) {
