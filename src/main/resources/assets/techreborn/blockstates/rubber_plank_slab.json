@@ -9,7 +9,11 @@
     }
   },
   "variants": {
-    "inventory": { "transform": "forge:default-block" },
+    "inventory": { 
+    	"transform": "forge:default-block",       
+    	"textures": {
+      } 
+      },
     "half": {
       "top": { "model": "upper_slab" },
       "bottom": { "model": "half_slab" }
