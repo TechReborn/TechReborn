@@ -41,12 +41,10 @@ import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.tile.TileLegacyMachineBase;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.storage.TileAdjustableSU;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.security.InvalidParameterException;
 import java.util.List;

@@ -141,6 +141,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	}
 
 
+	@SuppressWarnings("unused")
 	private void handleContainerItem(ItemStack stack) {
 		if (stack.getItem().hasContainerItem(stack)) {
 			ItemStack containerItem = stack.getItem().getContainerItem(stack);

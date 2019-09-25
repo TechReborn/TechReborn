@@ -62,7 +62,6 @@ import techreborn.init.recipes.IndustrialElectrolyzerRecipes;
 import techreborn.init.recipes.IndustrialGrinderRecipes;
 import techreborn.init.recipes.IndustrialSawmillRecipes;
 import techreborn.init.recipes.PlateBendingMachineRecipes;
-import techreborn.init.recipes.RecipeMethods;
 import techreborn.init.recipes.RollingMachineRecipes;
 import techreborn.init.recipes.ScrapboxRecipes;
 import techreborn.init.recipes.SmeltingRecipes;

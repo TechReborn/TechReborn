@@ -42,6 +42,7 @@ import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
+import techreborn.Core;
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
@@ -98,35 +99,43 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		if (!getMutliBlock()) return 0;
 		
 		// Bottom center of multiblock
-		final BlockPos location = pos.offset(getFacing().getOpposite(), 2);
-		final TileEntity tileEntity = world.getTileEntity(location);
+		BlockPos location = pos.offset(getFacing().getOpposite(), 2);
+		TileEntity tileEntity = world.getTileEntity(location);
 
-		if (tileEntity instanceof TileMachineCasing) {
-			if (((TileMachineCasing) tileEntity).isConnected()
-					&& ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
-				final MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
-
-				int heat = (coils & 0xFF) * 500;
-
-				// Bottom center shouldn't have any tile entities below it
-				if (world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
-						.getBlock() == tileEntity.getBlockType()) {
-					return 0;
-				}
-
-				for (final IMultiblockPart part : casing.connectedParts) {
-					final BlockMachineCasing casing1 = (BlockMachineCasing) world.getBlockState(part.getPos()).getBlock();
-					heat += casing1.getHeatFromState(world.getBlockState(part.getPos()));
-				}
-
-				if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName().equals("tile.lava")
-						&& world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getUnlocalizedName().equals("tile.lava")) {
-					heat += 500;
-				}
-				return heat;
-			}
+		if (! (tileEntity instanceof TileMachineCasing)) {
+			return 0;
 		}
+		TileMachineCasing tileCasing = (TileMachineCasing) tileEntity;
+		if (tileCasing.isConnected() && tileCasing.getMultiblockController().isAssembled()) {
+			MultiBlockCasing controller = tileCasing.getMultiblockController();
 
+			int heat = (coils & 0xFF) * 500;
+
+			// Bottom center shouldn't have any tile entities below it
+			if (world.getBlockState(new BlockPos(location.getX(), location.getY() - 1, location.getZ()))
+					.getBlock() == tileEntity.getBlockType()) {
+				return 0;
+			}
+
+			for (final IMultiblockPart part : controller.connectedParts) {
+				try {
+					BlockMachineCasing casing1 = (BlockMachineCasing) world.getBlockState(part.getPos()).getBlock();
+					heat += casing1.getHeatFromState(world.getBlockState(part.getPos()));
+				} catch (ClassCastException e) {
+					Core.logHelper.error(String.format(
+							"[%s] Incorrect part (%d) @ %d, %d, %d, this is unexpected and may cause problems. If you encounter anomalies, please tear multiblock and rebuild it.",
+							world.isRemote ? "CLIENT" : "SERVER", part.hashCode(), part.getPos().getX(),
+							part.getPos().getY(), part.getPos().getZ()));
+				}
+			}
+
+			if (world.getBlockState(location.offset(EnumFacing.UP, 1)).getBlock().getUnlocalizedName().equals("tile.lava")
+					&& world.getBlockState(location.offset(EnumFacing.UP, 2)).getBlock().getUnlocalizedName().equals("tile.lava")) {
+				heat += 500;
+			}
+			return heat;
+		}
+		
 		return 0;
 	}
 	
