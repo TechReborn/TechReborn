@@ -24,21 +24,28 @@
 
 package techreborn.tiles.tier0;
 
+import java.util.Arrays;
+import java.util.Optional;
+
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import reborncore.api.IToolDrop;
-import reborncore.api.recipe.IBaseRecipeType;
-import reborncore.api.recipe.RecipeHandler;
+import reborncore.api.praescriptum.Utils.IngredientUtils;
+import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
+import reborncore.api.praescriptum.recipes.Recipe;
+import reborncore.api.praescriptum.recipes.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.recipes.RecipeTranslator;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.tile.TileLegacyMachineBase;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
-import techreborn.api.Reference;
+import techreborn.api.recipe.Recipes;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -52,87 +59,149 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	public int tickTime;
 	public Inventory inventory = new Inventory(4, "TileIronAlloyFurnace", 64, this);
 	public int burnTime;
-	public int currentItemBurnTime;
+	public int burnTimeTotal;
 	public int cookTime;
-	int input1 = 0;
-	int input2 = 1;
+	private int cookTimeTotal = 200;
+	protected final int[] inputSlots;
 	int outputSlot = 2;
 	int fuel = 3;
+	protected Recipe recipe = null;
+	public final RecipeHandler recipeHandler;
+	
 
 	public TileIronAlloyFurnace() {
+		this.recipeHandler = Recipes.alloySmelter;
+		this.inputSlots = new int[] { 0, 1 };
 
 	}
+	
+	private void reset() {
+		cookTime = 0; // reset progress
+		recipe = null; // set current recipe to null
+	}
+	
+	/**
+	 * Checks if it has inputs and can fit recipe outputSlot to outputSlot slot
+	 * @return boolean True if it can craft recipe
+	 */
+	private boolean canWork() {
+		ImmutableList<ItemStack> inputs = Arrays.stream(inputSlots)
+				.mapToObj(inventory::getStackInSlot)
+				.filter(contents -> !contents.isEmpty())
+				.collect(ImmutableList.toImmutableList());
+		
+		if (recipe != null) {
+			boolean canUse = recipeHandler.apply(recipe, inputs, ImmutableList.of(), true);
+			// we cannot use the current recipe so reset
+			if (!canUse) {
+				reset(); 
+			}
+		}
+		
+		Optional<Recipe> maybeRecipe = Optional.ofNullable(recipe);
 
+		// current recipe is still usable
+		if (maybeRecipe.isPresent()) {
+			return recipe.getOutputIngredients()
+				.stream()
+				.filter(output -> output instanceof ItemStackOutputIngredient)
+				.map(output -> (ItemStack) output.ingredient)
+				.allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
+		}
+		
+		// The current recipe is not usable anymore so we need to find a new one
+		maybeRecipe = recipeHandler.findRecipe(inputs, ImmutableList.of()); 
+
+		if (!maybeRecipe.isPresent()) {
+			// could not find a recipe
+			return false; 
+		}
+
+		// if a matching recipe exists update parameters
+		updateRecipe(maybeRecipe.get());
+
+		// we need space for the outputs
+		return recipe.getOutputIngredients()
+				.stream()
+				.filter(output -> output instanceof ItemStackOutputIngredient)
+				.map(output -> (ItemStack) output.ingredient)
+				.allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
+	}
+	
+	/**
+	 * Turn inputs into the appropriate smelted item in the alloy furnace result stack
+	 */
+	private void smeltItem() {
+		// if the input is empty the operation cannot be completed
+		// if there are no inputs the machine cannot operate
+		ImmutableList<ItemStack> inputs = Arrays.stream(inputSlots)
+			.mapToObj(inventory::getStackInSlot)
+			.filter(contents -> !contents.isEmpty())
+			.collect(ImmutableList.toImmutableList());
+
+		if (inputs.isEmpty()) {
+			return;
+		}
+
+		// adjust input
+		recipeHandler.apply(recipe, inputs, ImmutableList.of(), false);
+
+		// adjust output
+		recipe.getOutputIngredients()
+			.stream()
+			.filter(entry -> entry instanceof ItemStackOutputIngredient)
+			.map(output -> (ItemStack) output.ingredient)
+			.forEach(output -> addToOutputs(output.copy(), false));
+
+		cookTime = 0;
+	}
+	
+	private int addToOutputs(ItemStack stack, boolean simulate) {
+		if (stack.isEmpty()) {
+			return 0;
+		}
+
+		int remaining = stack.getCount();
+
+		if (remaining <= 0) {
+			return 0;
+		}
+
+		ItemStack contents = inventory.getStackInSlot(outputSlot);
+		int transfered = Math.min(remaining, Math.min(inventory.getInventoryStackLimit(), stack.getMaxStackSize()) - contents.getCount());
+
+		if (!contents.isEmpty() && ItemUtils.isItemEqual(contents, stack, true, true)) {
+			if (!simulate) {
+				inventory.setInventorySlotContents(outputSlot, ItemUtils.increaseSize(contents, transfered));
+			}
+			remaining -= transfered;
+		} else if (contents.isEmpty()) {
+			if (!simulate) {
+				ItemStack temp = ItemUtils.setSize(stack.copy(), transfered);
+				inventory.setInventorySlotContents(outputSlot, temp);
+			}
+			remaining -= transfered;
+		}
+
+		return stack.getCount() - remaining;
+	}
+	
+	private void updateRecipe(Recipe recipe) {
+		reset();
+		this.recipe = recipe; 
+	}
+	
 	/**
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * alloy furnace burning, or 0 if the item isn't fuel
 	 * @param stack Itemstack of fuel
 	 * @return Integer Number of ticks
 	 */
-	public static int getItemBurnTime(ItemStack stack) {
+	public int getItemBurnTime(ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		}
 		return (int) (TileEntityFurnace.getItemBurnTime(stack) * 1.25);
-	}
-	
-	/**
-	 * Checks if alloy furnace has all inputs for recipe 
-	 * @param recipeType IBaseRecipeType Alloy Smelter Recipe
-	 * @return boolean True if we have all inputs necessery for recipe
-	 */
-	public boolean hasAllInputs(final IBaseRecipeType recipeType) {
-		if (recipeType == null) {
-			return false;
-		}
-		for (final Object input : recipeType.getInputs()) {
-			boolean hasItem = false;
-			boolean useOreDict = input instanceof String || recipeType.useOreDic();
-			boolean checkSize = input instanceof ItemStack;
-			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputslot), true, true, useOreDict)) {
-					ItemStack inputStack = RecipeTranslator.getStackFromObject(input);
-					if (!checkSize || inventory.getStackInSlot(inputslot).getCount() >= inputStack.getCount()) {
-						hasItem = true;
-					}
-				}
-			}
-			if (!hasItem) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Checks if it has inputs and can fit recipe outputSlot to outputSlot slot
-	 * @return boolean True if it can fit outputSlot itemstack into outputSlot slot
-	 */
-	private boolean canSmelt() {
-		if (getStackInSlot(input1).isEmpty() || getStackInSlot(input2).isEmpty()) {
-			return false;
-		} 
-		ItemStack outputStack = null;
-		for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
-			if (hasAllInputs(recipeType)) {
-				outputStack = recipeType.getOutput(0);
-				break;
-			}
-		}
-
-		if (outputStack == null) {
-			return false;
-		}
-		ItemStack outputSlotStack = getStackInSlot(outputSlot);
-		if (outputSlotStack.isEmpty()) {
-			return true;
-		}
-		if (!outputSlotStack.isItemEqual(outputStack)) {
-			return false;
-		}
-			
-		final int result = outputSlotStack.getCount() + outputStack.getCount();
-		return result <= getInventoryStackLimit() && result <= outputSlotStack.getMaxStackSize(); 	
 	}
 	
 	/**
@@ -143,65 +212,30 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		return burnTime > 0;
 	}
 
-	public int getBurnTimeRemainingScaled(final int scale) {
-		if (currentItemBurnTime == 0) {
-			currentItemBurnTime = 200;
+	public int getBurnTimeRemainingScaled(int scale) {
+		if (burnTimeTotal == 0) {
+			burnTimeTotal = getItemBurnTime(getStackInSlot(fuel));
 		}
 
-		return burnTime * scale / currentItemBurnTime;
+		return burnTime * scale / burnTimeTotal;
 	}
 
 	public int getCookProgressScaled(final int scale) {
-		return cookTime * scale / 200;
+		return cookTime * scale / cookTimeTotal;
 	}
 	
-	/**
-	 * Turn inputs into the appropriate smelted item in the alloy furnace result stack
-	 */
-	public void smeltItem() {
-		if (!canSmelt()) {
-			return;
-		}
-		ItemStack outputStack = ItemStack.EMPTY;
-		IBaseRecipeType alloySmelterRecipe = null;
-
-		for (final IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.ALLOY_SMELTER_RECIPE)) {
-			if (hasAllInputs(recipeType)) {
-				alloySmelterRecipe = recipeType;
-				outputStack = recipeType.getOutput(0);
-				break;
-			}
-		}
-
-		if (alloySmelterRecipe == null || outputStack.isEmpty()) {
-			return;
-		}
-
-		// Add recipe results
-		ItemStack outputSlotStack = getStackInSlot(outputSlot);
-		if (outputSlotStack.isEmpty()) {
-			setInventorySlotContents(outputSlot, outputStack.copy());
-		} else if (getStackInSlot(outputSlot).getItem() == outputStack.getItem()) {
-			decrStackSize(outputSlot, -outputStack.getCount());
-		}
-
-		// Remove recipe ingredients
-		for (Object input : alloySmelterRecipe.getInputs()) {
-			boolean useOreDict = input instanceof String || alloySmelterRecipe.useOreDic();
-			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-				if (ItemUtils.isInputEqual(input, inventory.getStackInSlot(inputSlot), true, true, useOreDict)) {
-					int count = RecipeTranslator.getStackFromObject(input).getCount();
-					inventory.decrStackSize(inputSlot, count);
-				}
-			}
+	public void setActive(boolean active) {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockMachineBase) {
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, active));
 		}
 	}
-
+	
 	// TileLegacyMachineBase
 	@Override
 	public void update() {
 		super.update();
-		final boolean burning = isBurning();
+		boolean burning = isBurning();
 		boolean updateInventory = false;
 		if (burning) {
 			--burnTime;
@@ -210,9 +244,9 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 			return;
 		}
 		ItemStack fuelStack = getStackInSlot(fuel);
-		if (burnTime != 0 || !getStackInSlot(input1).isEmpty() && !fuelStack.isEmpty()) {
-			if (burnTime == 0 && canSmelt()) {
-				currentItemBurnTime = burnTime = TileIronAlloyFurnace.getItemBurnTime(fuelStack);
+		if (burnTime != 0 || !getStackInSlot(inputSlots[0]).isEmpty() && !fuelStack.isEmpty()) {
+			if (burnTime == 0 && canWork()) {
+				burnTimeTotal = burnTime = getItemBurnTime(fuelStack);
 				if (burnTime > 0) {
 					updateInventory = true;
 					if (!fuelStack.isEmpty()) {
@@ -220,12 +254,12 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 					}
 				}
 			}
-			if (isBurning() && canSmelt()) {
+			if (isBurning() && canWork()) {
 				if(!isActive()){
 					setActive(true);
 				}
 				++cookTime;
-				if (cookTime == 200) {
+				if (cookTime == cookTimeTotal) {
 					cookTime = 0;
 					smeltItem();
 					updateInventory = true;
@@ -244,16 +278,33 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		}
 	}
 
-	public void setActive(boolean active) {
-		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof BlockMachineBase) {
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, active));
-		}
-	}
-
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		super.readFromNBT(tag);
+
+		NBTTagCompound data = tag.getCompoundTag("TileIronAlloyFurnace");
+		cookTime = data.hasKey("cooktime") ? data.getInteger("cooktime") : 0;
+		burnTime = data.hasKey("burntime") ? data.getInteger("burntime") : 0;
+		burnTimeTotal = data.hasKey("burntimetotal") ? data.getInteger("burntimetotal") : 0;
+		
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
+		super.writeToNBT(tag);
+
+		NBTTagCompound data = new NBTTagCompound();
+		data.setInteger("cooktime", cookTime);
+		data.setInteger("burntime", burnTime);
+		data.setInteger("burntimetotal", burnTimeTotal);
+		tag.setTag("TileIronAlloyFurnace", data);
+
+		return tag;
 	}
 
 	// IToolDrop
@@ -271,20 +322,17 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(final EntityPlayer player) {
-//		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
-//			.addInventory().tile(this)
-//			.filterSlot(0, 47, 17,
-//				stack -> RecipeHandler.recipeList.stream()
-//					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-//						&& ItemUtils.isInputEqual(recipe.getInputs().get(0), stack, true, true, true)))
-//			.filterSlot(1, 65, 17,
-//				stack -> RecipeHandler.recipeList.stream()
-//					.anyMatch(recipe -> recipe instanceof AlloySmelterRecipe
-//						&& ItemUtils.isInputEqual(recipe.getInputs().get(1), stack, true, true, true)))
-//			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53).syncIntegerValue(this::getBurnTime, this::setBurnTime)
-//			.syncIntegerValue(this::getCookTime, this::setCookTime)
-//			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime).addInventory().create(this);
-		return null;
+		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory(8, 84).hotbar(8, 142)
+			.addInventory().tile(this)
+			.filterSlot(0, 47, 17, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.filterSlot(1, 65, 17, IngredientUtils.isPartOfRecipe(recipeHandler))
+			.outputSlot(2, 116, 35)
+			.fuelSlot(3, 56, 53)
+			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
+			.syncIntegerValue(this::getCookTime, this::setCookTime)
+			.syncIntegerValue(this::getCurrentItemBurnTime, this::setCurrentItemBurnTime)
+			.addInventory()
+			.create(this);
 	}
 	
 	public int getBurnTime() {
@@ -296,11 +344,11 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	}
 
 	public int getCurrentItemBurnTime() {
-		return this.currentItemBurnTime;
+		return this.burnTimeTotal;
 	}
 
 	public void setCurrentItemBurnTime(final int currentItemBurnTime) {
-		this.currentItemBurnTime = currentItemBurnTime;
+		this.burnTimeTotal = currentItemBurnTime;
 	}
 
 	public int getCookTime() {
