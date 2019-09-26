@@ -47,7 +47,7 @@ public class TileChemicalReactor extends TileMachine {
 
 	public TileChemicalReactor() {
 		super("ChemicalReactor", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.solidCanningMachine, ModBlocks.CHEMICAL_REACTOR);
+			new int[] { 0, 1 }, new int[] { 2 }, Recipes.chemicalReactor, ModBlocks.CHEMICAL_REACTOR);
 	}
 
 	// IContainerProvider >>

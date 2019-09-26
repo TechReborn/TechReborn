@@ -446,47 +446,47 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("fusionreactor", RecipeCategoryUids.FUSION_REACTOR, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("fusionreactor", RecipeCategoryUids.FUSION_REACTOR, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("industrialelectrolyzer", RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("industrialelectrolyzer", RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("industrialgrinder", RecipeCategoryUids.GRINDER, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("industrialgrinder", RecipeCategoryUids.INDUSTRIAL_GRINDER, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("implosioncompressor", RecipeCategoryUids.IMPLOSION_COMPRESSOR, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("implosioncompressor", RecipeCategoryUids.IMPLOSION_COMPRESSOR, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("vacuumfreezer", RecipeCategoryUids.VACUUM_FREEZER, 36, 1, 0, 36));
+				new BuiltContainerTransferInfo("vacuumfreezer", RecipeCategoryUids.VACUUM_FREEZER, 40, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("blastfurnace", RecipeCategoryUids.BLAST_FURNACE, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("blastfurnace", RecipeCategoryUids.BLAST_FURNACE, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("alloyfurnace", RecipeCategoryUids.ALLOY_SMELTER, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("alloyfurnace", RecipeCategoryUids.ALLOY_SMELTER, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("alloyfurnace", VanillaRecipeCategoryUid.FUEL, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("alloyfurnace", VanillaRecipeCategoryUid.FUEL, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("alloysmelter", RecipeCategoryUids.ALLOY_SMELTER, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("alloysmelter", RecipeCategoryUids.ALLOY_SMELTER, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("assemblingmachine", RecipeCategoryUids.ASSEMBLING_MACHINE, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("assemblingmachine", RecipeCategoryUids.ASSEMBLING_MACHINE, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("chemicalreactor", RecipeCategoryUids.CHEMICAL_REACTOR, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("chemicalreactor", RecipeCategoryUids.CHEMICAL_REACTOR, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("centrifuge", RecipeCategoryUids.CENTRIFUGE, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("centrifuge", RecipeCategoryUids.CENTRIFUGE, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("grinder", RecipeCategoryUids.GRINDER, 36, 1, 0, 36));
+				new BuiltContainerTransferInfo("grinder", RecipeCategoryUids.GRINDER, 40, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("extractor", RecipeCategoryUids.EXTRACTOR, 36, 1, 0, 36));
+				new BuiltContainerTransferInfo("extractor", RecipeCategoryUids.EXTRACTOR, 40, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("compressor", RecipeCategoryUids.COMPRESSOR, 36, 1, 0, 36));
+				new BuiltContainerTransferInfo("compressor", RecipeCategoryUids.COMPRESSOR, 40, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("industrialsawmill", RecipeCategoryUids.INDUSTRIAL_SAWMILL, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("industrialsawmill", RecipeCategoryUids.INDUSTRIAL_SAWMILL, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-				new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 36, 2, 0, 36));
+				new BuiltContainerTransferInfo("distillationtower", RecipeCategoryUids.DISTILLATION_TOWER, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-			new BuiltContainerTransferInfo("autocraftingtable", VanillaRecipeCategoryUid.CRAFTING, 36, 9, 0, 36));
+			new BuiltContainerTransferInfo("autocraftingtable", VanillaRecipeCategoryUid.CRAFTING, 40, 9, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-			new BuiltContainerTransferInfo("platebendingmachine", RecipeCategoryUids.PLATE_BENDING_MACHINE, 36, 1, 0, 36));
+			new BuiltContainerTransferInfo("platebendingmachine", RecipeCategoryUids.PLATE_BENDING_MACHINE, 40, 1, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-			new BuiltContainerTransferInfo("solidcanningmachine", RecipeCategoryUids.SOLID_CANNING_MACHINE, 36, 2, 0, 36));
+			new BuiltContainerTransferInfo("solidcanningmachine", RecipeCategoryUids.SOLID_CANNING_MACHINE, 40, 2, 0, 36));
 		recipeTransferRegistry.addRecipeTransferHandler(
-			new BuiltContainerTransferInfo("wiremill", RecipeCategoryUids.WIRE_MILL, 36, 1, 0, 36));
+			new BuiltContainerTransferInfo("wiremill", RecipeCategoryUids.WIRE_MILL, 40, 1, 0, 36));
 
 		registry.addAdvancedGuiHandlers(new AdvancedGuiHandler());
 	}
