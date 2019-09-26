@@ -150,114 +150,114 @@ public class ModRecipes {
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			ItemParts.getPartByName("plantball"),
 			new ItemStack(Blocks.DIRT),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Items.BONE),
 			new ItemStack(Items.DYE, 6, 15),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.COBBLESTONE),
 			new ItemStack(Blocks.SAND),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GRAVEL),
 			new ItemStack(Items.FLINT),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.COAL),
 				ItemDusts.getDustByName("coal"),
-			300, 2));
+			300, 20));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.COAL, 1, 1),
 				ItemDusts.getDustByName("charcoal"),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(net.minecraft.init.Items.CLAY_BALL),
 				ItemDusts.getDustByName("clay"),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.GLOWSTONE),
 			ItemDusts.getDustByName("glowstone", 4),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.NETHERRACK),
 			ItemDusts.getDustByName("netherrack"),
-			300, 2));
+			300, 20));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Blocks.END_STONE),
 				ItemDusts.getDustByName("endstone"),
-			300, 2));
+			300, 20));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.ENDER_EYE),
 				ItemDusts.getDustByName("ender_eye", 2),
-			300, 2));
+			300, 20));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Items.ENDER_PEARL),
 				ItemDusts.getDustByName("ender_pearl", 2),
-			300, 2));
+			300, 20));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Blocks.LAPIS_ORE),
 				new ItemStack(Items.DYE, 10, 4),
-			300, 2));
+			300, 20));
 		
 		RecipeHandler.addRecipe(new GrinderRecipe(
 				new ItemStack(Blocks.OBSIDIAN),
 				ItemDusts.getDustByName("obsidian", 4),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Items.BLAZE_ROD),
 			new ItemStack(Items.BLAZE_POWDER, 4),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			new ItemStack(Blocks.MAGMA),
 			new ItemStack(Items.MAGMA_CREAM, 4),
-			300, 2));
+			300, 20));
 
 		if (OreUtil.doesOreExistAndValid("stoneMarble")) {
 			ItemStack marbleStack = getOre("stoneMarble");
 			marbleStack.setCount(1);
 			RecipeHandler.addRecipe(new GrinderRecipe(
 					marbleStack, ItemDusts.getDustByName("marble"),
-				300, 2));
+				300, 20));
 		}
 		if (OreUtil.doesOreExistAndValid("stoneBasalt")) {
 			ItemStack marbleStack = getOre("stoneBasalt");
 			marbleStack.setCount(1);
 			RecipeHandler.addRecipe(new GrinderRecipe(
 					marbleStack, ItemDusts.getDustByName("basalt"),
-				300, 2));
+				300, 20));
 		}
 
 		//See comments bellow, this allows the ore to go to the product when it sometimes goes straight to dust.
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreCoal", new ItemStack(Items.COAL, 2),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreDiamond", new ItemStack(Items.DIAMOND, 1),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreEmerald", new ItemStack(Items.EMERALD, 1),
-			300, 2));
+			300, 20));
 
 		RecipeHandler.addRecipe(new GrinderRecipe(
 			"oreRedstone", new ItemStack(Items.REDSTONE, 8),
-			300, 2));
+			300, 20));
 
 		for (String oreDictionaryName : OreDictionary.getOreNames()) {
 			if (isDictPrefixed(oreDictionaryName, "ore", "gem", "ingot")) {
@@ -298,7 +298,7 @@ public class ModRecipes {
 				if(data[1].equalsIgnoreCase("lapis")){
 					useOreDict = false;
 				}
-				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, 300, 2, useOreDict));
+				RecipeHandler.addRecipe(new GrinderRecipe(oreStack, dust, 300, 20, useOreDict));
 			}
 		}
 	}
