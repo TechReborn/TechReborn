@@ -45,7 +45,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 	
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new SolarPanelBlockEntity();
+		return new SolarPanelBlockEntity(panelType);
 	}
 
 	@Override

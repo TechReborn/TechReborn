@@ -54,6 +54,11 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public SolarPanelBlockEntity() {
 		super(TRBlockEntities.SOLAR_PANEL);
 	}
+	
+	public SolarPanelBlockEntity(SolarPanels panel) {
+		super(TRBlockEntities.SOLAR_PANEL);
+		this.panel = panel;
+	}
 
 	public boolean isSunOut() {
 		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaylight();
