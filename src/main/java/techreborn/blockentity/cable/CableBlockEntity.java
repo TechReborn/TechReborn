@@ -44,7 +44,7 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyStorage;
 import team.reborn.energy.EnergyTier;
-import techreborn.blocks.cable.BlockCable;
+import techreborn.blocks.cable.CableBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -68,11 +68,22 @@ public class CableBlockEntity extends BlockEntity
 	public CableBlockEntity() {
 		super(TRBlockEntities.CABLE);
 	}
+	
+	public CableBlockEntity(TRContent.Cables type) {
+		super(TRBlockEntities.CABLE);
+		this.cableType = type;
+	}
 
 	private TRContent.Cables getCableType() {
+		if (cableType != null) {
+			return cableType;
+		}
+		if (world == null) {
+			return TRContent.Cables.COPPER;
+		}
 		Block block = world.getBlockState(pos).getBlock();
-		if(block instanceof BlockCable){
-			return ((BlockCable) block).type;
+		if(block instanceof CableBlock){
+			return ((CableBlock) block).type;
 		}
 		//Something has gone wrong if this happens
 		return TRContent.Cables.COPPER;
@@ -161,13 +172,11 @@ public class CableBlockEntity extends BlockEntity
     // IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		if (isReal) {
 			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
 				+ Formatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(transferRate) + "/t"));
+				+ PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate) + "/t"));
 			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(cableType.tier.toString())));
-		}
+				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString())));
 	}
 
 	// IToolDrop

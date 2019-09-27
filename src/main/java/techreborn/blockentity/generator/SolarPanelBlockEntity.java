@@ -156,7 +156,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
 				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.night") + ": "
 				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
 
 		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.tier") + ": "

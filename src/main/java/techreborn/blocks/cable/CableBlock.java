@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
-public class BlockCable extends BlockWithEntity {
+public class CableBlock extends BlockWithEntity {
 
 	public static final BooleanProperty EAST = BooleanProperty.of("east");
 	public static final BooleanProperty WEST = BooleanProperty.of("west");
@@ -71,7 +71,7 @@ public class BlockCable extends BlockWithEntity {
 
 	public final TRContent.Cables type;
 
-	public BlockCable(TRContent.Cables type) {
+	public CableBlock(TRContent.Cables type) {
 		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
 		this.type = type;
 		setDefaultState(this.stateFactory.getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
@@ -127,7 +127,7 @@ public class BlockCable extends BlockWithEntity {
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new CableBlockEntity();
+		return new CableBlockEntity(type);
 	}
 
 	// Block
