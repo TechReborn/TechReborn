@@ -126,13 +126,6 @@ public class Core {
 		logHelper.info("PreInitialization Complete");
 	}
 
-	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
-	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-		// Register recipes but only if IC2 is not present
-//		if (!Loader.isModLoaded("ic2"))
-			ModRecipes.init();
-	}
-
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 
@@ -186,10 +179,7 @@ public class Core {
 	public void postinit(FMLPostInitializationEvent event) throws Exception {
 		// Has to be done here as Buildcraft registers their recipes late
 		CompatManager.INSTANCE.compatModules.forEach(compatModule -> compatModule.postInit(event));
-
 		proxy.postInit(event);
-
-//		if (!Loader.isModLoaded("ic2"))
 		ModRecipes.postInit();
 		logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 	}
@@ -200,6 +190,17 @@ public class Core {
 		for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
 			compatModule.serverStarting(event);
 		}
+	}
+	
+	@Mod.EventHandler
+	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+		logHelper.warn("Invalid fingerprint detected for TechReborn!");
+		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for TechReborn!");
+	}
+	
+	@SubscribeEvent(priority = EventPriority.LOW)//LOW is used as we want it to load as late as possible, but before crafttweaker
+	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+			ModRecipes.init();
 	}
 
 	@SubscribeEvent
@@ -213,10 +214,6 @@ public class Core {
 		event.registerPacket(PacketRedstoneMode.class, Side.SERVER);
 	}
 
-	@Mod.EventHandler
-	public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-		logHelper.warn("Invalid fingerprint detected for TechReborn!");
-		RebornCore.proxy.invalidFingerprints.add("Invalid fingerprint detected for TechReborn!");
-	}
+
 
 }
