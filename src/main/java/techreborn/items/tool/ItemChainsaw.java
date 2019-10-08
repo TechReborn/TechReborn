@@ -79,9 +79,8 @@ public class ItemChainsaw extends AxeItem implements EnergyHolder, ItemDurabilit
 		if (Energy.of(stack).getEnergy() >= cost
 				&& (state.getMaterial() == Material.WOOD)) {
 			return this.poweredSpeed;
-		} else {
-			return super.getMiningSpeed(stack, state);
 		}
+		return super.getMiningSpeed(stack, state);
 	}
 
 	// ItemTool
