@@ -46,6 +46,9 @@ repositories {
 	maven {
 		url 'https://jitpack.io'
 	}
+	maven {
+		url 'http://server.bbkr.space:8081/artifactory/libs-release'
+	}
 }
 
 version = "3.0.16"
@@ -80,12 +83,13 @@ dependencies {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
 	}
+	modCompile 'io.github.cottonmc:LibCD:1.3.3+1.14.4'
 
 	def rcVersion = 'RebornCore:RebornCore-1.14.4:+'
 
 	//Hopefully this doesnt break too much eek
 	if(Boolean.parseBoolean(System.getProperty("idea.sync.active", "false"))){
-		compile (rcVersion) {
+		modCompile (rcVersion) {
 			transitive = false
 		}
 	} else {
