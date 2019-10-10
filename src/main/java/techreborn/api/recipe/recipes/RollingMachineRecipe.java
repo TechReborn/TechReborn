@@ -43,6 +43,7 @@ import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
+import techreborn.utils.ShapedRecipeSerializer;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,6 +55,12 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
+	}
+
+	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name, ShapedRecipe recipe) {
+		super(type, name);
+		this.shapedRecipe = recipe;
+		this.shaped = ShapedRecipeSerializer.writeToJson(recipe, new JsonObject());
 	}
 
 	@Override
@@ -80,7 +87,7 @@ public class RollingMachineRecipe extends RebornRecipe {
 					Tag<Item> itemTag = ItemTags.getContainer().get(tag);
 					Item item = Iterables.get(itemTag.values(), 0);
 
-					//Remove the tag, and replace it with a basic s
+					//Remove the tag, and replace it with a basic item
 					value.remove("tag");
 					value.addProperty("item", Registry.ITEM.getId(item).toString());
 				}
