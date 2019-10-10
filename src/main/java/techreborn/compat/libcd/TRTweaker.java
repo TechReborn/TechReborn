@@ -483,18 +483,23 @@ public class TRTweaker implements Tweaker {
         EFluidGenerator type;
         switch(generator.toLowerCase()) {
             case "thermal":
+            case "techreborn.thermalgenerator":
                 type = EFluidGenerator.THERMAL;
                 break;
             case "gas":
+            case "techreborn.gasgenerator":
                 type = EFluidGenerator.GAS;
                 break;
             case "diesel":
+            case "techreborn.dieselgenerator":
                 type = EFluidGenerator.DIESEL;
                 break;
             case "semifluid":
+            case "techreborn.semifluidgenerator":
                 type = EFluidGenerator.SEMIFLUID;
                 break;
             case "plasma":
+            case "techreborn.plasmagenerator":
                 type = EFluidGenerator.PLASMA;
                 break;
             default:
