@@ -1,6 +1,6 @@
 //Warn that the sample script is running
-print("WARNING! The TechReborn tweaker sample script is running!")
-print("If you're seeing this and aren't in dev mode, please report it!")
+print("WARNING! The TechReborn tweaker sample script is running!");
+print("If you're seeing this and aren't in dev mode, please report it!");
 
 //Add an alloy smelter recipe that takes 8 coal and 2 obsidian -> 2 diamonds
 TRTweaker.addAlloySmelter(["minecraft:coal@8", "minecraft:obsidian@2"], [TweakerUtils.createItemStack("minecraft:diamond", 2)], 6, 200);
@@ -65,9 +65,7 @@ TRTweaker.addFusionReactor(["minecraft:wither_skeleton_skull@3", "minecraft:soul
 
 //Add a rolling machine recipe for 5 popped chorus fruit in a helmet shape -> a shulker shell
 var chorus = "minecraft:popped_chorus_fruit";
-// TRTweaker.addRollingMachine([[chorus, chorus, chorus], [chorus, "", chorus]], TweakerUtils.createItemStack("minecraft:shulker_shell", 1));
-
-TRTweaker.addRollingMachine([["minecraft:stick", "minecraft:oak_planks"], ["minecraft:stone", "minecraft:oak_planks"]], TweakerUtils.createItemStack("minecraft:crafting_table", 1));
+TRTweaker.addRollingMachine([[chorus, chorus, chorus], [chorus, "", chorus]], TweakerUtils.createItemStack("minecraft:shulker_shell", 1));
 
 //Create a pattern/dictionary set for a shaped recipe
 var pattern = [ '/ /',
@@ -85,7 +83,7 @@ TRTweaker.addRollingMachine(pattern, dict, TweakerUtils.createItemStack("minecra
 TRTweaker.addSolidCanningMachine(["techreborn:cell{}", "minecraft:blue_ice"], [TweakerUtils.getSpecialStack("techreborn:cell->minecraft:water")], 1, 100);
 
 //Add a wire mill recipe for 1 woll -> 4 string
-TRTweaker.addWireMill(["#minecraft:wool"], [TweakerUtils.createItemStack("minecraft:string, 4")], 2, 200);
+TRTweaker.addWireMill(["#minecraft:wool"], [TweakerUtils.createItemStack("minecraft:string", 4)], 2, 200);
 
 //Add a plasma fluid generator recipe for 1 mB of wolframium -> 300 EU
 TRTweaker.addFluidGenerator("plasma", "techreborn:wolframium", 300);
