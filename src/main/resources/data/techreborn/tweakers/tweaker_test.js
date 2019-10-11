@@ -1,3 +1,7 @@
+//Warn that the sample script is running
+print("WARNING! The TechReborn tweaker sample script is running!")
+print("If you're seeing this and aren't in dev mode, please report it!")
+
 //Add an alloy smelter recipe that takes 8 coal and 2 obsidian -> 2 diamonds
 TRTweaker.addAlloySmelter(["minecraft:coal@8", "minecraft:obsidian@2"], [TweakerUtils.createItemStack("minecraft:diamond", 2)], 6, 200);
 
