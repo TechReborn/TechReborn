@@ -24,21 +24,17 @@
 
 package techreborn.api.recipe.recipes;
 
-import com.google.common.collect.Iterables;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.PacketByteBuf;
 import net.minecraft.world.World;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
@@ -51,7 +47,6 @@ import java.util.List;
 public class RollingMachineRecipe extends RebornRecipe {
 
 	private ShapedRecipe shapedRecipe;
-	private JsonObject shaped;
 
 	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
@@ -65,35 +60,27 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	@Override
 	public void deserialize(JsonObject jsonObject) {
-		JsonObject json = JsonHelper.getObject(jsonObject, "shaped");
-		shapedRecipe = RecipeSerializer.SHAPED.read(getId(), json);
-		shaped = withoutTags(json);
+		if(jsonObject.has("shaped")) {
+			JsonObject json = JsonHelper.getObject(jsonObject, "shaped");
+			shapedRecipe = RecipeSerializer.SHAPED.read(getId(), json);
+		} else {
+			//This will be handled by the PacketByteBuf deserialize
+		}
 	}
 
 	@Override
-	public void serialize(JsonObject jsonObject) {
-		jsonObject.add("shaped", shaped);
+	public void serialize(PacketByteBuf byteBuf) {
+		String s = shapedRecipe.getId().toString();
+		byteBuf.writeInt(s.length());
+		byteBuf.writeString(s);
+		RecipeSerializer.SHAPED.write(byteBuf, shapedRecipe);
 	}
 
-	//This needs to be done to remove the item tags, and replace them with just items for when syncing to the server
-	private JsonObject withoutTags(JsonObject jsonObject) {
-		JsonObject key = jsonObject.get("key").getAsJsonObject();
-		key.entrySet().forEach(entry -> {
-			if(entry.getValue().isJsonObject()){
-				JsonObject value = entry.getValue().getAsJsonObject();
-				if(value.has("tag")){
 
-					Identifier tag = new Identifier(value.get("tag").getAsString());
-					Tag<Item> itemTag = ItemTags.getContainer().get(tag);
-					Item item = Iterables.get(itemTag.values(), 0);
-
-					//Remove the tag, and replace it with a basic item
-					value.remove("tag");
-					value.addProperty("item", Registry.ITEM.getId(item).toString());
-				}
-			}
-		});
-		return jsonObject;
+	@Override
+	public void deserialize(PacketByteBuf byteBuf) {
+		Identifier identifier = new Identifier(byteBuf.readString(byteBuf.readInt()));
+		shapedRecipe = RecipeSerializer.SHAPED.read(identifier, byteBuf);
 	}
 
 	@Override

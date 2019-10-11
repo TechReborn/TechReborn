@@ -30,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.GenericMachineBlockEntity;
@@ -40,8 +41,6 @@ import techreborn.init.TRContent;
 
 public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
-
-	
 	public MultiblockChecker multiblockChecker;
 
 	public DistillationTowerBlockEntity() {
@@ -74,10 +73,8 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
-		
-		if (!world.isClient && getMutliBlock()){ 
-			super.tick();
-		}	
+
+		super.tick();
 	}
 
 	// IContainerProvider
@@ -87,5 +84,10 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 				.blockEntity(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this, syncID);
+	}
+
+	@Override
+	public boolean canCraft(RebornRecipe rebornRecipe) {
+		return getMutliBlock();
 	}
 }
