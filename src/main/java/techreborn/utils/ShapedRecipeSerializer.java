@@ -27,7 +27,7 @@ public class ShapedRecipeSerializer {
         for (int i = 0; i < rows; i++) {
             StringBuilder builder = new StringBuilder();
             for (int j = 0; j < columns; j++) {
-                Ingredient ing = recipe.getPreviewInputs().get((i * 3) + j);
+                Ingredient ing = recipe.getPreviewInputs().get((i * columns) + j);
                 if (ing == Ingredient.EMPTY) builder.append(" ");
                 else {
                     if (ingMap.containsKey(ing)) {

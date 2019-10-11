@@ -1,11 +1,9 @@
 package techreborn.compat.libcd;
 
-import io.github.cottonmc.libcd.tweaker.RecipeParser;
-import io.github.cottonmc.libcd.tweaker.RecipeTweaker;
-import io.github.cottonmc.libcd.tweaker.Tweaker;
-import io.github.cottonmc.libcd.tweaker.TweakerUtils;
+import io.github.cottonmc.libcd.tweaker.*;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapedRecipe;
@@ -15,6 +13,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.RecipeManager;
+import reborncore.common.crafting.ingredient.FluidIngredient;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.TechReborn;
@@ -23,10 +23,10 @@ import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.recipe.recipes.*;
 import techreborn.init.ModRecipes;
+import techreborn.init.TRContent;
+import techreborn.items.ItemDynamicCell;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Executor;
 
 public class TRTweaker implements Tweaker {
@@ -54,6 +54,7 @@ public class TRTweaker implements Tweaker {
                         + ": a recipe for fluid " + Registry.FLUID.getId(recipe.getFluid()) + " already exists");
             }
         }
+        toAdd.clear();
     }
 
     @Override
@@ -63,11 +64,35 @@ public class TRTweaker implements Tweaker {
     }
 
     /**
+     * Create a fluid ingredient
+     * @param fluid The fluid required.
+     * @param holders The fluid-holding items the fluid can be in, or [] for any.
+     * @param amount The amount of fluid needed, or -1 for any.
+     * @return A prepared fluid ingredient.
+     */
+    public FluidIngredient createFluidIngredient(String fluid, String[] holders, int amount) {
+        Fluid parsedFluid = TweakerUtils.INSTANCE.getFluid(fluid);
+        Optional<List<Item>> parsedHolders;
+        Optional<Integer> count;
+        if (holders.length == 0) parsedHolders = Optional.empty();
+        else {
+            List<Item> items = new ArrayList<>();
+            for (String holder : holders) {
+                items.add(TweakerUtils.INSTANCE.getItem(holder));
+            }
+            parsedHolders = Optional.of(items);
+        }
+        if (amount == -1) count = Optional.empty();
+        else count = Optional.of(amount);
+        return new FluidIngredient(parsedFluid, parsedHolders, count);
+    }
+
+    /**
      * Register a generic TechReborn recipe.
      * @param type The type of RebornRecipe to add.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void add(RebornRecipeType type, Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -83,11 +108,19 @@ public class TRTweaker implements Tweaker {
         }
     }
 
+    public void add(String type, Object[] inputs, ItemStack[] outputs, int power, int time) {
+        Identifier id;
+        if (type.contains(":")) id = new Identifier(type);
+        else id = new Identifier("techreborn", type);
+        RebornRecipeType<?> recipeType = RecipeManager.getRecipeType(id);
+        add(recipeType, inputs, outputs, power, time);
+    }
+
     /**
      * Register a recipe to smelt in an alloy smelter.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to smelt for.
      */
     public void addAlloySmelter(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -98,7 +131,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to assemble in an assembling machine.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addAssemblingMachine(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -109,7 +142,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to smelt in a TechReborn blast furnace.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to smelt for.
      * @param heat How hot the blast furnace needs to be.
      */
@@ -130,7 +163,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a centrifuge.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addCentrifuge(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -141,7 +174,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a chemical reactor.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addChemicalReactor(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -152,7 +185,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to compress in a compressor.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addCompressor(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -163,7 +196,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to distil in a distillation tower.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addDistillationTower(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -174,7 +207,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to extract in an extractor.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addExtractor(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -185,7 +218,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a grinder.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addGrinder(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -196,7 +229,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in an implosion compressor.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addImplosionCompressor(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -204,13 +237,13 @@ public class TRTweaker implements Tweaker {
     }
 
     /**
-     * Register a recipe to process in an electrolyzer.
+     * Register a recipe to process in an industrial electrolyzer.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addElectrolyzer(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addIndustrialElectrolyzer(Object[] inputs, ItemStack[] outputs, int power, int time) {
         add(ModRecipes.INDUSTRIAL_ELECTROLYZER, inputs, outputs, power, time);
     }
 
@@ -218,7 +251,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in an industrial grinder.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addIndustrialGrinder(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -238,7 +271,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in an industrial grinder.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      * @param fluid The fluid required for the operation, including an amount.
      */
@@ -260,7 +293,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in an industria sawmilll.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addIndustrialSawmill(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -280,7 +313,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in an industrial sawmill.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      * @param fluid The fluid required for this operation, including an amount.
      */
@@ -302,7 +335,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a recycler.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addRecycler(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -310,21 +343,20 @@ public class TRTweaker implements Tweaker {
     }
 
     /**
-     * Register a recipe to get from a scrapbox.
-     * @param inputs The input ingredients for the recipe.
-     * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * Register a recipe to get from a scrapbox. Input is always a scrap box.
+     * @param output The outputs of the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addScrapbox(Object[] inputs, ItemStack[] outputs, int power, int time) {
-        add(ModRecipes.SCRAPBOX, inputs, outputs, power, time);
+    public void addScrapbox(ItemStack output, int power, int time) {
+        add(ModRecipes.SCRAPBOX, new String[]{"techreborn:scrap_box"}, new ItemStack[]{output}, power, time);
     }
 
     /**
      * Register a recipe to process in a vacuum freezer.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addVacuumFreezer(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -334,40 +366,19 @@ public class TRTweaker implements Tweaker {
     /**
      * Register a recipe to process in a fluid replicator.
      * @param inputs The input ingredients for the recipe.
-     * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
-     * @param time How many ticks (1/20 of a second) to process for.
-     */
-    public void addFluidReplicator(Object[] inputs, ItemStack[] outputs, int power, int time) {
-        try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
-            DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
-            for (Object input : inputs) {
-                ingredients.add(TRRecipeParser.processIngredient(input));
-            }
-            tweaker.addRecipe(new FluidReplicatorRecipe(ModRecipes.FLUID_REPLICATOR, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time));
-        } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn fluid replicator recipe - " + e.getMessage());
-        }
-    }
-
-    /**
-     * Register a recipe to process in a fluid replicator.
-     * @param inputs The input ingredients for the recipe.
-     * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      * @param fluid The fluid required for this operation, including an amount.
      */
-    public void addFluidReplicator(Object[] inputs, ItemStack[] outputs, int power, int time, String fluid) {
+    public void addFluidReplicator(Object[] inputs, int power, int time, String fluid) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            Identifier id = tweaker.getRecipeId(new ItemStack(TRContent.Parts.UU_MATTER));
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
             FluidInstance fluidInst = TRRecipeParser.parseFluid(fluid);
-            tweaker.addRecipe(new FluidReplicatorRecipe(ModRecipes.FLUID_REPLICATOR, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time, fluidInst));
+            tweaker.addRecipe(new FluidReplicatorRecipe(ModRecipes.FLUID_REPLICATOR, id, ingredients, DefaultedList.of(), power, time, fluidInst));
         } catch (Exception e) {
             TechReborn.LOGGER.error("Error parsing TechReborn fluid replicator recipe - " + e.getMessage());
         }
@@ -377,8 +388,10 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a fusion reactor.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
+     * @param startE The energy requried to start the reaction.
+     * @param minSize The minimum size of the reactor coil ring for this reaction.
      */
     public void addFusionReactor(Object[] inputs, ItemStack[] outputs, int power, int time, int startE, int minSize) {
         try {
@@ -416,7 +429,7 @@ public class TRTweaker implements Tweaker {
      * @param width How many rows the recipe needs.
      * @param height How many columns the recipe needs.
      */
-    public void addRollingMachine(Object[] inputs, ItemStack output, int width, int height){
+    public void addRollingMachine(Object[] inputs, ItemStack output, int width, int height) {
         Identifier recipeId = tweaker.getRecipeId(output);
         try {
             DefaultedList<Ingredient> ingredients = DefaultedList.of();
@@ -455,7 +468,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a solid canning machine.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addSolidCanningMachine(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -466,7 +479,7 @@ public class TRTweaker implements Tweaker {
      * Register a recipe to process in a wire mill.
      * @param inputs The input ingredients for the recipe.
      * @param outputs The outputs of the recipe.
-     * @param power How much power is needed for the recipe.
+     * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
     public void addWireMill(Object[] inputs, ItemStack[] outputs, int power, int time) {
@@ -516,5 +529,6 @@ public class TRTweaker implements Tweaker {
 
     public static void init() {
         Tweaker.addTweaker("TRTweaker", TRTweaker.INSTANCE);
+        TweakerStackGetter.registerGetter(new Identifier("techreborn:cell"), (id) -> ItemDynamicCell.getCellWithFluid(Registry.FLUID.get(id)));
     }
 }

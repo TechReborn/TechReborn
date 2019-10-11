@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.crafting.ingredient.*;
@@ -31,8 +32,8 @@ public class TRRecipeParser {
         } else if (input instanceof String) {
             String in = (String) input;
             Optional<Integer> amount = Optional.empty();
-            int atIndex = in.indexOf('@');
-            if (atIndex != -1) {
+            int atIndex = in.lastIndexOf('@');
+            if (atIndex != -1 && in.lastIndexOf('}') < atIndex) {
                 String count = in.substring(atIndex + 1);
                 amount = Optional.of(Integer.parseInt(count));
                 in = in.substring(0, atIndex);
@@ -45,6 +46,8 @@ public class TRRecipeParser {
                 return new FluidIngredient(fluid, Optional.empty(), amount);
             } else if (in.indexOf('#') == 0) {
                 Identifier id = new Identifier(in.substring(1));
+                Tag<Item> itemTag = ItemTags.getContainer().get(id);
+                if (itemTag == null) throw new TweakerSyntaxException("Failed to get item tag for input: " + in);
                 return new TagIngredient(id, ItemTags.getContainer().get(id), amount);
             } else {
                 ItemStack stack;
@@ -65,6 +68,7 @@ public class TRRecipeParser {
                     if (nbtIndex != -1) {
                         try {
                             String nbt = in.substring(nbtIndex);
+                            in = in.substring(0, nbtIndex);
                             StringNbtReader reader = new StringNbtReader(new StringReader(nbt));
                             CompoundTag parsedTag = reader.parseCompoundTag();
                             if (parsedTag.isEmpty()) requireEmpty = true;
@@ -73,7 +77,7 @@ public class TRRecipeParser {
                             throw new TweakerSyntaxException(e.getMessage());
                         }
                     }
-                    Identifier id = new Identifier(in.substring(nbtIndex));
+                    Identifier id = new Identifier(in);
                     Item item = Registry.ITEM.get(id);
                     if (item == Items.AIR) throw new TweakerSyntaxException("Failed to get item for input: " + in);
                     stack = new ItemStack(item);

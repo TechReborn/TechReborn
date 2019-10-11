@@ -89,7 +89,7 @@ dependencies {
 
 	//Hopefully this doesnt break too much eek
 	if(Boolean.parseBoolean(System.getProperty("idea.sync.active", "false"))){
-		modCompile (rcVersion) {
+		compile (rcVersion) {
 			transitive = false
 		}
 	} else {
