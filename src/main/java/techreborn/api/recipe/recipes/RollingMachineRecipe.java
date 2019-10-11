@@ -51,6 +51,11 @@ public class RollingMachineRecipe extends RebornRecipe {
 		super(type, name);
 	}
 
+	public RollingMachineRecipe(RebornRecipeType<?> type, Identifier name, ShapedRecipe recipe) {
+		super(type, name);
+		this.shapedRecipe = recipe;
+	}
+
 	@Override
 	public void deserialize(JsonObject jsonObject) {
 		if(jsonObject.has("shaped")) {
@@ -68,6 +73,7 @@ public class RollingMachineRecipe extends RebornRecipe {
 		byteBuf.writeString(s);
 		RecipeSerializer.SHAPED.write(byteBuf, shapedRecipe);
 	}
+
 
 	@Override
 	public void deserialize(PacketByteBuf byteBuf) {

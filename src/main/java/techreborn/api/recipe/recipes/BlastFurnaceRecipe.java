@@ -26,10 +26,13 @@ package techreborn.api.recipe.recipes;
 
 import com.google.gson.JsonObject;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 
 public class BlastFurnaceRecipe extends RebornRecipe {
@@ -38,6 +41,11 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 
 	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
+	}
+
+	public BlastFurnaceRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time, int heat) {
+		super(type, name, ingredients, outputs, power, time);
+		this.heat = heat;
 	}
 	
 	public int getHeat() {

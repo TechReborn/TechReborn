@@ -27,10 +27,13 @@ package techreborn.api.recipe.recipes;
 import com.google.gson.JsonObject;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
+import reborncore.common.crafting.ingredient.RebornIngredient;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 
 /**
@@ -44,6 +47,12 @@ public class FusionReactorRecipe extends RebornRecipe {
 
 	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name) {
 		super(type, name);
+	}
+
+	public FusionReactorRecipe(RebornRecipeType<?> type, Identifier name, DefaultedList<RebornIngredient> ingredients, DefaultedList<ItemStack> outputs, int power, int time, int startE, int minSize) {
+		super(type, name, ingredients, outputs, power, time);
+		this.startE = startE;
+		this.minSize = minSize;
 	}
 	
 	public int getStartEnergy () {
