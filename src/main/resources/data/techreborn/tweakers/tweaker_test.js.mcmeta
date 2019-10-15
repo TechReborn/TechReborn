@@ -1,5 +1,5 @@
 {
-    "when": {
-        "libcd:dev_mode": true
-    }
+    "when": [
+        { "libcd:dev_mode": true }
+    ]
 }
