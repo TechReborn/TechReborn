@@ -133,7 +133,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 			FluidState fluidState = usageContext.getWorld().getFluidState(pos);
 			if(fluidState.getFluid() != Fluids.EMPTY && fluidState.isStill()){
 				stack.decrement(1);
-				usageContext.getPlayer().inventory.insertStack(getCellWithFluid(fluidState.getFluid(), 1));
+				insertOrDropStack(usageContext.getPlayer(), getCellWithFluid(fluidState.getFluid(), 1));
 				usageContext.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 				playEmptyingSound(usageContext.getPlayer(), usageContext.getWorld(), pos, fluidState.getFluid());
 			}
@@ -141,11 +141,17 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 			if(blockState.canReplace(new ItemPlacementContext(usageContext))){
 				usageContext.getWorld().setBlockState(pos, containedFluid.getDefaultState().getBlockState());
 				stack.decrement(1);
-				usageContext.getPlayer().inventory.insertStack(getEmpty());
+				insertOrDropStack(usageContext.getPlayer(), getEmpty());
 				playEmptyingSound(usageContext.getPlayer(), usageContext.getWorld(), pos, containedFluid);
 			}
 		}
 		return super.useOnBlock(usageContext);
+	}
+
+	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack){
+		if(!playerEntity.inventory.insertStack(stack)){
+			playerEntity.dropStack(stack);
+		}
 	}
 
 	//Thanks vanilla :)
