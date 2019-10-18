@@ -122,6 +122,9 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	// TileMachineBase
 	@Override
 	public Direction getFacingEnum() {
+		if(world == null){
+			return null;
+		}
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockTransformer) {
 			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
