@@ -34,11 +34,12 @@ import net.minecraft.nbt.CompoundTag;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 
-public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop {
+public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, SlotConfiguration.SlotFilter {
 
 	public RebornInventory<?> inventory;
 	public int burnTime;
@@ -62,7 +63,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	 * @return
 	 */
 	protected abstract boolean canSmelt();
-	
+
 	/**
 	 * Turn ingredients into the appropriate smelted
 	 * item in the output slot
@@ -227,5 +228,6 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
+
 
 }

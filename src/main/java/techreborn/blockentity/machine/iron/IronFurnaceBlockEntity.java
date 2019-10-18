@@ -24,8 +24,6 @@
 
 package techreborn.blockentity.machine.iron;
 
-import java.util.Optional;
-
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -40,6 +38,8 @@ import reborncore.common.util.RebornInventory;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.RecipeUtils;
+
+import java.util.Optional;
 
 public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements IContainerProvider {
 
@@ -118,7 +118,12 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		int result = inventory.getInvStack(outputSlot).getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
 	}
-	
+
+	@Override
+	public boolean isStackValid(int slotID, ItemStack stack) {
+		return !getResultFor(stack).isEmpty();
+	}
+
 	@Override
 	public void fromTag(CompoundTag compoundTag) {
 		super.fromTag(compoundTag);
@@ -139,6 +144,11 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	
 	public void setExperience(float experience) {
 		this.experience = experience;
+	}
+
+	@Override
+	public int[] getInputSlots() {
+		return new int[]{inputSlot};
 	}
 
 	@Override

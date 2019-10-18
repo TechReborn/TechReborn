@@ -136,4 +136,17 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime)
 			.addInventory().create(this, syncID);
 	}
+
+	@Override
+	public boolean isStackValid(int slotID, ItemStack stack) {
+		return ModRecipes.ALLOY_SMELTER.getRecipes(world).stream()
+			.anyMatch(rebornRecipe -> rebornRecipe.getRebornIngredients().stream()
+				.anyMatch(rebornIngredient -> rebornIngredient.test(stack))
+			);
+	}
+
+	@Override
+	public int[] getInputSlots() {
+		return new int[]{input1, input2};
+	}
 }
