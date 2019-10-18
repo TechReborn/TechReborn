@@ -174,7 +174,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 				progress = 0;
 				smelt();
 			}
-		} else {
+		} else if(!canSmelt()) {
 			progress = 0;
 		}
 		
