@@ -36,8 +36,8 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -82,7 +82,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canProvideEnergy(final Direction direction) {
-		return false;
+		return direction == null;
 	}
 
 	@Override
