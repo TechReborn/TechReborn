@@ -24,6 +24,10 @@
 
 package techreborn.blockentity.cable;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
@@ -35,6 +39,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
+import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -48,10 +53,6 @@ import techreborn.blocks.cable.CableBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Created by modmuss50 on 19/05/2017.
  */
@@ -60,15 +61,13 @@ public class CableBlockEntity extends BlockEntity
 	implements Tickable, IListInfoProvider, IToolDrop, EnergyStorage {
 	
 	private double energy = 0;
-	private int transferRate = 0;
 	private TRContent.Cables cableType = null;
-	private ArrayList<Direction> sendingFace = new ArrayList<Direction>();
-	int ticksSinceLastChange = 0;
+	private ArrayList<EnergySide> sendingFace = new ArrayList<>();
 
 	public CableBlockEntity() {
 		super(TRBlockEntities.CABLE);
 	}
-	
+
 	public CableBlockEntity(TRContent.Cables type) {
 		super(TRBlockEntities.CABLE);
 		this.cableType = type;
@@ -119,54 +118,47 @@ public class CableBlockEntity extends BlockEntity
         }
         return compound;
     }
-	
-	// ITickable
+
 	@Override
 	public void tick() {
 		if (world.isClient) {
 			return;
 		}
 
-		if (cableType == null) {
-			cableType = getCableType();
-			transferRate = cableType.transferRate;
+		sendingFace.clear();
+
+		if(getEnergy() == 0){
+			return;
 		}
 
-		ticksSinceLastChange++;
-		if (ticksSinceLastChange >= 20) {
-			sendingFace.clear();
-			ticksSinceLastChange = 0;
-		}
-
-		ArrayList<BlockEntity> acceptors = new ArrayList<BlockEntity>();
+		ArrayList<Pair<BlockEntity, Direction>> acceptors = new ArrayList<>();
 		for (Direction face : Direction.values()) {
+			EnergySide side = EnergySide.fromMinecraft(face);
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
 			if (blockEntity != null && Energy.valid(blockEntity)) {
 				if (blockEntity instanceof CableBlockEntity && energy <= Energy.of(blockEntity).side(EnergySide.fromMinecraft(face)).getEnergy()) {
 					continue;
 				}
-				if(!(blockEntity instanceof EnergyStorage)){
-					//Pull energy out of none TR blocks
-					if(Energy.of(blockEntity).getMaxOutput() > 0){
-						Energy.of(blockEntity).into(Energy.of(this)).move();
-						continue;
+				if(Energy.of(blockEntity).side(EnergySide.fromMinecraft(face.getOpposite())).getMaxInput() > 0){
+					acceptors.add(Pair.of(blockEntity, face));
+					if (!sendingFace.contains(side)) {
+						sendingFace.add(side);
 					}
-				}
-				acceptors.add(blockEntity);
-				if (!sendingFace.contains(face)) {
-					sendingFace.add(face);
 				}
 			}
 		}
 
-		if (acceptors.size() == 0) {
+		if (acceptors.isEmpty()) {
 			return;
 		}
 		Collections.shuffle(acceptors);
-        acceptors.forEach(blockEntity -> Energy.of(this)
-	        .into(Energy.of(blockEntity))
-	        .move());
+
+        acceptors.forEach(pair -> {
+	        Energy.of(this)
+		        .into(Energy.of(pair.getLeft()).side(EnergySide.fromMinecraft(pair.getRight().getOpposite())))
+		        .move();
+        });
 	}
 
     // IListInfoProvider
@@ -204,7 +196,7 @@ public class CableBlockEntity extends BlockEntity
 		return energyOut;
 	}
 
-	public boolean canAcceptEnergy(Direction direction) {
+	public boolean canAcceptEnergy(EnergySide direction) {
 		if (sendingFace.contains(direction)) {
 			return false;
 		}
@@ -213,22 +205,25 @@ public class CableBlockEntity extends BlockEntity
 
 	@Override
 	public double getMaxInput(EnergySide side) {
-		return transferRate;
+		if(!canAcceptEnergy(side)) {
+			return 0;
+		}
+		return getCableType().transferRate;
 	}
 
 	@Override
 	public double getMaxOutput(EnergySide side) {
-		return transferRate;
+		return getCableType().transferRate;
 	}
 
 	@Override
 	public double getMaxStoredPower() {
-		return transferRate * 4;
+		return getCableType().transferRate * 4;
 	}
 
 	@Override
 	public EnergyTier getTier() {
-		return PowerAcceptorBlockEntity.getTier(cableType.transferRate);
+		return PowerAcceptorBlockEntity.getTier(getCableType().transferRate);
 	}
 
 	@Override
