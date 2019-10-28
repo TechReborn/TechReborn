@@ -30,6 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
 import techreborn.config.TechRebornConfig;
@@ -48,7 +49,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public double getEnergy() {
+	public double getStored(EnergySide face) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0.0;
 		}
@@ -59,7 +60,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void setEnergy(double energy) {
+	public void setStored(double energy) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
