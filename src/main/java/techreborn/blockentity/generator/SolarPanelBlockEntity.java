@@ -150,6 +150,9 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+		if (panel == SolarPanels.CREATIVE) {
+			return;
+		}
 		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.maxEnergy") + ": "
 				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(getMaxPower())));
 
