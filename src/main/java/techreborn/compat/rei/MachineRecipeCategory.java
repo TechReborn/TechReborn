@@ -142,4 +142,8 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		return 60;
 	}
 
+	@Override
+	public boolean checkTags() {
+		return true;
+	}
 }
