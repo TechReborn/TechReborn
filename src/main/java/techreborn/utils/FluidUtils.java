@@ -24,7 +24,6 @@
 
 package techreborn.utils;
 
-import reborncore.common.fluid.container.FluidInstance;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -33,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.mixin.extensions.FluidBlockExtensions;
@@ -117,13 +117,13 @@ public class FluidUtils {
 			}
 		}
 
-		sourceFluid.subtractAmount(1000);
-
 		if(outputStack.isEmpty()){
 			inventory.setInvStack(outputSlot, itemFluidInfo.getFull(sourceFluid.getFluid()));
 		} else {
 			outputStack.increment(1);
 		}
+
+		sourceFluid.subtractAmount(1000);
 
 		inputStack.decrement(1);
 
