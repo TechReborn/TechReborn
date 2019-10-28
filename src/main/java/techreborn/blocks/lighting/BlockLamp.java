@@ -27,6 +27,7 @@ package techreborn.blocks.lighting;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -60,25 +61,29 @@ public class BlockLamp extends BaseBlockEntityProvider {
 
 	public BlockLamp(int cost, double depth, double width) {
 		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness).build());
-		this.shape = GenCuboidShapes(depth, width);
+		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	
-	private VoxelShape[] GenCuboidShapes(double depth, double width) {
+	private VoxelShape[] genCuboidShapes(double depth, double width) {
 		double culling = (16.0D - width) / 2 ;
-		VoxelShape[] shapes = {
-				Block.createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
-				Block.createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
-				Block.createCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
-				Block.createCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
-				Block.createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
-				Block.createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
+		return new VoxelShape[]{
+				createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
+				createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
+				createCuboidShape(culling, culling, 16.0 - depth, 16.0 - culling, 16.0 - culling, 16.0D),
+				createCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
+				createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
+				createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
 			};
-		return shapes;
 	}
-	
+
+	@Override
+	public VoxelShape getOutlineShape(BlockState blockState, BlockView blockView, BlockPos blockPos, EntityContext entityContext) {
+		return shape[blockState.get(FACING).ordinal()];
+	}
+
 	public static boolean isActive(BlockState state) {
 		return state.get(ACTIVE);
 	}

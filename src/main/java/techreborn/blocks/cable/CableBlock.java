@@ -38,10 +38,12 @@ import net.minecraft.state.StateFactory;
 import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SystemUtil;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -56,6 +58,10 @@ import techreborn.init.TRContent;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by modmuss50 on 19/05/2017.
@@ -68,6 +74,15 @@ public class CableBlock extends BlockWithEntity {
 	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
 	public static final BooleanProperty UP = BooleanProperty.of("up");
 	public static final BooleanProperty DOWN = BooleanProperty.of("down");
+
+	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = SystemUtil.consume(new HashMap<>(), map -> {
+		map.put(Direction.EAST, EAST);
+		map.put(Direction.WEST, WEST);
+		map.put(Direction.NORTH, NORTH);
+		map.put(Direction.SOUTH, SOUTH);
+		map.put(Direction.UP, UP);
+		map.put(Direction.DOWN, DOWN);
+	});
 
 	public final TRContent.Cables type;
 
@@ -173,13 +188,21 @@ public class CableBlock extends BlockWithEntity {
 	
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {
-		if (type != null) {
-			// outline is 1px bigger then model to ease selection
-			double culling = type.cableThickness - 1;
-			return Block.createCuboidShape(culling, culling, culling, 16.0D - culling, 16.0D - culling,
-					16.0D - culling);
+		double size = type != null ?  type.cableThickness : 6;
+		VoxelShape baseShape = Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size);
+
+		List<VoxelShape> connections = new ArrayList<>();
+		for(Direction dir : Direction.values()){
+			if(state.get(PROPERTY_MAP.get(dir))) {
+				double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
+				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
+				double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;
+
+				VoxelShape shape = Block.createCuboidShape(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
+				connections.add(shape);
+			}
 		}
-		return Block.createCuboidShape(4, 4, 4, 12, 12, 12);
+		return VoxelShapes.union(baseShape, connections.toArray(new VoxelShape[]{}));
 	}
 
 	@Override
