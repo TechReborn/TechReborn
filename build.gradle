@@ -13,7 +13,7 @@ buildscript {
 		classpath "net.fabricmc:fabric-loom:0.2.6-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
-		//classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
+		classpath "com.wynprice.cursemaven:CurseMaven:1.2.2"
 	}
 }
 
@@ -24,7 +24,7 @@ apply plugin: net.minecrell.gradle.licenser.Licenser
 apply plugin: 'de.undercouch.download'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-//apply plugin: 'net.covers1624.contained-deps'
+apply plugin: "com.wynprice.cursemaven"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -41,14 +41,19 @@ repositories {
 	}
 	maven {
 		name = 'curseforge'
+		// REI
 		url = 'https://minecraft.curseforge.com/api/maven'
 	}
 	maven {
 		url 'https://jitpack.io'
 	}
+	maven {
+		// LibCD
+		url 'http://server.bbkr.space:8081/artifactory/libs-release'
+	}
 }
 
-version = "3.0.14"
+version = "3.0.20"
 
 configurations {
 	shade
@@ -76,9 +81,15 @@ dependencies {
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.12+build.261-1.15"
 
 	modCompileOnly "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
-	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.1-pre+build.4") {
+	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.2.6+build.49") {
 		//Thanks for moving the project breaking gradle...
 		exclude group: 'io.github.prospector.modmenu', module: 'ModMenu'
+	}
+	modCompile ('io.github.cottonmc:LibCD:1.5.0+1.14.4') {
+		transitive = false
+	}
+	modRuntime ("io.github.cottonmc:Jankson:1.0.0+j1.1.2") {
+		transitive = false
 	}
 
 	def rcVersion = 'RebornCore:RebornCore-1.15:4.0.16+build.10'
@@ -86,6 +97,7 @@ dependencies {
 	modCompile (rcVersion) {
 		transitive = false
 	}
+	include rcVersion
 
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compile 'org.spongepowered:configurate-hocon:3.6'
@@ -98,6 +110,13 @@ dependencies {
 	}
 
 	compile 'teamreborn:energy:0.0.7'
+
+	//Test Generators mod
+	if (false){
+		modCompile curse.resolve("energies", "2771235")
+		modCompile curse.resolve("protos", "2771226")
+		modCompile curse.resolve("generators", "2790134")
+	}
 }
 
 processResources {

@@ -50,7 +50,7 @@ import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.*;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 import techreborn.blocks.*;
-import techreborn.blocks.cable.BlockCable;
+import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.storage.*;
@@ -93,6 +93,7 @@ public class TRContent {
 	public static Block RUBBER_BUTTON;
 	public static Block RUBBER_PRESSURE_PLATE;
 	public static Block RUBBER_DOOR;
+	public static Block RUBBER_LOG_STRIPPED;
 	
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -258,7 +259,7 @@ public class TRContent {
 		
 
 		public final String name;
-		public final BlockCable block;
+		public final CableBlock block;
 
 		public int transferRate;
 		public int defaultTransferRate;
@@ -276,7 +277,7 @@ public class TRContent {
 			this.canKill = canKill;
 			this.defaultCanKill = canKill;
 			this.tier = tier;
-			this.block = new BlockCable(this);
+			this.block = new CableBlock(this);
 			InitUtils.setup(block, name + "_cable");
 		}
 		

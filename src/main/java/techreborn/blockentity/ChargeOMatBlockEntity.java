@@ -32,12 +32,12 @@ import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
+import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -59,8 +59,13 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 		for (int i = 0; i < 6; i++) {
 			ItemStack stack = inventory.getInvStack(i);
 
-			if (!stack.isEmpty()) {
-				ExternalPowerSystems.chargeItem(this, stack);
+			if (Energy.valid(stack)) {
+				Energy.of(this)
+					.into(
+						Energy
+							.of(stack)
+					)
+					.move();
 			}
 		}
 	}
@@ -77,7 +82,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canProvideEnergy(final Direction direction) {
-		return false;
+		return direction == null;
 	}
 
 	@Override

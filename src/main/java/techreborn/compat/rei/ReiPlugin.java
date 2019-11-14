@@ -24,6 +24,8 @@
 
 package techreborn.compat.rei;
 
+import me.shedaniel.rei.RoughlyEnoughItemsCore;
+import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeDisplay;
 import me.shedaniel.rei.api.RecipeHelper;
 import me.shedaniel.rei.api.plugins.REIPluginV0;
@@ -48,6 +50,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -89,7 +92,7 @@ public class ReiPlugin implements REIPluginV0 {
 
 	@Override
 	public SemanticVersion getMinimumVersion() throws VersionParsingException {
-		return SemanticVersion.parse("3.0-pre");
+		return SemanticVersion.parse("3.2.5");
 	}
 
 	@Override
@@ -141,6 +144,29 @@ public class ReiPlugin implements REIPluginV0 {
 		recipeHelper.registerWorkingStations(ModRecipes.SOLID_CANNING_MACHINE.getName(), new ItemStack(Machine.SOLID_CANNING_MACHINE.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), new ItemStack(Machine.VACUUM_FREEZER.asItem()));
 		recipeHelper.registerWorkingStations(ModRecipes.WIRE_MILL.getName(), new ItemStack(Machine.WIRE_MILL.asItem()));
+	}
+
+	@Override
+	public void postRegister() {
+		// Alright we are going to apply check tags to cells, this should not take long at all.
+		// Check Tags will not check the amount of the ItemStack, but will enable checking their tags.
+		for (EntryStack stack : RoughlyEnoughItemsCore.getEntryRegistry().getStacksList())
+			applyCellEntry(stack);
+		for (List<RecipeDisplay> displays : RecipeHelper.getInstance().getAllRecipes().values()) {
+			for (RecipeDisplay display : displays) {
+				for (List<EntryStack> entries : display.getInputEntries())
+					for (EntryStack stack : entries)
+						applyCellEntry(stack);
+				for (EntryStack stack : display.getOutputEntries())
+					applyCellEntry(stack);
+			}
+		}
+	}
+	
+	private void applyCellEntry(EntryStack stack) {
+		// getItem can be null but this works
+		if (stack.getItem() == TRContent.CELL)
+			stack.addSetting(EntryStack.Settings.CHECK_TAGS, EntryStack.Settings.TRUE);
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType){

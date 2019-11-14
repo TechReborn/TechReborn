@@ -42,7 +42,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import reborncore.api.items.ItemStackModifiers;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemDurabilityExtensions;
@@ -90,9 +89,7 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 	// ItemSword
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
-		boolean used = Energy.of(stack).use(cost);
-		ExternalPowerSystems.requestEnergyFromArmor(stack, entityHitter);
-		return used;
+		return Energy.of(stack).use(cost);
 	}
 
 	@Override

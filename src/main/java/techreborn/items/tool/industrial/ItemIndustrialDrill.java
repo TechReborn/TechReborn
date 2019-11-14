@@ -47,7 +47,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
@@ -122,8 +121,6 @@ public class ItemIndustrialDrill extends ItemDrill {
 		BlockState blockState = world.getBlockState(pos);
 
 		if(Energy.of(drill).use(cost)){
-			ExternalPowerSystems.requestEnergyFromArmor(drill, playerIn);
-
 			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);
 			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());

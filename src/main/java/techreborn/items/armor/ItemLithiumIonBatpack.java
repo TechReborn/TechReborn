@@ -35,10 +35,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
@@ -62,9 +62,18 @@ public class ItemLithiumIonBatpack extends ArmorItem implements EnergyHolder, It
 			return;
 		}
 
+		if(!Energy.valid(itemStack)){
+			return;
+		}
+
 		for (int i = 0; i < player.inventory.getInvSize(); i++) {
-			if (!player.inventory.getInvStack(i).isEmpty()) {
-				ExternalPowerSystems.chargeItem(itemStack, player.inventory.getInvStack(i));
+			if (Energy.valid(player.inventory.getInvStack(i))) {
+				Energy.of(itemStack)
+					.into(
+						Energy
+							.of(player.inventory.getInvStack(i))
+					)
+					.move();
 			}
 		}
 	}

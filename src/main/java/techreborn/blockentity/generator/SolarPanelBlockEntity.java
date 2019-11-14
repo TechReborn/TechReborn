@@ -54,6 +54,11 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public SolarPanelBlockEntity() {
 		super(TRBlockEntities.SOLAR_PANEL);
 	}
+	
+	public SolarPanelBlockEntity(SolarPanels panel) {
+		super(TRBlockEntities.SOLAR_PANEL);
+		this.panel = panel;
+	}
 
 	public boolean isSunOut() {
 		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaylight();
@@ -145,13 +150,16 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+		if (panel == SolarPanels.CREATIVE) {
+			return;
+		}
 		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.maxEnergy") + ": "
 				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(getMaxPower())));
 
 		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
 				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.night") + ": "
 				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
 
 		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.tier") + ": "

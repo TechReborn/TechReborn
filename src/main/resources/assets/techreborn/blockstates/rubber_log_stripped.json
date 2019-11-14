@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "techreborn:block/rubber/rubber_log_stripped" },
+        "axis=z":   { "model": "techreborn:block/rubber/rubber_log_stripped", "x": 90 },
+        "axis=x":   { "model": "techreborn:block/rubber/rubber_log_stripped", "x": 90, "y": 90 }
+    }
+}

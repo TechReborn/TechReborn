@@ -83,9 +83,10 @@
 
   "_comment1": "Blocks",
   "block.techreborn.rubber_log": "Rubber Wood",
+  "block.techreborn.rubber_log_stripped": "Stripped Rubber Wood",
   "block.techreborn.rubber_planks": "Rubber Wood Planks",
-  "block.techreborn.rubber_plank_slab": "Rubber Wood  Plank Slab",
-  "block.techreborn.rubber_plank_stair": "Rubber Wood Plank Stair",
+  "block.techreborn.rubber_plank_slab": "Rubber Wood Plank Slab",
+  "block.techreborn.rubber_plank_stair": "Rubber Wood Plank Stairs",
   "block.techreborn.rubber_leaves": "Rubber Wood Leaves",
   "block.techreborn.rubber_sapling": "Rubber Wood Sapling",
   "block.techreborn.rubber_fence": "Rubber Wood Fence",
@@ -414,6 +415,7 @@
   "item.techreborn.tungsten_nugget": "Tungsten Nugget",
   "item.techreborn.tungstensteel_nugget": "Tungstensteel Nugget",
   "item.techreborn.zinc_nugget": "Zinc Nugget",
+  "item.techreborn.emerald_nugget": "Emerald Nugget",
 
   "_comment12": "Plates",
   "item.techreborn.advanced_alloy_plate": "Advanced Alloy Plate",

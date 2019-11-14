@@ -26,7 +26,9 @@ package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -44,7 +46,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.common.powerSystem.ExternalPowerSystems;
 import reborncore.common.util.WorldUtils;
 import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
@@ -120,24 +121,36 @@ public class BlockRubberLog extends LogBlock {
 			return ActionResult.PASS;
 		}
 
+		if (stack.getItem() instanceof AxeItem) {
+			worldIn.playSound(playerIn, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			if (worldIn.isClient) {
+				return true;
+			}
+			worldIn.setBlockState(pos, TRContent.RUBBER_LOG_STRIPPED.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), 11);
+			if (playerIn instanceof LivingEntity) {
+				LivingEntity playerEntity = (LivingEntity) playerIn;
+				stack.damage(1, playerEntity, player -> { player.sendToolBreakStatus(hand); });
+			}
+			return true;
+		}
+
 		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) || stack.getItem() instanceof ItemTreeTap) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
-				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS,
-						0.6F, 1F);
-				if (!worldIn.isClient) {
-					if (Energy.valid(stack)) {
-						Energy.of(stack).use(20);
-						ExternalPowerSystems.requestEnergyFromArmor(stack, playerIn);
-					} else {
-						playerIn.getStackInHand(Hand.MAIN_HAND).damage(1, playerIn, playerEntity -> {});
-					}
-					if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
-						WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
-					}
-					if (playerIn instanceof ServerPlayerEntity) {
-						TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);
-					}
+				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
+				if (worldIn.isClient) {
+					return true;
+				}
+				if (Energy.valid(stack)) {
+					Energy.of(stack).use(20);
+				} else {
+					stack.damage(1, playerIn, player -> { player.sendToolBreakStatus(hand); });
+				}
+				if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
+					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));
+				}
+				if (playerIn instanceof ServerPlayerEntity) {
+					TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);
 				}
 				return ActionResult.SUCCESS;
 			}

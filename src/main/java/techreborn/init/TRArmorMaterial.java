@@ -24,15 +24,15 @@
 
 package techreborn.init;
 
+import java.util.Locale;
+import java.util.function.Supplier;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
-
-import java.util.Locale;
-import java.util.function.Supplier;
 
 
 public enum TRArmorMaterial implements ArmorMaterial {
@@ -49,9 +49,9 @@ public enum TRArmorMaterial implements ArmorMaterial {
 	PERIDOT(17, new int[] { 3, 8, 3, 2 }, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	}), 
-	CLOAKING(5, new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, null),
-	LITHIUMBATPACK(25, new int[]{2, 5, 6, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, null),
-	LAPOTRONPACK(33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, null);
+	CLOAKING(5, new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
+	LITHIUMBATPACK(25, new int[]{2, 5, 6, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
+	LAPOTRONPACK(33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);
 	
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
