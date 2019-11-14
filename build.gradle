@@ -92,7 +92,7 @@ dependencies {
 		transitive = false
 	}
 
-	def rcVersion = 'RebornCore:RebornCore-1.15:4.0.16+build.10'
+	def rcVersion = 'RebornCore:RebornCore-1.15:+'
 
 	modCompile (rcVersion) {
 		transitive = false

@@ -39,7 +39,7 @@ import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SystemUtil;
+import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -76,7 +76,7 @@ public class CableBlock extends BlockWithEntity {
 	public static final BooleanProperty UP = BooleanProperty.of("up");
 	public static final BooleanProperty DOWN = BooleanProperty.of("down");
 
-	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = SystemUtil.consume(new HashMap<>(), map -> {
+	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = Util.create(new HashMap<>(), map -> {
 		map.put(Direction.EAST, EAST);
 		map.put(Direction.WEST, WEST);
 		map.put(Direction.NORTH, NORTH);

@@ -34,6 +34,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -124,14 +125,14 @@ public class BlockRubberLog extends LogBlock {
 		if (stack.getItem() instanceof AxeItem) {
 			worldIn.playSound(playerIn, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			if (worldIn.isClient) {
-				return true;
+				return ActionResult.SUCCESS;
 			}
 			worldIn.setBlockState(pos, TRContent.RUBBER_LOG_STRIPPED.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), 11);
 			if (playerIn instanceof LivingEntity) {
 				LivingEntity playerEntity = (LivingEntity) playerIn;
 				stack.damage(1, playerEntity, player -> { player.sendToolBreakStatus(hand); });
 			}
-			return true;
+			return ActionResult.SUCCESS;
 		}
 
 		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) || stack.getItem() instanceof ItemTreeTap) {
@@ -139,7 +140,7 @@ public class BlockRubberLog extends LogBlock {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
 				if (worldIn.isClient) {
-					return true;
+					return ActionResult.SUCCESS;
 				}
 				if (Energy.valid(stack)) {
 					Energy.of(stack).use(20);
