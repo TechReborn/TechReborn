@@ -52,9 +52,9 @@ public class EntityNukePrimed extends TntEntity {
 
 	@Override
 	public void tick() {
-		this.prevX = this.x;
-		this.prevY = this.y;
-		this.prevZ = this.z;
+		this.prevX = this.getX();
+		this.prevY = this.getY();
+		this.prevZ = this.getZ();
 
 		Vec3d velocity = getVelocity();
 		double motionX = velocity.x;
@@ -82,7 +82,7 @@ public class EntityNukePrimed extends TntEntity {
 			}
 		} else {
 			this.checkWaterState();
-			this.world.addParticle(ParticleTypes.SMOKE, this.x, this.y + 0.5D, this.z, 0.0D, 0.0D, 0.0D);
+			this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class EntityNukePrimed extends TntEntity {
 		if (!TechRebornConfig.nukeEnabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(new BlockPos(x, y, z), world, TechRebornConfig.nukeRadius);
+		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), world, TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getCausingEntity());
 		nukeExplosion.explode();
 	}

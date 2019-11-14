@@ -27,6 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.RebornCoreClient;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
@@ -129,7 +130,7 @@ public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
 					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
-					MultiblockRenderEvent.anchor = blockEntity.getPos().down();
+					MultiblockRenderEvent.anchor = blockEntity.getPos().method_10079(Direction.DOWN, 1);
 				}
 			} else {
 				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);

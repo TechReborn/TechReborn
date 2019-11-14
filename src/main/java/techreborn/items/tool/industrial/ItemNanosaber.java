@@ -134,9 +134,9 @@ public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabi
 					}
 				}
 			}
-			return new TypedActionResult<>(ActionResult.SUCCESS, stack, true);
+			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
-		return new TypedActionResult<>(ActionResult.PASS, stack, true);
+		return new TypedActionResult<>(ActionResult.PASS, stack);
 	}
 
 	@Override

@@ -24,15 +24,15 @@
 
 package techreborn.client.render.entitys;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.block.BlockRenderManager;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import techreborn.blocks.misc.BlockNuke;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 
@@ -50,45 +50,27 @@ public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 
 	@Nullable
 	@Override
-	protected Identifier getTexture(EntityNukePrimed entityNukePrimed) {
+	public Identifier getTexture(EntityNukePrimed entityNukePrimed) {
 		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 
 	@Override
-	public void render(EntityNukePrimed entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		BlockRenderManager blockrendererdispatcher = MinecraftClient.getInstance().getBlockRenderManager();
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef((float) x, (float) y + 0.5F, (float) z);
-		if ((float) entity.getFuseTimer() - partialTicks + 1.0F < 10.0F) {
-			float f = 1.0F - ((float) entity.getFuseTimer() - partialTicks + 1.0F) / 10.0F;
-			f = MathHelper.clamp(f, 0.0F, 1.0F);
-			f = f * f;
-			f = f * f;
-			float f1 = 1.0F + f * 0.3F;
-			RenderSystem.scalef(f1, f1, f1);
+	public void render(EntityNukePrimed entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+		matrixStack.push();
+		matrixStack.translate(0.0D, 0.5D, 0.0D);
+		if ((float)entity.getFuseTimer() - g + 1.0F < 10.0F) {
+			float h = 1.0F - ((float)entity.getFuseTimer() - g + 1.0F) / 10.0F;
+			h = MathHelper.clamp(h, 0.0F, 1.0F);
+			h *= h;
+			h *= h;
+			float j = 1.0F + h * 0.3F;
+			matrixStack.scale(j, j, j);
 		}
-		this.bindEntityTexture(entity);
-		RenderSystem.translatef(-0.5F, -0.5F, 0.5F);
-		blockrendererdispatcher.renderDynamic(TRContent.NUKE.getDefaultState(),
-			entity.getBrightnessAtEyes());
-		RenderSystem.translatef(0.0F, 0.0F, 1.0F);
-		if (entity.getFuseTimer() / 5 % 2 == 0) {
-			RenderSystem.disableLighting();
-			RenderSystem.enableBlend();
-			RenderSystem.blendFunc(770, 772);
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1F);
-			RenderSystem.polygonOffset(-3.0F, -3.0F);
-			RenderSystem.enablePolygonOffset();
-			blockrendererdispatcher.renderDynamic(
-				TRContent.NUKE.getDefaultState().with(BlockNuke.OVERLAY, true), 1.0F);
-			RenderSystem.polygonOffset(0.0F, 0.0F);
-			RenderSystem.disablePolygonOffset();
-			RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-			RenderSystem.disableBlend();
-			RenderSystem.enableLighting();
-		}
-		RenderSystem.popMatrix();
-		super.render(entity, x, y, z, entityYaw, partialTicks);
-	}
 
+		matrixStack.multiply(Vector3f.POSITIVE_Y.getRotationQuaternion(-90.0F));
+		matrixStack.translate(-0.5D, -0.5D, 0.5D);
+		TntMinecartEntityRenderer.method_23190(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuseTimer() / 5 % 2 == 0);
+		matrixStack.pop();
+		super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
+	}
 }

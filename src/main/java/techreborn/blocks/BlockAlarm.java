@@ -28,13 +28,14 @@ import net.minecraft.block.*;
 import net.minecraft.entity.EntityContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -106,7 +107,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 	
 	// Block
 	@Override
-	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		ACTIVE = BooleanProperty.of("active");
 		builder.add(FACING, ACTIVE);
 	}
@@ -124,28 +125,28 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 	}
 
 	@Override
-	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
 		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
-			return false;
+			return ActionResult.FAIL;
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
-				return true;
+				return ActionResult.SUCCESS;
 			}
 		}
 
 		if (!worldIn.isClient && playerIn.isSneaking()) {
 			((AlarmBlockEntity) blockEntity).rightClick();
-			return true;
+			return ActionResult.SUCCESS;
 
 		}
 
-		return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 	@Override

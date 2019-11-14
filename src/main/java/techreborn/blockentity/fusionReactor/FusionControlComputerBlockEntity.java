@@ -340,14 +340,14 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.finalTickTime = tagCompound.getInt("finalTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
-		if(tagCompound.containsKey("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
+		if(tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
 			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
 				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
 					this.currentRecipe = (FusionReactorRecipe) reactorRecipe;
 				}
 			}
 		}
-		if(tagCompound.containsKey("size")){
+		if(tagCompound.contains("size")){
 			this.size = tagCompound.getInt("size");
 		}
 		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.

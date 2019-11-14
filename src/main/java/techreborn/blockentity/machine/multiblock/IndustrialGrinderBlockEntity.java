@@ -30,6 +30,7 @@ import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -80,7 +81,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void tick() {
 		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
+			final BlockPos downCenter = pos.method_10079(getFacing().getOpposite(), 2).method_10079(Direction.DOWN, 1);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 

@@ -10,7 +10,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.2.5-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.2.6-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 		//classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
@@ -68,12 +68,12 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:19w38b"
-	mappings "net.fabricmc:yarn:19w38b+build.4"
-	modCompile "net.fabricmc:fabric-loader:0.6.2+build.166"
+	minecraft "com.mojang:minecraft:19w46a"
+	mappings "net.fabricmc:yarn:19w46a+build.2:v2"
+	modCompile "net.fabricmc:fabric-loader:0.6.4+build.169"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.3.2+build.232-1.15"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.12+build.261-1.15"
 
 	modCompileOnly "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
 	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.1-pre+build.4") {

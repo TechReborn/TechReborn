@@ -83,7 +83,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 				if (block != null && (block instanceof BlockWithEntity || block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
-					if (stack.hasTag() && stack.getTag().containsKey("blockEntity_data")) {
+					if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {
 						CompoundTag blockEntityData = stack.getTag().getCompound("blockEntity_data");
 						blockEntity.fromTag(blockEntityData);
 						hasData = true;

@@ -34,7 +34,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.SystemUtil;
+import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.powerSystem.PowerSystem;
 import team.reborn.energy.Energy;
@@ -81,7 +81,7 @@ public class ItemDebugTool extends Item {
 	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
 		Property<?> iproperty = entryIn.getKey();
 		Comparable<?> comparable = entryIn.getValue();
-		String s = SystemUtil.getValueAsString(iproperty, comparable);
+		String s = Util.getValueAsString(iproperty, comparable);
 		if (Boolean.TRUE.equals(comparable)) {
 			s = Formatting.GREEN + s;
 		} else if (Boolean.FALSE.equals(comparable)) {

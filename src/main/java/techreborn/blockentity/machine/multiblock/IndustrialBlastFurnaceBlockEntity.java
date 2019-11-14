@@ -63,7 +63,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 		}
 		
 		// Bottom center of multiblock
-		final BlockPos location = pos.offset(getFacing().getOpposite(), 2);
+		final BlockPos location = pos.method_10079(getFacing().getOpposite(), 2);
 		final BlockEntity blockEntity = world.getBlockEntity(location);
 
 		if (blockEntity instanceof MachineCasingBlockEntity) {
@@ -83,8 +83,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 					heat += BlockMachineCasing.getHeatFromState(part.getCachedState());
 				}
 
-				if (world.getBlockState(location.offset(Direction.UP, 1)).getMaterial().equals(Material.LAVA)
-						&& world.getBlockState(location.offset(Direction.UP, 2)).getMaterial().equals(Material.LAVA)) {
+				if (world.getBlockState(location.method_10079(Direction.UP, 1)).getMaterial().equals(Material.LAVA)
+						&& world.getBlockState(location.method_10079(Direction.UP, 2)).getMaterial().equals(Material.LAVA)) {
 					heat += 500;
 				}
 				return heat;
@@ -121,7 +121,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 	@Override
 	public void tick() {
 		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
+			final BlockPos downCenter = pos.method_10079(getFacing().getOpposite(), 2);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		super.tick();

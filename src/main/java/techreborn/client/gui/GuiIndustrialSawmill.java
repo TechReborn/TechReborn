@@ -143,7 +143,7 @@ public class GuiIndustrialSawmill extends GuiBase<BuiltContainer> {
 							this.blockEntity.getPos().getX()
 									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2,
 							this.blockEntity.getPos().getY() - 1, this.blockEntity.getPos().getZ()
-									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2).offset(blockEntity.getFacing().getOpposite(), 2);
+									- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2).method_10079(blockEntity.getFacing().getOpposite(), 2);
 				}
 			} else {
 				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);

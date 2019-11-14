@@ -378,7 +378,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public void fromTag(CompoundTag tag) {
-		if (tag.containsKey("locked")) {
+		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
 		super.fromTag(tag);

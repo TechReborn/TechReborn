@@ -29,6 +29,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -48,7 +49,7 @@ public class BlockComputerCube extends BlockMachineBase {
 	}
 	
 	@Override
-	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 
 		ItemStack tool = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (!tool.isEmpty() && ToolManager.INSTANCE.canHandleTool(tool)) {
@@ -56,19 +57,19 @@ public class BlockComputerCube extends BlockMachineBase {
 				if (playerIn.isSneaking()) {
 					ItemStack drop = new ItemStack(TRContent.COMPUTER_CUBE, 1);
 					dropStack(worldIn, pos, drop);
-					worldIn.playSound(null, playerIn.x, playerIn.y, playerIn.z, ModSounds.BLOCK_DISMANTLE,
+					worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSounds.BLOCK_DISMANTLE,
 							SoundCategory.BLOCKS, 0.6F, 1F);
 					if (!worldIn.isClient) {
 						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 					}
-					return true;
+					return ActionResult.SUCCESS;
 				}
 				else {
 					rotate(worldIn.getBlockState(pos), BlockRotation.CLOCKWISE_90);
-					return true;
+					return ActionResult.SUCCESS;
 				}
 			}
 		}
-		return false;
+		return ActionResult.PASS;
 	}
 }

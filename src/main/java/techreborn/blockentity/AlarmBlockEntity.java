@@ -75,7 +75,7 @@ public class AlarmBlockEntity extends BlockEntity
 
 	@Override
 	public void fromTag(CompoundTag compound) {
-		if (compound != null && compound.containsKey("selectedSound")) {
+		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
 		super.fromTag(compound);

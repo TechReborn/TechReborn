@@ -58,7 +58,7 @@ public class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 
 		storedItem = ItemStack.EMPTY;
 
-		if (tagCompound.containsKey("storedStack")) {
+		if (tagCompound.contains("storedStack")) {
 			storedItem = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
 		}
 

@@ -32,12 +32,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.StateFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -67,7 +68,7 @@ public class BlockRubberLog extends LogBlock {
 	}
 
 	@Override
-	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
 		builder.add(SAP_SIDE, HAS_SAP);
 	}
@@ -86,7 +87,7 @@ public class BlockRubberLog extends LogBlock {
 				BlockState state1 = worldIn.getBlockState(blockpos);
 				if (state1.matches(BlockTags.LEAVES)) {
 					state1.scheduledTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
-					state1.onRandomTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
+					state1.randomTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
 				}
 			}
 		}
@@ -94,8 +95,8 @@ public class BlockRubberLog extends LogBlock {
 	}
 
 	@Override
-	public void onScheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-		super.onScheduledTick(state, worldIn, pos, random);
+	public void scheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+		super.scheduledTick(state, worldIn, pos, random);
 		if (state.get(AXIS) != Direction.Axis.Y) {
 			return;
 		}
@@ -104,7 +105,7 @@ public class BlockRubberLog extends LogBlock {
 		}
 		if (random.nextInt(50) == 0) {
 			Direction facing = Direction.fromHorizontal(random.nextInt(4));
-			if (worldIn.getBlockState(pos.down()).getBlock() == this
+			if (worldIn.getBlockState(pos.method_10079(Direction.DOWN, 1)).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
 			}
@@ -112,12 +113,11 @@ public class BlockRubberLog extends LogBlock {
 	}
 
 	@Override
-	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-	                                Hand hand, BlockHitResult hitResult) {
-		super.activate(state, worldIn, pos, playerIn, hand, hitResult);
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+							  Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		if (stack.isEmpty()) {
-			return false;
+			return ActionResult.PASS;
 		}
 
 		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) || stack.getItem() instanceof ItemTreeTap) {
@@ -139,9 +139,9 @@ public class BlockRubberLog extends LogBlock {
 						TRRecipeHandler.unlockTRRecipes((ServerPlayerEntity) playerIn);
 					}
 				}
-				return true;
+				return ActionResult.SUCCESS;
 			}
 		}
-		return false;
+		return ActionResult.PASS;
 	}
 }

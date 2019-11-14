@@ -94,7 +94,7 @@ public class CableBlockEntity extends BlockEntity
     @Override
     public void fromTag(CompoundTag compound) {
         super.fromTag(compound);
-        if (compound.containsKey("CableBlockEntity")) {
+        if (compound.contains("CableBlockEntity")) {
             energy = compound.getCompound("CableBlockEntity").getInt("power");
         }
     }

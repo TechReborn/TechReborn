@@ -59,7 +59,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			while (totalExperience > 0) {
 				int expToDrop = ExperienceOrbEntity.roundToOrbSize(totalExperience);
 				totalExperience -= expToDrop;
-				player.world.spawnEntity(new ExperienceOrbEntity(player.world, player.x, player.y + 0.5D, player.z + 0.5D, expToDrop));
+				player.world.spawnEntity(new ExperienceOrbEntity(player.world, player.getX(), player.getY() + 0.5D, player.getZ() + 0.5D, expToDrop));
 			}
 		}
 		experience = 0;

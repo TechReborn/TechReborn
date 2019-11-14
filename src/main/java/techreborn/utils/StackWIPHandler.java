@@ -68,7 +68,7 @@ public class StackWIPHandler {
 	private static void addHead(String name) {
 		ItemStack head = new ItemStack(Items.PLAYER_HEAD, 3);
 		head.setTag(new CompoundTag());
-		head.getTag().put("SkullOwner", new StringTag(name));
+		head.getTag().put("SkullOwner", StringTag.of(name));
 		devHeads.add(head);
 	}
 

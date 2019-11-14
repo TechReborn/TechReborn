@@ -95,23 +95,23 @@ public class WorldGenerator {
 			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
 
 			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA) {
-				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
-				                 Biome.configureFeature(new RubberTreeFeature(DefaultFeatureConfig::deserialize, false),
-				                                        FeatureConfig.DEFAULT, Decorator.COUNT_EXTRA_HEIGHTMAP,
-				                                        new CountExtraChanceDecoratorConfig(1, 0.1F, 1)));
+//				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
+//				                 Biome.configureFeature(new RubberTreeFeature(DefaultFeatureConfig::deserialize, false),
+//				                                        FeatureConfig.DEFAULT, Decorator.COUNT_EXTRA_HEIGHTMAP,
+//				                                        new CountExtraChanceDecoratorConfig(1, 0.1F, 1)));
 			}
 		}
 	}
 
 	private static void addOre(Biome biome, Target canReplaceIn, TRContent.Ores ore) {
-		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Biome.configureFeature(Feature.ORE,
-				new OreFeatureConfig(canReplaceIn, ore.block.getDefaultState(), ore.veinSize), Decorator.COUNT_RANGE,
-				new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY)));
+		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Feature.ORE.configure(
+				new OreFeatureConfig(canReplaceIn, ore.block.getDefaultState(), ore.veinSize)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(
+				new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY))));
 	}
 
 	private static void addEndOre(Biome biome, TRContent.Ores ore) {
-		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Biome.configureFeature(CustomOreFeature.CUSTOM_ORE_FEATURE,
-		                                                                                 new CustomOreFeatureConfig(blockState -> blockState.getBlock() == Blocks.END_STONE, ore.block.getDefaultState(), ore.veinSize), Decorator.COUNT_RANGE,
-		                                                                                 new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY)));
+		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, CustomOreFeature.CUSTOM_ORE_FEATURE.configure(
+				new CustomOreFeatureConfig(blockState -> blockState.getBlock() == Blocks.END_STONE, ore.block.getDefaultState(), ore.veinSize)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(
+				new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY))));
 	}
 }

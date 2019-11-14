@@ -25,15 +25,18 @@
 package techreborn.world;
 
 import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
 public class RubberSaplingGenerator extends SaplingGenerator {
+
 	@Nullable
-	protected AbstractTreeFeature<DefaultFeatureConfig> createTreeFeature(Random random) {
-		return new RubberTreeFeature(DefaultFeatureConfig::deserialize, true);
+	@Override
+	protected ConfiguredFeature<BranchedTreeFeatureConfig, ?> createTreeFeature(Random random) {
+		return null; //new RubberTreeFeature(DefaultFeatureConfig::deserialize, true);
 	}
+
 }

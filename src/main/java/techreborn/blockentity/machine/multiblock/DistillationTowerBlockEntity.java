@@ -71,7 +71,7 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void tick() {
 		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
+			final BlockPos downCenter = pos.method_10079(getFacing().getOpposite(), 2);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 		

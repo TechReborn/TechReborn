@@ -25,6 +25,7 @@
 package techreborn.blocks.tier1;
 
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -35,7 +36,7 @@ import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringIdentifiable;
@@ -78,12 +79,12 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 	
 	@Override
-	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 			
 		if (blockEntity == null) {
-			return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 		
 		PlayerDetectorType type = state.get(TYPE);
@@ -96,7 +97,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 					if (blockEntity instanceof IToolDrop) {
 						ItemStack drop = ((IToolDrop) blockEntity).getToolDrop(playerIn);
 						if (drop == null) {
-							return false;
+							return ActionResult.PASS;
 						}
 						if (!drop.isEmpty()) {
 							dropStack(worldIn, pos, drop);
@@ -104,7 +105,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 						if (!worldIn.isClient) {
 							worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
-						return true;
+						return ActionResult.SUCCESS;
 					}
 				} else {
 					if (type == PlayerDetectorType.ALL) {
@@ -126,7 +127,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 				Formatting.GRAY + StringUtils.t("techreborn.message.detects") + " " + color
 					+ StringUtils.toFirstCapital(newType.asString())));
 		}
-		return true;
+		return ActionResult.SUCCESS;
 	}
 	
 	@Override
@@ -136,7 +137,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	
 	// Block
 	@Override
-	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 		builder.add(TYPE);
 	}

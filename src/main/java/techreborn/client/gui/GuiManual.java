@@ -30,7 +30,7 @@ import reborncore.common.util.StringUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.SystemUtil;
+import net.minecraft.util.Util;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.common.network.NetworkManager;
 import techreborn.config.TechRebornConfig;
@@ -60,7 +60,7 @@ public class GuiManual extends Screen {
 		y+= 40;
 		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, StringUtils.t("techreborn.manual.wikibtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
-				SystemUtil.getOperatingSystem().open("http://wiki.techreborn.ovh");
+				Util.getOperatingSystem().open("http://wiki.techreborn.ovh");
 				this.minecraft.openScreen(this);
 			} else {
 				this.minecraft.openScreen(this);
@@ -68,7 +68,7 @@ public class GuiManual extends Screen {
 		}, "http://wiki.techreborn.ovh", false))));
 		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, StringUtils.t("techreborn.manual.discordbtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
-				SystemUtil.getOperatingSystem().open("https://discord.gg/teamreborn");
+				Util.getOperatingSystem().open("https://discord.gg/teamreborn");
 				this.minecraft.openScreen(this);
 			}else {
 				this.minecraft.openScreen(this);
@@ -85,7 +85,7 @@ public class GuiManual extends Screen {
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		renderBackground();
-		minecraft.getTextureManager().method_22813(GuiManual.texture);
+		minecraft.getTextureManager().bindTexture(GuiManual.texture);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		blit(centerX, centerY, 0, 0, guiWidth, guiHeight);

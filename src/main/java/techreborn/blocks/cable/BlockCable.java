@@ -34,9 +34,10 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.StateFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -99,7 +100,7 @@ public class BlockCable extends BlockWithEntity {
 	}
 
 	private BlockState makeConnections(World world, BlockPos pos) {
-		Boolean down = canConnectTo(world, pos.down(), Direction.UP);
+		Boolean down = canConnectTo(world, pos.method_10079(Direction.DOWN, 1), Direction.UP);
 		Boolean up = canConnectTo(world, pos.up(), Direction.DOWN);
 		Boolean north = canConnectTo(world, pos.north(), Direction.SOUTH);
 		Boolean east = canConnectTo(world, pos.east(), Direction.WEST);
@@ -132,25 +133,25 @@ public class BlockCable extends BlockWithEntity {
 
 	// Block
 	@Override
-	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
 		// We should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
-			return false;
+			return ActionResult.FAIL;
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
-				return true;
+				return ActionResult.SUCCESS;
 			}
 		}
-		return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 	@Override
-	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN);
 	}
 
@@ -207,11 +208,11 @@ public class BlockCable extends BlockWithEntity {
 			entityIn.damage(new ElectrialShockSource(), 1F);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionSound) {
-			worldIn.playSound(null, entityIn.x, entityIn.y, entityIn.z, ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
+			worldIn.playSound(null, entityIn.getX(), entityIn.getY(), entityIn.getZ(), ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
 					0.6F, 1F);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
-			worldIn.addParticle(ParticleTypes.CRIT, entityIn.x, entityIn.y, entityIn.z, 0, 0, 0);
+			worldIn.addParticle(ParticleTypes.CRIT, entityIn.getX(), entityIn.getY(), entityIn.getZ(), 0, 0, 0);
 		}
 	}
 }

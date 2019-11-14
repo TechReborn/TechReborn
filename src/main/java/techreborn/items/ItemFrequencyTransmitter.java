@@ -60,8 +60,8 @@ public class ItemFrequencyTransmitter extends Item {
 			@Override
 			@Environment(EnvType.CLIENT)
 			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x")
-						&& stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
+				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
+						&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 					return 1.0F;
 				}
 				return 0.0F;
@@ -109,13 +109,13 @@ public class ItemFrequencyTransmitter extends Item {
 			}
 		}
 
-		return new TypedActionResult<>(ActionResult.SUCCESS, stack, true);
+		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		if (stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x") && stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
+		if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 			int x = stack.getTag().getInt("x");
 			int y = stack.getTag().getInt("y");
 			int z = stack.getTag().getInt("z");
@@ -146,7 +146,7 @@ public class ItemFrequencyTransmitter extends Item {
 			Formatting gold = Formatting.GOLD;
 			Formatting grey = Formatting.GRAY;
 			if (stack.getItem() instanceof ItemFrequencyTransmitter) {
-				if (stack.hasTag() && stack.getTag() != null && stack.getTag().containsKey("x") && stack.getTag().containsKey("y") && stack.getTag().containsKey("z") && stack.getTag().containsKey("dim")) {
+				if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 					int coordX = stack.getTag().getInt("x");
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");

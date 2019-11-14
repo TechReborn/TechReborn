@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -46,15 +47,15 @@ import java.util.List;
 public class BlockFusionControlComputer extends BlockMachineBase {
 
 	@Override
-	public boolean activate(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
-	                                Hand hand, BlockHitResult hitResult) {
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
+							  Hand hand, BlockHitResult hitResult) {
 		final FusionControlComputerBlockEntity blockEntityFusionControlComputer = (FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos);
 		if(!playerIn.getStackInHand(hand).isEmpty() && (playerIn.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())){
 			List<BlockPos> coils = Torus.generate(blockEntityFusionControlComputer.getPos(), blockEntityFusionControlComputer.size);
 			boolean placed = false;
 			for(BlockPos coil : coils){
 				if(playerIn.getStackInHand(hand).isEmpty()){
-					return true;
+					return ActionResult.SUCCESS;
 				}
 				if(worldIn.isAir(coil) && !blockEntityFusionControlComputer.isCoil(coil)){
 					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
@@ -65,12 +66,12 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 				}
 			}
 			if(placed){
-				return true;
+				return ActionResult.SUCCESS;
 			}
 
 		}
 		blockEntityFusionControlComputer.checkCoils();
-		return super.activate(state, worldIn, pos, playerIn, hand, hitResult);
+		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 	@Override

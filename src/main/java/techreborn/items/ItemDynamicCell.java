@@ -116,7 +116,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
 		CompoundTag tag = itemStack.getTag();
-		if(tag != null && tag.containsKey("fluid")){
+		if(tag != null && tag.contains("fluid")){
 			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
 		}
 		return Fluids.EMPTY;

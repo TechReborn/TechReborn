@@ -26,6 +26,7 @@ package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -71,7 +72,7 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 	@Override
 	public void cancelRemoval() {
 		super.cancelRemoval();
-		multiblockChecker = new MultiblockChecker(world, pos.down());
+		multiblockChecker = new MultiblockChecker(world, pos.method_10079(Direction.DOWN, 1));
 	}
 
 	// IContainerProvider

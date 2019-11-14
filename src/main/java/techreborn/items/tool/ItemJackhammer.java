@@ -26,6 +26,7 @@ package techreborn.items.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -61,7 +62,7 @@ public class ItemJackhammer extends PickaxeItem implements EnergyHolder, ItemDur
 	// ItemPickaxe
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
-		if (Block.isNaturalStone(state.getBlock()) && Energy.of(stack).getEnergy() >= cost) {
+		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
 			return miningSpeed;
 		} else {
 			return 0.5F;

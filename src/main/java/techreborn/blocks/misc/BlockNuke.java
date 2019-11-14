@@ -34,7 +34,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -59,7 +59,7 @@ public class BlockNuke extends BaseBlock {
 			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
 					(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter);
 			worldIn.spawnEntity(entitynukeprimed);
-			worldIn.playSound((PlayerEntity) null, entitynukeprimed.x, entitynukeprimed.y, entitynukeprimed.z,
+			worldIn.playSound((PlayerEntity) null, entitynukeprimed.getX(), entitynukeprimed.getY(), entitynukeprimed.getZ(),
 					SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		}
 	}
@@ -107,7 +107,7 @@ public class BlockNuke extends BaseBlock {
 	}
 	
 	@Override
-	protected void appendProperties(StateFactory.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(OVERLAY);
 	}
 }
