@@ -24,18 +24,21 @@
 
 package techreborn.compat.jei.generators.fluid;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+
+import reborncore.common.util.StringUtils;
+
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import reborncore.common.util.StringUtils;
-import techreborn.api.generator.EFluidGenerator;
-import techreborn.compat.jei.RecipeUtil;
-import techreborn.lib.ModInfo;
 
 public class FluidGeneratorRecipeCategory implements IRecipeCategory<FluidGeneratorRecipeWrapper> {
 	public static ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei_fluid_generator.png");

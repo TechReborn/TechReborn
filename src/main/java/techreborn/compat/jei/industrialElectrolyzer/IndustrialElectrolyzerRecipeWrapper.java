@@ -24,15 +24,18 @@
 
 package techreborn.compat.jei.industrialElectrolyzer;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+
+import reborncore.common.powerSystem.PowerSystem;
+
+import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
+import techreborn.compat.jei.BaseRecipeWrapper;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.recipe.machines.IndustrialElectrolyzerRecipe;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 

@@ -24,13 +24,15 @@
 
 package techreborn.compat.jei.fusionReactor;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+
+import techreborn.api.reactor.FusionReactorRecipe;
+import techreborn.compat.jei.RecipeUtil;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import techreborn.api.reactor.FusionReactorRecipe;
-import techreborn.compat.jei.RecipeUtil;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;

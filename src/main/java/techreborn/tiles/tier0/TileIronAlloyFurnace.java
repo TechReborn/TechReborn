@@ -92,10 +92,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		
 		if (recipe != null) {
 			boolean canUse = recipeHandler.apply(recipe, inputs, ImmutableList.of(), true);
-			// we cannot use the current recipe so reset
-			if (!canUse) {
-				reset(); 
-			}
+			if (!canUse) reset(); // we cannot use the current recipe so reset
 		}
 		
 		Optional<Recipe> maybeRecipe = Optional.ofNullable(recipe);
@@ -110,12 +107,10 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		}
 		
 		// The current recipe is not usable anymore so we need to find a new one
-		maybeRecipe = recipeHandler.findRecipe(inputs, ImmutableList.of()); 
+		maybeRecipe = recipeHandler.findRecipe(inputs, ImmutableList.of());
 
-		if (!maybeRecipe.isPresent()) {
-			// could not find a recipe
-			return false; 
-		}
+		// could not find a recipe
+		if (!maybeRecipe.isPresent()) return false;
 
 		// if a matching recipe exists update parameters
 		updateRecipe(maybeRecipe.get());
@@ -198,10 +193,8 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 	 * @return Integer Number of ticks
 	 */
 	public int getItemBurnTime(ItemStack stack) {
-		if (stack.isEmpty()) {
-			return 0;
-		}
-		return (int) (TileEntityFurnace.getItemBurnTime(stack) * 1.25);
+		return stack.isEmpty() ? 0 :
+				(int) (TileEntityFurnace.getItemBurnTime(stack) * 1.25);
 	}
 	
 	/**

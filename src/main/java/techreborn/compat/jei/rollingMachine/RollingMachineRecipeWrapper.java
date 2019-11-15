@@ -24,17 +24,19 @@
 
 package techreborn.compat.jei.rollingMachine;
 
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
+
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapedRecipesWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

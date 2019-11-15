@@ -67,10 +67,11 @@ public class ClientProxy extends CommonProxy {
 		ShootingStar.registerModels(ModInfo.MOD_ID);
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukePrimed.class, new RenderManagerNuke());
-		ModelDynamicCell.init();
-		RegisterItemJsons.registerModels();
+
+		MinecraftForge.EVENT_BUS.register(EventHandlerClient.INSTANCE);
+
 		MinecraftForge.EVENT_BUS.register(new FluidBlockModelHandler());
-		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
+//		MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
 	}
 
 	@Override

@@ -24,41 +24,51 @@
 
 package techreborn.compat.jei.grinder;
 
+import net.minecraft.client.Minecraft;
+
+import reborncore.api.praescriptum.recipes.Recipe;
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.common.powerSystem.PowerSystem;
+
+import techreborn.compat.jei.RecipeWrapper;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
-import techreborn.api.recipe.machines.GrinderRecipe;
-import reborncore.client.guibuilder.GuiBuilder;
-import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
-import javax.annotation.Nonnull;
+public class GrinderRecipeWrapper extends RecipeWrapper {
+	public GrinderRecipeWrapper(IJeiHelpers jeiHelpers, Recipe recipe) {
+		super(recipe);
 
-public class GrinderRecipeWrapper extends BaseRecipeWrapper<GrinderRecipe> {
-	private final IDrawableAnimated progress;
-
-	public GrinderRecipeWrapper(
-		@Nonnull
-			IJeiHelpers jeiHelpers,
-		@Nonnull
-			GrinderRecipe baseRecipe) {
-		super(baseRecipe);
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		ProgressDirection right = ProgressDirection.RIGHT;
+
+		GuiBuilder.ProgressDirection right = GuiBuilder.ProgressDirection.RIGHT;
+
 		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
 				right.yActive, right.width, right.height);
 
-		int ticksPerCycle = baseRecipe.tickTime(); // speed up the animation
-
+		int ticksPerCycle = recipe.getOperationDuration(); // speed up the animation
 		this.progress = guiHelper.createAnimatedDrawable(progressStatic, ticksPerCycle,
-			IDrawableAnimated.StartDirection.LEFT, false);
+				IDrawableAnimated.StartDirection.LEFT, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-		progress.draw(minecraft, 25, 11);
+		progress.draw(minecraft, 24, 12);
+
+		int y = 31;
+		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
+
+		minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
+				(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
+		minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration()),
+				(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration())) / 2),
+				y + lineHeight + 1, 0x444444);
 	}
+
+	// Fields >>
+	private final IDrawableAnimated progress;
+	// << Fields
 }

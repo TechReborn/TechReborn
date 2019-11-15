@@ -24,15 +24,18 @@
 
 package techreborn.compat.jei.implosionCompressor;
 
+import net.minecraft.client.Minecraft;
+
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
+
+import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
+import techreborn.compat.jei.BaseRecipeWrapper;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
-import techreborn.api.recipe.machines.ImplosionCompressorRecipe;
-import reborncore.client.guibuilder.GuiBuilder;
-import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 

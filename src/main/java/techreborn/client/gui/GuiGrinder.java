@@ -25,23 +25,23 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
-import techreborn.tiles.tier1.TileGrinder;
+
+import techreborn.tiles.processing.lv.TileGrinder;
 
 public class GuiGrinder extends GuiBase {
-
-	TileGrinder tile;
-
 	public GuiGrinder(final EntityPlayer player, final TileGrinder tile) {
 		super(player, tile, tile.createContainer(player));
+
 		this.tile = tile;
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
 		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(8, 72, layer);
 
@@ -54,9 +54,13 @@ public class GuiGrinder extends GuiBase {
 	@Override
 	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+		final Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+		this.builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		this.builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
+
+	// Fields >>
+	TileGrinder tile;
+	// << Fields
 }

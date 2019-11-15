@@ -26,12 +26,9 @@ package techreborn.compat.jei;
 
 import net.minecraft.item.ItemStack;
 
-import com.google.common.collect.ImmutableList;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+
 import reborncore.api.praescriptum.ingredients.input.FluidStackInputIngredient;
 import reborncore.api.praescriptum.ingredients.input.ItemStackInputIngredient;
 import reborncore.api.praescriptum.ingredients.input.OreDictionaryInputIngredient;
@@ -40,9 +37,15 @@ import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
 import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.common.util.ItemUtils;
 
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
+import mezz.jei.api.recipe.IRecipeWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author estebes

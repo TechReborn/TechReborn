@@ -24,6 +24,15 @@
 
 package techreborn.compat.jei.generators.fluid;
 
+import net.minecraft.client.Minecraft;
+
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+
+import reborncore.common.powerSystem.PowerSystem;
+
+import techreborn.api.generator.FluidGeneratorRecipe;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -31,11 +40,6 @@ import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.generator.FluidGeneratorRecipe;
 
 import javax.annotation.Nonnull;
 

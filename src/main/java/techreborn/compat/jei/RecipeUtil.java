@@ -24,17 +24,20 @@
 
 package techreborn.compat.jei;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.ItemStack;
+
+import net.minecraftforge.fluids.FluidStack;
+
+import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.StringUtils;
+
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

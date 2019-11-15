@@ -24,16 +24,19 @@
 
 package techreborn.compat.jei.rollingMachine;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+
+import reborncore.common.util.StringUtils;
+
+import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.lib.ModInfo;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import reborncore.common.util.StringUtils;
-import techreborn.compat.jei.RecipeCategoryUids;
-import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 

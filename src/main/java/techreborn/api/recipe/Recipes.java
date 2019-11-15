@@ -51,6 +51,11 @@ public class Recipes {
 	public static RecipeHandler extractor;
 
 	/**
+	 * Recipe handler for grinder recipes.
+	 */
+	public static RecipeHandler grinder;
+
+	/**
 	 * Recipe handler for plate bending machine recipes.
 	 */
 	public static RecipeHandler plateBendingMachine;

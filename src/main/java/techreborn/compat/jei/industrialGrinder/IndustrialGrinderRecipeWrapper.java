@@ -24,18 +24,22 @@
 
 package techreborn.compat.jei.industrialGrinder;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+
+import net.minecraftforge.fluids.FluidStack;
+
+import reborncore.common.powerSystem.PowerSystem;
+
+import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
+import techreborn.compat.jei.BaseRecipeWrapper;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
-import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;

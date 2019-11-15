@@ -24,10 +24,12 @@
 
 package techreborn.compat.jei.rollingMachine;
 
-import mezz.jei.api.IJeiHelpers;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+
 import techreborn.api.RollingMachineRecipe;
+
+import mezz.jei.api.IJeiHelpers;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

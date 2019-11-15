@@ -26,17 +26,18 @@ package techreborn.compat.jei.wiremill;
 
 import net.minecraft.util.ResourceLocation;
 
+import reborncore.common.util.StringUtils;
+
+import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import reborncore.common.util.StringUtils;
-
-import techreborn.compat.jei.RecipeCategoryUids;
-import techreborn.compat.jei.RecipeUtil;
-import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 

@@ -55,6 +55,9 @@ public class OreDict {
 	// << Fields
 
 	public static void init() {
+		// Vanilla items
+		OreUtil.registerOre("gemCoal", new ItemStack(Items.COAL));
+		OreUtil.registerOre("gemCharcoal", new ItemStack(Items.COAL, 1, 1));
 
 		for (String type : ItemGems.types) {
 			if (type.equals(ModItems.META_PLACEHOLDER))

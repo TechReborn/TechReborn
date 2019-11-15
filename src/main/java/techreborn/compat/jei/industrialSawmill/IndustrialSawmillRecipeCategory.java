@@ -24,6 +24,15 @@
 
 package techreborn.compat.jei.industrialSawmill;
 
+import net.minecraft.util.ResourceLocation;
+
+import reborncore.common.util.StringUtils;
+
+import techreborn.compat.jei.RecipeCategoryUids;
+import techreborn.compat.jei.RecipeUtil;
+import techreborn.lib.ModInfo;
+import techreborn.tiles.multiblock.TileIndustrialSawmill;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
@@ -31,12 +40,6 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import net.minecraft.util.ResourceLocation;
-import reborncore.common.util.StringUtils;
-import techreborn.compat.jei.RecipeCategoryUids;
-import techreborn.compat.jei.RecipeUtil;
-import techreborn.lib.ModInfo;
-import techreborn.tiles.multiblock.TileIndustrialSawmill;
 
 import javax.annotation.Nonnull;
 

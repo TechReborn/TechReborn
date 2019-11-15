@@ -24,14 +24,18 @@
 
 package techreborn.compat.jei;
 
+import net.minecraft.item.ItemStack;
+
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+
+import reborncore.common.recipes.IRecipeInput;
+
+import techreborn.api.recipe.BaseRecipe;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-import reborncore.common.recipes.IRecipeInput;
-import techreborn.api.recipe.BaseRecipe;
 
 import javax.annotation.Nonnull;
 import java.util.*;

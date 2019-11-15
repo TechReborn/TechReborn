@@ -190,7 +190,7 @@ public class ModItems {
 	@Nullable
 	public static Item PERIDOT_BOOTS;
 
-	public static void init() throws InstantiationException, IllegalAccessException {
+	public static void init() {
 		// Ingredients
 		DUSTS = new ItemDusts();
 		registerItem(DUSTS, "dust");

@@ -24,16 +24,19 @@
 
 package techreborn.compat.jei.distillationTower;
 
+import net.minecraft.client.Minecraft;
+
+import reborncore.client.guibuilder.GuiBuilder;
+import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
+import reborncore.common.powerSystem.PowerSystem;
+
+import techreborn.api.recipe.machines.DistillationTowerRecipe;
+import techreborn.compat.jei.BaseRecipeWrapper;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
-import net.minecraft.client.Minecraft;
-import reborncore.common.powerSystem.PowerSystem;
-import techreborn.api.recipe.machines.DistillationTowerRecipe;
-import reborncore.client.guibuilder.GuiBuilder;
-import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
-import techreborn.compat.jei.BaseRecipeWrapper;
 
 import javax.annotation.Nonnull;
 

@@ -26,16 +26,17 @@ package techreborn.compat.jei.solidcanningmachine;
 
 import net.minecraft.client.Minecraft;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
 import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.client.guibuilder.GuiBuilder.ProgressDirection;
 import reborncore.common.powerSystem.PowerSystem;
 
 import techreborn.compat.jei.RecipeWrapper;
+
+import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.gui.IDrawableAnimated;
+import mezz.jei.api.gui.IDrawableStatic;
 
 /**
  * @author estebes

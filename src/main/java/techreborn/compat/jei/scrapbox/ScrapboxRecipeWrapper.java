@@ -24,9 +24,10 @@
 
 package techreborn.compat.jei.scrapbox;
 
-import mezz.jei.api.IJeiHelpers;
 import techreborn.api.recipe.machines.ScrapboxRecipe;
 import techreborn.compat.jei.BaseRecipeWrapper;
+
+import mezz.jei.api.IJeiHelpers;
 
 import javax.annotation.Nonnull;
 
