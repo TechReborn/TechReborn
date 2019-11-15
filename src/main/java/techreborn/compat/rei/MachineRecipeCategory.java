@@ -28,18 +28,16 @@ import me.shedaniel.math.api.Point;
 import me.shedaniel.math.api.Rectangle;
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.api.Renderer;
-import me.shedaniel.rei.gui.renderers.RecipeRenderer;
+import me.shedaniel.rei.gui.entries.RecipeEntry;
+import me.shedaniel.rei.gui.entries.SimpleRecipeEntry;
 import me.shedaniel.rei.gui.widget.*;
 import me.shedaniel.rei.impl.ScreenHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.StringUtils;
 
 import java.util.Collections;
@@ -75,13 +73,12 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	public EntryStack getLogo() {
 		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
-
+	
 	@Override
-	public RecipeRenderer getSimpleRenderer(MachineRecipeDisplay<R> recipe) {
-		// There is currently no replacement for Renderer in the 1.14 version of REI
-		return Renderer.fromRecipe(() -> Collections.singletonList(recipe.getInput().get(0)), recipe::getOutput);
+	public RecipeEntry getSimpleRenderer(MachineRecipeDisplay<R> recipe) {
+		return SimpleRecipeEntry.create(Collections.singletonList(recipe.getInputEntries().get(0)), recipe.getOutputEntries());
 	}
-
+	
 	@Override
 	public List<Widget> setupDisplay(Supplier<MachineRecipeDisplay<R>> recipeDisplaySupplier, Rectangle bounds) {
 
