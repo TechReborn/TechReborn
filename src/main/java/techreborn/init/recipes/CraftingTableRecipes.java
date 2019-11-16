@@ -124,7 +124,9 @@ public class CraftingTableRecipes extends RecipeMethods {
 
 		if(!IC2Duplicates.deduplicate()){
 			registerShaped(getStack(ModItems.ENERGY_CRYSTAL), "RRR", "RDR", "RRR", 'R', "dustRedstone", 'D', "gemDiamond");
+			registerShaped(getStack(ModItems.ENERGY_CRYSTAL), "RRR", "RBR", "RRR", 'R', "dustRedstone", 'B', "gemRuby");
 			registerShaped(getStack(ModItems.LAPOTRONIC_CRYSTAL), "LCL", "LEL", "LCL", 'L', getStack(Items.DYE, 1, 4), 'E', "energyCrystal", 'C', "circuitBasic");
+			registerShaped(getStack(ModItems.LAPOTRONIC_CRYSTAL), "LCL", "LSL", "LCL", 'L', getStack(Items.DYE, 1, 4), 'S', "gemSapphire", 'C', "circuitBasic");
 			registerShaped(getStack(ModItems.RE_BATTERY), " W ", "TRT", "TRT", 'T', "ingotTin", 'R', "dustRedstone", 'W', getStack(IC2Duplicates.CABLE_ICOPPER));
 		}
 
