@@ -84,6 +84,7 @@ dependencies {
 	deobfCompile('RebornCore:RebornCore-1.12.2:+:universal') {
 		transitive = false
 	}
+
 	shade ('TechReborn:TechReborn-ModCompatibility-1.12.2:+:universal') {
 		transitive = false
 	}

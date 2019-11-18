@@ -29,42 +29,45 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.api.praescriptum.Utils.IngredientUtils;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 
 import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
+import techreborn.lib.ModInfo;
 
 /**
  * @author estebes
  */
+@RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileSolidCanningMachine extends TileMachine {
-	// Config >>
-	@ConfigRegistry(config = "machines", category = "solid_canning_machine", key = "SolidCanningMachineMaxInput", comment = "Solid Canning Machine Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "solid_canning_machine", key = "SolidCanningMachineMaxEnergy", comment = "Solid Canning Machine Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	// << Config
+    // Config >>
+    @ConfigRegistry(config = "machines", category = "solid_canning_machine", key = "SolidCanningMachineMaxInput", comment = "Solid Canning Machine Max Input (Value in EU)")
+    public static int maxInput = 32;
+    @ConfigRegistry(config = "machines", category = "solid_canning_machine", key = "SolidCanningMachineMaxEnergy", comment = "Solid Canning Machine Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    // << Config
 
-	public TileSolidCanningMachine() {
-		super("SolidCanningMachine", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.solidCanningMachine, ModBlocks.SOLID_CANNING_MACHINE);
-	}
+    public TileSolidCanningMachine() {
+        super("SolidCanningMachine", maxInput, maxEnergy, 3, 4, 64,
+                new int[]{0, 1}, new int[]{2}, Recipes.solidCanningMachine, ModBlocks.SOLID_CANNING_MACHINE);
+    }
 
-	// IContainerProvider >>
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("solidcanningmachine").player(player.inventory).inventory().hotbar()
-			.addInventory()
-			.tile(this)
-			.filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.outputSlot(2, 80, 47)
-			.energySlot(energySlot, 8, 72)
-			.syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
-			.addInventory()
-			.create(this);
-	}
-	// << IContainerProvider
+    // IContainerProvider >>
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("solidcanningmachine").player(player.inventory).inventory().hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .outputSlot(2, 80, 47)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
+    }
+    // << IContainerProvider
 }

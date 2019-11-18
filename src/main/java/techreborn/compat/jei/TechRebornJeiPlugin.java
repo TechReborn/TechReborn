@@ -56,32 +56,33 @@ import techreborn.api.recipe.Recipes;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
+import techreborn.client.gui.processing.lv.*;
 import techreborn.compat.CompatConfigs;
 import techreborn.compat.CompatManager;
-import techreborn.compat.jei.alloysmelter.AlloySmelterRecipeCategory;
-import techreborn.compat.jei.alloysmelter.AlloySmelterRecipeWrapper;
-import techreborn.compat.jei.assemblingmachine.AssemblingMachineRecipeCategory;
-import techreborn.compat.jei.assemblingmachine.AssemblingMachineRecipeWrapper;
+import techreborn.compat.jei.praescriptum.alloysmelter.AlloySmelterRecipeCategory;
+import techreborn.compat.jei.praescriptum.alloysmelter.AlloySmelterRecipeWrapper;
+import techreborn.compat.jei.praescriptum.assemblingmachine.AssemblingMachineRecipeCategory;
+import techreborn.compat.jei.praescriptum.assemblingmachine.AssemblingMachineRecipeWrapper;
 import techreborn.compat.jei.blastFurnace.BlastFurnaceRecipeCategory;
 import techreborn.compat.jei.blastFurnace.BlastFurnaceRecipeWrapper;
 import techreborn.compat.jei.centrifuge.CentrifugeRecipeCategory;
 import techreborn.compat.jei.centrifuge.CentrifugeRecipeWrapper;
-import techreborn.compat.jei.chemicalreactor.ChemicalReactorRecipeCategory;
-import techreborn.compat.jei.chemicalreactor.ChemicalReactorRecipeWrapper;
-import techreborn.compat.jei.compressor.CompressorRecipeCategory;
-import techreborn.compat.jei.compressor.CompressorRecipeWrapper;
+import techreborn.compat.jei.praescriptum.chemicalreactor.ChemicalReactorRecipeCategory;
+import techreborn.compat.jei.praescriptum.chemicalreactor.ChemicalReactorRecipeWrapper;
+import techreborn.compat.jei.praescriptum.compressor.CompressorRecipeCategory;
+import techreborn.compat.jei.praescriptum.compressor.CompressorRecipeWrapper;
 import techreborn.compat.jei.distillationTower.DistillationTowerRecipeCategory;
 import techreborn.compat.jei.distillationTower.DistillationTowerRecipeWrapper;
-import techreborn.compat.jei.extractor.ExtractorRecipeCategory;
-import techreborn.compat.jei.extractor.ExtractorRecipeWrapper;
+import techreborn.compat.jei.praescriptum.extractor.ExtractorRecipeCategory;
+import techreborn.compat.jei.praescriptum.extractor.ExtractorRecipeWrapper;
 import techreborn.compat.jei.fluidReplicator.FluidReplicatorRecipeCategory;
 import techreborn.compat.jei.fluidReplicator.FluidReplicatorRecipeWrapper;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeCategory;
 import techreborn.compat.jei.fusionReactor.FusionReactorRecipeWrapper;
 import techreborn.compat.jei.generators.fluid.FluidGeneratorRecipeCategory;
 import techreborn.compat.jei.generators.fluid.FluidGeneratorRecipeWrapper;
-import techreborn.compat.jei.grinder.GrinderRecipeCategory;
-import techreborn.compat.jei.grinder.GrinderRecipeWrapper;
+import techreborn.compat.jei.praescriptum.grinder.GrinderRecipeCategory;
+import techreborn.compat.jei.praescriptum.grinder.GrinderRecipeWrapper;
 import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeCategory;
 import techreborn.compat.jei.implosionCompressor.ImplosionCompressorRecipeWrapper;
 import techreborn.compat.jei.industrialElectrolyzer.IndustrialElectrolyzerRecipeCategory;
@@ -90,19 +91,19 @@ import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeCategory;
 import techreborn.compat.jei.industrialGrinder.IndustrialGrinderRecipeWrapper;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeCategory;
 import techreborn.compat.jei.industrialSawmill.IndustrialSawmillRecipeWrapper;
-import techreborn.compat.jei.platebendingmachine.PlateBendingMachineRecipeCategory;
-import techreborn.compat.jei.platebendingmachine.PlateBendingMachineRecipeWrapper;
+import techreborn.compat.jei.praescriptum.platebendingmachine.PlateBendingMachineRecipeCategory;
+import techreborn.compat.jei.praescriptum.platebendingmachine.PlateBendingMachineRecipeWrapper;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeCategory;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeMaker;
 import techreborn.compat.jei.rollingMachine.RollingMachineRecipeWrapper;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeCategory;
 import techreborn.compat.jei.scrapbox.ScrapboxRecipeWrapper;
-import techreborn.compat.jei.solidcanningmachine.SolidCanningMachineRecipeCategory;
-import techreborn.compat.jei.solidcanningmachine.SolidCanningMachineRecipeWrapper;
+import techreborn.compat.jei.praescriptum.solidcanningmachine.SolidCanningMachineRecipeCategory;
+import techreborn.compat.jei.praescriptum.solidcanningmachine.SolidCanningMachineRecipeWrapper;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeCategory;
 import techreborn.compat.jei.vacuumFreezer.VacuumFreezerRecipeWrapper;
-import techreborn.compat.jei.wiremill.WireMillRecipeCategory;
-import techreborn.compat.jei.wiremill.WireMillRecipeWrapper;
+import techreborn.compat.jei.praescriptum.wiremill.WireMillRecipeCategory;
+import techreborn.compat.jei.praescriptum.wiremill.WireMillRecipeWrapper;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.init.IC2Duplicates;
 import techreborn.init.ModBlocks;
@@ -268,6 +269,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.handleRecipes(Recipe.class, recipe -> new AlloySmelterRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.handleRecipes(Recipe.class, recipe -> new AssemblingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.handleRecipes(Recipe.class, recipe -> new ChemicalReactorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CHEMICAL_REACTOR);
+		registry.handleRecipes(Recipe.class, recipe -> new CompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.COMPRESSOR);
 		registry.handleRecipes(Recipe.class, recipe -> new ExtractorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.EXTRACTOR);
 		registry.handleRecipes(Recipe.class, recipe -> new GrinderRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.GRINDER);
 		registry.handleRecipes(Recipe.class, recipe -> new PlateBendingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.PLATE_BENDING_MACHINE);
@@ -283,16 +285,9 @@ public class TechRebornJeiPlugin implements IModPlugin {
 			registry.handleRecipes(ScrapboxRecipe.class, recipe -> new ScrapboxRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.SCRAPBOX);
 		}
 
-		if (!IC2Duplicates.deduplicate()) {
-			registry.handleRecipes(CompressorRecipe.class, recipe -> new CompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.COMPRESSOR);
-		}
-
 		registry.addRecipes(RecipeHandler.recipeList.stream().filter(recipe -> {
 			if (recipe instanceof ScrapboxRecipe) {
 				return CompatConfigs.showScrapbox;
-			}
-			if (IC2Duplicates.deduplicate() && (recipe instanceof CompressorRecipe)) {
-				return false;
 			}
 			return true;
 		}).collect(Collectors.toList()));
@@ -313,6 +308,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
 		registry.addRecipes(Recipes.alloySmelter.getRecipes(), RecipeCategoryUids.ALLOY_SMELTER);
 		registry.addRecipes(Recipes.assemblingMachine.getRecipes(), RecipeCategoryUids.ASSEMBLING_MACHINE);
 		registry.addRecipes(Recipes.chemicalReactor.getRecipes(), RecipeCategoryUids.CHEMICAL_REACTOR);
+		registry.addRecipes(Recipes.compressor.getRecipes(), RecipeCategoryUids.COMPRESSOR);
 		registry.addRecipes(Recipes.extractor.getRecipes(), RecipeCategoryUids.EXTRACTOR);
 		registry.addRecipes(Recipes.grinder.getRecipes(), RecipeCategoryUids.GRINDER);
 		registry.addRecipes(Recipes.plateBendingMachine.getRecipes(), RecipeCategoryUids.PLATE_BENDING_MACHINE);

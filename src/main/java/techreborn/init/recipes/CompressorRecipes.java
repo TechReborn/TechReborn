@@ -28,83 +28,220 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import reborncore.api.recipe.RecipeHandler;
-import reborncore.common.util.OreUtil;
+import net.minecraftforge.oredict.OreDictionary;
 
-import techreborn.api.recipe.machines.CompressorRecipe;
+import reborncore.api.praescriptum.recipes.RecipeHandler;
+
+import techreborn.api.recipe.Recipes;
 import techreborn.init.IC2Duplicates;
 import techreborn.items.ingredients.ItemDusts;
 import techreborn.items.ingredients.ItemIngots;
 import techreborn.items.ingredients.ItemParts;
 import techreborn.items.ingredients.ItemPlates;
+import techreborn.lib.ModInfo;
 
-import java.security.InvalidParameterException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import com.google.common.collect.ImmutableList;
 
 /**
- * @author drcrazy
- *
+ * @author estebes
  */
 public class CompressorRecipes extends RecipeMethods {
-	public static void init() {
-		register(ItemIngots.getIngotByName("advanced_alloy"), ItemPlates.getPlateByName("advanced_alloy"), 400, 20);
-		register(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig(), ItemPlates.getPlateByName("carbon"), 400, 2);
-		register(OreUtil.getStackFromName("plankWood"), OreUtil.getStackFromName("plateWood"));
-		register(OreUtil.getStackFromName("dustLazurite"), ItemPlates.getPlateByName("lazurite"));
-		register(OreUtil.getStackFromName("obsidian"), ItemPlates.getPlateByName("obsidian", 9));
-		register(OreUtil.getStackFromName("dustObsidian"), ItemPlates.getPlateByName("obsidian"));
-		register(OreUtil.getStackFromName("dustYellowGarnet"), ItemPlates.getPlateByName("YellowGarnet"));
-		register(OreUtil.getStackFromName("blockYellowGarnet"), ItemPlates.getPlateByName("YellowGarnet", 9));
-		register(OreUtil.getStackFromName("dustRedGarnet"), ItemPlates.getPlateByName("RedGarnet"));
-		register(OreUtil.getStackFromName("blockRedGarnet"), ItemPlates.getPlateByName("RedGarnet", 9));
+    public static void init() {
+        Recipes.compressor = new RecipeHandler();
 
-		// Compressed Plantball >>
-		register(ItemParts.getPartByName("plantball"), ItemParts.getPartByName("compressed_plantball"));
-		register(OreUtil.getStackFromName("treeLeaves", 8), ItemParts.getPartByName("compressed_plantball"));
-		register(OreUtil.getStackFromName("treeSapling", 4), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Items.REEDS, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Blocks.CACTUS, 8), ItemParts.getPartByName("compressed_plantball"));
-		register(new ItemStack(Items.WHEAT, 8), ItemParts.getPartByName("compressed_plantball"));
-//		register(new ItemStack(Items.CARROT, 8), ItemParts.getPartByName("compressed_plantball"));
-//		register(new ItemStack(Items.POTATO, 8), ItemParts.getPartByName("compressed_plantball"));
-//		register(new ItemStack(Items.APPLE, 8), ItemParts.getPartByName("compressed_plantball"));
-//		register(new ItemStack(Items.MELON, 64), ItemParts.getPartByName("compressed_plantball"));
-//		register(new ItemStack(Blocks.PUMPKIN, 8), ItemParts.getPartByName("compressed_plantball"));
-//		register(new ItemStack(Blocks.MELON_BLOCK, 8), ItemParts.getPartByName("compressed_plantball"));
-		// << Compressed Plantball
+        // Advanced Alloy
+        Recipes.compressor.createRecipe()
+                .withInput(ItemIngots.getIngotByName("advanced_alloy"))
+                .withOutput(ItemPlates.getPlateByName("advanced_alloy"))
+                .withEnergyCostPerTick(20)
+                .withOperationDuration(400)
+                .register();
 
-		// Nuclear >>
-		register(ItemDusts.getDustByName("thorium"), ItemIngots.getIngotByName("thorium"));
-		// << Nuclear
+        // Carbon Mesh
+        Recipes.compressor.createRecipe()
+                .withInput(IC2Duplicates.CARBON_MESH.getStackBasedOnConfig())
+                .withOutput(ItemPlates.getPlateByName("carbon"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
 
-		ItemStack plate;
-		for (String ore : OreUtil.oreNames) {
-			if (ore.equals("iridium")) {
-				continue;
-			}
-			if (!OreUtil.hasPlate(ore)) {
-				continue;
-			}
+        // Gem -> Plate
+        ImmutableList<String> gems = Arrays.stream(OreDictionary.getOreNames())
+                .filter(name -> name.startsWith("gem"))
+                .collect(ImmutableList.toImmutableList());
 
-			try {
-				plate = ItemPlates.getPlateByName(ore, 1);
-			} catch (InvalidParameterException e) {
-				plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore));
-			}
-			if (plate.isEmpty()) {
-				continue;
-			}
+        gems.forEach(entry -> {
+            String equivalent = entry.replaceFirst("gem", "plate");
+            if (OreDictionary.doesOreNameExist(equivalent)) {
+                List<ItemStack> equivalents = OreDictionary.getOres(equivalent);
+                if (!equivalents.isEmpty()) {
+                    equivalents.stream()
+                            .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
+                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                            .findFirst()
+                            .ifPresent(stack -> Recipes.compressor.createRecipe()
+                                    .withInput(entry)
+                                    .withOutput(stack.copy())
+                                    .withEnergyCostPerTick(2)
+                                    .withOperationDuration(400)
+                                    .register());
+                }
+            }
+        });
 
-			if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
-				register(OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore)), plate);
-			}
-		}
-	}
-	
-	static void register(Object input, ItemStack output) {
-		register(input,  output, 400, 2);
-	}
+        // Gem Dust -> Plate
+        gems.forEach(entry -> {
+            String dustEntry = entry.replaceFirst("gem", "dust");
+            String equivalent = entry.replaceFirst("gem", "plate");
+            if (OreDictionary.doesOreNameExist(equivalent)) {
+                List<ItemStack> equivalents = OreDictionary.getOres(equivalent);
+                if (!equivalents.isEmpty()) {
+                    equivalents.stream()
+                            .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
+                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                            .findFirst()
+                            .ifPresent(stack -> Recipes.compressor.createRecipe()
+                                    .withInput(dustEntry)
+                                    .withOutput(stack.copy())
+                                    .withEnergyCostPerTick(2)
+                                    .withOperationDuration(400)
+                                    .register());
+                }
+            }
+        });
 
-	static void register(Object input, ItemStack output, int tickTime, int euPerTick) {
-		RecipeHandler.addRecipe(new CompressorRecipe(input, output, tickTime, euPerTick));
-	}
+        // Wood Plate
+        Recipes.compressor.createRecipe()
+                .withInput("plankWood")
+                .withOutput(ItemPlates.getPlateByName("wood"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+//        register(OreUtil.getStackFromName("dustLazurite"), ItemPlates.getPlateByName("lazurite"));
+//        register(OreUtil.getStackFromName("dustObsidian"), ItemPlates.getPlateByName("obsidian"));
+//        register(OreUtil.getStackFromName("dustYellowGarnet"), ItemPlates.getPlateByName("YellowGarnet"));
+//        register(OreUtil.getStackFromName("dustRedGarnet"), ItemPlates.getPlateByName("RedGarnet"));
+
+        // Compressed Plantball >>
+        Recipes.compressor.createRecipe()
+                .withInput(ItemParts.getPartByName("plantball"))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput("treeLeaves", 8)
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput("treeSapling", 8)
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Items.REEDS, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Blocks.CACTUS, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Items.WHEAT, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Items.CARROT, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Items.POTATO, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Items.APPLE, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Items.MELON, 64))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Blocks.MELON_BLOCK, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        Recipes.compressor.createRecipe()
+                .withInput(getStack(Blocks.PUMPKIN, 8))
+                .withOutput(ItemParts.getPartByName("compressed_plantball"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+
+        // Nuclear >>
+        Recipes.compressor.createRecipe()
+                .withInput(ItemDusts.getDustByName("thorium"))
+                .withOutput(ItemIngots.getIngotByName("thorium"))
+                .withEnergyCostPerTick(2)
+                .withOperationDuration(400)
+                .register();
+        // << Nuclear
+
+//        ItemStack plate;
+//        for (String ore : OreUtil.oreNames) {
+//            if (ore.equals("iridium")) {
+//                continue;
+//            }
+//            if (!OreUtil.hasPlate(ore)) {
+//                continue;
+//            }
+//
+//            try {
+//                plate = ItemPlates.getPlateByName(ore, 1);
+//            } catch (InvalidParameterException e) {
+//                plate = OreUtil.getStackFromName("plate" + OreUtil.capitalizeFirstLetter(ore));
+//            }
+//            if (plate.isEmpty()) {
+//                continue;
+//            }
+//
+//            if (OreUtil.hasGem(ore) && OreUtil.hasDust(ore)) {
+//                register(OreUtil.getStackFromName("dust" + OreUtil.capitalizeFirstLetter(ore)), plate);
+//            }
+//        }
+    }
 }

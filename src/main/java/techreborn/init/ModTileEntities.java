@@ -80,7 +80,6 @@ import techreborn.tiles.storage.TileMediumVoltageSU;
 import techreborn.tiles.tier0.TileIronAlloyFurnace;
 import techreborn.tiles.tier0.TileIronFurnace;
 import techreborn.tiles.tier1.TileAutoCraftingTable;
-import techreborn.tiles.tier1.TileCompressor;
 import techreborn.tiles.tier1.TileElectricFurnace;
 import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
 import techreborn.tiles.tier1.TilePlayerDectector;

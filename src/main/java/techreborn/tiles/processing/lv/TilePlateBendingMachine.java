@@ -41,34 +41,34 @@ import techreborn.lib.ModInfo;
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TilePlateBendingMachine extends TileMachine {
-	// Config >>
-	@ConfigRegistry(config = "machines", category = "plate_bending_machine", key = "PlateBendingMachineInput", comment = "Plate Bending Machine Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "plate_bending_machine", key = "PlateBendingMachineMaxEnergy", comment = "Plate Bending Machine Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	// << Config
+    // Config >>
+    @ConfigRegistry(config = "machines", category = "plate_bending_machine", key = "PlateBendingMachineInput", comment = "Plate Bending Machine Max Input (Value in EU)")
+    public static int maxInput = 32;
+    @ConfigRegistry(config = "machines", category = "plate_bending_machine", key = "PlateBendingMachineMaxEnergy", comment = "Plate Bending Machine Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    // << Config
 
-	public TilePlateBendingMachine() {
-		super("PlateBendingMachine", maxInput, maxEnergy, 2, 3, Recipes.plateBendingMachine, ModBlocks.PLATE_BENDING_MACHINE);
-	}
+    public TilePlateBendingMachine() {
+        super("PlateBendingMachine", maxInput, maxEnergy, 2, 3, Recipes.plateBendingMachine, ModBlocks.PLATE_BENDING_MACHINE);
+    }
 
-	// IContainerProvider >>
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("platebendingmachine")
-			.player(player.inventory)
-			.inventory()
-			.hotbar()
-			.addInventory()
-			.tile(this)
-			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.outputSlot(1, 101, 45)
-			.energySlot(energySlot, 8, 72)
-			.syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
-			.addInventory()
-			.create(this);
-	}
-	// << IContainerProvider
+    // IContainerProvider >>
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("platebendingmachine")
+                .player(player.inventory)
+                .inventory()
+                .hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .outputSlot(1, 101, 45)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
+    }
+    // << IContainerProvider
 }

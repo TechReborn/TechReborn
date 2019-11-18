@@ -40,22 +40,22 @@ import techreborn.lib.ModInfo;
  * @author estebes
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileWireMill extends TileMachine {
+public class TileCompressor extends TileMachine {
     // Config >>
-    @ConfigRegistry(config = "machines", category = "wire_mill", key = "WireMillInput", comment = "Wire Mill Max Input (Value in EU)")
+    @ConfigRegistry(config = "machines", category = "compressor", key = "CompressorInput", comment = "Compressor Max Input (Value in EU)")
     public static int maxInput = 32;
-    @ConfigRegistry(config = "machines", category = "wire_mill", key = "WireMillMaxEnergy", comment = "Wire Mill Max Energy (Value in EU)")
+    @ConfigRegistry(config = "machines", category = "compressor", key = "CompressorMaxEnergy", comment = "Compressor Max Energy (Value in EU)")
     public static int maxEnergy = 10_000;
     // << Config
 
-    public TileWireMill() {
-        super("WireMill", maxInput, maxEnergy, 2, 3, Recipes.wireMill, ModBlocks.WIRE_MILL);
+    public TileCompressor() {
+        super("Compressor", maxInput, maxEnergy, 2, 3, Recipes.grinder, ModBlocks.COMPRESSOR);
     }
 
     // IContainerProvider >>
     @Override
     public BuiltContainer createContainer(final EntityPlayer player) {
-        return new ContainerBuilder("wiremill")
+        return new ContainerBuilder("compressor")
                 .player(player.inventory)
                 .inventory()
                 .hotbar()

@@ -26,33 +26,36 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.processing.lv.TileAssemblingMachine;
+import techreborn.utils.TechRebornCreativeTab;
+
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
 /**
  * @author estebes, modmuss50
  */
 public class BlockAssemblingMachine extends BlockMachineBase {
-	public BlockAssemblingMachine() {
-		super();
+    public BlockAssemblingMachine() {
+        super();
 
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-	}
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileAssemblingMachine();
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TileAssemblingMachine();
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.ASSEMBLING_MACHINE;
-	}
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.ASSEMBLING_MACHINE;
+    }
 }

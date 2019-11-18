@@ -26,30 +26,33 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileCompressor;
+import techreborn.tiles.processing.lv.TileCompressor;
+import techreborn.utils.TechRebornCreativeTab;
+
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
 public class BlockCompressor extends BlockMachineBase {
+    public BlockCompressor() {
+        super();
 
-	public BlockCompressor() {
-		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-	}
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileCompressor();
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TileCompressor();
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.COMPRESSOR;
-	}
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.COMPRESSOR;
+    }
 }

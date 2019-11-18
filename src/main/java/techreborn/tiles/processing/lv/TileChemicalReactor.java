@@ -36,35 +36,38 @@ import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+/**
+ * @author estebes
+ */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileChemicalReactor extends TileMachine {
-	// Config >>
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	// << Config
+    // Config >>
+    @ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxInput", comment = "Chemical Reactor Max Input (Value in EU)")
+    public static int maxInput = 128;
+    @ConfigRegistry(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    // << Config
 
-	public TileChemicalReactor() {
-		super("ChemicalReactor", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.chemicalReactor, ModBlocks.CHEMICAL_REACTOR);
-	}
+    public TileChemicalReactor() {
+        super("ChemicalReactor", maxInput, maxEnergy, 3, 4, 64,
+                new int[]{0, 1}, new int[]{2}, Recipes.chemicalReactor, ModBlocks.CHEMICAL_REACTOR);
+    }
 
-	// IContainerProvider >>
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
-			.addInventory()
-			.tile(this)
-			.filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.outputSlot(2, 80, 47)
-			.energySlot(energySlot, 8, 72)
-			.syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
-			.addInventory()
-			.create(this);
-	}
-	// << IContainerProvider
+    // IContainerProvider >>
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .outputSlot(2, 80, 47)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
+    }
+    // << IContainerProvider
 }

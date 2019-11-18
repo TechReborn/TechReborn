@@ -36,36 +36,39 @@ import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
+/**
+ * @author estebes
+ */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileExtractor extends TileMachine {
-	// Config >>
-	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	// << Config
+    // Config >>
+    @ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorInput", comment = "Extractor Max Input (Value in EU)")
+    public static int maxInput = 32;
+    @ConfigRegistry(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    // << Config
 
-	public TileExtractor() {
-		super("Extractor", maxInput, maxEnergy, 2, 3, Recipes.extractor, ModBlocks.EXTRACTOR);
-	}
+    public TileExtractor() {
+        super("Extractor", maxInput, maxEnergy, 2, 3, Recipes.extractor, ModBlocks.EXTRACTOR);
+    }
 
-	// IContainerProvider >>
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("extractor")
-			.player(player.inventory)
-			.inventory()
-			.hotbar()
-			.addInventory()
-			.tile(this)
-			.filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.outputSlot(1, 101, 45)
-			.energySlot(energySlot, 8, 72)
-			.syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
-			.addInventory()
-			.create(this);
-	}
-	// << IContainerProvider
+    // IContainerProvider >>
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("extractor")
+                .player(player.inventory)
+                .inventory()
+                .hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 55, 45, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .outputSlot(1, 101, 45)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
+    }
+    // << IContainerProvider
 }

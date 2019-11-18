@@ -22,37 +22,45 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier1;
+package techreborn.client.gui.processing.lv;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
+import net.minecraft.entity.player.EntityPlayer;
 
-import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.client.EGui;
-import techreborn.lib.ModInfo;
 import techreborn.tiles.processing.lv.TileGrinder;
-import techreborn.utils.TechRebornCreativeTab;
 
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+public class GuiGrinder extends GuiBase {
+    public GuiGrinder(final EntityPlayer player, final TileGrinder tile) {
+        super(player, tile, tile.createContainer(player));
 
-public class BlockGrinder extends BlockMachineBase {
-    public BlockGrinder() {
-        super();
-
-        setCreativeTab(TechRebornCreativeTab.instance);
-        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+        this.tile = tile;
     }
 
     @Override
-    public TileEntity createNewTileEntity(final World world, final int meta) {
-        return new TileGrinder();
+    protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
+        super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
+        final Layer layer = Layer.BACKGROUND;
+
+        drawSlot(8, 72, layer);
+
+        drawSlot(55, 45, layer);
+        drawOutputSlot(101, 45, layer);
+
+        builder.drawJEIButton(this, 158, 5, layer);
     }
 
     @Override
-    public IMachineGuiHandler getGui() {
-        return EGui.GRINDER;
+    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        final Layer layer = Layer.FOREGROUND;
+
+        this.builder.drawProgressBar(this, tile.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+        this.builder.drawMultiEnergyBar(this, 9, 19, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
     }
+
+    // Fields >>
+    TileGrinder tile;
+    // << Fields
 }

@@ -26,30 +26,33 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+
 import techreborn.client.EGui;
+import techreborn.lib.ModInfo;
 import techreborn.tiles.processing.lv.TileAlloySmelter;
 import techreborn.utils.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
+
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
 public class BlockAlloySmelter extends BlockMachineBase {
 
-	public BlockAlloySmelter() {
-		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-	}
+    public BlockAlloySmelter() {
+        super();
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileAlloySmelter();
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TileAlloySmelter();
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.ALLOY_SMELTER;
-	}
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.ALLOY_SMELTER;
+    }
 }

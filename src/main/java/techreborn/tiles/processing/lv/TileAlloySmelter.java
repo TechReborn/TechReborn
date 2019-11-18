@@ -41,33 +41,33 @@ import techreborn.lib.ModInfo;
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileAlloySmelter extends TileMachine {
-	// Config >>
-	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	// << Config
+    // Config >>
+    @ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxInput", comment = "Alloy Smelter Max Input (Value in EU)")
+    public static int maxInput = 32;
+    @ConfigRegistry(config = "machines", category = "alloy_smelter", key = "AlloySmelterMaxEnergy", comment = "Alloy Smelter Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    // << Config
 
-	public TileAlloySmelter() {
-		super("AlloySmelter", maxInput, maxEnergy, 3, 4, 64,
-			new int[] { 0, 1 }, new int[] { 2 }, Recipes.alloySmelter, ModBlocks.ALLOY_SMELTER);
-	}
+    public TileAlloySmelter() {
+        super("AlloySmelter", maxInput, maxEnergy, 3, 4, 64,
+                new int[]{0, 1}, new int[]{2}, Recipes.alloySmelter, ModBlocks.ALLOY_SMELTER);
+    }
 
-	// IContainerProvider >>
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
-			.addInventory()
-			.tile(this)
-			.filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
-			.outputSlot(2, 80, 47)
-			.energySlot(energySlot, 8, 72)
-			.syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getOperationLength, this::setOperationLength)
-			.addInventory()
-			.create(this);
-	}
-	// << IContainerProvider
+    // IContainerProvider >>
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .filterSlot(1, 126, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .outputSlot(2, 80, 47)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
+    }
+    // << IContainerProvider
 }
