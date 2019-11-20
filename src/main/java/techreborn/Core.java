@@ -49,6 +49,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import reborncore.RebornCore;
 import reborncore.api.recipe.RecipeHandler;
+import reborncore.api.scriba.TileRegistrationManager;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.network.RegisterPacketEvent;
@@ -94,6 +95,8 @@ public class Core {
     public static TechRebornWorldGen worldGen;
     public static File configDir;
 
+    public static final TileRegistrationManager tileRegistrationManager = new TileRegistrationManager(ModInfo.MOD_ID);
+
     public Core() {
         //Forge says to call it here, so yeah
         FluidRegistry.enableUniversalBucket();
@@ -116,6 +119,7 @@ public class Core {
         TechRebornAPI.subItemRetriever = new SubItemRetriever();
         // Registration
         ModBlocks.init();
+        tileRegistrationManager.registerTiles();
         ModTileEntities.init();
         ModFluids.init();
 

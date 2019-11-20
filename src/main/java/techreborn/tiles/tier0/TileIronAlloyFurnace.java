@@ -91,7 +91,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 				.collect(ImmutableList.toImmutableList());
 		
 		if (recipe != null) {
-			boolean canUse = recipeHandler.apply(recipe, inputs, ImmutableList.of(), true);
+			boolean canUse = recipeHandler.apply(recipe, inputs, true);
 			if (!canUse) reset(); // we cannot use the current recipe so reset
 		}
 		
@@ -107,7 +107,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		}
 		
 		// The current recipe is not usable anymore so we need to find a new one
-		maybeRecipe = recipeHandler.findRecipe(inputs, ImmutableList.of());
+		maybeRecipe = recipeHandler.findRecipe(inputs);
 
 		// could not find a recipe
 		if (!maybeRecipe.isPresent()) return false;
@@ -139,7 +139,7 @@ public class TileIronAlloyFurnace extends TileLegacyMachineBase
 		}
 
 		// adjust input
-		recipeHandler.apply(recipe, inputs, ImmutableList.of(), false);
+		recipeHandler.apply(recipe, inputs, false);
 
 		// adjust output
 		recipe.getOutputIngredients()

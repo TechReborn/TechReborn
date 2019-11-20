@@ -34,7 +34,7 @@ import techreborn.init.IC2Duplicates;
  */
 public class WireMillRecipes {
 	public static void init() {
-		Recipes.wireMill = new RecipeHandler();
+		Recipes.wireMill = new RecipeHandler("WireMill");
 
 		// gold cable
 		Recipes.wireMill.createRecipe()

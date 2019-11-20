@@ -34,7 +34,7 @@ import techreborn.items.ingredients.ItemIngots;
  */
 public class AlloySmelterRecipes extends RecipeMethods {
 	public static void init() {
-		Recipes.alloySmelter = new RecipeHandler();
+		Recipes.alloySmelter = new RecipeHandler("AlloySmelter");
 
 		// Brass
 		Recipes.alloySmelter.createRecipe()

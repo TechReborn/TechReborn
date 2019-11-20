@@ -22,41 +22,13 @@
  * SOFTWARE.
  */
 
-package techreborn.init.recipes;
+package techreborn.api.recipe;
 
-import net.minecraft.item.ItemStack;
+import reborncore.api.praescriptum.fuels.FuelHandler;
 
-import reborncore.api.praescriptum.recipes.RecipeHandler;
-
-import techreborn.api.recipe.Recipes;
-import techreborn.init.ModItems;
-import techreborn.items.ItemDynamicCell;
-import techreborn.items.ingredients.ItemIngots;
-import techreborn.items.ingredients.ItemParts;
-
-/**
- * @author estebes
- */
-public class SolidCanningMachineRecipes {
-	public static void init() {
-		Recipes.solidCanningMachine = new RecipeHandler("SolidCanningMachine");
-
-		Recipes.solidCanningMachine.createRecipe()
-			.withInput(ItemDynamicCell.getEmptyCell(1))
-			.withInput(ItemParts.getPartByName("compressed_plantball"))
-			.withOutput(ItemParts.getPartByName("bio_cell"))
-			.withEnergyCostPerTick(1)
-			.withOperationDuration(100)
-			.register();
-
-		// Nuclear >>
-		Recipes.solidCanningMachine.createRecipe()
-			.withInput(ItemDynamicCell.getEmptyCell(1))
-			.withInput(ItemIngots.getIngotByName("thorium"))
-			.withOutput(new ItemStack(ModItems.THORIUM_FUEL_ROD_SINGLE))
-			.withEnergyCostPerTick(1)
-			.withOperationDuration(100)
-			.register();
-		// << Nuclear
-	}
+public class Fuels {
+    /**
+     * Fuel handler for diesel generator fuels.
+     */
+    public static FuelHandler dieselGenerator;
 }

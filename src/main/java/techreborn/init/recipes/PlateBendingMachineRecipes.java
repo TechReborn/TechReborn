@@ -36,7 +36,7 @@ import techreborn.items.ingredients.ItemPlates;
  */
 public class PlateBendingMachineRecipes extends RecipeMethods {
 	public static void init() {
-		Recipes.plateBendingMachine = new reborncore.api.praescriptum.recipes.RecipeHandler();
+		Recipes.plateBendingMachine = new reborncore.api.praescriptum.recipes.RecipeHandler("PlateBendingMachine");
 
 		// Advanced Alloy Plate
 		Recipes.plateBendingMachine.createRecipe()

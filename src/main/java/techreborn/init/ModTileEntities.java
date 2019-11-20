@@ -98,15 +98,11 @@ import java.util.Optional;
 public enum ModTileEntities {
 	ADJUSTABLE_SU(TileAdjustableSU.class,  "adjustable_su", "TileAdjustableSUTR"),
 	ALARM(TileAlarm.class,  "alarm", "TileAlarmTR"),
-	ALLOY_SMELTER(TileAlloySmelter.class,  "alloy_smelter", "TileAlloySmalterTR"),
-	ASSEMBLING_MACHINE(TileAssemblingMachine.class,  "assembling_machine", "TileAssemblingMachineTR"),
 	AUTO_CRAFTING_TABLE(TileAutoCraftingTable.class,  "auto_crafting_table", "TileAutoCraftingTableTR"),
 	CABLE(TileCable.class,  "cable", "TileCableTR"),
 	CABLE_EU(TileCableEU.class,  "cable_eu", "TileCableEUTR"),
 	CHARGE_O_MAT(TileChargeOMat.class,  "charge_o_mat", "TileChargeOMatTR"),
-	CHEMICAL_REACTOR(TileChemicalReactor.class,  "chemical_reactor", "TileChemicalReactorTR"),
 	CHUNK_LOADER(TileChunkLoader.class,  "chunk_loader", "TileChunkLoaderTR"),
-	COMPRESSOR(TileCompressor.class,  "compressor", "TileCompressorTR"),
 	CREATIVE_QUANTUM_CHEST(TileCreativeQuantumChest.class,  "creative_quantum_chest"),
 	CREATIVE_QUANTUM_TANK(TileCreativeQuantumTank.class,  "creative_quantum_tank"),
 	CREATIVE_SOLAR_PANEL(TileCreativeSolarPanel.class,  "creative_solar_panel", "TileCreativeSolarPanelTR"),
@@ -115,11 +111,9 @@ public enum ModTileEntities {
 	DISTILLATION_TOWER(TileDistillationTower.class,  "distillation_tower", "TileDistillationTowerTR"),
 	DRAGON_EGG_SYPHON(TileDragonEggSyphon.class,  "dragon_egg_syphon", "TileDragonEggSyphonTR"),
 	ELECTRIC_FURNACE(TileElectricFurnace.class,  "electric_furnace", "TileElectricFurnaceTR"),
-	EXTRACTOR(TileExtractor.class,  "extractor", "TileExtractorTR"),
 	FLUID_REPLICATOR(TileFluidReplicator.class,  "fluid_replicator", "TileFluidReplicatorTR"),
 	FUSION_CONTROL_COMPUTER(TileFusionControlComputer.class,  "fusion_control_computer", "TileFusionControlComputerTR"),
 	GAS_TURBINE(TileGasTurbine.class,  "gas_turbine", "TileGasTurbineTR"),
-	GRINDER(TileGrinder.class,  "grinder", "TileGrinderTR"),
 	HIGH_VOLTAGE_SU(TileHighVoltageSU.class,  "high_voltage_su", "TileHighVoltageSUTR"),
 	HV_TRANSFORMER(TileHVTransformer.class,  "hv_transformer", "TileHVTransformerTR"),
 	EV_TRANSFORMER(TileEVTransformer.class,  "ev_transformer", "TileEVTransformerTR"),
@@ -143,7 +137,6 @@ public enum ModTileEntities {
 	MATTER_FABRICATOR(TileMatterFabricator.class,  "matter_fabricator", "TileMatterFabricatorTR"),
 	MEDIUM_VOLTAGE_SU(TileMediumVoltageSU.class,  "medium_voltage_su", "TileMediumVoltageSUTR"),
 	MV_TRANSFORMER(TileMVTransformer.class,  "mv_transformer", "TileMVTransformerTR"),
-	PLATE_BENDING_MACHINE(TilePlateBendingMachine.class,  "plate_bending_machine", "TilePlateBendingMachineTR"),
 	PLASMA_GENERATOR(TilePlasmaGenerator.class,  "plasma_generator", "TilePlasmalGeneratorTR"),
 	PLAYER_DETECTOR(TilePlayerDectector.class,  "player_detector", "TilePlayerDectectorTR"),
 	PUMP(TilePump.class,  "pump", "TilePumpTR"),
@@ -154,13 +147,11 @@ public enum ModTileEntities {
 	SCRAPBOXINATOR(TileScrapboxinator.class,  "scrapboxinator", "TileScrapboxinatorTR"),
 	SEMI_FLUID_GENERATOR(TileSemiFluidGenerator.class,  "semi_fluid_generator", "TileSemiFluidGeneratorTR"),
 	SOLAR_PANEL(TileSolarPanel.class,  "solar_panel", "TileSolarPanelTR"),
-	SOLID_CANNING_MACHINE(TileSolidCanningMachine.class,  "solid_canning_machine", "TileSolidCanningMachineTR"),
 	SOLID_FUEL_GENEREATOR(TileSolidFuelGenerator.class,  "solid_fuel_generator", "TileSolidFuelGeneratorTR"),
 	THERMAL_GEN(TileThermalGenerator.class,  "thermal_generator", "TileThermalGeneratorTR"),
 	VACUUM_FREEZER(TileVacuumFreezer.class,  "vacuum_freezer", "TileVacuumFreezerTR"),
 	WATER_MILL(TileWaterMill.class,  "water_mill", "TileWaterMillTR"),
-	WIND_MILL(TileWindMill.class,  "wind_mill", "TileWindMillTR"),
-	WIRE_MILL(TileWireMill.class,  "wire_mill", "TileWireMillTR");
+	WIND_MILL(TileWindMill.class,  "wind_mill", "TileWindMillTR");
 
 	public static Optional<ModTileEntities> getFromOldName(String name) {
 		return Arrays.stream(ModTileEntities.values())

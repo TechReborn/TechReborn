@@ -49,7 +49,7 @@ import com.google.common.collect.ImmutableList;
  */
 public class GrinderRecipes extends RecipeMethods {
     public static void init() {
-        Recipes.grinder = new RecipeHandler();
+        Recipes.grinder = new RecipeHandler("Grinder");
 
         // Ores
         Recipes.grinder.createRecipe()

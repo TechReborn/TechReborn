@@ -27,6 +27,7 @@ package techreborn.tiles.processing.lv;
 import net.minecraft.entity.player.EntityPlayer;
 
 import reborncore.api.praescriptum.Utils.IngredientUtils;
+import reborncore.api.scriba.RegisterTile;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegistry;
@@ -40,6 +41,7 @@ import techreborn.lib.ModInfo;
  * @author estebes
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
+@RegisterTile(name = "wire_mill")
 public class TileWireMill extends TileMachine {
     // Config >>
     @ConfigRegistry(config = "machines", category = "wire_mill", key = "WireMillInput", comment = "Wire Mill Max Input (Value in EU)")

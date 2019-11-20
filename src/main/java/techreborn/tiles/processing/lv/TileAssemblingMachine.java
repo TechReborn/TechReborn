@@ -27,6 +27,7 @@ package techreborn.tiles.processing.lv;
 import net.minecraft.entity.player.EntityPlayer;
 
 import reborncore.api.praescriptum.Utils.IngredientUtils;
+import reborncore.api.scriba.RegisterTile;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.registration.RebornRegistry;
@@ -40,6 +41,7 @@ import techreborn.lib.ModInfo;
  * @author estebes
  */
 @RebornRegistry(modID = ModInfo.MOD_ID)
+@RegisterTile(name = "assembling_machine")
 public class TileAssemblingMachine extends TileMachine {
 	// Config >>
 	@ConfigRegistry(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")

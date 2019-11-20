@@ -56,7 +56,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
     }
 
     public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, RecipeHandler recipeHandler, Block drop) {
-        this(name, maxInput, maxEnergy, energySlot, slots, 64, new int[]{0}, new int[]{1}, recipeHandler, drop);
+        this(name, maxInput, maxEnergy, energySlot, slots, slotSize, new int[]{0}, new int[]{1}, recipeHandler, drop);
     }
 
     public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, int[] inputSlots, int[] outputSlots, RecipeHandler recipeHandler, Block drop) {
@@ -176,7 +176,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
         if (inputs.isEmpty()) return false;
 
         if (recipe != null) {
-            boolean canUse = recipeHandler.apply(recipe, inputs, ImmutableList.of(), true);
+            boolean canUse = recipeHandler.apply(recipe, inputs, true);
             if (!canUse) reset(); // we cannot use the current recipe so reset
         }
 
@@ -194,7 +194,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
         }
 
         // The current recipe is not usable anymore so we need to find a new one
-        maybeRecipe = recipeHandler.findRecipe(inputs, ImmutableList.of()); // try to find a matching recipe
+        maybeRecipe = recipeHandler.findRecipe(inputs); // try to find a matching recipe
 
         if (!maybeRecipe.isPresent()) return false; // could not find a recipe
 
@@ -223,7 +223,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
         if (inputs.isEmpty()) return;
 
         // adjust input
-        recipeHandler.apply(recipe, inputs, ImmutableList.of(), false);
+        recipeHandler.apply(recipe, inputs, false);
 
         // adjust output
         recipe.getOutputIngredients()

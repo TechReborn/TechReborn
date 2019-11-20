@@ -42,7 +42,7 @@ import java.util.stream.IntStream;
  */
 public class ExtractorRecipes extends RecipeMethods {
 	public static void init() {
-		Recipes.extractor = new RecipeHandler();
+		Recipes.extractor = new RecipeHandler("Extractor");
 
 		// Rubber
 		Recipes.extractor.createRecipe()

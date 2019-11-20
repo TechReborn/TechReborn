@@ -39,7 +39,7 @@ import techreborn.items.ingredients.ItemParts;
  */
 public class AssemblingMachineRecipes {
 	public static void init() {
-		Recipes.assemblingMachine = new RecipeHandler();
+		Recipes.assemblingMachine = new RecipeHandler("AssemblingMachine");
 
 		// Basic Circuit Board
 		Recipes.assemblingMachine.createRecipe()

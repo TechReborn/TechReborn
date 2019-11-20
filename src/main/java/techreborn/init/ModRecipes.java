@@ -57,131 +57,131 @@ import java.util.Map.Entry;
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class ModRecipes {
 
-	public static void init() {
-		//Gonna rescan to make sure we have an uptodate list
-		OreUtil.scanForOres();
-		//Done again incase we loaded before QuantumStorage
-		CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
+    public static void init() {
+        //Gonna rescan to make sure we have an uptodate list
+        OreUtil.scanForOres();
+        //Done again incase we loaded before QuantumStorage
+        CompatManager.isQuantumStorageLoaded = Loader.isModLoaded("quantumstorage");
 
-		CraftingTableRecipes.init();
-		SmeltingRecipes.init();
-		RollingMachineRecipes.init();
-		FluidGeneratorRecipes.init();
-		IndustrialGrinderRecipes.init();
-		IndustrialCentrifugeRecipes.init();
-		IndustrialElectrolyzerRecipes.init();
-		ImplosionCompressorRecipes.init();
-		ScrapboxRecipes.init();
-		FusionReactorRecipes.init();
-		DistillationTowerRecipes.init();
-		FluidReplicatorRecipes.init();
-		BlastFurnaceRecipes.init();
-		CompressorRecipes.init();
+        CraftingTableRecipes.init();
+        SmeltingRecipes.init();
+        RollingMachineRecipes.init();
+        FluidGeneratorRecipes.init();
+        IndustrialGrinderRecipes.init();
+        IndustrialCentrifugeRecipes.init();
+        IndustrialElectrolyzerRecipes.init();
+        ImplosionCompressorRecipes.init();
+        ScrapboxRecipes.init();
+        FusionReactorRecipes.init();
+        DistillationTowerRecipes.init();
+        FluidReplicatorRecipes.init();
+        BlastFurnaceRecipes.init();
 
-		// Using Praescriptum >>
-		AlloySmelterRecipes.init();
-		AssemblingMachineRecipes.init();
-		ChemicalReactorRecipes.init();
-		ExtractorRecipes.init();
+        // Using Praescriptum >>
+        AlloySmelterRecipes.init();
+        AssemblingMachineRecipes.init();
+        ChemicalReactorRecipes.init();
+        CompressorRecipes.init();
+        ExtractorRecipes.init();
         GrinderRecipes.init();
-		PlateBendingMachineRecipes.init();
-		SolidCanningMachineRecipes.init();
-		WireMillRecipes.init();
-		// << Using Praescriptum
+        PlateBendingMachineRecipes.init();
+        SolidCanningMachineRecipes.init();
+        WireMillRecipes.init();
+        // << Using Praescriptum
 
-		addVacuumFreezerRecipes();
-		addIc2Recipes();
-	}
+        addVacuumFreezerRecipes();
+        addIc2Recipes();
+    }
 
-	public static void postInit() {
-		if (ConfigTechReborn.disableRailcraftSteelNuggetRecipe) {
-			Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
-			Map.Entry<ItemStack, ItemStack> entry;
-			while (iterator.hasNext()) {
-				entry = iterator.next();
-				if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
-					ItemStack input = (ItemStack) entry.getKey();
-					ItemStack output = (ItemStack) entry.getValue();
-					if (ItemUtils.isInputEqual("nuggetSteel", output, true, true, false) && ItemUtils.isInputEqual("nuggetIron", input, true, true, false)) {
-						Core.logHelper.info("Removing a steelnugget smelting recipe");
-						iterator.remove();
-					}
-				}
-			}
-		}
-		
-		IndustrialSawmillRecipes.init();
-	}
+    public static void postInit() {
+        if (ConfigTechReborn.disableRailcraftSteelNuggetRecipe) {
+            Iterator<Entry<ItemStack, ItemStack>> iterator = FurnaceRecipes.instance().getSmeltingList().entrySet().iterator();
+            Map.Entry<ItemStack, ItemStack> entry;
+            while (iterator.hasNext()) {
+                entry = iterator.next();
+                if (entry.getValue() instanceof ItemStack && entry.getKey() instanceof ItemStack) {
+                    ItemStack input = (ItemStack) entry.getKey();
+                    ItemStack output = (ItemStack) entry.getValue();
+                    if (ItemUtils.isInputEqual("nuggetSteel", output, true, true, false) && ItemUtils.isInputEqual("nuggetIron", input, true, true, false)) {
+                        Core.logHelper.info("Removing a steelnugget smelting recipe");
+                        iterator.remove();
+                    }
+                }
+            }
+        }
 
-	static void addVacuumFreezerRecipes() {
-		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
-			new ItemStack(Blocks.ICE, 2),
-			new ItemStack(Blocks.PACKED_ICE),
-			60, 64
-		));
+        IndustrialSawmillRecipes.init();
+    }
 
-		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
-			ItemIngots.getIngotByName("hot_tungstensteel"),
-			ItemIngots.getIngotByName("tungstensteel"),
-			440, 64));
+    static void addVacuumFreezerRecipes() {
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(
+                new ItemStack(Blocks.ICE, 2),
+                new ItemStack(Blocks.PACKED_ICE),
+                60, 64
+        ));
 
-		RecipeHandler.addRecipe(new VacuumFreezerRecipe(
-			ItemCells.getCellByName("heliumplasma"),
-			ItemCells.getCellByName("helium"),
-			440, 64));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(
+                ItemIngots.getIngotByName("hot_tungstensteel"),
+                ItemIngots.getIngotByName("tungstensteel"),
+                440, 64));
 
-		RecipeHandler.addRecipe(
-			new VacuumFreezerRecipe(
-				ItemCells.getCellByName("water"),
-				ItemCells.getCellByName("cell"),
-				60, 64));
-			
-	}
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(
+                ItemCells.getCellByName("heliumplasma"),
+                ItemCells.getCellByName("helium"),
+                440, 64));
 
-	static void addIc2Recipes() {
-		RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), "ingotRefinedIron",
-			Items.BOOK);
+        RecipeHandler.addRecipe(
+                new VacuumFreezerRecipe(
+                        ItemCells.getCellByName("water"),
+                        ItemCells.getCellByName("cell"),
+                        60, 64));
+
+    }
+
+    static void addIc2Recipes() {
+        RebornCraftingHelper.addShapelessOreRecipe(new ItemStack(ModItems.MANUAL), "ingotRefinedIron",
+                Items.BOOK);
 
 //		RebornCraftingHelper
 //			.addShapedOreRecipe(ItemParts.getPartByName("machineParts", 16), "CSC", "SCS", "CSC", 'S', "ingotSteel",
 //				'C', "circuitBasic");
 //
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.magicalAbsorber),
-		// "CSC", "IBI", "CAC",
-		// 'C', "circuitMaster",
-		// 'S', "craftingSuperconductor",
-		// 'B', Blocks.beacon,
-		// 'A', ModBlocks.magicEnergeyConverter,
-		// 'I', "plateIridium");
-		//
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.magicEnergeyConverter),
-		// "CTC", "PBP", "CLC",
-		// 'C', "circuitAdvanced",
-		// 'P', "platePlatinum",
-		// 'B', Blocks.beacon,
-		// 'L', "lapotronCrystal",
-		// 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
+        // RebornCraftingHelper.addShapedOreRecipe(new
+        // ItemStack(ModBlocks.magicalAbsorber),
+        // "CSC", "IBI", "CAC",
+        // 'C', "circuitMaster",
+        // 'S', "craftingSuperconductor",
+        // 'B', Blocks.beacon,
+        // 'A', ModBlocks.magicEnergeyConverter,
+        // 'I', "plateIridium");
+        //
+        // RebornCraftingHelper.addShapedOreRecipe(new
+        // ItemStack(ModBlocks.magicEnergeyConverter),
+        // "CTC", "PBP", "CLC",
+        // 'C', "circuitAdvanced",
+        // 'P', "platePlatinum",
+        // 'B', Blocks.beacon,
+        // 'L', "lapotronCrystal",
+        // 'T', TechRebornAPI.recipeCompact.getItem("teleporter"));
 
-		// RebornCraftingHelper.addShapedOreRecipe(new
-		// ItemStack(ModBlocks.chunkLoader),
-		// "SCS", "CMC", "SCS",
-		// 'S', "plateSteel",
-		// 'C', "circuitMaster",
-		// 'M', new ItemStack(ModItems.parts, 1, 39));
+        // RebornCraftingHelper.addShapedOreRecipe(new
+        // ItemStack(ModBlocks.chunkLoader),
+        // "SCS", "CMC", "SCS",
+        // 'S', "plateSteel",
+        // 'C', "circuitMaster",
+        // 'M', new ItemStack(ModItems.parts, 1, 39));
 
 
-	}
+    }
 
-	public static ItemStack getBucketWithFluid(Fluid fluid) {
-		return FluidUtil.getFilledBucket(new FluidStack(fluid, Fluid.BUCKET_VOLUME));
-	}
+    public static ItemStack getBucketWithFluid(Fluid fluid) {
+        return FluidUtil.getFilledBucket(new FluidStack(fluid, Fluid.BUCKET_VOLUME));
+    }
 
-	public static ItemStack getOre(String name) {
-		if (OreDictionary.getOres(name).isEmpty()) {
-			return new ItemStack(ModItems.MISSING_RECIPE_PLACEHOLDER);
-		}
-		return OreDictionary.getOres(name).get(0).copy();
-	}
+    public static ItemStack getOre(String name) {
+        if (OreDictionary.getOres(name).isEmpty()) {
+            return new ItemStack(ModItems.MISSING_RECIPE_PLACEHOLDER);
+        }
+        return OreDictionary.getOres(name).get(0).copy();
+    }
 }

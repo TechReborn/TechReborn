@@ -33,7 +33,7 @@ import techreborn.api.recipe.Recipes;
  */
 public class ChemicalReactorRecipes extends RecipeMethods {
 	public static void init() {
-		Recipes.chemicalReactor = new RecipeHandler();
+		Recipes.chemicalReactor = new RecipeHandler("ChemicalReactor");
 
 		// Calcite Dust
 //		Recipes.chemicalReactor.createRecipe()

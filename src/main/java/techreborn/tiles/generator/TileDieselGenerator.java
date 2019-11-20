@@ -26,26 +26,57 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
-import techreborn.api.generator.EFluidGenerator;
+
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+
+import techreborn.api.generator.EFluidGenerator;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileDieselGenerator extends TileBaseFluidGenerator implements IContainerProvider {
 
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
-	public static int maxOutput = 32;
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
-	public static int tankCapacity = 10_000;
-	@ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
-	public static int energyPerTick = 20;
+    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
+    public static int maxOutput = 32;
+    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
+    public static int tankCapacity = 10_000;
+    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
+    public static int energyPerTick = 20;
+
+
+//    public TileDieselGenerator() {
+//        super("DieselGenerator", maxOutput, maxEnergy, tankCapacity, Fuels.dieselGenerator, ModBlocks.DIESEL_GENERATOR);
+//    }
+//
+//    // IContainerProvider >>
+//    @Override
+//    public BuiltContainer createContainer(final EntityPlayer player) {
+//        return new ContainerBuilder("dieselgenerator")
+//                .player(player.inventory)
+//                .inventory()
+//                .hotbar()
+//                .addInventory()
+//                .tile(this)
+//                .fluidSlot(0, 25, 35)
+//                .outputSlot(1, 25, 55)
+//                .syncEnergyValue()
+//                .syncIntegerValue(this::getProgress, this::setProgress)
+//                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+//                .syncTank(this.tank::getFluid, this.tank::setFluid)
+//                .addInventory()
+//                .create(this);
+//    }
+//    // << IContainerProvider
+
+    public String Lel() {
+        return tank.getFluidAmount() + "";
+    }
 
 	public TileDieselGenerator() {
 		super(EFluidGenerator.DIESEL, "TileDieselGenerator", tankCapacity, energyPerTick);
@@ -80,5 +111,5 @@ public class TileDieselGenerator extends TileBaseFluidGenerator implements ICont
 			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 			.addInventory()
 			.create(this);
-	}
+}
 }

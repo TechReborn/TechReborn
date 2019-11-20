@@ -51,7 +51,7 @@ import com.google.common.collect.ImmutableList;
  */
 public class CompressorRecipes extends RecipeMethods {
     public static void init() {
-        Recipes.compressor = new RecipeHandler();
+        Recipes.compressor = new RecipeHandler("Compressor");
 
         // Advanced Alloy
         Recipes.compressor.createRecipe()
