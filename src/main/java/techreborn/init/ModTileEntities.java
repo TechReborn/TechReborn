@@ -106,7 +106,7 @@ public enum ModTileEntities {
 	CREATIVE_QUANTUM_CHEST(TileCreativeQuantumChest.class,  "creative_quantum_chest"),
 	CREATIVE_QUANTUM_TANK(TileCreativeQuantumTank.class,  "creative_quantum_tank"),
 	CREATIVE_SOLAR_PANEL(TileCreativeSolarPanel.class,  "creative_solar_panel", "TileCreativeSolarPanelTR"),
-	DIESEL_GENERATOR(TileDieselGenerator.class,  "diesel_generator", "TileDieselGeneratorTR"),
+//	DIESEL_GENERATOR(TileDieselGenerator.class,  "diesel_generator", "TileDieselGeneratorTR"),
 	DIGITAL_CHEST(TileDigitalChest.class,  "digital_chest", "TileDigitalChestTR"),
 	DISTILLATION_TOWER(TileDistillationTower.class,  "distillation_tower", "TileDistillationTowerTR"),
 	DRAGON_EGG_SYPHON(TileDragonEggSyphon.class,  "dragon_egg_syphon", "TileDragonEggSyphonTR"),

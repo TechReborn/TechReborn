@@ -12,14 +12,10 @@ import reborncore.api.praescriptum.fuels.FuelHandler;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.network.NetworkManager;
-import reborncore.common.network.packet.CustomDescriptionPacket;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
-
-import java.util.Optional;
 
 public abstract class TileFluidGenerator extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
     // Constructors >>
@@ -44,7 +40,9 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         super.readFromNBT(tag);
 
         NBTTagCompound data = tag.getCompoundTag("TileFluidGenerator");
-        progress = data.hasKey("progress") ? data.getInteger("progress") : 0;
+        remainingEnergy = data.hasKey("remainingEnergy") ? data.getInteger("remainingEnergy") : 0;
+        totalEnergy = data.hasKey("totalEnergy") ? data.getInteger("totalEnergy") : 0;
+        energyPerTick = data.hasKey("energyPerTick") ? data.getInteger("energyPerTick") : 0;
         isActive = data.hasKey("isActive") && data.getBoolean("isActive");
 
         tank.readFromNBT(tag);
@@ -55,7 +53,9 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         super.writeToNBT(tag);
 
         NBTTagCompound data = new NBTTagCompound();
-        data.setInteger("progress", this.progress);
+        data.setInteger("remainingEnergy", this.remainingEnergy);
+        data.setInteger("totalEnergy", this.totalEnergy);
+        data.setInteger("energyPerTick", this.energyPerTick);
         data.setBoolean("isActive", this.isActive);
         tag.setTag("TileFluidGenerator", data);
 
@@ -67,8 +67,6 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
     @Override
     public void update() {
         super.update();
-
-//        tank.compareAndUpdate();
 
         if (world.isRemote) return;
 
@@ -84,47 +82,26 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
             }
         }
 
-//        if (canWork()) {
-//            if (tank.getFluid() != null) {
-//                fuelHandler.apply2(fuel, tank.getFluid(), false);
-//            }
-//        }
-//        tank.compareAndUpdate();
+        if (remainingEnergy > 0) {
+            if (canAddEnergy(energyPerTick)) {
+                addEnergy(energyPerTick); // use energy
+                remainingEnergy -= energyPerTick; // update remaining energy
+            }
+        } else {
+            if (work()) {
+                needsInventoryUpdate = true;
 
-
-        if (tank.getFluid() != null) {
-            System.out.println(tank.getFluid().amount);
-            tank.drain(1, true);
+                if (!isActive) {
+                    isActive = true;
+                    setActive(true);
+                }
+            } else { // operation conditions not satisfied
+                if (isActive) {
+                    isActive = false;
+                    setActive(false);
+                }
+            }
         }
-
-//        if (progress >= operationLength) {
-//            progress = 0;
-//
-//            if (canWork()) {
-//                startWork();
-//                needsInventoryUpdate = true;
-//
-//                if (!isActive) {
-//                    isActive = true;
-//                    setActive(true);
-//                }
-//            }  else { // operation conditions not satisfied
-//                if (isActive) {
-//                    isActive = false;
-//                    setActive(false);
-//                }
-//            }
-//        } else {
-////            if (operationLength - progress < fuel.getEnergyPerTick()) {
-////                if (canWork()) {
-////                    startWork();
-////                    needsInventoryUpdate = true;
-////                }
-////            } else {
-//                addEnergy(fuel.getEnergyPerTick()); // use energy
-//                progress += fuel.getEnergyPerTick(); // update progress
-////            }
-//        }
 
         if (needsInventoryUpdate) super.markDirty();
     }
@@ -157,59 +134,37 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
     }
     // << TilePowerAcceptor
 
-    // TileGenericFluidGenerator >>
-    protected boolean canWork() {
+    // TileFluidGenerator >>
+    protected boolean work() {
         // if the tank is empty the generator cannot operate
         if (tank.isEmpty() || tank.getFluid() == null) return false;
 
         // if the energy buffer is full the generator cannot operate
         if (getEnergy() == maxEnergy) return false;
 
-        if (fuel != null) {
-            boolean canUse = fuelHandler.apply2(fuel, tank.getFluid(), true);
-            if (!canUse) reset(); // we cannot use the current fuel so reset
+        // try to find a matching fuel and adjust input
+        Fuel fuel = fuelHandler.findAndApply2(tank.getFluid(), false);
+
+        if (fuel == null) {
+            reset(); // the process could not be completed so reset
+            return false;
         }
-
-        Optional<Fuel> maybeFuel = Optional.ofNullable(fuel);
-
-        // current fuel is still usable
-        if (maybeFuel.isPresent()) return canAddEnergy(fuel.getEnergyOutput());
-
-        // The current fuel is not usable anymore so we need to find a new one
-        maybeFuel = fuelHandler.findFuel2(tank.getFluid()); // try to find a matching fuel
-
-        if (!maybeFuel.isPresent()) return false; // could not find a fuel
-
-        // if a matching fuel exists update parameters
-        updateFuel(maybeFuel.get());
-
-        // we need space for the energy
-        return canAddEnergy(fuel.getEnergyOutput());
-    }
-
-    protected void startWork() {
-        // if the tank is empty the operation cannot be completed
-        if (tank.isEmpty() || tank.getFluid() == null) return;
-
-        // if the energy buffer is full the generator cannot operate
-        if (getEnergy() == maxEnergy) return;
-
-        // adjust input
-        fuelHandler.apply2(fuel, tank.getFluid(), false);
 
         // update tank
         tank.compareAndUpdate();
-    }
 
-    protected void updateFuel(Fuel fuel) {
-        operationLength = Math.max((int) fuel.getEnergyOutput(), 1); // set operation length
-        this.fuel = fuel; // set fuel
+        // set the fuel value
+        remainingEnergy = (int) fuel.getEnergyOutput();
+        totalEnergy = (int) fuel.getEnergyOutput();
+        energyPerTick = (int) fuel.getEnergyPerTick();
+
+        return true;
     }
 
     protected void reset() {
-        progress = 0; // reset progress
-        operationLength = 0; // reset operation length
-        fuel = null; // set current fuel to null
+        remainingEnergy = 0;
+        totalEnergy = 0;
+        energyPerTick = 0;
     }
 
     protected void setActive(boolean value) {
@@ -218,7 +173,7 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         if (block instanceof BlockMachineBase)
             ((BlockMachineBase) block).setActive(value, world, pos);
     }
-    // << TileGenericFluidGenerator
+    // << TileFluidGenerator
 
     // IInventoryProvider >>
     @Override
@@ -240,24 +195,24 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         return tank;
     }
 
-    public int getProgress() {
-        return progress;
+    public int getRemainingEnergy() {
+        return remainingEnergy;
     }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
+    public void setRemainingEnergy(int remainingEnergy) {
+        this.remainingEnergy = remainingEnergy;
     }
 
-    public int getOperationLength() {
-        return operationLength;
+    public int getTotalEnergy() {
+        return totalEnergy;
     }
 
-    public void setOperationLength(int operationLength) {
-        this.operationLength = operationLength;
+    public void setTotalEnergy(int totalEnergy) {
+        this.totalEnergy = totalEnergy;
     }
 
-    public int getProgressScaled(int scale) {
-        return progress == 0 || operationLength == 0 ? 0 : progress * scale / operationLength;
+    public int getRemainingEnergyScaled(int scale) {
+        return remainingEnergy == 0 || totalEnergy == 0 ? 0 : (totalEnergy - remainingEnergy) * scale / totalEnergy;
     }
     // << Getters & Setters
 
@@ -274,9 +229,9 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
     protected final int[] inputSlots;
     protected final int[] outputSlots;
 
-    protected int progress = 0;
-    protected int operationLength = 0;
-    protected Fuel fuel = null;
+    protected int remainingEnergy = 0;
+    protected int totalEnergy = 0;
+    protected int energyPerTick = 0;
     protected boolean isActive = false;
     // << Fields
 }

@@ -56,6 +56,7 @@ import techreborn.api.recipe.Recipes;
 import techreborn.api.recipe.machines.*;
 import techreborn.blocks.cable.EnumCableType;
 import techreborn.client.gui.*;
+import techreborn.client.gui.generator.lv.GuiDieselGenerator;
 import techreborn.client.gui.processing.lv.*;
 import techreborn.compat.CompatConfigs;
 import techreborn.compat.CompatManager;

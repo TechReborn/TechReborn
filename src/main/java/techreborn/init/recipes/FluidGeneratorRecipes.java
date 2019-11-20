@@ -26,7 +26,6 @@ package techreborn.init.recipes;
 
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 import reborncore.api.praescriptum.fuels.FuelHandler;
 
@@ -41,12 +40,6 @@ import techreborn.init.ModFluids;
 public class FluidGeneratorRecipes extends RecipeMethods {
     public static void init() {
         Fuels.dieselGenerator = new FuelHandler("DieselGenerator");
-
-		Fuels.dieselGenerator.addFuel()
-                .fromSource(new FluidStack(ModFluids.NITRO_DIESEL, 1))
-                .withEnergyOutput(400.0D)
-                .withEnergyPerTick(10.0F)
-                .register();
 
         register(EFluidGenerator.DIESEL, ModFluids.NITROFUEL, 24);
         register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL, 48);
@@ -64,6 +57,16 @@ public class FluidGeneratorRecipes extends RecipeMethods {
         register(EFluidGenerator.GAS, ModFluids.METHANE, 45);
 
         register(EFluidGenerator.PLASMA, ModFluids.HELIUMPLASMA, 8192);
+    }
+
+    public static void postInit() {
+        GeneratorRecipeHelper.getFluidRecipesForGenerator(EFluidGenerator.DIESEL)
+                .getRecipes()
+                .forEach(recipe -> Fuels.dieselGenerator.addFuel()
+                        .addFluidSource(recipe.getFluid())
+                        .withEnergyOutput(recipe.getEnergyPerMb())
+                        .withEnergyPerTick(20.0D)
+                        .register());
     }
 
     static void register(EFluidGenerator generator, Fluid fluid, int euPerMB) {

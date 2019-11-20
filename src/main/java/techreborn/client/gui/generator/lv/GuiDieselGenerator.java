@@ -22,43 +22,47 @@
  * SOFTWARE.
  */
 
-package techreborn.client.gui;
+package techreborn.client.gui.generator.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
+
 import techreborn.tiles.generator.TileDieselGenerator;
 
-@SideOnly(Side.CLIENT)
+/**
+ * @author estebes
+ */
 public class GuiDieselGenerator extends GuiBase {
-	
-	TileDieselGenerator tile;
+    public GuiDieselGenerator(final EntityPlayer player, final TileDieselGenerator tile) {
+        super(player, tile, tile.createContainer(player));
 
-	public GuiDieselGenerator(final EntityPlayer player, final TileDieselGenerator tile) {
-		super(player, tile, tile.createContainer(player));
-		this.tile = tile;
-	}
-	
-	@Override
-	protected void drawGuiContainerBackgroundLayer(final float f, final int mouseX, final int mouseY) {
-		super.drawGuiContainerBackgroundLayer(f, mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-		drawSlot(25, 35, layer);
-		drawSlot(25, 55, layer);
-		builder.drawJEIButton(this, 158, 5, layer);
-	}
-	
-	
-	@Override
-	protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
-		
-		builder.drawProgressBar(this, tile.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 130, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
-		builder.drawTank(this, 44, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
-	}
-	
+        this.tile = tile;
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(final float partialTicks, final int mouseX, final int mouseY) {
+        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+        final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+
+        drawSlot(25, 35, layer);
+        drawSlot(25, 55, layer);
+
+        builder.drawJEIButton(this, 158, 5, layer);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+
+        builder.drawProgressBar(this, tile.getRemainingEnergyScaled(100), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+        builder.drawMultiEnergyBar(this, 130, 28, (int) tile.getEnergy(), (int) tile.getMaxPower(), mouseX, mouseY, 0, layer);
+        builder.drawTank(this, 44, 25, mouseX, mouseY, tile.tank.getFluid(), tile.tank.getCapacity(), tile.tank.isEmpty(), layer);
+    }
+
+    // Fields >>
+    TileDieselGenerator tile;
+    // << Fields
 }

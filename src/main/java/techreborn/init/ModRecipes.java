@@ -111,6 +111,8 @@ public class ModRecipes {
         }
 
         IndustrialSawmillRecipes.init();
+
+        FluidGeneratorRecipes.postInit();
     }
 
     static void addVacuumFreezerRecipes() {

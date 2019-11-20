@@ -45,7 +45,7 @@ import techreborn.client.gui.processing.lv.GuiChemicalReactor;
 import techreborn.client.gui.GuiChunkLoader;
 import techreborn.client.gui.processing.lv.GuiCompressor;
 import techreborn.client.gui.GuiDestructoPack;
-import techreborn.client.gui.GuiDieselGenerator;
+import techreborn.client.gui.generator.lv.GuiDieselGenerator;
 import techreborn.client.gui.GuiDigitalChest;
 import techreborn.client.gui.GuiDistillationTower;
 import techreborn.client.gui.GuiElectricFurnace;
