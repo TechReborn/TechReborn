@@ -67,7 +67,7 @@ public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 			matrixStack.scale(j, j, j);
 		}
 
-		matrixStack.multiply(Vector3f.POSITIVE_Y.getRotationQuaternion(-90.0F));
+		matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
 		TntMinecartEntityRenderer.method_23190(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuseTimer() / 5 % 2 == 0);
 		matrixStack.pop();

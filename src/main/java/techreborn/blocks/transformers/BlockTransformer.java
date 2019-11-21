@@ -56,7 +56,7 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 
 	public BlockTransformer(String name) {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
-		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

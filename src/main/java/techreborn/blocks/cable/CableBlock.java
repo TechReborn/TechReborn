@@ -90,7 +90,7 @@ public class CableBlock extends BlockWithEntity {
 	public CableBlock(TRContent.Cables type) {
 		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
 		this.type = type;
-		setDefaultState(this.stateFactory.getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
+		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
 				.with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}

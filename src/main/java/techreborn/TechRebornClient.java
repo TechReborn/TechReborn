@@ -24,9 +24,11 @@
 
 package techreborn;
 
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.minecraft.class_4730;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.model.BakedModel;
@@ -83,13 +85,13 @@ public class TechRebornClient implements ClientModInitializer {
 						}
 
 						@Override
-						public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> function, Set<String> set) {
+						public Collection<class_4730> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
 							return Collections.emptyList();
 						}
 
 						@Nullable
 						@Override
-						public BakedModel bake(ModelLoader loader, Function<Identifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier identifier) {
+						public BakedModel bake(ModelLoader loader, Function<class_4730, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 							return new DynamicCellBakedModel();
 						}
 
@@ -104,15 +106,16 @@ public class TechRebornClient implements ClientModInitializer {
 						}
 
 						@Override
-						public Collection<Identifier> getTextureDependencies(Function<Identifier, UnbakedModel> function, Set<String> set) {
+						public Collection<class_4730> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
 							return Collections.emptyList();
 						}
 
 						@Nullable
 						@Override
-						public BakedModel bake(ModelLoader loader, Function<Identifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier identifier) {
+						public BakedModel bake(ModelLoader loader, Function<class_4730, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 							return new DynamicBucketBakedModel();
 						}
+
 					};
 				}
 			}

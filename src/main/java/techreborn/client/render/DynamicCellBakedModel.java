@@ -25,9 +25,11 @@
 package techreborn.client.render;
 
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+import net.minecraft.class_4730;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -53,7 +55,7 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 
 	@Override
 	public Sprite getSprite() {
-		return MinecraftClient.getInstance().getSpriteAtlas().getSprite(new Identifier("techreborn:item/cell_base"));
+		return new class_4730(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier("techreborn:item/cell_base")).method_24148();
 	}
 
 	@Override

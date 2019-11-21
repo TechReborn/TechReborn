@@ -51,7 +51,7 @@ public class BlockNuke extends BaseBlock {
 
 	public BlockNuke() {
 		super(Block.Settings.of(Material.TNT));
-		this.setDefaultState(this.stateFactory.getDefaultState().with(OVERLAY, false));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(OVERLAY, false));
 	}
 
 	public void ignite(World worldIn, BlockPos pos, BlockState state, LivingEntity igniter) {

@@ -64,7 +64,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness).build());
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
-		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 	

@@ -59,7 +59,7 @@ public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
 
 	public BlockEnergyStorage(String name, IMachineGuiHandler gui) {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
-		this.setDefaultState(this.stateFactory.getDefaultState().with(FACING, Direction.NORTH));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
 		this.name = name;
 		this.gui = gui;
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
