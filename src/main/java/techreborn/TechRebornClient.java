@@ -47,6 +47,7 @@ import reborncore.client.hud.StackInfoHUD;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.events.StackToolTipHandler;
+import techreborn.init.ModFluids;
 import techreborn.init.TRContent;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
@@ -137,6 +138,11 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.ALARM.block, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_SAPLING, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.REINFORCED_GLASS, RenderLayer.getCutout());
+
+		for (ModFluids fluid : ModFluids.values()) {
+			BlockRenderLayerMap.INSTANCE.putFluid(fluid.getFluid(), RenderLayer.getTranslucent());
+			BlockRenderLayerMap.INSTANCE.putFluid(fluid.getFlowingFluid(), RenderLayer.getTranslucent());
+		}
 	}
 
 
