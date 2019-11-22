@@ -26,6 +26,8 @@ package techreborn.world;
 
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
@@ -33,16 +35,20 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.stateprovider.SimpleStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedStateProvider;
 import reborncore.common.world.CustomOreFeature;
 import reborncore.common.world.CustomOreFeatureConfig;
+import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,19 +57,47 @@ import java.util.List;
  */
 public class WorldGenerator {
 
-//	public static final Predicate<IBlockState> IS_ENDSTONE = (state) -> {
-//		return state != null && (state.getBlock() == Blocks.END_STONE);
-//	};
+	public static Feature<BranchedTreeFeatureConfig> RUBBER_TREE;
+
+	public static BranchedTreeFeatureConfig RUBBER_TREE_CONFIG;
 
 	private static List<Biome> checkedBiomes = new ArrayList<>();
 
 	public static void initBiomeFeatures() {
+		setupTrees();
+
 		for (Biome biome : Registry.BIOME) {
 			addToBiome(biome);
 		}
 
 		//Handles modded biomes
 		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> addToBiome(biome));
+	}
+
+	private static void setupTrees() {
+		RUBBER_TREE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::method_23426));
+
+		WeightedStateProvider logProvider = new WeightedStateProvider();
+		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
+
+		Arrays.stream(Direction.values())
+				.filter(direction -> direction.getAxis().isHorizontal())
+				.map(direction -> TRContent.RUBBER_LOG.getDefaultState()
+						.with(BlockRubberLog.HAS_SAP, true)
+						.with(BlockRubberLog.SAP_SIDE, direction)
+				)
+				.forEach(state -> logProvider.addState(state, 1));
+
+		RUBBER_TREE_CONFIG = new BranchedTreeFeatureConfig.Builder(
+				logProvider,
+				new SimpleStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
+				new BlobFoliagePlacer(2, 0))
+				.method_23428(6) //Base height
+				.method_23430(2)
+				.method_23437(3)
+				.method_23427()
+				.method_23431();
+
 	}
 
 	private static void addToBiome(Biome biome){
@@ -94,11 +128,13 @@ public class WorldGenerator {
 			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SILVER);
 			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
 
-			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA) {
-//				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
-//				                 Biome.configureFeature(new RubberTreeFeature(DefaultFeatureConfig::deserialize, false),
-//				                                        FeatureConfig.DEFAULT, Decorator.COUNT_EXTRA_HEIGHTMAP,
-//				                                        new CountExtraChanceDecoratorConfig(1, 0.1F, 1)));
+			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA || biome.getCategory() == Category.SWAMP) {
+				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
+						RUBBER_TREE.configure(RUBBER_TREE_CONFIG)
+								.createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP
+										.configure(new CountExtraChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? 2 : 1, 0.1F, 1))
+								)
+				);
 			}
 		}
 	}

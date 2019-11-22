@@ -34,7 +34,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
-		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build());
+		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build().nonOpaque());
 		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
 	}
 
