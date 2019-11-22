@@ -50,15 +50,11 @@ import techreborn.tiles.cable.TileCable;
 import techreborn.tiles.cable.TileCableEU;
 import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.TileCreativeSolarPanel;
-import techreborn.tiles.generator.TileDieselGenerator;
 import techreborn.tiles.generator.TileDragonEggSyphon;
-import techreborn.tiles.generator.TileGasTurbine;
 import techreborn.tiles.generator.TileLightningRod;
-import techreborn.tiles.generator.TilePlasmaGenerator;
-import techreborn.tiles.generator.TileSemiFluidGenerator;
+import techreborn.tiles.generator.fluid.TilePlasmaGenerator;
 import techreborn.tiles.generator.TileSolarPanel;
 import techreborn.tiles.generator.TileSolidFuelGenerator;
-import techreborn.tiles.generator.TileThermalGenerator;
 import techreborn.tiles.generator.TileWaterMill;
 import techreborn.tiles.generator.TileWindMill;
 import techreborn.tiles.idsu.TileInterdimensionalSU;
@@ -72,7 +68,6 @@ import techreborn.tiles.multiblock.TileIndustrialBlastFurnace;
 import techreborn.tiles.multiblock.TileIndustrialGrinder;
 import techreborn.tiles.multiblock.TileIndustrialSawmill;
 import techreborn.tiles.multiblock.TileVacuumFreezer;
-import techreborn.tiles.processing.lv.*;
 import techreborn.tiles.storage.TileAdjustableSU;
 import techreborn.tiles.storage.TileHighVoltageSU;
 import techreborn.tiles.storage.TileLowVoltageSU;
@@ -106,14 +101,12 @@ public enum ModTileEntities {
 	CREATIVE_QUANTUM_CHEST(TileCreativeQuantumChest.class,  "creative_quantum_chest"),
 	CREATIVE_QUANTUM_TANK(TileCreativeQuantumTank.class,  "creative_quantum_tank"),
 	CREATIVE_SOLAR_PANEL(TileCreativeSolarPanel.class,  "creative_solar_panel", "TileCreativeSolarPanelTR"),
-//	DIESEL_GENERATOR(TileDieselGenerator.class,  "diesel_generator", "TileDieselGeneratorTR"),
 	DIGITAL_CHEST(TileDigitalChest.class,  "digital_chest", "TileDigitalChestTR"),
 	DISTILLATION_TOWER(TileDistillationTower.class,  "distillation_tower", "TileDistillationTowerTR"),
 	DRAGON_EGG_SYPHON(TileDragonEggSyphon.class,  "dragon_egg_syphon", "TileDragonEggSyphonTR"),
 	ELECTRIC_FURNACE(TileElectricFurnace.class,  "electric_furnace", "TileElectricFurnaceTR"),
 	FLUID_REPLICATOR(TileFluidReplicator.class,  "fluid_replicator", "TileFluidReplicatorTR"),
 	FUSION_CONTROL_COMPUTER(TileFusionControlComputer.class,  "fusion_control_computer", "TileFusionControlComputerTR"),
-	GAS_TURBINE(TileGasTurbine.class,  "gas_turbine", "TileGasTurbineTR"),
 	HIGH_VOLTAGE_SU(TileHighVoltageSU.class,  "high_voltage_su", "TileHighVoltageSUTR"),
 	HV_TRANSFORMER(TileHVTransformer.class,  "hv_transformer", "TileHVTransformerTR"),
 	EV_TRANSFORMER(TileEVTransformer.class,  "ev_transformer", "TileEVTransformerTR"),
@@ -137,7 +130,6 @@ public enum ModTileEntities {
 	MATTER_FABRICATOR(TileMatterFabricator.class,  "matter_fabricator", "TileMatterFabricatorTR"),
 	MEDIUM_VOLTAGE_SU(TileMediumVoltageSU.class,  "medium_voltage_su", "TileMediumVoltageSUTR"),
 	MV_TRANSFORMER(TileMVTransformer.class,  "mv_transformer", "TileMVTransformerTR"),
-	PLASMA_GENERATOR(TilePlasmaGenerator.class,  "plasma_generator", "TilePlasmalGeneratorTR"),
 	PLAYER_DETECTOR(TilePlayerDectector.class,  "player_detector", "TilePlayerDectectorTR"),
 	PUMP(TilePump.class,  "pump", "TilePumpTR"),
 	QUANTUM_CHEST(TileQuantumChest.class,  "quantum_chest", "TileQuantumChestTR"),
@@ -145,10 +137,8 @@ public enum ModTileEntities {
 	RECYCLER(TileRecycler.class,  "recycler", "TileRecyclerTR"),
 	ROLLING_MACHINE(TileRollingMachine.class,  "rolling_machine", "TileRollingMachineTR"),
 	SCRAPBOXINATOR(TileScrapboxinator.class,  "scrapboxinator", "TileScrapboxinatorTR"),
-	SEMI_FLUID_GENERATOR(TileSemiFluidGenerator.class,  "semi_fluid_generator", "TileSemiFluidGeneratorTR"),
 	SOLAR_PANEL(TileSolarPanel.class,  "solar_panel", "TileSolarPanelTR"),
 	SOLID_FUEL_GENEREATOR(TileSolidFuelGenerator.class,  "solid_fuel_generator", "TileSolidFuelGeneratorTR"),
-	THERMAL_GEN(TileThermalGenerator.class,  "thermal_generator", "TileThermalGeneratorTR"),
 	VACUUM_FREEZER(TileVacuumFreezer.class,  "vacuum_freezer", "TileVacuumFreezerTR"),
 	WATER_MILL(TileWaterMill.class,  "water_mill", "TileWaterMillTR"),
 	WIND_MILL(TileWindMill.class,  "wind_mill", "TileWindMillTR");

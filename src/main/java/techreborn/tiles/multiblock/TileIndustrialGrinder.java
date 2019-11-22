@@ -32,18 +32,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.Tank;
+
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialGrinderRecipe;
@@ -55,142 +58,142 @@ import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialGrinder extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialGrinderRecipe> {
-	// Fields >>
-	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxEnergy", comment = "Industrial Grinder Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
-	
-	public static final int TANK_CAPACITY = 16_000;
-	public Tank tank;
-	public MultiblockChecker multiblockChecker;
-	// << Fields
+    // Fields >>
+    @ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxInput", comment = "Industrial Grinder Max Input (Value in EU)")
+    public static int maxInput = 128;
+    @ConfigRegistry(config = "machines", category = "industrial_grinder", key = "IndustrialGrinderMaxEnergy", comment = "Industrial Grinder Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
 
-	public TileIndustrialGrinder() {
-		super("IndustrialGrinder", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_GRINDER, 7);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] {2, 3, 4, 5};
-		this.inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
-		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_GRINDER_RECIPE, this, 1, 4, this.inventory, inputs, outputs);
-		this.tank = new Tank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
-	}
+    public static final int TANK_CAPACITY = 16_000;
+    public RebornFluidTank tank;
+    public MultiblockChecker multiblockChecker;
+    // << Fields
 
-	public boolean getMultiBlock() {
-		if (multiblockChecker == null) return false;
+    public TileIndustrialGrinder() {
+        super("IndustrialGrinder", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_GRINDER, 7);
+        final int[] inputs = new int[]{0, 1};
+        final int[] outputs = new int[]{2, 3, 4, 5};
+        this.inventory = new Inventory(8, "TileIndustrialGrinder", 64, this);
+        this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_GRINDER_RECIPE, this, 1, 4, this.inventory, inputs, outputs);
+        this.tank = new RebornFluidTank("TileIndustrialGrinder", TileIndustrialGrinder.TANK_CAPACITY, this);
+    }
 
-		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
-		final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
-				|| centerBlock.getBlock() instanceof IFluidBlock) 
-				&& centerBlock.getMaterial() == Material.WATER);
-		return down && center && blade && up;
-	}
-	
-	// TilePowerAcceptor
-	@Override
-	public void update() {
-		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
-			multiblockChecker = new MultiblockChecker(world, downCenter);
-		}
+    public boolean getMultiBlock() {
+        if (multiblockChecker == null) return false;
 
-		// Check cells input slot 2 times per second
-		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
-			if (!inventory.getStackInSlot(1).isEmpty()) {
-				FluidUtils.drainContainers(tank, inventory, 1, 6);
-				FluidUtils.fillContainers(tank, inventory, 1, 6, tank.getFluidType());
-			}
-		}
-		
-		if (!world.isRemote && getMultiBlock()) super.update();
+        final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
+        final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
+        final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
+        final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
+        final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
+                || centerBlock.getBlock() instanceof IFluidBlock)
+                && centerBlock.getMaterial() == Material.WATER);
+        return down && center && blade && up;
+    }
 
-		tank.compareAndUpdate();
-	}
+    // TilePowerAcceptor
+    @Override
+    public void update() {
+        if (multiblockChecker == null) {
+            final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
+            multiblockChecker = new MultiblockChecker(world, downCenter);
+        }
 
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
-	}
+        // Check cells input slot 2 times per second
+        if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
+            if (!inventory.getStackInSlot(1).isEmpty()) {
+                FluidUtils.drainContainers(tank, inventory, 1, 6);
+                FluidUtils.fillContainers(tank, inventory, 1, 6, tank.getFluidType());
+            }
+        }
 
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
-		return tagCompound;
-	}
+        if (!world.isRemote && getMultiBlock()) super.update();
+    }
 
-	// TileLegacyMachineBase
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 1) {
-			return itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		}
-		return super.isItemValidForSlot(slotIndex, itemStack);
-	}
+    @Override
+    public void readFromNBT(final NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        tank.readFromNBT(tagCompound);
+    }
 
-	// IContainerProvider
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		// fluidSlot first to support automation and shift-click
-		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
-				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
-				.syncEnergyValue().syncCrafterValue().addInventory().create(this);
-	}
-	
-	// ITileRecipeHandler
-	@Override
-	public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
-		if (!getMultiBlock()) {
-			return false;
-		}
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        tank.writeToNBT(tagCompound);
+        return tagCompound;
+    }
 
-	@Override
-	public boolean onCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				if (tankFluid.amount == recipeFluid.amount) {
-					tank.setFluid(null);
-				}
-				else {
-					tankFluid.amount -= recipeFluid.amount;
-				}
-				syncWithAll();
-				return true;
-			}
-		}
-		return false;
-	}
+    // TileLegacyMachineBase
+    @Override
+    public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
+        if (slotIndex == 1) {
+            return itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+        }
+        return super.isItemValidForSlot(slotIndex, itemStack);
+    }
 
-	@Nullable
-	@Override
-	public Tank getTank() {
-		return tank;
-	}
+    // IContainerProvider
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        // fluidSlot first to support automation and shift-click
+        return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
+                .tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
+                .outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
+                .syncEnergyValue().syncCrafterValue()
+                .syncTank(this.tank::getFluid, this.tank::setFluid)
+                .addInventory()
+                .create(this);
+    }
+
+    // ITileRecipeHandler
+    @Override
+    public boolean canCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
+        if (!getMultiBlock()) {
+            return false;
+        }
+        final FluidStack recipeFluid = recipe.fluidStack;
+        final FluidStack tankFluid = tank.getFluid();
+        if (recipe.fluidStack == null) {
+            return true;
+        }
+        if (tankFluid == null) {
+            return false;
+        }
+        if (tankFluid.isFluidEqual(recipeFluid)) {
+            if (tankFluid.amount >= recipeFluid.amount) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onCraft(final TileEntity tile, final IndustrialGrinderRecipe recipe) {
+        final FluidStack recipeFluid = recipe.fluidStack;
+        final FluidStack tankFluid = tank.getFluid();
+        if (recipe.fluidStack == null) {
+            return true;
+        }
+        if (tankFluid == null) {
+            return false;
+        }
+        if (tankFluid.isFluidEqual(recipeFluid)) {
+            if (tankFluid.amount >= recipeFluid.amount) {
+                if (tankFluid.amount == recipeFluid.amount) {
+                    tank.setFluid(null);
+                } else {
+                    tankFluid.amount -= recipeFluid.amount;
+                }
+                syncWithAll();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public RebornFluidTank getTank() {
+        return tank;
+    }
 }

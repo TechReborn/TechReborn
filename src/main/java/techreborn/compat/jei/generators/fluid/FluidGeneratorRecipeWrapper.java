@@ -29,6 +29,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import reborncore.client.guibuilder.GuiBuilder;
 import reborncore.common.powerSystem.PowerSystem;
 
 import techreborn.api.generator.FluidGeneratorRecipe;
@@ -51,16 +52,30 @@ public class FluidGeneratorRecipeWrapper implements IRecipeWrapper {
 	public FluidGeneratorRecipeWrapper(@Nonnull IJeiHelpers jeiHelpers, @Nonnull FluidGeneratorRecipe recipe) {
 		this.baseRecipe = recipe;
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		IDrawableStatic progressStatic = guiHelper.createDrawable(FluidGeneratorRecipeCategory.texture, 176, 3, 25, 14);
-		this.progress = guiHelper.createAnimatedDrawable(progressStatic, 200, IDrawableAnimated.StartDirection.LEFT, false);
+
+		// 113, 151
+
+		IDrawableStatic progressStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, 113, 151, 12, 48);
+		this.progress = guiHelper.createAnimatedDrawable(progressStatic, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
 	}
 
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-		progress.draw(minecraft, 73, 26);
+		progress.draw(minecraft, 80, 7);
 		minecraft.fontRenderer
 				.drawString(PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.getEnergyPerMb() * 1000) + " "
 						+ PowerSystem.getDisplayPower().abbreviation, 70, 13, 0x444444);
+
+		int y = 31;
+		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
+
+//		minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
+//				(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
+
+		String energyPerBucket = PowerSystem.getLocaliszedPowerFormattedNoSuffix(baseRecipe.getEnergyPerMb() * 1000) + " " + PowerSystem.getDisplayPower().abbreviation;
+		minecraft.fontRenderer.drawString(energyPerBucket,
+				(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(energyPerBucket) / 2),
+				y, 0x444444);
 	}
 
 	@Override

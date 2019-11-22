@@ -26,11 +26,14 @@ package techreborn.api.fluidreplicator;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.Tank;
+
 import techreborn.api.Reference;
 import techreborn.init.ModItems;
 import techreborn.tiles.multiblock.TileFluidReplicator;
@@ -74,7 +77,7 @@ public class FluidReplicatorRecipeCrafter extends RecipeCrafter {
 		return true;
 	}
 	
-	private boolean canFit(Fluid fluid, Tank tank) {
+	private boolean canFit(Fluid fluid, RebornFluidTank tank) {
 		if (tank.fill(new FluidStack(fluid, Fluid.BUCKET_VOLUME), false) != Fluid.BUCKET_VOLUME) {
 			return false;
 		}

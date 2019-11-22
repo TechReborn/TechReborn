@@ -29,13 +29,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.tiles.generator.fluid.lv.TileDieselGenerator;
+import techreborn.tiles.generator.fluid.TilePlasmaGenerator;
 
 /**
- * @author estebes
+ * @author drcrazy, estebes
  */
-public class GuiDieselGenerator extends GuiBase {
-    public GuiDieselGenerator(final EntityPlayer player, final TileDieselGenerator tile) {
+public class GuiPlasmaGenerator extends GuiBase {
+    public GuiPlasmaGenerator(final EntityPlayer player, final TilePlasmaGenerator tile) {
         super(player, tile, tile.createContainer(player));
 
         this.tile = tile;
@@ -63,6 +63,6 @@ public class GuiDieselGenerator extends GuiBase {
     }
 
     // Fields >>
-    TileDieselGenerator tile;
+    TilePlasmaGenerator tile;
     // << Fields
 }

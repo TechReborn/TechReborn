@@ -26,13 +26,15 @@ package techreborn.tiles.generator;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.Tank;
+
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
@@ -46,7 +48,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	private final int euTick;
 	private FluidGeneratorRecipe currentRecipe;
 	private int ticksSinceLastChange;
-	public Tank tank;
+	public RebornFluidTank tank;
 	public Inventory inventory;
 	protected long lastOutput = 0;
 	// << Fields
@@ -61,7 +63,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 	public TileBaseFluidGenerator(EFluidGenerator type, String tileName, int tankCapacity, int euTick) {
 		super();
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
-		tank = new Tank(tileName, tankCapacity, this);
+		tank = new RebornFluidTank(tileName, tankCapacity, this);
 		inventory = new Inventory(2, tileName, 64, this);
 		this.euTick = euTick;
 		this.ticksSinceLastChange = 0;
@@ -78,9 +80,6 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		}
 
 		if (!world.isRemote) super.update();
-
-		tank.compareAndUpdate();
-
 
 		ticksSinceLastChange++;
 
@@ -187,7 +186,7 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 
 	@Nullable
 	@Override
-	public Tank getTank() {
+	public RebornFluidTank getTank() {
 		return tank;
 	}
 }

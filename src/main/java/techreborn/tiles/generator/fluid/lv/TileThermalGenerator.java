@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.generator;
+package techreborn.tiles.generator.fluid.lv;
 
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -37,26 +37,29 @@ import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.fluid.TileFluidGenerator;
 
+/**
+ * @author estebes
+ */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-@RegisterTile(name = "diesel_generator")
-public class TileDieselGenerator extends TileFluidGenerator {
+@RegisterTile(name = "thermal_generator")
+public class TileThermalGenerator extends TileFluidGenerator {
     // Config >>
-    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
+    @ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxOutput", comment = "Thermal Generator Max Output (Value in EU)")
     public static int maxOutput = 32;
-    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
+    @ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxEnergy", comment = "Thermal Generator Max Energy (Value in EU)")
     public static int maxEnergy = 10_000;
-    @ConfigRegistry(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
+    @ConfigRegistry(config = "generators", category = "thermal_generator", key = "ThermalGeneratorTankCapacity", comment = "Thermal Generator Tank Capacity")
     public static int tankCapacity = 10_000;
     // << Config
 
-    public TileDieselGenerator() {
-        super("DieselGenerator", maxOutput, maxEnergy, tankCapacity, Fuels.dieselGenerator, ModBlocks.DIESEL_GENERATOR);
+    public TileThermalGenerator() {
+        super("ThermalGenerator", maxOutput, maxEnergy, tankCapacity, Fuels.thermalGenerator, ModBlocks.THERMAL_GENERATOR);
     }
 
     // IContainerProvider >>
     @Override
     public BuiltContainer createContainer(final EntityPlayer player) {
-        return new ContainerBuilder("dieselgenerator")
+        return new ContainerBuilder("thermal_generator")
                 .player(player.inventory)
                 .inventory()
                 .hotbar()

@@ -22,23 +22,40 @@
  * SOFTWARE.
  */
 
-package techreborn.init.recipes;
+package techreborn.init.fuels;
 
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import reborncore.api.praescriptum.fuels.FuelHandler;
 
 import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.FluidGeneratorRecipeList;
 import techreborn.api.generator.GeneratorRecipeHelper;
+import techreborn.api.recipe.Fuels;
 import techreborn.init.ModFluids;
+import techreborn.init.recipes.RecipeMethods;
 
 /**
- * Created by Prospector
+ * @author estebes
  */
-public class FluidGeneratorRecipes extends RecipeMethods {
+public class PlasmaGeneratorFuels extends RecipeMethods {
     public static void init() {
+        Fuels.plasmaGenerator = new FuelHandler("PlasmaGenerator");
+
+        Fuels.plasmaGenerator.addFuel()
+                .addFluidSource(ModFluids.HELIUMPLASMA)
+                .withEnergyOutput(8192.0D)
+                .withEnergyPerTick(400.0D)
+                .register();
     }
 
-    static void register(EFluidGenerator generator, Fluid fluid, int euPerMB) {
-        GeneratorRecipeHelper.registerFluidRecipe(generator, fluid, euPerMB);
+    public static void postInit() {
+        FluidGeneratorRecipeList recipeList = GeneratorRecipeHelper.getFluidRecipesForGenerator(EFluidGenerator.PLASMA);
+
+        if (recipeList != null) {
+            recipeList.getRecipes().forEach(recipe -> Fuels.plasmaGenerator.addFuel()
+                    .addFluidSource(recipe.getFluid())
+                    .withEnergyOutput(recipe.getEnergyPerMb())
+                    .withEnergyPerTick(400.0D)
+                    .register());
+        }
     }
 }

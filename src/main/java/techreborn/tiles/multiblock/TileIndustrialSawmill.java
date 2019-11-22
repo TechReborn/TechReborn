@@ -32,18 +32,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.Tank;
+
 import techreborn.api.Reference;
 import techreborn.api.recipe.ITileRecipeHandler;
 import techreborn.api.recipe.machines.IndustrialSawmillRecipe;
@@ -55,146 +58,148 @@ import javax.annotation.Nullable;
 
 @RebornRegistry(modID = ModInfo.MOD_ID)
 public class TileIndustrialSawmill extends TileGenericMachine implements IContainerProvider, ITileRecipeHandler<IndustrialSawmillRecipe> {
-	// Fields >>
-	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
-	public static int maxInput = 128;
-	@ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxEnergy", comment = "Industrial Sawmill Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
+    // Fields >>
+    @ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxInput", comment = "Industrial Sawmill Max Input (Value in EU)")
+    public static int maxInput = 128;
+    @ConfigRegistry(config = "machines", category = "industrial_sawmill", key = "IndustrialSawmillMaxEnergy", comment = "Industrial Sawmill Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
 
-	public static final int TANK_CAPACITY = 16_000;
-	public Tank tank;
-	public MultiblockChecker multiblockChecker;
-	int ticksSinceLastChange;
-	// << Fields
+    public static final int TANK_CAPACITY = 16_000;
+    public RebornFluidTank tank;
+    public MultiblockChecker multiblockChecker;
+    int ticksSinceLastChange;
+    // << Fields
 
-	public TileIndustrialSawmill() {
-		super("IndustrialSawmill", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_SAWMILL, 6);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2, 3, 4 };
-		this.inventory = new Inventory(7, "TileSawmill", 64, this);
-		this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs, outputs);
-		this.tank = new Tank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
-	}
+    public TileIndustrialSawmill() {
+        super("IndustrialSawmill", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_SAWMILL, 6);
+        final int[] inputs = new int[]{0, 1};
+        final int[] outputs = new int[]{2, 3, 4};
+        this.inventory = new Inventory(7, "TileSawmill", 64, this);
+        this.crafter = new RecipeCrafter(Reference.INDUSTRIAL_SAWMILL_RECIPE, this, 1, 3, this.inventory, inputs, outputs);
+        this.tank = new RebornFluidTank("TileSawmill", TileIndustrialSawmill.TANK_CAPACITY, this);
+    }
 
-	public boolean getMutliBlock() {
-		if (multiblockChecker == null) {
-			return false;
-		}
-		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
-		final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
-				|| centerBlock.getBlock() instanceof IFluidBlock) 
-				&& centerBlock.getMaterial() == Material.WATER);
-		return down && center && blade && up;
-	}
+    public boolean getMutliBlock() {
+        if (multiblockChecker == null) {
+            return false;
+        }
+        final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
+        final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
+        final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
+        final IBlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
+        final boolean center = ((centerBlock.getBlock() instanceof BlockLiquid
+                || centerBlock.getBlock() instanceof IFluidBlock)
+                && centerBlock.getMaterial() == Material.WATER);
+        return down && center && blade && up;
+    }
 
-	// TileGenericMachine
-	@Override
-	public void update() {
-		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
-			multiblockChecker = new MultiblockChecker(world, downCenter);
-		}
+    // TileGenericMachine
+    @Override
+    public void update() {
+        if (multiblockChecker == null) {
+            final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).down();
+            multiblockChecker = new MultiblockChecker(world, downCenter);
+        }
 
-		// Check cells input slot 2 times per second
-		if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
-			if (!inventory.getStackInSlot(1).isEmpty()) {
-				FluidUtils.drainContainers(tank, inventory, 1, 5);
-				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidType());
-			}
-		}
+        // Check cells input slot 2 times per second
+        if (!world.isRemote && world.getTotalWorldTime() % 10 == 0) {
+            if (!inventory.getStackInSlot(1).isEmpty()) {
+                FluidUtils.drainContainers(tank, inventory, 1, 5);
+                FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidType());
+            }
+        }
 
-		if (!world.isRemote && getMutliBlock()) super.update();
+        if (!world.isRemote && getMutliBlock()) super.update();
+    }
 
-		tank.compareAndUpdate();
-	}
-	
-	@Override
-	public void readFromNBT(final NBTTagCompound tagCompound) {
-		super.readFromNBT(tagCompound);
-		tank.readFromNBT(tagCompound);
-	}
+    @Override
+    public void readFromNBT(final NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        tank.readFromNBT(tagCompound);
+    }
 
-	@Override
-	public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
-		super.writeToNBT(tagCompound);
-		tank.writeToNBT(tagCompound);
-		return tagCompound;
-	}
+    @Override
+    public NBTTagCompound writeToNBT(final NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        tank.writeToNBT(tagCompound);
+        return tagCompound;
+    }
 
-	// TileLegacyMachineBase
-	@Override
-	public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
-		if (slotIndex == 1) {
-			if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return super.isItemValidForSlot(slotIndex, itemStack);
-	}
+    // TileLegacyMachineBase
+    @Override
+    public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
+        if (slotIndex == 1) {
+            if (itemStack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return super.isItemValidForSlot(slotIndex, itemStack);
+    }
 
-	// IContainerProvider
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
-				.tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
-				.outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
-				.addInventory().create(this);
-	}
-	
-	// ITileRecipeHandler
-	@Override
-	public boolean canCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
-		if (!getMutliBlock()) {
-			return false;
-		}
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				return true;
-			}
-		}
-		return false;
-	}
+    // IContainerProvider
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("industrialsawmill").player(player.inventory).inventory().hotbar().addInventory()
+                .tile(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 25).outputSlot(3, 126, 43)
+                .outputSlot(4, 126, 61).outputSlot(5, 34, 55).energySlot(6, 8, 72)
+                .syncEnergyValue()
+                .syncCrafterValue()
+                .syncTank(this.tank::getFluid, this.tank::setFluid)
+                .addInventory()
+                .create(this);
+    }
 
-	@Override
-	public boolean onCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
-		final FluidStack recipeFluid = recipe.fluidStack;
-		final FluidStack tankFluid = tank.getFluid();
-		if (recipe.fluidStack == null) {
-			return true;
-		}
-		if (tankFluid == null) {
-			return false;
-		}
-		if (tankFluid.isFluidEqual(recipeFluid)) {
-			if (tankFluid.amount >= recipeFluid.amount) {
-				if (tankFluid.amount == recipeFluid.amount) {
-					tank.setFluid(null);
-				} else {
-					tankFluid.amount -= recipeFluid.amount;
-				}
-				syncWithAll();
-				return true;
-			}
-		}
-		return false;
-	}
+    // ITileRecipeHandler
+    @Override
+    public boolean canCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
+        if (!getMutliBlock()) {
+            return false;
+        }
+        final FluidStack recipeFluid = recipe.fluidStack;
+        final FluidStack tankFluid = tank.getFluid();
+        if (recipe.fluidStack == null) {
+            return true;
+        }
+        if (tankFluid == null) {
+            return false;
+        }
+        if (tankFluid.isFluidEqual(recipeFluid)) {
+            if (tankFluid.amount >= recipeFluid.amount) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Nullable
-	@Override
-	public Tank getTank() {
-		return tank;
-	}
+    @Override
+    public boolean onCraft(TileEntity tile, IndustrialSawmillRecipe recipe) {
+        final FluidStack recipeFluid = recipe.fluidStack;
+        final FluidStack tankFluid = tank.getFluid();
+        if (recipe.fluidStack == null) {
+            return true;
+        }
+        if (tankFluid == null) {
+            return false;
+        }
+        if (tankFluid.isFluidEqual(recipeFluid)) {
+            if (tankFluid.amount >= recipeFluid.amount) {
+                if (tankFluid.amount == recipeFluid.amount) {
+                    tank.setFluid(null);
+                } else {
+                    tankFluid.amount -= recipeFluid.amount;
+                }
+                syncWithAll();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public RebornFluidTank getTank() {
+        return tank;
+    }
 }

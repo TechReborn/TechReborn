@@ -26,9 +26,32 @@ package techreborn.api.recipe;
 
 import reborncore.api.praescriptum.fuels.FuelHandler;
 
+/**
+ * @author estebes
+ */
 public class Fuels {
     /**
      * Fuel handler for diesel generator fuels.
      */
     public static FuelHandler dieselGenerator;
+
+    /**
+     * Fuel handler for gas turbine fuels.
+     */
+    public static FuelHandler gasTurbine;
+
+    /**
+     * Fuel handler for plasma generator fuels.
+     */
+    public static FuelHandler plasmaGenerator;
+
+    /**
+     * Fuel handler for semi fluid generator fuels.
+     */
+    public static FuelHandler semiFluidGenerator;
+
+    /**
+     * Fuel handler for thermal generator fuels.
+     */
+    public static FuelHandler thermalGenerator;
 }

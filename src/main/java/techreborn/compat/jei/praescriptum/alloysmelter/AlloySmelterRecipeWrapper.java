@@ -38,6 +38,9 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 
+/**
+ * @author estebes
+ */
 public class AlloySmelterRecipeWrapper extends RecipeWrapper {
     public AlloySmelterRecipeWrapper(IJeiHelpers jeiHelpers, Recipe recipe) {
         super(recipe);
@@ -47,15 +50,15 @@ public class AlloySmelterRecipeWrapper extends RecipeWrapper {
         ProgressDirection right = ProgressDirection.RIGHT;
         ProgressDirection left = ProgressDirection.LEFT;
 
-        IDrawableStatic progressrightStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
+        IDrawableStatic progressLeftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, right.xActive,
                 right.yActive, right.width, right.height);
-        IDrawableStatic progressleftStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
+        IDrawableStatic progressRightStatic = guiHelper.createDrawable(GuiBuilder.defaultTextureSheet, left.xActive,
                 left.yActive, left.width, left.height);
 
         int ticksPerCycle = recipe.getOperationDuration(); // speed up the animation
-        this.progressright = guiHelper.createAnimatedDrawable(progressrightStatic, ticksPerCycle,
+        this.progressLeft = guiHelper.createAnimatedDrawable(progressLeftStatic, ticksPerCycle,
                 IDrawableAnimated.StartDirection.LEFT, false);
-        this.progressleft = guiHelper.createAnimatedDrawable(progressleftStatic, ticksPerCycle,
+        this.progressRight = guiHelper.createAnimatedDrawable(progressRightStatic, ticksPerCycle,
                 IDrawableAnimated.StartDirection.RIGHT, false);
     }
 
@@ -63,21 +66,23 @@ public class AlloySmelterRecipeWrapper extends RecipeWrapper {
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
 
-        progressright.draw(minecraft, 25, 12);
-        progressleft.draw(minecraft, 75, 12);
+        progressLeft.draw(minecraft, 25, 12);
+        progressRight.draw(minecraft, 75, 12);
 
         int y = 31;
         int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
 
-        minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
-                (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
-        minecraft.fontRenderer.drawString(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration()),
-                (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration())) / 2),
-                y + lineHeight + 1, 0x444444);
+        String duration = recipe.getOperationDuration() / 20 + " seconds";
+        minecraft.fontRenderer.drawString(duration,
+                (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(duration) / 2), y, 0x444444);
+
+        String energyCost = PowerSystem.getLocaliszedPowerFormatted(recipe.getEnergyCostPerTick() * recipe.getOperationDuration());
+        minecraft.fontRenderer.drawString(energyCost,
+                (recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(energyCost) / 2), y + lineHeight + 1, 0x444444);
     }
 
     // Fields >>
-    private final IDrawableAnimated progressright;
-    private final IDrawableAnimated progressleft;
+    private final IDrawableAnimated progressLeft;
+    private final IDrawableAnimated progressRight;
     //  << Fields
 }

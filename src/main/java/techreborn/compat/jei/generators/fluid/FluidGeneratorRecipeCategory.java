@@ -41,7 +41,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 
 public class FluidGeneratorRecipeCategory implements IRecipeCategory<FluidGeneratorRecipeWrapper> {
-	public static ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei_fluid_generator.png");
+	public static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/jei2.png");
 
 	private static final int[] INPUT_TANKS = { 0 };
 	private static final int[] INPUT_SLOTS = { 0 };
@@ -53,7 +53,7 @@ public class FluidGeneratorRecipeCategory implements IRecipeCategory<FluidGenera
 	private final EFluidGenerator generatorType;
 
 	public FluidGeneratorRecipeCategory(EFluidGenerator generatorType, IGuiHelper guiHelper) {
-		background = guiHelper.createDrawable(texture, 42, 16, 102, 60);
+		background = guiHelper.drawableBuilder(texture, 0, 224, 116, 84).setTextureSize(256, 512).build();
 		tankOverlay = guiHelper.createDrawable(texture, 176, 72, 12, 47);
 		title = StringUtils.t("techreborn.jei.category.generator." + generatorType.name().toLowerCase());
 		this.generatorType = generatorType;
@@ -84,11 +84,10 @@ public class FluidGeneratorRecipeCategory implements IRecipeCategory<FluidGenera
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, FluidGeneratorRecipeWrapper recipeWrapper,
-	                      IIngredients ingredients) {
+	public void setRecipe(IRecipeLayout recipeLayout, FluidGeneratorRecipeWrapper recipeWrapper, IIngredients ingredients) {
 
 		IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
-		guiFluidStacks.init(INPUT_TANKS[0], true, 4, 8, 12, 47, 10000, true, tankOverlay);
+		guiFluidStacks.init(INPUT_TANKS[0], true, 27, 7, 14, 48, 10000, true, tankOverlay);
 
 		RecipeUtil.setRecipeItems(recipeLayout, ingredients, INPUT_SLOTS, OUTPUT_SLOTS, INPUT_TANKS, null);
 	}

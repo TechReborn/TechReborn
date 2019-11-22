@@ -45,6 +45,7 @@ import techreborn.Core;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
 import techreborn.compat.CompatManager;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.fuels.*;
 import techreborn.init.recipes.*;
 import techreborn.items.ItemCells;
 import techreborn.items.ingredients.ItemIngots;
@@ -78,6 +79,7 @@ public class ModRecipes {
         BlastFurnaceRecipes.init();
 
         // Using Praescriptum >>
+        // Recipes
         AlloySmelterRecipes.init();
         AssemblingMachineRecipes.init();
         ChemicalReactorRecipes.init();
@@ -87,6 +89,13 @@ public class ModRecipes {
         PlateBendingMachineRecipes.init();
         SolidCanningMachineRecipes.init();
         WireMillRecipes.init();
+
+        // Fuels
+        DieselGeneratorFuels.init();
+        GasTurbineFuels.init();
+        PlasmaGeneratorFuels.init();
+        SemiFluidGeneratorFuels.init();
+        ThermalGeneratorFuels.init();
         // << Using Praescriptum
 
         addVacuumFreezerRecipes();
@@ -112,7 +121,11 @@ public class ModRecipes {
 
         IndustrialSawmillRecipes.init();
 
-        FluidGeneratorRecipes.postInit();
+        DieselGeneratorFuels.postInit();
+        GasTurbineFuels.postInit();
+        PlasmaGeneratorFuels.postInit();
+        SemiFluidGeneratorFuels.postInit();
+        ThermalGeneratorFuels.postInit();
     }
 
     static void addVacuumFreezerRecipes() {

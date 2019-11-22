@@ -30,16 +30,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
+import net.minecraftforge.fluids.Fluid;
+
 import reborncore.api.IToolDrop;
 import reborncore.api.praescriptum.fuels.Fuel;
 import reborncore.api.praescriptum.fuels.FuelHandler;
+import reborncore.api.praescriptum.ingredients.input.FluidStackInputIngredient;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.Tank;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author estebes
@@ -50,7 +56,14 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         this.name = "Tile" + name;
         this.maxOutput = maxOutput;
         this.maxEnergy = maxEnergy;
-        this.tank = new Tank(this.name, tankCapacity, this);
+        List<Fluid> fluids = fuelHandler.getFuels()
+                .stream()
+                .flatMap(fuel -> fuel.getInputIngredients()
+                        .stream()
+                        .filter(ingredient -> ingredient instanceof FluidStackInputIngredient)
+                        .map(ingredient -> ((FluidStackInputIngredient) ingredient).ingredient.getFluid()))
+                .collect(Collectors.toList());
+        this.tank = new RebornFluidTank(this.name, tankCapacity, this, fluids::contains);
         this.inventory = new Inventory(2, name, 64, this);
         this.inputSlots = new int[]{0};
         this.outputSlots = new int[]{1};
@@ -104,15 +117,15 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
                 boolean containerDrained = FluidUtils.drainContainers(tank, inventory, 0, 1);
                 if (containerDrained) {
                     needsInventoryUpdate = true;
-                    tank.compareAndUpdate();
                 }
             }
         }
 
         if (remainingEnergy > 0) {
-            if (canAddEnergy(energyPerTick)) {
-                addEnergy(energyPerTick); // use energy
-                remainingEnergy -= energyPerTick; // update remaining energy
+            int amount = Math.min(remainingEnergy, energyPerTick);
+            if (canAddEnergy(amount)) {
+                addEnergy(amount); // use energy
+                remainingEnergy -= amount; // update remaining energy
             }
         } else {
             if (work()) {
@@ -177,9 +190,6 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
             return false;
         }
 
-        // update tank
-        tank.compareAndUpdate();
-
         // set the fuel value
         remainingEnergy = (int) fuel.getEnergyOutput();
         totalEnergy = (int) fuel.getEnergyOutput();
@@ -218,7 +228,7 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
 
     // Getters & Setters >>
     @Override
-    public Tank getTank() {
+    public RebornFluidTank getTank() {
         return tank;
     }
 
@@ -247,7 +257,7 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
     public final String name;
     public final int maxOutput;
     public final int maxEnergy;
-    public final Tank tank;
+    public final RebornFluidTank tank;
     public final Inventory inventory;
     public final FuelHandler fuelHandler;
     public final Block drop;

@@ -47,6 +47,12 @@ public class RecipeCategoryUids {
 	public static final String SOLID_CANNING_MACHINE = "TechReborn.SolidCanningMachine";
 	public static final String WIRE_MILL = "TechReborn.WireMill";
 
+	public static final String DIESEL_GENERATOR = "TechReborn.DieselGenerator";
+	public static final String GAS_TURBINE = "TechReborn.GasTurbine";
+	public static final String PLASMA_GENERATOR = "TechReborn.PlasmaGenerator";
+	public static final String SEMIFLUID_GENERATOR = "TechReborn.SemifluidGenerator";
+	public static final String THERMAL_GENERATOR = "TechReborn.ThermalGenerator";
+
 	private RecipeCategoryUids() {
 		// NO-OP
 	}
