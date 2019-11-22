@@ -78,7 +78,7 @@ dependencies {
 	modCompile "net.fabricmc:fabric-loader:0.7.1+build.173"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.13+build.263-1.15"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.13+build.264-1.15"
 
 	modCompileOnly "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
 	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.2.7-unstable.201911150440")
