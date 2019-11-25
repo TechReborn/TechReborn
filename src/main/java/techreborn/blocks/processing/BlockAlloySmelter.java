@@ -28,11 +28,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TilePlateBendingMachine;
+import techreborn.tiles.processing.lv.TileAlloySmelter;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
@@ -41,8 +41,8 @@ import prospector.shootingstar.model.ModelCompound;
 /**
  * @author estebes
  */
-public class BlockPlateBendingMachine extends BlockMachineBase {
-    public BlockPlateBendingMachine() {
+public class BlockAlloySmelter extends RebornMachineBlock {
+    public BlockAlloySmelter() {
         super();
 
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -51,11 +51,11 @@ public class BlockPlateBendingMachine extends BlockMachineBase {
 
     @Override
     public TileEntity createNewTileEntity(final World world, final int meta) {
-        return new TilePlateBendingMachine();
+        return new TileAlloySmelter();
     }
 
     @Override
     public IMachineGuiHandler getGui() {
-        return EGui.PLATE_BENDING_MACHINE;
+        return EGui.ALLOY_SMELTER;
     }
 }

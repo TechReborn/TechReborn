@@ -46,7 +46,7 @@ import javax.annotation.Nonnull;
  */
 public class DieselGeneratorFuelCategory implements IRecipeCategory<DieselGeneratorFuelWrapper> {
     public DieselGeneratorFuelCategory(IGuiHelper guiHelper) {
-        background = guiHelper.drawableBuilder(texture, 0, 224, 116, 78)
+        background = guiHelper.drawableBuilder(texture, 0, 225, 116, 82)
                 .setTextureSize(256, 512)
                 .build();
         tankOverlay = guiHelper.createDrawable(texture, 176, 72, 12, 47);

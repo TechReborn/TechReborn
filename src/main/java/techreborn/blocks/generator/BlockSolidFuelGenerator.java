@@ -26,19 +26,25 @@ package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolidFuelGenerator;
+import techreborn.utils.TechRebornCreativeTab;
 
-public class BlockSolidFuelGenerator extends BlockMachineBase {
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
+/**
+ * @author estebes
+ */
+public class BlockSolidFuelGenerator extends RebornMachineBlock {
 	public BlockSolidFuelGenerator() {
 		super();
+
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
 	}

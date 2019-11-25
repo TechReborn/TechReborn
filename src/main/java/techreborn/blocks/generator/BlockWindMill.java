@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileWindMill;
@@ -37,7 +37,7 @@ import techreborn.tiles.generator.TileWindMill;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockWindMill extends BlockMachineBase {
+public class BlockWindMill extends RebornMachineBlock {
 
 	public BlockWindMill() {
 		super(false);

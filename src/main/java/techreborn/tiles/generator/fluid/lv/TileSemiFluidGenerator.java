@@ -53,7 +53,7 @@ public class TileSemiFluidGenerator extends TileFluidGenerator {
     // << Config
 
     public TileSemiFluidGenerator() {
-        super("SemiFluidGenerator", maxOutput, maxEnergy, tankCapacity, Fuels.thermalGenerator, ModBlocks.SEMI_FLUID_GENERATOR);
+        super("SemiFluidGenerator", maxOutput, maxEnergy, tankCapacity, Fuels.semiFluidGenerator, ModBlocks.SEMI_FLUID_GENERATOR);
     }
 
     // IContainerProvider >>

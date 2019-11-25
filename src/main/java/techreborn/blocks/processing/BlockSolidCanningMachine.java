@@ -28,11 +28,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TileWireMill;
+import techreborn.tiles.processing.lv.TileSolidCanningMachine;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
@@ -41,8 +41,8 @@ import prospector.shootingstar.model.ModelCompound;
 /**
  * @author estebes
  */
-public class BlockWireMill extends BlockMachineBase {
-    public BlockWireMill() {
+public class BlockSolidCanningMachine extends RebornMachineBlock {
+    public BlockSolidCanningMachine() {
         super();
 
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -51,11 +51,11 @@ public class BlockWireMill extends BlockMachineBase {
 
     @Override
     public TileEntity createNewTileEntity(final World world, final int meta) {
-        return new TileWireMill();
+        return new TileSolidCanningMachine();
     }
 
     @Override
     public IMachineGuiHandler getGui() {
-        return EGui.WIRE_MILL;
+        return EGui.SOLID_CANNING_MACHINE;
     }
 }

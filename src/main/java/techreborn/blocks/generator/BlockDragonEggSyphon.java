@@ -29,12 +29,12 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileDragonEggSyphon;
 
-public class BlockDragonEggSyphon extends BlockMachineBase {
+public class BlockDragonEggSyphon extends RebornMachineBlock {
 
 	public BlockDragonEggSyphon() {
 		super();

@@ -28,21 +28,21 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TileAssemblingMachine;
+import techreborn.tiles.processing.lv.TileWireMill;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 
 /**
- * @author estebes, modmuss50
+ * @author estebes
  */
-public class BlockAssemblingMachine extends BlockMachineBase {
-    public BlockAssemblingMachine() {
+public class BlockWireMill extends RebornMachineBlock {
+    public BlockWireMill() {
         super();
 
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -51,11 +51,11 @@ public class BlockAssemblingMachine extends BlockMachineBase {
 
     @Override
     public TileEntity createNewTileEntity(final World world, final int meta) {
-        return new TileAssemblingMachine();
+        return new TileWireMill();
     }
 
     @Override
     public IMachineGuiHandler getGui() {
-        return EGui.ASSEMBLING_MACHINE;
+        return EGui.WIRE_MILL;
     }
 }

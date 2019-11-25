@@ -28,31 +28,31 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TileExtractor;
+import techreborn.tiles.tier1.TileRecycler;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 
-public class BlockExtractor extends BlockMachineBase {
-    public BlockExtractor() {
-        super();
+public class BlockRecycler extends RebornMachineBlock {
 
-        setCreativeTab(TechRebornCreativeTab.instance);
-        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-    }
+	public BlockRecycler() {
+		super();
+		setCreativeTab(TechRebornCreativeTab.instance);
+		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+	}
 
-    @Override
-    public TileEntity createNewTileEntity(final World world, final int meta) {
-        return new TileExtractor();
-    }
+	@Override
+	public TileEntity createNewTileEntity(final World world, final int meta) {
+		return new TileRecycler();
+	}
 
-    @Override
-    public IMachineGuiHandler getGui() {
-        return EGui.EXTRACTOR;
-    }
+	@Override
+	public IMachineGuiHandler getGui() {
+		return EGui.RECYCLER;
+	}	
 }

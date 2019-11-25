@@ -28,18 +28,21 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TileGrinder;
+import techreborn.tiles.processing.lv.TileExtractor;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 
-public class BlockGrinder extends BlockMachineBase {
-    public BlockGrinder() {
+/**
+ * @author estebes
+ */
+public class BlockExtractor extends RebornMachineBlock {
+    public BlockExtractor() {
         super();
 
         setCreativeTab(TechRebornCreativeTab.instance);
@@ -48,11 +51,11 @@ public class BlockGrinder extends BlockMachineBase {
 
     @Override
     public TileEntity createNewTileEntity(final World world, final int meta) {
-        return new TileGrinder();
+        return new TileExtractor();
     }
 
     @Override
     public IMachineGuiHandler getGui() {
-        return EGui.GRINDER;
+        return EGui.EXTRACTOR;
     }
 }

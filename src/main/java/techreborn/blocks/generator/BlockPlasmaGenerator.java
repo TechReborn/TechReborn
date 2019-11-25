@@ -26,33 +26,36 @@ package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.fluid.TilePlasmaGenerator;
+import techreborn.utils.TechRebornCreativeTab;
+
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
 /**
- * Block for Plasma Generator
+ * @author estebes
  */
-public class BlockPlasmaGenerator extends BlockMachineBase {
+public class BlockPlasmaGenerator extends RebornMachineBlock {
+    public BlockPlasmaGenerator() {
+        super();
 
-	public BlockPlasmaGenerator() {
-		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
-	}
-	
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TilePlasmaGenerator();
-	}
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.PLASMA_GENERATOR;
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TilePlasmaGenerator();
+    }
+
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.PLASMA_GENERATOR;
+    }
 }

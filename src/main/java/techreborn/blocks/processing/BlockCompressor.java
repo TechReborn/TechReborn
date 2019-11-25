@@ -28,7 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
@@ -38,7 +38,10 @@ import techreborn.utils.TechRebornCreativeTab;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 
-public class BlockCompressor extends BlockMachineBase {
+/**
+ * @author estebes
+ */
+public class BlockCompressor extends RebornMachineBlock {
     public BlockCompressor() {
         super();
 

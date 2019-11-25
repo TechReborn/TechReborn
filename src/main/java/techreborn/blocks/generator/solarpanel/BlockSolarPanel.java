@@ -44,7 +44,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.TileSolarPanel;
@@ -52,7 +52,7 @@ import techreborn.tiles.generator.TileSolarPanel;
 /**
  * Created by modmuss50 on 25/02/2016.
  */
-public class BlockSolarPanel extends BlockMachineBase {
+public class BlockSolarPanel extends RebornMachineBlock {
 	public static final String[] panes = new String[] {
 		"basic", "hybrid", "advanced", "ultimate", "quantum"};
 	public static PropertyBool ACTIVE = PropertyBool.create("active");

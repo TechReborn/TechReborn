@@ -32,7 +32,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.IToolDrop;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -65,9 +65,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 			--onStatusHoldTicks;
 
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
-			if (world.getBlockState(pos).getBlock() instanceof BlockMachineBase) {
-				((BlockMachineBase) world.getBlockState(pos).getBlock()).setActive(false, world, pos);
-			}
+			setActive(false);
 			onStatusHoldTicks = -1;
 		}
 
@@ -88,7 +86,7 @@ public class TileLightningRod extends TilePowerAcceptor implements IToolDrop {
 				world.addWeatherEffect(lightningBolt);
 				world.spawnEntity(lightningBolt);
 				addEnergy(baseEnergyStrike * (0.3F + weatherStrength));
-				((BlockMachineBase) world.getBlockState(pos).getBlock()).setActive(true, world, pos);
+				setActive(true);
 				onStatusHoldTicks = 400;
 			}
 		}

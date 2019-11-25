@@ -26,30 +26,36 @@ package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.fluid.lv.TileGasTurbine;
+import techreborn.utils.TechRebornCreativeTab;
 
-public class BlockGasTurbine extends BlockMachineBase {
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
-	public BlockGasTurbine() {
-		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
-	}
+/**
+ * @author estebes
+ */
+public class BlockGasTurbine extends RebornMachineBlock {
+    public BlockGasTurbine() {
+        super();
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileGasTurbine();
-	}
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.GAS_TURBINE;
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TileGasTurbine();
+    }
+
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.GAS_TURBINE;
+    }
 }

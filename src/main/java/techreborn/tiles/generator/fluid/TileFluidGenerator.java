@@ -38,7 +38,6 @@ import reborncore.api.praescriptum.fuels.FuelHandler;
 import reborncore.api.praescriptum.ingredients.input.FluidStackInputIngredient;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
@@ -83,7 +82,6 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         remainingEnergy = data.hasKey("remainingEnergy") ? data.getInteger("remainingEnergy") : 0;
         totalEnergy = data.hasKey("totalEnergy") ? data.getInteger("totalEnergy") : 0;
         energyPerTick = data.hasKey("energyPerTick") ? data.getInteger("energyPerTick") : 0;
-        isActive = data.hasKey("isActive") && data.getBoolean("isActive");
 
         tank.readFromNBT(tag);
     }
@@ -96,7 +94,6 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         data.setInteger("remainingEnergy", this.remainingEnergy);
         data.setInteger("totalEnergy", this.totalEnergy);
         data.setInteger("energyPerTick", this.energyPerTick);
-        data.setBoolean("isActive", this.isActive);
         tag.setTag("TileFluidGenerator", data);
 
         tank.writeToNBT(tag);
@@ -131,15 +128,9 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
             if (work()) {
                 needsInventoryUpdate = true;
 
-                if (!isActive) {
-                    isActive = true;
-                    setActive(true);
-                }
+                if (!active) setActive(true);
             } else { // operation conditions not satisfied
-                if (isActive) {
-                    isActive = false;
-                    setActive(false);
-                }
+                if (active) setActive(false);
             }
         }
 
@@ -203,13 +194,6 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
         totalEnergy = 0;
         energyPerTick = 0;
     }
-
-    protected void setActive(boolean value) {
-        Block block = world.getBlockState(pos).getBlock();
-
-        if (block instanceof BlockMachineBase)
-            ((BlockMachineBase) block).setActive(value, world, pos);
-    }
     // << TileFluidGenerator
 
     // IInventoryProvider >>
@@ -269,6 +253,5 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
     protected int remainingEnergy = 0;
     protected int totalEnergy = 0;
     protected int energyPerTick = 0;
-    protected boolean isActive = false;
     // << Fields
 }

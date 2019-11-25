@@ -29,7 +29,7 @@ import net.minecraft.util.EnumFacing;
 
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.fluids.RebornFluidTank;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.util.FluidUtils;
@@ -108,9 +108,9 @@ public abstract class TileBaseFluidGenerator extends TilePowerAcceptor implement
 		}
 
 		if (world.getTotalWorldTime() - lastOutput < 30 && !isActive())
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, true));
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(RebornMachineBlock.activeProperty, true));
 		else if (world.getTotalWorldTime() - lastOutput > 30 && isActive())
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockMachineBase.ACTIVE, false));
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(RebornMachineBlock.activeProperty, false));
 	}
 	
 	public int getProgressScaled(int scale) {

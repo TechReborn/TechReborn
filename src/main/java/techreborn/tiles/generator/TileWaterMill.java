@@ -64,10 +64,10 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 		}
 		if (waterblocks > 0) {
 			addEnergy(waterblocks * energyMultiplier);
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.ACTIVE, true));
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.activeProperty, true));
 		}
 		else {
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.ACTIVE, false));
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.activeProperty, false));
 		}
 	}
 

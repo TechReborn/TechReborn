@@ -31,44 +31,64 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
 import reborncore.api.IToolDrop;
-import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
-import reborncore.api.praescriptum.recipes.Recipe;
-import reborncore.api.praescriptum.recipes.RecipeHandler;
+import reborncore.api.scriba.RegisterTile;
 import reborncore.api.tile.IInventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.TilePowerAcceptor;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
-import java.util.Arrays;
-import java.util.Optional;
+import techreborn.init.IC2Duplicates;
+import techreborn.init.ModBlocks;
+import techreborn.items.ingredients.ItemParts;
+import techreborn.lib.ModInfo;
 
-import com.google.common.collect.ImmutableList;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 /**
  * @author estebes
  */
-public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
+@RebornRegistry(modID = ModInfo.MOD_ID)
+@RegisterTile(name = "recycler")
+public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInventoryProvider, IContainerProvider {
+    // Config >>
+    @ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerInput", comment = "Recycler Max Input (Value in EU)")
+    public static int maxInput = 32;
+    @ConfigRegistry(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
+    public static int maxEnergy = 1000;
+    // << Config
+    @ConfigRegistry(config = "machines", category = "recycler", key = "produceIC2Scrap", comment = "When enabled and when ic2 is installed the recycler will make ic2 scrap")
+    public static boolean produceIC2Scrap = false;
+
+    private final int cost = 2;
+    private final int time = 15;
+    private final int chance = 6;
+
     // Constructors >>
-    public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, RecipeHandler recipeHandler, Block drop) {
-        this(name, maxInput, maxEnergy, energySlot, slots, 64, recipeHandler, drop);
-    }
-
-    public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, RecipeHandler recipeHandler, Block drop) {
-        this(name, maxInput, maxEnergy, energySlot, slots, slotSize, new int[]{0}, new int[]{1}, recipeHandler, drop);
-    }
-
-    public TileMachine(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, int[] inputSlots, int[] outputSlots, RecipeHandler recipeHandler, Block drop) {
-        this.name = "Tile" + name;
-        this.maxInput = maxInput;
-        this.maxEnergy = maxEnergy;
-        this.energySlot = energySlot;
-        this.inventory = new Inventory(slots, name, slotSize, this);
-        this.inputSlots = inputSlots;
-        this.outputSlots = outputSlots;
-        this.recipeHandler = recipeHandler;
-        this.drop = drop;
+//    public TileRecycler(String name, int maxInput, int maxEnergy, int energySlot, int slots, Block drop) {
+//        this(name, maxInput, maxEnergy, energySlot, slots, 64, drop);
+//    }
+//
+//    public TileRecycler(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, Block drop) {
+//        this(name, maxInput, maxEnergy, energySlot, slots, slotSize, new int[]{0}, new int[]{1}, drop);
+//    }
+//
+//    public TileRecycler(String name, int maxInput, int maxEnergy, int energySlot, int slots, int slotSize, int[] inputSlots, int[] outputSlots, Block drop) {
+    public TileRecycler() {
+        this.name = "TileRecycler";
+        this.inventory = new Inventory(3, name, 64, this);
+//        this.maxInput = maxInput;
+//        this.maxEnergy = maxEnergy;
+//        this.energySlot = energySlot;
+//        this.inventory = new Inventory(slots, name, slotSize, this);
+//        this.inputSlots = inputSlots;
+//        this.outputSlots = outputSlots;
+        this.drop = ModBlocks.RECYCLER;
 
         checkTeir();
     }
@@ -79,9 +99,8 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
 
-        NBTTagCompound data = tag.getCompoundTag("TileMachine");
+        NBTTagCompound data = tag.getCompoundTag("TileRecycler");
         progress = data.hasKey("progress") ? data.getInteger("progress") : 0;
-        isActive = data.hasKey("isActive") && data.getBoolean("isActive");
     }
 
     @Override
@@ -90,8 +109,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 
         NBTTagCompound data = new NBTTagCompound();
         data.setInteger("progress", this.progress);
-        data.setBoolean("isActive", this.isActive);
-        tag.setTag("TileMachine", data);
+        tag.setTag("TileRecycler", data);
 
         return tag;
     }
@@ -108,17 +126,14 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 
         // operation
         if (canWork()) { // operation conditions satisfied
-            if (!isActive) {
-                isActive = true;
-                setActive(true);
-            }
+            if (!active) setActive(true);
 
             // process start
             if (progress == 0) needsInventoryUpdate = true;
 
-            int progressNeeded = Math.max((int) ((double) recipe.getOperationDuration() * (1.0D - this.getSpeedMultiplier())), 1);
+            int progressNeeded = Math.max((int) ((double) operationLength * (1.0D - this.getSpeedMultiplier())), 1);
             if (progress < progressNeeded) {
-                useEnergy(getEuPerTick(recipe.getEnergyCostPerTick())); // use energy
+                useEnergy(getEuPerTick(1.0D)); // use energy
                 progress += 1; // update progress
             }
 
@@ -128,10 +143,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
                 needsInventoryUpdate = true;
             }
         } else { // operation conditions not satisfied
-            if (isActive) {
-                isActive = false;
-                setActive(false);
-            }
+            if (active) setActive(false);
         }
 
         if (needsInventoryUpdate) super.markDirty();
@@ -168,91 +180,67 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
     // TileMachine >>
     protected boolean canWork() {
         // if there are no inputs the machine cannot operate
-        ImmutableList<ItemStack> inputs = Arrays.stream(inputSlots)
-                .mapToObj(inventory::getStackInSlot)
-                .filter(contents -> !contents.isEmpty())
-                .collect(ImmutableList.toImmutableList());
-
-        if (inputs.isEmpty()) return false;
-
-        if (recipe != null) {
-            boolean canUse = recipeHandler.apply(recipe, inputs, true);
-            if (!canUse) reset(); // we cannot use the current recipe so reset
+        Queue<ItemStack> inputs = new ArrayDeque<>();
+        for (int index : inputSlots) {
+            ItemStack input = inventory.getStackInSlot(index);
+            if (!ItemUtils.isEmpty(input)) inputs.add(input);
         }
 
-        Optional<Recipe> maybeRecipe = Optional.ofNullable(recipe);
-
-        // current recipe is still usable
-        if (maybeRecipe.isPresent()) {
-            if (!canUseEnergy(getEuPerTick(recipe.getEnergyCostPerTick()))) return false;
-
-            return recipe.getOutputIngredients()
-                    .stream()
-                    .filter(output -> output instanceof ItemStackOutputIngredient)
-                    .map(output -> (ItemStack) output.ingredient)
-                    .allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
+        if (inputs.isEmpty()) {
+            reset();
+            return false;
         }
-
-        // The current recipe is not usable anymore so we need to find a new one
-        maybeRecipe = recipeHandler.findRecipe(inputs); // try to find a matching recipe
-
-        if (!maybeRecipe.isPresent()) return false; // could not find a recipe
-
-        // if a matching recipe exists update parameters
-        updateRecipe(maybeRecipe.get());
 
         // we need to have enough energy
-        if (!canUseEnergy(getEuPerTick(recipe.getEnergyCostPerTick()))) return false;
+        if (!canUseEnergy(getEuPerTick(1.0D))) return false;
 
         // we need space for the outputs
-        return recipe.getOutputIngredients()
-                .stream()
-                .filter(output -> output instanceof ItemStackOutputIngredient)
-                .map(output -> (ItemStack) output.ingredient)
-                .allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
+        ItemStack scrap = ItemParts.getPartByName("scrap");
+        if (produceIC2Scrap && IC2Duplicates.SCRAP.hasIC2Stack())
+            scrap = IC2Duplicates.SCRAP.getIc2Stack();
+
+        return addToOutputs(scrap, true) == scrap.getCount();
     }
 
     protected void finishWork() {
         // if the input is empty the operation cannot be completed
         // if there are no inputs the machine cannot operate
-        ImmutableList<ItemStack> inputs = Arrays.stream(inputSlots)
-                .mapToObj(inventory::getStackInSlot)
-                .filter(contents -> !contents.isEmpty())
-                .collect(ImmutableList.toImmutableList());
+        Queue<ItemStack> inputs = new ArrayDeque<>();
+        for (int index : inputSlots) {
+            ItemStack input = inventory.getStackInSlot(index);
+            if (!ItemUtils.isEmpty(input)) inputs.add(input);
+        }
 
         if (inputs.isEmpty()) return;
 
         // adjust input
-        recipeHandler.apply(recipe, inputs, false);
+        for (int index : inputSlots)
+            inventory.decrStackSize(index, 1);
 
         // adjust output
-        recipe.getOutputIngredients()
-                .stream()
-                .filter(entry -> entry instanceof ItemStackOutputIngredient)
-                .map(output -> (ItemStack) output.ingredient)
-                .forEach(output -> addToOutputs(output.copy(), false));
+        ItemStack scrap = ItemParts.getPartByName("scrap");
+        if (produceIC2Scrap && IC2Duplicates.SCRAP.hasIC2Stack())
+            scrap = IC2Duplicates.SCRAP.getIc2Stack();
+
+        final int randomchance = this.world.rand.nextInt(chance);
+        if (randomchance == 1)
+            addToOutputs(scrap, false);
 
         progress = 0;
-    }
-
-    protected void updateRecipe(Recipe recipe) {
-        operationLength = recipe.getOperationDuration(); // set operation length
-        this.recipe = recipe; // set recipe
     }
 
     protected void reset() {
         progress = 0; // reset progress
         operationLength = 0; // reset operation length
-        recipe = null; // set current recipe to null
-    }
-
-    protected void setActive(boolean value) {
-        Block block = world.getBlockState(pos).getBlock();
-
-        if (block instanceof BlockMachineBase)
-            ((BlockMachineBase) block).setActive(value, world, pos);
     }
     // << TileMachine
+
+    // IToolDrop >>
+    @Override
+    public ItemStack getToolDrop(EntityPlayer player) {
+        return new ItemStack(drop, 1);
+    }
+    // << IToolDrop
 
     // IInventoryProvider >>
     @Override
@@ -261,12 +249,25 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
     }
     // << IInventoryProvider
 
-    // IToolDrop >>
+    // IContainerProvider >>
     @Override
-    public ItemStack getToolDrop(EntityPlayer player) {
-        return new ItemStack(drop, 1);
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("recycler")
+                .player(player.inventory)
+                .inventory()
+                .hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 55, 45, stack -> true)
+                .outputSlot(1, 101, 45)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
     }
-    // << IToolDrop
+    // << IContainerProvider
 
     // Getters & Setters >>
     public int getProgress() {
@@ -324,20 +325,17 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
 
     // Fields >>
     public final String name;
-    public final int maxInput;
-    public final int maxEnergy;
+    //    public final int maxInput;
+//    public final int maxEnergy;
     public final Inventory inventory;
-    public final RecipeHandler recipeHandler;
     public final Block drop;
 
     // Slots
-    protected final int energySlot;
-    protected final int[] inputSlots;
-    protected final int[] outputSlots;
+    protected final int energySlot = 2;
+    protected final int[] inputSlots = new int[]{0};
+    protected final int[] outputSlots = new int[]{1};
 
     protected int progress = 0;
-    protected int operationLength = 0;
-    protected Recipe recipe = null;
-    protected boolean isActive = false;
+    protected int operationLength = 45;
     // << Fields
 }

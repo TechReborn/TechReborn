@@ -26,33 +26,36 @@ package techreborn.blocks.generator;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.generator.fluid.lv.TileDieselGenerator;
+import techreborn.utils.TechRebornCreativeTab;
+
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
 /**
- * Block for Diesel Generator
+ * @author estebes
  */
-public class BlockDieselGenerator extends BlockMachineBase {
+public class BlockDieselGenerator extends RebornMachineBlock {
+    public BlockDieselGenerator() {
+        super();
 
-	public BlockDieselGenerator() {
-		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
-	}
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/generators"));
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileDieselGenerator();
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TileDieselGenerator();
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.DIESEL_GENERATOR;
-	}
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.DIESEL_GENERATOR;
+    }
 }
