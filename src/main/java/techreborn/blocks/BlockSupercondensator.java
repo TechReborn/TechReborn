@@ -30,12 +30,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.utils.TechRebornCreativeTab;
 
 import java.util.List;
 
-public class BlockSupercondensator extends BlockMachineBase {
+public class BlockSupercondensator extends RebornMachineBlock {
 	public BlockSupercondensator(Material material) {
 		super();
 		setUnlocalizedName("techreborn.supercondensator");

@@ -29,13 +29,13 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileMatterFabricator;
 
-public class BlockMatterFabricator extends BlockMachineBase {
+public class BlockMatterFabricator extends RebornMachineBlock {
 
 	public BlockMatterFabricator() {
 		super();

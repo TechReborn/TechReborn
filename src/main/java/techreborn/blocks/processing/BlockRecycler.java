@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier1;
+package techreborn.blocks.processing;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -32,27 +32,30 @@ import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.tier1.TileRecycler;
+import techreborn.tiles.processing.TileRecycler;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 
+/**
+ * @author estebes
+ */
 public class BlockRecycler extends RebornMachineBlock {
+    public BlockRecycler() {
+        super();
 
-	public BlockRecycler() {
-		super();
-		setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
-	}
+        setCreativeTab(TechRebornCreativeTab.instance);
+        ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileRecycler();
-	}
+    @Override
+    public TileEntity createNewTileEntity(final World world, final int meta) {
+        return new TileRecycler();
+    }
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.RECYCLER;
-	}	
+    @Override
+    public IMachineGuiHandler getGui() {
+        return EGui.RECYCLER;
+    }
 }

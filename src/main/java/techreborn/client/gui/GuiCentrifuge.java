@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
-import techreborn.tiles.TileIndustrialCentrifuge;
+import techreborn.tiles.processing.TileIndustrialCentrifuge;
 
 public class GuiCentrifuge extends GuiBase {
 

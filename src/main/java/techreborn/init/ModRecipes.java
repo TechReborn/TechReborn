@@ -82,6 +82,7 @@ public class ModRecipes {
         // Recipes
         AlloySmelterRecipes.init();
         AssemblingMachineRecipes.init();
+        CentrifugeRecipes.init();
         ChemicalReactorRecipes.init();
         CompressorRecipes.init();
         ExtractorRecipes.init();

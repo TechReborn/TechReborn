@@ -29,7 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.tiles.processing.lv.TileAssemblingMachine;
+import techreborn.tiles.processing.TileAssemblingMachine;
 
 /**
  * @author estebes

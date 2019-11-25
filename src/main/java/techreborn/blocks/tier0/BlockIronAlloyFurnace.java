@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
@@ -42,7 +42,7 @@ import techreborn.tiles.tier0.TileIronAlloyFurnace;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockIronAlloyFurnace extends BlockMachineBase {
+public class BlockIronAlloyFurnace extends RebornMachineBlock {
 
 	public BlockIronAlloyFurnace() {
 		super();

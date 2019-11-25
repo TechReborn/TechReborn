@@ -29,7 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.tiles.processing.lv.TileExtractor;
+import techreborn.tiles.processing.TileExtractor;
 
 public class GuiExtractor extends GuiBase {
     public GuiExtractor(final EntityPlayer player, final TileExtractor tile) {

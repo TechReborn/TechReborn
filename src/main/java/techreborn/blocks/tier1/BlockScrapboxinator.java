@@ -26,16 +26,19 @@ package techreborn.blocks.tier1;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
+
 import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.tier1.TileScrapboxinator;
+import techreborn.utils.TechRebornCreativeTab;
 
-public class BlockScrapboxinator extends BlockMachineBase {
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
+
+public class BlockScrapboxinator extends RebornMachineBlock {
 
 	public BlockScrapboxinator() {
 		super();

@@ -22,39 +22,23 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier2;
+package techreborn.init.recipes;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
-import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.RebornMachineBlock;
-import techreborn.client.EGui;
-import techreborn.utils.TechRebornCreativeTab;
-import techreborn.lib.ModInfo;
-import techreborn.tiles.multiblock.TileVacuumFreezer;
+import reborncore.api.praescriptum.recipes.RecipeHandler;
 
-public class BlockVacuumFreezer extends RebornMachineBlock {
+import techreborn.api.recipe.Recipes;
 
-	public BlockVacuumFreezer() {
-		super();
-		this.setCreativeTab(TechRebornCreativeTab.instance);
-		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
-	}
+/**
+ * @author estebes
+ */
+public class RecyclerRecipes extends RecipeMethods {
+    public static void init() {
+        Recipes.recycler = new RecipeHandler("Recycler");
 
-	@Override
-	public TileEntity createNewTileEntity(final World world, final int meta) {
-		return new TileVacuumFreezer();
-	}
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.VACUUM_FREEZER;
-	}
-	
-	@Override
-	public boolean isAdvanced() {
-		return true;
-	}
+    }
+
+    // Fields >>
+
+    // << Fields
 }

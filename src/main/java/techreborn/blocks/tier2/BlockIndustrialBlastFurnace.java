@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.util.ItemUtils;
 import techreborn.client.EGui;
 import techreborn.items.IBlastFurnaceCoil;
@@ -48,7 +48,7 @@ import techreborn.utils.TechRebornCreativeTab;
 /**
  * @author modmuss50, estebes, drcrazy
  */
-public class BlockIndustrialBlastFurnace extends BlockMachineBase {
+public class BlockIndustrialBlastFurnace extends RebornMachineBlock {
 
 	public BlockIndustrialBlastFurnace() {
 		super();

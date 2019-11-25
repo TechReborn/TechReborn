@@ -125,7 +125,7 @@ public class TileTransformer extends TilePowerAcceptor
 		//Nope
 	}
 	
-	// TileLegacyMachineBase
+	// RebornMachineTile
 	@Override
 	public EnumFacing getFacingEnum() {
 		Block block = world.getBlockState(pos).getBlock();

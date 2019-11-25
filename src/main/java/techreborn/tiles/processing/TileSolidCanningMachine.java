@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.processing.lv;
+package techreborn.tiles.processing;
 
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -58,7 +58,7 @@ public class TileSolidCanningMachine extends TileMachine {
     // IContainerProvider >>
     @Override
     public BuiltContainer createContainer(final EntityPlayer player) {
-        return new ContainerBuilder("solidcanningmachine").player(player.inventory).inventory().hotbar()
+        return new ContainerBuilder("solid_canning_machine").player(player.inventory).inventory().hotbar()
                 .addInventory()
                 .tile(this)
                 .filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))

@@ -32,7 +32,7 @@ import net.minecraft.util.datafix.IFixableData;
 
 import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.RebornMachineTile;
 
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileAlarm;
@@ -41,7 +41,7 @@ import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileCreativeQuantumChest;
 import techreborn.tiles.TileCreativeQuantumTank;
 import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.TileIndustrialCentrifuge;
+import techreborn.tiles.processing.TileIndustrialCentrifuge;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TileQuantumChest;
@@ -52,7 +52,6 @@ import techreborn.tiles.fusionReactor.TileFusionControlComputer;
 import techreborn.tiles.generator.TileCreativeSolarPanel;
 import techreborn.tiles.generator.TileDragonEggSyphon;
 import techreborn.tiles.generator.TileLightningRod;
-import techreborn.tiles.generator.fluid.TilePlasmaGenerator;
 import techreborn.tiles.generator.TileSolarPanel;
 import techreborn.tiles.generator.TileSolidFuelGenerator;
 import techreborn.tiles.generator.TileWaterMill;
@@ -79,7 +78,6 @@ import techreborn.tiles.tier1.TileElectricFurnace;
 import techreborn.tiles.tier1.TileIndustrialElectrolyzer;
 import techreborn.tiles.tier1.TilePlayerDectector;
 import techreborn.tiles.tier1.TilePump;
-import techreborn.tiles.tier1.TileRecycler;
 import techreborn.tiles.tier1.TileRollingMachine;
 import techreborn.tiles.tier1.TileScrapboxinator;
 import techreborn.tiles.transformers.TileEVTransformer;
@@ -112,7 +110,6 @@ public enum ModTileEntities {
 	EV_TRANSFORMER(TileEVTransformer.class,  "ev_transformer", "TileEVTransformerTR"),
 	IMPLOSION_COMPRESSOR(TileImplosionCompressor.class,  "implosion_compressor", "TileImplosionCompressorTR"),
 	INDUSTRIAL_BLAST_FURNACE(TileIndustrialBlastFurnace.class,  "industrial_blast_furnace", "TileIndustrialBlastFurnaceTR"),
-	INDUSTRIAL_CENTRIFUGE(TileIndustrialCentrifuge.class,  "industrial_centrifuge", "TileIndustrialCentrifugeTR"),
 	INDUSTRIAL_ELECTROLYZER(TileIndustrialElectrolyzer.class,  "industrial_electrolyzer", "TileIndustrialElectrolyzerTR"),
 	INDUSTRIAL_GRINDER(TileIndustrialGrinder.class,  "industrial_grinder", "TileIndustrialGrinderTR"),
 	INDUSTRIAL_SAWMILL(TileIndustrialSawmill.class,  "industrial_sawmill", "TileIndustrialSawmillTR"),
@@ -125,7 +122,7 @@ public enum ModTileEntities {
 	LOW_VOLTAGE_SU(TileLowVoltageSU.class,  "low_voltage_su", "TileLowVoltageSUTR"),
 	LSU_STORAGE(TileLSUStorage.class,  "lsu_storage", "TileLSUStorageTR"),
 	LV_TRANSFORMER(TileLVTransformer.class,  "lv_transformer", "TileLVTransformerTR"),
-	MACHINE_BASE(TileLegacyMachineBase.class,  "machine_base", "TileMachineBaseTR"),
+	MACHINE_BASE(RebornMachineTile.class,  "machine_base", "TileMachineBaseTR"),
 	MACHINE_CASINGS(TileMachineCasing.class,  "machine_casing", "TileMachineCasingTR"),
 	MATTER_FABRICATOR(TileMatterFabricator.class,  "matter_fabricator", "TileMatterFabricatorTR"),
 	MEDIUM_VOLTAGE_SU(TileMediumVoltageSU.class,  "medium_voltage_su", "TileMediumVoltageSUTR"),
@@ -134,7 +131,6 @@ public enum ModTileEntities {
 	PUMP(TilePump.class,  "pump", "TilePumpTR"),
 	QUANTUM_CHEST(TileQuantumChest.class,  "quantum_chest", "TileQuantumChestTR"),
 	QUANTUM_TANK(TileQuantumTank.class,  "quantum_tank", "TileQuantumTankTR"),
-	RECYCLER(TileRecycler.class,  "recycler", "TileRecyclerTR"),
 	ROLLING_MACHINE(TileRollingMachine.class,  "rolling_machine", "TileRollingMachineTR"),
 	SCRAPBOXINATOR(TileScrapboxinator.class,  "scrapboxinator", "TileScrapboxinatorTR"),
 	SOLAR_PANEL(TileSolarPanel.class,  "solar_panel", "TileSolarPanelTR"),

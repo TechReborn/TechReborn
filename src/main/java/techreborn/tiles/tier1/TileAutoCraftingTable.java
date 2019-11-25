@@ -438,7 +438,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		super.readFromNBT(tag);
 	}
 
-	// TileLegacyMachineBase
+	// RebornMachineTile
 	@Override
 	public boolean canBeUpgraded() {
 		return true;

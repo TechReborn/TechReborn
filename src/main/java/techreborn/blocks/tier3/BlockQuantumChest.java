@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.util.WorldUtils;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
@@ -42,7 +42,7 @@ import techreborn.lib.ModInfo;
 import techreborn.tiles.TileQuantumChest;
 import techreborn.tiles.TileTechStorageBase;
 
-public class BlockQuantumChest extends BlockMachineBase {
+public class BlockQuantumChest extends RebornMachineBlock {
 
 	public BlockQuantumChest() {
 		super();

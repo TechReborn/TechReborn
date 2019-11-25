@@ -41,6 +41,7 @@ import techreborn.blocks.cable.BlockCable;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.generator.solarpanel.BlockSolarPanel;
 import techreborn.blocks.lighting.BlockLamp;
+import techreborn.blocks.processing.*;
 import techreborn.blocks.storage.*;
 import techreborn.blocks.tier0.BlockIronAlloyFurnace;
 import techreborn.blocks.tier0.BlockIronFurnace;

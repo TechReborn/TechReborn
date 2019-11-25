@@ -29,13 +29,13 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.TileCreativeQuantumTank;
 import techreborn.utils.TechRebornCreativeTab;
 
-public class BlockCreativeQuantumTank extends BlockMachineBase {
+public class BlockCreativeQuantumTank extends RebornMachineBlock {
 
 	public BlockCreativeQuantumTank() {
 		super();

@@ -24,7 +24,6 @@
 
 package techreborn.blocks.tier1;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -44,28 +43,34 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import prospector.shootingstar.ShootingStar;
-import prospector.shootingstar.model.ModelCompound;
+
 import reborncore.api.IToolDrop;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.blocks.PropertyString;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.util.ArrayUtils;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.utils.TechRebornCreativeTab;
+
 import techreborn.init.ModBlocks;
 import techreborn.lib.MessageIDs;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.tier1.TilePlayerDectector;
+import techreborn.utils.TechRebornCreativeTab;
+
+import prospector.shootingstar.ShootingStar;
+import prospector.shootingstar.model.ModelCompound;
 
 import java.util.List;
 import java.util.Random;
 
-public class BlockPlayerDetector extends BlockMachineBase {
+import com.google.common.collect.Lists;
+
+public class BlockPlayerDetector extends RebornMachineBlock {
 
 	public static final String[] types = new String[] { "all", "others", "you" };
 	static List<String> typeNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
@@ -80,7 +85,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		}
 	}
 
-	// BlockMachineBase
+	// RebornMachineBlock
 	@Override
 	public TileEntity createNewTileEntity(final World world, final int meta) {
 		return new TilePlayerDectector();

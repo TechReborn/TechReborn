@@ -41,6 +41,11 @@ public class Recipes {
 	public static RecipeHandler assemblingMachine;
 
 	/**
+	 * Recipe handler for centrifuge recipes.
+	 */
+	public static RecipeHandler centrifuge;
+
+	/**
 	 * Recipe handler for chemical reactor recipes.
 	 */
 	public static RecipeHandler chemicalReactor;
@@ -64,6 +69,11 @@ public class Recipes {
 	 * Recipe handler for plate bending machine recipes.
 	 */
 	public static RecipeHandler plateBendingMachine;
+
+	/**
+	 * Recipe handler for recycler recipes.
+	 */
+	public static RecipeHandler recycler;
 
 	/**
 	 * Recipe handler for solid canning machine recipes.

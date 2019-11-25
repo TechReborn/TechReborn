@@ -35,7 +35,7 @@ import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -187,9 +187,9 @@ public class TileRollingMachine extends TilePowerAcceptor
 			return;
 		}
 		isRunning = active;
-		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase)this.getWorld().getBlockState(this.getPos()).getBlock();
-			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
+		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof RebornMachineBlock) {
+			RebornMachineBlock blockMachineBase = (RebornMachineBlock)this.getWorld().getBlockState(this.getPos()).getBlock();
+			setActive(active);
 		}
 		this.getWorld().notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
 	}

@@ -28,7 +28,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import reborncore.RebornRegistry;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.util.BucketHandler;
 import techreborn.Core;
 import techreborn.api.Reference;
@@ -385,8 +385,8 @@ public class ModItems {
 
 		Core.logHelper.info("TechReborns Items Loaded");
 
-		BlockMachineBase.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
-		BlockMachineBase.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
+		RebornMachineBlock.advancedFrameStack = BlockMachineFrames.getFrameByName("advanced", 1);
+		RebornMachineBlock.basicFrameStack = BlockMachineFrames.getFrameByName("basic", 1);
 	}
 
 	public static void registerItem(Item item, String name) {

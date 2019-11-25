@@ -37,13 +37,13 @@ import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.ToolManager;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import techreborn.utils.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.init.ModSounds;
 import techreborn.lib.ModInfo;
 
-public class BlockComputerCube extends BlockMachineBase {
+public class BlockComputerCube extends RebornMachineBlock {
 
 	public BlockComputerCube() {
 		super();

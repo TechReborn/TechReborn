@@ -29,7 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -73,7 +73,7 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 					EntityPlayer player = (EntityPlayer) tIterator.next();
 					if (player.getDistanceSq((double) super.getPos().getX() + 0.5D,
 						(double) super.getPos().getY() + 0.5D, (double) super.getPos().getZ() + 0.5D) <= 256.0D) {
-						BlockMachineBase blockMachineBase = (BlockMachineBase) world.getBlockState(pos).getBlock();
+						RebornMachineBlock blockMachineBase = (RebornMachineBlock) world.getBlockState(pos).getBlock();
 						int meta = blockMachineBase.getMetaFromState(world.getBlockState(pos));
 						if (meta == 0) {// ALL
 							redstone = true;

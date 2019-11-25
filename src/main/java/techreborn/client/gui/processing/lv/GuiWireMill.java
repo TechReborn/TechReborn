@@ -29,7 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.tiles.processing.lv.TileWireMill;
+import techreborn.tiles.processing.TileWireMill;
 
 public class GuiWireMill extends GuiBase {
     public GuiWireMill(final EntityPlayer player, final TileWireMill tile) {

@@ -29,7 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.guibuilder.GuiBuilder;
 
-import techreborn.tiles.processing.lv.TileGrinder;
+import techreborn.tiles.processing.TileGrinder;
 
 public class GuiGrinder extends GuiBase {
     public GuiGrinder(final EntityPlayer player, final TileGrinder tile) {

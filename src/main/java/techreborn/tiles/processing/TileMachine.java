@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles.processing.lv;
+package techreborn.tiles.processing;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -118,7 +118,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
             }
 
             if (progress >= progressNeeded) { // process end
-                finishWork();
+                work();
 
                 needsInventoryUpdate = true;
             }
@@ -213,7 +213,7 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
         return addToOutputs(itemOutputs, true) == 0;
     }
 
-    protected void finishWork() {
+    protected void work() {
         // if the input is empty the operation cannot be completed
         // if there are no inputs the machine cannot operate
         Queue<ItemStack> inputs = new ArrayDeque<>();

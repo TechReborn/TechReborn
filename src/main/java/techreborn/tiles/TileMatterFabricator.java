@@ -191,7 +191,7 @@ public class TileMatterFabricator extends TilePowerAcceptor
 		return maxInput;
 	}
 
-	// TileLegacyMachineBase
+	// RebornMachineTile
 	@Override
 	public boolean canBeUpgraded() {
 		return false;

@@ -22,57 +22,70 @@
  * SOFTWARE.
  */
 
-package techreborn.tiles;
+package techreborn.tiles.processing;
 
 import net.minecraft.entity.player.EntityPlayer;
+
 import reborncore.api.IListInfoProvider;
-import reborncore.common.recipes.RecipeCrafter;
-import reborncore.common.registration.RebornRegistry;
-import reborncore.common.registration.impl.ConfigRegistry;
-import reborncore.common.util.Inventory;
-import reborncore.common.util.ItemUtils;
-import techreborn.api.Reference;
-import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.api.praescriptum.Utils.IngredientUtils;
+import reborncore.api.scriba.RegisterTile;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.registration.RebornRegistry;
+import reborncore.common.registration.impl.ConfigRegistry;
+import reborncore.common.util.ItemUtils;
+
+import techreborn.api.recipe.Recipes;
 import techreborn.init.ModBlocks;
 import techreborn.items.ItemDynamicCell;
 import techreborn.lib.ModInfo;
 
 import java.util.List;
 
+/**
+ * @author estebes
+ */
 @RebornRegistry(modID = ModInfo.MOD_ID)
-public class TileIndustrialCentrifuge extends TileGenericMachine implements IContainerProvider, IListInfoProvider {
+@RegisterTile(name = "industrial_centrifuge")
+public class TileIndustrialCentrifuge extends TileMachine implements IListInfoProvider {
+    // Configure >>
+    @ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")
+    public static int maxInput = 32;
+    @ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
+    public static int maxEnergy = 10_000;
+    // << Configure
 
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxInput", comment = "Centrifuge Max Input (Value in EU)")
-	public static int maxInput = 32;
-	@ConfigRegistry(config = "machines", category = "centrifuge", key = "CentrifugeMaxEnergy", comment = "Centrifuge Max Energy (Value in EU)")
-	public static int maxEnergy = 10_000;
+    public TileIndustrialCentrifuge() {
+        super("IndustrialCentrifuge", maxInput, maxEnergy, 6, 7, 64,
+                new int[]{0, 1}, new int[]{2, 3, 4, 5}, Recipes.centrifuge, ModBlocks.INDUSTRIAL_CENTRIFUGE);
+    }
 
-	public TileIndustrialCentrifuge() {
-		super("IndustrialCentrifuge", maxInput, maxEnergy, ModBlocks.INDUSTRIAL_CENTRIFUGE, 6);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2, 3, 4, 5 };
-		this.inventory = new Inventory(7, "TileIndustrialCentrifuge", 64, this);
-		this.crafter = new RecipeCrafter(Reference.CENTRIFUGE_RECIPE, this, 2, 4, this.inventory, inputs, outputs);
-	}
-	
-	// IContainerProvider
-	@Override
-	public BuiltContainer createContainer(final EntityPlayer player) {
-		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
-			.addInventory().tile(this)
-			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
-			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
-			.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
-			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
-			.syncCrafterValue().addInventory().create(this);
-	}
-	
-	// IListInfoProvider
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
-		info.add("Round and round it goes");
-	}
+    // IContainerProvider >>
+    @Override
+    public BuiltContainer createContainer(final EntityPlayer player) {
+        return new ContainerBuilder("industrial_centrifuge").player(player.inventory).inventory().hotbar()
+                .addInventory()
+                .tile(this)
+                .filterSlot(0, 34, 47, IngredientUtils.isPartOfRecipe(recipeHandler))
+                .filterSlot(1, 126, 47, stack -> ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
+                .outputSlot(2, 82, 44)
+                .outputSlot(3, 101, 25)
+                .outputSlot(4, 120, 44)
+                .outputSlot(5, 101, 63)
+                .energySlot(energySlot, 8, 72)
+                .syncEnergyValue()
+                .syncIntegerValue(this::getProgress, this::setProgress)
+                .syncIntegerValue(this::getOperationLength, this::setOperationLength)
+                .addInventory()
+                .create(this);
+    }
+    // << IContainerProvider
+
+    // IListInfoProvider >>
+    @Override
+    public void addInfo(final List<String> info, final boolean isRealTile) {
+        super.addInfo(info, isRealTile);
+        info.add("Round and round it goes");
+    }
+    // << IListInfoProvider
 }

@@ -37,7 +37,7 @@ import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.tile.RebornMachineTile;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 
@@ -46,7 +46,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class TileTechStorageBase extends TileLegacyMachineBase
+public class TileTechStorageBase extends RebornMachineTile
 		implements IInventoryProvider, IToolDrop, IListInfoProvider, IDeepStorageUnit {
 
 	public final int maxCapacity;
@@ -136,7 +136,7 @@ public class TileTechStorageBase extends TileLegacyMachineBase
 		return stacks;
 	}
 
-	// TileLegacyMachineBase
+	// RebornMachineTile
 	@Override
 	public void update() {
 		super.update();

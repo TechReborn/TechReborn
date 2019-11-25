@@ -31,7 +31,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -123,11 +123,7 @@ public class TileElectricFurnace extends TilePowerAcceptor
 				return;
 			}
 			final IBlockState BlockStateContainer = world.getBlockState(pos);
-			if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-				final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-				if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != progress > 0)
-					blockMachineBase.setActive(progress > 0, world, pos);
-			}
+			setActive(progress > 0);
 			wasBurning = (progress > 0);
 		}
 

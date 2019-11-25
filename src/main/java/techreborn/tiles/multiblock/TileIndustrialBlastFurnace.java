@@ -172,7 +172,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		if (getMutliBlock()) super.update();
 	}
 
-	// TileLegacyMachineBase
+	// RebornMachineTile
 	@Override
 	public void onDataPacket(final NetworkManager net, final SPacketUpdateTileEntity packet) {
 		world.markBlockRangeForRenderUpdate(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ());

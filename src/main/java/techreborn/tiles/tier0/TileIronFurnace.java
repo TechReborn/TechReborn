@@ -30,15 +30,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.tile.TileLegacyMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
+import reborncore.common.tile.RebornMachineTile;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 
-public class TileIronFurnace extends TileLegacyMachineBase
+public class TileIronFurnace extends RebornMachineTile
 		implements IInventoryProvider, IContainerProvider {
 
 	public int tickTime;
@@ -155,12 +155,7 @@ public class TileIronFurnace extends TileLegacyMachineBase
 	}
 
 	public void updateState() {
-		final IBlockState BlockStateContainer = this.world.getBlockState(this.pos);
-		if (BlockStateContainer.getBlock() instanceof BlockMachineBase) {
-			final BlockMachineBase blockMachineBase = (BlockMachineBase) BlockStateContainer.getBlock();
-			if (BlockStateContainer.getValue(BlockMachineBase.ACTIVE) != this.fuel > 0)
-				blockMachineBase.setActive(this.fuel > 0, this.world, this.pos);
-		}
+		setActive(this.fuel > 0);
 	}
 
 	@Override

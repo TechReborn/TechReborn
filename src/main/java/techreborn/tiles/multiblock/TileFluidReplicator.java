@@ -117,7 +117,7 @@ public class TileFluidReplicator extends TileGenericMachine implements IContaine
         return tagCompound;
     }
 
-    // TileLegacyMachineBase
+    // RebornMachineTile
     @Override
     public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
         return slotIndex == 0 ? itemStack.isItemEqual(new ItemStack(ModItems.UU_MATTER)) :

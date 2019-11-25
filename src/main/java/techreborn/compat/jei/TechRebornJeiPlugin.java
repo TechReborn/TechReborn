@@ -62,8 +62,6 @@ import techreborn.compat.CompatConfigs;
 import techreborn.compat.CompatManager;
 import techreborn.compat.jei.blastFurnace.BlastFurnaceRecipeCategory;
 import techreborn.compat.jei.blastFurnace.BlastFurnaceRecipeWrapper;
-import techreborn.compat.jei.centrifuge.CentrifugeRecipeCategory;
-import techreborn.compat.jei.centrifuge.CentrifugeRecipeWrapper;
 import techreborn.compat.jei.distillationTower.DistillationTowerRecipeCategory;
 import techreborn.compat.jei.distillationTower.DistillationTowerRecipeWrapper;
 import techreborn.compat.jei.fluidReplicator.FluidReplicatorRecipeCategory;
@@ -82,6 +80,8 @@ import techreborn.compat.jei.praescriptum.alloysmelter.AlloySmelterRecipeCategor
 import techreborn.compat.jei.praescriptum.alloysmelter.AlloySmelterRecipeWrapper;
 import techreborn.compat.jei.praescriptum.assemblingmachine.AssemblingMachineRecipeCategory;
 import techreborn.compat.jei.praescriptum.assemblingmachine.AssemblingMachineRecipeWrapper;
+import techreborn.compat.jei.praescriptum.centrifuge.CentrifugeRecipeCategory;
+import techreborn.compat.jei.praescriptum.centrifuge.CentrifugeRecipeWrapper;
 import techreborn.compat.jei.praescriptum.chemicalreactor.ChemicalReactorRecipeCategory;
 import techreborn.compat.jei.praescriptum.chemicalreactor.ChemicalReactorRecipeWrapper;
 import techreborn.compat.jei.praescriptum.compressor.CompressorRecipeCategory;
@@ -156,7 +156,6 @@ public class TechRebornJeiPlugin implements IModPlugin {
         final IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
         registry.addRecipeCategories(new BlastFurnaceRecipeCategory(guiHelper));
-        registry.addRecipeCategories(new CentrifugeRecipeCategory(guiHelper));
         registry.addRecipeCategories(new DistillationTowerRecipeCategory(guiHelper));
         registry.addRecipeCategories(new FusionReactorRecipeCategory(guiHelper));
         registry.addRecipeCategories(new ImplosionCompressorRecipeCategory(guiHelper));
@@ -172,6 +171,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         // Recipes
         registry.addRecipeCategories(new AlloySmelterRecipeCategory(guiHelper));
         registry.addRecipeCategories(new AssemblingMachineRecipeCategory(guiHelper));
+        registry.addRecipeCategories(new CentrifugeRecipeCategory(guiHelper));
         registry.addRecipeCategories(new ChemicalReactorRecipeCategory(guiHelper));
         registry.addRecipeCategories(new CompressorRecipeCategory(guiHelper));
         registry.addRecipeCategories(new ExtractorRecipeCategory(guiHelper));
@@ -266,7 +266,6 @@ public class TechRebornJeiPlugin implements IModPlugin {
         // Recipes
 
         registry.handleRecipes(BlastFurnaceRecipe.class, recipe -> new BlastFurnaceRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.BLAST_FURNACE);
-        registry.handleRecipes(CentrifugeRecipe.class, recipe -> new CentrifugeRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CENTRIFUGE);
         registry.handleRecipes(FusionReactorRecipe.class, FusionReactorRecipeWrapper::new, RecipeCategoryUids.FUSION_REACTOR);
         registry.handleRecipes(ImplosionCompressorRecipe.class, recipe -> new ImplosionCompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.IMPLOSION_COMPRESSOR);
         registry.handleRecipes(IndustrialElectrolyzerRecipe.class, recipe -> new IndustrialElectrolyzerRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER);
@@ -284,6 +283,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         // Recipes
         registry.handleRecipes(Recipe.class, recipe -> new AlloySmelterRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ALLOY_SMELTER);
         registry.handleRecipes(Recipe.class, recipe -> new AssemblingMachineRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.ASSEMBLING_MACHINE);
+        registry.handleRecipes(Recipe.class, recipe -> new CentrifugeRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CENTRIFUGE);
         registry.handleRecipes(Recipe.class, recipe -> new ChemicalReactorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.CHEMICAL_REACTOR);
         registry.handleRecipes(Recipe.class, recipe -> new CompressorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.COMPRESSOR);
         registry.handleRecipes(Recipe.class, recipe -> new ExtractorRecipeWrapper(jeiHelpers, recipe), RecipeCategoryUids.EXTRACTOR);
@@ -327,6 +327,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         // Recipes
         registry.addRecipes(Recipes.alloySmelter.getRecipes(), RecipeCategoryUids.ALLOY_SMELTER);
         registry.addRecipes(Recipes.assemblingMachine.getRecipes(), RecipeCategoryUids.ASSEMBLING_MACHINE);
+        registry.addRecipes(Recipes.centrifuge.getRecipes(), RecipeCategoryUids.CENTRIFUGE);
         registry.addRecipes(Recipes.chemicalReactor.getRecipes(), RecipeCategoryUids.CHEMICAL_REACTOR);
         registry.addRecipes(Recipes.compressor.getRecipes(), RecipeCategoryUids.COMPRESSOR);
         registry.addRecipes(Recipes.extractor.getRecipes(), RecipeCategoryUids.EXTRACTOR);

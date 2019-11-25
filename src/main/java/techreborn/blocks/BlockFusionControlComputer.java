@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.util.Torus;
 import techreborn.client.EGui;
 import techreborn.utils.TechRebornCreativeTab;
@@ -47,7 +47,7 @@ import techreborn.utils.damageSources.FusionDamageSource;
 
 import java.util.List;
 
-public class BlockFusionControlComputer extends BlockMachineBase {
+public class BlockFusionControlComputer extends RebornMachineBlock {
 
 	public BlockFusionControlComputer() {
 		super();

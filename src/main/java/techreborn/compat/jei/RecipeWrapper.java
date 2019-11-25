@@ -30,6 +30,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import reborncore.api.praescriptum.ingredients.input.FluidStackInputIngredient;
+import reborncore.api.praescriptum.ingredients.input.InputIngredient;
 import reborncore.api.praescriptum.ingredients.input.ItemStackInputIngredient;
 import reborncore.api.praescriptum.ingredients.input.OreDictionaryInputIngredient;
 import reborncore.api.praescriptum.ingredients.output.FluidStackOutputIngredient;
@@ -42,67 +43,63 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.google.common.collect.ImmutableList;
 
 /**
  * @author estebes
  */
 public abstract class RecipeWrapper implements IRecipeWrapper {
-	public RecipeWrapper(Recipe recipe) {
-		this.recipe = recipe;
+    public RecipeWrapper(Recipe recipe) {
+        this.recipe = recipe;
 
-		// inputs
-		recipe.getInputIngredients().stream()
-			.filter(entry -> entry instanceof ItemStackInputIngredient)
-			.map(entry -> ImmutableList.of((ItemStack) entry.ingredient))
-			.collect(Collectors.toCollection(() -> itemInputs)); // map ItemStacks
+        // inputs
+        for (InputIngredient<?> inputIngredient : recipe.getInputIngredients()) {
+            if (inputIngredient instanceof ItemStackInputIngredient) { // map ItemStacks
+                itemInputs.add(Collections.singletonList((ItemStack) inputIngredient.ingredient));
+            } else if (inputIngredient instanceof OreDictionaryInputIngredient) { // map OreDictionary entries
+                List<ItemStack> temp = new ArrayList<>();
+                for (ItemStack stack : OreDictionary.getOres((String) inputIngredient.ingredient))
+                    temp.add(copyWithSize(stack, inputIngredient.getCount()));
+                itemInputs.add(temp);
+            } else if (inputIngredient instanceof FluidStackInputIngredient) { // map FluidStacks
+                fluidInputs.add(Collections.singletonList((FluidStack) inputIngredient.ingredient));
+            }
+        }
 
-		recipe.getInputIngredients().stream()
-			.filter(entry -> entry instanceof OreDictionaryInputIngredient)
-			.map(entry -> OreDictionary.getOres((String) entry.ingredient).stream()
-				.map(stack -> copyWithSize(stack, entry.getCount())).collect(Collectors.toList()))
-			.collect(Collectors.toCollection(() -> itemInputs)); // map OreDictionary entries
+        // outputs
+        recipe.getOutputIngredients().stream()
+                .filter(entry -> entry instanceof ItemStackOutputIngredient)
+                .map(entry -> (ItemStack) entry.ingredient)
+                .collect(Collectors.toCollection(() -> itemOutputs)); // map ItemStacks
 
-		recipe.getInputIngredients().stream()
-			.filter(entry -> entry instanceof FluidStackInputIngredient)
-			.map(entry -> ImmutableList.of((FluidStack) entry.ingredient))
-			.collect(Collectors.toCollection(() -> fluidInputs)); // map FluidStacks
+        recipe.getOutputIngredients().stream()
+                .filter(entry -> entry instanceof FluidStackOutputIngredient)
+                .map(entry -> (FluidStack) entry.ingredient)
+                .collect(Collectors.toCollection(() -> fluidOutputs)); // map FluidStacks
+    }
 
-		// outputs
-		recipe.getOutputIngredients().stream()
-			.filter(entry -> entry instanceof ItemStackOutputIngredient)
-			.map(entry -> (ItemStack) entry.ingredient)
-			.collect(Collectors.toCollection(() -> itemOutputs)); // map ItemStacks
+    @Override
+    public void getIngredients(IIngredients ingredients) {
+        ingredients.setInputLists(VanillaTypes.ITEM, itemInputs);
+        ingredients.setInputLists(VanillaTypes.FLUID, fluidInputs);
+        ingredients.setOutputs(VanillaTypes.ITEM, itemOutputs);
+        ingredients.setOutputs(VanillaTypes.FLUID, fluidOutputs);
+    }
 
-		recipe.getOutputIngredients().stream()
-			.filter(entry -> entry instanceof FluidStackOutputIngredient)
-			.map(entry -> (FluidStack) entry.ingredient)
-			.collect(Collectors.toCollection(() -> fluidOutputs)); // map FluidStacks
-	}
+    public static ItemStack copyWithSize(ItemStack stack, int size) {
+        if (ItemUtils.isEmpty(stack)) return ItemStack.EMPTY;
 
-	@Override
-	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputLists(VanillaTypes.ITEM, itemInputs);
-		ingredients.setInputLists(VanillaTypes.FLUID, fluidInputs);
-		ingredients.setOutputs(VanillaTypes.ITEM, itemOutputs);
-		ingredients.setOutputs(VanillaTypes.FLUID, fluidOutputs);
-	}
+        return ItemUtils.setSize(stack.copy(), size);
+    }
 
-	public static ItemStack copyWithSize(ItemStack stack, int size) {
-		if (ItemUtils.isEmpty(stack)) return ItemStack.EMPTY;
+    // Fields >>
+    protected final Recipe recipe;
 
-		return ItemUtils.setSize(stack.copy(), size);
-	}
-
-	// Fields >>
-	protected final Recipe recipe;
-
-	protected final List<List<ItemStack>> itemInputs = new ArrayList<>();
-	protected final List<List<FluidStack>> fluidInputs = new ArrayList<>();
-	protected final List<ItemStack> itemOutputs = new ArrayList<>();
-	protected final List<FluidStack> fluidOutputs = new ArrayList<>();
-	// << Fields
+    protected final List<List<ItemStack>> itemInputs = new ArrayList<>();
+    protected final List<List<FluidStack>> fluidInputs = new ArrayList<>();
+    protected final List<ItemStack> itemOutputs = new ArrayList<>();
+    protected final List<FluidStack> fluidOutputs = new ArrayList<>();
+    // << Fields
 }

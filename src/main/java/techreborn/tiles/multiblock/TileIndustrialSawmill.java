@@ -125,7 +125,7 @@ public class TileIndustrialSawmill extends TileGenericMachine implements IContai
         return tagCompound;
     }
 
-    // TileLegacyMachineBase
+    // RebornMachineTile
     @Override
     public boolean isItemValidForSlot(int slotIndex, ItemStack itemStack) {
         if (slotIndex == 1) {

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier1;
+package techreborn.blocks.processing;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -32,7 +32,7 @@ import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TileAssemblingMachine;
+import techreborn.tiles.processing.TileAssemblingMachine;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;

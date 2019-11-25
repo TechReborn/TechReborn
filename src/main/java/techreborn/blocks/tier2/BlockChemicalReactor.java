@@ -28,19 +28,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import reborncore.api.tile.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.blocks.RebornMachineBlock;
 
 import techreborn.client.EGui;
 import techreborn.lib.ModInfo;
-import techreborn.tiles.processing.lv.TileChemicalReactor;
+import techreborn.tiles.processing.TileChemicalReactor;
 import techreborn.utils.TechRebornCreativeTab;
 
 import prospector.shootingstar.ShootingStar;
 import prospector.shootingstar.model.ModelCompound;
 
-public class BlockChemicalReactor extends BlockMachineBase {
+public class BlockChemicalReactor extends RebornMachineBlock {
     public BlockChemicalReactor() {
         super();
+
         setCreativeTab(TechRebornCreativeTab.instance);
         ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier2_machines"));
     }
