@@ -153,7 +153,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	 */
 	private void updateCurrentRecipe() {
 		for (RebornRecipe recipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
-			if (recipe.canCraft(this) && validateRecipe((FusionReactorRecipe) recipe)) {
+			if (validateRecipe((FusionReactorRecipe) recipe)) {
 				currentRecipe = (FusionReactorRecipe) recipe;
 				crafingTickTime = 0;
 				finalTickTime = currentRecipe.getTime();
