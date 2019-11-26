@@ -39,7 +39,7 @@ import techreborn.client.gui.processing.lv.GuiAlloySmelter;
 import techreborn.client.gui.processing.lv.GuiAssemblingMachine;
 import techreborn.client.gui.GuiAutoCrafting;
 import techreborn.client.gui.GuiBlastFurnace;
-import techreborn.client.gui.GuiCentrifuge;
+import techreborn.client.gui.processing.GuiCentrifuge;
 import techreborn.client.gui.GuiChargeBench;
 import techreborn.client.gui.processing.lv.GuiChemicalReactor;
 import techreborn.client.gui.GuiChunkLoader;
