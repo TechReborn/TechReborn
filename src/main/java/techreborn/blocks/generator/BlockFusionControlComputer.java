@@ -28,6 +28,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -57,7 +59,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 				if(playerIn.getStackInHand(hand).isEmpty()){
 					return ActionResult.SUCCESS;
 				}
-				if(worldIn.isAir(coil) && !blockEntityFusionControlComputer.isCoil(coil)){
+				if(worldIn.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(playerIn, hand, hitResult))) && !blockEntityFusionControlComputer.isCoil(coil)){
 					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
 					if(!playerIn.isCreative()){
 						playerIn.getStackInHand(hand).decrement(1);
