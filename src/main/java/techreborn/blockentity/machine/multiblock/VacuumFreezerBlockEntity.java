@@ -72,7 +72,7 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 	@Override
 	public void cancelRemoval() {
 		super.cancelRemoval();
-		multiblockChecker = new MultiblockChecker(world, pos.method_10079(Direction.DOWN, 1));
+		multiblockChecker = new MultiblockChecker(world, pos.offset(Direction.DOWN, 1));
 	}
 
 	// IContainerProvider

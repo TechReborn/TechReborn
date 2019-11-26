@@ -130,7 +130,7 @@ public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 					final MultiblockSet set = new MultiblockSet(multiblock);
 					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
 					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
-					MultiblockRenderEvent.anchor = blockEntity.getPos().method_10079(Direction.DOWN, 1);
+					MultiblockRenderEvent.anchor = blockEntity.getPos().offset(Direction.DOWN, 1);
 				}
 			} else {
 				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);

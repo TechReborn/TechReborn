@@ -115,7 +115,7 @@ public class CableBlock extends BlockWithEntity {
 	}
 
 	private BlockState makeConnections(World world, BlockPos pos) {
-		Boolean down = canConnectTo(world, pos.method_10079(Direction.DOWN, 1), Direction.UP);
+		Boolean down = canConnectTo(world, pos.offset(Direction.DOWN, 1), Direction.UP);
 		Boolean up = canConnectTo(world, pos.up(), Direction.DOWN);
 		Boolean north = canConnectTo(world, pos.north(), Direction.SOUTH);
 		Boolean east = canConnectTo(world, pos.east(), Direction.WEST);

@@ -50,8 +50,8 @@ public class RubberTreeFeature extends OakTreeFeature {
 	}
 
 	@Override
-	public boolean method_23402(ModifiableTestableWorld world, Random random, BlockPos blockPos, Set<BlockPos> set, Set<BlockPos> set2, BlockBox blockBox, BranchedTreeFeatureConfig branchedTreeFeatureConfig) {
-		if(super.method_23402(world, random, blockPos, set, set2, blockBox, branchedTreeFeatureConfig)) {
+	public boolean generate(ModifiableTestableWorld world, Random random, BlockPos blockPos, Set<BlockPos> set, Set<BlockPos> set2, BlockBox blockBox, BranchedTreeFeatureConfig branchedTreeFeatureConfig) {
+		if(super.generate(world, random, blockPos, set, set2, blockBox, branchedTreeFeatureConfig)) {
 			spawnSpike(world, blockPos);
 			return true;
 		}

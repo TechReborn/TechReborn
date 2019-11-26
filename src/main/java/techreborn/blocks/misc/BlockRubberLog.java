@@ -107,7 +107,7 @@ public class BlockRubberLog extends LogBlock {
 		}
 		if (random.nextInt(50) == 0) {
 			Direction facing = Direction.fromHorizontal(random.nextInt(4));
-			if (worldIn.getBlockState(pos.method_10079(Direction.DOWN, 1)).getBlock() == this
+			if (worldIn.getBlockState(pos.offset(Direction.DOWN, 1)).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, true).with(SAP_SIDE, facing));
 			}

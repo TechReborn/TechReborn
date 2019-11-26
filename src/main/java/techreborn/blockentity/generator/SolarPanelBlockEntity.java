@@ -61,7 +61,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	public boolean isSunOut() {
-		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaylight();
+		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDay();
 	}
 
 	private void updatePanel() {

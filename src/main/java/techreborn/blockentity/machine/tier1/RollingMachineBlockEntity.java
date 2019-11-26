@@ -214,7 +214,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
 			ItemStack stackInSlot = inventory.getInvStack(s);
 			Ingredient ingredient = (Ingredient) currentRecipe.getPreviewInputs().get(s);
-			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(sourceStack)) {
+			if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(s);
 				} else if (stackInSlot.getItem() == sourceStack.getItem()) {

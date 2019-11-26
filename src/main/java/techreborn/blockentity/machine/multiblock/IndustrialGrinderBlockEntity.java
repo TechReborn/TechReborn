@@ -81,7 +81,7 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 	@Override
 	public void tick() {
 		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.method_10079(getFacing().getOpposite(), 2).method_10079(Direction.DOWN, 1);
+			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).offset(Direction.DOWN, 1);
 			multiblockChecker = new MultiblockChecker(world, downCenter);
 		}
 

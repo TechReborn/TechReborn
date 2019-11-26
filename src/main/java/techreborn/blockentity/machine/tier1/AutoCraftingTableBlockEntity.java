@@ -129,7 +129,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 							requiredSize = 0;
 						}
 						if (stacksInSlots[i] > requiredSize) {
-							if (ingredient.method_8093(stack)) {
+							if (ingredient.test(stack)) {
 								if (stack.getItem().getRecipeRemainder() != null) {
 									if (!hasRoomForExtraItem(new ItemStack(stack.getItem().getRecipeRemainder()))) {
 										continue;
@@ -186,13 +186,13 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			Ingredient ingredient = ingredients.get(i);
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getInvStack(i);
-			if (ingredient.method_8093(bestSlot)) {
+			if (ingredient.test(bestSlot)) {
 				handleContainerItem(bestSlot);
 				bestSlot.decrement(1);
 			} else {
 				for (int j = 0; j < 9; j++) {
 					ItemStack stack = inventory.getInvStack(j);
-					if (ingredient.method_8093(stack)) {
+					if (ingredient.test(stack)) {
 						handleContainerItem(stack);
 						stack.decrement(1);
 						break;
@@ -228,7 +228,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	public boolean hasIngredient(Ingredient ingredient) {
 		for (int i = 0; i < 9; i++) {
 			ItemStack stack = inventory.getInvStack(i);
-			if (ingredient.method_8093(stack)) {
+			if (ingredient.test(stack)) {
 				return true;
 			}
 		}
@@ -255,7 +255,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
 			ItemStack stackInSlot = inventory.getInvStack(i);
 			Ingredient ingredient = ingredients.get(i);
-			if (ingredient != Ingredient.EMPTY && ingredient.method_8093(stack)) {
+			if (ingredient != Ingredient.EMPTY && ingredient.test(stack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(i);
 				} else if (stackInSlot.getItem() == stack.getItem()) {

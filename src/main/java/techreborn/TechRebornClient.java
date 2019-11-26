@@ -28,7 +28,6 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.minecraft.class_4730;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.model.BakedModel;
@@ -37,6 +36,7 @@ import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
@@ -86,13 +86,13 @@ public class TechRebornClient implements ClientModInitializer {
 						}
 
 						@Override
-						public Collection<class_4730> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
+						public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
 							return Collections.emptyList();
 						}
 
 						@Nullable
 						@Override
-						public BakedModel bake(ModelLoader loader, Function<class_4730, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+						public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 							return new DynamicCellBakedModel();
 						}
 
@@ -107,13 +107,13 @@ public class TechRebornClient implements ClientModInitializer {
 						}
 
 						@Override
-						public Collection<class_4730> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
+						public Collection<SpriteIdentifier> getTextureDependencies(Function<Identifier, UnbakedModel> unbakedModelGetter, Set<Pair<String, String>> unresolvedTextureReferences) {
 							return Collections.emptyList();
 						}
 
 						@Nullable
 						@Override
-						public BakedModel bake(ModelLoader loader, Function<class_4730, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+						public BakedModel bake(ModelLoader loader, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
 							return new DynamicBucketBakedModel();
 						}
 

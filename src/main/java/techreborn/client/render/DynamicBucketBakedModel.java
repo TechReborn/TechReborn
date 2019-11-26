@@ -24,7 +24,6 @@
 
 package techreborn.client.render;
 
-import net.minecraft.class_4730;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -40,7 +39,9 @@ public class DynamicBucketBakedModel extends BaseDynamicFluidBakedModel {
 
 	@Override
 	public Sprite getSprite() {
-		return new class_4730(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier("minecraft:item/bucket")).method_24148();
+		return MinecraftClient.getInstance()
+				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX)
+				.apply(new Identifier("minecraft:item/bucket"));
 	}
 
 	@Override

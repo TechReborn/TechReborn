@@ -56,7 +56,7 @@ public class TRRecipeHandler {
 		if (!recipe.getId().getNamespace().equals(TechReborn.MOD_ID)) {
 			return false;
 		}
-		return !recipe.getPreviewInputs().stream().anyMatch((Predicate<Ingredient>) ingredient -> ingredient.method_8093(TRContent.Parts.UU_MATTER.getStack()));
+		return !recipe.getPreviewInputs().stream().anyMatch((Predicate<Ingredient>) ingredient -> ingredient.test(TRContent.Parts.UU_MATTER.getStack()));
 	}
 
 }
