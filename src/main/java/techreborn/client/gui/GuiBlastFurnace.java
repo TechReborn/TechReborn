@@ -29,14 +29,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.RebornCoreClient;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import reborncore.client.multiblock.MultiblockRenderEvent;
-import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
 
@@ -54,7 +51,6 @@ public class GuiBlastFurnace extends GuiBase<BuiltContainer> {
 	public void init() {
 		super.init();
 		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
-		RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
@@ -98,7 +94,7 @@ public class GuiBlastFurnace extends GuiBase<BuiltContainer> {
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
+			if (blockEntity.renderMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
@@ -141,23 +137,18 @@ public class GuiBlastFurnace extends GuiBase<BuiltContainer> {
 					this.addComponent(-1, 3, 1, standardCasing, multiblock);
 					this.addComponent(1, 3, -1, standardCasing, multiblock);
 					this.addComponent(1, 3, 1, standardCasing, multiblock);
-
-					final MultiblockSet set = new MultiblockSet(multiblock);
-					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
-					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
-					MultiblockRenderEvent.anchor = new BlockPos(
-							blockEntity.getPos().getX() - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2,
-							blockEntity.getPos().getY() - 1,
-							blockEntity.getPos().getZ() - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2);
+					blockEntity.renderMultiblock = multiblock;
 				}
 			} else {
-				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
+				blockEntity.renderMultiblock = null;
 			}
 		}
 	}
 
 	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x, y, z), blockState);
+		multiblock.addComponent(new BlockPos(x - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2,
+				y,
+				z - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2), blockState);
 	}
 
 }

@@ -37,8 +37,6 @@ import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import reborncore.client.multiblock.MultiblockRenderEvent;
-import reborncore.client.multiblock.MultiblockSet;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
@@ -119,10 +117,10 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
+			if (blockEntity.renderMultiblock == null) {
 				updateMultiBlockRender();
 			} else {
-				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
+				blockEntity.renderMultiblock = null;
 			}
 		}
 	}
@@ -130,7 +128,7 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	private void sendSizeChange(int sizeDelta){
 		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
 		//Reset the multiblock as it will be wrong now.
-		if(RebornCoreClient.multiblockRenderEvent.currentMultiblock != null){
+		if(blockEntity.renderMultiblock != null){
 			updateMultiBlockRender();
 		}
 	}
@@ -142,11 +140,7 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), blockEntity.size);
 		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
 
-		final MultiblockSet set = new MultiblockSet(multiblock);
-		RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
-		RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
-		MultiblockRenderEvent.anchor = new BlockPos(blockEntity.getPos().getX(), blockEntity.getPos().getY() - 1,
-				blockEntity.getPos().getZ());
+		blockEntity.renderMultiblock = multiblock;
 	}
 	
 	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {

@@ -34,8 +34,6 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import reborncore.client.multiblock.MultiblockRenderEvent;
-import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
 
@@ -46,12 +44,6 @@ public class GuiImplosionCompressor extends GuiBase<BuiltContainer> {
 	public GuiImplosionCompressor(int syncID, final PlayerEntity player, final ImplosionCompressorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createContainer(syncID, player));
 		this.blockEntity = blockEntity;
-	}
-
-	@Override
-	public void init() {
-		super.init();
-		RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 	}
 
 	@Override
@@ -94,7 +86,7 @@ public class GuiImplosionCompressor extends GuiBase<BuiltContainer> {
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
+			if (blockEntity.renderMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
@@ -102,19 +94,16 @@ public class GuiImplosionCompressor extends GuiBase<BuiltContainer> {
 						for (int y = -4; y <= -2; y++) {
 							for (int z = -1; z <= 1; z++) {
 								if (!((x == 0) && (y == -3) && (z == 0))) {
-									this.addComponent(x, y, z, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState(), multiblock);
+									this.addComponent(x, y + 1, z, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState(), multiblock);
 								}
 							}
 						}
 					}
 
-					final MultiblockSet set = new MultiblockSet(multiblock);
-					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
-					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
-					MultiblockRenderEvent.anchor = new BlockPos(blockEntity.getPos().getX(), blockEntity.getPos().getY(), blockEntity.getPos().getZ());
+					blockEntity.renderMultiblock = multiblock;
 				}
 			} else {
-				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
+				blockEntity.renderMultiblock = null;
 			}
 		}
 	}

@@ -28,14 +28,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.RebornCoreClient;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import reborncore.client.multiblock.MultiblockRenderEvent;
-import reborncore.client.multiblock.MultiblockSet;
 import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
 
@@ -46,12 +43,6 @@ public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 	public GuiVacuumFreezer(int syncID, final PlayerEntity player, final VacuumFreezerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createContainer(syncID, player));
 		this.blockEntity = blockEntity;
-	}
-
-	@Override
-	public void init() {
-		super.init();
-		RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
 	}
 	
 	@Override
@@ -91,7 +82,7 @@ public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
 		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (RebornCoreClient.multiblockRenderEvent.currentMultiblock == null) {
+			if (blockEntity.renderMultiblock == null) {
 				{
 					// This code here makes a basic multiblock and then sets to the selected one.
 					final Multiblock multiblock = new Multiblock();
@@ -126,14 +117,11 @@ public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 					addComponent(-1, -3, 1, advancedCasing, multiblock);
 					addComponent(1, -3, -1, advancedCasing, multiblock);
 					addComponent(1, -3, 1, advancedCasing, multiblock);
-					
-					final MultiblockSet set = new MultiblockSet(multiblock);
-					RebornCoreClient.multiblockRenderEvent.setMultiblock(set);
-					RebornCoreClient.multiblockRenderEvent.parent = blockEntity.getPos();
-					MultiblockRenderEvent.anchor = blockEntity.getPos().offset(Direction.DOWN, 1);
+
+					blockEntity.renderMultiblock = multiblock;
 				}
 			} else {
-				RebornCoreClient.multiblockRenderEvent.setMultiblock(null);
+				blockEntity.renderMultiblock = null;
 			}
 		}
 	}

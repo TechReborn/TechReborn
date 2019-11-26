@@ -87,9 +87,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 			ticksSinceLastChange = 0;
 		}
 
-		if (getMultiBlock()) {
-			super.tick();
-		}
+		super.tick();
 
 	}
 	

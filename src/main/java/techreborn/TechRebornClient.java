@@ -28,8 +28,8 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
@@ -44,10 +44,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.hud.StackInfoHUD;
+import reborncore.client.multiblock.MultiblockRenderer;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.events.StackToolTipHandler;
 import techreborn.init.ModFluids;
+import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
@@ -58,7 +60,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class TechRebornClient implements ClientModInitializer {
@@ -145,6 +146,15 @@ public class TechRebornClient implements ClientModInitializer {
 			BlockRenderLayerMap.INSTANCE.putFluid(fluid.getFluid(), RenderLayer.getTranslucent());
 			BlockRenderLayerMap.INSTANCE.putFluid(fluid.getFlowingFluid(), RenderLayer.getTranslucent());
 		}
+
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.INDUSTRIAL_GRINDER, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.FUSION_CONTROL_COMPUTER, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.INDUSTRIAL_BLAST_FURNACE, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.VACUUM_FREEZER, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.FLUID_REPLICATOR, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.INDUSTRIAL_SAWMILL, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
 	}
 
 
