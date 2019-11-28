@@ -273,16 +273,17 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 				}
 			}
 			if (hasStartedCrafting && crafingTickTime < currentRecipe.getTime()) {
-				crafingTickTime++;
 				// Power gen
 				if (currentRecipe.getPower() < 0) {
 					// Waste power if it has no where to go
 					double power = Math.abs(currentRecipe.getPower()) * getPowerMultiplier();
 					addEnergy(power);
 					powerChange = (power);
+					crafingTickTime++;
 				} else { // Power user
-					if (canUseEnergy(currentRecipe.getPower() * -1)) {
-						setEnergy(getEnergy() - currentRecipe.getPower() * -1);
+					if (canUseEnergy(currentRecipe.getPower())) {
+						setEnergy(getEnergy() - currentRecipe.getPower());
+						crafingTickTime++;
 					}
 				}
 			} else if (crafingTickTime >= currentRecipe.getTime()) {
