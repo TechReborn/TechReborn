@@ -27,6 +27,7 @@ package techreborn.blockentity.fusionReactor;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
@@ -63,7 +64,9 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	int bottomStackSlot = 1;
 	int outputStackSlot = 2;
 	FusionReactorRecipe currentRecipe = null;
+	Identifier currentRecipeID = null;
 	boolean hasStartedCrafting = false;
+	boolean checkNBTRecipe = false;
 	long lastTick = -1;
 
 	public FusionControlComputerBlockEntity() {
@@ -224,6 +227,16 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 
+		//Move this to here from the nbt read method, as it now requires the world as of 1.14
+		if(checkNBTRecipe) {
+			checkNBTRecipe = false;
+			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
+				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
+					this.currentRecipe = (FusionReactorRecipe) reactorRecipe;
+				}
+			}
+		}
+
 		if(lastTick == world.getTime()){
 			//Prevent tick accerators, blame obstinate for this.
 			return;
@@ -246,7 +259,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (currentRecipe != null) {
-			if (!hasStartedCrafting && inventory.hasChanged() && !validateRecipe(currentRecipe)) {
+			if (!validateRecipe(currentRecipe)) {
 				resetCrafter();
 				return;
 			}
@@ -341,11 +354,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
 		if(tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
-			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
-				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
-					this.currentRecipe = (FusionReactorRecipe) reactorRecipe;
-				}
-			}
+			checkNBTRecipe = true;
 		}
 		if(tagCompound.contains("size")){
 			this.size = tagCompound.getInt("size");
@@ -394,12 +403,15 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
-				.syncIntegerValue(this::getCoilStatus, this::setCoilStatus)
-				.syncIntegerValue(this::getCrafingTickTime, this::setCrafingTickTime)
-				.syncIntegerValue(this::getFinalTickTime, this::setFinalTickTime)
-				.syncIntegerValue(this::getSize, this::setSize)
-				.syncIntegerValue(this::getState, this::setState)
-				.syncIntegerValue(this::getNeededPower, this::setNeededPower).addInventory().create(this, syncID);
+				.sync(this::getCoilStatus, this::setCoilStatus)
+				.sync(this::getCrafingTickTime, this::setCrafingTickTime)
+				.sync(this::getFinalTickTime, this::setFinalTickTime)
+				.sync(this::getSize, this::setSize)
+				.sync(this::getState, this::setState)
+				.sync(this::getNeededPower, this::setNeededPower)
+				.sync(this::getCurrentRecipeID, this::setCurrentRecipeID)
+				.addInventory()
+				.create(this, syncID);
 	}
 
 	public int getCoilStatus() {
@@ -464,16 +476,50 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.state = state;
 	}
 
+	public Identifier getCurrentRecipeID() {
+		if(currentRecipe == null) {
+			return new Identifier("null", "null");
+		}
+		return currentRecipe.getId();
+	}
+
+	public void setCurrentRecipeID(Identifier currentRecipeID) {
+		if(currentRecipeID.getPath().equals("null")) {
+			currentRecipeID = null;
+		}
+		this.currentRecipeID = currentRecipeID;
+	}
+
+	public FusionReactorRecipe getCurrentRecipeFromID() {
+		if(currentRecipeID == null) return null;
+		return ModRecipes.FUSION_REACTOR.getRecipes(world).stream()
+				.filter(recipe -> recipe.getId().equals(currentRecipeID))
+				.findFirst()
+				.orElse(null);
+	}
+
 	public String getStateString(){
 		if(state == -1){
 			return "";
 		} else if (state == 0){
 			return "No recipe";
 		} else if (state == 1){
-			return "Charging";
+			FusionReactorRecipe r = getCurrentRecipeFromID();
+			if(r == null) {
+				return "Charging";
+			}
+			int percentage = percentage(r.getStartEnergy(), getEnergy());
+			return "Charging (" + percentage + "%)";
 		} else if (state == 2){
 			return "Crafting";
 		}
 		return "";
+	}
+
+	private int percentage(double MaxValue, double CurrentValue) {
+		if (CurrentValue == 0) {
+			return 0;
+		}
+		return (int) ((CurrentValue * 100.0f) / MaxValue);
 	}
 }

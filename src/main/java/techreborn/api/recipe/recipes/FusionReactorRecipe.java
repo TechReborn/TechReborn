@@ -25,7 +25,6 @@
 package techreborn.api.recipe.recipes;
 
 import com.google.gson.JsonObject;
-
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
@@ -77,7 +76,7 @@ public class FusionReactorRecipe extends RebornRecipe {
 	public boolean canCraft(final BlockEntity blockEntity) {
 		if (blockEntity instanceof FusionControlComputerBlockEntity) {
 			final FusionControlComputerBlockEntity reactor = (FusionControlComputerBlockEntity) blockEntity;
-			return reactor.getSize() >= minSize && reactor.getEnergy() >= startE;
+			return reactor.getSize() >= minSize;
 		}
 		return false;
 	}

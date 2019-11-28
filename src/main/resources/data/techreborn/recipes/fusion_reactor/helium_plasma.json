@@ -2,7 +2,7 @@
 	"type": "techreborn:fusion_reactor",
 	"power": 16384,
 	"time": 2048,
-	"start-power": 1,
+	"start-power": 40000000,
 	"min-size": 1,
 	"ingredients": [
 		{
