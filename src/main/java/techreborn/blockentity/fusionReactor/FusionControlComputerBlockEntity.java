@@ -56,7 +56,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	public int coilCount = 0;
 	public int crafingTickTime = 0;
-	public int finalTickTime = 0;
 	public int neededPower = 0;
 	public int size = 6;
 	public int state = -1;
@@ -108,7 +107,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	private void resetCrafter() {
 		currentRecipe = null;
 		crafingTickTime = 0;
-		finalTickTime = 0;
 		neededPower = 0;
 		hasStartedCrafting = false;
 	}
@@ -145,8 +143,9 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	 * @return int Scale of progress
 	 */
 	public int getProgressScaled(int scale) {
-		if (crafingTickTime != 0 && finalTickTime != 0) {
-			return crafingTickTime * scale / finalTickTime;
+		FusionReactorRecipe reactorRecipe = getCurrentRecipeFromID();
+		if (crafingTickTime != 0 && reactorRecipe != null && reactorRecipe.getTime() != 0) {
+			return crafingTickTime * scale / reactorRecipe.getTime();
 		}
 		return 0;
 	}
@@ -159,7 +158,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			if (validateRecipe((FusionReactorRecipe) recipe)) {
 				currentRecipe = (FusionReactorRecipe) recipe;
 				crafingTickTime = 0;
-				finalTickTime = currentRecipe.getTime();
 				neededPower = currentRecipe.getStartEnergy();
 				hasStartedCrafting = false;
 				break;
@@ -259,8 +257,9 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		if (currentRecipe != null) {
-			if (!validateRecipe(currentRecipe)) {
+			if (!hasStartedCrafting && !validateRecipe(currentRecipe)) {
 				resetCrafter();
+				inventory.resetChanged();
 				return;
 			}
 
@@ -273,19 +272,20 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 					useInput(bottomStackSlot);
 				}
 			}
-			if (hasStartedCrafting && crafingTickTime < finalTickTime) {
+			if (hasStartedCrafting && crafingTickTime < currentRecipe.getTime()) {
 				crafingTickTime++;
 				// Power gen
-				if (currentRecipe.getPower() > 0) {
+				if (currentRecipe.getPower() < 0) {
 					// Waste power if it has no where to go
-					addEnergy(currentRecipe.getPower() * getPowerMultiplier());
-					powerChange = currentRecipe.getPower() * getPowerMultiplier();
+					double power = Math.abs(currentRecipe.getPower()) * getPowerMultiplier();
+					addEnergy(power);
+					powerChange = (power);
 				} else { // Power user
 					if (canUseEnergy(currentRecipe.getPower() * -1)) {
 						setEnergy(getEnergy() - currentRecipe.getPower() * -1);
 					}
 				}
-			} else if (crafingTickTime >= finalTickTime) {
+			} else if (crafingTickTime >= currentRecipe.getTime()) {
 				ItemStack result = currentRecipe.getOutputs().get(0);
 				if (canFitStack(result, outputStackSlot, true)) {
 					if (inventory.getInvStack(outputStackSlot).isEmpty()) {
@@ -350,7 +350,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	public void fromTag(final CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
 		this.crafingTickTime = tagCompound.getInt("crafingTickTime");
-		this.finalTickTime = tagCompound.getInt("finalTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
 		if(tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
@@ -366,7 +365,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	public CompoundTag toTag(final CompoundTag tagCompound) {
 		super.toTag(tagCompound);
 		tagCompound.putInt("crafingTickTime", this.crafingTickTime);
-		tagCompound.putInt("finalTickTime", this.finalTickTime);
 		tagCompound.putInt("neededPower", this.neededPower);
 		tagCompound.putBoolean("hasStartedCrafting", this.hasStartedCrafting);
 		tagCompound.putBoolean("hasActiveRecipe", this.currentRecipe != null);
@@ -405,7 +403,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.sync(this::getCoilStatus, this::setCoilStatus)
 				.sync(this::getCrafingTickTime, this::setCrafingTickTime)
-				.sync(this::getFinalTickTime, this::setFinalTickTime)
 				.sync(this::getSize, this::setSize)
 				.sync(this::getState, this::setState)
 				.sync(this::getNeededPower, this::setNeededPower)
@@ -428,14 +425,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	public void setCrafingTickTime(int crafingTickTime) {
 		this.crafingTickTime = crafingTickTime;
-	}
-
-	public int getFinalTickTime() {
-		return finalTickTime;
-	}
-
-	public void setFinalTickTime(int finalTickTime) {
-		this.finalTickTime = finalTickTime;
 	}
 
 	public int getNeededPower() {
