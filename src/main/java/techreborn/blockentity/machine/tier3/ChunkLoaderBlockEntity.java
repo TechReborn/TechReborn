@@ -40,11 +40,11 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import reborncore.common.chunkloading.ChunkLoaderManager;
 
 import javax.annotation.Nullable;
 
@@ -165,7 +165,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	@Override
 	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).syncIntegerValue(this::getRadius, this::setRadius).addInventory().create(this, syncID);
+				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 
 }

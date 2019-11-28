@@ -33,11 +33,11 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -201,6 +201,6 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 				.blockEntity(this).slot(0, 30, 20).slot(1, 50, 20).slot(2, 70, 20).slot(3, 90, 20).slot(4, 110, 20)
 				.slot(5, 130, 20).outputSlot(6, 40, 66).outputSlot(7, 60, 66).outputSlot(8, 80, 66)
 				.outputSlot(9, 100, 66).outputSlot(10, 120, 66).energySlot(11, 8, 72).syncEnergyValue()
-				.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this, syncID);
+				.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }

@@ -42,8 +42,8 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import java.util.Map;
 
@@ -181,8 +181,8 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
 			.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
-			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
+			.sync(this::getBurnTime, this::setBurnTime)
+			.sync(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
 	}
 
 	@Override

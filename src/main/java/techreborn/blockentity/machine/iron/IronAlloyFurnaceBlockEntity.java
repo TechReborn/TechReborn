@@ -131,9 +131,9 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 			.slot(0, 47, 17)
 			.slot(1, 65, 17)
 			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
-			.syncIntegerValue(this::getBurnTime, this::setBurnTime)
-			.syncIntegerValue(this::getProgress, this::setProgress)
-			.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime)
+			.sync(this::getBurnTime, this::setBurnTime)
+			.sync(this::getProgress, this::setProgress)
+			.sync(this::getTotalBurnTime, this::setTotalBurnTime)
 			.addInventory().create(this, syncID);
 	}
 

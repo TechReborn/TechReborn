@@ -123,7 +123,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
-				.syncIntegerValue(this::getOutputRate, this::setOutputRate)
-				.syncIntegerValue(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
+				.sync(this::getOutputRate, this::setOutputRate)
+				.sync(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
 	}
 }

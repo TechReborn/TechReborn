@@ -30,10 +30,10 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.api.generator.EFluidGenerator;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
@@ -60,8 +60,8 @@ public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("semifluidgenerator").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
-			.syncIntegerValue(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
-			.syncIntegerValue(this::getTankAmount, this::setTankAmount)
+			.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
+			.sync(this::getTankAmount, this::setTankAmount)
 			.sync(tank)
 			.addInventory().create(this, syncID);
 	}

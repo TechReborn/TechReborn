@@ -156,9 +156,9 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
-				.syncIntegerValue(this::getBurnTime, this::setBurnTime)
-				.syncIntegerValue(this::getProgress, this::setProgress)
-				.syncIntegerValue(this::getTotalBurnTime, this::setTotalBurnTime)
+				.sync(this::getBurnTime, this::setBurnTime)
+				.sync(this::getProgress, this::setProgress)
+				.sync(this::getTotalBurnTime, this::setTotalBurnTime)
 				.sync(this::getExperience, this::setExperience)
 				.addInventory().create(this, syncID);
 	}

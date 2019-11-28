@@ -396,7 +396,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			.onCraft(inv -> this.inventory.setInvStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
-			.syncEnergyValue().syncIntegerValue(this::getBurnTime, this::setBurnTime).syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+			.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	//Easyest way to sync back to the client

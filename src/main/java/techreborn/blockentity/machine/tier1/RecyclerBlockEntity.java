@@ -38,8 +38,8 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -195,6 +195,6 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
 			.blockEntity(this).slot(0, 55, 45, itemStack -> !(itemStack.getItem() instanceof IUpgrade)).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-			.syncIntegerValue(this::getProgress, this::setProgress).addInventory().create(this, syncID);
+			.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
 }

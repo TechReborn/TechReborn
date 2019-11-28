@@ -24,8 +24,6 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import java.util.Optional;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -43,8 +41,10 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
+
+import java.util.Optional;
 
 public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
@@ -282,6 +282,6 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-				.syncIntegerValue(this::getCookTime, this::setCookTime).syncIntegerValue(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
+				.sync(this::getCookTime, this::setCookTime).sync(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}
 }
