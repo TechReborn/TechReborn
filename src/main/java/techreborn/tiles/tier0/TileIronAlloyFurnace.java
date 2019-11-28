@@ -102,10 +102,7 @@ public class TileIronAlloyFurnace extends RebornMachineTile
         // current recipe is still usable
         if (temp != null) {
             // we need space for the outputs
-            return recipe.getOutputIngredients()
-                    .stream()
-                    .filter(output -> output instanceof ItemStackOutputIngredient)
-                    .map(output -> (ItemStack) output.ingredient)
+            return Arrays.stream(recipe.getItemOutputs())
                     .allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
         }
 
@@ -118,10 +115,7 @@ public class TileIronAlloyFurnace extends RebornMachineTile
         updateRecipe(temp);
 
         // we need space for the outputs
-        return recipe.getOutputIngredients()
-                .stream()
-                .filter(output -> output instanceof ItemStackOutputIngredient)
-                .map(output -> (ItemStack) output.ingredient)
+        return Arrays.stream(recipe.getItemOutputs())
                 .allMatch(output -> addToOutputs(output.copy(), true) == output.getCount());
     }
 
@@ -144,10 +138,7 @@ public class TileIronAlloyFurnace extends RebornMachineTile
         recipeHandler.apply(recipe, inputs, false);
 
         // adjust output
-        recipe.getOutputIngredients()
-                .stream()
-                .filter(entry -> entry instanceof ItemStackOutputIngredient)
-                .map(output -> (ItemStack) output.ingredient)
+        Arrays.stream(recipe.getItemOutputs())
                 .forEach(output -> addToOutputs(output.copy(), false));
 
         cookTime = 0;

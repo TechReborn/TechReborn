@@ -41,8 +41,7 @@ import techreborn.lib.ModInfo;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import com.google.common.collect.ImmutableList;
+import java.util.stream.Collectors;
 
 /**
  * @author estebes
@@ -221,9 +220,9 @@ public class GrinderRecipes extends RecipeMethods {
                 .register();
 
         // Ingots -> Dust
-        ImmutableList<String> ingots = Arrays.stream(OreDictionary.getOreNames())
+        List<String> ingots = Arrays.stream(OreDictionary.getOreNames())
                 .filter(name -> name.startsWith("ingot"))
-                .collect(ImmutableList.toImmutableList());
+                .collect(Collectors.toList());
 
         ingots.forEach(entry -> {
             String equivalent = entry.replaceFirst("ingot", "dust");
@@ -245,9 +244,9 @@ public class GrinderRecipes extends RecipeMethods {
         });
 
         // Gem -> Dust
-        ImmutableList<String> gems = Arrays.stream(OreDictionary.getOreNames())
+        List<String> gems = Arrays.stream(OreDictionary.getOreNames())
                 .filter(name -> name.startsWith("gem"))
-                .collect(ImmutableList.toImmutableList());
+                .collect(Collectors.toList());
 
         gems.forEach(entry -> {
             String equivalent = entry.replaceFirst("gem", "dust");
@@ -269,9 +268,9 @@ public class GrinderRecipes extends RecipeMethods {
         });
 
         // Plates -> Dust
-        ImmutableList<String> plates = Arrays.stream(OreDictionary.getOreNames())
+        List<String> plates = Arrays.stream(OreDictionary.getOreNames())
                 .filter(name -> name.startsWith("plate"))
-                .collect(ImmutableList.toImmutableList());
+                .collect(Collectors.toList());
 
         plates.forEach(entry -> {
             String equivalent = entry.replaceFirst("plate", "dust");
@@ -293,9 +292,9 @@ public class GrinderRecipes extends RecipeMethods {
         });
 
         // Blocks -> Dust
-        ImmutableList<String> blocks = Arrays.stream(OreDictionary.getOreNames())
+        List<String> blocks = Arrays.stream(OreDictionary.getOreNames())
                 .filter(name -> name.startsWith("block"))
-                .collect(ImmutableList.toImmutableList());
+                .collect(Collectors.toList());
 
         blocks.forEach(entry -> {
             String equivalent = entry.replaceFirst("block", "dust");
@@ -317,9 +316,9 @@ public class GrinderRecipes extends RecipeMethods {
         });
 
         // Stones -> Dust
-        ImmutableList<String> stones = Arrays.stream(OreDictionary.getOreNames())
+        List<String> stones = Arrays.stream(OreDictionary.getOreNames())
                 .filter(name -> name.startsWith("stone"))
-                .collect(ImmutableList.toImmutableList());
+                .collect(Collectors.toList());
 
         stones.forEach(entry -> {
             String equivalent = entry.replaceFirst("stone", "dust");

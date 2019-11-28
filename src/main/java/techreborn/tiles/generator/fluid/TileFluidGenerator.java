@@ -125,7 +125,7 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
                 remainingEnergy -= amount; // update remaining energy
             }
         } else {
-            if (work()) {
+            if (doWork()) {
                 needsInventoryUpdate = true;
 
                 if (!active) setActive(true);
@@ -166,7 +166,7 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
     // << TilePowerAcceptor
 
     // TileFluidGenerator >>
-    protected boolean work() {
+    protected boolean doWork() {
         // if the tank is empty the generator cannot operate
         if (tank.isEmpty() || tank.getFluid() == null) return false;
 

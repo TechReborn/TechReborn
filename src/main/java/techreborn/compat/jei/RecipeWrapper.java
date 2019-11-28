@@ -43,6 +43,7 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,15 +70,9 @@ public abstract class RecipeWrapper implements IRecipeWrapper {
         }
 
         // outputs
-        recipe.getOutputIngredients().stream()
-                .filter(entry -> entry instanceof ItemStackOutputIngredient)
-                .map(entry -> (ItemStack) entry.ingredient)
-                .collect(Collectors.toCollection(() -> itemOutputs)); // map ItemStacks
+        itemOutputs.addAll(Arrays.asList(recipe.getItemOutputs()));
 
-        recipe.getOutputIngredients().stream()
-                .filter(entry -> entry instanceof FluidStackOutputIngredient)
-                .map(entry -> (FluidStack) entry.ingredient)
-                .collect(Collectors.toCollection(() -> fluidOutputs)); // map FluidStacks
+        fluidOutputs.addAll(Arrays.asList(recipe.getFluidOutputs()));
     }
 
     @Override
