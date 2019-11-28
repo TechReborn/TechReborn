@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "techreborn:bronze_pickaxe",
+    "techreborn:ruby_pickaxe",
+    "techreborn:sapphire_pickaxe",
+    "techreborn:peridot_pickaxe",
+    "techreborn:basic_drill",
+    "techreborn:advanced_drill",
+    "techreborn:industrial_drill",
+    "techreborn:basic_jackhammer",
+    "techreborn:advanced_jackhammer",
+    "techreborn:industrial_jackhammer",
+    "techreborn:rock_cutter"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "techreborn:bronze_shovel",
+    "techreborn:ruby_shovel",
+    "techreborn:sapphire_shovel",
+    "techreborn:peridot_shovel",
+    "techreborn:basic_drill",
+    "techreborn:advanced_drill",
+    "techreborn:industrial_drill"
+  ]
+}

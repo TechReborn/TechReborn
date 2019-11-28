@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "techreborn:bronze_axe",
+    "techreborn:ruby_axe",
+    "techreborn:sapphire_axe",
+    "techreborn:peridot_axe",
+    "techreborn:basic_chainsaw",
+    "techreborn:advanced_chainsaw",
+    "techreborn:industrial_chainsaw"
+  ]
+}
