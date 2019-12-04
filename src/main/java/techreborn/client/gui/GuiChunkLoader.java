@@ -46,12 +46,12 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 	
 	public void init() {
 		super.init();
-		addButton(new GuiButtonUpDown(left + 64, top + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
-		addButton(new GuiButtonUpDown(left + 64 + 12, top + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
-		addButton(new GuiButtonUpDown(left + 64 + 24, top + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
-		addButton(new GuiButtonUpDown(left + 64 + 36, top + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
+		addButton(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
+		addButton(new GuiButtonUpDown(x + 64 + 12, y + 40, this, b -> onClick(1), UpDownButtonType.FORWARD));
+		addButton(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
+		addButton(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addButton(new GuiButtonSimple(left + 10, top + 70, 155, 20, "Toggle Loaded Chunks", b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
+		addButton(new GuiButtonSimple(x + 10, y + 70, 155, 20, "Toggle Loaded Chunks", b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
 	
 	@Override

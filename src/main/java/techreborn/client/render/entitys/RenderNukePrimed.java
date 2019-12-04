@@ -45,7 +45,7 @@ public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
 
 	public RenderNukePrimed(EntityRenderDispatcher renderManager) {
 		super(renderManager);
-		this.field_4673 = 0.5F;
+		this.shadowSize = 0.5F;
 	}
 
 	@Nullable

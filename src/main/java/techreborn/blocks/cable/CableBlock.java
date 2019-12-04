@@ -24,7 +24,11 @@
 
 package techreborn.blocks.cable;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
@@ -76,7 +80,7 @@ public class CableBlock extends BlockWithEntity {
 	public static final BooleanProperty UP = BooleanProperty.of("up");
 	public static final BooleanProperty DOWN = BooleanProperty.of("down");
 
-	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = Util.create(new HashMap<>(), map -> {
+	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = Util.make(new HashMap<>(), map -> {
 		map.put(Direction.EAST, EAST);
 		map.put(Direction.WEST, WEST);
 		map.put(Direction.NORTH, NORTH);

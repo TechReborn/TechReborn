@@ -33,8 +33,8 @@ import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.packets.ServerboundPackets;
 import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.packets.ServerboundPackets;
 
 public class GuiAESU extends GuiBase<BuiltContainer> {
 
@@ -48,10 +48,10 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonUpDown(left + 121, top + 79, this, b -> onClick(256), UpDownButtonType.FASTFORWARD));
-		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, b -> onClick(64), UpDownButtonType.FORWARD));
-		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, b -> onClick(-64), UpDownButtonType.REWIND));
-		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, b -> onClick(-256), UpDownButtonType.FASTREWIND));
+		addButton(new GuiButtonUpDown(x + 121, y + 79, this, b -> onClick(256), UpDownButtonType.FASTFORWARD));
+		addButton(new GuiButtonUpDown(x + 121 + 12, y + 79, this, b -> onClick(64), UpDownButtonType.FORWARD));
+		addButton(new GuiButtonUpDown(x + 121 + 24, y + 79, this, b -> onClick(-64), UpDownButtonType.REWIND));
+		addButton(new GuiButtonUpDown(x + 121 + 36, y + 79, this, b -> onClick(-256), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override

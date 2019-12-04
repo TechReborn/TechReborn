@@ -55,11 +55,11 @@ public class GuiDigitalChest extends GuiBase<BuiltContainer> {
 		if (!blockEntity.storedItem.isEmpty() && blockEntity.inventory.getInvStack(1) != null) {
 			builder.drawBigBlueBar(this, 31, 43,
 				blockEntity.storedItem.getCount() + blockEntity.inventory.getInvStack(1).getCount(),
-				blockEntity.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
+				blockEntity.maxCapacity, mouseX - x, mouseY - y, "Stored", layer);
 		}
 		if (blockEntity.storedItem.isEmpty() && blockEntity.inventory.getInvStack(1) != null) {
 			builder.drawBigBlueBar(this, 31, 43, blockEntity.inventory.getInvStack(1).getCount(),
-				blockEntity.maxCapacity, mouseX - left, mouseY - top, "Stored", layer);
+				blockEntity.maxCapacity, mouseX - x, mouseY - y, "Stored", layer);
 		}
 	}
 }

@@ -53,10 +53,10 @@ public class GuiQuantumChest extends GuiBase<BuiltContainer> {
 		final Layer layer = Layer.FOREGROUND;
 
 		if (!this.quantumChest.storedItem.isEmpty() && !this.quantumChest.inventory.getInvStack(1).isEmpty()) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.storedItem.getCount() + this.quantumChest.inventory.getInvStack(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.left, mouseY - this.top, "Stored", layer);
+			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.storedItem.getCount() + this.quantumChest.inventory.getInvStack(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.x, mouseY - this.y, "Stored", layer);
 		}
 		if (this.quantumChest.storedItem.isEmpty() && !this.quantumChest.inventory.getInvStack(1).isEmpty()) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.inventory.getInvStack(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.left, mouseY - this.top, "Stored", layer);
+			this.builder.drawBigBlueBar(this, 31, 43, this.quantumChest.inventory.getInvStack(1).getCount(), this.quantumChest.maxCapacity, mouseX - this.x, mouseY - this.y, "Stored", layer);
 		}
 	}
 }

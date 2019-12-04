@@ -29,7 +29,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.RebornCoreClient;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -41,9 +40,9 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
+import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.init.TRContent;
 import techreborn.packets.ServerboundPackets;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,10 +58,10 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonUpDown(left + 121, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
-		addButton(new GuiButtonUpDown(left + 121 + 12, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
-		addButton(new GuiButtonUpDown(left + 121 + 24, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
-		addButton(new GuiButtonUpDown(left + 121 + 36, top + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.FASTREWIND));
+		addButton(new GuiButtonUpDown(x + 121, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(5), UpDownButtonType.FASTFORWARD));
+		addButton(new GuiButtonUpDown(x + 121 + 12, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(1), UpDownButtonType.FORWARD));
+		addButton(new GuiButtonUpDown(x + 121 + 24, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-5), UpDownButtonType.REWIND));
+		addButton(new GuiButtonUpDown(x + 121 + 36, y + 79, this, (ButtonWidget buttonWidget) -> sendSizeChange(-1), UpDownButtonType.FASTREWIND));
 	}
 
 	@Override
