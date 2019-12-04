@@ -26,11 +26,13 @@ package techreborn.items;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FluidDrainable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -38,12 +40,18 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
 import reborncore.common.fluid.FluidUtil;
@@ -123,29 +131,51 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 	}
 
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext usageContext) {
-		ItemStack stack = usageContext.getStack();
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		Fluid containedFluid = getFluid(stack);
-		BlockPos pos = usageContext.getBlockPos().offset(usageContext.getSide());
-		BlockState blockState = usageContext.getWorld().getBlockState(pos);
 
-		if(containedFluid == Fluids.EMPTY){
-			FluidState fluidState = usageContext.getWorld().getFluidState(pos);
-			if(fluidState.getFluid() != Fluids.EMPTY && fluidState.isStill()){
-				stack.decrement(1);
-				insertOrDropStack(usageContext.getPlayer(), getCellWithFluid(fluidState.getFluid(), 1));
-				usageContext.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
-				playEmptyingSound(usageContext.getPlayer(), usageContext.getWorld(), pos, fluidState.getFluid());
-			}
+		HitResult hitResult = rayTrace(world, player, containedFluid == Fluids.EMPTY ? RayTraceContext.FluidHandling.SOURCE_ONLY : RayTraceContext.FluidHandling.NONE);
+		if (hitResult.getType() == HitResult.Type.MISS) {
+			return TypedActionResult.pass(stack);
+		} else if (hitResult.getType() != HitResult.Type.BLOCK) {
+			return TypedActionResult.pass(stack);
 		} else {
-			if(blockState.canReplace(new ItemPlacementContext(usageContext))){
-				usageContext.getWorld().setBlockState(pos, containedFluid.getDefaultState().getBlockState());
-				stack.decrement(1);
-				insertOrDropStack(usageContext.getPlayer(), getEmpty());
-				playEmptyingSound(usageContext.getPlayer(), usageContext.getWorld(), pos, containedFluid);
+			BlockHitResult blockHitResult = (BlockHitResult)hitResult;
+			BlockPos hitPos = blockHitResult.getBlockPos();
+			BlockState hitState = world.getBlockState(hitPos);
+
+			Direction side = blockHitResult.getSide();
+			BlockPos placePos = hitPos.offset(side);
+
+			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
+				if(containedFluid == Fluids.EMPTY){
+					if (hitState.getBlock() instanceof FluidDrainable) {
+						Fluid drainFluid = ((FluidDrainable)hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
+						if(drainFluid != Fluids.EMPTY){
+							stack.decrement(1);
+							insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
+							world.setBlockState(hitPos, Blocks.AIR.getDefaultState());
+							playEmptyingSound(player, world, hitPos, drainFluid);
+
+							return TypedActionResult.pass(stack);
+						}
+					}
+
+				} else {
+					BlockState placeState = world.getBlockState(placePos);
+					if(placeState.canBucketPlace(containedFluid)){
+						world.setBlockState(placePos, containedFluid.getDefaultState().getBlockState());
+						stack.decrement(1);
+						insertOrDropStack(player, getEmpty());
+						playEmptyingSound(player, world, placePos, containedFluid);
+
+						return TypedActionResult.pass(stack);
+					}
+				}
 			}
 		}
-		return super.useOnBlock(usageContext);
+		return TypedActionResult.fail(stack);
 	}
 
 	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack){
