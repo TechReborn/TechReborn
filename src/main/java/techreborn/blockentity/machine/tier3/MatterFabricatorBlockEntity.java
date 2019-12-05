@@ -123,11 +123,11 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
+		super.tick();
+
 		if (world.isClient) {
 			return;
 		}
-
-		super.tick();
 		this.charge(11);
 
 		for (int i = 0; i < 6; i++) {
