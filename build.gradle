@@ -82,13 +82,14 @@ dependencies {
 
 	modCompile "io.github.prospector:modmenu:1.7.9+build.118"
 	modCompile ("me.shedaniel:RoughlyEnoughItems:3.2.6+build.49")
-	modCompile ('io.github.cottonmc:LibCD:1.6.0+1.14.4') {
+
+	modCompile ('io.github.cottonmc:LibCD:1.6.3+1.14.4') {
 		transitive = false
 	}
 	modRuntime ("io.github.cottonmc:Jankson:1.0.0+j1.1.2") {
 		transitive = false
 	}
-
+                                                        
 	def rcVersion = 'RebornCore:RebornCore-1.14.4:+'
 	modCompile (rcVersion) {
 		transitive = false

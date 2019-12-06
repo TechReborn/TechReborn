@@ -119,7 +119,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void add(RebornRecipeType type, Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void add(RebornRecipeType<?> type, Object[] inputs, ItemStack[] outputs, int power, int time) {
         try {
             Identifier id = tweaker.getRecipeId(outputs[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
@@ -459,7 +459,10 @@ public class TRTweaker implements Tweaker {
             DefaultedList<Ingredient> ingredients = DefaultedList.of();
             for (int i = 0; i < Math.min(inputs.length, width * height); i++) {
                 Object id = inputs[i];
-                if (id.equals("")) continue;
+                if (id.equals("")) {
+                	ingredients.add(i, Ingredient.EMPTY);
+                	continue;
+                }
                 ingredients.add(i, RecipeParser.processIngredient(id));
             }
             tweaker.addRecipe(new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, recipeId, new ShapedRecipe(recipeId, "", width, height, ingredients, output)));
