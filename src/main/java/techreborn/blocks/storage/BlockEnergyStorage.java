@@ -40,14 +40,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.WrenchUtils;
-import techreborn.blockentity.storage.EnergyStorageBlockEntity;
 
 import java.util.Locale;
 
@@ -147,12 +146,6 @@ public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
 
 	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity instanceof EnergyStorageBlockEntity) {
-			EnergyStorageBlockEntity storage = (EnergyStorageBlockEntity) blockEntity;
-			return MathHelper.ceil(storage.getEnergy() * 15.0 / storage.getMaxPower());
-		}
-
-		return 0;
+		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
 	}
 }
