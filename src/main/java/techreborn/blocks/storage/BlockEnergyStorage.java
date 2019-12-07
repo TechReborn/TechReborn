@@ -46,6 +46,7 @@ import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
+import techreborn.blockentity.storage.EnergyStorageBlockEntity;
 
 import java.util.Locale;
 
@@ -136,5 +137,21 @@ public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
 			facing = Direction.UP;
 		}
 		setFacing(facing, worldIn, pos);
+	}
+
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if (blockEntity instanceof EnergyStorageBlockEntity) {
+			EnergyStorageBlockEntity storage = (EnergyStorageBlockEntity) blockEntity;
+			return (int) (storage.getEnergy() * 15.0 / storage.getMaxPower());
+		}
+
+		return 0;
 	}
 }
