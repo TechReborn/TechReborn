@@ -24,10 +24,14 @@
 
 package techreborn.blocks.generator;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.init.TRContent.SolarPanels;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
@@ -51,5 +55,15 @@ public class BlockSolarPanel extends BlockMachineBase {
 	@Override
 	public IMachineGuiHandler getGui() {
 		return null;
+	}
+
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
 	}
 }
