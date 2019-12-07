@@ -40,6 +40,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import reborncore.api.blockentity.IMachineGuiHandler;
@@ -149,7 +150,7 @@ public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity instanceof EnergyStorageBlockEntity) {
 			EnergyStorageBlockEntity storage = (EnergyStorageBlockEntity) blockEntity;
-			return (int) (storage.getEnergy() * 15.0 / storage.getMaxPower());
+			return MathHelper.ceil(storage.getEnergy() * 15.0 / storage.getMaxPower());
 		}
 
 		return 0;
