@@ -48,7 +48,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -63,9 +62,7 @@ import techreborn.init.TRContent;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,6 +87,7 @@ public class CableBlock extends BlockWithEntity {
 	});
 
 	public final TRContent.Cables type;
+	private final CableShapeUtil cableShapeUtil;
 
 	public CableBlock(TRContent.Cables type) {
 		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
@@ -97,6 +95,7 @@ public class CableBlock extends BlockWithEntity {
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
 				.with(SOUTH, false).with(UP, false).with(DOWN, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
+		cableShapeUtil = new CableShapeUtil(this);
 	}
 
 	public AbstractProperty<Boolean> getProperty(Direction facing) {
@@ -188,21 +187,7 @@ public class CableBlock extends BlockWithEntity {
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {
-		double size = type != null ?  type.cableThickness : 6;
-		VoxelShape baseShape = Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size);
-
-		List<VoxelShape> connections = new ArrayList<>();
-		for(Direction dir : Direction.values()){
-			if(state.get(PROPERTY_MAP.get(dir))) {
-				double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
-				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
-				double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;
-
-				VoxelShape shape = Block.createCuboidShape(x, y, z, 16.0D - size, 16.0D - size, 16.0D - size);
-				connections.add(shape);
-			}
-		}
-		return VoxelShapes.union(baseShape, connections.toArray(new VoxelShape[]{}));
+		return cableShapeUtil.getShape(state);
 	}
 
 	@Override
