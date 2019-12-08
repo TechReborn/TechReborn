@@ -134,7 +134,7 @@ jar {
 	classifier = 'universal'
 
 	from { crowdin.getDidWork() ? fileTree('build/translations').matching{exclude "**/en_US.json"} : null}
-	dependsOn 'renameCrowdin'
+	dependsOn 'fixTranslations'
 }
 
 
@@ -170,6 +170,26 @@ task renameCrowdin(type: Copy, dependsOn: ['crowdin', 'cleanCrowdin']){
 	into file('build/translations')
 	rename {
 		String filename -> return filename.toLowerCase()
+	}
+	doFirst {
+		file('build/translations').deleteDir()
+	}
+}
+
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+//Remove all translations that do not have an entry, ensures that minecraft falls back to EN_US over writing out an empty string.
+task fixTranslations(dependsOn: ['renameCrowdin']) {
+	def jsonSlurper = new JsonSlurper()
+	doLast {
+		file('build/translations').eachFileRecurse(groovy.io.FileType.FILES) {
+			if(it.name.endsWith(".json")) {
+				def lang = jsonSlurper.parseText(it.text)
+				lang.values().removeIf { val -> val.empty}
+				it.text = JsonOutput.prettyPrint(JsonOutput.toJson(lang))
+			}
+		}
 	}
 }
 
