@@ -1,6 +1,12 @@
 package techreborn.compat.libcd;
 
-import io.github.cottonmc.libcd.tweaker.*;
+import blue.endless.jankson.JsonArray;
+import blue.endless.jankson.JsonObject;
+import blue.endless.jankson.JsonPrimitive;
+import io.github.cottonmc.libcd.api.tweaker.Tweaker;
+import io.github.cottonmc.libcd.api.tweaker.recipe.RecipeParser;
+import io.github.cottonmc.libcd.api.tweaker.recipe.RecipeTweaker;
+import io.github.cottonmc.libcd.api.tweaker.util.TweakerUtils;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -17,14 +23,12 @@ import reborncore.common.crafting.RecipeManager;
 import reborncore.common.crafting.ingredient.FluidIngredient;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.recipe.recipes.*;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
-import techreborn.items.ItemDynamicCell;
 
 import java.util.*;
 import java.util.concurrent.Executor;
@@ -32,12 +36,14 @@ import java.util.concurrent.Executor;
 public class TRTweaker implements Tweaker {
     public static final TRTweaker INSTANCE = new TRTweaker();
     private RecipeTweaker tweaker = RecipeTweaker.INSTANCE;
+    private JsonObject debug;
 
     List<FluidGeneratorRecipe> added = new ArrayList<>();
     List<FluidGeneratorRecipe> toAdd = new ArrayList<>();
 
     @Override
     public void prepareReload(ResourceManager resourceManager) {
+        debug = new JsonObject();
         for (FluidGeneratorRecipe recipe : added) {
             GeneratorRecipeHelper.removeFluidRecipe(recipe.getGeneratorType(), recipe.getFluid());
         }
@@ -49,8 +55,17 @@ public class TRTweaker implements Tweaker {
         for (FluidGeneratorRecipe recipe : toAdd) {
             if (GeneratorRecipeHelper.getFluidRecipesForGenerator(recipe.getGeneratorType()).addRecipe(recipe)) {
                 added.add(recipe);
+                String genID = recipe.getGeneratorType().getRecipeID();
+                if (!debug.containsKey(genID)) {
+                    debug.put(genID, new JsonArray());
+                }
+                JsonArray array = (JsonArray) debug.get(genID);
+                JsonObject recipeInfo = new JsonObject();
+                recipeInfo.put("fluid", new JsonPrimitive(Registry.FLUID.getId(recipe.getFluid()).toString()));
+                recipeInfo.put("energy_per_mb", new JsonPrimitive(recipe.getEnergyPerMb()));
+                array.add(recipeInfo);
             } else {
-                TechReborn.LOGGER.error("Could not add recipe to TechReborn generator " + recipe.getGeneratorType().getRecipeID()
+                tweaker.getLogger().error("Could not add recipe to TechReborn generator " + recipe.getGeneratorType().getRecipeID()
                         + ": a recipe for fluid " + Registry.FLUID.getId(recipe.getFluid()) + " already exists");
             }
         }
@@ -61,6 +76,11 @@ public class TRTweaker implements Tweaker {
     public String getApplyMessage() {
         int recipeCount = added.size();
         return recipeCount + " TechReborn fluid generator " + (recipeCount == 1? "recipe" : "recipes");
+    }
+
+    @Override
+    public JsonObject getDebugInfo() {
+        return debug;
     }
 
     /**
@@ -95,20 +115,24 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void add(RebornRecipeType type, Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void add(RebornRecipeType<?> type, Object[] inputs, Object[] outputs, int power, int time) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
-            tweaker.addRecipe(new RebornRecipe(type, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time));
+            tweaker.addRecipe(new RebornRecipe(type, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn " + type.getName().getPath().replace('_', ' ') + " recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn " + type.getName().getPath().replace('_', ' ') + " recipe - " + e.getMessage());
         }
     }
 
-    public void add(String type, Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void add(String type, Object[] inputs, Object[] outputs, int power, int time) {
         Identifier id;
         if (type.contains(":")) id = new Identifier(type);
         else id = new Identifier("techreborn", type);
@@ -123,7 +147,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to smelt for.
      */
-    public void addAlloySmelter(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addAlloySmelter(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.ALLOY_SMELTER, inputs, outputs, power, time);
     }
 
@@ -134,7 +158,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addAssemblingMachine(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addAssemblingMachine(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.ASSEMBLING_MACHINE, inputs, outputs, power, time);
     }
 
@@ -146,16 +170,20 @@ public class TRTweaker implements Tweaker {
      * @param time How many ticks (1/20 of a second) to smelt for.
      * @param heat How hot the blast furnace needs to be.
      */
-    public void addBlastFurnace(Object[] inputs, ItemStack[] outputs, int power, int time, int heat) {
+    public void addBlastFurnace(Object[] inputs, Object[] outputs, int power, int time, int heat) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
-            tweaker.addRecipe(new BlastFurnaceRecipe(ModRecipes.BLAST_FURNACE, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time, heat));
+            tweaker.addRecipe(new BlastFurnaceRecipe(ModRecipes.BLAST_FURNACE, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time, heat));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn blast furnace recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn blast furnace recipe - " + e.getMessage());
         }
     }
 
@@ -166,7 +194,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addCentrifuge(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addCentrifuge(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.CENTRIFUGE, inputs, outputs, power, time);
     }
 
@@ -177,7 +205,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addChemicalReactor(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addChemicalReactor(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.CHEMICAL_REACTOR, inputs, outputs, power, time);
     }
 
@@ -188,7 +216,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addCompressor(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addCompressor(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.COMPRESSOR, inputs, outputs, power, time);
     }
 
@@ -199,7 +227,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addDistillationTower(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addDistillationTower(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.DISTILLATION_TOWER, inputs, outputs, power, time);
     }
 
@@ -210,7 +238,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addExtractor(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addExtractor(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.EXTRACTOR, inputs, outputs, power, time);
     }
 
@@ -221,7 +249,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addGrinder(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addGrinder(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.GRINDER, inputs, outputs, power, time);
     }
 
@@ -232,7 +260,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addImplosionCompressor(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addImplosionCompressor(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.IMPLOSION_COMPRESSOR, inputs, outputs, power, time);
     }
 
@@ -243,7 +271,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addIndustrialElectrolyzer(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addIndustrialElectrolyzer(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.INDUSTRIAL_ELECTROLYZER, inputs, outputs, power, time);
     }
 
@@ -254,16 +282,20 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addIndustrialGrinder(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addIndustrialGrinder(Object[] inputs, Object[] outputs, int power, int time) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
-            tweaker.addRecipe(new IndustrialGrinderRecipe(ModRecipes.INDUSTRIAL_GRINDER, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time));
+            tweaker.addRecipe(new IndustrialGrinderRecipe(ModRecipes.INDUSTRIAL_GRINDER, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn industrial grinder recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn industrial grinder recipe - " + e.getMessage());
         }
     }
 
@@ -275,17 +307,21 @@ public class TRTweaker implements Tweaker {
      * @param time How many ticks (1/20 of a second) to process for.
      * @param fluid The fluid required for the operation, including an amount.
      */
-    public void addIndustrialGrinder(Object[] inputs, ItemStack[] outputs, int power, int time, String fluid) {
+    public void addIndustrialGrinder(Object[] inputs, Object[] outputs, int power, int time, String fluid) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
             FluidInstance fluidInst = TRRecipeParser.parseFluid(fluid);
-            tweaker.addRecipe(new IndustrialGrinderRecipe(ModRecipes.INDUSTRIAL_GRINDER, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time, fluidInst));
+            tweaker.addRecipe(new IndustrialGrinderRecipe(ModRecipes.INDUSTRIAL_GRINDER, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time, fluidInst));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn industrial grinder recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn industrial grinder recipe - " + e.getMessage());
         }
     }
 
@@ -296,16 +332,20 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addIndustrialSawmill(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addIndustrialSawmill(Object[] inputs, Object[] outputs, int power, int time) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
-            tweaker.addRecipe(new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time));
+            tweaker.addRecipe(new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn industrial sawmill recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn industrial sawmill recipe - " + e.getMessage());
         }
     }
 
@@ -317,17 +357,21 @@ public class TRTweaker implements Tweaker {
      * @param time How many ticks (1/20 of a second) to process for.
      * @param fluid The fluid required for this operation, including an amount.
      */
-    public void addIndustrialSawmill(Object[] inputs, ItemStack[] outputs, int power, int time, String fluid) {
+    public void addIndustrialSawmill(Object[] inputs, Object[] outputs, int power, int time, String fluid) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
             FluidInstance fluidInst = TRRecipeParser.parseFluid(fluid);
-            tweaker.addRecipe(new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time, fluidInst));
+            tweaker.addRecipe(new IndustrialSawmillRecipe(ModRecipes.INDUSTRIAL_SAWMILL, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time, fluidInst));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn industrial sawmill recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn industrial sawmill recipe - " + e.getMessage());
         }
     }
 
@@ -338,7 +382,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addRecycler(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addRecycler(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.RECYCLER, inputs, outputs, power, time);
     }
 
@@ -348,8 +392,8 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addScrapbox(ItemStack output, int power, int time) {
-        add(ModRecipes.SCRAPBOX, new String[]{"techreborn:scrap_box"}, new ItemStack[]{output}, power, time);
+    public void addScrapbox(Object output, int power, int time) {
+        add(ModRecipes.SCRAPBOX, new String[]{"techreborn:scrap_box"}, new Object[]{output}, power, time);
     }
 
     /**
@@ -359,7 +403,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addVacuumFreezer(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addVacuumFreezer(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.VACUUM_FREEZER, inputs, outputs, power, time);
     }
 
@@ -380,7 +424,7 @@ public class TRTweaker implements Tweaker {
             FluidInstance fluidInst = TRRecipeParser.parseFluid(fluid);
             tweaker.addRecipe(new FluidReplicatorRecipe(ModRecipes.FLUID_REPLICATOR, id, ingredients, DefaultedList.of(), power, time, fluidInst));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn fluid replicator recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn fluid replicator recipe - " + e.getMessage());
         }
     }
 
@@ -393,16 +437,20 @@ public class TRTweaker implements Tweaker {
      * @param startE The energy requried to start the reaction.
      * @param minSize The minimum size of the reactor coil ring for this reaction.
      */
-    public void addFusionReactor(Object[] inputs, ItemStack[] outputs, int power, int time, int startE, int minSize) {
+    public void addFusionReactor(Object[] inputs, Object[] outputs, int power, int time, int startE, int minSize) {
         try {
-            Identifier id = tweaker.getRecipeId(outputs[0]);
+            ItemStack[] parsedOut = new ItemStack[outputs.length];
+            for (int i = 0; i < outputs.length; i++) {
+                parsedOut[i] = RecipeParser.processItemStack(outputs[i]);
+            }
+            Identifier id = tweaker.getRecipeId(parsedOut[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
             for (Object input : inputs) {
                 ingredients.add(TRRecipeParser.processIngredient(input));
             }
-            tweaker.addRecipe(new FusionReactorRecipe(ModRecipes.FUSION_REACTOR, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, outputs), power, time, startE, minSize));
+            tweaker.addRecipe(new FusionReactorRecipe(ModRecipes.FUSION_REACTOR, id, ingredients, DefaultedList.copyOf(ItemStack.EMPTY, parsedOut), power, time, startE, minSize));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn fusion reactor recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn fusion reactor recipe - " + e.getMessage());
         }
     }
 
@@ -411,14 +459,14 @@ public class TRTweaker implements Tweaker {
      * @param inputs the 2D array (array of arrays) of inputs to use.
      * @param output The output of the recipe.
      */
-    public void addRollingMachine(Object[][] inputs, ItemStack output) {
+    public void addRollingMachine(Object[][] inputs, Object output) {
         try {
             Object[] processed = RecipeParser.processGrid(inputs);
             int width = inputs[0].length;
             int height = inputs.length;
             addRollingMachine(processed, output, width, height);
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn rolling machine recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn 2D array rolling machine recipe - " + e.getMessage());
         }
     }
 
@@ -429,18 +477,19 @@ public class TRTweaker implements Tweaker {
      * @param width How many rows the recipe needs.
      * @param height How many columns the recipe needs.
      */
-    public void addRollingMachine(Object[] inputs, ItemStack output, int width, int height) {
-        Identifier recipeId = tweaker.getRecipeId(output);
+    public void addRollingMachine(Object[] inputs, Object output, int width, int height) {
         try {
-            DefaultedList<Ingredient> ingredients = DefaultedList.of();
+            ItemStack out = RecipeParser.processItemStack(output);
+            Identifier recipeId = tweaker.getRecipeId(out);
+            DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(width * height, Ingredient.EMPTY);
             for (int i = 0; i < Math.min(inputs.length, width * height); i++) {
                 Object id = inputs[i];
-                if (id.equals("")) continue;
-                ingredients.add(i, RecipeParser.processIngredient(id));
+                if (id == null || id.equals("") || id.equals("minecraft:air")) continue;
+                ingredients.set(i, RecipeParser.processIngredient(id));
             }
-            tweaker.addRecipe(new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, recipeId, new ShapedRecipe(recipeId, "", width, height, ingredients, output)));
+            tweaker.addRecipe(new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, recipeId, new ShapedRecipe(recipeId, "", width, height, ingredients, out)));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn rolling machine recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn 1D array rolling machine recipe - " + e.getMessage());
         }
     }
 
@@ -450,17 +499,18 @@ public class TRTweaker implements Tweaker {
      * @param dictionary A map of single characters to item or tag ids.
      * @param output The output of the recipe.
      */
-    public void addRollingMachine(String[] pattern, Map<String, Object> dictionary, ItemStack output) {
-        Identifier recipeId = tweaker.getRecipeId(output);
+    public void addDictRollingMachine(String[] pattern, Map<String, Object> dictionary, Object output) {
         try {
+            ItemStack out = RecipeParser.processItemStack(output);
+            Identifier recipeId = tweaker.getRecipeId(out);
             pattern = RecipeParser.processPattern(pattern);
             Map<String, Ingredient> map = RecipeParser.processDictionary(dictionary);
             int x = pattern[0].length();
             int y = pattern.length;
             DefaultedList<Ingredient> ingredients = RecipeParser.getIngredients(pattern, map, x, y);
-            tweaker.addRecipe(new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, recipeId, new ShapedRecipe(recipeId, "", x, y, ingredients, output)));
+            tweaker.addRecipe(new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, recipeId, new ShapedRecipe(recipeId, "", x, y, ingredients, out)));
         } catch (Exception e) {
-            TechReborn.LOGGER.error("Error parsing TechReborn rolling machine recipe - " + e.getMessage());
+            tweaker.getLogger().error("Error parsing TechReborn dictionary rolling machine recipe - " + e.getMessage());
         }
     }
 
@@ -471,7 +521,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addSolidCanningMachine(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addSolidCanningMachine(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.SOLID_CANNING_MACHINE, inputs, outputs, power, time);
     }
 
@@ -482,7 +532,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void addWireMill(Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void addWireMill(Object[] inputs, Object[] outputs, int power, int time) {
         add(ModRecipes.WIRE_MILL, inputs, outputs, power, time);
     }
 
@@ -516,19 +566,14 @@ public class TRTweaker implements Tweaker {
                 type = EFluidGenerator.PLASMA;
                 break;
             default:
-                TechReborn.LOGGER.error("Error parsing TechReborn fluid generator recipe - could not find generator: " + generator);
+                tweaker.getLogger().error("Error parsing TechReborn fluid generator recipe - could not find generator: " + generator);
                 return;
         }
         Fluid parsedFluid = TweakerUtils.INSTANCE.getFluid(fluid);
         if (parsedFluid == Fluids.EMPTY) {
-            TechReborn.LOGGER.error("Error parsing TechReborn fluid generator recipe - could not find fluid: " + fluid);
+            tweaker.getLogger().error("Error parsing TechReborn fluid generator recipe - could not find fluid: " + fluid);
             return;
         }
         toAdd.add(new FluidGeneratorRecipe(parsedFluid, euPerMB, type));
-    }
-
-    public static void init() {
-        Tweaker.addTweaker("TRTweaker", TRTweaker.INSTANCE);
-        TweakerStackGetter.registerGetter(new Identifier("techreborn:cell"), (id) -> ItemDynamicCell.getCellWithFluid(Registry.FLUID.get(id)));
     }
 }
