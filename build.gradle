@@ -82,10 +82,10 @@ dependencies {
 
 	modCompileOnly "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
 	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.2.7-unstable.201911150440")
-	modCompile ('io.github.cottonmc:LibCD:1.5.0+1.14.4') {
+	modCompile ('io.github.cottonmc:LibCD:2.0.1+1.15') {
 		transitive = false
 	}
-	modRuntime ("io.github.cottonmc:Jankson:1.0.0+j1.1.2") {
+	modRuntime ("io.github.cottonmc:Jankson-Fabric:2.0.0+j1.2.0") {
 		transitive = false
 	}
 

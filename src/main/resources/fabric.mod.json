@@ -24,6 +24,9 @@
     ],
     "towelette": [
       "techreborn.compat.towelette.TowelettePlugin"
+    ],
+    "libcd": [
+      "techreborn.compat.libcd.LibCDPlugin"
     ]
   },
   "depends": {

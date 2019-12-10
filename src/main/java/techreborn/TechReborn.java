@@ -91,10 +91,6 @@ public class TechReborn implements ModInitializer {
 
 		DataAttachment.REGISTRY.register(IDSUManager.class, IDSUManager::new);
 
-		if (FabricLoader.getInstance().isModLoaded("libcd")) {
-			TRTweaker.init();
-		}
-
 		LOGGER.info("TechReborn setup done!");
 
 	}
