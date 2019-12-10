@@ -22,7 +22,7 @@ buildscript {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
-		classpath 'net.covers1624:GradleStuff:1.0-SNAPSHOT'
+		classpath 'net.covers1624:GradleStuff:1.1-SNAPSHOT'
 	}
 }
 
@@ -129,7 +129,7 @@ task deobfJar(type: Jar) {
 
 containedDeps {
 	configuration = "shade"
-	tasks = "jar"
+	tasks = ["jar"]
 }
 
 jar {
