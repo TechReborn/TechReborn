@@ -72,7 +72,7 @@ dependencies {
 	//Fabric api
 	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.23+build.276-1.15"
 
-	modCompileOnly "curse.maven:modmenu:2837462"
+	modCompile "curse.maven:modmenu:2837462"
 	modCompile ("me.shedaniel:RoughlyEnoughItems:3.2.18")
 	modCompile ('io.github.cottonmc:LibCD:2.0.1+1.15') {
 		transitive = false
