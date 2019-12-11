@@ -10,10 +10,10 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.2.6-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.2.7-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
-		classpath "com.wynprice.cursemaven:CurseMaven:1.2.2"
+		classpath "com.wynprice.cursemaven:CurseMaven:2.1.1"
 	}
 }
 
@@ -38,14 +38,6 @@ repositories {
 	maven {
 		name = 'sponge'
 		url = 'https://repo.spongepowered.org/maven'
-	}
-	maven {
-		name = 'curseforge'
-		// REI
-		url = 'https://minecraft.curseforge.com/api/maven'
-	}
-	maven {
-		url 'https://jitpack.io'
 	}
 	maven {
 		// LibCD
@@ -73,19 +65,19 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.15-pre4"
-	mappings "net.fabricmc:yarn:1.15-pre4+build.1:v2"
+	minecraft "com.mojang:minecraft:1.15"
+	mappings "net.fabricmc:yarn:1.15+build.2:v2"
 	modCompile "net.fabricmc:fabric-loader:0.7.2+build.174"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.19+build.272-1.15"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.23+build.276-1.15"
 
-	modCompileOnly "io.github.prospector:modmenu:1.7.9-unstable.19w34a+build.1"
-	modCompileOnly ("me.shedaniel:RoughlyEnoughItems:3.2.7-unstable.201911150440")
+	modCompileOnly "curse.maven:modmenu:2837462"
+	modCompile ("me.shedaniel:RoughlyEnoughItems:3.2.18")
 	modCompile ('io.github.cottonmc:LibCD:2.0.1+1.15') {
 		transitive = false
 	}
-	modRuntime ("io.github.cottonmc:Jankson-Fabric:2.0.0+j1.2.0") {
+	modCompile ("io.github.cottonmc:Jankson-Fabric:2.0.0+j1.2.0") {
 		transitive = false
 	}
 
@@ -102,18 +94,11 @@ dependencies {
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
 
-	modCompileOnly ('com.github.Virtuoel:Towelette:519538e54b') {
+	modCompileOnly ('curse.maven:towelette:2834316') {
 		transitive = false
 	}
 
 	compile 'teamreborn:energy:0.0.7'
-
-	//Test Generators mod
-	if (false){
-		modCompile curse.resolve("energies", "2771235")
-		modCompile curse.resolve("protos", "2771226")
-		modCompile curse.resolve("generators", "2790134")
-	}
 }
 
 processResources {
