@@ -32,7 +32,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.IToolDrop;
-import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;

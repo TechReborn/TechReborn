@@ -188,7 +188,6 @@ public class TileRollingMachine extends TilePowerAcceptor
 		}
 		isRunning = active;
 		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof RebornMachineBlock) {
-			RebornMachineBlock blockMachineBase = (RebornMachineBlock)this.getWorld().getBlockState(this.getPos()).getBlock();
 			setActive(active);
 		}
 		this.getWorld().notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);

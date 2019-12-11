@@ -41,7 +41,6 @@ import techreborn.tiles.TileChunkLoader;
 import techreborn.tiles.TileCreativeQuantumChest;
 import techreborn.tiles.TileCreativeQuantumTank;
 import techreborn.tiles.TileDigitalChest;
-import techreborn.tiles.processing.TileIndustrialCentrifuge;
 import techreborn.tiles.TileMachineCasing;
 import techreborn.tiles.TileMatterFabricator;
 import techreborn.tiles.TileQuantumChest;

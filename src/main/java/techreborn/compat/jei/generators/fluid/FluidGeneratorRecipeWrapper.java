@@ -67,8 +67,6 @@ public class FluidGeneratorRecipeWrapper implements IRecipeWrapper {
 						+ PowerSystem.getDisplayPower().abbreviation, 70, 13, 0x444444);
 
 		int y = 31;
-		int lineHeight = minecraft.fontRenderer.FONT_HEIGHT;
-
 //		minecraft.fontRenderer.drawString(recipe.getOperationDuration() / 20 + " seconds",
 //				(recipeWidth / 2 - minecraft.fontRenderer.getStringWidth(recipe.getOperationDuration() / 20 + " seconds") / 2), y, 0x444444);
 

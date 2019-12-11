@@ -33,8 +33,6 @@ import reborncore.api.praescriptum.ingredients.input.FluidStackInputIngredient;
 import reborncore.api.praescriptum.ingredients.input.InputIngredient;
 import reborncore.api.praescriptum.ingredients.input.ItemStackInputIngredient;
 import reborncore.api.praescriptum.ingredients.input.OreDictionaryInputIngredient;
-import reborncore.api.praescriptum.ingredients.output.FluidStackOutputIngredient;
-import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
 import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.common.util.ItemUtils;
 
@@ -46,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author estebes

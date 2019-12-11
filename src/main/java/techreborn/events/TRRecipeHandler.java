@@ -39,12 +39,12 @@ import techreborn.lib.ModInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class TRRecipeHandler {
 
-	@SuppressWarnings("rawtypes")
-	private static List<IForgeRegistryEntry> hiddenEntrys = new ArrayList<>();
+	private static List<IForgeRegistryEntry<?>> hiddenEntrys = new ArrayList<>();
 
 	public static void hideEntry(IForgeRegistryEntry<?> entry) {
 		hiddenEntrys.add(entry);
@@ -52,15 +52,18 @@ public class TRRecipeHandler {
 
 	@SubscribeEvent
 	public void pickupEvent(EntityItemPickupEvent entityItemPickupEvent) {
-		if(entityItemPickupEvent.getEntityPlayer() instanceof FakePlayer){
+		if (entityItemPickupEvent.getEntityPlayer() instanceof FakePlayer) {
 			return;
 		}
 		if (entityItemPickupEvent.getEntityPlayer() instanceof EntityPlayerMP) {
-			if (ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)) {
-				for (IRecipe recipe : CraftingManager.REGISTRY) {
-					if (recipe.getRecipeOutput().getItem() == ModItems.TREE_TAP) {
-						entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
-					}
+			if (!ItemUtils.isInputEqual("logWood", entityItemPickupEvent.getItem().getItem(), false, false, true)) {
+				return;
+			}
+			Iterator<IRecipe> recipeIterator = CraftingManager.REGISTRY.iterator();
+			while (recipeIterator.hasNext()) {
+				IRecipe recipe = recipeIterator.next();
+				if (recipe.getRecipeOutput().getItem() == ModItems.TREE_TAP) {
+					entityItemPickupEvent.getEntityPlayer().unlockRecipes(Collections.singletonList(recipe));
 				}
 			}
 		}
@@ -68,7 +71,9 @@ public class TRRecipeHandler {
 
 	public static void unlockTRRecipes(EntityPlayerMP playerMP) {
 		List<IRecipe> recipeList = new ArrayList<>();
-		for (IRecipe recipe : CraftingManager.REGISTRY) {
+		Iterator<IRecipe> recipeIterator = CraftingManager.REGISTRY.iterator();
+		while (recipeIterator.hasNext()) {
+			IRecipe recipe = recipeIterator.next();
 			if (isRecipeValid(recipe)) {
 				recipeList.add(recipe);
 			}

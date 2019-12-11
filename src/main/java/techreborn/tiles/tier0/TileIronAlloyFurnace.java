@@ -32,7 +32,6 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 import reborncore.api.IToolDrop;
 import reborncore.api.praescriptum.Utils.IngredientUtils;
-import reborncore.api.praescriptum.ingredients.output.ItemStackOutputIngredient;
 import reborncore.api.praescriptum.recipes.Recipe;
 import reborncore.api.praescriptum.recipes.RecipeHandler;
 import reborncore.api.tile.IInventoryProvider;

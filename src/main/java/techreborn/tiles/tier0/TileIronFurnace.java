@@ -24,13 +24,11 @@
 
 package techreborn.tiles.tier0;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.tile.RebornMachineTile;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;

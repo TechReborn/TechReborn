@@ -296,12 +296,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				return currentRecipe;
 			}
 		}
-		for (IRecipe testRecipe : CraftingManager.REGISTRY) {
-			if (testRecipe.matches(crafting, world)) {
-				return testRecipe;
-			}
-		}
-		return null;
+		return CraftingManager.findMatchingRecipe(crafting, world);
 	}
 
 	public ItemStack findMatchingRecipeOutput(InventoryCrafting crafting){

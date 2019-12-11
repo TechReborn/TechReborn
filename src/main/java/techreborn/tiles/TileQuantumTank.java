@@ -42,8 +42,6 @@ import reborncore.common.registration.impl.ConfigRegistry;
 import reborncore.common.tile.RebornMachineTile;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
-import reborncore.common.util.Tank;
-
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 

@@ -24,14 +24,12 @@
 
 package techreborn.tiles.tier1;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -122,7 +120,6 @@ public class TileElectricFurnace extends TilePowerAcceptor
 				wasBurning = true;
 				return;
 			}
-			final IBlockState BlockStateContainer = world.getBlockState(pos);
 			setActive(progress > 0);
 			wasBurning = (progress > 0);
 		}

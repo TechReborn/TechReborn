@@ -44,6 +44,7 @@ import techreborn.lib.ModInfo;
 
 import javax.annotation.Nonnull;
 import java.security.InvalidParameterException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -104,13 +105,14 @@ public class IndustrialSawmillRecipes extends RecipeMethods {
 
 	@Nonnull
 	public static ItemStack findMatchingRecipe(InventoryCrafting inv) {
-		for (IRecipe recipe : CraftingManager.REGISTRY) {
+		Iterator<IRecipe> recipeIterator = CraftingManager.REGISTRY.iterator();
+		while (recipeIterator.hasNext()) {
+			IRecipe recipe = recipeIterator.next();
 			if (recipe.canFit(1, 1) && recipe.matches(inv, null)) {
 				return recipe.getCraftingResult(inv);
 			}
 		}
 		return ItemStack.EMPTY;
-
 	}
 
 	public static void addRecipe(ItemStack log, ItemStack plank) {
