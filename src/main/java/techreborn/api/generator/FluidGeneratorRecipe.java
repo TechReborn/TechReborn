@@ -43,8 +43,8 @@ public class FluidGeneratorRecipe {
 		return fluid;
 	}
 
-	public int getEnergyPerMb() {
-		return energyPerMb;
+	public int getEnergyPerBucket() {
+		return energyPerMb * 1000;
 	}
 
 	public EFluidGenerator getGeneratorType() {

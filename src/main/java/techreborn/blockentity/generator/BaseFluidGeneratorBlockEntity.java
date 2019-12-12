@@ -32,6 +32,7 @@ import org.apache.commons.lang3.Validate;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -62,7 +63,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	 */
 	double pendingWithdraw = 0.0;
 
-	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, EFluidGenerator type, String blockEntityName, int tankCapacity, int euTick) {
+	public BaseFluidGeneratorBlockEntity(BlockEntityType<?> blockEntityType, EFluidGenerator type, String blockEntityName, FluidValue tankCapacity, int euTick) {
 		super(blockEntityType);
 		recipes = GeneratorRecipeHelper.getFluidRecipesForGenerator(type);
 		Validate.notNull(recipes, "null recipe list for " + type.getRecipeID());
@@ -85,7 +86,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		if (ticksSinceLastChange >= 10) {
 			ItemStack inputStack = inventory.getInvStack(0);
 			if (!inputStack.isEmpty()) {
-				if (FluidUtils.isContainerEmpty(inputStack) && tank.getFluidAmount() > 0) {
+				if (FluidUtils.isContainerEmpty(inputStack) && !tank.getFluidAmount().isEmpty()) {
 					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());	
 				}
 				else if (inputStack.getItem() instanceof ItemFluidInfo && getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
@@ -96,19 +97,19 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 			ticksSinceLastChange = 0;
 		}
 
-		if (tank.getFluidAmount() > 0) {
+		if (!tank.getFluidAmount().isEmpty()) {
 			if (currentRecipe == null || !FluidUtils.fluidEquals(currentRecipe.getFluid(), tank.getFluid()))
 				currentRecipe = getRecipes().getRecipeForFluid(tank.getFluid()).orElse(null);
 
 			if (currentRecipe != null) {
-				final Integer euPerBucket = currentRecipe.getEnergyPerMb() * 1000;
+				final int euPerBucket = currentRecipe.getEnergyPerBucket();
 				final float millibucketsPerTick = euTick * 1000 / (float) euPerBucket;
 
 				if (tryAddingEnergy(euTick)) {
 					pendingWithdraw += millibucketsPerTick;
 					final int currentWithdraw = (int) pendingWithdraw;
 					pendingWithdraw -= currentWithdraw;
-					tank.getFluidInstance().subtractAmount(currentWithdraw);
+					tank.getFluidInstance().subtractAmount(FluidValue.fromRaw(currentWithdraw));
 					lastOutput = world.getTime();
 				}
 			}
@@ -205,11 +206,11 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		this.ticksSinceLastChange = ticksSinceLastChange;
 	}
 
-	public int getTankAmount(){
+	public FluidValue getTankAmount(){
 		return tank.getFluidAmount();
 	}
 
-	public void setTankAmount(int amount){
+	public void setTankAmount(FluidValue amount){
 		tank.setFluidAmount(amount);
 	}
 

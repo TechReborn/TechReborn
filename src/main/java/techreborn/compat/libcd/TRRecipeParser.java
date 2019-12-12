@@ -17,6 +17,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.common.crafting.ingredient.*;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 
 import java.util.Collections;
@@ -97,6 +98,6 @@ public class TRRecipeParser {
             amount = Integer.parseInt(amtStr);
         }
         Identifier id = new Identifier(fluid);
-        return new FluidInstance(Registry.FLUID.get(id), amount);
+        return new FluidInstance(Registry.FLUID.get(id), FluidValue.fromRaw(amount));
     }
 }

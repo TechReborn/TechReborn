@@ -56,7 +56,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 		}
 		if (recipe instanceof RebornFluidRecipe) {
 			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
-			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount())));
+			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
 		}
 	}
 	

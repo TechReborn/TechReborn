@@ -62,7 +62,7 @@ public class TRTweaker implements Tweaker {
                 JsonArray array = (JsonArray) debug.get(genID);
                 JsonObject recipeInfo = new JsonObject();
                 recipeInfo.put("fluid", new JsonPrimitive(Registry.FLUID.getId(recipe.getFluid()).toString()));
-                recipeInfo.put("energy_per_mb", new JsonPrimitive(recipe.getEnergyPerMb()));
+                recipeInfo.put("energy_per_mb", new JsonPrimitive(recipe.getEnergyPerBucket() / 1000));
                 array.add(recipeInfo);
             } else {
                 tweaker.getLogger().error("Could not add recipe to TechReborn generator " + recipe.getGeneratorType().getRecipeID()

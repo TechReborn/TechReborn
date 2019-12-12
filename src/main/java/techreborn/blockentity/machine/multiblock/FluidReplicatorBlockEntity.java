@@ -30,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
@@ -50,7 +51,7 @@ import javax.annotation.Nullable;
 public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
 	public MultiblockChecker multiblockChecker;
-	public static final int TANK_CAPACITY = 16_000;
+	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
 	int ticksSinceLastChange;
 

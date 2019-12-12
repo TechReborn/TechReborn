@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluid.FluidValue;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 import techreborn.config.TechRebornConfig;
@@ -38,7 +39,7 @@ import techreborn.init.TRContent;
 public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
 	public SemiFluidGeneratorBlockEntity() {
-		super(TRBlockEntities.SEMI_FLUID_GENERATOR, EFluidGenerator.SEMIFLUID, "SemiFluidGeneratorBlockEntity", TechRebornConfig.semiFluidGeneratorTankCapacity, TechRebornConfig.semiFluidGeneratorEnergyPerTick);
+		super(TRBlockEntities.SEMI_FLUID_GENERATOR, EFluidGenerator.SEMIFLUID, "SemiFluidGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.semiFluidGeneratorEnergyPerTick);
 	}
 
 	@Override

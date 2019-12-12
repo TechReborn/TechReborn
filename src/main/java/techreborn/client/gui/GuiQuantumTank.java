@@ -60,7 +60,7 @@ public class GuiQuantumTank extends GuiBase<BuiltContainer> {
 			font.draw(FluidUtil.getFluidName(fluid) + "", 10, 30, 4210752);
 
 			font.draw("Fluid Amount:", 10, 50, 4210752);
-			font.draw(quantumTank.tank.getFluidAmount() + "mb", 10, 60, 4210752);
+			font.draw(quantumTank.tank.getFluidAmount().toString() , 10, 60, 4210752);
 		}
 
 	}

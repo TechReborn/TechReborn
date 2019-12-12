@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier3;
 
+import reborncore.common.fluid.FluidValue;
 import techreborn.init.TRBlockEntities;
 
 public class CreativeQuantumTankBlockEntity extends QuantumTankBlockEntity {
@@ -36,7 +37,7 @@ public class CreativeQuantumTankBlockEntity extends QuantumTankBlockEntity {
 	public void tick() {
 		super.tick();
 		if (!tank.isEmpty() && !tank.isFull()) {
-			tank.setFluidAmount(Integer.MAX_VALUE);
+			tank.setFluidAmount(FluidValue.INFINITE);
 		}
 	}
 

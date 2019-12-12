@@ -32,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.fluid.container.ItemFluidInfo;
@@ -67,7 +68,7 @@ public class FluidUtils {
 		Fluid currentFluid = targetFluidInstance.getFluid();
 
 		if(targetFluidInstance.isEmpty() || currentFluid == itemFluidInfo.getFluid(inputStack)) {
-			int freeSpace = target.getCapacity(null) - targetFluidInstance.getAmount();
+			FluidValue freeSpace = target.getCapacity(null).subtract(targetFluidInstance.getAmount());
 
 			if(!outputStack.isEmpty()){
 				if(outputStack.getCount() + 1 >= outputStack.getMaxCount()){
@@ -75,10 +76,10 @@ public class FluidUtils {
 				}
 			}
 
-			if(freeSpace >= 1000){
+			if(freeSpace.equalOrMoreThan(FluidValue.BUCKET)){
 				inputStack.decrement(1);
 				targetFluidInstance.setFluid(itemFluidInfo.getFluid(inputStack));
-				targetFluidInstance.addAmount(1000);
+				targetFluidInstance.addAmount(FluidValue.BUCKET);
 
 				if(outputStack.isEmpty()){
 					inventory.setInvStack(outputSlot, itemFluidInfo.getEmpty());
@@ -101,7 +102,7 @@ public class FluidUtils {
 		ItemFluidInfo itemFluidInfo = (ItemFluidInfo) inputStack.getItem();
 		FluidInstance sourceFluid = source.getFluidInstance(null);
 
-		if(sourceFluid.getFluid() == Fluids.EMPTY || sourceFluid.getAmount() < 1000){
+		if(sourceFluid.getFluid() == Fluids.EMPTY || sourceFluid.getAmount().lessThan(FluidValue.BUCKET)){
 			return false;
 		}
 
@@ -123,7 +124,7 @@ public class FluidUtils {
 			outputStack.increment(1);
 		}
 
-		sourceFluid.subtractAmount(1000);
+		sourceFluid.subtractAmount(FluidValue.BUCKET);
 
 		inputStack.decrement(1);
 

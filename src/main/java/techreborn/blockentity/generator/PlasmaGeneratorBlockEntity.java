@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluid.FluidValue;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
@@ -37,7 +38,7 @@ import techreborn.init.TRContent;
 public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
 	public PlasmaGeneratorBlockEntity() {
-		super(TRBlockEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", TechRebornConfig.plasmaGeneratorTankCapacity, TechRebornConfig.plasmaGeneratorEnergyPerTick);
+		super(TRBlockEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
 	}
 
 	@Override

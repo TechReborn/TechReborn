@@ -34,6 +34,7 @@ import net.minecraft.util.math.Direction;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
@@ -48,7 +49,7 @@ import javax.annotation.Nullable;
 
 public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity implements IContainerProvider{
 
-	public static final int TANK_CAPACITY = 16_000;
+	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
 	public MultiblockChecker multiblockChecker;
 	int ticksSinceLastChange;

@@ -37,6 +37,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.config.TechRebornConfig;
@@ -50,7 +51,7 @@ import java.util.List;
 public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 	implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
-	public Tank tank = new Tank("QuantumTankBlockEntity", TechRebornConfig.quantumTankMaxStorage, this);
+	public Tank tank = new Tank("QuantumTankBlockEntity", FluidValue.INFINITE, this);
 	public RebornInventory<QuantumTankBlockEntity> inventory = new RebornInventory<>(3, "QuantumTankBlockEntity", 64, this);
 
 	public QuantumTankBlockEntity(){
@@ -132,7 +133,7 @@ public class QuantumTankBlockEntity extends MachineBaseBlockEntity
 				info.add(new LiteralText("Empty"));
 			}
 		}
-		info.add(new LiteralText("Capacity " + this.tank.getCapacity() + " mb"));
+		info.add(new LiteralText("Capacity " + this.tank.getCapacity()));
 	}
 
 	// IContainerProvider

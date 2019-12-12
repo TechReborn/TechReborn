@@ -78,9 +78,6 @@ public class TechRebornConfig {
 	@Config(config = "generators", category = "thermal_generator", key = "ThermalGeneratorMaxEnergy", comment = "Thermal Generator Max Energy (Value in EU)")
 	public static int thermalGeneratorMaxEnergy = 1_000_000;
 
-	@Config(config = "generators", category = "thermal_generator", key = "ThermalGeneratorTankCapacity", comment = "Thermal Generator Tank Capacity")
-	public static int thermalGeneratorTankCapacity = 10_000;
-
 	@Config(config = "generators", category = "thermal_generator", key = "ThermalGeneratorEnergyPerTick", comment = "Thermal Generator Energy Per Tick (Value in EU)")
 	public static int thermalGeneratorEnergyPerTick = 16;
 	
@@ -89,9 +86,6 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxEnergy", comment = "Plasma Generator Max Energy (Value in EU)")
 	public static double plasmaGeneratorMaxEnergy = 500_000_000;
-
-	@Config(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorTankCapacity", comment = "Plasma Generator Tank Capacity")
-	public static int plasmaGeneratorTankCapacity = 10_000;
 
 	@Config(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorEnergyPerTick", comment = "Plasma Generator Energy Per Tick (Value in EU)")
 	public static int plasmaGeneratorEnergyPerTick = 400;
@@ -123,9 +117,6 @@ public class TechRebornConfig {
 	@Config(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorMaxEnergy", comment = "Semifluid Generator Max Energy (Value in EU)")
 	public static int semiFluidGeneratorMaxEnergy = 1000000;
 
-	@Config(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorTankCapacity", comment = "Semifluid Generator Tank Capacity")
-	public static int semiFluidGeneratorTankCapacity = 10000;
-
 	@Config(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorEnergyPerTick", comment = "Semifluid Generator Energy Per Tick (Value in EU)")
 	public static int semiFluidGeneratorEnergyPerTick = 8;
 	
@@ -135,9 +126,6 @@ public class TechRebornConfig {
 	@Config(config = "generators", category = "gas_generator", key = "GasGeneratorMaxEnergy", comment = "Gas Generator Max Energy (Value in EU)")
 	public static int gasTurbineMaxEnergy = 1000000;
 
-	@Config(config = "generators", category = "gas_generator", key = "GasGeneratorTankCapacity", comment = "Gas Generator Tank Capacity")
-	public static int gasTurbineTankCapacity = 10000;
-
 	@Config(config = "generators", category = "gas_generator", key = "GasGeneratorEnergyPerTick", comment = "Gas Generator Energy Per Tick (Value in EU)")
 	public static int gasTurbineEnergyPerTick = 16;
 	
@@ -146,9 +134,6 @@ public class TechRebornConfig {
 	
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
 	public static int dieselGeneratorMaxEnergy = 10_000;
-
-	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorTankCapacity", comment = "Diesel Generator Tank Capacity")
-	public static int dieselGeneratorTankCapacity = 10_000;
 
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
 	public static int dieselGeneratorEnergyPerTick = 20;
@@ -382,9 +367,6 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int electricFurnaceMaxEnergy = 1000;
-
-	@Config(config = "machines", category = "quantum_tank", key = "QuantumTankMaxStorage", comment = "Maximum amount of millibuckets a Quantum Tank can store")
-	public static int quantumTankMaxStorage = Integer.MAX_VALUE;
 
 	@Config(config = "machines", category = "digital_chest", key = "DigitalChestMaxStorage", comment = "Maximum amount of items a Digital Chest can store")
 	public static int digitalChestMaxStorage = 32768;

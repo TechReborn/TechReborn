@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.fluid.FluidValue;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 import techreborn.config.TechRebornConfig;
@@ -38,7 +39,7 @@ import techreborn.init.TRContent;
 public class DieselGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
 
 	public DieselGeneratorBlockEntity() {
-		super(TRBlockEntities.DIESEL_GENERATOR, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", TechRebornConfig.dieselGeneratorTankCapacity, TechRebornConfig.dieselGeneratorEnergyPerTick);
+		super(TRBlockEntities.DIESEL_GENERATOR, EFluidGenerator.DIESEL, "DieselGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.dieselGeneratorEnergyPerTick);
 	}
 
 	@Override
