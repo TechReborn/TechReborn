@@ -57,7 +57,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltContainer> {
 	@Override
 	protected void drawForeground(int mouseX, int mouseY) {
 		super.drawForeground(mouseX, mouseY);
-		CraftingRecipe recipe = blockEntityAutoCraftingTable.getIRecipe();
+		CraftingRecipe recipe = blockEntityAutoCraftingTable.getCurrentRecipe();
 		if (recipe != null) {
 			renderItemStack(recipe.getOutput(), 95, 42);
 		}

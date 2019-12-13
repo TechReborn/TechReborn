@@ -53,8 +53,10 @@ import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by modmuss50 on 20/06/2017.
@@ -62,10 +64,11 @@ import java.util.Optional;
 public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		implements IToolDrop, InventoryProvider, IContainerProvider {
 
-	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this, getInventoryAccess());
+	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this);
 	public int progress;
 	public int maxProgress = 120;
 	public int euTick = 10;
+	public int balanceSlot = 0;
 
 	CraftingInventory inventoryCrafting = null;
 	CraftingRecipe lastCustomRecipe = null;
@@ -78,7 +81,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Nullable
-	public CraftingRecipe getIRecipe() {
+	public CraftingRecipe getCurrentRecipe() {
 		CraftingInventory crafting = getCraftingInventory();
 		if (!crafting.isInvEmpty()) {
 			if (lastRecipe != null) {
@@ -119,10 +122,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
+			List<Integer> checkedSlots = new ArrayList<>();
 			for (Ingredient ingredient : ingredients) {
 				if (ingredient != Ingredient.EMPTY) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
+						if(checkedSlots.contains(i)) {
+							continue;
+						}
 						ItemStack stack = inventory.getInvStack(i);
 						int requiredSize = locked ? 1 : 0;
 						if (stack.getMaxCount() == 1) {
@@ -136,6 +143,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 									}
 								}
 								foundIngredient = true;
+								checkedSlots.add(i);
 								stacksInSlots[i]--;
 								break;
 							}
@@ -225,65 +233,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		}
 	}
 
-	public boolean hasIngredient(Ingredient ingredient) {
-		for (int i = 0; i < 9; i++) {
-			ItemStack stack = inventory.getInvStack(i);
-			if (ingredient.test(stack)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isItemValidForRecipeSlot(Recipe<CraftingInventory> recipe, ItemStack stack, int slotID) {
-		if (recipe == null) {
-			return true;
-		}
-		int bestSlot = findBestSlotForStack(recipe, stack);
-		if (bestSlot != -1) {
-			return bestSlot == slotID;
-		}
-		return true;
-	}
-
-	public int findBestSlotForStack(Recipe<CraftingInventory> recipe, ItemStack stack) {
-		if (recipe == null) {
-			return -1;
-		}
-		DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
-		List<Integer> possibleSlots = new ArrayList<>();
-		for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
-			ItemStack stackInSlot = inventory.getInvStack(i);
-			Ingredient ingredient = ingredients.get(i);
-			if (ingredient != Ingredient.EMPTY && ingredient.test(stack)) {
-				if (stackInSlot.isEmpty()) {
-					possibleSlots.add(i);
-				} else if (stackInSlot.getItem() == stack.getItem()) {
-					if (stackInSlot.getMaxCount() >= stackInSlot.getCount() + stack.getCount()) {
-						possibleSlots.add(i);
-					}
-				}
-			}
-		}
-		// Slot, count
-		Pair<Integer, Integer> smallestCount = null;
-		for (Integer slot : possibleSlots) {
-			ItemStack slotStack = inventory.getInvStack(slot);
-			if (slotStack.isEmpty()) {
-				return slot;
-			}
-			if (smallestCount == null) {
-				smallestCount = Pair.of(slot, slotStack.getCount());
-			} else if (smallestCount.getRight() >= slotStack.getCount()) {
-				smallestCount = Pair.of(slot, slotStack.getCount());
-			}
-		}
-		if (smallestCount != null) {
-			return smallestCount.getLeft();
-		}
-		return -1;
-	}
-
 	public int getProgress() {
 		return progress;
 	}
@@ -310,8 +259,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (world.isClient) {
 			return;
 		}
-		CraftingRecipe recipe = getIRecipe();
+		CraftingRecipe recipe = getCurrentRecipe();
 		if (recipe != null) {
+			Optional<CraftingInventory> balanceResult = balanceRecipe(getCraftingInventory());
+			balanceResult.ifPresent(craftingInventory -> inventoryCrafting = craftingInventory);
+
 			if (progress >= maxProgress) {
 				if (make(recipe)) {
 					progress = 0;
@@ -334,6 +286,110 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null) {
 			progress = 0;
 		}
+	}
+
+	public Optional<CraftingInventory> balanceRecipe(CraftingInventory craftCache) {
+		CraftingRecipe currentRecipe = getCurrentRecipe();
+		if (currentRecipe == null) {
+			return Optional.empty();
+		}
+		if (world.isClient) {
+			return Optional.empty();
+		}
+		if (craftCache.isInvEmpty()) {
+			return Optional.empty();
+		}
+		balanceSlot++;
+		if (balanceSlot > craftCache.getInvSize()) {
+			balanceSlot = 0;
+		}
+		//Find the best slot for each item in a recipe, and move it if needed
+		ItemStack sourceStack = inventory.getInvStack(balanceSlot);
+		if (sourceStack.isEmpty()) {
+			return Optional.empty();
+		}
+		List<Integer> possibleSlots = new ArrayList<>();
+		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
+			for (int i = 0; i < 9; i++) {
+				if(possibleSlots.contains(i)) {
+					continue;
+				}
+				ItemStack stackInSlot = inventory.getInvStack(i);
+				Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
+				if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
+					if (stackInSlot.getItem() == sourceStack.getItem()) {
+						possibleSlots.add(i);
+						break;
+					}
+				}
+			}
+
+		}
+
+		if(!possibleSlots.isEmpty()){
+			int totalItems =  possibleSlots.stream()
+					.mapToInt(value -> inventory.getInvStack(value).getCount()).sum();
+			int slots = possibleSlots.size();
+
+			//This makes an array of ints with the best possible slot EnvTyperibution
+			int[] split = new int[slots];
+			int remainder = totalItems % slots;
+			Arrays.fill(split, totalItems / slots);
+			while (remainder > 0){
+				for (int i = 0; i < split.length; i++) {
+					if(remainder > 0){
+						split[i] +=1;
+						remainder --;
+					}
+				}
+			}
+
+			List<Integer> slotEnvTyperubution = possibleSlots.stream()
+					.mapToInt(value -> inventory.getInvStack(value).getCount())
+					.boxed().collect(Collectors.toList());
+
+			boolean needsBalance = false;
+			for (int i = 0; i < split.length; i++) {
+				int required = split[i];
+				if(slotEnvTyperubution.contains(required)){
+					//We need to remove the int, not at the int, this seems to work around that
+					slotEnvTyperubution.remove(new Integer(required));
+				} else {
+					needsBalance = true;
+				}
+			}
+			if (!needsBalance) {
+				return Optional.empty();
+			}
+		} else {
+			return Optional.empty();
+		}
+
+		//Slot, count
+		Pair<Integer, Integer> bestSlot = null;
+		for (Integer slot : possibleSlots) {
+			ItemStack slotStack = inventory.getInvStack(slot);
+			if (slotStack.isEmpty()) {
+				bestSlot = Pair.of(slot, 0);
+			}
+			if (bestSlot == null) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			} else if (bestSlot.getRight() >= slotStack.getCount()) {
+				bestSlot = Pair.of(slot, slotStack.getCount());
+			}
+		}
+		if (bestSlot == null
+				|| bestSlot.getLeft() == balanceSlot
+				|| bestSlot.getRight() == sourceStack.getCount()
+				|| inventory.getInvStack(bestSlot.getLeft()).isEmpty()
+				|| !ItemUtils.isItemEqual(sourceStack, inventory.getInvStack(bestSlot.getLeft()), true, true)) {
+			return Optional.empty();
+		}
+		sourceStack.decrement(1);
+		inventory.getInvStack(bestSlot.getLeft()).increment(1);
+		inventory.setChanged();
+
+		return Optional.of(getCraftingInventory());
 	}
 
 	// Easyest way to sync back to the client
@@ -390,25 +446,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
-	private static IInventoryAccess<AutoCraftingTableBlockEntity> getInventoryAccess(){
-		return (slotID, stack, facing, direction, blockEntity) -> {
-			switch (direction){
-				case INSERT:
-					if (slotID > 8) {
-						return false;
-					}
-					int bestSlot = blockEntity.findBestSlotForStack(blockEntity.getIRecipe(), stack);
-					if (bestSlot != -1) {
-						return slotID == bestSlot;
-					}
-					return true;
-				case EXTRACT:
-					return slotID > 8;
-			}
-			return true;
-		};
-	}
-
 	// This machine doesnt have a facing
 	@Override
 	public Direction getFacingEnum() {
@@ -440,6 +477,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean hasSlotConfig() {
-		return false;
+		return true;
 	}
 }
