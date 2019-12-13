@@ -30,7 +30,6 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
@@ -68,7 +67,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public int tickTime;
 	@Nonnull
 	public ItemStack currentRecipeOutput;
-	public Recipe currentRecipe;
+	public RollingMachineRecipe currentRecipe;
 	private int outputSlot;
 	public boolean locked = false;
 	public int balanceSlot = 0;
@@ -327,14 +326,14 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {
-		Recipe recipe = findMatchingRecipe(inv, world);
+		RollingMachineRecipe recipe = findMatchingRecipe(inv, world);
 		if(recipe == null){
 			return ItemStack.EMPTY;
 		}
 		return recipe.getOutput();
 	}
 
-	public Recipe findMatchingRecipe(CraftingInventory inv, World world) {
+	public RollingMachineRecipe findMatchingRecipe(CraftingInventory inv, World world) {
 		for (RollingMachineRecipe recipe : getAllRecipe(world)) {
 			if (recipe.matches(inv, world)) {
 				return recipe;

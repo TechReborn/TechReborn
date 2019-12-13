@@ -29,7 +29,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
 import net.minecraft.world.gen.feature.OakTreeFeature;
 import techreborn.init.TRContent;
@@ -37,7 +36,6 @@ import techreborn.init.TRContent;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * @author drcrazy

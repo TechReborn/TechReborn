@@ -28,7 +28,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import reborncore.RebornCoreClient;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;

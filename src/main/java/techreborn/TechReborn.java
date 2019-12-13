@@ -26,7 +26,6 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -40,7 +39,6 @@ import reborncore.common.util.Torus;
 import reborncore.common.world.DataAttachment;
 import techreborn.blockentity.storage.idsu.IDSUManager;
 import techreborn.client.GuiHandler;
-import techreborn.compat.libcd.TRTweaker;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
 import techreborn.init.*;

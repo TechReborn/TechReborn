@@ -29,7 +29,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;

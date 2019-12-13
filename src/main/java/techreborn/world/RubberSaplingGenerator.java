@@ -25,11 +25,8 @@
 package techreborn.world;
 
 import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-
 import javax.annotation.Nullable;
 import java.util.Random;
 

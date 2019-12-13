@@ -30,7 +30,6 @@ import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import techreborn.TechReborn;
