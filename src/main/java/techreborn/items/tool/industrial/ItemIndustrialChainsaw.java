@@ -82,8 +82,12 @@ public class ItemIndustrialChainsaw extends ItemChainsaw {
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
-		findWood(worldIn, pos, wood, new ArrayList<>());
-		wood.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
+		if (ItemUtils.isActive(stack)) {
+			findWood(worldIn, pos, wood, new ArrayList<>());
+			wood.stream()
+					.filter(p -> Energy.of(stack).use(cost))
+					.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
+		}
 		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
