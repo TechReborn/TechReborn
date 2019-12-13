@@ -434,7 +434,7 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxInput", comment = "Solid Canning Machine Max Input (Value in EU)")
 	public static int solidCanningMachineMaxInput = 32;
 
-	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxInput", comment = "Solid Canning Machine Max Energy (Value in EU)")
+	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxEnergy", comment = "Solid Canning Machine Max Energy (Value in EU)")
 	public static int solidCanningMachineMaxEnergy = 1_000;
 	
 	@Config(config = "machines", category = "iron_machine", key = "fuel_scale", comment = "Multiplier for vanilla furnace item burn time")

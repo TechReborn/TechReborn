@@ -36,10 +36,6 @@ repositories {
 		url = "https://maven.modmuss50.me/"
 	}
 	maven {
-		name = 'sponge'
-		url = 'https://repo.spongepowered.org/maven'
-	}
-	maven {
 		// LibCD
 		url 'http://server.bbkr.space:8081/artifactory/libs-release'
 	}
@@ -89,7 +85,6 @@ dependencies {
 	include rcVersion
 
 	compile 'org.checkerframework:checker-qual:2.10.0'
-	compile 'org.spongepowered:configurate-hocon:3.6'
 
 	compile 'org.checkerframework:checker-qual:2.10.0'
 	compileOnly "com.google.code.findbugs:jsr305:+"
