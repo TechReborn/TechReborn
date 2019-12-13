@@ -26,16 +26,16 @@ package techreborn.blockentity.storage.idsu;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import reborncore.common.util.NBTSerializable;
 import reborncore.common.world.DataAttachment;
 import reborncore.common.world.DataAttachmentProvider;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class IDSUManager implements DataAttachment {
 
-	@NonNull
+	@Nonnull
 	public static IDSUPlayer getPlayer(World world, String uuid){
 		return get(world).getPlayer(uuid);
 	}
@@ -46,19 +46,19 @@ public class IDSUManager implements DataAttachment {
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
 
-	@NonNull
+	@Nonnull
 	public IDSUPlayer getPlayer(String uuid){
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
 	}
 
 	@Override
-	public void read(@NonNull CompoundTag tag) {
+	public void read(@Nonnull CompoundTag tag) {
 		for(String uuid : tag.getKeys()){
 			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
 		}
 	}
 
-	@NonNull
+	@Nonnull
 	@Override
 	public CompoundTag write() {
 		CompoundTag tag = new CompoundTag();
@@ -77,7 +77,7 @@ public class IDSUManager implements DataAttachment {
 			read(compoundTag);
 		}
 
-		@NonNull
+		@Nonnull
 		@Override
 		public CompoundTag write() {
 			CompoundTag tag = new CompoundTag();
@@ -86,7 +86,7 @@ public class IDSUManager implements DataAttachment {
 		}
 
 		@Override
-		public void read(@NonNull CompoundTag tag) {
+		public void read(@Nonnull CompoundTag tag) {
 			energy = tag.getDouble("energy");
 		}
 

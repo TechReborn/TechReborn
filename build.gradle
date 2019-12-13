@@ -84,16 +84,13 @@ dependencies {
 	}
 	include rcVersion
 
-	compile 'org.checkerframework:checker-qual:2.10.0'
-
-	compile 'org.checkerframework:checker-qual:2.10.0'
-	compileOnly "com.google.code.findbugs:jsr305:+"
+	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
 	modCompileOnly ('curse.maven:towelette:2834316') {
 		transitive = false
 	}
 
-	compile 'teamreborn:energy:0.0.7'
+	compile 'teamreborn:energy:0.0.8'
 }
 
 processResources {
