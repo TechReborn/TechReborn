@@ -34,6 +34,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
@@ -41,6 +43,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -76,6 +79,7 @@ public class CableBlock extends BlockWithEntity {
 	public static final BooleanProperty SOUTH = BooleanProperty.of("south");
 	public static final BooleanProperty UP = BooleanProperty.of("up");
 	public static final BooleanProperty DOWN = BooleanProperty.of("down");
+	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
 	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = Util.make(new HashMap<>(), map -> {
 		map.put(Direction.EAST, EAST);
@@ -93,7 +97,7 @@ public class CableBlock extends BlockWithEntity {
 		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
 		this.type = type;
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
-				.with(SOUTH, false).with(UP, false).with(DOWN, false));
+				.with(SOUTH, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 		cableShapeUtil = new CableShapeUtil(this);
 	}
@@ -170,17 +174,21 @@ public class CableBlock extends BlockWithEntity {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN);
+		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN, WATERLOGGED);
 	}
 
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
-		return makeConnections(context.getWorld(), context.getBlockPos());
+		return makeConnections(context.getWorld(), context.getBlockPos())
+				.with(WATERLOGGED, context.getWorld().getFluidState(context.getBlockPos()).getFluid() == Fluids.WATER);
 	}
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState,
 			IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
+		if (ourState.get(WATERLOGGED)) {
+			worldIn.getFluidTickScheduler().schedule(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+		}
 		Boolean value = canConnectTo(worldIn, otherPos, ourFacing.getOpposite());
 		return ourState.with(getProperty(ourFacing), value);
 	}
@@ -226,5 +234,10 @@ public class CableBlock extends BlockWithEntity {
 		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
 			worldIn.addParticle(ParticleTypes.CRIT, entityIn.getX(), entityIn.getY(), entityIn.getZ(), 0, 0, 0);
 		}
+	}
+
+	@Override
+	public FluidState getFluidState(BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 }
