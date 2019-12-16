@@ -72,11 +72,11 @@ group = 'TechReborn'
 
 dependencies {
 	minecraft "com.mojang:minecraft:1.14.4"
-	mappings "net.fabricmc:yarn:1.14.4+build.2"
+	mappings "net.fabricmc:yarn:1.14.4+build.15:v2"
 	modCompile "net.fabricmc:fabric-loader:0.6.3+build.167"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.1+build.245-1.14"
+	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.2+build.246-1.14"
 
 	modCompile "io.github.prospector:modmenu:1.7.9+build.118"
 	modCompile ("me.shedaniel:RoughlyEnoughItems:3.0-pre+build.3") {
