@@ -155,9 +155,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 						if(drainFluid != Fluids.EMPTY){
 							stack.decrement(1);
 							insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
-							world.setBlockState(hitPos, Blocks.AIR.getDefaultState());
 							playEmptyingSound(player, world, hitPos, drainFluid);
-
 							return TypedActionResult.pass(stack);
 						}
 					}

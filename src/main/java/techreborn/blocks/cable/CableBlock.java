@@ -29,6 +29,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
@@ -71,7 +72,7 @@ import java.util.Map;
 /**
  * Created by modmuss50 on 19/05/2017.
  */
-public class CableBlock extends BlockWithEntity {
+public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	public static final BooleanProperty EAST = BooleanProperty.of("east");
 	public static final BooleanProperty WEST = BooleanProperty.of("west");
