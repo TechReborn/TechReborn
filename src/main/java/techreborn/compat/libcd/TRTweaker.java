@@ -1,3 +1,27 @@
+/*
+ * This file is part of TechReborn, licensed under the MIT License (MIT).
+ *
+ * Copyright (c) 2018 TechReborn
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package techreborn.compat.libcd;
 
 import io.github.cottonmc.libcd.tweaker.*;
@@ -95,7 +119,7 @@ public class TRTweaker implements Tweaker {
      * @param power How much power the recipe consumes per tick.
      * @param time How many ticks (1/20 of a second) to process for.
      */
-    public void add(RebornRecipeType type, Object[] inputs, ItemStack[] outputs, int power, int time) {
+    public void add(RebornRecipeType<?> type, Object[] inputs, ItemStack[] outputs, int power, int time) {
         try {
             Identifier id = tweaker.getRecipeId(outputs[0]);
             DefaultedList<RebornIngredient> ingredients = DefaultedList.of();
@@ -435,7 +459,10 @@ public class TRTweaker implements Tweaker {
             DefaultedList<Ingredient> ingredients = DefaultedList.of();
             for (int i = 0; i < Math.min(inputs.length, width * height); i++) {
                 Object id = inputs[i];
-                if (id.equals("")) continue;
+                if (id.equals("")) {
+                	ingredients.add(i, Ingredient.EMPTY);
+                	continue;
+                }
                 ingredients.add(i, RecipeParser.processIngredient(id));
             }
             tweaker.addRecipe(new RollingMachineRecipe(ModRecipes.ROLLING_MACHINE, recipeId, new ShapedRecipe(recipeId, "", width, height, ingredients, output)));

@@ -5,7 +5,8 @@
   "ingredients": [
     {
       "fluid": "techreborn:hydrogen",
-      "holder": "techreborn:cell"
+      "holder": "techreborn:cell",
+      "count": 4
     }
   ],
   "results": [

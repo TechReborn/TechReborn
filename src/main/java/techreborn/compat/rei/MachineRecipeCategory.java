@@ -26,19 +26,18 @@ package techreborn.compat.rei;
 
 import me.shedaniel.math.api.Point;
 import me.shedaniel.math.api.Rectangle;
+import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeCategory;
 import me.shedaniel.rei.api.Renderer;
 import me.shedaniel.rei.gui.renderers.RecipeRenderer;
 import me.shedaniel.rei.gui.widget.*;
 import me.shedaniel.rei.impl.ScreenHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.StringUtils;
 
 import java.util.Collections;
@@ -71,13 +70,14 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	}
 
 	@Override
-	public Renderer getIcon() {
-		return Renderer.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
+	public EntryStack getLogo() {
+		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
 
 	@Override
 	public RecipeRenderer getSimpleRenderer(MachineRecipeDisplay<R> recipe) {
-		return Renderer.fromRecipe(() -> Collections.singletonList(recipe.getInput().get(0)), recipe::getOutput);
+		// There is currently no replacement for Renderer in the 1.14 version of REI
+		return Renderer.fromRecipeEntries(() -> Collections.singletonList(recipe.getInputEntries().get(0)), recipe::getOutputEntries);
 	}
 
 	@Override
@@ -92,37 +92,28 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
         widgets.add(new RecipeArrowWidget(startPoint.x + 24, startPoint.y + 1, true));
 
 		int i = 0;
-		for (List<ItemStack> inputs : machineRecipe.getInput()){
-			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStacks(inputs), true, true, true));
-		}
-		
-		FluidInstance fluidInstance = machineRecipe.getFluidInstance();
-		if (fluidInstance != null) {
-			widgets.add(new SlotWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), Renderer.fromFluid(fluidInstance.getFluid()), true, true, true));
+		for (List<EntryStack> inputs : machineRecipe.getInputEntries()){
+			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)).entries(inputs));
 		}
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
-		widgets.add(new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()){
-			@Override
-			public void render(int mouseX, int mouseY, float delta) {
-				font.draw(text, x - font.getStringWidth(text) / 2, y, ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
-			}
-		});
+		LabelWidget costLabel;
+		widgets.add(costLabel = new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()));
+		costLabel.setHasShadows(false);
+		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 
 		i = 0;
-		for (ItemStack outputs : machineRecipe.getOutput()){
-			widgets.add(new SlotWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), Renderer.fromItemStack(outputs), true, true, true));
+		for (EntryStack outputs : machineRecipe.getOutputEntries()){
+			widgets.add(EntryWidget.create(startPoint.x + 61, startPoint.y + 1 + (i++ * 20)).entry(outputs));
 		}
 		
 		int heat = machineRecipe.getHeat();
 		if (heat > 0) {
 			String neededHeat = heat + " " + StringUtils.t("techreborn.jei.recipe.heat");
-			widgets.add(new LabelWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), neededHeat){
-				@Override
-				public void render(int mouseX, int mouseY, float delta) {
-					font.draw(text, x - font.getStringWidth(text) / 2, y, ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
-				}
-			});			
+			LabelWidget heatLabel;
+			widgets.add(heatLabel = new LabelWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), neededHeat));
+			heatLabel.setHasShadows(false);
+			heatLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 		}
 
 		return widgets;

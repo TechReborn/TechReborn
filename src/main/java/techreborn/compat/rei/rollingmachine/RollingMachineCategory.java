@@ -24,9 +24,8 @@
 
 package techreborn.compat.rei.rollingmachine;
 
-import me.shedaniel.rei.api.Renderer;
+import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.plugin.crafting.DefaultCraftingCategory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipeType;
@@ -35,26 +34,26 @@ import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.compat.rei.ReiPlugin;
 
 public class RollingMachineCategory extends DefaultCraftingCategory {
-
+	
 	private final RebornRecipeType<RollingMachineRecipe> rebornRecipeType;
-
+	
 	public RollingMachineCategory(RebornRecipeType<RollingMachineRecipe> rebornRecipeType) {
 		this.rebornRecipeType = rebornRecipeType;
 	}
-
+	
 	@Override
 	public Identifier getIdentifier() {
 		return rebornRecipeType.getName();
 	}
-
+	
 	@Override
 	public String getCategoryName() {
 		return StringUtils.t(rebornRecipeType.getName().toString());
 	}
-
+	
 	@Override
-	public Renderer getIcon() {
-		return Renderer.fromItemStack(new ItemStack(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL).asItem()));
+	public EntryStack getLogo() {
+		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
-
+	
 }
