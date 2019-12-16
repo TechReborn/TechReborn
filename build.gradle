@@ -63,33 +63,35 @@ group = 'TechReborn'
 dependencies {
 	minecraft "com.mojang:minecraft:1.15"
 	mappings "net.fabricmc:yarn:1.15+build.2:v2"
-	modCompile "net.fabricmc:fabric-loader:0.7.2+build.174"
+	modImplementation "net.fabricmc:fabric-loader:0.7.2+build.174"
 
 	//Fabric api
-	modCompile "net.fabricmc.fabric-api:fabric-api:0.4.24+build.279-1.15"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.4.24+build.279-1.15"
 
-	modCompile ("me.shedaniel:RoughlyEnoughItems:3.2.25")
-	modCompile ('io.github.cottonmc:LibCD:2.0.1+1.15') {
-		transitive = false
-	}
-	modCompile ("io.github.cottonmc:Jankson-Fabric:2.0.0+j1.2.0") {
-		transitive = false
-	}
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.2.25")
+	optionalDependency ('io.github.cottonmc:LibCD:2.0.1+1.15')
 
 	def rcVersion = 'RebornCore:RebornCore-1.15:+'
-
-	modCompile (rcVersion) {
-		transitive = false
+	modApi (rcVersion) {
+		exclude group: "net.fabricmc"
 	}
 	include rcVersion
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-
 	modCompileOnly ('curse.maven:towelette:2842017') {
 		transitive = false
 	}
+}
 
-	compile 'teamreborn:energy:0.0.8'
+def optionalDependency(String dep) {
+	dependencies.modRuntime (dep) {
+		exclude group: "net.fabricmc"
+		exclude module: "nbt-crafting"
+	}
+	dependencies.modCompileOnly (dep) {
+		exclude group: "net.fabricmc"
+		exclude module: "nbt-crafting"
+	}
 }
 
 processResources {
