@@ -67,6 +67,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
+import techreborn.items.armor.ItemQuantumSuit;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
@@ -134,6 +135,12 @@ public class TRContent {
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
 	public static ItemDynamicCell CELL;
+
+	//Quantum Suit
+	public static ItemQuantumSuit QUANTUM_HELMET;
+	public static ItemQuantumSuit QUANTUM_CHESTPLATE;
+	public static ItemQuantumSuit QUANTUM_LEGGINGS;
+	public static ItemQuantumSuit QUANTUM_BOOTS;
 
 	// Gem armor & tools
 	@Nullable

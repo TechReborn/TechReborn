@@ -538,6 +538,11 @@
   "item.techreborn.energy_storage_upgrade": "Energy Storage Upgrade",
   "item.techreborn.superconductor_upgrade": "Superconductor Upgrade",
 
+  "item.techreborn.quantum_helmet" : "Quantum Helmet",
+  "item.techreborn.quantum_chestplate" : "Quantum Chestplate",
+  "item.techreborn.quantum_leggings" : "Quantum Leggings",
+  "item.techreborn.quantum_boots" : "Quantum Boots",
+
   "item.techreborn.bronze_sword": "Bronze Sword",
   "item.techreborn.bronze_pickaxe": "Bronze Pickaxe",
   "item.techreborn.bronze_spade": "Bronze Shovel",

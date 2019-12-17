@@ -61,6 +61,7 @@ import techreborn.items.ItemScrapBox;
 import techreborn.items.armor.ItemCloakingDevice;
 import techreborn.items.armor.ItemLapotronicOrbpack;
 import techreborn.items.armor.ItemLithiumIonBatpack;
+import techreborn.items.armor.ItemQuantumSuit;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
 import techreborn.items.tool.ItemDebugTool;
@@ -138,6 +139,11 @@ public class ModRegistry {
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 
+		RebornRegistry.registerItem(TRContent.QUANTUM_HELMET = InitUtils.setup(new ItemQuantumSuit(TRArmorMaterial.QUANTUM, EquipmentSlot.HEAD), "quantum_helmet"));
+		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new ItemQuantumSuit(TRArmorMaterial.QUANTUM, EquipmentSlot.CHEST), "quantum_chestplate"));
+		RebornRegistry.registerItem(TRContent.QUANTUM_LEGGINGS = InitUtils.setup(new ItemQuantumSuit(TRArmorMaterial.QUANTUM, EquipmentSlot.LEGS), "quantum_leggings"));
+		RebornRegistry.registerItem(TRContent.QUANTUM_BOOTS = InitUtils.setup(new ItemQuantumSuit(TRArmorMaterial.QUANTUM, EquipmentSlot.FEET), "quantum_boots"));
+		
 		// Gem armor & tools
 		if (TechRebornConfig.enableGemArmorAndTools) {
 			// Todo: repair with tags
