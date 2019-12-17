@@ -79,7 +79,6 @@ public class TechReborn implements ModInitializer {
 		//Force loads the block entities at the right time
 		TRBlockEntities.THERMAL_GEN.toString();
 
-
 		// Scrapbox
 		if (TechRebornConfig.dispenseScrapboxes) {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());

@@ -48,7 +48,7 @@ public class ItemTRArmour extends ArmorItem implements ItemDurabilityExtensions 
 			UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")
 	};
 
-	String repairOreDict = "";
+	String repairOreDict;
 
 	public ItemTRArmour(ArmorMaterial material, EquipmentSlot slot) {
 		this(material, slot, "");
