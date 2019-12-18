@@ -41,6 +41,7 @@ import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
+import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
 import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
@@ -149,6 +150,8 @@ public class GuiHandler {
 				return new GuiIndustrialSawmill(syncID, player, (IndustrialSawmillBlockEntity) blockEntity);
 			case SCRAPBOXINATOR:
 				return new GuiScrapboxinator(syncID, player, (ScrapboxinatorBlockEntity) blockEntity);
+			case SOLAR_PANEL:
+				return new GuiSolar(syncID, player, (SolarPanelBlockEntity) blockEntity);
 			case SEMIFLUID_GENERATOR:
 				return new GuiSemifluidGenerator(syncID, player, (SemiFluidGeneratorBlockEntity) blockEntity);
 			case THERMAL_GENERATOR:
