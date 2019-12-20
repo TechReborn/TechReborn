@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.advanced;
+package techreborn.items.tool.basic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,16 +34,14 @@ import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemChainsaw;
+import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.InitUtils;
 
-public class ItemAdvancedChainsaw extends ItemChainsaw {
+public class BasicChainsawItem extends ChainsawItem {
 
-	// 400k max charge with 1k charge rate
-	public ItemAdvancedChainsaw() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedChainsawCharge, 1.0F);
-		this.cost = 250;
-		this.transferLimit = 1000;
+	public BasicChainsawItem() {
+		super(ToolMaterials.IRON, TechRebornConfig.basicChainsawCharge, 0.5F);
+		this.cost = 50;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -52,12 +50,11 @@ public class ItemAdvancedChainsaw extends ItemChainsaw {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.ADVANCED_CHAINSAW, itemList);
+		InitUtils.initPoweredItems(TRContent.BASIC_CHAINSAW, itemList);
 	}
 
 	@Override
-	public boolean isEffectiveOn(BlockState blockIn) {
-		return Items.DIAMOND_AXE.isEffectiveOn(blockIn);
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.IRON_AXE.isEffectiveOn(state);
 	}
-
 }

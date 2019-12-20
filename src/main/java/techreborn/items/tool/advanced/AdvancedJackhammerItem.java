@@ -22,32 +22,34 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool;
+package techreborn.items.tool.advanced;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import reborncore.api.IToolHandler;
-import techreborn.TechReborn;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRContent;
+import techreborn.items.tool.JackhammerItem;
+import techreborn.utils.InitUtils;
 
-/**
- * Created by modmuss50 on 26/02/2016.
- */
-public class ItemWrench extends Item implements IToolHandler {
+public class AdvancedJackhammerItem extends JackhammerItem {
 
-	public ItemWrench() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+	// 400k max charge with 1k charge rate
+	public AdvancedJackhammerItem() {
+		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedJackhammerCharge);
+		this.cost = 100;
+		this.transferLimit = 1000;
 	}
 
+	@Environment(EnvType.CLIENT)
 	@Override
-	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
-		if (!player.world.isClient && damage) {
-			stack.damage(1, player.world.random, (ServerPlayerEntity) player);
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
+			return;
 		}
-		return true;
+		InitUtils.initPoweredItems(TRContent.ADVANCED_JACKHAMMER, itemList);
 	}
 }

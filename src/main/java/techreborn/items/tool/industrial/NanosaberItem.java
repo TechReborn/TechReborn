@@ -59,13 +59,13 @@ import techreborn.utils.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemNanosaber extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {
+public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {
 	public static final int maxCharge = TechRebornConfig.nanoSaberCharge;
 	public int transferLimit = 1_000;
 	public int cost = 250;
 
 	// 4M FE max charge with 1k charge rate
-	public ItemNanosaber() {
+	public NanosaberItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.addPropertyGetter(new Identifier("techreborn:active"), new ItemPropertyGetter() {
 			@Override

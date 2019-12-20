@@ -26,44 +26,22 @@ package techreborn.items.tool.basic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.item.Item;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
-import reborncore.common.powerSystem.PowerSystem;
-import reborncore.common.util.ItemDurabilityExtensions;
-import reborncore.common.util.ItemUtils;
-import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergyTier;
-import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.items.tool.DrillItem;
 import techreborn.utils.InitUtils;
 
-/**
- * Created by modmuss50 on 05/11/2016.
- */
-public class ItemElectricTreetap extends Item implements EnergyHolder, ItemDurabilityExtensions {
+public class BasicDrillItem extends DrillItem {
 
-	public static final int maxCharge = 10_000;
-	public int cost = 20;
-
-	public ItemElectricTreetap() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
-	}
-
-	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public BasicDrillItem() {
+		super(ToolMaterials.IRON, TechRebornConfig.basicDrillCharge, 0.5F, 10F);
+		this.cost = 50;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -72,17 +50,11 @@ public class ItemElectricTreetap extends Item implements EnergyHolder, ItemDurab
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.ELECTRIC_TREE_TAP, itemList);
-	}
-
-	// IEnergyItemInfo
-	@Override
-	public double getMaxStoredPower() {
-		return maxCharge;
+		InitUtils.initPoweredItems(TRContent.BASIC_DRILL, itemList);
 	}
 
 	@Override
-	public EnergyTier getTier() {
-		return EnergyTier.MEDIUM;
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.IRON_PICKAXE.isEffectiveOn(state) || Items.IRON_SHOVEL.isEffectiveOn(state);
 	}
 }

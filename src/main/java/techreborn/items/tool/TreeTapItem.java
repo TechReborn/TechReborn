@@ -22,39 +22,14 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.basic;
+package techreborn.items.tool;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
-import net.minecraft.util.DefaultedList;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
-import techreborn.items.tool.ItemDrill;
-import techreborn.utils.InitUtils;
+import net.minecraft.item.Item;
+import techreborn.TechReborn;
 
-public class ItemBasicDrill extends ItemDrill {
+public class TreeTapItem extends Item {
 
-	public ItemBasicDrill() {
-		super(ToolMaterials.IRON, TechRebornConfig.basicDrillCharge, 0.5F, 10F);
-		this.cost = 50;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.BASIC_DRILL, itemList);
-	}
-
-	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return Items.IRON_PICKAXE.isEffectiveOn(state) || Items.IRON_SHOVEL.isEffectiveOn(state);
+	public TreeTapItem() {
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(20));
 	}
 }

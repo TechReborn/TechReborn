@@ -25,10 +25,14 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
@@ -42,34 +46,28 @@ import techreborn.TechReborn;
 
 import java.util.Random;
 
-public class ItemDrill extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
-	public int maxCharge = 1;
+	public int maxCharge;
 	public int cost = 250;
-	public float unpoweredSpeed = 2.0F;
-	public int transferLimit = 100;
+	public int transferLimit = EnergyTier.MEDIUM.getMaxInput();
 
-	public ItemDrill(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+	public JackhammerItem(ToolMaterials material, int energyCapacity) {
+		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
-		this.unpoweredSpeed = unpoweredSpeed;
 	}
 
-	// ItemPickaxe
+	// PickaxeItem
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() < cost) {
-			return unpoweredSpeed;
-		}
-		if (Items.WOODEN_PICKAXE.getMiningSpeed(stack, state) > 1.0F
-			|| Items.WOODEN_SHOVEL.getMiningSpeed(stack, state) > 1.0F) {
+		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
 			return miningSpeed;
 		} else {
-			return super.getMiningSpeed(stack, state);
+			return 0.5F;
 		}
 	}
 
-	// ItemTool
+	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
@@ -80,16 +78,17 @@ public class ItemDrill extends PickaxeItem implements EnergyHolder, ItemDurabili
 	}
 
 	@Override
-	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
 	}
 
-	//Item
+	// ToolItem
 	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
 		return false;
 	}
 
+	// ItemDurabilityExtensions
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -105,7 +104,7 @@ public class ItemDrill extends PickaxeItem implements EnergyHolder, ItemDurabili
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	// IEnergyItemInfo
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
@@ -113,7 +112,7 @@ public class ItemDrill extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
+		return EnergyTier.MEDIUM;
 	}
 
 	@Override

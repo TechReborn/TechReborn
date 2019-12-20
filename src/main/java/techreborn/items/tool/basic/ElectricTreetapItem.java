@@ -22,35 +22,67 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.industrial;
+package techreborn.items.tool.basic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
-import techreborn.config.TechRebornConfig;
+import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.ItemDurabilityExtensions;
+import reborncore.common.util.ItemUtils;
+import team.reborn.energy.EnergyHolder;
+import team.reborn.energy.EnergyTier;
+import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemJackhammer;
 import techreborn.utils.InitUtils;
 
-public class ItemIndustrialJackhammer extends ItemJackhammer {
+/**
+ * Created by modmuss50 on 05/11/2016.
+ */
+public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurabilityExtensions {
 
-	// 4M FE max charge with 1k charge rate
-	public ItemIndustrialJackhammer() {
-		super(ToolMaterials.IRON, TechRebornConfig.industrialJackhammerCharge);
-		this.cost = 250;
-		this.transferLimit = 1000;
+	public static final int maxCharge = 10_000;
+	public int cost = 20;
+
+	public ElectricTreetapItem() {
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+	}
+
+	@Override
+	public double getDurability(ItemStack stack) {
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	}
+
+	@Override
+	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public int getDurabilityColor(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(
-		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_JACKHAMMER, itemList);
+		InitUtils.initPoweredItems(TRContent.ELECTRIC_TREE_TAP, itemList);
+	}
+
+	// IEnergyItemInfo
+	@Override
+	public double getMaxStoredPower() {
+		return maxCharge;
+	}
+
+	@Override
+	public EnergyTier getTier() {
+		return EnergyTier.MEDIUM;
 	}
 }

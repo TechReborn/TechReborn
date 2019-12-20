@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.basic;
+package techreborn.items.tool.industrial;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,22 +32,25 @@ import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemJackhammer;
+import techreborn.items.tool.JackhammerItem;
 import techreborn.utils.InitUtils;
 
-public class ItemBasicJackhammer extends ItemJackhammer {
+public class IndustrialJackhammerItem extends JackhammerItem {
 
-	public ItemBasicJackhammer() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.basicJackhammerCharge);
-		this.cost = 50;
+	// 4M FE max charge with 1k charge rate
+	public IndustrialJackhammerItem() {
+		super(ToolMaterials.IRON, TechRebornConfig.industrialJackhammerCharge);
+		this.cost = 250;
+		this.transferLimit = 1000;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+	public void appendStacks(
+		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.BASIC_JACKHAMMER, itemList);
+		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_JACKHAMMER, itemList);
 	}
 }

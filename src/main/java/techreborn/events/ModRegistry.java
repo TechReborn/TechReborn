@@ -64,17 +64,17 @@ import techreborn.items.armor.ItemLithiumIonBatpack;
 import techreborn.items.armor.ItemQuantumSuit;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
-import techreborn.items.tool.ItemDebugTool;
-import techreborn.items.tool.ItemTreeTap;
-import techreborn.items.tool.ItemWrench;
-import techreborn.items.tool.advanced.ItemAdvancedChainsaw;
-import techreborn.items.tool.advanced.ItemAdvancedDrill;
-import techreborn.items.tool.advanced.ItemAdvancedJackhammer;
-import techreborn.items.tool.advanced.ItemRockCutter;
-import techreborn.items.tool.basic.ItemBasicChainsaw;
-import techreborn.items.tool.basic.ItemBasicDrill;
-import techreborn.items.tool.basic.ItemBasicJackhammer;
-import techreborn.items.tool.basic.ItemElectricTreetap;
+import techreborn.items.tool.DebugToolItem;
+import techreborn.items.tool.TreeTapItem;
+import techreborn.items.tool.WrenchItem;
+import techreborn.items.tool.advanced.AdvancedChainsawItem;
+import techreborn.items.tool.advanced.AdvancedDrillItem;
+import techreborn.items.tool.advanced.AdvancedJackhammerItem;
+import techreborn.items.tool.advanced.RockCutterItem;
+import techreborn.items.tool.basic.BasicChainsawItem;
+import techreborn.items.tool.basic.BasicDrillItem;
+import techreborn.items.tool.basic.BasicJackhammerItem;
+import techreborn.items.tool.basic.ElectricTreetapItem;
 import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.*;
 import techreborn.utils.InitUtils;
@@ -202,24 +202,24 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORBPACK = InitUtils.setup(new ItemLapotronicOrbpack(), "lapotronic_orbpack"));
 
 		// Tools
-		RebornRegistry.registerItem(TRContent.TREE_TAP = InitUtils.setup(new ItemTreeTap(), "treetap"));
-		RebornRegistry.registerItem(TRContent.WRENCH = InitUtils.setup(new ItemWrench(), "wrench"));
+		RebornRegistry.registerItem(TRContent.TREE_TAP = InitUtils.setup(new TreeTapItem(), "treetap"));
+		RebornRegistry.registerItem(TRContent.WRENCH = InitUtils.setup(new WrenchItem(), "wrench"));
 
-		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new ItemBasicDrill(), "basic_drill"));
-		RebornRegistry.registerItem(TRContent.BASIC_CHAINSAW = InitUtils.setup(new ItemBasicChainsaw(), "basic_chainsaw"));
-		RebornRegistry.registerItem(TRContent.BASIC_JACKHAMMER = InitUtils.setup(new ItemBasicJackhammer(), "basic_jackhammer"));
-		RebornRegistry.registerItem(TRContent.ELECTRIC_TREE_TAP = InitUtils.setup(new ItemElectricTreetap(), "electric_treetap"));
+		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new BasicDrillItem(), "basic_drill"));
+		RebornRegistry.registerItem(TRContent.BASIC_CHAINSAW = InitUtils.setup(new BasicChainsawItem(), "basic_chainsaw"));
+		RebornRegistry.registerItem(TRContent.BASIC_JACKHAMMER = InitUtils.setup(new BasicJackhammerItem(), "basic_jackhammer"));
+		RebornRegistry.registerItem(TRContent.ELECTRIC_TREE_TAP = InitUtils.setup(new ElectricTreetapItem(), "electric_treetap"));
 
-		RebornRegistry.registerItem(TRContent.ADVANCED_DRILL = InitUtils.setup(new ItemAdvancedDrill(), "advanced_drill"));
-		RebornRegistry.registerItem(TRContent.ADVANCED_CHAINSAW = InitUtils.setup(new ItemAdvancedChainsaw(), "advanced_chainsaw"));
-		RebornRegistry.registerItem(TRContent.ADVANCED_JACKHAMMER = InitUtils.setup(new ItemAdvancedJackhammer(), "advanced_jackhammer"));
-		RebornRegistry.registerItem(TRContent.ROCK_CUTTER = InitUtils.setup(new ItemRockCutter(), "rock_cutter"));
+		RebornRegistry.registerItem(TRContent.ADVANCED_DRILL = InitUtils.setup(new AdvancedDrillItem(), "advanced_drill"));
+		RebornRegistry.registerItem(TRContent.ADVANCED_CHAINSAW = InitUtils.setup(new AdvancedChainsawItem(), "advanced_chainsaw"));
+		RebornRegistry.registerItem(TRContent.ADVANCED_JACKHAMMER = InitUtils.setup(new AdvancedJackhammerItem(), "advanced_jackhammer"));
+		RebornRegistry.registerItem(TRContent.ROCK_CUTTER = InitUtils.setup(new RockCutterItem(), "rock_cutter"));
 
-		RebornRegistry.registerItem(TRContent.INDUSTRIAL_DRILL = InitUtils.setup(new ItemIndustrialDrill(), "industrial_drill"));
-		RebornRegistry.registerItem(TRContent.INDUSTRIAL_CHAINSAW = InitUtils.setup(new ItemIndustrialChainsaw(), "industrial_chainsaw"));
-		RebornRegistry.registerItem(TRContent.INDUSTRIAL_JACKHAMMER = InitUtils.setup(new ItemIndustrialJackhammer(), "industrial_jackhammer"));
-		RebornRegistry.registerItem(TRContent.NANOSABER = InitUtils.setup(new ItemNanosaber(), "nanosaber"));
-		RebornRegistry.registerItem(TRContent.OMNI_TOOL = InitUtils.setup(new ItemOmniTool(), "omni_tool"));
+		RebornRegistry.registerItem(TRContent.INDUSTRIAL_DRILL = InitUtils.setup(new IndustrialDrillItem(), "industrial_drill"));
+		RebornRegistry.registerItem(TRContent.INDUSTRIAL_CHAINSAW = InitUtils.setup(new IndustrialChainsawItem(), "industrial_chainsaw"));
+		RebornRegistry.registerItem(TRContent.INDUSTRIAL_JACKHAMMER = InitUtils.setup(new IndustrialJackhammerItem(), "industrial_jackhammer"));
+		RebornRegistry.registerItem(TRContent.NANOSABER = InitUtils.setup(new NanosaberItem(), "nanosaber"));
+		RebornRegistry.registerItem(TRContent.OMNI_TOOL = InitUtils.setup(new OmniToolItem(), "omni_tool"));
 
 		// Armor
 		RebornRegistry.registerItem(TRContent.CLOAKING_DEVICE = InitUtils.setup(new ItemCloakingDevice(), "cloaking_device"));
@@ -228,7 +228,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.FREQUENCY_TRANSMITTER = InitUtils.setup(new ItemFrequencyTransmitter(), "frequency_transmitter"));
 		RebornRegistry.registerItem(TRContent.SCRAP_BOX = InitUtils.setup(new ItemScrapBox(), "scrap_box"));
 		RebornRegistry.registerItem(TRContent.MANUAL = InitUtils.setup(new ItemManual(), "manual"));
-		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new ItemDebugTool(), "debug_tool"));
+		RebornRegistry.registerItem(TRContent.DEBUG_TOOL = InitUtils.setup(new DebugToolItem(), "debug_tool"));
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new ItemDynamicCell(), "cell"));
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");

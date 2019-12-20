@@ -26,20 +26,22 @@ package techreborn.items.tool.advanced;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemJackhammer;
+import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.InitUtils;
 
-public class ItemAdvancedJackhammer extends ItemJackhammer {
+public class AdvancedChainsawItem extends ChainsawItem {
 
 	// 400k max charge with 1k charge rate
-	public ItemAdvancedJackhammer() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedJackhammerCharge);
+	public AdvancedChainsawItem() {
+		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedChainsawCharge, 1.0F);
 		this.cost = 100;
 		this.transferLimit = 1000;
 	}
@@ -50,6 +52,12 @@ public class ItemAdvancedJackhammer extends ItemJackhammer {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.ADVANCED_JACKHAMMER, itemList);
+		InitUtils.initPoweredItems(TRContent.ADVANCED_CHAINSAW, itemList);
 	}
+
+	@Override
+	public boolean isEffectiveOn(BlockState blockIn) {
+		return Items.DIAMOND_AXE.isEffectiveOn(blockIn);
+	}
+
 }

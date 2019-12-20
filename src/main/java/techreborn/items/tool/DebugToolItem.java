@@ -45,9 +45,9 @@ import java.util.Map.Entry;
 /**
  * Created by Mark on 20/03/2016.
  */
-public class ItemDebugTool extends Item {
+public class DebugToolItem extends Item {
 
-	public ItemDebugTool() {
+	public DebugToolItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 

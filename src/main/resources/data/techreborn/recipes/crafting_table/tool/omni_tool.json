@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D  ",
+    " C ",
+    "  S"
+  ],
+  "key": {
+    "D": {
+      "item": "techreborn:advanced_drill"
+    },
+    "C": {
+      "item": "techreborn:advanced_chainsaw"
+    },
+    "S": {
+      "item": "minecraft:diamond_sword"
+    }
+  },
+  "result": {
+    "item": "techreborn:omni_tool"
+  }
+}
