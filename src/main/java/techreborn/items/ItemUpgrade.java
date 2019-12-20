@@ -30,15 +30,14 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IUpgrade;
-import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.recipes.IUpgradeHandler;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
+import techreborn.utils.ToolTipAssistUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -57,22 +56,20 @@ public class ItemUpgrade extends Item implements IUpgrade {
 
 	@Override
 	public void process(
-		@Nonnull MachineBaseBlockEntity blockEntity,
-		@Nullable
-			IUpgradeHandler handler,
-		@Nonnull
-			ItemStack stack) {
+			@Nonnull MachineBaseBlockEntity blockEntity,
+			@Nullable
+					IUpgradeHandler handler,
+			@Nonnull
+					ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if(stack.getItem() == TRContent.Upgrades.SUPERCONDUCTOR.item){
-			if(Screen.hasShiftDown()){
-				tooltip.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this"));
-			}
-		}
+
+		tooltip.addAll(ToolTipAssistUtils.getUpgradeAssist(TRContent.Upgrades.valueOf(name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+
 		super.appendTooltip(stack, world, tooltip, context);
 	}
 }
