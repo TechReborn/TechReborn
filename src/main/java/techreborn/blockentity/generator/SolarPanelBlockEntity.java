@@ -51,205 +51,203 @@ import java.util.List;
 public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, IContainerProvider {
 
 
-    //	State ZEROGEN: No exposure to sun
-    //	State NIGHTGEN: Has direct exposure to sun
-    //	State DAYGEN: Has exposure to sun and weather is sunny and not raining/thundering
-    public static final int ZEROGEN = 0;
-    public static final int NIGHTGEN = 1;
-    public static final int DAYGEN = 2;
+	//	State ZEROGEN: No exposure to sun
+	//	State NIGHTGEN: Has direct exposure to sun
+	//	State DAYGEN: Has exposure to sun and weather is sunny and not raining/thundering
+	public static final int ZEROGEN = 0;
+	public static final int NIGHTGEN = 1;
+	public static final int DAYGEN = 2;
 
-    private int state = ZEROGEN;
-    private int prevState = ZEROGEN;
+	private int state = ZEROGEN;
+	private int prevState = ZEROGEN;
 
-    private SolarPanels panel;
+	private SolarPanels panel;
 
-    public SolarPanelBlockEntity(SolarPanels panel) {
-        super(TRBlockEntities.SOLAR_PANEL);
-        this.panel = panel;
-    }
+	public SolarPanelBlockEntity(SolarPanels panel) {
+		super(TRBlockEntities.SOLAR_PANEL);
+		this.panel = panel;
+	}
 
-    private void updatePanel() {
-        if (world == null) {
-            return;
-        }
-        Block panelBlock = world.getBlockState(pos).getBlock();
-        if (panelBlock instanceof BlockSolarPanel) {
-            BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
-            panel = solarPanelBlock.panelType;
-        }
-    }
-
-
-    // Setters and getters for the GUI to sync
-    private void setSunState(int state) {
-        this.state = state;
-    }
-
-    public int getSunState() {
-        return state;
-    }
-
-    SolarPanels getPanel() {
-        if (panel == null) {
-            updatePanel();
-        }
-        return panel;
-    }
-
-    private void updateState() {
-        if (world.isSkyVisible(pos.up())) {
-            this.setSunState(NIGHTGEN);
-
-            if (!world.isRaining() && !world.isThundering() && world.isDay()) {
-                this.setSunState(DAYGEN);
-            }
-        } else {
-            this.setSunState(ZEROGEN);
-        }
-
-        if (prevState != this.getSunState()) {
-            boolean isGenerating = false;
-
-            isGenerating = getSunState() == DAYGEN;
-
-            world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isGenerating));
-
-            prevState = this.getSunState();
-        }
-    }
-
-    public int getGenerationRate() {
-        int rate = 0;
-
-        switch (getSunState()) {
-            case DAYGEN:
-                rate = getPanel().generationRateD;
-                break;
-            case NIGHTGEN:
-                rate = getPanel().generationRateN;
-        }
-
-        return rate;
-    }
+	private void updatePanel() {
+		if (world == null) {
+			return;
+		}
+		Block panelBlock = world.getBlockState(pos).getBlock();
+		if (panelBlock instanceof BlockSolarPanel) {
+			BlockSolarPanel solarPanelBlock = (BlockSolarPanel) panelBlock;
+			panel = solarPanelBlock.panelType;
+		}
+	}
 
 
-    // Overrides
+	// Setters and getters for the GUI to sync
+	private void setSunState(int state) {
+		this.state = state;
+	}
 
-    @Override
-    public void tick() {
-        super.tick();
+	public int getSunState() {
+		return state;
+	}
 
-        if (world.isClient) {
-            return;
-        }
+	SolarPanels getPanel() {
+		if (panel == null) {
+			updatePanel();
+		}
+		return panel;
+	}
 
-        if (getPanel() == TRContent.SolarPanels.CREATIVE) {
-            checkOverfill = false;
-            setEnergy(Integer.MAX_VALUE);
-            return;
-        }
+	private void updateState() {
+		if (world.isSkyVisible(pos.up())) {
+			this.setSunState(NIGHTGEN);
 
-        // State checking and updating
-        if (world.getTime() % 20 == 0) {
-            updateState();
-        }
+			if (!world.isRaining() && !world.isThundering() && world.isDay()) {
+				this.setSunState(DAYGEN);
+			}
+		} else {
+			this.setSunState(ZEROGEN);
+		}
 
-        // Power generation calculations
-        addEnergy(getGenerationRate());
-    }
+		if (prevState != this.getSunState()) {
+			boolean isGenerating = getSunState() == DAYGEN;
 
-    @Override
-    public double getBaseMaxPower() {
-        return getPanel().internalCapacity;
-    }
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isGenerating));
 
-    @Override
-    public boolean canAcceptEnergy(final Direction direction) {
-        return false;
-    }
+			prevState = this.getSunState();
+		}
+	}
 
-    @Override
-    public boolean canProvideEnergy(final Direction direction) {
-        return true;
-    }
+	public int getGenerationRate() {
+		int rate = 0;
 
-    @Override
-    public double getBaseMaxOutput() {
-        // Solar panel output will only be limited by the cables the users use
-        return EnergyTier.EXTREME.getMaxOutput();
-    }
+		switch (getSunState()) {
+			case DAYGEN:
+				rate = getPanel().generationRateD;
+				break;
+			case NIGHTGEN:
+				rate = getPanel().generationRateN;
+		}
 
-    @Override
-    public double getBaseMaxInput() {
-        return 0;
-    }
+		return rate;
+	}
 
-    @Override
-    public boolean canBeUpgraded() {
-        return false;
-    }
 
-    @Override
-    public boolean hasSlotConfig() {
-        return false;
-    }
+	// Overrides
 
-    @Override
-    public EnergyTier getTier() {
-        return getPanel().powerTier;
-    }
+	@Override
+	public void tick() {
+		super.tick();
 
-    @Override
-    public void checkTier() {
-        // Nope
-    }
+		if (world.isClient) {
+			return;
+		}
 
-    @Override
-    public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-        if (panel == SolarPanels.CREATIVE) {
-            return;
-        }
-        info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.maxEnergy") + ": "
-                + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(getMaxPower())));
+		if (getPanel() == TRContent.SolarPanels.CREATIVE) {
+			checkOverfill = false;
+			setEnergy(Integer.MAX_VALUE);
+			return;
+		}
 
-        info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
-                + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
+		// State checking and updating
+		if (world.getTime() % 20 == 0) {
+			updateState();
+		}
 
-        info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.night") + ": "
-                + Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
+		// Power generation calculations
+		addEnergy(getGenerationRate());
+	}
 
-        info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.tier") + ": "
-                + Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
-    }
+	@Override
+	public double getBaseMaxPower() {
+		return getPanel().internalCapacity;
+	}
 
-    @Override
-    public void fromTag(CompoundTag tag) {
-        if (world == null) {
-            // We are in BlockEntity.create method during chunk load.
-            this.checkOverfill = false;
-        }
-        updatePanel();
-        super.fromTag(tag);
-    }
+	@Override
+	public boolean canAcceptEnergy(final Direction direction) {
+		return false;
+	}
 
-    // MachineBaseBlockEntity
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        updatePanel();
-    }
+	@Override
+	public boolean canProvideEnergy(final Direction direction) {
+		return true;
+	}
 
-    // IToolDrop
-    @Override
-    public ItemStack getToolDrop(final PlayerEntity playerIn) {
-        return new ItemStack(getBlockType());
-    }
+	@Override
+	public double getBaseMaxOutput() {
+		// Solar panel output will only be limited by the cables the users use
+		return EnergyTier.EXTREME.getMaxOutput();
+	}
 
-    @Override
-    public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-        return new ContainerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
-                .blockEntity(this).syncEnergyValue()
-                .sync(this::getSunState, this::setSunState)
-                .addInventory().create(this, syncID);
-    }
+	@Override
+	public double getBaseMaxInput() {
+		return 0;
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
+	@Override
+	public boolean hasSlotConfig() {
+		return false;
+	}
+
+	@Override
+	public EnergyTier getTier() {
+		return getPanel().powerTier;
+	}
+
+	@Override
+	public void checkTier() {
+		// Nope
+	}
+
+	@Override
+	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+		if (panel == SolarPanels.CREATIVE) {
+			return;
+		}
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.maxEnergy") + ": "
+				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(getMaxPower())));
+
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
+				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
+
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.night") + ": "
+				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
+
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.tier") + ": "
+				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
+	}
+
+	@Override
+	public void fromTag(CompoundTag tag) {
+		if (world == null) {
+			// We are in BlockEntity.create method during chunk load.
+			this.checkOverfill = false;
+		}
+		updatePanel();
+		super.fromTag(tag);
+	}
+
+	// MachineBaseBlockEntity
+	@Override
+	public void onLoad() {
+		super.onLoad();
+		updatePanel();
+	}
+
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final PlayerEntity playerIn) {
+		return new ItemStack(getBlockType());
+	}
+
+	@Override
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
+		return new ContainerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
+				.blockEntity(this).syncEnergyValue()
+				.sync(this::getSunState, this::setSunState)
+				.addInventory().create(this, syncID);
+	}
 }

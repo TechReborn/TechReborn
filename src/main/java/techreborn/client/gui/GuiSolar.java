@@ -32,44 +32,39 @@ import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
 public class GuiSolar extends GuiBase<BuiltContainer> {
 
-    SolarPanelBlockEntity blockEntity;
+	SolarPanelBlockEntity blockEntity;
 
-    public GuiSolar(int syncID, PlayerEntity player, SolarPanelBlockEntity panel) {
-        super(player, panel, panel.createContainer(syncID, player));
-        this.blockEntity = panel;
-    }
+	public GuiSolar(int syncID, PlayerEntity player, SolarPanelBlockEntity panel) {
+		super(player, panel, panel.createContainer(syncID, player));
+		this.blockEntity = panel;
+	}
 
-    @Override
-    public void init() {
-        super.init();
-    }
+	@Override
+	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(lastFrameDuration, mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
+	}
 
-    @Override
-    protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
-        super.drawBackground(lastFrameDuration, mouseX, mouseY);
-        final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
-    }
+	@Override
+	protected void drawForeground(int mouseX, int mouseY) {
+		super.drawForeground(mouseX, mouseY);
+		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-    @Override
-    protected void drawForeground(int mouseX, int mouseY) {
-        super.drawForeground(mouseX, mouseY);
-        final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
+		builder.drawMultiEnergyBar(this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
-        builder.drawMultiEnergyBar(this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		switch (blockEntity.getSunState()) {
+			case SolarPanelBlockEntity.DAYGEN:
+				builder.drawString(this, StringUtils.t("techreborn.message.daygen"), 10, 20, 15129632);
+				break;
+			case SolarPanelBlockEntity.NIGHTGEN:
+				builder.drawString(this, StringUtils.t("techreborn.message.nightgen"), 10, 20, 7566195);
+				break;
+			case SolarPanelBlockEntity.ZEROGEN:
+				builder.drawString(this, StringUtils.t("techreborn.message.zerogen"), 10, 20, 12066591);
+				break;
+		}
 
-        switch (blockEntity.getSunState()) {
-            case SolarPanelBlockEntity.DAYGEN:
-                builder.drawString(this, StringUtils.t("techreborn.message.daygen"), 10, 20, 15129632);
-                break;
-            case SolarPanelBlockEntity.NIGHTGEN:
-                builder.drawString(this, StringUtils.t("techreborn.message.nightgen"), 10, 20, 7566195);
-                break;
-            case SolarPanelBlockEntity.ZEROGEN:
-                builder.drawString(this, StringUtils.t("techreborn.message.zerogen"), 10, 20, 12066591);
-                break;
-        }
+		builder.drawString(this, "Generating: " + blockEntity.getGenerationRate() + " E/t", 10, 30, 0);
 
-        builder.drawString(this, "Generating: " + blockEntity.getGenerationRate() + " E/t", 10, 30, 0);
-
-    }
+	}
 }
