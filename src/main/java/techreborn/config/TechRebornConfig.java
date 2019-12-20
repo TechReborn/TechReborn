@@ -30,6 +30,9 @@ import reborncore.common.config.Config;
 public class TechRebornConfig {
 	
 	// Generators
+	@Config(config = "generators", category = "solarPanelGeneral", key = "internalCapacity", comment = "Multiplier for internal capacity of solar panels (multiplier * day generation rate)")
+	public static int solarInternalCapacityMultiplier = 2000;
+
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
 	
@@ -55,10 +58,10 @@ public class TechRebornConfig {
 	public static int ultimateGenerationRateN = 16;	
 	
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in FE)")
-	public static int quantumGenerationRateD = 1024;
+	public static int quantumGenerationRateD = 2048;
 	
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in FE)")
-	public static int quantumGenerationRateN = 64;	
+	public static int quantumGenerationRateN = 128;
 	
 	@Config(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
 	public static int lightningRodMaxOutput = 2048;

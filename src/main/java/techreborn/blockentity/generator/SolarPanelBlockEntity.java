@@ -33,6 +33,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
@@ -45,23 +48,24 @@ import techreborn.init.TRContent.SolarPanels;
 
 import java.util.List;
 
-public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
+public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, IContainerProvider {
 
-	boolean canSeeSky = false;
-	boolean lastState = false;
+
+	//	State ZEROGEN: No exposure to sun
+	//	State NIGHTGEN: Has direct exposure to sun
+	//	State DAYGEN: Has exposure to sun and weather is sunny and not raining/thundering
+	public static final int ZEROGEN = 0;
+	public static final int NIGHTGEN = 1;
+	public static final int DAYGEN = 2;
+
+	private int state = ZEROGEN;
+	private int prevState = ZEROGEN;
+
 	private SolarPanels panel;
 
-	public SolarPanelBlockEntity() {
-		super(TRBlockEntities.SOLAR_PANEL);
-	}
-	
 	public SolarPanelBlockEntity(SolarPanels panel) {
 		super(TRBlockEntities.SOLAR_PANEL);
 		this.panel = panel;
-	}
-
-	public boolean isSunOut() {
-		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDay();
 	}
 
 	private void updatePanel() {
@@ -75,35 +79,81 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		}
 	}
 
-	// PowerAcceptorBlockEntity
+
+	// Setters and getters for the GUI to sync
+	private void setSunState(int state) {
+		this.state = state;
+	}
+
+	public int getSunState() {
+		return state;
+	}
+
+	SolarPanels getPanel() {
+		if (panel == null) {
+			updatePanel();
+		}
+		return panel;
+	}
+
+	private void updateState() {
+		if (world.isSkyVisible(pos.up())) {
+			this.setSunState(NIGHTGEN);
+
+			if (!world.isRaining() && !world.isThundering() && world.isDay()) {
+				this.setSunState(DAYGEN);
+			}
+		} else {
+			this.setSunState(ZEROGEN);
+		}
+
+		if (prevState != this.getSunState()) {
+			boolean isGenerating = getSunState() == DAYGEN;
+
+			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isGenerating));
+
+			prevState = this.getSunState();
+		}
+	}
+
+	public int getGenerationRate() {
+		int rate = 0;
+
+		switch (getSunState()) {
+			case DAYGEN:
+				rate = getPanel().generationRateD;
+				break;
+			case NIGHTGEN:
+				rate = getPanel().generationRateN;
+		}
+
+		return rate;
+	}
+
+
+	// Overrides
+
 	@Override
 	public void tick() {
 		super.tick();
+
 		if (world.isClient) {
 			return;
 		}
+
 		if (getPanel() == TRContent.SolarPanels.CREATIVE) {
 			checkOverfill = false;
 			setEnergy(Integer.MAX_VALUE);
 			return;
 		}
+
+		// State checking and updating
 		if (world.getTime() % 20 == 0) {
-			canSeeSky = world.isSkyVisible(pos.up());
-			if (lastState != isSunOut()) {
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isSunOut()));
-				lastState = isSunOut();
-			}
-		}
-		int powerToAdd;
-		if (isSunOut()) {
-			powerToAdd = getPanel().generationRateD;
-		} else if (canSeeSky) {
-			powerToAdd = getPanel().generationRateN;
-		} else {
-			powerToAdd = 0;
+			updateState();
 		}
 
-		addEnergy(powerToAdd);
+		// Power generation calculations
+		addEnergy(getGenerationRate());
 	}
 
 	@Override
@@ -123,12 +173,23 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public double getBaseMaxOutput() {
-		return getPanel().generationRateD;
+		// Solar panel output will only be limited by the cables the users use
+		return EnergyTier.EXTREME.getMaxOutput();
 	}
 
 	@Override
 	public double getBaseMaxInput() {
 		return 0;
+	}
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
+	@Override
+	public boolean hasSlotConfig() {
+		return false;
 	}
 
 	@Override
@@ -139,13 +200,6 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	@Override
 	public void checkTier() {
 		// Nope
-	}
-
-	public SolarPanels getPanel() {
-		if(panel == null){
-			updatePanel();
-		}
-		return panel;
 	}
 
 	@Override
@@ -187,5 +241,13 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity playerIn) {
 		return new ItemStack(getBlockType());
+	}
+
+	@Override
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
+		return new ContainerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
+				.blockEntity(this).syncEnergyValue()
+				.sync(this::getSunState, this::setSunState)
+				.addInventory().create(this, syncID);
 	}
 }
