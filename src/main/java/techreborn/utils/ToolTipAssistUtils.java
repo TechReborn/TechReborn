@@ -15,47 +15,61 @@ public class ToolTipAssistUtils {
 
 	public static List<Text> getUpgradeAssist(TRContent.Upgrades upgradeType, int count, boolean shiftHeld) {
 		List<Text> tips = new ArrayList<>();
+		boolean shouldStackCalculate = true;
 
 		switch (upgradeType) {
 			case OVERCLOCKER:
-				tips.add(getDescription("techreborn.tooltip.upgrades.transformer.overclocker"));
-				tips.add(getPositive("Speed increase", (int)(TechRebornConfig.overclockerSpeed * 100 * count), "%"));
-				tips.add(getNegative("Energy increase", (int)(TechRebornConfig.overclockerPower * 100 * count) , "%"));
+				tips.add(getDescription("techreborn.tooltip.upgrades.overclocker"));
+				tips.add(getPositive("Speed increase", calculateValue(TechRebornConfig.overclockerSpeed * 100, count, shiftHeld), "%"));
+				tips.add(getNegative("Energy increase", calculateValue(TechRebornConfig.overclockerPower * 100, count, shiftHeld), "%"));
 				break;
 			case TRANSFORMER:
-                tips.add(getDescription("techreborn.tooltip.upgrades.transformer"));
+				tips.add(getDescription("techreborn.tooltip.upgrades.transformer"));
+				shouldStackCalculate = false;
 				break;
 			case ENERGY_STORAGE:
-                tips.add(getDescription("techreborn.tooltip.upgrades.energystorage"));
-                tips.add(getPositive("Storage increase", (int)TechRebornConfig.energyStoragePower, " E"));
+				tips.add(getDescription("techreborn.tooltip.upgrades.energystorage"));
+				tips.add(getPositive("Storage increase", calculateValue(TechRebornConfig.energyStoragePower, count, shiftHeld), " E"));
 				break;
 			case SUPERCONDUCTOR:
-
 				tips.add(getDescription("techreborn.tooltip.upgrades.superconductor"));
-
-				// Was in existing tooltip, don't understand but I presume it's an easter egg
-				if (shiftHeld) {
-					tips.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this").formatted(Formatting.GRAY));
-				}
+				tips.add(getPositive("Increased flow by: ", calculateValue(Math.pow(2, (TechRebornConfig.superConductorCount + 2)) * 100, count, shiftHeld), "%"));
 				break;
+		}
+
+		// Add reminder that they can use shift to calculate the entire stack
+		if(shouldStackCalculate && !shiftHeld){
+			tips.add(new LiteralText(Formatting.GOLD + "Hold shift for stack calculation"));
 		}
 
 		return tips;
 	}
 
-	private static Text getDescription(String key){
-        return new TranslatableText("techreborn.tooltip.upgrades.overclocker").formatted(Formatting.GRAY);
-    }
+	private static int calculateValue(double value, int count, boolean shiftHeld) {
+		int calculatedVal;
 
-    private static Text getPositive(String text, int value, String unit){
-	  return new LiteralText(Formatting.GREEN + getStatString(text, value, unit));
-    }
+		if (shiftHeld) {
+			calculatedVal = (int) value * count;
+		} else {
+			calculatedVal = (int) value;
+		}
 
-	private static Text getNegative(String text, int value, String unit){
-		return new LiteralText(Formatting.RED + getStatString(text, value, unit));
+		return calculatedVal;
 	}
 
-	private static String getStatString(String text, int value, String unit){
+	private static Text getDescription(String key) {
+		return new TranslatableText(key).formatted(Formatting.GRAY);
+	}
+
+	private static Text getPositive(String text, int value, String unit) {
+		return new LiteralText(Formatting.GREEN + getStatStringUnit(text, value, unit));
+	}
+
+	private static Text getNegative(String text, int value, String unit) {
+		return new LiteralText(Formatting.RED + getStatStringUnit(text, value, unit));
+	}
+
+	private static String getStatStringUnit(String text, int value, String unit) {
 		return text + ": " + Formatting.WHITE + value + unit;
 	}
 }
