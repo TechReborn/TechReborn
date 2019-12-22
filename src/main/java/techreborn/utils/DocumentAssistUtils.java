@@ -1,7 +1,5 @@
 package techreborn.utils;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.LiteralText;
@@ -63,7 +61,12 @@ public class DocumentAssistUtils {
 
 		if(I18n.hasTranslation(key)){
 			if(!hidden || Screen.hasShiftDown()){
-				list.add(new TranslatableText(key).formatted(infoColour));
+				String info = new TranslatableText(key).asString();
+				String infoLines[] = info.split("\\r?\\n");
+
+				for (String infoLine: infoLines) {
+					list.add(new LiteralText(infoColour + infoLine));
+				}
 			}else{
 				list.add(new LiteralText(instructColour + "Hold shift for info"));
 			}

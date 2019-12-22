@@ -24,6 +24,7 @@
 
 package techreborn.blockentity;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -68,6 +69,8 @@ public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity i
 	@Override
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		super.addInfo(info, isReal, hasData);
-		info.add(new LiteralText("Round and round it goes"));
+		if(Screen.hasControlDown()) {
+			info.add(new LiteralText("Round and round it goes"));
+		}
 	}
 }
