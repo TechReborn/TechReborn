@@ -40,13 +40,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.BaseBlockEntityProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
-import techreborn.blocks.GenericMachineBlock;
 import techreborn.init.TRContent;
 import techreborn.items.ItemUpgrade;
 import techreborn.utils.DocumentAssistUtils;
@@ -65,7 +66,9 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 
 
 		// Machine info and upgrades helper section
-		if(Block.getBlockFromItem(item) instanceof GenericMachineBlock){
+		Block block = Block.getBlockFromItem(item);
+
+		if(block instanceof BaseBlockEntityProvider){
 			DocumentAssistUtils.addInfo(item.getTranslationKey(), components);
 		}
 
@@ -99,8 +102,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			}
 		} else {
 			try {
-				Block block = Block.getBlockFromItem(item);
-				if (block != null && (block instanceof BlockWithEntity || block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
+				if ((block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
 					if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {

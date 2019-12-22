@@ -16,6 +16,8 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class DocumentAssistUtils {
+
+	// Colour constants
 	private static final Formatting instructColour = Formatting.BLUE;
 
 	private static final Formatting infoColour = Formatting.GOLD;
@@ -66,8 +68,6 @@ public class DocumentAssistUtils {
 			}else{
 				list.add(new LiteralText(instructColour + "Hold shift for info"));
 			}
-		}else{
-			list.add(new LiteralText(Formatting.RED + "NOT SET " + key));
 		}
 	}
 
