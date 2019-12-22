@@ -601,6 +601,9 @@
   "techreborn.message.nanosaberInactive": "Inactive",
   "techreborn.message.nanosaberEnergyErrorTo": "Not Enough Energy to",
   "techreborn.message.nanosaberEnergyError": "Not Enough Energy:",
+  "techreborn.message.daygen": "Panel in direct sunlight",
+  "techreborn.message.nightgen": "Panel in reduced sunlight",
+  "techreborn.message.zerogen": "Panel obstructed from sky",
 
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",
@@ -611,6 +614,7 @@
   "techreborn.jei.recipe.processing.time.1": "Time: %s ticks",
   "techreborn.jei.recipe.processing.time.2": "(%s sec)",
   "techreborn.jei.recipe.heat": "Heat",
+  "techreborn.jei.recipe.generator.total": "E total: %s",
 
   "techreborn.jei.desc.rubberSap": "In order to get sap, you need to find a rubber tree or obtain a rubber tree sapling and proceed to grow it. Once you have obtained a rubber tree, search around for little yellowish spots on the tree. If you don't see any, just wait a bit and eventually these yellow \"sap\" spots. To harvest the sap, use a treetap and use it on the log.",
   "techreborn.jei.desc.scrapBox": "Scrapboxes can be opened by either a simple use in hand, or by dispensers. That's right, just throw your scrapboxes into dispensers and give them a redstone signal, and boom! Random item!",
@@ -636,7 +640,7 @@
   "techreborn.tooltip.wip": "WIP Coming Soon",
   "techreborn.tooltip.inventory": "Inventory",
   "techreborn.tooltip.upgrades": "Upgrades",
-  "techreborn.tooltip.alarm": "Shift rightclick to change sound",
+  "techreborn.tooltip.alarm": "Shift right-click to change sound",
   "techreborn.tooltip.generationRate.day": "Generation Rate Day",
   "techreborn.tooltip.generationRate.night": "Generation Rate Night",
 
@@ -649,7 +653,7 @@
   "techreborn.manual.refundbtn": "Refund",
 
   "_comment24": "Advancements",
-  "advancements.techreborn.root.desc": "Now that you have acquired Tech Reborn ore, you might find a tree tap usefull.",
+  "advancements.techreborn.root.desc": "Now that you have acquired Tech Reborn ore, you might find a tree tap useful.",
   "advancements.techreborn.treetap": "TreeTap",
   "advancements.techreborn.treetap.desc": "Now that you have crafted a tree tap you will want to use it on a sap spot on a rubber tree.",
   "advancements.techreborn.sap": "Rubber Sap",
@@ -663,7 +667,7 @@
   "techreborn:chemical_reactor": "Chemical Reactor",
   "techreborn:compressor": "Compressor",
   "techreborn:distillation_tower": "Distillation Tower",
-  "techreborn:extractor": "Extrator",
+  "techreborn:extractor": "Extractor",
   "techreborn:grinder": "Grinder",
   "techreborn:implosion_compressor": "Implosion Compressor",
   "techreborn:industrial_electrolyzer": "Industrial Electrolyzer",
@@ -677,7 +681,12 @@
   "techreborn:rolling_machine": "Rolling Machine",
   "techreborn:solid_canning_machine": "Solid Canning Machine",
   "techreborn:wire_mill": "Wire Mill",
-  
+  "techreborn:gas_turbine": "Gas Generator",
+  "techreborn:semi_fluid_generator": "Semifluid Generator",
+  "techreborn:diesel_generator": "Diesel Generator",
+  "techreborn:thermal_generator": "Thermal Generator",
+  "techreborn:plasma_generator": "Plasma Generator",
+
   "_comment26": "Fluid buckets",
    "item.techreborn.beryllium_bucket": "Beryllium",
   "item.techreborn.calcium_bucket": "Calcium",

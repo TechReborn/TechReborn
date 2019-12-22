@@ -32,6 +32,10 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
+import techreborn.blocks.GenericMachineBlock;
+import techreborn.client.EGui;
+import techreborn.client.gui.GuiSolar;
 import techreborn.init.TRContent.SolarPanels;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
@@ -54,7 +58,10 @@ public class BlockSolarPanel extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return null;
+		if(this.panelType == SolarPanels.CREATIVE){
+			return null;
+		}
+		return EGui.SOLAR_PANEL;
 	}
 
 	@Override

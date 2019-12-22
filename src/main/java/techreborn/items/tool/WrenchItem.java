@@ -22,42 +22,32 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool.advanced;
+package techreborn.items.tool;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
-import net.minecraft.util.DefaultedList;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
-import techreborn.items.tool.ItemDrill;
-import techreborn.utils.InitUtils;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import reborncore.api.IToolHandler;
+import techreborn.TechReborn;
 
-public class ItemAdvancedDrill extends ItemDrill {
+/**
+ * Created by modmuss50 on 26/02/2016.
+ */
+public class WrenchItem extends Item implements IToolHandler {
 
-	// 400k max charge with 1k charge rate
-	public ItemAdvancedDrill() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedDrillCharge, 0.5F, 15F);
-		this.cost = 250;
-		this.transferLimit = 1000;
+	public WrenchItem() {
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
+	public boolean handleTool(ItemStack stack, BlockPos pos, World world, PlayerEntity player, Direction side, boolean damage) {
+		if (!player.world.isClient && damage) {
+			stack.damage(1, player.world.random, (ServerPlayerEntity) player);
 		}
-		InitUtils.initPoweredItems(TRContent.ADVANCED_DRILL, itemList);
+		return true;
 	}
-
-	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return Items.DIAMOND_PICKAXE.isEffectiveOn(state) || Items.DIAMOND_SHOVEL.isEffectiveOn(state);
-	}
-
 }

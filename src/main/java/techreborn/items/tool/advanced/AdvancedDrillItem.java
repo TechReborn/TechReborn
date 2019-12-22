@@ -22,14 +22,42 @@
  * SOFTWARE.
  */
 
-package techreborn.items.tool;
+package techreborn.items.tool.advanced;
 
-import net.minecraft.item.Item;
-import techreborn.TechReborn;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
+import net.minecraft.util.DefaultedList;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRContent;
+import techreborn.items.tool.DrillItem;
+import techreborn.utils.InitUtils;
 
-public class ItemTreeTap extends Item {
+public class AdvancedDrillItem extends DrillItem {
 
-	public ItemTreeTap() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(20));
+	// 400k max charge with 1k charge rate
+	public AdvancedDrillItem() {
+		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedDrillCharge, 0.5F, 12F);
+		this.cost = 100;
+		this.transferLimit = 1000;
 	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
+			return;
+		}
+		InitUtils.initPoweredItems(TRContent.ADVANCED_DRILL, itemList);
+	}
+
+	@Override
+	public boolean isEffectiveOn(BlockState state) {
+		return Items.DIAMOND_PICKAXE.isEffectiveOn(state) || Items.DIAMOND_SHOVEL.isEffectiveOn(state);
+	}
+
 }

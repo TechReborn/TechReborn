@@ -241,8 +241,8 @@ public class TRContent {
 			block = new BlockSolarPanel(this);
 			this.generationRateD = generationRateD;
 			this.generationRateN = generationRateN;
-			// Buffer for 2 mins of work
-			internalCapacity = generationRateD * 2_400;
+
+			internalCapacity = generationRateD * TechRebornConfig.solarInternalCapacityMultiplier;
 			
 			InitUtils.setup(block, name + "_solar_panel");
 		}

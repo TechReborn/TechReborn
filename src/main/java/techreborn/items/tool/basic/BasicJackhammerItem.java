@@ -26,21 +26,19 @@ package techreborn.items.tool.basic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.DefaultedList;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemChainsaw;
+import techreborn.items.tool.JackhammerItem;
 import techreborn.utils.InitUtils;
 
-public class ItemBasicChainsaw extends ItemChainsaw {
+public class BasicJackhammerItem extends JackhammerItem {
 
-	public ItemBasicChainsaw() {
-		super(ToolMaterials.IRON, TechRebornConfig.basicChainsawCharge, 0.5F);
+	public BasicJackhammerItem() {
+		super(ToolMaterials.DIAMOND, TechRebornConfig.basicJackhammerCharge);
 		this.cost = 50;
 	}
 
@@ -50,11 +48,6 @@ public class ItemBasicChainsaw extends ItemChainsaw {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.BASIC_CHAINSAW, itemList);
-	}
-
-	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return Items.IRON_AXE.isEffectiveOn(state);
+		InitUtils.initPoweredItems(TRContent.BASIC_JACKHAMMER, itemList);
 	}
 }

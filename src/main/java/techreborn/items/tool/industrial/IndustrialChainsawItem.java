@@ -28,7 +28,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
@@ -38,132 +37,83 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemDrill;
+import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
+import techreborn.utils.TagUtils;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class ItemIndustrialDrill extends ItemDrill {
+public class IndustrialChainsawItem extends ChainsawItem {
+
+	private static final Direction[] SEARCH_ORDER = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
+
 
 	// 4M FE max charge with 1k charge rate
-	public ItemIndustrialDrill() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialDrillCharge, 2.0F, 10F);
+	public IndustrialChainsawItem() {
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
 	}
 
-	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable PlayerEntity playerIn) {
-		Set<BlockPos> targetBlocks = new HashSet<BlockPos>();
-		if (playerIn == null) {
-			return new HashSet<>();
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
+			return;
 		}
-
-		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
-		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-
-		if(!(hitResult instanceof BlockHitResult)){
-			return Collections.emptySet();
-		}
-		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
-		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(i, j, 0);
-					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.EAST || enumfacing == Direction.WEST) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(0, j, i);
-					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.DOWN || enumfacing == Direction.UP) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(j, 0, i);
-					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		}
-		return targetBlocks;
+		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_CHAINSAW, itemList);
 	}
 
-	private void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
-		BlockState blockState = world.getBlockState(pos);
-
-		if(Energy.of(drill).use(cost)){
-			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);
-			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			world.removeBlockEntity(pos);
-		}
-	}
-	
-	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
-		if (originalPos.equals(pos)) {
-			return false;
-		}
-		BlockState blockState = worldIn.getBlockState(pos);
-		if (blockState.getMaterial() == Material.AIR) {
-			return false;
-		}
-		if (blockState.getMaterial().isLiquid()) {
-			return false;
-		}
-		float blockHardness = blockState.calcBlockBreakingDelta(playerIn, worldIn, pos);
-		if (blockHardness == -1.0F) {
-			return false;
-		}
-		float originalHardness = worldIn.getBlockState(originalPos).getHardness(worldIn, originalPos);
-		if ((originalHardness / blockHardness) > 10.0F) {
-			return false;
-		}
-		
-		return true;	
-	}
-
-	// ItemDrill
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		PlayerEntity playerIn = null;
-		if ((entityLiving instanceof PlayerEntity)) {
-			playerIn = (PlayerEntity) entityLiving;
-		}
-		if(ItemUtils.isActive(stack)){
-			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
-				breakBlock(additionalPos, worldIn, playerIn, stack);
-			}
+		List<BlockPos> wood = new ArrayList<>();
+		if (ItemUtils.isActive(stack)) {
+			findWood(worldIn, pos, wood, new ArrayList<>());
+			wood.stream()
+					.filter(p -> Energy.of(stack).use(cost))
+					.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
 		}
 		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
+	}
+
+	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves){
+		//Limit the amount of wood to be broken to 64 blocks.
+		if(wood.size() >= 64){
+			return;
+		}
+		//Search 150 leaves for wood
+		if(leaves.size() >= 150){
+			return;
+		}
+		for(Direction facing : SEARCH_ORDER){
+			BlockPos checkPos = pos.offset(facing);
+			if(!wood.contains(checkPos) && !leaves.contains(checkPos)){
+				BlockState state = world.getBlockState(checkPos);
+				if(TagUtils.hasTag(state.getBlock(), BlockTags.LOGS)){
+					wood.add(checkPos);
+					findWood(world, checkPos, wood, leaves);
+				} else if(TagUtils.hasTag(state.getBlock(), BlockTags.LEAVES)){
+					leaves.add(checkPos);
+					findWood(world, checkPos, wood, leaves);
+				}
+			}
+
+		}
 	}
 
 	@Override
@@ -186,7 +136,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActive")));
 					}
 				} else {
-					stack.getTag().putBoolean("isActive", false);
+					stack.getOrCreateTag().putBoolean("isActive", false);
 					if (world.isClient) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
@@ -207,7 +157,7 @@ public class ItemIndustrialDrill extends ItemDrill {
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "
 						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberDeactivating")));
 			}
-			stack.getTag().putBoolean("isActive", false);
+			stack.getOrCreateTag().putBoolean("isActive", false);
 		}
 	}
 
@@ -221,19 +171,29 @@ public class ItemIndustrialDrill extends ItemDrill {
 		}
 	}
 
-	// ItemPickaxe
 	@Override
 	public boolean isEffectiveOn(BlockState blockIn) {
-		return (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn) || Items.DIAMOND_SHOVEL.isEffectiveOn(blockIn)) && !Items.DIAMOND_AXE.isEffectiveOn(blockIn);
+		return Items.DIAMOND_AXE.isEffectiveOn(blockIn);
 	}
 
-	// Item
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
+	public void breakBlock(BlockPos pos, ItemStack stack, World world, LivingEntity entityLiving, BlockPos oldPos) {
+		if (oldPos == pos) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_DRILL, itemList);
+
+		if(Energy.of(stack).use(cost)){
+			BlockState blockState = world.getBlockState(pos);
+			if (blockState.getHardness(world, pos) == -1.0F) {
+				return;
+			}
+			if(!(entityLiving instanceof PlayerEntity)){
+				return;
+			}
+
+			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			world.removeBlockEntity(pos);
+		}
+
 	}
 }

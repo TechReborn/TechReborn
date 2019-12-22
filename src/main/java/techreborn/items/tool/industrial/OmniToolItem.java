@@ -55,7 +55,7 @@ import techreborn.utils.InitUtils;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public static final int maxCharge = TechRebornConfig.omniToolCharge;
 	public int transferLimit = 1_000;
@@ -63,11 +63,11 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 	public int hitCost = 125;
 
 	// 4M FE max charge with 1k charge rate
-	public ItemOmniTool() {
+	public OmniToolItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 	
-	// ItemPickaxe
+	// PickaxeItem
 	@Override
 	public boolean isEffectiveOn(BlockState state) {
 		return Items.DIAMOND_AXE.isEffectiveOn(state) || Items.DIAMOND_SWORD.isEffectiveOn(state)
@@ -75,33 +75,20 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 				|| Items.SHEARS.isEffectiveOn(state);
 	}
 
-	// ItemTool
+	@Override
+	public float getMiningSpeed(ItemStack stack, BlockState state) {
+		if (Energy.of(stack).getEnergy() >= cost) {
+			return ToolMaterials.DIAMOND.getMiningSpeed();
+		}
+		return super.getMiningSpeed(stack, state);
+	}
+
+	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Energy.of(stack).use(cost);
 		return true;
 	}
-
-
-
-	// @Override
-	// public float getDigSpeed(ItemStack stack, IBlockState state) {
-	// IEnergyStorage capEnergy = stack.getCapability(CapabilityEnergy.ENERGY, null);
-	// if (capEnergy.getEnergyStored() >= cost) {
-	// capEnergy.extractEnergy(cost, false);
-	// return 5.0F;
-	// }
-	//
-	// if (Items.wooden_axe.getDigSpeed(stack, state) > 1.0F
-	// || Items.wooden_sword.getDigSpeed(stack, state) > 1.0F
-	// || Items.wooden_pickaxe.getDigSpeed(stack, state) > 1.0F
-	// || Items.wooden_shovel.getDigSpeed(stack, state) > 1.0F
-	// || Items.shears.getDigSpeed(stack, state) > 1.0F) {
-	// return efficiencyOnProperMaterial;
-	// } else {
-	// return super.getDigSpeed(stack, state);
-	// }
-	// }
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
@@ -111,24 +98,34 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 		return false;
 	}
 
+	// ToolItem
+	@Override
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+		return false;
+	}
+
 	// Item
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		return TorchHelper.placeTorch(context);
 	}
 
+	@Environment(EnvType.CLIENT)
 	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
-		return false;
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
+			return;
+		}
+		InitUtils.initPoweredItems(TRContent.OMNI_TOOL, itemList);
 	}
 
+	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		tooltip.add(new LiteralText("WIP Coming Soon").formatted(Formatting.RED));
-		// TODO 
-		// Remember to remove WIP override and imports once complete
+		tooltip.add(new LiteralText(Formatting.YELLOW + "Swiss Army Knife"));
 	}
 
+	// ItemDurabilityExtensions
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -144,17 +141,7 @@ public class ItemOmniTool extends PickaxeItem implements EnergyHolder, ItemDurab
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(
-		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.OMNI_TOOL, itemList);
-	}
-	
-	// IEnergyItemInfo
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;

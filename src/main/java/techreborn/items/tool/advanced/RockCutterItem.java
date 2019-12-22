@@ -48,14 +48,14 @@ import techreborn.init.TRContent;
 
 import java.util.Random;
 
-public class ItemRockCutter extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
 	public int transferLimit = 1_000;
 	public int cost = 500;
 
 	// 400k FE with 1k FE\t charge rate
-	public ItemRockCutter() {
+	public RockCutterItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
