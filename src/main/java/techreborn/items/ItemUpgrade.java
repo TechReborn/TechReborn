@@ -47,11 +47,11 @@ public class ItemUpgrade extends Item implements IUpgrade {
 
 	@Override
 	public void process(
-			@Nonnull MachineBaseBlockEntity blockEntity,
-			@Nullable
-					IUpgradeHandler handler,
-			@Nonnull
-					ItemStack stack) {
+		@Nonnull MachineBaseBlockEntity blockEntity,
+		@Nullable
+			IUpgradeHandler handler,
+		@Nonnull
+			ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
 	}
 }
