@@ -2,7 +2,7 @@
 
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/packs/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/teamreborn) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/techreborn/localized.svg)](https://translate.techreborn.ovh/project/techreborn)
 
-# Tech Reborn for 1.14.4 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.12/)
+# Tech Reborn for 1.15.1 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/)
 
 *Tech Reborn is a completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.*
 
@@ -21,7 +21,7 @@ Versions we determine are stable enough can always be found on our CurseForge pa
 
 If you're looking for the latest bleeding edge build, these are found on our Jenkins page. Use these with caution, and please do not put these in modpacks: 
 
-1.15 * - [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/)
+1.15.1 - [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/)
 
 1.14.4 - [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.14/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.14/)
 
@@ -30,8 +30,6 @@ If you're looking for the latest bleeding edge build, these are found on our Jen
 1.11.2 - [![Build Status](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.11.2/badge/icon)](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.11.2/)
 
 1.10.2 - [![Build Status](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.10.2/badge/icon)](https://jenkins.modmuss50.me/job/TeamReborn/job/TechReborn/job/TechReborn-1.10.2/)
-
-* 1.15 versions are for snapshots, and may not always be upto date with the latest 1.15 snapshots.
 
 # Issues and Suggestions
 
