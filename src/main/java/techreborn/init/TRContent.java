@@ -755,7 +755,7 @@ public class TRContent {
 				aesu = (AdjustableSUBlockEntity) blockEntity;
 			}
 			if (aesu != null) {
-				aesu.superconductors++;
+				aesu.superconductors += TechRebornConfig.superConductorCount;
 			}
 		});
 

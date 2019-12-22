@@ -229,6 +229,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")
 	public static double energyStoragePower = 40_000;
 
+	@Config(config = "items", category = "upgrades", key = "super_conductor", comment = "Energy flow power increase")
+	public static double superConductorCount = 1;
+
 	// Machines
 	@Config(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
 	public static int grinderMaxInput = 32;

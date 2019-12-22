@@ -40,12 +40,17 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.BaseBlockEntityProvider;
+import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
+import techreborn.init.TRContent;
+import techreborn.items.ItemUpgrade;
+import techreborn.utils.DocumentAssistUtils;
 
 import java.util.List;
 
@@ -58,6 +63,24 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	@Override
 	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> components) {
 		Item item = stack.getItem();
+
+
+		// Machine info and upgrades helper section
+		Block block = Block.getBlockFromItem(item);
+
+		if(block instanceof BaseBlockEntityProvider){
+			DocumentAssistUtils.addInfo(item.getTranslationKey(), components);
+		}
+
+		if(item instanceof ItemUpgrade){
+			ItemUpgrade upgrade = (ItemUpgrade)item;
+
+			DocumentAssistUtils.addInfo(item.getTranslationKey(), components, false);
+			components.addAll(DocumentAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+		}
+
+
+		// Other section
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(components, false, false);
 		} else if (stack.getItem() instanceof EnergyHolder) {
@@ -79,8 +102,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			}
 		} else {
 			try {
-				Block block = Block.getBlockFromItem(item);
-				if (block != null && (block instanceof BlockWithEntity || block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
+				if ((block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
 					if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {

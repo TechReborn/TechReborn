@@ -63,6 +63,10 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	private SolarPanels panel;
 
+	public SolarPanelBlockEntity() {
+		super(TRBlockEntities.SOLAR_PANEL);
+	}
+
 	public SolarPanelBlockEntity(SolarPanels panel) {
 		super(TRBlockEntities.SOLAR_PANEL);
 		this.panel = panel;

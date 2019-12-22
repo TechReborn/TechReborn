@@ -32,12 +32,9 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
-import techreborn.blocks.GenericMachineBlock;
-import techreborn.client.EGui;
-import techreborn.client.gui.GuiSolar;
-import techreborn.init.TRContent.SolarPanels;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
+import techreborn.client.EGui;
+import techreborn.init.TRContent.SolarPanels;
 
 /**
  * Created by modmuss50 on 25/02/2016.
