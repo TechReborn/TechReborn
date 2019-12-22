@@ -24,24 +24,15 @@
 
 package techreborn.items;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.world.World;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.recipes.IUpgradeHandler;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
-import techreborn.utils.ToolTipAssistUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class ItemUpgrade extends Item implements IUpgrade {
 
@@ -62,14 +53,5 @@ public class ItemUpgrade extends Item implements IUpgrade {
 			@Nonnull
 					ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-
-		tooltip.addAll(ToolTipAssistUtils.getUpgradeAssist(TRContent.Upgrades.valueOf(name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
-
-		super.appendTooltip(stack, world, tooltip, context);
 	}
 }

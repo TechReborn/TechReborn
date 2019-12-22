@@ -46,6 +46,10 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
+import techreborn.blocks.GenericMachineBlock;
+import techreborn.init.TRContent;
+import techreborn.items.ItemUpgrade;
+import techreborn.utils.DocumentAssistUtils;
 
 import java.util.List;
 
@@ -58,6 +62,22 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	@Override
 	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> components) {
 		Item item = stack.getItem();
+
+
+		// Machine info and upgrades helper section
+		if(Block.getBlockFromItem(item) instanceof GenericMachineBlock){
+			DocumentAssistUtils.addInfo(item.getTranslationKey(), components);
+		}
+
+		if(item instanceof ItemUpgrade){
+			ItemUpgrade upgrade = (ItemUpgrade)item;
+
+			DocumentAssistUtils.addInfo(item.getTranslationKey(), components, false);
+			components.addAll(DocumentAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+		}
+
+
+		// Other section
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(components, false, false);
 		} else if (stack.getItem() instanceof EnergyHolder) {
