@@ -24,21 +24,21 @@
 
 package techreborn.blockentity;
 
-import net.minecraft.util.Formatting;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.LiteralText;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
 import techreborn.blocks.BlockAlarm;
 import techreborn.init.ModSounds;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 public class AlarmBlockEntity extends BlockEntity
