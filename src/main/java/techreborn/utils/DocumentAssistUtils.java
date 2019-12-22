@@ -14,7 +14,6 @@ import techreborn.init.TRContent;
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public class DocumentAssistUtils {
 
 	// Colour constants

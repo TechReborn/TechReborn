@@ -609,7 +609,7 @@
   "techreborn.message.info.item.techreborn.overclocker_upgrade": "Increases speed at the cost of more energy",
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
   "techreborn.message.info.item.techreborn.energy_storage_upgrade": "Increase energy store",
-  "techreborn.message.info.item.techreborn.superconductor_upgrade": "Increases energy flow rate of AESU",
+  "techreborn.message.info.item.techreborn.superconductor_upgrade": "Increases energy flow rate",
 
   "techreborn.message.info.block.techreborn.basic_solar_panel": "Produce energy from sunlight",
   "techreborn.message.info.block.techreborn.advanced_solar_panel": "Produce energy from sunlight",
