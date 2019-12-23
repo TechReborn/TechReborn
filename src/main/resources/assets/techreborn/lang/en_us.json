@@ -720,6 +720,7 @@
   "techreborn.manual.refundbtn": "Refund",
 
   "_comment24": "Advancements",
+  "advancements.techreborn.root": "Mine It",
   "advancements.techreborn.root.desc": "Now that you have acquired Tech Reborn ore, you might find a tree tap useful.",
   "advancements.techreborn.treetap": "TreeTap",
   "advancements.techreborn.treetap.desc": "Now that you have crafted a tree tap you will want to use it on a sap spot on a rubber tree.",

@@ -4,12 +4,12 @@
       "item": "techreborn:copper_ore"
     },
     "title": {
-      "translate": "itemGroup.techreborn"
+      "translate": "advancements.techreborn.root"
     },
     "description": {
       "translate": "advancements.techreborn.root.desc"
     },
-    "background": "techreborn:textures/blocks/storage/lead_block.png",
+    "background": "techreborn:textures/block/storage/lead_storage_block.png",
     "show_toast": true,
     "announce_to_chat": true
   },
