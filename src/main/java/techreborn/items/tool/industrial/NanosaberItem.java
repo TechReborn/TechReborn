@@ -107,7 +107,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			if (Energy.of(stack).getEnergy() < cost) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+				ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
 						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
 			} else {
@@ -117,14 +117,14 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 					}
 					stack.getTag().putBoolean("isActive", true);
 					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+						ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
 							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
 								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActive")));
 					}
 				} else {
 					stack.getOrCreateTag().putBoolean("isActive", false);
 					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
+						ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
 							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
 								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberInactive")));
 					}
@@ -137,14 +137,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (ItemUtils.isActive(stack) && Energy.of(stack).getEnergy() < cost) {
-			if(worldIn.isClient){
-				ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
-					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "
-						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberDeactivating")));
-			}
-			stack.getOrCreateTag().putBoolean("isActive", false);
-		}
+		ItemUtils.checkActive(stack, cost, entityIn.world.isClient, MessageIDs.poweredToolID);
 	}
 
 	@Override

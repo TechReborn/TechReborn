@@ -59,7 +59,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
-	// ItemPickaxe
+	// PickaxeItem
 	@Override
 	public boolean isEffectiveOn(BlockState state) {
 		if (Items.DIAMOND_PICKAXE.isEffectiveOn(state)) {
@@ -77,7 +77,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 		}
 	}
 
-	// ItemTool
+	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
@@ -87,20 +87,18 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 		return true;
 	}
 
-//	@Override
-//	public int getHarvestLevel(ItemStack stack, ToolType toolType, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
-//		if (!stack.hasEnchantments()) {
-//			stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
-//		}
-//		return super.getHarvestLevel(stack, toolType, player, blockState);
-//	}
+	@Override
+	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+		return true;
+	}
 
-	// Item
+	// ToolItem
 	@Override
 	public boolean canRepair(ItemStack stack, ItemStack stack2) {
 		return false;
 	}
 
+	// Item
 	@Override
 	public void onCraft(ItemStack stack, World worldIn, PlayerEntity playerIn) {
 		if (!stack.hasEnchantments()) {
@@ -109,18 +107,8 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
+	public boolean isDamageable() {
+		return false;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -139,7 +127,23 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 		itemList.add(charged);
 	}
 
-	// IEnergyItemInfo
+	// ItemDurabilityExtensions
+	@Override
+	public double getDurability(ItemStack stack) {
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	}
+
+	@Override
+	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public int getDurabilityColor(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
+	}
+
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
