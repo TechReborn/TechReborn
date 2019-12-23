@@ -171,18 +171,9 @@ public class ReiPlugin implements REIPluginV0 {
 		// Check Tags will not check the amount of the ItemStack, but will enable checking their tags.
 		for (EntryStack stack : RoughlyEnoughItemsCore.getEntryRegistry().getStacksList())
 			applyCellEntry(stack);
-		for (List<RecipeDisplay> displays : RecipeHelper.getInstance().getAllRecipes().values()) {
-			for (RecipeDisplay display : displays) {
-				for (List<EntryStack> entries : display.getInputEntries())
-					for (EntryStack stack : entries)
-						applyCellEntry(stack);
-				for (EntryStack stack : display.getOutputEntries())
-					applyCellEntry(stack);
-			}
-		}
 	}
 	
-	private void applyCellEntry(EntryStack stack) {
+	public static void applyCellEntry(EntryStack stack) {
 		// getItem can be null but this works
 		if (stack.getItem() == TRContent.CELL)
 			stack.addSetting(EntryStack.Settings.CHECK_TAGS, EntryStack.Settings.TRUE);
