@@ -216,11 +216,7 @@ public class IndustrialDrillItem extends DrillItem {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(new LiteralText(Formatting.YELLOW + "Shear: " + Formatting.RED + StringUtils.t("techreborn.message.nanosaberInactive")));
-		} else {
-			tooltip.add(new LiteralText(Formatting.YELLOW + "Shear: " + Formatting.GREEN + StringUtils.t("techreborn.message.nanosaberActive")));
-		}
+		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 	@Environment(EnvType.CLIENT)

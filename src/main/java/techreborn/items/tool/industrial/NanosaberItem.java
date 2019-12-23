@@ -38,7 +38,6 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import reborncore.api.items.ItemStackModifiers;
@@ -123,7 +122,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActive")));
 					}
 				} else {
-					stack.getTag().putBoolean("isActive", false);
+					stack.getOrCreateTag().putBoolean("isActive", false);
 					if (world.isClient) {
 						ChatUtils.sendNoSpamMessages(MessageIDs.nanosaberID, new LiteralText(
 							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
@@ -144,7 +143,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyError") + " "
 						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberDeactivating")));
 			}
-			stack.getTag().putBoolean("isActive", false);
+			stack.getOrCreateTag().putBoolean("isActive", false);
 		}
 	}
 
@@ -177,16 +176,16 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 		}
 		ItemStack inactiveUncharged = new ItemStack(this);
 		inactiveUncharged.setTag(new CompoundTag());
-		inactiveUncharged.getTag().putBoolean("isActive", false);
+		inactiveUncharged.getOrCreateTag().putBoolean("isActive", false);
 
 		ItemStack inactiveCharged = new ItemStack(TRContent.NANOSABER);
 		inactiveCharged.setTag(new CompoundTag());
-		inactiveCharged.getTag().putBoolean("isActive", false);
+		inactiveCharged.getOrCreateTag().putBoolean("isActive", false);
 		Energy.of(inactiveCharged).set(Energy.of(inactiveCharged).getMaxStored());
 
 		ItemStack activeCharged = new ItemStack(TRContent.NANOSABER);
 		activeCharged.setTag(new CompoundTag());
-		activeCharged.getTag().putBoolean("isActive", true);
+		activeCharged.getOrCreateTag().putBoolean("isActive", true);
 		Energy.of(activeCharged).set(Energy.of(activeCharged).getMaxStored());
 
 		itemList.add(inactiveUncharged);
@@ -197,11 +196,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		if (!ItemUtils.isActive(stack)) {
-			tooltip.add(new TranslatableText("techreborn.message.nanosaberInactive").formatted(Formatting.GRAY));
-		} else {
-			tooltip.add(new TranslatableText("techreborn.message.nanosaberActive").formatted(Formatting.GRAY));
-		}
+		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
 	// IEnergyItemInfo
