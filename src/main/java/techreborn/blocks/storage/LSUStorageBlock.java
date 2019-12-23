@@ -25,127 +25,83 @@
 package techreborn.blocks.storage;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.ToolManager;
-import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
-import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.WrenchUtils;
-
-import java.util.Locale;
+import techreborn.blockentity.storage.lesu.LSUStorageBlockEntity;
 
 /**
- * Created by Rushmead
+ * Energy storage block for LESU
  */
-public abstract class BlockEnergyStorage extends BaseBlockEntityProvider {
-	public static DirectionProperty FACING = Properties.FACING;
-	public String name;
-	public IMachineGuiHandler gui;
+public class LSUStorageBlock extends BaseBlockEntityProvider {
 
-	public BlockEnergyStorage(String name, IMachineGuiHandler gui) {
+	public LSUStorageBlock() {
 		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
-		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
-		this.name = name;
-		this.gui = gui;
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
-	public void setFacing(Direction facing, World world, BlockPos pos) {
-		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
+	// BaseTileBlock
+	@Override
+	public void onBlockRemoved(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (state.getBlock() == newState.getBlock()) {
+			return;
+		}
+		if (worldIn.getBlockEntity(pos) instanceof LSUStorageBlockEntity) {
+			LSUStorageBlockEntity blockEntity = (LSUStorageBlockEntity) worldIn.getBlockEntity(pos);
+			if (blockEntity != null) {
+				blockEntity.removeFromNetwork();
+			}
+		}
+		super.onBlockRemoved(state, worldIn, pos, newState, isMoving);
 	}
-
-	public Direction getFacing(BlockState state) {
-		return state.get(FACING);
+	
+	@Override
+	public BlockEntity createBlockEntity(BlockView worldIn) {
+		return new LSUStorageBlockEntity();
 	}
-
-	public String getSimpleName(String fullName) {
-		if (fullName.equalsIgnoreCase("Batbox")) {
-			return "lv_storage";
+	
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
+		super.onPlaced(world, pos, state, player, itemstack);
+		if (world.getBlockEntity(pos) instanceof LSUStorageBlockEntity) {
+			LSUStorageBlockEntity blockEntity = (LSUStorageBlockEntity) world.getBlockEntity(pos);
+			if (blockEntity != null) {
+				blockEntity.rebuildNetwork();
+			}
 		}
-		if (fullName.equalsIgnoreCase("MEDIUM_VOLTAGE_SU")) {
-			return "mv_storage";
-		}
-		if (fullName.equalsIgnoreCase("HIGH_VOLTAGE_SU")) {
-			return "hv_storage";
-		}
-		if (fullName.equalsIgnoreCase("AESU")) {
-			return "ev_storage_adjust";
-		}
-		if (fullName.equalsIgnoreCase("IDSU")) {
-			return "ev_storage_transmitter";
-		}
-		if (fullName.equalsIgnoreCase("LESU")) {
-			return "ev_multi";
-		}
-		return fullName.toLowerCase(Locale.ROOT);
 	}
 
 	// Block
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING);
-	}
-	
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 
-		// We extended BlockTileBase. Thus we should always have blockEntity entity. I hope.
+		// We extended BaseTileBlock. Thus we should always have blockEntity entity. I hope.
 		if (blockEntity == null) {
 			return ActionResult.FAIL;
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
-				return ActionResult.SUCCESS;
+				return ActionResult.PASS;
 			}
-		}
-
-		if (!playerIn.isSneaking() && gui != null) {
-			gui.open(playerIn, pos, worldIn);
-			return ActionResult.SUCCESS;
 		}
 
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
-	@Override
-	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
-			ItemStack stack) {
-		super.onPlaced(worldIn, pos, state, placer, stack);
-		Direction facing = placer.getHorizontalFacing().getOpposite();
-		if (placer.pitch < -50) {
-			facing = Direction.DOWN;
-		} else if (placer.pitch > 50) {
-			facing = Direction.UP;
-		}
-		setFacing(facing, worldIn, pos);
-	}
-
-	@Override
-	public boolean hasComparatorOutput(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
-	}
 }

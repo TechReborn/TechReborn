@@ -26,18 +26,18 @@ package techreborn.blocks.storage;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.AdjustableSUBlockEntity;
 import techreborn.client.EGui;
 
-public class BlockLapotronicSU extends BlockEnergyStorage {
+public class AdjustableSUBlock extends EnergyStorageBlock {
 	
-	public BlockLapotronicSU() {
-		super("LESU", EGui.LESU);
+	public AdjustableSUBlock() {
+		super("AESU", EGui.AESU);
 	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new LapotronicSUBlockEntity();
+		return new AdjustableSUBlockEntity();
 	}
 
 }

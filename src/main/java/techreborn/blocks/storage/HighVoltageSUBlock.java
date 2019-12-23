@@ -26,21 +26,21 @@ package techreborn.blocks.storage;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
 import techreborn.client.EGui;
 
 /**
  * Created by modmuss50 on 14/03/2016.
  */
-public class BlockMediumVoltageSU extends BlockEnergyStorage {
+public class HighVoltageSUBlock extends EnergyStorageBlock {
 	
-	public BlockMediumVoltageSU() {
-		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU);
+	public HighVoltageSUBlock() {
+		super("high_voltage_su", EGui.HIGH_VOLTAGE_SU);
 	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new MediumVoltageSUBlockEntity();
+		return new HighVoltageSUBlockEntity();
 	}
 
 }

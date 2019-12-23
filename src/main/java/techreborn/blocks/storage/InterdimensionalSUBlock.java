@@ -24,22 +24,44 @@
 
 package techreborn.blocks.storage;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
 import techreborn.client.EGui;
-import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
 
-/**
- * Created by modmuss50 on 14/03/2016.
- */
-public class BlockLowVoltageSU extends BlockEnergyStorage {
+public class InterdimensionalSUBlock extends EnergyStorageBlock {
 	
-	public BlockLowVoltageSU() {
-		super("low_voltage_su", EGui.LOW_VOLTAGE_SU);
+	public InterdimensionalSUBlock() {
+		super("IDSU", EGui.IDSU);
 	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new LowVoltageSUBlockEntity();
+		return new InterdimensionalSUBlockEntity();
 	}
+
+	@Override
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		final BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
+		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
+			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = context.getPlayer().getUuid().toString();
+		}
+		return this.getDefaultState();
+	}
+
+	@Override
+	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		super.onPlaced(world, pos, state, placer, stack);
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
+			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = placer.getUuid().toString();
+		}
+	}
+
 }

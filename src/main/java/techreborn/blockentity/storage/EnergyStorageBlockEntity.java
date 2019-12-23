@@ -35,7 +35,7 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
-import techreborn.blocks.storage.BlockEnergyStorage;
+import techreborn.blocks.storage.EnergyStorageBlock;
 
 /**
  * Created by Rushmead
@@ -114,7 +114,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	// TileMachineBase
 	@Override
 	public void setFacing(Direction enumFacing) {
-		world.setBlockState(pos, world.getBlockState(pos).with(BlockEnergyStorage.FACING, enumFacing));
+		if (world == null) { return; }
+		world.setBlockState(pos, world.getBlockState(pos).with(EnergyStorageBlock.FACING, enumFacing));
 	}
 	
 	@Override
@@ -123,8 +124,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 			return null;
 		}
 		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof BlockEnergyStorage) {
-			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));
+		if (block instanceof EnergyStorageBlock) {
+			return ((EnergyStorageBlock) block).getFacing(world.getBlockState(pos));
 		}
 		return null;
 	}

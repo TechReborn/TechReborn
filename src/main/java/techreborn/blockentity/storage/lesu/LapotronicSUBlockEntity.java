@@ -34,7 +34,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.EnergyStorageBlockEntity;
-import techreborn.blocks.storage.BlockLapotronicSU;
+import techreborn.blocks.storage.LapotronicSUBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -87,8 +87,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public Direction getFacingEnum() {
 		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof BlockLapotronicSU) {
-			return ((BlockLapotronicSU) block).getFacing(world.getBlockState(pos));
+		if (block instanceof LapotronicSUBlock) {
+			return ((LapotronicSUBlock) block).getFacing(world.getBlockState(pos));
 		}
 		return null;
 	}
