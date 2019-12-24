@@ -603,6 +603,10 @@
   "techreborn.message.daygen": "Panel in direct sunlight",
   "techreborn.message.nightgen": "Panel in reduced sunlight",
   "techreborn.message.zerogen": "Panel obstructed from sky",
+  "techreborn.message.solar.generating": "Generating: %s E/t",
+  "techreborn.message.solar.efficiency": "Efficiency: %s",
+  "techreborn.message.solar.clean_panel_1": "Solar panel is dirty",
+  "techreborn.message.solar.clean_panel_2": " Clean it with water and wool",
 
 
   "techreborn.message.info.item.techreborn.overclocker_upgrade": "Increases speed at the cost of more energy",

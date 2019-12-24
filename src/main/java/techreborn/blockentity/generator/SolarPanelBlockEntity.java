@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.generator;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -42,6 +42,7 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.EnergyTier;
 import techreborn.blocks.generator.BlockSolarPanel;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
@@ -60,7 +61,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	private int state = ZEROGEN;
 	private int prevState = ZEROGEN;
-
+	private float efficiency = 1.0f;
+	private float wetnessLevel = .0f;
 	private SolarPanels panel;
 
 	public SolarPanelBlockEntity() {
@@ -92,7 +94,15 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public int getSunState() {
 		return state;
 	}
-
+	
+	private void setEfficiency(float efficiency) {
+		this.efficiency = efficiency;
+	}
+	
+	public float getEfficiency() {
+		return efficiency;
+	}
+	
 	SolarPanels getPanel() {
 		if (panel == null) {
 			updatePanel();
@@ -110,12 +120,28 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		} else {
 			this.setSunState(ZEROGEN);
 		}
-
+		
+		if (TechRebornConfig.solarDegradationMultiplier > 0) {
+			Material blockAbove = world.getBlockState(pos.up()).getMaterial();
+			if (blockAbove == Material.WOOL) {
+				if (wetnessLevel > 0) {
+					efficiency = Math.min(efficiency + wetnessLevel, 1.0f);
+					wetnessLevel = .0f;
+				}
+			} else if (blockAbove == Material.WATER) {
+				wetnessLevel = Math.min(wetnessLevel + 0.05f, 1.0f);
+			} else if (getSunState() != ZEROGEN && world.isRaining()) {
+				efficiency = Math.min(efficiency + 0.01f, 1.0f);
+			} else {
+				efficiency = Math.max(efficiency - TechRebornConfig.solarDegradationMultiplier, .0f);
+			}
+		} else {
+			efficiency = 1.0f;
+		}
+		
 		if (prevState != this.getSunState()) {
 			boolean isGenerating = getSunState() == DAYGEN;
-
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, isGenerating));
-
 			prevState = this.getSunState();
 		}
 	}
@@ -130,8 +156,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			case NIGHTGEN:
 				rate = getPanel().generationRateN;
 		}
-
-		return rate;
+		
+		return Math.round(rate * efficiency);
 	}
 
 
@@ -225,12 +251,20 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
+	public CompoundTag toTag(CompoundTag tag) {
+		super.toTag(tag);
+		tag.putFloat("efficiency", getEfficiency());
+		return tag;
+	}
+	
+	@Override
 	public void fromTag(CompoundTag tag) {
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
 		updatePanel();
+		this.efficiency = tag.getFloat("efficiency");
 		super.fromTag(tag);
 	}
 
@@ -252,6 +286,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		return new ContainerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
 				.sync(this::getSunState, this::setSunState)
+				.sync(this::getEfficiency, this::setEfficiency)
 				.addInventory().create(this, syncID);
 	}
 }

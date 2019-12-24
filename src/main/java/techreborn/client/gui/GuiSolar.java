@@ -63,8 +63,15 @@ public class GuiSolar extends GuiBase<BuiltContainer> {
 				builder.drawString(this, StringUtils.t("techreborn.message.zerogen"), 10, 20, 12066591);
 				break;
 		}
-
-		builder.drawString(this, "Generating: " + blockEntity.getGenerationRate() + " E/t", 10, 30, 0);
-
+		
+		builder.drawString(this, StringUtils.t("techreborn.message.solar.generating", blockEntity.getGenerationRate()), 10, 30, 0);
+		if (blockEntity.getEfficiency() < 1.0f) {
+			builder.drawString(this, StringUtils.t("techreborn.message.solar.efficiency", Math.round(blockEntity.getEfficiency() * 100) + "%"), 10, 40, 0);
+		}
+		if (blockEntity.getEfficiency() < 0.75f) {
+			builder.drawString(this, StringUtils.t("techreborn.message.solar.clean_panel_1"), 10, 50, 12066591);
+			builder.drawString(this, StringUtils.t("techreborn.message.solar.clean_panel_2"), 10, 60, 12066591);
+		}
+		
 	}
 }

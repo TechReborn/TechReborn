@@ -32,7 +32,10 @@ public class TechRebornConfig {
 	// Generators
 	@Config(config = "generators", category = "solarPanelGeneral", key = "internalCapacity", comment = "Multiplier for internal capacity of solar panels (multiplier * day generation rate)")
 	public static int solarInternalCapacityMultiplier = 2000;
-
+	
+	@Config(config = "generators", category = "solarPanelGeneral", key = "degradationMultiplier", comment = "Degradation multiplier for solar panels (applies every second)")
+	public static float solarDegradationMultiplier = .0002f;
+	
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
 	
