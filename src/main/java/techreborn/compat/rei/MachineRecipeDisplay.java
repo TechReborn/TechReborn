@@ -58,6 +58,11 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
 			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
 		}
+		for (List<EntryStack> entries : inputs)
+			for (EntryStack stack : entries)
+				ReiPlugin.applyCellEntry(stack);
+		for (EntryStack stack : outputs)
+			ReiPlugin.applyCellEntry(stack);
 	}
 	
 	public int getEnergy() {
