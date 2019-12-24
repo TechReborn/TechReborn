@@ -30,24 +30,23 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
-import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
@@ -55,6 +54,7 @@ import techreborn.init.TRContent;
 import techreborn.items.tool.DrillItem;
 import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
+import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -71,11 +71,12 @@ public class IndustrialDrillItem extends DrillItem {
 		this.transferLimit = 1000;
 	}
 
-	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable PlayerEntity playerIn) {
+	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
 		Set<BlockPos> targetBlocks = new HashSet<>();
-		if (playerIn == null) {
+		if (!(entityLiving instanceof PlayerEntity) || entityLiving == null) {
 			return new HashSet<>();
 		}
+		PlayerEntity playerIn = (PlayerEntity) entityLiving;
 
 		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
 		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
@@ -117,16 +118,6 @@ public class IndustrialDrillItem extends DrillItem {
 		return targetBlocks;
 	}
 
-	private void breakBlock(BlockPos pos, World world, PlayerEntity playerIn, ItemStack drill) {
-		BlockState blockState = world.getBlockState(pos);
-
-		if(Energy.of(drill).use(cost)){
-			blockState.getBlock().onBlockRemoved(blockState, world, pos, blockState, true);
-			blockState.getBlock().afterBreak(world, playerIn, pos, blockState, world.getBlockEntity(pos), drill);
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
-		}
-	}
-	
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
 		if (originalPos.equals(pos)) {
 			return false;
@@ -148,17 +139,13 @@ public class IndustrialDrillItem extends DrillItem {
 
 	// DrillItem
 	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		PlayerEntity playerIn = null;
-		if ((entityLiving instanceof PlayerEntity)) {
-			playerIn = (PlayerEntity) entityLiving;
-		}
+	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
 		if(ItemUtils.isActive(stack)){
-			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, playerIn)) {
-				breakBlock(additionalPos, worldIn, playerIn, stack);
+			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
+				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
-		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
+		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
 	// PickaxeItem

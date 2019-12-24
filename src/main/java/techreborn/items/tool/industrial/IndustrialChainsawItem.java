@@ -27,24 +27,22 @@ package techreborn.items.tool.industrial;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
-import reborncore.common.util.StringUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
 import techreborn.config.TechRebornConfig;
@@ -53,6 +51,7 @@ import techreborn.items.tool.ChainsawItem;
 import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.TagUtils;
+import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -93,35 +92,19 @@ public class IndustrialChainsawItem extends ChainsawItem {
 		}
 	}
 
-	private void breakBlock(BlockPos pos, ItemStack stack, World world, LivingEntity entityLiving, BlockPos oldPos) {
-		if (oldPos == pos) {
-			return;
-		}
-
-		if(Energy.of(stack).use(cost)){
-			BlockState blockState = world.getBlockState(pos);
-			if (blockState.getHardness(world, pos) == -1.0F) {
-				return;
-			}
-			if(!(entityLiving instanceof PlayerEntity)){
-				return;
-			}
-
-			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			world.removeBlockEntity(pos);
-		}
-	}
-
 	//ChainsawItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		List<BlockPos> wood = new ArrayList<>();
+		List<BlockPos> leaves = new ArrayList<>();
 		if (ItemUtils.isActive(stack)) {
-			findWood(worldIn, pos, wood, new ArrayList<>());
+			findWood(worldIn, pos, wood, leaves);
+			wood.remove(pos);
 			wood.stream()
-					.filter(p -> Energy.of(stack).use(cost))
-					.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
+					.filter(p -> Energy.of(stack).simulate().use(cost))
+					.forEach(pos1 -> ToolsUtil.breakBlock(stack, worldIn, pos1, entityLiving, cost));
+			leaves.remove(pos);
+			leaves.forEach(pos1 -> ToolsUtil.breakBlock(stack, worldIn, pos1, entityLiving, 0));
 		}
 		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
 	}
