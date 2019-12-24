@@ -32,13 +32,13 @@ import java.util.function.Supplier;
 
 //TODO: Use tags
 public enum TRToolTier implements ToolMaterial {
-	BRONZE(2, 375, 6.0f, 2.25f, 8, () -> {
+	BRONZE(2, 375, 7.0F, 2.25f, 12, () -> {
 		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
-	}), RUBY(2, 320, 6.2F, 2.7F, 10, () -> {
+	}), RUBY(2, 1651, 6.0F, 4.7F, 10, () -> {
 		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
-	}), SAPPHIRE(3, 620, 5.0F, 2F, 8, () -> {
+	}), SAPPHIRE(3, 1651, 14.0F, 1.8F, 8, () -> {
 		return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
-	}), PERIDOT(2, 400, 7.0F, 2.4F, 16, () -> {
+	}), PERIDOT(2, 573, 7.0F, 2.4F, 24, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	});
 

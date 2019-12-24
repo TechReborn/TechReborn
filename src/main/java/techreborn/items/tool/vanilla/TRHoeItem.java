@@ -31,16 +31,16 @@ import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
-public class ItemTRHoe extends HoeItem {
+public class TRHoeItem extends HoeItem {
 
-	String repairOreDict = "";
+	String repairOreDict;
 
-	public ItemTRHoe(ToolMaterial material) {
+	public TRHoeItem(ToolMaterial material) {
 		this(material, "");
 	}
 
-	public ItemTRHoe(ToolMaterial material, String repairOreDict) {
-		super(material, 1F, new Item.Settings().group(TechReborn.ITEMGROUP));
+	public TRHoeItem(ToolMaterial material, String repairOreDict) {
+		super(material, 0F, new Item.Settings().group(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 

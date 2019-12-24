@@ -26,28 +26,28 @@ package techreborn.items.tool.vanilla;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
 import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
-public class ItemTRSword extends SwordItem {
+public class TRSpadeItem extends ShovelItem {
 
-	String repairOreDict = "";
+	String repairOreDict;
 
-	public ItemTRSword(ToolMaterial material) {
+	public TRSpadeItem(ToolMaterial material) {
 		this(material, "");
 	}
 
-	public ItemTRSword(ToolMaterial material, String repairOreDict) {
-		super(material, 1, (material.getAttackDamage() + 6.75F) * -0.344444F, new Item.Settings().group(TechReborn.ITEMGROUP));
+	public TRSpadeItem(ToolMaterial material, String repairOreDict) {
+		super(material, 1.5F, -3.0F, new Item.Settings().group(TechReborn.ITEMGROUP));
 		this.repairOreDict = repairOreDict;
 	}
 
 	@Override
 	public boolean canRepair(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, false,  true);
+			return ItemUtils.isInputEqual(repairOreDict, repair, false, true);
 		}
 		return super.canRepair(toRepair, repair);
 	}
