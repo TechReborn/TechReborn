@@ -134,6 +134,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	public CompoundTag toTag(CompoundTag tagCompound) {
 		super.toTag(tagCompound);
 		tagCompound.putInt("radius", radius);
+		tagCompound.putString("ownerUdid", ownerUdid);
 		inventory.write(tagCompound);
 		return tagCompound;
 	}
