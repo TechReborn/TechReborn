@@ -172,30 +172,7 @@ public class IndustrialDrillItem extends DrillItem {
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (Energy.of(stack).getEnergy() < cost) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
-					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
-			} else {
-				if (!ItemUtils.isActive(stack)) {
-					if (stack.getTag() == null) {
-						stack.setTag(new CompoundTag());
-					}
-					stack.getOrCreateTag().putBoolean("isActive", true);
-					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
-							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActive")));
-					}
-				} else {
-					stack.getOrCreateTag().putBoolean("isActive", false);
-					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
-							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberInactive")));
-					}
-				}
-			}
+			ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);

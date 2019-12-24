@@ -62,33 +62,11 @@ public class IndustrialChainsawItem extends ChainsawItem {
 
 	private static final Direction[] SEARCH_ORDER = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
 
-
 	// 4M FE max charge with 1k charge rate
 	public IndustrialChainsawItem() {
 		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, 1.0F);
 		this.cost = 250;
 		this.transferLimit = 1000;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_CHAINSAW, itemList);
-	}
-
-	@Override
-	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		List<BlockPos> wood = new ArrayList<>();
-		if (ItemUtils.isActive(stack)) {
-			findWood(worldIn, pos, wood, new ArrayList<>());
-			wood.stream()
-					.filter(p -> Energy.of(stack).use(cost))
-					.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
-		}
-		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
 	}
 
 	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves){
@@ -112,38 +90,57 @@ public class IndustrialChainsawItem extends ChainsawItem {
 					findWood(world, checkPos, wood, leaves);
 				}
 			}
-
 		}
+	}
+
+	private void breakBlock(BlockPos pos, ItemStack stack, World world, LivingEntity entityLiving, BlockPos oldPos) {
+		if (oldPos == pos) {
+			return;
+		}
+
+		if(Energy.of(stack).use(cost)){
+			BlockState blockState = world.getBlockState(pos);
+			if (blockState.getHardness(world, pos) == -1.0F) {
+				return;
+			}
+			if(!(entityLiving instanceof PlayerEntity)){
+				return;
+			}
+
+			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			world.removeBlockEntity(pos);
+		}
+	}
+
+	//ChainsawItem
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		List<BlockPos> wood = new ArrayList<>();
+		if (ItemUtils.isActive(stack)) {
+			findWood(worldIn, pos, wood, new ArrayList<>());
+			wood.stream()
+					.filter(p -> Energy.of(stack).use(cost))
+					.forEach(pos1 -> breakBlock(pos1, stack, worldIn, entityLiving, pos));
+		}
+		return super.postMine(stack, worldIn, blockIn, pos, entityLiving);
+	}
+
+	// Item
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+		if (!isIn(par2ItemGroup)) {
+			return;
+		}
+		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_CHAINSAW, itemList);
 	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
 		final ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (Energy.of(stack).getEnergy() < cost) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
-					Formatting.GRAY + StringUtils.t("techreborn.message.nanosaberEnergyErrorTo") + " "
-						+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActivate")));
-			} else {
-				if (!ItemUtils.isActive(stack)) {
-					if (stack.getTag() == null) {
-						stack.setTag(new CompoundTag());
-					}
-					stack.getTag().putBoolean("isActive", true);
-					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
-							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberActive")));
-					}
-				} else {
-					stack.getOrCreateTag().putBoolean("isActive", false);
-					if (world.isClient) {
-						ChatUtils.sendNoSpamMessages(MessageIDs.poweredToolID, new LiteralText(
-							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + StringUtils.t("techreborn.message.nanosaberInactive")));
-					}
-				}
-			}
+			ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
 			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 		return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -163,26 +160,5 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	@Override
 	public boolean isEffectiveOn(BlockState blockIn) {
 		return Items.DIAMOND_AXE.isEffectiveOn(blockIn);
-	}
-
-	public void breakBlock(BlockPos pos, ItemStack stack, World world, LivingEntity entityLiving, BlockPos oldPos) {
-		if (oldPos == pos) {
-			return;
-		}
-
-		if(Energy.of(stack).use(cost)){
-			BlockState blockState = world.getBlockState(pos);
-			if (blockState.getHardness(world, pos) == -1.0F) {
-				return;
-			}
-			if(!(entityLiving instanceof PlayerEntity)){
-				return;
-			}
-
-			blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), stack);
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			world.removeBlockEntity(pos);
-		}
-
 	}
 }

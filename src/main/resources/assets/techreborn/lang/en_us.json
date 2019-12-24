@@ -594,14 +594,9 @@
   "techreborn.message.allPlayers": "All Players",
   "techreborn.message.onlyOtherPlayers": "Only Other Players",
   "techreborn.message.onlyYou": "Only You",
-  "techreborn.message.nanosaberActive": "Active",
-  "techreborn.message.nanosaberActivate": "Activate",
-  "techreborn.message.nanosaberInactive": "Inactive",
-  "techreborn.message.nanosaberEnergyErrorTo": "Not Enough Energy to",
   "techreborn.message.daygen": "Panel in direct sunlight",
   "techreborn.message.nightgen": "Panel in reduced sunlight",
   "techreborn.message.zerogen": "Panel obstructed from sky",
-
 
   "techreborn.message.info.item.techreborn.overclocker_upgrade": "Increases speed at the cost of more energy",
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
@@ -670,7 +665,6 @@
   "techreborn.message.info.block.techreborn.quantum_tank": "Stores near-infinite of a single liquid",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Charges up to 6 items simultaneously",
   "techreborn.message.info.block.techreborn.chunk_loader": "Keeps chunks loaded, allows machines to run when you're not nearby",
-
 
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",
