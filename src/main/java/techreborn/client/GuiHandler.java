@@ -37,6 +37,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.blockentity.ChargeOMatBlockEntity;
 import techreborn.blockentity.DigitalChestBlockEntity;
 import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.TankStorageBaseBlockEntity;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
@@ -140,8 +141,8 @@ public class GuiHandler {
 				return new GuiMFSU(syncID, player, (HighVoltageSUBlockEntity) blockEntity);
 			case QUANTUM_CHEST:
 				return new GuiQuantumChest(syncID, player, (QuantumChestBlockEntity) blockEntity);
-			case QUANTUM_TANK:
-				return new GuiQuantumTank(syncID, player, (QuantumTankBlockEntity) blockEntity);
+			case TANK:
+				return new GuiTank(syncID, player, (TankStorageBaseBlockEntity) blockEntity);
 			case RECYCLER:
 				return new GuiRecycler(syncID, player, (RecyclerBlockEntity) blockEntity);
 			case ROLLING_MACHINE:

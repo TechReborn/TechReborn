@@ -55,6 +55,8 @@ public class GenericMachineBlock extends BlockMachineBase {
 		return blockEntityClass.get();
 	}
 
+
+
 	@Override
 	public IMachineGuiHandler getGui() {
 		return gui;

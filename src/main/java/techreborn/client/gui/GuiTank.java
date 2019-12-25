@@ -29,15 +29,15 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
+import techreborn.blockentity.TankStorageBaseBlockEntity;
 
-public class GuiQuantumTank extends GuiBase<BuiltContainer> {
+public class GuiTank extends GuiBase<BuiltContainer> {
 
-	QuantumTankBlockEntity quantumTank;
+	TankStorageBaseBlockEntity tankEntity;
 
-	public GuiQuantumTank(int syncID, final PlayerEntity player, final QuantumTankBlockEntity quantumTank) {
-		super(player, quantumTank, quantumTank.createContainer(syncID, player));
-		this.quantumTank = quantumTank;
+	public GuiTank(int syncID, final PlayerEntity player, final TankStorageBaseBlockEntity tankEntity) {
+		super(player, tankEntity, tankEntity.createContainer(syncID, player));
+		this.tankEntity = tankEntity;
 	}
 
 	@Override
@@ -54,13 +54,13 @@ public class GuiQuantumTank extends GuiBase<BuiltContainer> {
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
 
-		FluidInstance fluid = quantumTank.tank.getFluidInstance();
+		FluidInstance fluid = tankEntity.tank.getFluidInstance();
 		if(fluid != null){
 			font.draw( "Fluid Type:", 10, 20, 4210752);
 			font.draw(FluidUtil.getFluidName(fluid) + "", 10, 30, 4210752);
 
 			font.draw("Fluid Amount:", 10, 50, 4210752);
-			font.draw(quantumTank.tank.getFluidAmount().toString() , 10, 60, 4210752);
+			font.draw(tankEntity.tank.getFluidAmount().toString() , 10, 60, 4210752);
 		}
 
 	}

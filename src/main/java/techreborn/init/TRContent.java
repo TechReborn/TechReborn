@@ -38,6 +38,7 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.ChargeOMatBlockEntity;
 import techreborn.blockentity.DigitalChestBlockEntity;
+import techreborn.blockentity.DigitalTankBlockEntity;
 import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -433,10 +434,11 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 		
 		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
-		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, CreativeQuantumTankBlockEntity::new)),
+		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, CreativeQuantumTankBlockEntity::new)),
 		DIGITAL_CHEST(new GenericMachineBlock(EGui.DIGITAL_CHEST, DigitalChestBlockEntity::new)),
+		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK, DigitalTankBlockEntity::new)),
 		QUANTUM_CHEST(new GenericMachineBlock(EGui.QUANTUM_CHEST, QuantumChestBlockEntity::new)),
-		QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, QuantumTankBlockEntity::new)),
+		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, QuantumTankBlockEntity::new)),
 		
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(EGui.CHARGEBENCH, ChargeOMatBlockEntity::new)),

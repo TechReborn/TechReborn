@@ -72,6 +72,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<QuantumTankBlockEntity> QUANTUM_TANK = register(QuantumTankBlockEntity.class, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
 	public static final BlockEntityType<QuantumChestBlockEntity> QUANTUM_CHEST = register(QuantumChestBlockEntity.class, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
 	public static final BlockEntityType<DigitalChestBlockEntity> DIGITAL_CHEST = register(DigitalChestBlockEntity.class, "digital_chest", TRContent.Machine.DIGITAL_CHEST);
+	public static final BlockEntityType<DigitalTankBlockEntity> DIGITAL_TANK = register(DigitalTankBlockEntity.class, "digital_tank", TRContent.Machine.DIGITAL_TANK);
 	public static final BlockEntityType<IndustrialCentrifugeBlockEntity> INDUSTRIAL_CENTRIFUGE = register(IndustrialCentrifugeBlockEntity.class, "industrial_centrifuge", TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
 	public static final BlockEntityType<RollingMachineBlockEntity> ROLLING_MACHINE = register(RollingMachineBlockEntity.class, "rolling_machine", TRContent.Machine.ROLLING_MACHINE);
 	public static final BlockEntityType<IndustrialBlastFurnaceBlockEntity> INDUSTRIAL_BLAST_FURNACE = register(IndustrialBlastFurnaceBlockEntity.class, "industrial_blast_furnace", TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
