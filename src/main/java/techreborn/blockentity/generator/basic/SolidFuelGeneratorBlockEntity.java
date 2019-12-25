@@ -64,6 +64,9 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	public static int getItemBurnTime(@Nonnull ItemStack stack) {
+        if (stack.isEmpty()){
+            return 0;
+        }
 		Map<Item, Integer> burnMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
 		if(burnMap.containsKey(stack.getItem())){
 			return burnMap.get(stack.getItem()) / 4;
