@@ -26,12 +26,16 @@ package techreborn.utils;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import team.reborn.energy.Energy;
+
+import java.util.Random;
 
 /**
  * @author drcrazy
@@ -43,8 +47,11 @@ public class ToolsUtil {
         if (!(entityLiving instanceof PlayerEntity)) {
             return;
         }
-        if (!Energy.of(tool).use(cost)) {
-            return;
+        Random rand = new Random();
+        if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
+            if (!Energy.of(tool).use(cost)) {
+                return;
+            }
         }
         BlockState blockState = world.getBlockState(pos);
         if (blockState.getHardness(world, pos) == -1.0F) {
