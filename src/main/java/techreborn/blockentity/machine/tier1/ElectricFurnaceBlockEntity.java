@@ -57,7 +57,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	private int cookTime;
 	private int cookTimeTotal;
 	// Energy cost per tick of cooking
-	final int EnergyPerTick = 4;
+	final int EnergyPerTick = 1;
 	
 	public ElectricFurnaceBlockEntity() {
 		super(TRBlockEntities.ELECTRIC_FURNACE );
@@ -99,9 +99,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 			return true;
 		}
 		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), recipeOutput, true, true)) {
-			if (recipeOutput.getCount() + inventory.getInvStack(slot).getCount() <= recipeOutput.getMaxCount()) {
-				return true;
-			}
+            return recipeOutput.getCount() + inventory.getInvStack(slot).getCount() <= recipeOutput.getMaxCount();
 		}
 		return false;
 	}
@@ -116,12 +114,8 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (!canAcceptOutput(currentRecipe, outputSlot)) {
 			return false;
 		}
-		if (getEnergy() < currentRecipe.getCookTime() * getEuPerTick(EnergyPerTick)) {
-			return false;
-		}
-		
-		return true;
-	}
+        return !(getEnergy() < currentRecipe.getCookTime() * getEuPerTick(EnergyPerTick));
+    }
 	
 	private void resetCrafter() {
 		currentRecipe = null;
@@ -148,13 +142,9 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (inventory.getInvStack(inputSlot).isEmpty()) {
 			return false;
 		}
-		
-		if (!recipe.matches(inventory, world)) {
-			return false;
-		}
-	
-		return true;
-	}
+
+        return recipe.matches(inventory, world);
+    }
 	
 	private void craftRecipe(SmeltingRecipe recipe) {
 		if (recipe == null) {
