@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:quantum_tank"
+    },
+    "title": {
+      "translate": "advancements.techreborn.quantumtank"
+    },
+    "description": {
+      "translate": "advancements.techreborn.quantumtank.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "techreborn:industrialmachineblock",
+  "criteria": {
+    "crit1": {
+    "trigger": "minecraft:placed_block",
+    "conditions": {
+      "block": "techreborn:quantum_tank"
+    }
+  }
+  }
+}
