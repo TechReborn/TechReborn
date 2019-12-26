@@ -1,23 +1,23 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:medium_voltage_su"
+      "item": "techreborn:extractor"
     },
     "title": {
-      "translate": "advancements.techreborn.mfe"
+      "translate": "advancements.techreborn.extractor"
     },
     "description": {
-      "translate": "advancements.techreborn.mfe.desc"
+      "translate": "advancements.techreborn.extractor.desc"
     }
   },
-  "parent": "techreborn:batbox",
+  "parent": "techreborn:machineblock",
   "criteria": {
     "crit1": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "techreborn:medium_voltage_su"
+            "item": "techreborn:extractor"
           }
         ]
       }

@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:medium_voltage_su"
+      "item": "techreborn:lv_transformer"
     },
     "title": {
-      "translate": "advancements.techreborn.mfe"
+      "translate": "advancements.techreborn.lvtransformer"
     },
     "description": {
-      "translate": "advancements.techreborn.mfe.desc"
+      "translate": "advancements.techreborn.lvtransformer.desc"
     }
   },
   "parent": "techreborn:batbox",
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:medium_voltage_su"
+            "item": "techreborn:lv_transformer"
           }
         ]
       }
