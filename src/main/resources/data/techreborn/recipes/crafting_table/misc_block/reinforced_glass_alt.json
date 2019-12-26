@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "c:lead_plate"
+      "tag": "c:lead_plate"
     },
     "G": {
       "item": "minecraft:glass"
