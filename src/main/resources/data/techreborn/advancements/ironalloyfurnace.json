@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:iron_alloy_furnace"
+    },
+    "title": {
+      "translate": "advancements.techreborn.ironalloyfurnace"
+    },
+    "description": {
+      "translate": "advancements.techreborn.ironalloyfurnace.desc"
+    }
+  },
+  "parent": "techreborn:machineblock",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:iron_alloy_furnace"
+          }
+        ]
+      }
+    }
+  }
+}

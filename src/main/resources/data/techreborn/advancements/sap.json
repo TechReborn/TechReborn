@@ -12,7 +12,7 @@
   },
   "parent": "techreborn:tree_tap",
   "criteria": {
-    "treetap_in_inventory": {
+    "crit1": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [

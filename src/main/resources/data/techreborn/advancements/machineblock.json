@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "title": {
+      "translate": "advancements.techreborn.machineblock"
+    },
+    "description": {
+      "translate": "advancements.techreborn.machineblock.desc"
+    }
+  },
+  "parent": "techreborn:refined_iron",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:basic_machine_frame"
+          }
+        ]
+      }
+    }
+  }
+}

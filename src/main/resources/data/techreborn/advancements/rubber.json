@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:rubber"
+    },
+    "title": {
+      "translate": "advancements.techreborn.rubber"
+    },
+    "description": {
+      "translate": "advancements.techreborn.rubber.desc"
+    }
+  },
+  "parent": "techreborn:sap",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:rubber"
+          }
+        ]
+      }
+    }
+  }
+}

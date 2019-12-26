@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:solid_fuel_generator"
+    },
+    "title": {
+      "translate": "advancements.techreborn.generator"
+    },
+    "description": {
+      "translate": "advancements.techreborn.generator.desc"
+    }
+  },
+  "parent": "techreborn:machineblock",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:solid_fuel_generator"
+      }
+    }
+  }
+}
