@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:fusion_coil"
+    },
+    "title": {
+      "translate": "advancements.techreborn.fusioncoil"
+    },
+    "description": {
+      "translate": "advancements.techreborn.fusioncoil.desc"
+    }
+  },
+  "parent": "techreborn:advancedmachineblock",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:fusion_coil"
+          }
+        ]
+      }
+    }
+  }
+}

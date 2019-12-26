@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:solid_canning_machine"
+    },
+    "title": {
+      "translate": "advancements.techreborn.canningmachine"
+    },
+    "description": {
+      "translate": "advancements.techreborn.canningmachine.desc"
+    }
+  },
+  "parent": "techreborn:electricfurnace",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:solid_canning_machine"
+          }
+        ]
+      }
+    }
+  }
+}

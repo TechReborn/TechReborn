@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:matter_fabricator"
+    },
+    "title": {
+      "translate": "advancements.techreborn.matterfabricator"
+    },
+    "description": {
+      "translate": "advancements.techreborn.matterfabricator.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "techreborn:industrialmachineblock",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:matter_fabricator"
+          }
+        ]
+      }
+    }
+  }
+}

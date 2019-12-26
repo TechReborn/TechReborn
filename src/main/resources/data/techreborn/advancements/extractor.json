@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:extractor"
+    },
+    "title": {
+      "translate": "advancements.techreborn.extractor"
+    },
+    "description": {
+      "translate": "advancements.techreborn.extractor.desc"
+    }
+  },
+  "parent": "techreborn:electricfurnace",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:extractor"
+          }
+        ]
+      }
+    }
+  }
+}

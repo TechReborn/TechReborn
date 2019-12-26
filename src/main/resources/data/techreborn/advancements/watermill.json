@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:water_mill"
+    },
+    "title": {
+      "translate": "advancements.techreborn.watermill"
+    },
+    "description": {
+      "translate": "advancements.techreborn.watermill.desc"
+    }
+  },
+  "parent": "techreborn:generator",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:water_mill"
+      }
+    }
+  }
+}

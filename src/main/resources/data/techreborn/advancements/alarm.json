@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:alarm"
+    },
+    "title": {
+      "translate": "advancements.techreborn.alarm"
+    },
+    "description": {
+      "translate": "advancements.techreborn.alarm.desc"
+    }
+  },
+  "parent": "techreborn:refined_iron",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:alarm"
+      }
+    }
+  }
+}

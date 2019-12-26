@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:industrial_machine_frame"
+    },
+    "title": {
+      "translate": "advancements.techreborn.industrialmachineblock"
+    },
+    "description": {
+      "translate": "advancements.techreborn.industrialmachineblock.desc"
+    }
+  },
+  "parent": "techreborn:advancedmachineblock",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:industrial_machine_frame"
+          }
+        ]
+      }
+    }
+  }
+}

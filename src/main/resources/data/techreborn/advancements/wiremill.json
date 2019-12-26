@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:wire_mill"
+    },
+    "title": {
+      "translate": "advancements.techreborn.wiremill"
+    },
+    "description": {
+      "translate": "advancements.techreborn.wiremill.desc"
+    }
+  },
+  "parent": "techreborn:electricfurnace",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:wire_mill"
+          }
+        ]
+      }
+    }
+  }
+}
