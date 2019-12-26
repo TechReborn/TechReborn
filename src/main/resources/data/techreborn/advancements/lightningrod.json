@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:lightning_rod"
+    },
+    "title": {
+      "translate": "advancements.techreborn.lightningrod"
+    },
+    "description": {
+      "translate": "advancements.techreborn.lightningrod.desc"
+    }
+  },
+  "parent": "techreborn:generator",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:lightning_rod"
+      }
+    }
+  }
+}

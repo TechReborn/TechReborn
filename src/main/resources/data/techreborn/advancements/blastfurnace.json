@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:industrial_blast_furnace"
+    },
+    "title": {
+      "translate": "advancements.techreborn.blastfurnace"
+    },
+    "description": {
+      "translate": "advancements.techreborn.blastfurnace.desc"
+    }
+  },
+  "parent": "techreborn:nickeldust",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:industrial_blast_furnace"
+      }
+    }
+  }
+}

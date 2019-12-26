@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:high_voltage_su"
+    },
+    "title": {
+      "translate": "advancements.techreborn.mfsu"
+    },
+    "description": {
+      "translate": "advancements.techreborn.mfsu.desc"
+    }
+  },
+  "parent": "techreborn:mfe",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:high_voltage_su"
+          }
+        ]
+      }
+    }
+  }
+}

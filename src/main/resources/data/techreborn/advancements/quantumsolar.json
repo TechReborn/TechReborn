@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:quantum_solar_panel"
+    },
+    "title": {
+      "translate": "advancements.techreborn.quantumsolar"
+    },
+    "description": {
+      "translate": "advancements.techreborn.quantumsolar.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "techreborn:ultimatesolar",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:quantum_solar_panel"
+      }
+    }
+  }
+}

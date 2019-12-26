@@ -68,7 +68,7 @@ dependencies {
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.4.24+build.279-1.15"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.2.25")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.2.31")
 	optionalDependency ('io.github.cottonmc:LibCD:2.0.1+1.15')
 
 	def rcVersion = 'RebornCore:RebornCore-1.15:+'

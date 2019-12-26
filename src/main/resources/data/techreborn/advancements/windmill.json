@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:wind_mill"
+    },
+    "title": {
+      "translate": "advancements.techreborn.windmill"
+    },
+    "description": {
+      "translate": "advancements.techreborn.windmill.desc"
+    }
+  },
+  "parent": "techreborn:generator",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:wind_mill"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:advanced_machine_frame"
+    },
+    "title": {
+      "translate": "advancements.techreborn.advancedmachineblock"
+    },
+    "description": {
+      "translate": "advancements.techreborn.advancedmachineblock.desc"
+    },
+    "hidden": true
+  },
+  "parent": "techreborn:root",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:advanced_machine_frame"
+          }
+        ]
+      }
+    }
+  }
+}

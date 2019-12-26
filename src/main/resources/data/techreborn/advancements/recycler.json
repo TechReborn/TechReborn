@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:recycler"
+    },
+    "title": {
+      "translate": "advancements.techreborn.recycler"
+    },
+    "description": {
+      "translate": "advancements.techreborn.recycler.desc"
+    }
+  },
+  "parent": "techreborn:electricfurnace",
+  "criteria": {
+      "crit1": {
+        "trigger": "minecraft:placed_block",
+        "conditions": {
+          "block": "techreborn:recycler"
+        }
+      }
+  }
+}

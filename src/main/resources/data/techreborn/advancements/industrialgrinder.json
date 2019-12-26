@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:industrial_grinder"
+    },
+    "title": {
+      "translate": "advancements.techreborn.industrialgrinder"
+    },
+    "description": {
+      "translate": "advancements.techreborn.industrialgrinder.desc"
+    }
+  },
+  "parent": "techreborn:blastfurnace",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:iridium_ingot"
+          }
+        ]
+      }
+    }
+  }
+}
