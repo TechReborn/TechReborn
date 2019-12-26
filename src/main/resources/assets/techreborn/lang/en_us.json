@@ -733,7 +733,7 @@
   "advancements.techreborn.ironalloyfurnace": "Now we're alloying",
   "advancements.techreborn.ironalloyfurnace.desc": "Craft a basic iron alloy furnace",
   "advancements.techreborn.ironfurnace": "Flashy furnace",
-  "advancements.techreborn.ironfurnace.desc": "Craft an 1iron furnace",
+  "advancements.techreborn.ironfurnace.desc": "Craft an iron furnace",
   "advancements.techreborn.generator": "LIMITED POWER!",
   "advancements.techreborn.generator.desc": "Place a generator",
   "advancements.techreborn.basicsolar": "Power from above",
@@ -746,9 +746,9 @@
   "advancements.techreborn.ultimatesolar.desc": "Craft the ultimate solar panel",
   "advancements.techreborn.quantumsolar": "Sol",
   "advancements.techreborn.quantumsolar.desc": "Place a quantum solar panel",
-  "advancements.techreborn.batbox": "One small step for man",
+  "advancements.techreborn.batbox": "Accumulating",
   "advancements.techreborn.batbox.desc": "Craft a battery box",
-  "advancements.techreborn.mfe": "One giant leap for mankind",
+  "advancements.techreborn.mfe": "One small step for man",
   "advancements.techreborn.mfe.desc": "Craft a MFE",
   "advancements.techreborn.mfsu": "One giant leap for mankind",
   "advancements.techreborn.mfsu.desc": "Craft a MFSU",
@@ -800,13 +800,20 @@
   "advancements.techreborn.fusioncoil.desc": "Craft a fusion coil",
   "advancements.techreborn.fusioncomputer": "Fusion and the furious",
   "advancements.techreborn.fusioncomputer.desc": "Craft a Fusion control computer",
-
-
-
-
-
-
-
+  "advancements.techreborn.alarm": "Super critical",
+  "advancements.techreborn.alarm.desc": "Place an alarm in the world",
+  "advancements.techreborn.scrapboxinator": "Open sesame",
+  "advancements.techreborn.scrapboxinator.desc": "Craft a scrapboxinator",
+  "advancements.techreborn.upgrade": "Today junior",
+  "advancements.techreborn.upgrade.desc": "Craft any upgrade",
+  "advancements.techreborn.blastfurnace": "What a steel",
+  "advancements.techreborn.blastfurnace.desc": "Place a blast furnace",
+  "advancements.techreborn.industrialgrinder": "Iridiyum",
+  "advancements.techreborn.industrialgrinder.desc": "Grind iridium ore in a industrial grinder to get an iridium ingot",
+  "advancements.techreborn.implosion": "Mini supernova",
+  "advancements.techreborn.implosion.desc": "Place an implosion compressor down",
+  "advancements.techreborn.interdimensionalsu": "Is this a tesseract?",
+  "advancements.techreborn.interdimensionalsu.desc": "Place down an interdimensional SU",
 
 
 

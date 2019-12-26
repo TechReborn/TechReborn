@@ -1,23 +1,23 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:rolling_machine"
+      "item": "techreborn:scrapboxinator"
     },
     "title": {
-      "translate": "advancements.techreborn.rollingmachine"
+      "translate": "advancements.techreborn.scrapboxinator"
     },
     "description": {
-      "translate": "advancements.techreborn.rollingmachine.desc"
+      "translate": "advancements.techreborn.scrapboxinator.desc"
     }
   },
-  "parent": "techreborn:electricfurnace",
+  "parent": "techreborn:recycler",
   "criteria": {
     "crit1": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "techreborn:rolling_machine"
+            "item": "techreborn:scrapboxinator"
           }
         ]
       }

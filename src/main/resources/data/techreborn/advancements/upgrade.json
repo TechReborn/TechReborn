@@ -1,59 +1,59 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:quantum_chestplate"
+      "item": "techreborn:overclocker_upgrade"
     },
     "title": {
-      "translate": "advancements.techreborn.quantumarmor"
+      "translate": "advancements.techreborn.upgrade"
     },
     "description": {
-      "translate": "advancements.techreborn.quantumarmor.desc"
+      "translate": "advancements.techreborn.upgrade.desc"
     }
   },
-  "parent": "techreborn:implosion",
+  "parent": "techreborn:coppercable",
   "criteria": {
-    "head": {
+    "overclocker": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_helmet"
+            "item": "techreborn:overclocker_upgrade"
           }
         ]
       }
     },
-    "chest": {
+    "transformer": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_chestplate"
+            "item": "techreborn:transformer_upgrade"
           }
         ]
       }
     },
-    "leg": {
+    "energystorage": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_leggings"
+            "item": "techreborn:energy_storage_upgrade"
           }
         ]
       }
     },
-    "feet": {
+    "superconductor": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "techreborn:quantum_boots"
+            "item": "techreborn:superconductor_upgrade"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["head", "chest","leg","feet"]
+    ["overclocker", "transformer","energystorage","superconductor"]
   ]
 }

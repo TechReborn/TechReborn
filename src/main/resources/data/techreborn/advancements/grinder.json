@@ -10,7 +10,7 @@
       "translate": "advancements.techreborn.grinder.desc"
     }
   },
-  "parent": "techreborn:machineblock",
+  "parent": "techreborn:electricfurnace",
   "criteria": {
     "crit1": {
       "trigger": "minecraft:inventory_changed",

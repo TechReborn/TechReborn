@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:copper_ore"
+            "item": "techreborn:mv_transformer"
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:lead_ore"
+            "item": "techreborn:hv_transformer"
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "techreborn:silver_ore"
+            "item": "techreborn:ev_transformer"
           }
         ]
       }
