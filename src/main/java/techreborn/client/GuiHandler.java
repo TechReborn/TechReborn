@@ -37,7 +37,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
-import techreborn.blockentity.bases.TankStorageBaseBlockEntity;
+import techreborn.blockentity.storage.fluid.TankStorageBaseBlockEntity;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;

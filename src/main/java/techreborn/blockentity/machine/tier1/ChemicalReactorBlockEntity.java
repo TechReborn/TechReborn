@@ -34,7 +34,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.bases.GenericMachineBlockEntity;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 
 public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 

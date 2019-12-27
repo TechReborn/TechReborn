@@ -31,7 +31,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.fluid.FluidValue;
 import techreborn.api.generator.EFluidGenerator;
-import techreborn.blockentity.bases.BaseFluidGeneratorBlockEntity;
+import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

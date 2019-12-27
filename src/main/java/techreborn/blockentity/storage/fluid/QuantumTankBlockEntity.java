@@ -1,7 +1,6 @@
 package techreborn.blockentity.storage.fluid;
 
 import reborncore.common.fluid.FluidValue;
-import techreborn.blockentity.bases.TankStorageBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

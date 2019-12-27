@@ -1,4 +1,4 @@
-package techreborn.blockentity.bases;
+package techreborn.blockentity.storage.fluid;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;

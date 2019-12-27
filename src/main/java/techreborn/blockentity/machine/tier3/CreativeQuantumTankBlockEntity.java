@@ -27,7 +27,7 @@ package techreborn.blockentity.machine.tier3;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.common.fluid.FluidValue;
-import techreborn.blockentity.bases.TankStorageBaseBlockEntity;
+import techreborn.blockentity.storage.fluid.TankStorageBaseBlockEntity;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 

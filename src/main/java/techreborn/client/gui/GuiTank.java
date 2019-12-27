@@ -29,7 +29,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.blockentity.bases.TankStorageBaseBlockEntity;
+import techreborn.blockentity.storage.fluid.TankStorageBaseBlockEntity;
 
 public class GuiTank extends GuiBase<BuiltContainer> {
 

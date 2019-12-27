@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.bases;
+package techreborn.blockentity.generator;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;

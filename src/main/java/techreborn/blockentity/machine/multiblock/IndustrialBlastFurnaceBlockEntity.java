@@ -35,7 +35,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
-import techreborn.blockentity.bases.GenericMachineBlockEntity;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 import techreborn.blocks.BlockMachineCasing;
 import techreborn.config.TechRebornConfig;
