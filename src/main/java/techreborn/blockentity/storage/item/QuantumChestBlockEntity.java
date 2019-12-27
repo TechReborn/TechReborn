@@ -22,34 +22,31 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage;
+package techreborn.blockentity.storage.item;
 
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import team.reborn.energy.EnergyTier;
+import techreborn.blockentity.bases.TechStorageBaseBlockEntity;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
-import techreborn.init.TRContent;
 
-/**
- * Created by modmuss50 on 14/03/2016.
- *
- */
-public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
+public class QuantumChestBlockEntity extends TechStorageBaseBlockEntity implements IContainerProvider {
 
-	/**
-	 *  MFE should store 1.2M FE with 512 FE/t I/O
-	 */
-	public MediumVoltageSUBlockEntity() {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 128, 128, 300000);
+	public QuantumChestBlockEntity() {
+		this(TRBlockEntities.QUANTUM_CHEST);
+	}
+
+	public QuantumChestBlockEntity(BlockEntityType<?> blockEntityType) {
+		super(blockEntityType, "QuantumChestBlockEntity", TechRebornConfig.quantumChestMaxStorage);
 	}
 
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("mfe").player(player.inventory).inventory().hotbar().armor()
-			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().addInventory().create(this, syncID);
+		return new ContainerBuilder("quantumchest").player(player.inventory).inventory().hotbar().addInventory()
+			.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
 }

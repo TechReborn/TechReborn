@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage.lesu;
+package techreborn.blockentity.storage.energy.lesu;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -33,7 +33,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import team.reborn.energy.EnergyTier;
-import techreborn.blockentity.storage.EnergyStorageBlockEntity;
+import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.blocks.storage.LapotronicSUBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;

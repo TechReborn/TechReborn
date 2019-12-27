@@ -22,71 +22,33 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity;
+package techreborn.blockentity.storage.energy;
 
-import reborncore.common.multiblock.MultiblockControllerBase;
-import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
+import net.minecraft.entity.player.PlayerEntity;
+import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
-import techreborn.multiblocks.MultiBlockCasing;
+import techreborn.init.TRContent;
 
-public class MachineCasingBlockEntity extends RectangularMultiblockBlockEntityBase {
+/**
+ * Created by modmuss50 on 14/03/2016.
+ *
+ */
+public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
-	public MachineCasingBlockEntity() {
-		super(TRBlockEntities.MACHINE_CASINGS);
+	/**
+	 *  MFSU should store 40M FE with 2048 FE/t I/O
+	 */
+	public HighVoltageSUBlockEntity() {
+		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnergyTier.HIGH, 512, 512, 10_000_000);
 	}
 
 	@Override
-	public void onMachineActivated() {
-
-	}
-
-	@Override
-	public void onMachineDeactivated() {
-
-	}
-
-	@Override
-	public MultiblockControllerBase createNewMultiblock() {
-		return new MultiBlockCasing(world);
-	}
-
-	@Override
-	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
-		return MultiBlockCasing.class;
-	}
-
-	@Override
-	public void isGoodForFrame() {
-
-	}
-
-	@Override
-	public void isGoodForSides() {
-
-	}
-
-	@Override
-	public void isGoodForTop() {
-
-	}
-
-	@Override
-	public void isGoodForBottom() {
-
-	}
-
-	@Override
-	public void isGoodForInterior() {
-
-	}
-
-	@Override
-	public MultiBlockCasing getMultiblockController() {
-		return (MultiBlockCasing) super.getMultiblockController();
-	}
-
-	@Override
-	public void tick() {
-
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
+		return new ContainerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
+			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+			.syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

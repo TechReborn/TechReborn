@@ -26,7 +26,7 @@ package techreborn.blocks.storage;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.client.EGui;
 
 public class AdjustableSUBlock extends EnergyStorageBlock {

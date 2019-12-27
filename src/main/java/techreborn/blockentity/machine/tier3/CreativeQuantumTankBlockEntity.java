@@ -27,12 +27,15 @@ package techreborn.blockentity.machine.tier3;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import reborncore.common.fluid.FluidValue;
-import techreborn.blockentity.TankStorageBaseBlockEntity;
+import techreborn.blockentity.bases.TankStorageBaseBlockEntity;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class CreativeQuantumTankBlockEntity extends TankStorageBaseBlockEntity {
 
+	public CreativeQuantumTankBlockEntity(){
+		super(TRBlockEntities.CREATIVE_QUANTUM_TANK, TRContent.Machine.CREATIVE_QUANTUM_TANK.getStack(), FluidValue.INFINITE);
+	}
 
 //
 //	@Override

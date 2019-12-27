@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.blockentity.DigitalChestBlockEntity;
+import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
 
 public class GuiDigitalChest extends GuiBase<BuiltContainer> {
 

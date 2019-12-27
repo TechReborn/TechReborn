@@ -32,7 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
+import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.client.EGui;
 
 public class InterdimensionalSUBlock extends EnergyStorageBlock {

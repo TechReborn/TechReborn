@@ -22,28 +22,71 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage;
+package techreborn.blockentity.machine.multiblock.casing;
 
-import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import team.reborn.energy.EnergyTier;
+import reborncore.common.multiblock.MultiblockControllerBase;
+import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
 import techreborn.init.TRBlockEntities;
-import techreborn.init.TRContent;
+import techreborn.multiblocks.MultiBlockCasing;
 
-/**
- * Created by modmuss50 on 14/03/2016.
- */
-public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
+public class MachineCasingBlockEntity extends RectangularMultiblockBlockEntityBase {
 
-	public LowVoltageSUBlockEntity() {
-		super(TRBlockEntities.LOW_VOLTAGE_SU, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, EnergyTier.LOW, 32, 32, 40000);
+	public MachineCasingBlockEntity() {
+		super(TRBlockEntities.MACHINE_CASINGS);
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("batbox").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create(this, syncID);
+	public void onMachineActivated() {
+
+	}
+
+	@Override
+	public void onMachineDeactivated() {
+
+	}
+
+	@Override
+	public MultiblockControllerBase createNewMultiblock() {
+		return new MultiBlockCasing(world);
+	}
+
+	@Override
+	public Class<? extends MultiblockControllerBase> getMultiblockControllerType() {
+		return MultiBlockCasing.class;
+	}
+
+	@Override
+	public void isGoodForFrame() {
+
+	}
+
+	@Override
+	public void isGoodForSides() {
+
+	}
+
+	@Override
+	public void isGoodForTop() {
+
+	}
+
+	@Override
+	public void isGoodForBottom() {
+
+	}
+
+	@Override
+	public void isGoodForInterior() {
+
+	}
+
+	@Override
+	public MultiBlockCasing getMultiblockController() {
+		return (MultiBlockCasing) super.getMultiblockController();
+	}
+
+	@Override
+	public void tick() {
+
 	}
 }

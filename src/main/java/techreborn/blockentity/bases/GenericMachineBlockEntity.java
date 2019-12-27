@@ -22,57 +22,71 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity;
+package techreborn.blockentity.bases;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
+import reborncore.api.recipe.IRecipeCrafterProvider;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
-import team.reborn.energy.Energy;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRBlockEntities;
-import techreborn.init.TRContent;
 
-public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop, InventoryProvider, IContainerProvider {
+/**
+ * @author drcrazy
+ *
+ */
+public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
+		implements IToolDrop, InventoryProvider, IRecipeCrafterProvider{
 
-	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
-
-	public ChargeOMatBlockEntity() {
-		super(TRBlockEntities.CHARGE_O_MAT);
+	public String name;
+	public int maxInput;
+	public int maxEnergy;
+	public Block toolDrop;
+	public int energySlot;
+	public RebornInventory<?> inventory;
+	public RecipeCrafter crafter;
+	
+	/**
+	 * @param name String Name for a blockEntity. Do we need it at all?
+	 * @param maxInput int Maximum energy input, value in EU
+	 * @param maxEnergy int Maximum energy buffer, value in EU
+	 * @param toolDrop Block Block to drop with wrench
+	 * @param energySlot int Energy slot to use to charge machine from battery
+	 */
+	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
+		super(blockEntityType);
+		this.name = "BlockEntity" + name;
+		this.maxInput = maxInput;
+		this.maxEnergy = maxEnergy;
+		this.toolDrop = toolDrop;
+		this.energySlot = energySlot;
+		checkTier();
+	}
+	
+	public int getProgressScaled(int scale) {
+		if (crafter != null && crafter.currentTickTime != 0) {
+			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
+		}
+		return 0;
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-
-		if(world.isClient){
-			return;
-		}
-		for (int i = 0; i < 6; i++) {
-			ItemStack stack = inventory.getInvStack(i);
-
-			if (Energy.valid(stack)) {
-				Energy.of(this)
-					.into(
-						Energy
-							.of(stack)
-					)
-					.move();
-			}
+		if (!world.isClient) {
+			charge(energySlot);
 		}
 	}
-
+	
 	@Override
 	public double getBaseMaxPower() {
-		return TechRebornConfig.chargeOMatBMaxEnergy;
+		return maxEnergy;
 	}
 
 	@Override
@@ -82,42 +96,34 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canProvideEnergy(final Direction direction) {
-		return direction == null;
+		return false;
 	}
 
 	@Override
 	public double getBaseMaxOutput() {
-		return TechRebornConfig.chargeOMatBMaxOutput;
+		return 0;
 	}
 
 	@Override
 	public double getBaseMaxInput() {
-		return TechRebornConfig.chargeOMatBMaxInput;
+		return maxInput;
 	}
 	
-	// TileMachineBase
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
-	}
-
 	// IToolDrop
 	@Override
-	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
-		return TRContent.Machine.CHARGE_O_MAT.getStack();
+	public ItemStack getToolDrop(PlayerEntity p0) {
+		return new ItemStack(toolDrop, 1);
 	}
-
-	// ItemHandlerProvider
+	
+	// InventoryProvider
 	@Override
-	public RebornInventory<ChargeOMatBlockEntity> getInventory() {
+	public RebornInventory<?> getInventory() {
 		return inventory;
 	}
-
-	// IContainerProvider
+	
+	// IRecipeCrafterProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
-			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create(this, syncID);
+	public RecipeCrafter getRecipeCrafter() {
+		return crafter;
 	}
 }

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage.lesu;
+package techreborn.blockentity.storage.energy.lesu;
 
 import java.util.ArrayList;
 

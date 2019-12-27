@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage.idsu;
+package techreborn.blockentity.storage.energy.idsu;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -32,7 +32,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
-import techreborn.blockentity.storage.EnergyStorageBlockEntity;
+import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

@@ -41,7 +41,7 @@ import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.blockentity.storage.lesu.LSUStorageBlockEntity;
+import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 
 /**
  * Energy storage block for LESU

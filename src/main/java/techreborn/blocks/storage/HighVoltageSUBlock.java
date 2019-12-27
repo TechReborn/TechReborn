@@ -26,7 +26,7 @@ package techreborn.blocks.storage;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.client.EGui;
 
 /**

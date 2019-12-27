@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage.idsu;
+package techreborn.blockentity.storage.energy.idsu;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;

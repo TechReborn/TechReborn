@@ -25,6 +25,7 @@
 package techreborn.blockentity.machine.tier3;
 
 import net.minecraft.item.ItemStack;
+import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.init.TRBlockEntities;
 
 public class CreativeQuantumChestBlockEntity extends QuantumChestBlockEntity {

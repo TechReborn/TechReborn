@@ -32,7 +32,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.world.BlockView;
 import reborncore.common.multiblock.BlockMultiblockBase;
-import techreborn.blockentity.MachineCasingBlockEntity;
+import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 

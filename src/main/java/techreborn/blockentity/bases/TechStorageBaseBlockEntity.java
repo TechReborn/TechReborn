@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity;
+package techreborn.blockentity.bases;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +40,7 @@ import reborncore.common.util.ItemUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
+public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IToolDrop, IListInfoProvider {
 
 	public final int maxCapacity;

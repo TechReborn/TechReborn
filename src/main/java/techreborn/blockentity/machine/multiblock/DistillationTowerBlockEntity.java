@@ -33,7 +33,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
-import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.blockentity.bases.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;

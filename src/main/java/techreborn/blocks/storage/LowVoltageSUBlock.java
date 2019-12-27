@@ -27,7 +27,7 @@ package techreborn.blocks.storage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import techreborn.client.EGui;
-import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 
 /**
  * Created by modmuss50 on 14/03/2016.

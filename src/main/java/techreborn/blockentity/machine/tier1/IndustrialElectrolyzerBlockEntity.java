@@ -36,7 +36,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.items.ItemDynamicCell;
-import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.blockentity.bases.GenericMachineBlockEntity;
 
 public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 

@@ -53,7 +53,7 @@ import reborncore.api.ToolManager;
 import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
-import techreborn.blockentity.AlarmBlockEntity;
+import techreborn.blockentity.machine.misc.AlarmBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
