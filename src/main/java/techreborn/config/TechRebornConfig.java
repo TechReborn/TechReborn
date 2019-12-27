@@ -377,6 +377,12 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "digital_chest", key = "DigitalChestMaxStorage", comment = "Maximum amount of items a Digital Chest can store")
 	public static int digitalChestMaxStorage = 32768;
 
+	@Config(config = "machines", category = "digital_tank", key = "DigitalTankCapacity", comment = "How much liquid a digital tank can take (Value in buckets, 1000 Mb)")
+	public static int digitalTankCapacity = 64;
+
+	@Config(config = "machines", category = "quamtum_tank", key = "DigitalChestCapacity", comment = "How much liquid a quantum tank can take (Value in buckets, 1000 Mb)")
+	public static int quantumTankCapacity = 2147483;
+
 	@Config(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")
 	public static int chargeOMatBMaxOutput = 512;
 

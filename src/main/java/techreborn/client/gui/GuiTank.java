@@ -29,7 +29,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.blockentity.TankStorageBaseBlockEntity;
+import techreborn.blockentity.bases.TankStorageBaseBlockEntity;
 
 public class GuiTank extends GuiBase<BuiltContainer> {
 
@@ -45,24 +45,31 @@ public class GuiTank extends GuiBase<BuiltContainer> {
 		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawSlot(80, 17, layer);
-		drawSlot(80, 53, layer);
+		drawString("IN", 100,43,4210752, layer);
+		drawSlot(100, 53, layer);
 
+		drawString("OUT", 140,43,4210752, layer);
+		drawSlot(140, 53, layer);
 	}
 
 	@Override
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
 
-		FluidInstance fluid = tankEntity.tank.getFluidInstance();
-		if(fluid != null){
-			font.draw( "Fluid Type:", 10, 20, 4210752);
-			font.draw(FluidUtil.getFluidName(fluid) + "", 10, 30, 4210752);
+		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
+
+		if(fluid.isEmpty()){
+			font.draw("Empty", 10, 20, 4210752);
+		}else{
+			font.draw("Fluid Type:", 10, 20, 4210752);
+			font.draw(FluidUtil.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
+
 
 			font.draw("Fluid Amount:", 10, 50, 4210752);
-			font.draw(tankEntity.tank.getFluidAmount().toString() , 10, 60, 4210752);
-		}
+			font.draw(fluid.getAmount().toString(), 10, 60, 4210752);
 
+			font.draw("Use wrench to retain contents", 10, 80, 16711680);
+		}
 	}
 
 	@Override
