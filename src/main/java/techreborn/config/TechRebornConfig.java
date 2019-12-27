@@ -448,7 +448,22 @@ public class TechRebornConfig {
 	
 	@Config(config = "machines", category = "iron_machine", key = "cooking_scale", comment = "Multiplier for vanilla furnace item cook time")
 	public static double cookingScale = 1.25;
-
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxInput", comment = "Greenhouse Controller Max Input")
+	public static int greenhouseControllerMaxInput = 32;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxEnergy", comment = "Greenhouse Controller Max Energy")
+	public static int greenhouseControllerMaxEnergy = 1_000;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerTick", comment = "Greenhouse Controller Energy Per Tick")
+	public static int greenhouseControllerEnergyPerTick = 2;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerHarvest", comment = "Greenhouse Controller Energy Per Harvest")
+	public static int greenhouseControllerEnergyPerHarvest = 100;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerBonemeal", comment = "Greenhouse Controller Energy Per Bonemeal")
+	public static int greenhouseControllerEnergyPerBonemeal = 50;
+	
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
