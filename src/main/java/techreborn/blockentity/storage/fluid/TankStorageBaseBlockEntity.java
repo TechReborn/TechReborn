@@ -22,15 +22,11 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
-	private Tank tank;
+	protected Tank tank;
 	private RebornInventory<TankStorageBaseBlockEntity> inventory = new RebornInventory<>(3, "TankInventory", 64, this);
 
-	private ItemStack stack;
-
-	public TankStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, ItemStack stack, FluidValue value) {
+	public TankStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, FluidValue value) {
 		super(blockEntityTypeIn);
-
-		this.stack = stack;
 		this.tank = new Tank("TankStorage", value, this);
 	}
 
@@ -43,7 +39,8 @@ public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity 
 		return tagCompound;
 	}
 
-	public ItemStack getDropWithNBT(ItemStack dropStack) {
+	public ItemStack getDropWithNBT() {
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		final CompoundTag blockEntity = new CompoundTag();
 		this.writeWithoutCoords(blockEntity);
 		dropStack.setTag(new CompoundTag());
@@ -116,6 +113,6 @@ public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity 
 
 	@Override
 	public ItemStack getToolDrop(PlayerEntity playerEntity) {
-		return getDropWithNBT(new ItemStack(this.getBlockType().asItem()));
+		return getDropWithNBT();
 	}
 }

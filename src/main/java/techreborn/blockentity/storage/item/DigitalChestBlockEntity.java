@@ -34,6 +34,6 @@ import techreborn.init.TRBlockEntities;
 public class DigitalChestBlockEntity extends TechStorageBaseBlockEntity implements IContainerProvider {
 
 	public DigitalChestBlockEntity() {
-		super(TRBlockEntities.DIGITAL_CHEST, "DigitalChestBlockEntity", TechRebornConfig.digitalChestMaxStorage);
+		super(TRBlockEntities.DIGITAL_CHEST, TechRebornConfig.digitalChestMaxStorage);
 	}
 }

@@ -52,11 +52,6 @@ public class GuiChest extends GuiBase<BuiltContainer> {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if (!this.chest.storedItem.isEmpty() && !this.chest.inventory.getInvStack(1).isEmpty()) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.chest.storedItem.getCount() + this.chest.inventory.getInvStack(1).getCount(), this.chest.maxCapacity, mouseX - this.x, mouseY - this.y, "Stored", layer);
-		}
-		if (this.chest.storedItem.isEmpty() && !this.chest.inventory.getInvStack(1).isEmpty()) {
-			this.builder.drawBigBlueBar(this, 31, 43, this.chest.inventory.getInvStack(1).getCount(), this.chest.maxCapacity, mouseX - this.x, mouseY - this.y, "Stored", layer);
-		}
+			this.builder.drawBigBlueBar(this, 31, 43, this.chest.getCurrentCapacity(), this.chest.getMaxCapacity(), mouseX - this.x, mouseY - this.y, "Stored", layer);
 	}
 }

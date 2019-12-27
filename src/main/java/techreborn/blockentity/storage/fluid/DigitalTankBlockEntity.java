@@ -8,6 +8,6 @@ import techreborn.init.TRContent;
 public class DigitalTankBlockEntity extends TankStorageBaseBlockEntity {
 
 	public DigitalTankBlockEntity(){
-		super(TRBlockEntities.DIGITAL_TANK, TRContent.Machine.DIGITAL_TANK.getStack(),  FluidValue.BUCKET.multiply(TechRebornConfig.digitalTankCapacity));
+		super(TRBlockEntities.DIGITAL_TANK,  FluidValue.BUCKET.multiply(TechRebornConfig.digitalTankCapacity));
 	}
 }

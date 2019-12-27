@@ -34,30 +34,25 @@ import techreborn.init.TRContent;
 public class CreativeQuantumTankBlockEntity extends TankStorageBaseBlockEntity {
 
 	public CreativeQuantumTankBlockEntity(){
-		super(TRBlockEntities.CREATIVE_QUANTUM_TANK, TRContent.Machine.CREATIVE_QUANTUM_TANK.getStack(), FluidValue.INFINITE);
+		super(TRBlockEntities.CREATIVE_QUANTUM_TANK, FluidValue.INFINITE);
 	}
 
-//
-//	@Override
-//	public void tick() {
-//		super.tick();
-//		if (!tank.isEmpty() && !tank.isFull()) {
-//			tank.setFluidAmount(FluidValue.INFINITE);
-//		}
-//	}
-//
-//	@Override
-//	public int slotTransferSpeed() {
-//		return 1;
-//	}
-//
-//	@Override
-//	public int fluidTransferAmount() {
-//		return 10000;
-//	}
 
 	@Override
-	public ItemStack getToolDrop(PlayerEntity playerEntity) {
-		return TRContent.Machine.CREATIVE_QUANTUM_TANK.getStack();
+	public void tick() {
+		super.tick();
+		if (!tank.isEmpty() && !tank.isFull()) {
+			tank.setFluidAmount(FluidValue.INFINITE);
+		}
+	}
+
+	@Override
+	public int slotTransferSpeed() {
+		return 1;
+	}
+
+	@Override
+	public int fluidTransferAmount() {
+		return 10000;
 	}
 }

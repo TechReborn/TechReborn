@@ -45,15 +45,19 @@ import java.util.List;
 public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IToolDrop, IListInfoProvider {
 
-	public final int maxCapacity;
-	public final RebornInventory<TechStorageBaseBlockEntity> inventory;
-	public ItemStack storedItem;
 
-	public TechStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, String name, int maxCapacity) {
+	private final int maxCapacity;
+
+	// Inventory of machine 1: Storage
+	private final RebornInventory<TechStorageBaseBlockEntity> inventory;
+	// Stack in output slot
+	private ItemStack storedItem;
+
+	public TechStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storedItem = ItemStack.EMPTY;
-		inventory = new RebornInventory<>(3, name, maxCapacity, this);
+		inventory = new RebornInventory<>(3, "ItemInventory", maxCapacity, this);
 	}
 
 	public void readWithoutCoords(CompoundTag tagCompound) {
@@ -87,39 +91,36 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public ItemStack getDropWithNBT() {
-		CompoundTag blockEntity = new CompoundTag();
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		writeWithoutCoords(blockEntity);
+		final CompoundTag blockEntity = new CompoundTag();
+		this.writeWithoutCoords(blockEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("blockEntity", blockEntity);
-		storedItem.setCount(0);
-		inventory.setInvStack(1, ItemStack.EMPTY);
-		syncWithAll();
 
 		return dropStack;
-	}
-
-	public int getStoredCount() {
-		return storedItem.getCount();
 	}
 
 	public List<ItemStack> getContentDrops() {
 		ArrayList<ItemStack> stacks = new ArrayList<>();
 
-		if (!getStoredItemType().isEmpty()) {
+		if (!getStoredItemStack().isEmpty()) {
 			if (!inventory.getInvStack(1).isEmpty()) {
 				stacks.add(inventory.getInvStack(1));
 			}
+
+
 			int size = storedItem.getMaxCount();
-			for (int i = 0; i < getStoredCount() / size; i++) {
+			int currentCount = storedItem.getCount();
+
+			for (int i = 0; i < currentCount / size; i++) {
 				ItemStack droped = storedItem.copy();
 				droped.setCount(size);
 				stacks.add(droped);
 			}
-			if (getStoredCount() % size != 0) {
-				ItemStack droped = storedItem.copy();
-				droped.setCount(getStoredCount() % size);
-				stacks.add(droped);
+			if (currentCount % size != 0) {
+				ItemStack dropped = storedItem.copy();
+				dropped.setCount(currentCount % size);
+				stacks.add(dropped);
 			}
 		}
 
@@ -130,21 +131,34 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isClient) {
+		if (world.isClient) {
+			return;
+		}
+
 			ItemStack outputStack = ItemStack.EMPTY;
+
+			// Fill the output slot with goodies
 			if (!inventory.getInvStack(1).isEmpty()) {
 				outputStack = inventory.getInvStack(1);
 			}
+
+			// If there is an item in the input AND stored is less than max capacity
 			if (!inventory.getInvStack(0).isEmpty()
 					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
+
 				ItemStack inputStack = inventory.getInvStack(0);
-				if (getStoredItemType().isEmpty()
+
+				// Is stored item empty or is item in output the same as item in input
+				if (getStoredItemStack().isEmpty()
 						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
 
 					storedItem = inputStack;
 					inventory.setInvStack(0, ItemStack.EMPTY);
-				} else if (ItemUtils.isItemEqual(getStoredItemType(), inputStack, true, true)) {
+
+					// Take in input ~
+				} else if (ItemUtils.isItemEqual(getStoredItemStack(), inputStack, true, true)) {
 					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
+
 					if (inputStack.getCount() <= reminder) {
 						setStoredItemCount(inputStack.getCount());
 						inventory.setInvStack(0, ItemStack.EMPTY);
@@ -152,6 +166,7 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 						setStoredItemCount(maxCapacity - outputStack.getCount());
 						inventory.getInvStack(0).decrement(reminder);
 					}
+
 				}
 				markDirty();
 				syncWithAll();
@@ -186,7 +201,15 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 					syncWithAll();
 				}
 			}
-		}
+	}
+
+	private ItemStack getStoredItemStack() {
+		return storedItem.isEmpty() ? inventory.getInvStack(1) : storedItem;
+	}
+
+	public void setStoredItemCount(int amount) {
+		storedItem.increment(amount);
+		markDirty();
 	}
 
 	@Override
@@ -237,28 +260,18 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		}
 	}
 
-	public ItemStack getStoredItemType() {
-		return storedItem.isEmpty() ? inventory.getInvStack(1) : storedItem;
-	}
-
-
-	public void setStoredItemCount(int amount) {
-		storedItem.increment(amount);
-		markDirty();
-	}
-
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
-	public void setStoredItemType(ItemStack type, int amount) {
-		storedItem = type;
-		storedItem.setCount(amount);
-		markDirty();
+
+	// GUI functions
+	public int getMaxCapacity() {
+		return maxCapacity;
 	}
 
-	public int getMaxStoredCount() {
-		return maxCapacity;
+	public int getCurrentCapacity() {
+		return storedItem.getCount() + this.inventory.getInvStack(1).getCount();
 	}
 }

@@ -37,13 +37,14 @@ public class CreativeQuantumChestBlockEntity extends QuantumChestBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		ItemStack stack = inventory.getInvStack(1);
-		if (!stack.isEmpty() && storedItem.isEmpty()) {
-			stack.setCount(stack.getMaxCount());
-			storedItem = stack.copy();
-		}
 
-		storedItem.setCount(maxCapacity - storedItem.getMaxCount());
+		//TODO: Reimplement
+//		if (!stack.isEmpty() && storedItem.isEmpty()) {
+//			stack.setCount(stack.getMaxCount());
+//			storedItem = stack.copy();
+//		}
+//
+//		storedItem.setCount(getMaxCapacity() - storedItem.getMaxCount());
 	}
 
 	@Override

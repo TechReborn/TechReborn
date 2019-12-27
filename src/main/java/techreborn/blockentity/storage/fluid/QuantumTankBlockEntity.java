@@ -8,6 +8,6 @@ import techreborn.init.TRContent;
 public class QuantumTankBlockEntity extends TankStorageBaseBlockEntity {
 
 	public QuantumTankBlockEntity(){
-		super(TRBlockEntities.QUANTUM_TANK, TRContent.Machine.QUANTUM_TANK.getStack(), FluidValue.BUCKET.multiply(TechRebornConfig.quantumTankCapacity  ));
+		super(TRBlockEntities.QUANTUM_TANK, FluidValue.BUCKET.multiply(TechRebornConfig.quantumTankCapacity  ));
 	}
 }
