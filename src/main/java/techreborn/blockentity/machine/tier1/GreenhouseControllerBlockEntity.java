@@ -16,10 +16,12 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import techreborn.blocks.lighting.BlockLamp;
+import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
+import java.util.Collections;
 import java.util.List;
 
 public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
@@ -115,13 +117,23 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		) {
 			// If we can break bottom block we should at least remove all of them up to top so they don't break automatically
 			boolean breakBlocks = false;
-			for (int y = 1; world.getBlockState(blockPos.up(y)).getBlock() == block; y++) {
+			for (int y = 1; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block; y++) {
 				if (y == 1) {
 					breakBlocks = tryHarvestBlock(blockState, blockPos.up(y));
 				} else {
 					tryHarvestBlock(blockState, blockPos.up(y));
 				}
 				if (breakBlocks) world.breakBlock(blockPos.up(y), false);
+			}
+		} else if (block instanceof BlockRubberLog) {
+			for (int y = 1; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block && y < 10; y++) {
+				if (blockState.get(BlockRubberLog.HAS_SAP)
+						&& canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)
+						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
+				) {
+					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
+					world.setBlockState(blockPos.up(y), blockState.with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontal(0)));
+				}
 			}
 		}
 		
