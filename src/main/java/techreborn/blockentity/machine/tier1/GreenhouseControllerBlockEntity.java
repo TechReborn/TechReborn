@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
@@ -97,77 +98,69 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		}
 		
 		if (block instanceof CropBlock) {
-			// Normal crop
-			CropBlock crop = (CropBlock) block;
-			if (crop.isMature(blockState)) {
-				if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null));
-					world.setBlockState(blockPos, crop.withAge(0), 2);
-				}
-			}
+			processAgedCrop(blockState, blockPos, ((CropBlock) block).getAgeProperty(), ((CropBlock) block).getMaxAge(), 0);
 		} else if (block instanceof NetherWartBlock) {
-			// Why it isn't a CropBlock? :(
-			if (blockState.get(NetherWartBlock.AGE) >= 3) {
-				if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null));
-					world.setBlockState(blockPos, blockState.with(NetherWartBlock.AGE, 0), 2);
-				}
-			}
+			processAgedCrop(blockState, blockPos, NetherWartBlock.AGE, 3, 0);
 		} else if (block instanceof SweetBerryBushBlock) {
-			if (blockState.get(SweetBerryBushBlock.AGE) >= 3) {
-				if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null));
-					world.setBlockState(blockPos, blockState.with(SweetBerryBushBlock.AGE, 1), 2);
-				}
-			}
+			processAgedCrop(blockState, blockPos, SweetBerryBushBlock.AGE, 3, 1);
 		} else if (block instanceof CocoaBlock) {
-			if (blockState.get(CocoaBlock.AGE) >= 2) {
-				if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null));
-					world.setBlockState(blockPos, blockState.with(CocoaBlock.AGE, 0), 2);
-				}
-			}
+			processAgedCrop(blockState, blockPos, CocoaBlock.AGE, 2, 0);
 		} else if (block instanceof GourdBlock) {
-			// Pumpkin, Melon
-			if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)) {
-				useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-				insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null));
+			if (tryHarvestBlock(blockState, blockPos)) {
 				world.breakBlock(blockPos, false);
 			}
 		} else if (block instanceof SugarCaneBlock
 				|| block instanceof CactusBlock
 				|| block instanceof BambooBlock
 		) {
+			// If we can break bottom block we should at least remove all of them up to top so they don't break automatically
+			boolean breakBlocks = false;
 			for (int y = 1; world.getBlockState(blockPos.up(y)).getBlock() == block; y++) {
-				if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)) {
-					useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
-					insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos.up(y), null));
+				if (y == 1) {
+					breakBlocks = tryHarvestBlock(blockState, blockPos.up(y));
+				} else {
+					tryHarvestBlock(blockState, blockPos.up(y));
 				}
-				world.breakBlock(blockPos.up(y), false);
+				if (breakBlocks) world.breakBlock(blockPos.up(y), false);
 			}
 		}
 		
 	}
 	
-	private void insertIntoInv(List<ItemStack> stacks) {
-		stacks.forEach(stack -> {
-			for (int i = 0; i < 6; i++) {
-				if (insertIntoInv(i, stack).isEmpty()) {
-					break;
-				}
+	private void processAgedCrop(BlockState blockState, BlockPos blockPos, IntProperty ageProperty, int maxAge, int newAge) {
+		if (blockState.get(ageProperty) >= maxAge) {
+			if (tryHarvestBlock(blockState, blockPos)) {
+				world.setBlockState(blockPos, blockState.with(ageProperty, newAge), 2);
 			}
-		});
+		}
 	}
 	
-	private ItemStack insertIntoInv(int slot, ItemStack stack) {
+	private boolean tryHarvestBlock(BlockState blockState, BlockPos blockPos) {
+		if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)
+				&& insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null))) {
+			useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean insertIntoInv(List<ItemStack> stacks) {
+		boolean result = false;
+		for (ItemStack stack : stacks) {
+			for (int i = 0; i < 6; i++) {
+				if (insertIntoInv(i, stack)) result = true;
+				if (stack.isEmpty()) break;
+			}
+		}
+		return result;
+	}
+	
+	private boolean insertIntoInv(int slot, ItemStack stack) {
 		ItemStack targetStack = inventory.getInvStack(slot);
 		if (targetStack.isEmpty()) {
-			inventory.setInvStack(slot, stack);
-			return ItemStack.EMPTY;
+			inventory.setInvStack(slot, stack.copy());
+			stack.decrement(stack.getCount());
+			return true;
 		} else {
 			if (ItemUtils.isItemEqual(stack, targetStack, true, false)) {
 				int freeStackSpace = targetStack.getMaxCount() - targetStack.getCount();
@@ -175,11 +168,11 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 					int transferAmount = Math.min(freeStackSpace, stack.getCount());
 					targetStack.increment(transferAmount);
 					stack.decrement(transferAmount);
+					return true;
 				}
 			}
-			
-			return stack;
 		}
+		return false;
 	}
 	
 	@Override
