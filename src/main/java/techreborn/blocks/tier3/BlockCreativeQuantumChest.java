@@ -43,7 +43,7 @@ public class BlockCreativeQuantumChest extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.QUANTUM_CHEST;
+		return EGui.CHEST;
 	}
 
 	@Override

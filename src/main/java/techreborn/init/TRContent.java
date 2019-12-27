@@ -437,9 +437,9 @@ public class TRContent {
 		
 		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
 		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, CreativeQuantumTankBlockEntity::new)),
-		DIGITAL_CHEST(new GenericMachineBlock(EGui.DIGITAL_CHEST, DigitalChestBlockEntity::new)),
+		DIGITAL_CHEST(new GenericMachineBlock(EGui.CHEST, DigitalChestBlockEntity::new)),
 		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK, DigitalTankBlockEntity::new)),
-		QUANTUM_CHEST(new GenericMachineBlock(EGui.QUANTUM_CHEST, QuantumChestBlockEntity::new)),
+		QUANTUM_CHEST(new GenericMachineBlock(EGui.CHEST, QuantumChestBlockEntity::new)),
 		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, QuantumTankBlockEntity::new)),
 		
 		ADJUSTABLE_SU(new AdjustableSUBlock()),

@@ -64,11 +64,6 @@ public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity 
 	}
 
 	@Override
-	public boolean hasSlotConfig() {
-		return false;
-	}
-
-	@Override
 	public boolean canBeUpgraded() {
 		return false;
 	}

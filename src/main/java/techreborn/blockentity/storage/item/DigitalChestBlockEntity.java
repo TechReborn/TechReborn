@@ -36,10 +36,4 @@ public class DigitalChestBlockEntity extends TechStorageBaseBlockEntity implemen
 	public DigitalChestBlockEntity() {
 		super(TRBlockEntities.DIGITAL_CHEST, "DigitalChestBlockEntity", TechRebornConfig.digitalChestMaxStorage);
 	}
-
-	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("digitalchest").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
-	}
 }

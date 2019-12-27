@@ -61,6 +61,7 @@ import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.item.TechStorageBaseBlockEntity;
 import techreborn.client.gui.*;
 
 public class GuiHandler {
@@ -108,8 +109,6 @@ public class GuiHandler {
 				return new GuiCompressor(syncID, player, (CompressorBlockEntity) blockEntity);
 			case DIESEL_GENERATOR:
 				return new GuiDieselGenerator(syncID, player, (DieselGeneratorBlockEntity) blockEntity);
-			case DIGITAL_CHEST:
-				return new GuiDigitalChest(syncID, player, (DigitalChestBlockEntity) blockEntity);
 			case ELECTRIC_FURNACE:
 				return new GuiElectricFurnace(syncID, player, (ElectricFurnaceBlockEntity) blockEntity);
 			case EXTRACTOR:
@@ -138,8 +137,8 @@ public class GuiHandler {
 				return new GuiMFE(syncID, player, (MediumVoltageSUBlockEntity) blockEntity);
 			case HIGH_VOLTAGE_SU:
 				return new GuiMFSU(syncID, player, (HighVoltageSUBlockEntity) blockEntity);
-			case QUANTUM_CHEST:
-				return new GuiQuantumChest(syncID, player, (QuantumChestBlockEntity) blockEntity);
+			case CHEST:
+				return new GuiChest(syncID, player, (TechStorageBaseBlockEntity) blockEntity);
 			case TANK:
 				return new GuiTank(syncID, player, (TankStorageBaseBlockEntity) blockEntity);
 			case RECYCLER:

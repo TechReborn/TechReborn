@@ -33,6 +33,8 @@ import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
@@ -243,6 +245,11 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 	public void setStoredItemCount(int amount) {
 		storedItem.increment(amount);
 		markDirty();
+	}
+
+	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
+		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
+				.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
 	public void setStoredItemType(ItemStack type, int amount) {

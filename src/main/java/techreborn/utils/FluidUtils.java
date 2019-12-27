@@ -71,7 +71,7 @@ public class FluidUtils {
 			FluidValue freeSpace = target.getCapacity(null).subtract(targetFluidInstance.getAmount());
 
 			if(!outputStack.isEmpty()){
-				if(outputStack.getCount() + 1 >= outputStack.getMaxCount()){
+				if(outputStack.getCount() >= outputStack.getMaxCount()){
 					return false;
 				}
 			}
