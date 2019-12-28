@@ -35,9 +35,8 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
 import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
-import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
-import techreborn.blockentity.storage.fluid.TankStorageBaseBlockEntity;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
@@ -54,14 +53,13 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
-import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
-import techreborn.blockentity.storage.item.TechStorageBaseBlockEntity;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.client.gui.*;
 
 public class GuiHandler {
@@ -137,10 +135,10 @@ public class GuiHandler {
 				return new GuiMFE(syncID, player, (MediumVoltageSUBlockEntity) blockEntity);
 			case HIGH_VOLTAGE_SU:
 				return new GuiMFSU(syncID, player, (HighVoltageSUBlockEntity) blockEntity);
-			case CHEST:
-				return new GuiChest(syncID, player, (TechStorageBaseBlockEntity) blockEntity);
-			case TANK:
-				return new GuiTank(syncID, player, (TankStorageBaseBlockEntity) blockEntity);
+			case STORAGE_UNIT:
+				return new GuiStorageUnit(syncID, player, (StorageUnitBaseBlockEntity) blockEntity);
+			case TANK_UNIT:
+				return new GuiTankUnit(syncID, player, (TankUnitBaseBlockEntity) blockEntity);
 			case RECYCLER:
 				return new GuiRecycler(syncID, player, (RecyclerBlockEntity) blockEntity);
 			case ROLLING_MACHINE:

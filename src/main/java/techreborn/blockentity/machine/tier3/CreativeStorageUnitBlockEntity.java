@@ -22,18 +22,32 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.storage.item;
+package techreborn.blockentity.machine.tier3;
 
-import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
-import techreborn.config.TechRebornConfig;
+import techreborn.blockentity.storage.item.QuantumStorageUnitBlockEntity;
 import techreborn.init.TRBlockEntities;
 
-public class DigitalChestBlockEntity extends TechStorageBaseBlockEntity implements IContainerProvider {
+public class CreativeStorageUnitBlockEntity extends QuantumStorageUnitBlockEntity {
 
-	public DigitalChestBlockEntity() {
-		super(TRBlockEntities.DIGITAL_CHEST, TechRebornConfig.digitalChestMaxStorage);
+	public CreativeStorageUnitBlockEntity() {
+		super(TRBlockEntities.CREATIVE_STORAGE_UNIT);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+
+		//TODO: Reimplement
+//		if (!stack.isEmpty() && storedItem.isEmpty()) {
+//			stack.setCount(stack.getMaxCount());
+//			storedItem = stack.copy();
+//		}
+//
+//		storedItem.setCount(getMaxCapacity() - storedItem.getMaxCount());
+	}
+
+	@Override
+	public int slotTransferSpeed() {
+		return 1;
 	}
 }

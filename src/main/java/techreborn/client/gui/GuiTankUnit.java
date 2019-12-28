@@ -29,13 +29,13 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.container.FluidInstance;
-import techreborn.blockentity.storage.fluid.TankStorageBaseBlockEntity;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 
-public class GuiTank extends GuiBase<BuiltContainer> {
+public class GuiTankUnit extends GuiBase<BuiltContainer> {
 
-	TankStorageBaseBlockEntity tankEntity;
+	TankUnitBaseBlockEntity tankEntity;
 
-	public GuiTank(int syncID, final PlayerEntity player, final TankStorageBaseBlockEntity tankEntity) {
+	public GuiTankUnit(int syncID, final PlayerEntity player, final TankUnitBaseBlockEntity tankEntity) {
 		super(player, tankEntity, tankEntity.createContainer(syncID, player));
 		this.tankEntity = tankEntity;
 	}

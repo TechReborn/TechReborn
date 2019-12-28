@@ -22,37 +22,36 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.machine.tier3;
+package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import reborncore.common.fluid.FluidValue;
-import techreborn.blockentity.storage.fluid.TankStorageBaseBlockEntity;
-import techreborn.init.TRBlockEntities;
-import techreborn.init.TRContent;
+import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.gui.builder.GuiBase;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
-public class CreativeQuantumTankBlockEntity extends TankStorageBaseBlockEntity {
+public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 
-	public CreativeQuantumTankBlockEntity(){
-		super(TRBlockEntities.CREATIVE_QUANTUM_TANK, FluidValue.INFINITE);
-	}
+	StorageUnitBaseBlockEntity chest;
 
-
-	@Override
-	public void tick() {
-		super.tick();
-		if (!tank.isEmpty() && !tank.isFull()) {
-			tank.setFluidAmount(FluidValue.INFINITE);
-		}
+	public GuiStorageUnit(int syncID, final PlayerEntity player, final StorageUnitBaseBlockEntity chest) {
+		super(player, chest, chest.createContainer(syncID, player));
+		this.chest = chest;
 	}
 
 	@Override
-	public int slotTransferSpeed() {
-		return 1;
+	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(f, mouseX, mouseY);
+		final Layer layer = Layer.BACKGROUND;
+
+		drawSlot(80, 24, layer);
+		drawSlot(80, 64, layer);
 	}
 
 	@Override
-	public int fluidTransferAmount() {
-		return 10000;
+	protected void drawForeground(final int mouseX, final int mouseY) {
+		super.drawForeground(mouseX, mouseY);
+		final Layer layer = Layer.FOREGROUND;
+
+			this.builder.drawBigBlueBar(this, 31, 43, this.chest.getCurrentCapacity(), this.chest.getMaxCapacity(), mouseX - this.x, mouseY - this.y, "Stored", layer);
 	}
 }

@@ -26,7 +26,6 @@ package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
@@ -42,12 +41,12 @@ import reborncore.common.util.ItemUtils;
 
 import java.util.List;
 
-public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
+public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IToolDrop, IListInfoProvider {
 
 
 	// Inventory of machine 1: Storage
-	private final RebornInventory<TechStorageBaseBlockEntity> inventory;
+	private final RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	// Stack in output slot
 	private ItemStack storeItemStack;
 
@@ -57,7 +56,7 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 
 	private final int maxCapacity;
 
-	public TechStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
+	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storeItemStack = ItemStack.EMPTY;
@@ -216,7 +215,7 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 
 	// ItemHandlerProvider
 	@Override
-	public RebornInventory<TechStorageBaseBlockEntity> getInventory() {
+	public RebornInventory<StorageUnitBaseBlockEntity> getInventory() {
 		return inventory;
 	}
 

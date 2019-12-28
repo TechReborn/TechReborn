@@ -3,14 +3,13 @@ package techreborn.blocks.storage.item;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import techreborn.blockentity.storage.item.TechStorageBaseBlockEntity;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.client.EGui;
 
@@ -24,7 +23,7 @@ public class TechChestBlock extends GenericMachineBlock {
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
-		final TechStorageBaseBlockEntity storageEntity = (TechStorageBaseBlockEntity) worldIn.getBlockEntity(pos);
+		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
 		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
 
 		if(storageEntity != null && storageEntity.isSameType(stackInHand)) {

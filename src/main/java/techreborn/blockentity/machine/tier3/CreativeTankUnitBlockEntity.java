@@ -24,31 +24,32 @@
 
 package techreborn.blockentity.machine.tier3;
 
-import net.minecraft.item.ItemStack;
-import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
+import reborncore.common.fluid.FluidValue;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.init.TRBlockEntities;
 
-public class CreativeQuantumChestBlockEntity extends QuantumChestBlockEntity {
+public class CreativeTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
-	public CreativeQuantumChestBlockEntity() {
-		super(TRBlockEntities.CREATIVE_QUANTUM_CHEST);
+	public CreativeTankUnitBlockEntity(){
+		super(TRBlockEntities.CREATIVE_TANK_UNIT, FluidValue.INFINITE);
 	}
+
 
 	@Override
 	public void tick() {
 		super.tick();
-
-		//TODO: Reimplement
-//		if (!stack.isEmpty() && storedItem.isEmpty()) {
-//			stack.setCount(stack.getMaxCount());
-//			storedItem = stack.copy();
-//		}
-//
-//		storedItem.setCount(getMaxCapacity() - storedItem.getMaxCount());
+		if (!tank.isEmpty() && !tank.isFull()) {
+			tank.setFluidAmount(FluidValue.INFINITE);
+		}
 	}
 
 	@Override
 	public int slotTransferSpeed() {
 		return 1;
+	}
+
+	@Override
+	public int fluidTransferAmount() {
+		return 10000;
 	}
 }

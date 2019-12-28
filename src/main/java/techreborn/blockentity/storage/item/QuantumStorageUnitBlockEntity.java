@@ -22,36 +22,20 @@
  * SOFTWARE.
  */
 
-package techreborn.client.gui;
+package techreborn.blockentity.storage.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.gui.builder.GuiBase;
-import techreborn.blockentity.storage.item.TechStorageBaseBlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import reborncore.client.containerBuilder.IContainerProvider;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
 
-public class GuiChest extends GuiBase<BuiltContainer> {
+public class QuantumStorageUnitBlockEntity extends StorageUnitBaseBlockEntity implements IContainerProvider {
 
-	TechStorageBaseBlockEntity chest;
-
-	public GuiChest(int syncID, final PlayerEntity player, final TechStorageBaseBlockEntity chest) {
-		super(player, chest, chest.createContainer(syncID, player));
-		this.chest = chest;
+	public QuantumStorageUnitBlockEntity() {
+		this(TRBlockEntities.QUANTUM_CHEST);
 	}
 
-	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
-		final Layer layer = Layer.BACKGROUND;
-
-		drawSlot(80, 24, layer);
-		drawSlot(80, 64, layer);
-	}
-
-	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
-		final Layer layer = Layer.FOREGROUND;
-
-			this.builder.drawBigBlueBar(this, 31, 43, this.chest.getCurrentCapacity(), this.chest.getMaxCapacity(), mouseX - this.x, mouseY - this.y, "Stored", layer);
+	public QuantumStorageUnitBlockEntity(BlockEntityType<?> blockEntityType) {
+		super(blockEntityType, TechRebornConfig.quantumChestMaxStorage);
 	}
 }

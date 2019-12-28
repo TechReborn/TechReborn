@@ -24,21 +24,13 @@
 
 package techreborn.blockentity.storage.item;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 
-public class QuantumChestBlockEntity extends TechStorageBaseBlockEntity implements IContainerProvider {
+public class IndustrialStorageUnitBlockEntity extends StorageUnitBaseBlockEntity implements IContainerProvider {
 
-	public QuantumChestBlockEntity() {
-		this(TRBlockEntities.QUANTUM_CHEST);
-	}
-
-	public QuantumChestBlockEntity(BlockEntityType<?> blockEntityType) {
-		super(blockEntityType, TechRebornConfig.quantumChestMaxStorage);
+	public IndustrialStorageUnitBlockEntity() {
+		super(TRBlockEntities.INDUSTRIAL_STORAGE_UNIT, TechRebornConfig.digitalChestMaxStorage);
 	}
 }

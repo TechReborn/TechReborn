@@ -21,11 +21,11 @@ import techreborn.utils.FluidUtils;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
+public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 	protected Tank tank;
-	private RebornInventory<TankStorageBaseBlockEntity> inventory = new RebornInventory<>(3, "TankInventory", 64, this);
+	private RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(3, "TankInventory", 64, this);
 
-	public TankStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, FluidValue value) {
+	public TankUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, FluidValue value) {
 		super(blockEntityTypeIn);
 		this.tank = new Tank("TankStorage", value, this);
 	}
@@ -82,7 +82,7 @@ public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity 
 
 	// ItemHandlerProvider
 	@Override
-	public RebornInventory<TankStorageBaseBlockEntity> getInventory() {
+	public RebornInventory<TankUnitBaseBlockEntity> getInventory() {
 		return this.inventory;
 	}
 
