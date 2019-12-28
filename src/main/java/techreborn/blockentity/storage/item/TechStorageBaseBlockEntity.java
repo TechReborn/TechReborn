@@ -39,92 +39,58 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IToolDrop, IListInfoProvider {
 
 
-	private final int maxCapacity;
-
 	// Inventory of machine 1: Storage
 	private final RebornInventory<TechStorageBaseBlockEntity> inventory;
 	// Stack in output slot
-	private ItemStack storedItem;
+	private ItemStack storeItemStack;
+
+	// Inventory constants
+	private static final int INPUT_SLOT = 0;
+	private static final int OUTPUT_SLOT = 1;
+
+	private final int maxCapacity;
 
 	public TechStorageBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
-		storedItem = ItemStack.EMPTY;
-		inventory = new RebornInventory<>(3, "ItemInventory", maxCapacity, this);
+		storeItemStack = ItemStack.EMPTY;
+		inventory = new RebornInventory<>(2, "ItemInventory", maxCapacity, this);
 	}
 
 	public void readWithoutCoords(CompoundTag tagCompound) {
 
-		storedItem = ItemStack.EMPTY;
+		storeItemStack = ItemStack.EMPTY;
 
 		if (tagCompound.contains("storedStack")) {
-			storedItem = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
+			storeItemStack = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
 		}
 
-		if (!storedItem.isEmpty()) {
-			storedItem.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
+		if (!storeItemStack.isEmpty()) {
+			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
 		}
 
 		inventory.read(tagCompound);
 	}
 
 	public CompoundTag writeWithoutCoords(CompoundTag tagCompound) {
-		if (!storedItem.isEmpty()) {
-			ItemStack temp = storedItem.copy();
-			if (storedItem.getCount() > storedItem.getMaxCount()) {
-				temp.setCount(storedItem.getMaxCount());
+		if (!storeItemStack.isEmpty()) {
+			ItemStack temp = storeItemStack.copy();
+			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
+				temp.setCount(storeItemStack.getMaxCount());
 			}
 			tagCompound.put("storedStack", temp.toTag(new CompoundTag()));
-			tagCompound.putInt("storedQuantity", Math.min(storedItem.getCount(), maxCapacity));
+			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
 		}
 		inventory.write(tagCompound);
 		return tagCompound;
-	}
-
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
-		this.writeWithoutCoords(blockEntity);
-		dropStack.setTag(new CompoundTag());
-		dropStack.getTag().put("blockEntity", blockEntity);
-
-		return dropStack;
-	}
-
-	public List<ItemStack> getContentDrops() {
-		ArrayList<ItemStack> stacks = new ArrayList<>();
-
-		if (!getStoredItemStack().isEmpty()) {
-			if (!inventory.getInvStack(1).isEmpty()) {
-				stacks.add(inventory.getInvStack(1));
-			}
-
-
-			int size = storedItem.getMaxCount();
-			int currentCount = storedItem.getCount();
-
-			for (int i = 0; i < currentCount / size; i++) {
-				ItemStack droped = storedItem.copy();
-				droped.setCount(size);
-				stacks.add(droped);
-			}
-			if (currentCount % size != 0) {
-				ItemStack dropped = storedItem.copy();
-				dropped.setCount(currentCount % size);
-				stacks.add(dropped);
-			}
-		}
-
-		return stacks;
 	}
 
 	// TileMachineBase
@@ -135,81 +101,94 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 			return;
 		}
 
-			ItemStack outputStack = ItemStack.EMPTY;
+		// If there is an item in the input AND stored is less than max capacity
+		if (!inventory.getInvStack(INPUT_SLOT).isEmpty() && getCurrentCapacity() < maxCapacity) {
+			processInput();
+			markDirty();
+			syncWithAll();
+		}
 
-			// Fill the output slot with goodies
-			if (!inventory.getInvStack(1).isEmpty()) {
-				outputStack = inventory.getInvStack(1);
-			}
 
-			// If there is an item in the input AND stored is less than max capacity
-			if (!inventory.getInvStack(0).isEmpty()
-					&& (storedItem.getCount() + outputStack.getCount()) < maxCapacity) {
-
-				ItemStack inputStack = inventory.getInvStack(0);
-
-				// Is stored item empty or is item in output the same as item in input
-				if (getStoredItemStack().isEmpty()
-						|| (storedItem.isEmpty() && ItemUtils.isItemEqual(inputStack, outputStack, true, true))) {
-
-					storedItem = inputStack;
-					inventory.setInvStack(0, ItemStack.EMPTY);
-
-					// Take in input ~
-				} else if (ItemUtils.isItemEqual(getStoredItemStack(), inputStack, true, true)) {
-					int reminder = maxCapacity - storedItem.getCount() - outputStack.getCount();
-
-					if (inputStack.getCount() <= reminder) {
-						setStoredItemCount(inputStack.getCount());
-						inventory.setInvStack(0, ItemStack.EMPTY);
-					} else {
-						setStoredItemCount(maxCapacity - outputStack.getCount());
-						inventory.getInvStack(0).decrement(reminder);
-					}
-
-				}
-				markDirty();
-				syncWithAll();
-			}
-
-			if (!storedItem.isEmpty()) {
-				if (outputStack.isEmpty()) {
-
-					ItemStack delivered = storedItem.copy();
-					delivered.setCount(Math.min(storedItem.getCount(), delivered.getMaxCount()));
-					storedItem.decrement(delivered.getCount());
-
-					if (storedItem.isEmpty()) {
-						storedItem = ItemStack.EMPTY;
-					}
-
-					inventory.setInvStack(1, delivered);
-					markDirty();
-					syncWithAll();
-				} else if (ItemUtils.isItemEqual(storedItem, outputStack, true, true)
-						&& outputStack.getCount() < outputStack.getMaxCount()) {
-
-					int wanted = Math.min(storedItem.getCount(),
-							outputStack.getMaxCount() - outputStack.getCount());
-					outputStack.setCount(outputStack.getCount() + wanted);
-					storedItem.decrement(wanted);
-
-					if (storedItem.isEmpty()) {
-						storedItem = ItemStack.EMPTY;
-					}
-					markDirty();
-					syncWithAll();
-				}
-			}
+		// Fill output slot with goodies
+		if (storeItemStack.getCount() > 0 && inventory.getInvStack(OUTPUT_SLOT).getCount() < storeItemStack.getMaxCount()) {
+			populateOutput();
+			markDirty();
+			syncWithAll();
+		}
 	}
 
-	private ItemStack getStoredItemStack() {
-		return storedItem.isEmpty() ? inventory.getInvStack(1) : storedItem;
-	}
+	private void populateOutput() {
+		// Set to storeItemStack to get the stack type
+		ItemStack output = storeItemStack.copy();
 
-	public void setStoredItemCount(int amount) {
-		storedItem.increment(amount);
+		int outputSlotCount = inventory.getInvStack(OUTPUT_SLOT).getCount();
+
+		// Set to current outputSlot count
+		output.setCount(outputSlotCount);
+
+		// Calculate amount needed to fill stack in output slot
+		int amountToFill = output.getMaxCount() -  outputSlotCount;
+
+		if(storeItemStack.getCount() >= amountToFill){
+			storeItemStack.decrement(amountToFill);
+
+			if (storeItemStack.isEmpty()) {
+				storeItemStack = ItemStack.EMPTY;
+			}
+
+			output.increment(amountToFill);
+		}else{
+			output.increment(storeItemStack.getCount());
+			storeItemStack = ItemStack.EMPTY;
+		}
+
+		inventory.setInvStack(OUTPUT_SLOT, output);
+
 		markDirty();
+		syncWithAll();
+	}
+
+	private void processInput() {
+		ItemStack inputStack = inventory.getInvStack(0).copy();
+
+		if (storeItemStack.getCount() == 0) {
+			// Check if storage is empty, NOT including the output slot
+
+			inventory.setInvStack(INPUT_SLOT, ItemStack.EMPTY);
+			storeItemStack = inputStack;
+		} else if (isSameType(inputStack)) {
+			// Not empty but same type
+
+			// Amount of items that can be added before reaching capacity
+			int reminder = maxCapacity - getCurrentCapacity();
+
+
+			if (inputStack.getCount() <= reminder) {
+				// Add full stack
+				addStoredItemCount(inputStack.getCount());
+				inventory.setInvStack(INPUT_SLOT, ItemStack.EMPTY);
+			} else {
+				// Add only what is needed to reach max capacity
+				addStoredItemCount(reminder);
+				inventory.getInvStack(INPUT_SLOT).decrement(reminder);
+			}
+		}
+
+		markDirty();
+		syncWithAll();
+		inventory.setChanged();
+	}
+
+	private boolean isSameType(ItemStack inputStack) {
+		return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
+	}
+
+	private ItemStack getStoredStack() {
+		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
+	}
+
+	public void addStoredItemCount(int amount) {
+		storeItemStack.increment(amount);
 	}
 
 	@Override
@@ -242,15 +221,25 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		return getDropWithNBT();
 	}
 
+	public ItemStack getDropWithNBT() {
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final CompoundTag blockEntity = new CompoundTag();
+		this.writeWithoutCoords(blockEntity);
+		dropStack.setTag(new CompoundTag());
+		dropStack.getTag().put("blockEntity", blockEntity);
+
+		return dropStack;
+	}
+
 	// IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
 			int size = 0;
 			String name = "of nothing";
-			if (!storedItem.isEmpty()) {
-				name = storedItem.getName().getString();
-				size += storedItem.getCount();
+			if (!storeItemStack.isEmpty()) {
+				name = storeItemStack.getName().getString();
+				size += storeItemStack.getCount();
 			}
 			if (!inventory.getInvStack(1).isEmpty()) {
 				name = inventory.getInvStack(1).getName().getString();
@@ -265,13 +254,12 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 				.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
+	public int getCurrentCapacity() {
+		return storeItemStack.getCount() + inventory.getInvStack(OUTPUT_SLOT).getCount();
+	}
 
 	// GUI functions
 	public int getMaxCapacity() {
 		return maxCapacity;
-	}
-
-	public int getCurrentCapacity() {
-		return storedItem.getCount() + this.inventory.getInvStack(1).getCount();
 	}
 }
