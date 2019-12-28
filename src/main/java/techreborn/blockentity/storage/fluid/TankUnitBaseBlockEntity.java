@@ -30,6 +30,11 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 		this.tank = new Tank("TankStorage", value, this);
 	}
 
+	// Quantum tank save compat
+	public TankUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn) {
+		super(blockEntityTypeIn);
+	}
+
 	public void readWithoutCoords(final CompoundTag tagCompound) {
 		tank.read(tagCompound);
 	}
