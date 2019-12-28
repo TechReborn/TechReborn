@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CSC",
+    "CDC"
+  ],
+  "key": {
+    "D": {
+      "item": "techreborn:digital_display"
+    },
+    "S": {
+      "item": "techreborn:data_storage_chip"
+    },
+    "C": {
+      "item": "techreborn:cell"
+    }
+  },
+  "result": {
+    "item": "techreborn:digital_tank"
+  }
+}

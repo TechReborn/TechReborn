@@ -109,7 +109,7 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 
-		// Fill output slot with goodies
+		// Fill output slot with goodies when stored has items and output count is less than max stack size
 		if (storeItemStack.getCount() > 0 && inventory.getInvStack(OUTPUT_SLOT).getCount() < storeItemStack.getMaxCount()) {
 			populateOutput();
 			markDirty();

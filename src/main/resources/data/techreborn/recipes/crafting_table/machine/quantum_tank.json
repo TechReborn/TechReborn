@@ -3,11 +3,14 @@
   "pattern": [
     "EPE",
     "PCP",
-    "EPE"
+    "ETE"
   ],
   "key": {
     "P": {
       "tag": "c:platinum_plate"
+    },
+    "T": {
+      "item": "techreborn:digital_tank"
     },
     "C": {
       "item": "techreborn:quantum_chest"

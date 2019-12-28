@@ -48,6 +48,8 @@ public abstract class TankStorageBaseBlockEntity extends MachineBaseBlockEntity 
 		return dropStack;
 	}
 
+
+
 	@Override
 	public void tick() {
 		if (world.isClient()){
