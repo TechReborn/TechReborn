@@ -22,24 +22,39 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.storage;
+package techreborn.blocks.misc;
 
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.world.BlockView;
-import techreborn.client.EGui;
-import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
+import reborncore.common.multiblock.BlockMultiblockBase;
+import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 
-/**
- * Created by modmuss50 on 14/03/2016.
- */
-public class LowVoltageSUBlock extends EnergyStorageBlock {
-	
-	public LowVoltageSUBlock() {
-		super("low_voltage_su", EGui.LOW_VOLTAGE_SU);
+public class BlockMachineCasing extends BlockMultiblockBase {
+
+	public final int heatCapacity;
+
+	public BlockMachineCasing(int heatCapacity) {
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
+		this.heatCapacity = heatCapacity;
+	}
+
+	public static int getHeatFromState(BlockState state) {
+		Block block = state.getBlock();
+		if (!(block instanceof BlockMachineCasing)) {
+			return 0;
+		}
+		BlockMachineCasing casing = (BlockMachineCasing) block;
+		return casing.heatCapacity;
 	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new LowVoltageSUBlockEntity();
+		return new MachineCasingBlockEntity();
 	}
+
 }

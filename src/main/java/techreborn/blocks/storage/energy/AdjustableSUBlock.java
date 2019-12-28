@@ -22,26 +22,22 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.storage.energy;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
-import reborncore.common.BaseBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.client.EGui;
 
-public class BlockStorage extends BaseBlock {
-
-	public BlockStorage() {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
+public class AdjustableSUBlock extends EnergyStorageBlock {
+	
+	public AdjustableSUBlock() {
+		super("AESU", EGui.AESU);
 	}
 
-//	public static ItemStack getStorageBlockByName(String name, int count) {
-//		for (int i = 0; i < types.length; i++) {
-//			if (types[i].equals(name)) {
-//				return new ItemStack(ModBlocks.STORAGE, count, i);
-//			}
-//		}
-//		return BlockStorage2.getStorageBlockByName(name, count);
-//	}
+	@Override
+	public BlockEntity createBlockEntity(BlockView worldIn) {
+		return new AdjustableSUBlockEntity();
+	}
 
 }

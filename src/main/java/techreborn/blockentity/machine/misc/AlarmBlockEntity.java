@@ -35,7 +35,7 @@ import net.minecraft.util.Tickable;
 import reborncore.api.IToolDrop;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.StringUtils;
-import techreborn.blocks.BlockAlarm;
+import techreborn.blocks.misc.BlockAlarm;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

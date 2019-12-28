@@ -34,7 +34,7 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
-import techreborn.blocks.storage.LapotronicSUBlock;
+import techreborn.blocks.storage.energy.LapotronicSUBlock;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

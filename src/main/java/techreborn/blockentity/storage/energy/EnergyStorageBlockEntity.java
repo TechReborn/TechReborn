@@ -35,7 +35,7 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
-import techreborn.blocks.storage.EnergyStorageBlock;
+import techreborn.blocks.storage.energy.EnergyStorageBlock;
 
 /**
  * Created by Rushmead

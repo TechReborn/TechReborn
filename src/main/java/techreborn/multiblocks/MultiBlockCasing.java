@@ -36,7 +36,7 @@ import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
-import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.misc.BlockMachineCasing;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 

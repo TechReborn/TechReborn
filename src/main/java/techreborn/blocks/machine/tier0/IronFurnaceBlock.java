@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier0;
+package techreborn.blocks.machine.tier0;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

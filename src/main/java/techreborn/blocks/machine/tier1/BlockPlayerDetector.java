@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier1;
+package techreborn.blocks.machine.tier1;
 
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;

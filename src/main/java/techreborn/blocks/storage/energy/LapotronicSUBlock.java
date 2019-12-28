@@ -22,35 +22,22 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.storage.energy;
 
-import net.minecraft.util.Formatting;
-import net.minecraft.block.Material;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.LiteralText;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import reborncore.api.blockentity.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
+import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.client.EGui;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
-public class BlockSupercondensator extends BlockMachineBase {
-	public BlockSupercondensator(Material material) {
-		super();
+public class LapotronicSUBlock extends EnergyStorageBlock {
+	
+	public LapotronicSUBlock() {
+		super("LESU", EGui.LESU);
 	}
 
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		tooltip.add(new LiteralText("WIP Coming Soon").formatted(Formatting.RED));
-		// TODO 
-		// Remember to remove WIP override and imports once complete
+	public BlockEntity createBlockEntity(BlockView worldIn) {
+		return new LapotronicSUBlockEntity();
 	}
 
-	@Override
-	public IMachineGuiHandler getGui() {
-		return null;
-	}
 }

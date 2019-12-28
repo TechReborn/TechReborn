@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.storage;
+package techreborn.blocks.storage.energy;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;

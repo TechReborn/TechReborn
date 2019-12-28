@@ -22,25 +22,26 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.storage;
+package techreborn.blocks.misc;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.BlockView;
-import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
-import techreborn.client.EGui;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+import reborncore.common.BaseBlock;
 
-/**
- * Created by modmuss50 on 14/03/2016.
- */
-public class MediumVoltageSUBlock extends EnergyStorageBlock {
-	
-	public MediumVoltageSUBlock() {
-		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU);
+public class BlockStorage extends BaseBlock {
+
+	public BlockStorage() {
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
 	}
 
-	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new MediumVoltageSUBlockEntity();
-	}
+//	public static ItemStack getStorageBlockByName(String name, int count) {
+//		for (int i = 0; i < types.length; i++) {
+//			if (types[i].equals(name)) {
+//				return new ItemStack(ModBlocks.STORAGE, count, i);
+//			}
+//		}
+//		return BlockStorage2.getStorageBlockByName(name, count);
+//	}
 
 }

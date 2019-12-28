@@ -22,46 +22,40 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.storage;
+package techreborn.blocks.machine.tier3;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
+import reborncore.api.blockentity.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
+import techreborn.blockentity.machine.tier3.CreativeQuantumChestBlockEntity;
 
-public class InterdimensionalSUBlock extends EnergyStorageBlock {
-	
-	public InterdimensionalSUBlock() {
-		super("IDSU", EGui.IDSU);
-	}
+public class BlockCreativeQuantumChest extends BlockMachineBase {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new InterdimensionalSUBlockEntity();
+		return new CreativeQuantumChestBlockEntity();
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		final BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
-		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
-			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = context.getPlayer().getUuid().toString();
-		}
-		return this.getDefaultState();
+	public IMachineGuiHandler getGui() {
+		return EGui.CHEST;
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		super.onPlaced(world, pos, state, placer, stack);
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity instanceof InterdimensionalSUBlockEntity) {
-			((InterdimensionalSUBlockEntity) blockEntity).ownerUdid = placer.getUuid().toString();
+	public boolean isAdvanced() {
+		return true;
+	}
+	
+	@Override
+	public void onBlockRemoved(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (state.getBlock() != newState.getBlock()) {
+			//lets not drop max int items into the world, that sounds like a bad idea
+			worldIn.removeBlockEntity(pos);
 		}
 	}
-
 }

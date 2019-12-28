@@ -22,40 +22,16 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier3;
+package techreborn.blocks.misc;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import reborncore.api.blockentity.IMachineGuiHandler;
-import reborncore.common.blocks.BlockMachineBase;
-import techreborn.client.EGui;
-import techreborn.blockentity.machine.tier3.CreativeQuantumChestBlockEntity;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.block.Material;
+import net.minecraft.sound.BlockSoundGroup;
+import reborncore.common.BaseBlock;
 
-public class BlockCreativeQuantumChest extends BlockMachineBase {
+public class BlockMachineFrame extends BaseBlock {
 
-	@Override
-	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new CreativeQuantumChestBlockEntity();
-	}
-
-	@Override
-	public IMachineGuiHandler getGui() {
-		return EGui.CHEST;
-	}
-
-	@Override
-	public boolean isAdvanced() {
-		return true;
-	}
-	
-	@Override
-	public void onBlockRemoved(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
-			//lets not drop max int items into the world, that sounds like a bad idea
-			worldIn.removeBlockEntity(pos);
-		}
+	public BlockMachineFrame() {
+		super(FabricBlockSettings.of(Material.METAL).strength(1f, 1f).sounds(BlockSoundGroup.METAL).build());
 	}
 }

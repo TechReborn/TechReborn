@@ -22,16 +22,35 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks;
+package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.minecraft.util.Formatting;
 import net.minecraft.block.Material;
-import net.minecraft.sound.BlockSoundGroup;
-import reborncore.common.BaseBlock;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
+import net.minecraft.world.BlockView;
+import reborncore.api.blockentity.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
 
-public class BlockMachineFrame extends BaseBlock {
+import javax.annotation.Nullable;
+import java.util.List;
 
-	public BlockMachineFrame() {
-		super(FabricBlockSettings.of(Material.METAL).strength(1f, 1f).sounds(BlockSoundGroup.METAL).build());
+public class BlockSupercondensator extends BlockMachineBase {
+	public BlockSupercondensator(Material material) {
+		super();
+	}
+
+	@Override
+	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
+		tooltip.add(new LiteralText("WIP Coming Soon").formatted(Formatting.RED));
+		// TODO 
+		// Remember to remove WIP override and imports once complete
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return null;
 	}
 }

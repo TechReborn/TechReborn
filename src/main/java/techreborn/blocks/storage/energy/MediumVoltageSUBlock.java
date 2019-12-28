@@ -22,22 +22,25 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.storage;
+package techreborn.blocks.storage.energy;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.client.EGui;
 
-public class AdjustableSUBlock extends EnergyStorageBlock {
+/**
+ * Created by modmuss50 on 14/03/2016.
+ */
+public class MediumVoltageSUBlock extends EnergyStorageBlock {
 	
-	public AdjustableSUBlock() {
-		super("AESU", EGui.AESU);
+	public MediumVoltageSUBlock() {
+		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU);
 	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new AdjustableSUBlockEntity();
+		return new MediumVoltageSUBlockEntity();
 	}
 
 }

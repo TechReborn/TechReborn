@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.tier0;
+package techreborn.blocks.machine.tier0;
 
 import java.util.Random;
 
