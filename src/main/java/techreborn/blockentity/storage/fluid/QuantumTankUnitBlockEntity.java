@@ -12,7 +12,7 @@ public class QuantumTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
 	// Save
 	public QuantumTankUnitBlockEntity(){
-		super(TRBlockEntities.CREATIVE_TANK_UNIT);
+		super(TRBlockEntities.QUANTUM_TANK_UNIT);
 		super.tank = tank;
 	}
 }

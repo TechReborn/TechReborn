@@ -32,10 +32,10 @@ import techreborn.init.TRBlockEntities;
 public class QuantumStorageUnitBlockEntity extends StorageUnitBaseBlockEntity implements IContainerProvider {
 
 	public QuantumStorageUnitBlockEntity() {
-		this(TRBlockEntities.QUANTUM_CHEST);
+		this(TRBlockEntities.QUANTUM_STORAGE_UNIT);
 	}
 
 	public QuantumStorageUnitBlockEntity(BlockEntityType<?> blockEntityType) {
-		super(blockEntityType, TechRebornConfig.quantumStorageUnitMaxStorage, false);
+		super(blockEntityType, TechRebornConfig.quantumStorageUnitMaxStorage);
 	}
 }

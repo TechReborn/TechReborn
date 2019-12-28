@@ -83,7 +83,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<BasicTankUnitBlockEntity> BASIC_TANK_UNIT = register(BasicTankUnitBlockEntity.class, "basic_tank_unit", TRContent.Machine.BASIC_TANK_UNIT);
 	public static final BlockEntityType<IndustrialStorageUnitBlockEntity> INDUSTRIAL_STORAGE_UNIT = register(IndustrialStorageUnitBlockEntity.class, "digital_chest", TRContent.Machine.DIGITAL_CHEST);
 	public static final BlockEntityType<IndustrialTankUnitBlockEntity> INDUSTRIAL_TANK_UNIT = register(IndustrialTankUnitBlockEntity.class, "digital_tank", TRContent.Machine.DIGITAL_TANK);
-	public static final BlockEntityType<QuantumStorageUnitBlockEntity> QUANTUM_CHEST = register(QuantumStorageUnitBlockEntity.class, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
+	public static final BlockEntityType<QuantumStorageUnitBlockEntity> QUANTUM_STORAGE_UNIT = register(QuantumStorageUnitBlockEntity.class, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
 	public static final BlockEntityType<QuantumTankUnitBlockEntity> QUANTUM_TANK_UNIT = register(QuantumTankUnitBlockEntity.class, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
 	public static final BlockEntityType<CreativeStorageUnitBlockEntity> CREATIVE_STORAGE_UNIT = register(CreativeStorageUnitBlockEntity.class, "creative_quantum_chest", TRContent.Machine.CREATIVE_QUANTUM_CHEST);
 	public static final BlockEntityType<CreativeTankUnitBlockEntity> CREATIVE_TANK_UNIT = register(CreativeTankUnitBlockEntity.class, "creative_quantum_tank", TRContent.Machine.CREATIVE_QUANTUM_TANK);

@@ -42,6 +42,7 @@ import techreborn.blockentity.storage.fluid.CreativeTankUnitBlockEntity;
 import techreborn.blockentity.storage.fluid.IndustrialTankUnitBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankUnitBlockEntity;
 import techreborn.blockentity.storage.item.BasicStorageUnitBlockEntity;
+import techreborn.blockentity.storage.item.CreativeStorageUnitBlockEntity;
 import techreborn.blockentity.storage.item.IndustrialStorageUnitBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
@@ -67,8 +68,7 @@ import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
-import techreborn.blocks.machine.tier3.BlockCreativeQuantumChest;
-import techreborn.blocks.storage.item.TechChestBlock;
+import techreborn.blocks.storage.item.StoageUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -443,13 +443,13 @@ public class TRContent {
 		WATER_MILL(new GenericGeneratorBlock(null, WaterMillBlockEntity::new)),
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
-		BASIC_STORAGE_UNIT(new TechChestBlock(EGui.STORAGE_UNIT, BasicStorageUnitBlockEntity::new)),
+		BASIC_STORAGE_UNIT(new StoageUnitBlock(EGui.STORAGE_UNIT, BasicStorageUnitBlockEntity::new)),
 		BASIC_TANK_UNIT(new GenericMachineBlock(EGui.TANK_UNIT, BasicTankUnitBlockEntity::new)),
-		DIGITAL_CHEST(new TechChestBlock(EGui.STORAGE_UNIT, IndustrialStorageUnitBlockEntity::new)),
+		DIGITAL_CHEST(new StoageUnitBlock(EGui.STORAGE_UNIT, IndustrialStorageUnitBlockEntity::new)),
 		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK_UNIT, IndustrialTankUnitBlockEntity::new)),
-		QUANTUM_CHEST(new TechChestBlock(EGui.STORAGE_UNIT, QuantumStorageUnitBlockEntity::new)),
+		QUANTUM_CHEST(new StoageUnitBlock(EGui.STORAGE_UNIT, QuantumStorageUnitBlockEntity::new)),
 		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, QuantumTankUnitBlockEntity::new)),
-		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
+		CREATIVE_QUANTUM_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, CreativeStorageUnitBlockEntity::new)),
 		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, CreativeTankUnitBlockEntity::new)),
 		
 		ADJUSTABLE_SU(new AdjustableSUBlock()),

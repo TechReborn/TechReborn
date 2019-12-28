@@ -62,14 +62,12 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	private static final int OUTPUT_SLOT = 1;
 
 	private final int maxCapacity;
-	private  boolean shouldDropContentsOnDestroy;
 
-	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity, boolean shouldDropContentsOnDestroy) {
+	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storeItemStack = ItemStack.EMPTY;
 		inventory = new RebornInventory<>(2, "ItemInventory", maxCapacity, this);
-		this.shouldDropContentsOnDestroy = shouldDropContentsOnDestroy;
 	}
 
 	public void readWithoutCoords(CompoundTag tagCompound) {
@@ -194,6 +192,21 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 		}
 		return false;
+	}
+
+	// Creative function
+	public void fillToCapacity(){
+		// Fill internal
+		storeItemStack.setCount(maxCapacity);
+
+		// Fill output slot
+		ItemStack output = inventory.getInvStack(OUTPUT_SLOT);
+		output.setCount(output.getMaxCount());
+		inventory.setInvStack(OUTPUT_SLOT, output);
+
+		inventory.setChanged();
+		markDirty();
+		syncWithAll();
 	}
 
 	private ItemStack getStoredStack() {
