@@ -26,6 +26,7 @@ package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
@@ -102,8 +103,10 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 		// If there is an item in the input AND stored is less than max capacity
-		if (!inventory.getInvStack(INPUT_SLOT).isEmpty() && getCurrentCapacity() < maxCapacity) {
-			processInput();
+		if (!inventory.getInvStack(INPUT_SLOT).isEmpty() && !isFull()) {
+			inventory.setInvStack(INPUT_SLOT, processInput(inventory.getInvStack(INPUT_SLOT)));
+
+			inventory.setChanged();
 			markDirty();
 			syncWithAll();
 		}
@@ -148,15 +151,16 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 		syncWithAll();
 	}
 
-	private void processInput() {
-		ItemStack inputStack = inventory.getInvStack(0).copy();
+	public ItemStack processInput(ItemStack inputStack) {
 
-		if (storeItemStack.getCount() == 0) {
+		boolean isSameStack = isSameType(inputStack);
+
+		if (storeItemStack == ItemStack.EMPTY && (isSameStack || getCurrentCapacity() == 0)) {
 			// Check if storage is empty, NOT including the output slot
 
-			inventory.setInvStack(INPUT_SLOT, ItemStack.EMPTY);
-			storeItemStack = inputStack;
-		} else if (isSameType(inputStack)) {
+			storeItemStack = inputStack.copy();
+			inputStack = ItemStack.EMPTY;
+		} else if (isSameStack){
 			// Not empty but same type
 
 			// Amount of items that can be added before reaching capacity
@@ -166,28 +170,29 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 			if (inputStack.getCount() <= reminder) {
 				// Add full stack
 				addStoredItemCount(inputStack.getCount());
-				inventory.setInvStack(INPUT_SLOT, ItemStack.EMPTY);
+				inputStack = ItemStack.EMPTY;
 			} else {
 				// Add only what is needed to reach max capacity
 				addStoredItemCount(reminder);
-				inventory.getInvStack(INPUT_SLOT).decrement(reminder);
+				inputStack.decrement(reminder);
 			}
 		}
 
-		markDirty();
-		syncWithAll();
-		inventory.setChanged();
+		return inputStack;
 	}
 
-	private boolean isSameType(ItemStack inputStack) {
-		return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
+	public boolean isSameType(ItemStack inputStack) {
+		if(inputStack != ItemStack.EMPTY){
+			return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
+		}
+		return false;
 	}
 
 	private ItemStack getStoredStack() {
 		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
-	public void addStoredItemCount(int amount) {
+	private void addStoredItemCount(int amount) {
 		storeItemStack.increment(amount);
 	}
 
@@ -254,11 +259,14 @@ public abstract class TechStorageBaseBlockEntity extends MachineBaseBlockEntity
 				.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
+	public boolean isFull(){
+		return getCurrentCapacity() == maxCapacity;
+	}
+
 	public int getCurrentCapacity() {
 		return storeItemStack.getCount() + inventory.getInvStack(OUTPUT_SLOT).getCount();
 	}
 
-	// GUI functions
 	public int getMaxCapacity() {
 		return maxCapacity;
 	}

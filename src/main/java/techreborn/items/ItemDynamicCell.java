@@ -69,7 +69,7 @@ import javax.annotation.Nullable;
 public class ItemDynamicCell extends Item implements ItemFluidInfo {
 
 	public ItemDynamicCell() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP));
+		super( new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
 	}
 
 	@Override
@@ -94,6 +94,8 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 		}
 		return super.getName(itemStack);
 	}
+
+
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
@@ -182,7 +184,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 		}
 	}
 
-	//Thanks vanilla :)
+	// Thanks vanilla :)
 	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, IWorld world, BlockPos blockPos, Fluid fluid) {
 		SoundEvent soundEvent = fluid.matches(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
 		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);

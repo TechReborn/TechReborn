@@ -65,6 +65,7 @@ import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
 import techreborn.blocks.machine.tier3.BlockCreativeQuantumChest;
+import techreborn.blocks.storage.item.TechChestBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -441,9 +442,9 @@ public class TRContent {
 		
 		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
 		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, CreativeQuantumTankBlockEntity::new)),
-		DIGITAL_CHEST(new GenericMachineBlock(EGui.CHEST, DigitalChestBlockEntity::new)),
+		DIGITAL_CHEST(new TechChestBlock(EGui.CHEST, DigitalChestBlockEntity::new)),
 		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK, DigitalTankBlockEntity::new)),
-		QUANTUM_CHEST(new GenericMachineBlock(EGui.CHEST, QuantumChestBlockEntity::new)),
+		QUANTUM_CHEST(new TechChestBlock(EGui.CHEST, QuantumChestBlockEntity::new)),
 		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, QuantumTankBlockEntity::new)),
 		
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
