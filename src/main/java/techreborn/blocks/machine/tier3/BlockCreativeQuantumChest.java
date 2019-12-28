@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.client.EGui;
-import techreborn.blockentity.machine.tier3.CreativeStorageUnitBlockEntity;
+import techreborn.blockentity.storage.item.CreativeStorageUnitBlockEntity;
 
 public class BlockCreativeQuantumChest extends BlockMachineBase {
 

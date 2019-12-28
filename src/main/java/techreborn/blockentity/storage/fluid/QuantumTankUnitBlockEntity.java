@@ -8,11 +8,11 @@ import techreborn.init.TRBlockEntities;
 public class QuantumTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
 	// Save compatibility TODO remove next MC release
-	public Tank tank = new Tank("QuantumTankBlockEntity", FluidValue.INFINITE, this);
+	public Tank tank = new Tank("QuantumTankBlockEntity",  FluidValue.BUCKET.multiply(TechRebornConfig.quantumTankUnitCapacity), this);
 
 	// Save
 	public QuantumTankUnitBlockEntity(){
-		super(TRBlockEntities.QUANTUM_TANK_UNIT);
+		super(TRBlockEntities.CREATIVE_TANK_UNIT);
 		super.tank = tank;
 	}
 }

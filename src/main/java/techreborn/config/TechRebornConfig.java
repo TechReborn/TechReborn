@@ -266,9 +266,6 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "player_detector", key = "PlayerDetectorEUPerSecond", comment = "Player Detector Energy Consumption per second (Value in EU)")
 	public static int playerDetectorEuPerTick = 10;
 
-	@Config(config = "machines", category = "quantum_chest", key = "QuantumChestMaxStorage", comment = "Maximum amount of items a Quantum Chest can store")
-	public static int quantumChestMaxStorage = Integer.MAX_VALUE;
-
 	@Config(config = "machines", category = "Distillation_tower", key = "DistillationTowerMaxInput", comment = "Distillation Tower Max Input (Value in EU)")
 	public static int distillationTowerMaxInput = 128;
 
@@ -374,20 +371,23 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int electricFurnaceMaxEnergy = 1000;
 
-	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a basic storage unit can store")
+	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
 	public static int basicStorageUnitMaxStorage = 1000;
 
-	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a basic tank unit can take (Value in buckets, 1000 Mb)")
-	public static int basicTankCapacity = 32;
+	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int basicTankUnitCapacity = 32;
 
-	@Config(config = "machines", category = "storage", key = "DigitalChestMaxStorage", comment = "Maximum amount of items a Digital Chest can store")
-	public static int digitalChestMaxStorage = 32768;
+	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store")
+	public static int industrialStorageUnitMaxStorage = 32768;
 
-	@Config(config = "machines", category = "storage", key = "DigitalTankCapacity", comment = "How much liquid a digital tank can take (Value in buckets, 1000 Mb)")
-	public static int digitalTankCapacity = 64;
+	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int industrialTankUnitCapacity = 64;
 
-	@Config(config = "machines", category = "storage", key = "DigitalChestCapacity", comment = "How much liquid a quantum tank can take (Value in buckets, 1000 Mb)")
-	public static int quantumTankCapacity = 2147483;
+	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store")
+	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
+
+	@Config(config = "machines", category = "storage", key = "QuantumTankUnitCapacity", comment = "How much liquid a Quantum Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int quantumTankUnitCapacity = Integer.MAX_VALUE;
 
 	@Config(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")
 	public static int chargeOMatBMaxOutput = 512;

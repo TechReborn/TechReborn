@@ -36,6 +36,6 @@ public class QuantumStorageUnitBlockEntity extends StorageUnitBaseBlockEntity im
 	}
 
 	public QuantumStorageUnitBlockEntity(BlockEntityType<?> blockEntityType) {
-		super(blockEntityType, TechRebornConfig.quantumChestMaxStorage);
+		super(blockEntityType, TechRebornConfig.quantumStorageUnitMaxStorage, false);
 	}
 }

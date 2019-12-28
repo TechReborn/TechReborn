@@ -22,32 +22,39 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.machine.tier3;
+package techreborn.blockentity.storage.fluid;
 
-import techreborn.blockentity.storage.item.QuantumStorageUnitBlockEntity;
+import reborncore.common.fluid.FluidValue;
+import reborncore.common.util.Tank;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.init.TRBlockEntities;
 
-public class CreativeStorageUnitBlockEntity extends QuantumStorageUnitBlockEntity {
+public class CreativeTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
-	public CreativeStorageUnitBlockEntity() {
-		super(TRBlockEntities.CREATIVE_STORAGE_UNIT);
+	// Save compatibility TODO remove next MC release
+	public Tank tank = new Tank("QuantumTankBlockEntity", FluidValue.INFINITE, this);
+
+	// Save
+	public CreativeTankUnitBlockEntity(){
+		super(TRBlockEntities.CREATIVE_TANK_UNIT);
+		super.tank = tank;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-
-		//TODO: Reimplement
-//		if (!stack.isEmpty() && storedItem.isEmpty()) {
-//			stack.setCount(stack.getMaxCount());
-//			storedItem = stack.copy();
-//		}
-//
-//		storedItem.setCount(getMaxCapacity() - storedItem.getMaxCount());
+		if (!tank.isEmpty() && !tank.isFull()) {
+			tank.setFluidAmount(FluidValue.INFINITE);
+		}
 	}
 
 	@Override
 	public int slotTransferSpeed() {
 		return 1;
+	}
+
+	@Override
+	public int fluidTransferAmount() {
+		return 10000;
 	}
 }

@@ -31,6 +31,6 @@ import techreborn.init.TRBlockEntities;
 public class BasicStorageUnitBlockEntity extends StorageUnitBaseBlockEntity implements IContainerProvider {
 
 	public BasicStorageUnitBlockEntity() {
-		super(TRBlockEntities.BASIC_STORAGE_UNIT, TechRebornConfig.basicStorageUnitMaxStorage);
+		super(TRBlockEntities.BASIC_STORAGE_UNIT, TechRebornConfig.basicStorageUnitMaxStorage, true);
 	}
 }

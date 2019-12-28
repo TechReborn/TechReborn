@@ -13,6 +13,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
@@ -110,6 +111,12 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 		return new ContainerBuilder("tank").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
 				.sync(tank).addInventory().create(this, syncID);
+	}
+
+	@Nonnull
+	@Override
+	public SlotConfiguration getSlotConfiguration() {
+		return new SlotConfiguration(inventory);
 	}
 
 	@Nonnull

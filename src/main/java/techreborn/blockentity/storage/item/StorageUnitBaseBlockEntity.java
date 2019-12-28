@@ -24,21 +24,28 @@
 
 package techreborn.blockentity.storage.item;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
@@ -55,12 +62,14 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	private static final int OUTPUT_SLOT = 1;
 
 	private final int maxCapacity;
+	private  boolean shouldDropContentsOnDestroy;
 
-	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
+	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity, boolean shouldDropContentsOnDestroy) {
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storeItemStack = ItemStack.EMPTY;
 		inventory = new RebornInventory<>(2, "ItemInventory", maxCapacity, this);
+		this.shouldDropContentsOnDestroy = shouldDropContentsOnDestroy;
 	}
 
 	public void readWithoutCoords(CompoundTag tagCompound) {
@@ -251,6 +260,12 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			}
 			info.add(new LiteralText(size + " " + name));
 		}
+	}
+
+	@Nonnull
+	@Override
+	public SlotConfiguration getSlotConfiguration() {
+		return new SlotConfiguration(inventory);
 	}
 
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
