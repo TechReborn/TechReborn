@@ -57,6 +57,7 @@ import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.fluid.BasicTankUnitBlockEntity;
 import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
@@ -75,6 +76,8 @@ public class TRBlockEntities {
 	private static List<BlockEntityType<?>> TYPES = new ArrayList<>();
 
 	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity.class, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
+	public static final BlockEntityType<BasicTankUnitBlockEntity> BASIC_STORAGE_UNIT = register(BasicTankUnitBlockEntity.class, "basic_storage_unit", TRContent.Machine.BASIC_STORAGE_UNIT);
+	public static final BlockEntityType<BasicTankUnitBlockEntity> BASIC_TANK_UNIT = register(BasicTankUnitBlockEntity.class, "basic_tank_unit", TRContent.Machine.BASIC_TANK_UNIT);
 	public static final BlockEntityType<QuantumTankBlockEntity> QUANTUM_TANK = register(QuantumTankBlockEntity.class, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
 	public static final BlockEntityType<QuantumChestBlockEntity> QUANTUM_CHEST = register(QuantumChestBlockEntity.class, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
 	public static final BlockEntityType<DigitalChestBlockEntity> DIGITAL_CHEST = register(DigitalChestBlockEntity.class, "digital_chest", TRContent.Machine.DIGITAL_CHEST);

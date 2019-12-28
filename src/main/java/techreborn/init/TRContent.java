@@ -37,6 +37,8 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.storage.fluid.BasicTankUnitBlockEntity;
+import techreborn.blockentity.storage.item.BasicStorageUnitBlockEntity;
 import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
@@ -442,6 +444,8 @@ public class TRContent {
 		
 		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
 		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK, CreativeQuantumTankBlockEntity::new)),
+		BASIC_STORAGE_UNIT(new TechChestBlock(EGui.CHEST, BasicStorageUnitBlockEntity::new)),
+		BASIC_TANK_UNIT(new GenericMachineBlock(EGui.TANK, BasicTankUnitBlockEntity::new)),
 		DIGITAL_CHEST(new TechChestBlock(EGui.CHEST, DigitalChestBlockEntity::new)),
 		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK, DigitalTankBlockEntity::new)),
 		QUANTUM_CHEST(new TechChestBlock(EGui.CHEST, QuantumChestBlockEntity::new)),

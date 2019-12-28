@@ -374,13 +374,19 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int electricFurnaceMaxEnergy = 1000;
 
-	@Config(config = "machines", category = "digital_chest", key = "DigitalChestMaxStorage", comment = "Maximum amount of items a Digital Chest can store")
+	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a basic storage unit can store")
+	public static int basicStorageUnitMaxStorage = 1000;
+
+	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a basic tank unit can take (Value in buckets, 1000 Mb)")
+	public static int basicTankCapacity = 32;
+
+	@Config(config = "machines", category = "storage", key = "DigitalChestMaxStorage", comment = "Maximum amount of items a Digital Chest can store")
 	public static int digitalChestMaxStorage = 32768;
 
-	@Config(config = "machines", category = "digital_tank", key = "DigitalTankCapacity", comment = "How much liquid a digital tank can take (Value in buckets, 1000 Mb)")
+	@Config(config = "machines", category = "storage", key = "DigitalTankCapacity", comment = "How much liquid a digital tank can take (Value in buckets, 1000 Mb)")
 	public static int digitalTankCapacity = 64;
 
-	@Config(config = "machines", category = "quamtum_tank", key = "DigitalChestCapacity", comment = "How much liquid a quantum tank can take (Value in buckets, 1000 Mb)")
+	@Config(config = "machines", category = "storage", key = "DigitalChestCapacity", comment = "How much liquid a quantum tank can take (Value in buckets, 1000 Mb)")
 	public static int quantumTankCapacity = 2147483;
 
 	@Config(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")

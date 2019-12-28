@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:platinum_plate"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_tank_unit"
+  }
+}
