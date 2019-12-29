@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/cube_bottom_top",
-    "textures": {
-        "top": "techreborn:block/machines/tier2_machines/digital_tank_top",
-        "bottom": "techreborn:block/machines/tier2_machines/digital_bottom",
-        "side": "techreborn:block/machines/tier2_machines/digital_tank_side"
-    }
-}

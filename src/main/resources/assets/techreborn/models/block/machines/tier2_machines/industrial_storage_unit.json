@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/tier2_machines/industrial_storage_unit_top",
+        "bottom": "techreborn:block/machines/tier2_machines/storage_bottom",
+        "side": "techreborn:block/machines/tier2_machines/industrial_storage_unit_side",
+        "front": "techreborn:block/machines/tier2_machines/industrial_storage_unit_front"
+    }
+}

@@ -8,17 +8,29 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import reborncore.api.blockentity.IMachineGuiHandler;
+import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.client.EGui;
+import techreborn.init.TRContent;
 
 import java.util.function.Supplier;
 
-public class StorageUnitBlock extends GenericMachineBlock {
+public class StorageUnitBlock extends BlockMachineBase {
 
-	public StorageUnitBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
-		super(gui, blockEntityClass);
+	public final TRContent.StorageUnit unitType;
+
+	public StorageUnitBlock(TRContent.StorageUnit unitType){
+		super();
+		this.unitType = unitType;
+	}
+
+	@Override
+	public BlockEntity createBlockEntity(BlockView worldIn) {
+		return new StorageUnitBaseBlockEntity(unitType);
 	}
 
 	@Override
@@ -39,5 +51,10 @@ public class StorageUnitBlock extends GenericMachineBlock {
 			return ActionResult.SUCCESS;
 		}
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+	}
+
+	@Override
+	public IMachineGuiHandler getGui() {
+		return EGui.STORAGE_UNIT;
 	}
 }

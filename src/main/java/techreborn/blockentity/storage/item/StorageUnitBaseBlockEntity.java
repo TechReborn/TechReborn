@@ -25,7 +25,6 @@
 package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -44,10 +43,12 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.WorldUtils;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 import java.util.List;
 
-public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
+public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
 
@@ -55,18 +56,30 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
 
-	private final RebornInventory<StorageUnitBaseBlockEntity> inventory;
-	private final int maxCapacity;
+	private RebornInventory<StorageUnitBaseBlockEntity> inventory;
+	private int maxCapacity;
 
 	private boolean shouldUpdate = false;
 
 	private ItemStack storeItemStack;
 
-	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
-		super(blockEntityTypeIn);
-		this.maxCapacity = maxCapacity;
+	private TRContent.StorageUnit type;
+
+	public StorageUnitBaseBlockEntity() {
+		super(TRBlockEntities.STORAGE_UNIT);
+	}
+
+	public StorageUnitBaseBlockEntity(TRContent.StorageUnit type) {
+		super(TRBlockEntities.STORAGE_UNIT);
+		configureEntity(type);
+	}
+
+	private void configureEntity(TRContent.StorageUnit type){
+		this.maxCapacity = type.capacity;
 		storeItemStack = ItemStack.EMPTY;
-		inventory = new RebornInventory<>(2, "ItemInventory", maxCapacity, this);
+		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
+
+		this.type = type;
 	}
 
 	// TileMachineBase
@@ -91,6 +104,14 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 			shouldUpdate = true;
 		}
+
+		if(type == TRContent.StorageUnit.CREATIVE){
+			if (!isFull() && !isEmpty()) {
+				fillToCapacity();
+				shouldUpdate = true;
+			}
+		}
+
 
 		if (shouldUpdate) {
 			inventory.setChanged();
@@ -180,8 +201,6 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		storeItemStack.setCount(maxCapacity);
 
 		inventory.setInvStack(OUTPUT_SLOT, ItemStack.EMPTY);
-
-		shouldUpdate = true;
 	}
 
 	public boolean isFull() {
@@ -202,7 +221,18 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	// Other stuff
 
-	public void readWithoutCoords(CompoundTag tagCompound) {
+
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
+	@Override
+	public void fromTag(CompoundTag tagCompound) {
+		super.fromTag(tagCompound);
+
+		this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
+		configureEntity(type);
 
 		storeItemStack = ItemStack.EMPTY;
 
@@ -217,7 +247,12 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		inventory.read(tagCompound);
 	}
 
-	public CompoundTag writeWithoutCoords(CompoundTag tagCompound) {
+	@Override
+	public CompoundTag toTag(CompoundTag tagCompound) {
+		super.toTag(tagCompound);
+
+		tagCompound.putString("unitType", this.type.name());
+
 		if (!storeItemStack.isEmpty()) {
 			ItemStack temp = storeItemStack.copy();
 			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
@@ -229,25 +264,6 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			tagCompound.putInt("storedQuantity", 0);
 		}
 		inventory.write(tagCompound);
-		return tagCompound;
-	}
-
-
-	@Override
-	public boolean canBeUpgraded() {
-		return false;
-	}
-
-	@Override
-	public void fromTag(CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
-		readWithoutCoords(tagCompound);
-	}
-
-	@Override
-	public CompoundTag toTag(CompoundTag tagCompound) {
-		super.toTag(tagCompound);
-		writeWithoutCoords(tagCompound);
 		return tagCompound;
 	}
 
@@ -266,7 +282,8 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public ItemStack getDropWithNBT() {
 		ItemStack dropStack = new ItemStack(getBlockType(), 1);
 		final CompoundTag blockEntity = new CompoundTag();
-		this.writeWithoutCoords(blockEntity);
+
+		this.toTag(blockEntity);
 		dropStack.setTag(new CompoundTag());
 		dropStack.getTag().put("blockEntity", blockEntity);
 

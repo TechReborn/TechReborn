@@ -1,6 +1,5 @@
 package techreborn.blockentity.storage.fluid;
 
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -17,43 +16,33 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
+public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 	protected Tank tank;
-	private RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(3, "TankInventory", 64, this);
+	private RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
 
-	public TankUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, FluidValue value) {
-		super(blockEntityTypeIn);
-		this.tank = new Tank("TankStorage", value, this);
+	private TRContent.TankUnit type;
+
+	public TankUnitBaseBlockEntity() {
+		super(TRBlockEntities.TANK_UNIT);
 	}
 
-	// Quantum tank save compat
-	public TankUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn) {
-		super(blockEntityTypeIn);
+	public TankUnitBaseBlockEntity(TRContent.TankUnit type) {
+		super(TRBlockEntities.TANK_UNIT);
+		configureEntity(type);
 	}
 
-	public void readWithoutCoords(final CompoundTag tagCompound) {
-		tank.read(tagCompound);
-	}
+	private void configureEntity(TRContent.TankUnit type){
+		this.type = type;
 
-	public CompoundTag writeWithoutCoords(final CompoundTag tagCompound) {
-		tank.write(tagCompound);
-		return tagCompound;
+		this.tank = new Tank("TankStorage", type.capacity, this);
 	}
-
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
-		this.writeWithoutCoords(blockEntity);
-		dropStack.setTag(new CompoundTag());
-		dropStack.getTag().put("blockEntity", blockEntity);
-		return dropStack;
-	}
-
 
 	@Override
 	public void tick() {
@@ -65,6 +54,12 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 
 		if (FluidUtils.drainContainers(tank, inventory, 0, 1)
 				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
+
+			if(type == TRContent.TankUnit.CREATIVE){
+				if (!tank.isEmpty() && !tank.isFull()) {
+					tank.setFluidAmount(FluidValue.INFINITE);
+				}
+			}
 			this.syncWithAll();
 		}
 	}
@@ -77,14 +72,26 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 	@Override
 	public void fromTag(final CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
-		readWithoutCoords(tagCompound);
+		this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
+		configureEntity(type);
+		tank.read(tagCompound);
 	}
 
 	@Override
 	public CompoundTag toTag(final CompoundTag tagCompound) {
 		super.toTag(tagCompound);
-		writeWithoutCoords(tagCompound);
+		tagCompound.putString("unitType", this.type.name());
+		tank.write(tagCompound);
 		return tagCompound;
+	}
+
+	public ItemStack getDropWithNBT() {
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final CompoundTag blockEntity = new CompoundTag();
+		this.toTag(blockEntity);
+		dropStack.setTag(new CompoundTag());
+		dropStack.getTag().put("blockEntity", blockEntity);
+		return dropStack;
 	}
 
 	// ItemHandlerProvider

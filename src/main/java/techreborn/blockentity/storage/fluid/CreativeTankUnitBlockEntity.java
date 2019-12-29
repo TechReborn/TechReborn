@@ -27,6 +27,7 @@ package techreborn.blockentity.storage.fluid;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class CreativeTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
@@ -35,25 +36,7 @@ public class CreativeTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
 	// Save
 	public CreativeTankUnitBlockEntity() {
-		super(TRBlockEntities.CREATIVE_TANK_UNIT);
+		super(TRContent.TankUnit.CREATIVE);
 		super.tank = tank;
-	}
-
-	@Override
-	public void tick() {
-		super.tick();
-		if (!tank.isEmpty() && !tank.isFull()) {
-			tank.setFluidAmount(FluidValue.INFINITE);
-		}
-	}
-
-	@Override
-	public int slotTransferSpeed() {
-		return 1;
-	}
-
-	@Override
-	public int fluidTransferAmount() {
-		return 10000;
 	}
 }

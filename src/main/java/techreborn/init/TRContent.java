@@ -28,19 +28,19 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import reborncore.api.blockentity.IUpgrade;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
-import techreborn.blockentity.storage.fluid.BasicTankUnitBlockEntity;
 import techreborn.blockentity.storage.fluid.CreativeTankUnitBlockEntity;
-import techreborn.blockentity.storage.fluid.IndustrialTankUnitBlockEntity;
-import techreborn.blockentity.storage.fluid.QuantumTankUnitBlockEntity;
+import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.storage.item.*;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
@@ -66,6 +66,7 @@ import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
 import techreborn.blocks.storage.item.StorageUnitBlock;
+import techreborn.blocks.storage.item.TankUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -261,6 +262,63 @@ public class TRContent {
 		}
 	}
 
+	public enum StorageUnit implements ItemConvertible {
+		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage),
+		BASIC(TechRebornConfig.basicStorageUnitMaxStorage),
+		ADVANCED(1),// TODO
+		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage),
+		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage),
+		CREATIVE(Integer.MAX_VALUE);
+
+		public final String name;
+		public final Block block;
+
+		// How many blocks it can hold
+		public int capacity;
+
+
+		StorageUnit(int capacity) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			block = new StorageUnitBlock(this);
+			this.capacity = capacity;
+
+			InitUtils.setup(block, name + "_storage_unit");
+		}
+
+		@Override
+		public Item asItem() {
+			return block.asItem();
+		}
+	}
+
+	public enum TankUnit implements ItemConvertible {
+		BASIC(TechRebornConfig.basicTankUnitCapacity),
+		ADVANCED(1),// TODO
+		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
+		QUANTUM(TechRebornConfig.quantumTankUnitCapacity),
+		CREATIVE(Integer.MAX_VALUE / 1000);
+
+		public final String name;
+		public final Block block;
+
+		// How many blocks it can hold
+		public FluidValue capacity;
+
+
+		TankUnit(int capacity) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			block = new TankUnitBlock(this);
+			this.capacity = FluidValue.BUCKET.multiply(capacity);
+
+			InitUtils.setup(block, name + "_tank_unit");
+		}
+
+		@Override
+		public Item asItem() {
+			return block.asItem();
+		}
+	}
+
 	public enum Cables implements ItemConvertible {
 		COPPER(128, 12.0, true, EnergyTier.MEDIUM),
 		TIN(32, 12.0, true, EnergyTier.LOW),
@@ -441,15 +499,10 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 
-		// Can't rename till new MC release (Will break saves)
-		CRUDE_STORAGE_UNIT(new StorageUnitBlock(EGui.STORAGE_UNIT, CrudeStorageUnitBlockEntity::new)),
-		BASIC_STORAGE_UNIT(new StorageUnitBlock(EGui.STORAGE_UNIT, BasicStorageUnitBlockEntity::new)),
-		BASIC_TANK_UNIT(new GenericMachineBlock(EGui.TANK_UNIT, BasicTankUnitBlockEntity::new)),
-		DIGITAL_CHEST(new StorageUnitBlock(EGui.STORAGE_UNIT, IndustrialStorageUnitBlockEntity::new)),
-		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK_UNIT, IndustrialTankUnitBlockEntity::new)),
-		QUANTUM_CHEST(new StorageUnitBlock(EGui.STORAGE_UNIT, QuantumStorageUnitBlockEntity::new)),
-		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, QuantumTankUnitBlockEntity::new)),
-
+		//TODO DEPRECATED
+		DIGITAL_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, DigitalChestBlockEntity::new)),
+		QUANTUM_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, QuantumChestBlockEntity::new)),
+		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, QuantumTankBlockEntity::new)),
 		CREATIVE_QUANTUM_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, CreativeStorageUnitBlockEntity::new)),
 		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, CreativeTankUnitBlockEntity::new)),
 

@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "techreborn:block/machines/tier2_machines/industrial_storage_unit" },
+        "facing=south": { "model": "techreborn:block/machines/tier2_machines/industrial_storage_unit", "y": 180 },
+        "facing=west":  { "model": "techreborn:block/machines/tier2_machines/industrial_storage_unit", "y": 270 },
+        "facing=east":  { "model": "techreborn:block/machines/tier2_machines/industrial_storage_unit", "y": 90 }
+    }
+}

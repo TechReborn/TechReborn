@@ -24,12 +24,11 @@
 
 package techreborn.blockentity.storage.item;
 
-import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class CreativeStorageUnitBlockEntity extends StorageUnitBaseBlockEntity {
+public class DigitalChestBlockEntity extends StorageUnitBaseBlockEntity {
 
-	public CreativeStorageUnitBlockEntity() {
-		super(TRContent.StorageUnit.CREATIVE);
+	public DigitalChestBlockEntity() {
+		super(TRContent.StorageUnit.QUANTUM);
 	}
 }
