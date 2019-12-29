@@ -26,14 +26,17 @@ package techreborn.blockentity.machine.tier1;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
@@ -42,7 +45,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, IContainerProvider, SlotConfiguration.SlotFilter {
 
 	private final RebornInventory<RecyclerBlockEntity> inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
 	private final int cost = 2;
@@ -184,17 +187,40 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		return TRContent.Machine.RECYCLER.getStack();
 	}
 
+	@Override
+	public boolean isStackValid(int slotID, ItemStack stack) {
+		if (slotID == 0) {
+			return canRecycle(stack);
+		}
+		return false;
+	}
+
+	@Override
+	public int[] getInputSlots() {
+		return new int[]{0};
+	}
+
 	// ItemHandlerProvider
 	@Override
 	public RebornInventory<RecyclerBlockEntity> getInventory() {
 		return this.inventory;
 	}
 
+	public static boolean canRecycle(ItemStack stack) {
+		Item item = stack.getItem();
+		if ((item instanceof IUpgrade)) {
+			return false;
+		}
+		return !TechRebornConfig.recyclerBlackList.contains(Registry.ITEM.getId(item).toString());
+	}
+
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
 		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).slot(0, 55, 45, itemStack -> !(itemStack.getItem() instanceof IUpgrade)).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
-			.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);
+				.blockEntity(this).slot(0, 55, 45, RecyclerBlockEntity::canRecycle)
+				.outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
+				.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);
 	}
+
 }
