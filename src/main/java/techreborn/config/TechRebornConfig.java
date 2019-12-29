@@ -26,6 +26,9 @@ package techreborn.config;
 
 import reborncore.common.config.Config;
 
+import java.util.Arrays;
+import java.util.List;
+
 //All moved into one class as its a lot easier to find the annotations when you know where they all are
 public class TechRebornConfig {
 	
@@ -430,6 +433,9 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
 	public static int recyclerMaxEnergy = 1000;
+
+	@Config(config = "machines", category = "recycler", key = "RecyclerBlacklist", comment = "Recycler blacklist")
+	public static List<String> recyclerBlackList = Arrays.asList("techreborn:scrap_box", "techreborn:scrap");
 
 	@Config(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
 	public static int scrapboxinatorMaxInput = 32;
