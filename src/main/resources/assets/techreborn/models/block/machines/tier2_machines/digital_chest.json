@@ -1,8 +1,9 @@
 {
-    "parent": "minecraft:block/cube_bottom_top",
+    "parent": "minecraft:block/orientable",
     "textures": {
         "top": "techreborn:block/machines/tier2_machines/digital_chest_top",
-        "bottom": "techreborn:block/machines/tier2_machines/digital_chest_bottom",
-        "side": "techreborn:block/machines/tier2_machines/digital_chest_side"
+        "bottom": "techreborn:block/machines/tier2_machines/digital_bottom",
+        "side": "techreborn:block/machines/tier2_machines/digital_chest_side",
+        "front": "techreborn:block/machines/tier2_machines/digital_chest_front"
     }
 }

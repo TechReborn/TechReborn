@@ -1,8 +1,9 @@
 {
-    "parent": "minecraft:block/cube_bottom_top",
+    "parent": "minecraft:block/orientable",
     "textures": {
         "top": "techreborn:block/machines/tier1_machines/basic_storage_unit_top",
-        "bottom": "techreborn:block/machines/tier1_machines/basic_storage_unit_bottom",
+        "front": "techreborn:block/machines/tier1_machines/basic_storage_unit_front",
+        "bottom": "techreborn:block/machines/tier1_machines/basic_unit_bottom",
         "side": "techreborn:block/machines/tier1_machines/basic_storage_unit_side"
     }
 }

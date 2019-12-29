@@ -1,5 +1,8 @@
 {
     "variants": {
-        "": { "model": "techreborn:block/machines/tier2_machines/digital_chest" }
+        "facing=north": { "model": "techreborn:block/machines/tier2_machines/digital_chest" },
+        "facing=south": { "model": "techreborn:block/machines/tier2_machines/digital_chest", "y": 180 },
+        "facing=west":  { "model": "techreborn:block/machines/tier2_machines/digital_chest", "y": 270 },
+        "facing=east":  { "model": "techreborn:block/machines/tier2_machines/digital_chest", "y": 90 }
     }
 }
