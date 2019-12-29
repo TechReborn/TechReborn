@@ -6,7 +6,7 @@ import techreborn.init.TRBlockEntities;
 
 public class IndustrialTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
-	public IndustrialTankUnitBlockEntity(){
-		super(TRBlockEntities.INDUSTRIAL_TANK_UNIT,  FluidValue.BUCKET.multiply(TechRebornConfig.industrialTankUnitCapacity));
+	public IndustrialTankUnitBlockEntity() {
+		super(TRBlockEntities.INDUSTRIAL_TANK_UNIT, FluidValue.BUCKET.multiply(TechRebornConfig.industrialTankUnitCapacity));
 	}
 }

@@ -26,7 +26,6 @@ package techreborn.blockentity.storage.fluid;
 
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.Tank;
-import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.init.TRBlockEntities;
 
 public class CreativeTankUnitBlockEntity extends TankUnitBaseBlockEntity {
@@ -35,7 +34,7 @@ public class CreativeTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 	public Tank tank = new Tank("QuantumTankBlockEntity", FluidValue.INFINITE, this);
 
 	// Save
-	public CreativeTankUnitBlockEntity(){
+	public CreativeTankUnitBlockEntity() {
 		super(TRBlockEntities.CREATIVE_TANK_UNIT);
 		super.tank = tank;
 	}

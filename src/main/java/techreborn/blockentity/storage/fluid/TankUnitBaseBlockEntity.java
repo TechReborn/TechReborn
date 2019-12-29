@@ -14,7 +14,6 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
@@ -56,17 +55,16 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 	}
 
 
-
 	@Override
 	public void tick() {
 		super.tick();
 
-		if (world.isClient()){
+		if (world.isClient()) {
 			return;
 		}
 
 		if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-					|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
+				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
 			this.syncWithAll();
 		}
 	}

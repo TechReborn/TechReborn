@@ -26,9 +26,7 @@ package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
@@ -45,7 +43,6 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import reborncore.common.util.StringUtils;
 import reborncore.common.util.WorldUtils;
 
 import java.util.List;
@@ -295,7 +292,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		super.onBreak(world, playerEntity, blockPos, blockState);
 
 		// No need to drop anything for creative peeps
-		if(this instanceof CreativeStorageUnitBlockEntity){
+		if (this instanceof CreativeStorageUnitBlockEntity) {
 			this.inventory.clear();
 			return;
 		}

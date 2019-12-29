@@ -43,10 +43,10 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawString("IN", 100,43,4210752, layer);
+		drawString("IN", 100, 43, 4210752, layer);
 		drawSlot(100, 53, layer);
 
-		drawString("OUT", 140,43,4210752, layer);
+		drawString("OUT", 140, 43, 4210752, layer);
 		drawSlot(140, 53, layer);
 	}
 
@@ -54,9 +54,9 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
 
-		if(storageEntity.isEmpty()){
+		if (storageEntity.isEmpty()) {
 			font.draw("Empty", 10, 20, 4210752);
-		}else{
+		} else {
 			font.draw("Storing:", 10, 20, 4210752);
 			font.draw(storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
 
@@ -64,7 +64,7 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 			font.draw("Amount:", 10, 50, 4210752);
 			font.draw(String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
 
-			String percentFilled = String.valueOf((int)((double)storageEntity.getCurrentCapacity() / (double)storageEntity.getMaxCapacity() * 100));
+			String percentFilled = String.valueOf((int) ((double) storageEntity.getCurrentCapacity() / (double) storageEntity.getMaxCapacity() * 100));
 
 			font.draw("Used: " + percentFilled + "%", 10, 70, 4210752);
 

@@ -45,10 +45,10 @@ public class GuiTankUnit extends GuiBase<BuiltContainer> {
 		super.drawBackground(f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawString("IN", 100,43,4210752, layer);
+		drawString("IN", 100, 43, 4210752, layer);
 		drawSlot(100, 53, layer);
 
-		drawString("OUT", 140,43,4210752, layer);
+		drawString("OUT", 140, 43, 4210752, layer);
 		drawSlot(140, 53, layer);
 	}
 
@@ -58,9 +58,9 @@ public class GuiTankUnit extends GuiBase<BuiltContainer> {
 
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
-		if(fluid.isEmpty()){
+		if (fluid.isEmpty()) {
 			font.draw("Empty", 10, 20, 4210752);
-		}else{
+		} else {
 			font.draw("Fluid Type:", 10, 20, 4210752);
 			font.draw(FluidUtil.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
 
@@ -68,7 +68,7 @@ public class GuiTankUnit extends GuiBase<BuiltContainer> {
 			font.draw("Fluid Amount:", 10, 50, 4210752);
 			font.draw(fluid.getAmount().toString(), 10, 60, 4210752);
 
-			String percentFilled = String.valueOf((int)((double)fluid.getAmount().getRawValue() / (double)tankEntity.getTank().getCapacity().getRawValue() * 100));
+			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getCapacity().getRawValue() * 100));
 
 			font.draw("Used: " + percentFilled + "%", 10, 70, 4210752);
 

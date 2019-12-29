@@ -41,8 +41,8 @@ public class CreativeStorageUnitBlockEntity extends StorageUnitBaseBlockEntity {
 		}
 
 
-			if (!isFull() && !isEmpty()) {
-				fillToCapacity();
-			}
+		if (!isFull() && !isEmpty()) {
+			fillToCapacity();
+		}
 	}
 }

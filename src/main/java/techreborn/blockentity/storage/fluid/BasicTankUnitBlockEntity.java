@@ -6,7 +6,7 @@ import techreborn.init.TRBlockEntities;
 
 public class BasicTankUnitBlockEntity extends TankUnitBaseBlockEntity {
 
-	public BasicTankUnitBlockEntity(){
-		super(TRBlockEntities.BASIC_TANK_UNIT,  FluidValue.BUCKET.multiply(TechRebornConfig.basicTankUnitCapacity));
+	public BasicTankUnitBlockEntity() {
+		super(TRBlockEntities.BASIC_TANK_UNIT, FluidValue.BUCKET.multiply(TechRebornConfig.basicTankUnitCapacity));
 	}
 }
