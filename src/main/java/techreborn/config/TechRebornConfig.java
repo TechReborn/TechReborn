@@ -371,6 +371,9 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int electricFurnaceMaxEnergy = 1000;
 
+	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
+	public static int crudeStorageUnitMaxStorage = 64;
+
 	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
 	public static int basicStorageUnitMaxStorage = 1000;
 

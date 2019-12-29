@@ -68,7 +68,11 @@ public class GuiTankUnit extends GuiBase<BuiltContainer> {
 			font.draw("Fluid Amount:", 10, 50, 4210752);
 			font.draw(fluid.getAmount().toString(), 10, 60, 4210752);
 
-			font.draw("Use wrench to retain contents", 10, 80, 16711680);
+			String percentFilled = String.valueOf((int)((double)fluid.getAmount().getRawValue() / (double)tankEntity.getTank().getCapacity().getRawValue() * 100));
+
+			font.draw("Used: " + percentFilled + "%", 10, 70, 4210752);
+
+			font.draw("Wrench unit to retain contents", 10, 80, 16711680);
 		}
 	}
 

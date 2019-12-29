@@ -49,10 +49,12 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	// Inventory constants
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
-	// Inventory of machine 1: Storage
+
 	private final RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private final int maxCapacity;
-	// Stack in output slot
+
+	private boolean shouldUpdate = false;
+
 	private ItemStack storeItemStack;
 
 	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
@@ -70,21 +72,27 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			return;
 		}
 
+
 		// If there is an item in the input AND stored is less than max capacity
 		if (!inventory.getInvStack(INPUT_SLOT).isEmpty() && !isFull()) {
 			inventory.setInvStack(INPUT_SLOT, processInput(inventory.getInvStack(INPUT_SLOT)));
 
-			inventory.setChanged();
-			markDirty();
-			syncWithAll();
+			shouldUpdate = true;
 		}
-
 
 		// Fill output slot with goodies when stored has items and output count is less than max stack size
 		if (storeItemStack.getCount() > 0 && inventory.getInvStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
 			populateOutput();
+
+			shouldUpdate = true;
+		}
+
+		if(shouldUpdate){
+			inventory.setChanged();
 			markDirty();
 			syncWithAll();
+
+			shouldUpdate = false;
 		}
 	}
 
@@ -114,18 +122,14 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 		inventory.setInvStack(OUTPUT_SLOT, output);
-
-		inventory.setChanged();
-		markDirty();
-		syncWithAll();
-	}
-
-	private ItemStack getStoredStack() {
-		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
 	private void addStoredItemCount(int amount) {
 		storeItemStack.increment(amount);
+	}
+
+	public ItemStack getStoredStack() {
+		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
 	public ItemStack processInput(ItemStack inputStack) {
@@ -172,10 +176,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 		inventory.setInvStack(OUTPUT_SLOT, ItemStack.EMPTY);
 
-
-		inventory.setChanged();
-		markDirty();
-		syncWithAll();
+		shouldUpdate = true;
 	}
 
 	public boolean isFull(){
@@ -287,7 +288,6 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
+				.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53).addInventory().create(this, syncID);
 	}
-
 }

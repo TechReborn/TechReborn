@@ -31,11 +31,11 @@ import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 
-	StorageUnitBaseBlockEntity chest;
+	StorageUnitBaseBlockEntity storageEntity;
 
-	public GuiStorageUnit(int syncID, final PlayerEntity player, final StorageUnitBaseBlockEntity chest) {
-		super(player, chest, chest.createContainer(syncID, player));
-		this.chest = chest;
+	public GuiStorageUnit(int syncID, final PlayerEntity player, final StorageUnitBaseBlockEntity storageEntity) {
+		super(player, storageEntity, storageEntity.createContainer(syncID, player));
+		this.storageEntity = storageEntity;
 	}
 
 	@Override
@@ -43,15 +43,32 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawSlot(80, 24, layer);
-		drawSlot(80, 64, layer);
+		drawString("IN", 100,43,4210752, layer);
+		drawSlot(100, 53, layer);
+
+		drawString("OUT", 140,43,4210752, layer);
+		drawSlot(140, 53, layer);
 	}
 
 	@Override
 	protected void drawForeground(final int mouseX, final int mouseY) {
 		super.drawForeground(mouseX, mouseY);
-		final Layer layer = Layer.FOREGROUND;
 
-			this.builder.drawBigBlueBar(this, 31, 43, this.chest.getCurrentCapacity(), this.chest.getMaxCapacity(), mouseX - this.x, mouseY - this.y, "Stored", layer);
+		if(storageEntity.isEmpty()){
+			font.draw("Empty", 10, 20, 4210752);
+		}else{
+			font.draw("Storing:", 10, 20, 4210752);
+			font.draw(storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
+
+
+			font.draw("Amount:", 10, 50, 4210752);
+			font.draw(String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
+
+			String percentFilled = String.valueOf((int)((double)storageEntity.getCurrentCapacity() / (double)storageEntity.getMaxCapacity() * 100));
+
+			font.draw("Used: " + percentFilled + "%", 10, 70, 4210752);
+
+			font.draw("Wrench unit to retain contents", 10, 80, 16711680);
+		}
 	}
 }

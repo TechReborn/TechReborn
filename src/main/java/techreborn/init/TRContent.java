@@ -41,9 +41,7 @@ import techreborn.blockentity.storage.fluid.BasicTankUnitBlockEntity;
 import techreborn.blockentity.storage.fluid.CreativeTankUnitBlockEntity;
 import techreborn.blockentity.storage.fluid.IndustrialTankUnitBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankUnitBlockEntity;
-import techreborn.blockentity.storage.item.BasicStorageUnitBlockEntity;
-import techreborn.blockentity.storage.item.CreativeStorageUnitBlockEntity;
-import techreborn.blockentity.storage.item.IndustrialStorageUnitBlockEntity;
+import techreborn.blockentity.storage.item.*;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -55,7 +53,6 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.*;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.item.QuantumStorageUnitBlockEntity;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.generator.*;
@@ -445,6 +442,7 @@ public class TRContent {
 
 
 		// Can't rename till new MC release (Will break saves)
+		CRUDE_STORAGE_UNIT(new StorageUnitBlock(EGui.STORAGE_UNIT, CrudeStorageUnitBlockEntity::new)),
 		BASIC_STORAGE_UNIT(new StorageUnitBlock(EGui.STORAGE_UNIT, BasicStorageUnitBlockEntity::new)),
 		BASIC_TANK_UNIT(new GenericMachineBlock(EGui.TANK_UNIT, BasicTankUnitBlockEntity::new)),
 		DIGITAL_CHEST(new StorageUnitBlock(EGui.STORAGE_UNIT, IndustrialStorageUnitBlockEntity::new)),

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:industrial_machine_frame"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_storage_unit"
+  }
+}
