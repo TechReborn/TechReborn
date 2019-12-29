@@ -24,7 +24,6 @@
 
 package techreborn.blockentity.storage.item;
 
-import techreborn.blockentity.storage.item.QuantumStorageUnitBlockEntity;
 import techreborn.init.TRBlockEntities;
 
 public class CreativeStorageUnitBlockEntity extends StorageUnitBaseBlockEntity {
@@ -33,19 +32,17 @@ public class CreativeStorageUnitBlockEntity extends StorageUnitBaseBlockEntity {
 		super(TRBlockEntities.CREATIVE_STORAGE_UNIT, Integer.MAX_VALUE);
 	}
 
-//	@Override
-//	public void tick() {
-//		super.tick();
-//
-//		if(!world.isClient) {
-//			if (!super.isFull() && !isInvEmpty()) {
-//				super.fillToCapacity();
-//			}
-//		}
-//	}
-
 	@Override
-	public int slotTransferSpeed() {
-		return 1;
+	public void tick() {
+		super.tick();
+
+		if (world.isClient) {
+			return;
+		}
+
+
+			if (!isFull() && !isEmpty()) {
+				fillToCapacity();
+			}
 	}
 }

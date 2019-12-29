@@ -387,7 +387,7 @@ public class TechRebornConfig {
 	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
 
 	@Config(config = "machines", category = "storage", key = "QuantumTankUnitCapacity", comment = "How much liquid a Quantum Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int quantumTankUnitCapacity = Integer.MAX_VALUE;
+	public static int quantumTankUnitCapacity = Integer.MAX_VALUE / 1000;
 
 	@Config(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")
 	public static int chargeOMatBMaxOutput = 512;

@@ -68,7 +68,7 @@ import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
-import techreborn.blocks.storage.item.StoageUnitBlock;
+import techreborn.blocks.storage.item.StorageUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -443,15 +443,19 @@ public class TRContent {
 		WATER_MILL(new GenericGeneratorBlock(null, WaterMillBlockEntity::new)),
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
-		BASIC_STORAGE_UNIT(new StoageUnitBlock(EGui.STORAGE_UNIT, BasicStorageUnitBlockEntity::new)),
+
+		// Can't rename till new MC release (Will break saves)
+		BASIC_STORAGE_UNIT(new StorageUnitBlock(EGui.STORAGE_UNIT, BasicStorageUnitBlockEntity::new)),
 		BASIC_TANK_UNIT(new GenericMachineBlock(EGui.TANK_UNIT, BasicTankUnitBlockEntity::new)),
-		DIGITAL_CHEST(new StoageUnitBlock(EGui.STORAGE_UNIT, IndustrialStorageUnitBlockEntity::new)),
+		DIGITAL_CHEST(new StorageUnitBlock(EGui.STORAGE_UNIT, IndustrialStorageUnitBlockEntity::new)),
 		DIGITAL_TANK(new GenericMachineBlock(EGui.TANK_UNIT, IndustrialTankUnitBlockEntity::new)),
-		QUANTUM_CHEST(new StoageUnitBlock(EGui.STORAGE_UNIT, QuantumStorageUnitBlockEntity::new)),
+		QUANTUM_CHEST(new StorageUnitBlock(EGui.STORAGE_UNIT, QuantumStorageUnitBlockEntity::new)),
 		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, QuantumTankUnitBlockEntity::new)),
+
 		CREATIVE_QUANTUM_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, CreativeStorageUnitBlockEntity::new)),
 		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, CreativeTankUnitBlockEntity::new)),
-		
+
+
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(EGui.CHARGEBENCH, ChargeOMatBlockEntity::new)),
 		INTERDIMENSIONAL_SU(new InterdimensionalSUBlock()),

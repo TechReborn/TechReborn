@@ -15,9 +15,9 @@ import techreborn.client.EGui;
 
 import java.util.function.Supplier;
 
-public class StoageUnitBlock extends GenericMachineBlock {
+public class StorageUnitBlock extends GenericMachineBlock {
 
-	public StoageUnitBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
+	public StorageUnitBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
 		super(gui, blockEntityClass);
 	}
 

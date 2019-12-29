@@ -24,11 +24,10 @@
 
 package techreborn.blockentity.storage.item;
 
-import reborncore.client.containerBuilder.IContainerProvider;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 
-public class BasicStorageUnitBlockEntity extends StorageUnitBaseBlockEntity implements IContainerProvider {
+public class BasicStorageUnitBlockEntity extends StorageUnitBaseBlockEntity {
 
 	public BasicStorageUnitBlockEntity() {
 		super(TRBlockEntities.BASIC_STORAGE_UNIT, TechRebornConfig.basicStorageUnitMaxStorage);

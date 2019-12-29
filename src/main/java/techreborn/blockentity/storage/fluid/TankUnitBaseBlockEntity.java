@@ -58,6 +58,8 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 
 	@Override
 	public void tick() {
+		super.tick();
+
 		if (world.isClient()){
 			return;
 		}
@@ -111,12 +113,6 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 		return new ContainerBuilder("tank").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
 				.sync(tank).addInventory().create(this, syncID);
-	}
-
-	@Nonnull
-	@Override
-	public SlotConfiguration getSlotConfiguration() {
-		return new SlotConfiguration(inventory);
 	}
 
 	@Nonnull

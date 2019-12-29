@@ -24,80 +24,42 @@
 
 package techreborn.blockentity.storage.item;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
+import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.blockentity.SlotConfiguration;
-import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
+import reborncore.common.util.RebornInventory;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
-		implements InventoryProvider, IToolDrop, IListInfoProvider {
+		implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
-
-	// Inventory of machine 1: Storage
-	private final RebornInventory<StorageUnitBaseBlockEntity> inventory;
-	// Stack in output slot
-	private ItemStack storeItemStack;
 
 	// Inventory constants
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
-
+	// Inventory of machine 1: Storage
+	private final RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private final int maxCapacity;
+	// Stack in output slot
+	private ItemStack storeItemStack;
 
 	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, int maxCapacity) {
 		super(blockEntityTypeIn);
 		this.maxCapacity = maxCapacity;
 		storeItemStack = ItemStack.EMPTY;
 		inventory = new RebornInventory<>(2, "ItemInventory", maxCapacity, this);
-	}
-
-	public void readWithoutCoords(CompoundTag tagCompound) {
-
-		storeItemStack = ItemStack.EMPTY;
-
-		if (tagCompound.contains("storedStack")) {
-			storeItemStack = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
-		}
-
-		if (!storeItemStack.isEmpty()) {
-			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
-		}
-
-		inventory.read(tagCompound);
-	}
-
-	public CompoundTag writeWithoutCoords(CompoundTag tagCompound) {
-		if (!storeItemStack.isEmpty()) {
-			ItemStack temp = storeItemStack.copy();
-			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
-				temp.setCount(storeItemStack.getMaxCount());
-			}
-			tagCompound.put("storedStack", temp.toTag(new CompoundTag()));
-			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
-		} else {
-			tagCompound.putInt("storedQuantity", 0);
-		}
-		inventory.write(tagCompound);
-		return tagCompound;
 	}
 
 	// TileMachineBase
@@ -119,7 +81,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 
 		// Fill output slot with goodies when stored has items and output count is less than max stack size
-		if (storeItemStack.getCount() > 0 && inventory.getInvStack(OUTPUT_SLOT).getCount() < storeItemStack.getMaxCount()) {
+		if (storeItemStack.getCount() > 0 && inventory.getInvStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
 			populateOutput();
 			markDirty();
 			syncWithAll();
@@ -136,7 +98,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		output.setCount(outputSlotCount);
 
 		// Calculate amount needed to fill stack in output slot
-		int amountToFill = output.getMaxCount() -  outputSlotCount;
+		int amountToFill = getStoredStack().getMaxCount() - outputSlotCount;
 
 		if(storeItemStack.getCount() >= amountToFill){
 			storeItemStack.decrement(amountToFill);
@@ -153,8 +115,17 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 		inventory.setInvStack(OUTPUT_SLOT, output);
 
+		inventory.setChanged();
 		markDirty();
 		syncWithAll();
+	}
+
+	private ItemStack getStoredStack() {
+		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
+	}
+
+	private void addStoredItemCount(int amount) {
+		storeItemStack.increment(amount);
 	}
 
 	public ItemStack processInput(ItemStack inputStack) {
@@ -196,26 +167,65 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	// Creative function
 	public void fillToCapacity(){
-		// Fill internal
+		storeItemStack = getStoredStack();
 		storeItemStack.setCount(maxCapacity);
 
-		// Fill output slot
-		ItemStack output = inventory.getInvStack(OUTPUT_SLOT);
-		output.setCount(output.getMaxCount());
-		inventory.setInvStack(OUTPUT_SLOT, output);
+		inventory.setInvStack(OUTPUT_SLOT, ItemStack.EMPTY);
+
 
 		inventory.setChanged();
 		markDirty();
 		syncWithAll();
 	}
 
-	private ItemStack getStoredStack() {
-		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
+	public boolean isFull(){
+		return getCurrentCapacity() == maxCapacity;
 	}
 
-	private void addStoredItemCount(int amount) {
-		storeItemStack.increment(amount);
+	public boolean isEmpty(){
+		return getCurrentCapacity() == 0;
 	}
+
+	public int getCurrentCapacity() {
+		return storeItemStack.getCount() + inventory.getInvStack(OUTPUT_SLOT).getCount();
+	}
+
+	public int getMaxCapacity() {
+		return maxCapacity;
+	}
+
+	// Other stuff
+
+	public void readWithoutCoords(CompoundTag tagCompound) {
+
+		storeItemStack = ItemStack.EMPTY;
+
+		if (tagCompound.contains("storedStack")) {
+			storeItemStack = ItemStack.fromTag(tagCompound.getCompound("storedStack"));
+		}
+
+		if (!storeItemStack.isEmpty()) {
+			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
+		}
+
+		inventory.read(tagCompound);
+	}
+
+	public CompoundTag writeWithoutCoords(CompoundTag tagCompound) {
+		if (!storeItemStack.isEmpty()) {
+			ItemStack temp = storeItemStack.copy();
+			if (storeItemStack.getCount() > storeItemStack.getMaxCount()) {
+				temp.setCount(storeItemStack.getMaxCount());
+			}
+			tagCompound.put("storedStack", temp.toTag(new CompoundTag()));
+			tagCompound.putInt("storedQuantity", Math.min(storeItemStack.getCount(), maxCapacity));
+		} else {
+			tagCompound.putInt("storedQuantity", 0);
+		}
+		inventory.write(tagCompound);
+		return tagCompound;
+	}
+
 
 	@Override
 	public boolean canBeUpgraded() {
@@ -275,26 +285,9 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		}
 	}
 
-	@Nonnull
-	@Override
-	public SlotConfiguration getSlotConfiguration() {
-		return new SlotConfiguration(inventory);
-	}
-
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 80, 24).outputSlot(1, 80, 64).addInventory().create(this, syncID);
 	}
 
-	public boolean isFull(){
-		return getCurrentCapacity() == maxCapacity;
-	}
-
-	public int getCurrentCapacity() {
-		return storeItemStack.getCount() + inventory.getInvStack(OUTPUT_SLOT).getCount();
-	}
-
-	public int getMaxCapacity() {
-		return maxCapacity;
-	}
 }
