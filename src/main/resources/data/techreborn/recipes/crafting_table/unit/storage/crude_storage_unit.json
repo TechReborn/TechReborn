@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WBW",
+    "WPW"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:barrel"
+    },
+	"P": {
+      "item": "minecraft:paper"
+    },
+	"W": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "techreborn:crude_storage_unit"
+  }
+}

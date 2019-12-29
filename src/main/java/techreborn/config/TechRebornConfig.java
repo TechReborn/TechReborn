@@ -372,19 +372,19 @@ public class TechRebornConfig {
 	public static int electricFurnaceMaxEnergy = 1000;
 
 	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
-	public static int crudeStorageUnitMaxStorage = 64;
+	public static int crudeStorageUnitMaxStorage = 6912;
 
 	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
-	public static int basicStorageUnitMaxStorage = 1000;
+	public static int basicStorageUnitMaxStorage = 43200;
 
 	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int basicTankUnitCapacity = 32;
+	public static int basicTankUnitCapacity = 2500;
 
 	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store")
-	public static int industrialStorageUnitMaxStorage = 32768;
+	public static int industrialStorageUnitMaxStorage = 172800;
 
 	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int industrialTankUnitCapacity = 64;
+	public static int industrialTankUnitCapacity = 10000;
 
 	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store")
 	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;

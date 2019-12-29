@@ -2,18 +2,21 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "PPP",
-    "PDP",
+    "BXB",
     "PCP"
   ],
   "key": {
     "P": {
       "tag": "c:steel_plate"
     },
+    "B": {
+      "item": "techreborn:advanced_machine_frame"
+    },
     "C": {
       "item": "techreborn:digital_display"
     },
-    "D": {
-      "item": "techreborn:data_storage_chip"
+    "X": {
+      "item": "techreborn:basic_storage_unit"
     }
   },
   "result": {

@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -104,7 +105,7 @@ public abstract class TankUnitBaseBlockEntity extends MachineBaseBlockEntity imp
 				info.add(new LiteralText("Empty"));
 			}
 		}
-		info.add(new LiteralText("Capacity " + this.tank.getCapacity()));
+		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.tank.getCapacity()));
 	}
 
 	// IContainerProvider

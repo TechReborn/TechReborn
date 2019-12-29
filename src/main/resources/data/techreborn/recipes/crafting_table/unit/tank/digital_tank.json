@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "CCC",
-    "CSC",
-    "CDC"
+    "FCF",
+    "CBC",
+    "FCF"
   ],
   "key": {
-    "D": {
-      "item": "techreborn:digital_display"
+    "B": {
+      "item": "techreborn:digital_chest"
     },
-    "S": {
-      "item": "techreborn:data_storage_chip"
+    "F": {
+      "item": "techreborn:advanced_machine_frame"
     },
     "C": {
       "item": "techreborn:cell"

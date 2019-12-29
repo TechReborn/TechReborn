@@ -1,13 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "PPP",
-    "PDP",
-    "PCP"
+    "DAD",
+    "AQA",
+    "DCD"
   ],
   "key": {
-    "P": {
-      "tag": "c:aluminum_plate"
+    "A": {
+      "item": "techreborn:industrial_machine_frame"
+    },
+    "Q": {
+      "item": "techreborn:digital_chest"
     },
     "C": {
       "item": "techreborn:digital_display"
@@ -17,6 +20,6 @@
     }
   },
   "result": {
-    "item": "techreborn:digital_chest"
+    "item": "techreborn:quantum_chest"
   }
 }

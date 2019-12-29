@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PBP"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:basic_storage_unit"
+    },
+    "P": {
+      "item": "techreborn:refined_iron_plate"
+    },
+    "C": {
+      "item": "techreborn:cell"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_tank_unit"
+  }
+}

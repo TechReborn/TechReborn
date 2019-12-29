@@ -30,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -39,6 +40,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import reborncore.common.util.StringUtils;
 
 import java.util.List;
 
@@ -270,20 +272,16 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	// IListInfoProvider
 	@Override
-	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
+	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
-			int size = 0;
-			String name = "of nothing";
-			if (!storeItemStack.isEmpty()) {
-				name = storeItemStack.getName().getString();
-				size += storeItemStack.getCount();
+			if (!this.isEmpty()) {
+				info.add(new LiteralText(this.getCurrentCapacity() + " of " + this.getStoredStack().getName().asString()));
+			} else {
+				info.add(new LiteralText("Empty"));
 			}
-			if (!inventory.getInvStack(1).isEmpty()) {
-				name = inventory.getInvStack(1).getName().getString();
-				size += inventory.getInvStack(1).getCount();
-			}
-			info.add(new LiteralText(size + " " + name));
 		}
+
+		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.getMaxCapacity() + " items"));
 	}
 
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {

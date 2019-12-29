@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ADA",
+    "DCD",
+    "AGA"
+  ],
+  "key": {
+    "A": {
+      "item": "techreborn:refined_iron_plate"
+    },
+    "D": {
+      "item": "minecraft:ink_sac"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "C": {
+      "item": "techreborn:electronic_circuit"
+    }
+  },
+  "result": {
+    "item": "techreborn:basic_display"
+  }
+}
