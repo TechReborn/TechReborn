@@ -24,13 +24,18 @@
 
 package techreborn.blockentity.storage.item;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -41,6 +46,7 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
+import reborncore.common.util.WorldUtils;
 
 import java.util.List;
 
@@ -89,7 +95,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			shouldUpdate = true;
 		}
 
-		if(shouldUpdate){
+		if (shouldUpdate) {
 			inventory.setChanged();
 			markDirty();
 			syncWithAll();
@@ -110,7 +116,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		// Calculate amount needed to fill stack in output slot
 		int amountToFill = getStoredStack().getMaxCount() - outputSlotCount;
 
-		if(storeItemStack.getCount() >= amountToFill){
+		if (storeItemStack.getCount() >= amountToFill) {
 			storeItemStack.decrement(amountToFill);
 
 			if (storeItemStack.isEmpty()) {
@@ -118,7 +124,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			}
 
 			output.increment(amountToFill);
-		}else{
+		} else {
 			output.increment(storeItemStack.getCount());
 			storeItemStack = ItemStack.EMPTY;
 		}
@@ -143,7 +149,7 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 			storeItemStack = inputStack.copy();
 			inputStack = ItemStack.EMPTY;
-		} else if (isSameStack){
+		} else if (isSameStack) {
 			// Not empty but same type
 
 			// Amount of items that can be added before reaching capacity
@@ -165,14 +171,14 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public boolean isSameType(ItemStack inputStack) {
-		if(inputStack != ItemStack.EMPTY){
+		if (inputStack != ItemStack.EMPTY) {
 			return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 		}
 		return false;
 	}
 
 	// Creative function
-	public void fillToCapacity(){
+	public void fillToCapacity() {
 		storeItemStack = getStoredStack();
 		storeItemStack.setCount(maxCapacity);
 
@@ -181,11 +187,11 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		shouldUpdate = true;
 	}
 
-	public boolean isFull(){
+	public boolean isFull() {
 		return getCurrentCapacity() == maxCapacity;
 	}
 
-	public boolean isEmpty(){
+	public boolean isEmpty() {
 		return getCurrentCapacity() == 0;
 	}
 
@@ -282,6 +288,24 @@ public abstract class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.getMaxCapacity() + " items"));
+	}
+
+	@Override
+	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
+		super.onBreak(world, playerEntity, blockPos, blockState);
+
+		// No need to drop anything for creative peeps
+		if(this instanceof CreativeStorageUnitBlockEntity){
+			this.inventory.clear();
+			return;
+		}
+
+		// Drop stacks (In one clump, reduce lag)
+		if (storeItemStack != ItemStack.EMPTY) {
+			WorldUtils.dropItem(storeItemStack, world, pos);
+		}
+
+		// Inventory gets dropped automatically
 	}
 
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
