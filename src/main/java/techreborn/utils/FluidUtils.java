@@ -128,7 +128,7 @@ public class FluidUtils {
 
 		inputStack.decrement(1);
 
-		return false;
+		return true;
 	}
 
 	public static boolean fluidEquals(@Nonnull Fluid fluid, @Nonnull Fluid fluid1) {

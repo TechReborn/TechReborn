@@ -164,9 +164,15 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 		if (storeItemStack == ItemStack.EMPTY && (isSameStack || getCurrentCapacity() == 0)) {
 			// Check if storage is empty, NOT including the output slot
-
 			storeItemStack = inputStack.copy();
-			inputStack = ItemStack.EMPTY;
+
+			if(inputStack.getCount() <= maxCapacity) {
+				inputStack = ItemStack.EMPTY;
+			}else{
+				// Stack is higher than capacity
+				storeItemStack.setCount(maxCapacity);
+				inputStack.decrement(maxCapacity);
+			}
 		} else if (isSameStack) {
 			// Not empty but same type
 
@@ -309,14 +315,31 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		super.onBreak(world, playerEntity, blockPos, blockState);
 
 		// No need to drop anything for creative peeps
-		if (this instanceof CreativeStorageUnitBlockEntity) {
+		if (type == TRContent.StorageUnit.CREATIVE) {
 			this.inventory.clear();
 			return;
 		}
 
-		// Drop stacks (In one clump, reduce lag)
 		if (storeItemStack != ItemStack.EMPTY) {
-			WorldUtils.dropItem(storeItemStack, world, pos);
+			if(storeItemStack.getMaxCount() == 64) {
+				// Drop stacks (In one clump, reduce lag)
+				WorldUtils.dropItem(storeItemStack, world, pos);
+			}else{
+				int size = storeItemStack.getMaxCount();
+
+				for (int i = 0; i < storeItemStack.getCount() / size; i++) {
+					ItemStack toDrop = storeItemStack.copy();
+					toDrop.setCount(size);
+					WorldUtils.dropItem(toDrop, world, pos);
+				}
+
+				if (storeItemStack.getCount() % size != 0) {
+					ItemStack toDrop = storeItemStack.copy();
+					toDrop.setCount(storeItemStack.getCount()  % size);
+					WorldUtils.dropItem(toDrop, world, pos);
+				}
+
+			}
 		}
 
 		// Inventory gets dropped automatically

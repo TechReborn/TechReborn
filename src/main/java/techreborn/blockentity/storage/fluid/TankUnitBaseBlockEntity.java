@@ -60,7 +60,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 					tank.setFluidAmount(FluidValue.INFINITE);
 				}
 			}
-			this.syncWithAll();
+			syncWithAll();
 		}
 	}
 

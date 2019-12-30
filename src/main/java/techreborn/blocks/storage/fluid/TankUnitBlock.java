@@ -1,4 +1,4 @@
-package techreborn.blocks.storage.item;
+package techreborn.blocks.storage.fluid;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

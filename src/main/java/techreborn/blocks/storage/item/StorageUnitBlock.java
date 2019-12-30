@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
-import techreborn.blocks.GenericMachineBlock;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
 
@@ -35,6 +34,10 @@ public class StorageUnitBlock extends BlockMachineBase {
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+		if(unitType == TRContent.StorageUnit.CREATIVE){
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
 		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
 
