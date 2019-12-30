@@ -27,6 +27,7 @@ package techreborn.init;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.block.OreBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -325,7 +326,7 @@ public class TRContent {
 
 		Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new Block(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
+			block = new OreBlock(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
 			this.veinSize = veinSize;
 			this.veinsPerChunk = veinsPerChunk;
 			this.minY = minY;

@@ -129,6 +129,9 @@ public class AdvancedJackhammerItem extends JackhammerItem {
         if (blockState.getBlock() instanceof OreBlock){
             return false;
         }
+        if (blockState.getBlock() instanceof RedstoneOreBlock){
+            return false;
+        }
         return (Items.IRON_PICKAXE.isEffectiveOn(blockState));
     }
 
