@@ -7,7 +7,8 @@
       "item": "techreborn:silicon_plate"
     },
     {
-      "tag": "c:electrum_ingot"
+      "tag": "c:electrum_plate",
+      "count": 2
     }
   ],
   "results": [
