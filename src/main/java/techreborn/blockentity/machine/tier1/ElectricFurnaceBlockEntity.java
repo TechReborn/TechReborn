@@ -57,7 +57,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	private int cookTime;
 	private int cookTimeTotal;
 	// Energy cost per tick of cooking
-	final int EnergyPerTick = 4;
+	final int EnergyPerTick = 1;
 	
 	public ElectricFurnaceBlockEntity() {
 		super(TRBlockEntities.ELECTRIC_FURNACE );
