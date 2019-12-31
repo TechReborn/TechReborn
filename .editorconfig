@@ -1,0 +1,11 @@
+root = true
+
+[*]
+charset = utf-8
+tab_width = 4
+
+[*.java]
+indent_style = tab
+
+[*.json]
+indent_style = tab
