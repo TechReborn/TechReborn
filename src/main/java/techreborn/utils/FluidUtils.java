@@ -35,7 +35,7 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.fluid.container.ItemFluidInfo;
-import reborncore.mixin.extensions.FluidBlockExtensions;
+import reborncore.mixin.common.AccessorFluidBlock;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -45,8 +45,8 @@ public class FluidUtils {
 
 	@Nonnull
 	public static Fluid fluidFromBlock(Block block){
-		if(block instanceof FluidBlockExtensions){
-			return ((FluidBlockExtensions) block).getFluid();
+		if(block instanceof AccessorFluidBlock){
+			return ((AccessorFluidBlock) block).getFluid();
 		}
 		return Fluids.EMPTY;
 	}
