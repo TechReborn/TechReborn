@@ -24,11 +24,44 @@
 
 package techreborn.blockentity.storage.item;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
+@Deprecated
 public class QuantumChestBlockEntity extends StorageUnitBaseBlockEntity {
 
 	public QuantumChestBlockEntity() {
-		super(TRContent.StorageUnit.QUANTUM);
+		super(TRBlockEntities.QUANTUM_CHEST, "QuantumChestBlockEntity", Integer.MAX_VALUE);
+	}
+
+	@Override
+	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
+		super.inventory.clear();
+	}
+
+	@Override
+	public void tick() {
+		if(world.isClient()){
+			return;
+		}
+
+		ItemStack storedStack = this.getAll();
+		ItemStack inputSlotStack= this.getInvStack(0).copy();
+
+		this.clear();
+
+		world.setBlockState(pos, TRContent.StorageUnit.QUANTUM.block.getDefaultState());
+
+		StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
+
+		if (!storedStack.isEmpty() && storageEntity != null) {
+			storageEntity.setStoredStack(storedStack);
+			storageEntity.setInvStack(0, inputSlotStack);
+		}
 	}
 }

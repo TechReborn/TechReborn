@@ -1,5 +1,6 @@
 package techreborn.blockentity.storage.fluid;
 
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 	protected Tank tank;
-	private RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
+	protected RebornInventory<TankUnitBaseBlockEntity> inventory = new RebornInventory<>(2, "TankInventory", 64, this);
 
 	private TRContent.TankUnit type;
 
@@ -38,9 +39,13 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		configureEntity(type);
 	}
 
+
+	public TankUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, TRContent.TankUnit type) {
+		super(blockEntityTypeIn);
+		this.type = type;
+	}
 	private void configureEntity(TRContent.TankUnit type){
 		this.type = type;
-
 		this.tank = new Tank("TankStorage", type.capacity, this);
 	}
 
@@ -72,9 +77,20 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Override
 	public void fromTag(final CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
-		this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
-		configureEntity(type);
-		tank.read(tagCompound);
+		if(tagCompound.contains("unitType")) {
+			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
+			configureEntity(type);
+			tank.read(tagCompound);
+		}else {
+			// SAVE COMPAT
+			if (tagCompound.contains("QuantumTankBlockEntity")) {
+				this.type = TRContent.TankUnit.QUANTUM;
+				tank = new Tank("QuantumTankBlockEntity", type.capacity, this);
+				tank.read(tagCompound);
+			}
+		}
+
+
 	}
 
 	@Override
@@ -125,6 +141,11 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Override
 	public Tank getTank() {
 		return tank;
+	}
+
+	@Deprecated
+	public void setTank(Tank tank) {
+		this.tank.setFluid(null, tank.getFluidInstance());
 	}
 
 	@Override

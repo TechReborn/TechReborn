@@ -38,9 +38,8 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
-import techreborn.blockentity.storage.fluid.CreativeTankUnitBlockEntity;
+import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
-import techreborn.blockentity.storage.item.*;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -52,6 +51,9 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.*;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
+import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
+import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.generator.*;
@@ -60,6 +62,7 @@ import techreborn.blocks.misc.BlockAlarm;
 import techreborn.blocks.misc.BlockMachineCasing;
 import techreborn.blocks.misc.BlockMachineFrame;
 import techreborn.blocks.misc.BlockStorage;
+import techreborn.blocks.storage.OldBlock;
 import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
@@ -264,7 +267,7 @@ public class TRContent {
 	public enum StorageUnit implements ItemConvertible {
 		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage),
 		BASIC(TechRebornConfig.basicStorageUnitMaxStorage),
-		ADVANCED(1),// TODO
+		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage),
 		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage),
 		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage),
 		CREATIVE(Integer.MAX_VALUE);
@@ -292,7 +295,7 @@ public class TRContent {
 
 	public enum TankUnit implements ItemConvertible {
 		BASIC(TechRebornConfig.basicTankUnitCapacity),
-		ADVANCED(1),// TODO
+		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage),
 		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
 		QUANTUM(TechRebornConfig.quantumTankUnitCapacity),
 		CREATIVE(Integer.MAX_VALUE / 1000);
@@ -499,11 +502,11 @@ public class TRContent {
 
 
 		//TODO DEPRECATED
-		DIGITAL_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, DigitalChestBlockEntity::new)),
-		QUANTUM_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, QuantumChestBlockEntity::new)),
-		QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, QuantumTankBlockEntity::new)),
-		CREATIVE_QUANTUM_CHEST(new GenericMachineBlock(EGui.STORAGE_UNIT, CreativeStorageUnitBlockEntity::new)),
-		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.TANK_UNIT, CreativeTankUnitBlockEntity::new)),
+		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new, StorageUnit.INDUSTRIAL.block.getDefaultState())),
+		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new, StorageUnit.QUANTUM.block.getDefaultState())),
+		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new, TankUnit.QUANTUM.block.getDefaultState())),
+		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new, StorageUnit.CREATIVE.block.getDefaultState())),
+		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new, TankUnit.CREATIVE.block.getDefaultState())),
 
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),

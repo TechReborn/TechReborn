@@ -25,6 +25,7 @@
 package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -56,7 +57,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
 
-	private RebornInventory<StorageUnitBaseBlockEntity> inventory;
+	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
 
 	private boolean shouldUpdate = false;
@@ -72,6 +73,15 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public StorageUnitBaseBlockEntity(TRContent.StorageUnit type) {
 		super(TRBlockEntities.STORAGE_UNIT);
 		configureEntity(type);
+	}
+
+	@Deprecated
+	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, String name, int maxCapacity) {
+		super(blockEntityTypeIn);
+		this.maxCapacity = maxCapacity;
+		storeItemStack = ItemStack.EMPTY;
+		type = TRContent.StorageUnit.QUANTUM;
+		inventory = new RebornInventory<>(3, name, maxCapacity, this);
 	}
 
 	private void configureEntity(TRContent.StorageUnit type){
@@ -158,6 +168,21 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
+	public ItemStack getAll() {
+		ItemStack returnStack = ItemStack.EMPTY;
+
+		if(!isEmpty()){
+			returnStack = getStoredStack().copy();
+			returnStack.setCount(getCurrentCapacity());
+		}
+
+		return  returnStack;
+	}
+
+	public void setStoredStack(ItemStack itemStack) {
+		storeItemStack = itemStack;
+	}
+
 	public ItemStack processInput(ItemStack inputStack) {
 
 		boolean isSameStack = isSameType(inputStack);
@@ -202,7 +227,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	// Creative function
-	public void fillToCapacity() {
+	private void fillToCapacity() {
 		storeItemStack = getStoredStack();
 		storeItemStack.setCount(maxCapacity);
 
@@ -237,8 +262,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public void fromTag(CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
 
-		this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
-		configureEntity(type);
+		if(tagCompound.contains("unitType")) {
+			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
+			configureEntity(type);
+		}else{
+			this.type = TRContent.StorageUnit.QUANTUM;
+		}
 
 		storeItemStack = ItemStack.EMPTY;
 

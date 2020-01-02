@@ -57,7 +57,7 @@ import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
-import techreborn.blockentity.storage.fluid.CreativeTankUnitBlockEntity;
+import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.*;
 import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
@@ -77,6 +77,14 @@ public class TRBlockEntities {
 
 	public static final BlockEntityType<StorageUnitBaseBlockEntity> STORAGE_UNIT = register(StorageUnitBaseBlockEntity.class, "storage_unit", TRContent.StorageUnit.values());
 	public static final BlockEntityType<TankUnitBaseBlockEntity> TANK_UNIT = register(TankUnitBaseBlockEntity.class, "tank_unit", TRContent.TankUnit.values());
+
+	public static final BlockEntityType<QuantumTankBlockEntity> QUANTUM_TANK = register(QuantumTankBlockEntity.class, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
+	public static final BlockEntityType<QuantumChestBlockEntity> QUANTUM_CHEST = register(QuantumChestBlockEntity.class, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
+	public static final BlockEntityType<DigitalChestBlockEntity> DIGITAL_CHEST = register(DigitalChestBlockEntity.class, "digital_chest", TRContent.Machine.DIGITAL_CHEST);
+	public static final BlockEntityType<CreativeQuantumChestBlockEntity> CREATIVE_QUANTUM_CHEST = register(CreativeQuantumChestBlockEntity.class, "creative_quantum_chest", TRContent.Machine.CREATIVE_QUANTUM_CHEST);
+	public static final BlockEntityType<CreativeQuantumTankBlockEntity> CREATIVE_QUANTUM_TANK = register(CreativeQuantumTankBlockEntity.class, "creative_quantum_tank", TRContent.Machine.CREATIVE_QUANTUM_TANK);
+
+
 	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity.class, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
 	public static final BlockEntityType<IndustrialCentrifugeBlockEntity> INDUSTRIAL_CENTRIFUGE = register(IndustrialCentrifugeBlockEntity.class, "industrial_centrifuge", TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
 	public static final BlockEntityType<RollingMachineBlockEntity> ROLLING_MACHINE = register(RollingMachineBlockEntity.class, "rolling_machine", TRContent.Machine.ROLLING_MACHINE);
