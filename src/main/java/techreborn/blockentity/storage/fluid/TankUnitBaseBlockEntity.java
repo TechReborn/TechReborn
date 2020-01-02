@@ -126,7 +126,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				info.add(new LiteralText("Empty"));
 			}
 		}
-		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.tank.getCapacity()));
+		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue()/1000 +")"));
 	}
 
 	// IContainerProvider

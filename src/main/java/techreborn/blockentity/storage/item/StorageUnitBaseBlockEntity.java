@@ -336,7 +336,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			}
 		}
 
-		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.getMaxCapacity() + " items"));
+		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.getMaxCapacity() +
+			" items (" + this.getMaxCapacity()/64 + ")"));
 	}
 
 	@Override
