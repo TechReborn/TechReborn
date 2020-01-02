@@ -1,16 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WWW",
-    "WWW",
-    "WWW"
-  ],
-  "key": {
-    "W": {
-      "tag": "minecraft:planks"
-    }
-  },
-  "result": {
-    "item": "techreborn:wood_plate"
-  }
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" S ",
+		"SWS",
+		" S "
+	],
+	"key": {
+		"W": {
+			"tag": "minecraft:planks"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"item": "techreborn:wood_plate"
+	}
 }
