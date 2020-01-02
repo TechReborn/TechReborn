@@ -50,7 +50,7 @@ import techreborn.init.TRContent;
 import java.util.List;
 
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
-		implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
+	implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
 
 
 	// Inventory constants
@@ -84,7 +84,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		inventory = new RebornInventory<>(3, name, maxCapacity, this);
 	}
 
-	private void configureEntity(TRContent.StorageUnit type){
+	private void configureEntity(TRContent.StorageUnit type) {
 		this.maxCapacity = type.capacity;
 		storeItemStack = ItemStack.EMPTY;
 		inventory = new RebornInventory<>(2, "ItemInventory", 64, this);
@@ -115,7 +115,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			shouldUpdate = true;
 		}
 
-		if(type == TRContent.StorageUnit.CREATIVE){
+		if (type == TRContent.StorageUnit.CREATIVE) {
 			if (!isFull() && !isEmpty()) {
 				fillToCapacity();
 				shouldUpdate = true;
@@ -171,12 +171,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public ItemStack getAll() {
 		ItemStack returnStack = ItemStack.EMPTY;
 
-		if(!isEmpty()){
+		if (!isEmpty()) {
 			returnStack = getStoredStack().copy();
 			returnStack.setCount(getCurrentCapacity());
 		}
 
-		return  returnStack;
+		return returnStack;
 	}
 
 	public void setStoredStack(ItemStack itemStack) {
@@ -191,9 +191,9 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			// Check if storage is empty, NOT including the output slot
 			storeItemStack = inputStack.copy();
 
-			if(inputStack.getCount() <= maxCapacity) {
+			if (inputStack.getCount() <= maxCapacity) {
 				inputStack = ItemStack.EMPTY;
-			}else{
+			} else {
 				// Stack is higher than capacity
 				storeItemStack.setCount(maxCapacity);
 				inputStack.decrement(maxCapacity);
@@ -262,10 +262,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public void fromTag(CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
 
-		if(tagCompound.contains("unitType")) {
+		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
-		}else{
+		} else {
 			this.type = TRContent.StorageUnit.QUANTUM;
 		}
 
@@ -337,7 +337,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.getMaxCapacity() +
-			" items (" + this.getMaxCapacity()/64 + ")"));
+			" items (" + this.getMaxCapacity() / 64 + ")"));
 	}
 
 	@Override
@@ -351,10 +351,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 		if (storeItemStack != ItemStack.EMPTY) {
-			if(storeItemStack.getMaxCount() == 64) {
+			if (storeItemStack.getMaxCount() == 64) {
 				// Drop stacks (In one clump, reduce lag)
 				WorldUtils.dropItem(storeItemStack, world, pos);
-			}else{
+			} else {
 				int size = storeItemStack.getMaxCount();
 
 				for (int i = 0; i < storeItemStack.getCount() / size; i++) {
@@ -365,7 +365,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 				if (storeItemStack.getCount() % size != 0) {
 					ItemStack toDrop = storeItemStack.copy();
-					toDrop.setCount(storeItemStack.getCount()  % size);
+					toDrop.setCount(storeItemStack.getCount() % size);
 					WorldUtils.dropItem(toDrop, world, pos);
 				}
 
@@ -377,6 +377,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53).addInventory().create(this, syncID);
+			.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53).addInventory().create(this, syncID);
 	}
 }

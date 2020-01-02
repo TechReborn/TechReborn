@@ -16,13 +16,11 @@ import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
 
-import java.util.function.Supplier;
-
 public class StorageUnitBlock extends BlockMachineBase {
 
 	public final TRContent.StorageUnit unitType;
 
-	public StorageUnitBlock(TRContent.StorageUnit unitType){
+	public StorageUnitBlock(TRContent.StorageUnit unitType) {
 		super();
 		this.unitType = unitType;
 	}
@@ -34,7 +32,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
-		if(unitType == TRContent.StorageUnit.CREATIVE){
+		if (unitType == TRContent.StorageUnit.CREATIVE) {
 			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 

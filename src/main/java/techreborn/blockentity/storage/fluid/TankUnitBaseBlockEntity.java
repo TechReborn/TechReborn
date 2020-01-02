@@ -44,7 +44,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		super(blockEntityTypeIn);
 		this.type = type;
 	}
-	private void configureEntity(TRContent.TankUnit type){
+
+	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
 		this.tank = new Tank("TankStorage", type.capacity, this);
 	}
@@ -58,9 +59,9 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		}
 
 		if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
+			|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
 
-			if(type == TRContent.TankUnit.CREATIVE){
+			if (type == TRContent.TankUnit.CREATIVE) {
 				if (!tank.isEmpty() && !tank.isFull()) {
 					tank.setFluidAmount(FluidValue.INFINITE);
 				}
@@ -77,11 +78,11 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Override
 	public void fromTag(final CompoundTag tagCompound) {
 		super.fromTag(tagCompound);
-		if(tagCompound.contains("unitType")) {
+		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
 			tank.read(tagCompound);
-		}else {
+		} else {
 			// SAVE COMPAT
 			if (tagCompound.contains("QuantumTankBlockEntity")) {
 				this.type = TRContent.TankUnit.QUANTUM;
@@ -126,15 +127,15 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				info.add(new LiteralText("Empty"));
 			}
 		}
-		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue()/1000 +")"));
+		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue() / 1000 + ")"));
 	}
 
 	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("tank").player(player.inventory).inventory().hotbar()
-				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
-				.sync(tank).addInventory().create(this, syncID);
+			.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
+			.sync(tank).addInventory().create(this, syncID);
 	}
 
 	@Nonnull

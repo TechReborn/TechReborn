@@ -46,12 +46,12 @@ public class QuantumChestBlockEntity extends StorageUnitBaseBlockEntity {
 
 	@Override
 	public void tick() {
-		if(world.isClient()){
+		if (world.isClient()) {
 			return;
 		}
 
 		ItemStack storedStack = this.getAll();
-		ItemStack inputSlotStack= this.getInvStack(0).copy();
+		ItemStack inputSlotStack = this.getInvStack(0).copy();
 
 		this.clear();
 

@@ -5,9 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.Tank;
-import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -27,7 +25,7 @@ public class QuantumTankBlockEntity extends TankUnitBaseBlockEntity {
 	@Override
 	public void tick() {
 
-		if(world.isClient()){
+		if (world.isClient()) {
 			return;
 		}
 
@@ -39,7 +37,7 @@ public class QuantumTankBlockEntity extends TankUnitBaseBlockEntity {
 
 		world.setBlockState(pos, TRContent.TankUnit.QUANTUM.block.getDefaultState());
 
-		TankUnitBaseBlockEntity tankEntity = (TankUnitBaseBlockEntity)world.getBlockEntity(pos);
+		TankUnitBaseBlockEntity tankEntity = (TankUnitBaseBlockEntity) world.getBlockEntity(pos);
 
 		tankEntity.setTank(tank);
 

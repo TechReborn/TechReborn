@@ -46,7 +46,7 @@ public class CreativeQuantumChestBlockEntity extends StorageUnitBaseBlockEntity 
 
 	@Override
 	public void tick() {
-		if(world.isClient()){
+		if (world.isClient()) {
 			return;
 		}
 
