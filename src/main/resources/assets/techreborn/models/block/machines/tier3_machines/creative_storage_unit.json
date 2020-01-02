@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/tier3_machines/quantum_top",
+        "bottom": "techreborn:block/machines/tier3_machines/quantum_bottom",
+        "side": "techreborn:block/machines/tier3_machines/creative_storage_unit_side",
+        "front": "techreborn:block/machines/tier3_machines/creative_storage_unit_front"
+    }
+}

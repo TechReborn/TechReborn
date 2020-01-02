@@ -41,7 +41,7 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
 import techreborn.client.EGui;
 import techreborn.init.TRContent;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.utils.damageSources.FusionDamageSource;
 
 import java.util.List;

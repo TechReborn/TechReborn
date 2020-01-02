@@ -45,7 +45,7 @@ import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.serialization.SerializationUtil;
-import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.init.ModRecipes;
 
 import javax.annotation.Nullable;

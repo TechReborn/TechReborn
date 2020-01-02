@@ -33,13 +33,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import reborncore.api.blockentity.IUpgrade;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.blockentity.ChargeOMatBlockEntity;
-import techreborn.blockentity.DigitalChestBlockEntity;
-import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
+import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
+import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.*;
@@ -49,16 +51,25 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.*;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
+import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
+import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.lighting.BlockLamp;
-import techreborn.blocks.storage.*;
-import techreborn.blocks.tier0.IronAlloyFurnaceBlock;
-import techreborn.blocks.tier0.IronFurnaceBlock;
-import techreborn.blocks.tier1.BlockPlayerDetector;
-import techreborn.blocks.tier3.BlockCreativeQuantumChest;
+import techreborn.blocks.misc.BlockAlarm;
+import techreborn.blocks.misc.BlockMachineCasing;
+import techreborn.blocks.misc.BlockMachineFrame;
+import techreborn.blocks.misc.BlockStorage;
+import techreborn.blocks.storage.OldBlock;
+import techreborn.blocks.storage.energy.*;
+import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
+import techreborn.blocks.machine.tier0.IronFurnaceBlock;
+import techreborn.blocks.machine.tier1.BlockPlayerDetector;
+import techreborn.blocks.storage.item.StorageUnitBlock;
+import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -254,6 +265,63 @@ public class TRContent {
 		}
 	}
 
+	public enum StorageUnit implements ItemConvertible {
+		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage),
+		BASIC(TechRebornConfig.basicStorageUnitMaxStorage),
+		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage),
+		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage),
+		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage),
+		CREATIVE(Integer.MAX_VALUE);
+
+		public final String name;
+		public final Block block;
+
+		// How many blocks it can hold
+		public int capacity;
+
+
+		StorageUnit(int capacity) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			block = new StorageUnitBlock(this);
+			this.capacity = capacity;
+
+			InitUtils.setup(block, name + "_storage_unit");
+		}
+
+		@Override
+		public Item asItem() {
+			return block.asItem();
+		}
+	}
+
+	public enum TankUnit implements ItemConvertible {
+		BASIC(TechRebornConfig.basicTankUnitCapacity),
+		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage),
+		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
+		QUANTUM(TechRebornConfig.quantumTankUnitCapacity),
+		CREATIVE(Integer.MAX_VALUE / 1000);
+
+		public final String name;
+		public final Block block;
+
+		// How many blocks it can hold
+		public FluidValue capacity;
+
+
+		TankUnit(int capacity) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			block = new TankUnitBlock(this);
+			this.capacity = FluidValue.BUCKET.multiply(capacity);
+
+			InitUtils.setup(block, name + "_tank_unit");
+		}
+
+		@Override
+		public Item asItem() {
+			return block.asItem();
+		}
+	}
+
 	public enum Cables implements ItemConvertible {
 		COPPER(128, 12.0, true, EnergyTier.MEDIUM),
 		TIN(32, 12.0, true, EnergyTier.LOW),
@@ -433,13 +501,16 @@ public class TRContent {
 		THERMAL_GENERATOR(new GenericGeneratorBlock(EGui.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new)),
 		WATER_MILL(new GenericGeneratorBlock(null, WaterMillBlockEntity::new)),
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
-		
-		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
-		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, CreativeQuantumTankBlockEntity::new)),
-		DIGITAL_CHEST(new GenericMachineBlock(EGui.DIGITAL_CHEST, DigitalChestBlockEntity::new)),
-		QUANTUM_CHEST(new GenericMachineBlock(EGui.QUANTUM_CHEST, QuantumChestBlockEntity::new)),
-		QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, QuantumTankBlockEntity::new)),
-		
+
+
+		//TODO DEPRECATED
+		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new)),
+		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new)),
+		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new)),
+		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new)),
+		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new)),
+
+
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(EGui.CHARGEBENCH, ChargeOMatBlockEntity::new)),
 		INTERDIMENSIONAL_SU(new InterdimensionalSUBlock()),
@@ -629,6 +700,7 @@ public class TRContent {
 		INDUSTRIAL_CIRCUIT,
 
 		MACHINE_PARTS,
+		BASIC_DISPLAY,
 		DIGITAL_DISPLAY,
 
 		DATA_STORAGE_CORE,

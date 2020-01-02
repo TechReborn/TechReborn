@@ -32,9 +32,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
 import techreborn.TechReborn;
-import techreborn.blockentity.*;
 import techreborn.blockentity.cable.CableBlockEntity;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
@@ -45,16 +45,22 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.lighting.LampBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
+import techreborn.blockentity.machine.misc.AlarmBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.*;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
-import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
-import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
-import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
-import techreborn.blockentity.storage.lesu.LSUStorageBlockEntity;
-import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
+import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
+import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
+import techreborn.blockentity.storage.item.*;
+import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.transformers.EVTransformerBlockEntity;
 import techreborn.blockentity.transformers.HVTransformerBlockEntity;
 import techreborn.blockentity.transformers.LVTransformerBlockEntity;
@@ -68,10 +74,18 @@ public class TRBlockEntities {
 	
 	private static List<BlockEntityType<?>> TYPES = new ArrayList<>();
 
-	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity.class, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
+
+	public static final BlockEntityType<StorageUnitBaseBlockEntity> STORAGE_UNIT = register(StorageUnitBaseBlockEntity.class, "storage_unit", TRContent.StorageUnit.values());
+	public static final BlockEntityType<TankUnitBaseBlockEntity> TANK_UNIT = register(TankUnitBaseBlockEntity.class, "tank_unit", TRContent.TankUnit.values());
+
 	public static final BlockEntityType<QuantumTankBlockEntity> QUANTUM_TANK = register(QuantumTankBlockEntity.class, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
 	public static final BlockEntityType<QuantumChestBlockEntity> QUANTUM_CHEST = register(QuantumChestBlockEntity.class, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
 	public static final BlockEntityType<DigitalChestBlockEntity> DIGITAL_CHEST = register(DigitalChestBlockEntity.class, "digital_chest", TRContent.Machine.DIGITAL_CHEST);
+	public static final BlockEntityType<CreativeQuantumChestBlockEntity> CREATIVE_QUANTUM_CHEST = register(CreativeQuantumChestBlockEntity.class, "creative_quantum_chest", TRContent.Machine.CREATIVE_QUANTUM_CHEST);
+	public static final BlockEntityType<CreativeQuantumTankBlockEntity> CREATIVE_QUANTUM_TANK = register(CreativeQuantumTankBlockEntity.class, "creative_quantum_tank", TRContent.Machine.CREATIVE_QUANTUM_TANK);
+
+
+	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity.class, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
 	public static final BlockEntityType<IndustrialCentrifugeBlockEntity> INDUSTRIAL_CENTRIFUGE = register(IndustrialCentrifugeBlockEntity.class, "industrial_centrifuge", TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
 	public static final BlockEntityType<RollingMachineBlockEntity> ROLLING_MACHINE = register(RollingMachineBlockEntity.class, "rolling_machine", TRContent.Machine.ROLLING_MACHINE);
 	public static final BlockEntityType<IndustrialBlastFurnaceBlockEntity> INDUSTRIAL_BLAST_FURNACE = register(IndustrialBlastFurnaceBlockEntity.class, "industrial_blast_furnace", TRContent.Machine.INDUSTRIAL_BLAST_FURNACE);
@@ -106,8 +120,6 @@ public class TRBlockEntities {
 	public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = register(CompressorBlockEntity.class, "compressor", TRContent.Machine.COMPRESSOR);
 	public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = register(ElectricFurnaceBlockEntity.class, "electric_furnace", TRContent.Machine.ELECTRIC_FURNACE);
 	public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = register(SolarPanelBlockEntity.class, "solar_panel", TRContent.SolarPanels.values());
-	public static final BlockEntityType<CreativeQuantumTankBlockEntity> CREATIVE_QUANTUM_TANK = register(CreativeQuantumTankBlockEntity.class, "creative_quantum_tank", TRContent.Machine.CREATIVE_QUANTUM_TANK);
-	public static final BlockEntityType<CreativeQuantumChestBlockEntity> CREATIVE_QUANTUM_CHEST = register(CreativeQuantumChestBlockEntity.class, "creative_quantum_chest", TRContent.Machine.CREATIVE_QUANTUM_CHEST);
 	public static final BlockEntityType<WaterMillBlockEntity> WATER_MILL = register(WaterMillBlockEntity.class, "water_mill", TRContent.Machine.WATER_MILL);
 	public static final BlockEntityType<WindMillBlockEntity> WIND_MILL = register(WindMillBlockEntity.class, "wind_mill", TRContent.Machine.WIND_MILL);
 	public static final BlockEntityType<RecyclerBlockEntity> RECYCLER = register(RecyclerBlockEntity.class, "recycler", TRContent.Machine.RECYCLER);

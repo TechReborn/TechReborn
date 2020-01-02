@@ -37,7 +37,7 @@ import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
 import reborncore.common.world.DataAttachment;
-import techreborn.blockentity.storage.idsu.IDSUManager;
+import techreborn.blockentity.storage.energy.idsu.IDSUManager;
 import techreborn.client.GuiHandler;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;

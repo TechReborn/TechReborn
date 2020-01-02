@@ -6,11 +6,28 @@
   "block.techreborn.pump": "Pump",
   "block.techreborn.gas_turbine": "Gas Turbine",
   "block.techreborn.thermal_generator": "Thermal Generator",
-  "block.techreborn.quantum_tank": "Quantum Tank",
-  "block.techreborn.creative_quantum_tank": "Creative Quantum Tank",
-  "block.techreborn.quantum_chest": "Quantum Chest",
-  "block.techreborn.creative_quantum_chest": "Creative Quantum Chest",
-  "block.techreborn.digital_chest": "Digital Chest",
+
+  "block.techreborn.crude_storage_unit": "Crude Storage Unit",
+  "block.techreborn.basic_storage_unit": "Basic Storage Unit",
+  "block.techreborn.advanced_storage_unit": "Advanced Storage Unit",
+  "block.techreborn.industrial_storage_unit": "Industrial Storage Unit",
+  "block.techreborn.quantum_storage_unit": "Quantum Storage Unit",
+  "block.techreborn.creative_storage_unit": "Creative Storage Unit",
+
+  "block.techreborn.crude_tank_unit": "Crude Tank Unit",
+  "block.techreborn.basic_tank_unit": "Basic Tank Unit",
+  "block.techreborn.advanced_tank_unit": "Advanced Tank Unit",
+  "block.techreborn.industrial_tank_unit": "Industrial Tank Unit",
+  "block.techreborn.quantum_tank_unit": "Quantum Tank Unit",
+  "block.techreborn.creative_tank_unit": "Creative Tank Unit",
+
+
+  "block.techreborn.creative_quantum_tank": "Creative Quantum Tank (DEPRECATED)",
+  "block.techreborn.creative_quantum_chest": "Creative Quantum Chest (DEPRECATED)",
+  "block.techreborn.digital_chest": "Digital Chest (DEPRECATED)",
+  "block.techreborn.quantum_chest": "Quantum Chest (DEPRECATED)",
+  "block.techreborn.quantum_tank": "Quantum Tank (DEPRECATED)",
+
   "block.techreborn.industrial_centrifuge": "Industrial Centrifuge",
   "block.techreborn.rolling_machine": "Rolling Machine",
   "block.techreborn.basic_machine_casing": "Standard Machine Casing",
@@ -466,6 +483,7 @@
   "item.techreborn.advanced_circuit": "Advanced Circuit",
   "item.techreborn.industrial_circuit": "Industrial Circuit",  
   "item.techreborn.machine_parts": "Machine Parts",
+  "item.techreborn.basic_display": "Basic Display",
   "item.techreborn.digital_display": "Digital Display",
   "item.techreborn.data_storage_core": "Data Storage Core",
   "item.techreborn.data_storage_chip": "Data Storage Chip",        
@@ -706,6 +724,9 @@
   "techreborn.tooltip.generationRate.day": "Generation Rate Day",
   "techreborn.tooltip.generationRate.night": "Generation Rate Night",
   "techreborn.tooltip.greenhouse.upgrade_available": "Can be upgraded with powered lamps\nCheck multiblock hologram for details",
+  "techreborn.tooltip.unit.capacity": "Capacity",
+  "techreborn.tooltip.unit.empty": "Empty",
+  "techreborn.tooltip.unit.divider": " of ",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
@@ -816,6 +837,8 @@
   "advancements.techreborn.implosion.desc": "Place an implosion compressor down",
   "advancements.techreborn.interdimensionalsu": "Is this a tesseract?",
   "advancements.techreborn.interdimensionalsu.desc": "Place down an interdimensional SU",
+  "advancements.techreborn.quantumtank": "Some serious tankage",
+  "advancements.techreborn.quantumtank.desc": "Place a quantum tank down",
 
 
 
@@ -882,5 +905,15 @@
   "item.techreborn.sulfuric_acid_bucket": "Sulfuric Acid",
   "item.techreborn.tritium_bucket": "Tritium",
   "item.techreborn.wolframium_bucket": "Wolframium",
-  "item.techreborn.biofuel_bucket": "Biofuel"
+  "item.techreborn.biofuel_bucket": "Biofuel",
+
+	"_comment27": "Gui",
+	"gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",
+	"gui.techreborn.unit.in": "IN",
+	"gui.techreborn.unit.out": "OUT",
+	"gui.techreborn.unit.used": "Used: ",
+	"gui.techreborn.tank.type": "Fluid Type:",
+	"gui.techreborn.tank.amount": "Fluid Amount:",
+	"gui.techreborn.storage.store": "Storing:",
+	"gui.techreborn.storage.amount": "Amount:"
 }

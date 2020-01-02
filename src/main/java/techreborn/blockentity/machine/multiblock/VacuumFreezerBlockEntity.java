@@ -36,7 +36,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 
 public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 

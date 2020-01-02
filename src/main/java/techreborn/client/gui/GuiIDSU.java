@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
+import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 
 public class GuiIDSU extends GuiBase<BuiltContainer> {
 

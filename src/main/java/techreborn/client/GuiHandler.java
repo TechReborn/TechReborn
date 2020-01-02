@@ -34,12 +34,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
 import reborncore.client.containerBuilder.IContainerProvider;
-import techreborn.blockentity.ChargeOMatBlockEntity;
-import techreborn.blockentity.DigitalChestBlockEntity;
-import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
@@ -53,14 +53,13 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
-import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
-import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
-import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
-import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
-import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
-import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
+import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.client.gui.*;
 
 public class GuiHandler {
@@ -108,8 +107,6 @@ public class GuiHandler {
 				return new GuiCompressor(syncID, player, (CompressorBlockEntity) blockEntity);
 			case DIESEL_GENERATOR:
 				return new GuiDieselGenerator(syncID, player, (DieselGeneratorBlockEntity) blockEntity);
-			case DIGITAL_CHEST:
-				return new GuiDigitalChest(syncID, player, (DigitalChestBlockEntity) blockEntity);
 			case ELECTRIC_FURNACE:
 				return new GuiElectricFurnace(syncID, player, (ElectricFurnaceBlockEntity) blockEntity);
 			case EXTRACTOR:
@@ -138,10 +135,10 @@ public class GuiHandler {
 				return new GuiMFE(syncID, player, (MediumVoltageSUBlockEntity) blockEntity);
 			case HIGH_VOLTAGE_SU:
 				return new GuiMFSU(syncID, player, (HighVoltageSUBlockEntity) blockEntity);
-			case QUANTUM_CHEST:
-				return new GuiQuantumChest(syncID, player, (QuantumChestBlockEntity) blockEntity);
-			case QUANTUM_TANK:
-				return new GuiQuantumTank(syncID, player, (QuantumTankBlockEntity) blockEntity);
+			case STORAGE_UNIT:
+				return new GuiStorageUnit(syncID, player, (StorageUnitBaseBlockEntity) blockEntity);
+			case TANK_UNIT:
+				return new GuiTankUnit(syncID, player, (TankUnitBaseBlockEntity) blockEntity);
 			case RECYCLER:
 				return new GuiRecycler(syncID, player, (RecyclerBlockEntity) blockEntity);
 			case ROLLING_MACHINE:

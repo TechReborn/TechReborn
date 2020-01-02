@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "top": "techreborn:block/machines/tier3_machines/quantum_tank_unit_top",
+        "bottom": "techreborn:block/machines/tier3_machines/quantum_bottom",
+        "side": "techreborn:block/machines/tier3_machines/quantum_tank_unit_side"
+    }
+}

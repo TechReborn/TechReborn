@@ -33,7 +33,7 @@ import techreborn.api.recipe.ScrapboxRecipeCrafter;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.GenericMachineBlockEntity;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 
 public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 

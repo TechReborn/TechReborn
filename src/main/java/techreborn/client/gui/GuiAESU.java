@@ -33,7 +33,7 @@ import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
 public class GuiAESU extends GuiBase<BuiltContainer> {
