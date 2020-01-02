@@ -139,6 +139,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<FluidReplicatorBlockEntity> FLUID_REPLICATOR = register(FluidReplicatorBlockEntity.class, "fluid_replicator", TRContent.Machine.FLUID_REPLICATOR);
 	public static final BlockEntityType<SoildCanningMachineBlockEntity> SOLID_CANNING_MACHINE = register(SoildCanningMachineBlockEntity.class, "solid_canning_machine", TRContent.Machine.SOLID_CANNING_MACHINE);
 	public static final BlockEntityType<WireMillBlockEntity> WIRE_MILL = register(WireMillBlockEntity.class, "wire_mill", TRContent.Machine.WIRE_MILL);
+	public static final BlockEntityType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GreenhouseControllerBlockEntity.class, "greenhouse_controller", TRContent.Machine.GREENHOUSE_CONTROLLER);
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(Class<T> tClass, String name, ItemConvertible... items) {
 		return register(tClass, name, Arrays.stream(items).map(itemConvertible -> Block.getBlockFromItem(itemConvertible.asItem())).toArray(Block[]::new));

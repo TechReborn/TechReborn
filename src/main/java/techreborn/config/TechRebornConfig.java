@@ -26,6 +26,9 @@ package techreborn.config;
 
 import reborncore.common.config.Config;
 
+import java.util.Arrays;
+import java.util.List;
+
 //All moved into one class as its a lot easier to find the annotations when you know where they all are
 public class TechRebornConfig {
 	
@@ -452,6 +455,9 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
 	public static int recyclerMaxEnergy = 1000;
 
+	@Config(config = "machines", category = "recycler", key = "RecyclerBlacklist", comment = "Recycler blacklist")
+	public static List<String> recyclerBlackList = Arrays.asList("techreborn:scrap_box", "techreborn:scrap");
+
 	@Config(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
 	public static int scrapboxinatorMaxInput = 32;
 
@@ -469,7 +475,22 @@ public class TechRebornConfig {
 	
 	@Config(config = "machines", category = "iron_machine", key = "cooking_scale", comment = "Multiplier for vanilla furnace item cook time")
 	public static double cookingScale = 1.25;
-
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxInput", comment = "Greenhouse Controller Max Input")
+	public static int greenhouseControllerMaxInput = 32;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxEnergy", comment = "Greenhouse Controller Max Energy")
+	public static int greenhouseControllerMaxEnergy = 1_000;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerTick", comment = "Greenhouse Controller Energy Per Tick")
+	public static int greenhouseControllerEnergyPerTick = 2;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerHarvest", comment = "Greenhouse Controller Energy Per Harvest")
+	public static int greenhouseControllerEnergyPerHarvest = 100;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerBonemeal", comment = "Greenhouse Controller Energy Per Bonemeal")
+	public static int greenhouseControllerEnergyPerBonemeal = 50;
+	
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;

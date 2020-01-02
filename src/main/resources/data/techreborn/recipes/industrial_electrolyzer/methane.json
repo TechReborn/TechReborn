@@ -4,6 +4,7 @@
   "time": 1400,
   "ingredients": [
     {
+      "count": 5,
       "fluid": "techreborn:methane",
       "holder": "techreborn:cell"
     }

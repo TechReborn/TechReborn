@@ -27,6 +27,7 @@ package techreborn.init;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.block.OreBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -393,7 +394,7 @@ public class TRContent {
 
 		Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new Block(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
+			block = new OreBlock(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
 			this.veinSize = veinSize;
 			this.veinsPerChunk = veinsPerChunk;
 			this.minY = minY;
@@ -484,6 +485,7 @@ public class TRContent {
 		VACUUM_FREEZER(new GenericMachineBlock(EGui.VACUUM_FREEZER, VacuumFreezerBlockEntity::new)),
 		SOLID_CANNING_MACHINE(new GenericMachineBlock(EGui.SOLID_CANNING_MACHINE, SoildCanningMachineBlockEntity::new)),
 		WIRE_MILL(new GenericMachineBlock(EGui.WIRE_MILL, WireMillBlockEntity::new)),
+		GREENHOUSE_CONTROLLER(new GenericMachineBlock(EGui.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
 		
 		DIESEL_GENERATOR(new GenericGeneratorBlock(EGui.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericGeneratorBlock(null, DragonEggSyphonBlockEntity::new)),

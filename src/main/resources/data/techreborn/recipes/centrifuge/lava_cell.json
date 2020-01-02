@@ -5,13 +5,14 @@
   "ingredients": [
     {
       "fluid": "minecraft:lava",
-      "holder": "techreborn:cell"
+      "holder": "techreborn:cell",
+      "count": 16
     }
   ],
   "results": [
     {
-      "item": "techreborn:tin_ingot",
-      "count": 6
+      "item": "techreborn:cell",
+      "count": 16
     },
     {
       "item": "techreborn:copper_ingot",

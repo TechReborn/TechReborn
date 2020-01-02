@@ -60,10 +60,9 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		countedNetworks.clear();
 		connectedBlocks = 0;
 		for (Direction dir : Direction.values()) {
-			BlockPos adjucentBlockPos = new BlockPos(pos.getX() + dir.getOffsetX(),
-					pos.getY() + dir.getOffsetX(), pos.getZ() + dir.getOffsetX());
+			BlockPos adjucentBlockPos = getPos().offset(dir);
 			BlockEntity adjucent = world.getBlockEntity(adjucentBlockPos);
-			if (adjucent == null || !(adjucent instanceof LSUStorageBlockEntity)) {
+			if (!(adjucent instanceof LSUStorageBlockEntity)) {
 				continue;
 			}
 			if (((LSUStorageBlockEntity) adjucent).network == null) {
@@ -82,6 +81,10 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		}
 		setMaxStorage();
 		maxOutput = (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock) + TechRebornConfig.lesuBaseOutput;
+
+		if (getEnergy() > getMaxStoredPower()) {
+			setEnergy(getMaxStoredPower());
+		}
 	}
 
 	@Override

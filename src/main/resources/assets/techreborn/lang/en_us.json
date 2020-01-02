@@ -97,6 +97,7 @@
   "block.techreborn.farm": "Farm",
   "block.techreborn.solid_canning_machine": "Solid Canning Machine",
   "block.techreborn.wire_mill": "Wire Mill",
+  "block.techreborn.greenhouse_controller": "Greenhouse controller",
 
   "_comment1": "Blocks",
   "block.techreborn.rubber_log": "Rubber Wood",
@@ -722,6 +723,7 @@
   "techreborn.tooltip.alarm": "Shift right-click to change sound",
   "techreborn.tooltip.generationRate.day": "Generation Rate Day",
   "techreborn.tooltip.generationRate.night": "Generation Rate Night",
+  "techreborn.tooltip.greenhouse.upgrade_available": "Can be upgraded with powered lamps\nCheck multiblock hologram for details",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",

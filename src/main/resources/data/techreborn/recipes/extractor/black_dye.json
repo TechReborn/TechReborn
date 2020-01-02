@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:extractor",
+  "power": 10,
+  "time": 300,
+  "ingredients": [
+    {
+      "item": "minecraft:ink_sac"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:black_dye",
+      "count": 2
+    }
+  ]
+}
