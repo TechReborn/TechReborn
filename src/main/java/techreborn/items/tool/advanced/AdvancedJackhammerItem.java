@@ -151,7 +151,7 @@ public class AdvancedJackhammerItem extends JackhammerItem {
     public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
         final ItemStack stack = player.getStackInHand(hand);
         if (player.isSneaking()) {
-            //ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
+            ItemUtils.switchActive(stack, cost, world.isClient, MessageIDs.poweredToolID);
             return new TypedActionResult<>(ActionResult.SUCCESS, stack);
         }
         return new TypedActionResult<>(ActionResult.PASS, stack);
@@ -159,13 +159,13 @@ public class AdvancedJackhammerItem extends JackhammerItem {
 
     @Override
     public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
-      //  ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
+        ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
     }
 
     @Environment(EnvType.CLIENT)
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-       // ItemUtils.buildActiveTooltip(stack, tooltip);
+        ItemUtils.buildActiveTooltip(stack, tooltip);
     }
 
 	@Environment(EnvType.CLIENT)

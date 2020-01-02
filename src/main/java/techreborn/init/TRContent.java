@@ -504,11 +504,11 @@ public class TRContent {
 
 
 		//TODO DEPRECATED
-		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new, StorageUnit.INDUSTRIAL.block.getDefaultState())),
-		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new, StorageUnit.QUANTUM.block.getDefaultState())),
-		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new, TankUnit.QUANTUM.block.getDefaultState())),
-		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new, StorageUnit.CREATIVE.block.getDefaultState())),
-		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new, TankUnit.CREATIVE.block.getDefaultState())),
+		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new)),
+		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new)),
+		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new)),
+		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new)),
+		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new)),
 
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),

@@ -724,6 +724,9 @@
   "techreborn.tooltip.generationRate.day": "Generation Rate Day",
   "techreborn.tooltip.generationRate.night": "Generation Rate Night",
   "techreborn.tooltip.greenhouse.upgrade_available": "Can be upgraded with powered lamps\nCheck multiblock hologram for details",
+  "techreborn.tooltip.unit.capacity": "Capacity",
+  "techreborn.tooltip.unit.empty": "Empty",
+  "techreborn.tooltip.unit.divider": " of ",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
@@ -902,5 +905,15 @@
   "item.techreborn.sulfuric_acid_bucket": "Sulfuric Acid",
   "item.techreborn.tritium_bucket": "Tritium",
   "item.techreborn.wolframium_bucket": "Wolframium",
-  "item.techreborn.biofuel_bucket": "Biofuel"
+  "item.techreborn.biofuel_bucket": "Biofuel",
+
+	"_comment27": "Gui",
+	"gui.techreborn.unit.wrenchtip": "Wrench unit to retain contents",
+	"gui.techreborn.unit.in": "IN",
+	"gui.techreborn.unit.out": "OUT",
+	"gui.techreborn.unit.used": "Used: ",
+	"gui.techreborn.tank.type": "Fluid Type:",
+	"gui.techreborn.tank.amount": "Fluid Amount:",
+	"gui.techreborn.storage.store": "Storing:",
+	"gui.techreborn.storage.amount": "Amount:"
 }

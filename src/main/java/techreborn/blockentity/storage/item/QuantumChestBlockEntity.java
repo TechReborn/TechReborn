@@ -42,6 +42,7 @@ public class QuantumChestBlockEntity extends StorageUnitBaseBlockEntity {
 	@Override
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
 		super.inventory.clear();
+		super.onBreak(world, playerEntity, blockPos, blockState);
 	}
 
 	@Override

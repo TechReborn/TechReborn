@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -43,6 +44,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import reborncore.common.util.StringUtils;
 import reborncore.common.util.WorldUtils;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -330,13 +332,13 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
 			if (!this.isEmpty()) {
-				info.add(new LiteralText(this.getCurrentCapacity() + " of " + this.getStoredStack().getName().asString()));
+				info.add(new LiteralText(this.getCurrentCapacity() + StringUtils.t("techreborn.tooltip.unit.divider") + this.getStoredStack().getName().asString()));
 			} else {
-				info.add(new LiteralText("Empty"));
+				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
 			}
 		}
 
-		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.getMaxCapacity() +
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + ": " + Formatting.GOLD + this.getMaxCapacity() +
 			" items (" + this.getMaxCapacity() / 64 + ")"));
 	}
 

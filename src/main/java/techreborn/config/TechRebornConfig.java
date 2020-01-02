@@ -375,22 +375,22 @@ public class TechRebornConfig {
 	public static int electricFurnaceMaxEnergy = 1000;
 
 	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
-	public static int crudeStorageUnitMaxStorage = 6912;
+	public static int crudeStorageUnitMaxStorage = 3200;
 
 	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
-	public static int basicStorageUnitMaxStorage = 43200;
+	public static int basicStorageUnitMaxStorage = 12800;
 
 	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
 	public static int basicTankUnitCapacity = 2500;
 
 	@Config(config = "machines", category = "storage", key = "AdvancedStorageMaxStorage", comment = "Maximum amount of items an Advanced Storage Unit can store")
-	public static int advancedStorageUnitMaxStorage = 96000;
+	public static int advancedStorageUnitMaxStorage = 44800;
 
 	@Config(config = "machines", category = "storage", key = "AdvancedTankUnitMaxStorage", comment = "How much liquid an Advanced Tank Unit can take (Value in buckets, 1000 Mb)")
 	public static int advancedTankUnitMaxStorage = 7000;
 
 	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store (Compat: >= 32768)")
-	public static int industrialStorageUnitMaxStorage = 172800;
+	public static int industrialStorageUnitMaxStorage = 96000;
 
 	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
 	public static int industrialTankUnitCapacity = 10000;

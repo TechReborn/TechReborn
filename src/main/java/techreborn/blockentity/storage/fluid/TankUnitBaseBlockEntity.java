@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -16,6 +17,7 @@ import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
+import reborncore.common.util.StringUtils;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -86,8 +88,12 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			// SAVE COMPAT
 			if (tagCompound.contains("QuantumTankBlockEntity")) {
 				this.type = TRContent.TankUnit.QUANTUM;
-				tank = new Tank("QuantumTankBlockEntity", type.capacity, this);
-				tank.read(tagCompound);
+				Tank temp = new Tank("QuantumTankBlockEntity", type.capacity, this);
+				temp.read(tagCompound);
+
+				// Set tank name to what it should be
+				tank = new Tank("TankStorage", type.capacity, this);
+				tank.setFluid(null, temp.getFluidInstance().copy());
 			}
 		}
 
@@ -122,12 +128,12 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
 			if (!this.tank.getFluidInstance().isEmpty()) {
-				info.add(new LiteralText(this.tank.getFluidAmount() + " of " + this.tank.getFluid()));
+				info.add(new LiteralText(this.tank.getFluidAmount() + StringUtils.t("techreborn.tooltip.unit.divider") + this.tank.getFluid()));
 			} else {
-				info.add(new LiteralText("Empty"));
+				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
 			}
 		}
-		info.add(new LiteralText(Formatting.GRAY + "Capacity: " + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue() / 1000 + ")"));
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + ":" + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue() / 1000 + ")"));
 	}
 
 	// IContainerProvider

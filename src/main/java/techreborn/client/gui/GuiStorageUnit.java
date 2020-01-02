@@ -27,6 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.common.util.StringUtils;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
 public class GuiStorageUnit extends GuiBase<BuiltContainer> {
@@ -43,10 +44,10 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 		super.drawBackground(f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawString("IN", 100, 43, 4210752, layer);
+		drawString(StringUtils.t("gui.techreborn.unit.in"), 100, 43, 4210752, layer);
 		drawSlot(100, 53, layer);
 
-		drawString("OUT", 140, 43, 4210752, layer);
+		drawString(StringUtils.t("gui.techreborn.unit.out"), 140, 43, 4210752, layer);
 		drawSlot(140, 53, layer);
 	}
 
@@ -55,20 +56,20 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 		super.drawForeground(mouseX, mouseY);
 
 		if (storageEntity.isEmpty()) {
-			font.draw("Empty", 10, 20, 4210752);
+			font.draw(StringUtils.t("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
-			font.draw("Storing:", 10, 20, 4210752);
+			font.draw(StringUtils.t("gui.techreborn.storage.store"), 10, 20, 4210752);
 			font.draw(storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
 
 
-			font.draw("Amount:", 10, 50, 4210752);
+			font.draw(StringUtils.t("gui.techreborn.storage.amount"), 10, 50, 4210752);
 			font.draw(String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
 
 			String percentFilled = String.valueOf((int) ((double) storageEntity.getCurrentCapacity() / (double) storageEntity.getMaxCapacity() * 100));
 
-			font.draw("Used: " + percentFilled + "%", 10, 70, 4210752);
+			font.draw(StringUtils.t("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
 
-			font.draw("Wrench unit to retain contents", 10, 80, 16711680);
+			font.draw(StringUtils.t("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
 	}
 }
