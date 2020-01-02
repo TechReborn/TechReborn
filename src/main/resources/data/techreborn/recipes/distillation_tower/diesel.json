@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "item": "techreborn:cell",
-      "count": 17,
+      "count": 16,
       "nbt": "empty"
     },
     {
@@ -24,7 +24,7 @@
     },
     {
       "item": "techreborn:cell",
-      "count": 16,
+      "count": 15,
       "nbt": {
         "fluid": "techreborn:sulfuric_acid"
       }

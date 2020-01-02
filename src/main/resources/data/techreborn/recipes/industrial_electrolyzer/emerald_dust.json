@@ -9,7 +9,7 @@
     },
     {
       "item": "techreborn:cell",
-      "count": 18,
+      "count": 16,
       "nbt": "empty"
     }
   ],
@@ -34,7 +34,7 @@
     },
     {
       "item": "techreborn:cell",
-      "count": 9,
+      "count": 7,
       "nbt": {
         "fluid": "techreborn:compressed_air"
       }
