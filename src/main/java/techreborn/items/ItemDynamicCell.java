@@ -25,7 +25,6 @@
 package techreborn.items;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -158,7 +157,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 							stack.decrement(1);
 							insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
 							playEmptyingSound(player, world, hitPos, drainFluid);
-							return TypedActionResult.pass(stack);
+							return TypedActionResult.success(stack);
 						}
 					}
 
@@ -170,7 +169,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 						insertOrDropStack(player, getEmpty());
 						playEmptyingSound(player, world, placePos, containedFluid);
 
-						return TypedActionResult.pass(stack);
+						return TypedActionResult.success(stack);
 					}
 				}
 			}
