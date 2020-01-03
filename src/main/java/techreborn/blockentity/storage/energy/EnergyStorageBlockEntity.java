@@ -60,6 +60,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		this.maxInput = maxInput;
 		this.maxOutput = maxOuput;
 		this.maxStorage = maxStorage;
+		// Call it again after we have proper values for energy I\O
+		checkTier();
 	}
 
 	// TilePowerAcceptor
@@ -111,7 +113,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		return maxInput;
 	}
 
-	// TileMachineBase
+	// MachineBaseBlockEntity
 	@Override
 	public void setFacing(Direction enumFacing) {
 		if (world == null) { return; }
