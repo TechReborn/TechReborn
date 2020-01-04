@@ -36,7 +36,7 @@ import techreborn.init.TRContent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DocumentAssistUtils {
+public class ToolTipAssistUtils {
 
 	// Colour constants
 	private static final Formatting instructColour = Formatting.BLUE;

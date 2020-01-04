@@ -53,7 +53,6 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
-import techreborn.utils.StackWIPHandler;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -125,7 +124,6 @@ public class TechRebornClient implements ClientModInitializer {
 		});
 
 		StackToolTipHandler.setup();
-		StackWIPHandler.setup();
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;

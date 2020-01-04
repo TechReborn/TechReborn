@@ -27,7 +27,6 @@ package techreborn.events;
 import net.fabricmc.fabric.api.event.client.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -41,7 +40,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.BaseBlockEntityProvider;
-import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.Energy;
@@ -50,7 +48,8 @@ import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.items.ItemUpgrade;
-import techreborn.utils.DocumentAssistUtils;
+import techreborn.utils.ToolTipAssistUtils;
+import techreborn.utils.WIP;
 
 import java.util.List;
 
@@ -68,15 +67,19 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		// Machine info and upgrades helper section
 		Block block = Block.getBlockFromItem(item);
 
+		if(block instanceof WIP){
+			components.add(new LiteralText(Formatting.RED + StringUtils.t("techreborn.tooltip.wip")));
+		}
+
 		if(block instanceof BaseBlockEntityProvider){
-			DocumentAssistUtils.addInfo(item.getTranslationKey(), components);
+			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components);
 		}
 
 		if(item instanceof ItemUpgrade){
 			ItemUpgrade upgrade = (ItemUpgrade)item;
 
-			DocumentAssistUtils.addInfo(item.getTranslationKey(), components, false);
-			components.addAll(DocumentAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components, false);
+			components.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
 		}
 
 

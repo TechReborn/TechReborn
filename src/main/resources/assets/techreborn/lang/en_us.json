@@ -724,7 +724,7 @@
   "techreborn.tooltip.generationRate.day": "Generation Rate Day",
   "techreborn.tooltip.generationRate.night": "Generation Rate Night",
   "techreborn.tooltip.greenhouse.upgrade_available": "Can be upgraded with powered lamps\nCheck multiblock hologram for details",
-  "techreborn.tooltip.unit.capacity": "Capacity",
+  "techreborn.tooltip.unit.capacity": "Capacity: ",
   "techreborn.tooltip.unit.empty": "Empty",
   "techreborn.tooltip.unit.divider": " of ",
 

@@ -338,7 +338,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			}
 		}
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + ": " + Formatting.GOLD + this.getMaxCapacity() +
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + Formatting.GOLD + this.getMaxCapacity() +
 			" items (" + this.getMaxCapacity() / 64 + ")"));
 	}
 

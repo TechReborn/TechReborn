@@ -24,25 +24,12 @@
 
 package techreborn.blocks.generator;
 
-import net.minecraft.util.Formatting;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.LiteralText;
-import net.minecraft.world.BlockView;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import javax.annotation.Nullable;
-import java.util.List;
+import techreborn.utils.WIP;
 
-public class BlockMagicEnergyConverter extends BlockMachineBase {
-	
-	@Override
-	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		tooltip.add(new LiteralText("WIP Coming Soon").formatted(Formatting.RED));
-		// TODO 
-		// Remember to remove WIP override and imports once complete
-	}
+public class BlockMagicEnergyConverter extends BlockMachineBase implements WIP {
+	//TODO: remove WIP
 
 	@Override
 	public IMachineGuiHandler getGui() {

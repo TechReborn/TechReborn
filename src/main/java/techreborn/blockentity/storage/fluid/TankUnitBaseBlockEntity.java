@@ -157,7 +157,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
 			}
 		}
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + ":" + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue() / 1000 + ")"));
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + Formatting.GOLD + this.tank.getCapacity() + " (" + this.tank.getCapacity().getRawValue() / 1000 + ")"));
 	}
 
 	// IContainerProvider
