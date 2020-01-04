@@ -493,8 +493,6 @@ public class TRContent {
 		FUSION_CONTROL_COMPUTER(new BlockFusionControlComputer()),
 		GAS_TURBINE(new GenericGeneratorBlock(EGui.GAS_TURBINE, GasTurbineBlockEntity::new)),
 		LIGHTNING_ROD(new GenericGeneratorBlock(null, LightningRodBlockEntity::new)),
-		MAGIC_ENERGY_ABSORBER (new BlockMagicEnergyAbsorber()),
-		MAGIC_ENERGY_CONVERTER(new BlockMagicEnergyConverter()),
 		PLASMA_GENERATOR(new GenericGeneratorBlock(EGui.PLASMA_GENERATOR, PlasmaGeneratorBlockEntity::new)),
 		SEMI_FLUID_GENERATOR(new GenericGeneratorBlock(EGui.SEMIFLUID_GENERATOR, SemiFluidGeneratorBlockEntity::new)),
 		SOLID_FUEL_GENERATOR(new GenericGeneratorBlock(EGui.GENERATOR, SolidFuelGeneratorBlockEntity::new)),
