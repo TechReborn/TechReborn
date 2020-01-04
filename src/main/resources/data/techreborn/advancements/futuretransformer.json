@@ -1,0 +1,49 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:mv_transformer"
+    },
+    "title": {
+      "translate": "advancements.techreborn.futuretransformer"
+    },
+    "description": {
+      "translate": "advancements.techreborn.futuretransformer.desc"
+    }
+  },
+  "parent": "techreborn:lvtransformer",
+  "criteria": {
+    "mvtransformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:mv_transformer"
+          }
+        ]
+      }
+    },
+    "hvtransformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:hv_transformer"
+          }
+        ]
+      }
+    },
+    "evtransformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:ev_transformer"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["mvtransformer", "hvtransformer","evtransformer"]
+  ]
+}

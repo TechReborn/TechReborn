@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FCF",
+    "CBC",
+    "FCF"
+  ],
+  "key": {
+    "B": {
+      "item": "techreborn:industrial_storage_unit"
+    },
+    "F": {
+      "item": "techreborn:advanced_machine_frame"
+    },
+    "C": {
+      "item": "techreborn:cell"
+    }
+  },
+  "result": {
+    "item": "techreborn:industrial_tank_unit"
+  }
+}

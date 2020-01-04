@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:lv_transformer"
+    },
+    "title": {
+      "translate": "advancements.techreborn.lvtransformer"
+    },
+    "description": {
+      "translate": "advancements.techreborn.lvtransformer.desc"
+    }
+  },
+  "parent": "techreborn:batbox",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:lv_transformer"
+          }
+        ]
+      }
+    }
+  }
+}

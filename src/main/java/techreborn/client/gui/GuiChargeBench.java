@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
-import techreborn.blockentity.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 
 public class GuiChargeBench extends GuiBase<BuiltContainer> {
 

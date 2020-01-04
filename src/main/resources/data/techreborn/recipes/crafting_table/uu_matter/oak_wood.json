@@ -11,7 +11,6 @@
     }
   },
   "result": {
-    "item": "minecraft:oak_wood",
-    "count": 64
+    "item": "minecraft:oak_wood"
   }
 }

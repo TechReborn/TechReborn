@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
 import reborncore.common.world.DataAttachment;
-import techreborn.blockentity.storage.idsu.IDSUManager;
+import techreborn.blockentity.storage.energy.idsu.IDSUManager;
 import techreborn.client.GuiHandler;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
@@ -78,7 +78,6 @@ public class TechReborn implements ModInitializer {
 		FluidGeneratorRecipes.init();
 		//Force loads the block entities at the right time
 		TRBlockEntities.THERMAL_GEN.toString();
-
 
 		// Scrapbox
 		if (TechRebornConfig.dispenseScrapboxes) {

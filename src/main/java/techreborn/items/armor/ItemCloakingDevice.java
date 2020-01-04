@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.world.World;
+import reborncore.api.items.ArmorRemoveHandler;
+import reborncore.api.items.ArmorTickable;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
@@ -45,7 +47,7 @@ import techreborn.init.TRArmorMaterial;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
+public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder, ArmorTickable, ArmorRemoveHandler {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
 	public static int usage = TechRebornConfig.cloackingDeviceUsage;
@@ -57,32 +59,7 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 		super(TRArmorMaterial.CLOAKING, EquipmentSlot.CHEST);
 	}
 
-	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (entityIn instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) entityIn;
-
-			if (Energy.valid(stack)) {
-				if(Energy.of(stack).use(usage)){
-					player.setInvisible(true);
-				} else {
-					if (!player.hasStatusEffect(StatusEffects.INVISIBILITY)) {
-						player.setInvisible(false);
-					}
-				}
-			}
-		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.CLOAKING_DEVICE, itemList);
-	}
-
+	// ItemTRArmour
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -98,7 +75,17 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	// IEnergyItemInfo
+	// Item
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
+		if (!isIn(group)) {
+			return;
+		}
+		InitUtils.initPoweredItems(TRContent.CLOAKING_DEVICE, itemList);
+	}
+
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
@@ -117,5 +104,25 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder {
 	@Override
 	public double getMaxOutput(EnergySide side) {
 		return 0;
+	}
+
+	// ArmorTickable
+	@Override
+	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
+		if (Energy.of(stack).use(usage)) {
+			playerEntity.setInvisible(true);
+		} else {
+			if (playerEntity.isInvisible()) {
+				playerEntity.setInvisible(false);
+			}
+		}
+	}
+
+	// ArmorRemoveHandler
+	@Override
+	public void onRemoved(PlayerEntity playerEntity) {
+		if (playerEntity.isInvisible()) {
+			playerEntity.setInvisible(false);
+		}
 	}
 }

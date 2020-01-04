@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
+import reborncore.common.recipes.ExtendedRecipeRemainder;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
@@ -137,11 +138,6 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 						}
 						if (stacksInSlots[i] > requiredSize) {
 							if (ingredient.test(stack)) {
-								if (stack.getItem().getRecipeRemainder() != null) {
-									if (!hasRoomForExtraItem(new ItemStack(stack.getItem().getRecipeRemainder()))) {
-										continue;
-									}
-								}
 								foundIngredient = true;
 								checkedSlots.add(i);
 								stacksInSlots[i]--;
@@ -195,14 +191,23 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			// Looks for the best slot to take it from
 			ItemStack bestSlot = inventory.getInvStack(i);
 			if (ingredient.test(bestSlot)) {
-				handleContainerItem(bestSlot);
-				bestSlot.decrement(1);
+				ItemStack remainderStack = getRemainderItem(bestSlot);
+				if(remainderStack.isEmpty()) {
+					bestSlot.decrement(1);
+				} else {
+					inventory.setInvStack(i, remainderStack);
+				}
+
 			} else {
 				for (int j = 0; j < 9; j++) {
 					ItemStack stack = inventory.getInvStack(j);
 					if (ingredient.test(stack)) {
-						handleContainerItem(stack);
-						stack.decrement(1);
+						ItemStack remainderStack = getRemainderItem(stack);
+						if(remainderStack.isEmpty()) {
+							stack.decrement(1);
+						} else {
+							inventory.setInvStack(j, remainderStack);
+						}
 						break;
 					}
 				}
@@ -218,19 +223,14 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		return true;
 	}
 
-	private void handleContainerItem(ItemStack stack) {
-		if (stack.getItem().hasRecipeRemainder()) {
-			ItemStack containerItem = new ItemStack(stack.getItem().getRecipeRemainder());
-			ItemStack extraOutputSlot = inventory.getInvStack(10);
-			if (hasOutputSpace(containerItem, 10)) {
-				if (extraOutputSlot.isEmpty()) {
-					inventory.setInvStack(10, containerItem.copy());
-				} else if (ItemUtils.isItemEqual(extraOutputSlot, containerItem, true, true)
-						&& extraOutputSlot.getMaxCount() < extraOutputSlot.getCount() + containerItem.getCount()) {
-					extraOutputSlot.increment(1);
-				}
-			}
+	private ItemStack getRemainderItem(ItemStack stack) {
+		if(stack.getItem() instanceof ExtendedRecipeRemainder) {
+			return ((ExtendedRecipeRemainder) stack.getItem()).getRemainderStack(stack);
+
+		} else if (stack.getItem().hasRecipeRemainder()) {
+			return new ItemStack(stack.getItem().getRecipeRemainder());
 		}
+		return ItemStack.EMPTY;
 	}
 
 	public int getProgress() {

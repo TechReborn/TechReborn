@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,6 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemFrequencyTransmitter;
-import techreborn.utils.StackWIPHandler;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -125,7 +124,6 @@ public class TechRebornClient implements ClientModInitializer {
 		});
 
 		StackToolTipHandler.setup();
-		StackWIPHandler.setup();
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;
@@ -155,6 +153,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.INDUSTRIAL_SAWMILL, MultiblockRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
 	}
 
 

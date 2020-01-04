@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,12 +37,12 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 

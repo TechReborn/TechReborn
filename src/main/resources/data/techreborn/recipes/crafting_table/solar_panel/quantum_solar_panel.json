@@ -1,22 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DLD",
-    "LDL",
-    "CPC"
+    "AAA",
+    "ABA",
+    "AAA"
   ],
   "key": {
-    "P": {
+    "A": {
       "item": "techreborn:ultimate_solar_panel"
     },
-    "C": {
-      "item": "techreborn:energy_flow_chip"
-    },
-    "D": {
-      "tag": "c:diamond_dust"
-    },
-    "L": {
-      "item": "techreborn:reinforced_glass"
+    "B": {
+      "item": "techreborn:uu_matter"
     }
   },
   "result": {

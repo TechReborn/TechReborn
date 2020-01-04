@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DLD",
+    "S S",
+    "   "
+  ],
+  "key": {
+    "S": {
+      "item": "techreborn:superconductor"
+    },
+    "L": {
+      "item": "techreborn:lapotron_crystal"
+    },
+    "D": {
+      "item": "techreborn:data_storage_chip"
+    }
+  },
+  "result": {
+    "item": "techreborn:quantum_helmet"
+  }
+}

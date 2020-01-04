@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@ import net.minecraft.util.JsonHelper;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.ingredient.RebornIngredient;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 
 /**
  * @author drcrazy

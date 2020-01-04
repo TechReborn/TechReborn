@@ -1,15 +1,15 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:copper_ore"
+      "item": "techreborn:manual"
     },
     "title": {
-      "translate": "itemGroup.techreborn"
+      "translate": "advancements.techreborn.root"
     },
     "description": {
       "translate": "advancements.techreborn.root.desc"
     },
-    "background": "techreborn:textures/blocks/storage/lead_block.png",
+    "background": "techreborn:textures/block/storage/steel_storage_block.png",
     "show_toast": true,
     "announce_to_chat": true
   },
@@ -33,6 +33,29 @@
           }
         ]
       }
+    },
+    "ore3_in_inventory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:silver_ore"
+          }
+        ]
+      }
+    },
+    "ore4_in_inventory": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:tin_ore"
+          }
+        ]
+      }
     }
-  }
+  },
+  "requirements": [
+    ["ore_in_inventory", "ore2_in_inventory","ore3_in_inventory", "ore4_in_inventory"]
+]
 }

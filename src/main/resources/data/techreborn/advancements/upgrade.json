@@ -1,0 +1,59 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:overclocker_upgrade"
+    },
+    "title": {
+      "translate": "advancements.techreborn.upgrade"
+    },
+    "description": {
+      "translate": "advancements.techreborn.upgrade.desc"
+    }
+  },
+  "parent": "techreborn:coppercable",
+  "criteria": {
+    "overclocker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:overclocker_upgrade"
+          }
+        ]
+      }
+    },
+    "transformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:transformer_upgrade"
+          }
+        ]
+      }
+    },
+    "energystorage": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:energy_storage_upgrade"
+          }
+        ]
+      }
+    },
+    "superconductor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:superconductor_upgrade"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["overclocker", "transformer","energystorage","superconductor"]
+  ]
+}

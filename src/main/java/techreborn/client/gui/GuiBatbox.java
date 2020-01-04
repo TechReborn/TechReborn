@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
-import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 
 public class GuiBatbox extends GuiBase<BuiltContainer> {
 

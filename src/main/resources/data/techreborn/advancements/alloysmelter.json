@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:alloy_smelter"
+    },
+    "title": {
+      "translate": "advancements.techreborn.alloysmelter"
+    },
+    "description": {
+      "translate": "advancements.techreborn.alloysmelter.desc"
+    }
+  },
+  "parent": "techreborn:ironalloyfurnace",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:alloy_smelter"
+          }
+        ]
+      }
+    }
+  }
+}

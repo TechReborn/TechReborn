@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:nuke"
+    },
+    "title": {
+      "translate": "advancements.techreborn.nuke"
+    },
+    "description": {
+      "translate": "advancements.techreborn.nuke.desc"
+    },
+    "hidden": true
+  },
+  "parent": "techreborn:root",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:nuke"
+      }
+    }
+  }
+}

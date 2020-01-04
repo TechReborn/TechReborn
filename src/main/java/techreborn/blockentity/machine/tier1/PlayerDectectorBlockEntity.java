@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,8 @@ import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.WorldUtils;
-import techreborn.blocks.tier1.BlockPlayerDetector;
-import techreborn.blocks.tier1.BlockPlayerDetector.PlayerDetectorType;
+import techreborn.blocks.machine.tier1.BlockPlayerDetector;
+import techreborn.blocks.machine.tier1.BlockPlayerDetector.PlayerDetectorType;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;

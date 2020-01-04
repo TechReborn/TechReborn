@@ -1,0 +1,20 @@
+{
+  "type": "techreborn:chemical_reactor",
+  "power": 30,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "minecraft:rotten_flesh",
+	  "count": 3
+	},
+	{
+	  "item": "techreborn:ashes_dust"
+	}
+  ],
+  "results": [
+	{
+	  "item": "minecraft:leather",
+	  "count": 2
+	}
+  ]
+}

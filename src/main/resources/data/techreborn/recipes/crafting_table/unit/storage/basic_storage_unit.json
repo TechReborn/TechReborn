@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "BXB",
+    "PDP"
+  ],
+  "key": {
+    "X": {
+      "item": "techreborn:crude_storage_unit"
+    },
+    "B": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "P": {
+      "item": "techreborn:refined_iron_plate"
+    },
+    "D": {
+      "item": "techreborn:basic_display"
+    }
+  },
+  "result": { 
+    "item": "techreborn:basic_storage_unit"
+  }
+}

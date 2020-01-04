@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/cube_bottom_top",
+    "textures": {
+        "top": "techreborn:block/machines/tier0_machines/fluid_drain_top",
+        "side": "techreborn:block/machines/tier0_machines/fluid_drain_side",
+        "bottom": "techreborn:block/machines/tier0_machines/fluid_drain_bottom"
+    }
+}

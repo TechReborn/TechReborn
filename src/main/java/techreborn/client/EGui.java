@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,6 @@ public enum EGui implements IMachineGuiHandler {
 	CHUNK_LOADER,
 	COMPRESSOR,
 	DIESEL_GENERATOR,
-	DIGITAL_CHEST,
 	DISTILLATION_TOWER,
 	ELECTRIC_FURNACE,
 	EXTRACTOR,
@@ -68,17 +67,19 @@ public enum EGui implements IMachineGuiHandler {
 	MATTER_FABRICATOR,
 	MEDIUM_VOLTAGE_SU,
 	PLASMA_GENERATOR,
-	QUANTUM_CHEST,
-	QUANTUM_TANK,
+	STORAGE_UNIT,
+	TANK_UNIT,
 	RECYCLER,
 	ROLLING_MACHINE,
 	SAWMILL,
 	SCRAPBOXINATOR,
+	SOLAR_PANEL,
 	SEMIFLUID_GENERATOR,
 	THERMAL_GENERATOR,
 	VACUUM_FREEZER,
 	SOLID_CANNING_MACHINE,
 	WIRE_MILL,
+	GREENHOUSE_CONTROLLER,
 	FLUID_REPLICATOR,
 
 	DATA_DRIVEN;

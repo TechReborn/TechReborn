@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,13 +42,14 @@ public enum TRArmorMaterial implements ArmorMaterial {
 	}), 
 	RUBY(16, new int[] { 2, 7, 5, 2 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
-	}), 
+	}),
 	SAPPHIRE(19, new int[] { 4, 4, 4, 4 }, 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 				return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
 			}), 
 	PERIDOT(17, new int[] { 3, 8, 3, 2 }, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
-	}), 
+	}),
+	QUANTUM(75, new int[] { 3, 6, 8, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
 	CLOAKING(5, new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
 	LITHIUMBATPACK(25, new int[]{2, 5, 6, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
 	LAPOTRONPACK(33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);

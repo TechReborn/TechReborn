@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -104,18 +104,15 @@ public class CableBlockEntity extends BlockEntity
     @Override
     public void fromTag(CompoundTag compound) {
         super.fromTag(compound);
-        if (compound.contains("CableBlockEntity")) {
-            energy = compound.getCompound("CableBlockEntity").getInt("power");
+        if (compound.contains("energy")) {
+            energy = compound.getDouble("energy");
         }
     }
 
     @Override
     public CompoundTag toTag(CompoundTag compound) {
         super.toTag(compound);
-        if (energy > 0) {
-        	CompoundTag data = new CompoundTag();
-    		compound.put("CableBlockEntity", data);
-        }
+        compound.putDouble("energy", energy);
         return compound;
     }
 

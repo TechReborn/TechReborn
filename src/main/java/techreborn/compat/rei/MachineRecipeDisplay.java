@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,6 +58,11 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
 			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
 		}
+		for (List<EntryStack> entries : inputs)
+			for (EntryStack stack : entries)
+				ReiPlugin.applyCellEntry(stack);
+		for (EntryStack stack : outputs)
+			ReiPlugin.applyCellEntry(stack);
 	}
 	
 	public int getEnergy() {

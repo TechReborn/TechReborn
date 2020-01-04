@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:implosion_compressor"
+    },
+    "title": {
+      "translate": "advancements.techreborn.implosion"
+    },
+    "description": {
+      "translate": "advancements.techreborn.implosion.desc"
+    }
+  },
+  "parent": "techreborn:industrialgrinder",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:implosion_compressor"
+      }
+    }
+  }
+}

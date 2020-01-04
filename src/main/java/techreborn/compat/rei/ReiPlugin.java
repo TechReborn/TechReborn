@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,8 +38,12 @@ import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
 import techreborn.TechReborn;
+import techreborn.api.generator.EFluidGenerator;
+import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
+import techreborn.compat.rei.fluidgenerator.FluidGeneratorRecipeCategory;
+import techreborn.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
 import techreborn.compat.rei.fluidreplicator.FluidReplicatorRecipeCategory;
 import techreborn.compat.rei.fluidreplicator.FluidReplicatorRecipeDisplay;
 import techreborn.compat.rei.rollingmachine.RollingMachineCategory;
@@ -81,7 +85,6 @@ public class ReiPlugin implements REIPluginV0 {
 		iconMap.put(ModRecipes.SOLID_CANNING_MACHINE, Machine.SOLID_CANNING_MACHINE);
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
 		iconMap.put(ModRecipes.WIRE_MILL, Machine.WIRE_MILL);
-		
 	}
 	
 	@Override
@@ -116,11 +119,23 @@ public class ReiPlugin implements REIPluginV0 {
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SOLID_CANNING_MACHINE));
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.VACUUM_FREEZER, 1));
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.WIRE_MILL, 1));
+		
+		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.THERMAL_GENERATOR));
+		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.GAS_TURBINE));
+		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.DIESEL_GENERATOR));
+		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.SEMI_FLUID_GENERATOR));
+		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.PLASMA_GENERATOR));
 	}
 	
 	@Override
 	public void registerRecipeDisplays(RecipeHelper recipeHelper) {
 		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> registerMachineRecipe(recipeHelper, rebornRecipeType));
+		
+		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.THERMAL, Machine.THERMAL_GENERATOR);
+		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.GAS, Machine.GAS_TURBINE);
+		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.DIESEL, Machine.DIESEL_GENERATOR);
+		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.SEMIFLUID, Machine.SEMI_FLUID_GENERATOR);
+		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.PLASMA, Machine.PLASMA_GENERATOR);
 	}
 	
 	@Override
@@ -143,6 +158,11 @@ public class ReiPlugin implements REIPluginV0 {
 		recipeHelper.registerWorkingStations(ModRecipes.SOLID_CANNING_MACHINE.getName(), EntryStack.create(Machine.SOLID_CANNING_MACHINE));
 		recipeHelper.registerWorkingStations(ModRecipes.VACUUM_FREEZER.getName(), EntryStack.create(Machine.VACUUM_FREEZER));
 		recipeHelper.registerWorkingStations(ModRecipes.WIRE_MILL.getName(), EntryStack.create(Machine.WIRE_MILL));
+		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.THERMAL_GENERATOR.name), EntryStack.create(Machine.THERMAL_GENERATOR));
+		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.GAS_TURBINE.name), EntryStack.create(Machine.GAS_TURBINE));
+		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.DIESEL_GENERATOR.name), EntryStack.create(Machine.DIESEL_GENERATOR));
+		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.SEMI_FLUID_GENERATOR.name), EntryStack.create(Machine.SEMI_FLUID_GENERATOR));
+		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.PLASMA_GENERATOR.name), EntryStack.create(Machine.PLASMA_GENERATOR));
 	}
 	
 	@Override
@@ -151,21 +171,19 @@ public class ReiPlugin implements REIPluginV0 {
 		// Check Tags will not check the amount of the ItemStack, but will enable checking their tags.
 		for (EntryStack stack : RoughlyEnoughItemsCore.getEntryRegistry().getStacksList())
 			applyCellEntry(stack);
-		for (List<RecipeDisplay> displays : RecipeHelper.getInstance().getAllRecipes().values()) {
-			for (RecipeDisplay display : displays) {
-				for (List<EntryStack> entries : display.getInputEntries())
-					for (EntryStack stack : entries)
-						applyCellEntry(stack);
-				for (EntryStack stack : display.getOutputEntries())
-					applyCellEntry(stack);
-			}
-		}
 	}
 	
-	private void applyCellEntry(EntryStack stack) {
+	public static void applyCellEntry(EntryStack stack) {
 		// getItem can be null but this works
 		if (stack.getItem() == TRContent.CELL)
 			stack.addSetting(EntryStack.Settings.CHECK_TAGS, EntryStack.Settings.TRUE);
+	}
+	
+	private void registerFluidGeneratorDisplays(RecipeHelper recipeHelper, EFluidGenerator generator, Machine machine) {
+		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
+		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe -> {
+			recipeHelper.registerDisplay(identifier, new FluidGeneratorRecipeDisplay(recipe, identifier));
+		});
 	}
 	
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType) {

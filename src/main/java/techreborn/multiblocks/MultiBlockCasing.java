@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
-import techreborn.blocks.BlockMachineCasing;
+import techreborn.blocks.misc.BlockMachineCasing;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 

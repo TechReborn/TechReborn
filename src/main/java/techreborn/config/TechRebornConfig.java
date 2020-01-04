@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,16 @@ package techreborn.config;
 
 import reborncore.common.config.Config;
 
+import java.util.Arrays;
+import java.util.List;
+
 //All moved into one class as its a lot easier to find the annotations when you know where they all are
 public class TechRebornConfig {
 	
 	// Generators
+	@Config(config = "generators", category = "solarPanelGeneral", key = "internalCapacity", comment = "Multiplier for internal capacity of solar panels (multiplier * day generation rate)")
+	public static int solarInternalCapacityMultiplier = 2000;
+
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
 	
@@ -55,10 +61,10 @@ public class TechRebornConfig {
 	public static int ultimateGenerationRateN = 16;	
 	
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in FE)")
-	public static int quantumGenerationRateD = 1024;
+	public static int quantumGenerationRateD = 2048;
 	
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in FE)")
-	public static int quantumGenerationRateN = 64;	
+	public static int quantumGenerationRateN = 128;
 	
 	@Config(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
 	public static int lightningRodMaxOutput = 2048;
@@ -226,6 +232,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "upgrades", key = "energy_storage", comment = "Energy storage behavior extra power")
 	public static double energyStoragePower = 40_000;
 
+	@Config(config = "items", category = "upgrades", key = "super_conductor", comment = "Energy flow power increase")
+	public static double superConductorCount = 1;
+
 	// Machines
 	@Config(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
 	public static int grinderMaxInput = 32;
@@ -259,9 +268,6 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "player_detector", key = "PlayerDetectorEUPerSecond", comment = "Player Detector Energy Consumption per second (Value in EU)")
 	public static int playerDetectorEuPerTick = 10;
-
-	@Config(config = "machines", category = "quantum_chest", key = "QuantumChestMaxStorage", comment = "Maximum amount of items a Quantum Chest can store")
-	public static int quantumChestMaxStorage = Integer.MAX_VALUE;
 
 	@Config(config = "machines", category = "Distillation_tower", key = "DistillationTowerMaxInput", comment = "Distillation Tower Max Input (Value in EU)")
 	public static int distillationTowerMaxInput = 128;
@@ -368,8 +374,32 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "electric_furnace", key = "ElectricFurnaceMaxEnergy", comment = "Electric Furnace Max Energy (Value in EU)")
 	public static int electricFurnaceMaxEnergy = 1000;
 
-	@Config(config = "machines", category = "digital_chest", key = "DigitalChestMaxStorage", comment = "Maximum amount of items a Digital Chest can store")
-	public static int digitalChestMaxStorage = 32768;
+	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
+	public static int crudeStorageUnitMaxStorage = 3200;
+
+	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
+	public static int basicStorageUnitMaxStorage = 12800;
+
+	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int basicTankUnitCapacity = 2500;
+
+	@Config(config = "machines", category = "storage", key = "AdvancedStorageMaxStorage", comment = "Maximum amount of items an Advanced Storage Unit can store")
+	public static int advancedStorageUnitMaxStorage = 44800;
+
+	@Config(config = "machines", category = "storage", key = "AdvancedTankUnitMaxStorage", comment = "How much liquid an Advanced Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int advancedTankUnitMaxStorage = 7000;
+
+	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store (Compat: >= 32768)")
+	public static int industrialStorageUnitMaxStorage = 96000;
+
+	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
+	public static int industrialTankUnitCapacity = 10000;
+
+	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store (Compat: == MAX_VALUE)")
+	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
+
+	@Config(config = "machines", category = "storage", key = "QuantumTankUnitCapacity", comment = "How much liquid a Quantum Tank Unit can take (Value in buckets, 1000 Mb)(Compat: == MAX_VALUE)")
+	public static int quantumTankUnitCapacity = Integer.MAX_VALUE / 1000;
 
 	@Config(config = "machines", category = "charge_bench", key = "ChargeBenchMaxOutput", comment = "Charge Bench Max Output (Value in EU)")
 	public static int chargeOMatBMaxOutput = 512;
@@ -425,6 +455,9 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "recycler", key = "RecyclerMaxEnergy", comment = "Recycler Max Energy (Value in EU)")
 	public static int recyclerMaxEnergy = 1000;
 
+	@Config(config = "machines", category = "recycler", key = "RecyclerBlacklist", comment = "Recycler blacklist")
+	public static List<String> recyclerBlackList = Arrays.asList("techreborn:scrap_box", "techreborn:scrap");
+
 	@Config(config = "machines", category = "scrapboxinator", key = "ScrapboxinatorMaxInput", comment = "Scrapboxinator Max Input (Value in EU)")
 	public static int scrapboxinatorMaxInput = 32;
 
@@ -442,7 +475,22 @@ public class TechRebornConfig {
 	
 	@Config(config = "machines", category = "iron_machine", key = "cooking_scale", comment = "Multiplier for vanilla furnace item cook time")
 	public static double cookingScale = 1.25;
-
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxInput", comment = "Greenhouse Controller Max Input")
+	public static int greenhouseControllerMaxInput = 32;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxEnergy", comment = "Greenhouse Controller Max Energy")
+	public static int greenhouseControllerMaxEnergy = 1_000;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerTick", comment = "Greenhouse Controller Energy Per Tick")
+	public static int greenhouseControllerEnergyPerTick = 2;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerHarvest", comment = "Greenhouse Controller Energy Per Harvest")
+	public static int greenhouseControllerEnergyPerHarvest = 100;
+	
+	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerBonemeal", comment = "Greenhouse Controller Energy Per Bonemeal")
+	public static int greenhouseControllerEnergyPerBonemeal = 50;
+	
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;

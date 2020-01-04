@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,6 @@ package techreborn.events;
 import net.fabricmc.fabric.api.event.client.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -40,24 +39,58 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
+import reborncore.common.BaseBlockEntityProvider;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
+import techreborn.init.TRContent;
+import techreborn.items.ItemUpgrade;
+import techreborn.utils.ToolTipAssistUtils;
+import techreborn.utils.WIP;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StackToolTipHandler implements ItemTooltipCallback {
 
+	private static ArrayList<Block> wipBlocks = new ArrayList<>();
+
 	public static void setup() {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
+
+		// WIP injection
+		wipBlocks.add(TRContent.Machine.DRAIN.block);
+
 	}
 
 	@Override
 	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> components) {
 		Item item = stack.getItem();
+
+
+		// Machine info and upgrades helper section
+		Block block = Block.getBlockFromItem(item);
+
+		if(wipBlocks.contains(block) || block instanceof WIP){
+			components.add(new LiteralText(Formatting.RED + StringUtils.t("techreborn.tooltip.wip")));
+		}
+
+		if(block instanceof BaseBlockEntityProvider){
+			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components);
+		}
+
+		if(item instanceof ItemUpgrade){
+			ItemUpgrade upgrade = (ItemUpgrade)item;
+
+			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components, false);
+			components.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
+		}
+
+
+		// Other section
 		if (item instanceof IListInfoProvider) {
 			((IListInfoProvider) item).addInfo(components, false, false);
 		} else if (stack.getItem() instanceof EnergyHolder) {
@@ -79,8 +112,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			}
 		} else {
 			try {
-				Block block = Block.getBlockFromItem(item);
-				if (block != null && (block instanceof BlockWithEntity || block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
+				if ((block instanceof BlockEntityProvider) && Registry.BLOCK.getId(block).getNamespace().contains("techreborn")) {
 					BlockEntity blockEntity = ((BlockEntityProvider) block).createBlockEntity(MinecraftClient.getInstance().world);
 					boolean hasData = false;
 					if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {

@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.init.TRContent;
 import techreborn.packets.ServerboundPackets;
 

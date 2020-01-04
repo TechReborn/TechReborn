@@ -7,7 +7,7 @@
       "item": "techreborn:silicon_plate"
     },
     {
-      "item": "techreborn:insulated_gold_cable",
+      "tag": "c:electrum_plate",
       "count": 2
     }
   ],

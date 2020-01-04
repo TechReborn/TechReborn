@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.fluid.container.ItemFluidInfo;
-import reborncore.mixin.extensions.FluidBlockExtensions;
+import reborncore.mixin.common.AccessorFluidBlock;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -45,8 +45,8 @@ public class FluidUtils {
 
 	@Nonnull
 	public static Fluid fluidFromBlock(Block block){
-		if(block instanceof FluidBlockExtensions){
-			return ((FluidBlockExtensions) block).getFluid();
+		if(block instanceof AccessorFluidBlock){
+			return ((AccessorFluidBlock) block).getFluid();
 		}
 		return Fluids.EMPTY;
 	}
@@ -71,7 +71,7 @@ public class FluidUtils {
 			FluidValue freeSpace = target.getCapacity(null).subtract(targetFluidInstance.getAmount());
 
 			if(!outputStack.isEmpty()){
-				if(outputStack.getCount() + 1 >= outputStack.getMaxCount()){
+				if(outputStack.getCount() >= outputStack.getMaxCount()){
 					return false;
 				}
 			}
@@ -128,7 +128,7 @@ public class FluidUtils {
 
 		inputStack.decrement(1);
 
-		return false;
+		return true;
 	}
 
 	public static boolean fluidEquals(@Nonnull Fluid fluid, @Nonnull Fluid fluid1) {

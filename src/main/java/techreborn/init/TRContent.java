@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,18 +27,22 @@ package techreborn.init;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.block.OreBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import reborncore.api.blockentity.IUpgrade;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.blockentity.ChargeOMatBlockEntity;
-import techreborn.blockentity.DigitalChestBlockEntity;
-import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.misc.DrainBlockEntity;
+import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
+import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
+import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.*;
@@ -48,16 +52,25 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.*;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
+import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
+import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blocks.*;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.blocks.generator.*;
 import techreborn.blocks.lighting.BlockLamp;
-import techreborn.blocks.storage.*;
-import techreborn.blocks.tier0.IronAlloyFurnaceBlock;
-import techreborn.blocks.tier0.IronFurnaceBlock;
-import techreborn.blocks.tier1.BlockPlayerDetector;
-import techreborn.blocks.tier3.BlockCreativeQuantumChest;
+import techreborn.blocks.misc.BlockAlarm;
+import techreborn.blocks.misc.BlockMachineCasing;
+import techreborn.blocks.misc.BlockMachineFrame;
+import techreborn.blocks.misc.BlockStorage;
+import techreborn.blocks.storage.OldBlock;
+import techreborn.blocks.storage.energy.*;
+import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
+import techreborn.blocks.machine.tier0.IronFurnaceBlock;
+import techreborn.blocks.machine.tier1.BlockPlayerDetector;
+import techreborn.blocks.storage.item.StorageUnitBlock;
+import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -67,6 +80,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.ItemDynamicCell;
 import techreborn.items.ItemUpgrade;
+import techreborn.items.armor.ItemQuantumSuit;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
@@ -134,6 +148,12 @@ public class TRContent {
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
 	public static ItemDynamicCell CELL;
+
+	//Quantum Suit
+	public static ItemQuantumSuit QUANTUM_HELMET;
+	public static ItemQuantumSuit QUANTUM_CHESTPLATE;
+	public static ItemQuantumSuit QUANTUM_LEGGINGS;
+	public static ItemQuantumSuit QUANTUM_BOOTS;
 
 	// Gem armor & tools
 	@Nullable
@@ -234,10 +254,67 @@ public class TRContent {
 			block = new BlockSolarPanel(this);
 			this.generationRateD = generationRateD;
 			this.generationRateN = generationRateN;
-			// Buffer for 2 mins of work
-			internalCapacity = generationRateD * 2_400;
+
+			internalCapacity = generationRateD * TechRebornConfig.solarInternalCapacityMultiplier;
 			
 			InitUtils.setup(block, name + "_solar_panel");
+		}
+
+		@Override
+		public Item asItem() {
+			return block.asItem();
+		}
+	}
+
+	public enum StorageUnit implements ItemConvertible {
+		CRUDE(TechRebornConfig.crudeStorageUnitMaxStorage),
+		BASIC(TechRebornConfig.basicStorageUnitMaxStorage),
+		ADVANCED(TechRebornConfig.advancedStorageUnitMaxStorage),
+		INDUSTRIAL(TechRebornConfig.industrialStorageUnitMaxStorage),
+		QUANTUM(TechRebornConfig.quantumStorageUnitMaxStorage),
+		CREATIVE(Integer.MAX_VALUE);
+
+		public final String name;
+		public final Block block;
+
+		// How many blocks it can hold
+		public int capacity;
+
+
+		StorageUnit(int capacity) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			block = new StorageUnitBlock(this);
+			this.capacity = capacity;
+
+			InitUtils.setup(block, name + "_storage_unit");
+		}
+
+		@Override
+		public Item asItem() {
+			return block.asItem();
+		}
+	}
+
+	public enum TankUnit implements ItemConvertible {
+		BASIC(TechRebornConfig.basicTankUnitCapacity),
+		ADVANCED(TechRebornConfig.advancedTankUnitMaxStorage),
+		INDUSTRIAL(TechRebornConfig.industrialTankUnitCapacity),
+		QUANTUM(TechRebornConfig.quantumTankUnitCapacity),
+		CREATIVE(Integer.MAX_VALUE / 1000);
+
+		public final String name;
+		public final Block block;
+
+		// How many blocks it can hold
+		public FluidValue capacity;
+
+
+		TankUnit(int capacity) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			block = new TankUnitBlock(this);
+			this.capacity = FluidValue.BUCKET.multiply(capacity);
+
+			InitUtils.setup(block, name + "_tank_unit");
 		}
 
 		@Override
@@ -318,7 +395,7 @@ public class TRContent {
 
 		Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new Block(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
+			block = new OreBlock(FabricBlockSettings.of(Material.STONE).strength(2f, 2f).build());
 			this.veinSize = veinSize;
 			this.veinsPerChunk = veinsPerChunk;
 			this.minY = minY;
@@ -409,6 +486,7 @@ public class TRContent {
 		VACUUM_FREEZER(new GenericMachineBlock(EGui.VACUUM_FREEZER, VacuumFreezerBlockEntity::new)),
 		SOLID_CANNING_MACHINE(new GenericMachineBlock(EGui.SOLID_CANNING_MACHINE, SoildCanningMachineBlockEntity::new)),
 		WIRE_MILL(new GenericMachineBlock(EGui.WIRE_MILL, WireMillBlockEntity::new)),
+		GREENHOUSE_CONTROLLER(new GenericMachineBlock(EGui.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
 		
 		DIESEL_GENERATOR(new GenericGeneratorBlock(EGui.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericGeneratorBlock(null, DragonEggSyphonBlockEntity::new)),
@@ -416,29 +494,31 @@ public class TRContent {
 		FUSION_CONTROL_COMPUTER(new BlockFusionControlComputer()),
 		GAS_TURBINE(new GenericGeneratorBlock(EGui.GAS_TURBINE, GasTurbineBlockEntity::new)),
 		LIGHTNING_ROD(new GenericGeneratorBlock(null, LightningRodBlockEntity::new)),
-		MAGIC_ENERGY_ABSORBER (new BlockMagicEnergyAbsorber()),
-		MAGIC_ENERGY_CONVERTER(new BlockMagicEnergyConverter()),
 		PLASMA_GENERATOR(new GenericGeneratorBlock(EGui.PLASMA_GENERATOR, PlasmaGeneratorBlockEntity::new)),
 		SEMI_FLUID_GENERATOR(new GenericGeneratorBlock(EGui.SEMIFLUID_GENERATOR, SemiFluidGeneratorBlockEntity::new)),
 		SOLID_FUEL_GENERATOR(new GenericGeneratorBlock(EGui.GENERATOR, SolidFuelGeneratorBlockEntity::new)),
 		THERMAL_GENERATOR(new GenericGeneratorBlock(EGui.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new)),
 		WATER_MILL(new GenericGeneratorBlock(null, WaterMillBlockEntity::new)),
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
-		
-		CREATIVE_QUANTUM_CHEST(new BlockCreativeQuantumChest()),
-		CREATIVE_QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, CreativeQuantumTankBlockEntity::new)),
-		DIGITAL_CHEST(new GenericMachineBlock(EGui.DIGITAL_CHEST, DigitalChestBlockEntity::new)),
-		QUANTUM_CHEST(new GenericMachineBlock(EGui.QUANTUM_CHEST, QuantumChestBlockEntity::new)),
-		QUANTUM_TANK(new GenericMachineBlock(EGui.QUANTUM_TANK, QuantumTankBlockEntity::new)),
-		
-		ADJUSTABLE_SU(new BlockAdjustableSU()),
+
+		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
+
+		//TODO DEPRECATED
+		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new)),
+		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new)),
+		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new)),
+		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new)),
+		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new)),
+
+
+		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(EGui.CHARGEBENCH, ChargeOMatBlockEntity::new)),
-		INTERDIMENSIONAL_SU(new BlockInterdimensionalSU()),
-		LAPOTRONIC_SU(new BlockLapotronicSU()),
-		LSU_STORAGE(new BlockLSUStorage()),
-		LOW_VOLTAGE_SU(new BlockLowVoltageSU()),
-		MEDIUM_VOLTAGE_SU(new BlockMediumVoltageSU()),
-		HIGH_VOLTAGE_SU(new BlockHighVoltageSU()),
+		INTERDIMENSIONAL_SU(new InterdimensionalSUBlock()),
+		LAPOTRONIC_SU(new LapotronicSUBlock()),
+		LSU_STORAGE(new LSUStorageBlock()),
+		LOW_VOLTAGE_SU(new LowVoltageSUBlock()),
+		MEDIUM_VOLTAGE_SU(new MediumVoltageSUBlock()),
+		HIGH_VOLTAGE_SU(new HighVoltageSUBlock()),
 		LV_TRANSFORMER(new BlockLVTransformer()),
 		MV_TRANSFORMER(new BlockMVTransformer()),
 		HV_TRANSFORMER(new BlockHVTransformer()),
@@ -620,6 +700,7 @@ public class TRContent {
 		INDUSTRIAL_CIRCUIT,
 
 		MACHINE_PARTS,
+		BASIC_DISPLAY,
 		DIGITAL_DISPLAY,
 
 		DATA_STORAGE_CORE,
@@ -748,7 +829,7 @@ public class TRContent {
 				aesu = (AdjustableSUBlockEntity) blockEntity;
 			}
 			if (aesu != null) {
-				aesu.superconductors++;
+				aesu.superconductors += TechRebornConfig.superConductorCount;
 			}
 		});
 

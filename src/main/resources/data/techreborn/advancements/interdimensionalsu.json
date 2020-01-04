@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:interdimensional_su"
+    },
+    "title": {
+      "translate": "advancements.techreborn.interdimensionalsu"
+    },
+    "description": {
+      "translate": "advancements.techreborn.interdimensionalsu.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "techreborn:mfsu",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "techreborn:interdimensional_su"
+      }
+    }
+  }
+}

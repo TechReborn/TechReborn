@@ -6,7 +6,7 @@
 	"min-size": 1,
 	"ingredients": [
 		{
-			"fluid": "techreborn:tritium",
+			"fluid": "techreborn:helium3",
 			"holder": "techreborn:cell"
 		},
 		{

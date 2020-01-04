@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,8 +32,9 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import techreborn.init.TRContent.SolarPanels;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
+import techreborn.client.EGui;
+import techreborn.init.TRContent.SolarPanels;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -54,7 +55,10 @@ public class BlockSolarPanel extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return null;
+		if(this.panelType == SolarPanels.CREATIVE){
+			return null;
+		}
+		return EGui.SOLAR_PANEL;
 	}
 
 	@Override

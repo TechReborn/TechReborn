@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DLD",
+    "S S",
+    "P P"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:tungstensteel_plate"
+    },
+    "S": {
+      "item": "techreborn:superconductor"
+    },
+    "L": {
+      "item": "techreborn:lapotron_crystal"
+    },
+    "D": {
+      "item": "techreborn:data_storage_chip"
+    }
+  },
+  "result": {
+    "item": "techreborn:quantum_leggings"
+  }
+}

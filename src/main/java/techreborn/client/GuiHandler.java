@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,13 +34,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
 import reborncore.client.containerBuilder.IContainerProvider;
-import techreborn.blockentity.ChargeOMatBlockEntity;
-import techreborn.blockentity.DigitalChestBlockEntity;
-import techreborn.blockentity.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
-import techreborn.blockentity.fusionReactor.FusionControlComputerBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
+import techreborn.blockentity.generator.SolarPanelBlockEntity;
 import techreborn.blockentity.generator.advanced.DieselGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.GasTurbineBlockEntity;
 import techreborn.blockentity.generator.advanced.SemiFluidGeneratorBlockEntity;
@@ -52,14 +53,13 @@ import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
-import techreborn.blockentity.machine.tier3.QuantumChestBlockEntity;
-import techreborn.blockentity.machine.tier3.QuantumTankBlockEntity;
-import techreborn.blockentity.storage.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.HighVoltageSUBlockEntity;
-import techreborn.blockentity.storage.LowVoltageSUBlockEntity;
-import techreborn.blockentity.storage.MediumVoltageSUBlockEntity;
-import techreborn.blockentity.storage.idsu.InterdimensionalSUBlockEntity;
-import techreborn.blockentity.storage.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.energy.HighVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
+import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
+import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.client.gui.*;
 
 public class GuiHandler {
@@ -107,8 +107,6 @@ public class GuiHandler {
 				return new GuiCompressor(syncID, player, (CompressorBlockEntity) blockEntity);
 			case DIESEL_GENERATOR:
 				return new GuiDieselGenerator(syncID, player, (DieselGeneratorBlockEntity) blockEntity);
-			case DIGITAL_CHEST:
-				return new GuiDigitalChest(syncID, player, (DigitalChestBlockEntity) blockEntity);
 			case ELECTRIC_FURNACE:
 				return new GuiElectricFurnace(syncID, player, (ElectricFurnaceBlockEntity) blockEntity);
 			case EXTRACTOR:
@@ -137,10 +135,10 @@ public class GuiHandler {
 				return new GuiMFE(syncID, player, (MediumVoltageSUBlockEntity) blockEntity);
 			case HIGH_VOLTAGE_SU:
 				return new GuiMFSU(syncID, player, (HighVoltageSUBlockEntity) blockEntity);
-			case QUANTUM_CHEST:
-				return new GuiQuantumChest(syncID, player, (QuantumChestBlockEntity) blockEntity);
-			case QUANTUM_TANK:
-				return new GuiQuantumTank(syncID, player, (QuantumTankBlockEntity) blockEntity);
+			case STORAGE_UNIT:
+				return new GuiStorageUnit(syncID, player, (StorageUnitBaseBlockEntity) blockEntity);
+			case TANK_UNIT:
+				return new GuiTankUnit(syncID, player, (TankUnitBaseBlockEntity) blockEntity);
 			case RECYCLER:
 				return new GuiRecycler(syncID, player, (RecyclerBlockEntity) blockEntity);
 			case ROLLING_MACHINE:
@@ -149,6 +147,8 @@ public class GuiHandler {
 				return new GuiIndustrialSawmill(syncID, player, (IndustrialSawmillBlockEntity) blockEntity);
 			case SCRAPBOXINATOR:
 				return new GuiScrapboxinator(syncID, player, (ScrapboxinatorBlockEntity) blockEntity);
+			case SOLAR_PANEL:
+				return new GuiSolar(syncID, player, (SolarPanelBlockEntity) blockEntity);
 			case SEMIFLUID_GENERATOR:
 				return new GuiSemifluidGenerator(syncID, player, (SemiFluidGeneratorBlockEntity) blockEntity);
 			case THERMAL_GENERATOR:
@@ -167,6 +167,8 @@ public class GuiHandler {
 				return new GuiSolidCanningMachine(syncID, player, (SoildCanningMachineBlockEntity) blockEntity);
 			case WIRE_MILL:
 				return new GuiWireMill(syncID, player, (WireMillBlockEntity) blockEntity);
+			case GREENHOUSE_CONTROLLER:
+				return new GuiGreenhouseController(syncID, player, (GreenhouseControllerBlockEntity) blockEntity);
 			default:
 				break;
 

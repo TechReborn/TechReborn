@@ -2,7 +2,7 @@
     "parent": "minecraft:block/cube_bottom_top",
     "textures": {
         "top": "techreborn:block/machines/generators/quantum_solar_panel_top",
-        "bottom": "techreborn:block/machines/generators/generator_bottom",
-        "side": "techreborn:block/machines/generators/solar_panel_side_on"
+        "bottom": "techreborn:block/machines/tier3_machines/quantum_bottom",
+        "side": "techreborn:block/machines/generators/quantum_solar_panel_side_on"
     }
 }

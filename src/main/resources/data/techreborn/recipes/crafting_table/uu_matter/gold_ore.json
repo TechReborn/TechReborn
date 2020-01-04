@@ -11,7 +11,6 @@
     }
   },
   "result": {
-    "item": "minecraft:gold_ore",
-    "count": 64
+    "item": "minecraft:gold_ore"
   }
 }

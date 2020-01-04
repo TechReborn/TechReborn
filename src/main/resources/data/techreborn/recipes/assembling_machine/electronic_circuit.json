@@ -7,7 +7,7 @@
       "item": "techreborn:silicon_plate"
     },
     {
-      "item": "techreborn:insulated_copper_cable",
+      "tag": "c:copper_plate",
       "count": 2
     }
   ],

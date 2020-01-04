@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,6 @@ public class MessageIDs {
 	public static int freqTransmitterID = 0;
 	public static int fluidPipeID = 1;
 	public static int playerDetectorID = 2;
-	public static int nanosaberID = 3;
+	public static int poweredToolID = 3;
 	public static int alarmID = 4;
 }

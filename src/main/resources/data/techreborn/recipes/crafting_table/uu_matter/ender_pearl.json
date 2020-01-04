@@ -11,7 +11,6 @@
     }
   },
   "result": {
-    "item": "minecraft:ender_pearl",
-	"count": 16
+    "item": "minecraft:ender_pearl"
   }
 }

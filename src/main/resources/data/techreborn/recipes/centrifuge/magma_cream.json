@@ -4,6 +4,7 @@
 	"time": 5000,
 	"ingredients": [
 		{
+			"count": 2,
 			"item": "minecraft:magma_cream"
 		}
 	],

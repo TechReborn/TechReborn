@@ -14,6 +14,6 @@ In order to ease code review of your pull request, please, go through this check
  * Are there any leftover stubs or test routines in the code? 
  * Are there any hardcoded, development only things still in the code? 
  * Was performance considered? 
- * Corner cases well documented or any workarounds for a known limitation of the MC, Forge, RC, etc used.
+ * Corner cases well documented or any workarounds for a known limitation of the MC, Fabric, RC, etc used.
 
    

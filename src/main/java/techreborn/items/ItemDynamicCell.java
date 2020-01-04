@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,6 @@
 package techreborn.items;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.FluidDrainable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -69,7 +68,7 @@ import javax.annotation.Nullable;
 public class ItemDynamicCell extends Item implements ItemFluidInfo {
 
 	public ItemDynamicCell() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP));
+		super( new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
 	}
 
 	@Override
@@ -94,6 +93,8 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 		}
 		return super.getName(itemStack);
 	}
+
+
 
 	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
 		Validate.notNull(fluid);
@@ -155,10 +156,8 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 						if(drainFluid != Fluids.EMPTY){
 							stack.decrement(1);
 							insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
-							world.setBlockState(hitPos, Blocks.AIR.getDefaultState());
 							playEmptyingSound(player, world, hitPos, drainFluid);
-
-							return TypedActionResult.pass(stack);
+							return TypedActionResult.success(stack);
 						}
 					}
 
@@ -170,7 +169,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 						insertOrDropStack(player, getEmpty());
 						playEmptyingSound(player, world, placePos, containedFluid);
 
-						return TypedActionResult.pass(stack);
+						return TypedActionResult.success(stack);
 					}
 				}
 			}
@@ -184,7 +183,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 		}
 	}
 
-	//Thanks vanilla :)
+	// Thanks vanilla :)
 	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, IWorld world, BlockPos blockPos, Fluid fluid) {
 		SoundEvent soundEvent = fluid.matches(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
 		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);

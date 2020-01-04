@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ import team.reborn.energy.Energy;
 import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
-import techreborn.items.tool.ItemTreeTap;
+import techreborn.items.tool.TreeTapItem;
 import java.util.Random;
 
 /**
@@ -135,7 +135,7 @@ public class BlockRubberLog extends LogBlock {
 			return ActionResult.SUCCESS;
 		}
 
-		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) || stack.getItem() instanceof ItemTreeTap) {
+		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) || stack.getItem() instanceof TreeTapItem) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);

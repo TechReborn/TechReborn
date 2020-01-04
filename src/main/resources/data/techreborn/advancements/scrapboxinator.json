@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "techreborn:scrapboxinator"
+    },
+    "title": {
+      "translate": "advancements.techreborn.scrapboxinator"
+    },
+    "description": {
+      "translate": "advancements.techreborn.scrapboxinator.desc"
+    }
+  },
+  "parent": "techreborn:recycler",
+  "criteria": {
+    "crit1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "techreborn:scrapboxinator"
+          }
+        ]
+      }
+    }
+  }
+}

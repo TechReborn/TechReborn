@@ -1,7 +1,7 @@
 /*
  * This file is part of TechReborn, licensed under the MIT License (MIT).
  *
- * Copyright (c) 2018 TechReborn
+ * Copyright (c) 2020 TechReborn
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,8 +35,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IUpgrade;
-import reborncore.common.recipes.IUpgradeHandler;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.recipes.IUpgradeHandler;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
@@ -57,22 +57,21 @@ public class ItemUpgrade extends Item implements IUpgrade {
 
 	@Override
 	public void process(
-		@Nonnull MachineBaseBlockEntity blockEntity,
-		@Nullable
-			IUpgradeHandler handler,
-		@Nonnull
-			ItemStack stack) {
+			@Nonnull MachineBaseBlockEntity blockEntity,
+			@Nullable
+					IUpgradeHandler handler,
+			@Nonnull
+					ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if(stack.getItem() == TRContent.Upgrades.SUPERCONDUCTOR.item){
-			if(Screen.hasShiftDown()){
+		if (stack.getItem() == TRContent.Upgrades.SUPERCONDUCTOR.item) {
+			if (Screen.hasControlDown()) {
 				tooltip.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this"));
 			}
 		}
-		super.appendTooltip(stack, world, tooltip, context);
 	}
 }
