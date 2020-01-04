@@ -39,6 +39,7 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -500,6 +501,7 @@ public class TRContent {
 		WATER_MILL(new GenericGeneratorBlock(null, WaterMillBlockEntity::new)),
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
+		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
 
 		//TODO DEPRECATED
 		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new)),

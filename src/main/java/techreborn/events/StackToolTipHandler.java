@@ -51,12 +51,19 @@ import techreborn.items.ItemUpgrade;
 import techreborn.utils.ToolTipAssistUtils;
 import techreborn.utils.WIP;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StackToolTipHandler implements ItemTooltipCallback {
 
+	private static ArrayList<Block> wipBlocks = new ArrayList<>();
+
 	public static void setup() {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
+
+		// WIP injection
+		wipBlocks.add(TRContent.Machine.DRAIN.block);
+
 	}
 
 	@Override
@@ -67,7 +74,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		// Machine info and upgrades helper section
 		Block block = Block.getBlockFromItem(item);
 
-		if(block instanceof WIP){
+		if(wipBlocks.contains(block) || block instanceof WIP){
 			components.add(new LiteralText(Formatting.RED + StringUtils.t("techreborn.tooltip.wip")));
 		}
 

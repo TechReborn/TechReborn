@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "techreborn:block/machines/tier0_machines/drain" }
+    }
+}

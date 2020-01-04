@@ -33,6 +33,7 @@ import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.Validate;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
@@ -82,6 +83,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<DigitalChestBlockEntity> DIGITAL_CHEST = register(DigitalChestBlockEntity.class, "digital_chest", TRContent.Machine.DIGITAL_CHEST);
 	public static final BlockEntityType<CreativeQuantumChestBlockEntity> CREATIVE_QUANTUM_CHEST = register(CreativeQuantumChestBlockEntity.class, "creative_quantum_chest", TRContent.Machine.CREATIVE_QUANTUM_CHEST);
 	public static final BlockEntityType<CreativeQuantumTankBlockEntity> CREATIVE_QUANTUM_TANK = register(CreativeQuantumTankBlockEntity.class, "creative_quantum_tank", TRContent.Machine.CREATIVE_QUANTUM_TANK);
+	public static final BlockEntityType<DrainBlockEntity> DRAIN = register(DrainBlockEntity.class, "drain", TRContent.Machine.DRAIN);
 	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity.class, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
 	public static final BlockEntityType<IndustrialCentrifugeBlockEntity> INDUSTRIAL_CENTRIFUGE = register(IndustrialCentrifugeBlockEntity.class, "industrial_centrifuge", TRContent.Machine.INDUSTRIAL_CENTRIFUGE);
 	public static final BlockEntityType<RollingMachineBlockEntity> ROLLING_MACHINE = register(RollingMachineBlockEntity.class, "rolling_machine", TRContent.Machine.ROLLING_MACHINE);
