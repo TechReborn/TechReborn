@@ -32,6 +32,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import org.apache.commons.lang3.text.WordUtils;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -39,6 +40,7 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
@@ -137,7 +139,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		final CompoundTag blockEntity = new CompoundTag();
 		this.toTag(blockEntity);
 		dropStack.setTag(new CompoundTag());
-		dropStack.getTag().put("blockEntity", blockEntity);
+		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
 	}
 
@@ -152,7 +154,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
 			if (!this.tank.getFluidInstance().isEmpty()) {
-				info.add(new LiteralText(this.tank.getFluidAmount() + StringUtils.t("techreborn.tooltip.unit.divider") + this.tank.getFluid()));
+				info.add(new LiteralText(this.tank.getFluidAmount() + StringUtils.t("techreborn.tooltip.unit.divider") + WordUtils.capitalize(FluidUtil.getFluidName(this.tank.getFluid()))));
 			} else {
 				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
 			}
