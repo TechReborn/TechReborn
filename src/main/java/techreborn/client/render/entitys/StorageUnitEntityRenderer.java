@@ -3,7 +3,6 @@ package techreborn.client.render.entitys;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
@@ -32,22 +31,12 @@ public class StorageUnitEntityRenderer extends BlockEntityRenderer<StorageUnitBa
 		}
 		matrices.push();
 		Direction direction = storage.getFacing();
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((direction.getHorizontal() - 2) * 90F));
+		matrices.translate(0.5, 0.5, 0.5);
+		matrices.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion((direction.asRotation())));
+		matrices.translate(0, 0, 0.501);
 		matrices.scale(0.5F, 0.5F, 0.5F);
-		switch (direction) {
-			case NORTH:
-			case WEST:
-				matrices.translate(1, 1, 0);
-				break;
-			case SOUTH:
-				matrices.translate(-1, 1, -2);
-				break;
-			case EAST:
-				matrices.translate(-1, 1, 2);
-				break;
-		}
-		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().up());
-		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+		matrices.scale(1, 1, 0.001F);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GUI, 0xf000f0 /* (A vanilla constant) */, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 		matrices.pop();
 	}
 }
