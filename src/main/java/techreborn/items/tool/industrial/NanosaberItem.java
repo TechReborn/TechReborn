@@ -63,40 +63,33 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	// 4M FE max charge with 1k charge rate
 	public NanosaberItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
-		this.addPropertyGetter(new Identifier("techreborn:active"), new ItemPropertyGetter() {
-			@Override
-			@Environment(EnvType.CLIENT)
-			public float call(ItemStack stack,
-			                   @Nullable
-				                   World worldIn,
-			                   @Nullable
-				                   LivingEntity entityIn) {
-				if (ItemUtils.isActive(stack)) {
-					if (Energy.of(stack).getMaxStored() - Energy.of(stack).getEnergy() >= 0.9 * Energy.of(stack).getMaxStored()) {
-						return 0.5F;
-					}
-					return 1.0F;
+		this.addPropertyGetter(new Identifier("techreborn:active"), (stack, worldIn, entityIn) -> {
+			if (ItemUtils.isActive(stack)) {
+				if (Energy.of(stack).getMaxStored() - Energy.of(stack).getEnergy() >= 0.9 * Energy.of(stack).getMaxStored()) {
+					return 0.5F;
 				}
-				return 0.0F;
+				return 1.0F;
 			}
+			return 0.0F;
 		});
 	}
 	
-	// ItemSword
+	// SwordItem
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
 		return Energy.of(stack).use(cost);
 	}
 
+	// ToolItem
 	@Override
-	public void getAttributeModifiers(EquipmentSlot slot, ItemStack stack, Multimap<String, EntityAttributeModifier> attributes) {
-		attributes.removeAll(EntityAttributes.ATTACK_DAMAGE.getId());
-		attributes.removeAll(EntityAttributes.ATTACK_SPEED.getId());
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+		return false;
+	}
 
-		if (slot== EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
-			attributes.put(EntityAttributes.ATTACK_DAMAGE.getId(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_UUID, "Weapon modifier", 12, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.ATTACK_SPEED.getId(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_UUID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
-		}
+	// Item
+	@Override
+	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		ItemUtils.checkActive(stack, cost, entityIn.world.isClient, MessageIDs.poweredToolID);
 	}
 
 	@Override
@@ -110,29 +103,12 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		ItemUtils.checkActive(stack, cost, entityIn.world.isClient, MessageIDs.poweredToolID);
-	}
-
-	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+	public boolean isDamageable() {
 		return false;
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
+	public boolean isEnchantable(ItemStack stack) { return true; }
 
 	@Environment(EnvType.CLIENT)
 	@Override
@@ -166,7 +142,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 	}
 
-	// IEnergyItemInfo
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
@@ -185,5 +161,33 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	@Override
 	public double getMaxOutput(EnergySide side) {
 		return 0;
+	}
+
+	// ItemDurabilityExtensions
+	@Override
+	public double getDurability(ItemStack stack) {
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	}
+
+	@Override
+	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public int getDurabilityColor(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
+	}
+
+	// ItemStackModifiers
+	@Override
+	public void getAttributeModifiers(EquipmentSlot slot, ItemStack stack, Multimap<String, EntityAttributeModifier> attributes) {
+		attributes.removeAll(EntityAttributes.ATTACK_DAMAGE.getId());
+		attributes.removeAll(EntityAttributes.ATTACK_SPEED.getId());
+
+		if (slot== EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
+			attributes.put(EntityAttributes.ATTACK_DAMAGE.getId(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_UUID, "Weapon modifier", 12, EntityAttributeModifier.Operation.ADDITION));
+			attributes.put(EntityAttributes.ATTACK_SPEED.getId(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_UUID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
+		}
 	}
 }

@@ -110,6 +110,14 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 		return TorchHelper.placeTorch(context);
 	}
 
+	@Override
+	public boolean isDamageable() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
+
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {

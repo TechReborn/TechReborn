@@ -62,10 +62,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	// PickaxeItem
 	@Override
 	public boolean isEffectiveOn(BlockState state) {
-		if (Items.DIAMOND_PICKAXE.isEffectiveOn(state)) {
-			return true;
-		}
-		return false;
+		return Items.DIAMOND_PICKAXE.isEffectiveOn(state);
 	}
 
 	@Override
@@ -110,6 +107,9 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	public boolean isDamageable() {
 		return false;
 	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
 
 	@Environment(EnvType.CLIENT)
 	@Override

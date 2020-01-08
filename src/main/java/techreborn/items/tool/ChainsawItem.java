@@ -24,14 +24,15 @@
 
 package techreborn.items.tool;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -44,7 +45,6 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilityExtensions {
@@ -53,26 +53,21 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	public int cost = 250;
 	public float poweredSpeed = 20F;
 	public int transferLimit = 100;
-	public boolean isBreaking = false;
 
 	public ChainsawItem(ToolMaterials material, int energyCapacity, float unpoweredSpeed) {
 		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.maxCharge = energyCapacity;
 
-		this.addPropertyGetter(new Identifier("techreborn", "animated"), new ItemPropertyGetter() {
-			@Override
-			@Environment(EnvType.CLIENT)
-			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= cost
-						&& entityIn != null && entityIn.getMainHandStack().equals(stack)) {
-					return 1.0F;
-				}
-				return 0.0F;
+		this.addPropertyGetter(new Identifier("techreborn", "animated"), (stack, worldIn, entityIn) -> {
+			if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= cost
+					&& entityIn != null && entityIn.getMainHandStack().equals(stack)) {
+				return 1.0F;
 			}
+			return 0.0F;
 		});
 	}
 
-	// ItemAxe
+	// AxeItem
 	@Override
 	public float getMiningSpeed(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() >= cost
@@ -82,7 +77,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 		return super.getMiningSpeed(stack, state);
 	}
 
-	// ItemTool
+	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
@@ -97,6 +92,22 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 		return true;
 	}
 
+	// ToolItem
+	@Override
+	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
+		return false;
+	}
+
+	// Item
+	@Override
+	public boolean isDamageable() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
+
+	// ItemDurabilityExtensions
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -112,12 +123,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	@Override
-	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
-		return false;
-	}
-
-	// IEnergyItemInfo
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
@@ -136,10 +142,5 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	@Override
 	public double getMaxOutput(EnergySide side) {
 		return 0;
-	}
-
-	@Override
-	public int getEnchantability() {
-		return 20;
 	}
 }

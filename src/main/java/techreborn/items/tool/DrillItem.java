@@ -71,7 +71,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 		}
 	}
 
-	// ItemTool
+	// MiningToolItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		Random rand = new Random();
@@ -86,16 +86,20 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 		return true;
 	}
 
-	//Item
+	// ToolItem
 	@Override
 	public boolean canRepair(ItemStack itemStack_1, ItemStack itemStack_2) {
 		return false;
 	}
 
+	//Item
 	@Override
 	public boolean isDamageable() {
 		return false;
 	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
 
 	// ItemDurabilityExtensions
 	@Override

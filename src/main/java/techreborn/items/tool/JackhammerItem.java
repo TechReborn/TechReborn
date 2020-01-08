@@ -88,6 +88,10 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 		return false;
 	}
 
+	// Item
+	@Override
+	public boolean isEnchantable(ItemStack stack) { return true; }
+
 	// ItemDurabilityExtensions
 	@Override
 	public double getDurability(ItemStack stack) {
