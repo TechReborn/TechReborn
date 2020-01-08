@@ -1,14 +1,23 @@
-node {
-   stage 'Checkout'
+pipeline {
+   agent any
+   stages {
 
-   checkout scm
+      stage('Init') {
+         steps {
+            sh "rm -rf build/libs/"
+            sh "chmod +x gradlew"
+         }
+      }
 
-   stage 'Build'
+      stage ('Build') {
+         when {
+                branch '1.15'
+         }
+         steps {
+            sh "./gradlew clean build publish curseTools --refresh-dependencies --stacktrace"
 
-   sh "chmod +x gradlew"
-   sh "./gradlew clean build publish curseTools --refresh-dependencies --stacktrace"
-
-   stage "Archive artifacts"
-
-   archive 'build/libs/*'
+            archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
+         }
+      }
+   }
 }

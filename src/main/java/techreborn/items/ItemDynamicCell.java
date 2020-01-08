@@ -33,6 +33,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -154,8 +155,13 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 					if (hitState.getBlock() instanceof FluidDrainable) {
 						Fluid drainFluid = ((FluidDrainable)hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
 						if(drainFluid != Fluids.EMPTY){
-							stack.decrement(1);
-							insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
+							if (stack.getCount() == 1) {
+								stack = getCellWithFluid(drainFluid, 1);
+							} else {
+								stack.decrement(1);
+								insertOrDropStack(player, getCellWithFluid(drainFluid, 1));
+							}
+
 							playEmptyingSound(player, world, hitPos, drainFluid);
 							return TypedActionResult.success(stack);
 						}
@@ -164,10 +170,22 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 				} else {
 					BlockState placeState = world.getBlockState(placePos);
 					if(placeState.canBucketPlace(containedFluid)){
-						world.setBlockState(placePos, containedFluid.getDefaultState().getBlockState());
-						stack.decrement(1);
-						insertOrDropStack(player, getEmpty());
-						playEmptyingSound(player, world, placePos, containedFluid);
+						if (world.dimension.doesWaterVaporize() && containedFluid.matches(FluidTags.WATER)) {
+							world.playSound(player, placePos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
+							for(int l = 0; l < 8; ++l) {
+								world.addParticle(ParticleTypes.LARGE_SMOKE, (double)placePos.getX() + Math.random(), (double)placePos.getY() + Math.random(), (double)placePos.getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
+							}
+						} else {
+							world.setBlockState(placePos, containedFluid.getDefaultState().getBlockState());
+							playEmptyingSound(player, world, placePos, containedFluid);
+						}
+
+						if(stack.getCount() == 1) {
+							stack = getEmpty();
+						} else {
+							stack.decrement(1);
+							insertOrDropStack(player, getEmpty());
+						}
 
 						return TypedActionResult.success(stack);
 					}

@@ -145,6 +145,6 @@ public class GuiIndustrialSawmill extends GuiBase<BuiltContainer> {
 		multiblock.addComponent(new BlockPos(
 				x - Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2,
 				y,
-				z- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2), blockState);
+				z- Direction.byId(this.blockEntity.getFacingInt()).getOffsetY() * 2).offset(blockEntity.getFacing().getOpposite(), 2), blockState);
 	}
 }

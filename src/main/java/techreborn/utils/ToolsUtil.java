@@ -47,17 +47,16 @@ public class ToolsUtil {
         if (!(entityLiving instanceof PlayerEntity)) {
             return;
         }
-        Random rand = new Random();
-        if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
-            if (!Energy.of(tool).use(cost)) {
-                return;
-            }
-        }
         BlockState blockState = world.getBlockState(pos);
         if (blockState.getHardness(world, pos) == -1.0F) {
             return;
         }
-
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
+			if (!Energy.of(tool).use(cost)) {
+				return;
+			}
+		}
         blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), tool);
         world.setBlockState(pos, Blocks.AIR.getDefaultState());
         world.removeBlockEntity(pos);
