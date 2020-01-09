@@ -129,9 +129,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			return true;
 		}
 		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), stack, true, tags)) {
-			if (stack.getCount() + inventory.getInvStack(slot).getCount() <= stack.getMaxCount()) {
-				return true;
-			}
+			return stack.getCount() + inventory.getInvStack(slot).getCount() <= stack.getMaxCount();
 		}
 		return false;
 	}
@@ -168,8 +166,8 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	/**
 	 * Validates if reactor has all inputs and can output result
 	 * 
-	 * @param recipe
-	 * @return
+	 * @param recipe FusionReactorRecipe Recipe to validate
+	 * @return Boolean True if we have all inputs and can fit output
 	 */
 	private boolean validateRecipe(FusionReactorRecipe recipe) {
 		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs().get(0), outputStackSlot, true);	
@@ -274,7 +272,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			}
 			if (hasStartedCrafting && crafingTickTime < currentRecipe.getTime()) {
 				// Power gen
-				if (currentRecipe.getPower() < 0) {
+				if (currentRecipe.getPower() > 0) {
 					// Waste power if it has no where to go
 					double power = Math.abs(currentRecipe.getPower()) * getPowerMultiplier();
 					addEnergy(power);
@@ -456,10 +454,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		if(!hasStartedCrafting){
 			return 1; //Waiting on power
 		}
-		if(hasStartedCrafting){
-			return 2; //Crafting
-		}
-		return -1;
+		return 2; //Crafting
 	}
 
 	public void setState(int state){

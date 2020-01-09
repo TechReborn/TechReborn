@@ -177,6 +177,9 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public double getBaseMaxOutput() {
+		if (getPanel() == TRContent.SolarPanels.CREATIVE){
+			return EnergyTier.INSANE.getMaxOutput();
+		}
 		// Solar panel output will only be limited by the cables the users use
 		return EnergyTier.EXTREME.getMaxOutput();
 	}
