@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MFM",
+	"SSS",
+	"MFM"
+  ],
+  "key": {
+    "M": {
+      "item": "techreborn:advanced_machine_frame"
+    },
+	"F": {
+	  "item": "techreborn:energy_flow_chip"
+	},
+	"S": {
+	  "item": "techreborn:superconductor"
+	}
+  },
+  "result": {
+    "item": "techreborn:superconductor_cable"
+  }
+}
