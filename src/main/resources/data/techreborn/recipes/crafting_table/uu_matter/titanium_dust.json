@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "UUU",
-    "U U",
-    "   "
+    "UXU",
+    "XXX"
   ],
   "key": {
     "U": {
       "item": "techreborn:uu_matter"
-    }
+    },
+	"X": {
+	  "item": "minecraft:air"
+	}
   },
   "result": {
     "item": "techreborn:titanium_dust"

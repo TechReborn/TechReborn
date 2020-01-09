@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "UUU",
-    "UU ",
-    " U "
+    "UUX",
+    "XUX"
   ],
   "key": {
     "U": {
       "item": "techreborn:uu_matter"
-    }
+	},
+	"X": {
+	  "item": "minecraft:air"
+	}
   },
   "result": {
     "item": "techreborn:chrome_dust"
