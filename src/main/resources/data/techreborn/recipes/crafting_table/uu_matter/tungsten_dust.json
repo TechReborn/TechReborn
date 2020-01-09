@@ -3,12 +3,15 @@
   "pattern": [
     "UUU",
     "UUU",
-    "   "
+    "XXX"
   ],
   "key": {
     "U": {
       "item": "techreborn:uu_matter"
-    }
+    },
+	"X": {
+	  "item": "minecraft:air"
+	}
   },
   "result": {
     "item": "techreborn:tungsten_dust"
