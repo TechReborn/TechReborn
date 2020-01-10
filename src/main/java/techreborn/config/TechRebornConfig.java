@@ -495,6 +495,9 @@ public class TechRebornConfig {
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
 
+	@Config(config = "misc", category = "general", key = "MachineSoundVolume", comment = "Machines crafting sound volume (0 - disabled, 1 - max)")
+	public static float machineSoundVolume = 1.0F;
+
 	@Config(config = "misc", category = "general", key = "manualRefund", comment = "Allow refunding items used to craft the manual")
 	public static boolean allowManualRefund = true;
 

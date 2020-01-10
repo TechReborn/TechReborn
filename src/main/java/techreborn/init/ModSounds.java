@@ -29,6 +29,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import reborncore.common.recipes.ICrafterSoundHanlder;
+import techreborn.config.TechRebornConfig;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -54,7 +55,7 @@ public class ModSounds {
                 return;
             }
 			world.playSound(null, blockEntity.getPos().getX(), blockEntity.getPos().getY(),
-					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, 1F, 1F);
+					blockEntity.getPos().getZ(), ModSounds.MACHINE_RUN, SoundCategory.BLOCKS, TechRebornConfig.machineSoundVolume, 1F);
 		}
 	}
 }
