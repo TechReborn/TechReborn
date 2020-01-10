@@ -25,21 +25,19 @@
 package techreborn.utils;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.world.World;
-import techreborn.items.ItemDynamicCell;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import techreborn.items.DynamicCellItem;
 
 import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecipeUtils {
 	@Nonnull
 	public static ItemStack getEmptyCell(int stackSize) {
-		return ItemDynamicCell.getEmptyCell(stackSize);
+		return DynamicCellItem.getEmptyCell(stackSize);
 	}
 	
 	/**
@@ -49,7 +47,7 @@ public class RecipeUtils {
 	 */
 	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
 		return getRecipes(world, type).stream()
-			.filter(recipe -> recipe.getPreviewInputs().size() == 1 && ((Ingredient)recipe.getPreviewInputs().get(0)).test(input))
+			.filter(recipe -> recipe.getPreviewInputs().size() == 1 && recipe.getPreviewInputs().get(0).test(input))
 			.map(Recipe::getOutput)
 			.findFirst()
 			.orElse(ItemStack.EMPTY);

@@ -26,7 +26,10 @@ package techreborn.items;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
+import net.minecraft.block.FluidFillable;
+import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.BaseFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -66,10 +69,76 @@ import javax.annotation.Nullable;
 /**
  * Created by modmuss50 on 17/05/2016.
  */
-public class ItemDynamicCell extends Item implements ItemFluidInfo {
+public class DynamicCellItem extends Item implements ItemFluidInfo {
 
-	public ItemDynamicCell() {
+	public DynamicCellItem() {
 		super( new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
+	}
+
+	// Thanks vanilla :)
+	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, IWorld world, BlockPos blockPos, Fluid fluid) {
+		SoundEvent soundEvent = fluid.matches(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
+		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+	}
+
+	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
+		Validate.notNull(fluid);
+		ItemStack stack = new ItemStack(TRContent.CELL);
+		ItemNBTHelper.getNBT(stack).putString("fluid", Registry.FLUID.getId(fluid).toString());
+		stack.setCount(stackSize);
+		return stack;
+	}
+
+	public static ItemStack getCellWithFluid(Fluid fluid) {
+		return getCellWithFluid(fluid, 1);
+	}
+
+	public static ItemStack getEmptyCell(int amount) {
+		return new ItemStack(TRContent.CELL, amount);
+	}
+
+	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack){
+		if(!playerEntity.inventory.insertStack(stack)){
+			playerEntity.dropStack(stack);
+		}
+	}
+
+	public boolean placeFluid(@Nullable PlayerEntity player, World world, BlockPos pos, @Nullable BlockHitResult hitResult, ItemStack filledCell){
+		Fluid fluid = getFluid(filledCell);
+		if (fluid == Fluids.EMPTY) {
+			return false;
+		}
+
+		BlockState blockState = world.getBlockState(pos);
+		Material material = blockState.getMaterial();
+		boolean canPlace = blockState.canBucketPlace(fluid);
+
+		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable)blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
+			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()), null, filledCell);
+		} else {
+			if (world.dimension.doesWaterVaporize() && fluid.matches(FluidTags.WATER)) {
+				int i = pos.getX();
+				int j = pos.getY();
+				int k = pos.getZ();
+				world.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
+
+				for(int l = 0; l < 8; ++l) {
+					world.addParticle(ParticleTypes.LARGE_SMOKE, (double)i + Math.random(), (double)j + Math.random(), (double)k + Math.random(), 0.0D, 0.0D, 0.0D);
+				}
+			} else if (blockState.getBlock() instanceof FluidFillable && fluid == Fluids.WATER) {
+				if (((FluidFillable)blockState.getBlock()).tryFillWithFluid(world, pos, blockState, ((BaseFluid)fluid).getStill(false))) {
+					this.playEmptyingSound(player, world, pos, fluid);
+				}
+			} else {
+				if (!world.isClient && canPlace && !material.isLiquid()) {
+					world.breakBlock(pos, true);
+				}
+
+				this.playEmptyingSound(player, world, pos, fluid);
+				world.setBlockState(pos, fluid.getDefaultState().getBlockState(), 11);
+			}
+			return true;
+		}
 	}
 
 	@Override
@@ -93,43 +162,6 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 			return new LiteralText(WordUtils.capitalizeFully(FluidUtil.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
 		}
 		return super.getName(itemStack);
-	}
-
-
-
-	public static ItemStack getCellWithFluid(Fluid fluid, int stackSize) {
-		Validate.notNull(fluid);
-		ItemStack stack = new ItemStack(TRContent.CELL);
-		ItemNBTHelper.getNBT(stack).putString("fluid", Registry.FLUID.getId(fluid).toString());
-		stack.setCount(stackSize);
-		return stack;
-	}
-
-	public static ItemStack getEmptyCell(int amount) {
-		return new ItemStack(TRContent.CELL, amount);
-	}
-
-	public static ItemStack getCellWithFluid(Fluid fluid) {
-		return getCellWithFluid(fluid, 1);
-	}
-
-	@Override
-	public ItemStack getEmpty() {
-		return new ItemStack(this);
-	}
-
-	@Override
-	public ItemStack getFull(Fluid fluid) {
-		return getCellWithFluid(fluid);
-	}
-
-	@Override
-	public Fluid getFluid(ItemStack itemStack) {
-		CompoundTag tag = itemStack.getTag();
-		if(tag != null && tag.contains("fluid")){
-			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
-		}
-		return Fluids.EMPTY;
 	}
 
 	@Override
@@ -170,15 +202,7 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 				} else {
 					BlockState placeState = world.getBlockState(placePos);
 					if(placeState.canBucketPlace(containedFluid)){
-						if (world.dimension.doesWaterVaporize() && containedFluid.matches(FluidTags.WATER)) {
-							world.playSound(player, placePos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
-							for(int l = 0; l < 8; ++l) {
-								world.addParticle(ParticleTypes.LARGE_SMOKE, (double)placePos.getX() + Math.random(), (double)placePos.getY() + Math.random(), (double)placePos.getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
-							}
-						} else {
-							world.setBlockState(placePos, containedFluid.getDefaultState().getBlockState());
-							playEmptyingSound(player, world, placePos, containedFluid);
-						}
+						placeFluid(player, world, placePos, blockHitResult, stack);
 
 						if(stack.getCount() == 1) {
 							stack = getEmpty();
@@ -195,15 +219,23 @@ public class ItemDynamicCell extends Item implements ItemFluidInfo {
 		return TypedActionResult.fail(stack);
 	}
 
-	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack){
-		if(!playerEntity.inventory.insertStack(stack)){
-			playerEntity.dropStack(stack);
-		}
+	// ItemFluidInfo
+	@Override
+	public ItemStack getEmpty() {
+		return new ItemStack(this);
 	}
 
-	// Thanks vanilla :)
-	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, IWorld world, BlockPos blockPos, Fluid fluid) {
-		SoundEvent soundEvent = fluid.matches(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
-		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
+	@Override
+	public ItemStack getFull(Fluid fluid) {
+		return getCellWithFluid(fluid);
+	}
+
+	@Override
+	public Fluid getFluid(ItemStack itemStack) {
+		CompoundTag tag = itemStack.getTag();
+		if(tag != null && tag.contains("fluid")){
+			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
+		}
+		return Fluids.EMPTY;
 	}
 }

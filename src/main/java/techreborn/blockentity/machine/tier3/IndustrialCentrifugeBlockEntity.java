@@ -40,7 +40,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.items.ItemDynamicCell;
+import techreborn.items.DynamicCellItem;
 
 import java.util.List;
 
@@ -59,8 +59,8 @@ public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity i
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
-			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
-			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, ItemDynamicCell.getEmptyCell(1), true, true))
+			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
+			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
 			.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
 			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
 			.syncCrafterValue().addInventory().create(this, syncID);

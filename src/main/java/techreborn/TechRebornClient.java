@@ -52,7 +52,7 @@ import techreborn.events.StackToolTipHandler;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-import techreborn.items.ItemDynamicCell;
+import techreborn.items.DynamicCellItem;
 import techreborn.items.ItemFrequencyTransmitter;
 
 import javax.annotation.Nullable;
@@ -127,7 +127,7 @@ public class TechRebornClient implements ClientModInitializer {
 		StackToolTipHandler.setup();
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
-		GuiBase.fluidCellProvider = ItemDynamicCell::getCellWithFluid;
+		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
 
 		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
 

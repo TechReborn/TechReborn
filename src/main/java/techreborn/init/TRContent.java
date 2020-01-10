@@ -78,7 +78,7 @@ import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.client.EGui;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
-import techreborn.items.ItemDynamicCell;
+import techreborn.items.DynamicCellItem;
 import techreborn.items.ItemUpgrade;
 import techreborn.items.armor.ItemQuantumSuit;
 import techreborn.utils.InitUtils;
@@ -147,7 +147,7 @@ public class TRContent {
 	public static Item FREQUENCY_TRANSMITTER;
 	public static Item SCRAP_BOX;
 	public static Item MANUAL;
-	public static ItemDynamicCell CELL;
+	public static DynamicCellItem CELL;
 
 	//Quantum Suit
 	public static ItemQuantumSuit QUANTUM_HELMET;
