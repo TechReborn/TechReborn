@@ -48,7 +48,12 @@ public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurab
 	public int cost = 20;
 
 	public ElectricTreetapItem() {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
 	}
 
 	@Override
