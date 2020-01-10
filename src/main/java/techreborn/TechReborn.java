@@ -43,6 +43,7 @@ import techreborn.events.ModRegistry;
 import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
+import techreborn.utils.PoweredCraftingHandler;
 import techreborn.world.WorldGenerator;
 
 public class TechReborn implements ModInitializer {
@@ -77,6 +78,7 @@ public class TechReborn implements ModInitializer {
 		//Force loads the block entities at the right time
 		TRBlockEntities.THERMAL_GEN.toString();
 		TRDispenserBehavior.init();
+		PoweredCraftingHandler.setup();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
