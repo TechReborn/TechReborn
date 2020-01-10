@@ -26,7 +26,6 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -44,7 +43,6 @@ import techreborn.events.ModRegistry;
 import techreborn.init.*;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
-import techreborn.utils.BehaviorDispenseScrapbox;
 import techreborn.world.WorldGenerator;
 
 public class TechReborn implements ModInitializer {
@@ -78,11 +76,7 @@ public class TechReborn implements ModInitializer {
 		FluidGeneratorRecipes.init();
 		//Force loads the block entities at the right time
 		TRBlockEntities.THERMAL_GEN.toString();
-
-		// Scrapbox
-		if (TechRebornConfig.dispenseScrapboxes) {
-			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new BehaviorDispenseScrapbox());
-		}
+		TRDispenserBehavior.init();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
