@@ -48,15 +48,15 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), EntryStack::create));
-		this.outputs = CollectionUtils.map(recipe.getOutputs(), EntryStack::create);
+		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), RebornEntryStack::create));
+		this.outputs = CollectionUtils.map(recipe.getOutputs(), RebornEntryStack::create);
 		this.energy = recipe.getPower();
 		if (recipe instanceof BlastFurnaceRecipe) {
 			this.heat = ((BlastFurnaceRecipe) recipe).getHeat();
 		}
 		if (recipe instanceof RebornFluidRecipe) {
 			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
-			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
+			inputs.add(Collections.singletonList(RebornEntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
 		}
 		for (List<EntryStack> entries : inputs)
 			for (EntryStack stack : entries)

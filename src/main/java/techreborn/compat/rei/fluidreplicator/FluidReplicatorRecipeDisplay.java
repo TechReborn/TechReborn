@@ -30,6 +30,7 @@ import me.shedaniel.rei.utils.CollectionUtils;
 import net.minecraft.util.Identifier;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
+import techreborn.compat.rei.RebornEntryStack;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,9 +48,9 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 	
 	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), EntryStack::create));
+		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), RebornEntryStack::create));
 		this.fluidInstance = recipe.getFluidInstance();
-		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
+		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(RebornEntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
 		this.energy = recipe.getPower();
 	}
 	
