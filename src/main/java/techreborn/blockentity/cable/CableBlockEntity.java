@@ -29,11 +29,13 @@ import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.network.packet.BlockEntityUpdateS2CPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -42,6 +44,8 @@ import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
+import reborncore.common.network.ClientBoundPackets;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
@@ -63,6 +67,7 @@ public class CableBlockEntity extends BlockEntity
 	private double energy = 0;
 	private TRContent.Cables cableType = null;
 	private ArrayList<EnergySide> sendingFace = new ArrayList<>();
+	private BlockState cover = null;
 
 	public CableBlockEntity() {
 		super(TRBlockEntities.CABLE);
@@ -103,18 +108,26 @@ public class CableBlockEntity extends BlockEntity
 
     @Override
     public void fromTag(CompoundTag compound) {
-        super.fromTag(compound);
-        if (compound.contains("energy")) {
-            energy = compound.getDouble("energy");
-        }
-    }
+		super.fromTag(compound);
+		if (compound.contains("energy")) {
+			energy = compound.getDouble("energy");
+		}
+		if (compound.contains("cover")) {
+			cover = NbtHelper.toBlockState(compound.getCompound("cover"));
+		} else {
+			cover = null;
+		}
+	}
 
     @Override
     public CompoundTag toTag(CompoundTag compound) {
-        super.toTag(compound);
-        compound.putDouble("energy", energy);
-        return compound;
-    }
+		super.toTag(compound);
+		compound.putDouble("energy", energy);
+		if (cover != null) {
+			compound.put("cover", NbtHelper.fromBlockState(cover));
+		}
+		return compound;
+	}
 
 	@Override
 	public void tick() {
@@ -161,11 +174,14 @@ public class CableBlockEntity extends BlockEntity
     // IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
 				+ Formatting.GOLD
 				+ PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate) + "/t"));
-			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
+		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
 				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString())));
+		if (!getCableType().canKill) {
+			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.cable.can_cover")));
+		}
 	}
 
 	// IToolDrop
@@ -232,4 +248,16 @@ public class CableBlockEntity extends BlockEntity
 	public void setStored(double amount) {
 		this.energy = amount;
 	}
+
+	public BlockState getCover() {
+		return cover;
+	}
+
+	public void setCover(BlockState cover) {
+		this.cover = cover;
+		if (!world.isClient) {
+			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+		}
+	}
+
 }

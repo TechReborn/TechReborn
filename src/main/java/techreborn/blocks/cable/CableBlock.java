@@ -24,23 +24,20 @@
 
 package techreborn.blocks.cable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.Material;
-import net.minecraft.block.Waterloggable;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
@@ -52,6 +49,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -81,6 +79,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	public static final BooleanProperty UP = BooleanProperty.of("up");
 	public static final BooleanProperty DOWN = BooleanProperty.of("down");
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+	public static final BooleanProperty COVERED = BooleanProperty.of("covered");
 
 	public static final Map<Direction, BooleanProperty> PROPERTY_MAP = Util.make(new HashMap<>(), map -> {
 		map.put(Direction.EAST, EAST);
@@ -98,7 +97,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		super(Block.Settings.of(Material.STONE).strength(1f, 8f));
 		this.type = type;
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
-				.with(SOUTH, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false));
+				.with(SOUTH, false).with(UP, false).with(DOWN, false).with(WATERLOGGED, false).with(COVERED, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 		cableShapeUtil = new CableShapeUtil(this);
 	}
@@ -166,16 +165,34 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		}
 
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+			if (state.get(COVERED) && !playerIn.isSneaking()) {
+				((CableBlockEntity) blockEntity).setCover(null);
+				worldIn.setBlockState(pos, state.with(COVERED, false));
+				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 0.6F, 1.0F);
+				return ActionResult.SUCCESS;
+			}
+
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
 				return ActionResult.SUCCESS;
 			}
 		}
+
+		if (!stack.isEmpty() && !state.get(COVERED) && !state.get(WATERLOGGED) && !type.canKill
+				&& stack.getItem() == TRContent.Plates.WOOD.asItem()) {
+			worldIn.setBlockState(pos, state.with(COVERED, true));
+			worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 0.6F, 1.0F);
+			if (!worldIn.isClient) {
+				stack.decrement(1);
+			}
+			return ActionResult.SUCCESS;
+		}
+
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN, WATERLOGGED);
+		builder.add(EAST, WEST, NORTH, SOUTH, UP, DOWN, WATERLOGGED, COVERED);
 	}
 
 	@Override
@@ -196,6 +213,9 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, EntityContext entityContext) {
+		if (state.get(COVERED)) {
+			return VoxelShapes.fullCube();
+		}
 		return cableShapeUtil.getShape(state);
 	}
 
@@ -235,6 +255,16 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		if (TechRebornConfig.uninsulatedElectrocutionParticles) {
 			worldIn.addParticle(ParticleTypes.CRIT, entityIn.getX(), entityIn.getY(), entityIn.getZ(), 0, 0, 0);
 		}
+	}
+
+	@Override
+	public boolean tryFillWithFluid(IWorld world, BlockPos pos, BlockState state, FluidState fluidState) {
+		return !state.get(COVERED) && Waterloggable.super.tryFillWithFluid(world, pos, state, fluidState);
+	}
+
+	@Override
+	public boolean canFillWithFluid(BlockView view, BlockPos pos, BlockState state, Fluid fluid) {
+		return !state.get(COVERED) && Waterloggable.super.canFillWithFluid(view, pos, state, fluid);
 	}
 
 	@Override

@@ -47,6 +47,7 @@ import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderer;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
+import techreborn.client.render.entitys.CableCoverEntityRenderer;
 import techreborn.client.render.entitys.StorageUnitEntityRenderer;
 import techreborn.events.StackToolTipHandler;
 import techreborn.init.ModFluids;
@@ -156,6 +157,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.STORAGE_UNIT, StorageUnitEntityRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.CABLE, CableCoverEntityRenderer::new);
 	}
 
 
