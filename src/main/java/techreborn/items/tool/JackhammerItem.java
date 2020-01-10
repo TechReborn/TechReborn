@@ -53,7 +53,7 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	public int transferLimit = EnergyTier.MEDIUM.getMaxInput();
 
 	public JackhammerItem(ToolMaterials material, int energyCapacity) {
-		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(material, (int) material.getAttackDamage(), 1f, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 	}
 
@@ -80,6 +80,11 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 		return true;
+	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
 	}
 
 	// ToolItem

@@ -51,7 +51,7 @@ public class ItemLapotronicOrbpack extends ArmorItem implements EnergyHolder, It
 	public int transferLimit = 100_000;
 
 	public ItemLapotronicOrbpack() {
-		super(TRArmorMaterial.LAPOTRONPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(TRArmorMaterial.LAPOTRONPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
 
 	// Item
@@ -68,6 +68,11 @@ public class ItemLapotronicOrbpack extends ArmorItem implements EnergyHolder, It
 		if (entityIn instanceof PlayerEntity) {
 			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, transferLimit);
 		}
+	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
 	}
 
 	@Override

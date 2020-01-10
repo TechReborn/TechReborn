@@ -55,8 +55,13 @@ public class ItemTRArmour extends ArmorItem implements ItemDurabilityExtensions 
 	}
 
 	public ItemTRArmour(ArmorMaterial material, EquipmentSlot slot, String repairOreDict) {
-		super(material, slot, (new Item.Settings()).group(TechReborn.ITEMGROUP).maxCount(1));
+		super(material, slot, (new Item.Settings()).group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.repairOreDict = repairOreDict;
+	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
 	}
 
 	@Override

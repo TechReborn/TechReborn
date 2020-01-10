@@ -54,7 +54,7 @@ public class ItemLithiumIonBatpack extends ArmorItem implements EnergyHolder, It
 	public int transferLimit = 2_000;
 
 	public ItemLithiumIonBatpack() {
-		super(TRArmorMaterial.LITHIUMBATPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(TRArmorMaterial.LITHIUMBATPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
 
 	public static void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
@@ -84,6 +84,11 @@ public class ItemLithiumIonBatpack extends ArmorItem implements EnergyHolder, It
 		if (entityIn instanceof PlayerEntity) {
 			distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, (int) transferLimit);
 		}
+	}
+
+	@Override
+	public boolean isDamageable() {
+		return false;
 	}
 
 	@Override

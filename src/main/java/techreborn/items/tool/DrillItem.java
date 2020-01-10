@@ -51,7 +51,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	public int transferLimit = 100;
 
 	public DrillItem(ToolMaterial material, int energyCapacity, float unpoweredSpeed, float efficiencyOnProperMaterial) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 		this.poweredSpeed = efficiencyOnProperMaterial;

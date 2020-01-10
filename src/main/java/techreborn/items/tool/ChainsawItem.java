@@ -55,7 +55,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	public int transferLimit = 100;
 
 	public ChainsawItem(ToolMaterials material, int energyCapacity, float unpoweredSpeed) {
-		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 
 		this.addPropertyGetter(new Identifier("techreborn", "animated"), (stack, worldIn, entityIn) -> {
