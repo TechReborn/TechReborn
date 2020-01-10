@@ -124,6 +124,7 @@ public class TRContent {
 	// Tools
 	public static Item TREE_TAP;
 	public static Item WRENCH;
+	public static Item PAINTING_TOOL;
 
 	public static Item BASIC_CHAINSAW;
 	public static Item BASIC_DRILL;

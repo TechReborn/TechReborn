@@ -65,6 +65,7 @@ import techreborn.items.armor.ItemQuantumSuit;
 import techreborn.items.armor.ItemTRArmour;
 import techreborn.items.battery.*;
 import techreborn.items.tool.DebugToolItem;
+import techreborn.items.tool.PaintingToolItem;
 import techreborn.items.tool.TreeTapItem;
 import techreborn.items.tool.WrenchItem;
 import techreborn.items.tool.advanced.AdvancedChainsawItem;
@@ -206,6 +207,7 @@ public class ModRegistry {
 		// Tools
 		RebornRegistry.registerItem(TRContent.TREE_TAP = InitUtils.setup(new TreeTapItem(), "treetap"));
 		RebornRegistry.registerItem(TRContent.WRENCH = InitUtils.setup(new WrenchItem(), "wrench"));
+		RebornRegistry.registerItem(TRContent.PAINTING_TOOL = InitUtils.setup(new PaintingToolItem(), "painting_tool"));
 
 		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new BasicDrillItem(), "basic_drill"));
 		RebornRegistry.registerItem(TRContent.BASIC_CHAINSAW = InitUtils.setup(new BasicChainsawItem(), "basic_chainsaw"));

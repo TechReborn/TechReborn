@@ -547,6 +547,7 @@
   "item.techreborn.treetap": "Treetap",
   "item.techreborn.wrench": "Wrench",
   "item.techreborn.destructopack": "Destructopack",
+  "item.techreborn.painting_tool": "Painting Tool",
 
   "_comment17": "Items-Misc",
   "item.techreborn.cell": "Empty Cell",
@@ -726,6 +727,9 @@
   "techreborn.tooltip.unit.capacity": "Capacity: ",
   "techreborn.tooltip.unit.empty": "Empty",
   "techreborn.tooltip.unit.divider": " of ",
+  "techreborn.tooltip.painting_tool.select": "Shift right click on block to set style",
+  "techreborn.tooltip.painting_tool.apply": "Right click on covered cable to apply",
+  "techreborn.tooltip.cable.can_cover": "Can be covered with wooden plates",
 
   "_comment23": "ManualUI",
   "techreborn.manual.wiki": "Online wiki",
