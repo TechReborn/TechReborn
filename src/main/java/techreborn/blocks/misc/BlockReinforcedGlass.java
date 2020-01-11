@@ -32,7 +32,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class BlockReinforcedGlass extends GlassBlock {
 
 	public BlockReinforcedGlass() {
-		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).build());
+		super(FabricBlockSettings.of(Material.GLASS).strength(4f, 60f).sounds(BlockSoundGroup.STONE).nonOpaque().build());
 	}
 
 }
