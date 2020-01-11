@@ -46,7 +46,7 @@ public class StorageUnitEntityRenderer extends BlockEntityRenderer<StorageUnitBa
 				matrices.translate(-1, 1, 2);
 				break;
 		}
-		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().up());
+		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().offset(storage.getFacing()));
 		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 		matrices.pop();
 	}
