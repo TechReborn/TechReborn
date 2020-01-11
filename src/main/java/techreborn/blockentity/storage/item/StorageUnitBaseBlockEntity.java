@@ -384,7 +384,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	@Override
 	public boolean isValidInvStack(int slot, ItemStack stack) {
-		if (slot == INPUT_SLOT && !storeItemStack.isEmpty() && !ItemUtils.isItemEqual(stack, storeItemStack, true, false)) {
+		if (slot == INPUT_SLOT && !(isEmpty() || isSameType(stack))) {
 			return false;
 		}
 		return super.isValidInvStack(slot, stack);
