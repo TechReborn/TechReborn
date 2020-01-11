@@ -381,4 +381,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
 			.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53).addInventory().create(this, syncID);
 	}
+
+	@Override
+	public boolean isValidInvStack(int slot, ItemStack stack) {
+		if (slot == INPUT_SLOT && !storeItemStack.isEmpty() && !ItemUtils.isItemEqual(stack, storeItemStack, true, false)) {
+			return false;
+		}
+		return super.isValidInvStack(slot, stack);
+	}
 }
