@@ -41,9 +41,9 @@ import javax.annotation.Nullable;
 /**
  * Created by Mark on 13/03/2016.
  */
-public class RenderNukePrimed extends EntityRenderer<EntityNukePrimed> {
+public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 
-	public RenderNukePrimed(EntityRenderDispatcher renderManager) {
+	public NukeRenderer(EntityRenderDispatcher renderManager) {
 		super(renderManager);
 		this.shadowSize = 0.5F;
 	}

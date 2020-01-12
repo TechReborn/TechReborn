@@ -6,6 +6,6 @@
 		"west": "techreborn:block/machines/generators/wind_mill_left",
 		"east": "techreborn:block/machines/generators/wind_mill_right",
 		"south": "techreborn:block/machines/generators/generator_bottom",
-		"front": "techreborn:block/machines/generators/wind_mill_front_off"
+		"front": "techreborn:block/machines/generators/wind_mill_front"
 	}
 }

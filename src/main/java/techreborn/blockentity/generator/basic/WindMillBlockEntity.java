@@ -39,6 +39,9 @@ import techreborn.init.TRBlockEntities;
 
 public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 
+	public float bladeAngle;
+	public float spinSpeed;
+
 	public WindMillBlockEntity() {
 		super(TRBlockEntities.WIND_MILL);
 	}
@@ -46,7 +49,20 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 	@Override
 	public void tick() {
 		super.tick();
-		if (pos.getY() > 64) {
+
+		boolean generating = pos.getY() > 64;
+
+		if(world.isClient) {
+			bladeAngle += spinSpeed;
+
+			if (generating) {
+				spinSpeed = Math.min(0.2F, spinSpeed + 0.002f);
+			} else {
+				spinSpeed = Math.max(0.0f, spinSpeed - 0.005f);
+			}
+		}
+
+		if (generating) {
 			int actualPower = TechRebornConfig.windMillBaseEnergy;
 			if (world.isThundering()) {
 				actualPower *= TechRebornConfig.windMillThunderMultiplier;

@@ -47,8 +47,9 @@ import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderer;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
-import techreborn.client.render.entitys.CableCoverEntityRenderer;
-import techreborn.client.render.entitys.StorageUnitEntityRenderer;
+import techreborn.client.render.entitys.CableCoverRenderer;
+import techreborn.client.render.entitys.StorageUnitRenderer;
+import techreborn.client.render.entitys.TurbineRenderer;
 import techreborn.events.StackToolTipHandler;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
@@ -156,8 +157,9 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.DISTILLATION_TOWER, MultiblockRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.IMPLOSION_COMPRESSOR, MultiblockRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.GREENHOUSE_CONTROLLER, MultiblockRenderer::new);
-		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.STORAGE_UNIT, StorageUnitEntityRenderer::new);
-		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.CABLE, CableCoverEntityRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
 	}
 
 

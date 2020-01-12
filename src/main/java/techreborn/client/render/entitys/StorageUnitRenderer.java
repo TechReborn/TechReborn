@@ -16,8 +16,8 @@ import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 /**
  * Created by drcrazy on 07-Jan-20 for TechReborn-1.15.
  */
-public class StorageUnitEntityRenderer extends BlockEntityRenderer<StorageUnitBaseBlockEntity> {
-	public StorageUnitEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
+public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBlockEntity> {
+	public StorageUnitRenderer(BlockEntityRenderDispatcher dispatcher) {
 		super(dispatcher);
 	}
 

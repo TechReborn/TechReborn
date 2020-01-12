@@ -16,9 +16,9 @@ import techreborn.blocks.cable.CableBlock;
 
 import java.util.Random;
 
-public class CableCoverEntityRenderer extends BlockEntityRenderer<CableBlockEntity> {
+public class CableCoverRenderer extends BlockEntityRenderer<CableBlockEntity> {
 
-	public CableCoverEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
+	public CableCoverRenderer(BlockEntityRenderDispatcher dispatcher) {
 		super(dispatcher);
 	}
 
