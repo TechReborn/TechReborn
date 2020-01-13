@@ -8,6 +8,7 @@
     },
     {
       "item": "techreborn:cell",
+	  "count": 2,
       "nbt": "null"
     }
   ],
@@ -18,6 +19,7 @@
     },
     {
       "item": "techreborn:cell",
+	  "count": 2,
       "nbt": {
         "fluid": "techreborn:methane"
       }
