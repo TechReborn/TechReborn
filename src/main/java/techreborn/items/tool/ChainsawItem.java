@@ -29,10 +29,8 @@ import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolMaterials;
+import net.minecraft.item.*;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -44,19 +42,25 @@ import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
+import techreborn.utils.InitUtils;
 
 import java.util.Random;
 
 public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
-	public int maxCharge;
-	public int cost = 250;
-	public float poweredSpeed = 20F;
-	public int transferLimit = 100;
+	public final int maxCharge;
+	public final int cost;
+	public final float poweredSpeed;
+	public final Item referenceTool;
+	public final EnergyTier tier;
 
-	public ChainsawItem(ToolMaterials material, int energyCapacity, float unpoweredSpeed) {
+	public ChainsawItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referenceTool) {
 		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
+		this.tier = tier;
+		this.cost = cost;
+		this.poweredSpeed = poweredSpeed;
+		this.referenceTool = referenceTool;
 
 		this.addPropertyGetter(new Identifier("techreborn", "animated"), (stack, worldIn, entityIn) -> {
 			if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= cost
@@ -105,7 +109,22 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	}
 
 	@Override
-	public boolean isEnchantable(ItemStack stack) { return true; }
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+		if (!isIn(group)) {
+			return;
+		}
+		InitUtils.initPoweredItems(this, stacks);
+	}
+
+	@Override
+	public boolean isEffectiveOn(BlockState state) {
+		return referenceTool.isEffectiveOn(state);
+	}
 
 	// ItemDurabilityExtensions
 	@Override
@@ -131,12 +150,7 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.MEDIUM;
-	}
-
-	@Override
-	public double getMaxInput(EnergySide side) {
-		return transferLimit;
+		return tier;
 	}
 
 	@Override

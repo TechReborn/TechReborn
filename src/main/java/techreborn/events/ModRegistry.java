@@ -24,57 +24,27 @@
 
 package techreborn.events;
 
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolMaterials;
 import reborncore.RebornRegistry;
+import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.blocks.misc.BlockComputerCube;
-import techreborn.blocks.misc.BlockNuke;
-import techreborn.blocks.misc.BlockRefinedIronFence;
-import techreborn.blocks.misc.BlockReinforcedGlass;
-import techreborn.blocks.misc.BlockRubberLeaves;
-import techreborn.blocks.misc.BlockRubberLog;
-import techreborn.blocks.misc.BlockRubberPlank;
-import techreborn.blocks.misc.BlockRubberPlankStair;
-import techreborn.blocks.misc.BlockRubberSapling;
-import techreborn.blocks.misc.RubberButtonBlock;
-import techreborn.blocks.misc.RubberDoorBlock;
-import techreborn.blocks.misc.RubberPressurePlateBlock;
-import techreborn.blocks.misc.RubberTrapdoorBlock;
+import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.ModFluids;
-import techreborn.init.ModSounds;
-import techreborn.init.TRArmorMaterials;
-import techreborn.init.TRContent;
+import techreborn.init.*;
 import techreborn.init.TRContent.*;
-import techreborn.init.TRToolTier;
-import techreborn.items.DynamicCellItem;
-import techreborn.items.FrequencyTransmitterItem;
-import techreborn.items.ManualItem;
-import techreborn.items.ScrapBoxItem;
+import techreborn.items.*;
+import techreborn.items.armor.BatpackItem;
 import techreborn.items.armor.CloakingDeviceItem;
-import techreborn.items.armor.LapotronicOrbpackItem;
-import techreborn.items.armor.LithiumIonBatpackItem;
 import techreborn.items.armor.QuantumSuitItem;
 import techreborn.items.armor.TRArmourItem;
-import techreborn.items.battery.*;
-import techreborn.items.tool.DebugToolItem;
-import techreborn.items.tool.PaintingToolItem;
-import techreborn.items.tool.TreeTapItem;
-import techreborn.items.tool.WrenchItem;
-import techreborn.items.tool.advanced.AdvancedChainsawItem;
-import techreborn.items.tool.advanced.AdvancedDrillItem;
+import techreborn.items.tool.*;
 import techreborn.items.tool.advanced.AdvancedJackhammerItem;
 import techreborn.items.tool.advanced.RockCutterItem;
-import techreborn.items.tool.basic.BasicChainsawItem;
-import techreborn.items.tool.basic.BasicDrillItem;
-import techreborn.items.tool.basic.BasicJackhammerItem;
 import techreborn.items.tool.basic.ElectricTreetapItem;
 import techreborn.items.tool.industrial.*;
 import techreborn.items.tool.vanilla.*;
@@ -84,7 +54,6 @@ import java.util.Arrays;
 
 /**
  * @author drcrazy
- *
  */
 
 public class ModRegistry {
@@ -146,7 +115,7 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.QUANTUM_CHESTPLATE = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, EquipmentSlot.CHEST), "quantum_chestplate"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_LEGGINGS = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, EquipmentSlot.LEGS), "quantum_leggings"));
 		RebornRegistry.registerItem(TRContent.QUANTUM_BOOTS = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, EquipmentSlot.FEET), "quantum_boots"));
-		
+
 		// Gem armor & tools
 		if (TechRebornConfig.enableGemArmorAndTools) {
 			// Todo: repair with tags
@@ -196,26 +165,26 @@ public class ModRegistry {
 		}
 
 		// Battery
-		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new RedCellBatteryItem(), "red_cell_battery"));
-		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATTERY = InitUtils.setup(new LithiumIonBatteryItem(), "lithium_ion_battery"));
-		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATPACK = InitUtils.setup(new LithiumIonBatpackItem(), "lithium_ion_batpack"));
-		RebornRegistry.registerItem(TRContent.ENERGY_CRYSTAL = InitUtils.setup(new EnergyCrystalItem(), "energy_crystal"));
-		RebornRegistry.registerItem(TRContent.LAPOTRON_CRYSTAL = InitUtils.setup(new LapotronCrystalItem(), "lapotron_crystal"));
-		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORB = InitUtils.setup(new LapotronicOrbItem(), "lapotronic_orb"));
-		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORBPACK = InitUtils.setup(new LapotronicOrbpackItem(), "lapotronic_orbpack"));
+		RebornRegistry.registerItem(TRContent.RED_CELL_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.redCellBatteryMaxCharge, EnergyTier.LOW), "red_cell_battery"));
+		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATTERY = InitUtils.setup(new BatteryItem(TechRebornConfig.lithiumIonBatteryMaxCharge, EnergyTier.HIGH), "lithium_ion_battery"));
+		RebornRegistry.registerItem(TRContent.LITHIUM_ION_BATPACK = InitUtils.setup(new BatpackItem(TechRebornConfig.lithiumBatpackCharge, TechRebornConfig.lithiumBatpackTransferRate, TRArmorMaterials.LITHIUM_BATPACK, EnergyTier.HIGH), "lithium_ion_batpack"));
+		RebornRegistry.registerItem(TRContent.ENERGY_CRYSTAL = InitUtils.setup(new BatteryItem(TechRebornConfig.energyCrystalMaxCharge, EnergyTier.HIGH), "energy_crystal"));
+		RebornRegistry.registerItem(TRContent.LAPOTRON_CRYSTAL = InitUtils.setup(new BatteryItem(TechRebornConfig.lapotronCrystalMaxCharge, EnergyTier.EXTREME), "lapotron_crystal"));
+		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORB = InitUtils.setup(new BatteryItem(TechRebornConfig.lapotronicOrbMaxCharge, EnergyTier.EXTREME), "lapotronic_orb"));
+		RebornRegistry.registerItem(TRContent.LAPOTRONIC_ORBPACK = InitUtils.setup(new BatpackItem(TechRebornConfig.lapotronPackCharge, TechRebornConfig.lapotronPackTransferRate, TRArmorMaterials.LAPOTRONIC_ORBPACK, EnergyTier.EXTREME), "lapotronic_orbpack"));
 
 		// Tools
 		RebornRegistry.registerItem(TRContent.TREE_TAP = InitUtils.setup(new TreeTapItem(), "treetap"));
 		RebornRegistry.registerItem(TRContent.WRENCH = InitUtils.setup(new WrenchItem(), "wrench"));
 		RebornRegistry.registerItem(TRContent.PAINTING_TOOL = InitUtils.setup(new PaintingToolItem(), "painting_tool"));
 
-		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new BasicDrillItem(), "basic_drill"));
-		RebornRegistry.registerItem(TRContent.BASIC_CHAINSAW = InitUtils.setup(new BasicChainsawItem(), "basic_chainsaw"));
-		RebornRegistry.registerItem(TRContent.BASIC_JACKHAMMER = InitUtils.setup(new BasicJackhammerItem(), "basic_jackhammer"));
+		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new DrillItem(ToolMaterials.IRON, TechRebornConfig.basicDrillCharge, EnergyTier.MEDIUM, TechRebornConfig.basicDrillCost, 10F, 0.5F, Items.IRON_PICKAXE, Items.IRON_SHOVEL), "basic_drill"));
+		RebornRegistry.registerItem(TRContent.BASIC_CHAINSAW = InitUtils.setup(new ChainsawItem(ToolMaterials.IRON, TechRebornConfig.basicChainsawCharge, EnergyTier.MEDIUM, TechRebornConfig.basicChainsawCost, 20F, 0.5F, Items.IRON_AXE), "basic_chainsaw"));
+		RebornRegistry.registerItem(TRContent.BASIC_JACKHAMMER = InitUtils.setup(new JackhammerItem(ToolMaterials.DIAMOND, TechRebornConfig.basicJackhammerCharge, EnergyTier.MEDIUM, TechRebornConfig.basicJackhammerCost), "basic_jackhammer"));
 		RebornRegistry.registerItem(TRContent.ELECTRIC_TREE_TAP = InitUtils.setup(new ElectricTreetapItem(), "electric_treetap"));
 
-		RebornRegistry.registerItem(TRContent.ADVANCED_DRILL = InitUtils.setup(new AdvancedDrillItem(), "advanced_drill"));
-		RebornRegistry.registerItem(TRContent.ADVANCED_CHAINSAW = InitUtils.setup(new AdvancedChainsawItem(), "advanced_chainsaw"));
+		RebornRegistry.registerItem(TRContent.ADVANCED_DRILL = InitUtils.setup(new DrillItem(ToolMaterials.DIAMOND, TechRebornConfig.advancedDrillCharge, EnergyTier.EXTREME, TechRebornConfig.advancedDrillCost, 12F, 1.0F, Items.DIAMOND_PICKAXE, Items.DIAMOND_SHOVEL), "advanced_drill"));
+		RebornRegistry.registerItem(TRContent.ADVANCED_CHAINSAW = InitUtils.setup(new ChainsawItem(ToolMaterials.DIAMOND, TechRebornConfig.advancedChainsawCharge, EnergyTier.EXTREME, TechRebornConfig.advancedChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE), "advanced_chainsaw"));
 		RebornRegistry.registerItem(TRContent.ADVANCED_JACKHAMMER = InitUtils.setup(new AdvancedJackhammerItem(), "advanced_jackhammer"));
 		RebornRegistry.registerItem(TRContent.ROCK_CUTTER = InitUtils.setup(new RockCutterItem(), "rock_cutter"));
 

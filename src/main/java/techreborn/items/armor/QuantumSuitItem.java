@@ -50,14 +50,15 @@ import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
+import techreborn.config.TechRebornConfig;
 import techreborn.utils.InitUtils;
 
 public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, ArmorFovHandler, EnergyHolder {
 
-	public static final double ENERGY_FLY = 50;
-	public static final double ENERGY_SWIM = 20;
-	public static final double ENERGY_BREATHING = 20;
-	public static final double ENERGY_SPRINTING = 20;
+	public final double flyCost = TechRebornConfig.quantumSuitFlyingCost;
+	public final double swimCost = TechRebornConfig.quantumSuitSwimmingCost;
+	public final double breathingCost = TechRebornConfig.quantumSuitBreathingCost;
+	public final double sprintingCost = TechRebornConfig.quantumSuitSprintingCost;
 
 	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
 		super(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
@@ -68,7 +69,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 		attributes.removeAll(EntityAttributes.MOVEMENT_SPEED.getId());
 
 		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS) {
-			if (Energy.of(stack).getEnergy() > ENERGY_SPRINTING) {
+			if (Energy.of(stack).getEnergy() > sprintingCost) {
 				attributes.put(EntityAttributes.MOVEMENT_SPEED.getId(), new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
 		}
@@ -84,16 +85,16 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 		switch (this.slot) {
 			case HEAD:
 				if (playerEntity.isInWater()) {
-					if (Energy.of(stack).use(ENERGY_BREATHING)) {
+					if (Energy.of(stack).use(breathingCost)) {
 						playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 5, 1));
 					}
 				}
 				break;
 			case CHEST:
-				if (Energy.of(stack).getEnergy() > ENERGY_FLY) {
+				if (Energy.of(stack).getEnergy() > flyCost) {
 					playerEntity.abilities.allowFlying = true;
 					if (playerEntity.abilities.flying) {
-						Energy.of(stack).use(ENERGY_FLY);
+						Energy.of(stack).use(flyCost);
 					}
 				} else {
 					playerEntity.abilities.allowFlying = false;
@@ -102,12 +103,12 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 				break;
 			case LEGS:
 				if (playerEntity.isSprinting()) {
-					Energy.of(stack).use(ENERGY_SPRINTING);
+					Energy.of(stack).use(sprintingCost);
 				}
 				break;
 			case FEET:
 				if (playerEntity.isSwimming()) {
-					if (Energy.of(stack).use(ENERGY_SWIM)) {
+					if (Energy.of(stack).use(swimCost)) {
 						playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 5, 1));
 					}
 				}
@@ -134,7 +135,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 
 	@Override
 	public float changeFov(float old, ItemStack stack, PlayerEntity playerEntity) {
-		if (this.slot == EquipmentSlot.LEGS && Energy.of(stack).getEnergy() > ENERGY_SPRINTING) {
+		if (this.slot == EquipmentSlot.LEGS && Energy.of(stack).getEnergy() > sprintingCost) {
 			old -= 0.6; //TODO possibly make it better
 		}
 		return old;
@@ -167,17 +168,12 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 
 	@Override
 	public double getMaxStoredPower() {
-		return 40_000_000;
+		return TechRebornConfig.quantumSuitCapacity;
 	}
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
-	}
-
-	@Override
-	public double getMaxInput(EnergySide side) {
-		return 2048;
+		return EnergyTier.EXTREME;
 	}
 
 	@Environment(EnvType.CLIENT)

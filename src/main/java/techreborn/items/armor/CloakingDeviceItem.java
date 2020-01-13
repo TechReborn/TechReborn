@@ -43,14 +43,12 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRArmorMaterials;
-import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
 public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, ArmorTickable, ArmorRemoveHandler {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
-	public static int usage = TechRebornConfig.cloackingDeviceUsage;
-	public static int transferLimit = 10_000;
+	public static int cost = TechRebornConfig.cloackingDeviceCost;
 	public static boolean isActive;
 
 	// 40M FE capacity with 10k FE\t charge rate
@@ -91,7 +89,7 @@ public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, Ar
 		if (!isIn(group)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.CLOAKING_DEVICE, itemList);
+		InitUtils.initPoweredItems(this, itemList);
 	}
 
 	// EnergyHolder
@@ -102,12 +100,7 @@ public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, Ar
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
-	}
-
-	@Override
-	public double getMaxInput(EnergySide side) {
-		return transferLimit;
+		return EnergyTier.INSANE;
 	}
 
 	@Override
@@ -118,7 +111,7 @@ public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, Ar
 	// ArmorTickable
 	@Override
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
-		if (Energy.of(stack).use(usage)) {
+		if (Energy.of(stack).use(cost)) {
 			playerEntity.setInvisible(true);
 		} else {
 			if (playerEntity.isInvisible()) {

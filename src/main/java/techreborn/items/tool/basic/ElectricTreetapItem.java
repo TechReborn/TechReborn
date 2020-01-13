@@ -36,7 +36,7 @@ import reborncore.common.util.ItemUtils;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
+import techreborn.config.TechRebornConfig;
 import techreborn.utils.InitUtils;
 
 /**
@@ -44,8 +44,9 @@ import techreborn.utils.InitUtils;
  */
 public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurabilityExtensions {
 
-	public static final int maxCharge = 10_000;
-	public int cost = 20;
+	public final int maxCharge = TechRebornConfig.electricTreetapCharge;
+	public int cost = TechRebornConfig.electricTreetapCost;
+	public EnergyTier tier = EnergyTier.MEDIUM;
 
 	public ElectricTreetapItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
@@ -73,14 +74,14 @@ public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurab
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+		if (!isIn(group)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.ELECTRIC_TREE_TAP, itemList);
+		InitUtils.initPoweredItems(this, stacks);
 	}
 
-	// IEnergyItemInfo
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
@@ -88,6 +89,6 @@ public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurab
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.MEDIUM;
+		return tier;
 	}
 }

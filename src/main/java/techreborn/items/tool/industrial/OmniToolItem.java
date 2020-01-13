@@ -57,16 +57,15 @@ import java.util.List;
 
 public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
-	public static final int maxCharge = TechRebornConfig.omniToolCharge;
-	public int transferLimit = 1_000;
-	public int cost = 100;
-	public int hitCost = 125;
+	public final int maxCharge = TechRebornConfig.omniToolCharge;
+	public int cost = TechRebornConfig.omniToolCost;
+	public int hitCost = TechRebornConfig.omniToolHitCost;
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
-	
+
 	// PickaxeItem
 	@Override
 	public boolean isEffectiveOn(BlockState state) {
@@ -92,7 +91,7 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityliving, LivingEntity attacker) {
-		if(Energy.of(stack).use(hitCost)) {
+		if (Energy.of(stack).use(hitCost)) {
 			entityliving.damage(DamageSource.player((PlayerEntity) attacker), 8F);
 		}
 		return false;
@@ -116,7 +115,9 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	}
 
 	@Override
-	public boolean isEnchantable(ItemStack stack) { return true; }
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
@@ -156,17 +157,12 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	}
 
 	@Override
-	public double getMaxInput(EnergySide side) {
-		return transferLimit;
-	}
-
-	@Override
 	public double getMaxOutput(EnergySide side) {
 		return 0;
 	}
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
+		return EnergyTier.EXTREME;
 	}
 }

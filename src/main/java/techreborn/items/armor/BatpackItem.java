@@ -30,7 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
@@ -42,38 +42,31 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRArmorMaterials;
-import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class LithiumIonBatpackItem extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
+public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
 
-	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
-	public static final int maxCharge = TechRebornConfig.lithiumBatpackCharge;
-	public int transferLimit = 2_000;
+	public final int maxCharge;
+	public final int transferLimit;
+	public final EnergyTier tier;
 
-	public LithiumIonBatpackItem() {
-		super(TRArmorMaterials.LITHIUM_BATPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+	public BatpackItem(int maxCharge, int transferLimit, ArmorMaterial material, EnergyTier tier) {
+		super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+		this.maxCharge = maxCharge;
+		this.transferLimit = transferLimit;
+		this.tier = tier;
 	}
 
 	public static void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
-		if (world.isClient) {
-			return;
-		}
-
-		if(!Energy.valid(itemStack)){
+		if (world.isClient || !Energy.valid(itemStack)) {
 			return;
 		}
 
 		for (int i = 0; i < player.inventory.getInvSize(); i++) {
 			if (Energy.valid(player.inventory.getInvStack(i))) {
 				Energy.of(itemStack)
-					.into(
-						Energy
-							.of(player.inventory.getInvStack(i))
-					)
-					.move();
+						.into(Energy.of(player.inventory.getInvStack(i)))
+						.move();
 			}
 		}
 	}
@@ -117,10 +110,10 @@ public class LithiumIonBatpackItem extends ArmorItem implements EnergyHolder, It
 		if (!isIn(group)) {
 			return;
 		}
-		InitUtils.initPoweredItems(TRContent.LITHIUM_ION_BATPACK, itemList);
+		InitUtils.initPoweredItems(this, itemList);
 	}
-	
-	// IEnergyItemInfo
+
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxCharge;
@@ -128,7 +121,7 @@ public class LithiumIonBatpackItem extends ArmorItem implements EnergyHolder, It
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
+		return tier;
 	}
 
 }

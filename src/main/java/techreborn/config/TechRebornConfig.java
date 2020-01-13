@@ -31,41 +31,41 @@ import java.util.List;
 
 //All moved into one class as its a lot easier to find the annotations when you know where they all are
 public class TechRebornConfig {
-	
+
 	// Generators
 	@Config(config = "generators", category = "solarPanelGeneral", key = "internalCapacity", comment = "Multiplier for internal capacity of solar panels (multiplier * day generation rate)")
 	public static int solarInternalCapacityMultiplier = 2000;
 
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicDayRate", comment = "Generation rate during day for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateD = 1;
-	
+
 	@Config(config = "generators", category = "solarPanelBasic", key = "basicNightRate", comment = "Generation rate during night for Basic Solar Panel (Value in FE)")
 	public static int basicGenerationRateN = 0;
-	
+
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedDayRate", comment = "Generation rate during day for Advanced Solar Panel (Value in FE)")
 	public static int advancedGenerationRateD = 16;
-	
+
 	@Config(config = "generators", category = "solarPanelAdvanced", key = "advancedNightRate", comment = "Generation rate during night for Advanced Solar Panel (Value in FE)")
 	public static int advancedGenerationRateN = 0;
-	
+
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialDayRate", comment = "Generation rate during day for Industrial Solar Panel (Value in FE)")
 	public static int industrialGenerationRateD = 64;
-	
+
 	@Config(config = "generators", category = "solarPanelIndustrial", key = "industrialNightRate", comment = "Generation rate during night for Industrial Solar Panel (Value in FE)")
 	public static int industrialGenerationRateN = 2;
-	
+
 	@Config(config = "generators", category = "solarPanelUltimate", key = "ultimateDayRate", comment = "Generation rate during day for Ultimate Solar Panel (Value in FE)")
 	public static int ultimateGenerationRateD = 256;
-	
+
 	@Config(config = "generators", category = "solarPanelUltimate", key = "ultimateNightRate", comment = "Generation rate during night for Ultimate Solar Panel (Value in FE)")
-	public static int ultimateGenerationRateN = 16;	
-	
+	public static int ultimateGenerationRateN = 16;
+
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumDayRate", comment = "Generation rate during day for Quantum Solar Panel (Value in FE)")
 	public static int quantumGenerationRateD = 2048;
-	
+
 	@Config(config = "generators", category = "solarPanelQuantum", key = "quantumNightRate", comment = "Generation rate during night for Quantum Solar Panel (Value in FE)")
 	public static int quantumGenerationRateN = 128;
-	
+
 	@Config(config = "generators", category = "lightning_rod", key = "LightningRodMaxOutput", comment = "Lightning Rod Max Output (Value in EU)")
 	public static int lightningRodMaxOutput = 2048;
 
@@ -86,7 +86,7 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "thermal_generator", key = "ThermalGeneratorEnergyPerTick", comment = "Thermal Generator Energy Per Tick (Value in EU)")
 	public static int thermalGeneratorEnergyPerTick = 16;
-	
+
 	@Config(config = "generators", category = "plasma_generator", key = "PlasmaGeneratorMaxOutput", comment = "Plasma Generator Max Output (Value in EU)")
 	public static int plasmaGeneratorMaxOutput = 2048;
 
@@ -107,7 +107,7 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "wind_mill", key = "WindMillThunderMultiplier", comment = "Wind Mill Thunder Multiplier")
 	public static double windMillThunderMultiplier = 1.25;
-	
+
 	@Config(config = "generators", category = "water_mill", key = "WaterMillMaxOutput", comment = "Water Mill Max Output (Value in EU)")
 	public static int waterMillMaxOutput = 32;
 
@@ -116,7 +116,7 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "water_mill", key = "WaterMillEnergyPerTick", comment = "Water Mill Energy Multiplier")
 	public static double waterMillEnergyMultiplier = 0.1;
-	
+
 	@Config(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorMaxOutput", comment = "Semifluid Generator Max Output (Value in EU)")
 	public static int semiFluidGeneratorMaxOutput = 128;
 
@@ -125,7 +125,7 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "semifluid_generator", key = "SemifluidGeneratorEnergyPerTick", comment = "Semifluid Generator Energy Per Tick (Value in EU)")
 	public static int semiFluidGeneratorEnergyPerTick = 8;
-	
+
 	@Config(config = "generators", category = "gas_generator", key = "GasGeneratorMaxOutput", comment = "Gas Generator Max Output (Value in EU)")
 	public static int gasTurbineMaxOutput = 128;
 
@@ -134,16 +134,16 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "gas_generator", key = "GasGeneratorEnergyPerTick", comment = "Gas Generator Energy Per Tick (Value in EU)")
 	public static int gasTurbineEnergyPerTick = 16;
-	
+
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxOutput", comment = "Diesel Generator Max Output (Value in EU)")
 	public static int dieselGeneratorMaxOutput = 32;
-	
+
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorMaxEnergy", comment = "Diesel Generator Max Energy (Value in EU)")
 	public static int dieselGeneratorMaxEnergy = 10_000;
 
 	@Config(config = "generators", category = "diesel_generator", key = "DieselGeneratorEnergyPerTick", comment = "Diesel Generator Energy Per Tick (Value in EU)")
 	public static int dieselGeneratorEnergyPerTick = 20;
-	
+
 	@Config(config = "generators", category = "dragon_egg_siphoner", key = "DragonEggSiphonerMaxOutput", comment = "Dragon Egg Siphoner Max Output (Value in EU)")
 	public static int dragonEggSyphonMaxOutput = 128;
 
@@ -161,56 +161,113 @@ public class TechRebornConfig {
 
 	@Config(config = "generators", category = "generator", key = "GeneratorEnergyOutput", comment = "Solid Fuel Generator Energy Output Amount (Value in EU)")
 	public static int solidFuelGeneratorOutputAmount = 10;
-	
+
 	// Items
 	@Config(config = "items", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 
 	@Config(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")
-	public static int nanoSaberCharge = 4_000_000;
-	
+	public static int nanosaberCharge = 4_000_000;
+
+	@Config(config = "items", category = "power", key = "nanoSaberCost", comment = "Energy Cost for Nano Saber (FE)")
+	public static int nanosaberCost = 250;
+
+	@Config(config = "items", category = "power", key = "electricTreetapCharge", comment = "Energy Capacity for Electric Treetap (FE)")
+	public static int electricTreetapCharge = 10_000;
+
+	@Config(config = "items", category = "power", key = "electricTreetapCost", comment = "Energy Cost for Electric Treetap (FE)")
+	public static int electricTreetapCost = 20;
+
 	@Config(config = "items", category = "power", key = "basicDrillCharge", comment = "Energy Capacity for Basic Drill (FE)")
 	public static int basicDrillCharge = 40_000;
+
+	@Config(config = "items", category = "power", key = "basicDrillCost", comment = "Energy Cost for Basic Drill (FE)")
+	public static int basicDrillCost = 50;
 
 	@Config(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill (FE)")
 	public static int advancedDrillCharge = 400_000;
 
+	@Config(config = "items", category = "power", key = "advancedDrillCost", comment = "Energy Cost for Advanced Drill (FE)")
+	public static int advancedDrillCost = 100;
+
 	@Config(config = "items", category = "power", key = "industrialDrillCharge", comment = "Energy Capacity for Industrial Drill (FE)")
 	public static int industrialDrillCharge = 4_000_000;
+
+	@Config(config = "items", category = "power", key = "industrialDrillCost", comment = "Energy Cost for Industrial Drill (FE)")
+	public static int industrialDrillCost = 250;
 
 	@Config(config = "items", category = "power", key = "basicChainsawCharge", comment = "Energy Capacity for Basic Chainsaw (FE)")
 	public static int basicChainsawCharge = 40_000;
 
+	@Config(config = "items", category = "power", key = "basicChainsawCost", comment = "Energy Cost for Basic Chainsaw (FE)")
+	public static int basicChainsawCost = 50;
+
 	@Config(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw (FE)")
 	public static int advancedChainsawCharge = 400_000;
+
+	@Config(config = "items", category = "power", key = "advancedChainsawCost", comment = "Energy Cost for Advanced Chainsaw (FE)")
+	public static int advancedChainsawCost = 100;
 
 	@Config(config = "items", category = "power", key = "industrialChainsawCharge", comment = "Energy Capacity for Industrial Chainsaw (FE)")
 	public static int industrialChainsawCharge = 4_000_000;
 
+	@Config(config = "items", category = "power", key = "industrialChainsawCost", comment = "Energy Cost for Industrial Chainsaw (FE)")
+	public static int industrialChainsawCost = 250;
+
 	@Config(config = "items", category = "power", key = "basicJackhammerCharge", comment = "Energy Capacity for Basic Jackhammer (FE)")
 	public static int basicJackhammerCharge = 40_000;
+
+	@Config(config = "items", category = "power", key = "basicJackhammerCost", comment = "Energy Cost for Basic Jackhammer (FE)")
+	public static int basicJackhammerCost = 50;
 
 	@Config(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jackhammer (FE)")
 	public static int advancedJackhammerCharge = 400_000;
 
-	@Config(config = "items", category = "power", key = "industrialJackhammerCharge", comment = "Energy Capacity for Industrial Jachammer (FE)")
+	@Config(config = "items", category = "power", key = "advancedJackhammerCost", comment = "Energy Cost for Advanced Jackhammer (FE)")
+	public static int advancedJackhammerCost = 100;
+
+	@Config(config = "items", category = "power", key = "industrialJackhammerCharge", comment = "Energy Capacity for Industrial Jackhammer (FE)")
 	public static int industrialJackhammerCharge = 4_000_000;
+
+	@Config(config = "items", category = "power", key = "industrialJackhammerCost", comment = "Energy Cost for Industrial Jackhammer (FE)")
+	public static int industrialJackhammerCost = 250;
 
 	@Config(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool (FE)")
 	public static int omniToolCharge = 4_000_000;
 
+	@Config(config = "items", category = "power", key = "omniToolCost", comment = "Energy Cost for Omni Tool (FE)")
+	public static int omniToolCost = 100;
+
+	@Config(config = "items", category = "power", key = "omniToolHitCost", comment = "Hit Energy Cost for Omni Tool (FE)")
+	public static int omniToolHitCost = 125;
+
 	@Config(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter (FE)")
 	public static int rockCutterCharge = 400_000;
+
+	@Config(config = "items", category = "power", key = "rockCutterCost", comment = "Energy Cost for Rock Cutter (FE)")
+	public static int rockCutterCost = 500;
 
 	@Config(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack (FE)")
 	public static int lapotronPackCharge = 400_000_000;
 
+	@Config(config = "items", category = "power", key = "lapotronPackTransferRate", comment = "Transfer Rate for Lapotron Pack (FE)")
+	public static int lapotronPackTransferRate = 100_000;
+
 	@Config(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack (FE)")
 	public static int lithiumBatpackCharge = 8_000_000;
 
+	@Config(config = "items", category = "power", key = "lithiumBatpackTransferRate", comment = "Transfer Rate for Lithium Batpack (FE)")
+	public static int lithiumBatpackTransferRate = 2_000;
+
+	@Config(config = "items", category = "power", key = "redCellBatteryMaxCharge", comment = "Energy Capacity for Red Cell Battery (FE)")
+	public static int redCellBatteryMaxCharge = 40_000;
+
+	@Config(config = "items", category = "power", key = "lithiumIonBatteryMaxCharge", comment = "Energy Capacity for Lithium Ion Battery (FE)")
+	public static int lithiumIonBatteryMaxCharge = 400_000;
+
 	@Config(config = "items", category = "power", key = "energyCrystalMaxCharge", comment = "Energy Capacity for Energy Crystal (FE)")
 	public static int energyCrystalMaxCharge = 4_000_000;
-	
+
 	@Config(config = "items", category = "power", key = "lapotronCrystalMaxCharge", comment = "Energy Capacity for Lapotron Crystal (FE)")
 	public static int lapotronCrystalMaxCharge = 40_000_000;
 
@@ -219,10 +276,25 @@ public class TechRebornConfig {
 
 	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Clocking Device (FE)")
 	public static int cloakingDeviceCharge = 40_000_000;
-	
+
 	@Config(config = "items", category = "power", key = "clockingDeviceEnergyUsage", comment = "Cloacking device energy usesage (FE)")
-	public static int cloackingDeviceUsage = 10;
-	
+	public static int cloackingDeviceCost = 10;
+
+	@Config(config = "items", category = "power", key = "quantumSuitCapacity", comment = "Quantum Suit Energy Capacity")
+	public static double quantumSuitCapacity = 40_000_000;
+
+	@Config(config = "items", category = "power", key = "quantumSuitFlyingCost", comment = "Quantum Suit Flying Cost")
+	public static double quantumSuitFlyingCost = 50;
+
+	@Config(config = "items", category = "power", key = "quantumSuitSwimmingCost", comment = "Quantum Suit Swimming Cost")
+	public static double quantumSuitSwimmingCost = 20;
+
+	@Config(config = "items", category = "power", key = "quantumSuitBreathingCost", comment = "Quantum Suit Breathing Cost")
+	public static double quantumSuitBreathingCost = 20;
+
+	@Config(config = "items", category = "power", key = "quantumSuitSprintingCost", comment = "Quantum Suit Sprinting Cost")
+	public static double quantumSuitSprintingCost = 20;
+
 	@Config(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker behavior speed multipiler")
 	public static double overclockerSpeed = 0.25;
 
@@ -234,6 +306,7 @@ public class TechRebornConfig {
 
 	@Config(config = "items", category = "upgrades", key = "super_conductor", comment = "Energy flow power increase")
 	public static double superConductorCount = 1;
+
 
 	// Machines
 	@Config(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
@@ -304,10 +377,10 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "rolling_machine", key = "RollingMachineMaxEnergy", comment = "Rolling Machine Max Energy (Value in EU)")
 	public static int rollingMachineMaxEnergy = 10000;
-	
+
 	@Config(config = "machines", category = "chunk_loader", key = "ChunkLoaderMaxRadius", comment = "Chunk Loader Max Radius")
 	public static int chunkLoaderMaxRadius = 5;
-	
+
 	@Config(config = "machines", category = "assembling_machine", key = "AssemblingMachineMaxInput", comment = "Assembling Machine Max Input (Value in EU)")
 	public static int assemblingMachineMaxInput = 128;
 
@@ -469,28 +542,28 @@ public class TechRebornConfig {
 
 	@Config(config = "machines", category = "solid_canning_machine", key = "solidCanningMachineMaxEnergy", comment = "Solid Canning Machine Max Energy (Value in EU)")
 	public static int solidCanningMachineMaxEnergy = 1_000;
-	
+
 	@Config(config = "machines", category = "iron_machine", key = "fuel_scale", comment = "Multiplier for vanilla furnace item burn time")
 	public static double fuelScale = 1.25;
-	
+
 	@Config(config = "machines", category = "iron_machine", key = "cooking_scale", comment = "Multiplier for vanilla furnace item cook time")
 	public static double cookingScale = 1.25;
-	
+
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxInput", comment = "Greenhouse Controller Max Input")
 	public static int greenhouseControllerMaxInput = 32;
-	
+
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerMaxEnergy", comment = "Greenhouse Controller Max Energy")
 	public static int greenhouseControllerMaxEnergy = 1_000;
-	
+
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerTick", comment = "Greenhouse Controller Energy Per Tick")
 	public static int greenhouseControllerEnergyPerTick = 2;
-	
+
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerHarvest", comment = "Greenhouse Controller Energy Per Harvest")
 	public static int greenhouseControllerEnergyPerHarvest = 100;
-	
+
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerBonemeal", comment = "Greenhouse Controller Energy Per Bonemeal")
 	public static int greenhouseControllerEnergyPerBonemeal = 50;
-	
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
@@ -509,10 +582,10 @@ public class TechRebornConfig {
 
 	@Config(config = "misc", category = "nuke", key = "enabled", comment = "Should the nuke explode, set to false to prevent block damage")
 	public static boolean nukeEnabled = true;
-	
+
 	@Config(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")
 	public static boolean dispenseScrapboxes = true;
-	
+
 	@Config(config = "misc", category = "cable", key = "uninsulatedElectrocutionDamage", comment = "When true an uninsulated cable will cause damage to entities")
 	public static boolean uninsulatedElectrocutionDamage = true;
 
@@ -521,14 +594,14 @@ public class TechRebornConfig {
 
 	@Config(config = "misc", category = "cable", key = "uninsulatedElectrocutionParticles", comment = "When true an uninsulated cable will create a spark when an entity touches it")
 	public static boolean uninsulatedElectrocutionParticles = true;
-	
+
 	// World
 	@Config(config = "world", category = "loot", key = "enableOverworldLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to OverWorld loot chests.")
 	public static boolean enableOverworldLoot = true;
 
 	@Config(config = "world", category = "loot", key = "enableNetherLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to Nether loot chests.")
 	public static boolean enableNetherLoot = true;
-	
+
 	@Config(config = "world", category = "loot", key = "enableEndLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to The End loot chests.")
 	public static boolean enableEndLoot = true;
 }

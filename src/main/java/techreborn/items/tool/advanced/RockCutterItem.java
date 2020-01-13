@@ -51,8 +51,7 @@ import java.util.Random;
 public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public static final int maxCharge = TechRebornConfig.rockCutterCharge;
-	public int transferLimit = 1_000;
-	public int cost = 500;
+	public int cost = TechRebornConfig.rockCutterCost;
 
 	// 400k FE with 1k FE\t charge rate
 	public RockCutterItem() {
@@ -109,12 +108,14 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	}
 
 	@Override
-	public boolean isEnchantable(ItemStack stack) { return true; }
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+		if (!isIn(group)) {
 			return;
 		}
 		ItemStack uncharged = new ItemStack(this);
@@ -123,8 +124,8 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 		charged.addEnchantment(Enchantments.SILK_TOUCH, 1);
 		Energy.of(charged).set(Energy.of(charged).getMaxStored());
 
-		itemList.add(uncharged);
-		itemList.add(charged);
+		stacks.add(uncharged);
+		stacks.add(charged);
 	}
 
 	// ItemDurabilityExtensions
@@ -151,12 +152,7 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
-	}
-
-	@Override
-	public double getMaxInput(EnergySide side) {
-		return transferLimit;
+		return EnergyTier.EXTREME;
 	}
 
 	@Override

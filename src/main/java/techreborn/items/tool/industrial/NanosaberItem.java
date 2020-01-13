@@ -56,9 +56,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {
-	public static final int maxCharge = TechRebornConfig.nanoSaberCharge;
-	public int transferLimit = 1_000;
-	public int cost = 250;
+	public static final int maxCharge = TechRebornConfig.nanosaberCharge;
+	public int cost = TechRebornConfig.nanosaberCost;
 
 	// 4M FE max charge with 1k charge rate
 	public NanosaberItem() {
@@ -150,12 +149,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.HIGH;
-	}
-
-	@Override
-	public double getMaxInput(EnergySide side) {
-		return transferLimit;
+		return EnergyTier.EXTREME;
 	}
 
 	@Override

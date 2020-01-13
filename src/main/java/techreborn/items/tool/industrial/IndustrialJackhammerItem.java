@@ -30,13 +30,15 @@ import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -47,10 +49,9 @@ import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.items.tool.JackhammerItem;
-import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
@@ -62,35 +63,27 @@ import java.util.Set;
 
 public class IndustrialJackhammerItem extends JackhammerItem {
 
-	// 4M FE max charge with 1k charge rate
 	public IndustrialJackhammerItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge);
-		this.cost = 250;
-		this.transferLimit = 1000;
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
-	private void switchAOE(ItemStack stack, int cost, boolean isClient, int messageId){
+	private void switchAOE(ItemStack stack, int cost, boolean isClient, int messageId) {
 		ItemUtils.checkActive(stack, cost, isClient, messageId);
 		if (!ItemUtils.isActive(stack)) {
 			ItemUtils.switchActive(stack, cost, isClient, messageId);
 			stack.getOrCreateTag().putBoolean("AOE5", false);
 			if (isClient) {
-				ChatUtils.sendNoSpamMessages(messageId, new LiteralText(
-						Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
-								+ Formatting.GOLD + "3*3"));
+				ChatUtils.sendNoSpamMessages(messageId, new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " " + Formatting.GOLD + "3*3"));
 			}
 		} else {
-			if (isAOE(stack)){
+			if (isAOE(stack)) {
 				ItemUtils.switchActive(stack, cost, isClient, messageId);
 				stack.getOrCreateTag().putBoolean("AOE5", false);
-			}
-			else {
+			} else {
 				stack.getOrCreateTag().putBoolean("AOE5", true);
 				if (isClient) {
-					ChatUtils.sendNoSpamMessages(messageId, new LiteralText(
-							Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " "
-									+ Formatting.GOLD + "5*5"));
+					ChatUtils.sendNoSpamMessages(messageId, new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " " + Formatting.GOLD + "5*5"));
 				}
 			}
 		}
@@ -108,13 +101,13 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
 		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 
-		if(!(hitResult instanceof BlockHitResult)){
+		if (!(hitResult instanceof BlockHitResult)) {
 			return Collections.emptySet();
 		}
 		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
 		int add = isAOE(entityLiving.getMainHandStack()) ? 2 : 0;
 		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
-			for (int i = -1 - add/2; i < 2 + add/2; i++) {
+			for (int i = -1 - add / 2; i < 2 + add / 2; i++) {
 				for (int j = -1; j < 2 + add; j++) {
 					BlockPos newPos = pos.add(i, j, 0);
 					if (shouldBreak(worldIn, pos, newPos)) {
@@ -123,7 +116,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 				}
 			}
 		} else if (enumfacing == Direction.EAST || enumfacing == Direction.WEST) {
-			for (int i = -1 - add/2; i < 2 + add/2; i++) {
+			for (int i = -1 - add / 2; i < 2 + add / 2; i++) {
 				for (int j = -1; j < 2 + add; j++) {
 					BlockPos newPos = pos.add(0, j, i);
 					if (shouldBreak(worldIn, pos, newPos)) {
@@ -137,7 +130,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 			int maxX = 0;
 			int minZ = 0;
 			int maxZ = 0;
-			switch (playerFacing){
+			switch (playerFacing) {
 				case SOUTH:
 					minZ = -1;
 					maxZ = 3;
@@ -186,23 +179,23 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		if (blockState.getMaterial().isLiquid()) {
 			return false;
 		}
-		if (blockState.getBlock() instanceof OreBlock){
+		if (blockState.getBlock() instanceof OreBlock) {
 			return false;
 		}
-		if (blockState.getBlock() instanceof RedstoneOreBlock){
+		if (blockState.getBlock() instanceof RedstoneOreBlock) {
 			return false;
 		}
 		return (Items.IRON_PICKAXE.isEffectiveOn(blockState));
 	}
 
-	private boolean isAOE(ItemStack stack){
+	private boolean isAOE(ItemStack stack) {
 		return !stack.isEmpty() && stack.getTag() != null && stack.getTag().getBoolean("AOE5");
 	}
 
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if(ItemUtils.isActive(stack)){
+		if (ItemUtils.isActive(stack)) {
 			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
@@ -241,22 +234,12 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
-		if (ItemUtils.isActive(stack)){
+		if (ItemUtils.isActive(stack)) {
 			if (isAOE(stack)) {
 				tooltip.add(new LiteralText("5*5").formatted(Formatting.RED));
 			} else {
 				tooltip.add(new LiteralText("3*3").formatted(Formatting.RED));
 			}
 		}
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(
-		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_JACKHAMMER, itemList);
 	}
 }

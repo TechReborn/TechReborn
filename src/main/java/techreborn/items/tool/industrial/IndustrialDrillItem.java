@@ -24,6 +24,7 @@
 
 package techreborn.items.tool.industrial;
 
+import com.google.common.collect.ImmutableSet;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -48,7 +49,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.items.tool.DrillItem;
@@ -64,18 +65,15 @@ import java.util.Set;
 
 public class IndustrialDrillItem extends DrillItem {
 
-	// 4M FE max charge with 1k charge rate
 	public IndustrialDrillItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialDrillCharge, 2.0F, 15F);
-		this.cost = 250;
-		this.transferLimit = 1000;
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialDrillCharge, EnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 15.0F, 2.0F, Items.DIAMOND_PICKAXE, Items.DIAMOND_SHOVEL);
 	}
 
 	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		Set<BlockPos> targetBlocks = new HashSet<>();
-		if (!(entityLiving instanceof PlayerEntity) || entityLiving == null) {
-			return new HashSet<>();
+		if (!(entityLiving instanceof PlayerEntity)) {
+			return ImmutableSet.of();
 		}
+		Set<BlockPos> targetBlocks = new HashSet<>();
 		PlayerEntity playerIn = (PlayerEntity) entityLiving;
 
 		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
@@ -83,7 +81,7 @@ public class IndustrialDrillItem extends DrillItem {
 		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
 		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 
-		if(!(hitResult instanceof BlockHitResult)){
+		if (!(hitResult instanceof BlockHitResult)) {
 			return Collections.emptySet();
 		}
 		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
@@ -140,7 +138,7 @@ public class IndustrialDrillItem extends DrillItem {
 	// DrillItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if(ItemUtils.isActive(stack)){
+		if (ItemUtils.isActive(stack)) {
 			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
@@ -166,7 +164,7 @@ public class IndustrialDrillItem extends DrillItem {
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
+	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
 		ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
 	}
 

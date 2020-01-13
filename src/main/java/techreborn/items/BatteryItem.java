@@ -22,14 +22,16 @@
  * SOFTWARE.
  */
 
-package techreborn.items.battery;
+package techreborn.items;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
@@ -39,6 +41,7 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
+import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 
@@ -79,7 +82,15 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 		return PowerSystem.getDisplayPower().colour;
 	}
 
-	// IEnergyItemInfo
+	@Override
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+		if (!isIn(group)) {
+			return;
+		}
+		InitUtils.initPoweredItems(this, stacks);
+	}
+
+	// EnergyHolder
 	@Override
 	public double getMaxStoredPower() {
 		return maxEnergy;

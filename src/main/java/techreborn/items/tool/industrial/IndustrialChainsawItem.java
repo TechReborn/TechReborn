@@ -30,14 +30,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -45,10 +43,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.items.tool.ChainsawItem;
-import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.TagUtils;
 import techreborn.utils.ToolsUtil;
@@ -61,30 +58,27 @@ public class IndustrialChainsawItem extends ChainsawItem {
 
 	private static final Direction[] SEARCH_ORDER = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP};
 
-	// 4M FE max charge with 1k charge rate
 	public IndustrialChainsawItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, 1.0F);
-		this.cost = 250;
-		this.transferLimit = 1000;
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialChainsawCharge, EnergyTier.EXTREME, TechRebornConfig.industrialChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE);
 	}
 
-	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves){
+	private void findWood(World world, BlockPos pos, List<BlockPos> wood, List<BlockPos> leaves) {
 		//Limit the amount of wood to be broken to 64 blocks.
-		if(wood.size() >= 64){
+		if (wood.size() >= 64) {
 			return;
 		}
 		//Search 150 leaves for wood
-		if(leaves.size() >= 150){
+		if (leaves.size() >= 150) {
 			return;
 		}
-		for(Direction facing : SEARCH_ORDER){
+		for (Direction facing : SEARCH_ORDER) {
 			BlockPos checkPos = pos.offset(facing);
-			if(!wood.contains(checkPos) && !leaves.contains(checkPos)){
+			if (!wood.contains(checkPos) && !leaves.contains(checkPos)) {
 				BlockState state = world.getBlockState(checkPos);
-				if(TagUtils.hasTag(state.getBlock(), BlockTags.LOGS)){
+				if (TagUtils.hasTag(state.getBlock(), BlockTags.LOGS)) {
 					wood.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
-				} else if(TagUtils.hasTag(state.getBlock(), BlockTags.LEAVES)){
+				} else if (TagUtils.hasTag(state.getBlock(), BlockTags.LEAVES)) {
 					leaves.add(checkPos);
 					findWood(world, checkPos, wood, leaves);
 				}
@@ -110,14 +104,6 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	}
 
 	// Item
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
-		if (!isIn(par2ItemGroup)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.INDUSTRIAL_CHAINSAW, itemList);
-	}
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
@@ -130,7 +116,7 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity entity,  ItemStack stack, int i) {
+	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
 		ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
 	}
 
@@ -138,10 +124,5 @@ public class IndustrialChainsawItem extends ChainsawItem {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
-	}
-
-	@Override
-	public boolean isEffectiveOn(BlockState blockIn) {
-		return Items.DIAMOND_AXE.isEffectiveOn(blockIn);
 	}
 }
