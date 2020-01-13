@@ -24,6 +24,7 @@
 
 package techreborn.utils;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -31,34 +32,119 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import team.reborn.energy.Energy;
 
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author drcrazy
- *
  */
 
 public class ToolsUtil {
-    public static void breakBlock(ItemStack tool, World world, BlockPos pos, LivingEntity entityLiving, int cost) {
-        if (!(entityLiving instanceof PlayerEntity)) {
-            return;
-        }
-        BlockState blockState = world.getBlockState(pos);
-        if (blockState.getHardness(world, pos) == -1.0F) {
-            return;
-        }
+	public static void breakBlock(ItemStack tool, World world, BlockPos pos, LivingEntity entityLiving, int cost) {
+		if (!(entityLiving instanceof PlayerEntity)) {
+			return;
+		}
+		BlockState blockState = world.getBlockState(pos);
+		if (blockState.getHardness(world, pos) == -1.0F) {
+			return;
+		}
 		Random rand = new Random();
 		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool) + 1) == 0) {
 			if (!Energy.of(tool).use(cost)) {
 				return;
 			}
 		}
-        blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), tool);
-        world.setBlockState(pos, Blocks.AIR.getDefaultState());
-        world.removeBlockEntity(pos);
-    }
+		blockState.getBlock().afterBreak(world, (PlayerEntity) entityLiving, pos, blockState, world.getBlockEntity(pos), tool);
+		world.setBlockState(pos, Blocks.AIR.getDefaultState());
+		world.removeBlockEntity(pos);
+	}
+
+	/**
+	 *  Fills in set of BlockPos which should be broken by AOE mining
+	 * @param worldIn World reference
+	 * @param pos BlockPos Position of originally broken block
+	 * @param entityLiving LivingEntity Player who broke block
+	 * @param radius int Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
+	 * @return Set of BlockPos to process by tool block break logic
+	 */
+	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius) {
+		if (!(entityLiving instanceof PlayerEntity)) {
+			return ImmutableSet.of();
+		}
+		Set<BlockPos> targetBlocks = new HashSet<>();
+		PlayerEntity playerIn = (PlayerEntity) entityLiving;
+
+		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
+		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+		HitResult hitResult = playerIn.rayTrace(20D, 0F, false);
+		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+
+		if (!(hitResult instanceof BlockHitResult)) {
+			return Collections.emptySet();
+		}
+		Direction direction = ((BlockHitResult) hitResult).getSide();
+
+		if (direction == Direction.SOUTH || direction == Direction.NORTH) {
+			for (int x = -radius; x <= radius; x++) {
+				for (int y = -1; y <= 1 + (radius - 1) * 2; y++) {
+					targetBlocks.add(pos.add(x, y, 0));
+				}
+			}
+		} else if (direction == Direction.EAST || direction == Direction.WEST) {
+			for (int z = -radius; z <= radius; z++) {
+				for (int y = -1; y <= 1 + (radius - 1) * 2; y++) {
+					targetBlocks.add(pos.add(0, y, z));
+				}
+			}
+		} else if (direction == Direction.DOWN || direction == Direction.UP) {
+			Direction playerDirection = playerIn.getHorizontalFacing();
+			int minX = 0;
+			int maxX = 0;
+			int minZ = 0;
+			int maxZ = 0;
+
+			switch (playerDirection) {
+				case SOUTH:
+					minZ = -1;
+					maxZ = 1 + (radius - 1) * 2;
+					minX = -radius;
+					maxX = radius;
+					break;
+				case NORTH:
+					minZ = -1 - (radius - 1) * 2;
+					maxZ = 1;
+					minX = -radius;
+					maxX = radius;
+					break;
+				case WEST:
+					minZ = -radius;
+					maxZ = radius;
+					minX = -1 - (radius - 1) * 2;
+					maxX = 1;
+					break;
+				case EAST:
+					minZ = -radius;
+					maxZ = radius;
+					minX = -1;
+					maxX = 1 + (radius - 1) * 2;
+					break;
+			}
+			for (int x = minX; x <= maxX; x++) {
+				for (int z = minZ; z <= maxZ; z++) {
+					targetBlocks.add(pos.add(x, 0, z));
+				}
+			}
+		}
+		return targetBlocks;
+	}
 }

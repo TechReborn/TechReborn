@@ -26,7 +26,10 @@ package techreborn.items.tool.advanced;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
+import net.minecraft.block.OreBlock;
+import net.minecraft.block.RedstoneOreBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,11 +40,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.EnergyTier;
@@ -51,62 +50,12 @@ import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AdvancedJackhammerItem extends JackhammerItem {
 
 	public AdvancedJackhammerItem() {
 		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedJackhammerCharge, EnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
-	}
-
-	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		Set<BlockPos> targetBlocks = new HashSet<>();
-		if (!(entityLiving instanceof PlayerEntity)) {
-			return new HashSet<>();
-		}
-		PlayerEntity playerIn = (PlayerEntity) entityLiving;
-
-		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
-		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-
-		if (!(hitResult instanceof BlockHitResult)) {
-			return Collections.emptySet();
-		}
-		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
-		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(i, j, 0);
-					if (shouldBreak(worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.EAST || enumfacing == Direction.WEST) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(0, j, i);
-					if (shouldBreak(worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.DOWN || enumfacing == Direction.UP) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(j, 0, i);
-					if (shouldBreak(worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		}
-		return targetBlocks;
 	}
 
 	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -132,11 +81,15 @@ public class AdvancedJackhammerItem extends JackhammerItem {
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (ItemUtils.isActive(stack)) {
-			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
+		if (!ItemUtils.isActive(stack)) {
+			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		}
+		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
+			if (shouldBreak(worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
+
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 

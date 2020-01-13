@@ -39,11 +39,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
@@ -56,10 +52,7 @@ import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class IndustrialJackhammerItem extends JackhammerItem {
 
@@ -77,7 +70,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 				ChatUtils.sendNoSpamMessages(messageId, new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " " + Formatting.GOLD + "3*3"));
 			}
 		} else {
-			if (isAOE(stack)) {
+			if (isAOE5(stack)) {
 				ItemUtils.switchActive(stack, cost, isClient, messageId);
 				stack.getOrCreateTag().putBoolean("AOE5", false);
 			} else {
@@ -87,85 +80,6 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 				}
 			}
 		}
-	}
-
-	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		Set<BlockPos> targetBlocks = new HashSet<>();
-		if (!(entityLiving instanceof PlayerEntity)) {
-			return new HashSet<>();
-		}
-		PlayerEntity playerIn = (PlayerEntity) entityLiving;
-
-		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
-		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-
-		if (!(hitResult instanceof BlockHitResult)) {
-			return Collections.emptySet();
-		}
-		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
-		int add = isAOE(entityLiving.getMainHandStack()) ? 2 : 0;
-		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
-			for (int i = -1 - add / 2; i < 2 + add / 2; i++) {
-				for (int j = -1; j < 2 + add; j++) {
-					BlockPos newPos = pos.add(i, j, 0);
-					if (shouldBreak(worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.EAST || enumfacing == Direction.WEST) {
-			for (int i = -1 - add / 2; i < 2 + add / 2; i++) {
-				for (int j = -1; j < 2 + add; j++) {
-					BlockPos newPos = pos.add(0, j, i);
-					if (shouldBreak(worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.DOWN || enumfacing == Direction.UP) {
-			Direction playerFacing = playerIn.getHorizontalFacing();
-			int minX = 0;
-			int maxX = 0;
-			int minZ = 0;
-			int maxZ = 0;
-			switch (playerFacing) {
-				case SOUTH:
-					minZ = -1;
-					maxZ = 3;
-					minX = -2;
-					maxX = 2;
-					break;
-				case NORTH:
-					minZ = -3;
-					maxZ = 1;
-					minX = -2;
-					maxX = 2;
-					break;
-				case WEST:
-					minZ = -2;
-					maxZ = 2;
-					minX = -3;
-					maxX = 1;
-					break;
-				case EAST:
-					minZ = -2;
-					maxZ = 2;
-					minX = -1;
-					maxX = 3;
-					break;
-			}
-			for (int x = minX; x <= maxX; x++) {
-				for (int z = minZ; z <= maxZ; z++) {
-					BlockPos newPos = pos.add(x, 0, z);
-					if (shouldBreak(worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		}
-		return targetBlocks;
 	}
 
 	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -188,18 +102,23 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		return (Items.IRON_PICKAXE.isEffectiveOn(blockState));
 	}
 
-	private boolean isAOE(ItemStack stack) {
+	private boolean isAOE5(ItemStack stack) {
 		return !stack.isEmpty() && stack.getTag() != null && stack.getTag().getBoolean("AOE5");
 	}
 
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (ItemUtils.isActive(stack)) {
-			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
+		if (!ItemUtils.isActive(stack)) {
+			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		}
+		int radius = isAOE5(stack) ? 2 : 1;
+		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius)) {
+			if (shouldBreak(worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
+
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
@@ -235,7 +154,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
 		if (ItemUtils.isActive(stack)) {
-			if (isAOE(stack)) {
+			if (isAOE5(stack)) {
 				tooltip.add(new LiteralText("5*5").formatted(Formatting.RED));
 			} else {
 				tooltip.add(new LiteralText("3*3").formatted(Formatting.RED));

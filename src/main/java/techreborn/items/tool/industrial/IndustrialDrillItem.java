@@ -24,11 +24,9 @@
 
 package techreborn.items.tool.industrial;
 
-import com.google.common.collect.ImmutableSet;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -42,11 +40,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.EnergyTier;
@@ -58,62 +52,12 @@ import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class IndustrialDrillItem extends DrillItem {
 
 	public IndustrialDrillItem() {
 		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialDrillCharge, EnergyTier.INSANE, TechRebornConfig.industrialDrillCost, 15.0F, 2.0F, Items.DIAMOND_PICKAXE, Items.DIAMOND_SHOVEL);
-	}
-
-	private Set<BlockPos> getTargetBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!(entityLiving instanceof PlayerEntity)) {
-			return ImmutableSet.of();
-		}
-		Set<BlockPos> targetBlocks = new HashSet<>();
-		PlayerEntity playerIn = (PlayerEntity) entityLiving;
-
-		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
-		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-		HitResult hitResult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-
-		if (!(hitResult instanceof BlockHitResult)) {
-			return Collections.emptySet();
-		}
-		Direction enumfacing = ((BlockHitResult) hitResult).getSide();
-		if (enumfacing == Direction.SOUTH || enumfacing == Direction.NORTH) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(i, j, 0);
-					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.EAST || enumfacing == Direction.WEST) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(0, j, i);
-					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		} else if (enumfacing == Direction.DOWN || enumfacing == Direction.UP) {
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					BlockPos newPos = pos.add(j, 0, i);
-					if (shouldBreak(playerIn, worldIn, pos, newPos)) {
-						targetBlocks.add(newPos);
-					}
-				}
-			}
-		}
-		return targetBlocks;
 	}
 
 	private boolean shouldBreak(PlayerEntity playerIn, World worldIn, BlockPos originalPos, BlockPos pos) {
@@ -138,11 +82,19 @@ public class IndustrialDrillItem extends DrillItem {
 	// DrillItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (ItemUtils.isActive(stack)) {
-			for (BlockPos additionalPos : getTargetBlocks(worldIn, pos, entityLiving)) {
+		if (!ItemUtils.isActive(stack)) {
+			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		}
+		if (!(entityLiving instanceof PlayerEntity)) {
+			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+		}
+		PlayerEntity playerIn = (PlayerEntity) entityLiving;
+		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
+			if (shouldBreak(playerIn, worldIn, pos, additionalPos)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
+
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
