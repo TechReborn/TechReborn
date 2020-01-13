@@ -45,12 +45,15 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public int superconductors = 0;
 
 	public AdjustableSUBlockEntity() {
-		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxInput, TechRebornConfig.aesuMaxOutput, TechRebornConfig.aesuMaxEnergy);
+		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
+		if (world == null){
+			return;
+		}
 
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
@@ -97,7 +100,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		ItemStack dropStack = TRContent.Machine.ADJUSTABLE_SU.getStack();
 		toTag(blockEntity);
 		dropStack.setTag(new CompoundTag());
-		dropStack.getTag().put("blockEntity", blockEntity);
+		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
 	}
 	

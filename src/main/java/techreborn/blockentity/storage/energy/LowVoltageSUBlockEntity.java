@@ -38,7 +38,7 @@ import techreborn.init.TRContent;
 public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
 	public LowVoltageSUBlockEntity() {
-		super(TRBlockEntities.LOW_VOLTAGE_SU, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, EnergyTier.LOW, 32, 32, 40000);
+		super(TRBlockEntities.LOW_VOLTAGE_SU, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, EnergyTier.LOW, 40_000);
 	}
 
 	@Override

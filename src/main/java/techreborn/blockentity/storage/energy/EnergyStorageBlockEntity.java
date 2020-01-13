@@ -51,14 +51,14 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	public int maxOutput;
 	public int maxStorage;
 
-	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnergyTier tier, int maxInput, int maxOuput, int maxStorage) {
+	public EnergyStorageBlockEntity(BlockEntityType<?> blockEntityType, String name, int invSize, Block wrenchDrop, EnergyTier tier, int maxStorage) {
 		super(blockEntityType);
 		inventory = new RebornInventory<>(invSize, name + "BlockEntity", 64, this);
 		this.wrenchDrop = wrenchDrop;
 		this.tier = tier;
 		this.name = name;
-		this.maxInput = maxInput;
-		this.maxOutput = maxOuput;
+		this.maxInput = tier.getMaxInput();
+		this.maxOutput = tier.getMaxOutput();
 		this.maxStorage = maxStorage;
 		// Call it again after we have proper values for energy I\O
 		checkTier();
@@ -76,11 +76,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 
 			if (Energy.valid(stack)) {
 				Energy.of(this)
-					.into(
-						Energy
-							.of(stack)
-					)
-					.move();
+						.into(Energy.of(stack))
+						.move(tier.getMaxInput());
 			}
 		}
 		if (!inventory.getInvStack(1).isEmpty()) {

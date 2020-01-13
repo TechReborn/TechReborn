@@ -253,20 +253,20 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack")
 	public static int lithiumBatpackCharge = 600_000;
 
-	@Config(config = "items", category = "power", key = "redCellBatteryMaxCharge", comment = "Energy Capacity for Red Cell Battery (FE)")
-	public static int redCellBatteryMaxCharge = 40_000;
+	@Config(config = "items", category = "power", key = "redCellBatteryMaxCharge", comment = "Energy Capacity for Red Cell Battery")
+	public static int redCellBatteryMaxCharge = 10_000;
 
-	@Config(config = "items", category = "power", key = "lithiumIonBatteryMaxCharge", comment = "Energy Capacity for Lithium Ion Battery (FE)")
-	public static int lithiumIonBatteryMaxCharge = 400_000;
+	@Config(config = "items", category = "power", key = "lithiumIonBatteryMaxCharge", comment = "Energy Capacity for Lithium Ion Battery")
+	public static int lithiumIonBatteryMaxCharge = 100_000;
 
-	@Config(config = "items", category = "power", key = "energyCrystalMaxCharge", comment = "Energy Capacity for Energy Crystal (FE)")
-	public static int energyCrystalMaxCharge = 4_000_000;
+	@Config(config = "items", category = "power", key = "energyCrystalMaxCharge", comment = "Energy Capacity for Energy Crystal")
+	public static int energyCrystalMaxCharge = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "lapotronCrystalMaxCharge", comment = "Energy Capacity for Lapotron Crystal (FE)")
-	public static int lapotronCrystalMaxCharge = 40_000_000;
+	@Config(config = "items", category = "power", key = "lapotronCrystalMaxCharge", comment = "Energy Capacity for Lapotron Crystal")
+	public static int lapotronCrystalMaxCharge = 10_000_000;
 
-	@Config(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb (FE)")
-	public static int lapotronicOrbMaxCharge = 400_000_000;
+	@Config(config = "items", category = "power", key = "lapotronicOrbMaxCharge", comment = "Energy Capacity for Lapotronic Orb")
+	public static int lapotronicOrbMaxCharge = 100_000_000;
 
 	@Config(config = "items", category = "power", key = "cloakingDeviceCharge", comment = "Energy Capacity for Clocking Device (FE)")
 	public static int cloakingDeviceCharge = 40_000_000;
@@ -309,22 +309,13 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "grinder", key = "GrinderMaxEnergy", comment = "Grinder Max Energy (Value in EU)")
 	public static int grinderMaxEnergy = 1_000;
 
-	@Config(config = "machines", category = "lesu", key = "LesuMaxOutput", comment = "LESU Base Output (Value in EU)")
-	public static int lesuBaseOutput = 16;
-
-	@Config(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block (Value in EU)")
+	@Config(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block")
 	public static int lesuStoragePerBlock = 1_000_000;
 
 	@Config(config = "machines", category = "lesu", key = "LesuExtraIO", comment = "LESU Extra I/O Multiplier")
 	public static int lesuExtraIOPerBlock = 8;
 
-	@Config(config = "machines", category = "aesu", key = "AesuMaxInput", comment = "AESU Max Input (Value in EU)")
-	public static int aesuMaxInput = 16192;
-
-	@Config(config = "machines", category = "aesu", key = "AesuMaxOutput", comment = "AESU Max Output (Value in EU)")
-	public static int aesuMaxOutput = 16192;
-
-	@Config(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy (Value in EU)")
+	@Config(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy")
 	public static int aesuMaxEnergy = 100_000_000;
 
 	@Config(config = "machines", category = "player_detector", key = "PlayerDetectorMaxInput", comment = "Player Detector Max Input (Value in EU)")
@@ -495,14 +486,8 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "chemical_reactor", key = "ChemicalReactorMaxEnergy", comment = "Chemical Reactor Max Energy (Value in EU)")
 	public static int chemicalReactorMaxEnergy = 10_000;
 
-	@Config(config = "machines", category = "idsu", key = "IdsuMaxInput", comment = "IDSU Max Input (Value in EU)")
-	public static int idsuMaxInput = 8192;
-
-	@Config(config = "machines", category = "idsu", key = "IdsuMaxOutput", comment = "IDSU Max Output (Value in EU)")
-	public static int idsuMaxOutput = 8192;
-
-	@Config(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy (Value in EU)")
-	public static int idsuMaxEnergy = 100_000_000;
+	@Config(config = "machines", category = "idsu", key = "IdsuMaxEnergy", comment = "IDSU Max Energy")
+	public static int idsuMaxEnergy = 1_000_000_000;
 
 	@Config(config = "machines", category = "fusion_reactor", key = "FusionReactorMaxInput", comment = "Fusion Reactor Max Input (Value in EU)")
 	public static int fusionControlComputerMaxInput = 8192;

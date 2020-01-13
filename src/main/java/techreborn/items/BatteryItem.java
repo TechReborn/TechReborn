@@ -57,21 +57,6 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 
 	// Item
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Override
 	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
 		if (!isIn(group)) {
 			return;
@@ -88,5 +73,21 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 	@Override
 	public EnergyTier getTier() {
 		return tier;
+	}
+
+	// ItemDurabilityExtensions
+	@Override
+	public double getDurability(ItemStack stack) {
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	}
+
+	@Override
+	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public int getDurabilityColor(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
 	}
 }

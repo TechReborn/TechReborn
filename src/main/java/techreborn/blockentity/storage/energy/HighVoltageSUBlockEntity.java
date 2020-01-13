@@ -39,10 +39,10 @@ import techreborn.init.TRContent;
 public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
 	/**
-	 *  MFSU should store 40M FE with 2048 FE/t I/O
+	 *  MFSU should store 4M Energy with 512 E/t I/O
 	 */
 	public HighVoltageSUBlockEntity() {
-		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnergyTier.HIGH, 512, 512, 10_000_000);
+		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnergyTier.HIGH, 4_000_000);
 	}
 
 	@Override

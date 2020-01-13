@@ -39,10 +39,10 @@ import techreborn.init.TRContent;
 public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
 
 	/**
-	 *  MFE should store 1.2M FE with 512 FE/t I/O
+	 *  MFE should store 300k energy with 128 E/t I/O
 	 */
 	public MediumVoltageSUBlockEntity() {
-		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 128, 128, 300000);
+		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 300_000);
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public LapotronicSUBlockEntity() {
-		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.INSANE, 8192, TechRebornConfig.lesuBaseOutput, 1_000_000);
+		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, 1_000_000);
 		checkOverfill = false;
 	}
 
@@ -80,7 +80,7 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 
 		}
 		setMaxStorage();
-		maxOutput = (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock) + TechRebornConfig.lesuBaseOutput;
+		maxOutput = (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock) + tier.getMaxOutput();
 
 		if (getEnergy() > getMaxStoredPower()) {
 			setEnergy(getMaxStoredPower());
