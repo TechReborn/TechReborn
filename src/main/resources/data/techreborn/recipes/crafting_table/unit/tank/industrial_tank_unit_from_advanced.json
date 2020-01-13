@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"PDP",
+	"BXB",
+	"PCP"
+  ],
+  "key": {
+	"P": {
+	  "tag": "c:steel_plate"
+	},
+	"B": {
+	  "item": "techreborn:industrial_machine_frame"
+	},
+	"C": {
+	  "item": "techreborn:cell"
+	},
+	"X": {
+	  "item": "techreborn:advanced_tank_unit"
+	},
+	"D": {
+	  "item": "techreborn:digital_display"
+	}
+  },
+  "result": {
+    "item": "techreborn:industrial_tank_unit"
+  }
+}
