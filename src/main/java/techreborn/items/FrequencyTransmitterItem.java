@@ -26,17 +26,13 @@ package techreborn.items;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Formatting;
 import net.minecraft.client.item.TooltipContext;
-import reborncore.common.util.StringUtils;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -45,6 +41,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.util.ChatUtils;
+import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
@@ -56,16 +53,12 @@ public class FrequencyTransmitterItem extends Item {
 
 	public FrequencyTransmitterItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
-		this.addPropertyGetter(new Identifier("techreborn", "coords"), new ItemPropertyGetter() {
-			@Override
-			@Environment(EnvType.CLIENT)
-			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
-						&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
-					return 1.0F;
-				}
-				return 0.0F;
+		this.addPropertyGetter(new Identifier("techreborn", "coords"), (stack, worldIn, entityIn) -> {
+			if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
+					&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
+				return 1.0F;
 			}
+			return 0.0F;
 		});
 	}
 
@@ -76,10 +69,10 @@ public class FrequencyTransmitterItem extends Item {
 		ItemStack stack = context.getStack();
 
 		stack.setTag(new CompoundTag());
-		stack.getTag().putInt("x", pos.getX());
-		stack.getTag().putInt("y", pos.getY());
-		stack.getTag().putInt("z", pos.getZ());
-		stack.getTag().putInt("dim", world.getDimension().getType().getRawId());
+		stack.getOrCreateTag().putInt("x", pos.getX());
+		stack.getOrCreateTag().putInt("y", pos.getY());
+		stack.getOrCreateTag().putInt("z", pos.getZ());
+		stack.getOrCreateTag().putInt("dim", world.getDimension().getType().getRawId());
 
 		if (!world.isClient) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new LiteralText(

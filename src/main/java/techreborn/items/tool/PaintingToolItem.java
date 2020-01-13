@@ -55,9 +55,7 @@ public class PaintingToolItem extends Item {
 
 				context.getWorld().playSound(player, context.getBlockPos(), SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.6F, 1.0F);
 				if (!context.getWorld().isClient) {
-					context.getStack().damage(1, player, playerCb -> {
-						playerCb.sendToolBreakStatus(context.getHand());
-					});
+					context.getStack().damage(1, player, playerCb -> playerCb.sendToolBreakStatus(context.getHand()));
 				}
 
 				return ActionResult.SUCCESS;

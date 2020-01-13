@@ -47,17 +47,15 @@ import techreborn.utils.InitUtils;
 public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public final int maxCharge;
-	public final int transferLimit;
 	public final EnergyTier tier;
 
-	public BatpackItem(int maxCharge, int transferLimit, ArmorMaterial material, EnergyTier tier) {
+	public BatpackItem(int maxCharge, ArmorMaterial material, EnergyTier tier) {
 		super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = maxCharge;
-		this.transferLimit = transferLimit;
 		this.tier = tier;
 	}
 
-	public static void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
+	private void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxOutput) {
 		if (world.isClient || !Energy.valid(itemStack)) {
 			return;
 		}
@@ -66,7 +64,7 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 			if (Energy.valid(player.inventory.getInvStack(i))) {
 				Energy.of(itemStack)
 						.into(Energy.of(player.inventory.getInvStack(i)))
-						.move();
+						.move(maxOutput);
 			}
 		}
 	}
@@ -75,7 +73,7 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (entityIn instanceof PlayerEntity) {
-			distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, (int) transferLimit);
+			distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, tier.getMaxOutput());
 		}
 	}
 
@@ -85,23 +83,8 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
-	}
-
-	@Override
-	public boolean showDurability(ItemStack stack) {
-		return true;
-	}
-
-	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public int getDurabilityColor(ItemStack stack) {
-		return PowerSystem.getDisplayPower().colour;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -124,4 +107,19 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 		return tier;
 	}
 
+	// ItemDurabilityExtensions
+	@Override
+	public int getDurabilityColor(ItemStack stack) {
+		return PowerSystem.getDisplayPower().colour;
+	}
+
+	@Override
+	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public double getDurability(ItemStack stack) {
+		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
+	}
 }

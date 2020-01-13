@@ -247,17 +247,11 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "rockCutterCost", comment = "Energy Cost for Rock Cutter (FE)")
 	public static int rockCutterCost = 500;
 
-	@Config(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack (FE)")
-	public static int lapotronPackCharge = 400_000_000;
+	@Config(config = "items", category = "power", key = "lapotronPackCharge", comment = "Energy Capacity for Lapotron Pack")
+	public static int lapotronPackCharge = 100_000_000;
 
-	@Config(config = "items", category = "power", key = "lapotronPackTransferRate", comment = "Transfer Rate for Lapotron Pack (FE)")
-	public static int lapotronPackTransferRate = 100_000;
-
-	@Config(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack (FE)")
-	public static int lithiumBatpackCharge = 8_000_000;
-
-	@Config(config = "items", category = "power", key = "lithiumBatpackTransferRate", comment = "Transfer Rate for Lithium Batpack (FE)")
-	public static int lithiumBatpackTransferRate = 2_000;
+	@Config(config = "items", category = "power", key = "LithiumBatpackCharge", comment = "Energy Capacity for Lithium Batpack")
+	public static int lithiumBatpackCharge = 600_000;
 
 	@Config(config = "items", category = "power", key = "redCellBatteryMaxCharge", comment = "Energy Capacity for Red Cell Battery (FE)")
 	public static int redCellBatteryMaxCharge = 40_000;

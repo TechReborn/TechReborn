@@ -24,16 +24,11 @@
 
 package techreborn.items;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -42,8 +37,6 @@ import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
-
-import javax.annotation.Nullable;
 
 public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExtensions {
 
@@ -54,15 +47,11 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
-		this.addPropertyGetter(new Identifier("techreborn:empty"), new ItemPropertyGetter() {
-			@Override
-			@Environment(EnvType.CLIENT)
-			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
-				if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
-					return 1.0F;
-				}
-				return 0.0F;
+		this.addPropertyGetter(new Identifier("techreborn:empty"), (stack, worldIn, entityIn) -> {
+			if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
+				return 1.0F;
 			}
+			return 0.0F;
 		});
 	}
 

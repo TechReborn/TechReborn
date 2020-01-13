@@ -52,11 +52,22 @@ public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurab
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
 
+	// Item
 	@Override
 	public boolean isDamageable() {
 		return false;
 	}
 
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
+		if (!isIn(group)) {
+			return;
+		}
+		InitUtils.initPoweredItems(this, stacks);
+	}
+
+	// ItemDurabilityExtensions
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -70,15 +81,6 @@ public class ElectricTreetapItem extends Item implements EnergyHolder, ItemDurab
 	@Override
 	public int getDurabilityColor(ItemStack stack) {
 		return PowerSystem.getDisplayPower().colour;
-	}
-
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(this, stacks);
 	}
 
 	// EnergyHolder
