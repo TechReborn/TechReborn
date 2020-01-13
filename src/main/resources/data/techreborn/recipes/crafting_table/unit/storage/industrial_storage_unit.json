@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "PPP",
-    "BXB",
-    "PCP"
+    "XBX",
+    "CDC"
   ],
   "key": {
     "P": {
@@ -12,12 +12,15 @@
     "B": {
       "item": "techreborn:industrial_machine_frame"
     },
-    "C": {
+    "D": {
       "item": "techreborn:digital_display"
     },
     "X": {
       "item": "techreborn:advanced_storage_unit"
-    }
+    },
+	"C": {
+	  "item": "techreborn:industrial_circuit"
+	}
   },
   "result": {
     "item": "techreborn:industrial_storage_unit"

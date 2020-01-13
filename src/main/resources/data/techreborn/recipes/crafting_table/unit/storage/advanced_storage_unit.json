@@ -1,25 +1,28 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		"PPP",
-		"BXB",
-		"PCP"
-	],
-	"key": {
-		"P": {
-			"tag": "c:electrum_plate"
-		},
-		"B": {
-			"item": "techreborn:advanced_machine_frame"
-		},
-		"C": {
-			"item": "techreborn:digital_display"
-		},
-		"X": {
-			"item": "techreborn:basic_storage_unit"
-		}
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"PPP",
+	"XBX",
+	"CDC"
+  ],
+  "key": {
+	"P": {
+	  "tag": "c:electrum_plate"
 	},
-	"result": {
-		"item": "techreborn:advanced_storage_unit"
+	"B": {
+	  "item": "techreborn:advanced_machine_frame"
+	},
+	"D": {
+	  "item": "techreborn:digital_display"
+	},
+	"X": {
+	  "item": "techreborn:basic_storage_unit"
+	},
+	"C": {
+	  "item": "techreborn:advanced_circuit"
 	}
+  },
+  "result": {
+	"item": "techreborn:advanced_storage_unit"
+  }
 }

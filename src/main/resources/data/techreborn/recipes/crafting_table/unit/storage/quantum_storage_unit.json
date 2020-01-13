@@ -1,25 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DAD",
-    "AQA",
-    "DCD"
+	"PPP",
+	"XBX",
+	"CDC"
   ],
   "key": {
-    "A": {
-      "item": "techreborn:industrial_machine_frame"
-    },
-    "Q": {
-      "item": "techreborn:industrial_storage_unit"
-    },
-    "C": {
-      "item": "techreborn:digital_display"
-    },
-    "D": {
-      "item": "techreborn:data_storage_chip"
-    }
+	"P": {
+	  "tag": "c:tungsten_plate"
+	},
+	"B": {
+	  "item": "techreborn:industrial_machine_frame"
+	},
+	"X": {
+	  "item": "techreborn:industrial_storage_unit"
+	},
+	"D": {
+	  "item": "techreborn:digital_display"
+	},
+	"C": {
+	  "item": "techreborn:data_storage_chip"
+	}
   },
   "result": {
-    "item": "techreborn:quantum_storage_unit"
+	"item": "techreborn:quantum_storage_unit"
   }
 }

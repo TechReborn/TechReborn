@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "PPP",
-    "BXB",
-    "PDP"
+    "XBX",
+    "CDC"
   ],
   "key": {
     "X": {
@@ -17,7 +17,10 @@
     },
     "D": {
       "item": "techreborn:basic_display"
-    }
+    },
+	"C": {
+	  "item": "techreborn:electronic_circuit"
+	}
   },
   "result": { 
     "item": "techreborn:basic_storage_unit"
