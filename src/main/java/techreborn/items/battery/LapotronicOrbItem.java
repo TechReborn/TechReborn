@@ -22,56 +22,31 @@
  * SOFTWARE.
  */
 
-package techreborn.items;
+package techreborn.items.battery;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
-import reborncore.api.blockentity.IUpgrade;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.recipes.IUpgradeHandler;
-import techreborn.TechReborn;
+import net.minecraft.util.DefaultedList;
+import team.reborn.energy.EnergyTier;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
+import techreborn.utils.InitUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
+public class LapotronicOrbItem extends BatteryItem {
 
-public class ItemUpgrade extends Item implements IUpgrade {
-
-	public final String name;
-	public final IUpgrade behavior;
-
-	public ItemUpgrade(String name, IUpgrade process) {
-		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
-		this.name = name;
-		this.behavior = process;
+	// 400M capacity with 100k FE\t charge rate
+	public LapotronicOrbItem() {
+		super(TechRebornConfig.lapotronicOrbMaxCharge, EnergyTier.EXTREME);
 	}
-
-	@Override
-	public void process(
-			@Nonnull MachineBaseBlockEntity blockEntity,
-			@Nullable
-					IUpgradeHandler handler,
-			@Nonnull
-					ItemStack stack) {
-		behavior.process(blockEntity, handler, stack);
-	}
-
+	
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-		if (stack.getItem() == TRContent.Upgrades.SUPERCONDUCTOR.item) {
-			if (Screen.hasControlDown()) {
-				tooltip.add(new LiteralText(Formatting.GOLD + "Blame obstinate_3 for this"));
-			}
+	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
+		if (!isIn(group)) {
+			return;
 		}
+		InitUtils.initPoweredItems(TRContent.LAPOTRONIC_ORB, itemList);
 	}
 }

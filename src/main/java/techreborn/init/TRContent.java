@@ -79,8 +79,8 @@ import techreborn.client.EGui;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCellItem;
-import techreborn.items.ItemUpgrade;
-import techreborn.items.armor.ItemQuantumSuit;
+import techreborn.items.UpgradeItem;
+import techreborn.items.armor.QuantumSuitItem;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
@@ -151,10 +151,10 @@ public class TRContent {
 	public static DynamicCellItem CELL;
 
 	//Quantum Suit
-	public static ItemQuantumSuit QUANTUM_HELMET;
-	public static ItemQuantumSuit QUANTUM_CHESTPLATE;
-	public static ItemQuantumSuit QUANTUM_LEGGINGS;
-	public static ItemQuantumSuit QUANTUM_BOOTS;
+	public static QuantumSuitItem QUANTUM_HELMET;
+	public static QuantumSuitItem QUANTUM_CHESTPLATE;
+	public static QuantumSuitItem QUANTUM_LEGGINGS;
+	public static QuantumSuitItem QUANTUM_BOOTS;
 
 	// Gem armor & tools
 	@Nullable
@@ -839,7 +839,7 @@ public class TRContent {
 
 		Upgrades(IUpgrade upgrade) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			item = new ItemUpgrade(name, upgrade);
+			item = new UpgradeItem(name, upgrade);
 			InitUtils.setup(item, name + "_upgrade");
 		}
 

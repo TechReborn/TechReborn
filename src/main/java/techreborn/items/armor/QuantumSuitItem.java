@@ -35,6 +35,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
@@ -48,17 +49,18 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
+import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class ItemQuantumSuit extends ItemTRArmour implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, ArmorFovHandler, EnergyHolder {
+public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, ArmorFovHandler, EnergyHolder {
 
 	public static final double ENERGY_FLY = 50;
 	public static final double ENERGY_SWIM = 20;
 	public static final double ENERGY_BREATHING = 20;
 	public static final double ENERGY_SPRINTING = 20;
 
-	public ItemQuantumSuit(ArmorMaterial material, EquipmentSlot slot) {
-		super(material, slot);
+	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
+		super(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
 	}
 
 	@Override
@@ -67,11 +69,11 @@ public class ItemQuantumSuit extends ItemTRArmour implements ItemStackModifiers,
 
 		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS) {
 			if (Energy.of(stack).getEnergy() > ENERGY_SPRINTING) {
-				attributes.put(EntityAttributes.MOVEMENT_SPEED.getId(), new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()],"Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
+				attributes.put(EntityAttributes.MOVEMENT_SPEED.getId(), new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
 		}
 
-		if(equipmentSlot == this.slot && Energy.of(stack).getEnergy() > 0) {
+		if (equipmentSlot == this.slot && Energy.of(stack).getEnergy() > 0) {
 			attributes.put(EntityAttributes.ARMOR.getId(), new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
 			attributes.put(EntityAttributes.KNOCKBACK_RESISTANCE.getId(), new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
 		}
@@ -145,6 +147,11 @@ public class ItemQuantumSuit extends ItemTRArmour implements ItemStackModifiers,
 
 	@Override
 	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
 

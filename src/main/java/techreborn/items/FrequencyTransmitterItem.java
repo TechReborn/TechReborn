@@ -52,9 +52,9 @@ import techreborn.utils.MessageIDs;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemFrequencyTransmitter extends Item {
+public class FrequencyTransmitterItem extends Item {
 
-	public ItemFrequencyTransmitter() {
+	public FrequencyTransmitterItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 		this.addPropertyGetter(new Identifier("techreborn", "coords"), new ItemPropertyGetter() {
 			@Override
@@ -145,7 +145,7 @@ public class ItemFrequencyTransmitter extends Item {
 			String text = "";
 			Formatting gold = Formatting.GOLD;
 			Formatting grey = Formatting.GRAY;
-			if (stack.getItem() instanceof ItemFrequencyTransmitter) {
+			if (stack.getItem() instanceof FrequencyTransmitterItem) {
 				if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
 					int coordX = stack.getTag().getInt("x");
 					int coordY = stack.getTag().getInt("y");

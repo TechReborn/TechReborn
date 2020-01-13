@@ -37,9 +37,9 @@ import net.minecraft.world.World;
 import techreborn.TechReborn;
 import techreborn.client.gui.GuiManual;
 
-public class ItemManual extends Item {
+public class ManualItem extends Item {
 
-	public ItemManual() {
+	public ManualItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 

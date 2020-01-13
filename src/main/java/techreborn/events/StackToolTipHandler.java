@@ -47,7 +47,7 @@ import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
-import techreborn.items.ItemUpgrade;
+import techreborn.items.UpgradeItem;
 import techreborn.utils.ToolTipAssistUtils;
 import techreborn.utils.WIP;
 
@@ -82,8 +82,8 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components);
 		}
 
-		if(item instanceof ItemUpgrade){
-			ItemUpgrade upgrade = (ItemUpgrade)item;
+		if(item instanceof UpgradeItem){
+			UpgradeItem upgrade = (UpgradeItem)item;
 
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components, false);
 			components.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));

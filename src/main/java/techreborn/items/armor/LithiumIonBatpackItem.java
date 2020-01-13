@@ -43,18 +43,18 @@ import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRArmorMaterial;
+import techreborn.init.TRArmorMaterials;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemLithiumIonBatpack extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
+public class LithiumIonBatpackItem extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	// 8M FE maxCharge and 2k FE\t charge rate. Fully charged in 3 mins.
 	public static final int maxCharge = TechRebornConfig.lithiumBatpackCharge;
 	public int transferLimit = 2_000;
 
-	public ItemLithiumIonBatpack() {
-		super(TRArmorMaterial.LITHIUMBATPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+	public LithiumIonBatpackItem() {
+		super(TRArmorMaterials.LITHIUM_BATPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
 
 	public static void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxSend) {
@@ -98,6 +98,11 @@ public class ItemLithiumIonBatpack extends ArmorItem implements EnergyHolder, It
 
 	@Override
 	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
 

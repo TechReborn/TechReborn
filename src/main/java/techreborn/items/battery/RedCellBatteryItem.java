@@ -33,10 +33,10 @@ import team.reborn.energy.EnergyTier;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemRedCellBattery extends ItemBattery {
+public class RedCellBatteryItem extends BatteryItem {
 
 	// 40k FE capacity with 100 FE\t charge rate
-	public ItemRedCellBattery() {
+	public RedCellBatteryItem() {
 		super(40_000, EnergyTier.LOW);
 	}
 	

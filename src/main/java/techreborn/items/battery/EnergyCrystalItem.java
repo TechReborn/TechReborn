@@ -34,10 +34,10 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemEnergyCrystal extends ItemBattery {
+public class EnergyCrystalItem extends BatteryItem {
 
 	// 4M FE storage with 1k charge rate
-	public ItemEnergyCrystal() {
+	public EnergyCrystalItem() {
 		super(TechRebornConfig.energyCrystalMaxCharge, EnergyTier.HIGH);
 	}
 	

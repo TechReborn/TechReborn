@@ -26,14 +26,12 @@ package techreborn.items.armor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DefaultedList;
-import net.minecraft.world.World;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.api.items.ArmorTickable;
 import reborncore.common.powerSystem.PowerSystem;
@@ -42,12 +40,13 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
+import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRArmorMaterial;
+import techreborn.init.TRArmorMaterials;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder, ArmorTickable, ArmorRemoveHandler {
+public class CloakingDeviceItem extends TRArmourItem implements EnergyHolder, ArmorTickable, ArmorRemoveHandler {
 
 	public static int maxCharge = TechRebornConfig.cloakingDeviceCharge;
 	public static int usage = TechRebornConfig.cloackingDeviceUsage;
@@ -55,8 +54,13 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder, Ar
 	public static boolean isActive;
 
 	// 40M FE capacity with 10k FE\t charge rate
-	public ItemCloakingDevice() {
-		super(TRArmorMaterial.CLOAKING, EquipmentSlot.CHEST);
+	public CloakingDeviceItem() {
+		super(TRArmorMaterials.CLOAKING_DEVICE, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
+	}
+
+	@Override
+	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+		return false;
 	}
 
 	// ItemTRArmour
@@ -67,6 +71,11 @@ public class ItemCloakingDevice extends ItemTRArmour implements EnergyHolder, Ar
 
 	@Override
 	public boolean showDurability(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
 

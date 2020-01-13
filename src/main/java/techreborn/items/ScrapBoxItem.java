@@ -38,9 +38,9 @@ import techreborn.init.ModRecipes;
 
 import java.util.List;
 
-public class ItemScrapBox extends Item {
+public class ScrapBoxItem extends Item {
 
-	public ItemScrapBox() {
+	public ScrapBoxItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP));
 	}
 

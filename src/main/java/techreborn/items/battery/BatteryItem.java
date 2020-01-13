@@ -22,59 +22,48 @@
  * SOFTWARE.
  */
 
-package techreborn.items.armor;
+package techreborn.items.battery;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
+import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRArmorMaterial;
-import techreborn.init.TRContent;
-import techreborn.utils.InitUtils;
 
-public class ItemLapotronicOrbpack extends ArmorItem implements EnergyHolder, ItemDurabilityExtensions {
+import javax.annotation.Nullable;
 
-	// 400M FE maxCharge and 100k FE\t charge rate. Fully charged in 3 mins.
-	public static final int maxCharge = TechRebornConfig.lapotronPackCharge;
-	public int transferLimit = 100_000;
+public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExtensions {
 
-	public ItemLapotronicOrbpack() {
-		super(TRArmorMaterial.LAPOTRONPACK, EquipmentSlot.CHEST, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
+	private final int maxEnergy;
+	private final EnergyTier tier;
+
+	public BatteryItem(int maxEnergy, EnergyTier tier) {
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
+		this.maxEnergy = maxEnergy;
+		this.tier = tier;
+		this.addPropertyGetter(new Identifier("techreborn:empty"), new ItemPropertyGetter() {
+			@Override
+			@Environment(EnvType.CLIENT)
+			public float call(ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
+				if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
+					return 1.0F;
+				}
+				return 0.0F;
+			}
+		});
 	}
 
 	// Item
-	@Override
-	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
-		if (!isIn(group)) {
-			return;
-		}
-		InitUtils.initPoweredItems(TRContent.LAPOTRONIC_ORBPACK, itemList);
-	}
-	   
-	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if (entityIn instanceof PlayerEntity) {
-			ItemLithiumIonBatpack.distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, transferLimit);
-		}
-	}
-
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - ItemUtils.getPowerForDurabilityBar(stack);
@@ -93,11 +82,11 @@ public class ItemLapotronicOrbpack extends ArmorItem implements EnergyHolder, It
 	// IEnergyItemInfo
 	@Override
 	public double getMaxStoredPower() {
-		return maxCharge;
+		return maxEnergy;
 	}
 
 	@Override
 	public EnergyTier getTier() {
-		return EnergyTier.EXTREME;
+		return tier;
 	}
 }

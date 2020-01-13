@@ -55,7 +55,7 @@ import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.DynamicCellItem;
-import techreborn.items.ItemFrequencyTransmitter;
+import techreborn.items.FrequencyTransmitterItem;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -131,7 +131,7 @@ public class TechRebornClient implements ClientModInitializer {
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
 
-		StackInfoHUD.registerElement(new ItemFrequencyTransmitter.StackInfoFreqTransmitter());
+		StackInfoHUD.registerElement(new FrequencyTransmitterItem.StackInfoFreqTransmitter());
 
 		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.INSTANCE.putBlock(cable.block, RenderLayer.getCutout()));
 

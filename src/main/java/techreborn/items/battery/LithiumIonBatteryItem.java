@@ -33,10 +33,10 @@ import team.reborn.energy.EnergyTier;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemLithiumIonBattery extends ItemBattery {
+public class LithiumIonBatteryItem extends BatteryItem {
 
 	// 400k FE with 1k FE\t charge rate
-	public ItemLithiumIonBattery() {
+	public LithiumIonBatteryItem() {
 		super(400_000, EnergyTier.HIGH);
 	}
 	

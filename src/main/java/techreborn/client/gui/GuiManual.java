@@ -34,12 +34,12 @@ import net.minecraft.util.Util;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.common.network.NetworkManager;
 import techreborn.config.TechRebornConfig;
-import techreborn.items.ItemManual;
+import techreborn.items.ManualItem;
 import techreborn.packets.ServerboundPackets;
 
 public class GuiManual extends Screen {
 
-	ItemManual manual;
+	ManualItem manual;
 	PlayerEntity player;
 
 	private static final Identifier texture = new Identifier("techreborn", "textures/gui/manual.png");

@@ -35,7 +35,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
 
 
-public enum TRArmorMaterial implements ArmorMaterial {
+public enum TRArmorMaterials implements ArmorMaterial {
 
 	BRONZE(17, new int[] { 3, 6, 5,	2 }, 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
@@ -50,10 +50,9 @@ public enum TRArmorMaterial implements ArmorMaterial {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	}),
 	QUANTUM(75, new int[] { 3, 6, 8, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
-	CLOAKING(5, new int[] { 1, 2, 3, 1 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
-	LITHIUMBATPACK(25, new int[]{2, 5, 6, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
-	LAPOTRONPACK(33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);
-	
+	CLOAKING_DEVICE(5, new int[] { 0, 2, 0, 0 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
+	LITHIUM_BATPACK(25, new int[]{0, 5, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
+	LAPOTRONIC_ORBPACK(33, new int[]{0, 6, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
 	private final int maxDamageFactor;
@@ -63,8 +62,8 @@ public enum TRArmorMaterial implements ArmorMaterial {
 	private final float toughness;
 	private final Lazy<Ingredient> repairMaterial;
 
-	TRArmorMaterial(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-                    SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
+	TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
+					 SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
 		this.maxDamageFactor = maxDamageFactor;
 		this.damageReductionAmountArray = damageReductionAmountArray;
 		this.enchantability = enchantability;

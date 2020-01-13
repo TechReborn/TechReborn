@@ -34,10 +34,10 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-public class ItemLapotronCrystal extends ItemBattery {
+public class LapotronCrystalItem extends BatteryItem {
 
 	// 40M FE capacity with 10k FE\t charge rate
-	public ItemLapotronCrystal() {
+	public LapotronCrystalItem() {
 		super(TechRebornConfig.lapotronCrystalMaxCharge, EnergyTier.EXTREME);
 	}
 	
