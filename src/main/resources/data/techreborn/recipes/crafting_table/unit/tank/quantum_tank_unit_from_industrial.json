@@ -7,22 +7,22 @@
   ],
   "key": {
 	"P": {
-	  "tag": "c:steel_plate"
+	  "tag": "c:tungsten_plate"
 	},
 	"B": {
 	  "item": "techreborn:industrial_machine_frame"
 	},
+	"X": {
+	  "item": "techreborn:industrial_tank_unit"
+	},
 	"D": {
 	  "item": "techreborn:digital_display"
 	},
-	"X": {
-	  "item": "techreborn:advanced_tank_unit"
-	},
 	"C": {
-	  "item": "techreborn:industrial_circuit"
+	  "item": "techreborn:data_storage_chip"
 	}
   },
   "result": {
-    "item": "techreborn:industrial_tank_unit"
+    "item": "techreborn:quantum_tank_unit"
   }
 }

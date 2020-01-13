@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-	"PDP",
-	"FBF",
-	"PCP"
+	"PPP",
+	"XBX",
+	"CDC"
   ],
   "key": {
-	"B": {
-	  "item": "techreborn:basic_tank_unit"
-	},
 	"P": {
 	  "tag": "c:electrum_plate"
 	},
-	"C": {
-	  "item": "techreborn:cell"
+	"B": {
+	  "item": "techreborn:advanced_machine_frame"
 	},
 	"D": {
 	  "item": "techreborn:digital_display"
 	},
-	"F": {
-	  "item": "techreborn:advanced_machine_frame"
+	"X": {
+	  "item": "techreborn:basic_tank_unit"
+	},
+	"C": {
+	  "item": "techreborn:advanced_circuit"
 	}
   },
   "result": {

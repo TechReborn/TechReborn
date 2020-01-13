@@ -1,23 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "EPE",
-    "PCP",
-    "ETE"
+    " C ",
+    "RBR",
+    " C "
   ],
   "key": {
-    "P": {
-      "tag": "c:platinum_plate"
-    },
-    "T": {
-      "item": "techreborn:industrial_tank_unit"
-    },
-    "C": {
+    "B": {
       "item": "techreborn:quantum_storage_unit"
     },
-    "E": {
-      "item": "techreborn:advanced_circuit"
-    }
+    "C": {
+      "item": "techreborn:cell"
+    },
+	"R": {
+	  "item": "techreborn:rubber"
+	}
   },
   "result": {
     "item": "techreborn:quantum_tank_unit"

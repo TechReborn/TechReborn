@@ -1,16 +1,16 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"pattern": [
-		"FCF",
-		"CBC",
-		"FCF"
+		" C ",
+		"RBR",
+		" C "
 	],
 	"key": {
 		"B": {
 			"item": "techreborn:advanced_storage_unit"
 		},
-		"F": {
-			"item": "techreborn:refined_iron_plate"
+		"R": {
+			"item": "techreborn:rubber"
 		},
 		"C": {
 			"item": "techreborn:cell"
