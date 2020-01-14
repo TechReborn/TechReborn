@@ -44,7 +44,7 @@ public class BlockAutoCraftingTable extends RebornMachineBlock {
 
 	public BlockAutoCraftingTable() {
 		super(true);
-		setUnlocalizedName("techreborn.electriccraftingtable");
+		setTranslationKey("techreborn.electriccraftingtable");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier1_machines"));
 	}

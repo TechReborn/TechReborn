@@ -28,7 +28,7 @@ import techreborn.events.TRRecipeHandler;
 
 public class ItemMissingRecipe extends ItemTR {
 	public ItemMissingRecipe() {
-		setUnlocalizedName("techreborn.missingrecipe");
+		setTranslationKey("techreborn.missingrecipe");
 		TRRecipeHandler.hideEntry(this);
 	}
 }

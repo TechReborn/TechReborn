@@ -69,12 +69,12 @@ public class RollingMachineRecipe {
 
 	public static ResourceLocation getNameForRecipe(ItemStack output) {
 		ModContainer activeContainer = Loader.instance().activeModContainer();
-		ResourceLocation baseLoc = new ResourceLocation(activeContainer.getModId(), output.getItem().getRegistryName().getResourcePath());
+		ResourceLocation baseLoc = new ResourceLocation(activeContainer.getModId(), output.getItem().getRegistryName().getPath());
 		ResourceLocation recipeLoc = baseLoc;
 		int index = 0;
 		while (recipes.containsKey(recipeLoc)) {
 			index++;
-			recipeLoc = new ResourceLocation(activeContainer.getModId(), baseLoc.getResourcePath() + "_" + index);
+			recipeLoc = new ResourceLocation(activeContainer.getModId(), baseLoc.getPath() + "_" + index);
 		}
 		return recipeLoc;
 	}

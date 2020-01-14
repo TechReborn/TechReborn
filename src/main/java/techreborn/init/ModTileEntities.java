@@ -154,8 +154,8 @@ public enum ModTileEntities {
 			@Override
 			public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
 				ResourceLocation tileEntityLocation = new ResourceLocation(compound.getString("id"));
-				if(tileEntityLocation.getResourceDomain().equalsIgnoreCase("minecraft")){
-					Optional<ModTileEntities> tileData = getFromOldName(tileEntityLocation.getResourcePath());
+				if(tileEntityLocation.getNamespace().equalsIgnoreCase("minecraft")){
+					Optional<ModTileEntities> tileData = getFromOldName(tileEntityLocation.getPath());
 					tileData.ifPresent(modTileEntities -> compound.setString("id", modTileEntities.name.toString()));
 				}
 				return compound;

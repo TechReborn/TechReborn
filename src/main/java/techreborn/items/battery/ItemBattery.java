@@ -52,7 +52,7 @@ public class ItemBattery extends ItemTR implements IEnergyItemInfo {
 		super();
 		setMaxStackSize(1);
 		setMaxDamage(1);
-		setUnlocalizedName("techreborn." + name);
+		setTranslationKey("techreborn." + name);
 		this.name = name;
 		this.maxEnergy = maxEnergy;
 		this.maxTransfer = maxTransfer;

@@ -148,7 +148,7 @@ public class RubberTreeGenerator extends WorldGenerator {
 						boolean isAddingSap = false;
 						if (rand.nextInt(Core.worldGen.config.rubberTreeConfig.sapRarity) == 0) {
 							newState = newState.withProperty(BlockRubberLog.HAS_SAP, true)
-								.withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.getHorizontal(rand.nextInt(4)));
+								.withProperty(BlockRubberLog.SAP_SIDE, EnumFacing.byHorizontalIndex(rand.nextInt(4)));
 							isAddingSap = true;
 						}
 						if (isAddingSap) {

@@ -56,7 +56,7 @@ public class ItemLithiumBatpack extends ItemArmor implements IEnergyItemInfo {
 	public ItemLithiumBatpack() {
 		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
 		setMaxStackSize(1);
-		setUnlocalizedName("techreborn.lithiumbatpack");
+		setTranslationKey("techreborn.lithiumbatpack");
 		setCreativeTab(TechRebornCreativeTab.instance);
 	}
 

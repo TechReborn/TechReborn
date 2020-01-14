@@ -36,6 +36,6 @@ public class ItemBlockRubberSapling extends ItemBlock {
 	public ItemBlockRubberSapling(Block block) {
 		super(block);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.rubberSapling");
+		setTranslationKey("techreborn.rubberSapling");
 	}
 }

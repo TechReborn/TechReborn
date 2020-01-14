@@ -129,7 +129,7 @@ public class ModelDynamicCell implements IModel {
 
 		@Override
 		public boolean accepts(ResourceLocation modelLocation) {
-			return modelLocation.getResourceDomain().equals("techreborn") && modelLocation.getResourcePath().contains("dynamic_cell");
+			return modelLocation.getNamespace().equals("techreborn") && modelLocation.getPath().contains("dynamic_cell");
 		}
 
 		@Override

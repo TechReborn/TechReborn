@@ -75,7 +75,7 @@ public class ItemNanosaber extends ItemSword implements IEnergyItemInfo {
 		setNoRepair();
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setUnlocalizedName("techreborn.nanosaber");
+		setTranslationKey("techreborn.nanosaber");
 		this.addPropertyOverride(new ResourceLocation("techreborn:active"), new IItemPropertyGetter() {
 			@Override
 			@SideOnly(Side.CLIENT)

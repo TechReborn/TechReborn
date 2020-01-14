@@ -231,7 +231,7 @@ public class GrinderRecipes extends RecipeMethods {
                 if (!equivalents.isEmpty()) {
                     equivalents.stream()
                             .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
-                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                                    .getNamespace().equalsIgnoreCase(ModInfo.MOD_ID))
                             .findFirst()
                             .ifPresent(stack -> Recipes.grinder.createRecipe()
                                     .withInput(entry)
@@ -255,7 +255,7 @@ public class GrinderRecipes extends RecipeMethods {
                 if (!equivalents.isEmpty()) {
                     equivalents.stream()
                             .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
-                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                                    .getNamespace().equalsIgnoreCase(ModInfo.MOD_ID))
                             .findFirst()
                             .ifPresent(stack -> Recipes.grinder.createRecipe()
                                     .withInput(entry)
@@ -279,7 +279,7 @@ public class GrinderRecipes extends RecipeMethods {
                 if (!equivalents.isEmpty()) {
                     equivalents.stream()
                             .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
-                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                                    .getNamespace().equalsIgnoreCase(ModInfo.MOD_ID))
                             .findFirst()
                             .ifPresent(stack -> Recipes.grinder.createRecipe()
                                     .withInput(entry)
@@ -303,7 +303,7 @@ public class GrinderRecipes extends RecipeMethods {
                 if (!equivalents.isEmpty()) {
                     equivalents.stream()
                             .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
-                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                                    .getNamespace().equalsIgnoreCase(ModInfo.MOD_ID))
                             .findFirst()
                             .ifPresent(stack -> Recipes.grinder.createRecipe()
                                     .withInput(entry)
@@ -327,7 +327,7 @@ public class GrinderRecipes extends RecipeMethods {
                 if (!equivalents.isEmpty()) {
                     equivalents.stream()
                             .filter(stack -> Objects.requireNonNull(stack.getItem().getRegistryName())
-                                    .getResourceDomain().equalsIgnoreCase(ModInfo.MOD_ID))
+                                    .getNamespace().equalsIgnoreCase(ModInfo.MOD_ID))
                             .findFirst()
                             .ifPresent(stack -> Recipes.grinder.createRecipe()
                                     .withInput(entry)

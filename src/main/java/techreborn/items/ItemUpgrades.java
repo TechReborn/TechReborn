@@ -64,7 +64,7 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 	public static final String[] types = new String[] { "overclock", "transformer", "energy_storage", "superconductor"};
 
 	public ItemUpgrades() {
-		setUnlocalizedName("techreborn.upgrade");
+		setTranslationKey("techreborn.upgrade");
 		setHasSubtypes(true);
 		setMaxStackSize(16);
 	}
@@ -84,13 +84,13 @@ public class ItemUpgrades extends ItemTR implements IUpgrade {
 
 	// Item
 	@Override
-	public String getUnlocalizedName(ItemStack itemStack) {
+	public String getTranslationKey(ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
 		if (meta < 0 || meta >= types.length) {
 			meta = 0;
 		}
 
-		return super.getUnlocalizedName() + "." + types[meta];
+		return super.getTranslationKey() + "." + types[meta];
 	}
 
 	@Override

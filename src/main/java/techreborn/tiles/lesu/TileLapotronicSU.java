@@ -72,8 +72,8 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 		countedNetworks.clear();
 		connectedBlocks = 0;
 		for (EnumFacing dir : EnumFacing.values()) {
-			BlockPos adjucentBlockPos = new BlockPos(pos.getX() + dir.getFrontOffsetX(),
-					pos.getY() + dir.getFrontOffsetY(), pos.getZ() + dir.getFrontOffsetZ());
+			BlockPos adjucentBlockPos = new BlockPos(pos.getX() + dir.getXOffset(),
+					pos.getY() + dir.getYOffset(), pos.getZ() + dir.getZOffset());
 			TileEntity adjucentTile = world.getTileEntity(adjucentBlockPos);
 			if (adjucentTile == null || !(adjucentTile instanceof TileLSUStorage)) {
 				continue;

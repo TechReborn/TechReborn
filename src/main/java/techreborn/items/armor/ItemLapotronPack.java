@@ -55,7 +55,7 @@ public class ItemLapotronPack extends ItemArmor implements IEnergyItemInfo {
 	public ItemLapotronPack() {
 		super(ItemArmor.ArmorMaterial.DIAMOND, 7, EntityEquipmentSlot.CHEST);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.lapotronpack");
+		setTranslationKey("techreborn.lapotronpack");
 		setMaxStackSize(1);
 	}
 	

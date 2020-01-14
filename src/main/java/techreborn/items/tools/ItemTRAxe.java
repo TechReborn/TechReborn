@@ -41,7 +41,7 @@ public class ItemTRAxe extends ItemAxe {
 	public ItemTRAxe(ToolMaterial material, String repairOreDict) {
 		super(material, material.getAttackDamage() + 5.75F, (material.getAttackDamage() + 6.75F) * -0.344444F);
 		this.repairOreDict = repairOreDict;
-		setUnlocalizedName(material.name().toLowerCase() + "Axe");
+		setTranslationKey(material.name().toLowerCase() + "Axe");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}

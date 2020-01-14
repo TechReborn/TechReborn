@@ -60,7 +60,7 @@ public class ItemElectricTreetap extends ItemTR implements IEnergyItemInfo {
 	public int cost = 20;
 
 	public ItemElectricTreetap() {
-		setUnlocalizedName("techreborn.electric_treetap");
+		setTranslationKey("techreborn.electric_treetap");
 		setMaxStackSize(1);
 	}
 

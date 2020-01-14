@@ -41,7 +41,7 @@ public class BlockCreativeQuantumChest extends RebornMachineBlock {
 
 	public BlockCreativeQuantumChest() {
 		super();
-		this.setUnlocalizedName("techreborn.creativeQuantumChest");
+		this.setTranslationKey("techreborn.creativeQuantumChest");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		ShootingStar.registerModel(new ModelCompound(ModInfo.MOD_ID, this, "machines/tier3_machines"));
 	}

@@ -46,13 +46,13 @@ public class ItemTRArmour extends ItemArmor {
 		super(material, material.getDamageReductionAmount(slot), slot);
 		this.repairOreDict = repairOreDict;
 		if (slot == EntityEquipmentSlot.HEAD)
-			setUnlocalizedName(material.name().toLowerCase() + "Helmet");
+			setTranslationKey(material.name().toLowerCase() + "Helmet");
 		if (slot == EntityEquipmentSlot.CHEST)
-			setUnlocalizedName(material.name().toLowerCase() + "Chestplate");
+			setTranslationKey(material.name().toLowerCase() + "Chestplate");
 		if (slot == EntityEquipmentSlot.LEGS)
-			setUnlocalizedName(material.name().toLowerCase() + "Leggings");
+			setTranslationKey(material.name().toLowerCase() + "Leggings");
 		if (slot == EntityEquipmentSlot.FEET)
-			setUnlocalizedName(material.name().toLowerCase() + "Boots");
+			setTranslationKey(material.name().toLowerCase() + "Boots");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}

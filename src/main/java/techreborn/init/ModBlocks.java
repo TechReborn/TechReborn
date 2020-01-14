@@ -422,7 +422,7 @@ public class ModBlocks {
 	 */
 	public static void registerBlock(Block block, String name) {
 		name = name.toLowerCase();
-		block.setUnlocalizedName(ModInfo.MOD_ID + "." + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlock(block, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
@@ -434,19 +434,19 @@ public class ModBlocks {
 	 */
 	public static void registerBlock(Block block, Class<? extends ItemBlock> itemclass, String name) {
 		name = name.toLowerCase();
-		block.setUnlocalizedName(ModInfo.MOD_ID + "." + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlock(block, itemclass, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerBlock(Block block, ItemBlock itemBlock, String name) {
 		name = name.toLowerCase();
-		block.setUnlocalizedName(ModInfo.MOD_ID + "." + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlock(block, itemBlock, new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 
 	public static void registerBlockNoItem(Block block, String name) {
 		name = name.toLowerCase();
-		block.setUnlocalizedName(ModInfo.MOD_ID + "." + name);
+		block.setTranslationKey(ModInfo.MOD_ID + "." + name);
 		RebornRegistry.registerBlockNoItem(block,  new ResourceLocation(ModInfo.MOD_ID, name));
 	}
 

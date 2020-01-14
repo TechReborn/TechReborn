@@ -64,7 +64,7 @@ public class ItemChainsaw extends ItemAxe implements IEnergyItemInfo {
 		super(material);
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setUnlocalizedName(unlocalizedName);
+		setTranslationKey(unlocalizedName);
 		this.maxCharge = energyCapacity;
 		this.efficiency = unpoweredSpeed;
 

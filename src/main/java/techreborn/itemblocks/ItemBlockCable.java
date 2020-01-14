@@ -45,7 +45,7 @@ public class ItemBlockCable extends ItemBlock {
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName() + "." + EnumCableType.values()[stack.getItemDamage()].getName();
+	public String getTranslationKey(ItemStack stack) {
+		return super.getTranslationKey() + "." + EnumCableType.values()[stack.getItemDamage()].getName();
 	}
 }

@@ -41,7 +41,7 @@ public class ItemTRPickaxe extends ItemPickaxe {
 	public ItemTRPickaxe(ToolMaterial material, String repairOreDict) {
 		super(material);
 		this.repairOreDict = repairOreDict;
-		setUnlocalizedName(material.name().toLowerCase() + "Pickaxe");
+		setTranslationKey(material.name().toLowerCase() + "Pickaxe");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		TRRecipeHandler.hideEntry(this);
 	}

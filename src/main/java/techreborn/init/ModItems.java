@@ -294,7 +294,7 @@ public class ModItems {
 		registerItem(FREQUENCY_TRANSMITTER, "frequencyTransmitter");
 		MANUAL = new ItemTechManual();
 		registerItem(MANUAL, "techmanuel");
-		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setUnlocalizedName("missingRecipe");
+		MISSING_RECIPE_PLACEHOLDER = new ItemMissingRecipe().setTranslationKey("missingRecipe");
 		registerItem(MISSING_RECIPE_PLACEHOLDER, "missingRecipe");
 		SCRAP_BOX = new ItemScrapBox();
 		registerItem(SCRAP_BOX, "scrapbox");

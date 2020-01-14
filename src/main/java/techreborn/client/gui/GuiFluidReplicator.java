@@ -127,9 +127,9 @@ public class GuiFluidReplicator extends GuiBase {
 					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
 							this.tile.getPos().getX()
-									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetX() * 2,
+									- EnumFacing.byIndex(this.tile.getFacingInt()).getXOffset() * 2,
 							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
-									- EnumFacing.getFront(this.tile.getFacingInt()).getFrontOffsetZ() * 2);
+									- EnumFacing.byIndex(this.tile.getFacingInt()).getZOffset() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

@@ -42,10 +42,10 @@ public class TileLSUStorage extends RebornMachineTile
 		network = new LesuNetwork();
 		network.addElement(this);
 		for (EnumFacing direction : EnumFacing.values()) {
-			if (world.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(), y + direction.getFrontOffsetY(),
-					z + direction.getFrontOffsetZ())) instanceof TileLSUStorage) {
-				TileLSUStorage lesu = (TileLSUStorage) world.getTileEntity(new BlockPos(x + direction.getFrontOffsetX(),
-						y + direction.getFrontOffsetY(), z + direction.getFrontOffsetZ()));
+			if (world.getTileEntity(new BlockPos(x + direction.getXOffset(), y + direction.getYOffset(),
+					z + direction.getZOffset())) instanceof TileLSUStorage) {
+				TileLSUStorage lesu = (TileLSUStorage) world.getTileEntity(new BlockPos(x + direction.getXOffset(),
+						y + direction.getYOffset(), z + direction.getZOffset()));
 				if (lesu.network != null) {
 					lesu.network.merge(network);
 				}

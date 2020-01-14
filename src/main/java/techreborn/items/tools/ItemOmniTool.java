@@ -66,7 +66,7 @@ public class ItemOmniTool extends ItemPickaxe implements IEnergyItemInfo {
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		setMaxDamage(200);
-		setUnlocalizedName("techreborn.omniTool");
+		setTranslationKey("techreborn.omniTool");
 	}
 	
 	// ItemPickaxe

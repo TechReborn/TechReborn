@@ -145,9 +145,9 @@ public class GuiIndustrialGrinder extends GuiBase {
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							tile.getPos().getX() - EnumFacing.getFront(tile.getFacingInt()).getFrontOffsetX() * 2,
+							tile.getPos().getX() - EnumFacing.byIndex(tile.getFacingInt()).getXOffset() * 2,
 							tile.getPos().getY() - 1,
-							tile.getPos().getZ() - EnumFacing.getFront(tile.getFacingInt()).getFrontOffsetZ() * 2);
+							tile.getPos().getZ() - EnumFacing.byIndex(tile.getFacingInt()).getZOffset() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

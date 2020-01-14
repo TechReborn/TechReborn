@@ -71,14 +71,14 @@ public class ModLoot {
 
 	@SubscribeEvent
 	public void lootLoad(LootTableLoadEvent event) {
-		if(!event.getName().getResourceDomain().equals("minecraft")) {
+		if(!event.getName().getNamespace().equals("minecraft")) {
 			return;
 		}
 		for (ResourceLocation lootTable : lootTables) {
-			if (event.getName().getResourcePath().equals(lootTable.getResourcePath())) {
+			if (event.getName().getPath().equals(lootTable.getPath())) {
 				event.getTable().addPool(getLootPool(lootTable));
 				if (Core.DEV_FEATURES) {
-					Core.logHelper.info("Loot pool injected into " + lootTable.getResourcePath());
+					Core.logHelper.info("Loot pool injected into " + lootTable.getPath());
 				}
 			}
 		}

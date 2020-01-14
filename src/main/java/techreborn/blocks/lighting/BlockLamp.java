@@ -134,7 +134,7 @@ public class BlockLamp extends BaseTileBlock {
 	}
 
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -197,7 +197,7 @@ public class BlockLamp extends BaseTileBlock {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		Boolean active = (meta&8)==8;
-		EnumFacing facing = EnumFacing.getFront(meta&7);
+		EnumFacing facing = EnumFacing.byIndex(meta&7);
 		return this.getDefaultState().withProperty(FACING, facing).withProperty(ACTIVE, active);
 	}
 }

@@ -87,7 +87,7 @@ public class FluidBlockModelHandler {
 	}
 
 	private static void registerFluidBlockModel(BlockFluidTechReborn block) {
-		String name = block.getUnlocalizedName().substring(5).toLowerCase();
+		String name = block.getTranslationKey().substring(5).toLowerCase();
 		Item item = Item.getItemFromBlock(block);
 		ModelResourceLocation location = new ModelResourceLocation(
 				new ResourceLocation(ModInfo.MOD_ID.toLowerCase(), "fluids"), name);

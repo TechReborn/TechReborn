@@ -58,7 +58,7 @@ public class BlockFlare extends BlockContainer {
 	public BlockFlare() {
 		super(Material.REDSTONE_LIGHT);
 		setCreativeTab(TechRebornCreativeTab.instance);
-		setUnlocalizedName("techreborn.flare");
+		setTranslationKey("techreborn.flare");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, EnumDyeColor.WHITE));
 	}
 
@@ -104,7 +104,7 @@ public class BlockFlare extends BlockContainer {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 

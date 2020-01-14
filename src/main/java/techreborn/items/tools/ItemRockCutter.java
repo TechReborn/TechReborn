@@ -60,7 +60,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
 
 	public ItemRockCutter() {
 		super(ToolMaterial.DIAMOND);
-		setUnlocalizedName("techreborn.rockcutter");
+		setTranslationKey("techreborn.rockcutter");
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
 		efficiency = 16F;

@@ -81,7 +81,7 @@ public class StackToolTipEvent {
 				if (block == null) {
 					return;
 				}
-				if (!block.getRegistryName().getResourceDomain().contains("techreborn")) {
+				if (!block.getRegistryName().getNamespace().contains("techreborn")) {
 					return;
 				}
 				if (block instanceof BlockContainer || block instanceof ITileEntityProvider) {

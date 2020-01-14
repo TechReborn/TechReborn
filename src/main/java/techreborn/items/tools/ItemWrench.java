@@ -48,7 +48,7 @@ public class ItemWrench extends ItemTR implements IToolHandler {
 	public static WrenchContext ic2WrenchContext;
 
 	public ItemWrench() {
-		setUnlocalizedName("techreborn.wrench");
+		setTranslationKey("techreborn.wrench");
 		setMaxStackSize(1);
 	}
 

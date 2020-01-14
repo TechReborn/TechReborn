@@ -36,7 +36,7 @@ import techreborn.client.EGui;
 public class ItemTechManual extends ItemTR {
 
 	public ItemTechManual() {
-		this.setUnlocalizedName("techreborn.manual");
+		this.setTranslationKey("techreborn.manual");
 		this.setMaxStackSize(1);
 	}
 

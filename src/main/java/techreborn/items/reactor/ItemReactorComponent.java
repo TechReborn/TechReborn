@@ -50,7 +50,7 @@ public abstract class ItemReactorComponent extends ItemTR implements IReactorCom
 
 	// Constructor >>
 	public ItemReactorComponent(String name) {
-		setUnlocalizedName("techreborn." + name);
+		setTranslationKey("techreborn." + name);
 	}
 	// << Constructor
 

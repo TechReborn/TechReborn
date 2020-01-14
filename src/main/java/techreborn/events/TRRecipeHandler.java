@@ -85,10 +85,10 @@ public class TRRecipeHandler {
 		if (recipe.getRegistryName() == null) {
 			return false;
 		}
-		if (!recipe.getRegistryName().getResourceDomain().equals(ModInfo.MOD_ID)) {
+		if (!recipe.getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
 			return false;
 		}
-		if (!recipe.getRecipeOutput().getItem().getRegistryName().getResourceDomain().equals(ModInfo.MOD_ID)) {
+		if (!recipe.getRecipeOutput().getItem().getRegistryName().getNamespace().equals(ModInfo.MOD_ID)) {
 			return false;
 		}
 		if (hiddenEntrys.contains(recipe.getRecipeOutput().getItem())) {

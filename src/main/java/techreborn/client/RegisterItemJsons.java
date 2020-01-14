@@ -204,9 +204,9 @@ public class RegisterItemJsons {
 			protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
 				Map<IProperty<?>, Comparable<?>> map = Maps.<IProperty<?>, Comparable<?>>newLinkedHashMap(state.getProperties());
 				if (state.getValue(BlockCable.TYPE).ordinal() <= 4) {
-					return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getResourceDomain(), ModBlocks.CABLE.getRegistryName().getResourcePath()) + "_thin", this.getPropertyString(map));
+					return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getNamespace(), ModBlocks.CABLE.getRegistryName().getPath()) + "_thin", this.getPropertyString(map));
 				}
-				return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getResourceDomain(), ModBlocks.CABLE.getRegistryName().getResourcePath()) + "_thick", this.getPropertyString(map));
+				return new ModelResourceLocation(new ResourceLocation(ModBlocks.CABLE.getRegistryName().getNamespace(), ModBlocks.CABLE.getRegistryName().getPath()) + "_thick", this.getPropertyString(map));
 			}
 		});
 	}
@@ -225,7 +225,7 @@ public class RegisterItemJsons {
 				for (IProperty<?> iproperty : ignoredProperties) {
 					map.remove(iproperty);
 				}
-				return new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getResourceDomain(), path + slash + block.getRegistryName().getResourcePath()), this.getPropertyString(map));
+				return new ModelResourceLocation(new ResourceLocation(block.getRegistryName().getNamespace(), path + slash + block.getRegistryName().getPath()), this.getPropertyString(map));
 			}
 		});
 	}
@@ -254,7 +254,7 @@ public class RegisterItemJsons {
 	}
 
 	private static void registerBlockstate(Item i, int meta, String variant, String dir) {
-		ResourceLocation loc = new ResourceLocation("techreborn", dir + i.getRegistryName().getResourcePath());
+		ResourceLocation loc = new ResourceLocation("techreborn", dir + i.getRegistryName().getPath());
 		ModelLoader.setCustomModelResourceLocation(i, meta, new ModelResourceLocation(loc, "type=" + variant));
 	}
 

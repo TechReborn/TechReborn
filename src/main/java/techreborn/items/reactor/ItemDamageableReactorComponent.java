@@ -48,7 +48,7 @@ import java.util.List;
 public abstract class ItemDamageableReactorComponent extends ItemTR implements IReactorComponent {
 	// Constructor >>
 	public ItemDamageableReactorComponent(String name, int maxDamage) {
-		setUnlocalizedName("techreborn." + name);
+		setTranslationKey("techreborn." + name);
 		setNoRepair();
 
 		this.maxDamage = maxDamage;

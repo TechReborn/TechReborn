@@ -36,7 +36,7 @@ import techreborn.client.EGui;
 public class ItemDestructopack extends ItemTR {
 
 	public ItemDestructopack() {
-		this.setUnlocalizedName("techreborn.destructopack");
+		this.setTranslationKey("techreborn.destructopack");
 	}
 
 	@Override

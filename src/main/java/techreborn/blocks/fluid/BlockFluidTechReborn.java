@@ -38,7 +38,7 @@ public class BlockFluidTechReborn extends BlockFluidBase {
 
 	public BlockFluidTechReborn(Fluid fluid, Material material, String name) {
 		super(fluid, material);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		this.name = name;
 	}
 

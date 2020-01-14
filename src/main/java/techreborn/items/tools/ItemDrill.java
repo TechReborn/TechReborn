@@ -63,7 +63,7 @@ public class ItemDrill extends ItemPickaxe implements IEnergyItemInfo, IMiningDr
 		this.efficiency = efficiencyOnProperMaterial;
 		setCreativeTab(TechRebornCreativeTab.instance);
 		setMaxStackSize(1);
-		setUnlocalizedName(unlocalizedName);
+		setTranslationKey(unlocalizedName);
 		this.maxCharge = energyCapacity;
 		this.unpoweredSpeed = unpoweredSpeed;
 	}

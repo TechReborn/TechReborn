@@ -37,7 +37,7 @@ public class TechRebornCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return ItemParts.getPartByName("machine_parts");
 	}
 }

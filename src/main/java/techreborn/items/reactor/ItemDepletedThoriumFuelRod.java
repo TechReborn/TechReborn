@@ -47,7 +47,7 @@ import techreborn.items.ItemTR;
 @Optional.Interface(iface = "ic2.api.reactor.IReactor", modid = "ic2")
 public class ItemDepletedThoriumFuelRod extends ItemTR implements IBaseReactorComponent {
 	public ItemDepletedThoriumFuelRod(String name, int rodCount) {
-		setUnlocalizedName("techreborn." + name);
+		setTranslationKey("techreborn." + name);
 
 		this.rodCount = rodCount;
 	}

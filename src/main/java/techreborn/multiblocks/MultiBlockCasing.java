@@ -325,7 +325,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
 		if (block.isAir(world.getBlockState(new BlockPos(x, y, z)), world, new BlockPos(x, y, z))) {
 
-		} else if (block.getUnlocalizedName().equals("tile.lava")) {
+		} else if (block.getTranslationKey().equals("tile.lava")) {
 			hasLava = true;
 		} else {
 			super.isBlockGoodForInterior(world, x, y, z);

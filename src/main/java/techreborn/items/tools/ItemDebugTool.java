@@ -44,7 +44,7 @@ import techreborn.items.ItemTR;
 public class ItemDebugTool extends ItemTR {
 
 	public ItemDebugTool() {
-		setUnlocalizedName("techreborn.debug");
+		setTranslationKey("techreborn.debug");
 	}
 
 	@Override

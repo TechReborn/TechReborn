@@ -143,183 +143,183 @@ public class ModFluids {
 	public static void init() {
 		FluidRegistry.registerFluid(BERYLLIUM);
 		BLOCK_BERYLLIUM = new BlockFluidTechReborn(BERYLLIUM, Material.WATER, "techreborn.berylium");
-		registerBlock(BLOCK_BERYLLIUM, ModInfo.MOD_ID + "_" + BLOCK_BERYLLIUM.getUnlocalizedName().substring(5));
+		registerBlock(BLOCK_BERYLLIUM, ModInfo.MOD_ID + "_" + BLOCK_BERYLLIUM.getTranslationKey().substring(5));
 		
 		
 		FluidRegistry.registerFluid(CALCIUM);
 		BLOCK_CALCIUM = new BlockFluidTechReborn(CALCIUM, Material.WATER, "techreborn.calcium");
 		registerBlock(BLOCK_CALCIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_CALCIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_CALCIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(CALCIUM_CARBONATE);
 		BLOCK_CALCIUM_CARBONATE = new BlockFluidTechReborn(CALCIUM_CARBONATE, Material.WATER,
 			"techreborn.calciumcarbonate");
 		registerBlock(BLOCK_CALCIUM_CARBONATE,
-			ModInfo.MOD_ID + "_" + BLOCK_CALCIUM_CARBONATE.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_CALCIUM_CARBONATE.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(CHLORITE);
 		BLOCK_CHLORITE = new BlockFluidTechReborn(CHLORITE, Material.WATER, "techreborn.chlorite");
 		registerBlock(BLOCK_CHLORITE,
-			ModInfo.MOD_ID + "_" + BLOCK_CHLORITE.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_CHLORITE.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(DEUTERIUM);
 		BLOCK_DEUTERIUM = new BlockFluidTechReborn(DEUTERIUM, Material.WATER, "techreborn.deuterium");
 		registerBlock(BLOCK_DEUTERIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_DEUTERIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_DEUTERIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(GLYCERYL);
 		BLOCK_GLYCERYL = new BlockFluidTechReborn(GLYCERYL, Material.WATER, "techreborn.glyceryl");
 		registerBlock(BLOCK_GLYCERYL,
-			ModInfo.MOD_ID + "_" + BLOCK_GLYCERYL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_GLYCERYL.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(HELIUM);
 		BLOCK_HELIUM = new BlockFluidTechReborn(HELIUM, Material.WATER, "techreborn.helium");
 		registerBlock(BLOCK_HELIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_HELIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_HELIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(HELIUM_3);
 		BLOCK_HELIUM_3 = new BlockFluidTechReborn(HELIUM_3, Material.WATER, "techreborn.helium3");
 		registerBlock(BLOCK_HELIUM_3,
-			ModInfo.MOD_ID + "_" + BLOCK_HELIUM_3.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_HELIUM_3.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(HELIUMPLASMA);
 		BLOCK_HELIUMPLASMA = new BlockFluidTechReborn(HELIUMPLASMA, Material.WATER, "techreborn.heliumplasma");
 		registerBlock(BLOCK_HELIUMPLASMA,
-			ModInfo.MOD_ID + "_" + BLOCK_HELIUMPLASMA.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_HELIUMPLASMA.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(HYDROGEN);
 		BLOCK_HYDROGEN = new BlockFluidTechReborn(HYDROGEN, Material.WATER, "techreborn.hydrogen");
 		registerBlock(BLOCK_HYDROGEN,
-			ModInfo.MOD_ID + "_" + BLOCK_HYDROGEN.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_HYDROGEN.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(LITHIUM);
 		BLOCK_LITHIUM = new BlockFluidTechReborn(LITHIUM, Material.WATER, "techreborn.lithium");
 		registerBlock(BLOCK_LITHIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_LITHIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_LITHIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(MERCURY);
 		BLOCK_MERCURY = new BlockFluidTechReborn(MERCURY, Material.WATER, "techreborn.mercury");
 		registerBlock(BLOCK_MERCURY,
-			ModInfo.MOD_ID + "_" + BLOCK_MERCURY.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_MERCURY.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(METHANE);
 		BLOCK_METHANE = new BlockFluidTechReborn(METHANE, Material.WATER, "techreborn.methane");
 		registerBlock(BLOCK_METHANE,
-			ModInfo.MOD_ID + "_" + BLOCK_METHANE.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_METHANE.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(NITROCOAL_FUEL);
 		BLOCK_NITROCOAL_FUEL = new BlockFluidTechReborn(NITROCOAL_FUEL, Material.WATER,
 			"techreborn.nitrocoalfuel");
 		registerBlock(BLOCK_NITROCOAL_FUEL,
-			ModInfo.MOD_ID + "_" + BLOCK_NITROCOAL_FUEL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_NITROCOAL_FUEL.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(NITROFUEL);
 		BLOCK_NITROFUEL = new BlockFluidTechReborn(NITROFUEL, Material.WATER, "techreborn.nitrofuel");
 		registerBlock(BLOCK_NITROFUEL,
-			ModInfo.MOD_ID + "_" + BLOCK_NITROFUEL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_NITROFUEL.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(NITROGEN);
 		BLOCK_NITROGEN = new BlockFluidTechReborn(NITROGEN, Material.WATER, "techreborn.nitrogen");
 		registerBlock(BLOCK_NITROGEN,
-			ModInfo.MOD_ID + "_" + BLOCK_NITROGEN.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_NITROGEN.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(NITROGENDIOXIDE);
 		BLOCK_NITROGENDIOXIDE = new BlockFluidTechReborn(NITROGENDIOXIDE, Material.WATER,
 			"techreborn.nitrogendioxide");
 		registerBlock(BLOCK_NITROGENDIOXIDE,
-			ModInfo.MOD_ID + "_" + BLOCK_NITROGENDIOXIDE.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_NITROGENDIOXIDE.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(POTASSIUM);
 		BLOCK_POTASSIUM = new BlockFluidTechReborn(POTASSIUM, Material.WATER, "techreborn.potassium");
 		registerBlock(BLOCK_POTASSIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_POTASSIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_POTASSIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(SILICON);
 		BLOCK_SILICON = new BlockFluidTechReborn(SILICON, Material.WATER, "techreborn.silicon");
 		registerBlock(BLOCK_SILICON,
-			ModInfo.MOD_ID + "_" + BLOCK_SILICON.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_SILICON.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(SODIUM);
 		BLOCK_SODIUM = new BlockFluidTechReborn(SODIUM, Material.WATER, "techreborn.sodium");
 		registerBlock(BLOCK_SODIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_SODIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_SODIUM.getTranslationKey().substring(5));
 
 
 		FluidRegistry.registerFluid(SODIUMPERSULFATE);
 		BLOCK_SODIUMPERSULFATE = new BlockFluidTechReborn(SODIUMPERSULFATE, Material.WATER,
 			"techreborn.sodiumpersulfate");
 		registerBlock(BLOCK_SODIUMPERSULFATE,
-			ModInfo.MOD_ID + "_" + BLOCK_SODIUMPERSULFATE.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_SODIUMPERSULFATE.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(TRITIUM);
 		BLOCK_TRITIUM = new BlockFluidTechReborn(TRITIUM, Material.WATER, "techreborn.tritium");
 		registerBlock(BLOCK_TRITIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_TRITIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_TRITIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(WOLFRAMIUM);
 		BLOCK_WOLFRAMIUM = new BlockFluidTechReborn(WOLFRAMIUM, Material.WATER, "techreborn.wolframium");
 		registerBlock(BLOCK_WOLFRAMIUM,
-			ModInfo.MOD_ID + "_" + BLOCK_WOLFRAMIUM.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_WOLFRAMIUM.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(CARBON);
 		BLOCK_CARBON = new BlockFluidTechReborn(CARBON, Material.WATER, "techreborn.carbon");
 		registerBlock(BLOCK_CARBON,
-			ModInfo.MOD_ID + "_" + BLOCK_CARBON.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_CARBON.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(CARBON_FIBER);
 		BLOCK_CARBON_FIBER = new BlockFluidTechReborn(CARBON_FIBER, Material.WATER, "techreborn.carbonfiber");
 		registerBlock(BLOCK_CARBON_FIBER,
-			ModInfo.MOD_ID + "_" + BLOCK_CARBON_FIBER.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_CARBON_FIBER.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(NITRO_CARBON);
 		BLOCK_NITRO_CARBON = new BlockFluidTechReborn(NITRO_CARBON, Material.WATER, "techreborn.nitrocarbon");
 		registerBlock(BLOCK_NITRO_CARBON,
-			ModInfo.MOD_ID + "_" + BLOCK_NITRO_CARBON.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_NITRO_CARBON.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(SULFUR);
 		BLOCK_SULFUR = new BlockFluidTechReborn(SULFUR, Material.WATER, "techreborn.sulfur");
 		registerBlock(BLOCK_SULFUR,
-			ModInfo.MOD_ID + "_" + BLOCK_SULFUR.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_SULFUR.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(SODIUM_SULFIDE);
 		BLOCK_SODIUM_SULFIDE = new BlockFluidTechReborn(SODIUM_SULFIDE, Material.WATER, "techreborn.sodiumsulfide");
 		registerBlock(BLOCK_SODIUM_SULFIDE,
-			ModInfo.MOD_ID + "_" + BLOCK_SODIUM_SULFIDE.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_SODIUM_SULFIDE.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(DIESEL);
 		BLOCK_DIESEL = new BlockFluidTechReborn(DIESEL, Material.WATER, "techreborn.diesel");
 		registerBlock(BLOCK_DIESEL,
-			ModInfo.MOD_ID + "_" + BLOCK_DIESEL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_DIESEL.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(NITRO_DIESEL);
 		BLOCK_NITRO_DIESEL = new BlockFluidTechReborn(NITRO_DIESEL, Material.WATER, "techreborn.nitrodiesel");
 		registerBlock(BLOCK_NITRO_DIESEL,
-			ModInfo.MOD_ID + "_" + BLOCK_NITRO_DIESEL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_NITRO_DIESEL.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(OIL);
 		BLOCK_OIL = new BlockFluidTechReborn(OIL, Material.WATER, "techreborn.oil");
 		registerBlock(BLOCK_OIL,
-			ModInfo.MOD_ID + "_" + BLOCK_OIL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_OIL.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(SULFURIC_ACID);
 		BLOCK_SULFURIC_ACID = new BlockFluidTechReborn(SULFURIC_ACID, Material.WATER, "techreborn.sulfuricacid");
 		registerBlock(BLOCK_SULFURIC_ACID,
-			ModInfo.MOD_ID + "_" + BLOCK_SULFURIC_ACID.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_SULFURIC_ACID.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(COMPRESSED_AIR);
 		BLOCK_COMPRESSED_AIR = new BlockFluidTechReborn(COMPRESSED_AIR, Material.WATER, "techreborn.compressedair");
 		registerBlock(BLOCK_COMPRESSED_AIR,
-			ModInfo.MOD_ID + "_" + BLOCK_COMPRESSED_AIR.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_COMPRESSED_AIR.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(ELECTROLYZED_WATER);
 		BLOCK_ELECTROLYZED_WATER = new BlockFluidTechReborn(ELECTROLYZED_WATER, Material.WATER, "techreborn.electrolyzedwater");
 		registerBlock(BLOCK_ELECTROLYZED_WATER,
-			ModInfo.MOD_ID + "_" + BLOCK_ELECTROLYZED_WATER.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_ELECTROLYZED_WATER.getTranslationKey().substring(5));
 
 		FluidRegistry.registerFluid(BIO_FUEL);
 		BLOCK_BIO_FUEL = new BlockFluidTechReborn(BIO_FUEL, Material.WATER, "techreborn.biofuel");
 		registerBlock(BLOCK_BIO_FUEL,
-			ModInfo.MOD_ID + "_" + BLOCK_BIO_FUEL.getUnlocalizedName().substring(5));
+			ModInfo.MOD_ID + "_" + BLOCK_BIO_FUEL.getTranslationKey().substring(5));
 	}
 
 	public static void registerBlock(Block block, String name) {

@@ -56,7 +56,7 @@ public class ItemParts extends ItemTR implements IBlastFurnaceCoil {
 	public ItemParts() {
 		this.setCreativeTab(TechRebornCreativeTab.instance);
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("techreborn.part");
+		this.setTranslationKey("techreborn.part");
 	}
 
 	public static ItemStack getPartByName(String name, final int count) {
@@ -90,13 +90,13 @@ public class ItemParts extends ItemTR implements IBlastFurnaceCoil {
 
 	@Override
 	// gets Unlocalized Name depending on meta data
-	public String getUnlocalizedName(final ItemStack itemStack) {
+	public String getTranslationKey(final ItemStack itemStack) {
 		int meta = itemStack.getItemDamage();
 		if (meta < 0 || meta >= ItemParts.types.length) {
 			meta = 0;
 		}
 
-		return super.getUnlocalizedName() + "." + ItemParts.types[meta];
+		return super.getTranslationKey() + "." + ItemParts.types[meta];
 	}
 
 	// Adds Dusts SubItems To Creative Tab
