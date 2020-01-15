@@ -69,7 +69,6 @@ public class ModRecipes {
         RollingMachineRecipes.init();
         FluidGeneratorRecipes.init();
         IndustrialGrinderRecipes.init();
-        IndustrialCentrifugeRecipes.init();
         IndustrialElectrolyzerRecipes.init();
         ImplosionCompressorRecipes.init();
         ScrapboxRecipes.init();
