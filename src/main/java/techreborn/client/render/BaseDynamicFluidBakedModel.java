@@ -134,4 +134,9 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 		return ModelItemPropertyOverrideList.EMPTY;
 	}
 
+	@Override
+	public boolean method_24304() {
+		return false;
+	}
+
 }

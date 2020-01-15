@@ -32,10 +32,16 @@ import java.util.Random;
 
 public class RubberSaplingGenerator extends SaplingGenerator {
 
+	//TODO remove with 1.16, backwards compat for 1.15/1.15.1
 	@Nullable
-	@Override
 	protected ConfiguredFeature<BranchedTreeFeatureConfig, ?> createTreeFeature(Random random) {
-		return WorldGenerator.RUBBER_TREE.configure(WorldGenerator.RUBBER_TREE_CONFIG);
+		return createTreeFeature(random, false);
 	}
 
+	//1.15.2 method
+	@Nullable
+	@Override
+	protected ConfiguredFeature<BranchedTreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+		return WorldGenerator.RUBBER_TREE.configure(WorldGenerator.RUBBER_TREE_CONFIG);
+	}
 }

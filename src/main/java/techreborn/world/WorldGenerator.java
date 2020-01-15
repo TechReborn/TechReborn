@@ -75,7 +75,7 @@ public class WorldGenerator {
 	}
 
 	private static void setupTrees() {
-		RUBBER_TREE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::deserialize2));
+		RUBBER_TREE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::deserialize));
 
 		WeightedStateProvider logProvider = new WeightedStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);

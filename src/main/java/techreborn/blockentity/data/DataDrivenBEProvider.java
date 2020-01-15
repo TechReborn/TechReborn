@@ -73,7 +73,7 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 		}
 		Identifier id = new Identifier(JsonHelper.getString(jsonObject, "name"));
 		DataDrivenBEProvider provider = new DataDrivenBEProvider(block, jsonObject);
-		Registry.register(Registry.BLOCK_ENTITY, id, provider);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, id, provider);
 		return provider;
 	}
 

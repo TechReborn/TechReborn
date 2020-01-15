@@ -117,7 +117,7 @@ public class FrequencyTransmitterItem extends Item {
 			tooltip.add(new LiteralText(Formatting.GRAY + "X: " + Formatting.GOLD + x));
 			tooltip.add(new LiteralText(Formatting.GRAY + "Y: " + Formatting.GOLD + y));
 			tooltip.add(new LiteralText(Formatting.GRAY + "Z: " + Formatting.GOLD + z));
-			tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(Registry.DIMENSION.get(dim)).toString()));
+			tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(Registry.DIMENSION_TYPE.get(dim)).toString()));
 
 		} else {
 			tooltip.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.noCoordsSet")));
@@ -125,7 +125,7 @@ public class FrequencyTransmitterItem extends Item {
 	}
 
 	private static Identifier getDimName(DimensionType type){
-		return Registry.DIMENSION.getId(type);
+		return Registry.DIMENSION_TYPE.getId(type);
 	}
 
 	public static class StackInfoFreqTransmitter extends StackInfoElement {
@@ -144,7 +144,7 @@ public class FrequencyTransmitterItem extends Item {
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");
 					int coordDim = stack.getTag().getInt("dim");
-					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION.get(coordDim)).toString() + " (" + coordDim + ")";
+					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION_TYPE.get(coordDim)).toString() + " (" + coordDim + ")";
 				} else {
 					text = grey + StringUtils.t("techreborn.message.noCoordsSet");
 				}

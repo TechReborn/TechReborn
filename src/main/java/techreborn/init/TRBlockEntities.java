@@ -161,7 +161,7 @@ public class TRBlockEntities {
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType.Builder<T> builder) {
 		BlockEntityType<T> blockEntityType = builder.build(null);
-		Registry.register(Registry.BLOCK_ENTITY, new Identifier(id), blockEntityType);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(id), blockEntityType);
 		TRBlockEntities.TYPES.add(blockEntityType);
 		return blockEntityType;
 	}
