@@ -430,7 +430,7 @@ public class TechRebornJeiPlugin implements IModPlugin {
         final IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
         recipeTransferRegistry.addRecipeTransferHandler(
-                new BuiltContainerTransferInfo("fusionreactor", RecipeCategoryUids.FUSION_REACTOR, 40, 2, 0, 36));
+                new BuiltContainerTransferInfo("fusionreactor", RecipeCategoryUids.FUSION_REACTOR, 36, 2, 0, 36));
         recipeTransferRegistry.addRecipeTransferHandler(
                 new BuiltContainerTransferInfo("industrialelectrolyzer", RecipeCategoryUids.INDUSTRIAL_ELECTROLYZER, 40, 2, 0, 36));
         recipeTransferRegistry.addRecipeTransferHandler(
@@ -442,9 +442,9 @@ public class TechRebornJeiPlugin implements IModPlugin {
         recipeTransferRegistry.addRecipeTransferHandler(
                 new BuiltContainerTransferInfo("blastfurnace", RecipeCategoryUids.BLAST_FURNACE, 40, 2, 0, 36));
         recipeTransferRegistry.addRecipeTransferHandler(
-                new BuiltContainerTransferInfo("alloyfurnace", RecipeCategoryUids.ALLOY_SMELTER, 40, 2, 0, 36));
+                new BuiltContainerTransferInfo("alloyfurnace", RecipeCategoryUids.ALLOY_SMELTER, 36, 2, 0, 36));
         recipeTransferRegistry.addRecipeTransferHandler(
-                new BuiltContainerTransferInfo("alloyfurnace", VanillaRecipeCategoryUid.FUEL, 40, 2, 0, 36));
+                new BuiltContainerTransferInfo("alloyfurnace", VanillaRecipeCategoryUid.FUEL, 39, 1, 0, 36));
         recipeTransferRegistry.addRecipeTransferHandler(
                 new BuiltContainerTransferInfo("alloysmelter", RecipeCategoryUids.ALLOY_SMELTER, 40, 2, 0, 36));
         recipeTransferRegistry.addRecipeTransferHandler(
