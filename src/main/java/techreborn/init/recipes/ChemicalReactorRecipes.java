@@ -90,13 +90,13 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.register();
 
 		// Nitro-Coalfuel
-//		Recipes.chemicalReactor.createRecipe()
-//			.withInput(getMaterial("glyceryl", 1, Type.CELL))
-//			.withInput(getMaterial("diesel", 4, Type.CELL))
-//			.withOutput(getMaterial("nitroDiesel", 5, Type.CELL))
-//			.withEnergyCostPerTick(30)
-//			.withOperationDuration(1000)
-//			.register();
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("glyceryl", 1, Type.CELL))
+			.withInput(getMaterial("carbon", 4, Type.CELL))
+			.withOutput(getMaterial("nitrocoalFuel", 5, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(1000)
+			.register();
 
 		// Nitro-Carbon
 		Recipes.chemicalReactor.createRecipe()
@@ -133,6 +133,15 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1250)
 			.register();
+		
+		// Nitro-fuel
+		Recipes.chemicalReactor.createRecipe()
+			.withInput(getMaterial("oil", 1, Type.CELL))
+			.withInput(getMaterial("nitrogen", 1, Type.CELL))
+			.withOutput(getMaterial("nitrofuel", 2, Type.CELL))
+			.withEnergyCostPerTick(30)
+			.withOperationDuration(1000)
+			.register();
 
 //		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON), getStack(Items.SPECKLED_MELON), 40);
 //		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.CARROT), getStack(Items.GOLDEN_CARROT), 40);
@@ -146,10 +155,6 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 //		//Cells recipes. One cell should be cooked in 20 seconds
 //		register(getMaterial("carbon", Type.CELL), getMaterial("calcium", Type.CELL), getMaterial("calciumCarbonate", 2, Type.CELL), 800);
 //
-//
-//
-//		register(getMaterial("glyceryl", Type.CELL), getMaterial("carbon", 4, Type.CELL), getMaterial("nitrocoalFuel", 5, Type.CELL), 250);
-//
-//		register(getMaterial("oil", Type.CELL), getMaterial("nitrogen", Type.CELL), getMaterial("nitrofuel", 2, Type.CELL), 800);
+
 	}
 }

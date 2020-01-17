@@ -67,7 +67,7 @@ public enum IC2Duplicates {
 	CARBON_MESH(ItemParts.getPartByName("carbon_mesh")),
 	NEUTRON_REFLECTOR(ItemParts.getPartByName("neutron_reflector")),
 	THICK_NEUTRON_REFLECTOR(ItemParts.getPartByName("thick_neutron_reflector")),
-//	IRIDIUM_NEUTRON_REFLECTOR(ItemParts.getPartByName("iridium_neutron_reflector")),
+	IRIDIUM_NEUTRON_REFLECTOR(new ItemStack(ModItems.IRIDIUM_NEUTRON_REFLECTOR)),
 	SCRAP(ItemParts.getPartByName("scrap")),
 	SCRAP_BOX(new ItemStack(ModItems.SCRAP_BOX)),
 	FREQ_TRANSMITTER(new ItemStack(ModItems.FREQUENCY_TRANSMITTER)),
