@@ -63,7 +63,7 @@ public class BlockIronFurnace extends RebornMachineBlock {
 		RebornMachineTile tile = getTileEntity(world, pos);
 		if (tile == null) return;
 		if (tile.isActive()) {
-			final EnumFacing enumfacing = state.getValue(RebornMachineBlock.facingProperty);
+			final EnumFacing enumfacing = state.getValue(RebornMachineBlock.FACING);
 			final double d0 = pos.getX() + 0.5D;
 			final double d1 = pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
 			final double d2 = pos.getZ() + 0.5D;
