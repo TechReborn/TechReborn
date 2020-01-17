@@ -64,7 +64,7 @@ public class TileAdjustableSU extends TileEnergyStorage implements IContainerPro
 
 		superconductors = 0;
 		for (int i = 0; i < getUpgradeSlotCount(); i++) {
-			ItemStack stack = getUpgradeInvetory().getStackInSlot(i);
+			ItemStack stack = getUpgradeInventory().getStackInSlot(i);
 			if(stack.getItem() instanceof ItemUpgrades && stack.getItemDamage() == 3){
 				superconductors++;
 			}

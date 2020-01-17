@@ -43,7 +43,7 @@ public class CompatRegistryFactory implements IRegistryFactory {
 	}
 
 	@Override
-	public void handleClass(Class clazz) {
+	public void handleClass(Class<?> clazz) {
 		if(isCompatModule(clazz)){
 			if(CompatManager.INSTANCE.checkConfig(clazz.getSimpleName())){
 				try {
@@ -57,8 +57,8 @@ public class CompatRegistryFactory implements IRegistryFactory {
 		}
 	}
 
-	private boolean isCompatModule(Class clazz){
-		for(Class iface : clazz.getInterfaces()){
+	private boolean isCompatModule(Class<?> clazz){
+		for(Class<?> iface : clazz.getInterfaces()){
 			if(iface == ICompatModule.class){
 				return true;
 			}
