@@ -66,7 +66,7 @@ group = 'TechReborn'
 
 dependencies {
 	minecraft "com.mojang:minecraft:1.15.2-pre2"
-	mappings "net.fabricmc:yarn:1.15.2-pre2+build.1:v2"
+	mappings "net.fabricmc:yarn:1.15.2-pre2+build.5:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.7.4+build.177"
 
 	//Fabric api

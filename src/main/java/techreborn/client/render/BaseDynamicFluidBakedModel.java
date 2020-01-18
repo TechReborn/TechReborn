@@ -115,7 +115,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 	}
 
 	@Override
-	public boolean hasDepthInGui() {
+	public boolean hasDepth() {
 		return false;
 	}
 
@@ -135,7 +135,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 	}
 
 	@Override
-	public boolean method_24304() {
+	public boolean isSideLit() {
 		return false;
 	}
 
