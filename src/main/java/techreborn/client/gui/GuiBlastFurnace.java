@@ -34,8 +34,8 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
+import techreborn.init.TRContent;
 
 public class GuiBlastFurnace extends GuiBase<BuiltContainer> {
 
@@ -93,55 +93,54 @@ public class GuiBlastFurnace extends GuiBase<BuiltContainer> {
 	}
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (blockEntity.renderMultiblock == null) {
-				{
-					// This code here makes a basic multiblock and then sets to the selected one.
-					final Multiblock multiblock = new Multiblock();
-					BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
+		if (isTabOpen()) return;
+		if (blockEntity.renderMultiblock == null) {
+			{
+				// This code here makes a basic multiblock and then sets to the selected one.
+				final Multiblock multiblock = new Multiblock();
+				BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 
-					this.addComponent(0, 0, 0, standardCasing, multiblock);
-					this.addComponent(1, 0, 0, standardCasing, multiblock);
-					this.addComponent(0, 0, 1, standardCasing, multiblock);
-					this.addComponent(-1, 0, 0, standardCasing, multiblock);
-					this.addComponent(0, 0, -1, standardCasing, multiblock);
-					this.addComponent(-1, 0, -1, standardCasing, multiblock);
-					this.addComponent(-1, 0, 1, standardCasing, multiblock);
-					this.addComponent(1, 0, -1, standardCasing, multiblock);
-					this.addComponent(1, 0, 1, standardCasing, multiblock);
+				this.addComponent(0, 0, 0, standardCasing, multiblock);
+				this.addComponent(1, 0, 0, standardCasing, multiblock);
+				this.addComponent(0, 0, 1, standardCasing, multiblock);
+				this.addComponent(-1, 0, 0, standardCasing, multiblock);
+				this.addComponent(0, 0, -1, standardCasing, multiblock);
+				this.addComponent(-1, 0, -1, standardCasing, multiblock);
+				this.addComponent(-1, 0, 1, standardCasing, multiblock);
+				this.addComponent(1, 0, -1, standardCasing, multiblock);
+				this.addComponent(1, 0, 1, standardCasing, multiblock);
 
-					this.addComponent(1, 1, 0, standardCasing, multiblock);
-					this.addComponent(0, 1, 1, standardCasing, multiblock);
-					this.addComponent(-1, 1, 0, standardCasing, multiblock);
-					this.addComponent(0, 1, -1, standardCasing, multiblock);
-					this.addComponent(-1, 1, -1, standardCasing, multiblock);
-					this.addComponent(-1, 1, 1, standardCasing, multiblock);
-					this.addComponent(1, 1, -1, standardCasing, multiblock);
-					this.addComponent(1, 1, 1, standardCasing, multiblock);
+				this.addComponent(1, 1, 0, standardCasing, multiblock);
+				this.addComponent(0, 1, 1, standardCasing, multiblock);
+				this.addComponent(-1, 1, 0, standardCasing, multiblock);
+				this.addComponent(0, 1, -1, standardCasing, multiblock);
+				this.addComponent(-1, 1, -1, standardCasing, multiblock);
+				this.addComponent(-1, 1, 1, standardCasing, multiblock);
+				this.addComponent(1, 1, -1, standardCasing, multiblock);
+				this.addComponent(1, 1, 1, standardCasing, multiblock);
 
-					this.addComponent(1, 2, 0, standardCasing, multiblock);
-					this.addComponent(0, 2, 1, standardCasing, multiblock);
-					this.addComponent(-1, 2, 0, standardCasing, multiblock);
-					this.addComponent(0, 2, -1, standardCasing, multiblock);
-					this.addComponent(-1, 2, -1, standardCasing, multiblock);
-					this.addComponent(-1, 2, 1, standardCasing, multiblock);
-					this.addComponent(1, 2, -1, standardCasing, multiblock);
-					this.addComponent(1, 2, 1, standardCasing, multiblock);
+				this.addComponent(1, 2, 0, standardCasing, multiblock);
+				this.addComponent(0, 2, 1, standardCasing, multiblock);
+				this.addComponent(-1, 2, 0, standardCasing, multiblock);
+				this.addComponent(0, 2, -1, standardCasing, multiblock);
+				this.addComponent(-1, 2, -1, standardCasing, multiblock);
+				this.addComponent(-1, 2, 1, standardCasing, multiblock);
+				this.addComponent(1, 2, -1, standardCasing, multiblock);
+				this.addComponent(1, 2, 1, standardCasing, multiblock);
 
-					this.addComponent(0, 3, 0, standardCasing, multiblock);
-					this.addComponent(1, 3, 0, standardCasing, multiblock);
-					this.addComponent(0, 3, 1, standardCasing, multiblock);
-					this.addComponent(-1, 3, 0, standardCasing, multiblock);
-					this.addComponent(0, 3, -1, standardCasing, multiblock);
-					this.addComponent(-1, 3, -1, standardCasing, multiblock);
-					this.addComponent(-1, 3, 1, standardCasing, multiblock);
-					this.addComponent(1, 3, -1, standardCasing, multiblock);
-					this.addComponent(1, 3, 1, standardCasing, multiblock);
-					blockEntity.renderMultiblock = multiblock;
-				}
-			} else {
-				blockEntity.renderMultiblock = null;
+				this.addComponent(0, 3, 0, standardCasing, multiblock);
+				this.addComponent(1, 3, 0, standardCasing, multiblock);
+				this.addComponent(0, 3, 1, standardCasing, multiblock);
+				this.addComponent(-1, 3, 0, standardCasing, multiblock);
+				this.addComponent(0, 3, -1, standardCasing, multiblock);
+				this.addComponent(-1, 3, -1, standardCasing, multiblock);
+				this.addComponent(-1, 3, 1, standardCasing, multiblock);
+				this.addComponent(1, 3, -1, standardCasing, multiblock);
+				this.addComponent(1, 3, 1, standardCasing, multiblock);
+				blockEntity.renderMultiblock = multiblock;
 			}
+		} else {
+			blockEntity.renderMultiblock = null;
 		}
 	}
 

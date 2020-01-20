@@ -59,9 +59,8 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		super.drawBackground(partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		if (GuiBase.slotConfigType != GuiBase.SlotConfigType.NONE) {
-			return;
-		}
+		if (isTabOpen()) return;
+
 		String text = "Radius: " + blockEntity.getRadius();
 		drawCentredString(text, 25, 4210752, layer);
 	}

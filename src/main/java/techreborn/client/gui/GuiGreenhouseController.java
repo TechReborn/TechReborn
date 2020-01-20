@@ -101,32 +101,31 @@ public class GuiGreenhouseController extends GuiBase<BuiltContainer> {
 	}
 	
 	public void onClick(GuiButtonExtended button, Double x, Double y) {
-		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (blockEntity.renderMultiblock == null) {
-				final Multiblock multiblock = new Multiblock();
-				BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.getDefaultState().with(Properties.FACING, Direction.DOWN);
-				BlockState crop = Blocks.CACTUS.getDefaultState();
-				
-				this.addComponent(-3, 3, -3, lamp, multiblock);
-				this.addComponent(-3, 3, 0, lamp, multiblock);
-				this.addComponent(-3, 3, 3, lamp, multiblock);
-				this.addComponent(0, 3, -3, lamp, multiblock);
-				this.addComponent(0, 3, 0, lamp, multiblock);
-				this.addComponent(0, 3, 3, lamp, multiblock);
-				this.addComponent(3, 3, -3, lamp, multiblock);
-				this.addComponent(3, 3, 0, lamp, multiblock);
-				this.addComponent(3, 3, 3, lamp, multiblock);
-				
-				for (int i = -4; i <= 4; i++) {
-					for (int j = -4; j <= 4; j++) {
-						this.addComponent(i, 0, j, crop, multiblock);
-					}
+		if (isTabOpen()) return;
+		if (blockEntity.renderMultiblock == null) {
+			final Multiblock multiblock = new Multiblock();
+			BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.getDefaultState().with(Properties.FACING, Direction.DOWN);
+			BlockState crop = Blocks.CACTUS.getDefaultState();
+
+			this.addComponent(-3, 3, -3, lamp, multiblock);
+			this.addComponent(-3, 3, 0, lamp, multiblock);
+			this.addComponent(-3, 3, 3, lamp, multiblock);
+			this.addComponent(0, 3, -3, lamp, multiblock);
+			this.addComponent(0, 3, 0, lamp, multiblock);
+			this.addComponent(0, 3, 3, lamp, multiblock);
+			this.addComponent(3, 3, -3, lamp, multiblock);
+			this.addComponent(3, 3, 0, lamp, multiblock);
+			this.addComponent(3, 3, 3, lamp, multiblock);
+
+			for (int i = -4; i <= 4; i++) {
+				for (int j = -4; j <= 4; j++) {
+					this.addComponent(i, 0, j, crop, multiblock);
 				}
-				
-				blockEntity.renderMultiblock = multiblock;
-			} else {
-				blockEntity.renderMultiblock = null;
 			}
+
+			blockEntity.renderMultiblock = multiblock;
+		} else {
+			blockEntity.renderMultiblock = null;
 		}
 	}
 	

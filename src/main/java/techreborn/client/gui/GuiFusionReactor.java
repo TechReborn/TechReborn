@@ -115,12 +115,11 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y){
-		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (blockEntity.renderMultiblock == null) {
-				updateMultiBlockRender();
-			} else {
-				blockEntity.renderMultiblock = null;
-			}
+		if (isTabOpen()) return;
+		if (blockEntity.renderMultiblock == null) {
+			updateMultiBlockRender();
+		} else {
+			blockEntity.renderMultiblock = null;
 		}
 	}
 

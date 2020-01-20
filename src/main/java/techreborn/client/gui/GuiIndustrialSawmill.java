@@ -94,50 +94,49 @@ public class GuiIndustrialSawmill extends GuiBase<BuiltContainer> {
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (blockEntity.renderMultiblock == null) {
-				{
-					// This code here makes a basic multiblock and then sets to the selected one.
-					final Multiblock multiblock = new Multiblock();
-					BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-					BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-					
-					addComponent(0, -1, 0, standardCasing, multiblock);
-					addComponent(1, -1, 0, standardCasing, multiblock);
-					addComponent(0, -1, 1, standardCasing, multiblock);
-					addComponent(-1, -1, 0, standardCasing, multiblock);
-					addComponent(0, -1, -1, standardCasing, multiblock);
-					addComponent(-1, -1, -1, standardCasing, multiblock);
-					addComponent(-1, -1, 1, standardCasing, multiblock);
-					addComponent(1, -1, -1, standardCasing, multiblock);
-					addComponent(1, -1, 1, standardCasing, multiblock);
+		if (isTabOpen()) return;
+		if (blockEntity.renderMultiblock == null) {
+			{
+				// This code here makes a basic multiblock and then sets to the selected one.
+				final Multiblock multiblock = new Multiblock();
+				BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
+				BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 
-					addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
-					addComponent(1, 0, 0, reinforcedCasing, multiblock);
-					addComponent(0, 0, 1, reinforcedCasing, multiblock);
-					addComponent(-1, 0, 0, reinforcedCasing, multiblock);
-					addComponent(0, 0, -1, reinforcedCasing, multiblock);
-					addComponent(-1, 0, -1, reinforcedCasing, multiblock);
-					addComponent(-1, 0, 1, reinforcedCasing, multiblock);
-					addComponent(1, 0, -1, reinforcedCasing, multiblock);
-					addComponent(1, 0, 1, reinforcedCasing, multiblock);
+				addComponent(0, -1, 0, standardCasing, multiblock);
+				addComponent(1, -1, 0, standardCasing, multiblock);
+				addComponent(0, -1, 1, standardCasing, multiblock);
+				addComponent(-1, -1, 0, standardCasing, multiblock);
+				addComponent(0, -1, -1, standardCasing, multiblock);
+				addComponent(-1, -1, -1, standardCasing, multiblock);
+				addComponent(-1, -1, 1, standardCasing, multiblock);
+				addComponent(1, -1, -1, standardCasing, multiblock);
+				addComponent(1, -1, 1, standardCasing, multiblock);
 
-					addComponent(0, 1, 0, standardCasing, multiblock);
-					addComponent(0, 1, 0, standardCasing, multiblock);
-					addComponent(1, 1, 0, standardCasing, multiblock);
-					addComponent(0, 1, 1, standardCasing, multiblock);
-					addComponent(-1, 1, 0, standardCasing, multiblock);
-					addComponent(0, 1, -1, standardCasing, multiblock);
-					addComponent(-1, 1, -1, standardCasing, multiblock);
-					addComponent(-1, 1, 1, standardCasing, multiblock);
-					addComponent(1, 1, -1, standardCasing, multiblock);
-					addComponent(1, 1, 1, standardCasing, multiblock);
+				addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
+				addComponent(1, 0, 0, reinforcedCasing, multiblock);
+				addComponent(0, 0, 1, reinforcedCasing, multiblock);
+				addComponent(-1, 0, 0, reinforcedCasing, multiblock);
+				addComponent(0, 0, -1, reinforcedCasing, multiblock);
+				addComponent(-1, 0, -1, reinforcedCasing, multiblock);
+				addComponent(-1, 0, 1, reinforcedCasing, multiblock);
+				addComponent(1, 0, -1, reinforcedCasing, multiblock);
+				addComponent(1, 0, 1, reinforcedCasing, multiblock);
 
-					blockEntity.renderMultiblock = multiblock;
-				}
-			} else {
-				blockEntity.renderMultiblock = null;
+				addComponent(0, 1, 0, standardCasing, multiblock);
+				addComponent(0, 1, 0, standardCasing, multiblock);
+				addComponent(1, 1, 0, standardCasing, multiblock);
+				addComponent(0, 1, 1, standardCasing, multiblock);
+				addComponent(-1, 1, 0, standardCasing, multiblock);
+				addComponent(0, 1, -1, standardCasing, multiblock);
+				addComponent(-1, 1, -1, standardCasing, multiblock);
+				addComponent(-1, 1, 1, standardCasing, multiblock);
+				addComponent(1, 1, -1, standardCasing, multiblock);
+				addComponent(1, 1, 1, standardCasing, multiblock);
+
+				blockEntity.renderMultiblock = multiblock;
 			}
+		} else {
+			blockEntity.renderMultiblock = null;
 		}
 	}
 

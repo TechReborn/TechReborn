@@ -27,14 +27,13 @@ package techreborn.client.gui;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
+import techreborn.init.TRContent;
 
 public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 
@@ -81,48 +80,47 @@ public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
 	}
 
 	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (blockEntity.renderMultiblock == null) {
-				{
-					// This code here makes a basic multiblock and then sets to the selected one.
-					final Multiblock multiblock = new Multiblock();
-					BlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-					BlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
+		if (isTabOpen()) return;
+		if (blockEntity.renderMultiblock == null) {
+			{
+				// This code here makes a basic multiblock and then sets to the selected one.
+				final Multiblock multiblock = new Multiblock();
+				BlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+				BlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
 
-					addComponent(0, -1, 0, advancedCasing, multiblock);
-					addComponent(1, -1, 0, advancedCasing, multiblock);
-					addComponent(0, -1, 1, advancedCasing, multiblock);
-					addComponent(-1, -1, 0, advancedCasing, multiblock);
-					addComponent(0, -1, -1, advancedCasing, multiblock);
-					addComponent(-1, -1, -1, advancedCasing, multiblock);
-					addComponent(-1, -1, 1, advancedCasing, multiblock);
-					addComponent(1, -1, -1, advancedCasing, multiblock);
-					addComponent(1, -1, 1, advancedCasing, multiblock);
-					
-					addComponent(1, -2, 0, industrialCasing, multiblock);
-					addComponent(0, -2, 1, industrialCasing, multiblock);
-					addComponent(-1, -2, 0, industrialCasing, multiblock);
-					addComponent(0, -2, -1, industrialCasing, multiblock);
-					addComponent(-1, -2, -1, industrialCasing, multiblock);
-					addComponent(-1, -2, 1, industrialCasing, multiblock);
-					addComponent(1, -2, -1, industrialCasing, multiblock);
-					addComponent(1, -2, 1, industrialCasing, multiblock);
+				addComponent(0, -1, 0, advancedCasing, multiblock);
+				addComponent(1, -1, 0, advancedCasing, multiblock);
+				addComponent(0, -1, 1, advancedCasing, multiblock);
+				addComponent(-1, -1, 0, advancedCasing, multiblock);
+				addComponent(0, -1, -1, advancedCasing, multiblock);
+				addComponent(-1, -1, -1, advancedCasing, multiblock);
+				addComponent(-1, -1, 1, advancedCasing, multiblock);
+				addComponent(1, -1, -1, advancedCasing, multiblock);
+				addComponent(1, -1, 1, advancedCasing, multiblock);
 
-					addComponent(0, -3, 0, advancedCasing, multiblock);
-					addComponent(1, -3, 0, advancedCasing, multiblock);
-					addComponent(0, -3, 1, advancedCasing, multiblock);
-					addComponent(-1, -3, 0, advancedCasing, multiblock);
-					addComponent(0, -3, -1, advancedCasing, multiblock);
-					addComponent(-1, -3, -1, advancedCasing, multiblock);
-					addComponent(-1, -3, 1, advancedCasing, multiblock);
-					addComponent(1, -3, -1, advancedCasing, multiblock);
-					addComponent(1, -3, 1, advancedCasing, multiblock);
+				addComponent(1, -2, 0, industrialCasing, multiblock);
+				addComponent(0, -2, 1, industrialCasing, multiblock);
+				addComponent(-1, -2, 0, industrialCasing, multiblock);
+				addComponent(0, -2, -1, industrialCasing, multiblock);
+				addComponent(-1, -2, -1, industrialCasing, multiblock);
+				addComponent(-1, -2, 1, industrialCasing, multiblock);
+				addComponent(1, -2, -1, industrialCasing, multiblock);
+				addComponent(1, -2, 1, industrialCasing, multiblock);
 
-					blockEntity.renderMultiblock = multiblock;
-				}
-			} else {
-				blockEntity.renderMultiblock = null;
+				addComponent(0, -3, 0, advancedCasing, multiblock);
+				addComponent(1, -3, 0, advancedCasing, multiblock);
+				addComponent(0, -3, 1, advancedCasing, multiblock);
+				addComponent(-1, -3, 0, advancedCasing, multiblock);
+				addComponent(0, -3, -1, advancedCasing, multiblock);
+				addComponent(-1, -3, -1, advancedCasing, multiblock);
+				addComponent(-1, -3, 1, advancedCasing, multiblock);
+				addComponent(1, -3, -1, advancedCasing, multiblock);
+				addComponent(1, -3, 1, advancedCasing, multiblock);
+
+				blockEntity.renderMultiblock = multiblock;
 			}
+		} else {
+			blockEntity.renderMultiblock = null;
 		}
 	}
 	

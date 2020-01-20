@@ -34,8 +34,8 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.multiblock.Multiblock;
-import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
+import techreborn.init.TRContent;
 
 public class GuiIndustrialGrinder extends GuiBase<BuiltContainer> {
 
@@ -89,50 +89,49 @@ public class GuiIndustrialGrinder extends GuiBase<BuiltContainer> {
 	}
 
 	public void onClick(GuiButtonExtended button, double mouseX, double mouseY){
-		if (GuiBase.slotConfigType == SlotConfigType.NONE) {
-			if (blockEntity.renderMultiblock == null) {
-				{
-					// This code here makes a basic multiblock and then sets to the selected one.
-					final Multiblock multiblock = new Multiblock();
-					BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-					BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-					
-					addComponent(0, -1, 0, standardCasing, multiblock);
-					addComponent(1, -1, 0, standardCasing, multiblock);
-					addComponent(0, -1, 1, standardCasing, multiblock);
-					addComponent(-1, -1, 0, standardCasing, multiblock);
-					addComponent(0, -1, -1, standardCasing, multiblock);
-					addComponent(-1, -1, -1, standardCasing, multiblock);
-					addComponent(-1, -1, 1, standardCasing, multiblock);
-					addComponent(1, -1, -1, standardCasing, multiblock);
-					addComponent(1, -1, 1, standardCasing, multiblock);
+		if (isTabOpen()) return;
+		if (blockEntity.renderMultiblock == null) {
+			{
+				// This code here makes a basic multiblock and then sets to the selected one.
+				final Multiblock multiblock = new Multiblock();
+				BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
+				BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 
-					addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
-					addComponent(1, 0, 0, reinforcedCasing, multiblock);
-					addComponent(0, 0, 1, reinforcedCasing, multiblock);
-					addComponent(-1, 0, 0, reinforcedCasing, multiblock);
-					addComponent(0, 0, -1, reinforcedCasing, multiblock);
-					addComponent(-1, 0, -1, reinforcedCasing, multiblock);
-					addComponent(-1, 0, 1, reinforcedCasing, multiblock);
-					addComponent(1, 0, -1, reinforcedCasing, multiblock);
-					addComponent(1, 0, 1, reinforcedCasing, multiblock);
+				addComponent(0, -1, 0, standardCasing, multiblock);
+				addComponent(1, -1, 0, standardCasing, multiblock);
+				addComponent(0, -1, 1, standardCasing, multiblock);
+				addComponent(-1, -1, 0, standardCasing, multiblock);
+				addComponent(0, -1, -1, standardCasing, multiblock);
+				addComponent(-1, -1, -1, standardCasing, multiblock);
+				addComponent(-1, -1, 1, standardCasing, multiblock);
+				addComponent(1, -1, -1, standardCasing, multiblock);
+				addComponent(1, -1, 1, standardCasing, multiblock);
 
-					addComponent(0, 1, 0, standardCasing, multiblock);
-					addComponent(0, 1, 0, standardCasing, multiblock);
-					addComponent(1, 1, 0, standardCasing, multiblock);
-					addComponent(0, 1, 1, standardCasing, multiblock);
-					addComponent(-1, 1, 0, standardCasing, multiblock);
-					addComponent(0, 1, -1, standardCasing, multiblock);
-					addComponent(-1, 1, -1, standardCasing, multiblock);
-					addComponent(-1, 1, 1, standardCasing, multiblock);
-					addComponent(1, 1, -1, standardCasing, multiblock);
-					addComponent(1, 1, 1, standardCasing, multiblock);
+				addComponent(0, 0, 0, Blocks.WATER.getDefaultState(), multiblock);
+				addComponent(1, 0, 0, reinforcedCasing, multiblock);
+				addComponent(0, 0, 1, reinforcedCasing, multiblock);
+				addComponent(-1, 0, 0, reinforcedCasing, multiblock);
+				addComponent(0, 0, -1, reinforcedCasing, multiblock);
+				addComponent(-1, 0, -1, reinforcedCasing, multiblock);
+				addComponent(-1, 0, 1, reinforcedCasing, multiblock);
+				addComponent(1, 0, -1, reinforcedCasing, multiblock);
+				addComponent(1, 0, 1, reinforcedCasing, multiblock);
 
-					blockEntity.renderMultiblock = multiblock;
-				}
-			} else {
-				blockEntity.renderMultiblock = null;
+				addComponent(0, 1, 0, standardCasing, multiblock);
+				addComponent(0, 1, 0, standardCasing, multiblock);
+				addComponent(1, 1, 0, standardCasing, multiblock);
+				addComponent(0, 1, 1, standardCasing, multiblock);
+				addComponent(-1, 1, 0, standardCasing, multiblock);
+				addComponent(0, 1, -1, standardCasing, multiblock);
+				addComponent(-1, 1, -1, standardCasing, multiblock);
+				addComponent(-1, 1, 1, standardCasing, multiblock);
+				addComponent(1, 1, -1, standardCasing, multiblock);
+				addComponent(1, 1, 1, standardCasing, multiblock);
+
+				blockEntity.renderMultiblock = multiblock;
 			}
+		} else {
+			blockEntity.renderMultiblock = null;
 		}
 	}
 
