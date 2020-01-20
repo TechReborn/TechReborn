@@ -313,7 +313,10 @@ public class TechRebornConfig {
 	public static int lesuStoragePerBlock = 1_000_000;
 
 	@Config(config = "machines", category = "lesu", key = "LesuExtraIO", comment = "LESU Extra I/O Multiplier")
-	public static int lesuExtraIOPerBlock = 8;
+	public static int lesuExtraIOPerBlock = 1;
+
+	@Config(config = "machines", category = "lesu", key = "LesuBaseOutput", comment = "LESU Base Output")
+	public static int lesuBaseOutput = 5;
 
 	@Config(config = "machines", category = "aesu", key = "AesuMaxEnergy", comment = "AESU Max Energy")
 	public static int aesuMaxEnergy = 100_000_000;

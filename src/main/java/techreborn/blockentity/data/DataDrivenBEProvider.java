@@ -118,7 +118,7 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 			super(provider, provider.getSimpleName(), provider.maxInput, provider.energy, provider.block, provider.getEnergySlot());
 			this.provider = provider;
 
-			RebornRecipeType recipeType = ModRecipes.byName(provider.identifier);
+			RebornRecipeType<?> recipeType = ModRecipes.byName(provider.identifier);
 			Validate.notNull(recipeType);
 
 			this.inventory = new RebornInventory<>(provider.slots.size(), provider.getSimpleName() + "BlockEntity", 64, this);
