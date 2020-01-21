@@ -84,7 +84,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	public void tickArmor(ItemStack stack, PlayerEntity playerEntity) {
 		switch (this.slot) {
 			case HEAD:
-				if (playerEntity.isInWater()) {
+				if (playerEntity.isSubmergedInWater()) {
 					if (Energy.of(stack).use(breathingCost)) {
 						playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 5, 1));
 					}
