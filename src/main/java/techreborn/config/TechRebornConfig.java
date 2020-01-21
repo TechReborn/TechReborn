@@ -178,23 +178,23 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "electricTreetapCost", comment = "Energy Cost for Electric Treetap (FE)")
 	public static int electricTreetapCost = 20;
 
-	@Config(config = "items", category = "power", key = "basicDrillCharge", comment = "Energy Capacity for Basic Drill (FE)")
-	public static int basicDrillCharge = 40_000;
+	@Config(config = "items", category = "power", key = "basicDrillCharge", comment = "Energy Capacity for Basic Drill")
+	public static int basicDrillCharge = 10_000;
 
-	@Config(config = "items", category = "power", key = "basicDrillCost", comment = "Energy Cost for Basic Drill (FE)")
+	@Config(config = "items", category = "power", key = "basicDrillCost", comment = "Energy Cost for Basic Drill")
 	public static int basicDrillCost = 50;
 
-	@Config(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill (FE)")
-	public static int advancedDrillCharge = 400_000;
+	@Config(config = "items", category = "power", key = "advancedDrillCharge", comment = "Energy Capacity for Advanced Drill")
+	public static int advancedDrillCharge = 100_000;
 
-	@Config(config = "items", category = "power", key = "advancedDrillCost", comment = "Energy Cost for Advanced Drill (FE)")
+	@Config(config = "items", category = "power", key = "advancedDrillCost", comment = "Energy Cost for Advanced Drill")
 	public static int advancedDrillCost = 100;
 
-	@Config(config = "items", category = "power", key = "industrialDrillCharge", comment = "Energy Capacity for Industrial Drill (FE)")
-	public static int industrialDrillCharge = 4_000_000;
+	@Config(config = "items", category = "power", key = "industrialDrillCharge", comment = "Energy Capacity for Industrial Drill")
+	public static int industrialDrillCharge = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "industrialDrillCost", comment = "Energy Cost for Industrial Drill (FE)")
-	public static int industrialDrillCost = 250;
+	@Config(config = "items", category = "power", key = "industrialDrillCost", comment = "Energy Cost for Industrial Drill")
+	public static int industrialDrillCost = 150;
 
 	@Config(config = "items", category = "power", key = "basicChainsawCharge", comment = "Energy Capacity for Basic Chainsaw (FE)")
 	public static int basicChainsawCharge = 40_000;
