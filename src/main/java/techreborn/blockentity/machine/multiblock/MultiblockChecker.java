@@ -35,8 +35,8 @@ public class MultiblockChecker {
 	public static final BlockPos ZERO_OFFSET = BlockPos.ORIGIN;
 
 	public static final String STANDARD_CASING = "standard";
-	public static final String REINFORCED_CASING = "reinforced";
 	public static final String ADVANCED_CASING = "advanced";
+	public static final String INDUSTRIAL_CASING = "industrial";
 	public static final String CASING_ANY = "any";
 
 	private final World world;
@@ -56,10 +56,10 @@ public class MultiblockChecker {
 			} else if ( type == "standard" && block ==  TRContent.MachineBlocks.BASIC.getCasing()) {
 				return true;
 			}
-			else if (type == "reinforced" && block ==  TRContent.MachineBlocks.ADVANCED.getCasing()) {
+			else if (type == "advanced" && block ==  TRContent.MachineBlocks.ADVANCED.getCasing()) {
 				return true;
 			}
-			else if (type == "advanced" && block ==  TRContent.MachineBlocks.INDUSTRIAL.getCasing()) {
+			else if (type == "industrial" && block ==  TRContent.MachineBlocks.INDUSTRIAL.getCasing()) {
 				return true;
 			}
 		}

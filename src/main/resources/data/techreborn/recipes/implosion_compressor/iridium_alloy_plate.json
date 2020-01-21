@@ -5,7 +5,7 @@
   "ingredients" : [
     {
       "item": "minecraft:tnt",
-      "count": 16
+      "count": 8
     },
     {
       "item": "techreborn:iridium_alloy_ingot"

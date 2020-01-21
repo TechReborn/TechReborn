@@ -46,15 +46,13 @@ public class LesuNetwork {
 	private void rebuild() {
 		master = null;
 		for (LSUStorageBlockEntity lesuStorage : storages) {
-			lesuStorage.findAndJoinNetwork(lesuStorage.getWorld(), lesuStorage.getPos().getX(),
-				lesuStorage.getPos().getY(), lesuStorage.getPos().getZ());
+			lesuStorage.findAndJoinNetwork(lesuStorage.getWorld(), lesuStorage.getPos());
 		}
 	}
 
 	public void merge(LesuNetwork network) {
 		if (network != this) {
-			ArrayList<LSUStorageBlockEntity> blockEntityLesuStorages = new ArrayList<>();
-			blockEntityLesuStorages.addAll(network.storages);
+			ArrayList<LSUStorageBlockEntity> blockEntityLesuStorages = new ArrayList<>(network.storages);
 			network.clear(false);
 			for (LSUStorageBlockEntity lesuStorage : blockEntityLesuStorages) {
 				lesuStorage.setNetwork(this);

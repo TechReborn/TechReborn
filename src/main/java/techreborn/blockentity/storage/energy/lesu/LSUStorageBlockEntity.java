@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy.lesu;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -43,27 +44,27 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 		super(TRBlockEntities.LSU_STORAGE);
 	}
 
-	public final void findAndJoinNetwork(World world, int x, int y, int z) {
+	public final void findAndJoinNetwork(World world, BlockPos pos) {
 		network = new LesuNetwork();
 		network.addElement(this);
 		for (Direction direction : Direction.values()) {
-			if (world.getBlockEntity(new BlockPos(x + direction.getOffsetX(), y + direction.getOffsetY(),
-					z + direction.getOffsetZ())) instanceof LSUStorageBlockEntity) {
-				LSUStorageBlockEntity lesu = (LSUStorageBlockEntity) world.getBlockEntity(new BlockPos(x + direction.getOffsetX(),
-				                                                                                       y + direction.getOffsetY(), z + direction.getOffsetZ()));
-				if (lesu.network != null) {
-					lesu.network.merge(network);
-				}
+			BlockEntity be = world.getBlockEntity(pos.offset(direction));
+			if (!(be instanceof LSUStorageBlockEntity)) {
+				continue;
+			}
+			LSUStorageBlockEntity lesuStorage = (LSUStorageBlockEntity) be;
+			if (lesuStorage.network != null) {
+				lesuStorage.network.merge(network);
 			}
 		}
 	}
 
 	public final void setNetwork(LesuNetwork n) {
 		if (n == null) {
-		} else {
-			network = n;
-			network.addElement(this);
+			return;
 		}
+		network = n;
+		network.addElement(this);
 	}
 
 	public final void resetNetwork() {
@@ -72,14 +73,15 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 
 	public final void removeFromNetwork() {
 		if (network == null) {
-		} else
-			network.removeElement(this);
+			return;
+		}
+		network.removeElement(this);
 	}
 
 	public final void rebuildNetwork() {
 		removeFromNetwork();
 		resetNetwork();
-		findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
+		findAndJoinNetwork(world, pos);
 	}
 
 	// TileMachineBase
@@ -87,7 +89,7 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 	public void tick() {
 		super.tick();
 		if (network == null) {
-			findAndJoinNetwork(world, pos.getX(), pos.getY(), pos.getZ());
+			findAndJoinNetwork(world, pos);
 		} else {
 			if (network.master != null
 					&& network.master.getWorld().getBlockEntity(new BlockPos(network.master.getPos().getX(),

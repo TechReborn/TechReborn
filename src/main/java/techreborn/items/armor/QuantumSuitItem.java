@@ -47,7 +47,6 @@ import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
-import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
@@ -59,6 +58,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	public final double swimCost = TechRebornConfig.quantumSuitSwimmingCost;
 	public final double breathingCost = TechRebornConfig.quantumSuitBreathingCost;
 	public final double sprintingCost = TechRebornConfig.quantumSuitSprintingCost;
+	public final double fireExtinguishCost = TechRebornConfig.fireExtinguishCost;
 
 	public QuantumSuitItem(ArmorMaterial material, EquipmentSlot slot) {
 		super(material, slot, new Item.Settings().group(TechReborn.ITEMGROUP).maxDamage(-1).maxCount(1));
@@ -96,9 +96,13 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 					if (playerEntity.abilities.flying) {
 						Energy.of(stack).use(flyCost);
 					}
+					playerEntity.onGround = true;
 				} else {
 					playerEntity.abilities.allowFlying = false;
 					playerEntity.abilities.flying = false;
+				}
+				if (playerEntity.isOnFire() && Energy.of(stack).getEnergy() > fireExtinguishCost) {
+					playerEntity.extinguish();
 				}
 				break;
 			case LEGS:

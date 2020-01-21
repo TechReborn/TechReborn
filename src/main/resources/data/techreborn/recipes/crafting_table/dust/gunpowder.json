@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "techreborn:charcoal_dust"
+    },
+    {
+      "item": "techreborn:sulfur_dust"
+    },
+    {
+      "item": "techreborn:saltpeter_dust"
+    },
+    {
+      "item": "techreborn:saltpeter_dust"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gunpowder",
+	"count": 2
+  }
+}

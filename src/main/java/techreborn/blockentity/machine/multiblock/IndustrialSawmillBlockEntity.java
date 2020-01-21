@@ -70,7 +70,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 		}
 		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
 		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING, new BlockPos(0, 1, 0));
+		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
 		final BlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
 		final boolean center = ((centerBlock.getBlock() instanceof FluidBlock
 				|| centerBlock.getBlock() instanceof FluidBlock)

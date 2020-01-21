@@ -43,44 +43,73 @@ import java.util.ArrayList;
 
 public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider{
 
-	public int connectedBlocks = 0;
+	private int connectedBlocks = 0;
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public LapotronicSUBlockEntity() {
-		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, 1_000_000);
+		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
 		checkOverfill = false;
+		this.maxOutput = TechRebornConfig.lesuBaseOutput;
 	}
 
+	private void setMaxStorage(){
+		maxStorage  = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
+		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE) {
+			maxStorage = Integer.MAX_VALUE;
+		}
+	}
+
+	private void setIORate(){
+		maxOutput = TechRebornConfig.lesuBaseOutput +  (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock);
+		if (connectedBlocks < 32) {
+			return;
+		}
+		else if (connectedBlocks < 128) {
+			maxInput = EnergyTier.MEDIUM.getMaxInput();
+		}
+		else {
+			maxInput = EnergyTier.HIGH.getMaxInput();
+		}
+	}
+
+	private void checkNetwork() {
+		countedNetworks.clear();
+		connectedBlocks = 0;
+		for (Direction dir : Direction.values()) {
+			BlockEntity adjacent = world.getBlockEntity(pos.offset(dir));
+			if (!(adjacent instanceof LSUStorageBlockEntity)) {
+				continue;
+			}
+			LesuNetwork network = ((LSUStorageBlockEntity) adjacent).network;
+			if (network == null) {
+				continue;
+			}
+			if (countedNetworks.contains(network)) {
+				continue;
+			}
+			if (network.master == null || network.master == this) {
+				connectedBlocks += network.storages.size();
+				countedNetworks.add(network);
+				network.master = this;
+				break;
+			}
+		}
+	}
+
+	// EnergyStorageBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
 		if (world.isClient) {
 			return;
 		}
-		countedNetworks.clear();
-		connectedBlocks = 0;
-		for (Direction dir : Direction.values()) {
-			BlockPos adjucentBlockPos = getPos().offset(dir);
-			BlockEntity adjucent = world.getBlockEntity(adjucentBlockPos);
-			if (!(adjucent instanceof LSUStorageBlockEntity)) {
-				continue;
-			}
-			if (((LSUStorageBlockEntity) adjucent).network == null) {
-				continue;
-			}
-			LesuNetwork network = ((LSUStorageBlockEntity) adjucent).network;
-			if (!countedNetworks.contains(network)) {
-				if (network.master == null || network.master == this) {
-					connectedBlocks += network.storages.size();
-					countedNetworks.add(network);
-					network.master = this;
-					break;
-				}
-			}
 
+		if (world.getTime() % 20 == 0) {
+			checkNetwork();
 		}
+
 		setMaxStorage();
-		maxOutput = (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock) + tier.getMaxOutput();
+		setIORate();
 
 		if (getEnergy() > getMaxStoredPower()) {
 			setEnergy(getMaxStoredPower());
@@ -95,38 +124,40 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		}
 		return null;
 	}
-	
-	public int getOutputRate() {
-		return maxOutput;
-	}
-	
-	public void setOutputRate(int output) {
-		this.maxOutput = output;
-	}
-	
-	public int getConnectedBlocksNum() {
-		return connectedBlocks;
-	}
-	
-	public void setConnectedBlocksNum(int value) {
-		this.connectedBlocks = value;
-		if (world.isClient) {
-			setMaxStorage();
-		}
-	}
-	
-	public void setMaxStorage(){
-		maxStorage  = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
-		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE) {
-			maxStorage = Integer.MAX_VALUE;
-		}
-	}
 
+	// IContainerProvider
 	@Override
 	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
 		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
-				.sync(this::getOutputRate, this::setOutputRate)
 				.sync(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
+	}
+
+//	public int getOutputRate() {
+//		return maxOutput;
+//	}
+//
+//	public void setOutputRate(int output) {
+//		this.maxOutput = output;
+//	}
+//
+//	public int getInputRate(){
+//		return maxInput;
+//	}
+//
+//	public void setInputRate(int input){
+//		this.maxInput = input;
+//	}
+
+	public int getConnectedBlocksNum() {
+		return connectedBlocks;
+	}
+
+	public void setConnectedBlocksNum(int value) {
+		this.connectedBlocks = value;
+		if (world.isClient) {
+			setMaxStorage();
+			setIORate();
+		}
 	}
 }

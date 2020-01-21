@@ -66,7 +66,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		if (multiblockChecker == null) {
 			return false;
 		}
-		final boolean ring = multiblockChecker.checkRingY(1, 1, MultiblockChecker.REINFORCED_CASING,
+		final boolean ring = multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING,
 				MultiblockChecker.ZERO_OFFSET);
 		return ring;
 	}
