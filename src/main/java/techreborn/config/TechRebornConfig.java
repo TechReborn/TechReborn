@@ -289,6 +289,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "quantumSuitSprintingCost", comment = "Quantum Suit Sprinting Cost")
 	public static double quantumSuitSprintingCost = 20;
 
+	@Config(config = "items", category = "power", key = "quantumSuitFireExtinguishCost", comment = "Quantum Suit Cost for Fire Extinguish")
+	public static double fireExtinguishCost = 50;
+
 	@Config(config = "items", category = "upgrades", key = "overclcoker_speed", comment = "Overclocker behavior speed multipiler")
 	public static double overclockerSpeed = 0.25;
 
