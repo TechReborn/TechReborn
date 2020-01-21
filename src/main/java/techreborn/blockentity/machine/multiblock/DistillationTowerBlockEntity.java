@@ -56,9 +56,9 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 			return false;
 		}
 		final boolean layer0 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
+		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.INDUSTRIAL_CASING, new BlockPos(0, 1, 0));
 		final boolean layer2 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean layer3 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 3, 0));
+		final boolean layer3 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.INDUSTRIAL_CASING, new BlockPos(0, 3, 0));
 		final Material centerBlock1 = multiblockChecker.getBlock(0, 1, 0).getMaterial();
 		final Material centerBlock2 = multiblockChecker.getBlock(0, 2, 0).getMaterial();
 		final boolean center1 = (centerBlock1 == Material.AIR);

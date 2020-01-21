@@ -87,7 +87,7 @@ public class GuiDistillationTower extends GuiBase<BuiltContainer> {
 			{
 				// This code here makes a basic multiblock and then sets to the selected one.
 				final Multiblock multiblock = new Multiblock();
-				BlockState advancedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+				BlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
 				BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 
 				addComponent(0, 0, 0, standardCasing, multiblock);
@@ -100,14 +100,14 @@ public class GuiDistillationTower extends GuiBase<BuiltContainer> {
 				addComponent(1, 0, -1, standardCasing, multiblock);
 				addComponent(1, 0, 1, standardCasing, multiblock);
 
-				addComponent(1, 1, 0, advancedCasing, multiblock);
-				addComponent(0, 1, 1, advancedCasing, multiblock);
-				addComponent(-1, 1, 0, advancedCasing, multiblock);
-				addComponent(0, 1, -1, advancedCasing, multiblock);
-				addComponent(-1, 1, -1, advancedCasing, multiblock);
-				addComponent(-1, 1, 1, advancedCasing, multiblock);
-				addComponent(1, 1, -1, advancedCasing, multiblock);
-				addComponent(1, 1, 1, advancedCasing, multiblock);
+				addComponent(1, 1, 0, industrialCasing, multiblock);
+				addComponent(0, 1, 1, industrialCasing, multiblock);
+				addComponent(-1, 1, 0, industrialCasing, multiblock);
+				addComponent(0, 1, -1, industrialCasing, multiblock);
+				addComponent(-1, 1, -1, industrialCasing, multiblock);
+				addComponent(-1, 1, 1, industrialCasing, multiblock);
+				addComponent(1, 1, -1, industrialCasing, multiblock);
+				addComponent(1, 1, 1, industrialCasing, multiblock);
 
 				addComponent(1, 2, 0, standardCasing, multiblock);
 				addComponent(0, 2, 1, standardCasing, multiblock);
@@ -118,15 +118,15 @@ public class GuiDistillationTower extends GuiBase<BuiltContainer> {
 				addComponent(1, 2, -1, standardCasing, multiblock);
 				addComponent(1, 2, 1, standardCasing, multiblock);
 
-				addComponent(0, 3, 0, advancedCasing, multiblock);
-				addComponent(1, 3, 0, advancedCasing, multiblock);
-				addComponent(0, 3, 1, advancedCasing, multiblock);
-				addComponent(-1, 3, 0, advancedCasing, multiblock);
-				addComponent(0, 3, -1, advancedCasing, multiblock);
-				addComponent(-1, 3, -1, advancedCasing, multiblock);
-				addComponent(-1, 3, 1, advancedCasing, multiblock);
-				addComponent(1, 3, -1, advancedCasing, multiblock);
-				addComponent(1, 3, 1, advancedCasing, multiblock);
+				addComponent(0, 3, 0, industrialCasing, multiblock);
+				addComponent(1, 3, 0, industrialCasing, multiblock);
+				addComponent(0, 3, 1, industrialCasing, multiblock);
+				addComponent(-1, 3, 0, industrialCasing, multiblock);
+				addComponent(0, 3, -1, industrialCasing, multiblock);
+				addComponent(-1, 3, -1, industrialCasing, multiblock);
+				addComponent(-1, 3, 1, industrialCasing, multiblock);
+				addComponent(1, 3, -1, industrialCasing, multiblock);
+				addComponent(1, 3, 1, industrialCasing, multiblock);
 
 				blockEntity.renderMultiblock = multiblock;
 			}
