@@ -26,12 +26,14 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.api.power.ItemPowerHolder;
+import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
@@ -40,7 +42,14 @@ import techreborn.blockentity.storage.energy.idsu.IDSUManager;
 import techreborn.client.GuiHandler;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
-import techreborn.init.*;
+import techreborn.init.FluidGeneratorRecipes;
+import techreborn.init.ModLoot;
+import techreborn.init.ModRecipes;
+import techreborn.init.ModSounds;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
+import techreborn.init.TRDispenserBehavior;
+import techreborn.items.DynamicCellItem;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
@@ -86,6 +95,9 @@ public class TechReborn implements ModInitializer {
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
 		DataAttachment.REGISTRY.register(IDSUManager.class, IDSUManager::new);
+
+		RedstoneConfiguration.fluidStack = DynamicCellItem.getCellWithFluid(Fluids.LAVA);
+		RedstoneConfiguration.powerStack = new ItemStack(TRContent.RED_CELL_BATTERY);
 
 		LOGGER.info("TechReborn setup done!");
 

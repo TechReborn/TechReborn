@@ -59,7 +59,7 @@ public class GuiChunkLoader extends GuiBase<BuiltContainer> {
 		super.drawBackground(partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		if (isTabOpen()) return;
+		if (hideGuiElements()) return;
 
 		String text = "Radius: " + blockEntity.getRadius();
 		drawCentredString(text, 25, 4210752, layer);

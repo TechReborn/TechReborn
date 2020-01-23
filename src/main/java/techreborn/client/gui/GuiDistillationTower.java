@@ -82,7 +82,7 @@ public class GuiDistillationTower extends GuiBase<BuiltContainer> {
 	}
 
 	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (isTabOpen()) return;
+		if (hideGuiElements()) return;
 		if (blockEntity.renderMultiblock == null) {
 			{
 				// This code here makes a basic multiblock and then sets to the selected one.

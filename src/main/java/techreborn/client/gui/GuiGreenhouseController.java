@@ -101,7 +101,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltContainer> {
 	}
 	
 	public void onClick(GuiButtonExtended button, Double x, Double y) {
-		if (isTabOpen()) return;
+		if (hideGuiElements()) return;
 		if (blockEntity.renderMultiblock == null) {
 			final Multiblock multiblock = new Multiblock();
 			BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.getDefaultState().with(Properties.FACING, Direction.DOWN);

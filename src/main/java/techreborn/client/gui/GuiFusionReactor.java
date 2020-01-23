@@ -115,7 +115,7 @@ public class GuiFusionReactor extends GuiBase<BuiltContainer> {
 	}
 
 	public void hologramToggle(GuiButtonExtended button, double x, double y){
-		if (isTabOpen()) return;
+		if (hideGuiElements()) return;
 		if (blockEntity.renderMultiblock == null) {
 			updateMultiBlockRender();
 		} else {

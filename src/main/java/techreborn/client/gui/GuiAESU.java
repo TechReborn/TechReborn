@@ -70,7 +70,7 @@ public class GuiAESU extends GuiBase<BuiltContainer> {
 		super.drawForeground(mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if(!isTabOpen()){
+		if(!hideGuiElements()){
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 1);
 			drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/"
