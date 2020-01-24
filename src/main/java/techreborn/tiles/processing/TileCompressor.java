@@ -51,7 +51,7 @@ public class TileCompressor extends TileMachine {
     // << Config
 
     public TileCompressor() {
-        super("Compressor", maxInput, maxEnergy, 2, 3, Recipes.grinder, ModBlocks.COMPRESSOR);
+        super("Compressor", maxInput, maxEnergy, 2, 3, Recipes.compressor, ModBlocks.COMPRESSOR);
     }
 
     // IContainerProvider >>
