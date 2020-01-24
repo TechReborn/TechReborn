@@ -59,7 +59,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	public static final int maxCharge = TechRebornConfig.nanosaberCharge;
 	public int cost = TechRebornConfig.nanosaberCost;
 
-	// 4M FE max charge with 1k charge rate
+	// 4ME max charge with 1k charge rate
 	public NanosaberItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.addPropertyGetter(new Identifier("techreborn:active"), (stack, worldIn, entityIn) -> {

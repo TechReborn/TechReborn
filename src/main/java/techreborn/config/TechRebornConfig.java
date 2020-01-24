@@ -166,11 +166,11 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "general", key = "enableGemTools", comment = "Enable Gem armor and tools")
 	public static boolean enableGemArmorAndTools = true;
 
-	@Config(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber (FE)")
-	public static int nanosaberCharge = 4_000_000;
+	@Config(config = "items", category = "power", key = "nanoSaberCharge", comment = "Energy Capacity for Nano Saber")
+	public static int nanosaberCharge = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "nanoSaberCost", comment = "Energy Cost for Nano Saber (FE)")
-	public static int nanosaberCost = 250;
+	@Config(config = "items", category = "power", key = "nanoSaberCost", comment = "Energy Cost for Nano Saber")
+	public static int nanosaberCost = 150;
 
 	@Config(config = "items", category = "power", key = "electricTreetapCharge", comment = "Energy Capacity for Electric Treetap")
 	public static int electricTreetapCharge = 10_000;
@@ -232,13 +232,13 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "industrialJackhammerCost", comment = "Energy Cost for Industrial Jackhammer")
 	public static int industrialJackhammerCost = 150;
 
-	@Config(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool (FE)")
-	public static int omniToolCharge = 4_000_000;
+	@Config(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool")
+	public static int omniToolCharge = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "omniToolCost", comment = "Energy Cost for Omni Tool (FE)")
+	@Config(config = "items", category = "power", key = "omniToolCost", comment = "Energy Cost for Omni Tool")
 	public static int omniToolCost = 100;
 
-	@Config(config = "items", category = "power", key = "omniToolHitCost", comment = "Hit Energy Cost for Omni Tool (FE)")
+	@Config(config = "items", category = "power", key = "omniToolHitCost", comment = "Hit Energy Cost for Omni Tool")
 	public static int omniToolHitCost = 125;
 
 	@Config(config = "items", category = "power", key = "rockCutterCharge", comment = "Energy Capacity for Rock Cutter (FE)")
