@@ -74,7 +74,7 @@ public class BlockPlayerDetector extends RebornMachineBlock {
 
 	public static final String[] types = new String[] { "all", "others", "you" };
 	static List<String> typeNamesList = Lists.newArrayList(ArrayUtils.arrayToLowercase(types));
-	public PropertyString TYPE;
+	public static PropertyString TYPE;
 
 	public BlockPlayerDetector() {
 		super(true);
@@ -172,6 +172,11 @@ public class BlockPlayerDetector extends RebornMachineBlock {
 	public int getMetaFromState(IBlockState state) {
 		return typeNamesList.indexOf(state.getValue(TYPE));
 	}
+	
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    	return state;
+    }
 
 	@Override
 	public IMachineGuiHandler getGui() {

@@ -24,6 +24,7 @@
 
 package techreborn.tiles.generator;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -57,7 +58,24 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	public TileSolarPanel(EnumPanelType panel) {
 		this.panel = panel;
 	}
+	
+	private boolean isSunnyDay() {
+		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaytime();
+	}
 
+	private boolean isRainyDay() {
+		return canSeeSky && world.isRaining() && !world.isThundering() && world.isDaytime();
+	}
+
+	private boolean isStormyDay() {
+		return canSeeSky && world.isRaining() && world.isThundering() && world.isDaytime();
+	}
+
+	private boolean isClearNight() {
+		return canSeeSky && !world.isRaining() && !world.isThundering() && !world.isDaytime();
+	}
+
+	// TilePowerAcceptor
 	@Override
 	public void update() {
 		super.update();
@@ -86,22 +104,6 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 		}
 
 		addEnergy(powerToAdd);
-	}
-
-	public boolean isSunnyDay() {
-		return canSeeSky && !world.isRaining() && !world.isThundering() && world.isDaytime();
-	}
-
-	public boolean isRainyDay() {
-		return canSeeSky && world.isRaining() && !world.isThundering() && world.isDaytime();
-	}
-
-	public boolean isStormyDay() {
-		return canSeeSky && world.isRaining() && world.isThundering() && world.isDaytime();
-	}
-
-	public boolean isClearNight() {
-		return canSeeSky && !world.isRaining() && !world.isThundering() && !world.isDaytime();
 	}
 
 	@Override
@@ -138,17 +140,7 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 	public EnumPowerTier getBaseTier() {
 		return getTier();
 	}
-
-	@Override
-	public ItemStack getToolDrop(final EntityPlayer playerIn) {
-		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, panel.ordinal());
-	}
 	
-	@Override
-	public void rotate(Rotation rotationIn) {
-		return;
-	}
-
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		if(tag.hasKey("panelType")){
@@ -189,5 +181,23 @@ public class TileSolarPanel extends TilePowerAcceptor implements IToolDrop {
 			+ PowerSystem.getLocaliszedPowerFormatted(0));
 
 		info.add(TextFormatting.GRAY + "Tier: " + TextFormatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString()));
+	}
+	
+	// RebornMachineTile
+    public IBlockState getBlockState() {
+        return world.getBlockState(pos).getBlock().getDefaultState()
+                .withProperty(BlockSolarPanel.ACTIVE, isActive())
+                .withProperty(BlockSolarPanel.TYPE, panel);
+    }
+
+	@Override
+	public void rotate(Rotation rotationIn) {
+		return;
+	}
+	
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(final EntityPlayer playerIn) {
+		return new ItemStack(ModBlocks.SOLAR_PANEL, 1, panel.ordinal());
 	}
 }
