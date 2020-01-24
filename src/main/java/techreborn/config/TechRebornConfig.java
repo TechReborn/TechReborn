@@ -172,11 +172,11 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "nanoSaberCost", comment = "Energy Cost for Nano Saber (FE)")
 	public static int nanosaberCost = 250;
 
-	@Config(config = "items", category = "power", key = "electricTreetapCharge", comment = "Energy Capacity for Electric Treetap (FE)")
+	@Config(config = "items", category = "power", key = "electricTreetapCharge", comment = "Energy Capacity for Electric Treetap")
 	public static int electricTreetapCharge = 10_000;
 
-	@Config(config = "items", category = "power", key = "electricTreetapCost", comment = "Energy Cost for Electric Treetap (FE)")
-	public static int electricTreetapCost = 20;
+	@Config(config = "items", category = "power", key = "electricTreetapCost", comment = "Energy Cost for Electric Treetap")
+	public static int electricTreetapCost = 50;
 
 	@Config(config = "items", category = "power", key = "basicDrillCharge", comment = "Energy Capacity for Basic Drill")
 	public static int basicDrillCharge = 10_000;
@@ -196,41 +196,41 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "industrialDrillCost", comment = "Energy Cost for Industrial Drill")
 	public static int industrialDrillCost = 150;
 
-	@Config(config = "items", category = "power", key = "basicChainsawCharge", comment = "Energy Capacity for Basic Chainsaw (FE)")
-	public static int basicChainsawCharge = 40_000;
+	@Config(config = "items", category = "power", key = "basicChainsawCharge", comment = "Energy Capacity for Basic Chainsaw")
+	public static int basicChainsawCharge = 10_000;
 
-	@Config(config = "items", category = "power", key = "basicChainsawCost", comment = "Energy Cost for Basic Chainsaw (FE)")
+	@Config(config = "items", category = "power", key = "basicChainsawCost", comment = "Energy Cost for Basic Chainsaw")
 	public static int basicChainsawCost = 50;
 
-	@Config(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw (FE)")
-	public static int advancedChainsawCharge = 400_000;
+	@Config(config = "items", category = "power", key = "advancedChainsawCharge", comment = "Energy Capacity for Advanced Chainsaw")
+	public static int advancedChainsawCharge = 100_000;
 
-	@Config(config = "items", category = "power", key = "advancedChainsawCost", comment = "Energy Cost for Advanced Chainsaw (FE)")
+	@Config(config = "items", category = "power", key = "advancedChainsawCost", comment = "Energy Cost for Advanced Chainsaw")
 	public static int advancedChainsawCost = 100;
 
-	@Config(config = "items", category = "power", key = "industrialChainsawCharge", comment = "Energy Capacity for Industrial Chainsaw (FE)")
-	public static int industrialChainsawCharge = 4_000_000;
+	@Config(config = "items", category = "power", key = "industrialChainsawCharge", comment = "Energy Capacity for Industrial Chainsaw")
+	public static int industrialChainsawCharge = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "industrialChainsawCost", comment = "Energy Cost for Industrial Chainsaw (FE)")
-	public static int industrialChainsawCost = 250;
+	@Config(config = "items", category = "power", key = "industrialChainsawCost", comment = "Energy Cost for Industrial Chainsaw")
+	public static int industrialChainsawCost = 150;
 
-	@Config(config = "items", category = "power", key = "basicJackhammerCharge", comment = "Energy Capacity for Basic Jackhammer (FE)")
-	public static int basicJackhammerCharge = 40_000;
+	@Config(config = "items", category = "power", key = "basicJackhammerCharge", comment = "Energy Capacity for Basic Jackhammer")
+	public static int basicJackhammerCharge = 10_000;
 
-	@Config(config = "items", category = "power", key = "basicJackhammerCost", comment = "Energy Cost for Basic Jackhammer (FE)")
+	@Config(config = "items", category = "power", key = "basicJackhammerCost", comment = "Energy Cost for Basic Jackhammer")
 	public static int basicJackhammerCost = 50;
 
-	@Config(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jackhammer (FE)")
-	public static int advancedJackhammerCharge = 400_000;
+	@Config(config = "items", category = "power", key = "advancedJackhammerCharge", comment = "Energy Capacity for Advanced Jackhammer")
+	public static int advancedJackhammerCharge = 100_000;
 
-	@Config(config = "items", category = "power", key = "advancedJackhammerCost", comment = "Energy Cost for Advanced Jackhammer (FE)")
+	@Config(config = "items", category = "power", key = "advancedJackhammerCost", comment = "Energy Cost for Advanced Jackhammer")
 	public static int advancedJackhammerCost = 100;
 
-	@Config(config = "items", category = "power", key = "industrialJackhammerCharge", comment = "Energy Capacity for Industrial Jackhammer (FE)")
-	public static int industrialJackhammerCharge = 4_000_000;
+	@Config(config = "items", category = "power", key = "industrialJackhammerCharge", comment = "Energy Capacity for Industrial Jackhammer")
+	public static int industrialJackhammerCharge = 1_000_000;
 
-	@Config(config = "items", category = "power", key = "industrialJackhammerCost", comment = "Energy Cost for Industrial Jackhammer (FE)")
-	public static int industrialJackhammerCost = 250;
+	@Config(config = "items", category = "power", key = "industrialJackhammerCost", comment = "Energy Cost for Industrial Jackhammer")
+	public static int industrialJackhammerCost = 150;
 
 	@Config(config = "items", category = "power", key = "omniToolCharge", comment = "Energy Capacity for Omni Tool (FE)")
 	public static int omniToolCharge = 4_000_000;
