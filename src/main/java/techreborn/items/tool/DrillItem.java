@@ -25,9 +25,13 @@
 package techreborn.items.tool;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
@@ -37,6 +41,8 @@ import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
+
+import java.util.Random;
 
 public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
@@ -73,6 +79,15 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	// MiningToolItem
 	@Override
 	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
+		return true;
+	}
+
+	@Override
+	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
+		Random rand = new Random();
+		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+			Energy.of(stack).use(cost);
+		}
 		return true;
 	}
 
