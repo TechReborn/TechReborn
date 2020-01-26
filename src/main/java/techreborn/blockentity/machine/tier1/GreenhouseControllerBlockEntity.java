@@ -150,7 +150,7 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 				if (breakBlocks) world.breakBlock(blockPos.up(y), false);
 			}
 		} else if (block instanceof BlockRubberLog) {
-			for (int y = 1; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block && y < 10; y++) {
+			for (int y = 0; (blockState = world.getBlockState(blockPos.up(y))).getBlock() == block && y < 10; y++) {
 				if (blockState.get(BlockRubberLog.HAS_SAP)
 						&& canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)
 						&& insertIntoInv(Collections.singletonList(TRContent.Parts.SAP.getStack()))
