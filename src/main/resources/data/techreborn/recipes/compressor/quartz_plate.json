@@ -1,0 +1,15 @@
+{
+  "type": "techreborn:compressor",
+  "power": 10,
+  "time": 250,
+  "ingredients": [
+    {
+      "item": "techreborn:quartz_dust"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:quartz_plate"
+    }
+  ]
+}

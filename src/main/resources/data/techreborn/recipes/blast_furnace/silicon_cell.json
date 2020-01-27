@@ -1,0 +1,33 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 1000,
+  "heat": 1500,
+  "ingredients": [
+	{
+	  "item": "techreborn:quartz_dust",
+	  "count": 2
+	},
+	{
+	  "fluid": "techreborn:carbon",
+	  "holder": "techreborn:cell",
+	  "count": 4
+	}
+  ],
+  "results": [
+	{
+	  "item": "techreborn:cell",
+	  "count": 2,
+	  "nbt": {
+		"fluid": "techreborn:silicon"
+	  }
+	},
+	{
+	  "item": "techreborn:cell",
+	  "count": 2,
+	  "nbt": {
+		"fluid": "techreborn:compressed_air"
+	  }
+	}
+  ]
+}
