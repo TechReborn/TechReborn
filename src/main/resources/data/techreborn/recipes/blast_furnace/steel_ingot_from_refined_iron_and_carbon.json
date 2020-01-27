@@ -18,7 +18,8 @@
 	  "item": "techreborn:steel_ingot"
 	},
 	{
-	  "item": "techreborn:cell"
+	  "item": "techreborn:cell",
+	  "count": 2
 	}
   ]
 }
