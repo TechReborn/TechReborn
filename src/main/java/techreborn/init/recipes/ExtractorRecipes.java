@@ -230,7 +230,7 @@ public class ExtractorRecipes extends RecipeMethods {
 			.register();
 
 		// Wool
-		IntStream.range(1, 15)
+		IntStream.range(1, 16)
 			.forEach(meta -> {
 				Recipes.extractor.createRecipe()
 					.withInput(getStack(Blocks.WOOL, 1, meta))
