@@ -24,6 +24,7 @@
 
 package techreborn.tiles.tier1;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -445,6 +446,11 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 	public EnumFacing getFacingEnum() {
 		return EnumFacing.NORTH;
 	}
+	
+	@Override
+    public void onPlaced(EntityLivingBase placer, ItemStack stack) {
+       return;
+    }
 
 	// IToolDrop
 	@Override
