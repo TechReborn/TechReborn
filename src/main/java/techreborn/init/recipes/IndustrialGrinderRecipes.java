@@ -97,7 +97,7 @@ public class IndustrialGrinderRecipes extends RecipeMethods {
 		// Iridium
 		register(getOre("oreIridium"), WATER, 100, 128, getMaterial("iridium", 1, Type.DUST), getMaterial("iridium", 6, Type.SMALL_DUST),
 			getMaterial("platinum", 2, Type.SMALL_DUST));
-		register(getOre("oreIridium"), WATER, 100, 128, getMaterial("iridium", 1, Type.DUST), getMaterial("iridium", 6, Type.SMALL_DUST),
+		register(getOre("oreIridium"), SODIUM_PERSULFATE, 100, 128, getMaterial("iridium", 1, Type.DUST), getMaterial("iridium", 6, Type.SMALL_DUST),
 			getMaterial("platinum", 2, Type.DUST));
 
 		if (oresExist("oreUranium")) {
