@@ -134,9 +134,9 @@ public abstract class TileMachine extends TilePowerAcceptor implements IToolDrop
             if (startWork()) {
                 needsInventoryUpdate = true;
 
-                if (!active) setActive(true);
+                if (!isActive()) setActive(true);
             } else { // operation conditions not satisfied
-                if (active) setActive(false);
+                if (isActive()) setActive(false);
             }
         }
 

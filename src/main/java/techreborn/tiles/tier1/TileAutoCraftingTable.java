@@ -24,7 +24,6 @@
 
 package techreborn.tiles.tier1;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -433,25 +432,7 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 		inventory.hasChanged = true;
 		super.readFromNBT(tag);
 	}
-
-	// RebornMachineTile
-	@Override
-	public boolean canBeUpgraded() {
-		return true;
-	}
-
-
-	// This machine doesnt have a facing
-	@Override
-	public EnumFacing getFacingEnum() {
-		return EnumFacing.NORTH;
-	}
 	
-	@Override
-    public void onPlaced(EntityLivingBase placer, ItemStack stack) {
-       return;
-    }
-
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(EntityPlayer playerIn) {
@@ -474,10 +455,5 @@ public class TileAutoCraftingTable extends TilePowerAcceptor
 				.outputSlot(10, 145, 70).syncEnergyValue().syncIntegerValue(this::getProgress, this::setProgress)
 				.syncIntegerValue(this::getMaxProgress, this::setMaxProgress)
 				.syncIntegerValue(this::getLockedInt, this::setLockedInt).addInventory().create(this);
-	}
-
-	@Override
-	public boolean hasSlotConfig() {
-		return true;
 	}
 }

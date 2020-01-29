@@ -128,9 +128,9 @@ public abstract class TileFluidGenerator extends TilePowerAcceptor implements IT
             if (doWork()) {
                 needsInventoryUpdate = true;
 
-                if (!active) setActive(true);
+                if (!isActive()) setActive(true);
             } else { // operation conditions not satisfied
-                if (active) setActive(false);
+                if (isActive()) setActive(false);
             }
         }
 

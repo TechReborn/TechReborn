@@ -26,16 +26,11 @@ package techreborn.tiles.generator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import reborncore.api.IToolDrop;
 import reborncore.api.power.EnumPowerTier;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import techreborn.init.ModBlocks;
-
-import java.util.List;
 
 /**
  * Created by modmuss50 on 25/02/2016.
@@ -52,23 +47,8 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 		if(world.isRemote){
 			return;
 		}
-		for (EnumFacing facing : EnumFacing.VALUES){
-			TileEntity tileEntity = world.getTileEntity(getPos().offset(facing));
-			if(tileEntity != null ){
-				IEnergyStorage energyStorage = tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
-				if(energyStorage != null){
-					for (int i = 0; i < 10; i++) {
-						energyStorage.receiveEnergy(Integer.MAX_VALUE, false);
-					}
-				}
-			}
-		}
 		setEnergy(getMaxPower());
-	}
-
-	@Override
-	public void addInfo(final List<String> info, final boolean isRealTile) {
-		super.addInfo(info, isRealTile);
+		super.update();
 	}
 
 	@Override
@@ -100,7 +80,7 @@ public class TileCreativeSolarPanel extends TilePowerAcceptor implements IToolDr
 	public EnumPowerTier getBaseTier() {
 		return EnumPowerTier.INFINITE;
 	}
-
+	
 	@Override
 	public ItemStack getToolDrop(final EntityPlayer p0) {
 		return new ItemStack(ModBlocks.SOLAR_PANEL);

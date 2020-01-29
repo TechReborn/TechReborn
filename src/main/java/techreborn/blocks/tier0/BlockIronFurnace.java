@@ -60,7 +60,7 @@ public class BlockIronFurnace extends RebornMachineBlock {
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("incomplete-switch")
 	public void randomDisplayTick(final World world, final BlockPos pos, final IBlockState state, final Random rand) {
-		RebornMachineTile tile = getTileEntity(world, pos);
+		RebornMachineTile tile = (RebornMachineTile) world.getTileEntity(pos);
 		if (tile == null) return;
 		if (tile.isActive()) {
 			final EnumFacing enumfacing = state.getValue(RebornMachineBlock.FACING);

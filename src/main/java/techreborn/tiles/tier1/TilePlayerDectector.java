@@ -24,7 +24,6 @@
 
 package techreborn.tiles.tier1;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -134,11 +133,6 @@ public class TilePlayerDectector extends TilePowerAcceptor implements IToolDrop 
 		super.writeToNBT(tag);
 		tag.setString("ownerID", owenerUdid);
 		return tag;
-	}
-	
-	@Override
-	public void onPlaced(EntityLivingBase placer, ItemStack stack) {
-		return;
 	}
 	
 	// IToolDrop
