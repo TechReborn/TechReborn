@@ -60,6 +60,7 @@ import techreborn.events.TRRecipeHandler;
 import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.items.tool.TreeTapItem;
+import techreborn.items.tool.basic.ElectricTreetapItem;
 
 import java.util.Random;
 
@@ -143,7 +144,7 @@ public class BlockRubberLog extends LogBlock {
 			return ActionResult.SUCCESS;
 		}
 
-		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20) && stack.getItem() instanceof TreeTapItem) {
+		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20 && stack.getItem() instanceof ElectricTreetapItem) || stack.getItem() instanceof TreeTapItem) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));
 				worldIn.playSound(playerIn, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F);
