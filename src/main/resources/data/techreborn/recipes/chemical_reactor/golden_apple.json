@@ -4,8 +4,8 @@
 	"time": 400,
 	"ingredients": [
 		{
-			"item": "minecraft:gold_nugget",
-			"count": 8
+			"item": "minecraft:gold_ingot",
+			"count": 6
 		},
 		{
 			"item": "minecraft:apple"
