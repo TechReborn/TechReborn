@@ -53,7 +53,6 @@ import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -141,6 +140,7 @@ public class ReiPlugin implements REIPluginV0 {
 	@Override
 	public void registerOthers(RecipeHelper recipeHelper) {
 		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(), EntryStack.create(Machine.ALLOY_SMELTER), EntryStack.create(Machine.IRON_ALLOY_FURNACE));
+		recipeHelper.registerWorkingStations(ModRecipes.ASSEMBLING_MACHINE.getName(), EntryStack.create(Machine.ASSEMBLY_MACHINE));
 		recipeHelper.registerWorkingStations(ModRecipes.BLAST_FURNACE.getName(), EntryStack.create(Machine.INDUSTRIAL_BLAST_FURNACE));
 		recipeHelper.registerWorkingStations(ModRecipes.CENTRIFUGE.getName(), EntryStack.create(Machine.INDUSTRIAL_CENTRIFUGE));
 		recipeHelper.registerWorkingStations(ModRecipes.CHEMICAL_REACTOR.getName(), EntryStack.create(Machine.CHEMICAL_REACTOR));
