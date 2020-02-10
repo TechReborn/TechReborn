@@ -64,7 +64,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		checkTier();
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
@@ -140,7 +140,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		return new ItemStack(wrenchDrop);
 	}
 	
-	// ItemHandlerProvider
+	// InventoryProvider
 	@Override
 	public RebornInventory<EnergyStorageBlockEntity> getInventory() {
 		return inventory;

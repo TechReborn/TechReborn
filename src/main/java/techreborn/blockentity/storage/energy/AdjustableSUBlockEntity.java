@@ -48,33 +48,12 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
 	}
 
-	@Override
-	public void tick() {
-		super.tick();
-		if (world == null){
-			return;
-		}
-
-		if (OUTPUT > getMaxConfigOutput()) {
-			OUTPUT = getMaxConfigOutput();
-		}
-		if(world.getTime() % 20 == 0){
-			checkTier();
-		}
-	}
-
 	public int getMaxConfigOutput(){
 		int extra = 0;
 		if(superconductors > 0){
 			extra = (int) Math.pow(2, (superconductors + 2)) * maxOutput;
 		}
 		return maxOutput + extra;
-	}
-
-	@Override
-	public void resetUpgrades() {
-		super.resetUpgrades();
-		superconductors = 0;
 	}
 
 	public void handleGuiInputFromClient(int id, boolean shift, boolean ctrl) {
@@ -103,28 +82,35 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
 		return dropStack;
 	}
-	
-	public int getCurrentOutput() {
-		return OUTPUT;
+
+	// EnergyStorageBlockEntity
+	@Override
+	public void tick() {
+		super.tick();
+		if (world == null){
+			return;
+		}
+
+		if (OUTPUT > getMaxConfigOutput()) {
+			OUTPUT = getMaxConfigOutput();
+		}
+		if(world.getTime() % 20 == 0){
+			checkTier();
+		}
 	}
-	
-	public void setCurentOutput(int output) {
-		this.OUTPUT = output;
+
+	@Override
+	public boolean canBeUpgraded() {
+		return true;
 	}
-	
-	// TileEnergyStorage
+
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return getDropWithNBT();
 	}
-	
-	@Override
-	public double getBaseMaxOutput() {
-		return OUTPUT;
-	}
 
 	@Override
-	public double getMaxOutput(EnergySide side) {
+	public double getBaseMaxOutput() {
 		return OUTPUT;
 	}
 
@@ -137,12 +123,22 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		return maxInput;
 	}
 
-	// TilePowerAcceptor
+	// PowerAcceptorBlockEntity
+	@Override
+	public void resetUpgrades() {
+		super.resetUpgrades();
+		superconductors = 0;
+	}
+
+	@Override
+	public double getMaxOutput(EnergySide side) {
+		return OUTPUT;
+	}
+
 	@Override
 	public CompoundTag toTag(CompoundTag tagCompound) {
 		super.toTag(tagCompound);
 		tagCompound.putInt("output", OUTPUT);
-		inventory.write(tagCompound);
 		return tagCompound;
 	}
 
@@ -150,7 +146,12 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	public void fromTag(CompoundTag nbttagcompound) {
 		super.fromTag(nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
-		inventory.read(nbttagcompound);
+	}
+
+	// MachineBaseBlockEntity
+	@Override
+	public boolean isUpgradeValid(IUpgrade upgrade, ItemStack stack) {
+		return stack.isItemEqual(new ItemStack(TRContent.Upgrades.SUPERCONDUCTOR.item));
 	}
 
 	// IContainerProvider
@@ -161,13 +162,11 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this, syncID);
 	}
 
-	@Override
-	public boolean canBeUpgraded() {
-		return true;
+	public int getCurrentOutput() {
+		return OUTPUT;
 	}
 
-	@Override
-	public boolean isUpgradeValid(IUpgrade upgrade, ItemStack stack) {
-		return stack.isItemEqual(new ItemStack(TRContent.Upgrades.SUPERCONDUCTOR.item));
+	public void setCurentOutput(int output) {
+		this.OUTPUT = output;
 	}
 }
