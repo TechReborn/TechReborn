@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 4,
+  "time": 1080,
+  "ingredients": [
+    {
+      "item": "minecraft:quartz_block"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:quartz_dust",
+	  "count": 4
+    }
+  ]
+}
