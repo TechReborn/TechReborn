@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
   "power": 2,
-  "time": 180,
+  "time": 1440,
   "ingredients": [
     {
       "item": "minecraft:diorite",

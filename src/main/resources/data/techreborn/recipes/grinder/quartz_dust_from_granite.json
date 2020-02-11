@@ -1,7 +1,7 @@
 {
   "type": "techreborn:grinder",
   "power": 2,
-  "time": 180,
+  "time": 720,
   "ingredients": [
     {
       "item": "minecraft:granite",
