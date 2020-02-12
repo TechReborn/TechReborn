@@ -25,6 +25,7 @@
 package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
 import net.minecraft.block.LeavesBlock;
@@ -35,7 +36,7 @@ public class BlockRubberLeaves extends LeavesBlock {
 
 	public BlockRubberLeaves() {
 		super(FabricBlockSettings.of(Material.LEAVES).hardness(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).build().nonOpaque());
-		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 30, 60);
+		FlammableBlockRegistry.getDefaultInstance().add(this, 30, 60);
 	}
 
 }

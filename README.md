@@ -2,7 +2,7 @@
 
 [![](http://cf.way2muchnoise.eu/full_233564_downloads.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/packs/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](http://cf.way2muchnoise.eu/versions/233564.svg)](https://minecraft.curseforge.com/projects/techreborn) [![](https://img.shields.io/badge/Discord-TeamReborn-738bd7.svg)](https://discord.gg/teamreborn) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/techreborn/localized.svg)](https://translate.techreborn.ovh/project/techreborn)
 
-# Tech Reborn for 1.15.1 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.15/)
+# Tech Reborn for 1.16 [![Build Status](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.16/badge/icon)](https://jenkins.modmuss50.me/job/Team%20Reborn/job/TechReborn/job/1.16/)
 
 *Tech Reborn is a completely standalone tech mod including tools and machines to gather resources, process materials, and progress through the mod.*
 

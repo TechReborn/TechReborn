@@ -25,6 +25,7 @@
 package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -75,7 +76,7 @@ public class BlockRubberLog extends LogBlock {
 	public BlockRubberLog() {
 		super(MaterialColor.SPRUCE, FabricBlockSettings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F, 2f).sounds(BlockSoundGroup.WOOD).ticksRandomly().build());
 		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(AXIS, Direction.Axis.Y));
-		((FireBlock) Blocks.FIRE).registerFlammableBlock(this, 5, 5);
+		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 5);
 	}
 
 	@Override

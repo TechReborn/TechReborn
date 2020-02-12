@@ -11,7 +11,7 @@ pipeline {
 
       stage ('Build') {
          when {
-                branch '1.15'
+                branch '1.16'
          }
          steps {
             sh "./gradlew clean build publish curseTools --refresh-dependencies --stacktrace"

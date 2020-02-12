@@ -40,8 +40,8 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import net.minecraft.world.gen.stateprovider.SimpleStateProvider;
-import net.minecraft.world.gen.stateprovider.WeightedStateProvider;
+import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import reborncore.common.world.CustomOreFeature;
 import reborncore.common.world.CustomOreFeatureConfig;
 import techreborn.blocks.misc.BlockRubberLog;
@@ -77,7 +77,7 @@ public class WorldGenerator {
 	private static void setupTrees() {
 		RUBBER_TREE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::deserialize));
 
-		WeightedStateProvider logProvider = new WeightedStateProvider();
+		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
 
 		Arrays.stream(Direction.values())
@@ -90,7 +90,7 @@ public class WorldGenerator {
 
 		RUBBER_TREE_CONFIG = new BranchedTreeFeatureConfig.Builder(
 				logProvider,
-				new SimpleStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
+				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
 				new BlobFoliagePlacer(2, 0))
 				.baseHeight(6)
 				.heightRandA(2)

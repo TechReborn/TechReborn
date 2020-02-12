@@ -106,4 +106,9 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	public float getToughness() {
 		return toughness;
 	}
+
+	@Override
+	public float method_24355() {
+		return 0; //Knockback resitance
+	}
 }
