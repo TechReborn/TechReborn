@@ -3,7 +3,6 @@ package techreborn.client.render.entitys;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -27,13 +26,14 @@ public class CableCoverRenderer extends BlockEntityRenderer<CableBlockEntity> {
 		if (blockEntity.getWorld() == null) {
 			return;
 		}
-		if (!blockEntity.getWorld().getBlockState(blockEntity.getPos()).get(CableBlock.COVERED)) {
+		BlockState blockState = blockEntity.getWorld().getBlockState(blockEntity.getPos());
+		if (!(blockState.getBlock() instanceof CableBlock) || !blockState.get(CableBlock.COVERED)) {
 			return;
 		}
 		final BlockRenderManager blockRenderManager = MinecraftClient.getInstance().getBlockRenderManager();
-		BlockState blockState = blockEntity.getCover() != null ? blockEntity.getCover() : Blocks.OAK_PLANKS.getDefaultState();
-		VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getBlockLayer(blockState));
-		blockRenderManager.renderBlock(blockState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, new Random());
+		BlockState coverState = blockEntity.getCover() != null ? blockEntity.getCover() : Blocks.OAK_PLANKS.getDefaultState();
+		VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayers.getBlockLayer(coverState));
+		blockRenderManager.renderBlock(coverState, blockEntity.getPos(), blockEntity.getWorld(), matrices, consumer, true, new Random());
 	}
 
 }
