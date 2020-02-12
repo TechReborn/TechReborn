@@ -252,7 +252,7 @@ task curseTools {
 import java.util.regex.Pattern
 
 task compileRecipes {
-    def jsonSlurper = new JsonSlurper()
+	def jsonSlurper = new JsonSlurper()
 	def recipePath = "build/resources/main/data/techreborn/recipes"
 
 	def smeltingPath = recipePath + "/smelting"
