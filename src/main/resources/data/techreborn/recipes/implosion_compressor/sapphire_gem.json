@@ -3,13 +3,13 @@
   "power": 30,
   "time": 2000,
   "ingredients": [
+	{
+	  "count": 4,
+	  "tag": "c:sapphire_dust"
+	},
     {
       "item": "minecraft:tnt",
       "count": 16
-    },
-    {
-      "count": 4,
-      "tag": "c:sapphire_dust"
     }
   ],
   "results": [

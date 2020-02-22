@@ -8,8 +8,8 @@
 	  "tag": "c:diamond_dust"
 	},
     {
-      "item": "minecraft:tnt",
-      "count": 16
+      "item": "minecraft:end_crystal",
+      "count": 4
     }
   ],
   "results": [
@@ -18,8 +18,8 @@
       "count": 3
     },
     {
-      "item": "techreborn:dark_ashes_dust",
-      "count": 16
+      "item": "techreborn:ender_eye_small_dust",
+      "count": 4
     }
   ]
 }

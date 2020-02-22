@@ -7,8 +7,8 @@
 	  "item": "techreborn:iridium_alloy_ingot"
 	},
     {
-      "item": "minecraft:tnt",
-      "count": 8
+      "item": "minecraft:end_crystal",
+      "count": 2
     }
   ],
   "results" : [
@@ -16,8 +16,8 @@
       "item": "techreborn:iridium_alloy_plate"
     },
     {
-      "item": "techreborn:dark_ashes_dust",
-      "count": 4
+      "item": "techreborn:ender_eye_small_dust",
+      "count": 2
     }
   ]
 }
