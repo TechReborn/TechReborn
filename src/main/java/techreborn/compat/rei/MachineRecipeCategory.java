@@ -97,7 +97,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		LabelWidget costLabel;
-		widgets.add(costLabel = new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()));
+		widgets.add(costLabel = new LabelWidget(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
 		costLabel.setHasShadows(false);
 		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 
@@ -110,7 +110,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		if (heat > 0) {
 			String neededHeat = heat + " " + StringUtils.t("techreborn.jei.recipe.heat");
 			LabelWidget heatLabel;
-			widgets.add(heatLabel = new LabelWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), neededHeat));
+			widgets.add(heatLabel = new LabelWidget(new Point(startPoint.x + 61, startPoint.y + 1 + (i++ * 20)), neededHeat));
 			heatLabel.setHasShadows(false);
 			heatLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 		}
