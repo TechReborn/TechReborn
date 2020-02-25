@@ -86,7 +86,7 @@ public class BlockRubberLog extends LogBlock {
 	}
 
 	@Override
-	public boolean matches(Tag<Block> tagIn) {
+	public boolean isIn(Tag<Block> tagIn) {
 		return tagIn == BlockTags.LOGS;
 	}
 

@@ -83,7 +83,7 @@ public class FluidGeneratorRecipeCategory implements RecipeCategory<FluidGenerat
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.generator.total", machineRecipe.getTotalEnergy());
 		LabelWidget costLabel;
-		widgets.add(costLabel = new LabelWidget(bounds.getCenterX(), startPoint.y + 20, energyPerTick.asFormattedString()));
+		widgets.add(costLabel = new LabelWidget(new Point(bounds.getCenterX(), startPoint.y + 20), energyPerTick.asFormattedString()));
 		costLabel.setHasShadows(false);
 		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 		
