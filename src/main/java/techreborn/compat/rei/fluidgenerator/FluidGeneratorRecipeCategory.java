@@ -68,22 +68,21 @@ public class FluidGeneratorRecipeCategory implements RecipeCategory<FluidGenerat
 	
 	@Override
 	public List<Widget> setupDisplay(Supplier<FluidGeneratorRecipeDisplay> recipeDisplaySupplier, Rectangle bounds) {
-		
 		FluidGeneratorRecipeDisplay machineRecipe = recipeDisplaySupplier.get();
 		
 		Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 13);
 		
 		List<Widget> widgets = new LinkedList<>();
 		widgets.add(new RecipeBaseWidget(bounds));
-		widgets.add(new RecipeArrowWidget(startPoint.x + 24, startPoint.y + 1, true));
+		widgets.add(RecipeArrowWidget.create(new Point(startPoint.x + 24, startPoint.y + 1), true).time(1000.0));
 		
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()) {
-			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1).entries(inputs));
+			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1).entries(inputs).markIsInput());
 		}
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.generator.total", machineRecipe.getTotalEnergy());
 		LabelWidget costLabel;
-		widgets.add(costLabel = new LabelWidget(bounds.getCenterX(), startPoint.y + 20, energyPerTick.asFormattedString()));
+		widgets.add(costLabel = LabelWidget.create(new Point(bounds.getCenterX(), startPoint.y + 20), energyPerTick.asFormattedString()));
 		costLabel.setHasShadows(false);
 		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 		

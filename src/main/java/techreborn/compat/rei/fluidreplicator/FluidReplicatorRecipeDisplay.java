@@ -45,6 +45,7 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 	private List<EntryStack> output;
 	private FluidInstance fluidInstance;
 	private int energy = 0;
+	private int time = 0;
 	
 	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;
@@ -52,6 +53,7 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 		this.fluidInstance = recipe.getFluidInstance();
 		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(RebornEntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
 		this.energy = recipe.getPower();
+		this.time = recipe.getTime();
 	}
 	
 	public FluidInstance getFluidInstance() {
@@ -60,6 +62,10 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 	
 	public int getEnergy() {
 		return energy;
+	}
+	
+	public int getTime() {
+		return time;
 	}
 	
 	@Override
