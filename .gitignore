@@ -11,6 +11,7 @@
 /.settings
 /classpath
 /dep
+/natives
 
 TechReborn.iws
 TechReborn.ipr
