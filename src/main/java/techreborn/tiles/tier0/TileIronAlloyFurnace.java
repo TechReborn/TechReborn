@@ -24,6 +24,7 @@
 
 package techreborn.tiles.tier0;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,6 +38,7 @@ import reborncore.api.tile.IInventoryProvider;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.tile.RebornMachineTile;
 import reborncore.common.util.Inventory;
@@ -207,6 +209,13 @@ public class TileIronAlloyFurnace extends RebornMachineTile
 
     public int getCookProgressScaled(final int scale) {
         return cookTime * scale / cookTimeTotal;
+    }
+
+    public void setActive(boolean active) {
+        Block block = world.getBlockState(pos).getBlock();
+        if (block instanceof RebornMachineBlock) {
+            world.setBlockState(pos, world.getBlockState(pos).withProperty(RebornMachineBlock.activeProperty, active));
+        }
     }
 
     // RebornMachineTile

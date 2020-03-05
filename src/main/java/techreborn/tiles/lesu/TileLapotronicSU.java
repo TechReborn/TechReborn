@@ -24,6 +24,7 @@
 
 package techreborn.tiles.lesu;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -32,6 +33,7 @@ import reborncore.api.power.EnumPowerTier;
 import reborncore.common.RebornCoreConfig;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.blocks.storage.BlockLapotronicSU;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -94,7 +96,15 @@ public class TileLapotronicSU extends TileEnergyStorage implements IContainerPro
 		maxOutput = (connectedBlocks * extraIOPerBlock) + baseOutput;
 	}
 
-
+	@Override
+	public EnumFacing getFacingEnum() {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockLapotronicSU) {
+			return ((BlockLapotronicSU) block).getFacing(world.getBlockState(pos));
+		}
+		return null;
+	}
+	
 	public int getOutputRate() {
 		return maxOutput;
 	}

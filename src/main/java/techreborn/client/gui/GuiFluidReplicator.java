@@ -27,6 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.ClientProxy;
 import reborncore.client.gui.builder.GuiBase;
@@ -125,9 +126,10 @@ public class GuiFluidReplicator extends GuiBase {
 					ClientProxy.multiblockRenderEvent.setMultiblock(set);
 					ClientProxy.multiblockRenderEvent.parent = tile.getPos();
 					MultiblockRenderEvent.anchor = new BlockPos(
-							tile.getPos().getX() - tile.getFacing().getXOffset() * 2,
-							tile.getPos().getY() - 1, 
-							tile.getPos().getZ() - tile.getFacing().getZOffset() * 2);
+							this.tile.getPos().getX()
+									- EnumFacing.byIndex(this.tile.getFacingInt()).getXOffset() * 2,
+							this.tile.getPos().getY() - 1, this.tile.getPos().getZ()
+									- EnumFacing.byIndex(this.tile.getFacingInt()).getZOffset() * 2);
 				}
 			} else {
 				ClientProxy.multiblockRenderEvent.setMultiblock(null);

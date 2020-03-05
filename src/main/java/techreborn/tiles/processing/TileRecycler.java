@@ -124,7 +124,7 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
 
         // operation
         if (canWork()) { // operation conditions satisfied
-            if (!isActive()) setActive(true);
+            if (!active) setActive(true);
 
             // process start
             if (progress == 0) needsInventoryUpdate = true;
@@ -141,7 +141,7 @@ public class TileRecycler extends TilePowerAcceptor implements IToolDrop, IInven
                 needsInventoryUpdate = true;
             }
         } else { // operation conditions not satisfied
-            if (isActive()) setActive(false);
+            if (active) setActive(false);
         }
 
         if (needsInventoryUpdate) super.markDirty();

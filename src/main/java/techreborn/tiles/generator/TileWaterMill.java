@@ -32,6 +32,7 @@ import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
+import techreborn.blocks.generator.BlockWindMill;
 import techreborn.init.ModBlocks;
 import techreborn.lib.ModInfo;
 
@@ -63,10 +64,10 @@ public class TileWaterMill extends TilePowerAcceptor implements IToolDrop {
 		}
 		if (waterblocks > 0) {
 			addEnergy(waterblocks * energyMultiplier);
-			setActive(true);
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.activeProperty, true));
 		}
 		else {
-			setActive(false);
+			world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockWindMill.activeProperty, false));
 		}
 	}
 

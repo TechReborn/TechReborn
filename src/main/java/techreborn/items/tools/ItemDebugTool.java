@@ -24,8 +24,6 @@
 
 package techreborn.items.tools;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
@@ -52,34 +50,22 @@ public class ItemDebugTool extends ItemTR {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos,
 	                                  EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		IBlockState state = worldIn.getBlockState(pos); 
-		Block block = state.getBlock();
-		if (block == null) {
-			return EnumActionResult.PASS;	
-		}
-		if (!worldIn.isRemote) {
-			sendMessage(playerIn, "Block", block.getTranslationKey());
-			sendMessage(playerIn, "State", state.toString());
-		}
-		
 		TileEntity tile = worldIn.getTileEntity(pos);
-		if (tile == null) {
-			return EnumActionResult.SUCCESS;
-		}
 		if (tile instanceof IEnergyInterfaceTile) {
 			if (!tile.getWorld().isRemote) {
-				sendMessage(playerIn, "Power", PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy()));
+				playerIn.sendMessage(
+					new TextComponentString(TextFormatting.GREEN + "Power" + TextFormatting.BLUE
+						+ PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy())));
 			}
-		} else if (tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
+			return EnumActionResult.SUCCESS;
+		} else if (tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, facing)) {
 			if (!tile.getWorld().isRemote) {
-				sendMessage(playerIn, "Power", PowerSystem.getLocaliszedPower(((IEnergyInterfaceTile) tile).getEnergy()) + "FE");
+				playerIn.sendMessage(
+					new TextComponentString(TextFormatting.GREEN + "Power " + TextFormatting.RED
+						+ tile.getCapability(CapabilityEnergy.ENERGY, facing).getEnergyStored() + "FU"));
 			}
+			return EnumActionResult.SUCCESS;
 		}
-		return EnumActionResult.SUCCESS;	
-	}
-	
-	private void sendMessage(EntityPlayer playerIn, String key, String value) {
-		playerIn.sendMessage(new TextComponentString(TextFormatting.GREEN + key + ": " + TextFormatting.BLUE + value));
-		
+		return EnumActionResult.FAIL;
 	}
 }
