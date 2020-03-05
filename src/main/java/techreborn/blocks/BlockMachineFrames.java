@@ -100,7 +100,7 @@ public class BlockMachineFrames extends BaseBlock {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		if (meta > types.length) {
+		if (meta >= types.length) {
 			meta = 0;
 		}
 		return getBlockState().getBaseState().withProperty(TYPE, typesList.get(meta));
