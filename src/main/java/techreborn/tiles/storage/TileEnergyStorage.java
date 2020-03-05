@@ -193,6 +193,22 @@ public abstract class TileEnergyStorage extends TilePowerAcceptor implements ITo
 		}
 	}
 
+	@Override
+	public EnumFacing getFacing() {
+		return world.getBlockState(pos).getValue(BlockEnergyStorage.FACING);
+	}
+
+	@Override
+	public boolean canSetFacing(EnumFacing facing) {
+		return true;
+	}
+
+	@Override
+	public boolean setFacing(EnumFacing facing) {
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockEnergyStorage.FACING, facing));
+		return true;
+	}
+
 	public int getRedstoneModeInt() {
 		return redstoneMode & 0xff; // TODO: Add byteSuppliers to core
 	}
