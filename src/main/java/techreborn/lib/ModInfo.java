@@ -30,7 +30,7 @@ public class ModInfo implements IModInfo {
 	public static final String MOD_NAME = "Tech Reborn";
 	public static final String MOD_ID = "techreborn";
 	public static final String MOD_VERSION = "@MODVERSION@";
-	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore@[3.19.0,);after:jei@[4.12,);after:ic2@[2.8.178,);required-before:techreborn_compat;after:thermalexpansion;";
+	public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.3.2694,);required-after:reborncore;after:jei@[4.12,);after:ic2@[2.8.178,);required-before:techreborn_compat;after:thermalexpansion;";
 	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
 	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";
 	public static final String GUI_FACTORY_CLASS = "techreborn.config.TechRebornGUIFactory";
