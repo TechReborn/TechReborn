@@ -81,36 +81,35 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	
 	@Override
 	public List<Widget> setupDisplay(Supplier<MachineRecipeDisplay<R>> recipeDisplaySupplier, Rectangle bounds) {
-
 		MachineRecipeDisplay<R> machineRecipe = recipeDisplaySupplier.get();
 
 		Point startPoint = new Point( bounds.getCenterX() - 41, bounds.getCenterY() - recipeLines*12 -1);
 
         List<Widget> widgets = new LinkedList<>();
         widgets.add(new RecipeBaseWidget(bounds));
-        widgets.add(new RecipeArrowWidget(startPoint.x + 24, startPoint.y + 1, true));
+        widgets.add(RecipeArrowWidget.create(new Point(startPoint.x + 24, startPoint.y + 1), true).time(machineRecipe.getTime() * 50.0));
 
 		int i = 0;
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()){
-			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)).entries(inputs));
+			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)).entries(inputs).markIsInput());
 		}
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		LabelWidget costLabel;
-		widgets.add(costLabel = new LabelWidget(startPoint.x + 1, startPoint.y + 1 + (i++ * 20), energyPerTick.asFormattedString()));
+		widgets.add(costLabel = LabelWidget.create(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
 		costLabel.setHasShadows(false);
 		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 
 		i = 0;
 		for (EntryStack outputs : machineRecipe.getOutputEntries()){
-			widgets.add(EntryWidget.create(startPoint.x + 61, startPoint.y + 1 + (i++ * 20)).entry(outputs));
+			widgets.add(EntryWidget.create(startPoint.x + 61, startPoint.y + 1 + (i++ * 20)).entry(outputs).markIsOutput());
 		}
 		
 		int heat = machineRecipe.getHeat();
 		if (heat > 0) {
 			String neededHeat = heat + " " + StringUtils.t("techreborn.jei.recipe.heat");
 			LabelWidget heatLabel;
-			widgets.add(heatLabel = new LabelWidget(startPoint.x + 61, startPoint.y + 1 + (i++ * 20), neededHeat));
+			widgets.add(heatLabel = LabelWidget.create(new Point(startPoint.x + 61, startPoint.y + 1 + (i++ * 20)), neededHeat));
 			heatLabel.setHasShadows(false);
 			heatLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 		}

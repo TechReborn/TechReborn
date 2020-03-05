@@ -44,12 +44,14 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	private List<EntryStack> outputs;
 	private int energy = 0;
 	private int heat = 0;
+	private int time = 0;
 	private FluidInstance fluidInstance = null;
 	
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
 		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), RebornEntryStack::create));
 		this.outputs = CollectionUtils.map(recipe.getOutputs(), RebornEntryStack::create);
+		this.time = recipe.getTime();
 		this.energy = recipe.getPower();
 		if (recipe instanceof BlastFurnaceRecipe) {
 			this.heat = ((BlastFurnaceRecipe) recipe).getHeat();
@@ -71,6 +73,10 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	
 	public int getHeat() {
 		return heat;
+	}
+	
+	public int getTime() {
+		return time;
 	}
 	
 	public FluidInstance getFluidInstance() {
