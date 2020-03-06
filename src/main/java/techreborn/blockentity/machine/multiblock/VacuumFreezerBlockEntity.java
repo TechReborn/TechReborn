@@ -32,11 +32,11 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.init.TRContent;
 
 public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
 
@@ -60,14 +60,6 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 		return down && chamber && up;
 	}
 	
-	// TileGenericMachine
-	@Override
-	public void tick() {
-		if (!world.isClient && getMultiBlock()) {
-			super.tick();
-		}
-	}
-
 	// BlockEntity
 	@Override
 	public void cancelRemoval() {
