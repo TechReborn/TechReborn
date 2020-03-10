@@ -24,12 +24,16 @@
 
 package techreborn.utils;
 
+import com.google.common.collect.Maps;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import reborncore.api.events.ItemCraftCallback;
 import team.reborn.energy.Energy;
 
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public final class PoweredCraftingHandler implements ItemCraftCallback {
@@ -53,5 +57,18 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 
 			Energy.of(stack).set(totalEnergy);
 		}
+
+		Map<Enchantment, Integer> map = Maps.newLinkedHashMap();
+		for (int i = 0; i < craftingInventory.getInvSize(); i++){
+			ItemStack ingredient = craftingInventory.getInvStack(i);
+			if (ingredient.isEmpty()){
+				continue;
+			}
+			EnchantmentHelper.getEnchantments(ingredient).forEach((key, value) -> map.merge(key, value, (v1, v2) -> v1 > v2 ? v1 : v2));
+		}
+		if (!map.isEmpty()){
+			EnchantmentHelper.set(map, stack);
+		}
 	}
+
 }
