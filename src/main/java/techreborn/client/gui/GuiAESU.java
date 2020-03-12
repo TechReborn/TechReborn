@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
@@ -36,12 +36,12 @@ import reborncore.common.powerSystem.PowerSystem;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
-public class GuiAESU extends GuiBase<BuiltContainer> {
+public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 
 	AdjustableSUBlockEntity blockEntity;
 
 	public GuiAESU(int syncID, final PlayerEntity player, final AdjustableSUBlockEntity aesu) {
-		super(player, aesu, aesu.createContainer(syncID, player));
+		super(player, aesu, aesu.createScreenHandler(syncID, player));
 		this.blockEntity = aesu;
 	}
 	

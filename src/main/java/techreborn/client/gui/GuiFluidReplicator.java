@@ -28,7 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -40,12 +40,12 @@ import techreborn.init.TRContent;
  * @author drcrazy
  *
  */
-public class GuiFluidReplicator extends GuiBase<BuiltContainer> {
+public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 
 	FluidReplicatorBlockEntity blockEntity;
 
 	public GuiFluidReplicator(int syncID, final PlayerEntity player, final FluidReplicatorBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 

@@ -33,7 +33,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -42,12 +42,12 @@ import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PlayerUtils;
 
-public class GuiIronFurnace extends GuiBase<BuiltContainer> {
+public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 
 	IronFurnaceBlockEntity blockEntity;
 
 	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
-		super(player, furnace,  furnace.createContainer(syncID, player));
+		super(player, furnace,  furnace.createScreenHandler(syncID, player));
 		this.blockEntity = furnace;
 	}
 	

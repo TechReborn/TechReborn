@@ -26,17 +26,17 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 
-public class GuiIDSU extends GuiBase<BuiltContainer> {
+public class GuiIDSU extends GuiBase<BuiltScreenHandler> {
 
 	InterdimensionalSUBlockEntity idsu;
 
 	public GuiIDSU(int syncID, PlayerEntity player, InterdimensionalSUBlockEntity blockEntityIDSU) {
-		super(player, blockEntityIDSU, blockEntityIDSU.createContainer(syncID, player));
+		super(player, blockEntityIDSU, blockEntityIDSU.createScreenHandler(syncID, player));
 		idsu = blockEntityIDSU;
 	}
 

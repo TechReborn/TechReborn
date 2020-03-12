@@ -38,9 +38,9 @@ import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
@@ -52,7 +52,7 @@ import techreborn.init.TRContent;
 import java.util.List;
 
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
-	implements InventoryProvider, IToolDrop, IListInfoProvider, IContainerProvider {
+	implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 
 
 	// Inventory constants
@@ -377,8 +377,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		// Inventory gets dropped automatically
 	}
 
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
 			.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53).addInventory().create(this, syncID);
 	}
 

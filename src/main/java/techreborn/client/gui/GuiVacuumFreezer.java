@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -35,12 +35,12 @@ import reborncore.client.multiblock.Multiblock;
 import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
 import techreborn.init.TRContent;
 
-public class GuiVacuumFreezer extends GuiBase<BuiltContainer> {
+public class GuiVacuumFreezer extends GuiBase<BuiltScreenHandler> {
 
 	VacuumFreezerBlockEntity blockEntity;
 
 	public GuiVacuumFreezer(int syncID, final PlayerEntity player, final VacuumFreezerBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 	

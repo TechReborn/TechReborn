@@ -30,7 +30,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
@@ -39,12 +38,11 @@ import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.ExtendedRecipeRemainder;
-import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
@@ -63,7 +61,7 @@ import java.util.stream.Collectors;
  * Created by modmuss50 on 20/06/2017.
  */
 public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<AutoCraftingTableBlockEntity> inventory = new RebornInventory<>(11, "AutoCraftingTableBlockEntity", 64, this);
 	public int progress;
@@ -466,8 +464,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-		return new ContainerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("autocraftingtable").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 28, 25).slot(1, 46, 25).slot(2, 64, 25).slot(3, 28, 43).slot(4, 46, 43)
 				.slot(5, 64, 43).slot(6, 28, 61).slot(7, 46, 61).slot(8, 64, 61).outputSlot(9, 145, 42)
 				.outputSlot(10, 145, 70).syncEnergyValue().sync(this::getProgress, this::setProgress)

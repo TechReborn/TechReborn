@@ -33,9 +33,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
@@ -49,7 +49,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 	
 	private final RebornInventory<GreenhouseControllerBlockEntity> inventory = new RebornInventory<>(7, "GreenhouseControllerBlockEntity", 64, this);
 	private BlockPos multiblockCenter;
@@ -252,8 +252,8 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 	
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-		return new ContainerBuilder("greenhousecontroller").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("greenhousecontroller").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this)
 				.outputSlot(0, 30, 22).outputSlot(1, 48, 22)
 				.outputSlot(2, 30, 40).outputSlot(3, 48, 40)

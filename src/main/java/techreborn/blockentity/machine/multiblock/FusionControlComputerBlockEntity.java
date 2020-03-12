@@ -32,9 +32,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -50,7 +50,7 @@ import techreborn.init.TRContent;
 import java.util.List;
 
 public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<FusionControlComputerBlockEntity> inventory;
 
@@ -397,8 +397,8 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
 				.sync(this::getCoilStatus, this::setCoilStatus)
 				.sync(this::getCrafingTickTime, this::setCrafingTickTime)

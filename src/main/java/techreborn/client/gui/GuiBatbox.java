@@ -26,17 +26,17 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 
-public class GuiBatbox extends GuiBase<BuiltContainer> {
+public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 
 	LowVoltageSUBlockEntity blockEntity;
 
 	public GuiBatbox(int syncID, final PlayerEntity player, final LowVoltageSUBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 

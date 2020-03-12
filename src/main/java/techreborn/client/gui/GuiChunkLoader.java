@@ -26,7 +26,7 @@ package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.ClientChunkManager;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -35,12 +35,12 @@ import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
-public class GuiChunkLoader extends GuiBase<BuiltContainer> {
+public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 	ChunkLoaderBlockEntity blockEntity;
 
 	public GuiChunkLoader(int syncID, PlayerEntity player, ChunkLoaderBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 	

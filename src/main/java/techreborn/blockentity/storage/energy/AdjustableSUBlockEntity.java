@@ -28,9 +28,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import reborncore.api.blockentity.IUpgrade;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
@@ -38,7 +38,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
+public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	public RebornInventory<AdjustableSUBlockEntity> inventory = new RebornInventory<>(4, "AdjustableSUBlockEntity", 64, this);
 	private int OUTPUT = 64; // The current output
@@ -156,8 +156,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-		return new ContainerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("aesu").player(player.inventory).inventory().hotbar().armor()
 				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 				.syncEnergyValue().sync(this::getCurrentOutput, this::setCurentOutput).addInventory().create(this, syncID);
 	}

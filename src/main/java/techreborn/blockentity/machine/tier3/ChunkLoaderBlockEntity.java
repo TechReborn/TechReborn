@@ -36,9 +36,9 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.RebornInventory;
@@ -48,7 +48,7 @@ import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
 
-public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IToolDrop, InventoryProvider, IContainerProvider {
+public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<ChunkLoaderBlockEntity> inventory = new RebornInventory<>(0, "ChunkLoaderBlockEntity", 64, this);
 	private int radius;
@@ -164,8 +164,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-		return new ContainerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("chunkloader").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).sync(this::getRadius, this::setRadius).addInventory().create(this, syncID);
 	}
 

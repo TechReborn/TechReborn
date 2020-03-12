@@ -29,9 +29,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -44,7 +44,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.multiblocks.MultiBlockCasing;
 
-public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public MultiblockChecker multiblockChecker;
 	private int cachedHeat;
@@ -129,8 +129,8 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
 				.sync(this::getHeat, this::setHeat).addInventory().create(this, syncID);

@@ -31,9 +31,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.server.network.ServerPlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -41,7 +41,7 @@ import techreborn.utils.RecipeUtils;
 
 import java.util.Optional;
 
-public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements IContainerProvider {
+public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	int inputSlot = 0;
 	int outputSlot = 1;
@@ -152,8 +152,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("ironfurnace").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("ironfurnace").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this)
 				.fuelSlot(2, 56, 53).slot(0, 56, 17).outputSlot(1, 116, 35)
 				.sync(this::getBurnTime, this::setBurnTime)

@@ -27,9 +27,9 @@ package techreborn.blockentity.storage.energy.idsu;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import org.apache.commons.lang3.StringUtils;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
@@ -37,7 +37,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
+public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	public String ownerUdid;
 
@@ -117,8 +117,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 			.syncEnergyValue().addInventory().create(this, syncID);
 	}

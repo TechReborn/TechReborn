@@ -25,17 +25,17 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.machine.tier1.SoildCanningMachineBlockEntity;
 
-public class GuiSolidCanningMachine extends GuiBase<BuiltContainer> {
+public class GuiSolidCanningMachine extends GuiBase<BuiltScreenHandler> {
 
 	SoildCanningMachineBlockEntity blockEntity;
 
 	public GuiSolidCanningMachine(int syncID, final PlayerEntity player, final SoildCanningMachineBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 
 	}

@@ -29,7 +29,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
@@ -47,11 +47,11 @@ import techreborn.packets.ServerboundPackets;
 import java.util.List;
 import java.util.Optional;
 
-public class GuiFusionReactor extends GuiBase<BuiltContainer> {
+public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 	FusionControlComputerBlockEntity blockEntity;
 
 	public GuiFusionReactor(int syncID, final PlayerEntity player, final FusionControlComputerBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 	

@@ -26,17 +26,17 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 
-public class GuiMFE extends GuiBase<BuiltContainer> {
+public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 
 	MediumVoltageSUBlockEntity mfe;
 
 	public GuiMFE(int syncID, final PlayerEntity player, final MediumVoltageSUBlockEntity mfe) {
-		super(player, mfe, mfe.createContainer(syncID, player));
+		super(player, mfe, mfe.createScreenHandler(syncID, player));
 		this.mfe = mfe;
 	}
 

@@ -25,9 +25,9 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -36,7 +36,7 @@ import techreborn.init.TRContent;
  * Created by modmuss50 on 14/03/2016.
  *
  */
-public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
+public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	/**
 	 *  MFSU should store 4M Energy with 512 E/t I/O
@@ -46,8 +46,8 @@ public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implement
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
 			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
 			.syncEnergyValue().addInventory().create(this, syncID);
 	}

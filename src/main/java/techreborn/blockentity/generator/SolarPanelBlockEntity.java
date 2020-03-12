@@ -33,9 +33,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
@@ -48,7 +48,7 @@ import techreborn.init.TRContent.SolarPanels;
 
 import java.util.List;
 
-public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, IContainerProvider {
+public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
 
 
 	//	State ZEROGEN: No exposure to sun
@@ -251,8 +251,8 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
 				.sync(this::getSunState, this::setSunState)
 				.addInventory().create(this, syncID);

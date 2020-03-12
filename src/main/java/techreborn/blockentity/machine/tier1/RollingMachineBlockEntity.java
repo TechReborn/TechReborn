@@ -35,9 +35,9 @@ import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
 //TODO add tick and power bars.
 
 public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop, InventoryProvider, IContainerProvider {
+	implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
 	private CraftingInventory craftCache;
@@ -385,8 +385,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("rollingmachine").player(player.inventory)
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("rollingmachine").player(player.inventory)
 			.inventory().hotbar()
 			.addInventory().blockEntity(this)
 			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)

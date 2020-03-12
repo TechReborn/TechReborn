@@ -25,17 +25,17 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.StringUtils;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
-public class GuiSolar extends GuiBase<BuiltContainer> {
+public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 
 	SolarPanelBlockEntity blockEntity;
 
 	public GuiSolar(int syncID, PlayerEntity player, SolarPanelBlockEntity panel) {
-		super(player, panel, panel.createContainer(syncID, player));
+		super(player, panel, panel.createScreenHandler(syncID, player));
 		this.blockEntity = panel;
 	}
 

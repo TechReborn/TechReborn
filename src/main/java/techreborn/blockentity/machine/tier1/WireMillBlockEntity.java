@@ -25,9 +25,9 @@
 package techreborn.blockentity.machine.tier1;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
@@ -35,7 +35,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class WireMillBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class WireMillBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public WireMillBlockEntity() {
 		super(TRBlockEntities.WIRE_MILL, "WireMill", 32, 1000, TRContent.Machine.WIRE_MILL.block, 2);
@@ -47,8 +47,8 @@ public class WireMillBlockEntity extends GenericMachineBlockEntity implements IC
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("wiremill").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("wiremill").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
 			.slot(0, 55, 45)
 			.outputSlot(1, 101, 45)

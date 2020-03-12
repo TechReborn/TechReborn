@@ -26,16 +26,16 @@ package techreborn.blockentity.generator;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.fluid.FluidValue;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
+public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public PlasmaGeneratorBlockEntity() {
 		super(TRBlockEntities.PLASMA_GENERATOR, EFluidGenerator.PLASMA, "PlasmaGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.plasmaGeneratorEnergyPerTick);
@@ -57,8 +57,8 @@ public class PlasmaGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity im
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("plasmagenerator").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("plasmagenerator").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 			.sync(this::getTankAmount, this::setTankAmount)

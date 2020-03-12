@@ -27,9 +27,9 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.IInventoryAccess;
@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
  * @author drcrazy
  *
  */
-public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public MultiblockChecker multiblockChecker;
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
@@ -129,8 +129,8 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-		return new ContainerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("fluidreplicator").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 124, 35).filterSlot(0, 55, 45, stack -> stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack()))
 				.outputSlot(2, 124, 55).energySlot(3, 8, 72).sync(tank).syncEnergyValue().syncCrafterValue().addInventory()
 				.create(this, syncID);

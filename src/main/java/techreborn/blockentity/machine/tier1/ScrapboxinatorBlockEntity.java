@@ -25,9 +25,9 @@
 package techreborn.blockentity.machine.tier1;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import techreborn.api.recipe.ScrapboxRecipeCrafter;
 import techreborn.config.TechRebornConfig;
@@ -35,7 +35,7 @@ import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 
-public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public ScrapboxinatorBlockEntity() {
 		super(TRBlockEntities.SCRAPBOXINATOR, "Scrapboxinator", TechRebornConfig.scrapboxinatorMaxInput, TechRebornConfig.scrapboxinatorMaxEnergy, TRContent.Machine.SCRAPBOXINATOR.block, 2);
@@ -53,8 +53,8 @@ public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity impleme
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("scrapboxinator").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("scrapboxinator").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).filterSlot(0, 55, 45, stack -> stack.getItem() == TRContent.SCRAP_BOX).outputSlot(1, 101, 45)
 				.energySlot(2, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}

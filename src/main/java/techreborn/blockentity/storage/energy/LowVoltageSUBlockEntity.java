@@ -25,9 +25,9 @@
 package techreborn.blockentity.storage.energy;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import team.reborn.energy.EnergyTier;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
@@ -35,15 +35,15 @@ import techreborn.init.TRContent;
 /**
  * Created by modmuss50 on 14/03/2016.
  */
-public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider {
+public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	public LowVoltageSUBlockEntity() {
 		super(TRBlockEntities.LOW_VOLTAGE_SU, "BatBox", 2, TRContent.Machine.LOW_VOLTAGE_SU.block, EnergyTier.LOW, 40_000);
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("batbox").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("batbox").player(player.inventory).inventory().hotbar().addInventory()
 			.blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

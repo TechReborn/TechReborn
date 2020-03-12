@@ -27,9 +27,9 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -39,7 +39,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public MultiblockChecker multiblockChecker;
 
@@ -79,8 +79,8 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("Distillationtower").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("Distillationtower").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 35, 27).slot(1, 35, 47).outputSlot(2, 79, 37).outputSlot(3, 99, 37)
 				.outputSlot(4, 119, 37).outputSlot(5, 139, 37).energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue()
 				.addInventory().create(this, syncID);

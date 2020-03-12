@@ -33,9 +33,9 @@ import net.minecraft.util.registry.Registry;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -45,7 +45,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IContainerProvider, SlotConfiguration.SlotFilter {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider, SlotConfiguration.SlotFilter {
 
 	private final RebornInventory<RecyclerBlockEntity> inventory = new RebornInventory<>(3, "RecyclerBlockEntity", 64, this);
 	private final int cost = 2;
@@ -216,8 +216,8 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-		return new ContainerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+		return new ScreenHandlerBuilder("recycler").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45, RecyclerBlockEntity::canRecycle)
 				.outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.sync(this::getProgress, this::setProgress).addInventory().create(this, syncID);

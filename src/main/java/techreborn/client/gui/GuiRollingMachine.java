@@ -25,19 +25,19 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.network.NetworkManager;
 import techreborn.packets.ServerboundPackets;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 
-public class GuiRollingMachine extends GuiBase<BuiltContainer> {
+public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 
 	RollingMachineBlockEntity rollingMachine;
 
 	public GuiRollingMachine(int syncID, final PlayerEntity player, final RollingMachineBlockEntity blockEntityRollingmachine) {
-		super(player, blockEntityRollingmachine,  blockEntityRollingmachine.createContainer(syncID, player));
+		super(player, blockEntityRollingmachine,  blockEntityRollingmachine.createScreenHandler(syncID, player));
 		this.rollingMachine = blockEntityRollingmachine;
 	}
 

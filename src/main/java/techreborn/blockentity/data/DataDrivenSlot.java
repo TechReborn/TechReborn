@@ -30,7 +30,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.JsonHelper;
 import org.apache.commons.lang3.Validate;
-import reborncore.client.containerBuilder.builder.ContainerBlockEntityInventoryBuilder;
+import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.serialization.SerializationUtil;
 
@@ -77,7 +77,7 @@ public class DataDrivenSlot {
 		return type;
 	}
 
-	public void add(ContainerBlockEntityInventoryBuilder inventoryBuilder){
+	public void add(BlockEntityScreenHandlerBuilder inventoryBuilder){
 		type.getSlotBiConsumer().accept(inventoryBuilder, this);
 	}
 

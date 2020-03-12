@@ -27,11 +27,10 @@ package techreborn.blockentity.storage.energy.lesu;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import team.reborn.energy.EnergyTier;
 import techreborn.blockentity.storage.energy.EnergyStorageBlockEntity;
 import techreborn.blocks.storage.energy.LapotronicSUBlock;
@@ -41,7 +40,7 @@ import techreborn.init.TRContent;
 
 import java.util.ArrayList;
 
-public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements IContainerProvider{
+public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	private int connectedBlocks = 0;
 	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
@@ -127,8 +126,8 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("lesu").player(player.inventory).inventory().hotbar().armor().complete(8, 18)
 				.addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue()
 				.sync(this::getConnectedBlocksNum, this::setConnectedBlocksNum).addInventory().create(this, syncID);
 	}

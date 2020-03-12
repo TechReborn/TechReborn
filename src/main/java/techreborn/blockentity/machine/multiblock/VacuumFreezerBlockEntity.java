@@ -27,9 +27,9 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
@@ -38,7 +38,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public MultiblockChecker multiblockChecker;
 
@@ -69,8 +69,8 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this, syncID);
 	}

@@ -25,9 +25,9 @@
 package techreborn.blockentity.machine.tier1;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
@@ -36,7 +36,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public AlloySmelterBlockEntity() {
 		super(TRBlockEntities.ALLOY_SMELTER, "AlloySmelter", TechRebornConfig.alloySmelterMaxInput, TechRebornConfig.alloySmelterMaxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
@@ -48,8 +48,8 @@ public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implement
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
 			.slot(0, 34, 47)
 			.slot(1, 126, 47)

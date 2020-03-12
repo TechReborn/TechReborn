@@ -26,9 +26,9 @@ package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -38,7 +38,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public MultiblockChecker multiblockChecker;
 
@@ -72,8 +72,8 @@ public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity im
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("implosioncompressor").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 92, 36).outputSlot(3, 110, 36)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}

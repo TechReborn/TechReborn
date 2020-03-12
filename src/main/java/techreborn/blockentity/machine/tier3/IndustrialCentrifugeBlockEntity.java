@@ -29,9 +29,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import reborncore.api.IListInfoProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.ItemUtils;
@@ -44,7 +44,7 @@ import techreborn.items.DynamicCellItem;
 
 import java.util.List;
 
-public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity implements IContainerProvider, IListInfoProvider {
+public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider, IListInfoProvider {
 
 	public IndustrialCentrifugeBlockEntity() {
 		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", TechRebornConfig.industrialCentrifugeMaxInput, TechRebornConfig.industrialCentrifugeMaxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
@@ -56,8 +56,8 @@ public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity i
 	
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
 			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
 			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))

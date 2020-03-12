@@ -29,9 +29,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import team.reborn.energy.Energy;
@@ -40,7 +40,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop, InventoryProvider, IContainerProvider {
+	implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
 
@@ -115,8 +115,8 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
 			.blockEntity(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
 			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create(this, syncID);
 	}

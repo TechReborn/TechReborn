@@ -32,9 +32,9 @@ import net.minecraft.recipe.SmeltingRecipe;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.recipes.RecipeCrafter;
@@ -47,7 +47,7 @@ import techreborn.init.TRContent;
 import java.util.Optional;
 
 public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IContainerProvider {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<ElectricFurnaceBlockEntity> inventory = new RebornInventory<>(3, "ElectricFurnaceBlockEntity", 64, this);
 	int inputSlot = 0;
@@ -269,8 +269,8 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("electricfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.sync(this::getCookTime, this::setCookTime).sync(this::getCookTimeTotal, this::setCookTimeTotal).addInventory().create(this, syncID);
 	}

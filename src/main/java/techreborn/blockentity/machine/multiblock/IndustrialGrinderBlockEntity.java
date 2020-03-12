@@ -31,9 +31,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -47,7 +47,7 @@ import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
 
-public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity implements IContainerProvider{
+public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
@@ -121,9 +121,9 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 
 	// IContainerProvider
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		// fluidSlot first to support automation and shift-click
-		return new ContainerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
+		return new ScreenHandlerBuilder("industrialgrinder").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).fluidSlot(1, 34, 35).slot(0, 84, 43).outputSlot(2, 126, 18).outputSlot(3, 126, 36)
 				.outputSlot(4, 126, 54).outputSlot(5, 126, 72).outputSlot(6, 34, 55).energySlot(7, 8, 72)
 				.sync(tank).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);

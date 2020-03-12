@@ -26,9 +26,9 @@ package techreborn.blockentity.generator.advanced;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.fluid.FluidValue;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.blockentity.generator.BaseFluidGeneratorBlockEntity;
@@ -36,7 +36,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements IContainerProvider {
+public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity implements BuiltScreenHandlerProvider {
 
 	public SemiFluidGeneratorBlockEntity() {
 		super(TRBlockEntities.SEMI_FLUID_GENERATOR, EFluidGenerator.SEMIFLUID, "SemiFluidGeneratorBlockEntity", FluidValue.BUCKET.multiply(10), TechRebornConfig.semiFluidGeneratorEnergyPerTick);
@@ -58,8 +58,8 @@ public class SemiFluidGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("semifluidgenerator").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("semifluidgenerator").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
 			.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
 			.sync(this::getTankAmount, this::setTankAmount)

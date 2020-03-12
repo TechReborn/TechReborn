@@ -26,9 +26,9 @@ package techreborn.blockentity.machine.iron;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.util.RebornInventory;
@@ -36,7 +36,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	implements  IContainerProvider {
+public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	implements BuiltScreenHandlerProvider {
 
 	int input1 = 0;
 	int input2 = 1;
@@ -125,8 +125,8 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, final PlayerEntity player) {
-		return new ContainerBuilder("alloyfurnace").player(player.inventory).inventory().hotbar()
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
+		return new ScreenHandlerBuilder("alloyfurnace").player(player.inventory).inventory().hotbar()
 			.addInventory().blockEntity(this)
 			.slot(0, 47, 17)
 			.slot(1, 65, 17)

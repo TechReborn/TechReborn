@@ -25,16 +25,16 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 
-public class GuiGenerator extends GuiBase<BuiltContainer> {
+public class GuiGenerator extends GuiBase<BuiltScreenHandler> {
 
 	SolidFuelGeneratorBlockEntity blockEntity;
 
 	public GuiGenerator(int syncID, final PlayerEntity player, final SolidFuelGeneratorBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 

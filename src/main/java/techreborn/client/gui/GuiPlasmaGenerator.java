@@ -27,7 +27,7 @@ package techreborn.client.gui;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -37,7 +37,7 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
  *
  */
 @Environment(EnvType.CLIENT)
-public class GuiPlasmaGenerator extends GuiBase<BuiltContainer> {
+public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 
 	/**
 	 * @param player
@@ -47,7 +47,7 @@ public class GuiPlasmaGenerator extends GuiBase<BuiltContainer> {
 	PlasmaGeneratorBlockEntity blockEntity;
 
 	public GuiPlasmaGenerator(int syncID, final PlayerEntity player, final PlasmaGeneratorBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 	

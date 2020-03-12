@@ -24,7 +24,7 @@
 
 package techreborn.blockentity.data;
 
-import reborncore.client.containerBuilder.builder.ContainerBlockEntityInventoryBuilder;
+import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
@@ -48,13 +48,13 @@ public enum SlotType {
 			.orElse(null);
 	}
 
-	private BiConsumer<ContainerBlockEntityInventoryBuilder, DataDrivenSlot> slotBiConsumer;
+	private BiConsumer<BlockEntityScreenHandlerBuilder, DataDrivenSlot> slotBiConsumer;
 
-	SlotType(BiConsumer<ContainerBlockEntityInventoryBuilder, DataDrivenSlot> slotBiConsumer) {
+	SlotType(BiConsumer<BlockEntityScreenHandlerBuilder, DataDrivenSlot> slotBiConsumer) {
 		this.slotBiConsumer = slotBiConsumer;
 	}
 
-	public BiConsumer<ContainerBlockEntityInventoryBuilder, DataDrivenSlot> getSlotBiConsumer() {
+	public BiConsumer<BlockEntityScreenHandlerBuilder, DataDrivenSlot> getSlotBiConsumer() {
 		return slotBiConsumer;
 	}
 }

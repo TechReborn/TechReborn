@@ -37,10 +37,10 @@ import net.minecraft.util.registry.Registry;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
-import reborncore.client.containerBuilder.builder.ContainerBlockEntityInventoryBuilder;
-import reborncore.client.containerBuilder.builder.ContainerBuilder;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
+import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -93,8 +93,8 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 		return new DataDrivenBlockEntity(this);
 	}
 
-	public BuiltContainer createContainer(DataDrivenBlockEntity blockEntity, int syncID, PlayerEntity player) {
-		ContainerBlockEntityInventoryBuilder builder = new ContainerBuilder(identifier.getPath()).player(player.inventory)
+	public BuiltScreenHandler createScreenHandler(DataDrivenBlockEntity blockEntity, int syncID, PlayerEntity player) {
+		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder(identifier.getPath()).player(player.inventory)
 			.inventory().hotbar().addInventory().blockEntity(blockEntity);
 
 		slots.forEach(dataDrivenSlot -> dataDrivenSlot.add(builder));
@@ -110,7 +110,7 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 		return instantiate();
 	}
 
-	public static class DataDrivenBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
+	public static class DataDrivenBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 		private final DataDrivenBEProvider provider;
 
@@ -126,8 +126,8 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 		}
 
 		@Override
-		public BuiltContainer createContainer(int syncID, PlayerEntity player) {
-			return provider.createContainer(this,syncID, player);
+		public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
+			return provider.createScreenHandler(this,syncID, player);
 		}
 
 		public DataDrivenBEProvider getProvider() {

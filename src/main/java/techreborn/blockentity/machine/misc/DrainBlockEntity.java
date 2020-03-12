@@ -5,12 +5,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.containerBuilder.IContainerProvider;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import techreborn.init.TRBlockEntities;
 
-public class DrainBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IListInfoProvider, IContainerProvider {
+public class DrainBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IListInfoProvider, BuiltScreenHandlerProvider {
 
 	public DrainBlockEntity(){
 		this(TRBlockEntities.DRAIN);
@@ -26,7 +26,7 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements Inventor
 	}
 
 	@Override
-	public BuiltContainer createContainer(int syncID, PlayerEntity player) {
+	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return null;
 	}
 }

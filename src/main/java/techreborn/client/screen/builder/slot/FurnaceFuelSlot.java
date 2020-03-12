@@ -22,46 +22,34 @@
  * SOFTWARE.
  */
 
-package techreborn.client.container;
+package techreborn.client.screen.builder.slot;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import reborncore.client.gui.slots.SlotFilteredVoid;
-import reborncore.common.util.RebornInventory;
-import techreborn.init.TRContent;
+import net.minecraft.item.Items;
+import reborncore.client.gui.slots.BaseSlot;
 
-public class ContainerDestructoPack extends ScreenHandler {
+public class FurnaceFuelSlot extends BaseSlot {
 
-	private PlayerEntity player;
-	private RebornInventory<?> inv;
-
-	public ContainerDestructoPack(int syncID, PlayerEntity player) {
-		super(null, syncID);
-		this.player = player;
-		inv = new RebornInventory<>(1, "destructopack", 64, null);
-		buildContainer();
+	public FurnaceFuelSlot(Inventory inventoryIn, int index, int xPosition, int yPosition) {
+		super(inventoryIn, index, xPosition, yPosition);
 	}
 
 	@Override
-	public boolean canUse(PlayerEntity arg0) {
-		return true;
+	public boolean canInsert(ItemStack stack)
+	{
+		return AbstractFurnaceBlockEntity.canUseAsFuel(stack) || isBucket(stack);
 	}
 
-	private void buildContainer() {
-		this.addSlot(
-			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { TRContent.Parts.MACHINE_PARTS.getStack() }));
-		int i;
+	@Override
+	public int getMaxStackAmount(ItemStack stack)
+	{
+		return isBucket(stack) ? 1 : super.getMaxStackAmount(stack);
+	}
 
-		for (i = 0; i < 3; ++i) {
-			for (int j = 0; j < 9; ++j) {
-				this.addSlot(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-			}
-		}
-
-		for (i = 0; i < 9; ++i) {
-			this.addSlot(new Slot(player.inventory, i, 8 + i * 18, 142));
-		}
+	public static boolean isBucket(ItemStack stack)
+	{
+		return stack.getItem() == Items.BUCKET;
 	}
 }

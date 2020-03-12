@@ -25,17 +25,17 @@
 package techreborn.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
 import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
 
-public class GuiWireMill extends GuiBase<BuiltContainer> {
+public class GuiWireMill extends GuiBase<BuiltScreenHandler> {
 
 	WireMillBlockEntity blockEntity;
 
 	public GuiWireMill(int syncID, final PlayerEntity player, final WireMillBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 

@@ -33,7 +33,7 @@ import net.minecraft.client.gui.screen.ingame.ScreenWithHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
-import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -67,7 +67,7 @@ public class GuiHandler {
 
 		EGui.stream().forEach(gui -> ContainerProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> {
 			final BlockEntity blockEntity = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			return ((IContainerProvider) blockEntity).createContainer(syncID, playerEntity);
+			return ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncID, playerEntity);
 		}));
 
 		RebornCore.clientOnly(() -> () -> EGui.stream().forEach(gui -> ScreenProviderRegistry.INSTANCE.registerFactory(gui.getID(), (syncID, identifier, playerEntity, packetByteBuf) -> getClientGuiElement(EGui.byID(identifier), playerEntity, packetByteBuf.readBlockPos(), syncID))));

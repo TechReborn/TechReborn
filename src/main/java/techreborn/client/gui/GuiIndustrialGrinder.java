@@ -29,7 +29,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.containerBuilder.builder.BuiltContainer;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
@@ -37,12 +37,12 @@ import reborncore.client.multiblock.Multiblock;
 import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 import techreborn.init.TRContent;
 
-public class GuiIndustrialGrinder extends GuiBase<BuiltContainer> {
+public class GuiIndustrialGrinder extends GuiBase<BuiltScreenHandler> {
 
 	IndustrialGrinderBlockEntity blockEntity;
 
 	public GuiIndustrialGrinder(int syncID, final PlayerEntity player, final IndustrialGrinderBlockEntity blockEntity) {
-		super(player, blockEntity, blockEntity.createContainer(syncID, player));
+		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
 
