@@ -76,7 +76,7 @@ public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBa
 		if (fluid != Fluids.EMPTY) {
 			FluidRenderHandler fluidRenderHandler = FluidRenderHandlerRegistry.INSTANCE.get(fluid);
 			BakedModel fluidModel = bakedModelManager.getModel(getFluidModel());
-			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getBlockPos(), fluid.getDefaultState());
+			int fluidColor = fluidRenderHandler.getFluidColor(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getSenseCenterPos(), fluid.getDefaultState());
 			Sprite fluidSprite = fluidRenderHandler.getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
 			int color = new Color((float) (fluidColor >> 16 & 255) / 255.0F, (float) (fluidColor >> 8 & 255) / 255.0F, (float) (fluidColor & 255) / 255.0F).getColor();
 			context.pushTransform(quad -> {

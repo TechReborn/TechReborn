@@ -75,11 +75,11 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 	}
 
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() >= cost) {
-			return ToolMaterials.DIAMOND.getMiningSpeed();
+			return ToolMaterials.DIAMOND.getMiningSpeedMultiplier();
 		}
-		return super.getMiningSpeed(stack, state);
+		return super.getMiningSpeedMultiplier(stack, state);
 	}
 
 	// MiningToolItem

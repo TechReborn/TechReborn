@@ -29,7 +29,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.ScreenWithHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.RebornCore;
@@ -74,7 +74,7 @@ public class GuiHandler {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private static ContainerScreen<?> getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
+	private static ScreenWithHandler<?> getClientGuiElement(final EGui gui, final PlayerEntity player, BlockPos pos, int syncID) {
 		final BlockEntity blockEntity = player.world.getBlockEntity(pos);
 
 		if (blockEntity instanceof DataDrivenBEProvider.DataDrivenBlockEntity) {

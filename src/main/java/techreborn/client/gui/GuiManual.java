@@ -58,26 +58,26 @@ public class GuiManual extends Screen {
 	public void init() {
 		int y = (height / 2) - guiHeight / 2;
 		y+= 40;
-		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, StringUtils.t("techreborn.manual.wikibtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
+		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, StringUtils.t("techreborn.manual.wikibtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
 				Util.getOperatingSystem().open("http://wiki.techreborn.ovh");
-				this.minecraft.openScreen(this);
+				this.client.openScreen(this);
 			} else {
-				this.minecraft.openScreen(this);
+				this.client.openScreen(this);
 			}
 		}, "http://wiki.techreborn.ovh", false))));
-		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, StringUtils.t("techreborn.manual.discordbtn"), var1 -> minecraft.openScreen(new ConfirmChatLinkScreen(t -> {
+		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, StringUtils.t("techreborn.manual.discordbtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
 				Util.getOperatingSystem().open("https://discord.gg/teamreborn");
-				this.minecraft.openScreen(this);
+				this.client.openScreen(this);
 			}else {
-				this.minecraft.openScreen(this);
+				this.client.openScreen(this);
 			}
 		}, "https://discord.gg/teamreborn", false))));
 		if(TechRebornConfig.allowManualRefund){
 			addButton(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, StringUtils.t("techreborn.manual.refundbtn"), var1 -> {
 				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
-				this.minecraft.openScreen(null);
+				this.client.openScreen(null);
 			}));
 		}
 	}
@@ -85,14 +85,14 @@ public class GuiManual extends Screen {
 	@Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		renderBackground();
-		minecraft.getTextureManager().bindTexture(GuiManual.texture);
+		client.getTextureManager().bindTexture(GuiManual.texture);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
 		blit(centerX, centerY, 0, 0, guiWidth, guiHeight);
-		font.draw(text1, ((width / 2) - font.getStringWidth(text1) / 2), centerY + 40, 4210752);
-		font.draw(text2, ((width / 2) - font.getStringWidth(text2) / 2), centerY + 90, 4210752);
+		textRenderer.draw(text1, ((width / 2) - textRenderer.getStringWidth(text1) / 2), centerY + 40, 4210752);
+		textRenderer.draw(text2, ((width / 2) - textRenderer.getStringWidth(text2) / 2), centerY + 90, 4210752);
 		if (TechRebornConfig.allowManualRefund) {
-			font.draw(text3, ((width / 2) - font.getStringWidth(text3) / 2), centerY + 140, 4210752);
+			textRenderer.draw(text3, ((width / 2) - textRenderer.getStringWidth(text3) / 2), centerY + 140, 4210752);
 		}
 		super.render(mouseX, mouseY, partialTicks);
 	}

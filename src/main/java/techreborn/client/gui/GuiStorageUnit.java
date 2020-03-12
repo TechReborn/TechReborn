@@ -56,20 +56,20 @@ public class GuiStorageUnit extends GuiBase<BuiltContainer> {
 		super.drawForeground(mouseX, mouseY);
 
 		if (storageEntity.isEmpty()) {
-			font.draw(StringUtils.t("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
+			textRenderer.draw(StringUtils.t("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
-			font.draw(StringUtils.t("gui.techreborn.storage.store"), 10, 20, 4210752);
-			font.draw(storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
+			textRenderer.draw(StringUtils.t("gui.techreborn.storage.store"), 10, 20, 4210752);
+			textRenderer.draw(storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
 
 
-			font.draw(StringUtils.t("gui.techreborn.storage.amount"), 10, 50, 4210752);
-			font.draw(String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
+			textRenderer.draw(StringUtils.t("gui.techreborn.storage.amount"), 10, 50, 4210752);
+			textRenderer.draw(String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
 
 			String percentFilled = String.valueOf((int) ((double) storageEntity.getCurrentCapacity() / (double) storageEntity.getMaxCapacity() * 100));
 
-			font.draw(StringUtils.t("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
+			textRenderer.draw(StringUtils.t("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
 
-			font.draw(StringUtils.t("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			textRenderer.draw(StringUtils.t("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
 	}
 }

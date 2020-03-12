@@ -79,7 +79,7 @@ public enum TRToolTier implements ToolMaterial {
 	}
 
 	@Override
-	public float getMiningSpeed() {
+	public float getMiningSpeedMultiplier() {
 		return efficiency;
 	}
 

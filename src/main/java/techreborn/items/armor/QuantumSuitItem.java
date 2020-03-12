@@ -96,7 +96,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 					if (playerEntity.abilities.flying) {
 						Energy.of(stack).use(flyCost);
 					}
-					playerEntity.onGround = true;
+					playerEntity.method_24830(true);
 				} else {
 					playerEntity.abilities.allowFlying = false;
 					playerEntity.abilities.flying = false;

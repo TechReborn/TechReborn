@@ -42,7 +42,6 @@ import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
 import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
-import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.*;

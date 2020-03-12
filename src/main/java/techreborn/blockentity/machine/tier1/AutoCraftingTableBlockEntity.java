@@ -24,7 +24,6 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -33,6 +32,7 @@ import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.math.Direction;
@@ -101,7 +101,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 	public CraftingInventory getCraftingInventory() {
 		if (inventoryCrafting == null) {
-			inventoryCrafting = new CraftingInventory(new Container(null, -1) {
+			inventoryCrafting = new CraftingInventory(new ScreenHandler(null, -1) {
 				@Override
 				public boolean canUse(PlayerEntity playerIn) {
 					return false;

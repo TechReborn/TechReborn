@@ -24,15 +24,15 @@
 
 package techreborn.client.container;
 
-import net.minecraft.container.Container;
-import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import reborncore.client.gui.slots.SlotFilteredVoid;
 import reborncore.common.util.RebornInventory;
 import techreborn.init.TRContent;
 
-public class ContainerDestructoPack extends Container {
+public class ContainerDestructoPack extends ScreenHandler {
 
 	private PlayerEntity player;
 	private RebornInventory<?> inv;

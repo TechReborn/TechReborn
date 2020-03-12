@@ -35,7 +35,6 @@ import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;

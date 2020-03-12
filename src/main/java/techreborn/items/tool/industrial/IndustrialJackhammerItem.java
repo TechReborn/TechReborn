@@ -124,7 +124,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 
 	// PickaxeItem
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
 			// x4 diamond mining speed
 			return 32.0F;

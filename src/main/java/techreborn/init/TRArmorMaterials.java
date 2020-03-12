@@ -108,7 +108,7 @@ public enum TRArmorMaterials implements ArmorMaterial {
 	}
 
 	@Override
-	public float method_24355() {
+	public float getKnockbackResistance() {
 		return 0; //Knockback resitance
 	}
 }

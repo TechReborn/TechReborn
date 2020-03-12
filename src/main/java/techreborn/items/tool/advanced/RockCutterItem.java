@@ -65,11 +65,11 @@ public class RockCutterItem extends PickaxeItem implements EnergyHolder, ItemDur
 	}
 
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() < cost) {
 			return 2F;
 		} else {
-			return Items.DIAMOND_PICKAXE.getMiningSpeed(stack, state);
+			return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(stack, state);
 		}
 	}
 

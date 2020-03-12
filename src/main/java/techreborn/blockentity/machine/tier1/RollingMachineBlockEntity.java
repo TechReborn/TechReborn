@@ -24,12 +24,12 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.container.Container;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
@@ -414,7 +414,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		return 0;
 	}
 
-	private static class RollingBEContainer extends Container {
+	private static class RollingBEContainer extends ScreenHandler {
 
 		protected RollingBEContainer() {
 			super(null, 0);

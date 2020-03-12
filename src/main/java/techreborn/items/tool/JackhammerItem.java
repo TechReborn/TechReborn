@@ -60,7 +60,7 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// PickaxeItem
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
 			return miningSpeed;
 		}

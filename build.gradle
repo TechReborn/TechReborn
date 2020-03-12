@@ -65,15 +65,15 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:20w06a"
-	mappings "net.fabricmc:yarn:20w06a+build.15:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.7.8+build.184"
+	minecraft "com.mojang:minecraft:20w11a"
+	mappings "net.fabricmc:yarn:20w11a+build.1:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.7.8+build.187"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.4.32+build.296-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.5.3+build.308-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.2.31")
-	optionalDependency ('io.github.cottonmc:LibCD:2.0.1+1.15')
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.0.12-unstable")
+	optionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {
@@ -83,10 +83,6 @@ dependencies {
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 	modCompileOnly ('curse.maven:towelette:2842017') {
-		transitive = false
-	}
-
-	modRuntime ("com.jamieswhiteshirt:developer-mode:1.0.15") {
 		transitive = false
 	}
 }

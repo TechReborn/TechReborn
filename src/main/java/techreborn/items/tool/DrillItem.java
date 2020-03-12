@@ -65,15 +65,15 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	// PickaxeItem
 	@Override
-	public float getMiningSpeed(ItemStack stack, BlockState state) {
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() < cost) {
-			return super.getMiningSpeed(stack, state);
+			return super.getMiningSpeedMultiplier(stack, state);
 		}
-		if (Items.WOODEN_PICKAXE.getMiningSpeed(stack, state) > 1.0F
-				|| Items.WOODEN_SHOVEL.getMiningSpeed(stack, state) > 1.0F) {
+		if (Items.WOODEN_PICKAXE.getMiningSpeedMultiplier(stack, state) > 1.0F
+				|| Items.WOODEN_SHOVEL.getMiningSpeedMultiplier(stack, state) > 1.0F) {
 			return poweredSpeed;
 		}
-		return super.getMiningSpeed(stack, state);
+		return super.getMiningSpeedMultiplier(stack, state);
 	}
 
 	// MiningToolItem
