@@ -4,7 +4,7 @@
   "time": 270,
   "ingredients": [
     {
-      "item": "minecraft:gold_ore"
+      "tag": "minecraft:gold_ores"
     }
   ],
   "results": [
