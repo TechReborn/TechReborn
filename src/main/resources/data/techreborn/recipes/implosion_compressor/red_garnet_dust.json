@@ -3,13 +3,13 @@
   "power": 30,
   "time": 2000,
   "ingredients" : [
+	{
+	  "item": "minecraft:redstone_block",
+	  "count": 9
+	},
     {
       "item": "minecraft:tnt",
       "count": 16
-    },
-    {
-      "item": "minecraft:redstone_block",
-      "count": 9
     }
   ],
   "results" : [

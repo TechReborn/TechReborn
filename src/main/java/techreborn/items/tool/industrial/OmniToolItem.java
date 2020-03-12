@@ -63,7 +63,7 @@ public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurab
 
 	// 4M FE max charge with 1k charge rate
 	public OmniToolItem() {
-		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+		super(ToolMaterials.DIAMOND, 3, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 	}
 
 	// PickaxeItem

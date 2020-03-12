@@ -3,12 +3,12 @@
   "power": 30,
   "time": 2000,
   "ingredients" : [
+	{
+	  "item": "techreborn:iridium_alloy_ingot"
+	},
     {
       "item": "minecraft:tnt",
       "count": 8
-    },
-    {
-      "item": "techreborn:iridium_alloy_ingot"
     }
   ],
   "results" : [

@@ -1,0 +1,25 @@
+{
+  "type": "techreborn:implosion_compressor",
+  "power": 30,
+  "time": 2000,
+  "ingredients": [
+	{
+	  "count": 4,
+	  "tag": "c:ruby_dust"
+	},
+    {
+      "item": "minecraft:end_crystal",
+      "count": 4
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:ruby_gem",
+      "count": 3
+    },
+    {
+      "item": "techreborn:ender_eye_small_dust",
+      "count": 4
+    }
+  ]
+}

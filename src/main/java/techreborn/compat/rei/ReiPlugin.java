@@ -24,7 +24,7 @@
 
 package techreborn.compat.rei;
 
-import me.shedaniel.rei.RoughlyEnoughItemsCore;
+import me.shedaniel.rei.api.EntryRegistry;
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeDisplay;
 import me.shedaniel.rei.api.RecipeHelper;
@@ -169,7 +169,7 @@ public class ReiPlugin implements REIPluginV0 {
 	public void postRegister() {
 		// Alright we are going to apply check tags to cells, this should not take long at all.
 		// Check Tags will not check the amount of the ItemStack, but will enable checking their tags.
-		for (EntryStack stack : RoughlyEnoughItemsCore.getEntryRegistry().getStacksList())
+		for (EntryStack stack : EntryRegistry.getInstance().getStacksList())
 			applyCellEntry(stack);
 	}
 	
@@ -182,7 +182,7 @@ public class ReiPlugin implements REIPluginV0 {
 	private void registerFluidGeneratorDisplays(RecipeHelper recipeHelper, EFluidGenerator generator, Machine machine) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
 		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe -> {
-			recipeHelper.registerDisplay(identifier, new FluidGeneratorRecipeDisplay(recipe, identifier));
+			recipeHelper.registerDisplay(new FluidGeneratorRecipeDisplay(recipe, identifier));
 		});
 	}
 	

@@ -3,13 +3,13 @@
   "power": 30,
   "time": 2000,
   "ingredients" : [
+	{
+	  "item": "techreborn:red_garnet_dust",
+	  "count": 4
+	},
     {
       "item": "minecraft:tnt",
       "count": 16
-    },
-    {
-      "item": "techreborn:red_garnet_dust",
-      "count": 4
     }
   ],
   "results" : [

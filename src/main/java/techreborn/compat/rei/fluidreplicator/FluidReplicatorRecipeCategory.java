@@ -69,28 +69,27 @@ public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplic
 	
 	@Override
 	public List<Widget> setupDisplay(Supplier<FluidReplicatorRecipeDisplay> recipeDisplaySupplier, Rectangle bounds) {
-		
 		FluidReplicatorRecipeDisplay machineRecipe = recipeDisplaySupplier.get();
 		
 		Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 13);
 		
 		List<Widget> widgets = new LinkedList<>();
 		widgets.add(new RecipeBaseWidget(bounds));
-		widgets.add(new RecipeArrowWidget(startPoint.x + 24, startPoint.y + 1, true));
+		widgets.add(RecipeArrowWidget.create(new Point(startPoint.x + 24, startPoint.y + 1), true).time(machineRecipe.getTime() * 50.0));
 		
 		int i = 0;
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()) {
-			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)).entries(inputs));
+			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)).entries(inputs).markIsInput());
 		}
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		LabelWidget costLabel;
-		widgets.add(costLabel = new LabelWidget(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
+		widgets.add(costLabel = LabelWidget.create(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
 		costLabel.setHasShadows(false);
 		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
 		
 		if (!machineRecipe.getOutputEntries().isEmpty())
-			widgets.add(EntryWidget.create(startPoint.x + 61, startPoint.y + 1).entries(machineRecipe.getOutputEntries()));
+			widgets.add(EntryWidget.create(startPoint.x + 61, startPoint.y + 1).entries(machineRecipe.getOutputEntries()).markIsOutput());
 		
 		return widgets;
 	}
