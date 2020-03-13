@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " D ",
-    "DCD",
+    "DBD",
     "TST"
   ],
   "key": {
     "D": {
       "item": "minecraft:diamond"
     },
-    "C": {
-      "item": "techreborn:advanced_circuit"
+    "B": {
+      "item": "techreborn:lithium_ion_battery"
     },
     "T": {
       "tag": "c:titanium_ingot"

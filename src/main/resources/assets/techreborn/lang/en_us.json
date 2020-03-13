@@ -515,7 +515,8 @@
   "item.techreborn.uu_matter": "UU-Matter",
   "item.techreborn.plantball": "Plantball",
   "item.techreborn.compressed_plantball": "Compressed Plantball",
-
+  "item.techreborn.synthetic_redstone_crystal": "Synthetic Redstone Crystal",
+  
   "_comment14": "Items-Armor",
   "item.techreborn.cloaking_device": "Cloaking Device",
   "item.techreborn.lapotronic_orbpack": "Lapotronic Orbpack",
@@ -530,7 +531,7 @@
   "item.techreborn.lapotron_crystal": "Lapotron Crystal",
   "item.techreborn.lapotronic_orb": "Lapotronic Energy Orb",
   "item.techreborn.lithium_ion_battery": "Lithium Battery",
-  "item.techreborn.red_cell_battery": "Battery",
+  "item.techreborn.red_cell_battery": "Red Cell Battery",
 
   "_comment16": "Items-Tools",
   "item.techreborn.advanced_chainsaw": "Advanced Chainsaw",
@@ -544,9 +545,9 @@
   "item.techreborn.nanosaber": "Nanosaber",
   "item.techreborn.omni_tool": "Omni-Tool",
   "item.techreborn.rock_cutter": "Rockcutter",
-  "item.techreborn.basic_chainsaw": "Iron Chainsaw",
-  "item.techreborn.basic_drill": "Iron Drill",
-  "item.techreborn.basic_jackhammer": "Iron Jackhammer",
+  "item.techreborn.basic_chainsaw": "Basic Chainsaw",
+  "item.techreborn.basic_drill": "Basic Drill",
+  "item.techreborn.basic_jackhammer": "Basic Jackhammer",
   "item.techreborn.treetap": "Treetap",
   "item.techreborn.wrench": "Wrench",
   "item.techreborn.destructopack": "Destructopack",

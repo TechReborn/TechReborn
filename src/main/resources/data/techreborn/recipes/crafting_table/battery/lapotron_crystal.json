@@ -7,10 +7,10 @@
 	],
 	"key": {
 		"L": {
-			"item": "minecraft:lapis_lazuli"
+			"tag": "c:lazurite_plate"
 		},
 		"C": {
-			"item": "techreborn:electronic_circuit"
+			"item": "techreborn:industrial_circuit"
 		},
 		"E": {
 			"item": "techreborn:energy_crystal"

@@ -2,18 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " S ",
-    "SCS",
-    "SBS"
+    "SBS",
+    "SCS"
   ],
   "key": {
     "S": {
       "item": "techreborn:refined_iron_ingot"
     },
+	"B": {
+	  "item": "techreborn:red_cell_battery"
+	},
     "C": {
       "item": "techreborn:electronic_circuit"
-    },
-    "B": {
-      "item": "techreborn:red_cell_battery"
     }
   },
   "result": {

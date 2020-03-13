@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DSD",
-    "TCT",
-    " D "
+	"DSD",
+	"TBT",
+	" D "
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "C": {
-      "item": "techreborn:advanced_circuit"
-    },
-    "T": {
-      "tag": "c:titanium_ingot"
-    },
-    "S": {
-      "item": "techreborn:basic_jackhammer"
-    }
+	"D": {
+	  "item": "minecraft:diamond"
+	},
+	"B": {
+	  "item": "techreborn:lithium_ion_battery"
+	},
+	"T": {
+	  "tag": "c:titanium_ingot"
+	},
+	"S": {
+	  "item": "techreborn:basic_jackhammer"
+	}
   },
   "result": {
-    "item": "techreborn:advanced_jackhammer"
+	"item": "techreborn:advanced_jackhammer"
   }
 }

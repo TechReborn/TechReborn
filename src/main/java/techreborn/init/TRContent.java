@@ -38,39 +38,44 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergySide;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
-import techreborn.blockentity.machine.misc.DrainBlockEntity;
-import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
-import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
-import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.generator.LightningRodBlockEntity;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 import techreborn.blockentity.generator.advanced.*;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.generator.basic.WaterMillBlockEntity;
 import techreborn.blockentity.generator.basic.WindMillBlockEntity;
+import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
+import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.tier1.*;
-import techreborn.blockentity.machine.tier3.*;
+import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
+import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
+import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
+import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
 import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
 import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
-import techreborn.blocks.*;
+import techreborn.blocks.DataDrivenMachineBlock;
+import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
-import techreborn.blocks.generator.*;
+import techreborn.blocks.generator.BlockFusionCoil;
+import techreborn.blocks.generator.BlockFusionControlComputer;
+import techreborn.blocks.generator.BlockSolarPanel;
+import techreborn.blocks.generator.GenericGeneratorBlock;
 import techreborn.blocks.lighting.BlockLamp;
+import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
+import techreborn.blocks.machine.tier0.IronFurnaceBlock;
+import techreborn.blocks.machine.tier1.BlockPlayerDetector;
 import techreborn.blocks.misc.BlockAlarm;
 import techreborn.blocks.misc.BlockMachineCasing;
 import techreborn.blocks.misc.BlockMachineFrame;
 import techreborn.blocks.misc.BlockStorage;
 import techreborn.blocks.storage.OldBlock;
 import techreborn.blocks.storage.energy.*;
-import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
-import techreborn.blocks.machine.tier0.IronFurnaceBlock;
-import techreborn.blocks.machine.tier1.BlockPlayerDetector;
-import techreborn.blocks.storage.item.StorageUnitBlock;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
+import techreborn.blocks.storage.item.StorageUnitBlock;
 import techreborn.blocks.transformers.BlockEVTransformer;
 import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
@@ -89,7 +94,7 @@ import java.util.Locale;
 import java.util.function.Function;
 
 public class TRContent {
-	
+
 	// Misc Blocks
 	public static Block COMPUTER_CUBE;
 	public static Block NUKE;
@@ -108,7 +113,7 @@ public class TRContent {
 	public static Block RUBBER_PRESSURE_PLATE;
 	public static Block RUBBER_DOOR;
 	public static Block RUBBER_LOG_STRIPPED;
-	
+
 	// Armor
 	public static Item CLOAKING_DEVICE;
 	public static Item LAPOTRONIC_ORBPACK;
@@ -229,7 +234,7 @@ public class TRContent {
 	public static Item PERIDOT_LEGGINGS;
 	@Nullable
 	public static Item PERIDOT_BOOTS;
-		
+
 	public enum SolarPanels implements ItemConvertible {
 		BASIC(EnergyTier.MICRO, TechRebornConfig.basicGenerationRateD, TechRebornConfig.basicGenerationRateN),
 		ADVANCED(EnergyTier.LOW, TechRebornConfig.advancedGenerationRateD, TechRebornConfig.advancedGenerationRateN),
@@ -237,10 +242,10 @@ public class TRContent {
 		ULTIMATE(EnergyTier.HIGH, TechRebornConfig.ultimateGenerationRateD, TechRebornConfig.ultimateGenerationRateN),
 		QUANTUM(EnergyTier.EXTREME, TechRebornConfig.quantumGenerationRateD, TechRebornConfig.quantumGenerationRateN),
 		CREATIVE(EnergyTier.INFINITE, Integer.MAX_VALUE / 100, Integer.MAX_VALUE / 100);
-		
+
 		public final String name;
 		public final Block block;
-		
+
 		// Generation of EU during Day
 		public int generationRateD;
 		// Generation of EU during Night
@@ -248,7 +253,7 @@ public class TRContent {
 		// Internal EU storage of solar panel
 		public int internalCapacity;
 		public final EnergyTier powerTier;
-		
+
 		SolarPanels(EnergyTier tier, int generationRateD, int generationRateN) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			powerTier = tier;
@@ -257,7 +262,7 @@ public class TRContent {
 			this.generationRateN = generationRateN;
 
 			internalCapacity = generationRateD * TechRebornConfig.solarInternalCapacityMultiplier;
-			
+
 			InitUtils.setup(block, name + "_solar_panel");
 		}
 
@@ -334,7 +339,7 @@ public class TRContent {
 		INSULATED_GOLD(512, 10.0, false, EnergyTier.HIGH),
 		INSULATED_HV(2048, 10.0, false, EnergyTier.EXTREME),
 		SUPERCONDUCTOR(Integer.MAX_VALUE / 4, 10.0, false, EnergyTier.INFINITE);
-		
+
 
 		public final String name;
 		public final CableBlock block;
@@ -345,8 +350,8 @@ public class TRContent {
 		public boolean canKill;
 		public boolean defaultCanKill;
 		public EnergyTier tier;
-		
-		
+
+
 		Cables(int transferRate, double cableThickness, boolean canKill, EnergyTier tier) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			this.transferRate = transferRate;
@@ -358,11 +363,11 @@ public class TRContent {
 			this.block = new CableBlock(this);
 			InitUtils.setup(block, name + "_cable");
 		}
-		
+
 		public ItemStack getStack() {
 			return new ItemStack(block);
 		}
-		
+
 		@Override
 		public Item asItem() {
 			return block.asItem();
@@ -370,21 +375,21 @@ public class TRContent {
 	}
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(6, 10, 10, 60), 
-		CINNABAR(6, 3, 10, 126), 
-		COPPER(8, 16, 20, 60), 
-		GALENA(8, 16, 10, 60), 
-		IRIDIUM(3, 3, 5, 60), 
-		LEAD(6, 16, 20, 60), 
-		PERIDOT(6, 3, 10, 250), 
-		PYRITE(6, 3, 10, 126), 
-		RUBY(6, 3, 10, 60), 
-		SAPPHIRE(6, 3, 10, 60), 
-		SHELDONITE(6, 3, 10, 250), 
-		SILVER(6, 16, 20, 60), 
+		BAUXITE(6, 10, 10, 60),
+		CINNABAR(6, 3, 10, 126),
+		COPPER(8, 16, 20, 60),
+		GALENA(8, 16, 10, 60),
+		IRIDIUM(3, 3, 5, 60),
+		LEAD(6, 16, 20, 60),
+		PERIDOT(6, 3, 10, 250),
+		PYRITE(6, 3, 10, 126),
+		RUBY(6, 3, 10, 60),
+		SAPPHIRE(6, 3, 10, 60),
+		SHELDONITE(6, 3, 10, 250),
+		SILVER(6, 16, 20, 60),
 		SODALITE(6, 3, 10, 250),
-		SPHALERITE(6, 3, 10, 126), 
-		TIN(8, 16, 20, 60), 
+		SPHALERITE(6, 3, 10, 126),
+		TIN(8, 16, 20, 60),
 		TUNGSTEN(6, 3, 10, 250);
 
 		public final String name;
@@ -455,12 +460,12 @@ public class TRContent {
 			return casing;
 		}
 
-		public static ItemConvertible[] getCasings(){
+		public static ItemConvertible[] getCasings() {
 			return Arrays.stream(MachineBlocks.values()).map((Function<MachineBlocks, ItemConvertible>) machineBlocks -> () -> Item.fromBlock(machineBlocks.casing)).toArray(ItemConvertible[]::new);
 		}
 	}
-	
-	
+
+
 	public enum Machine implements ItemConvertible {
 		ALLOY_SMELTER(new GenericMachineBlock(EGui.ALLOY_SMELTER, AlloySmelterBlockEntity::new)),
 		ASSEMBLY_MACHINE(new GenericMachineBlock(EGui.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity::new)),
@@ -488,7 +493,7 @@ public class TRContent {
 		SOLID_CANNING_MACHINE(new GenericMachineBlock(EGui.SOLID_CANNING_MACHINE, SoildCanningMachineBlockEntity::new)),
 		WIRE_MILL(new GenericMachineBlock(EGui.WIRE_MILL, WireMillBlockEntity::new)),
 		GREENHOUSE_CONTROLLER(new GenericMachineBlock(EGui.GREENHOUSE_CONTROLLER, GreenhouseControllerBlockEntity::new)),
-		
+
 		DIESEL_GENERATOR(new GenericGeneratorBlock(EGui.DIESEL_GENERATOR, DieselGeneratorBlockEntity::new)),
 		DRAGON_EGG_SYPHON(new GenericGeneratorBlock(null, DragonEggSyphonBlockEntity::new)),
 		FUSION_COIL(new BlockFusionCoil()),
@@ -524,13 +529,13 @@ public class TRContent {
 		MV_TRANSFORMER(new BlockMVTransformer()),
 		HV_TRANSFORMER(new BlockHVTransformer()),
 		EV_TRANSFORMER(new BlockEVTransformer()),
-		
+
 		ALARM(new BlockAlarm()),
 		CHUNK_LOADER(new GenericMachineBlock(EGui.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),
 		LAMP_INCANDESCENT(new BlockLamp(4, 10, 8)),
 		LAMP_LED(new BlockLamp(1, 1, 12)),
 		PLAYER_DETECTOR(new BlockPlayerDetector());
-		
+
 		public final String name;
 		public final Block block;
 
@@ -539,17 +544,17 @@ public class TRContent {
 			this.block = block;
 			InitUtils.setup(block, name);
 		}
-		
+
 		public ItemStack getStack() {
 			return new ItemStack(block);
 		}
-		
+
 		@Override
 		public Item asItem() {
 			return block.asItem();
 		}
 	}
-	
+
 	public enum Dusts implements ItemConvertible {
 		ALMANDINE, ALUMINUM, ANDESITE, ANDRADITE, ASHES, BASALT, BAUXITE, BRASS, BRONZE, CALCITE, CHARCOAL, CHROME,
 		CINNABAR, CLAY, COAL, COPPER, DARK_ASHES, DIAMOND, DIORITE, ELECTRUM, EMERALD, ENDER_EYE, ENDER_PEARL, ENDSTONE,
@@ -719,13 +724,13 @@ public class TRContent {
 
 		NEUTRON_REFLECTOR,
 		THICK_NEUTRON_REFLECTOR,
-		IRIDIUM_NEUTRON_REFLECTOR
+		IRIDIUM_NEUTRON_REFLECTOR,
 
 		//java vars can't start with numbers, so these get suffixes
-		, WATER_COOLANT_CELL_10K,
+		WATER_COOLANT_CELL_10K,
 		WATER_COOLANT_CELL_30K,
 		WATER_COOLANT_CELL_60K,
-		
+
 		HELIUM_COOLANT_CELL_60K,
 		HELIUM_COOLANT_CELL_180K,
 		HELIUM_COOLANT_CELL_360K,
@@ -739,7 +744,9 @@ public class TRContent {
 		SCRAP,
 		UU_MATTER,
 		PLANTBALL,
-		COMPRESSED_PLANTBALL;
+		COMPRESSED_PLANTBALL,
+
+		SYNTHETIC_REDSTONE_CRYSTAL;
 
 		public final String name;
 		public final Item item;
@@ -848,6 +855,6 @@ public class TRContent {
 			return item;
 		}
 	}
-	
+
 	public static EntityType<EntityNukePrimed> ENTITY_NUKE;
 }

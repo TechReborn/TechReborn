@@ -1,6 +1,14 @@
 {
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "techreborn:item/armor/lithium_batpack"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+	"layer0": "techreborn:item/armor/lithium_batpack"
+  },
+  "overrides": [
+	{
+	  "predicate": {
+		"techreborn:empty": 1
+	  },
+	  "model": "techreborn:item/override/lithium_batpack_empty"
+	}
+  ]
 }
