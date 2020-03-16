@@ -71,6 +71,7 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 	public MultiblockChecker multiblockChecker;
 	private int cachedHeat;
 
+	public byte clientCoils = 0;
 	public byte coils = 0; // to handle coils in the blast furnace
 	// << Fields
 
@@ -185,9 +186,10 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		return new ContainerBuilder("blastfurnace").player(player.inventory).inventory().hotbar().addInventory()
 				.tile(this).slot(0, 50, 27).slot(1, 50, 47).outputSlot(2, 93, 37).outputSlot(3, 113, 37)
 				.energySlot(4, 8, 72).syncEnergyValue().syncCrafterValue()
-				.syncIntegerValue(this::getHeat, this::setHeat).addInventory().create(this);
+				.syncIntegerValue(this::getHeat, this::setHeat).syncIntegerValue(this::getClientCoils, this::setClientCoils)
+				.addInventory().create(this);
 	}
-	
+
 	// ITileRecipeHandler
 	@Override
 	public boolean canCraft(final TileEntity tile, final BlastFurnaceRecipe recipe) {
@@ -252,4 +254,12 @@ public class TileIndustrialBlastFurnace extends TileGenericMachine implements IC
 		return ret;
 	}
 	// << Handle coils
+
+	public int getClientCoils() {
+		return coils;
+	}
+
+	public void setClientCoils(int clientCoils) {
+		this.clientCoils = (byte) clientCoils;
+	}
 }

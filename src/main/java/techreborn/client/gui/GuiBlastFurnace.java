@@ -27,6 +27,7 @@ package techreborn.client.gui;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -89,6 +90,9 @@ public class GuiBlastFurnace extends GuiBase {
 		builder.drawBigHeatBar(this, 31, 71, tile.getCachedHeat(), 3230, layer);
 		if (hasMultiBlock) {
 			addHologramButton(4, 4, 212, layer);
+			if (tile.getClientCoils() == 0) {
+				this.fontRenderer.drawString(I18n.format("Add heating coils to increase heat"), 2, - 10, -1);
+			}
 		} else {
 			builder.drawMultiblockMissingBar(this, layer);
 			addHologramButton(76, 56, 212, layer);
