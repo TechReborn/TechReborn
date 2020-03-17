@@ -172,6 +172,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "nanoSaberCost", comment = "Energy Cost for Nano Saber")
 	public static int nanosaberCost = 150;
 
+	@Config(config = "items", category = "power", key = "nanoSaberDamage", comment = "Damage value for the Nano Saber")
+	public static int nanosaberDamage = 20;
+
 	@Config(config = "items", category = "power", key = "electricTreetapCharge", comment = "Energy Capacity for Electric Treetap")
 	public static int electricTreetapCharge = 10_000;
 

@@ -180,7 +180,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 		attributes.removeAll(EntityAttributes.ATTACK_SPEED.getId());
 
 		if (slot== EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
-			attributes.put(EntityAttributes.ATTACK_DAMAGE.getId(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_UUID, "Weapon modifier", 12, EntityAttributeModifier.Operation.ADDITION));
+			attributes.put(EntityAttributes.ATTACK_DAMAGE.getId(), new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_UUID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADDITION));
 			attributes.put(EntityAttributes.ATTACK_SPEED.getId(), new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_UUID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
 		}
 	}
