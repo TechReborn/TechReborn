@@ -31,7 +31,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.api.items.ArmorTickable;
 import reborncore.common.powerSystem.PowerSystem;

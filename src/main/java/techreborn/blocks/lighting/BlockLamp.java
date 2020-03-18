@@ -50,6 +50,7 @@ import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.lighting.LampBlockEntity;
 
 import javax.annotation.Nullable;
+import java.util.function.ToIntFunction;
 
 public class BlockLamp extends BaseBlockEntityProvider {
 
@@ -61,7 +62,10 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	private static int brightness = 15;
 
 	public BlockLamp(int cost, double depth, double width) {
-		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness).build());
+		super(AbstractBlock.Settings.of(Material.REDSTONE_LAMP)
+				.strength(2f, 2f)
+				.lightLevel(value -> value.get(ACTIVE) ? brightness : 0)
+		);
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
@@ -131,12 +135,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 		}
 		return null;
 	}
-	
-	@Override
-	public int getLuminance(BlockState state) {
-		return state.get(ACTIVE) ? brightness : 0;
-	}
-	
+
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;

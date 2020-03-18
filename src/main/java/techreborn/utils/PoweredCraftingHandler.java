@@ -69,7 +69,7 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 			if (ingredient.isEmpty()){
 				continue;
 			}
-			EnchantmentHelper.getEnchantments(ingredient).forEach((key, value) -> map.merge(key, value, (v1, v2) -> v1 > v2 ? v1 : v2));
+			EnchantmentHelper.get(ingredient).forEach((key, value) -> map.merge(key, value, (v1, v2) -> v1 > v2 ? v1 : v2));
 		}
 		if (!map.isEmpty()){
 			EnchantmentHelper.set(map, stack);

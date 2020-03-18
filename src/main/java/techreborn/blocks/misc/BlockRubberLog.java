@@ -28,9 +28,6 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FireBlock;
-import net.minecraft.block.LogBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
@@ -68,13 +65,16 @@ import java.util.Random;
 /**
  * Created by modmuss50 on 19/02/2016.
  */
-public class BlockRubberLog extends LogBlock {
+public class BlockRubberLog extends PillarBlock {
 
 	public static DirectionProperty SAP_SIDE = Properties.HORIZONTAL_FACING;
 	public static BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
 
 	public BlockRubberLog() {
-		super(MaterialColor.SPRUCE, FabricBlockSettings.of(Material.WOOD, MaterialColor.BROWN).strength(2.0F, 2f).sounds(BlockSoundGroup.WOOD).ticksRandomly().build());
+		super(Settings.method_26240(Material.WOOD, (blockState) -> MaterialColor.SPRUCE)
+				.strength(2.0F, 2f)
+				.sounds(BlockSoundGroup.WOOD)
+				.ticksRandomly());
 		this.setDefaultState(this.getDefaultState().with(SAP_SIDE, Direction.NORTH).with(HAS_SAP, false).with(AXIS, Direction.Axis.Y));
 		FlammableBlockRegistry.getDefaultInstance().add(this, 5, 5);
 	}
@@ -97,7 +97,7 @@ public class BlockRubberLog extends LogBlock {
 		if (worldIn instanceof ServerWorld && worldIn.isRegionLoaded(pos.add(-j, -j, -j), pos.add(j, j, j))) {
 			for (BlockPos blockpos : BlockPos.iterate(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 				BlockState state1 = worldIn.getBlockState(blockpos);
-				if (state1.matches(BlockTags.LEAVES)) {
+				if (state1.isIn(BlockTags.LEAVES)) {
 					state1.scheduledTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
 					state1.randomTick((ServerWorld) worldIn, blockpos, worldIn.getRandom());
 				}
@@ -107,8 +107,8 @@ public class BlockRubberLog extends LogBlock {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-		super.scheduledTick(state, worldIn, pos, random);
+	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+		super.randomTick(state, worldIn, pos, random);
 		if (state.get(AXIS) != Direction.Axis.Y) {
 			return;
 		}

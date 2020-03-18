@@ -69,7 +69,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 		
 		if (!blockEntity.getMultiBlock()) {
 			getMinecraft().getTextureManager().bindTexture(new Identifier("techreborn", "textures/item/part/digital_display.png"));
-			blit(x + 68, y + 22, 0, 0, 16, 16, 16, 16);
+			drawTexture(x + 68, y + 22, 0, 0, 16, 16, 16, 16);
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
 				List<String> list = Arrays.asList(StringUtils.t("techreborn.tooltip.greenhouse.upgrade_available").split("\\r?\\n"));
 				RenderSystem.pushMatrix();

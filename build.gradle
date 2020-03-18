@@ -65,19 +65,19 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:20w11a"
-	mappings "net.fabricmc:yarn:20w11a+build.1:v2"
+	minecraft "com.mojang:minecraft:20w12a"
+	mappings "net.fabricmc:yarn:20w12a+build.3:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.7.8+build.187"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.5.3+build.308-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.5.5+build.311-1.16"
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.0.12-unstable")
 	optionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {
-		exclude group: "net.fabricmc"
+		exclude group: "net.fabricmc.fabric-api"
 	}
 	include rcVersion
 
@@ -89,11 +89,11 @@ dependencies {
 
 def optionalDependency(String dep) {
 	dependencies.modRuntime (dep) {
-		exclude group: "net.fabricmc"
+		exclude group: "net.fabricmc.fabric-api"
 		exclude module: "nbt-crafting"
 	}
 	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc"
+		exclude group: "net.fabricmc.fabric-api"
 		exclude module: "nbt-crafting"
 	}
 }

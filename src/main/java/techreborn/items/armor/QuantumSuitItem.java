@@ -38,7 +38,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
+import net.minecraft.util.collection.DefaultedList;
 import reborncore.api.items.ArmorFovHandler;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.api.items.ArmorTickable;
@@ -96,7 +96,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 					if (playerEntity.abilities.flying) {
 						Energy.of(stack).use(flyCost);
 					}
-					playerEntity.method_24830(true);
+					playerEntity.setOnGround(true);
 				} else {
 					playerEntity.abilities.allowFlying = false;
 					playerEntity.abilities.flying = false;
