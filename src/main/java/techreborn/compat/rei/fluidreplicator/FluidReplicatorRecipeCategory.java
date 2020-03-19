@@ -24,12 +24,13 @@
 
 package techreborn.compat.rei.fluidreplicator;
 
-import me.shedaniel.math.api.Point;
-import me.shedaniel.math.api.Rectangle;
+import me.shedaniel.math.Point;
+import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.gui.widget.*;
-import me.shedaniel.rei.impl.ScreenHelper;
+import me.shedaniel.rei.api.widgets.Label;
+import me.shedaniel.rei.api.widgets.Widgets;
+import me.shedaniel.rei.gui.widget.Widget;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -41,7 +42,6 @@ import techreborn.compat.rei.ReiPlugin;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplicatorRecipeDisplay> {
 	
@@ -68,28 +68,26 @@ public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplic
 	}
 	
 	@Override
-	public List<Widget> setupDisplay(Supplier<FluidReplicatorRecipeDisplay> recipeDisplaySupplier, Rectangle bounds) {
-		FluidReplicatorRecipeDisplay machineRecipe = recipeDisplaySupplier.get();
-		
+	public List<Widget> setupDisplay(FluidReplicatorRecipeDisplay machineRecipe, Rectangle bounds) {
 		Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 13);
 		
 		List<Widget> widgets = new LinkedList<>();
-		widgets.add(new RecipeBaseWidget(bounds));
-		widgets.add(RecipeArrowWidget.create(new Point(startPoint.x + 24, startPoint.y + 1), true).time(machineRecipe.getTime() * 50.0));
+		widgets.add(Widgets.createRecipeBase(bounds));
+		widgets.add(Widgets.createArrow(new Point(startPoint.x + 26, startPoint.y + 1)).animationDurationTicks(machineRecipe.getTime()));
 		
 		int i = 0;
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()) {
-			widgets.add(EntryWidget.create(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)).entries(inputs).markIsInput());
+			widgets.add(Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20))).entries(inputs).markInput());
 		}
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
-		LabelWidget costLabel;
-		widgets.add(costLabel = LabelWidget.create(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
-		costLabel.setHasShadows(false);
-		costLabel.setDefaultColor(ScreenHelper.isDarkModeEnabled() ? 0xFFBBBBBB : 0xFF404040);
+		Label costLabel;
+		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
+		costLabel.shadow(false);
+		costLabel.color(0xFF404040, 0xFFBBBBBB);
 		
 		if (!machineRecipe.getOutputEntries().isEmpty())
-			widgets.add(EntryWidget.create(startPoint.x + 61, startPoint.y + 1).entries(machineRecipe.getOutputEntries()).markIsOutput());
+			widgets.add(Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 1)).entries(machineRecipe.getOutputEntries()).markInput());
 		
 		return widgets;
 	}

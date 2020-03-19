@@ -92,11 +92,6 @@ public class ReiPlugin implements REIPluginV0 {
 	}
 	
 	@Override
-	public SemanticVersion getMinimumVersion() throws VersionParsingException {
-		return SemanticVersion.parse("3.2.5");
-	}
-	
-	@Override
 	public void registerPluginCategories(RecipeHelper recipeHelper) {
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ALLOY_SMELTER));
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ASSEMBLING_MACHINE));
