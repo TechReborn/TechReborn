@@ -45,6 +45,7 @@ import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import reborncore.common.world.CustomOreFeature;
 import reborncore.common.world.CustomOreFeatureConfig;
 import techreborn.blocks.misc.BlockRubberLog;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
@@ -108,25 +109,56 @@ public class WorldGenerator {
 		checkedBiomes.add(biome);
 
 		if (biome.getCategory() == Category.NETHER) {
-			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.CINNABAR);
-			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.PYRITE);
-			addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
-
+			if (TechRebornConfig.enableCinnabarOre){
+				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.CINNABAR);
+			}
+			if (TechRebornConfig.enablePyriteOre){
+				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.PYRITE);
+			}
+			if (TechRebornConfig.enableSphaleriteOre){
+				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
+			}
 		} else if (biome.getCategory() == Category.THEEND) {
-			addEndOre(biome, TRContent.Ores.PERIDOT);
-			addEndOre(biome, TRContent.Ores.SHELDONITE);
-			addEndOre(biome, TRContent.Ores.SODALITE);
-			addEndOre(biome, TRContent.Ores.TUNGSTEN);
+			if (TechRebornConfig.enableSphaleriteOre){
+				addEndOre(biome, TRContent.Ores.PERIDOT);
+			}
+			if (TechRebornConfig.enableSheldoniteOre){
+				addEndOre(biome, TRContent.Ores.SHELDONITE);
+			}
+			if (TechRebornConfig.enableSodaliteOre){
+				addEndOre(biome, TRContent.Ores.SODALITE);
+			}
+			if (TechRebornConfig.enableTungstenOre){
+				addEndOre(biome, TRContent.Ores.TUNGSTEN);
+			}
 		} else {
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.GALENA);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.IRIDIUM);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.LEAD);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.RUBY);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SAPPHIRE);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SILVER);
-			addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
+			if (TechRebornConfig.enableBauxiteOre){
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
+			}
+			if (TechRebornConfig.enableBauxiteOre){
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
+			}
+			if (TechRebornConfig.enableGalenaOre){
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.GALENA);
+			}
+			if (TechRebornConfig.enableIridiumOre){
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.IRIDIUM);
+			}
+			if (TechRebornConfig.enableLeadOre){
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.LEAD);
+			}
+			if (TechRebornConfig.enableRubyOre){
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.RUBY);
+			}
+			if (TechRebornConfig.enableSapphireOre) {
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SAPPHIRE);
+			}
+			if (TechRebornConfig.enableSilverOre) {
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SILVER);
+			}
+			if (TechRebornConfig.enableTinOre) {
+				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
+			}
 
 			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA || biome.getCategory() == Category.SWAMP) {
 				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,

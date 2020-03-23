@@ -1,0 +1,19 @@
+{
+	"type": "techreborn:chemical_reactor",
+	"power": 50,
+	"time": 1200,
+	"ingredients": [
+		{
+			"item": "minecraft:redstone",
+			"count": 32
+		},
+		{
+			"item": "minecraft:diamond"
+		}
+	],
+	"results": [
+		{
+			"item": "techreborn:synthetic_redstone_crystal"
+		}
+	]
+}

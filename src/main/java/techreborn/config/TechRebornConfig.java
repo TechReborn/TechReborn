@@ -172,6 +172,9 @@ public class TechRebornConfig {
 	@Config(config = "items", category = "power", key = "nanoSaberCost", comment = "Energy Cost for Nano Saber")
 	public static int nanosaberCost = 150;
 
+	@Config(config = "items", category = "power", key = "nanoSaberDamage", comment = "Damage value for the Nano Saber")
+	public static int nanosaberDamage = 20;
+
 	@Config(config = "items", category = "power", key = "electricTreetapCharge", comment = "Energy Capacity for Electric Treetap")
 	public static int electricTreetapCharge = 10_000;
 
@@ -589,4 +592,52 @@ public class TechRebornConfig {
 
 	@Config(config = "world", category = "loot", key = "enableEndLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to The End loot chests.")
 	public static boolean enableEndLoot = true;
+
+	@Config(config = "world", category = "ore", key = "enableBauxiteOre", comment = "Generate Bauxite Ore in The Overworld.")
+	public static boolean enableBauxiteOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableCopperOre", comment = "Generate Copper Ore in The Overworld.")
+	public static boolean enableCopperOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableGalenaOre", comment = "Generate Galena Ore in The Overworld.")
+	public static boolean enableGalenaOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableIridiumOre", comment = "Generate Iridium Ore in The Overworld.")
+	public static boolean enableIridiumOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableLeadOre", comment = "Generate Lead Ore in The Overworld.")
+	public static boolean enableLeadOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableRubyOre", comment = "Generate Ruby Ore in The Overworld.")
+	public static boolean enableRubyOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableSapphireOre", comment = "Generate Sapphire Ore in The Overworld.")
+	public static boolean enableSapphireOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableSilverOre", comment = "Generate Silver Ore in The Overworld.")
+	public static boolean enableSilverOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableTinOre", comment = "Generate Tin Ore in The Overworld.")
+	public static boolean enableTinOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableCinnabarOre", comment = "Generate Cinnabar Ore in The Nether.")
+	public static boolean enableCinnabarOre = true;
+
+	@Config(config = "world", category = "ore", key = "enablePyriteOre", comment = "Generate Pyrite Ore in The Nether.")
+	public static boolean enablePyriteOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableSphaleriteOre", comment = "Generate Sphalerite Ore in The Nether.")
+	public static boolean enableSphaleriteOre = true;
+
+	@Config(config = "world", category = "ore", key = "enablePeridotOre", comment = "Generate Peridot Ore in The End.")
+	public static boolean enablePeridotOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableSheldoniteOre", comment = "Generate Sheldonite Ore in The End.")
+	public static boolean enableSheldoniteOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableSodaliteOre", comment = "Generate Sodalite Ore in The End.")
+	public static boolean enableSodaliteOre = true;
+
+	@Config(config = "world", category = "ore", key = "enableTungstenOre", comment = "Generate Tungsten Ore in The End.")
+	public static boolean enableTungstenOre = true;
 }
