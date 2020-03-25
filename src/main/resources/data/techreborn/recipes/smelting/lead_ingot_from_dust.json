@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "c:lead_dust"
+    "tag": "c:lead_dusts"
   },
   "result": "techreborn:lead_ingot",
   "experience": 0.5,

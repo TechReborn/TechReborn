@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "tag": "c:chrome_block"
+            "tag": "c:chrome_blocks"
         }
     ],
     "result": {

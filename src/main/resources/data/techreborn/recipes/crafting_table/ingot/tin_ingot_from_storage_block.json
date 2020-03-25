@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "tag": "c:tin_block"
+            "tag": "c:tin_blocks"
         }
     ],
     "result": {

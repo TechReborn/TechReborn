@@ -7,7 +7,7 @@
   ],
   "key": {
     "T": {
-      "tag": "c:tin_ingot"
+      "tag": "c:tin_ingots"
     },
     "C": {
       "item": "techreborn:electronic_circuit"

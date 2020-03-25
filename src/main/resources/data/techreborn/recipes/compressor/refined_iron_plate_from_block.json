@@ -4,7 +4,7 @@
     "time": 300,
     "ingredients": [
         {
-            "tag": "c:refined_iron_block"
+            "tag": "c:refined_iron_blocks"
         }
     ],
     "results": [

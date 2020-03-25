@@ -4,7 +4,7 @@
     "time": 300,
     "ingredients": [
         {
-            "tag": "c:tin_block"
+            "tag": "c:tin_blocks"
         }
     ],
     "results": [

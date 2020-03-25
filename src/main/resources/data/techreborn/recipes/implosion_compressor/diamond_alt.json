@@ -5,7 +5,7 @@
   "ingredients": [
 	{
 	  "count": 4,
-	  "tag": "c:diamond_dust"
+	  "tag": "c:diamond_dusts"
 	},
     {
       "item": "minecraft:end_crystal",

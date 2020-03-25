@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "count": 2,
-      "tag": "c:iron_dust"
+      "tag": "c:iron_dusts"
     },
     {
       "item": "techreborn:nickel_dust"

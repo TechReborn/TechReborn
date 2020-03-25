@@ -5,7 +5,7 @@
   "ingredients": [
     {
       "count": 2,
-      "tag": "c:aluminum_plate"
+      "tag": "c:aluminum_plates"
     },
     {
       "item": "techreborn:cell",

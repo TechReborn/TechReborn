@@ -5,10 +5,10 @@
   "ingredients": [
     {
       "count": 3,
-      "tag": "c:copper_ingot"
+      "tag": "c:copper_ingots"
     },
     {
-      "tag": "c:zinc_ingot"
+      "tag": "c:zinc_ingots"
     }
   ],
   "results": [

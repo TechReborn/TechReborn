@@ -1,7 +1,7 @@
 {
     "type": "minecraft:smelting",
     "ingredient": {
-        "tag": "c:sheldonite_ore"
+        "tag": "c:sheldonite_ores"
     },
     "result": "techreborn:platinum_ingot",
     "experience": 0.5,

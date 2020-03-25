@@ -7,13 +7,13 @@
   ],
   "key": {
     "B": {
-      "tag": "c:zinc_ingot"
+      "tag": "c:zinc_ingots"
     },
     "T": {
       "item": "techreborn:refined_iron_ingot"
     },
     "M": {
-      "tag": "c:brass_ingot"
+      "tag": "c:brass_ingots"
     }
   },
   "result": {

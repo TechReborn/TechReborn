@@ -4,7 +4,7 @@
     "time": 300,
     "ingredients": [
         {
-            "tag": "c:ruby_block"
+            "tag": "c:ruby_blocks"
         }
     ],
     "results": [

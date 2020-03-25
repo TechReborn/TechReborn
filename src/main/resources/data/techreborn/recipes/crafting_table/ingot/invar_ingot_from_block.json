@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "tag": "c:invar_block"
+            "tag": "c:invar_blocks"
         }
     ],
     "result": {

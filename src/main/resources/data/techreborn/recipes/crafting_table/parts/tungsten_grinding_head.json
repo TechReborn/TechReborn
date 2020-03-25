@@ -7,13 +7,13 @@
     ],
     "key": {
         "B": {
-            "tag": "c:steel_block"
+            "tag": "c:steel_blocks"
         },
         "S": {
-            "tag": "c:steel_ingot"
+            "tag": "c:steel_ingots"
         },
         "T": {
-            "tag": "c:tungsten_ingot"
+            "tag": "c:tungsten_ingots"
         }
     },
     "result": {

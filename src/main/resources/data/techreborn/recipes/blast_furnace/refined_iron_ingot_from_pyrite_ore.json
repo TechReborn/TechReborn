@@ -5,7 +5,7 @@
     "heat": 1500,
     "ingredients": [
         {
-            "tag": "c:pyrite_ore"
+            "tag": "c:pyrite_ores"
         },
         {
             "fluid": "techreborn:calcium_carbonate",

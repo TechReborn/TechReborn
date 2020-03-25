@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:aluminum_ingot"
+      "tag": "c:aluminum_ingots"
     }
   ],
   "result": {

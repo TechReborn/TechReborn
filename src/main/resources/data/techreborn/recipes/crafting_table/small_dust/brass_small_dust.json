@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:brass_dust"
+      "tag": "c:brass_dusts"
     }
   ],
   "result": {

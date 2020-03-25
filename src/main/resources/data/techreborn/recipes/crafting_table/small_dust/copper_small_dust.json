@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:copper_dust"
+      "tag": "c:copper_dusts"
     }
   ],
   "result": {

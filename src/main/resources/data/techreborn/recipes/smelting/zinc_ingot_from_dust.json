@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "c:zinc_dust"
+    "tag": "c:zinc_dusts"
   },
   "result": "techreborn:zinc_ingot",
   "experience": 0.5,

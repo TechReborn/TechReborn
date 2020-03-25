@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "tag": "c:nickel_block"
+            "tag": "c:nickel_blocks"
         }
     ],
     "result": {

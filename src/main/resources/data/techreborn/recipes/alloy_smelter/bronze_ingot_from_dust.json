@@ -4,11 +4,11 @@
   "time": 200,
   "ingredients": [
     {
-      "tag": "c:tin_dust"
+      "tag": "c:tin_dusts"
     },
     {
       "count": 3,
-      "tag": "c:copper_dust"
+      "tag": "c:copper_dusts"
     }
   ],
   "results": [

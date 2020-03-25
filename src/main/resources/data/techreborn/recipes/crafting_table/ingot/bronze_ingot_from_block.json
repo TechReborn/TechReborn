@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "tag": "c:bronze_block"
+            "tag": "c:bronze_blocks"
         }
     ],
     "result": {

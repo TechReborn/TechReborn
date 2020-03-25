@@ -7,10 +7,10 @@
   ],
   "key": {
     "C": {
-      "tag": "c:copper_ingot"
+      "tag": "c:copper_ingots"
     },
     "T": {
-      "tag": "c:tin_ingot"
+      "tag": "c:tin_ingots"
     },
     "H": {
       "item": "techreborn:helium_coolant_cell_180k"

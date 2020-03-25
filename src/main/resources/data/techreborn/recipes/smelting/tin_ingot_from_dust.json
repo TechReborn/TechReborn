@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "c:tin_dust"
+    "tag": "c:tin_dusts"
   },
   "result": "techreborn:tin_ingot",
   "experience": 0.5,

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:platinum_dust"
+      "tag": "c:platinum_dusts"
     }
   ],
   "result": {

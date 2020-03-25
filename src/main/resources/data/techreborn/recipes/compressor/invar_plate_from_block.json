@@ -4,7 +4,7 @@
     "time": 300,
     "ingredients": [
         {
-            "tag": "c:invar_block"
+            "tag": "c:invar_blocks"
         }
     ],
     "results": [

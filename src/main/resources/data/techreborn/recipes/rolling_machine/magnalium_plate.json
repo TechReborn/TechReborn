@@ -8,7 +8,7 @@
     ],
     "key": {
       "A": {
-        "tag": "c:aluminum_ingot"
+        "tag": "c:aluminum_ingots"
       },
       "M": {
         "item": "techreborn:magnesium_dust"

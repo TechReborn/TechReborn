@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:steel_dust"
+      "tag": "c:steel_dusts"
     }
   ],
   "result": {

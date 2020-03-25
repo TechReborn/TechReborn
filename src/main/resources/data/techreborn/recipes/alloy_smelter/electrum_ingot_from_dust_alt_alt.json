@@ -4,10 +4,10 @@
   "time": 200,
   "ingredients": [
     {
-      "tag": "c:gold_dust"
+      "tag": "c:gold_dusts"
     },
     {
-      "tag": "c:silver_ingot"
+      "tag": "c:silver_ingots"
     }
   ],
   "results": [

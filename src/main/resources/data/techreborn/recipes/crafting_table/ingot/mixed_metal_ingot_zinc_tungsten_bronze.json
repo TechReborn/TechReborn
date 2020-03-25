@@ -7,10 +7,10 @@
   ],
   "key": {
     "B": {
-      "tag": "c:zinc_ingot"
+      "tag": "c:zinc_ingots"
     },
     "T": {
-      "tag": "c:tungsten_ingot"
+      "tag": "c:tungsten_ingots"
     },
     "M": {
       "item": "techreborn:bronze_ingot"

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:tungsten_ingot"
+      "tag": "c:tungsten_ingots"
     }
   ],
   "result": {

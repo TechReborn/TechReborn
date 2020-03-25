@@ -4,7 +4,7 @@
     "time": 300,
     "ingredients": [
         {
-            "tag": "c:electrum_block"
+            "tag": "c:electrum_blocks"
         }
     ],
     "results": [

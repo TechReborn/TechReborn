@@ -7,10 +7,10 @@
   ],
   "key": {
     "D": {
-      "tag": "c:diamond_dust"
+      "tag": "c:diamond_dusts"
     },
     "T": {
-      "tag": "c:titanium_ingot"
+      "tag": "c:titanium_ingots"
     },
     "C": {
       "item": "techreborn:electronic_circuit"

@@ -5,10 +5,10 @@
   "heat": 3000,
   "ingredients": [
     {
-      "tag": "c:steel_ingot"
+      "tag": "c:steel_ingots"
     },
     {
-      "tag": "c:tungsten_ingot"
+      "tag": "c:tungsten_ingots"
     }
   ],
   "results": [

@@ -4,11 +4,11 @@
   "time": 200,
   "ingredients": [
     {
-      "tag": "c:tin_ingot"
+      "tag": "c:tin_ingots"
     },
     {
       "count": 3,
-      "tag": "c:copper_ingot"
+      "tag": "c:copper_ingots"
     }
   ],
   "results": [

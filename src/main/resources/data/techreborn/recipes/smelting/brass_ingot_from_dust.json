@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "tag": "c:brass_dust"
+    "tag": "c:brass_dusts"
   },
   "result": "techreborn:brass_ingot",
   "experience": 0.5,
