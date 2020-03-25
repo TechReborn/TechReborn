@@ -65,12 +65,12 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:20w12a"
-	mappings "net.fabricmc:yarn:20w12a+build.3:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.7.8+build.187"
+	minecraft "com.mojang:minecraft:20w13a"
+	mappings "net.fabricmc:yarn:20w13a+build.1:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.7.8+build.189"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.5.5+build.311-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.5.6+build.313-1.16"
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.1.1-unstable")
 	optionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')

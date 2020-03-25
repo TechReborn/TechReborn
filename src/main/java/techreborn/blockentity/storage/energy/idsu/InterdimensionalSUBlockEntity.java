@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy.idsu;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import org.apache.commons.lang3.StringUtils;
@@ -101,8 +102,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbttagcompound) {
-		super.fromTag(nbttagcompound);
+	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
+		super.fromTag(blockState, nbttagcompound);
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 	}
 

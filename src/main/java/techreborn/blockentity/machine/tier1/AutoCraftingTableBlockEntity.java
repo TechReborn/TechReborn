@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -431,11 +432,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
+	public void fromTag(BlockState blockState, CompoundTag tag) {
 		if (tag.contains("locked")) {
 			locked = tag.getBoolean("locked");
 		}
-		super.fromTag(tag);
+		super.fromTag(blockState, tag);
 	}
 
 	// TileMachineBase

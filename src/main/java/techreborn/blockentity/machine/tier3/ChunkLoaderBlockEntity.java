@@ -140,8 +140,8 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbttagcompound) {
-		super.fromTag(nbttagcompound);
+	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
+		super.fromTag(blockState, nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
 		if(!StringUtils.isBlank(ownerUdid)){

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -346,8 +347,8 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		this.crafingTickTime = tagCompound.getInt("crafingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");

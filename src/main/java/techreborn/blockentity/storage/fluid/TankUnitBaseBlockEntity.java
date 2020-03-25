@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.fluid;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -104,8 +105,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);

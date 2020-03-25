@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.iron;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -125,8 +126,8 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	}
 
 	@Override
-	public void fromTag(CompoundTag compoundTag) {
-		super.fromTag(compoundTag);
+	public void fromTag(BlockState blockState, CompoundTag compoundTag) {
+		super.fromTag(blockState, compoundTag);
 		experience = compoundTag.getFloat("Experience");
 	}
 	

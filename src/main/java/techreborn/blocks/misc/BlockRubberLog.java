@@ -71,7 +71,7 @@ public class BlockRubberLog extends PillarBlock {
 	public static BooleanProperty HAS_SAP = BooleanProperty.of("hassap");
 
 	public BlockRubberLog() {
-		super(Settings.method_26240(Material.WOOD, (blockState) -> MaterialColor.SPRUCE)
+		super(Settings.of(Material.WOOD, (blockState) -> MaterialColor.SPRUCE)
 				.strength(2.0F, 2f)
 				.sounds(BlockSoundGroup.WOOD)
 				.ticksRandomly());

@@ -107,8 +107,8 @@ public class CableBlockEntity extends BlockEntity
 
 
     @Override
-    public void fromTag(CompoundTag compound) {
-		super.fromTag(compound);
+    public void fromTag(BlockState blockState, CompoundTag compound) {
+		super.fromTag(blockState, compound);
 		if (compound.contains("energy")) {
 			energy = compound.getDouble("energy");
 		}

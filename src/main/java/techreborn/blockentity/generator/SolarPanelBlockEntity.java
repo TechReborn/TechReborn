@@ -25,6 +25,7 @@
 package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -228,13 +229,13 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
+	public void fromTag(BlockState blockState, CompoundTag tag) {
 		if (world == null) {
 			// We are in BlockEntity.create method during chunk load.
 			this.checkOverfill = false;
 		}
 		updatePanel();
-		super.fromTag(tag);
+		super.fromTag(blockState, tag);
 	}
 
 	// MachineBaseBlockEntity

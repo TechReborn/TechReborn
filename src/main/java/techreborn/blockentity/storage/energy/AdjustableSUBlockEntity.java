@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.storage.energy;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -143,8 +144,8 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbttagcompound) {
-		super.fromTag(nbttagcompound);
+	public void fromTag(BlockState blockState, CompoundTag nbttagcompound) {
+		super.fromTag(blockState, nbttagcompound);
 		this.OUTPUT = nbttagcompound.getInt("output");
 	}
 

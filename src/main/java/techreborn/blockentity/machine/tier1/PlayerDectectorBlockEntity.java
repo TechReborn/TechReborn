@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -110,8 +111,8 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
-		super.fromTag(tag);
+	public void fromTag(BlockState blockState, CompoundTag tag) {
+		super.fromTag(blockState, tag);
 		owenerUdid = tag.getString("ownerID");
 	}
 

@@ -261,8 +261,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	@Override
-	public void fromTag(CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 
 		if (tagCompound.contains("unitType")) {
 			this.type = TRContent.StorageUnit.valueOf(tagCompound.getString("unitType"));

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.generator;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -181,8 +182,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	@Override
-	public void fromTag(CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		tank.read(tagCompound);
 	}
 

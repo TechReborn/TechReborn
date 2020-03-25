@@ -89,7 +89,7 @@ public class EntityNukePrimed extends TntEntity {
 		if (!TechRebornConfig.nukeEnabled) {
 			return;
 		}
-		RebornExplosion nukeExplosion = new RebornExplosion(getSenseCenterPos(), world, TechRebornConfig.nukeRadius);
+		RebornExplosion nukeExplosion = new RebornExplosion(getBlockPos(), world, TechRebornConfig.nukeRadius);
 		nukeExplosion.setLivingBase(getCausingEntity());
 		nukeExplosion.explode();
 	}

@@ -38,8 +38,8 @@ public class PaintingToolItem extends Item {
 
 		BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
 		if (player.isSneaking()) {
-			if (blockState.method_26216(context.getWorld(), context.getBlockPos())
-					&& blockState.getBlock().getDefaultState().method_26216(context.getWorld(), context.getBlockPos())) {
+			if (blockState.isOpaqueFullCube(context.getWorld(), context.getBlockPos())
+					&& blockState.getBlock().getDefaultState().isOpaqueFullCube(context.getWorld(), context.getBlockPos())) {
 				context.getStack().getOrCreateTag().put("cover", NbtHelper.fromBlockState(blockState));
 				return ActionResult.SUCCESS;
 			}

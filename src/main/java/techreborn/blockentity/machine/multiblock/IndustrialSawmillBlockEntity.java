@@ -102,8 +102,8 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	
 	// TilePowerAcceptor
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		tank.read(tagCompound);
 	}
 

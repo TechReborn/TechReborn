@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
@@ -99,8 +100,8 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	// TilePowerAcceptor
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		tank.read(tagCompound);
 	}
 

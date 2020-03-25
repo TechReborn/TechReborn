@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.misc;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -74,11 +75,11 @@ public class AlarmBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void fromTag(CompoundTag compound) {
+	public void fromTag(BlockState blockState, CompoundTag compound) {
 		if (compound != null && compound.contains("selectedSound")) {
 			selectedSound = compound.getInt("selectedSound");
 		}
-		super.fromTag(compound);
+		super.fromTag(blockState, compound);
 	}
 
 	// ITickable

@@ -24,6 +24,7 @@
 
 package techreborn.blockentity.machine.tier1;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
@@ -348,8 +349,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	@Override
-	public void fromTag(final CompoundTag tagCompound) {
-		super.fromTag(tagCompound);
+	public void fromTag(BlockState blockState, final CompoundTag tagCompound) {
+		super.fromTag(blockState, tagCompound);
 		this.isRunning = tagCompound.getBoolean("isRunning");
 		this.tickTime = tagCompound.getInt("tickTime");
 		this.locked = tagCompound.getBoolean("locked");

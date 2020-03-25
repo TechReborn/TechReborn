@@ -117,7 +117,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 					boolean hasData = false;
 					if (stack.hasTag() && stack.getTag().contains("blockEntity_data")) {
 						CompoundTag blockEntityData = stack.getTag().getCompound("blockEntity_data");
-						blockEntity.fromTag(blockEntityData);
+						blockEntity.fromTag(blockEntity.getCachedState(), blockEntityData);
 						hasData = true;
 						components.add(new LiteralText("Block data contained").formatted(Formatting.DARK_GREEN));
 					}
