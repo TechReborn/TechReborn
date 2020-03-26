@@ -32,7 +32,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import reborncore.api.power.ItemPowerHolder;
 import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
@@ -69,8 +68,6 @@ public class TechReborn implements ModInitializer {
 	public void onInitialize() {
 		INSTANCE = this;
 		new Configuration(TechRebornConfig.class, "techreborn");
-
-		ItemPowerHolder.setup();
 
 		// Done to force the class to load
 		ModRecipes.GRINDER.getName();

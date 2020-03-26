@@ -89,6 +89,8 @@ dependencies {
 	modRuntime ("com.jamieswhiteshirt:developer-mode:1.0.15") {
 		transitive = false
 	}
+
+	modApi 'teamreborn:energy:0.1.0'
 }
 
 def optionalDependency(String dep) {
