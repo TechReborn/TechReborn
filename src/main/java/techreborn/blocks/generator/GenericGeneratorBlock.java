@@ -28,9 +28,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
-import techreborn.client.EGui;
 
 import java.util.function.Supplier;
 
@@ -39,7 +39,7 @@ import java.util.function.Supplier;
  * for generators, like comparator output based on energy.
  */
 public class GenericGeneratorBlock extends GenericMachineBlock {
-    public GenericGeneratorBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
+    public GenericGeneratorBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
         super(gui, blockEntityClass);
     }
 

@@ -28,7 +28,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
-import techreborn.client.EGui;
 
 import java.util.function.Supplier;
 
@@ -38,10 +37,10 @@ import java.util.function.Supplier;
  */
 public class GenericMachineBlock extends BlockMachineBase {
 
-	private EGui gui;
+	private IMachineGuiHandler gui;
 	Supplier<BlockEntity> blockEntityClass;
 
-	public GenericMachineBlock(EGui gui, Supplier<BlockEntity> blockEntityClass) {
+	public GenericMachineBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
 		super();
 		this.blockEntityClass = blockEntityClass;
 		this.gui = gui;

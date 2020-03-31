@@ -27,12 +27,12 @@ package techreborn.blocks.storage.energy;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 
 public class AdjustableSUBlock extends EnergyStorageBlock {
 	
 	public AdjustableSUBlock() {
-		super("AESU", EGui.AESU);
+		super("AESU", GuiType.AESU);
 	}
 
 	@Override

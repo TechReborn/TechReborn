@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 import techreborn.init.TRContent;
 
 public class StorageUnitBlock extends BlockMachineBase {
@@ -80,6 +80,6 @@ public class StorageUnitBlock extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.STORAGE_UNIT;
+		return GuiType.STORAGE_UNIT;
 	}
 }

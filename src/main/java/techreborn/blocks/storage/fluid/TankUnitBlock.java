@@ -29,7 +29,7 @@ import net.minecraft.world.BlockView;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 import techreborn.init.TRContent;
 
 public class TankUnitBlock extends BlockMachineBase {
@@ -48,6 +48,6 @@ public class TankUnitBlock extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.TANK_UNIT;
+		return GuiType.TANK_UNIT;
 	}
 }

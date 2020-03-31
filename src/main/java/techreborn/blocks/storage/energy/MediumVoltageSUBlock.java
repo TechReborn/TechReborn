@@ -27,7 +27,7 @@ package techreborn.blocks.storage.energy;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -35,7 +35,7 @@ import techreborn.client.EGui;
 public class MediumVoltageSUBlock extends EnergyStorageBlock {
 	
 	public MediumVoltageSUBlock() {
-		super("medium_voltage_su", EGui.MEDIUM_VOLTAGE_SU);
+		super("medium_voltage_su", GuiType.MEDIUM_VOLTAGE_SU);
 	}
 
 	@Override

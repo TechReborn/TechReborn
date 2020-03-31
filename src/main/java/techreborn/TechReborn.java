@@ -38,7 +38,7 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
 import reborncore.common.world.DataAttachment;
 import techreborn.blockentity.storage.energy.idsu.IDSUManager;
-import techreborn.client.GuiHandler;
+import techreborn.client.GuiType;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
 import techreborn.init.FluidGeneratorRecipes;
@@ -82,10 +82,10 @@ public class TechReborn implements ModInitializer {
 		}
 		ModLoot.init();
 		WorldGenerator.initBiomeFeatures();
-		GuiHandler.register();
 		FluidGeneratorRecipes.init();
 		//Force loads the block entities at the right time
 		TRBlockEntities.THERMAL_GEN.toString();
+		GuiType.AESU.getIdentifier();
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
 

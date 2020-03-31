@@ -39,9 +39,9 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.Torus;
-import techreborn.client.EGui;
-import techreborn.init.TRContent;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
+import techreborn.client.GuiType;
+import techreborn.init.TRContent;
 import techreborn.utils.damageSources.FusionDamageSource;
 
 import java.util.List;
@@ -78,7 +78,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		return EGui.FUSION_CONTROLLER;
+		return GuiType.FUSION_CONTROLLER;
 	}
 
 	@Override
