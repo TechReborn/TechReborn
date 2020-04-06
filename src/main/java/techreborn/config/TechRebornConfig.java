@@ -309,12 +309,6 @@ public class TechRebornConfig {
 
 
 	// Machines
-	@Config(config = "machines", category = "grinder", key = "GrinderInput", comment = "Grinder Max Input (Value in EU)")
-	public static int grinderMaxInput = 32;
-
-	@Config(config = "machines", category = "grinder", key = "GrinderMaxEnergy", comment = "Grinder Max Energy (Value in EU)")
-	public static int grinderMaxEnergy = 1_000;
-
 	@Config(config = "machines", category = "lesu", key = "LesuMaxEnergyPerBlock", comment = "LESU Max Energy Per Block")
 	public static int lesuStoragePerBlock = 1_000_000;
 

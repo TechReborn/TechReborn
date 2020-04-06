@@ -119,7 +119,7 @@ public class WorldGenerator {
 				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
 			}
 		} else if (biome.getCategory() == Category.THEEND) {
-			if (TechRebornConfig.enableSphaleriteOre){
+			if (TechRebornConfig.enablePeridotOre){
 				addEndOre(biome, TRContent.Ores.PERIDOT);
 			}
 			if (TechRebornConfig.enableSheldoniteOre){
