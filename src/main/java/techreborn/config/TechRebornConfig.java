@@ -635,6 +635,15 @@ public class TechRebornConfig {
 	@Config(config = "world", category = "ore", key = "enableTungstenOre", comment = "Generate Tungsten Ore in The End.")
 	public static boolean enableTungstenOre = true;
 
+	@Config(config = "world", category = "rubber_tree", key = "RubberTreeChance", comment = "Chance to spawn rubber tree")
+	public static float RubberTreeChance = 0.1F;
 
+	@Config(config = "world", category = "rubber_tree", key = "RubberTreeCount", comment = "Amount of trees to spawn in successful case")
+	public static int RubberTreeCount = 1;
 
+	@Config(config = "world", category = "rubber_tree", key = "RubberTreeBaseHeight", comment = "Basic height for not-spire part of rubber tree")
+	public static int RubberTreeBaseHeight = 6;
+
+	@Config(config = "world", category = "rubber_tree", key = "RubberTreeSpireHeight", comment = "Height of spire of rubber tree")
+	public static int RubberTreeSpireHeight = 3;
 }
