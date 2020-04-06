@@ -135,7 +135,7 @@ public class WorldGenerator {
 			if (TechRebornConfig.enableBauxiteOre){
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
 			}
-			if (TechRebornConfig.enableBauxiteOre){
+			if (TechRebornConfig.enableCopperOre){
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
 			}
 			if (TechRebornConfig.enableGalenaOre){

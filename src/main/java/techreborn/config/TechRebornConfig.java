@@ -640,4 +640,7 @@ public class TechRebornConfig {
 
 	@Config(config = "world", category = "ore", key = "enableTungstenOre", comment = "Generate Tungsten Ore in The End.")
 	public static boolean enableTungstenOre = true;
+
+
+
 }
