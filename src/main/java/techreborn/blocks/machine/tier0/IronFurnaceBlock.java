@@ -33,16 +33,16 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import techreborn.client.EGui;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
+import techreborn.client.GuiType;
 
 import java.util.Random;
 
 public class IronFurnaceBlock extends GenericMachineBlock {
 	
 	public IronFurnaceBlock() {
-		super(EGui.IRON_FURNACE, IronFurnaceBlockEntity::new);
+		super(GuiType.IRON_FURNACE, IronFurnaceBlockEntity::new);
 	}
 	
 	// Block

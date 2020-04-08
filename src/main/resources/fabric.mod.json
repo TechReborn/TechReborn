@@ -32,7 +32,8 @@
   "depends": {
     "fabricloader": ">=0.6.3",
     "fabric": "*",
-    "reborncore": "*"
+    "reborncore": "*",
+	"team_reborn_energy": ">=0.1.0"
   },
   "authors": [
     "Team Reborn",

@@ -45,7 +45,7 @@ repositories {
 	}
 }
 
-version = "3.3.5"
+version = "3.3.7"
 
 configurations {
 	shade
@@ -85,6 +85,8 @@ dependencies {
 	modCompileOnly ('curse.maven:towelette:2842017') {
 		transitive = false
 	}
+
+	modApi 'teamreborn:energy:0.1.0'
 }
 
 def optionalDependency(String dep) {

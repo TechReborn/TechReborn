@@ -26,8 +26,8 @@ package techreborn.blocks.storage.energy;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
-import techreborn.client.EGui;
 import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
+import techreborn.client.GuiType;
 
 /**
  * Created by modmuss50 on 14/03/2016.
@@ -35,7 +35,7 @@ import techreborn.blockentity.storage.energy.LowVoltageSUBlockEntity;
 public class LowVoltageSUBlock extends EnergyStorageBlock {
 	
 	public LowVoltageSUBlock() {
-		super("low_voltage_su", EGui.LOW_VOLTAGE_SU);
+		super("low_voltage_su", GuiType.LOW_VOLTAGE_SU);
 	}
 
 	@Override

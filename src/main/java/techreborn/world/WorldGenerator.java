@@ -58,7 +58,7 @@ import java.util.List;
  */
 public class WorldGenerator {
 
-	public static Feature<BranchedTreeFeatureConfig> RUBBER_TREE;
+	public static Feature<BranchedTreeFeatureConfig> RUBBER_TREE_FEATURE;
 
 	public static BranchedTreeFeatureConfig RUBBER_TREE_CONFIG;
 
@@ -76,7 +76,7 @@ public class WorldGenerator {
 	}
 
 	private static void setupTrees() {
-		RUBBER_TREE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::deserialize));
+		RUBBER_TREE_FEATURE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::deserialize));
 
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
@@ -93,7 +93,7 @@ public class WorldGenerator {
 				logProvider,
 				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
 				new BlobFoliagePlacer(2, 0))
-				.baseHeight(6)
+				.baseHeight(TechRebornConfig.RubberTreeBaseHeight)
 				.heightRandA(2)
 				.foliageHeight(3)
 				.noVines()
@@ -119,7 +119,7 @@ public class WorldGenerator {
 				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
 			}
 		} else if (biome.getCategory() == Category.THEEND) {
-			if (TechRebornConfig.enableSphaleriteOre){
+			if (TechRebornConfig.enablePeridotOre){
 				addEndOre(biome, TRContent.Ores.PERIDOT);
 			}
 			if (TechRebornConfig.enableSheldoniteOre){
@@ -135,7 +135,7 @@ public class WorldGenerator {
 			if (TechRebornConfig.enableBauxiteOre){
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
 			}
-			if (TechRebornConfig.enableBauxiteOre){
+			if (TechRebornConfig.enableCopperOre){
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
 			}
 			if (TechRebornConfig.enableGalenaOre){
@@ -162,9 +162,9 @@ public class WorldGenerator {
 
 			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA || biome.getCategory() == Category.SWAMP) {
 				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
-						RUBBER_TREE.configure(RUBBER_TREE_CONFIG)
+						RUBBER_TREE_FEATURE.configure(RUBBER_TREE_CONFIG)
 								.createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP
-										.configure(new CountExtraChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? 2 : 1, 0.1F, 1))
+										.configure(new CountExtraChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? 1 : 0, TechRebornConfig.RubberTreeChance, TechRebornConfig.RubberTreeCount))
 								)
 				);
 			}

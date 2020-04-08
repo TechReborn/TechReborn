@@ -24,10 +24,6 @@
 
 package techreborn.blockentity.cable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -57,6 +53,10 @@ import techreborn.blocks.cable.CableBlock;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by modmuss50 on 19/05/2017.
  */
@@ -66,7 +66,7 @@ public class CableBlockEntity extends BlockEntity
 	
 	private double energy = 0;
 	private TRContent.Cables cableType = null;
-	private ArrayList<EnergySide> sendingFace = new ArrayList<>();
+	private ArrayList<Direction> sendingFace = new ArrayList<>();
 	private BlockState cover = null;
 
 	public CableBlockEntity() {
@@ -143,17 +143,16 @@ public class CableBlockEntity extends BlockEntity
 
 		ArrayList<Pair<BlockEntity, Direction>> acceptors = new ArrayList<>();
 		for (Direction face : Direction.values()) {
-			EnergySide side = EnergySide.fromMinecraft(face);
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
 			if (blockEntity != null && Energy.valid(blockEntity)) {
-				if (blockEntity instanceof CableBlockEntity && energy <= Energy.of(blockEntity).side(EnergySide.fromMinecraft(face)).getEnergy()) {
+				if (blockEntity instanceof CableBlockEntity && energy <= Energy.of(blockEntity).side(face).getEnergy()) {
 					continue;
 				}
-				if(Energy.of(blockEntity).side(EnergySide.fromMinecraft(face.getOpposite())).getMaxInput() > 0){
+				if(Energy.of(blockEntity).side(face.getOpposite()).getMaxInput() > 0){
 					acceptors.add(Pair.of(blockEntity, face));
-					if (!sendingFace.contains(side)) {
-						sendingFace.add(side);
+					if (!sendingFace.contains(face)) {
+						sendingFace.add(face);
 					}
 				}
 			}
@@ -166,7 +165,7 @@ public class CableBlockEntity extends BlockEntity
 
         acceptors.forEach(pair -> {
 	        Energy.of(this)
-		        .into(Energy.of(pair.getLeft()).side(EnergySide.fromMinecraft(pair.getRight().getOpposite())))
+		        .into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
 		        .move();
         });
 	}

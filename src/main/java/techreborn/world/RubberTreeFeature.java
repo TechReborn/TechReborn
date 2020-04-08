@@ -31,6 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
 import net.minecraft.world.gen.feature.OakTreeFeature;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Random;
@@ -70,7 +71,7 @@ public class RubberTreeFeature extends OakTreeFeature {
 
 		if(topPos == null) return;
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < TechRebornConfig.RubberTreeSpireHeight; i++) {
 			setBlockState(world, pos.up(i), TRContent.RUBBER_LEAVES.getDefaultState());
 		}
 	}

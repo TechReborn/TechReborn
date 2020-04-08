@@ -33,12 +33,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 
 public class InterdimensionalSUBlock extends EnergyStorageBlock {
 	
 	public InterdimensionalSUBlock() {
-		super("IDSU", EGui.IDSU);
+		super("IDSU", GuiType.IDSU);
 	}
 
 	@Override

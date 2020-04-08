@@ -43,6 +43,6 @@ public class RubberSaplingGenerator extends SaplingGenerator {
 	@Nullable
 	@Override
 	protected ConfiguredFeature<BranchedTreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-		return WorldGenerator.RUBBER_TREE.configure(WorldGenerator.RUBBER_TREE_CONFIG);
+		return WorldGenerator.RUBBER_TREE_FEATURE.configure(WorldGenerator.RUBBER_TREE_CONFIG);
 	}
 }

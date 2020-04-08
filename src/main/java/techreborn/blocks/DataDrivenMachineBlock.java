@@ -26,7 +26,7 @@ package techreborn.blocks;
 
 import net.minecraft.util.Identifier;
 import techreborn.blockentity.data.DataDrivenBEProvider;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 
 /**
  * @author modmuss50
@@ -37,7 +37,7 @@ public class DataDrivenMachineBlock extends GenericMachineBlock {
 	private final DataDrivenBEProvider provider;
 
 	public DataDrivenMachineBlock(String ident){
-		super(EGui.DATA_DRIVEN, null);
+		super(GuiType.DATA_DRIVEN, null);
 		provider = DataDrivenBEProvider.create(this, new Identifier(ident));
 		blockEntityClass = provider;
 	}

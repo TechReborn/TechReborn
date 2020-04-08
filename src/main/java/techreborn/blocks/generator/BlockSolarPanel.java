@@ -33,7 +33,7 @@ import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 import techreborn.init.TRContent.SolarPanels;
 
 /**
@@ -58,7 +58,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 		if(this.panelType == SolarPanels.CREATIVE){
 			return null;
 		}
-		return EGui.SOLAR_PANEL;
+		return GuiType.SOLAR_PANEL;
 	}
 
 	@Override

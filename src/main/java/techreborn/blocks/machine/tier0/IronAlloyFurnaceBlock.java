@@ -24,8 +24,6 @@
 
 package techreborn.blocks.machine.tier0;
 
-import java.util.Random;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -35,14 +33,16 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import techreborn.client.EGui;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
+import techreborn.client.GuiType;
+
+import java.util.Random;
 
 public class IronAlloyFurnaceBlock extends GenericMachineBlock {
 	
 	public IronAlloyFurnaceBlock() {
-		super(EGui.ALLOY_FURNACE, IronAlloyFurnaceBlockEntity::new);
+		super(GuiType.ALLOY_FURNACE, IronAlloyFurnaceBlockEntity::new);
 	}
 
 	// Block

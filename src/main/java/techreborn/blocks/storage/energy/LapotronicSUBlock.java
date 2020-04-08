@@ -27,12 +27,12 @@ package techreborn.blocks.storage.energy;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
-import techreborn.client.EGui;
+import techreborn.client.GuiType;
 
 public class LapotronicSUBlock extends EnergyStorageBlock {
 	
 	public LapotronicSUBlock() {
-		super("LESU", EGui.LESU);
+		super("LESU", GuiType.LESU);
 	}
 
 	@Override
