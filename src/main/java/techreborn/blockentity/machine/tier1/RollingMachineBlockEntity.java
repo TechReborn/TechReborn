@@ -131,16 +131,16 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 				currentRecipeOutput = findMatchingRecipeOutput(craftMatrix, world);
 				if (!currentRecipeOutput.isEmpty()) {
 					boolean hasCrafted = false;
-					if (inventory.getInvStack(outputSlot).isEmpty()) {
-						inventory.setInvStack(outputSlot, currentRecipeOutput.copy());
+					if (inventory.getStack(outputSlot).isEmpty()) {
+						inventory.setStack(outputSlot, currentRecipeOutput.copy());
 						tickTime = 0;
 						hasCrafted = true;
 					} else {
-						if (inventory.getInvStack(outputSlot).getCount()
+						if (inventory.getStack(outputSlot).getCount()
 								+ currentRecipeOutput.getCount() <= currentRecipeOutput.getMaxCount()) {
-							final ItemStack stack = inventory.getInvStack(outputSlot);
+							final ItemStack stack = inventory.getStack(outputSlot);
 							stack.setCount(stack.getCount() + currentRecipeOutput.getCount());
-							inventory.setInvStack(outputSlot, stack);
+							inventory.setStack(outputSlot, stack);
 							tickTime = 0;
 							hasCrafted = true;
 						} else {
@@ -148,7 +148,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 						}
 					}
 					if (hasCrafted) {
-						for (int i = 0; i < craftMatrix.getInvSize(); i++) {
+						for (int i = 0; i < craftMatrix.size(); i++) {
 							inventory.shrinkSlot(i, 1);
 						}
 						currentRecipeOutput = ItemStack.EMPTY;
@@ -198,21 +198,21 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (!locked) {
 			return Optional.empty();
 		}
-		if (craftCache.isInvEmpty()) {
+		if (craftCache.isEmpty()) {
 			return Optional.empty();
 		}
 		balanceSlot++;
-		if (balanceSlot > craftCache.getInvSize()) {
+		if (balanceSlot > craftCache.size()) {
 			balanceSlot = 0;
 		}
 		//Find the best slot for each item in a recipe, and move it if needed
-		ItemStack sourceStack = inventory.getInvStack(balanceSlot);
+		ItemStack sourceStack = inventory.getStack(balanceSlot);
 		if (sourceStack.isEmpty()) {
 			return Optional.empty();
 		}
 		List<Integer> possibleSlots = new ArrayList<>();
 		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
-			ItemStack stackInSlot = inventory.getInvStack(s);
+			ItemStack stackInSlot = inventory.getStack(s);
 			Ingredient ingredient = (Ingredient) currentRecipe.getPreviewInputs().get(s);
 			if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
@@ -225,7 +225,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 
 		if(!possibleSlots.isEmpty()){
 			int totalItems =  possibleSlots.stream()
-				.mapToInt(value -> inventory.getInvStack(value).getCount()).sum();
+				.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
 			//This makes an array of ints with the best possible slot EnvTyperibution
@@ -242,7 +242,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			List<Integer> slotEnvTyperubution = possibleSlots.stream()
-				.mapToInt(value -> inventory.getInvStack(value).getCount())
+				.mapToInt(value -> inventory.getStack(value).getCount())
 				.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
@@ -265,7 +265,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		//Slot, count
 		Pair<Integer, Integer> bestSlot = null;
 		for (Integer slot : possibleSlots) {
-			ItemStack slotStack = inventory.getInvStack(slot);
+			ItemStack slotStack = inventory.getStack(slot);
 			if (slotStack.isEmpty()) {
 				bestSlot = Pair.of(slot, 0);
 			}
@@ -278,12 +278,12 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (bestSlot == null
 			|| bestSlot.getLeft() == balanceSlot
 			|| bestSlot.getRight() == sourceStack.getCount()
-			|| inventory.getInvStack(bestSlot.getLeft()).isEmpty()
-			|| !ItemUtils.isItemEqual(sourceStack, inventory.getInvStack(bestSlot.getLeft()), true, true)) {
+			|| inventory.getStack(bestSlot.getLeft()).isEmpty()
+			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
 		sourceStack.decrement(1);
-		inventory.getInvStack(bestSlot.getLeft()).increment(1);
+		inventory.getStack(bestSlot.getLeft()).increment(1);
 		inventory.setChanged();
 
 		return Optional.of(getCraftingMatrix());
@@ -295,7 +295,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		if (inventory.hasChanged()) {
 			for (int i = 0; i < 9; i++) {
-				craftCache.setInvStack(i, inventory.getInvStack(i).copy());
+				craftCache.setStack(i, inventory.getStack(i).copy());
 			}
 			inventory.resetChanged();
 		}
@@ -305,8 +305,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public boolean canMake(CraftingInventory craftMatrix) {
 		ItemStack stack = findMatchingRecipeOutput(craftMatrix, this.world);
 		if (locked) {
-			for (int i = 0; i < craftMatrix.getInvSize(); i++) {
-				ItemStack stack1 = craftMatrix.getInvStack(i);
+			for (int i = 0; i < craftMatrix.size(); i++) {
+				ItemStack stack1 = craftMatrix.getStack(i);
 				if (!stack1.isEmpty() && stack1.getCount() < 2) {
 					return false;
 				}
@@ -315,7 +315,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		if (stack.isEmpty()) {
 			return false;
 		}
-		ItemStack output = inventory.getInvStack(outputSlot);
+		ItemStack output = inventory.getStack(outputSlot);
 		if (output.isEmpty()) {
 			return true;
 		}
@@ -393,7 +393,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
 			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
 			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
-			.onCraft(inv -> this.inventory.setInvStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+			.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
 			.outputSlot(9, 124, 40)
 			.energySlot(10, 8, 70)
 			.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);

@@ -56,8 +56,8 @@ public class FluidUtils {
 	}
 
 	public static boolean drainContainers(GenericFluidContainer<Direction> target, Inventory inventory, int inputSlot, int outputSlot) {
-		ItemStack inputStack = inventory.getInvStack(inputSlot);
-		ItemStack outputStack = inventory.getInvStack(outputSlot);
+		ItemStack inputStack = inventory.getStack(inputSlot);
+		ItemStack outputStack = inventory.getStack(outputSlot);
 
 		if(!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
 		if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
@@ -82,7 +82,7 @@ public class FluidUtils {
 				targetFluidInstance.addAmount(FluidValue.BUCKET);
 
 				if(outputStack.isEmpty()){
-					inventory.setInvStack(outputSlot, itemFluidInfo.getEmpty());
+					inventory.setStack(outputSlot, itemFluidInfo.getEmpty());
 				} else {
 					outputStack.increment(1);
 				}
@@ -93,8 +93,8 @@ public class FluidUtils {
 	}
 
 	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot, Fluid fluidToFill) {
-		ItemStack inputStack = inventory.getInvStack(inputSlot);
-		ItemStack outputStack = inventory.getInvStack(outputSlot);
+		ItemStack inputStack = inventory.getStack(inputSlot);
+		ItemStack outputStack = inventory.getStack(outputSlot);
 
 		if(!(inputStack.getItem() instanceof ItemFluidInfo)) return false;
 		if (!FluidUtils.isContainerEmpty(inputStack)) return false;
@@ -119,7 +119,7 @@ public class FluidUtils {
 		}
 
 		if(outputStack.isEmpty()){
-			inventory.setInvStack(outputSlot, itemFluidInfo.getFull(sourceFluid.getFluid()));
+			inventory.setStack(outputSlot, itemFluidInfo.getFull(sourceFluid.getFluid()));
 		} else {
 			outputStack.increment(1);
 		}

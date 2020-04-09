@@ -51,7 +51,7 @@ public class DigitalChestBlockEntity extends StorageUnitBaseBlockEntity {
 		}
 
 		ItemStack storedStack = this.getAll();
-		ItemStack inputSlotStack = this.getInvStack(0).copy();
+		ItemStack inputSlotStack = this.getStack(0).copy();
 
 		this.clear();
 
@@ -61,7 +61,7 @@ public class DigitalChestBlockEntity extends StorageUnitBaseBlockEntity {
 
 		if (!storedStack.isEmpty() && storageEntity != null) {
 			storageEntity.setStoredStack(storedStack);
-			storageEntity.setInvStack(0, inputSlotStack);
+			storageEntity.setStack(0, inputSlotStack);
 		}
 	}
 }

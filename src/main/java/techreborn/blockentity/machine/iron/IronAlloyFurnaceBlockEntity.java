@@ -54,7 +54,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 			boolean hasItem = false;
 			for (int inputslot = 0; inputslot < 2; inputslot++) {
-				if (ingredient.test(inventory.getInvStack(inputslot))) {
+				if (ingredient.test(inventory.getStack(inputslot))) {
 					hasItem = true;
 				}
 			}
@@ -66,7 +66,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 
 	@Override
 	protected boolean canSmelt() {
-		if (inventory.getInvStack(input1).isEmpty() || inventory.getInvStack(input2).isEmpty()) {
+		if (inventory.getStack(input1).isEmpty() || inventory.getStack(input2).isEmpty()) {
 			return false;
 		}
 		ItemStack itemstack = null;
@@ -79,12 +79,12 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 
 		if (itemstack == null)
 			return false;
-		if (inventory.getInvStack(output).isEmpty())
+		if (inventory.getStack(output).isEmpty())
 			return true;
-		if (!inventory.getInvStack(output).isItemEqualIgnoreDamage(itemstack))
+		if (!inventory.getStack(output).isItemEqualIgnoreDamage(itemstack))
 			return false;
-		int result = inventory.getInvStack(output).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= inventory.getInvStack(output).getMaxCount(); 
+		int result = inventory.getStack(output).getCount() + itemstack.getCount();
+		return result <= inventory.getStackLimit() && result <= inventory.getStack(output).getMaxCount(); 
 	}
 
 	@Override
@@ -108,15 +108,15 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 		if (outputStack.isEmpty()) {
 			return;
 		}
-		if (inventory.getInvStack(output).isEmpty()) {
-			inventory.setInvStack(output, outputStack.copy());
-		} else if (inventory.getInvStack(output).getItem() == outputStack.getItem()) {
+		if (inventory.getStack(output).isEmpty()) {
+			inventory.setStack(output, outputStack.copy());
+		} else if (inventory.getStack(output).getItem() == outputStack.getItem()) {
 			inventory.shrinkSlot(output, -outputStack.getCount());
 		}
 
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
 			for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-				if (ingredient.test(inventory.getInvStack(inputSlot))) {
+				if (ingredient.test(inventory.getStack(inputSlot))) {
 					inventory.shrinkSlot(inputSlot, ingredient.getCount());
 					break;
 				}

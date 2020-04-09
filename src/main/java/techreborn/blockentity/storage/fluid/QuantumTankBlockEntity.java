@@ -55,8 +55,8 @@ public class QuantumTankBlockEntity extends TankUnitBaseBlockEntity {
 
 		Tank tank = this.getTank();
 
-		ItemStack inputSlotStack = getInvStack(0).copy();
-		ItemStack outputSlotStack = getInvStack(1).copy();
+		ItemStack inputSlotStack = getStack(0).copy();
+		ItemStack outputSlotStack = getStack(1).copy();
 		inventory.clear();
 
 		world.setBlockState(pos, TRContent.TankUnit.QUANTUM.block.getDefaultState());
@@ -65,7 +65,7 @@ public class QuantumTankBlockEntity extends TankUnitBaseBlockEntity {
 
 		tankEntity.setTank(tank);
 
-		tankEntity.setInvStack(0, inputSlotStack);
-		tankEntity.setInvStack(1, outputSlotStack);
+		tankEntity.setStack(0, inputSlotStack);
+		tankEntity.setStack(1, outputSlotStack);
 	}
 }

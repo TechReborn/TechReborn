@@ -155,16 +155,16 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		}
 		
 		if (!isBurning && canSmelt()) {
-			burnTime = totalBurnTime = getItemBurnTime(inventory.getInvStack(fuelSlot));
+			burnTime = totalBurnTime = getItemBurnTime(inventory.getStack(fuelSlot));
 			if (burnTime > 0) {
 				// Fuel slot
-				ItemStack fuelStack = inventory.getInvStack(fuelSlot);
+				ItemStack fuelStack = inventory.getStack(fuelSlot);
 				if (fuelStack.getItem().hasRecipeRemainder()) {
-					inventory.setInvStack(fuelSlot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
+					inventory.setStack(fuelSlot, new ItemStack(fuelStack.getItem().getRecipeRemainder()));
 				} else if (fuelStack.getCount() > 1) {
 					inventory.shrinkSlot(fuelSlot, 1);
 				} else if (fuelStack.getCount() == 1) {
-					inventory.setInvStack(fuelSlot, ItemStack.EMPTY);
+					inventory.setStack(fuelSlot, ItemStack.EMPTY);
 				}
 			}
 		}

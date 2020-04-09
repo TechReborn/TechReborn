@@ -25,10 +25,12 @@
 package techreborn.items.armor;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -65,18 +67,18 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	}
 
 	@Override
-	public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<String, EntityAttributeModifier> attributes) {
-		attributes.removeAll(EntityAttributes.MOVEMENT_SPEED.getId());
+	public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
+		attributes.removeAll(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
 		if (this.slot == EquipmentSlot.LEGS && equipmentSlot == EquipmentSlot.LEGS) {
 			if (Energy.of(stack).getEnergy() > sprintingCost) {
-				attributes.put(EntityAttributes.MOVEMENT_SPEED.getId(), new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
+				attributes.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(MODIFIERS[equipmentSlot.getEntitySlotId()], "Movement Speed", 0.15, EntityAttributeModifier.Operation.ADDITION));
 			}
 		}
 
 		if (equipmentSlot == this.slot && Energy.of(stack).getEnergy() > 0) {
-			attributes.put(EntityAttributes.ARMOR.getId(), new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
-			attributes.put(EntityAttributes.KNOCKBACK_RESISTANCE.getId(), new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
+			attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 20, EntityAttributeModifier.Operation.ADDITION));
+			attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Knockback modifier", 2, EntityAttributeModifier.Operation.ADDITION));
 		}
 	}
 
@@ -123,7 +125,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	}
 
 	@Override
-	public Multimap<String, EntityAttributeModifier> getModifiers(EquipmentSlot slot) {
+	public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(EquipmentSlot slot) {
 		return HashMultimap.create();
 	}
 

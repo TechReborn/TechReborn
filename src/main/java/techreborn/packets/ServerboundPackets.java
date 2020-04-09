@@ -115,10 +115,10 @@ public class ServerboundPackets {
 			}
 			context.getTaskQueue().execute(() -> {
 				PlayerEntity playerMP = context.getPlayer();
-				for (int i = 0; i < playerMP.inventory.getInvSize(); i++) {
-					ItemStack stack = playerMP.inventory.getInvStack(i);
+				for (int i = 0; i < playerMP.inventory.size(); i++) {
+					ItemStack stack = playerMP.inventory.getStack(i);
 					if (stack.getItem() == TRContent.MANUAL) {
-						playerMP.inventory.removeInvStack(i);
+						playerMP.inventory.removeStack(i);
 						playerMP.inventory.insertStack(new ItemStack(Items.BOOK));
 						playerMP.inventory.insertStack(TRContent.Ingots.REFINED_IRON.getStack());
 						return;

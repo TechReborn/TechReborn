@@ -88,35 +88,35 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		if (!canSmelt()) {
 			return;
 		}
-		ItemStack inputStack = inventory.getInvStack(inputSlot);
+		ItemStack inputStack = inventory.getStack(inputSlot);
 		ItemStack resultStack = getResultFor(inputStack);
 		
-		if (inventory.getInvStack(outputSlot).isEmpty()) {
-			inventory.setInvStack(outputSlot, resultStack.copy());
-		} else if (inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(resultStack)) {
-			inventory.getInvStack(outputSlot).increment(resultStack.getCount());
+		if (inventory.getStack(outputSlot).isEmpty()) {
+			inventory.setStack(outputSlot, resultStack.copy());
+		} else if (inventory.getStack(outputSlot).isItemEqualIgnoreDamage(resultStack)) {
+			inventory.getStack(outputSlot).increment(resultStack.getCount());
 		}
 		experience += getExperienceFor(inputStack);
 		if (inputStack.getCount() > 1) {
 			inventory.shrinkSlot(inputSlot, 1);
 		} else {
-			inventory.setInvStack(inputSlot, ItemStack.EMPTY);
+			inventory.setStack(inputSlot, ItemStack.EMPTY);
 		}
 	}
 	
 	@Override
 	protected boolean canSmelt() {
-		if (inventory.getInvStack(inputSlot).isEmpty()) {
+		if (inventory.getStack(inputSlot).isEmpty()) {
 			return false;
 		}		
-		ItemStack outputStack = getResultFor(inventory.getInvStack(inputSlot));
+		ItemStack outputStack = getResultFor(inventory.getStack(inputSlot));
 		if (outputStack.isEmpty())
 			return false;
-		if (inventory.getInvStack(outputSlot).isEmpty())
+		if (inventory.getStack(outputSlot).isEmpty())
 			return true;
-		if (!inventory.getInvStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
+		if (!inventory.getStack(outputSlot).isItemEqualIgnoreDamage(outputStack))
 			return false;
-		int result = inventory.getInvStack(outputSlot).getCount() + outputStack.getCount();
+		int result = inventory.getStack(outputSlot).getCount() + outputStack.getCount();
 		return result <= inventory.getStackLimit() && result <= outputStack.getMaxCount();
 	}
 

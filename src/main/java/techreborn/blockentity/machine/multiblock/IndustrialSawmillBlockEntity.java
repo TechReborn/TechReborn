@@ -89,7 +89,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {
-			if (!inventory.getInvStack(1).isEmpty()) {
+			if (!inventory.getStack(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 5);
 				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidInstance().getFluid());
 			}

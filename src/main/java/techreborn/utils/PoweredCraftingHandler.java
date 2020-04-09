@@ -50,8 +50,8 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 	@Override
 	public void onCraft(ItemStack stack, CraftingInventory craftingInventory, PlayerEntity playerEntity) {
 		if (Energy.valid(stack)) {
-			double totalEnergy = IntStream.range(0, craftingInventory.getInvSize())
-					.mapToObj(craftingInventory::getInvStack)
+			double totalEnergy = IntStream.range(0, craftingInventory.size())
+					.mapToObj(craftingInventory::getStack)
 					.filter(s -> !s.isEmpty())
 					.filter(Energy::valid)
 					.mapToDouble(s -> Energy.of(s).getEnergy())
@@ -64,8 +64,8 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 			return;
 		}
 		Map<Enchantment, Integer> map = Maps.newLinkedHashMap();
-		for (int i = 0; i < craftingInventory.getInvSize(); i++){
-			ItemStack ingredient = craftingInventory.getInvStack(i);
+		for (int i = 0; i < craftingInventory.size(); i++){
+			ItemStack ingredient = craftingInventory.getStack(i);
 			if (ingredient.isEmpty()){
 				continue;
 			}

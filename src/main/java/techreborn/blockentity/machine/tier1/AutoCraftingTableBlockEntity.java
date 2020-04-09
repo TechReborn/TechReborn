@@ -83,7 +83,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	@Nullable
 	public CraftingRecipe getCurrentRecipe() {
 		CraftingInventory crafting = getCraftingInventory();
-		if (!crafting.isInvEmpty()) {
+		if (!crafting.isEmpty()) {
 			if (lastRecipe != null) {
 				if (lastRecipe.matches(crafting, world)) {
 					return lastRecipe;
@@ -108,7 +108,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}, 3, 3);
 		}
 		for (int i = 0; i < 9; i++) {
-			inventoryCrafting.setInvStack(i, inventory.getInvStack(i));
+			inventoryCrafting.setStack(i, inventory.getStack(i));
 		}
 		return inventoryCrafting;
 	}
@@ -118,7 +118,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			boolean missingOutput = false;
 			int[] stacksInSlots = new int[9];
 			for (int i = 0; i < 9; i++) {
-				stacksInSlots[i] = inventory.getInvStack(i).getCount();
+				stacksInSlots[i] = inventory.getStack(i).getCount();
 			}
 
 			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
@@ -130,7 +130,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 						if(checkedSlots.contains(i)) {
 							continue;
 						}
-						ItemStack stack = inventory.getInvStack(i);
+						ItemStack stack = inventory.getStack(i);
 						int requiredSize = locked ? 1 : 0;
 						if (stack.getMaxCount() == 1) {
 							requiredSize = 0;
@@ -160,7 +160,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	boolean hasRoomForExtraItem(ItemStack stack) {
-		ItemStack extraOutputSlot = inventory.getInvStack(10);
+		ItemStack extraOutputSlot = inventory.getStack(10);
 		if (extraOutputSlot.isEmpty()) {
 			return true;
 		}
@@ -168,7 +168,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public boolean hasOutputSpace(ItemStack output, int slot) {
-		ItemStack stack = inventory.getInvStack(slot);
+		ItemStack stack = inventory.getStack(slot);
 		if (stack.isEmpty()) {
 			return true;
 		}
@@ -188,34 +188,34 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
 			Ingredient ingredient = ingredients.get(i);
 			// Looks for the best slot to take it from
-			ItemStack bestSlot = inventory.getInvStack(i);
+			ItemStack bestSlot = inventory.getStack(i);
 			if (ingredient.test(bestSlot)) {
 				ItemStack remainderStack = getRemainderItem(bestSlot);
 				if(remainderStack.isEmpty()) {
 					bestSlot.decrement(1);
 				} else {
-					inventory.setInvStack(i, remainderStack);
+					inventory.setStack(i, remainderStack);
 				}
 
 			} else {
 				for (int j = 0; j < 9; j++) {
-					ItemStack stack = inventory.getInvStack(j);
+					ItemStack stack = inventory.getStack(j);
 					if (ingredient.test(stack)) {
 						ItemStack remainderStack = getRemainderItem(stack);
 						if(remainderStack.isEmpty()) {
 							stack.decrement(1);
 						} else {
-							inventory.setInvStack(j, remainderStack);
+							inventory.setStack(j, remainderStack);
 						}
 						break;
 					}
 				}
 			}
 		}
-		ItemStack output = inventory.getInvStack(9);
+		ItemStack output = inventory.getStack(9);
 		ItemStack outputStack = recipe.craft(getCraftingInventory());
 		if (output.isEmpty()) {
-			inventory.setInvStack(9, outputStack.copy());
+			inventory.setStack(9, outputStack.copy());
 		} else {
 			output.increment(recipe.getOutput().getCount());
 		}
@@ -295,15 +295,15 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (world.isClient) {
 			return Optional.empty();
 		}
-		if (craftCache.isInvEmpty()) {
+		if (craftCache.isEmpty()) {
 			return Optional.empty();
 		}
 		balanceSlot++;
-		if (balanceSlot > craftCache.getInvSize()) {
+		if (balanceSlot > craftCache.size()) {
 			balanceSlot = 0;
 		}
 		//Find the best slot for each item in a recipe, and move it if needed
-		ItemStack sourceStack = inventory.getInvStack(balanceSlot);
+		ItemStack sourceStack = inventory.getStack(balanceSlot);
 		if (sourceStack.isEmpty()) {
 			return Optional.empty();
 		}
@@ -313,7 +313,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				if(possibleSlots.contains(i)) {
 					continue;
 				}
-				ItemStack stackInSlot = inventory.getInvStack(i);
+				ItemStack stackInSlot = inventory.getStack(i);
 				Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
 				if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 					if (stackInSlot.getItem() == sourceStack.getItem()) {
@@ -327,7 +327,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		if(!possibleSlots.isEmpty()){
 			int totalItems =  possibleSlots.stream()
-					.mapToInt(value -> inventory.getInvStack(value).getCount()).sum();
+					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
 			//This makes an array of ints with the best possible slot EnvTyperibution
@@ -344,7 +344,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			}
 
 			List<Integer> slotEnvTyperubution = possibleSlots.stream()
-					.mapToInt(value -> inventory.getInvStack(value).getCount())
+					.mapToInt(value -> inventory.getStack(value).getCount())
 					.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
@@ -367,7 +367,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		//Slot, count
 		Pair<Integer, Integer> bestSlot = null;
 		for (Integer slot : possibleSlots) {
-			ItemStack slotStack = inventory.getInvStack(slot);
+			ItemStack slotStack = inventory.getStack(slot);
 			if (slotStack.isEmpty()) {
 				bestSlot = Pair.of(slot, 0);
 			}
@@ -380,12 +380,12 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		if (bestSlot == null
 				|| bestSlot.getLeft() == balanceSlot
 				|| bestSlot.getRight() == sourceStack.getCount()
-				|| inventory.getInvStack(bestSlot.getLeft()).isEmpty()
-				|| !ItemUtils.isItemEqual(sourceStack, inventory.getInvStack(bestSlot.getLeft()), true, true)) {
+				|| inventory.getStack(bestSlot.getLeft()).isEmpty()
+				|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
 		sourceStack.decrement(1);
-		inventory.getInvStack(bestSlot.getLeft()).increment(1);
+		inventory.getStack(bestSlot.getLeft()).increment(1);
 		inventory.setChanged();
 
 		return Optional.of(getCraftingInventory());

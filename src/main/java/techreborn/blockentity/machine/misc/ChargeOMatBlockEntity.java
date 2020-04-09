@@ -57,7 +57,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		for (int i = 0; i < 6; i++) {
-			ItemStack stack = inventory.getInvStack(i);
+			ItemStack stack = inventory.getStack(i);
 
 			if (Energy.valid(stack)) {
 				Energy.of(this)

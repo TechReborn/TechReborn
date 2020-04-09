@@ -71,8 +71,8 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		if (world.isClient) {
 			return;
 		}
-		if (!inventory.getInvStack(0).isEmpty()) {
-			ItemStack stack = inventory.getInvStack(0);
+		if (!inventory.getStack(0).isEmpty()) {
+			ItemStack stack = inventory.getStack(0);
 
 			if (Energy.valid(stack)) {
 				Energy.of(this)
@@ -80,7 +80,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 						.move(tier.getMaxInput());
 			}
 		}
-		if (!inventory.getInvStack(1).isEmpty()) {
+		if (!inventory.getStack(1).isEmpty()) {
 			charge(1);
 		}
 	}

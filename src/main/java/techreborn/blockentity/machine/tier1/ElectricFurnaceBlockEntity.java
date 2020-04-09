@@ -72,7 +72,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 	}
 	
 	private void updateCurrentRecipe() {
-		if (inventory.getInvStack(inputSlot).isEmpty()) {
+		if (inventory.getStack(inputSlot).isEmpty()) {
 			resetCrafter();
 			return;
 		}
@@ -95,17 +95,17 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (recipeOutput.isEmpty()) {
 			return false;
 		}
-		if (inventory.getInvStack(slot).isEmpty()) {
+		if (inventory.getStack(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), recipeOutput, true, true)) {
-            return recipeOutput.getCount() + inventory.getInvStack(slot).getCount() <= recipeOutput.getMaxCount();
+		if (ItemUtils.isItemEqual(inventory.getStack(slot), recipeOutput, true, true)) {
+            return recipeOutput.getCount() + inventory.getStack(slot).getCount() <= recipeOutput.getMaxCount();
 		}
 		return false;
 	}
 	
 	public boolean canCraftAgain() {
-		if (inventory.getInvStack(inputSlot).isEmpty()) {
+		if (inventory.getStack(inputSlot).isEmpty()) {
 			return false;
 		}
 		if (currentRecipe == null) {
@@ -139,7 +139,7 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (recipe == null) {
 			return false;
 		}
-		if (inventory.getInvStack(inputSlot).isEmpty()) {
+		if (inventory.getStack(inputSlot).isEmpty()) {
 			return false;
 		}
 
@@ -153,16 +153,16 @@ public class ElectricFurnaceBlockEntity extends PowerAcceptorBlockEntity
 		if (!canAcceptOutput(recipe, outputSlot)) {
 			return;
 		}
-		ItemStack outputStack = inventory.getInvStack(outputSlot);
+		ItemStack outputStack = inventory.getStack(outputSlot);
 		if (outputStack.isEmpty()) {
-			inventory.setInvStack(outputSlot, recipe.getOutput().copy());
+			inventory.setStack(outputSlot, recipe.getOutput().copy());
 		}
 		else {
 			// Just increment. We already checked stack match and stack size
 			outputStack.increment(1);
 		}
 		
-		inventory.getInvStack(inputSlot).decrement(1);
+		inventory.getStack(inputSlot).decrement(1);
 	}
 	
 	public int getProgressScaled(int scale) {

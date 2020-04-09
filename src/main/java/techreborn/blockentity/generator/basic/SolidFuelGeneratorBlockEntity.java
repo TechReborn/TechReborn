@@ -94,15 +94,15 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 
 		if (burnTime == 0) {
 			updateState();
-			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(inventory.getInvStack(fuelSlot));
+			burnTime = totalBurnTime = SolidFuelGeneratorBlockEntity.getItemBurnTime(inventory.getStack(fuelSlot));
 			if (burnTime > 0) {
 				updateState();
-				burnItem = inventory.getInvStack(fuelSlot);
-				if (inventory.getInvStack(fuelSlot).getCount() == 1) {
-					if (inventory.getInvStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getInvStack(fuelSlot).getItem() instanceof BucketItem) {
-						inventory.setInvStack(fuelSlot, new ItemStack(Items.BUCKET));
+				burnItem = inventory.getStack(fuelSlot);
+				if (inventory.getStack(fuelSlot).getCount() == 1) {
+					if (inventory.getStack(fuelSlot).getItem() == Items.LAVA_BUCKET || inventory.getStack(fuelSlot).getItem() instanceof BucketItem) {
+						inventory.setStack(fuelSlot, new ItemStack(Items.BUCKET));
 					} else {
-						inventory.setInvStack(fuelSlot, ItemStack.EMPTY);
+						inventory.setStack(fuelSlot, ItemStack.EMPTY);
 					}
 
 				} else {

@@ -75,24 +75,24 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		final int randomchance = this.world.random.nextInt(chance);
 
 		if (randomchance == 1) {
-			if (inventory.getInvStack(1).isEmpty()) {
-				inventory.setInvStack(1, itemstack.copy());
+			if (inventory.getStack(1).isEmpty()) {
+				inventory.setStack(1, itemstack.copy());
 			}
 			else {
-				inventory.getInvStack(1).increment(itemstack.getCount());
+				inventory.getStack(1).increment(itemstack.getCount());
 			}
 		}
 		inventory.shrinkSlot(0, 1);
 	}
 
 	public boolean canRecycle() {
-		return !inventory.getInvStack(0) .isEmpty() && hasSlotGotSpace(1);
+		return !inventory.getStack(0) .isEmpty() && hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(int slot) {
-		if (inventory.getInvStack(slot).isEmpty()) {
+		if (inventory.getStack(slot).isEmpty()) {
 			return true;
-		} else if (inventory.getInvStack(slot).getCount() < inventory.getInvStack(slot).getMaxCount()) {
+		} else if (inventory.getStack(slot).getCount() < inventory.getStack(slot).getMaxCount()) {
 			return true;
 		}
 		return false;

@@ -24,6 +24,7 @@
 
 package techreborn.world;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
@@ -32,6 +33,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.BeehiveTreeDecorator;
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
@@ -42,6 +44,7 @@ import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import reborncore.common.world.CustomOreFeature;
 import reborncore.common.world.CustomOreFeatureConfig;
 import techreborn.blocks.misc.BlockRubberLog;
@@ -92,13 +95,10 @@ public class WorldGenerator {
 		RUBBER_TREE_CONFIG = new BranchedTreeFeatureConfig.Builder(
 				logProvider,
 				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
-				new BlobFoliagePlacer(2, 0))
-				.baseHeight(TechRebornConfig.RubberTreeBaseHeight)
-				.heightRandA(2)
-				.foliageHeight(3)
+				new BlobFoliagePlacer(2, 0, 0, 0, 3),
+				new StraightTrunkPlacer(TechRebornConfig.RubberTreeBaseHeight, 3, 0))
 				.noVines()
 				.build();
-
 	}
 
 	private static void addToBiome(Biome biome){

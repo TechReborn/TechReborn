@@ -45,7 +45,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 
 	public NukeRenderer(EntityRenderDispatcher renderManager) {
 		super(renderManager);
-		this.shadowSize = 0.5F;
+		this.shadowRadius = 0.5F;
 	}
 
 	@Nullable

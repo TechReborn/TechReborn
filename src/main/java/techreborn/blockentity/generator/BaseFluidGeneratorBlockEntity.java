@@ -85,7 +85,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 		// Check cells input slot 2 time per second
 		if (ticksSinceLastChange >= 10) {
-			ItemStack inputStack = inventory.getInvStack(0);
+			ItemStack inputStack = inventory.getStack(0);
 			if (!inputStack.isEmpty()) {
 				if (FluidUtils.isContainerEmpty(inputStack) && !tank.getFluidAmount().isEmpty()) {
 					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());	
@@ -144,8 +144,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 	}
 
 	protected boolean acceptFluid() {
-		if (!inventory.getInvStack(0).isEmpty()) {
-			FluidInstance stack = FluidUtils.getFluidStackInContainer(inventory.getInvStack(0));
+		if (!inventory.getStack(0).isEmpty()) {
+			FluidInstance stack = FluidUtils.getFluidStackInContainer(inventory.getStack(0));
 			if (stack != null)
 				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
 		}

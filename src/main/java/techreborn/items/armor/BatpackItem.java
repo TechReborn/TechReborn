@@ -68,10 +68,10 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 			return;
 		}
 
-		for (int i = 0; i < player.inventory.getInvSize(); i++) {
-			if (Energy.valid(player.inventory.getInvStack(i))) {
+		for (int i = 0; i < player.inventory.size(); i++) {
+			if (Energy.valid(player.inventory.getStack(i))) {
 				Energy.of(itemStack)
-						.into(Energy.of(player.inventory.getInvStack(i)))
+						.into(Energy.of(player.inventory.getStack(i)))
 						.move(maxOutput);
 			}
 		}

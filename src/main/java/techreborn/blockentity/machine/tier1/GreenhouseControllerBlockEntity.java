@@ -192,9 +192,9 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 	}
 	
 	private boolean insertIntoInv(int slot, ItemStack stack) {
-		ItemStack targetStack = inventory.getInvStack(slot);
+		ItemStack targetStack = inventory.getStack(slot);
 		if (targetStack.isEmpty()) {
-			inventory.setInvStack(slot, stack.copy());
+			inventory.setStack(slot, stack.copy());
 			stack.decrement(stack.getCount());
 			return true;
 		} else {

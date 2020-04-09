@@ -126,11 +126,11 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		if (stack.isEmpty()) {
 			return true;
 		}
-		if (inventory.getInvStack(slot).isEmpty()) {
+		if (inventory.getStack(slot).isEmpty()) {
 			return true;
 		}
-		if (ItemUtils.isItemEqual(inventory.getInvStack(slot), stack, true, tags)) {
-			return stack.getCount() + inventory.getInvStack(slot).getCount() <= stack.getMaxCount();
+		if (ItemUtils.isItemEqual(inventory.getStack(slot), stack, true, tags)) {
+			return stack.getCount() + inventory.getStack(slot).getCount() <= stack.getMaxCount();
 		}
 		return false;
 	}
@@ -186,8 +186,8 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 		for (RebornIngredient ingredient : recipeType.getRebornIngredients()) {
 			boolean hasItem = false;
-			if (ingredient.test(inventory.getInvStack(topStackSlot))
-					|| ingredient.test(inventory.getInvStack(bottomStackSlot))) {
+			if (ingredient.test(inventory.getStack(topStackSlot))
+					|| ingredient.test(inventory.getStack(bottomStackSlot))) {
 				hasItem = true;
 			}
 			if (!hasItem) {
@@ -207,7 +207,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			return;
 		}
 		for (RebornIngredient ingredient : currentRecipe.getRebornIngredients()) {
-			if (ingredient.test(inventory.getInvStack(slot))) {
+			if (ingredient.test(inventory.getStack(slot))) {
 				inventory.shrinkSlot(slot, ingredient.getCount());
 				break;
 			}
@@ -288,8 +288,8 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			} else if (crafingTickTime >= currentRecipe.getTime()) {
 				ItemStack result = currentRecipe.getOutputs().get(0);
 				if (canFitStack(result, outputStackSlot, true)) {
-					if (inventory.getInvStack(outputStackSlot).isEmpty()) {
-						inventory.setInvStack(outputStackSlot, result.copy());
+					if (inventory.getStack(outputStackSlot).isEmpty()) {
+						inventory.setStack(outputStackSlot, result.copy());
 					} else {
 						inventory.shrinkSlot(outputStackSlot, -result.getCount());
 					}

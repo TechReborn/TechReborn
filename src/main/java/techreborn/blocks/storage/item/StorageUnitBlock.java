@@ -66,10 +66,10 @@ public class StorageUnitBlock extends BlockMachineBase {
 		if (storageEntity != null && storageEntity.isSameType(stackInHand)) {
 
 			// Add item which is the same type (in users inventory) into storage
-			for (int i = 0; i < playerIn.inventory.getInvSize() && !storageEntity.isFull(); i++) {
-				ItemStack curStack = playerIn.inventory.getInvStack(i);
+			for (int i = 0; i < playerIn.inventory.size() && !storageEntity.isFull(); i++) {
+				ItemStack curStack = playerIn.inventory.getStack(i);
 				if (storageEntity.isSameType(curStack)) {
-					playerIn.inventory.setInvStack(i, storageEntity.processInput(curStack));
+					playerIn.inventory.setStack(i, storageEntity.processInput(curStack));
 				}
 			}
 

@@ -83,7 +83,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {
-			if (!inventory.getInvStack(1).isEmpty()) {
+			if (!inventory.getStack(1).isEmpty()) {
 				FluidUtils.fillContainers(tank, inventory, 1, 2, tank.getFluid());
 			}
 			ticksSinceLastChange = 0;

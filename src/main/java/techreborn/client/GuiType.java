@@ -6,15 +6,16 @@ import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.container.ContainerFactory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.api.blockentity.IMachineGuiHandler;
-import reborncore.client.containerBuilder.IContainerProvider;
+import reborncore.client.screen.BuiltScreenHandlerProvider;
+import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -195,7 +196,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	private void register() {
 		ContainerProviderRegistry.INSTANCE.registerFactory(identifier, (syncID, identifier, playerEntity, packetByteBuf) -> {
 			final BlockEntity blockEntity = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			return ((IContainerProvider) blockEntity).createContainer(syncID, playerEntity);
+			return ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncID, playerEntity);
 		});
 		RebornCore.clientOnly(() -> () -> ScreenProviderRegistry.INSTANCE.registerFactory(identifier, getFactory()));
 	}
@@ -205,11 +206,11 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	}
 
 	@Environment(EnvType.CLIENT)
-	public interface GuiFactory<T extends BlockEntity> extends ContainerFactory<ContainerScreen> {
-		ContainerScreen<?> create(int syncId, PlayerEntity playerEntity, T blockEntity);
+	public interface GuiFactory<T extends BlockEntity> extends ContainerFactory<HandledScreen> {
+		HandledScreen<?> create(int syncId, PlayerEntity playerEntity, T blockEntity);
 
 		@Override
-		default ContainerScreen create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf packetByteBuf) {
+		default HandledScreen create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf packetByteBuf) {
 			//noinspection unchecked
 			T blockEntity = (T) playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
 			return create(syncId, playerEntity, blockEntity);

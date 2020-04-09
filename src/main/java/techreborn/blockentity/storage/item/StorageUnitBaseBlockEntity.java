@@ -104,14 +104,14 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 
 		// If there is an item in the input AND stored is less than max capacity
-		if (!inventory.getInvStack(INPUT_SLOT).isEmpty() && !isFull()) {
-			inventory.setInvStack(INPUT_SLOT, processInput(inventory.getInvStack(INPUT_SLOT)));
+		if (!inventory.getStack(INPUT_SLOT).isEmpty() && !isFull()) {
+			inventory.setStack(INPUT_SLOT, processInput(inventory.getStack(INPUT_SLOT)));
 
 			shouldUpdate = true;
 		}
 
 		// Fill output slot with goodies when stored has items and output count is less than max stack size
-		if (storeItemStack.getCount() > 0 && inventory.getInvStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
+		if (storeItemStack.getCount() > 0 && inventory.getStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
 			populateOutput();
 
 			shouldUpdate = true;
@@ -138,7 +138,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		// Set to storeItemStack to get the stack type
 		ItemStack output = storeItemStack.copy();
 
-		int outputSlotCount = inventory.getInvStack(OUTPUT_SLOT).getCount();
+		int outputSlotCount = inventory.getStack(OUTPUT_SLOT).getCount();
 
 		// Set to current outputSlot count
 		output.setCount(outputSlotCount);
@@ -159,7 +159,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			storeItemStack = ItemStack.EMPTY;
 		}
 
-		inventory.setInvStack(OUTPUT_SLOT, output);
+		inventory.setStack(OUTPUT_SLOT, output);
 	}
 
 	private void addStoredItemCount(int amount) {
@@ -167,7 +167,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public ItemStack getStoredStack() {
-		return storeItemStack.isEmpty() ? inventory.getInvStack(OUTPUT_SLOT) : storeItemStack;
+		return storeItemStack.isEmpty() ? inventory.getStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
 	public ItemStack getAll() {
@@ -233,7 +233,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		storeItemStack = getStoredStack();
 		storeItemStack.setCount(maxCapacity);
 
-		inventory.setInvStack(OUTPUT_SLOT, ItemStack.EMPTY);
+		inventory.setStack(OUTPUT_SLOT, ItemStack.EMPTY);
 	}
 
 	public boolean isFull() {
@@ -245,7 +245,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public int getCurrentCapacity() {
-		return storeItemStack.getCount() + inventory.getInvStack(OUTPUT_SLOT).getCount();
+		return storeItemStack.getCount() + inventory.getStack(OUTPUT_SLOT).getCount();
 	}
 
 	public int getMaxCapacity() {
@@ -383,10 +383,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	@Override
-	public boolean isValidInvStack(int slot, ItemStack stack) {
+	public boolean isValid(int slot, ItemStack stack) {
 		if (slot == INPUT_SLOT && !(isEmpty() || isSameType(stack))) {
 			return false;
 		}
-		return super.isValidInvStack(slot, stack);
+		return super.isValid(slot, stack);
 	}
 }
