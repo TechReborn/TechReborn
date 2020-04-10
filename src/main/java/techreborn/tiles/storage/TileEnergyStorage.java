@@ -67,8 +67,6 @@ public abstract class TileEnergyStorage extends TilePowerAcceptor implements ITo
 		this.maxOutput = maxOuput;
 		this.maxStorage = maxStorage;
 	}
-	
-
 
 	// TilePowerAcceptor
 	@Override
@@ -193,11 +191,6 @@ public abstract class TileEnergyStorage extends TilePowerAcceptor implements ITo
 			default: // do nothing
 				return false;
 		}
-	}
-
-	@Override
-	public EnumFacing getFacing() {
-		return world.getBlockState(pos).getValue(BlockEnergyStorage.FACING);
 	}
 
 	@Override
