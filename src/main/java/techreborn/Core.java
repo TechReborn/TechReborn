@@ -66,6 +66,7 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.dispenser.BehaviorDispenseScrapbox;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.events.BlockBreakHandler;
+import techreborn.events.RegistryFix;
 import techreborn.events.TRRecipeHandler;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
@@ -164,6 +165,7 @@ public class Core {
         MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
         MinecraftForge.EVENT_BUS.register(new MultiblockServerTickHandler());
         MinecraftForge.EVENT_BUS.register(new TRTickHandler());
+	    MinecraftForge.EVENT_BUS.register(new RegistryFix());
         MinecraftForge.EVENT_BUS.register(worldGen.retroGen);
 
         //Village stuff

@@ -123,5 +123,53 @@ public abstract class BlockEnergyStorage extends RebornOrientableTileBlock {
 
 		return ((TileEnergyStorage) tileEntity).getComparatorValue();
 	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		int facingInt = getSideFromEnum(state.getValue(FACING));
+		return facingInt;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		EnumFacing facing = getSideFromint(meta);
+		return this.getDefaultState().withProperty(FACING, facing);
+	}
+
+	@Override
+	public EnumFacing getSideFromint(int i) {
+		if (i == 0) {
+			return EnumFacing.NORTH;
+		} else if (i == 1) {
+			return EnumFacing.SOUTH;
+		} else if (i == 2) {
+			return EnumFacing.EAST;
+		} else if (i == 3) {
+			return EnumFacing.WEST;
+		} else if (i == 4) {
+			return EnumFacing.UP;
+		} else if (i == 5) {
+			return EnumFacing.DOWN;
+		}
+		return EnumFacing.NORTH;
+	}
+
+	@Override
+	public int getSideFromEnum(EnumFacing facing) {
+		if (facing == EnumFacing.NORTH) {
+			return 0;
+		} else if (facing == EnumFacing.SOUTH) {
+			return 1;
+		} else if (facing == EnumFacing.EAST) {
+			return 2;
+		} else if (facing == EnumFacing.WEST) {
+			return 3;
+		} else if (facing == EnumFacing.UP) {
+			return 4;
+		} else if (facing == EnumFacing.DOWN) {
+			return 5;
+		}
+		return 0;
+	}
 	// << Redstone	
 }
