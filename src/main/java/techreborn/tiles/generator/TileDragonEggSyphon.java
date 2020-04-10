@@ -31,7 +31,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import reborncore.api.IToolDrop;
 import reborncore.api.tile.IInventoryProvider;
-import reborncore.common.blocks.RebornMachineBlock;
 import reborncore.common.powerSystem.TilePowerAcceptor;
 import reborncore.common.registration.RebornRegistry;
 import reborncore.common.registration.impl.ConfigRegistry;
@@ -81,9 +80,9 @@ public class TileDragonEggSyphon extends TilePowerAcceptor
 			}
 
 			if (world.getTotalWorldTime() - lastOutput < 30 && !isActive()) {
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(RebornMachineBlock.activeProperty, true));
+				setActive(true);
 			} else if (world.getTotalWorldTime() - lastOutput > 30 && isActive()) {
-				world.setBlockState(pos, world.getBlockState(pos).withProperty(RebornMachineBlock.activeProperty, false));
+				setActive(false);
 			}
 		}
 	}

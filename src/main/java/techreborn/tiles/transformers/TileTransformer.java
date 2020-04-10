@@ -87,15 +87,15 @@ public class TileTransformer extends TilePowerAcceptor
 	@Override
 	public boolean canAcceptEnergy(EnumFacing direction) {
 		if (IC2TransformersStyle == true){
-			return getFacingEnum() == direction;
+			return getFacing() == direction;
 		}
-		return getFacingEnum() != direction;
+		return getFacing() != direction;
 	}
 	
 	@Override
 	public boolean canProvideEnergy(EnumFacing direction) {
 		if (IC2TransformersStyle == true){
-			return getFacingEnum() != direction;
+			return getFacing() != direction;
 		}
 		return getFacing() == direction;
 	}
@@ -127,13 +127,14 @@ public class TileTransformer extends TilePowerAcceptor
 	
 	// RebornMachineTile
 	@Override
-	public EnumFacing getFacingEnum() {
+	public EnumFacing getFacing() {
 		Block block = world.getBlockState(pos).getBlock();
 		if (block instanceof BlockTransformer) {
-			return ((BlockTransformer) block).getFacing(world.getBlockState(pos));
+			return ((BlockTransformer) block).getFacing(world, pos);
 		}
 		return null;
 	}
+	
 
 	// IToolDrop
 	@Override

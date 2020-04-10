@@ -67,6 +67,8 @@ public abstract class TileEnergyStorage extends TilePowerAcceptor implements ITo
 		this.maxOutput = maxOuput;
 		this.maxStorage = maxStorage;
 	}
+	
+
 
 	// TilePowerAcceptor
 	@Override
@@ -139,21 +141,21 @@ public abstract class TileEnergyStorage extends TilePowerAcceptor implements ITo
 		return tier;
 	}
 
-	// RebornMachineTile
-	@Override
-	public EnumFacing getFacingEnum() {
-		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof BlockEnergyStorage) {
-			return ((BlockEnergyStorage) block).getFacing(world.getBlockState(pos));
-		}
-		return null;
-	}
-	
+	// RebornMachineTile	
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
 	}
-
+	
+	@Override
+	public EnumFacing getFacing() {
+		Block block = world.getBlockState(pos).getBlock();
+		if (block instanceof BlockEnergyStorage) {
+			return ((BlockEnergyStorage) block).getFacing(world, pos);
+		}
+		return null;
+	}
+	
 	// IToolDrop >>
 	@Override
 	public ItemStack getToolDrop(EntityPlayer entityPlayer) {
