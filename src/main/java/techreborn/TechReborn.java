@@ -26,7 +26,9 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.ComposterBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -40,6 +42,7 @@ import reborncore.common.util.Torus;
 import reborncore.common.world.DataAttachment;
 import techreborn.blockentity.storage.energy.idsu.IDSUManager;
 import techreborn.client.GuiType;
+import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
 import techreborn.init.FluidGeneratorRecipes;
@@ -55,6 +58,8 @@ import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PoweredCraftingHandler;
 import techreborn.world.WorldGenerator;
 
+import java.util.function.Predicate;
+
 public class TechReborn implements ModInitializer {
 
 	public static final String MOD_ID = "techreborn";
@@ -64,6 +69,8 @@ public class TechReborn implements ModInitializer {
 	public static ItemGroup ITEMGROUP = FabricItemGroupBuilder.build(
 			new Identifier("techreborn", "item_group"),
 			() -> new ItemStack(TRContent.NUKE));
+
+	public static Predicate<PlayerEntity> elytraPredicate = playerEntity -> false;
 
 	@Override
 	public void onInitialize() {
@@ -103,6 +110,10 @@ public class TechReborn implements ModInitializer {
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.Parts.COMPRESSED_PLANTBALL.asItem(), 1F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.Dusts.SAW.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.SmallDusts.SAW.asItem(), 0.1F);
+
+		if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+			elytraPredicate = Trinkets.isElytraEquipped();
+		}
 
 		LOGGER.info("TechReborn setup done!");
 
