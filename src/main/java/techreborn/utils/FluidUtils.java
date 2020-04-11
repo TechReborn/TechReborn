@@ -71,7 +71,7 @@ public class FluidUtils {
 			FluidValue freeSpace = target.getCapacity(null).subtract(targetFluidInstance.getAmount());
 
 			if(!outputStack.isEmpty()){
-				if(outputStack.getCount() >= outputStack.getMaxCount()){
+				if(outputStack.getCount() >= outputStack.getMaxCount() || !outputStack.isItemEqual(itemFluidInfo.getEmpty())){
 					return false;
 				}
 			}
@@ -109,7 +109,9 @@ public class FluidUtils {
 		if(!outputStack.isEmpty()){
 			if (outputStack.getCount() >= outputStack.getMaxCount()) return false;
 
-			if(!(outputStack.getItem() instanceof ItemFluidInfo)) return false;
+			if (!(outputStack.getItem() instanceof ItemFluidInfo)) return false;
+
+			if (!outputStack.isItemEqual(itemFluidInfo.getEmpty())) return false;
 
 			ItemFluidInfo outputFluidInfo = (ItemFluidInfo) outputStack.getItem();
 

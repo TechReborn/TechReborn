@@ -93,7 +93,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 				}
 				break;
 			case CHEST:
-				if (Energy.of(stack).getEnergy() > flyCost) {
+				if (Energy.of(stack).getEnergy() > flyCost && !TechReborn.elytraPredicate.test(playerEntity)) {
 					playerEntity.abilities.allowFlying = true;
 					if (playerEntity.abilities.flying) {
 						Energy.of(stack).use(flyCost);

@@ -43,6 +43,13 @@ repositories {
 		//Dev Mode
 		url "https://maven.jamieswhiteshirt.com/libs-release/"
 	}
+	maven {
+		//trinkets
+		url = "https://maven.abusedmaster.xyz/"
+	}
+	maven {
+		url = "https://jitpack.io"
+	}
 }
 
 version = "3.3.8"
@@ -74,6 +81,7 @@ dependencies {
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.1.1-unstable")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
+	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.4.2')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {

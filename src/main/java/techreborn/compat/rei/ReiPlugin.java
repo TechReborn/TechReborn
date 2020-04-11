@@ -24,6 +24,9 @@
 
 package techreborn.compat.rei;
 
+import me.shedaniel.math.api.Rectangle;
+import me.shedaniel.rei.api.BaseBoundsHandler;
+import me.shedaniel.rei.api.DisplayHelper;
 import me.shedaniel.rei.api.EntryRegistry;
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeDisplay;
@@ -31,9 +34,14 @@ import me.shedaniel.rei.api.RecipeHelper;
 import me.shedaniel.rei.api.plugins.REIPluginV0;
 import net.fabricmc.loader.api.SemanticVersion;
 import net.fabricmc.loader.util.version.VersionParsingException;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
+import reborncore.api.blockentity.IUpgradeable;
+import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.gui.builder.slot.GuiTab;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
@@ -52,6 +60,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.Machine;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -205,5 +214,33 @@ public class ReiPlugin implements REIPluginV0 {
 			}
 			return false;
 		}, recipeDisplay);
+	}
+
+	@Override
+	public void registerBounds(DisplayHelper displayHelper) {
+		BaseBoundsHandler baseBoundsHandler = BaseBoundsHandler.getInstance();
+		baseBoundsHandler.registerExclusionZones(GuiBase.class, () -> {
+			Screen currentScreen = MinecraftClient.getInstance().currentScreen;
+			if (currentScreen instanceof GuiBase) {
+				GuiBase<?> guiBase = (GuiBase<?>) currentScreen;
+				int height = 0;
+				if (guiBase.tryAddUpgrades() && guiBase.be instanceof IUpgradeable) {
+					IUpgradeable upgradeable = (IUpgradeable) guiBase.be;
+					if (upgradeable.canBeUpgraded()) {
+						height = 80;
+					}
+				}
+				for (GuiTab slot : guiBase.getTabs()) {
+					if (slot.enabled()) {
+						height += 24;
+					}
+				}
+				if (height > 0) {
+					int width = 20;
+					return Collections.singletonList(new Rectangle(guiBase.getGuiLeft() - width, guiBase.getGuiTop() + 8, width , height));
+				}
+			}
+			return Collections.emptyList();
+		});
 	}
 }
