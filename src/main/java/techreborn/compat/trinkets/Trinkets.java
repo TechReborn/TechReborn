@@ -12,8 +12,8 @@ public class Trinkets {
 	public static Predicate<PlayerEntity> isElytraEquipped() {
 		return playerEntity -> {
 			TrinketComponent component = TrinketsApi.getTrinketComponent(playerEntity);
-			for (int i = 0; i < component.getInventory().getInvSize(); i++) {
-				if (component.getInventory().getInvStack(i).getItem() == Items.ELYTRA) {
+			for (int i = 0; i < component.getInventory().size(); i++) {
+				if (component.getInventory().getStack(i).getItem() == Items.ELYTRA) {
 					return true;
 				}
 			}
