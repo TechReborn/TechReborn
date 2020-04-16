@@ -404,22 +404,22 @@ public class TRContent {
 	}
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(6, 10, 10, 60),
-		CINNABAR(6, 3, 10, 126),
-		COPPER(8, 16, 20, 60),
-		GALENA(8, 16, 10, 60),
-		IRIDIUM(3, 3, 5, 60),
-		LEAD(6, 16, 20, 60),
-		PERIDOT(6, 3, 10, 250),
-		PYRITE(6, 3, 10, 126),
-		RUBY(6, 3, 10, 60),
-		SAPPHIRE(6, 3, 10, 60),
-		SHELDONITE(6, 3, 10, 250),
-		SILVER(6, 16, 20, 60),
-		SODALITE(6, 3, 10, 250),
-		SPHALERITE(6, 3, 10, 126),
-		TIN(8, 16, 20, 60),
-		TUNGSTEN(6, 3, 10, 250);
+		BAUXITE(TechRebornConfig.bauxiteVeinSize, TechRebornConfig.bauxiteVeinCount, 10, 60),
+		CINNABAR(TechRebornConfig.cinnabarVeinSize, TechRebornConfig.cinnabarVeinCount, 10, 126),
+		COPPER(TechRebornConfig.copperVeinSize, TechRebornConfig.copperVeinCount, 20, 60),
+		GALENA(TechRebornConfig.galenaVeinSize, TechRebornConfig.galenaVeinCount, 10, 60),
+		IRIDIUM(TechRebornConfig.iridiumVeinSize, TechRebornConfig.iridiumVeinCount, 5, 60),
+		LEAD(TechRebornConfig.leadVeinSize, TechRebornConfig.leadVeinCount, 20, 60),
+		PERIDOT(TechRebornConfig.peridotVeinSize, TechRebornConfig.peridotVeinCount, 10, 250),
+		PYRITE(TechRebornConfig.pyriteVeinSize, TechRebornConfig.pyriteVeinCount, 10, 126),
+		RUBY(TechRebornConfig.rubyVeinSize, TechRebornConfig.rubyVeinCount, 10, 60),
+		SAPPHIRE(TechRebornConfig.sapphireVeinSize, TechRebornConfig.sapphireVeinCount, 10, 60),
+		SHELDONITE(TechRebornConfig.sheldoniteVeinSize, TechRebornConfig.sheldoniteVeinCount, 10, 250),
+		SILVER(TechRebornConfig.silverVeinSize, TechRebornConfig.silverVeinCount, 20, 60),
+		SODALITE(TechRebornConfig.sodaliteVeinSize, TechRebornConfig.sodaliteVeinCount, 10, 250),
+		SPHALERITE(TechRebornConfig.sphaleriteVeinSize, TechRebornConfig.sphaleriteVeinCount, 10, 126),
+		TIN(TechRebornConfig.tinVeinSize, TechRebornConfig.tinVeinCount, 20, 60),
+		TUNGSTEN(TechRebornConfig.tungstenVeinSize, TechRebornConfig.tungstenVeinCount, 10, 250);
 
 		public final String name;
 		public final Block block;
