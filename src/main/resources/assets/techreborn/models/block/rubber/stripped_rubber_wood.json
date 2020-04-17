@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "techreborn:block/stripped_rubber_log_side",
+		"side": "techreborn:block/stripped_rubber_log_side"
+	}
+}
