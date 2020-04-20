@@ -1,0 +1,17 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 180,
+
+  "ingredients" : [
+    {
+      "tag": "c:basalt"
+    }
+  ],
+
+  "results" : [
+    {
+      "item": "techreborn:basalt_dust"
+    }
+  ]
+}
