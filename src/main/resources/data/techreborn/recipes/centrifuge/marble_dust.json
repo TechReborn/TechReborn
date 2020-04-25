@@ -4,7 +4,8 @@
   "time": 2050,
   "ingredients": [
     {
-      "item": "techreborn:marble_dust"
+      "item": "techreborn:marble_dust",
+      "count": 8
     }
   ],
   "results": [

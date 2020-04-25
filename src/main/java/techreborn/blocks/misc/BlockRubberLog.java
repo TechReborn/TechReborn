@@ -132,19 +132,6 @@ public class BlockRubberLog extends PillarBlock {
 			return ActionResult.PASS;
 		}
 
-		if (stack.getItem() instanceof AxeItem) {
-			worldIn.playSound(playerIn, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-			if (worldIn.isClient) {
-				return ActionResult.SUCCESS;
-			}
-			worldIn.setBlockState(pos, TRContent.RUBBER_LOG_STRIPPED.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), 11);
-			if (playerIn instanceof LivingEntity) {
-				LivingEntity playerEntity = (LivingEntity) playerIn;
-				stack.damage(1, playerEntity, player -> { player.sendToolBreakStatus(hand); });
-			}
-			return ActionResult.SUCCESS;
-		}
-
 		if ((Energy.valid(stack) && Energy.of(stack).getEnergy() > 20 && stack.getItem() instanceof ElectricTreetapItem) || stack.getItem() instanceof TreeTapItem) {
 			if (state.get(HAS_SAP) && state.get(SAP_SIDE) == hitResult.getSide()) {
 				worldIn.setBlockState(pos, state.with(HAS_SAP, false).with(SAP_SIDE, Direction.fromHorizontal(0)));

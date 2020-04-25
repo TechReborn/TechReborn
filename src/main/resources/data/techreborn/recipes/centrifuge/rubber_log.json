@@ -4,7 +4,7 @@
   "time": 5000,
   "ingredients": [
     {
-      "item": "techreborn:rubber_log",
+      "tag": "techreborn:rubber_logs",
       "count": 16
     },
     {
