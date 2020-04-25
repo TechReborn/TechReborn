@@ -30,6 +30,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.Direction;
 import reborncore.RebornRegistry;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
@@ -87,6 +89,8 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG = InitUtils.setup(new BlockRubberLog(), "rubber_log"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_LOG_STRIPPED = InitUtils.setup(new PillarBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_log_stripped"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.RUBBER_WOOD = InitUtils.setup(new PillarBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_wood"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.STRIPPED_RUBBER_WOOD = InitUtils.setup(new PillarBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "stripped_rubber_wood"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANKS = InitUtils.setup(new BlockRubberPlank(), "rubber_planks"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_SAPLING = InitUtils.setup(new BlockRubberSapling(), "rubber_sapling"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PLANK_SLAB = InitUtils.setup(new SlabBlock(InitUtils.setupRubberBlockSettings(2.0F, 15.0F)), "rubber_plank_slab"), itemGroup);
@@ -205,6 +209,12 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem(), "cell"));
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
+	}
+
+	private static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
+		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> {
+			return blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor;
+		}).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	}
 
 	private static void registerFluids() {
