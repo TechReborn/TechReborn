@@ -85,10 +85,8 @@ public class TRDispenserBehavior {
 								this.dispense(pointer, emptyCell);
 							}
 						}
-						return stack;
-					} else {
-						return this.dispense(pointer, stack);
 					}
+					return stack;
 				}
 			}
 		});
