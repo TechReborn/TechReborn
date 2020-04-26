@@ -85,7 +85,7 @@ public class ToolTipAssistUtils {
 
 		if(I18n.hasTranslation(key)){
 			if(!hidden || Screen.hasShiftDown()){
-				String info = new TranslatableText(key).asString();
+				String info = I18n.translate(key);
 				String infoLines[] = info.split("\\r?\\n");
 
 				for (String infoLine: infoLines) {

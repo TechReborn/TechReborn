@@ -27,6 +27,7 @@ package techreborn.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Properties;
@@ -77,14 +78,14 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 			getMinecraft().getTextureManager().bindTexture(new Identifier("techreborn", "textures/item/part/digital_display.png"));
 			drawTexture(matrixStack, x + 68, y + 22, 0, 0, 16, 16, 16, 16);
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
-				List<Text> list = Arrays.stream(new TranslatableText("techreborn.tooltip.greenhouse.upgrade_available").asString()
+				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
 						.split("\\r?\\n"))
 						.map(LiteralText::new)
 						.collect(Collectors.toList());
 
-				RenderSystem.pushMatrix();
+				matrixStack.push();
 				renderTooltip(matrixStack, list, mouseX, mouseY);
-				RenderSystem.popMatrix();
+				matrixStack.pop();
 			}
 		}
 		
@@ -100,7 +101,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 		
 		if (!blockEntity.getMultiBlock()) {
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
-				List<Text> list = Arrays.stream(new TranslatableText("techreborn.tooltip.greenhouse.upgrade_available").asString()
+				List<Text> list = Arrays.stream(I18n.translate("techreborn.tooltip.greenhouse.upgrade_available")
 						.split("\\r?\\n"))
 						.map(LiteralText::new)
 						.collect(Collectors.toList());

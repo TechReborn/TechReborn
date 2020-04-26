@@ -31,6 +31,7 @@ import me.shedaniel.rei.api.RecipeCategory;
 import me.shedaniel.rei.api.widgets.Label;
 import me.shedaniel.rei.api.widgets.Widgets;
 import me.shedaniel.rei.gui.widget.Widget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -59,7 +60,7 @@ public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplic
 	
 	@Override
 	public String getCategoryName() {
-		return new TranslatableText(rebornRecipeType.getName().toString()).asString();
+		return I18n.translate(rebornRecipeType.getName().toString());
 	}
 	
 	@Override

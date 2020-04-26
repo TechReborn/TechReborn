@@ -63,6 +63,10 @@ public class QuantumTankBlockEntity extends TankUnitBaseBlockEntity {
 
 		TankUnitBaseBlockEntity tankEntity = (TankUnitBaseBlockEntity) world.getBlockEntity(pos);
 
+		if (tankEntity == null) {
+			return;
+		}
+
 		tankEntity.setTank(tank);
 
 		tankEntity.setStack(0, inputSlotStack);

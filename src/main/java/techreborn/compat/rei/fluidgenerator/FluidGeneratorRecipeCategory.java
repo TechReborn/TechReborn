@@ -31,6 +31,7 @@ import me.shedaniel.rei.api.RecipeCategory;
 import me.shedaniel.rei.api.widgets.Label;
 import me.shedaniel.rei.api.widgets.Widgets;
 import me.shedaniel.rei.gui.widget.Widget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -58,7 +59,7 @@ public class FluidGeneratorRecipeCategory implements RecipeCategory<FluidGenerat
 	
 	@Override
 	public String getCategoryName() {
-		return new TranslatableText(identifier.toString()).asString();
+		return I18n.translate(identifier.toString());
 	}
 	
 	@Override

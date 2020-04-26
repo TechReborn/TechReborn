@@ -33,6 +33,7 @@ import me.shedaniel.rei.api.widgets.Widgets;
 import me.shedaniel.rei.gui.entries.RecipeEntry;
 import me.shedaniel.rei.gui.entries.SimpleRecipeEntry;
 import me.shedaniel.rei.gui.widget.Widget;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -67,7 +68,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	
 	@Override
 	public String getCategoryName() {
-		return new TranslatableText(rebornRecipeType.getName().toString()).asString();
+		return I18n.translate(rebornRecipeType.getName().toString());
 	}
 	
 	@Override
