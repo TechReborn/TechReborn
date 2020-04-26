@@ -24,7 +24,9 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.TranslatableText;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.StringUtils;
@@ -40,36 +42,36 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawString(StringUtils.t("gui.techreborn.unit.in"), 100, 43, 4210752, layer);
-		drawSlot(100, 53, layer);
+		client.textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		drawSlot(matrixStack, 100, 53, layer);
 
-		drawString(StringUtils.t("gui.techreborn.unit.out"), 140, 43, 4210752, layer);
-		drawSlot(140, 53, layer);
+		client.textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		drawSlot(matrixStack, 140, 53, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 
 		if (storageEntity.isEmpty()) {
-			textRenderer.draw(StringUtils.t("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
-			textRenderer.draw(StringUtils.t("gui.techreborn.storage.store"), 10, 20, 4210752);
-			textRenderer.draw(storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.store"), 10, 20, 4210752);
+			textRenderer.draw(matrixStack, storageEntity.getStoredStack().getName().asString(), 10, 30, 4210752);
 
 
-			textRenderer.draw(StringUtils.t("gui.techreborn.storage.amount"), 10, 50, 4210752);
-			textRenderer.draw(String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.amount"), 10, 50, 4210752);
+			textRenderer.draw(matrixStack, String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
 
 			String percentFilled = String.valueOf((int) ((double) storageEntity.getCurrentCapacity() / (double) storageEntity.getMaxCapacity() * 100));
 
-			textRenderer.draw(StringUtils.t("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
 
-			textRenderer.draw(StringUtils.t("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
 	}
 }

@@ -27,8 +27,12 @@ package techreborn.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -42,6 +46,8 @@ import techreborn.init.TRContent;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 	
@@ -53,27 +59,31 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 	}
 	
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 		
-		drawSlot(8, 72, layer);
+		drawSlot(matrixStack, 8, 72, layer);
 		
 		int gridYPos = 22;
-		drawSlot(30, gridYPos, layer);
-		drawSlot(48, gridYPos, layer);
-		drawSlot(30, gridYPos + 18, layer);
-		drawSlot(48, gridYPos + 18, layer);
-		drawSlot(30, gridYPos + 36, layer);
-		drawSlot(48, gridYPos + 36, layer);
+		drawSlot(matrixStack, 30, gridYPos, layer);
+		drawSlot(matrixStack, 48, gridYPos, layer);
+		drawSlot(matrixStack, 30, gridYPos + 18, layer);
+		drawSlot(matrixStack, 48, gridYPos + 18, layer);
+		drawSlot(matrixStack, 30, gridYPos + 36, layer);
+		drawSlot(matrixStack, 48, gridYPos + 36, layer);
 		
 		if (!blockEntity.getMultiBlock()) {
 			getMinecraft().getTextureManager().bindTexture(new Identifier("techreborn", "textures/item/part/digital_display.png"));
-			drawTexture(x + 68, y + 22, 0, 0, 16, 16, 16, 16);
+			drawTexture(matrixStack, x + 68, y + 22, 0, 0, 16, 16, 16, 16);
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
-				List<String> list = Arrays.asList(StringUtils.t("techreborn.tooltip.greenhouse.upgrade_available").split("\\r?\\n"));
+				List<Text> list = Arrays.stream(new TranslatableText("techreborn.tooltip.greenhouse.upgrade_available").asString()
+						.split("\\r?\\n"))
+						.map(LiteralText::new)
+						.collect(Collectors.toList());
+
 				RenderSystem.pushMatrix();
-				renderTooltip(list, mouseX, mouseY);
+				renderTooltip(matrixStack, list, mouseX, mouseY);
 				RenderSystem.popMatrix();
 			}
 		}
@@ -81,23 +91,27 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 	}
 	
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 		
 		addHologramButton(90, 24, 212, layer).clickHandler(this::onClick);
-		builder.drawHologramButton(this, 90, 24, mouseX, mouseY, layer);
+		builder.drawHologramButton(matrixStack, this, 90, 24, mouseX, mouseY, layer);
 		
 		if (!blockEntity.getMultiBlock()) {
 			if (isPointInRect(68, 22, 16, 16, mouseX, mouseY)) {
-				List<String> list = Arrays.asList(StringUtils.t("techreborn.tooltip.greenhouse.upgrade_available").split("\\r?\\n"));
+				List<Text> list = Arrays.stream(new TranslatableText("techreborn.tooltip.greenhouse.upgrade_available").asString()
+						.split("\\r?\\n"))
+						.map(LiteralText::new)
+						.collect(Collectors.toList());
+
 				RenderSystem.pushMatrix();
-				renderTooltip(list, mouseX - getGuiLeft(), mouseY - getGuiTop());
+				renderTooltip(matrixStack, list, mouseX - getGuiLeft(), mouseY - getGuiTop());
 				RenderSystem.popMatrix();
 			}
 		}
 		
-		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 	
 	public void onClick(GuiButtonExtended button, Double x, Double y) {

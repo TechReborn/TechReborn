@@ -29,8 +29,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
-import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
-import net.minecraft.world.gen.feature.OakTreeFeature;
+import net.minecraft.world.gen.feature.AbstractTreeFeature;
+
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
@@ -42,20 +43,21 @@ import java.util.function.Function;
  * @author drcrazy
  *
  */
-public class RubberTreeFeature extends OakTreeFeature {
+public class RubberTreeFeature extends AbstractTreeFeature {
 
-	public RubberTreeFeature(Function<Dynamic<?>, ? extends BranchedTreeFeatureConfig> configFactory) {
+	public RubberTreeFeature(Function<Dynamic<?>, ? extends TreeFeatureConfig> configFactory) {
 		super(configFactory);
 	}
 
-	@Override
-	public boolean generate(ModifiableTestableWorld world, Random random, BlockPos blockPos, Set<BlockPos> set, Set<BlockPos> set2, BlockBox blockBox, BranchedTreeFeatureConfig branchedTreeFeatureConfig) {
-		if(super.generate(world, random, blockPos, set, set2, blockBox, branchedTreeFeatureConfig)) {
-			spawnSpike(world, blockPos);
-			return true;
-		}
-		return false;
-	}
+//	@Override
+//	public boolean generate(ModifiableTestableWorld world, Random random, BlockPos blockPos, Set<BlockPos> set, Set<BlockPos> set2, BlockBox blockBox, TreeFeatureConfig branchedTreeFeatureConfig) {
+//		if(super.generate(world, random, blockPos, set, set2, blockBox, branchedTreeFeatureConfig)) {
+//			spawnSpike(world, blockPos);
+//			return true;
+//		}
+//		return false;
+//	}
+
 
 	private void spawnSpike(ModifiableTestableWorld world, BlockPos pos) {
 		final int startScan = pos.getY();

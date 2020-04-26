@@ -24,6 +24,7 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
@@ -42,35 +43,35 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		int gridYPos = 22;
-		drawSlot(30, gridYPos, layer);
-		drawSlot(48, gridYPos, layer);         
-		drawSlot(66, gridYPos, layer);
-		drawSlot(30, gridYPos + 18, layer);
-		drawSlot(48, gridYPos + 18, layer); 
-		drawSlot(66, gridYPos + 18, layer);
-		drawSlot(30, gridYPos + 36, layer); 
-		drawSlot(48, gridYPos + 36, layer); 
-		drawSlot(66, gridYPos + 36, layer);
+		drawSlot(matrixStack, 30, gridYPos, layer);
+		drawSlot(matrixStack, 48, gridYPos, layer);
+		drawSlot(matrixStack, 66, gridYPos, layer);
+		drawSlot(matrixStack, 30, gridYPos + 18, layer);
+		drawSlot(matrixStack, 48, gridYPos + 18, layer);
+		drawSlot(matrixStack, 66, gridYPos + 18, layer);
+		drawSlot(matrixStack, 30, gridYPos + 36, layer);
+		drawSlot(matrixStack, 48, gridYPos + 36, layer);
+		drawSlot(matrixStack, 66, gridYPos + 36, layer);
 
-		drawSlot(8, 70, layer);
-		drawOutputSlot(124, gridYPos + 18, layer);
+		drawSlot(matrixStack, 8, 70, layer);
+		drawOutputSlot(matrixStack, 124, gridYPos + 18, layer);
 
-		builder.drawJEIButton(this, 158, 5, layer);
-		builder.drawLockButton(this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
+		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
+		builder.drawLockButton(matrixStack, this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(matrixStack, this, rollingMachine.getProgressScaled(100), 100, 92, 43, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 17, (int) rollingMachine.getEnergy(), (int) rollingMachine.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
 	@Override

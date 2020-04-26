@@ -24,6 +24,7 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
@@ -40,28 +41,28 @@ public class GuiAssemblingMachine extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(final float partialTicks, final int mouseX, final int mouseY) {
-		super.drawBackground(partialTicks, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float partialTicks, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, partialTicks, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Battery slot
-		drawSlot(8, 72, layer);
+		drawSlot(matrixStack, 8, 72, layer);
 
 		// Input slots
-		drawSlot(55, 35, layer);
-		drawSlot(55, 55, layer);
+		drawSlot(matrixStack, 55, 35, layer);
+		drawSlot(matrixStack, 55, 55, layer);
 		
-		drawOutputSlot(101, 45, layer);
+		drawOutputSlot(matrixStack, 101, 45, layer);
 
-		builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

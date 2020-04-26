@@ -27,6 +27,7 @@ package techreborn.compat.rei.rollingmachine;
 import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.plugin.crafting.DefaultCraftingCategory;
 import net.minecraft.item.Items;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.util.StringUtils;
@@ -48,7 +49,7 @@ public class RollingMachineCategory extends DefaultCraftingCategory {
 	
 	@Override
 	public String getCategoryName() {
-		return StringUtils.t(rebornRecipeType.getName().toString());
+		return new TranslatableText(rebornRecipeType.getName().toString()).asString();
 	}
 	
 	@Override

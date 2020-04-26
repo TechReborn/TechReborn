@@ -36,6 +36,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.Registry;
 import reborncore.api.IListInfoProvider;
@@ -75,7 +76,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		Block block = Block.getBlockFromItem(item);
 
 		if(wipBlocks.contains(block) || block instanceof WIP){
-			components.add(new LiteralText(Formatting.RED + StringUtils.t("techreborn.tooltip.wip")));
+			components.add(new TranslatableText("techreborn.tooltip.wip").formatted(Formatting.RED));
 		}
 
 		if(block instanceof BaseBlockEntityProvider){

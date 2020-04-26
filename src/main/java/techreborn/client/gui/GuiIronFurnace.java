@@ -30,9 +30,12 @@ import java.util.List;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
@@ -58,10 +61,10 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	@Override
 	public void init() {
 		super.init();
-		addButton(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, "", b -> onClick()) {
+		addButton(new GuiButtonSimple(getGuiLeft() + 116, getGuiTop() + 57, 18, 18, LiteralText.EMPTY, b -> onClick()) {
 
 			@Override
-			public void renderToolTip(int mouseX, int mouseY) {
+			public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
 				PlayerEntity player = playerInventory.player;
 				if (player == null) {
 					return;
@@ -89,40 +92,40 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 					}
 				}
 
-				List<String> list = new ArrayList<>();				
-				list.add(message);
-				renderTooltip(list, mouseX, mouseY);
+				List<Text> list = new ArrayList<>();
+				list.add(new LiteralText(message));
+				renderTooltip(matrixStack, list, mouseX, mouseY);
 				GlStateManager.disableLighting();
 				GlStateManager.color4f(1, 1, 1, 1);				
 					
 			}
 			
 			@Override
-			public void renderBg(MinecraftClient mc, int mouseX, int mouseY) {
+			public void renderBg(MatrixStack matrixStack, MinecraftClient mc, int mouseX, int mouseY) {
 				mc.getItemRenderer().renderGuiItem(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
 			}
 		});		
 	}
 	
 	@Override
-	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(lastFrameDuration, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slot
-		drawSlot(56, 17, layer);
+		drawSlot(matrixStack, 56, 17, layer);
 		// Fuel slot
-		drawSlot(56, 53, layer);
+		drawSlot(matrixStack, 56, 53, layer);
 
-		drawOutputSlot(116, 35, layer);
+		drawOutputSlot(matrixStack, 116, 35, layer);
 	}
 	
 	@Override
-	protected void drawForeground(int mouseX, int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawBurnBar(this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
+		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(matrixStack, this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
 	}
 }

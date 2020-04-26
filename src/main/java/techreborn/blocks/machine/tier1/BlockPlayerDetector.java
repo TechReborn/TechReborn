@@ -25,6 +25,7 @@
 package techreborn.blocks.machine.tier1;
 
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.block.Block;
@@ -123,9 +124,15 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		}
 
 		if (worldIn.isClient) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID, new LiteralText(
-				Formatting.GRAY + StringUtils.t("techreborn.message.detects") + " " + color
-					+ StringUtils.toFirstCapital(newType.asString())));
+			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID,
+					new TranslatableText("techreborn.message.detects")
+						.formatted(Formatting.GRAY)
+						.append(" ")
+						.append(
+								new LiteralText(StringUtils.toFirstCapital(newType.asString()))
+										.formatted(color)
+						)
+			);
 		}
 		return ActionResult.SUCCESS;
 	}

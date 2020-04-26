@@ -24,7 +24,10 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import reborncore.client.ClientChunkManager;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
@@ -51,18 +54,19 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 		addButton(new GuiButtonUpDown(x + 64 + 24, y + 40, this, b -> onClick(-1), UpDownButtonType.REWIND));
 		addButton(new GuiButtonUpDown(x + 64 + 36, y + 40, this, b -> onClick(-5), UpDownButtonType.FASTREWIND));
 
-		addButton(new GuiButtonSimple(x + 10, y + 70, 155, 20, "Toggle Loaded Chunks", b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
+		addButton(new GuiButtonSimple(x + 10, y + 70, 155, 20, new LiteralText("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
 	
 	@Override
-	protected void drawBackground(float partialTicks, int mouseX, int mouseY) {
-		super.drawBackground(partialTicks, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+		super.drawBackground(matrixStack, partialTicks, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
 		if (hideGuiElements()) return;
 
-		String text = "Radius: " + blockEntity.getRadius();
-		drawCentredString(text, 25, 4210752, layer);
+		Text text = new LiteralText("Radius: ")
+				.append(String.valueOf(blockEntity.getRadius()));
+		drawCentredText(matrixStack, text, 25, 4210752, layer);
 	}
 
 	public void onClick(int amount){

@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
@@ -215,17 +216,46 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		if (panel == SolarPanels.CREATIVE) {
 			return;
 		}
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.maxEnergy") + ": "
-				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(getMaxPower())));
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.day") + ": "
-				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD)));
+		info.add(
+				new TranslatableText("reborncore.tooltip.energy.maxEnergy")
+					.formatted(Formatting.GRAY)
+					.append(": ")
+					.append(
+							new LiteralText(PowerSystem.getLocaliszedPowerFormatted(getMaxPower()))
+								.formatted(Formatting.GOLD)
+					)
+		);
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.generationRate.night") + ": "
-				+ Formatting.GOLD + PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN)));
+		info.add(
+				new TranslatableText("techreborn.tooltip.generationRate.day")
+					.formatted(Formatting.GRAY)
+					.append(": ")
+					.append(
+							new LiteralText(PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD))
+								.formatted(Formatting.GOLD)
+					)
+		);
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("reborncore.tooltip.energy.tier") + ": "
-				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getTier().toString())));
+		info.add(
+				new TranslatableText("techreborn.tooltip.generationRate.night")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(
+								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(panel.generationRateN))
+										.formatted(Formatting.GOLD)
+						)
+		);
+
+		info.add(
+				new TranslatableText("reborncore.tooltip.energy.tier")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(
+								new LiteralText(StringUtils.toFirstCapitalAllLowercase(getTier().toString()))
+										.formatted(Formatting.GOLD)
+						)
+		);
 	}
 
 	@Override

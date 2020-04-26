@@ -24,6 +24,7 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
@@ -40,25 +41,25 @@ public class GuiAlloyFurnace extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(lastFrameDuration, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
 		GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
 		// Input slots
-		drawSlot(47, 17, layer);
-		drawSlot(65, 17, layer);
+		drawSlot(matrixStack, 47, 17, layer);
+		drawSlot(matrixStack, 65, 17, layer);
 		// Fuel slot
-		drawSlot(56, 53, layer);
+		drawSlot(matrixStack, 56, 53, layer);
 
-		drawOutputSlot(116, 35, layer);
+		drawOutputSlot(matrixStack, 116, 35, layer);
 	}
 
 	@Override
-	protected void drawForeground(int mouseX, int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		builder.drawBurnBar(this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
+		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 85, 36, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawBurnBar(matrixStack, this, blockEntity.getBurnTimeRemainingScaled(100), 100, 56, 36, mouseX, mouseY, layer);
 	}
 }

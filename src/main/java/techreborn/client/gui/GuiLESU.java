@@ -25,7 +25,9 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.LiteralText;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.powerSystem.PowerSystem;
@@ -41,27 +43,27 @@ public class GuiLESU extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final Layer layer = Layer.BACKGROUND;
 
-		drawSlot(62, 45, layer);
-		drawSlot(98, 45, layer);
-		drawArmourSlots(8, 18, layer);
+		drawSlot(matrixStack, 62, 45, layer);
+		drawSlot(matrixStack, 98, 45, layer);
+		drawArmourSlots(matrixStack, 8, 18, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
 		RenderSystem.pushMatrix();
 		RenderSystem.scaled(0.6, 0.6, 1);
-		drawCentredString(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/"
+		drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()) + "/"
 				+ PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getMaxPower()) + " "
-				+ PowerSystem.getDisplayPower().abbreviation, 35, 0, 58, layer);
+				+ PowerSystem.getDisplayPower().abbreviation), 35, 0, 58, layer);
 		RenderSystem.popMatrix();
 
-		builder.drawMultiEnergyBar(this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 }

@@ -33,7 +33,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -75,16 +77,16 @@ public class FrequencyTransmitterItem extends Item {
 		stack.getOrCreateTag().putInt("dim", world.getDimension().getType().getRawId());
 
 		if (!world.isClient) {
-			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new LiteralText(
-				Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " X: " +
-					Formatting.GOLD + pos.getX() +
-					Formatting.GRAY + " Y: " +
-					Formatting.GOLD + pos.getY() +
-					Formatting.GRAY + " Z: " +
-					Formatting.GOLD + pos.getZ() +
-					Formatting.GRAY + " " + StringUtils.t("techreborn.message.in") + " " +
-					Formatting.GOLD + getDimName(world.getDimension().getType())
-					+ " (" + getDimName(world.getDimension().getType()) + ")"));
+			new TranslatableText("techreborn.message.setTo")
+					.append(new LiteralText(" X:").formatted(Formatting.GRAY))
+					.append(new LiteralText(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
+					.append(new LiteralText(" Y:").formatted(Formatting.GRAY))
+					.append(new LiteralText(String.valueOf(pos.getY())).formatted(Formatting.GOLD))
+					.append(new LiteralText(" Z:").formatted(Formatting.GRAY))
+					.append(new LiteralText(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
+					.append(" ")
+					.append(new TranslatableText("techreborn.message.in").formatted(Formatting.GRAY))
+					.append(new LiteralText(getDimName(world.getDimension().getType()).toString()).formatted(Formatting.GOLD));
 		}
 		return ActionResult.SUCCESS;
 	}
@@ -96,9 +98,16 @@ public class FrequencyTransmitterItem extends Item {
 		if (player.isSneaking()) {
 			stack.setTag(null);
 			if (!world.isClient) {
-				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new LiteralText(
-					Formatting.GRAY + StringUtils.t("techreborn.message.coordsHaveBeen") + " "
-						+ Formatting.GOLD + StringUtils.t("techreborn.message.cleared")));
+
+				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID,
+						new TranslatableText("techreborn.message.coordsHaveBeen")
+							.formatted(Formatting.GRAY)
+							.append(" ")
+							.append(
+								new TranslatableText("techreborn.message.cleared")
+									.formatted(Formatting.GOLD)
+							)
+				);
 			}
 		}
 
@@ -120,7 +129,7 @@ public class FrequencyTransmitterItem extends Item {
 			tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(Registry.DIMENSION_TYPE.get(dim)).toString()));
 
 		} else {
-			tooltip.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.noCoordsSet")));
+			tooltip.add(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
 		}
 	}
 
@@ -134,8 +143,8 @@ public class FrequencyTransmitterItem extends Item {
 		}
 
 		@Override
-		public String getText(ItemStack stack) {
-			String text = "";
+		public Text getText(ItemStack stack) {
+			MutableText text = new LiteralText("");
 			Formatting gold = Formatting.GOLD;
 			Formatting grey = Formatting.GRAY;
 			if (stack.getItem() instanceof FrequencyTransmitterItem) {
@@ -144,9 +153,9 @@ public class FrequencyTransmitterItem extends Item {
 					int coordY = stack.getTag().getInt("y");
 					int coordZ = stack.getTag().getInt("z");
 					int coordDim = stack.getTag().getInt("dim");
-					text = grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION_TYPE.get(coordDim)).toString() + " (" + coordDim + ")";
+					text = text.append(new LiteralText(grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION_TYPE.get(coordDim)).toString() + " (" + coordDim + ")"));
 				} else {
-					text = grey + StringUtils.t("techreborn.message.noCoordsSet");
+					text = text.append(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
 				}
 			}
 			return text;

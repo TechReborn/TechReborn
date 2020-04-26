@@ -35,6 +35,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -67,7 +68,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 			ItemUtils.switchActive(stack, cost, isClient, messageId);
 			stack.getOrCreateTag().putBoolean("AOE5", false);
 			if (isClient) {
-				ChatUtils.sendNoSpamMessages(messageId, new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " " + Formatting.GOLD + "3*3"));
+				ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("3*3").formatted(Formatting.GOLD)));
 			}
 		} else {
 			if (isAOE5(stack)) {
@@ -76,7 +77,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 			} else {
 				stack.getOrCreateTag().putBoolean("AOE5", true);
 				if (isClient) {
-					ChatUtils.sendNoSpamMessages(messageId, new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.message.setTo") + " " + Formatting.GOLD + "5*5"));
+					ChatUtils.sendNoSpamMessages(messageId, new TranslatableText("techreborn.message.setTo").formatted(Formatting.GRAY).append(" ").append(new LiteralText("5*5").formatted(Formatting.GOLD)));
 				}
 			}
 		}

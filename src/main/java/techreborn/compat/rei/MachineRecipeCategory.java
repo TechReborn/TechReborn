@@ -34,6 +34,7 @@ import me.shedaniel.rei.gui.entries.RecipeEntry;
 import me.shedaniel.rei.gui.entries.SimpleRecipeEntry;
 import me.shedaniel.rei.gui.widget.Widget;
 import net.minecraft.item.Items;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -66,7 +67,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 	
 	@Override
 	public String getCategoryName() {
-		return StringUtils.t(rebornRecipeType.getName().toString());
+		return new TranslatableText(rebornRecipeType.getName().toString()).asString();
 	}
 	
 	@Override
@@ -94,7 +95,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		Label costLabel;
-		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
+		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick));
 		costLabel.shadow(false);
 		costLabel.color(0xFF404040, 0xFFBBBBBB);
 		
@@ -105,7 +106,7 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		
 		int heat = machineRecipe.getHeat();
 		if (heat > 0) {
-			String neededHeat = heat + " " + StringUtils.t("techreborn.jei.recipe.heat");
+			Text neededHeat = new LiteralText(String.valueOf(heat)).append(" ").append(new TranslatableText("techreborn.jei.recipe.heat"));
 			Label heatLabel;
 			widgets.add(heatLabel = Widgets.createLabel(new Point(startPoint.x + 61, startPoint.y + 1 + (i++ * 20)), neededHeat));
 			heatLabel.shadow(false);

@@ -26,6 +26,7 @@ package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -46,40 +47,40 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
 
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
-		drawSlot(8, 72, layer);
+		drawSlot(matrixStack, 8, 72, layer);
 		
-		drawSlot(50, 27, layer);
-		drawSlot(50, 47, layer);
-		drawSlot(92, 36, layer);
-		drawSlot(110, 36, layer);
+		drawSlot(matrixStack, 50, 27, layer);
+		drawSlot(matrixStack, 50, 47, layer);
+		drawSlot(matrixStack, 92, 36, layer);
+		drawSlot(matrixStack, 110, 36, layer);
 
 		if (blockEntity.getMutliBlock()) {
-			builder.drawHologramButton(this, 6, 4, mouseX, mouseY, layer);
+			builder.drawHologramButton(matrixStack, this, 6, 4, mouseX, mouseY, layer);
 		}
 
-		builder.drawJEIButton(this, 158, 5, layer);
+		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
-		builder.drawProgressBar(this, blockEntity.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
+		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		if (blockEntity.getMutliBlock()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
-			builder.drawMultiblockMissingBar(this, layer);
+			builder.drawMultiblockMissingBar(matrixStack, this, layer);
 			addHologramButton(76, 56, 212, layer).clickHandler(this::onClick);
-			builder.drawHologramButton(this, 76, 56, mouseX, mouseY, layer);
+			builder.drawHologramButton(matrixStack, this, 76, 56, mouseX, mouseY, layer);
 		}
-		builder.drawMultiEnergyBar(this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
 	}
 

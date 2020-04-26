@@ -74,7 +74,7 @@ public class DebugToolItem extends Item {
 
 	private void sendMessage(ItemUsageContext context, Text string) {
 		if (!context.getWorld().isClient) {
-			context.getPlayer().sendMessage(string);
+			context.getPlayer().sendSystemMessage(string);
 		}
 	}
 

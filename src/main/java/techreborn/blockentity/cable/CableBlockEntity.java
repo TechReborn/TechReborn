@@ -34,6 +34,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
@@ -173,13 +174,27 @@ public class CableBlockEntity extends BlockEntity
     // IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.transferRate") + ": "
-				+ Formatting.GOLD
-				+ PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate) + "/t"));
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.tier") + ": "
-				+ Formatting.GOLD + StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString())));
+		info.add(
+				new TranslatableText("techreborn.tooltip.transferRate")
+				.formatted(Formatting.GRAY)
+				.append(": ")
+				.append(PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate))
+				.formatted(Formatting.GOLD)
+				.append("/t")
+		);
+
+		info.add(
+			new TranslatableText("techreborn.tooltip.tier")
+			.formatted(Formatting.GRAY)
+			.append(": ")
+			.append(
+					new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
+					.formatted(Formatting.GOLD)
+			)
+		);
+
 		if (!getCableType().canKill) {
-			info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.cable.can_cover")));
+			info.add(new TranslatableText("techreborn.tooltip.cable.can_cover").formatted(Formatting.GRAY));
 		}
 	}
 

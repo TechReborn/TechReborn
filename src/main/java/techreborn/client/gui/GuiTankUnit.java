@@ -24,7 +24,9 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.TranslatableText;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.fluid.FluidUtil;
@@ -42,44 +44,44 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(final float f, final int mouseX, final int mouseY) {
-		super.drawBackground(f, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
+		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawString(StringUtils.t("gui.techreborn.unit.in"), 100, 43, 4210752, layer);
-		drawSlot(100, 53, layer);
+		method_27534(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		drawSlot(matrixStack, 100, 53, layer);
 
-		drawString(StringUtils.t("gui.techreborn.unit.out"), 140, 43, 4210752, layer);
-		drawSlot(140, 53, layer);
+		method_27534(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		drawSlot(matrixStack, 140, 53, layer);
 	}
 
 	@Override
-	protected void drawForeground(final int mouseX, final int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
 		if (fluid.isEmpty()) {
-			textRenderer.draw(StringUtils.t("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
-			textRenderer.draw(StringUtils.t("gui.techreborn.tank.type"), 10, 20, 4210752);
-			textRenderer.draw(FluidUtil.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.type"), 10, 20, 4210752);
+			textRenderer.draw(matrixStack, FluidUtil.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
 
 
-			textRenderer.draw(StringUtils.t("gui.techreborn.tank.amount"), 10, 50, 4210752);
-			textRenderer.draw(fluid.getAmount().toString(), 10, 60, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.amount"), 10, 50, 4210752);
+			textRenderer.draw(matrixStack, fluid.getAmount().toString(), 10, 60, 4210752);
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getCapacity().getRawValue() * 100));
 
-			textRenderer.draw(StringUtils.t("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
 
-			textRenderer.draw(StringUtils.t("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		super.render(mouseX, mouseY, partialTicks);
-		drawMouseoverTooltip(mouseX, mouseY);
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
+		drawMouseoverTooltip(matrixStack, mouseX, mouseY);
 	}
 }

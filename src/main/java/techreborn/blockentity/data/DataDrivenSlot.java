@@ -28,6 +28,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.JsonHelper;
 import org.apache.commons.lang3.Validate;
 import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
@@ -82,12 +83,12 @@ public class DataDrivenSlot {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void draw(GuiBase<?> guiBase, GuiBase.Layer layer){
+	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer){
 		//TODO find a better way to do this
 		if(getType() == SlotType.OUTPUT){
-			guiBase.drawOutputSlot(getX(), getY(), layer);
+			guiBase.drawOutputSlot(matrixStack, getX(), getY(), layer);
 		} else {
-			guiBase.drawSlot(getX(), getY(), layer);
+			guiBase.drawSlot(matrixStack, getX(), getY(), layer);
 		}
 	}
 }

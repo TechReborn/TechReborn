@@ -24,7 +24,10 @@
 
 package techreborn.client.gui;
 
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.StringUtils;
@@ -40,31 +43,31 @@ public class GuiSolar extends GuiBase<BuiltScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(float lastFrameDuration, int mouseX, int mouseY) {
-		super.drawBackground(lastFrameDuration, mouseX, mouseY);
+	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
+		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 	}
 
 	@Override
-	protected void drawForeground(int mouseX, int mouseY) {
-		super.drawForeground(mouseX, mouseY);
+	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
 
-		builder.drawMultiEnergyBar(this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
+		builder.drawMultiEnergyBar(matrixStack, this, 156, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
 		switch (blockEntity.getSunState()) {
 			case SolarPanelBlockEntity.DAYGEN:
-				builder.drawString(this, StringUtils.t("techreborn.message.daygen"), 10, 20, 15129632);
+				builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.daygen"), 10, 20, 15129632);
 				break;
 			case SolarPanelBlockEntity.NIGHTGEN:
-				builder.drawString(this, StringUtils.t("techreborn.message.nightgen"), 10, 20, 7566195);
+				builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.nightgen"), 10, 20, 7566195);
 				break;
 			case SolarPanelBlockEntity.ZEROGEN:
-				builder.drawString(this, StringUtils.t("techreborn.message.zerogen"), 10, 20, 12066591);
+				builder.drawText(matrixStack, this, new TranslatableText("techreborn.message.zerogen"), 10, 20, 12066591);
 				break;
 		}
 
-		builder.drawString(this, "Generating: " + blockEntity.getGenerationRate() + " E/t", 10, 30, 0);
+		builder.drawText(matrixStack, this, new LiteralText("Generating: " + blockEntity.getGenerationRate() + " E/t"), 10, 30, 0);
 
 	}
 }

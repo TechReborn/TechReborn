@@ -49,7 +49,6 @@ import reborncore.common.blockentity.RedstoneConfiguration;
 import reborncore.common.config.Configuration;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.Torus;
-import reborncore.common.world.DataAttachment;
 import techreborn.blockentity.storage.energy.idsu.IDSUManager;
 import techreborn.client.GuiType;
 import techreborn.compat.trinkets.Trinkets;
@@ -108,8 +107,6 @@ public class TechReborn implements ModInitializer {
 		PoweredCraftingHandler.setup();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
-
-		DataAttachment.REGISTRY.register(IDSUManager.class, IDSUManager::new);
 
 		RedstoneConfiguration.fluidStack = DynamicCellItem.getCellWithFluid(Fluids.LAVA);
 		RedstoneConfiguration.powerStack = new ItemStack(TRContent.RED_CELL_BATTERY);

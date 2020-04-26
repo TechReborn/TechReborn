@@ -27,20 +27,21 @@ package techreborn.world;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Blocks;
+import net.minecraft.class_5201;
+import net.minecraft.class_5204;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.BeehiveTreeDecorator;
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
@@ -61,9 +62,9 @@ import java.util.List;
  */
 public class WorldGenerator {
 
-	public static Feature<BranchedTreeFeatureConfig> RUBBER_TREE_FEATURE;
+	public static Feature<TreeFeatureConfig> RUBBER_TREE_FEATURE;
 
-	public static BranchedTreeFeatureConfig RUBBER_TREE_CONFIG;
+	public static TreeFeatureConfig RUBBER_TREE_CONFIG;
 
 	private static List<Biome> checkedBiomes = new ArrayList<>();
 
@@ -79,7 +80,7 @@ public class WorldGenerator {
 	}
 
 	private static void setupTrees() {
-		RUBBER_TREE_FEATURE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(BranchedTreeFeatureConfig::deserialize));
+		RUBBER_TREE_FEATURE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(TreeFeatureConfig::deserialize));
 
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
@@ -92,13 +93,13 @@ public class WorldGenerator {
 				)
 				.forEach(state -> logProvider.addState(state, 1));
 
-		RUBBER_TREE_CONFIG = new BranchedTreeFeatureConfig.Builder(
+		RUBBER_TREE_CONFIG = new TreeFeatureConfig.Builder(
 				logProvider,
 				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
 				new BlobFoliagePlacer(2, 0, 0, 0, 3),
-				new StraightTrunkPlacer(TechRebornConfig.RubberTreeBaseHeight, 3, 0))
-				.noVines()
-				.build();
+				new StraightTrunkPlacer(TechRebornConfig.RubberTreeBaseHeight, 3, 0),
+				new class_5204(1, 0, 1)
+			).build();
 	}
 
 	private static void addToBiome(Biome biome){

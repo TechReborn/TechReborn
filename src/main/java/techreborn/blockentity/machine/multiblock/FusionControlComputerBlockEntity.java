@@ -28,6 +28,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -41,6 +43,7 @@ import reborncore.common.crafting.ingredient.RebornIngredient;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
+import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
 import techreborn.config.TechRebornConfig;
@@ -484,22 +487,23 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 				.orElse(null);
 	}
 
-	public String getStateString(){
+	public Text getStateText(){
 		if(state == -1){
-			return "";
+			return LiteralText.EMPTY;
 		} else if (state == 0){
-			return "No recipe";
+			return new LiteralText("No recipe");
 		} else if (state == 1){
 			FusionReactorRecipe r = getCurrentRecipeFromID();
 			if(r == null) {
-				return "Charging";
+				return new LiteralText("Charging");
 			}
 			int percentage = percentage(r.getStartEnergy(), getEnergy());
-			return "Charging (" + percentage + "%)";
+			return new LiteralText("Charging (")
+					.append(StringUtils.getPercentageText(percentage));
 		} else if (state == 2){
-			return "Crafting";
+			return new LiteralText("Crafting");
 		}
-		return "";
+		return LiteralText.EMPTY;
 	}
 
 	private int percentage(double MaxValue, double CurrentValue) {

@@ -332,14 +332,27 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
 			if (!this.isEmpty()) {
-				info.add(new LiteralText(this.getCurrentCapacity() + StringUtils.t("techreborn.tooltip.unit.divider") + this.getStoredStack().getName().asString()));
+				info.add(
+					new LiteralText(String.valueOf(this.getCurrentCapacity()))
+						.append(new TranslatableText("techreborn.tooltip.unit.divider"))
+						.append(this.getStoredStack().getName())
+				);
 			} else {
 				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
 			}
 		}
 
-		info.add(new LiteralText(Formatting.GRAY + StringUtils.t("techreborn.tooltip.unit.capacity") + Formatting.GOLD + this.getMaxCapacity() +
-			" items (" + this.getMaxCapacity() / 64 + ")"));
+		info.add(
+				new TranslatableText("techreborn.tooltip.unit.capacity")
+					.formatted(Formatting.GRAY)
+					.append(
+							new LiteralText(String.valueOf(this.getMaxCapacity()))
+							.formatted(Formatting.GOLD)
+							.append(" items (")
+							.append(String.valueOf(this.getMaxCapacity() / 64))
+							.append(")")
+					)
+		);
 	}
 
 	@Override

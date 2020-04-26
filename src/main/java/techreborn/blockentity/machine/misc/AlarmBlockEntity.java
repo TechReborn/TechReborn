@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import reborncore.api.IToolDrop;
@@ -60,8 +61,11 @@ public class AlarmBlockEntity extends BlockEntity
         } else {
             selectedSound = 1;
         }
-        ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new LiteralText(
-                Formatting.GRAY + StringUtils.t("techreborn.message.alarm") + " " + "Alarm " + selectedSound));
+
+        ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TranslatableText("techreborn.message.alarm")
+				.formatted(Formatting.GRAY)
+				.append(" Alarm ")
+				.append(String.valueOf(selectedSound)));
     }
 	
 	// BlockEntity

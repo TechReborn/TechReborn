@@ -26,6 +26,9 @@ package techreborn.client.gui;
 
 import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import reborncore.common.util.StringUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -45,9 +48,9 @@ public class GuiManual extends Screen {
 	private static final Identifier texture = new Identifier("techreborn", "textures/gui/manual.png");
 	int guiWidth = 207;
 	int guiHeight = 195;
-	private static final String text1 = StringUtils.t("techreborn.manual.wiki");
-	private static final String text2 = StringUtils.t("techreborn.manual.discord");
-	private static final String text3 = StringUtils.t("techreborn.manual.refund");
+	private static final Text text1 = new TranslatableText("techreborn.manual.wiki");
+	private static final Text text2 = new TranslatableText("techreborn.manual.discord");
+	private static final Text text3 = new TranslatableText("techreborn.manual.refund");
 
 	public GuiManual(PlayerEntity player) {
 		super(new LiteralText("gui.manual"));
@@ -58,7 +61,7 @@ public class GuiManual extends Screen {
 	public void init() {
 		int y = (height / 2) - guiHeight / 2;
 		y+= 40;
-		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, StringUtils.t("techreborn.manual.wikibtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
+		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, new TranslatableText("techreborn.manual.wikibtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
 				Util.getOperatingSystem().open("http://wiki.techreborn.ovh");
 				this.client.openScreen(this);
@@ -66,7 +69,7 @@ public class GuiManual extends Screen {
 				this.client.openScreen(this);
 			}
 		}, "http://wiki.techreborn.ovh", false))));
-		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, StringUtils.t("techreborn.manual.discordbtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
+		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, new TranslatableText("techreborn.manual.discordbtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
 			if(t){
 				Util.getOperatingSystem().open("https://discord.gg/teamreborn");
 				this.client.openScreen(this);
@@ -75,7 +78,7 @@ public class GuiManual extends Screen {
 			}
 		}, "https://discord.gg/teamreborn", false))));
 		if(TechRebornConfig.allowManualRefund){
-			addButton(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, StringUtils.t("techreborn.manual.refundbtn"), var1 -> {
+			addButton(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, new TranslatableText("techreborn.manual.refundbtn"), var1 -> {
 				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
 				this.client.openScreen(null);
 			}));
@@ -83,18 +86,18 @@ public class GuiManual extends Screen {
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		renderBackground();
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(matrixStack);
 		client.getTextureManager().bindTexture(GuiManual.texture);
 		int centerX = (width / 2) - guiWidth / 2;
 		int centerY = (height / 2) - guiHeight / 2;
-		drawTexture(centerX, centerY, 0, 0, guiWidth, guiHeight);
-		textRenderer.draw(text1, ((width / 2) - textRenderer.getStringWidth(text1) / 2), centerY + 40, 4210752);
-		textRenderer.draw(text2, ((width / 2) - textRenderer.getStringWidth(text2) / 2), centerY + 90, 4210752);
+		drawTexture(matrixStack, centerX, centerY, 0, 0, guiWidth, guiHeight);
+		textRenderer.draw(matrixStack, text1, ((width / 2) - textRenderer.getWidth(text1) / 2), centerY + 40, 4210752);
+		textRenderer.draw(matrixStack, text2, ((width / 2) - textRenderer.getWidth(text2) / 2), centerY + 90, 4210752);
 		if (TechRebornConfig.allowManualRefund) {
-			textRenderer.draw(text3, ((width / 2) - textRenderer.getStringWidth(text3) / 2), centerY + 140, 4210752);
+			textRenderer.draw(matrixStack, text3, ((width / 2) - textRenderer.getWidth(text3) / 2), centerY + 140, 4210752);
 		}
-		super.render(mouseX, mouseY, partialTicks);
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
 }
 

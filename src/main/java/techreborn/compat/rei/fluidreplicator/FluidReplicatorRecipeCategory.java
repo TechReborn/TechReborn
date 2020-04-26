@@ -59,7 +59,7 @@ public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplic
 	
 	@Override
 	public String getCategoryName() {
-		return StringUtils.t(rebornRecipeType.getName().toString());
+		return new TranslatableText(rebornRecipeType.getName().toString()).asString();
 	}
 	
 	@Override
@@ -82,7 +82,7 @@ public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplic
 		
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		Label costLabel;
-		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick.asFormattedString()));
+		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick));
 		costLabel.shadow(false);
 		costLabel.color(0xFF404040, 0xFFBBBBBB);
 		

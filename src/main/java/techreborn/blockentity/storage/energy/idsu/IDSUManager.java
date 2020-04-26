@@ -25,15 +25,21 @@
 package techreborn.blockentity.storage.energy.idsu;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 import reborncore.common.util.NBTSerializable;
-import reborncore.common.world.DataAttachment;
-import reborncore.common.world.DataAttachmentProvider;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 
-public class IDSUManager implements DataAttachment {
+public class IDSUManager extends PersistentState {
+
+	private static final String KEY = "techreborn_idsu";
+
+	public IDSUManager() {
+		super(KEY);
+	}
 
 	@Nonnull
 	public static IDSUPlayer getPlayer(World world, String uuid){
@@ -41,7 +47,8 @@ public class IDSUManager implements DataAttachment {
 	}
 
 	public static IDSUManager get(World world){
-		return DataAttachmentProvider.get(world, IDSUManager.class);
+		ServerWorld serverWorld = (ServerWorld) world;
+		return serverWorld.getPersistentStateManager().getOrCreate(IDSUManager::new, KEY);
 	}
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
@@ -52,21 +59,19 @@ public class IDSUManager implements DataAttachment {
 	}
 
 	@Override
-	public void read(@Nonnull CompoundTag tag) {
+	public void fromTag(CompoundTag tag) {
 		for(String uuid : tag.getKeys()){
 			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
 		}
 	}
 
-	@Nonnull
 	@Override
-	public CompoundTag write() {
-		CompoundTag tag = new CompoundTag();
+	public CompoundTag toTag(CompoundTag tag) {
 		playerHashMap.forEach((uuid, player) -> tag.put(uuid, player.write()));
 		return tag;
 	}
 
-	public static class IDSUPlayer implements NBTSerializable {
+	public class IDSUPlayer implements NBTSerializable {
 
 		private double energy;
 
@@ -96,6 +101,7 @@ public class IDSUManager implements DataAttachment {
 
 		public void setEnergy(double energy) {
 			this.energy = energy;
+			markDirty();
 		}
 	}
 
