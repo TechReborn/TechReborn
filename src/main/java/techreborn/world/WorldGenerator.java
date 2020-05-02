@@ -32,7 +32,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -61,6 +61,7 @@ import java.util.List;
 public class WorldGenerator {
 
 	public static Feature<TreeFeatureConfig> RUBBER_TREE_FEATURE;
+	public static RubberTreeDecorator RUBBER_TREE_DECORATOR;
 
 	public static TreeFeatureConfig RUBBER_TREE_CONFIG;
 
@@ -79,6 +80,7 @@ public class WorldGenerator {
 
 	private static void setupTrees() {
 		RUBBER_TREE_FEATURE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(TreeFeatureConfig::deserialize));
+		RUBBER_TREE_DECORATOR = Registry.register(Registry.DECORATOR, new Identifier("techreborn:rubber_tree"), new RubberTreeDecorator(ChanceDecoratorConfig::deserialize));
 
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
@@ -94,8 +96,8 @@ public class WorldGenerator {
 		RUBBER_TREE_CONFIG = new TreeFeatureConfig.Builder(
 				logProvider,
 				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
-				new BlobFoliagePlacer(2, 0, 0, 0, 3),
-				new StraightTrunkPlacer(TechRebornConfig.RubberTreeBaseHeight, 3, 0),
+				new RubberTreeFeature.FoliagePlacer(2, 0, 0, 0, 3),
+				new StraightTrunkPlacer(TechRebornConfig.rubberTreeBaseHeight, 3, 0),
 				new TwoLayersFeatureSize(1, 0, 1)
 			).build();
 	}
@@ -162,8 +164,8 @@ public class WorldGenerator {
 			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA || biome.getCategory() == Category.SWAMP) {
 				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
 						RUBBER_TREE_FEATURE.configure(RUBBER_TREE_CONFIG)
-								.createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP
-										.configure(new CountExtraChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? 1 : 0, TechRebornConfig.RubberTreeChance, TechRebornConfig.RubberTreeCount))
+								.createDecoratedFeature(RUBBER_TREE_DECORATOR
+										.configure(new ChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? TechRebornConfig.rubberTreeChance / 3 : TechRebornConfig.rubberTreeChance))
 								)
 				);
 			}

@@ -26,12 +26,13 @@ package techreborn.world;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
@@ -49,32 +50,41 @@ public class RubberTreeFeature extends AbstractTreeFeature {
 		super(configFactory);
 	}
 
-//	@Override
-//	public boolean generate(ModifiableTestableWorld world, Random random, BlockPos blockPos, Set<BlockPos> set, Set<BlockPos> set2, BlockBox blockBox, TreeFeatureConfig branchedTreeFeatureConfig) {
-//		if(super.generate(world, random, blockPos, set, set2, blockBox, branchedTreeFeatureConfig)) {
-//			spawnSpike(world, blockPos);
-//			return true;
-//		}
-//		return false;
-//	}
 
 
-	private void spawnSpike(ModifiableTestableWorld world, BlockPos pos) {
-		final int startScan = pos.getY();
-		BlockPos topPos = null;
+	public static class FoliagePlacer extends BlobFoliagePlacer {
 
-		//Limit the scan to 15 blocks
-		while(topPos == null && pos.getY() - startScan < 15) {
-			pos = pos.up();
-			if(world.testBlockState(pos, BlockState::isAir)) {
-				topPos = pos;
+		public FoliagePlacer(int radius, int randomRadius, int offset, int randomOffset, int height) {
+			super(radius, randomRadius, offset, randomOffset, height);
+		}
+
+		@Override
+		protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int i) {
+			super.generate(world, random, config, trunkHeight, treeNode, foliageHeight, radius, leaves, i);
+
+			spawnSpike(world, treeNode.getCenter());
+		}
+
+		private void spawnSpike(ModifiableTestableWorld world, BlockPos pos) {
+			final int startScan = pos.getY();
+			BlockPos topPos = null;
+
+			//Limit the scan to 15 blocks
+			while(topPos == null && pos.getY() - startScan < 15) {
+				pos = pos.up();
+				if(world.testBlockState(pos, BlockState::isAir)) {
+					topPos = pos;
+				}
+			}
+
+			if(topPos == null) return;
+
+			for (int i = 0; i < TechRebornConfig.rubberTreeSpireHeight; i++) {
+				world.setBlockState(pos.up(i), TRContent.RUBBER_LEAVES.getDefaultState(), 19);
 			}
 		}
-
-		if(topPos == null) return;
-
-		for (int i = 0; i < TechRebornConfig.RubberTreeSpireHeight; i++) {
-			setBlockState(world, pos.up(i), TRContent.RUBBER_LEAVES.getDefaultState());
-		}
 	}
+
+
+
 }

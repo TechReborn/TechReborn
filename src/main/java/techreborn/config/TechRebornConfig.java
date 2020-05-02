@@ -731,15 +731,12 @@ public class TechRebornConfig {
 	@Config(config = "world", category = "ore", key = "tungstenVeinSize", comment = "Amount of Tungsten Ores per vein.")
 	public static int tungstenVeinSize = 6;
 
-	@Config(config = "world", category = "rubber_tree", key = "RubberTreeChance", comment = "Chance to spawn rubber tree")
-	public static float RubberTreeChance = 0.1F;
+	@Config(config = "world", category = "rubber_tree", key = "rubberTreeChance", comment = "Chance to spawn rubber tree")
+	public static int rubberTreeChance = 50;
 
-	@Config(config = "world", category = "rubber_tree", key = "RubberTreeCount", comment = "Amount of trees to spawn in successful case")
-	public static int RubberTreeCount = 1;
+	@Config(config = "world", category = "rubber_tree", key = "rubberTreeBaseHeight", comment = "Basic height for not-spire part of rubber tree")
+	public static int rubberTreeBaseHeight = 6;
 
-	@Config(config = "world", category = "rubber_tree", key = "RubberTreeBaseHeight", comment = "Basic height for not-spire part of rubber tree")
-	public static int RubberTreeBaseHeight = 6;
-
-	@Config(config = "world", category = "rubber_tree", key = "RubberTreeSpireHeight", comment = "Height of spire of rubber tree")
-	public static int RubberTreeSpireHeight = 3;
+	@Config(config = "world", category = "rubber_tree", key = "rubberTreeSpireHeight", comment = "Height of spire of rubber tree")
+	public static int rubberTreeSpireHeight = 3;
 }
