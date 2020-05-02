@@ -47,12 +47,6 @@ public class BatteryItem extends Item implements EnergyHolder, ItemDurabilityExt
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamageIfAbsent(1));
 		this.maxEnergy = maxEnergy;
 		this.tier = tier;
-		this.addPropertyGetter(new Identifier("techreborn:empty"), (stack, worldIn, entityIn) -> {
-			if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
-				return 1.0F;
-			}
-			return 0.0F;
-		});
 	}
 
 	// Item

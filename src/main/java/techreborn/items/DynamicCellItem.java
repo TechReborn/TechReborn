@@ -29,7 +29,7 @@ import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.FluidFillable;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.BaseFluid;
+import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -126,7 +126,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 					world.addParticle(ParticleTypes.LARGE_SMOKE, (double)i + Math.random(), (double)j + Math.random(), (double)k + Math.random(), 0.0D, 0.0D, 0.0D);
 				}
 			} else if (blockState.getBlock() instanceof FluidFillable && fluid == Fluids.WATER) {
-				if (((FluidFillable)blockState.getBlock()).tryFillWithFluid(world, pos, blockState, ((BaseFluid)fluid).getStill(false))) {
+				if (((FluidFillable)blockState.getBlock()).tryFillWithFluid(world, pos, blockState, ((FlowableFluid)fluid).getStill(false))) {
 					this.playEmptyingSound(player, world, pos, fluid);
 				}
 			} else {

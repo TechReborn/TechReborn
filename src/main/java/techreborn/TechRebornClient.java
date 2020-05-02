@@ -29,6 +29,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.minecraft.client.item.ModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
@@ -37,14 +38,20 @@ import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderer;
+import reborncore.common.util.ItemUtils;
+import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
+import team.reborn.energy.Energy;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
@@ -54,15 +61,21 @@ import techreborn.events.StackToolTipHandler;
 import techreborn.init.ModFluids;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
+import techreborn.items.BatteryItem;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.FrequencyTransmitterItem;
+import techreborn.items.armor.BatpackItem;
+import techreborn.items.tool.ChainsawItem;
+import techreborn.items.tool.industrial.NanosaberItem;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class TechRebornClient implements ClientModInitializer {
 
@@ -160,7 +173,83 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
+
+		registerPredicateProvider(
+				BatpackItem.class,
+				new Identifier("techreborn:empty"),
+				(item, stack, world, entity) -> {
+					if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
+						return 1.0F;
+					}
+					return 0.0F;
+				}
+		);
+
+		registerPredicateProvider(
+				BatteryItem.class,
+				new Identifier("techreborn:empty"),
+				(item, stack, world, entity) -> {
+					if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
+						return 1.0F;
+					}
+					return 0.0F;
+				}
+		);
+
+		registerPredicateProvider(
+				FrequencyTransmitterItem.class,
+				new Identifier("techreborn:coords"),
+				(item, stack, world, entity) -> {
+					if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
+							&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
+						return 1.0F;
+					}
+					return 0.0F;
+				}
+		);
+
+		registerPredicateProvider(
+				ChainsawItem.class,
+				new Identifier("techreborn:animated"),
+				(item, stack, world, entity) -> {
+					if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= item.getCost() && entity != null && entity.getMainHandStack().equals(stack)) {
+						return 1.0F;
+					}
+					return 0.0F;
+				}
+		);
+
+		registerPredicateProvider(
+				NanosaberItem.class,
+				new Identifier("techreborn:active"),
+				(item, stack, world, entity) -> {
+					if (ItemUtils.isActive(stack)) {
+						if (Energy.of(stack).getMaxStored() - Energy.of(stack).getEnergy() >= 0.9 * Energy.of(stack).getMaxStored()) {
+							return 0.5F;
+						}
+						return 1.0F;
+					}
+					return 0.0F;
+				}
+		);
+
 	}
 
+	private static <T extends Item> void registerPredicateProvider(Class<T> itemClass, Identifier identifier, ItemModelPredicateProvider<T> modelPredicateProvider) {
+		Registry.ITEM.stream()
+				.filter(item -> item.getClass().isAssignableFrom(itemClass))
+				.forEach(item -> AccessorModelPredicateProviderRegistry.callRegister(item, identifier, modelPredicateProvider));
+	}
+
+	//Need the item instance in a few places, this makes it easier
+	private interface ItemModelPredicateProvider<T extends Item> extends ModelPredicateProvider {
+
+		float call(T item, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity);
+
+		@Override
+		default float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+			return call((T) stack.getItem(), stack, world, entity);
+		}
+	}
 
 }

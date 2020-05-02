@@ -55,13 +55,6 @@ public class FrequencyTransmitterItem extends Item {
 
 	public FrequencyTransmitterItem() {
 		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
-		this.addPropertyGetter(new Identifier("techreborn", "coords"), (stack, worldIn, entityIn) -> {
-			if (!stack.isEmpty() && stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x")
-					&& stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
-				return 1.0F;
-			}
-			return 0.0F;
-		});
 	}
 
 	@Override

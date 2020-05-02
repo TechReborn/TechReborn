@@ -61,14 +61,6 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
 		this.referenceTool = referenceTool;
-
-		this.addPropertyGetter(new Identifier("techreborn", "animated"), (stack, worldIn, entityIn) -> {
-			if (!stack.isEmpty() && Energy.of(stack).getEnergy() >= cost
-					&& entityIn != null && entityIn.getMainHandStack().equals(stack)) {
-				return 1.0F;
-			}
-			return 0.0F;
-		});
 	}
 
 	// AxeItem
@@ -156,5 +148,9 @@ public class ChainsawItem extends AxeItem implements EnergyHolder, ItemDurabilit
 	@Override
 	public double getMaxOutput(EnergySide side) {
 		return 0;
+	}
+
+	public int getCost() {
+		return cost;
 	}
 }

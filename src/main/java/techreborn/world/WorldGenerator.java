@@ -24,11 +24,8 @@
 
 package techreborn.world;
 
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Blocks;
-import net.minecraft.class_5201;
-import net.minecraft.class_5204;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -42,6 +39,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
@@ -98,7 +96,7 @@ public class WorldGenerator {
 				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
 				new BlobFoliagePlacer(2, 0, 0, 0, 3),
 				new StraightTrunkPlacer(TechRebornConfig.RubberTreeBaseHeight, 3, 0),
-				new class_5204(1, 0, 1)
+				new TwoLayersFeatureSize(1, 0, 1)
 			).build();
 	}
 

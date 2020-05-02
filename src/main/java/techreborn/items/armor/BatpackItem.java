@@ -34,7 +34,6 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
@@ -54,13 +53,6 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 		super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = maxCharge;
 		this.tier = tier;
-
-		this.addPropertyGetter(new Identifier("techreborn:empty"), (stack, worldIn, entityIn) -> {
-			if (!stack.isEmpty() && Energy.of(stack).getEnergy() == 0) {
-				return 1.0F;
-			}
-			return 0.0F;
-		});
 	}
 
 	private void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxOutput) {
