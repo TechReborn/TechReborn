@@ -48,6 +48,7 @@ public class ModLoot {
 		LootEntry advancedalloyIngot = makeEntry(Ingots.ADVANCED_ALLOY);
 		LootEntry basicFrame = makeEntry(TRContent.MachineBlocks.BASIC.frame.asItem());
 		LootEntry basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
+		LootEntry rubberSapling = makeEntry(TRContent.RUBBER_SAPLING, 25);
 		
 		LootEntry aluminumIngot = makeEntry(Ingots.ALUMINUM);
 		LootEntry electrumIngot = makeEntry(Ingots.ELECTRUM);
@@ -73,7 +74,7 @@ public class ModLoot {
 
 		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
 				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedronIngot).withEntry(advancedalloyIngot)
-				.withEntry(basicFrame).withEntry(basicCircuit).withRolls(UniformLootTableRange.between(1.0f, 2.0f))
+				.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).withRolls(UniformLootTableRange.between(1.0f, 2.0f))
 				.build();
 		
 		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
@@ -137,8 +138,18 @@ public class ModLoot {
 	 * @return LootEntry for item provided
 	 */
 	private static LootEntry makeEntry(ItemConvertible item) {
+		return makeEntry(item, 5);
+	}
 
-		return ItemEntry.builder(item).setWeight(5)
+	/**
+	 * Makes loot entry from item provided with weight provided
+	 *
+	 * @param item  Item to include into LootEntry
+	 * @param weight Weight of that item
+	 * @return LootEntry for item and weight provided
+	 */
+	private static LootEntry makeEntry(ItemConvertible item, int weight){
+		return ItemEntry.builder(item).setWeight(weight)
 				.withFunction(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
 	}
 
