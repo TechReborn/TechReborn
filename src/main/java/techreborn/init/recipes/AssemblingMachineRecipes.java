@@ -164,7 +164,7 @@ public class AssemblingMachineRecipes {
 		// Energy Flow Circuit
 		Recipes.assemblingMachine.createRecipe()
 			.withInput(ItemParts.getPartByName("processor_circuit_board"))
-			.withInput(RecipeMethods.getStack(IC2Duplicates.LAPATRON_CRYSTAL))
+			.withInput("lapotronCrystal")
 			.withOutput(ItemParts.getPartByName("energy_flow_circuit"))
 			.withEnergyCostPerTick(4)
 			.withOperationDuration(3200)
