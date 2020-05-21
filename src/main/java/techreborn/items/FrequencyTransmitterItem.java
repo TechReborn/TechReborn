@@ -27,29 +27,31 @@ package techreborn.items;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.datafixer.NbtOps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
+import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import reborncore.client.hud.StackInfoElement;
+import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.ChatUtils;
-import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 public class FrequencyTransmitterItem extends Item {
 
@@ -63,14 +65,14 @@ public class FrequencyTransmitterItem extends Item {
 		BlockPos pos = context.getBlockPos();
 		ItemStack stack = context.getStack();
 
-		stack.setTag(new CompoundTag());
-		stack.getOrCreateTag().putInt("x", pos.getX());
-		stack.getOrCreateTag().putInt("y", pos.getY());
-		stack.getOrCreateTag().putInt("z", pos.getZ());
-		stack.getOrCreateTag().putInt("dim", world.getDimension().getType().getRawId());
+		GlobalPos globalPos = GlobalPos.create(ChunkLoaderManager.getDimensionRegistryKey(world), pos);
+
+		GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, globalPos).result()
+				.ifPresent(tag -> stack.getOrCreateTag().put("pos", tag));
 
 		if (!world.isClient) {
-			new TranslatableText("techreborn.message.setTo")
+
+			ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID, new TranslatableText("techreborn.message.setTo")
 					.append(new LiteralText(" X:").formatted(Formatting.GRAY))
 					.append(new LiteralText(String.valueOf(pos.getX())).formatted(Formatting.GOLD))
 					.append(new LiteralText(" Y:").formatted(Formatting.GRAY))
@@ -79,9 +81,17 @@ public class FrequencyTransmitterItem extends Item {
 					.append(new LiteralText(String.valueOf(pos.getZ())).formatted(Formatting.GOLD))
 					.append(" ")
 					.append(new TranslatableText("techreborn.message.in").formatted(Formatting.GRAY))
-					.append(new LiteralText(getDimName(world.getDimension().getType()).toString()).formatted(Formatting.GOLD));
+					.append(" ")
+					.append(new LiteralText(getDimName(globalPos.getDimension()).toString()).formatted(Formatting.GOLD)));
 		}
 		return ActionResult.SUCCESS;
+	}
+
+	public static Optional<GlobalPos> getPos(ItemStack stack) {
+		if (!stack.hasTag() || !stack.getOrCreateTag().contains("pos")) {
+			return Optional.empty();
+		}
+		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, stack.getOrCreateTag().getCompound("pos")).result();
 	}
 
 	@Override
@@ -110,24 +120,17 @@ public class FrequencyTransmitterItem extends Item {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
-			int x = stack.getTag().getInt("x");
-			int y = stack.getTag().getInt("y");
-			int z = stack.getTag().getInt("z");
-			int dim = stack.getTag().getInt("dim");
-
-			tooltip.add(new LiteralText(Formatting.GRAY + "X: " + Formatting.GOLD + x));
-			tooltip.add(new LiteralText(Formatting.GRAY + "Y: " + Formatting.GOLD + y));
-			tooltip.add(new LiteralText(Formatting.GRAY + "Z: " + Formatting.GOLD + z));
-			tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(Registry.DIMENSION_TYPE.get(dim)).toString()));
-
-		} else {
-			tooltip.add(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
-		}
+		getPos(stack)
+				.ifPresent(globalPos -> {
+					tooltip.add(new LiteralText(Formatting.GRAY + "X: " + Formatting.GOLD + globalPos.getPos().getX()));
+					tooltip.add(new LiteralText(Formatting.GRAY + "Y: " + Formatting.GOLD + globalPos.getPos().getY()));
+					tooltip.add(new LiteralText(Formatting.GRAY + "Z: " + Formatting.GOLD + globalPos.getPos().getZ()));
+					tooltip.add(new LiteralText(Formatting.DARK_GRAY + getDimName(globalPos.getDimension()).toString()));
+				});
 	}
 
-	private static Identifier getDimName(DimensionType type){
-		return Registry.DIMENSION_TYPE.getId(type);
+	private static Identifier getDimName(RegistryKey<DimensionType> dimensionRegistryKey){
+		return dimensionRegistryKey.getValue();
 	}
 
 	public static class StackInfoFreqTransmitter extends StackInfoElement {
@@ -137,21 +140,14 @@ public class FrequencyTransmitterItem extends Item {
 
 		@Override
 		public Text getText(ItemStack stack) {
-			MutableText text = new LiteralText("");
 			Formatting gold = Formatting.GOLD;
 			Formatting grey = Formatting.GRAY;
-			if (stack.getItem() instanceof FrequencyTransmitterItem) {
-				if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("x") && stack.getTag().contains("y") && stack.getTag().contains("z") && stack.getTag().contains("dim")) {
-					int coordX = stack.getTag().getInt("x");
-					int coordY = stack.getTag().getInt("y");
-					int coordZ = stack.getTag().getInt("z");
-					int coordDim = stack.getTag().getInt("dim");
-					text = text.append(new LiteralText(grey + "X: " + gold + coordX + grey + " Y: " + gold + coordY + grey + " Z: " + gold + coordZ + grey + " Dim: " + gold + getDimName(Registry.DIMENSION_TYPE.get(coordDim)).toString() + " (" + coordDim + ")"));
-				} else {
-					text = text.append(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
-				}
+			if (!(stack.getItem() instanceof FrequencyTransmitterItem)) {
+				return LiteralText.EMPTY;
 			}
-			return text;
+			return getPos(stack)
+					.map((Function<GlobalPos, Text>) globalPos -> new LiteralText(grey + "X: " + gold + globalPos.getPos().getX() + grey + " Y: " + gold + globalPos.getPos().getY() + grey + " Z: " + gold + globalPos.getPos().getZ() + grey + " Dim: " + gold + getDimName(globalPos.getDimension()).toString()))
+					.orElse(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
 		}
 	}
 }

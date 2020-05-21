@@ -10,10 +10,10 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.4.+"
+		classpath "net.fabricmc:fabric-loom:0.4-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
-		classpath "com.wynprice.cursemaven:CurseMaven:2.1.1"
+		classpath "com.wynprice.cursemaven:CurseMaven:2.1.4"
 	}
 }
 
@@ -72,14 +72,14 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:20w18a"
-	mappings "net.fabricmc:yarn:20w18a+build.14:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.8.2+build.194"
+	minecraft "com.mojang:minecraft:20w21a"
+	mappings "net.fabricmc:yarn:20w21a+build.10:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.8.4+build.198"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.10.2+build.337-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.10.10+build.347-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.3.1-unstable")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.3.7-unstable")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.4.2')
 
@@ -90,9 +90,9 @@ dependencies {
 	include rcVersion
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-	modCompileOnly ('curse.maven:towelette:2842017') {
-		transitive = false
-	}
+//	modCompileOnly ('curse.maven:towelette:2952524') {
+//		transitive = false
+//	}
 
 	modApi 'teamreborn:energy:0.1.0'
 }

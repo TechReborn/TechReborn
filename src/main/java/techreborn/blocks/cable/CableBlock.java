@@ -38,7 +38,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.AbstractProperty;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -50,8 +49,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import reborncore.api.ToolManager;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
@@ -101,7 +100,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		cableShapeUtil = new CableShapeUtil(this);
 	}
 
-	public AbstractProperty<Boolean> getProperty(Direction facing) {
+	public BooleanProperty getProperty(Direction facing) {
 		switch (facing) {
 		case EAST:
 			return EAST;
@@ -132,7 +131,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 				.with(SOUTH, south).with(WEST, west);
 	}
 
-	private Boolean canConnectTo(IWorld world, BlockPos pos, Direction facing) {
+	private Boolean canConnectTo(WorldAccess world, BlockPos pos, Direction facing) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity != null && (Energy.valid(blockEntity) || blockEntity instanceof CableBlockEntity)) {
 			return Boolean.TRUE;
@@ -202,7 +201,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState,
-			IWorld worldIn, BlockPos ourPos, BlockPos otherPos) {
+			WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
 		if (ourState.get(WATERLOGGED)) {
 			worldIn.getFluidTickScheduler().schedule(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 		}
@@ -257,7 +256,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	@Override
-	public boolean tryFillWithFluid(IWorld world, BlockPos pos, BlockState state, FluidState fluidState) {
+	public boolean tryFillWithFluid(WorldAccess world, BlockPos pos, BlockState state, FluidState fluidState) {
 		return !state.get(COVERED) && Waterloggable.super.tryFillWithFluid(world, pos, state, fluidState);
 	}
 

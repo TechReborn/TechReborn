@@ -125,7 +125,7 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 	}
 
 	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(EquipmentSlot slot) {
+	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
 		return HashMultimap.create();
 	}
 

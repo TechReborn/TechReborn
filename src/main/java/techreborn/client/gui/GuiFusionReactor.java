@@ -117,8 +117,8 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 			}
 		}
-		method_27535(matrixStack, client.textRenderer,  new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
-		method_27535(matrixStack, client.textRenderer,new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, client.textRenderer,  new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, client.textRenderer,new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}

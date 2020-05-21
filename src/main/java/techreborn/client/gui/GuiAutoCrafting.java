@@ -80,7 +80,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 		}
 		drawOutputSlot(matrixStack, 145, 42, layer);
 		drawOutputSlot(matrixStack, 95, 42, layer);
-		drawStringWithShadow(matrixStack, client.textRenderer, new LiteralText("Inventory"), 8, 82, 4210752);
+		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText("Inventory"), 8, 82, 4210752);
 
 		builder.drawLockButton(matrixStack, this, 145, 4, mouseX, mouseY, layer, blockEntityAutoCraftingTable.locked);
 	}

@@ -37,15 +37,17 @@ public class TowelettePlugin implements ToweletteApi {
 
 	private List<Fluid> fluids;
 
-	@Override
-	public boolean isFluidBlacklisted(Fluid fluid, Identifier id) {
-		if(fluids == null){
-			fluids = new ArrayList<>();
-			Arrays.stream(ModFluids.values()).forEach(modFluids -> {
-				fluids.add(modFluids.getFluid());
-				fluids.add(modFluids.getFlowingFluid());
-			});
-		}
-		return fluids.contains(fluid);
-	}
+	//TODO enable again in 1.16, gradle was being annoying and cba to fix it now
+
+//	@Override
+//	public boolean isFluidBlacklisted(Fluid fluid, Identifier id) {
+//		if(fluids == null){
+//			fluids = new ArrayList<>();
+//			Arrays.stream(ModFluids.values()).forEach(modFluids -> {
+//				fluids.add(modFluids.getFluid());
+//				fluids.add(modFluids.getFlowingFluid());
+//			});
+//		}
+//		return fluids.contains(fluid);
+//	}
 }

@@ -55,7 +55,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 
 	// BaseTileBlock
 	@Override
-	public void onBlockRemoved(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() == newState.getBlock()) {
 			return;
 		}
@@ -65,7 +65,7 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 				blockEntity.removeFromNetwork();
 			}
 		}
-		super.onBlockRemoved(state, worldIn, pos, newState, isMoving);
+		super.onStateReplaced(state, worldIn, pos, newState, isMoving);
 	}
 	
 	@Override

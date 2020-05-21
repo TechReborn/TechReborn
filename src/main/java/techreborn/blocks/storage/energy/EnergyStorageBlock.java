@@ -121,10 +121,10 @@ public abstract class EnergyStorageBlock extends BaseBlockEntityProvider {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onBlockRemoved(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			ItemHandlerUtils.dropContainedItems(worldIn, pos);
-			super.onBlockRemoved(state, worldIn, pos, newState, isMoving);
+			super.onStateReplaced(state, worldIn, pos, newState, isMoving);
 		}
 	}
 

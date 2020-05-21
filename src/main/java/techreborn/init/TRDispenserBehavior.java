@@ -38,7 +38,7 @@ import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 import reborncore.common.crafting.RebornRecipe;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.DynamicCellItem;
@@ -71,7 +71,7 @@ public class TRDispenserBehavior {
 		DispenserBlock.registerBehavior(TRContent.CELL, new ItemDispenserBehavior(){
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				DynamicCellItem cell = (DynamicCellItem)stack.getItem();
-				IWorld iWorld = pointer.getWorld();
+				WorldAccess iWorld = pointer.getWorld();
 				BlockPos blockPos = pointer.getBlockPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
 				BlockState blockState = iWorld.getBlockState(blockPos);
 				Block block = blockState.getBlock();

@@ -73,17 +73,17 @@ public class ModLoot {
 
 		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
 				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedronIngot).withEntry(advancedalloyIngot)
-				.withEntry(basicFrame).withEntry(basicCircuit).withRolls(UniformLootTableRange.between(1.0f, 2.0f))
+				.withEntry(basicFrame).withEntry(basicCircuit).rolls(UniformLootTableRange.between(1.0f, 2.0f))
 				.build();
 		
 		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
 				.withEntry(invarIngot).withEntry(nickelIngot).withEntry(steelIngot).withEntry(zincIngot)
-				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).withRolls(UniformLootTableRange.between(1.0f, 3.0f))
+				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).rolls(UniformLootTableRange.between(1.0f, 3.0f))
 				.build();
 
 		LootPool poolIndustrial = FabricLootPoolBuilder.builder().withEntry(chromeIngot).withEntry(iridiumIngot)
 				.withEntry(platinumIngot).withEntry(titaniumIngot).withEntry(tungstenIngot).withEntry(tungstensteelIngot)
-				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).withRolls(UniformLootTableRange.between(1.0f, 3.0f))
+				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).rolls(UniformLootTableRange.between(1.0f, 3.0f))
 				.build();
 		
 		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, ident, supplier, setter) -> {
@@ -138,8 +138,8 @@ public class ModLoot {
 	 */
 	private static LootEntry makeEntry(ItemConvertible item) {
 
-		return ItemEntry.builder(item).setWeight(5)
-				.withFunction(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
+		return ItemEntry.builder(item).weight(5)
+				.apply(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
 	}
 
 

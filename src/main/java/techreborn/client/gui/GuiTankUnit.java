@@ -48,10 +48,10 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawStringWithShadow(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		drawTextWithShadow(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
 		drawSlot(matrixStack, 100, 53, layer);
 
-		drawStringWithShadow(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		drawTextWithShadow(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
 		drawSlot(matrixStack, 140, 53, layer);
 	}
 

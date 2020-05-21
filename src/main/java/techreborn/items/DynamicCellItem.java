@@ -52,7 +52,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.Validate;
@@ -76,7 +76,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	}
 
 	// Thanks vanilla :)
-	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, IWorld world, BlockPos blockPos, Fluid fluid) {
+	private void playEmptyingSound(@Nullable PlayerEntity playerEntity, WorldAccess world, BlockPos blockPos, Fluid fluid) {
 		SoundEvent soundEvent = fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY;
 		world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
 	}
@@ -116,7 +116,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable)blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()), null, filledCell);
 		} else {
-			if (world.dimension.doesWaterVaporize() && fluid.isIn(FluidTags.WATER)) {
+			if (world.getDimension().isUltrawarm() && fluid.isIn(FluidTags.WATER)) {
 				int i = pos.getX();
 				int j = pos.getY();
 				int k = pos.getZ();

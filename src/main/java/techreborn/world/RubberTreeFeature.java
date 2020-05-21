@@ -24,33 +24,29 @@
 
 package techreborn.world;
 
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
+import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Function;
 
 /**
  * @author drcrazy
  *
  */
-public class RubberTreeFeature extends AbstractTreeFeature {
+public class RubberTreeFeature extends TreeFeature {
 
-	public RubberTreeFeature(Function<Dynamic<?>, ? extends TreeFeatureConfig> configFactory) {
-		super(configFactory);
+	public RubberTreeFeature(Codec<TreeFeatureConfig> codec) {
+		super(codec);
 	}
-
-
 
 	public static class FoliagePlacer extends BlobFoliagePlacer {
 
