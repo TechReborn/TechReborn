@@ -23,7 +23,6 @@ apply plugin: net.minecrell.gradle.licenser.Licenser
 apply plugin: 'de.undercouch.download'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
-apply plugin: "com.wynprice.cursemaven"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
