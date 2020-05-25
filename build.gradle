@@ -44,6 +44,7 @@ repositories {
 		//trinkets
 		url = "https://maven.abusedmaster.xyz/"
 	}
+	mavenLocal()
 	maven {
 		url = "https://jitpack.io"
 	}
@@ -75,6 +76,8 @@ dependencies {
 
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.10.10+build.347-1.16"
+
+	modImplementation "net.fabricmc.fabric-api:fabric-screen-handler-api-v1:1.0.0+9ceae8129b"
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.3.7-unstable")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
