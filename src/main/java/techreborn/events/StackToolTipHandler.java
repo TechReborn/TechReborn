@@ -24,6 +24,7 @@
 
 package techreborn.events;
 
+import com.google.common.collect.Maps;
 import net.fabricmc.fabric.api.event.client.ItemTooltipCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -53,10 +54,12 @@ import techreborn.utils.WIP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class StackToolTipHandler implements ItemTooltipCallback {
 
 	private static ArrayList<Block> wipBlocks = new ArrayList<>();
+	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();
 
 	public static void setup() {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
@@ -69,8 +72,10 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	@Override
 	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> components) {
 		Item item = stack.getItem();
-
-
+		
+		if (!ITEM_ID.computeIfAbsent(item, this::isTRItem))
+			return;
+		
 		// Machine info and upgrades helper section
 		Block block = Block.getBlockFromItem(item);
 
@@ -130,7 +135,11 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			}
 		}
 	}
-
+	
+	private boolean isTRItem(Item item) {
+		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
+	}
+	
 	public int percentage(int MaxValue, int CurrentValue) {
 		if (CurrentValue == 0)
 			return 0;
