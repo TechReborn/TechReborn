@@ -311,7 +311,7 @@ public class TileFusionControlComputer extends TilePowerAcceptor
 		if (!hasStartedCrafting) {
 			return 0;
 		}
-		return Integer.MAX_VALUE / RebornCoreConfig.euPerFU;
+		return maxOutput;
 	}
 
 	@Override
