@@ -51,6 +51,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("water", 5, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(10)
+			.withNBT(true)
 			.register();
 
 		// Sulfuric acid
@@ -60,6 +61,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("sulfuricAcid", 3, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1150)
+			.withNBT(true)
 			.register();
 
 		// Sodium Sulfide
@@ -69,6 +71,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("sodiumSulfide", 2, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(100)
+			.withNBT(true)
 			.register();
 
 		// Glyceryl
@@ -78,6 +81,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("glyceryl", 2, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(583)
+			.withNBT(true)
 			.register();
 
 		// Nitro-Diesel
@@ -87,6 +91,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("nitroDiesel", 5, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1000)
+			.withNBT(true)
 			.register();
 
 		// Nitro-Coalfuel
@@ -96,6 +101,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("nitrocoalFuel", 5, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1000)
+			.withNBT(true)
 			.register();
 
 		// Nitro-Carbon
@@ -105,6 +111,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("nitrocarbon", 2, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1500)
+			.withNBT(true)
 			.register();
 
 		// Methane
@@ -114,6 +121,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("methane", 5, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(3500)
+			.withNBT(true)
 			.register();
 
 		// Sodium Persulfate
@@ -123,6 +131,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("sodiumPersulfate", 2, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(2000)
+			.withNBT(true)
 			.register();
 
 		// Nitrogen Dioxide
@@ -132,6 +141,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("nitrogenDioxide", 2, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1250)
+			.withNBT(true)
 			.register();
 		
 		// Nitro-fuel
@@ -141,6 +151,7 @@ public class ChemicalReactorRecipes extends RecipeMethods {
 			.withOutput(getMaterial("nitrofuel", 2, Type.CELL))
 			.withEnergyCostPerTick(30)
 			.withOperationDuration(1000)
+			.withNBT(true)
 			.register();
 
 //		register(getStack(Items.GOLD_NUGGET, 8), getStack(Items.MELON), getStack(Items.SPECKLED_MELON), 40);

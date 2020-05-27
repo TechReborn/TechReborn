@@ -50,6 +50,7 @@ public class CentrifugeRecipes extends RecipeMethods {
                 .withOutput(ItemDustsSmall.getSmallDustByName("tungsten", 1))
                 .withEnergyCostPerTick(5)
                 .withOperationDuration(15000)
+                .withNBT(true)
                 .register();
 
         // Magma cream
@@ -341,6 +342,7 @@ public class CentrifugeRecipes extends RecipeMethods {
                 .withOutput(ItemDynamicCell.getEmptyCell(3))
                 .withEnergyCostPerTick(5)
                 .withOperationDuration(3000)
+                .withNBT(true)
                 .register();
 
         Recipes.centrifuge.createRecipe()
@@ -349,6 +351,7 @@ public class CentrifugeRecipes extends RecipeMethods {
                 .withOutput(ItemDynamicCell.getEmptyCell(3))
                 .withEnergyCostPerTick(5)
                 .withOperationDuration(3000)
+                .withNBT(true)
                 .register();
 
         Recipes.centrifuge.createRecipe()
@@ -357,6 +360,7 @@ public class CentrifugeRecipes extends RecipeMethods {
                 .withOutput(ItemDynamicCell.getEmptyCell(15))
                 .withEnergyCostPerTick(5)
                 .withOperationDuration(10000)
+                .withNBT(true)
                 .register();
 
         Recipes.centrifuge.createRecipe()
@@ -365,6 +369,7 @@ public class CentrifugeRecipes extends RecipeMethods {
                 .withOutput(ItemDynamicCell.getEmptyCell(1))
                 .withEnergyCostPerTick(5)
                 .withOperationDuration(40)
+                .withNBT(true)
                 .register();
 
         Recipes.centrifuge.createRecipe()
@@ -373,6 +378,7 @@ public class CentrifugeRecipes extends RecipeMethods {
                 .withOutput(ItemDynamicCell.getEmptyCell(1))
                 .withEnergyCostPerTick(5)
                 .withOperationDuration(40)
+                .withNBT(true)
                 .register();
 
         // Methane

@@ -88,6 +88,7 @@ public class ExtractorRecipes extends RecipeMethods {
 				.withOutput(ItemDynamicCell.getEmptyCell(1))
 				.withEnergyCostPerTick(2)
 				.withOperationDuration(40)
+				.withNBT(true)
 				.register());
 
 		// Flowers
