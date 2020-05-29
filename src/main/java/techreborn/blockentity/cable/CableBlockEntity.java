@@ -111,7 +111,8 @@ public class CableBlockEntity extends BlockEntity
 		}
 
 		if (value != null) {
-			value.addBlockEntity(this);
+			electricNetwork = value;
+			electricNetwork.addBlockEntity(this);
 		}
 	}
 

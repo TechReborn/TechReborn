@@ -217,7 +217,6 @@ public final class ElectricNetwork {
 		for (PowerAcceptorBlockEntityFace to : toList) {
 			for (PowerAcceptorBlockEntityFace from : fromList) {
 				if (from.isSameEntity(to)) {
-					TechReborn.LOGGER.debug("Skipping power transfer as source and target are the same");
 					continue;
 				}
 

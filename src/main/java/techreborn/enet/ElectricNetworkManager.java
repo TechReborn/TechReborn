@@ -52,10 +52,7 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 			network.tick();
 
 			if (network.isEmpty()) {
-				TechReborn.LOGGER.debug(
-						"Electric Network {} is empty, removed (total: {})",
-						network,
-						electricNetworks.size());
+				TechReborn.LOGGER.debug("Electric Network {} is empty, removed", network);
 			}
 
 			return network.isEmpty();
