@@ -54,6 +54,7 @@ import techreborn.blockentity.storage.energy.idsu.IDSUManager;
 import techreborn.client.GuiType;
 import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
+import techreborn.enet.ElectricNetworkManager;
 import techreborn.events.ModRegistry;
 import techreborn.init.FluidGeneratorRecipes;
 import techreborn.init.ModLoot;
@@ -106,6 +107,7 @@ public class TechReborn implements ModInitializer {
 		GuiType.AESU.getIdentifier();
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
+		ElectricNetworkManager.init();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 

@@ -136,6 +136,10 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	private Boolean canConnectTo(IWorld world, BlockPos pos, Direction facing) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity != null && (Energy.valid(blockEntity) || blockEntity instanceof CableBlockEntity)) {
+			if (blockEntity instanceof CableBlockEntity && ((CableBlockEntity)blockEntity).getCableType().tier != type.tier) {
+				return Boolean.FALSE;
+			}
+
 			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
@@ -237,11 +241,10 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			return;
 		}
 
-		CableBlockEntity blockEntityCable = (CableBlockEntity) blockEntity;
-		if (blockEntityCable.getEnergy() <= 0) {
+		if (!((CableBlockEntity)blockEntity).isEnergized()) {
 			return;
 		}
-
+		
 		if (TechRebornConfig.uninsulatedElectrocutionDamage) {
 			if (type == TRContent.Cables.HV) {
 				entityIn.setOnFireFor(1);
