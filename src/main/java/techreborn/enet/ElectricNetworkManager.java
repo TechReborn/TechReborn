@@ -24,70 +24,52 @@
 
 package techreborn.enet;
 
-import net.fabricmc.fabric.api.event.registry.BlockConstructedCallback;
 import net.fabricmc.fabric.api.event.server.ServerTickCallback;
-import net.minecraft.block.Block;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 
-public class ElectricNetworkManager implements ServerTickCallback {
+public final class ElectricNetworkManager implements ServerTickCallback {
 	public static ElectricNetworkManager INSTANCE;
 
-	private int lastId = 0;
-	private HashMap<Integer, ElectricNetwork> electricNetworks = new HashMap<>();
+	private final HashSet<ElectricNetwork> electricNetworks = new HashSet<>();
 
-	public ElectricNetworkManager() {
+	private ElectricNetworkManager() {
 		ServerTickCallback.EVENT.register(this::tick);
 	}
 
 	public static void init() {
-		INSTANCE = new ElectricNetworkManager();
+		if (INSTANCE == null) {
+			INSTANCE = new ElectricNetworkManager();
+		}
 	}
 
 	@Override
 	public void tick(MinecraftServer minecraftServer) {
-		ArrayList<Integer> networksToRemove = new ArrayList<>();
+		electricNetworks.removeIf(network -> {
+			network.tick();
 
-		for (ElectricNetwork currentNetwork: electricNetworks.values()) {
-			currentNetwork.tick();
-
-			if (currentNetwork.isEmpty()) {
-				networksToRemove.add(currentNetwork.getId());
+			if (network.isEmpty()) {
+				TechReborn.LOGGER.debug(
+						"Electric Network {} is empty, removed (total: {})",
+						network,
+						electricNetworks.size());
 			}
-		}
 
-		for (Integer networkId: networksToRemove) {
-			electricNetworks.remove(networkId);
-
-			TechReborn.LOGGER.debug(
-					"Electric Network {} is empty, removed (total: {})",
-					networkId,
-					electricNetworks.size());
-		}
+			return network.isEmpty();
+		});
 	}
 
-	public ElectricNetwork getNetwork(int id, EnergyTier tier) {
-		if (electricNetworks.containsKey(id)) {
-			return electricNetworks.get(id);
-		}
+	public ElectricNetwork newNetwork(EnergyTier tier) {
+		ElectricNetwork newNetwork = new ElectricNetwork(tier);
+		electricNetworks.add(newNetwork);
 
-		return this.createAndTrackNetwork(id, tier);
-	}
-
-	public ElectricNetwork newNetwork(World world, EnergyTier tier) {
-		return this.createAndTrackNetwork(++lastId, tier);
-	}
-
-	private ElectricNetwork createAndTrackNetwork(int id, EnergyTier tier) {
-		ElectricNetwork newNetwork = new ElectricNetwork(id, tier);
-		electricNetworks.put(id, newNetwork);
-
-		TechReborn.LOGGER.debug("Created new electric network ID: {} (total: {})", id, electricNetworks.size());
+		TechReborn.LOGGER.debug(
+				"Created new electric network ID: {} (total: {})",
+				newNetwork,
+				electricNetworks.size());
 
 		return newNetwork;
 	}

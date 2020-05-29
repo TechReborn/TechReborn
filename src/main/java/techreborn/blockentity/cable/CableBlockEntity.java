@@ -48,7 +48,9 @@ import reborncore.common.util.StringUtils;
 import team.reborn.energy.*;
 import techreborn.TechReborn;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.enet.ElectricNetwork;
 import techreborn.enet.ElectricNetworkManager;
+import techreborn.enet.PowerAcceptorBlockEntityFace;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
@@ -62,7 +64,7 @@ import java.util.List;
 public class CableBlockEntity extends BlockEntity
 		implements Tickable, IListInfoProvider, IToolDrop {
 
-	private int electric_net_id = 0;
+	private ElectricNetwork electricNetwork;
 	private TRContent.Cables cableType = null;
 	private BlockState cover = null;
 
@@ -90,36 +92,35 @@ public class CableBlockEntity extends BlockEntity
 		return TRContent.Cables.COPPER;
 	}
 
-	public int getElectricNetworkId() {
-		return electric_net_id;
+	public ElectricNetwork getElectricNetwork() {
+		return electricNetwork;
 	}
 
 	public boolean isEnergized() {
-		if (electric_net_id == 0) {
+		if (electricNetwork == null) {
 			return false;
 		}
 
-		return ElectricNetworkManager.INSTANCE.getNetwork(electric_net_id, getCableType().tier).isEnergized();
+		return electricNetwork.isEnergized();
 	}
 
-	public void setElectricNetwork(int value)
+	public void setElectricNetwork(ElectricNetwork value)
 	{
-		if (electric_net_id != 0) {
-			ElectricNetworkManager.INSTANCE.getNetwork(electric_net_id, getCableType().tier).removeBlockEntity(this);
+		if (electricNetwork != null) {
+			electricNetwork.removeBlockEntity(this);
 		}
 
-		if (value != 0) {
-			ElectricNetworkManager.INSTANCE.getNetwork(value, getCableType().tier).addBlockEntity(this);
+		if (value != null) {
+			value.addBlockEntity(this);
 		}
-
-		electric_net_id = value;
 	}
 
 	@Override
 	public void markRemoved() {
-		if (electric_net_id != 0) {
-			TechReborn.LOGGER.debug("Removing block {} from ENet {}", this.getPos().asLong(), electric_net_id);
-			ElectricNetworkManager.INSTANCE.getNetwork(electric_net_id, getCableType().tier).removeBlockEntity(this);
+		if (electricNetwork != null) {
+			TechReborn.LOGGER.debug("Removing block {} from ENet {}", this.getPos().asLong(), electricNetwork);
+			electricNetwork.removeBlockEntity(this);
+			electricNetwork = null;
 		}
 
 		super.markRemoved();
@@ -164,7 +165,7 @@ public class CableBlockEntity extends BlockEntity
 			return;
 		}
 
-		if (this.electric_net_id == 0) {
+		if (electricNetwork == null) {
 			TechReborn.LOGGER.debug("Block Entity has no network in tick() -- assigning a network");
 			this.AssignNetwork();
 		}
@@ -205,14 +206,14 @@ public class CableBlockEntity extends BlockEntity
 		return other != null && other.getCableType().tier == getCableType().tier;
 	}
 
-	public ArrayList<Pair<PowerAcceptorBlockEntity, Direction>> getConnectedPowerAcceptors() {
-		ArrayList<Pair<PowerAcceptorBlockEntity, Direction>> result = new ArrayList<>();
+	public ArrayList<PowerAcceptorBlockEntityFace> getConnectedPowerAcceptors() {
+		ArrayList<PowerAcceptorBlockEntityFace> result = new ArrayList<>();
 
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
 			if (blockEntity != null && Energy.valid(blockEntity) && blockEntity instanceof PowerAcceptorBlockEntity) {
-				result.add(new Pair<>((PowerAcceptorBlockEntity) blockEntity, face.getOpposite()));
+				result.add(new PowerAcceptorBlockEntityFace((PowerAcceptorBlockEntity) blockEntity, face.getOpposite()));
 			}
 		}
 
@@ -225,25 +226,28 @@ public class CableBlockEntity extends BlockEntity
 			return;
 		}
 
-		int electric_net_to_join = 0;
+		ElectricNetwork eligibleNetwork = null;
 
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
 			if (blockEntity instanceof CableBlockEntity && this.canConnectTo((CableBlockEntity) blockEntity)) {
-				electric_net_to_join = ((CableBlockEntity) blockEntity).getElectricNetworkId();
+				eligibleNetwork = ((CableBlockEntity) blockEntity).getElectricNetwork();
+			}
+
+			if (eligibleNetwork != null) {
 				break;
 			}
 		}
 
-		if (electric_net_to_join == 0) {
+		if (eligibleNetwork == null) {
 			TechReborn.LOGGER.debug("Could not find network to join, creating new one");
-			electric_net_to_join = ElectricNetworkManager.INSTANCE.newNetwork(getWorld(), getCableType().tier).getId();
+			eligibleNetwork = ElectricNetworkManager.INSTANCE.newNetwork(getCableType().tier);
 		} else {
-			TechReborn.LOGGER.debug("Successfully found another network to join: {}", electric_net_to_join);
+			TechReborn.LOGGER.debug("Successfully found another network to join: {}", eligibleNetwork);
 		}
 
-		this.setElectricNetwork(electric_net_to_join);
+		this.setElectricNetwork(eligibleNetwork);
 	}
 
 }

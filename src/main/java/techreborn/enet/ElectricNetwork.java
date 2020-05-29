@@ -25,64 +25,53 @@
 package techreborn.enet;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ElectricNetwork {
-	private int network_id;
-	private EnergyTier network_tier;
-	private HashSet<CableBlockEntity> enetCableBEs = new HashSet<>();
+public final class ElectricNetwork {
+	private final EnergyTier networkTier;
+	private final HashSet<CableBlockEntity> cableBlockEntities = new HashSet<>();
 	private boolean isDirty;
 	private boolean isEnergized;
 
-	public ElectricNetwork(int id, EnergyTier tier) {
-		network_id = id;
-		network_tier = tier;
+	public ElectricNetwork(EnergyTier tier) {
+		networkTier = tier;
 		isDirty = true;
-	}
-
-	public int getId() {
-		return network_id;
 	}
 
 	public boolean isEmpty() {
-		return enetCableBEs.isEmpty();
+		return cableBlockEntities.isEmpty();
 	}
 
 	public void addBlockEntity(CableBlockEntity entity) {
-		this.enetCableBEs.add(entity);
-		isDirty = true;
+		isDirty = cableBlockEntities.add(entity) || isDirty;
 	}
 
 	public void removeBlockEntity(CableBlockEntity entity) {
-		this.enetCableBEs.remove(entity);
-		isDirty = true;
+		isDirty = cableBlockEntities.remove(entity) || isDirty;
 	}
 
 	public void tick() {
-		if (this.isEmpty()) {
+		if (isEmpty()) {
 			return;
 		}
 
 		if (isDirty) {
-			TechReborn.LOGGER.debug("Electric Network {} is dirty, checking for network and connection changes", network_id);
-			this.walkNetwork();
+			TechReborn.LOGGER.debug("Electric Network {} is dirty, checking for network and connection changes", this);
+			walkNetwork();
 
 			isDirty = false;
 		}
 
-		this.distributePower();
+		distributePower();
 	}
 
 	public boolean isEnergized() {
@@ -91,7 +80,7 @@ public class ElectricNetwork {
 
 	private void walkNetwork() {
 		// If the network is empty, why bother?
-		if (enetCableBEs.isEmpty()) {
+		if (cableBlockEntities.isEmpty()) {
 			return;
 		}
 
@@ -102,7 +91,7 @@ public class ElectricNetwork {
 		HashSet<CableBlockEntity> visitedNodes = new HashSet<>();
 
 		// "See" the first node in the list
-		CableBlockEntity firstNode = enetCableBEs.iterator().next();
+		CableBlockEntity firstNode = cableBlockEntities.iterator().next();
 		TechReborn.LOGGER.debug("First node in the walk: {}", firstNode);
 		seenNodes.addAll(visitCableNode(firstNode, visitedNodes));
 
@@ -120,33 +109,33 @@ public class ElectricNetwork {
 		}
 
 		for (CableBlockEntity nodeConnected : seenNodes) {
-			if (nodeConnected.getElectricNetworkId() != network_id) {
+			if (nodeConnected.getElectricNetwork() != this) {
 				TechReborn.LOGGER.debug(
 						"Block {} network change: {} -> {}",
 						nodeConnected.getPos().asLong(),
-						nodeConnected.getElectricNetworkId(),
-						network_id);
+						nodeConnected.getElectricNetwork(),
+						this);
 
-				nodeConnected.setElectricNetwork(network_id);
+				nodeConnected.setElectricNetwork(this);
 			}
 		}
 
 		TechReborn.LOGGER.debug(
 				"Starting purge of disconnected entities. Have {}, seen {}",
-				enetCableBEs.size(),
+				cableBlockEntities.size(),
 				seenNodes.size());
 
-		HashSet<CableBlockEntity> nodesToRemove = new HashSet<>(enetCableBEs);
-		nodesToRemove.removeAll(seenNodes);
+		cableBlockEntities
+				.stream()
+				.filter(node -> !seenNodes.contains(node))
+				.forEach(node -> {
+					TechReborn.LOGGER.debug(
+							"Block {} being ejected from the network {}",
+							node.getPos().asLong(),
+							this);
 
-		for (CableBlockEntity nodeRemoved : nodesToRemove) {
-			TechReborn.LOGGER.debug(
-					"Block {} being ejected from the network {}",
-					nodeRemoved.getPos().asLong(),
-					network_id);
-
-			nodeRemoved.setElectricNetwork(0);
-		}
+					node.setElectricNetwork(null);
+				});
 
 		TechReborn.LOGGER.debug("Finished walking network for cable connection changes.");
 	}
@@ -160,7 +149,7 @@ public class ElectricNetwork {
 			TechReborn.LOGGER.debug(
 					"Visiting node {} on behalf of {} ({} visited total)",
 					currentEntity.getPos().asLong(),
-					network_id,
+					this,
 					visitedNodes.size());
 
 			seenNodes.add(currentEntity);
@@ -178,7 +167,7 @@ public class ElectricNetwork {
 				TechReborn.LOGGER.debug(
 						"Node {} is on network {}",
 						targetEntity.getPos().asLong(),
-						targetEntity.getElectricNetworkId());
+						targetEntity.getElectricNetwork());
 
 				if (currentEntity.canConnectTo(targetEntity)) {
 					TechReborn.LOGGER.debug("Seen another node -- {}", blockToCheckPos.asLong());
@@ -191,67 +180,61 @@ public class ElectricNetwork {
 	}
 
 	private void distributePower() {
-		ArrayList<Pair<PowerAcceptorBlockEntity, Direction>> powerAcceptors = new ArrayList<>();
+		List<PowerAcceptorBlockEntityFace> powerAcceptors = cableBlockEntities
+				.stream()
+				.flatMap(entityFace -> entityFace.getConnectedPowerAcceptors().stream())
+				.collect(Collectors.toList());
 
-		for (CableBlockEntity entity : enetCableBEs) {
+		for (CableBlockEntity entity : cableBlockEntities) {
 			powerAcceptors.addAll(entity.getConnectedPowerAcceptors());
 		}
 
-		double remainingTransfer = Math.min(network_tier.getMaxInput(), network_tier.getMaxOutput());
+		double networkTransferCapacity = Math.min(networkTier.getMaxInput(), networkTier.getMaxOutput());
 
-		// Prioritize transferring energy to entities that cannot also supply it on the same connection side (like a buffer)
-		List<Pair<PowerAcceptorBlockEntity, Direction>> fromList = powerAcceptors
+		List<PowerAcceptorBlockEntityFace> fromList = powerAcceptors
 				.stream()
-				.filter(v -> v.getLeft().canProvideEnergy(v.getRight()) && v.getLeft().getEnergy() > 0)
-				.sorted(Comparator.comparing(v -> v.getLeft().canAcceptEnergy(v.getRight()) ? 1 : 0))
+				.filter(entityFace -> entityFace.canProvideEnergy() && entityFace.getEnergy() > 0)
+				.sorted(Comparator.comparing(entityFace -> entityFace.canAcceptEnergy() ? 1 : 0))
 				.collect(Collectors.toList());
 
-		List<Pair<PowerAcceptorBlockEntity, Direction>> toList = powerAcceptors
+		List<PowerAcceptorBlockEntityFace> toList = powerAcceptors
 				.stream()
-				.filter(v -> v.getLeft().canAcceptEnergy(v.getRight()) && !v.getLeft().canProvideEnergy(v.getRight()) && v.getLeft().getFreeSpace() > 0)
+				.filter(entityFace -> entityFace.canAcceptEnergy() &&
+						!entityFace.canProvideEnergy() &&
+						entityFace.hasFreeSpace())
 				.collect(Collectors.toList());
 
-		isEnergized = fromList.stream().anyMatch(v -> v.getLeft().canProvideEnergy(v.getRight()));
+		isEnergized = fromList
+				.stream()
+				.anyMatch(entityFace -> entityFace.canProvideEnergy());
 
-		remainingTransfer = this.transferPower(fromList, toList, remainingTransfer);
-
-		if (remainingTransfer > 0) {
-			// Handle transfers directly from generators to buffers
-			fromList = powerAcceptors
-					.stream()
-					.filter(v -> v.getLeft().canProvideEnergy(v.getRight()) && !v.getLeft().canAcceptEnergy(v.getRight()))
-					.collect(Collectors.toList());
-
-			toList = powerAcceptors
-					.stream()
-					.filter(v -> v.getLeft().canAcceptEnergy(v.getRight()) && v.getLeft().canProvideEnergy(v.getRight()) && v.getLeft().getFreeSpace() > 0)
-					.collect(Collectors.toList());
-
-			this.transferPower(fromList, toList, remainingTransfer);
-		}
+		transferPower(fromList, toList, networkTransferCapacity);
 	}
 
-	private double transferPower(List<Pair<PowerAcceptorBlockEntity, Direction>> fromList, List<Pair<PowerAcceptorBlockEntity, Direction>> toList, double transferLimit) {
-		double remainingTransfer = transferLimit;
+	private void transferPower(List<PowerAcceptorBlockEntityFace> fromList, List<PowerAcceptorBlockEntityFace> toList, double networkTransferCapacity) {
+		double remainingTransfer = networkTransferCapacity;
 
-		for (Pair<PowerAcceptorBlockEntity, Direction> to : toList) {
-			for (Pair<PowerAcceptorBlockEntity, Direction> from : fromList) {
-				PowerAcceptorBlockEntity fromEntity = from.getLeft();
-				PowerAcceptorBlockEntity toEntity = to.getLeft();
-
-				if (fromEntity == toEntity) {
+		for (PowerAcceptorBlockEntityFace to : toList) {
+			for (PowerAcceptorBlockEntityFace from : fromList) {
+				if (from.isSameEntity(to)) {
 					TechReborn.LOGGER.debug("Skipping power transfer as source and target are the same");
 					continue;
 				}
 
-				double transferAmount = Math.min(toEntity.getFreeSpace(), remainingTransfer);
-				double extracted = fromEntity.useEnergy(transferAmount);
-				toEntity.addEnergy(extracted);
+				double transferAmount = Math.min(to.getFreeSpace(), remainingTransfer);
+				double extracted = from.useEnergy(transferAmount);
+				to.addEnergy(extracted);
 
 				remainingTransfer -= extracted;
+
+				if (remainingTransfer <= 0) {
+					break;
+				}
+			}
+
+			if (remainingTransfer <= 0) {
+				break;
 			}
 		}
-
-		return remainingTransfer;
 	}
 }
