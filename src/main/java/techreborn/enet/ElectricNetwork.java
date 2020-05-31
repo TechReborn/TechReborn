@@ -185,10 +185,6 @@ public final class ElectricNetwork {
 				.flatMap(entityFace -> entityFace.getConnectedPowerAcceptors().stream())
 				.collect(Collectors.toList());
 
-		for (CableBlockEntity entity : cableBlockEntities) {
-			powerAcceptors.addAll(entity.getConnectedPowerAcceptors());
-		}
-
 		double networkTransferCapacity = Math.min(networkTier.getMaxInput(), networkTier.getMaxOutput());
 
 		List<PowerAcceptorBlockEntityFace> fromList = powerAcceptors
