@@ -112,7 +112,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			this.setSunState(ZEROGEN);
 		}
 		// Nether and The End
-		if (!world.dimension.hasSkyLight()) {
+		if (!world.getDimension().hasSkyLight()) {
 			this.setSunState(NIGHTGEN);
 		}
 
