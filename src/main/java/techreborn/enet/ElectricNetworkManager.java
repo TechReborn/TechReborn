@@ -30,12 +30,12 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public final class ElectricNetworkManager implements ServerTickCallback {
 	public static ElectricNetworkManager INSTANCE;
 
-	private final HashSet<ElectricNetwork> electricNetworks = new HashSet<>();
-	private final HashSet<ElectricNetwork> pendingNetworks = new HashSet<>();
+	private final Set<ElectricNetwork> electricNetworks = new HashSet<>();
 
 	private ElectricNetworkManager() {
 		ServerTickCallback.EVENT.register(this::tick);
@@ -49,9 +49,6 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 
 	@Override
 	public void tick(MinecraftServer minecraftServer) {
-		electricNetworks.addAll(pendingNetworks);
-		pendingNetworks.clear();
-
 		electricNetworks.removeIf(network -> {
 			network.tick();
 
@@ -65,7 +62,7 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 
 	public ElectricNetwork newNetwork(EnergyTier tier) {
 		ElectricNetwork newNetwork = new ElectricNetwork(tier);
-		pendingNetworks.add(newNetwork);
+		electricNetworks.add(newNetwork);
 
 		TechReborn.LOGGER.debug(
 				"Enqueued new electric network ID: {}",
