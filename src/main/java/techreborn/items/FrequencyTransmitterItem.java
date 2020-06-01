@@ -129,7 +129,7 @@ public class FrequencyTransmitterItem extends Item {
 				});
 	}
 
-	private static Identifier getDimName(RegistryKey<DimensionType> dimensionRegistryKey){
+	private static Identifier getDimName(RegistryKey<World> dimensionRegistryKey){
 		return dimensionRegistryKey.getValue();
 	}
 

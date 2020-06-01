@@ -26,6 +26,7 @@ package techreborn.world;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
 
@@ -55,8 +56,8 @@ public class RubberTreeFeature extends TreeFeature {
 		}
 
 		@Override
-		protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int i) {
-			super.generate(world, random, config, trunkHeight, treeNode, foliageHeight, radius, leaves, i);
+		protected void generate(ModifiableTestableWorld world, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, Set<BlockPos> leaves, int i, BlockBox blockBox) {
+			super.generate(world, random, config, trunkHeight, treeNode, foliageHeight, radius, leaves, i, blockBox);
 
 			spawnSpike(world, treeNode.getCenter());
 		}

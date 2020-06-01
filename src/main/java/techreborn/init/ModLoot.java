@@ -30,7 +30,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.UniformLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootEntry;
+import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent.Ingots;
@@ -40,35 +40,35 @@ public class ModLoot {
 
 	public static void init() {
 
-		LootEntry copperIngot = makeEntry(Ingots.COPPER);
-		LootEntry tinIngot = makeEntry(Ingots.TIN);
-		LootEntry leadIngot = makeEntry(Ingots.LEAD);
-		LootEntry silverIngot = makeEntry(Ingots.SILVER);
-		LootEntry refinedronIngot = makeEntry(Ingots.REFINED_IRON);
-		LootEntry advancedalloyIngot = makeEntry(Ingots.ADVANCED_ALLOY);
-		LootEntry basicFrame = makeEntry(TRContent.MachineBlocks.BASIC.frame.asItem());
-		LootEntry basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
-		LootEntry rubberSapling = makeEntry(TRContent.RUBBER_SAPLING, 25);
+		LootPoolEntry copperIngot = makeEntry(Ingots.COPPER);
+		LootPoolEntry tinIngot = makeEntry(Ingots.TIN);
+		LootPoolEntry leadIngot = makeEntry(Ingots.LEAD);
+		LootPoolEntry silverIngot = makeEntry(Ingots.SILVER);
+		LootPoolEntry refinedronIngot = makeEntry(Ingots.REFINED_IRON);
+		LootPoolEntry advancedalloyIngot = makeEntry(Ingots.ADVANCED_ALLOY);
+		LootPoolEntry basicFrame = makeEntry(TRContent.MachineBlocks.BASIC.frame.asItem());
+		LootPoolEntry basicCircuit = makeEntry(Parts.ELECTRONIC_CIRCUIT);
+		LootPoolEntry rubberSapling = makeEntry(TRContent.RUBBER_SAPLING, 25);
 
-		LootEntry aluminumIngot = makeEntry(Ingots.ALUMINUM);
-		LootEntry electrumIngot = makeEntry(Ingots.ELECTRUM);
-		LootEntry invarIngot = makeEntry(Ingots.INVAR);
-		LootEntry nickelIngot = makeEntry(Ingots.NICKEL);
-		LootEntry steelIngot = makeEntry(Ingots.STEEL);
-		LootEntry zincIngot = makeEntry(Ingots.ZINC);
-		LootEntry advancedFrame = makeEntry(TRContent.MachineBlocks.ADVANCED.frame.asItem());
-		LootEntry advancedCircuit = makeEntry(Parts.ADVANCED_CIRCUIT);
-		LootEntry dataStorageChip = makeEntry(Parts.DATA_STORAGE_CHIP);
-		
-		LootEntry chromeIngot = makeEntry(Ingots.CHROME);		
-		LootEntry iridiumIngot = makeEntry(Ingots.IRIDIUM);		
-		LootEntry platinumIngot = makeEntry(Ingots.PLATINUM);
-		LootEntry titaniumIngot = makeEntry(Ingots.TITANIUM);
-		LootEntry tungstenIngot = makeEntry(Ingots.TUNGSTEN);
-		LootEntry tungstensteelIngot = makeEntry(Ingots.TUNGSTENSTEEL);
-		LootEntry industrialFrame = makeEntry(TRContent.MachineBlocks.INDUSTRIAL.frame.asItem());
-		LootEntry industrialCircuit = makeEntry(Parts.INDUSTRIAL_CIRCUIT);
-		LootEntry energyFlowChip = makeEntry(Parts.ENERGY_FLOW_CHIP);
+		LootPoolEntry aluminumIngot = makeEntry(Ingots.ALUMINUM);
+		LootPoolEntry electrumIngot = makeEntry(Ingots.ELECTRUM);
+		LootPoolEntry invarIngot = makeEntry(Ingots.INVAR);
+		LootPoolEntry nickelIngot = makeEntry(Ingots.NICKEL);
+		LootPoolEntry steelIngot = makeEntry(Ingots.STEEL);
+		LootPoolEntry zincIngot = makeEntry(Ingots.ZINC);
+		LootPoolEntry advancedFrame = makeEntry(TRContent.MachineBlocks.ADVANCED.frame.asItem());
+		LootPoolEntry advancedCircuit = makeEntry(Parts.ADVANCED_CIRCUIT);
+		LootPoolEntry dataStorageChip = makeEntry(Parts.DATA_STORAGE_CHIP);
+
+		LootPoolEntry chromeIngot = makeEntry(Ingots.CHROME);
+		LootPoolEntry iridiumIngot = makeEntry(Ingots.IRIDIUM);
+		LootPoolEntry platinumIngot = makeEntry(Ingots.PLATINUM);
+		LootPoolEntry titaniumIngot = makeEntry(Ingots.TITANIUM);
+		LootPoolEntry tungstenIngot = makeEntry(Ingots.TUNGSTEN);
+		LootPoolEntry tungstensteelIngot = makeEntry(Ingots.TUNGSTENSTEEL);
+		LootPoolEntry industrialFrame = makeEntry(TRContent.MachineBlocks.INDUSTRIAL.frame.asItem());
+		LootPoolEntry industrialCircuit = makeEntry(Parts.INDUSTRIAL_CIRCUIT);
+		LootPoolEntry energyFlowChip = makeEntry(Parts.ENERGY_FLOW_CHIP);
 		
 		
 
@@ -137,7 +137,7 @@ public class ModLoot {
 	 * @param item Item to include into LootEntry
 	 * @return LootEntry for item provided
 	 */
-	private static LootEntry makeEntry(ItemConvertible item) {
+	private static LootPoolEntry makeEntry(ItemConvertible item) {
 		return makeEntry(item, 5);
 	}
 
@@ -148,7 +148,7 @@ public class ModLoot {
 	 * @param weight Weight of that item
 	 * @return LootEntry for item and weight provided
 	 */
-	private static LootEntry makeEntry(ItemConvertible item, int weight){
+	private static LootPoolEntry makeEntry(ItemConvertible item, int weight){
 		return ItemEntry.builder(item).weight(weight)
 				.apply(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
 	}
