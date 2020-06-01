@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "techreborn:quantum_tank"
+      "item": "techreborn:quantum_tank_unit"
     },
     "title": {
       "translate": "advancements.techreborn.quantumtank"
@@ -16,7 +16,7 @@
     "crit1": {
     "trigger": "minecraft:placed_block",
     "conditions": {
-      "block": "techreborn:quantum_tank"
+      "block": "techreborn:quantum_tank_unit"
     }
   }
   }

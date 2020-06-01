@@ -65,10 +65,6 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	private SolarPanels panel;
 
-	public SolarPanelBlockEntity() {
-		super(TRBlockEntities.SOLAR_PANEL);
-	}
-
 	public SolarPanelBlockEntity(SolarPanels panel) {
 		super(TRBlockEntities.SOLAR_PANEL);
 		this.panel = panel;
@@ -103,6 +99,9 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	}
 
 	private void updateState() {
+		if (world == null) {
+			return;
+		}
 		if (world.isSkyVisible(pos.up())) {
 			this.setSunState(NIGHTGEN);
 
@@ -111,6 +110,10 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 			}
 		} else {
 			this.setSunState(ZEROGEN);
+		}
+		// Nether and The End
+		if (!world.dimension.hasSkyLight()) {
+			this.setSunState(NIGHTGEN);
 		}
 
 		if (prevState != this.getSunState()) {
@@ -142,6 +145,10 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	@Override
 	public void tick() {
 		super.tick();
+
+		if (world == null){
+			return;
+		}
 
 		if (world.isClient) {
 			return;
