@@ -10,7 +10,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.2.7-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.4-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 		classpath "com.wynprice.cursemaven:CurseMaven:2.1.1"
@@ -74,10 +74,10 @@ group = 'TechReborn'
 dependencies {
 	minecraft "com.mojang:minecraft:1.15.2"
 	mappings "net.fabricmc:yarn:1.15.2+build.2:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.8.4+build.198"
+	modImplementation "net.fabricmc:fabric-loader:0.8.5+build.199"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.4.29+build.290-1.15"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.11.1+build.312-1.15"
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.6.0")
 	optionalDependency ('io.github.cottonmc:LibCD:2.0.1+1.15')
