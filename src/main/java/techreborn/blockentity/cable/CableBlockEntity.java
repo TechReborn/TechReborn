@@ -167,7 +167,7 @@ public class CableBlockEntity extends BlockEntity
 
 		if (electricNetwork == null) {
 			TechReborn.LOGGER.debug("Block Entity has no network in tick() -- assigning a network");
-			this.AssignNetwork();
+			this.assignNetwork();
 		}
 	}
 
@@ -206,7 +206,7 @@ public class CableBlockEntity extends BlockEntity
 		return other != null && other.getCableType().tier == getCableType().tier;
 	}
 
-	public ArrayList<PowerAcceptorBlockEntityFace> getConnectedPowerAcceptors() {
+	public List<PowerAcceptorBlockEntityFace> getConnectedPowerAcceptors() {
 		ArrayList<PowerAcceptorBlockEntityFace> result = new ArrayList<>();
 
 		for (Direction face : Direction.values()) {
@@ -220,7 +220,7 @@ public class CableBlockEntity extends BlockEntity
 		return result;
 	}
 
-	private void AssignNetwork() {
+	private void assignNetwork() {
 		if (!hasWorld()) {
 			TechReborn.LOGGER.debug("Attempting to assign an electric network for cable block entity but no World is available");
 			return;

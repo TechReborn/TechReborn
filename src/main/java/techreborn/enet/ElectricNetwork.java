@@ -34,11 +34,12 @@ import techreborn.blockentity.cable.CableBlockEntity;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class ElectricNetwork {
 	private final EnergyTier networkTier;
-	private final HashSet<CableBlockEntity> cableBlockEntities = new HashSet<>();
+	private final Set<CableBlockEntity> cableBlockEntities = new HashSet<>();
 	private boolean isDirty;
 	private boolean isEnergized;
 
@@ -127,23 +128,21 @@ public final class ElectricNetwork {
 
 		cableBlockEntities
 				.stream()
-				.filter(node -> !seenNodes.contains(node))
+				.filter(node -> !seenNodes.contains(node) && node != null)
 				.collect(Collectors.toList())
 				.forEach(node -> {
-					if (node != null) {
-						TechReborn.LOGGER.debug(
-								"Block {} being ejected from the network {}",
-								node,
-								this);
+					TechReborn.LOGGER.debug(
+							"Block {} being ejected from the network {}",
+							node,
+							this);
 
-						node.setElectricNetwork(null);
-					}
+					node.setElectricNetwork(null);
 				});
 
 		TechReborn.LOGGER.debug("Finished walking network for cable connection changes.");
 	}
 
-	private HashSet<CableBlockEntity> visitCableNode(CableBlockEntity currentEntity, HashSet<CableBlockEntity> visitedNodes) {
+	private Set<CableBlockEntity> visitCableNode(CableBlockEntity currentEntity, HashSet<CableBlockEntity> visitedNodes) {
 		visitedNodes.add(currentEntity);
 
 		HashSet<CableBlockEntity> seenNodes = new HashSet<>();
