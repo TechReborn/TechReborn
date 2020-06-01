@@ -128,13 +128,16 @@ public final class ElectricNetwork {
 		cableBlockEntities
 				.stream()
 				.filter(node -> !seenNodes.contains(node))
+				.collect(Collectors.toList())
 				.forEach(node -> {
-					TechReborn.LOGGER.debug(
-							"Block {} being ejected from the network {}",
-							node.getPos().asLong(),
-							this);
+					if (node != null) {
+						TechReborn.LOGGER.debug(
+								"Block {} being ejected from the network {}",
+								node,
+								this);
 
-					node.setElectricNetwork(null);
+						node.setElectricNetwork(null);
+					}
 				});
 
 		TechReborn.LOGGER.debug("Finished walking network for cable connection changes.");

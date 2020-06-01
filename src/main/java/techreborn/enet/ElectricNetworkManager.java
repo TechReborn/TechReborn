@@ -35,6 +35,7 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 	public static ElectricNetworkManager INSTANCE;
 
 	private final HashSet<ElectricNetwork> electricNetworks = new HashSet<>();
+	private final HashSet<ElectricNetwork> pendingNetworks = new HashSet<>();
 
 	private ElectricNetworkManager() {
 		ServerTickCallback.EVENT.register(this::tick);
@@ -48,6 +49,9 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 
 	@Override
 	public void tick(MinecraftServer minecraftServer) {
+		electricNetworks.addAll(pendingNetworks);
+		pendingNetworks.clear();
+
 		electricNetworks.removeIf(network -> {
 			network.tick();
 
@@ -61,12 +65,11 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 
 	public ElectricNetwork newNetwork(EnergyTier tier) {
 		ElectricNetwork newNetwork = new ElectricNetwork(tier);
-		electricNetworks.add(newNetwork);
+		pendingNetworks.add(newNetwork);
 
 		TechReborn.LOGGER.debug(
-				"Created new electric network ID: {} (total: {})",
-				newNetwork,
-				electricNetworks.size());
+				"Enqueued new electric network ID: {}",
+				newNetwork);
 
 		return newNetwork;
 	}
