@@ -35,7 +35,6 @@ import net.minecraft.nbt.NbtHelper;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Pair;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
@@ -45,7 +44,7 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
-import team.reborn.energy.*;
+import team.reborn.energy.Energy;
 import techreborn.TechReborn;
 import techreborn.blocks.cable.CableBlock;
 import techreborn.enet.ElectricNetwork;
@@ -58,7 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wgraham17 on 28/05/2020.
+ * Created by modmuss50 on 19/05/2017.
  */
 
 public class CableBlockEntity extends BlockEntity
