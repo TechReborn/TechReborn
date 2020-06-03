@@ -34,6 +34,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -48,6 +49,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.init.TRContent.SolarPanels;
 
+import java.lang.Math;
 import java.util.List;
 
 public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, BuiltScreenHandlerProvider {
@@ -63,6 +65,10 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	private int state = ZEROGEN;
 	private int prevState = ZEROGEN;
 
+	public double incidenceAngle = 0;
+	private int generationRateD = 0;
+	private int updateCounter = 0;
+
 	private SolarPanels panel;
 
 	public SolarPanelBlockEntity() {
@@ -72,6 +78,30 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public SolarPanelBlockEntity(SolarPanels panel) {
 		super(TRBlockEntities.SOLAR_PANEL);
 		this.panel = panel;
+	}
+
+	// Normalizes radians to [0; 1]
+	private static double normalizeRadians(double angle) {
+		return angle / (Math.PI * 2);
+	}
+
+	// returns normalized incidence angle,
+	// where 0.0 =^= 0° (no incidence) and 1.0 =^= 90° (full incidence)
+	private static  double skyToIncidenceAngle(double skyAngle) {
+		if (skyAngle <= 0.25) {
+			// noon to evening
+			return 1.0 - skyAngle * 4;
+		} else if (skyAngle >= 0.75) {
+			// morning to noon
+			return (skyAngle - 0.75) * 4;
+		}
+
+		return 0;
+	}
+
+	private static double getIncidenceAngle(World world) {
+		double angle = normalizeRadians(world.getSkyAngleRadians(0));
+		return skyToIncidenceAngle(angle);
 	}
 
 	private void updatePanel() {
@@ -95,11 +125,36 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		return state;
 	}
 
+	public int getUpdateCounter() {
+		return updateCounter;
+	}
+
+	public void setUpdateCounter(int v){
+		updateCounter = v;
+	}
+
 	SolarPanels getPanel() {
 		if (panel == null) {
 			updatePanel();
 		}
 		return panel;
+	}
+
+	private void updateSunlightIncidence() {
+		if (this.getSunState() == DAYGEN) {
+			incidenceAngle = getIncidenceAngle(world);
+			// Generation rates follow the sine of the lightray incidence angle
+			final double incidenceFactor = Math.sin((Math.PI/2)*incidenceAngle);
+			// Round to the nearest whole number
+			final int generation = (int) Math.round(getPanel().generationRateD * incidenceFactor);
+			// Make sure that day generation never drops below night generation rates, for consistency
+			generationRateD = Math.max(generation, getPanel().generationRateN);
+			// Hack to update GUI on light incidence change
+			++updateCounter;
+		} else {
+			incidenceAngle = 0;
+			generationRateD = getPanel().generationRateN;
+		}
 	}
 
 	private void updateState() {
@@ -127,6 +182,16 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 			prevState = this.getSunState();
 		}
+
+		this.updateSunlightIncidence();
+	}
+
+	private boolean isServer() {
+		if (this.world == null) {
+			return false;
+		}
+
+		return !this.world.isClient;
 	}
 
 	public int getGenerationRate() {
@@ -134,7 +199,11 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 		switch (getSunState()) {
 			case DAYGEN:
-				rate = getPanel().generationRateD;
+				if (!isServer()) {
+					this.updateSunlightIncidence();
+				}
+
+				rate = generationRateD;
 				break;
 			case NIGHTGEN:
 				rate = getPanel().generationRateN;
@@ -297,6 +366,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 		return new ScreenHandlerBuilder("solar_panel").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).syncEnergyValue()
 				.sync(this::getSunState, this::setSunState)
+				.sync(this::getUpdateCounter, this::setUpdateCounter)
 				.addInventory().create(this, syncID);
 	}
 }

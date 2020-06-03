@@ -697,6 +697,8 @@
   "techreborn.message.daygen": "Panel in direct sunlight",
   "techreborn.message.nightgen": "Panel in reduced sunlight",
   "techreborn.message.zerogen": "Panel obstructed from sky",
+  "techreborn.message.solarAngle": "Incidence angle: %s",
+  "techreborn.message.generationRate": "Generating: %d E/t",
 
   "techreborn.message.info.item.techreborn.overclocker_upgrade": "Increases speed at the cost of more energy",
   "techreborn.message.info.item.techreborn.transformer_upgrade": "Increase energy tier",
