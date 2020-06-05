@@ -25,12 +25,14 @@
 package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import reborncore.api.IToolDrop;
 import reborncore.common.blocks.BlockMachineBase;
@@ -76,12 +78,12 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 					onStatusHoldTicks = 400;
 					return;
 				}
-				final LightningEntity lightningBolt = new LightningEntity(world,
-					pos.getX() + 0.5F, world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos()).getY(),
-					pos.getZ() + 0.5F, false);
-				
+
+				LightningEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world);
+				lightningBolt.method_29495(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
+
 				if (!world.isClient) {
-					((ServerWorld) world).addLightning(lightningBolt);
+					((ServerWorld) world).spawnEntity(lightningBolt);
 				}
 				addEnergy(TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength));
 				machineBaseBlock.setActive(true, world, pos);
