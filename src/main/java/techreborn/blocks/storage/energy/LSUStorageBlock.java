@@ -24,7 +24,7 @@
 
 package techreborn.blocks.storage.energy;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
@@ -49,7 +49,7 @@ import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 public class LSUStorageBlock extends BaseBlockEntityProvider {
 
 	public LSUStorageBlock() {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).build());
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
 
