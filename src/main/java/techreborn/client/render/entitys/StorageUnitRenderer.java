@@ -50,7 +50,7 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		if (storage.getWorld() == null) {
 			return;
 		}
-		ItemStack stack = storage.getStoredStack();
+		ItemStack stack = storage.getDisplayedStack();
 		if (stack.isEmpty()) {
 			return;
 		}
