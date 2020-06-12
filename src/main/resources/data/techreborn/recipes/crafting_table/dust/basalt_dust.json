@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "techreborn:basalt_small_dust"
+      "item": "techreborn:coal_small_dust"
     },
     {
-      "item": "techreborn:basalt_small_dust"
+      "item": "techreborn:obsidian_small_dust"
+    },`
+    {
+      "item": "techreborn:coal_small_dust"
     },
     {
-      "item": "techreborn:basalt_small_dust"
-    },
-    {
-      "item": "techreborn:basalt_small_dust"
+      "item": "techreborn:obsidian_small_dust"
     }
   ],
   "result": {
