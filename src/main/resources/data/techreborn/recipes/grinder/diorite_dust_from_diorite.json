@@ -5,12 +5,12 @@
   "ingredients": [
     {
       "item": "minecraft:diorite",
-	  "count": 8
+	  "count": 1
     }
   ],
   "results": [
     {
-      "item": "techreborn:quartz_dust"
+      "item": "techreborn:diorite_dust"
     }
   ]
 }
