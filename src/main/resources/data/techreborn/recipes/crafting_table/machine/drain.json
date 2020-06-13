@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PHP",
+    "FBF",
+    "PFP"
+  ],
+  "key": {
+    "P": {
+      "item": "techreborn:refined_iron_plate"
+    },
+    "B": {
+     "item": "minecraft:bucket"
+    },
+	"H": {
+	  "item": "minecraft:hopper"
+	},
+	"F": {
+	  "item": "techreborn:basic_machine_frame"
+	}
+  },
+  "result": {
+    "item": "techreborn:drain"
+  }
+}
