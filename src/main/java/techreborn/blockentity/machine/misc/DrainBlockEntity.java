@@ -27,22 +27,17 @@ package techreborn.blockentity.machine.misc;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidDrainable;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.WaterFluid;
 import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
-import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
-import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.init.TRBlockEntities;
 
 import javax.annotation.Nullable;
-import javax.swing.text.html.parser.Entity;
 
 public class DrainBlockEntity extends MachineBaseBlockEntity {
 
