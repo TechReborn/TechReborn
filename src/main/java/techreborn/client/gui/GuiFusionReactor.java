@@ -24,40 +24,35 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.tuple.Pair;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown;
 import reborncore.client.gui.builder.widget.GuiButtonUpDown.UpDownButtonType;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.multiblock.Multiblock;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.Color;
 import reborncore.common.util.Torus;
 import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
-import techreborn.init.TRContent;
 import techreborn.packets.ServerboundPackets;
 
-import java.util.List;
 import java.util.Optional;
 
 public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
-	FusionControlComputerBlockEntity blockEntity;
+
+	private final FusionControlComputerBlockEntity blockEntity;
 
 	public GuiFusionReactor(int syncID, final PlayerEntity player, final FusionControlComputerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
-	
+
 	@Override
 	public void init() {
 		super.init();
@@ -77,7 +72,7 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 		drawOutputSlot(matrixStack, 80, 47, layer);
 
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
-		if (blockEntity.getCoilStatus() > 0) {
+		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(matrixStack, this, 6, 4, mouseX, mouseY, layer);
 		}
 
@@ -90,10 +85,10 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 55, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 105, 51, mouseX, mouseY, GuiBuilder.ProgressDirection.LEFT, layer);
-		if (blockEntity.getCoilStatus() > 0) {
+		if (blockEntity.isMultiblockValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::hologramToggle);
 			drawCentredText(matrixStack, blockEntity.getStateText(), 20, Color.BLUE.darker().getColor(), layer);
-			if(blockEntity.state == 2){
+			if (blockEntity.state == 2) {
 				drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormatted((int) blockEntity.getPowerChange())).append("/t"), 30, Color.GREEN.darker().getColor(), layer);
 			}
 		} else {
@@ -102,60 +97,37 @@ public class GuiFusionReactor extends GuiBase<BuiltScreenHandler> {
 			builder.drawHologramButton(matrixStack, this, 76, 56, mouseX, mouseY, layer);
 
 			Optional<Pair<Integer, Integer>> stackSize = getCoilStackCount();
-			if(stackSize.isPresent()){
-				if(stackSize.get().getLeft() > 0){
+			if (stackSize.isPresent()) {
+				if (stackSize.get().getLeft() > 0) {
 
 					drawCentredText(matrixStack,
 							new LiteralText("Required Coils: ")
-								.append(String.valueOf(stackSize.get().getLeft()))
-								.append("x64 +")
-								.append(String.valueOf(stackSize.get().getRight()))
-							, 25, 0xFFFFFF,  layer);
+									.append(String.valueOf(stackSize.get().getLeft()))
+									.append("x64 +")
+									.append(String.valueOf(stackSize.get().getRight()))
+							, 25, 0xFFFFFF, layer);
 				} else {
 					drawCentredText(matrixStack, new LiteralText("Required Coils: ").append(String.valueOf(stackSize.get().getRight())), 25, 0xFFFFFF, layer);
 				}
 
 			}
 		}
-		drawTextWithShadow(matrixStack, client.textRenderer,  new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
-		drawTextWithShadow(matrixStack, client.textRenderer,new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText("Size: ").append(String.valueOf(blockEntity.size)), 83, 81, 0xFFFFFF);
+		drawTextWithShadow(matrixStack, client.textRenderer, new LiteralText(String.valueOf(blockEntity.getPowerMultiplier())).append("x"), 10, 81, 0xFFFFFF);
 
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
-	public void hologramToggle(GuiButtonExtended button, double x, double y){
-		if (hideGuiElements()) return;
-		if (blockEntity.renderMultiblock == null) {
-			updateMultiBlockRender();
-		} else {
-			blockEntity.renderMultiblock = null;
-		}
+	public void hologramToggle(GuiButtonExtended button, double x, double y) {
+		blockEntity.renderMultiblock ^= !hideGuiElements();
 	}
 
-	private void sendSizeChange(int sizeDelta){
+	private void sendSizeChange(int sizeDelta) {
 		NetworkManager.sendToServer(ServerboundPackets.createPacketFusionControlSize(sizeDelta, blockEntity.getPos()));
-		//Reset the multiblock as it will be wrong now.
-		if(blockEntity.renderMultiblock != null){
-			updateMultiBlockRender();
-		}
 	}
 
-	private void updateMultiBlockRender(){
-		final Multiblock multiblock = new Multiblock();
-		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
-
-		List<BlockPos> coils = Torus.generate(new BlockPos(0, 0, 0), blockEntity.size);
-		coils.forEach(pos -> addComponent(pos.getX(), pos.getY(), pos.getZ(), coil, multiblock));
-
-		blockEntity.renderMultiblock = multiblock;
-	}
-	
-	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x, y, z), blockState);
-	}
-
-	public Optional<Pair<Integer, Integer>> getCoilStackCount(){
-		if(!Torus.TORUS_SIZE_MAP.containsKey(blockEntity.size)){
+	public Optional<Pair<Integer, Integer>> getCoilStackCount() {
+		if (!Torus.TORUS_SIZE_MAP.containsKey(blockEntity.size)) {
 			return Optional.empty();
 		}
 		int count = Torus.TORUS_SIZE_MAP.get(blockEntity.size);

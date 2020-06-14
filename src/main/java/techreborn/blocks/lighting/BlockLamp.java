@@ -89,7 +89,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	}
 
 	public static boolean isActive(BlockState state) {
-		return state.get(ACTIVE);
+		return state.contains(ACTIVE) && state.get(ACTIVE);
 	}
 
 	public static Direction getFacing(BlockState state) {

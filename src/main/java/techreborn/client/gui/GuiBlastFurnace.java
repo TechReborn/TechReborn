@@ -25,22 +25,17 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.multiblock.Multiblock;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
-import techreborn.init.TRContent;
 
 public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 
-	public IndustrialBlastFurnaceBlockEntity blockEntity;
+	private final IndustrialBlastFurnaceBlockEntity blockEntity;
 	boolean hasMultiBlock;
 
 	public GuiBlastFurnace(int syncID, final PlayerEntity player, final IndustrialBlastFurnaceBlockEntity blockEntity) {
@@ -61,9 +56,9 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
-		
+
 		drawSlot(matrixStack, 8, 72, layer);
-		
+
 		drawSlot(matrixStack, 50, 27, layer);
 		drawSlot(matrixStack, 50, 47, layer);
 		drawOutputSlotBar(matrixStack, 92, 36, 2, layer);
@@ -93,62 +88,7 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
-	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (hideGuiElements()) return;
-		if (blockEntity.renderMultiblock == null) {
-			{
-				// This code here makes a basic multiblock and then sets to the selected one.
-				final Multiblock multiblock = new Multiblock();
-				BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-
-				this.addComponent(0, 0, 0, standardCasing, multiblock);
-				this.addComponent(1, 0, 0, standardCasing, multiblock);
-				this.addComponent(0, 0, 1, standardCasing, multiblock);
-				this.addComponent(-1, 0, 0, standardCasing, multiblock);
-				this.addComponent(0, 0, -1, standardCasing, multiblock);
-				this.addComponent(-1, 0, -1, standardCasing, multiblock);
-				this.addComponent(-1, 0, 1, standardCasing, multiblock);
-				this.addComponent(1, 0, -1, standardCasing, multiblock);
-				this.addComponent(1, 0, 1, standardCasing, multiblock);
-
-				this.addComponent(1, 1, 0, standardCasing, multiblock);
-				this.addComponent(0, 1, 1, standardCasing, multiblock);
-				this.addComponent(-1, 1, 0, standardCasing, multiblock);
-				this.addComponent(0, 1, -1, standardCasing, multiblock);
-				this.addComponent(-1, 1, -1, standardCasing, multiblock);
-				this.addComponent(-1, 1, 1, standardCasing, multiblock);
-				this.addComponent(1, 1, -1, standardCasing, multiblock);
-				this.addComponent(1, 1, 1, standardCasing, multiblock);
-
-				this.addComponent(1, 2, 0, standardCasing, multiblock);
-				this.addComponent(0, 2, 1, standardCasing, multiblock);
-				this.addComponent(-1, 2, 0, standardCasing, multiblock);
-				this.addComponent(0, 2, -1, standardCasing, multiblock);
-				this.addComponent(-1, 2, -1, standardCasing, multiblock);
-				this.addComponent(-1, 2, 1, standardCasing, multiblock);
-				this.addComponent(1, 2, -1, standardCasing, multiblock);
-				this.addComponent(1, 2, 1, standardCasing, multiblock);
-
-				this.addComponent(0, 3, 0, standardCasing, multiblock);
-				this.addComponent(1, 3, 0, standardCasing, multiblock);
-				this.addComponent(0, 3, 1, standardCasing, multiblock);
-				this.addComponent(-1, 3, 0, standardCasing, multiblock);
-				this.addComponent(0, 3, -1, standardCasing, multiblock);
-				this.addComponent(-1, 3, -1, standardCasing, multiblock);
-				this.addComponent(-1, 3, 1, standardCasing, multiblock);
-				this.addComponent(1, 3, -1, standardCasing, multiblock);
-				this.addComponent(1, 3, 1, standardCasing, multiblock);
-				blockEntity.renderMultiblock = multiblock;
-			}
-		} else {
-			blockEntity.renderMultiblock = null;
-		}
+	public void onClick(GuiButtonExtended button, Double x, Double y) {
+		blockEntity.renderMultiblock ^= !hideGuiElements();
 	}
-
-	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2,
-				y,
-				z - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2), blockState);
-	}
-
 }

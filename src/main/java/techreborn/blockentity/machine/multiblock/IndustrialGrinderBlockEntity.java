@@ -25,24 +25,24 @@
 package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;
@@ -51,41 +51,31 @@ public class IndustrialGrinderBlockEntity extends GenericMachineBlockEntity impl
 
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
-	public MultiblockChecker multiblockChecker;
 	int ticksSinceLastChange;
 
 	public IndustrialGrinderBlockEntity() {
 		super(TRBlockEntities.INDUSTRIAL_GRINDER, "IndustrialGrinder", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] {2, 3, 4, 5};
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(8, "IndustrialGrinderBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_GRINDER, this, 1, 4, this.inventory, inputs, outputs);
 		this.tank = new Tank("IndustrialGrinderBlockEntity", IndustrialGrinderBlockEntity.TANK_CAPACITY, this);
 		this.ticksSinceLastChange = 0;
 	}
 
-	public boolean getMultiBlock() {
-		if (multiblockChecker == null) {
-			return false;
-		}
-		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean blade = multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
-		final BlockState centerBlock = multiblockChecker.getBlock(0, 1, 0);
-		final boolean center = ((centerBlock.getBlock() instanceof FluidBlock
-				|| centerBlock.getBlock() instanceof FluidBlock)
-				&& centerBlock.getMaterial() == Material.WATER);
-		return down && center && blade && up;
+	@Override
+	public void writeMultiblock(MultiblockWriter writer) {
+		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
+		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+		writer	.translate(1, -1, -1)
+				.fill(0, 0, 0, 3, 1, 3, basic)
+				.ring(Direction.Axis.Y, 3, 1, 3, (view, pos) -> view.getBlockState(pos) == advanced, advanced, (view, pos) -> view.getBlockState(pos).getMaterial() == Material.WATER, Blocks.WATER.getDefaultState())
+				.fill(0, 2, 0, 3, 3, 3, basic);
 	}
 
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
-		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2).offset(Direction.DOWN, 1);
-			multiblockChecker = new MultiblockChecker(world, downCenter);
-		}
-
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {

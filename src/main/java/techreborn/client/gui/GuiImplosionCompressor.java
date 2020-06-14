@@ -25,21 +25,17 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.multiblock.Multiblock;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
-import techreborn.init.TRContent;
 
 public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 
-	ImplosionCompressorBlockEntity blockEntity;
+	private final ImplosionCompressorBlockEntity blockEntity;
 
 	public GuiImplosionCompressor(int syncID, final PlayerEntity player, final ImplosionCompressorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
@@ -54,13 +50,13 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
 		drawSlot(matrixStack, 8, 72, layer);
-		
+
 		drawSlot(matrixStack, 50, 27, layer);
 		drawSlot(matrixStack, 50, 47, layer);
 		drawSlot(matrixStack, 92, 36, layer);
 		drawSlot(matrixStack, 110, 36, layer);
 
-		if (blockEntity.getMutliBlock()) {
+		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(matrixStack, this, 6, 4, mouseX, mouseY, layer);
 		}
 
@@ -73,7 +69,7 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 71, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (blockEntity.getMutliBlock()) {
+		if (blockEntity.isMultiblockValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(matrixStack, this, layer);
@@ -84,30 +80,7 @@ public class GuiImplosionCompressor extends GuiBase<BuiltScreenHandler> {
 
 	}
 
-	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY){
-		if (hideGuiElements()) return;
-		if (blockEntity.renderMultiblock == null) {
-			{
-				// This code here makes a basic multiblock and then sets to the selected one.
-				final Multiblock multiblock = new Multiblock();
-				for (int x = -1; x <= 1; x++) {
-					for (int y = -4; y <= -2; y++) {
-						for (int z = -1; z <= 1; z++) {
-							if (!((x == 0) && (y == -3) && (z == 0))) {
-								this.addComponent(x, y + 1, z, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState(), multiblock);
-							}
-						}
-					}
-				}
-
-				blockEntity.renderMultiblock = multiblock;
-			}
-		} else {
-			blockEntity.renderMultiblock = null;
-		}
-	}
-
-	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x, y, z), blockState);
+	public void onClick(GuiButtonExtended button, Double mouseX, Double mouseY) {
+		blockEntity.renderMultiblock ^= !hideGuiElements();
 	}
 }
