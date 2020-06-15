@@ -76,7 +76,7 @@ dependencies {
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.11.6+build.355-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.3.7-unstable")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.5.1")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.4.2')
 
