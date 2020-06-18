@@ -31,6 +31,8 @@ import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.common.util.StringUtils;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
+import reborncore.common.network.NetworkManager;
+import techreborn.packets.ServerboundPackets;
 
 public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 
@@ -57,12 +59,11 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 
-		if (storageEntity.isEmpty()) {
+		if (storageEntity.isEmpty() && !storageEntity.isLocked()) {
 			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.store"), 10, 20, 4210752);
 			textRenderer.draw(matrixStack, storageEntity.getStoredStack().getName(), 10, 30, 4210752);
-
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.amount"), 10, 50, 4210752);
 			textRenderer.draw(matrixStack, String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
@@ -73,5 +74,14 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
+	}
+
+	@Override
+	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+		if (isPointInRect(150, 4, 20, 12, mouseX, mouseY) && storageEntity.canModifyLocking()) {
+			NetworkManager.sendToServer(ServerboundPackets.createPacketStorageUnitLock(storageEntity, !storageEntity.isLocked()));
+			return true;
+		}
+		return super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 }

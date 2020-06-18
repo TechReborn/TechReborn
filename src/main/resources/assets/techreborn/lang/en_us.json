@@ -690,6 +690,8 @@
   "techreborn.message.info.block.techreborn.quantum_tank": "Stores near-infinite of a single liquid",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Charges up to 6 items simultaneously",
   "techreborn.message.info.block.techreborn.chunk_loader": "Keeps chunks loaded, allows machines to run when you're not nearby",
+  "techreborn.message.info.block.techreborn.drain": "Pulls any fluid directly above it, pairs nicely with a tank unit underneath",
+
 
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",

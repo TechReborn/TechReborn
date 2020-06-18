@@ -68,6 +68,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	private TRContent.StorageUnit type;
 
+	// A locked storage unit will continue behaving as if it contains
+	// the locked-in item, even if the stored amount drops to zero.
+	private ItemStack lockedItemStack = ItemStack.EMPTY;
+
 	public StorageUnitBaseBlockEntity() {
 		super(TRBlockEntities.STORAGE_UNIT);
 	}
@@ -170,6 +174,16 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		return storeItemStack.isEmpty() ? inventory.getStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
+	// Returns the ItemStack to be displayed to the player via UI / model
+	public ItemStack getDisplayedStack() {
+		if (!isLocked()) {
+			return getStoredStack();
+		} else {
+			// Render the locked stack even if the unit is empty
+			return lockedItemStack;
+		}
+	}
+
 	public ItemStack getAll() {
 		ItemStack returnStack = ItemStack.EMPTY;
 
@@ -222,6 +236,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public boolean isSameType(ItemStack inputStack) {
+		if (isLocked()) {
+			return ItemUtils.isItemEqual(lockedItemStack, inputStack, true, true);
+		}
+
 		if (inputStack != ItemStack.EMPTY) {
 			return ItemUtils.isItemEqual(getStoredStack(), inputStack, true, true);
 		}
@@ -281,6 +299,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
 		}
 
+		if (tagCompound.contains("lockedItem")) {
+			lockedItemStack = ItemStack.fromTag(tagCompound.getCompound("lockedItem"));
+		}
+
 		inventory.read(tagCompound);
 	}
 
@@ -300,6 +322,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
 		}
+
+		if (isLocked()) {
+			tagCompound.put("lockedItem", lockedItemStack.toTag(new CompoundTag()));
+		}
+
 		inventory.write(tagCompound);
 		return tagCompound;
 	}
@@ -390,9 +417,43 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		// Inventory gets dropped automatically
 	}
 
-	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
-		return new ScreenHandlerBuilder("chest").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53).addInventory().create(this, syncID);
+	// The int methods are only for ContainerBuilder.sync()
+	private int isLockedInt() {
+		return isLocked() ? 1 : 0;
+	}
+
+	private void setLockedInt(int lockedInt) {
+		setLocked(lockedInt == 1);
+	}
+
+	public boolean isLocked() {
+		return lockedItemStack != ItemStack.EMPTY;
+	}
+
+	public void setLocked(boolean value) {
+		// Only set lockedItem in response to user input
+		if (isLocked() == value) {
+			return;
+		}
+
+		lockedItemStack = value ? getStoredStack().copy() : ItemStack.EMPTY;
+	}
+
+	public boolean canModifyLocking() {
+		// Can always be unlocked
+		if (isLocked()) {
+			return true;
+		}
+
+		// Can only lock if there is an item to lock
+		return !isEmpty();
+	}
+
+	@Override
+	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
+		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
+				.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53)
+				.sync(this::isLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	@Override

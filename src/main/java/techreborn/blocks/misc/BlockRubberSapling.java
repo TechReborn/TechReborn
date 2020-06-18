@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.sound.BlockSoundGroup;
@@ -36,6 +36,6 @@ import techreborn.world.RubberSaplingGenerator;
 public class BlockRubberSapling extends SaplingBlock {
 
 	public BlockRubberSapling() {
-		super(new RubberSaplingGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly().breakInstantly().build());
+		super(new RubberSaplingGenerator(), FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GRASS).noCollision().ticksRandomly().breakInstantly());
 	}
 }

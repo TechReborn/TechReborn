@@ -24,7 +24,7 @@
 
 package techreborn.blocks.lighting;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -61,10 +61,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	private static int brightness = 15;
 
 	public BlockLamp(int cost, double depth, double width) {
-		super(AbstractBlock.Settings.of(Material.REDSTONE_LAMP)
-				.strength(2f, 2f)
-				.lightLevel(value -> value.get(ACTIVE) ? brightness : 0)
-		);
+		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness));
 		this.shape = genCuboidShapes(depth, width);
 		this.cost = cost;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));

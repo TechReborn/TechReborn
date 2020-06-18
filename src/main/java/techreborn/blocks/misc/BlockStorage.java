@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.sound.BlockSoundGroup;
 import reborncore.common.BaseBlock;
@@ -32,16 +32,6 @@ import reborncore.common.BaseBlock;
 public class BlockStorage extends BaseBlock {
 
 	public BlockStorage() {
-		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL).build());
+		super(FabricBlockSettings.of(Material.METAL).strength(2f, 2f).sounds(BlockSoundGroup.METAL));
 	}
-
-//	public static ItemStack getStorageBlockByName(String name, int count) {
-//		for (int i = 0; i < types.length; i++) {
-//			if (types[i].equals(name)) {
-//				return new ItemStack(ModBlocks.STORAGE, count, i);
-//			}
-//		}
-//		return BlockStorage2.getStorageBlockByName(name, count);
-//	}
-
 }
