@@ -32,8 +32,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import reborncore.api.IToolDrop;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 	implements IToolDrop {

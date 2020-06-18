@@ -44,7 +44,6 @@ import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
-import reborncore.common.util.StringUtils;
 import reborncore.common.util.WorldUtils;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

@@ -34,8 +34,8 @@ import net.minecraft.world.World;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.multiblock.MultiblockControllerBase;
 import reborncore.common.multiblock.MultiblockValidationException;
-import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
 import reborncore.common.multiblock.rectangular.RectangularMultiblockBlockEntityBase;
+import reborncore.common.multiblock.rectangular.RectangularMultiblockControllerBase;
 import techreborn.blocks.misc.BlockMachineCasing;
 
 public class MultiBlockCasing extends RectangularMultiblockControllerBase {

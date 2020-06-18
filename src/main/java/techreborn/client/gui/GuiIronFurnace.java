@@ -24,11 +24,7 @@
 
 package techreborn.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mojang.blaze3d.platform.GlStateManager;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,14 +32,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonSimple;
 import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.packets.ServerboundPackets;
 import techreborn.utils.PlayerUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 

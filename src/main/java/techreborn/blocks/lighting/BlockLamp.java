@@ -49,7 +49,6 @@ import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.lighting.LampBlockEntity;
 
 import javax.annotation.Nullable;
-import java.util.function.ToIntFunction;
 
 public class BlockLamp extends BaseBlockEntityProvider {
 

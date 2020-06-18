@@ -27,11 +27,10 @@ package techreborn.client.gui;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.util.StringUtils;
-import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.packets.ServerboundPackets;
 
 public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {

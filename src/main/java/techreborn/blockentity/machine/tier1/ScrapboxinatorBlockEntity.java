@@ -30,10 +30,10 @@ import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.util.RebornInventory;
 import techreborn.api.recipe.ScrapboxRecipeCrafter;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
-import techreborn.init.TRBlockEntities;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 

@@ -37,7 +37,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.util.StringUtils;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
 import techreborn.compat.rei.ReiPlugin;
 

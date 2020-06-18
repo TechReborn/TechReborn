@@ -36,11 +36,11 @@ import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.IInventoryAccess;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
 import javax.annotation.Nullable;

@@ -26,8 +26,8 @@ package techreborn.client.gui;
 
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 
 public class GuiGenerator extends GuiBase<BuiltScreenHandler> {

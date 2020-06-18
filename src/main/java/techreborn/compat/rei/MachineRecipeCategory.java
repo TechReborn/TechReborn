@@ -41,7 +41,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.util.StringUtils;
 
 import java.util.Collections;
 import java.util.LinkedList;

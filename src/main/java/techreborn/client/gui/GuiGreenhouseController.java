@@ -33,21 +33,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.multiblock.Multiblock;
-import reborncore.common.util.StringUtils;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.GreenhouseControllerBlockEntity;
 import techreborn.init.TRContent;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {

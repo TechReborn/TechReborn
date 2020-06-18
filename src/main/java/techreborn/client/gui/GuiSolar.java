@@ -28,9 +28,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.common.util.StringUtils;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.generator.SolarPanelBlockEntity;
 
 public class GuiSolar extends GuiBase<BuiltScreenHandler> {
