@@ -28,9 +28,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemDurabilityExtensions;
-import reborncore.common.util.ItemUtils;
 import techreborn.TechReborn;
 
 import java.util.UUID;

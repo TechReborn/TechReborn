@@ -24,15 +24,15 @@
 
 package techreborn.init;
 
-import java.util.Locale;
-import java.util.function.Supplier;
-
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
+
+import java.util.Locale;
+import java.util.function.Supplier;
 
 
 public enum TRArmorMaterials implements ArmorMaterial {

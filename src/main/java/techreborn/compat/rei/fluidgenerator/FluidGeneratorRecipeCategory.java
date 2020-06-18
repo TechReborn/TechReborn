@@ -35,7 +35,6 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-import reborncore.common.util.StringUtils;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 

@@ -24,17 +24,24 @@
 
 package techreborn.blockentity.machine.misc;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FluidDrainable;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import reborncore.api.IListInfoProvider;
-import reborncore.api.blockentity.InventoryProvider;
-import reborncore.client.screen.BuiltScreenHandlerProvider;
-import reborncore.client.screen.builder.BuiltScreenHandler;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.util.math.BlockPos;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.fluid.FluidValue;
+import reborncore.common.fluid.container.FluidInstance;
+import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
 
-public class DrainBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IListInfoProvider, BuiltScreenHandlerProvider {
+import javax.annotation.Nullable;
+
+public class DrainBlockEntity extends MachineBaseBlockEntity {
+
+	protected Tank internalTank = new Tank("tank", FluidValue.BUCKET, this);
 
 	public DrainBlockEntity(){
 		this(TRBlockEntities.DRAIN);
@@ -45,12 +52,41 @@ public class DrainBlockEntity extends MachineBaseBlockEntity implements Inventor
 	}
 
 	@Override
-	public Inventory getInventory() {
-		return null;
+	public void tick() {
+		super.tick();
+		if(world.isClient){
+			return;
+		}
+
+		if (world.getTime() % 10 == 0) {
+
+			if(internalTank.isEmpty()) {
+				tryDrain();
+			}
+		}
 	}
 
+	@Nullable
 	@Override
-	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return null;
+	public Tank getTank() {
+		return internalTank;
+	}
+
+	private void tryDrain(){
+		// Position above drain
+		BlockPos above = this.getPos().up();
+
+		// Block and state above drain
+		BlockState aboveBlockState = world.getBlockState(above);
+		Block aboveBlock = aboveBlockState.getBlock();
+
+		if (aboveBlock instanceof FluidDrainable) {
+
+			Fluid drainFluid = ((FluidDrainable) aboveBlock).tryDrainFluid(world, above, aboveBlockState);
+
+			if (drainFluid != Fluids.EMPTY) {
+				internalTank.setFluidInstance(new FluidInstance(drainFluid, FluidValue.BUCKET));
+			}
+		}
 	}
 }

@@ -1,16 +1,16 @@
 {
   "type": "techreborn:grinder",
   "power": 2,
-  "time": 720,
+  "time": 1440,
   "ingredients": [
     {
-      "item": "minecraft:granite",
-	  "count": 4
+      "item": "minecraft:diorite",
+	  "count": 1
     }
   ],
   "results": [
     {
-      "item": "techreborn:quartz_dust"
+      "item": "techreborn:diorite_dust"
     }
   ]
 }

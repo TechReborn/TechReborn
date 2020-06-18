@@ -4,12 +4,12 @@
   "time": 180,
   "ingredients" : [
     {
-      "item": "minecraft:gravel"
+      "item": "minecraft:cobblestone"
     }
   ],
   "results" : [
     {
-      "item": "minecraft:sand"
+      "item": "minecraft:gravel"
     }
   ]
 }

@@ -24,7 +24,7 @@
 
 package techreborn.blocks.misc;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.Material;
@@ -35,7 +35,7 @@ import net.minecraft.util.math.Direction;
 public class BlockRefinedIronFence extends FenceBlock {
 
 	public BlockRefinedIronFence() {
-		super(FabricBlockSettings.of(Material.METAL, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.METAL).build());
+		super(FabricBlockSettings.of(Material.METAL, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.METAL));
 	}
 
 	@Override

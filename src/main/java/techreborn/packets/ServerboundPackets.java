@@ -37,12 +37,13 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
+import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
 import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
+import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
@@ -53,6 +54,7 @@ public class ServerboundPackets {
 	public static final Identifier AESU = new Identifier(TechReborn.MOD_ID, "aesu");
 	public static final Identifier AUTO_CRAFTING_LOCK = new Identifier(TechReborn.MOD_ID, "auto_crafting_lock");
 	public static final Identifier ROLLING_MACHINE_LOCK = new Identifier(TechReborn.MOD_ID, "rolling_machine_lock");
+	public static final Identifier STORAGE_UNIT_LOCK = new Identifier(TechReborn.MOD_ID, "storage_unit_lock");
 	public static final Identifier FUSION_CONTROL_SIZE = new Identifier(TechReborn.MOD_ID, "fusion_control_size");
 	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
 	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
@@ -105,6 +107,18 @@ public class ServerboundPackets {
 				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof RollingMachineBlockEntity) {
 					((RollingMachineBlockEntity) BlockEntity).locked = locked;
+				}
+			});
+		});
+
+		registerPacketHandler(STORAGE_UNIT_LOCK, (extendedPacketBuffer, context) -> {
+			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
+			boolean locked = extendedPacketBuffer.readBoolean();
+
+			context.getTaskQueue().execute(() -> {
+				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+				if (BlockEntity instanceof StorageUnitBaseBlockEntity) {
+					((StorageUnitBaseBlockEntity) BlockEntity).setLocked(locked);
 				}
 			});
 		});
@@ -183,6 +197,13 @@ public class ServerboundPackets {
 
 	public static Packet<ServerPlayPacketListener> createPacketRollingMachineLock(RollingMachineBlockEntity machine, boolean locked) {
 		return NetworkManager.createServerBoundPacket(ROLLING_MACHINE_LOCK, extendedPacketBuffer -> {
+			extendedPacketBuffer.writeBlockPos(machine.getPos());
+			extendedPacketBuffer.writeBoolean(locked);
+		});
+	}
+
+	public static Packet<ServerPlayPacketListener> createPacketStorageUnitLock(StorageUnitBaseBlockEntity machine, boolean locked) {
+		return NetworkManager.createServerBoundPacket(STORAGE_UNIT_LOCK, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(machine.getPos());
 			extendedPacketBuffer.writeBoolean(locked);
 		});

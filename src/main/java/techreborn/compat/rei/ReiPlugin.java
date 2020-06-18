@@ -25,12 +25,7 @@
 package techreborn.compat.rei;
 
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.BaseBoundsHandler;
-import me.shedaniel.rei.api.DisplayHelper;
-import me.shedaniel.rei.api.EntryRegistry;
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeDisplay;
-import me.shedaniel.rei.api.RecipeHelper;
+import me.shedaniel.rei.api.*;
 import me.shedaniel.rei.api.plugins.REIPluginV0;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

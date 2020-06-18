@@ -66,7 +66,7 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 		ItemTooltipCallback.EVENT.register(new StackToolTipHandler());
 
 		// WIP injection
-		wipBlocks.add(TRContent.Machine.DRAIN.block);
+		// wipBlocks.add(TRContent.Machine.NAME.block);
 
 	}
 

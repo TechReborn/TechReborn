@@ -24,22 +24,29 @@
 
 package techreborn.client;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-import net.fabricmc.fabric.api.container.ContainerFactory;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import reborncore.RebornCore;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
-import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.data.DataDrivenBEProvider;
 import techreborn.blockentity.data.DataDrivenGui;
 import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
@@ -52,28 +59,8 @@ import techreborn.blockentity.generator.basic.SolidFuelGeneratorBlockEntity;
 import techreborn.blockentity.machine.iron.IronAlloyFurnaceBlockEntity;
 import techreborn.blockentity.machine.iron.IronFurnaceBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
-import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
-import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
-import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntity;
-import techreborn.blockentity.machine.multiblock.ImplosionCompressorBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialBlastFurnaceBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
-import techreborn.blockentity.machine.multiblock.IndustrialSawmillBlockEntity;
-import techreborn.blockentity.machine.multiblock.VacuumFreezerBlockEntity;
-import techreborn.blockentity.machine.tier1.AlloySmelterBlockEntity;
-import techreborn.blockentity.machine.tier1.AssemblingMachineBlockEntity;
-import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
-import techreborn.blockentity.machine.tier1.ChemicalReactorBlockEntity;
-import techreborn.blockentity.machine.tier1.CompressorBlockEntity;
-import techreborn.blockentity.machine.tier1.ElectricFurnaceBlockEntity;
-import techreborn.blockentity.machine.tier1.ExtractorBlockEntity;
-import techreborn.blockentity.machine.tier1.GreenhouseControllerBlockEntity;
-import techreborn.blockentity.machine.tier1.IndustrialElectrolyzerBlockEntity;
-import techreborn.blockentity.machine.tier1.RecyclerBlockEntity;
-import techreborn.blockentity.machine.tier1.RollingMachineBlockEntity;
-import techreborn.blockentity.machine.tier1.ScrapboxinatorBlockEntity;
-import techreborn.blockentity.machine.tier1.SoildCanningMachineBlockEntity;
-import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
+import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
@@ -85,50 +72,9 @@ import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
-import techreborn.client.gui.GuiAESU;
-import techreborn.client.gui.GuiAlloyFurnace;
-import techreborn.client.gui.GuiAlloySmelter;
-import techreborn.client.gui.GuiAssemblingMachine;
-import techreborn.client.gui.GuiAutoCrafting;
-import techreborn.client.gui.GuiBatbox;
-import techreborn.client.gui.GuiBlastFurnace;
-import techreborn.client.gui.GuiCentrifuge;
-import techreborn.client.gui.GuiChargeBench;
-import techreborn.client.gui.GuiChemicalReactor;
-import techreborn.client.gui.GuiChunkLoader;
-import techreborn.client.gui.GuiCompressor;
-import techreborn.client.gui.GuiDieselGenerator;
-import techreborn.client.gui.GuiDistillationTower;
-import techreborn.client.gui.GuiElectricFurnace;
-import techreborn.client.gui.GuiExtractor;
-import techreborn.client.gui.GuiFluidReplicator;
-import techreborn.client.gui.GuiFusionReactor;
-import techreborn.client.gui.GuiGasTurbine;
-import techreborn.client.gui.GuiGenerator;
-import techreborn.client.gui.GuiGreenhouseController;
-import techreborn.client.gui.GuiIDSU;
-import techreborn.client.gui.GuiImplosionCompressor;
-import techreborn.client.gui.GuiIndustrialElectrolyzer;
-import techreborn.client.gui.GuiIndustrialGrinder;
-import techreborn.client.gui.GuiIndustrialSawmill;
-import techreborn.client.gui.GuiIronFurnace;
-import techreborn.client.gui.GuiLESU;
-import techreborn.client.gui.GuiMFE;
-import techreborn.client.gui.GuiMFSU;
-import techreborn.client.gui.GuiMatterFabricator;
-import techreborn.client.gui.GuiPlasmaGenerator;
-import techreborn.client.gui.GuiRecycler;
-import techreborn.client.gui.GuiRollingMachine;
-import techreborn.client.gui.GuiScrapboxinator;
-import techreborn.client.gui.GuiSemifluidGenerator;
-import techreborn.client.gui.GuiSolar;
-import techreborn.client.gui.GuiSolidCanningMachine;
-import techreborn.client.gui.GuiStorageUnit;
-import techreborn.client.gui.GuiTankUnit;
-import techreborn.client.gui.GuiThermalGenerator;
-import techreborn.client.gui.GuiVacuumFreezer;
-import techreborn.client.gui.GuiWireMill;
+import techreborn.client.gui.*;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -197,32 +143,59 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	}
 
 	private final Identifier identifier;
-	private final Supplier<Supplier<GuiFactory<T>>> factorySupplierMeme;
+	private final Supplier<Supplier<GuiFactory<T>>> guiFactory;
+	private final ScreenHandlerRegistry.ExtendedClientHandlerFactory<BuiltScreenHandler> screenHandlerFactory;
+	private final ScreenHandlerType<BuiltScreenHandler> screenHandlerType;
 
 	private GuiType(Identifier identifier, Supplier<Supplier<GuiFactory<T>>> factorySupplierMeme) {
 		this.identifier = identifier;
-		this.factorySupplierMeme = factorySupplierMeme;
-		register();
+		this.guiFactory = factorySupplierMeme;
+		this.screenHandlerFactory = getScreenHandlerFactory();
+		this.screenHandlerType = ScreenHandlerRegistry.registerExtended(identifier, screenHandlerFactory);
+		RebornCore.clientOnly(() -> () -> ScreenRegistry.register(screenHandlerType, getGuiFactory()));
+	}
+
+	private ScreenHandlerRegistry.ExtendedClientHandlerFactory<BuiltScreenHandler> getScreenHandlerFactory() {
+		return (syncId, playerInventory, packetByteBuf) -> {
+			final BlockEntity blockEntity = playerInventory.player.world.getBlockEntity(packetByteBuf.readBlockPos());
+			BuiltScreenHandler screenHandler = ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncId, playerInventory.player);
+
+			//Set the screen handler type, not ideal but works lol
+			screenHandler.setType(screenHandlerType);
+
+			return screenHandler;
+		};
 	}
 
 	@Environment(EnvType.CLIENT)
-	private GuiFactory<T> getFactory() {
-		return factorySupplierMeme.get().get();
+	private GuiFactory<T> getGuiFactory() {
+		return guiFactory.get().get();
 	}
 
 	@Override
 	public void open(PlayerEntity player, BlockPos pos, World world) {
 		if(!world.isClient){
-			ContainerProviderRegistry.INSTANCE.openContainer(identifier, player, packetByteBuf -> packetByteBuf.writeBlockPos(pos));
-		}
-	}
+			//This is awful
+			player.openHandledScreen(new ExtendedScreenHandlerFactory() {
+				@Override
+				public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+					packetByteBuf.writeBlockPos(pos);
+				}
 
-	private void register() {
-		ContainerProviderRegistry.INSTANCE.registerFactory(identifier, (syncID, identifier, playerEntity, packetByteBuf) -> {
-			final BlockEntity blockEntity = playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			return ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncID, playerEntity);
-		});
-		RebornCore.clientOnly(() -> () -> ScreenProviderRegistry.INSTANCE.registerFactory(identifier, getFactory()));
+				@Override
+				public Text getDisplayName() {
+					return new LiteralText("What is this for?");
+				}
+
+				@Nullable
+				@Override
+				public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+					PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+					buf.writeBlockPos(pos);
+					return screenHandlerFactory.create(syncId, inv, buf);
+				}
+			});
+		}
 	}
 
 	public Identifier getIdentifier() {
@@ -230,14 +203,15 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	}
 
 	@Environment(EnvType.CLIENT)
-	public interface GuiFactory<T extends BlockEntity> extends ContainerFactory<HandledScreen> {
+	public interface GuiFactory<T extends BlockEntity> extends ScreenRegistry.Factory<BuiltScreenHandler, HandledScreen<BuiltScreenHandler>> {
 		HandledScreen<?> create(int syncId, PlayerEntity playerEntity, T blockEntity);
 
 		@Override
-		default HandledScreen create(int syncId, Identifier identifier, PlayerEntity playerEntity, PacketByteBuf packetByteBuf) {
+		default HandledScreen create(BuiltScreenHandler builtScreenHandler, PlayerInventory playerInventory, Text text) {
+			PlayerEntity playerEntity = playerInventory.player;
 			//noinspection unchecked
-			T blockEntity = (T) playerEntity.world.getBlockEntity(packetByteBuf.readBlockPos());
-			return create(syncId, playerEntity, blockEntity);
+			T blockEntity = (T) builtScreenHandler.getBlockEntity();
+			return create(builtScreenHandler.syncId, playerEntity, blockEntity);
 		}
 	}
 

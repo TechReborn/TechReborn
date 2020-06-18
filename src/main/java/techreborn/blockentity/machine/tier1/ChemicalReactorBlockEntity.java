@@ -30,11 +30,11 @@ import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
-import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.init.TRContent;
 
 public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 

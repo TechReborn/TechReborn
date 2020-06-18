@@ -35,8 +35,8 @@ import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	implements IToolDrop, InventoryProvider {

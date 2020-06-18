@@ -44,7 +44,6 @@ import reborncore.common.blockentity.MachineBaseBlockEntity;
 import reborncore.common.fluid.FluidUtil;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.util.RebornInventory;
-import reborncore.common.util.StringUtils;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;

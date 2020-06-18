@@ -35,8 +35,8 @@ import reborncore.common.util.WorldUtils;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector.PlayerDetectorType;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
 import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop {
 

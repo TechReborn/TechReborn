@@ -28,10 +28,8 @@ import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.plugin.crafting.DefaultCraftingCategory;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Items;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import reborncore.common.crafting.RebornRecipeType;
-import reborncore.common.util.StringUtils;
 import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.compat.rei.ReiPlugin;
 

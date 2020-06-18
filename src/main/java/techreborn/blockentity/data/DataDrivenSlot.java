@@ -31,8 +31,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.JsonHelper;
 import org.apache.commons.lang3.Validate;
-import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.client.gui.builder.GuiBase;
+import reborncore.client.screen.builder.BlockEntityScreenHandlerBuilder;
 import reborncore.common.util.serialization.SerializationUtil;
 
 import java.util.List;

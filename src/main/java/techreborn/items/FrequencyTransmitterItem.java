@@ -40,7 +40,6 @@ import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import reborncore.client.hud.StackInfoElement;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.ChatUtils;

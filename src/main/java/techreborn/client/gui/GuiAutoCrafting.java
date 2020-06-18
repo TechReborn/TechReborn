@@ -31,12 +31,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
-import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.guibuilder.GuiBuilder;
+import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.network.NetworkManager;
-import techreborn.packets.ServerboundPackets;
 import techreborn.blockentity.machine.tier1.AutoCraftingTableBlockEntity;
+import techreborn.packets.ServerboundPackets;
 
 /**
  * Created by modmuss50 on 20/06/2017.
@@ -53,7 +53,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
-		MinecraftClient.getInstance().getItemRenderer().renderGuiItem(stack, x, y);
+		MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(stack, x, y);
 	}
 
 	@Override
