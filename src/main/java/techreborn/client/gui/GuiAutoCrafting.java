@@ -53,7 +53,7 @@ public class GuiAutoCrafting extends GuiBase<BuiltScreenHandler> {
 	}
 
 	public void renderItemStack(ItemStack stack, int x, int y) {
-		MinecraftClient.getInstance().getItemRenderer().renderGuiItem(stack, x, y);
+		MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(stack, x, y);
 	}
 
 	@Override
