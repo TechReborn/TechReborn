@@ -26,6 +26,7 @@ package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -64,6 +65,10 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	private int prevState = ZEROGEN;
 
 	private SolarPanels panel;
+
+	public SolarPanelBlockEntity() {
+		super(TRBlockEntities.SOLAR_PANEL);
+	}
 
 	public SolarPanelBlockEntity(SolarPanels panel) {
 		super(TRBlockEntities.SOLAR_PANEL);
