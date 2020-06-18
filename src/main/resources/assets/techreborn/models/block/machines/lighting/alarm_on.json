@@ -18,7 +18,8 @@
     }
   },
 	"textures": {
-		"0": "techreborn:block/machines/lighting/alarm_on"
+		"0": "techreborn:block/machines/lighting/alarm_on",
+		"particle": "techreborn:block/machines/lighting/alarm_on"
 	},
 	"elements": [
 		{
