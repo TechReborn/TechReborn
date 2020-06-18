@@ -69,9 +69,9 @@ license {
 group = 'TechReborn'
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16-pre8"
-	mappings "net.fabricmc:yarn:1.16-pre8+build.2:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.8.7+build.201"
+	minecraft "com.mojang:minecraft:1.16-rc1"
+	mappings "net.fabricmc:yarn:1.16-rc1+build.1:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.8.8+build.202"
 
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.12.4+build.365-1.16"
