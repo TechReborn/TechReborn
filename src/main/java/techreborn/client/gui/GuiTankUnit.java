@@ -47,16 +47,19 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.BACKGROUND;
 
-		drawTextWithShadow(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		// Draw slots
 		drawSlot(matrixStack, 100, 53, layer);
-
-		drawTextWithShadow(matrixStack, client.textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
 		drawSlot(matrixStack, 140, 53, layer);
 	}
 
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
+
+		// Draw input/out
+		drawTextWithShadow(matrixStack, textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		drawTextWithShadow(matrixStack, textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+
 
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
@@ -72,7 +75,7 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getCapacity().getRawValue() * 100));
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used") + percentFilled + "%", 10, 70, 4210752);
+			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
