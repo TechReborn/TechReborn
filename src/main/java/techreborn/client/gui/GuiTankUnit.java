@@ -57,8 +57,8 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 
 		// Draw input/out
-		drawTextWithShadow(matrixStack, textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
-		drawTextWithShadow(matrixStack, textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		builder.drawText(matrixStack, this, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		builder.drawText(matrixStack, this, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
 
 
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
