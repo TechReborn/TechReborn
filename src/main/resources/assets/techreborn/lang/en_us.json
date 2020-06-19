@@ -21,13 +21,6 @@
   "block.techreborn.quantum_tank_unit": "Quantum Tank Unit",
   "block.techreborn.creative_tank_unit": "Creative Tank Unit",
 
-
-  "block.techreborn.creative_quantum_tank": "Creative Quantum Tank (DEPRECATED)",
-  "block.techreborn.creative_quantum_chest": "Creative Quantum Chest (DEPRECATED)",
-  "block.techreborn.digital_chest": "Digital Chest (DEPRECATED)",
-  "block.techreborn.quantum_chest": "Quantum Chest (DEPRECATED)",
-  "block.techreborn.quantum_tank": "Quantum Tank (DEPRECATED)",
-
   "block.techreborn.industrial_centrifuge": "Industrial Centrifuge",
   "block.techreborn.rolling_machine": "Rolling Machine",
   "block.techreborn.basic_machine_casing": "Standard Machine Casing",
@@ -684,14 +677,9 @@
   "techreborn.message.info.block.techreborn.thermal_generator": "Converts lava and other heat sources into energy",
   "techreborn.message.info.block.techreborn.water_mill": "Uses the power of any water source adjacent to it to generate energy",
   "techreborn.message.info.block.techreborn.wind_mill": "Produces energy when placed above the height of 64 blocks from air\n25% more efficient in thunderstorms",
-  "techreborn.message.info.block.techreborn.creative_quantum_tank": "Infinite liquid, creative-only",
-  "techreborn.message.info.block.techreborn.digital_chest": "Stores 32,640 of a single item",
-  "techreborn.message.info.block.techreborn.quantum_chest": "Stores near-infinite of a single item",
-  "techreborn.message.info.block.techreborn.quantum_tank": "Stores near-infinite of a single liquid",
   "techreborn.message.info.block.techreborn.charge_o_mat": "Charges up to 6 items simultaneously",
   "techreborn.message.info.block.techreborn.chunk_loader": "Keeps chunks loaded, allows machines to run when you're not nearby",
   "techreborn.message.info.block.techreborn.drain": "Pulls any fluid directly above it, pairs nicely with a tank unit underneath",
-
 
   "keys.techreborn.category": "TechReborn Category",
   "keys.techreborn.config": "Config",

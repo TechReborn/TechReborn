@@ -80,15 +80,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		configureEntity(type);
 	}
 
-	@Deprecated
-	public StorageUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, String name, int maxCapacity) {
-		super(blockEntityTypeIn);
-		this.maxCapacity = maxCapacity;
-		storeItemStack = ItemStack.EMPTY;
-		type = TRContent.StorageUnit.QUANTUM;
-		inventory = new RebornInventory<>(3, name, maxCapacity, this);
-	}
-
 	private void configureEntity(TRContent.StorageUnit type) {
 		this.maxCapacity = type.capacity;
 		storeItemStack = ItemStack.EMPTY;

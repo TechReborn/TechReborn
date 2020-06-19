@@ -52,11 +52,6 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
-import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
-import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
-import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
-import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
@@ -72,7 +67,6 @@ import techreborn.blocks.misc.BlockAlarm;
 import techreborn.blocks.misc.BlockMachineCasing;
 import techreborn.blocks.misc.BlockMachineFrame;
 import techreborn.blocks.misc.BlockStorage;
-import techreborn.blocks.storage.OldBlock;
 import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
@@ -510,14 +504,6 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
-
-		//TODO DEPRECATED
-		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new)),
-		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new)),
-		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new)),
-		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new)),
-		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new)),
-
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(GuiType.CHARGEBENCH, ChargeOMatBlockEntity::new)),
