@@ -436,25 +436,25 @@ public class TechRebornConfig {
 	public static int electricFurnaceMaxEnergy = 1000;
 
 	@Config(config = "machines", category = "storage", key = "CrudeStorageUnitMaxStorage", comment = "Maximum amount of items a Crude Storage Unit can store")
-	public static int crudeStorageUnitMaxStorage = 3200;
+	public static int crudeStorageUnitMaxStorage = 2048;
 
 	@Config(config = "machines", category = "storage", key = "BasicStorageUnitMaxStorage", comment = "Maximum amount of items a Basic Storage Unit can store")
-	public static int basicStorageUnitMaxStorage = 12800;
+	public static int basicStorageUnitMaxStorage = 8192;
 
 	@Config(config = "machines", category = "storage", key = "BasicTankUnitCapacity", comment = "How much liquid a Basic Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int basicTankUnitCapacity = 2500;
+	public static int basicTankUnitCapacity = 35;
 
 	@Config(config = "machines", category = "storage", key = "AdvancedStorageMaxStorage", comment = "Maximum amount of items an Advanced Storage Unit can store")
-	public static int advancedStorageUnitMaxStorage = 44800;
+	public static int advancedStorageUnitMaxStorage = 32768;
 
 	@Config(config = "machines", category = "storage", key = "AdvancedTankUnitMaxStorage", comment = "How much liquid an Advanced Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int advancedTankUnitMaxStorage = 7000;
+	public static int advancedTankUnitMaxStorage = 200;
 
 	@Config(config = "machines", category = "storage", key = "IndustrialStorageMaxStorage", comment = "Maximum amount of items an Industrial Storage Unit can store (Compat: >= 32768)")
-	public static int industrialStorageUnitMaxStorage = 96000;
+	public static int industrialStorageUnitMaxStorage = 65536;
 
 	@Config(config = "machines", category = "storage", key = "IndustrialTankUnitCapacity", comment = "How much liquid an Industrial Tank Unit can take (Value in buckets, 1000 Mb)")
-	public static int industrialTankUnitCapacity = 10000;
+	public static int industrialTankUnitCapacity = 500;
 
 	@Config(config = "machines", category = "storage", key = "QuantumStorageUnitMaxStorage", comment = "Maximum amount of items a Quantum Storage Unit can store (Compat: == MAX_VALUE)")
 	public static int quantumStorageUnitMaxStorage = Integer.MAX_VALUE;
