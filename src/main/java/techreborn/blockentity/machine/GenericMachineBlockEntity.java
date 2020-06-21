@@ -79,7 +79,7 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isClient) {
+		if (!world.isClient && energySlot != -1) {
 			charge(energySlot);
 		}
 	}

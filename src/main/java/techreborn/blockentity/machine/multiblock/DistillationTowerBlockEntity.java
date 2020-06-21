@@ -24,12 +24,12 @@
 
 package techreborn.blockentity.machine.multiblock;
 
-import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -41,40 +41,21 @@ import techreborn.init.TRContent;
 
 public class DistillationTowerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public MultiblockChecker multiblockChecker;
-
 	public DistillationTowerBlockEntity() {
 		super(TRBlockEntities.DISTILLATION_TOWER, "DistillationTower", TechRebornConfig.distillationTowerMaxInput, TechRebornConfig.distillationTowerMaxEnergy, TRContent.Machine.DISTILLATION_TOWER.block, 6);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2, 3, 4, 5 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "DistillationTowerBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.DISTILLATION_TOWER, this, 2, 4, this.inventory, inputs, outputs);
 	}
-	
-	public boolean getMutliBlock() {
-		if (multiblockChecker == null) {
-			return false;
-		}
-		final boolean layer0 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.STANDARD_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean layer1 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.INDUSTRIAL_CASING, new BlockPos(0, 1, 0));
-		final boolean layer2 = multiblockChecker.checkRingY(1, 1, MultiblockChecker.STANDARD_CASING, new BlockPos(0, 2, 0));
-		final boolean layer3 = multiblockChecker.checkRectY(1, 1, MultiblockChecker.INDUSTRIAL_CASING, new BlockPos(0, 3, 0));
-		final Material centerBlock1 = multiblockChecker.getBlock(0, 1, 0).getMaterial();
-		final Material centerBlock2 = multiblockChecker.getBlock(0, 2, 0).getMaterial();
-		final boolean center1 = (centerBlock1 == Material.AIR);
-		final boolean center2 = (centerBlock2 == Material.AIR);
-		return layer0 && layer1 && layer2 && layer3 && center1 && center2;
-	}
 
-	// TileGenericMachine
 	@Override
-	public void tick() {
-		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
-			multiblockChecker = new MultiblockChecker(world, downCenter);
-		}
-
-		super.tick();
+	public void writeMultiblock(MultiblockWriter writer) {
+		writer	.translate(1, 0, -1)
+				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.BASIC.getCasing().getDefaultState())
+				.ringWithAir(Direction.Axis.Y, 3, 1, 3, TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState())
+				.ringWithAir(Direction.Axis.Y, 3, 2, 3, TRContent.MachineBlocks.BASIC.getCasing().getDefaultState())
+				.fill(0, 3, 0, 3, 4, 3, TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState());
 	}
 
 	// IContainerProvider
@@ -88,6 +69,6 @@ public class DistillationTowerBlockEntity extends GenericMachineBlockEntity impl
 
 	@Override
 	public boolean canCraft(RebornRecipe rebornRecipe) {
-		return getMutliBlock();
+		return isMultiblockValid();
 	}
 }

@@ -59,7 +59,8 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 				if(playerIn.getStackInHand(hand).isEmpty()){
 					return ActionResult.SUCCESS;
 				}
-				if(worldIn.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(playerIn, hand, hitResult))) && !blockEntityFusionControlComputer.isCoil(coil)){
+				if(worldIn.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(playerIn, hand, hitResult)))
+						&& worldIn.getBlockState(pos).getBlock() !=  TRContent.Machine.FUSION_COIL.block) {
 					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
 					if(!playerIn.isCreative()){
 						playerIn.getStackInHand(hand).decrement(1);
@@ -72,7 +73,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 			}
 
 		}
-		blockEntityFusionControlComputer.checkCoils();
+		blockEntityFusionControlComputer.isMultiblockValid();
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
@@ -86,7 +87,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 		super.onSteppedOn(worldIn, pos, entityIn);
 		if (worldIn.getBlockEntity(pos) instanceof FusionControlComputerBlockEntity) {
 			if (((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).crafingTickTime != 0
-					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).checkCoils()) {
+					&& ((FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos)).isMultiblockValid()) {
 				entityIn.damage(new FusionDamageSource(), 200F);
 			}
 		}
