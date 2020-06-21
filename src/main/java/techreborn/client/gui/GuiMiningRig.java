@@ -48,8 +48,13 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		// Energy slot
 		drawSlot(matrixStack, 8, 72, layer);
 
+		// Pipe slot
+		drawSlot(matrixStack,130,25, layer);
+		drawSlot(matrixStack,150,25, layer);
+
+
 		// Drill head slot
-		drawSlot(matrixStack,138,35, layer);
+		drawSlot(matrixStack,130,70, layer);
 	}
 
 	@Override
@@ -69,9 +74,13 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		}
 
 		// Valid block and working
+
+		// Black background, should probably move to background
 		RenderUtil.drawGradientRect(0, 50, 15, 120,  89, 0xFF000000, 0xFF000000);
 
-		drawText(matrixStack,new LiteralText("Drill"), 137,56,4210752, layer);
+
+		drawText(matrixStack,new LiteralText("Drill"), 128,60,4210752, layer);
+		drawText(matrixStack,new LiteralText("Pipe"), 128,15,4210752, layer);
 
 		// Status screen
 		matrixStack.push();
@@ -84,11 +93,7 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
 		// Mining progress
-		matrixStack.push();
-		matrixStack.scale(1.3f,1.3f,1.3f);
-		builder.drawProgressBar(matrixStack, this, tempInt, 100, 108, 50, mouseX, mouseY, GuiBuilder.ProgressDirection.DOWN, layer);
-		matrixStack.pop();
-
+		builder.drawProgressBar(matrixStack, this, tempInt, 100, 155, 70, mouseX, mouseY, GuiBuilder.ProgressDirection.DOWN, layer);
 		tempInt++;
 		if(tempInt > 100){
 			tempInt = 0;
