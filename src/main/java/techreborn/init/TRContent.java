@@ -282,7 +282,6 @@ public class TRContent {
 		// How many blocks it can hold
 		public int capacity;
 
-
 		StorageUnit(int capacity) {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new StorageUnitBlock(this);
@@ -504,6 +503,8 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
+		MINING_RIG(new GenericMachineBlock(null, MiningRigBlockEntity::new)),
+
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(GuiType.CHARGEBENCH, ChargeOMatBlockEntity::new)),
