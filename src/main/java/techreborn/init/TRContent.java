@@ -75,6 +75,7 @@ import techreborn.blocks.transformers.BlockHVTransformer;
 import techreborn.blocks.transformers.BlockLVTransformer;
 import techreborn.blocks.transformers.BlockMVTransformer;
 import techreborn.client.GuiType;
+import techreborn.client.gui.GuiMiningRig;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCellItem;
@@ -503,7 +504,7 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
-		MINING_RIG(new GenericMachineBlock(null, MiningRigBlockEntity::new)),
+		MINING_RIG(new GenericMachineBlock(GuiType.MINING_RIG, MiningRigBlockEntity::new)),
 
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
