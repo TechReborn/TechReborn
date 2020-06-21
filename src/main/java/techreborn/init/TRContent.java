@@ -788,6 +788,32 @@ public class TRContent {
 		}
 	}
 
+	public enum DrillHeads implements ItemConvertible {
+		IRON, STEEL, IRIDIUM;
+
+		public final String name;
+		public final Item item;
+
+		DrillHeads() {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			InitUtils.setup(item, name + "_drill");
+		}
+
+		public ItemStack getStack() {
+			return new ItemStack(item);
+		}
+
+		public ItemStack getStack(int amount) {
+			return new ItemStack(item, amount);
+		}
+
+		@Override
+		public Item asItem() {
+			return item;
+		}
+	}
+
 	public enum Upgrades implements ItemConvertible {
 		OVERCLOCKER((blockEntity, handler, stack) -> {
 			PowerAcceptorBlockEntity powerAcceptor = null;
@@ -843,6 +869,4 @@ public class TRContent {
 			return item;
 		}
 	}
-
-	public static EntityType<EntityNukePrimed> ENTITY_NUKE;
 }

@@ -113,6 +113,7 @@ public class ModRegistry {
 		Arrays.stream(SmallDusts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Plates.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Parts.values()).forEach(value -> RebornRegistry.registerItem(value.item));
+		Arrays.stream(DrillHeads.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 		Arrays.stream(Upgrades.values()).forEach(value -> RebornRegistry.registerItem(value.item));
 
 		RebornRegistry.registerItem(TRContent.QUANTUM_HELMET = InitUtils.setup(new QuantumSuitItem(TRArmorMaterials.QUANTUM, EquipmentSlot.HEAD), "quantum_helmet"));
