@@ -110,6 +110,7 @@
   "block.techreborn.rubber_door": "Rubber Door",
   "block.techreborn.refined_iron_fence": "Iron Fence",
   "block.techreborn.reinforced_glass": "Reinforced Glass",
+  "block.techreborn.drill_pipe": "Drill Pipe",
 
   "_comment2": "Ores",
   "block.techreborn.bauxite_ore": "Bauxite Ore",
@@ -560,9 +561,9 @@
   "item.techreborn.transformer_upgrade": "Transformer Upgrade",
   "item.techreborn.energy_storage_upgrade": "Energy Storage Upgrade",
   "item.techreborn.superconductor_upgrade": "Superconductor Upgrade",
-  "item.techreborn.iron_drill": "Iron Drill Head",
-  "item.techreborn.steel_drill": "Steel Drill Head",
-  "item.techreborn.iridium_drill": "Iridium Drill Head",
+  "item.techreborn.iron_drill_head": "Iron Drill Head",
+  "item.techreborn.steel_drill_head": "Steel Drill Head",
+  "item.techreborn.iridium_drill_head": "Iridium Drill Head",
 
   "item.techreborn.bronze_sword": "Bronze Sword",
   "item.techreborn.bronze_pickaxe": "Bronze Pickaxe",

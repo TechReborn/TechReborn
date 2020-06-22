@@ -110,6 +110,7 @@ public class TRContent {
 	public static Block RUBBER_LOG_STRIPPED;
 	public static Block RUBBER_WOOD;
 	public static Block STRIPPED_RUBBER_WOOD;
+	public static Block DRILL_PIPE;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -799,7 +800,7 @@ public class TRContent {
 		DrillHeads() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
-			InitUtils.setup(item, name + "_drill");
+			InitUtils.setup(item, name + "_drill_head");
 		}
 
 		public ItemStack getStack() {

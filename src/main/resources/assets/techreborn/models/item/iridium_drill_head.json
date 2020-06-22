@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "techreborn:item/drillheads/iridium_drill_head"
+    }
+}

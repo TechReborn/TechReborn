@@ -1,9 +1,8 @@
 package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
@@ -14,6 +13,11 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
+	private int pipeStoreY;
+	private int drillPositionY;
+	private boolean hasInit;
+
+
 	public MiningRigBlockEntity() {
 		// TODO config these values
 		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 6);
@@ -21,19 +25,31 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	@Override
 	public void tick() {
-		System.out.println(this.isMultiblockValid());
+		if(world.isClient || !isMultiblockValid()){
+			return;
+		}
+
+
+		AddPipe(5);
+
 	}
 
+	public void AddPipe(int amount){
 
+	}
+
+	public void ProgressDrill(){
+
+	}
 
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 		BlockState reinGlass = TRContent.REINFORCED_GLASS.getDefaultState();
-		BlockState pipe = TRContent.REFINED_IRON_FENCE.getDefaultState();
+		BlockState pipe = TRContent.DRILL_PIPE.getDefaultState();
 
-		// I WANT TO ADD HARDENED GLASS but can't figure out
+		// TODO use predicate for manual blocks
 		writer.translate(-1, -4, -1)
 				.ring(Direction.Axis.Y, 3, 1, 3, (view, pos) -> view.getBlockState(pos) == basic, basic, (view, pos) -> view.getBlockState(pos) == pipe, pipe)
 				.ring(Direction.Axis.Y, 3, 3, 3, (view, pos) -> view.getBlockState(pos) == basic, basic, (view, pos) -> view.getBlockState(pos) == pipe, pipe)
