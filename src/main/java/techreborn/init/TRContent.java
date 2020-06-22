@@ -62,6 +62,7 @@ import techreborn.blocks.generator.GenericGeneratorBlock;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
+import techreborn.blocks.machine.tier1.BlockMiningRig;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
 import techreborn.blocks.misc.BlockAlarm;
 import techreborn.blocks.misc.BlockMachineCasing;
@@ -505,7 +506,7 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
-		MINING_RIG(new GenericMachineBlock(GuiType.MINING_RIG, MiningRigBlockEntity::new)),
+		MINING_RIG(new BlockMiningRig(GuiType.MINING_RIG, MiningRigBlockEntity::new)),
 
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
