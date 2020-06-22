@@ -38,7 +38,7 @@ public class BlockMiningRig extends GenericMachineBlock {
 
 			for(int i = 0; i < amountToAdd; i++) {
 				// TODO could improve this by just storing position and incrementing
-				BlockPos addPos = WorldHelper.getBlockAlongY(pos, 1, Blocks.AIR, false, TRContent.DRILL_PIPE, worldIn);
+				BlockPos addPos = WorldHelper.getBlockAlongY(pos, 1, Blocks.AIR, worldIn, false, TRContent.DRILL_PIPE);
 				if (addPos != null) {
 					worldIn.setBlockState(addPos, TRContent.DRILL_PIPE.getDefaultState());
 					holding.decrement(1);

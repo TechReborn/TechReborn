@@ -112,6 +112,7 @@ public class TRContent {
 	public static Block RUBBER_WOOD;
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block DRILL_PIPE;
+	public static Block DRILL_HEAD;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;

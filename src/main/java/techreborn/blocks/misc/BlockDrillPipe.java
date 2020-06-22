@@ -78,19 +78,17 @@ public class BlockDrillPipe extends Block {
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 
-		if(state.getBlock() == TRContent.DRILL_PIPE){
 			ItemStack holding = player.inventory.getStack(player.inventory.selectedSlot);
 			if(holding.getItem() == TRContent.DRILL_PIPE.asItem()){
-				BlockPos addPos = WorldHelper.getBlockAlongY(pos,1, Blocks.AIR, false, TRContent.DRILL_PIPE, world);
+				BlockPos addPos = WorldHelper.getBlockAlongY(pos,1, Blocks.AIR, world, false, TRContent.DRILL_PIPE);
 				if(addPos != null){
 					world.setBlockState(addPos,TRContent.DRILL_PIPE.getDefaultState());
 					holding.decrement(1);
 					world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_METAL_PLACE, SoundCategory.BLOCKS, 100, 1,false);
 				}
+				return ActionResult.SUCCESS;
 			}
-		}
-
-		return ActionResult.SUCCESS;
+		return ActionResult.PASS;
 	}
 
 	@Override
