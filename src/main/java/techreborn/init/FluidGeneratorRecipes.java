@@ -53,6 +53,6 @@ public class FluidGeneratorRecipes {
 	}
 
 	static void register(EFluidGenerator generator, Fluid fluid, int euPerMB) {
-		//GeneratorRecipeHelper.registerFluidRecipe(generator, fluid, euPerMB);
+		GeneratorRecipeHelper.registerFluidRecipe(generator, fluid, euPerMB);
 	}
 }
