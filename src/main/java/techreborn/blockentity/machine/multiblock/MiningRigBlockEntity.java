@@ -3,22 +3,26 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.BlockEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Position;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.util.RebornInventory;
+import techreborn.blockentity.generator.advanced.DragonEggSyphonBlockEntity;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.WorldHelper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 	private int pipeReserveCount;
@@ -32,11 +36,15 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private final int DRILL_OFFSET = 3;
 
 
+	private int mineRadius = 16;
+	private  int curX;
+	private int curZ;
+
+	RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(6, "MiningRigBlockEntity", 64, this);
+
 	public MiningRigBlockEntity() {
 		// TODO config these values
 		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 6);
-
-		finishedY = true;
 	}
 
 	@Override
@@ -45,21 +53,74 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			return;
 		}
 
-		if (world.getTime() % 40 == 0) {
-			advanceDrill();
+
+//		if (world.getTime() % 20 != 0) {
+//			return;
+//		}
+
+		// Temp
+		if(reserveHead == null || drillHead == null){
+			updatePipeReserve();
+			updatePipeDrillDepth();
+			rebuildDrillHead();
 		}
 
+		if(!finishedY){
+			Drill();
+		}else{
+			if(advanceDrill()){
 
-
-
+				// Reset mining cursor
+				curX = drillHead.getX() - mineRadius;
+				curZ = drillHead.getZ() - mineRadius;
+				finishedY = false;
+			}
+		}
 	}
 
 	private void Drill(){
+		if(curX > drillHead.getX() + mineRadius){
+			curZ++;
+			curX = drillHead.getX() - mineRadius;
+		}
 
+		// Reached end of this Y-level
+		if(curZ > drillHead.getZ() + mineRadius){
+			finishedY = true;
+			return;
+		}
+
+		BlockPos minePosition = new BlockPos(curX, drillHead.getY(), curZ);
+
+		// For the love of god, don't mine the drill head
+		if(!minePosition.equals(drillHead)){
+			Block minedBlock = world.getBlockState(minePosition).getBlock();
+
+			world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
+
+			// Deposit resource if not air
+			if(!minedBlock.is(Blocks.AIR)) {
+				ItemStack mineStack = minedBlock
+				if (!inventory.insertStack(mineStack)) {
+					// Couldn't fit all inside machine's inventory, drop infront of machine
+					world.spawnEntity(new ItemEntity(world, pos.getX() + 1.5, pos.getY(), pos.getZ(), mineStack));
+				}
+			}
+		}
+
+		curX++;
 	}
 
-
-
+	private boolean canMine(BlockPos pos) {
+		if (world == null) {
+			return false;
+		}
+		BlockState state = world.getBlockState(pos);
+		PlayerEntity dummy = Objects.requireNonNull(Mekanism.proxy.getDummyPlayer((ServerWorld) world, getPos()).get());
+		BlockEvent.BreakEvent event = new BlockEvent.(world, pos, state, dummy);
+		MinecraftForge.EVENT_BUS.post(event);
+		return !event.isCanceled();
+	}
 	// Update pipe reserve count and reserveHead
 	private void updatePipeReserve() {
 		pipeReserveCount = WorldHelper.getBlockCountAlongY(this.pos,1, TRContent.DRILL_PIPE, world);
@@ -173,11 +234,15 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			drillDepth++;
 
 			consumePipe();
+
+			return true;
 		}
 
 		return false;
 	}
 
+
+	// Overrides
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
@@ -211,5 +276,8 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		return false;
 	}
 
-
+	@Override
+	public RebornInventory<?> getInventory() {
+		return inventory;
+	}
 }
