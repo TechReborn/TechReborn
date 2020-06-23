@@ -3,28 +3,28 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.BlockEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.util.RebornInventory;
-import techreborn.blockentity.generator.advanced.DragonEggSyphonBlockEntity;
+import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
+
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.WorldHelper;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
-public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
+public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider, InventoryProvider {
 	private int pipeReserveCount;
 	private BlockPos reserveHead = null;
 
@@ -34,13 +34,19 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// Position from just inside block at bottom
 	private final int DRILL_OFFSET = 3;
+	private final int ENERGY_SLOT = 0;
+	private final int TANK_SLOT = 1;
+	private final int DRILL_HEAD_SLOT = 2;
+	private final int OUTPUT_SLOT = 3;
 
 
-	private int mineRadius = 16;
+	private int mineRadius = 5;
 	private  int curX;
 	private int curZ;
 
-	RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(6, "MiningRigBlockEntity", 64, this);
+	private final RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(4, "MiningRigBlockEntity", 64, this);
+	private final Tank tank = null;
+
 
 	public MiningRigBlockEntity() {
 		// TODO config these values
@@ -54,19 +60,19 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 
 
-//		if (world.getTime() % 20 != 0) {
-//			return;
-//		}
+		if (world.getTime() % 40 != 0) {
+			verifyIntegrity();
+		}
 
 		// Temp
 		if(reserveHead == null || drillHead == null){
-			updatePipeReserve();
-			updatePipeDrillDepth();
-			rebuildDrillHead();
+			verifyIntegrity();
 		}
 
 		if(!finishedY){
-			Drill();
+			for(int i = 0; i < 500; i++) {
+				Drill();
+			}
 		}else{
 			if(advanceDrill()){
 
@@ -93,33 +99,31 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		BlockPos minePosition = new BlockPos(curX, drillHead.getY(), curZ);
 
 		// For the love of god, don't mine the drill head
-		if(!minePosition.equals(drillHead)){
+		if(!minePosition.equals(drillHead) && canMine(minePosition)){
 			Block minedBlock = world.getBlockState(minePosition).getBlock();
 
-			world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
-
-			// Deposit resource if not air
 			if(!minedBlock.is(Blocks.AIR)) {
-				ItemStack mineStack = minedBlock
-				if (!inventory.insertStack(mineStack)) {
-					// Couldn't fit all inside machine's inventory, drop infront of machine
-					world.spawnEntity(new ItemEntity(world, pos.getX() + 1.5, pos.getY(), pos.getZ(), mineStack));
+				ItemStack mineStack = new ItemStack(minedBlock.asItem());
+
+				if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
+					// TODO add to existing slot instead of waiting for it to be empty
+					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
+					inventory.setStack(OUTPUT_SLOT,mineStack);
+					curX++;
 				}
 			}
 		}
-
-		curX++;
 	}
 
 	private boolean canMine(BlockPos pos) {
-		if (world == null) {
-			return false;
-		}
-		BlockState state = world.getBlockState(pos);
-		PlayerEntity dummy = Objects.requireNonNull(Mekanism.proxy.getDummyPlayer((ServerWorld) world, getPos()).get());
-		BlockEvent.BreakEvent event = new BlockEvent.(world, pos, state, dummy);
-		MinecraftForge.EVENT_BUS.post(event);
-		return !event.isCanceled();
+		// TODO decided to not bother with block permissions, this function is for future implementation of that
+		return true;
+	}
+
+	private void verifyIntegrity(){
+		updatePipeReserve();
+		updatePipeDrillDepth();
+		rebuildDrillHead();
 	}
 	// Update pipe reserve count and reserveHead
 	private void updatePipeReserve() {
@@ -267,8 +271,28 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("miningrig").player(player.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).addInventory().create(this, syncID);
+		return new ScreenHandlerBuilder("miningrig").player(player.inventory).inventory().hotbar().addInventory().blockEntity(this)
+				.energySlot(0,8,72)
+				.fluidSlot(1,8,72)
+				.slot(2,140, 30, (itemStack -> {
+
+					// Ensure is drillhead
+					Item item = itemStack.getItem();
+					for (TRContent.DrillHeads head : TRContent.DrillHeads.values()) {
+						if(head.item.equals(item)){
+							return true;
+						}
+					}
+					return false;
+				})).outputSlot(3,140,70)
+				.syncEnergyValue()
+//				.sync(tank)
+				.addInventory().create(this, syncID);
+	}
+
+	@Override
+	public boolean canExtract(int index, ItemStack stack, Direction direction) {
+		return true;
 	}
 
 	@Override
@@ -277,7 +301,18 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	}
 
 	@Override
-	public RebornInventory<?> getInventory() {
+	public RebornInventory<MiningRigBlockEntity> getInventory() {
 		return inventory;
+	}
+
+//	@Nullable
+//	@Override
+//	public Tank getTank() {
+//		return tank;
+//	}
+
+	@Override
+	public boolean hasSlotConfig() {
+		return true;
 	}
 }

@@ -801,7 +801,7 @@ public class TRContent {
 
 		DrillHeads() {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP));
+			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
 			InitUtils.setup(item, name + "_drill_head");
 		}
 

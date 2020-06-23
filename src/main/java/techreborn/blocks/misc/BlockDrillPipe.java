@@ -2,6 +2,7 @@ package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,7 @@ public class BlockDrillPipe extends Block {
 		world.setBlockState(pos,Blocks.AIR.getDefaultState());
 		int pipeCount = 1;
 
+
 		// Now we remove every pipe connected above and below it
 		BlockPos next;
 
@@ -77,9 +79,12 @@ public class BlockDrillPipe extends Block {
 	// Allow users to build it up, why not
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-
 			ItemStack holding = player.inventory.getStack(player.inventory.selectedSlot);
 			if(holding.getItem() == TRContent.DRILL_PIPE.asItem()){
+				if(world.isClient){
+					return ActionResult.SUCCESS;
+				}
+
 				BlockPos addPos = WorldHelper.getBlockAlongY(pos,1, Blocks.AIR, world, false, TRContent.DRILL_PIPE);
 				if(addPos != null){
 					world.setBlockState(addPos,TRContent.DRILL_PIPE.getDefaultState());
@@ -88,6 +93,7 @@ public class BlockDrillPipe extends Block {
 				}
 				return ActionResult.SUCCESS;
 			}
+
 		return ActionResult.PASS;
 	}
 

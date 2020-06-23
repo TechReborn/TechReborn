@@ -12,6 +12,7 @@ import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
+import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.MiningRigBlockEntity;
 
 import java.util.Random;
@@ -48,13 +49,11 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		// Energy slot
 		drawSlot(matrixStack, 8, 72, layer);
 
-		// Pipe slot
-		drawSlot(matrixStack,130,25, layer);
-		drawSlot(matrixStack,150,25, layer);
-
-
 		// Drill head slot
-		drawSlot(matrixStack,130,70, layer);
+		drawSlot(matrixStack,140,30, layer);
+
+		// Singular inventory slot
+		drawSlot(matrixStack,140,70, layer);
 	}
 
 	@Override
@@ -79,8 +78,7 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		RenderUtil.drawGradientRect(0, 50, 15, 120,  89, 0xFF000000, 0xFF000000);
 
 
-		drawText(matrixStack,new LiteralText("Drill"), 128,60,4210752, layer);
-		drawText(matrixStack,new LiteralText("Pipe"), 128,15,4210752, layer);
+		drawText(matrixStack,new LiteralText("Drill"), 138,19,4210752, layer);
 
 		// Status screen
 		matrixStack.push();
@@ -89,11 +87,18 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		matrixStack.pop();
 
 		// Tank and energy meters
-		builder.drawTank(matrixStack, this,  27, 13, mouseX, mouseY, new FluidInstance(Fluids.WATER), FluidValue.BUCKET,false,layer);
+		Tank tank = blockEntity.getTank();
+		if(tank != null) {
+			builder.drawTank(matrixStack, this, 27, 13, mouseX, mouseY,
+					tank.getFluidInstance(),
+					tank.getCapacity(),
+					tank.isEmpty(), layer);
+		}
+
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 
 		// Mining progress
-		builder.drawProgressBar(matrixStack, this, tempInt, 100, 155, 70, mouseX, mouseY, GuiBuilder.ProgressDirection.DOWN, layer);
+		builder.drawProgressBar(matrixStack, this, tempInt, 100, 143, 49, mouseX, mouseY, GuiBuilder.ProgressDirection.DOWN, layer);
 		tempInt++;
 		if(tempInt > 100){
 			tempInt = 0;
