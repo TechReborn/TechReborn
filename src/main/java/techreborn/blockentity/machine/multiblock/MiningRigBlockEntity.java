@@ -18,6 +18,7 @@ import techreborn.utils.WorldHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 	private int pipeReserveCount;
@@ -25,6 +26,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	private int drillDepth;
 	private BlockPos drillHead =  null;
+	private boolean finishedY = false;
 
 	// Position from just inside block at bottom
 	private final int DRILL_OFFSET = 3;
@@ -33,6 +35,8 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	public MiningRigBlockEntity() {
 		// TODO config these values
 		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 6);
+
+		finishedY = true;
 	}
 
 	@Override
@@ -42,9 +46,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 
 		if (world.getTime() % 40 == 0) {
-			updatePipeReserve();
-			updatePipeDrillDepth();
-			addDrillHead();
+			advanceDrill();
 		}
 
 
@@ -52,31 +54,37 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	}
 
-	// Checks that the stored quantity is equal to physical world
+	private void Drill(){
+
+	}
+
+
+
+	// Update pipe reserve count and reserveHead
 	private void updatePipeReserve() {
-		pipeReserveCount = WorldHelper.getBlockCountAlongY(this.pos,1, TRContent.DRILL_PIPE,world);
+		pipeReserveCount = WorldHelper.getBlockCountAlongY(this.pos,1, TRContent.DRILL_PIPE, world);
 
 		// Reserve position is just machine offset by count
 		reserveHead = this.pos.offset(Direction.UP, pipeReserveCount);
 	}
-
+	// Updates drilldepth (Includes drillhead)
 	private void updatePipeDrillDepth(){
 		Block[] blocks = {TRContent.DRILL_PIPE, TRContent.DRILL_HEAD};
 		drillDepth = WorldHelper.getBlockCountAlongY(this.pos.offset(Direction.DOWN, DRILL_OFFSET),-1, Arrays.asList(blocks), world);
-
-		// Reserve position is just machine offset by count
-		drillHead = this.pos.offset(Direction.DOWN, drillDepth + DRILL_OFFSET + 1);
 	}
+
+	// Check if there's pipe directly above machine
 	private boolean hasPipeAbove(){
 		return world.getBlockState(this.pos.offset(Direction.UP)).getBlock() == TRContent.DRILL_PIPE;
 	}
-
+	// Take a pipe from reserve off
 	private boolean consumePipe(){
-
-		if(!validReserveHead() || pipeReserveCount == 0 && hasPipeAbove()){
+		// If reserve is empty but there's a pipe above, update count and head position.
+		if(pipeReserveCount == 0 && hasPipeAbove()){
 			updatePipeReserve();
 		}
 
+		// No pipe, can't consume
 		if(pipeReserveCount == 0){
 			return false;
 		}
@@ -85,12 +93,15 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		pipeReserveCount--;
 		reserveHead = reserveHead.offset(Direction.DOWN);
 
-
 		return true;
 	}
 
 	// Ensure the head of the reserve stack has air above it, pipe or machine below
 	private boolean validReserveHead(){
+		if(reserveHead == null){
+			return false;
+		}
+
 		Block blockHead = world.getBlockState(reserveHead).getBlock();
 		Block blockAbove = world.getBlockState(reserveHead.offset(Direction.UP)).getBlock();
 		Block blockBelow = world.getBlockState(reserveHead.offset(Direction.DOWN)).getBlock();
@@ -99,22 +110,72 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		return blockHead.is(pipe) && blockAbove.is(Blocks.AIR) &&
 				blockBelow.is(pipe) || blockBelow.is(this.getBlockType());
 	}
+	private boolean validDrillHead(){
+		if(drillHead == null){
+			return false;
+		}
+
+		Block blockHead = world.getBlockState(drillHead).getBlock();
+		Block blockAbove = world.getBlockState(drillHead.offset(Direction.UP)).getBlock();
+
+		return blockHead.is(TRContent.DRILL_HEAD) && blockAbove.is(TRContent.DRILL_PIPE);
+	}
 
 	private boolean addDrillHead(){
-		BlockPos drillPos = pos.offset(Direction.DOWN, DRILL_OFFSET + 1);
-		world.setBlockState(drillPos,  TRContent.DRILL_HEAD.getDefaultState());
-		this.drillHead = drillPos;
-		drillDepth++;
+		updatePipeDrillDepth();
+
+		// Drill head should be at the end of pipe (ASSUMING no drill)
+		drillHead = this.pos.offset(Direction.DOWN,   drillDepth + 1 + DRILL_OFFSET);
+
+ 		if(world.getBlockState(drillHead).getBlock() != TRContent.DRILL_HEAD) {
+			world.setBlockState(drillHead, TRContent.DRILL_HEAD.getDefaultState());
+			drillDepth++;
+		}
+
 		return true;
 	}
-
 	private void removeDrillHead(){
+		// Could improve this to be more performant, but this is safer TODO
+		List<BlockPos> drillHeads = WorldHelper.getBlocksAlongY(this.pos,-1,TRContent.DRILL_HEAD,world,true, null);
 
+		for(BlockPos pos : drillHeads){
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+		}
+	}
+	private void rebuildDrillHead(){
+		this.removeDrillHead();
+		this.addDrillHead();
 	}
 
 
-	private void progressDrill(){
+	// Move the drill down one, consuming pipe
+	private boolean advanceDrill(){
+		if(!validDrillHead()){
+			rebuildDrillHead();
+		}
 
+		if(!validReserveHead()){
+			updatePipeReserve();
+
+			if(pipeReserveCount == 0){
+				return false;
+			}
+		}
+
+		BlockPos nextDrillPosition = drillHead.offset(Direction.DOWN);
+		Block nextBlock = world.getBlockState(nextDrillPosition).getBlock();
+		if(!nextBlock.is(Blocks.BEDROCK) && (nextBlock.is(Blocks.AIR) || world.breakBlock(nextDrillPosition, false))) {
+			world.setBlockState(drillHead, TRContent.DRILL_PIPE.getDefaultState());
+
+			// Move drill to new position and update depth
+			drillHead = nextDrillPosition;
+			world.setBlockState(drillHead, TRContent.DRILL_HEAD.getDefaultState());
+			drillDepth++;
+
+			consumePipe();
+		}
+
+		return false;
 	}
 
 	@Override
