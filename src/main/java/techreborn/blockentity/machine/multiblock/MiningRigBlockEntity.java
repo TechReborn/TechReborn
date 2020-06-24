@@ -6,6 +6,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.blockentity.InventoryProvider;
@@ -30,7 +33,6 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	private int drillDepth;
 	private BlockPos drillHead =  null;
-	private boolean finishedY = false;
 
 	// Position from just inside block at bottom
 	private final int DRILL_OFFSET = 3;
@@ -40,9 +42,10 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private final int OUTPUT_SLOT = 3;
 
 
-	private int mineRadius = 5;
+	private int mineRadius = 16;
 	private  int curX;
 	private int curZ;
+	private boolean finishedY = false;
 
 	private final RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(4, "MiningRigBlockEntity", 64, this);
 	private final Tank tank = null;
@@ -70,15 +73,11 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 
 		if(!finishedY){
-			for(int i = 0; i < 500; i++) {
+			for(int i = 0; i < 1000; i++) {
 				Drill();
 			}
 		}else{
 			if(advanceDrill()){
-
-				// Reset mining cursor
-				curX = drillHead.getX() - mineRadius;
-				curZ = drillHead.getZ() - mineRadius;
 				finishedY = false;
 			}
 		}
@@ -101,23 +100,30 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		// For the love of god, don't mine the drill head
 		if(!minePosition.equals(drillHead) && canMine(minePosition)){
 			Block minedBlock = world.getBlockState(minePosition).getBlock();
+			world.getServer().getWorld(ServerWorld.OVERWORLD).spawnParticles(ParticleTypes.BARRIER, curX,drillHead.getY(), curZ,1,0,0,0,1); // TODO debug remove
 
 			if(!minedBlock.is(Blocks.AIR)) {
 				ItemStack mineStack = new ItemStack(minedBlock.asItem());
 
-				if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
+			//	if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
 					// TODO add to existing slot instead of waiting for it to be empty
 					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
 					inventory.setStack(OUTPUT_SLOT,mineStack);
-					curX++;
-				}
+//				}
 			}
 		}
+		curX++;
 	}
 
 	private boolean canMine(BlockPos pos) {
 		// TODO decided to not bother with block permissions, this function is for future implementation of that
 		return true;
+	}
+
+	private void resetMiningCursor(){
+		// Reset mining cursor
+		curX = drillHead.getX() - mineRadius;
+		curZ = drillHead.getZ() - mineRadius;
 	}
 
 	private void verifyIntegrity(){
@@ -197,6 +203,11 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			drillDepth++;
 		}
 
+ 		// Recalculate cursor if cursors are 0 (I know this is an actual position but shouldn't matter)
+		if(curX == 0 && curZ == 0){
+			resetMiningCursor();
+		}
+
 		return true;
 	}
 	private void removeDrillHead(){
@@ -238,6 +249,8 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			drillDepth++;
 
 			consumePipe();
+
+			resetMiningCursor();
 
 			return true;
 		}
