@@ -26,14 +26,17 @@ public class BlockMiningRig extends GenericMachineBlock {
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
-
 		ItemStack holding = playerIn.inventory.getStack(playerIn.inventory.selectedSlot);
 		boolean hasPlaced = false;
 		if(holding.getItem() == TRContent.DRILL_PIPE.asItem()){
 
+			if(worldIn.isClient()){
+				return ActionResult.SUCCESS;
+			}
+
 			int amountToAdd = 1;
-			if(holding.getCount() >= 5) {
-				amountToAdd = 5;
+			if(holding.getCount() >= 10) {
+				amountToAdd = 10;
 			}
 
 			for(int i = 0; i < amountToAdd; i++) {
