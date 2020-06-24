@@ -146,14 +146,12 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 
 	private final Identifier identifier;
 	private final Supplier<Supplier<GuiFactory<T>>> guiFactory;
-	private final ScreenHandlerRegistry.ExtendedClientHandlerFactory<BuiltScreenHandler> screenHandlerFactory;
 	private final ScreenHandlerType<BuiltScreenHandler> screenHandlerType;
 
 	private GuiType(Identifier identifier, Supplier<Supplier<GuiFactory<T>>> factorySupplierMeme) {
 		this.identifier = identifier;
 		this.guiFactory = factorySupplierMeme;
-		this.screenHandlerFactory = getScreenHandlerFactory();
-		this.screenHandlerType = ScreenHandlerRegistry.registerExtended(identifier, screenHandlerFactory);
+		this.screenHandlerType = ScreenHandlerRegistry.registerExtended(identifier, getScreenHandlerFactory());
 		RebornCore.clientOnly(() -> () -> ScreenRegistry.register(screenHandlerType, getGuiFactory()));
 	}
 
@@ -192,9 +190,10 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 				@Nullable
 				@Override
 				public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-					PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-					buf.writeBlockPos(pos);
-					return screenHandlerFactory.create(syncId, inv, buf);
+					final BlockEntity blockEntity = player.world.getBlockEntity(pos);
+					BuiltScreenHandler screenHandler = ((BuiltScreenHandlerProvider) blockEntity).createScreenHandler(syncId, player);
+					screenHandler.setType(screenHandlerType);
+					return screenHandler;
 				}
 			});
 		}
