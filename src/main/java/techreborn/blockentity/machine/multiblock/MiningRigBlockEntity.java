@@ -3,19 +3,32 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextType;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
+import reborncore.RebornCore;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.blockentity.SlotConfiguration;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
@@ -24,10 +37,14 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.WorldHelper;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider, InventoryProvider {
+	private boolean hasInit;
+
 	private int pipeReserveCount;
 	private BlockPos reserveHead = null;
 
@@ -41,11 +58,30 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private final int DRILL_HEAD_SLOT = 2;
 	private final int OUTPUT_SLOT = 3;
 
+	// Might be better to move these to an ENUM
+	private final int OK = 0;
+	private final int FULL = 1;
+	private final int NO_PIPE = 2;
+	private final int FINISHED = 3;
+
 
 	private int mineRadius = 16;
 	private  int curX;
 	private int curZ;
-	private boolean finishedY = false;
+
+
+	// Mining Rig state control
+	private boolean finishedY;
+
+	private int status = OK;
+
+
+	// Frequently accessed
+	private ServerWorld serverWorld;
+	private LootContext.Builder builder;
+	private int spawnRadius = 0;
+	private BlockPos spawnPos;
+
 
 	private final RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(4, "MiningRigBlockEntity", 64, this);
 	private final Tank tank = null;
@@ -53,27 +89,53 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	public MiningRigBlockEntity() {
 		// TODO config these values
-		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 6);
+		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 0);
 	}
+
+	// Called on first tick on server when world isn't null
+	private void init(){
+		verifyIntegrity();
+
+		// Ugly, probably better way to do this
+		assert world != null;
+		MinecraftServer server = world.getServer();
+		assert server != null;
+		serverWorld = world.getServer().getWorld(world.getRegistryKey());
+		assert serverWorld != null;
+
+		spawnPos = serverWorld.getSpawnPos();
+		spawnRadius = server.getSpawnRadius(serverWorld);
+
+		// Loot context for getting drops
+		builder = (new LootContext.Builder(Objects.requireNonNull(world.getServer()).getOverworld()))
+				.random(world.random)
+				.parameter(LootContextParameters.POSITION, pos)
+				.parameter(LootContextParameters.TOOL, new ItemStack(Items.DIAMOND_PICKAXE));
+	}
+
 
 	@Override
 	public void tick() {
+		super.tick();
 		if(world == null || world.isClient || !isMultiblockValid()){
 			return;
 		}
 
-
-		if (world.getTime() % 40 != 0) {
-			verifyIntegrity();
+		if(!hasInit){
+			init();
 		}
 
-		// Temp
-		if(reserveHead == null || drillHead == null){
+
+		// Ensure no one's gon doof our pipes and drill
+		if (world.getTime() % 60 == 0) {
 			verifyIntegrity();
+			hasInit = true;
 		}
+
+		// Start rig logic
 
 		if(!finishedY){
-			for(int i = 0; i < 1000; i++) {
+			for(int i = 0; i < 520; i++) {
 				Drill();
 			}
 		}else{
@@ -99,25 +161,59 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 		// For the love of god, don't mine the drill head
 		if(!minePosition.equals(drillHead) && canMine(minePosition)){
-			Block minedBlock = world.getBlockState(minePosition).getBlock();
-			world.getServer().getWorld(ServerWorld.OVERWORLD).spawnParticles(ParticleTypes.BARRIER, curX,drillHead.getY(), curZ,1,0,0,0,1); // TODO debug remove
+			BlockState minedState = world.getBlockState(minePosition);
+			Block minedBlock = minedState.getBlock();
+
+
+			serverWorld.spawnParticles(ParticleTypes.BARRIER, curX,drillHead.getY(), curZ,1,0,0,0,1); // TODO debug remove
 
 			if(!minedBlock.is(Blocks.AIR)) {
 				ItemStack mineStack = new ItemStack(minedBlock.asItem());
 
-			//	if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
+				if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
 					// TODO add to existing slot instead of waiting for it to be empty
 					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
-					inventory.setStack(OUTPUT_SLOT,mineStack);
-//				}
+
+					List<ItemStack> stacks = minedBlock.getDroppedStacks(minedState, builder);
+
+
+					if(stacks.size() == 1){
+						inventory.setStack(OUTPUT_SLOT, stacks.get(0));
+					}else{
+						System.out.println("WHAT?");
+					}
+
+
+					// Instantly dump contents to neighbours, can't wait
+					super.getSlotConfiguration().update(this);
+					if(status == FULL){
+						status = OK;
+					}
+				}else{
+					status = FULL;
+				}
 			}
 		}
-		curX++;
+
+
+		// Progress if not full
+		if(status != FULL) {
+			curX++;
+		}
 	}
 
+	// Assume that world isn't null when this is called nor is it a client
 	private boolean canMine(BlockPos pos) {
-		// TODO decided to not bother with block permissions, this function is for future implementation of that
-		return true;
+		// TODO make more performant
+
+		if (spawnRadius <= 0) {
+			return true;
+		} else {
+			int i = MathHelper.abs(pos.getX() - spawnPos.getX());
+			int j = MathHelper.abs(pos.getZ() - spawnPos.getZ());
+			int k = Math.max(i, j);
+			return k > spawnRadius;
+		}
 	}
 
 	private void resetMiningCursor(){
@@ -131,6 +227,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		updatePipeDrillDepth();
 		rebuildDrillHead();
 	}
+
 	// Update pipe reserve count and reserveHead
 	private void updatePipeReserve() {
 		pipeReserveCount = WorldHelper.getBlockCountAlongY(this.pos,1, TRContent.DRILL_PIPE, world);
@@ -138,6 +235,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		// Reserve position is just machine offset by count
 		reserveHead = this.pos.offset(Direction.UP, pipeReserveCount);
 	}
+
 	// Updates drilldepth (Includes drillhead)
 	private void updatePipeDrillDepth(){
 		Block[] blocks = {TRContent.DRILL_PIPE, TRContent.DRILL_HEAD};
@@ -148,6 +246,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private boolean hasPipeAbove(){
 		return world.getBlockState(this.pos.offset(Direction.UP)).getBlock() == TRContent.DRILL_PIPE;
 	}
+
 	// Take a pipe from reserve off
 	private boolean consumePipe(){
 		// If reserve is empty but there's a pipe above, update count and head position.
@@ -181,6 +280,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		return blockHead.is(pipe) && blockAbove.is(Blocks.AIR) &&
 				blockBelow.is(pipe) || blockBelow.is(this.getBlockType());
 	}
+
 	private boolean validDrillHead(){
 		if(drillHead == null){
 			return false;
@@ -234,13 +334,17 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			updatePipeReserve();
 
 			if(pipeReserveCount == 0){
+				status = NO_PIPE;
 				return false;
+			}else{
+				status = OK;
 			}
 		}
 
 		BlockPos nextDrillPosition = drillHead.offset(Direction.DOWN);
 		Block nextBlock = world.getBlockState(nextDrillPosition).getBlock();
-		if(!nextBlock.is(Blocks.BEDROCK) && (nextBlock.is(Blocks.AIR) || world.breakBlock(nextDrillPosition, false))) {
+		if(!nextBlock.is(Blocks.BEDROCK)) {
+			status = OK;
 			world.setBlockState(drillHead, TRContent.DRILL_PIPE.getDefaultState());
 
 			// Move drill to new position and update depth
@@ -253,6 +357,8 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			resetMiningCursor();
 
 			return true;
+		}else{
+			status = FINISHED;
 		}
 
 		return false;
@@ -260,6 +366,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 
 	// Overrides
+
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
@@ -318,7 +425,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		return inventory;
 	}
 
-//	@Nullable
+	//	@Nullable
 //	@Override
 //	public Tank getTank() {
 //		return tank;
