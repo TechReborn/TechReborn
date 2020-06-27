@@ -79,6 +79,7 @@ import techreborn.client.GuiType;
 import techreborn.client.gui.GuiMiningRig;
 import techreborn.config.TechRebornConfig;
 import techreborn.entities.EntityNukePrimed;
+import techreborn.items.DrillHeadItem;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
@@ -794,14 +795,18 @@ public class TRContent {
 	}
 
 	public enum DrillHeads implements ItemConvertible {
-		IRON, STEEL, IRIDIUM;
+		IRON(5,1000),
+		STEEL(10,3000),
+		IRIDIUM(16,6000);
 
 		public final String name;
 		public final Item item;
+		public final int radius;
 
-		DrillHeads() {
+		DrillHeads(int radius, int durability) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			item = new Item(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1));
+			item = new DrillHeadItem(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(durability), radius);
+			this.radius = radius;
 			InitUtils.setup(item, name + "_drill_head");
 		}
 
