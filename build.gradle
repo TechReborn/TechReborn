@@ -68,6 +68,10 @@ license {
 
 group = 'TechReborn'
 
+configurations.all {
+	resolutionStrategy.cacheDynamicVersionsFor 2, 'minutes'
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:1.16.1"
 	mappings "net.fabricmc:yarn:1.16.1+build.1:v2"
