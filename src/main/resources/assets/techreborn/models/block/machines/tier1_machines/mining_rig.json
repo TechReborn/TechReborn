@@ -1,6 +1,10 @@
 {
-    "parent": "minecraft:block/cube_all",
+    "parent": "minecraft:block/orientable",
     "textures": {
-        "all": "techreborn:block/machines/tier1_machines/mining_rig"
+        "top": "techreborn:block/machines/tier1_machines/mining_rig_top",
+        "front": "techreborn:block/machines/tier1_machines/mining_rig_front_off",
+        "side": "techreborn:block/machines/tier1_machines/mining_rig_side",
+        "bottom": "techreborn:block/machines/tier1_machines/mining_rig_bottom",
+        "back": "techreborn:block/machines/tier1_machines/mining_rig_back"
     }
 }
