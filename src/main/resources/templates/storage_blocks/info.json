@@ -69,11 +69,35 @@
 	{
 	  "from" : "slab/item_model_slab.json",
 	  "to" : "assets/techreborn/models/item/%name%_slab.json"
-	}
-  ,
+	},
 	{
 	  "from" : "wall/item_model_wall.json",
 	  "to" : "assets/techreborn/models/item/%name%_wall.json"
+	},
+
+	{
+	  "from" : "recipes/slab.json",
+	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_slab.json"
+	},
+	{
+	  "from" : "recipes/slab_stonecutting.json",
+	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_slab_stonecutting.json"
+	},
+	{
+	  "from" : "recipes/stair.json",
+	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_stair.json"
+	},
+	{
+	  "from" : "recipes/stair_stonecutting.json",
+	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_stair_stonecutting.json"
+	},
+	{
+	  "from" : "recipes/wall.json",
+	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_wall.json"
+	},
+	{
+	  "from" : "recipes/wall_stonecutting.json",
+	  "to" : "data/techreborn/recipes/crafting_table/storage_block/%name%_wall_stonecutting.json"
 	}
   ]
 }

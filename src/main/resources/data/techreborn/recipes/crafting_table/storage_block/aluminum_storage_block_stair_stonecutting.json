@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+	"item": "techreborn:aluminum_storage_block"
+  },
+  "result": "techreborn:aluminum_storage_block_stairs",
+  "count": 1
+}

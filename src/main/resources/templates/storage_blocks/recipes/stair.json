@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"#  ",
+	"## ",
+	"###"
+  ],
+  "key": {
+	"#": {
+	  "item": "techreborn:%name%"
+	}
+  },
+  "result": {
+	"item": "techreborn:%name%_stairs",
+	"count": 4
+  }
+}

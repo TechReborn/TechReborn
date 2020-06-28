@@ -42,14 +42,6 @@ public class TechRebornTemplates {
 		Path path = Paths.get(StringArgumentType.getString(ctx, "path"));
 		TemplateProcessor processor = new TemplateProcessor(path);
 
-		for (TRContent.StorageBlocks value : TRContent.StorageBlocks.values()) {
-			System.out.println(Registry.BLOCK.getId(value.block));
-		}
-
-		if (true) {
-			return 1;
-		}
-
 		try {
 			process(processor);
 		} catch (Exception e) {
