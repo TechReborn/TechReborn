@@ -2,36 +2,53 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "techreborn:block/machines/structure/drill_pipe",
+		"1": "techreborn:block/machines/structure/drill_pipe_top",
 		"particle": "techreborn:block/machines/structure/drill_pipe"
 	},
 	"elements": [
 		{
-			"from": [6, 0, 6],
-			"to": [10, 16, 10],
-			"rotation": {"angle": 0, "axis": "y", "origin": [16, 8, 15]},
+			"from": [5, 0, 5],
+			"to": [11, 16, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 8, 13]},
 			"faces": {
-				"north": {"uv": [0, 0, 4, 16], "texture": "#0"},
-				"east": {"uv": [0, 0, 4, 16], "texture": "#0"},
-				"south": {"uv": [0, 0, 4, 16], "texture": "#0"},
-				"west": {"uv": [0, 0, 4, 16], "texture": "#0"},
-				"up": {"uv": [4, 0, 8, 4], "texture": "#0"},
-				"down": {"uv": [4, 0, 8, 4], "texture": "#0"}
+				"north": {"uv": [5, 0, 11, 16], "texture": "#0"},
+				"east": {"uv": [5, 0, 11, 16], "texture": "#0"},
+				"south": {"uv": [5, 0, 11, 16], "texture": "#0"},
+				"west": {"uv": [5, 0, 11, 16], "texture": "#0"},
+				"up": {"uv": [5, 5, 11, 11], "texture": "#1"},
+				"down": {"uv": [5, 5, 11, 11], "texture": "#1"}
 			}
 		}
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"translation": [0, 0, -2]
+			"translation": [0, 0, -3]
 		},
 		"thirdperson_lefthand": {
-			"translation": [0, 0, -2]
+			"translation": [0, 0, -3]
+		},
+		"firstperson_righthand": {
+			"rotation": [7, 0, 0],
+			"translation": [0, 0.5, -1],
+			"scale": [0.8, 1, 0.8]
+		},
+		"firstperson_lefthand": {
+			"translation": [2, 0.75, -1.5],
+			"scale": [0.8, 0.8, 0.8]
 		},
 		"ground": {
-			"rotation": [90, 0, 0]
+			"rotation": [90, 0, 0],
+			"scale": [0.9, 0.9, 0.9]
 		},
 		"gui": {
-			"rotation": [0, 30, 0],
-			"scale": [1, 0.8, 1]
+			"rotation": [25, 12.25, 0],
+			"scale": [0.9, 0.9, 0.9]
+		},
+		"head": {
+			"translation": [0, 7.5, 0]
+		},
+		"fixed": {
+			"translation": [0, 0, -3.5]
 		}
 	}
 }
