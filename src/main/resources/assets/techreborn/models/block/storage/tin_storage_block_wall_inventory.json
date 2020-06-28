@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "techreborn:block/storage/tin_storage_block"
+  }
+}

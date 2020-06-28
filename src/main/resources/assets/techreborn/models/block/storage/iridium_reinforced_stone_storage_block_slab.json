@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+	"bottom": "techreborn:block/storage/iridium_reinforced_stone_storage_block",
+	"top": "techreborn:block/storage/iridium_reinforced_stone_storage_block",
+	"side": "techreborn:block/storage/iridium_reinforced_stone_storage_block"
+  }
+}

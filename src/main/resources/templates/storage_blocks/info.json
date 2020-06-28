@@ -1,0 +1,79 @@
+{
+  "files" : [
+	{
+	  "from" : "block/blockstate.json",
+	  "to" : "assets/techreborn/blockstates/%name%.json"
+	},
+	{
+	  "from" : "stair/blockstate_stair.json",
+	  "to" : "assets/techreborn/blockstates/%name%_stairs.json"
+	},
+	{
+	  "from" : "slab/blockstate_slab.json",
+	  "to" : "assets/techreborn/blockstates/%name%_slab.json"
+	},
+	{
+	  "from" : "wall/blockstate_wall.json",
+	  "to" : "assets/techreborn/blockstates/%name%_wall.json"
+	},
+
+	{
+	  "from" : "block/model.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%.json"
+	},
+	{
+	  "from" : "stair/model_stair.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_stairs.json"
+	},
+	{
+	  "from" : "stair/model_stair_inner.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_stairs_inner.json"
+	},
+	{
+	  "from" : "stair/model_stair_outer.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_stairs_outer.json"
+	},
+	{
+	  "from" : "slab/model_slab.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_slab.json"
+	},
+	{
+	  "from" : "slab/model_slab_top.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_slab_top.json"
+	},
+	{
+	  "from" : "wall/model_wall_inventory.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_wall_inventory.json"
+	},
+	{
+	  "from" : "wall/model_wall_post.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_wall_post.json"
+	},
+	{
+	  "from" : "wall/model_wall_side.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_wall_side.json"
+	},
+	{
+	  "from" : "wall/model_wall_side_tall.json",
+	  "to" : "assets/techreborn/models/block/storage/%name%_wall_side_tall.json"
+	},
+
+	{
+	  "from" : "block/item_model.json",
+	  "to" : "assets/techreborn/models/item/%name%.json"
+	},
+	{
+	  "from" : "stair/item_model_stair.json",
+	  "to" : "assets/techreborn/models/item/%name%_stairs.json"
+	},
+	{
+	  "from" : "slab/item_model_slab.json",
+	  "to" : "assets/techreborn/models/item/%name%_slab.json"
+	}
+  ,
+	{
+	  "from" : "wall/item_model_wall.json",
+	  "to" : "assets/techreborn/models/item/%name%_wall.json"
+	}
+  ]
+}
