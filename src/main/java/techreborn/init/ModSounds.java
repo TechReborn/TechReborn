@@ -45,6 +45,7 @@ public class ModSounds {
 	public static SoundEvent ALARM;
 	public static SoundEvent ALARM_2;
 	public static SoundEvent ALARM_3;
+	public static SoundEvent DRILLING;
 
 	public static class SoundHandler implements ICrafterSoundHanlder {
 

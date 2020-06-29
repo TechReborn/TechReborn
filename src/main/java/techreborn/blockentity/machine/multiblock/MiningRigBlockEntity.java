@@ -283,7 +283,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// Updates drilldepth (Includes drillhead)
 	private void updatePipeDrillDepth(){
-		Block[] blocks = {TRContent.DRILL_PIPE, TRContent.DRILL_HEAD};
+		Block[] blocks = {TRContent.DRILL_PIPE, TRContent.Machine.DRILL_HEAD.block};
 		drillDepth = WorldHelper.getBlockCountAlongY(this.pos.offset(Direction.DOWN, DRILL_OFFSET),-1, Arrays.asList(blocks), world);
 	}
 
@@ -336,7 +336,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		Block blockHead = world.getBlockState(drillHead).getBlock();
 		Block blockAbove = world.getBlockState(drillHead.offset(Direction.UP)).getBlock();
 
-		return blockHead.is(TRContent.DRILL_HEAD) && blockAbove.is(TRContent.DRILL_PIPE);
+		return blockHead.is(TRContent.Machine.DRILL_HEAD.block) && blockAbove.is(TRContent.DRILL_PIPE);
 	}
 
 	private void addDrillHead(){
@@ -345,15 +345,15 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		// Drill head should be at the end of pipe (ASSUMING no drill)
 		drillHead = this.pos.offset(Direction.DOWN,   drillDepth + 1 + DRILL_OFFSET);
 
- 		if(world.getBlockState(drillHead).getBlock() != TRContent.DRILL_HEAD) {
-			world.setBlockState(drillHead, TRContent.DRILL_HEAD.getDefaultState());
+ 		if(world.getBlockState(drillHead).getBlock() != TRContent.Machine.DRILL_HEAD.block) {
+			world.setBlockState(drillHead,TRContent.Machine.DRILL_HEAD.block.getDefaultState());
 			drillDepth++;
 		}
 	}
 
 	private void removeDrillHead(){
 		// Could improve this to be more performant, but this is safer TODO
-		List<BlockPos> drillHeads = WorldHelper.getBlocksAlongY(this.pos,-1,TRContent.DRILL_HEAD,world,true, null);
+		List<BlockPos> drillHeads = WorldHelper.getBlocksAlongY(this.pos,-1, TRContent.Machine.DRILL_HEAD.block, world,true, null);
 
 		for(BlockPos pos : drillHeads){
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -402,7 +402,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 				// Move drill to new position and update depth
 				drillHead = nextDrillPosition;
-				world.setBlockState(drillHead, TRContent.DRILL_HEAD.getDefaultState());
+				world.setBlockState(drillHead, TRContent.Machine.DRILL_HEAD.block.getDefaultState());
 				drillDepth++;
 
 				resetMiningCursor();

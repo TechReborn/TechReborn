@@ -2,6 +2,7 @@ package techreborn.blocks.misc;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -9,14 +10,20 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.BaseBlock;
+import reborncore.common.blocks.BlockMachineBase;
+import techreborn.blocks.GenericMachineBlock;
 import techreborn.init.TRContent;
 
-public class BlockDrillHead extends BaseBlock {
-	VoxelShape shape;
+import java.util.function.Supplier;
 
-	public BlockDrillHead() {
-		super(FabricBlockSettings.of(Material.METAL).strength(-1, 40000000).sounds(BlockSoundGroup.METAL));
+public class BlockDrillHead extends GenericMachineBlock {
+	VoxelShape shape;
+	//FabricBlockSettings.of(Material.METAL).strength(-1, 40000000).sounds(BlockSoundGroup.METAL)
+
+	public BlockDrillHead(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
+		super(gui, blockEntityClass);
 
 		shape = VoxelShapes.cuboid(3 / 16D, 0, 3 / 16D, 13 / 16D, 1, 13 / 16D);
 	}

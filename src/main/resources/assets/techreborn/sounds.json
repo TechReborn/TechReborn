@@ -52,5 +52,11 @@
     "sounds": [
       "techreborn:alarm_3"
     ]
+  },
+  "drilling": {
+	"category": "block",
+	"sounds": [
+	  "techreborn:drilling"
+	]
   }
 }

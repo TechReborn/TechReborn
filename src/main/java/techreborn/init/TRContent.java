@@ -50,6 +50,7 @@ import techreborn.blockentity.generator.basic.WindMillBlockEntity;
 import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
+import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -67,11 +68,7 @@ import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockMiningRig;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
-import techreborn.blocks.misc.BlockAlarm;
-import techreborn.blocks.misc.BlockMachineCasing;
-import techreborn.blocks.misc.BlockMachineFrame;
-import techreborn.blocks.misc.BlockStorage;
-import techreborn.blocks.misc.TechRebornStairsBlock;
+import techreborn.blocks.misc.*;
 import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
@@ -121,7 +118,6 @@ public class TRContent {
 	public static Block RUBBER_WOOD;
 	public static Block STRIPPED_RUBBER_WOOD;
 	public static Block DRILL_PIPE;
-	public static Block DRILL_HEAD;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;
@@ -559,6 +555,7 @@ public class TRContent {
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
 		MINING_RIG(new BlockMiningRig(GuiType.MINING_RIG, MiningRigBlockEntity::new)),
+		DRILL_HEAD(new BlockDrillHead(null, DrillHeadBlockEntity::new)),
 
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),

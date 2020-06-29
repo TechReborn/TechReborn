@@ -86,8 +86,6 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.NUKE = InitUtils.setup(new BlockNuke(), "nuke"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.REFINED_IRON_FENCE = InitUtils.setup(new BlockRefinedIronFence(), "refined_iron_fence"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.DRILL_PIPE = InitUtils.setup(new BlockDrillPipe(), "drill_pipe"), itemGroup);
-		RebornRegistry.registerBlock(TRContent.DRILL_HEAD = InitUtils.setup(new BlockDrillHead(), "drill_head"), itemGroup);
-
 
 		RebornRegistry.registerBlock(TRContent.REINFORCED_GLASS = InitUtils.setup(new BlockReinforcedGlass(), "reinforced_glass"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_LEAVES = InitUtils.setup(new BlockRubberLeaves(), "rubber_leaves"), itemGroup);
@@ -236,5 +234,6 @@ public class ModRegistry {
 		ModSounds.MACHINE_RUN = InitUtils.setup("machine_run");
 		ModSounds.MACHINE_START = InitUtils.setup("machine_start");
 		ModSounds.SAP_EXTRACT = InitUtils.setup("sap_extract");
+		ModSounds.DRILLING = InitUtils.setup("drilling");
 	}
 }

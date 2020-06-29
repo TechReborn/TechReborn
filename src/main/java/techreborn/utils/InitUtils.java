@@ -78,6 +78,13 @@ public class InitUtils {
 		return settings;
 	}
 
+	public static AbstractBlock.Settings setupBlockSettings(float hardness, float resistance) {
+
+		FabricBlockSettings settings = FabricBlockSettings.of(Material.METAL);
+		settings.strength(hardness, resistance);
+		return settings;
+	}
+
 	public static AbstractBlock.Settings setupRubberBlockSettings(float hardness, float resistance) {
 		return setupRubberBlockSettings(false, hardness, resistance);
 	}

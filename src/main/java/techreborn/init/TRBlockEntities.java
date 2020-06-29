@@ -48,6 +48,7 @@ import techreborn.blockentity.machine.misc.ChargeOMatBlockEntity;
 import techreborn.blockentity.machine.misc.DrainBlockEntity;
 import techreborn.blockentity.machine.multiblock.*;
 import techreborn.blockentity.machine.multiblock.casing.MachineCasingBlockEntity;
+import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
 import techreborn.blockentity.machine.tier1.*;
 import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
@@ -135,6 +136,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<WireMillBlockEntity> WIRE_MILL = register(WireMillBlockEntity::new, "wire_mill", TRContent.Machine.WIRE_MILL);
 	public static final BlockEntityType<GreenhouseControllerBlockEntity> GREENHOUSE_CONTROLLER = register(GreenhouseControllerBlockEntity::new, "greenhouse_controller", TRContent.Machine.GREENHOUSE_CONTROLLER);
 	public static final BlockEntityType<MiningRigBlockEntity> MINING_RIG = register(MiningRigBlockEntity::new, "mining_rig", TRContent.Machine.MINING_RIG);
+	public static final BlockEntityType<DrillHeadBlockEntity> DRILL_HEAD = register(DrillHeadBlockEntity::new, "drill_head", TRContent.Machine.DRILL_HEAD);
 
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(Supplier<T> supplier, String name, ItemConvertible... items) {
