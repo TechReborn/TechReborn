@@ -24,10 +24,48 @@
 
 package techreborn.packets;
 
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import reborncore.common.network.ExtendedPacketBuffer;
+import reborncore.common.network.NetworkManager;
+import techreborn.TechReborn;
+import techreborn.blockentity.machine.multiblock.MiningRigBlockEntity;
+
+import java.util.function.BiConsumer;
+
 public class ClientboundPackets {
 
-	public static void init() {
+	public static final Identifier MINING_RIG_SYNC = new Identifier(TechReborn.MOD_ID, "mining_rig_sync");
 
+	public static void init() {
+		registerPacketHandler(MINING_RIG_SYNC, (extendedPacketBuffer, context) -> {
+			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
+			boolean activeMining = extendedPacketBuffer.readBoolean();
+
+			context.getTaskQueue().execute(() -> {
+				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
+				if (BlockEntity instanceof MiningRigBlockEntity) {
+					((MiningRigBlockEntity) BlockEntity).activeMining = activeMining;
+				}
+			});
+		});
 	}
+
+	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer){
+		ClientSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
+	}
+
+	public static Packet<ClientPlayPacketListener> createPacketMiningRigSync(boolean active, MiningRigBlockEntity blockEntity) {
+		return NetworkManager.createClientBoundPacket(MINING_RIG_SYNC, extendedPacketBuffer -> {
+			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
+			extendedPacketBuffer.writeBoolean(active);
+		});
+	}
+
 
 }

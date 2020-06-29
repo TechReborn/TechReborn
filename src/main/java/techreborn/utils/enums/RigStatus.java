@@ -1,10 +1,12 @@
 package techreborn.utils.enums;
 
+
+// Status of the rig, Lower down the list, the more important it is ( Will be shown over others)
 public enum RigStatus {
-	FULL,
+	FINISHED_Y,
+	NO_ENERGY,
 	NO_PIPE,
 	NO_HEAD,
-	NO_ENERGY,
-	FINISHED_Y,
-	FINISHED
+	FULL,
+	FINISHED,
 }

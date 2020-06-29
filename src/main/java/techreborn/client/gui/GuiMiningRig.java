@@ -5,6 +5,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.math.BlockPos;
 import reborncore.client.RenderUtil;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
@@ -14,6 +15,7 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.multiblock.MiningRigBlockEntity;
+import techreborn.utils.enums.RigStatus;
 
 import java.util.Random;
 
@@ -83,7 +85,43 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		// Status screen
 		matrixStack.push();
 		matrixStack.scale(0.6f,0.6f,0.6f);
-		drawText(matrixStack,new LiteralText("Status: Running"), 87,30,0xFFFFFFFF, layer );
+
+		String status = "ALL OK";;
+		int statusOrdinal = blockEntity.statusNumber;
+		if(statusOrdinal != -1){
+			RigStatus rigStatus = RigStatus.values()[statusOrdinal];
+			switch (rigStatus){
+				case FINISHED:
+					status = "Finished";
+					break;
+				case FULL:
+					status = "Inventory full";
+					break;
+				case NO_PIPE:
+					status = "No reserve left";
+					break;
+				case NO_HEAD:
+					status = "Missing drill head";
+					break;
+				case NO_ENERGY:
+					status = "No energy";
+					break;
+				case FINISHED_Y:
+					break;
+			}
+		}
+
+		drawText(matrixStack, new LiteralText("Status: " + status), 87,30,0xFFFFFFFF, layer );
+
+		// Y-level reporting
+		BlockPos drillHead = blockEntity.getDrillHead();
+		if(drillHead != null && drillHead.getY() != -1){
+			drawText(matrixStack, new LiteralText("Y-Level: " + (drillHead.getY() - 1)), 87,40,0xFFFFFFFF, layer );
+		}
+
+		// Reserve reporting
+		drawText(matrixStack, new LiteralText("Reserve count: " + blockEntity.getPipeReserveCount()), 87,90,0xFFFFFFFF, layer );
+
 		matrixStack.pop();
 
 		// Tank and energy meters

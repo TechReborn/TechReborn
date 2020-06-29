@@ -2,10 +2,7 @@ package techreborn.blockentity.machine.multiblock.structure;
 
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Tickable;
-import reborncore.common.util.ChatUtils;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 
@@ -37,8 +34,6 @@ public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
 		if(isActive && !world.isClient){
 			// Number between 0.5 and 0.6
 			float pitch =  0.5f + world.random.nextFloat() * (0.6f - 0.5f);
-			System.out.println(pitch);
-			ChatUtils.sendNoSpamMessages(1,new LiteralText(pitch + " "));
 			world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.DRILLING, SoundCategory.BLOCKS, 1F, pitch);
 		}
 	}
