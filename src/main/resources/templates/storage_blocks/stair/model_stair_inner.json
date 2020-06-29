@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+	"bottom": "techreborn:block/storage/%name%",
+	"top": "techreborn:block/storage/%name%",
+	"side": "techreborn:block/storage/%name%"
+  }
+}

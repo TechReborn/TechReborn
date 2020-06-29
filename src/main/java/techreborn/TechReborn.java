@@ -54,6 +54,7 @@ import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
 import techreborn.init.*;
+import techreborn.init.template.TechRebornTemplates;
 import techreborn.items.DynamicCellItem;
 import techreborn.packets.ClientboundPackets;
 import techreborn.packets.ServerboundPackets;
@@ -152,6 +153,8 @@ public class TechReborn implements ModInitializer {
 		if (FabricLoader.getInstance().isModLoaded("trinkets")) {
 			elytraPredicate = Trinkets.isElytraEquipped();
 		}
+
+		TechRebornTemplates.init();
 
 		LOGGER.info("TechReborn setup done!");
 

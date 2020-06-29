@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "techreborn:block/storage/iridium_reinforced_stone_storage_block"
+  }
+}

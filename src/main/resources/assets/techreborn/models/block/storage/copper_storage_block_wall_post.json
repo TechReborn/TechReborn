@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "techreborn:block/storage/copper_storage_block"
+  }
+}

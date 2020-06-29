@@ -70,7 +70,7 @@ public class ModRegistry {
 	private static void registerBlocks() {
 		Settings itemGroup = new Item.Settings().group(TechReborn.ITEMGROUP);
 		Arrays.stream(Ores.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
-		Arrays.stream(StorageBlocks.values()).forEach(value -> RebornRegistry.registerBlock(value.block, itemGroup));
+		StorageBlocks.blockStream().forEach(block -> RebornRegistry.registerBlock(block, itemGroup));
 		Arrays.stream(MachineBlocks.values()).forEach(value -> {
 			RebornRegistry.registerBlock(value.frame, itemGroup);
 			RebornRegistry.registerBlock(value.casing, itemGroup);

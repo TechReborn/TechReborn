@@ -1,6 +1,32 @@
 {
   "replace": false,
   "values": [
-    "techreborn:rubber_plank_stair"
+    "techreborn:rubber_plank_stair",
+	"techreborn:aluminum_storage_block_stairs",
+	"techreborn:brass_storage_block_stairs",
+	"techreborn:bronze_storage_block_stairs",
+	"techreborn:chrome_storage_block_stairs",
+	"techreborn:copper_storage_block_stairs",
+	"techreborn:electrum_storage_block_stairs",
+	"techreborn:invar_storage_block_stairs",
+	"techreborn:iridium_storage_block_stairs",
+	"techreborn:iridium_reinforced_stone_storage_block_stairs",
+	"techreborn:iridium_reinforced_tungstensteel_storage_block_stairs",
+	"techreborn:lead_storage_block_stairs",
+	"techreborn:nickel_storage_block_stairs",
+	"techreborn:peridot_storage_block_stairs",
+	"techreborn:platinum_storage_block_stairs",
+	"techreborn:red_garnet_storage_block_stairs",
+	"techreborn:refined_iron_storage_block_stairs",
+	"techreborn:ruby_storage_block_stairs",
+	"techreborn:sapphire_storage_block_stairs",
+	"techreborn:silver_storage_block_stairs",
+	"techreborn:steel_storage_block_stairs",
+	"techreborn:tin_storage_block_stairs",
+	"techreborn:titanium_storage_block_stairs",
+	"techreborn:tungsten_storage_block_stairs",
+	"techreborn:tungstensteel_storage_block_stairs",
+	"techreborn:yellow_garnet_storage_block_stairs",
+	"techreborn:zinc_storage_block_stairs"
   ]
 }

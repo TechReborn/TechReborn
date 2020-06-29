@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+	"item": "techreborn:platinum_storage_block"
+  },
+  "result": "techreborn:platinum_storage_block_slab",
+  "count": 2
+}
