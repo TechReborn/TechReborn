@@ -3,6 +3,7 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,6 +24,7 @@ import reborncore.common.network.NetworkManager;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.DrillHeadItem;
@@ -33,17 +35,23 @@ import techreborn.utils.enums.RigStatus;
 import java.util.*;
 
 public class MiningRigBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider, InventoryProvider {
-	private int pipeReserveCount;
-	private BlockPos reserveHead = null;
+	// Pipe reserve related variables
+	private int pipeReserveCount; // How many pipes are currently above rig
+	private BlockPos reserveHead = null; // The top of the stack
 
-	private DrillHeadItem drillItem;
-	private int drillDepth;
 
-	private BlockPos drillHead =  null;
-	public boolean activeMining = false;
+	// Drill-related variables
+	private DrillHeadItem drillItem; // Drill head in machine inventory
+	private int drillDepth; // How far down relative to machine (including drill head)
+	private BlockPos drillHead =  null; // Position of drill head, null if not in world
+	private boolean activeMining = false; // True when nothing is wrong.
+	// Mining cursor (Position currently being mined on Y-Level
+	private int curX;
+	private int curZ;
 
-	// Position from just inside block at bottom
-	private final int DRILL_OFFSET = 3;
+
+	// CONSTANTS
+	private final int DRILL_OFFSET = 3; // Position from just inside block at bottom
 
 	// Inventory slot constants
 	private final int ENERGY_SLOT = 0;
@@ -51,24 +59,21 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private final int DRILL_HEAD_SLOT = 2;
 	private final int OUTPUT_SLOT = 3;
 
-	// Mining cursor
-	private int curX;
-	private int curZ;
-
-	// State control
-	public Set<RigStatus> status = new HashSet<>();
-	// Client-side sync variable (Can't send hashset, will use int instead)
-	public int statusNumber;
-
-
-	// Frequently accessed
-	private ServerWorld serverWorld;
-	private LootContext.Builder builder;
-	private int spawnRadius = 0;
-	private BlockPos spawnPos;
-
 	// Consume constants TODO move to config
 	private double ENERGY_PER_BLOCK = 150;
+
+
+	// State control
+	public Set<RigStatus> status = new HashSet<>(); // Hashset of all issues currently present, that need to be addressed
+	public int statusNumber; // Client-side sync variable (Can't send hashset, will use int instead)
+
+
+	// Frequently accessed variables, set in the onLoad
+	private ServerWorld serverWorld;
+	private LootContext.Builder builder; // Used to get drops for mining
+	private int spawnRadius = 0; // Radius of spawn protection
+	private BlockPos spawnPos;
+
 
 	// Inventory and storage
 	private final RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(4, "MiningRigBlockEntity", 64, this);
@@ -80,6 +85,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 0);
 	}
 
+	// Set thing sup
 	@Override
 	public void onLoad() {
 		super.onLoad();
@@ -129,6 +135,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 	}
 
+	// Core mining logic, will drill out a radius and add item to inventory.
 	private void drill(){
 		boolean validMine = false;
 
@@ -188,6 +195,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}while (!validMine);
 	}
 
+	// Attempt to fix and issues and resolve them as a status
 	private void handleStatus(){
 		for(RigStatus rigStatus : new ArrayList<>(status)){
 			switch (rigStatus){
@@ -239,12 +247,14 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 	}
 
+	// Resets X and Z to the starting position (currentpos - radius for both x and z) called for new y-levels
 	private void resetMiningCursor(){
 		// Reset mining cursor
 		curX = drillHead.getX() - drillItem.range;
 		curZ = drillHead.getZ() - drillItem.range;
 	}
 
+	// Check's overall structure (reserve, digging pipe and the drillhead)
 	private void verifyIntegrity(){
 		if(!validReserveHead()) {
 			updatePipeReserve();
@@ -311,6 +321,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 				blockBelow.is(pipe) || blockBelow.is(this.getBlockType());
 	}
 
+	// Ensure drillhead is a valid drill (drill with pipe directly above it)
 	private boolean validDrillHead(){
 		if(drillHead == null){
 			return false;
@@ -322,6 +333,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		return blockHead.is(TRContent.Machine.DRILL_HEAD.block) && blockAbove.is(TRContent.DRILL_PIPE);
 	}
 
+	// Add drill head to world at end of pipe
 	private void addDrillHead(){
 		updatePipeDrillDepth();
 
@@ -334,6 +346,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 	}
 
+	// Remove drill head from the world (ALL vertically)
 	private void removeDrillHead(){
 		// Could improve this to be more performant, but this is safer TODO
 		List<BlockPos> drillHeads = WorldHelper.getBlocksAlongY(this.pos,-1, TRContent.Machine.DRILL_HEAD.block, world,true, null);
@@ -345,6 +358,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		this.drillHead = null;
 	}
 
+	// Check that drill has drill head item and change if it doesn't or does
 	private void updateDrillHead(){
 		boolean validDrillItem = validDrillHeadInInventory();
 		boolean validDrillHead = validDrillHead();
@@ -369,21 +383,40 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 	}
 
-	private void setActiveMining(boolean value){
+	// Animation helper fuction, is called by packet to change aniamtion on clients, depending on rig state
+	public void setActiveMining(boolean value){
 		if(value == this.activeMining){
-			// Don't need to inform client if it hasn't changed.
+			// Don't need to do anything if already state
 			return;
 		}
 
-		if(value){
+		// Update drill state on client only, otherwise inform client on server
+		if(world.isClient){
+			setDrillState(value);
+			this.activeMining = value;
+			return;
+		}
+
+		if (value) {
 			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(true, this), this.serverWorld);
-		}else{
+		} else {
 			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(false, this), this.serverWorld);
 		}
 
 		this.activeMining = value;
 	}
 
+	// Set's the drillhead's animation state
+	public void setDrillState(boolean state){
+		if(drillHead == null || world == null) return;
+
+		BlockEntity blockEntity = world.getBlockEntity(drillHead);
+		if(blockEntity instanceof DrillHeadBlockEntity){
+			((DrillHeadBlockEntity) blockEntity).isActive = state;
+		}
+	}
+
+	// Helper function that checks for valid drillhead in rig's inventory.
 	private boolean validDrillHeadInInventory(){
 		return this.inventory.getStack(DRILL_HEAD_SLOT).getItem() instanceof DrillHeadItem;
 	}
@@ -413,6 +446,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 		return false;
 	}
+
 
 	// Setter/Getters for client/server syncs
 
@@ -457,8 +491,9 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		this.pipeReserveCount = pipeReserveCount;
 	}
 
-	// Overrides
 
+
+	// Overrides
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();

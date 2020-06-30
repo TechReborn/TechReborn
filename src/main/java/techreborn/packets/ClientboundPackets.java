@@ -50,7 +50,8 @@ public class ClientboundPackets {
 			context.getTaskQueue().execute(() -> {
 				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
 				if (BlockEntity instanceof MiningRigBlockEntity) {
-					((MiningRigBlockEntity) BlockEntity).activeMining = activeMining;
+					MiningRigBlockEntity rig = ((MiningRigBlockEntity) BlockEntity);
+					rig.setActiveMining(activeMining);
 				}
 			});
 		});
