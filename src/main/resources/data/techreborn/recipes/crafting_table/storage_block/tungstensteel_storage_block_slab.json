@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"###"
+  ],
+  "key": {
+	"#": {
+	  "item": "techreborn:tungstensteel_storage_block"
+	}
+  },
+  "result": {
+	"item": "techreborn:tungstensteel_storage_block_slab",
+	"count": 6
+  }
+}

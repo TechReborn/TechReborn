@@ -59,12 +59,7 @@ import techreborn.blockentity.storage.energy.MediumVoltageSUBlockEntity;
 import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LSUStorageBlockEntity;
 import techreborn.blockentity.storage.energy.lesu.LapotronicSUBlockEntity;
-import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
-import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
-import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
-import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
-import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.blockentity.transformers.EVTransformerBlockEntity;
 import techreborn.blockentity.transformers.HVTransformerBlockEntity;
@@ -83,11 +78,6 @@ public class TRBlockEntities {
 
 	public static final BlockEntityType<StorageUnitBaseBlockEntity> STORAGE_UNIT = register(StorageUnitBaseBlockEntity::new, "storage_unit", TRContent.StorageUnit.values());
 	public static final BlockEntityType<TankUnitBaseBlockEntity> TANK_UNIT = register(TankUnitBaseBlockEntity::new, "tank_unit", TRContent.TankUnit.values());
-	public static final BlockEntityType<QuantumTankBlockEntity> QUANTUM_TANK = register(QuantumTankBlockEntity::new, "quantum_tank", TRContent.Machine.QUANTUM_TANK);
-	public static final BlockEntityType<QuantumChestBlockEntity> QUANTUM_CHEST = register(QuantumChestBlockEntity::new, "quantum_chest", TRContent.Machine.QUANTUM_CHEST);
-	public static final BlockEntityType<DigitalChestBlockEntity> DIGITAL_CHEST = register(DigitalChestBlockEntity::new, "digital_chest", TRContent.Machine.DIGITAL_CHEST);
-	public static final BlockEntityType<CreativeQuantumChestBlockEntity> CREATIVE_QUANTUM_CHEST = register(CreativeQuantumChestBlockEntity::new, "creative_quantum_chest", TRContent.Machine.CREATIVE_QUANTUM_CHEST);
-	public static final BlockEntityType<CreativeQuantumTankBlockEntity> CREATIVE_QUANTUM_TANK = register(CreativeQuantumTankBlockEntity::new, "creative_quantum_tank", TRContent.Machine.CREATIVE_QUANTUM_TANK);
 	public static final BlockEntityType<DrainBlockEntity> DRAIN = register(DrainBlockEntity::new, "drain", TRContent.Machine.DRAIN);
 	public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GEN = register(ThermalGeneratorBlockEntity::new, "thermal_generator", TRContent.Machine.THERMAL_GENERATOR);
 	public static final BlockEntityType<IndustrialCentrifugeBlockEntity> INDUSTRIAL_CENTRIFUGE = register(IndustrialCentrifugeBlockEntity::new, "industrial_centrifuge", TRContent.Machine.INDUSTRIAL_CENTRIFUGE);

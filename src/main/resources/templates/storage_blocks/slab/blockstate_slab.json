@@ -1,0 +1,13 @@
+{
+  "variants": {
+	"type=bottom": {
+	  "model": "techreborn:block/storage/%name%_slab"
+	},
+	"type=double": {
+	  "model": "techreborn:block/storage/%name%"
+	},
+	"type=top": {
+	  "model": "techreborn:block/storage/%name%_slab_top"
+	}
+  }
+}

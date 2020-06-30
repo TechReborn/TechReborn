@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+	"item": "techreborn:%name%"
+  },
+  "result": "techreborn:%name%_slab",
+  "count": 2
+}

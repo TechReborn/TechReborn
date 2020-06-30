@@ -56,10 +56,9 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 
-
 		// Draw in/out labels
-		drawTextWithShadow(matrixStack, textRenderer, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
-		drawTextWithShadow(matrixStack,textRenderer, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		builder.drawText(matrixStack,this, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		builder.drawText(matrixStack,this, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
 
 		if (storageEntity.isEmpty() && !storageEntity.isLocked()) {
 			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);

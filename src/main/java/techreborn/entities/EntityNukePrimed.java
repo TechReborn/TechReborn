@@ -28,11 +28,16 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.TntEntity;
+import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
+import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
+import techreborn.init.TRBlockEntities;
+import techreborn.init.TRContent;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -51,15 +56,6 @@ public class EntityNukePrimed extends TntEntity {
 
 	@Override
 	public void tick() {
-		this.prevX = this.getX();
-		this.prevY = this.getY();
-		this.prevZ = this.getZ();
-
-		Vec3d velocity = getVelocity();
-		double motionX = velocity.x;
-		double motionY = velocity.y;
-		double motionZ = velocity.z;
-
 		if (!this.hasNoGravity()) {
 			this.setVelocity(this.getVelocity().add(0.0D, -0.04D, 0.0D));
 		}
@@ -70,18 +66,17 @@ public class EntityNukePrimed extends TntEntity {
 			this.setVelocity(this.getVelocity().multiply(0.7D, -0.5D, 0.7D));
 		}
 
-		setVelocity(new Vec3d(motionX, motionZ, motionY));
-
 		setFuse(getFuseTimer() - 1);
-
-		if (getFuseTimer() <= 0) {
+		if (this.getFuseTimer() <= 0) {
 			this.remove();
 			if (!this.world.isClient) {
-				explodeNuke();
+				this.explodeNuke();
 			}
 		} else {
 			this.updateWaterState();
-			this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+			if (this.world.isClient) {
+				this.world.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
+			}
 		}
 	}
 

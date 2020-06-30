@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+	"item": "techreborn:copper_storage_block"
+  },
+  "result": "techreborn:copper_storage_block_slab",
+  "count": 2
+}

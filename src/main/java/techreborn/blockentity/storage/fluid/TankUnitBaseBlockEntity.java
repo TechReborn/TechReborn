@@ -67,12 +67,6 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		configureEntity(type);
 	}
 
-
-	public TankUnitBaseBlockEntity(BlockEntityType<?> blockEntityTypeIn, TRContent.TankUnit type) {
-		super(blockEntityTypeIn);
-		this.type = type;
-	}
-
 	private void configureEntity(TRContent.TankUnit type) {
 		this.type = type;
 		this.tank = new Tank("TankStorage", type.capacity, this);
@@ -110,20 +104,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			this.type = TRContent.TankUnit.valueOf(tagCompound.getString("unitType"));
 			configureEntity(type);
 			tank.read(tagCompound);
-		} else {
-			// SAVE COMPAT
-			if (tagCompound.contains("QuantumTankBlockEntity")) {
-				this.type = TRContent.TankUnit.QUANTUM;
-				Tank temp = new Tank("QuantumTankBlockEntity", type.capacity, this);
-				temp.read(tagCompound);
-
-				// Set tank name to what it should be
-				tank = new Tank("TankStorage", type.capacity, this);
-				tank.setFluid(null, temp.getFluidInstance().copy());
-			}
 		}
-
-
 	}
 
 	@Override

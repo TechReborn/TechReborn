@@ -28,6 +28,9 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.block.OreBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -52,11 +55,6 @@ import techreborn.blockentity.machine.tier3.ChunkLoaderBlockEntity;
 import techreborn.blockentity.machine.tier3.IndustrialCentrifugeBlockEntity;
 import techreborn.blockentity.machine.tier3.MatterFabricatorBlockEntity;
 import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
-import techreborn.blockentity.storage.fluid.CreativeQuantumTankBlockEntity;
-import techreborn.blockentity.storage.fluid.QuantumTankBlockEntity;
-import techreborn.blockentity.storage.item.CreativeQuantumChestBlockEntity;
-import techreborn.blockentity.storage.item.DigitalChestBlockEntity;
-import techreborn.blockentity.storage.item.QuantumChestBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
@@ -72,7 +70,7 @@ import techreborn.blocks.misc.BlockAlarm;
 import techreborn.blocks.misc.BlockMachineCasing;
 import techreborn.blocks.misc.BlockMachineFrame;
 import techreborn.blocks.misc.BlockStorage;
-import techreborn.blocks.storage.OldBlock;
+import techreborn.blocks.misc.TechRebornStairsBlock;
 import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
@@ -90,8 +88,12 @@ import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class TRContent {
 
@@ -424,16 +426,58 @@ public class TRContent {
 
 		public final String name;
 		public final Block block;
+		public final StairsBlock stairsBlock;
+		public final SlabBlock slabBlock;
+		public final WallBlock wallBlock;
 
 		StorageBlocks() {
 			name = this.toString().toLowerCase(Locale.ROOT);
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
+
+			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block)){
+				@Override
+				public String getTranslationKey() {
+					return block.getTranslationKey();
+				}
+			};
+
+			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
+
+			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block)){
+				@Override
+				public String getTranslationKey() {
+					return block.getTranslationKey();
+				}
+			};
+
+			InitUtils.setup(slabBlock, name + "_storage_block_slab");
+
+			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block)){
+				@Override
+				public String getTranslationKey() {
+					return block.getTranslationKey();
+				}
+			};
+
+			InitUtils.setup(wallBlock, name + "_storage_block_wall");
 		}
 
 		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		public static Stream<Block> blockStream() {
+			return Arrays.stream(values())
+					.map(StorageBlocks::allBlocks)
+					.flatMap(Collection::stream);
+		}
+
+		private List<Block> allBlocks() {
+			return Collections.unmodifiableList(Arrays.asList(
+					block, stairsBlock, slabBlock, wallBlock
+			));
 		}
 	}
 
@@ -510,14 +554,6 @@ public class TRContent {
 		WIND_MILL(new GenericGeneratorBlock(null, WindMillBlockEntity::new)),
 
 		DRAIN(new GenericMachineBlock(null, DrainBlockEntity::new)),
-
-		//TODO DEPRECATED
-		DIGITAL_CHEST(new OldBlock(null, DigitalChestBlockEntity::new)),
-		QUANTUM_CHEST(new OldBlock(null, QuantumChestBlockEntity::new)),
-		QUANTUM_TANK(new OldBlock(null, QuantumTankBlockEntity::new)),
-		CREATIVE_QUANTUM_CHEST(new OldBlock(null, CreativeQuantumChestBlockEntity::new)),
-		CREATIVE_QUANTUM_TANK(new OldBlock(null, CreativeQuantumTankBlockEntity::new)),
-
 
 		ADJUSTABLE_SU(new AdjustableSUBlock()),
 		CHARGE_O_MAT(new GenericMachineBlock(GuiType.CHARGEBENCH, ChargeOMatBlockEntity::new)),

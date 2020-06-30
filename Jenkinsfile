@@ -14,7 +14,7 @@ pipeline {
                 branch '1.16'
          }
          steps {
-            sh "./gradlew clean build publish curseTools --refresh-dependencies --stacktrace"
+            sh "./gradlew clean build publish curseTools --stacktrace"
 
             archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
          }

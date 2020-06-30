@@ -49,7 +49,7 @@ repositories {
 	}
 }
 
-version = "3.3.12"
+version = "3.4.2"
 
 configurations {
 	shade
@@ -68,17 +68,21 @@ license {
 
 group = 'TechReborn'
 
+configurations.all {
+	resolutionStrategy.cacheDynamicVersionsFor 2, 'minutes'
+}
+
 dependencies {
-	minecraft "com.mojang:minecraft:1.16-rc1"
-	mappings "net.fabricmc:yarn:1.16-rc1+build.1:v2"
+	minecraft "com.mojang:minecraft:1.16.1"
+	mappings "net.fabricmc:yarn:1.16.1+build.1:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.8.8+build.202"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.12.4+build.365-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.13.1+build.370-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.5.1")
-	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.3.0+1.15.2')
-	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.4.2')
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.5.4")
+	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
+	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
 	modApi (rcVersion) {
