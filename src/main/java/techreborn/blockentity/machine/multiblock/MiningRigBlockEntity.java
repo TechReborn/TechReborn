@@ -384,36 +384,23 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	}
 
 	// Animation helper fuction, is called by packet to change aniamtion on clients, depending on rig state
-	public void setActiveMining(boolean value){
-		if(value == this.activeMining){
-			// Don't need to do anything if already state
-			return;
-		}
-
-		// Update drill state on client only, otherwise inform client on server
-		if(world.isClient){
-			setDrillState(value);
-			this.activeMining = value;
+	public void setActiveMining(boolean value, boolean force){
+		if(((value == this.activeMining && !force)) || drillHead == null){
+			// Don't need to do anything if already state or blockhead isn't in world
 			return;
 		}
 
 		if (value) {
-			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(true, this), this.serverWorld);
+			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(true, drillHead, force), this.serverWorld);
 		} else {
-			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(false, this), this.serverWorld);
+			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(false, drillHead, force), this.serverWorld);
 		}
 
 		this.activeMining = value;
 	}
 
-	// Set's the drillhead's animation state
-	public void setDrillState(boolean state){
-		if(drillHead == null || world == null) return;
-
-		BlockEntity blockEntity = world.getBlockEntity(drillHead);
-		if(blockEntity instanceof DrillHeadBlockEntity){
-			((DrillHeadBlockEntity) blockEntity).isActive = state;
-		}
+	public void setActiveMining(boolean value){
+		setActiveMining(value,false);
 	}
 
 	// Helper function that checks for valid drillhead in rig's inventory.
@@ -423,25 +410,25 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// Move the drill down one, consuming pipe
 	private boolean advanceDrill(){
-		BlockPos nextDrillPosition = drillHead.offset(Direction.DOWN);
-		Block nextBlock = world.getBlockState(nextDrillPosition).getBlock();
+		if(consumePipe()) {
+			BlockPos nextDrillPosition = drillHead.offset(Direction.DOWN);
+			Block nextBlock = world.getBlockState(nextDrillPosition).getBlock();
 
-		if(!nextBlock.is(Blocks.BEDROCK)) {
-			if(consumePipe()) {
-
+			if(!nextBlock.is(Blocks.BEDROCK)) {
+			// Move drill to new position and update depth
 				world.setBlockState(drillHead, TRContent.DRILL_PIPE.getDefaultState());
+				world.setBlockState(nextDrillPosition, TRContent.Machine.DRILL_HEAD.block.getDefaultState());
 
-				// Move drill to new position and update depth
 				drillHead = nextDrillPosition;
-				world.setBlockState(drillHead, TRContent.Machine.DRILL_HEAD.block.getDefaultState());
 				drillDepth++;
 
+				serverWorld.update
+				setActiveMining(true, true);
 				resetMiningCursor();
-
 				return true;
+			}else{
+				status.add(RigStatus.FINISHED);
 			}
-		}else{
-			status.add(RigStatus.FINISHED);
 		}
 
 		return false;

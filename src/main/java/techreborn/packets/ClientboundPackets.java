@@ -34,24 +34,29 @@ import net.minecraft.util.math.BlockPos;
 import reborncore.common.network.ExtendedPacketBuffer;
 import reborncore.common.network.NetworkManager;
 import techreborn.TechReborn;
-import techreborn.blockentity.machine.multiblock.MiningRigBlockEntity;
+import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
 
 import java.util.function.BiConsumer;
 
 public class ClientboundPackets {
 
-	public static final Identifier MINING_RIG_SYNC = new Identifier(TechReborn.MOD_ID, "mining_rig_sync");
+	public static final Identifier MINING_DRILL_ANIM_SYNC = new Identifier(TechReborn.MOD_ID, "mining_rig_sync");
 
 	public static void init() {
-		registerPacketHandler(MINING_RIG_SYNC, (extendedPacketBuffer, context) -> {
-			BlockPos machinePos = extendedPacketBuffer.readBlockPos();
+		registerPacketHandler(MINING_DRILL_ANIM_SYNC, (extendedPacketBuffer, context) -> {
+			BlockPos headPos = extendedPacketBuffer.readBlockPos();
 			boolean activeMining = extendedPacketBuffer.readBoolean();
+			boolean maxSpeed = extendedPacketBuffer.readBoolean();
 
 			context.getTaskQueue().execute(() -> {
-				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(machinePos);
-				if (BlockEntity instanceof MiningRigBlockEntity) {
-					MiningRigBlockEntity rig = ((MiningRigBlockEntity) BlockEntity);
-					rig.setActiveMining(activeMining);
+				BlockEntity BlockEntity = context.getPlayer().world.getBlockEntity(headPos);
+				if (BlockEntity instanceof DrillHeadBlockEntity) {
+					DrillHeadBlockEntity drill = ((DrillHeadBlockEntity) BlockEntity);
+					drill.isActive = activeMining;
+
+					if(maxSpeed){
+						drill.spinSpeed = drill.MAX_SPEED;
+					}
 				}
 			});
 		});
@@ -61,10 +66,11 @@ public class ClientboundPackets {
 		ClientSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
-	public static Packet<ClientPlayPacketListener> createPacketMiningRigSync(boolean active, MiningRigBlockEntity blockEntity) {
-		return NetworkManager.createClientBoundPacket(MINING_RIG_SYNC, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
+	public static Packet<ClientPlayPacketListener> createPacketMiningRigSync(boolean active, BlockPos headPos, boolean maxSpeed) {
+		return NetworkManager.createClientBoundPacket(MINING_DRILL_ANIM_SYNC, extendedPacketBuffer -> {
+			extendedPacketBuffer.writeBlockPos(headPos);
 			extendedPacketBuffer.writeBoolean(active);
+			extendedPacketBuffer.writeBoolean(maxSpeed);
 		});
 	}
 

@@ -7,23 +7,29 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 
 public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
-	public boolean isActive = true;
 	public float drillAngle;
+
+	public boolean isActive;
 	public float spinSpeed;
+
+	public float MAX_SPEED = 0.6F;
+	public float SPIN_UP_FACTOR = 0.015f;
+	public float SPIN_DOWN_FACTOR = 0.020f;
+
+
 	public DrillHeadBlockEntity(){
 		super(TRBlockEntities.DRILL_HEAD);
 	}
 
 	@Override
 	public void tick() {
-		isActive = true;
 		if(world.isClient) {
 			drillAngle += spinSpeed;
 
 			if (isActive) {
-				spinSpeed = Math.min(0.6F, spinSpeed + 0.015f);
+				spinSpeed = Math.min(MAX_SPEED, spinSpeed + SPIN_UP_FACTOR);
 			} else {
-				spinSpeed = Math.max(0.0f, spinSpeed - 0.020f);
+				spinSpeed = Math.max(0.0f, spinSpeed - SPIN_DOWN_FACTOR);
 			}
 		}
 
