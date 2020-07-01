@@ -106,8 +106,7 @@ public class TapperBlockEntity extends GenericMachineBlockEntity implements Buil
 				shouldExit = true;
 			}
 		}
-
-
+		
 		int yield = 0;
 
 		// Harvest sap
