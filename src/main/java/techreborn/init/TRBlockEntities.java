@@ -111,6 +111,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<IndustrialSawmillBlockEntity> INDUSTRIAL_SAWMILL = register(IndustrialSawmillBlockEntity::new, "industrial_sawmill", TRContent.Machine.INDUSTRIAL_SAWMILL);
 	public static final BlockEntityType<SolidFuelGeneratorBlockEntity> SOLID_FUEL_GENEREATOR = register(SolidFuelGeneratorBlockEntity::new, "solid_fuel_generator", TRContent.Machine.SOLID_FUEL_GENERATOR);
 	public static final BlockEntityType<ExtractorBlockEntity> EXTRACTOR = register(ExtractorBlockEntity::new, "extractor", TRContent.Machine.EXTRACTOR);
+	public static final BlockEntityType<TapperBlockEntity> TAPPER = register(TapperBlockEntity::new, "tapper", TRContent.Machine.TAPPER);
 	public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = register(CompressorBlockEntity::new, "compressor", TRContent.Machine.COMPRESSOR);
 	public static final BlockEntityType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = register(ElectricFurnaceBlockEntity::new, "electric_furnace", TRContent.Machine.ELECTRIC_FURNACE);
 	public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL = register(SolarPanelBlockEntity::new, "solar_panel", TRContent.SolarPanels.values());
