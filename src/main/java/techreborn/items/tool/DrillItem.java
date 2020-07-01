@@ -42,8 +42,6 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-import java.util.Random;
-
 public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
 
 	public final int maxCharge;
@@ -67,7 +65,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() < cost) {
-			return super.getMiningSpeedMultiplier(stack, state);
+			return 0.5F;
 		}
 		if (Items.WOODEN_PICKAXE.getMiningSpeedMultiplier(stack, state) > 1.0F
 				|| Items.WOODEN_SHOVEL.getMiningSpeedMultiplier(stack, state) > 1.0F) {
@@ -84,8 +82,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
-		Random rand = new Random();
-		if (rand.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
+		if (worldIn.random.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
 			Energy.of(stack).use(cost);
 		}
 		return true;
