@@ -52,6 +52,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// CONSTANTS
 	private final int DRILL_OFFSET = 3; // Position from just inside block at bottom
+	private final int DRILL_MINE_OFFSET = 2; // How far down to begin mining (from drill offset)
 
 	// Inventory slot constants
 	private final int ENERGY_SLOT = 0;
@@ -145,14 +146,20 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 				curX = drillHead.getX() - drillItem.range;
 			}
 
-			// Reached end of this Y-level
-			if (curZ > drillHead.getZ() + drillItem.range) {
+			// Reached end of this Y-level OR still in buffer-zone
+			if (curZ > drillHead.getZ() + drillItem.range || drillHead.getY() >= pos.getY() - DRILL_OFFSET - DRILL_MINE_OFFSET) {
 				status.add(RigStatus.FINISHED_Y);
 				return;
 			}
 
-			// Mine down one from drill's Y-Level
-			BlockPos minePosition = new BlockPos(curX, drillHead.getY() - 1, curZ);
+			// Mine
+			BlockPos minePosition = new BlockPos(curX, drillHead.getY(), curZ);
+
+			// Don't mine the drillhead
+			if(minePosition.equals(drillHead)){
+				curX++;
+				return;
+			}
 
 			if (canMine(minePosition)) {
 				BlockState minedState = world.getBlockState(minePosition);
@@ -170,23 +177,22 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
 					validMine = true;
 
-					// INVENTORY, DISABLED FOR TESTING
-//				if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
-//					// TODO add to existing slot instead of waiting for it to be empty
-//					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
-//
-//					List<ItemStack> stacks = minedBlock.getDroppedStacks(minedState, builder);
-//
-//
-//					if(stacks.size() == 1){
-//						inventory.setStack(OUTPUT_SLOT, stacks.get(0));
-//					}
-//
-//					// Instantly dump contents to neighbours, can't wait
-//					super.getSlotConfiguration().update(this);
-//				}else{
-//					status.add(RigStatus.FULL);
-//				}
+				if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
+					// TODO add to existing slot instead of waiting for it to be empty
+					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
+
+					List<ItemStack> stacks = minedState.getBlock().getDroppedStacks(minedState, builder);
+
+
+					if(stacks.size() == 1){
+						inventory.setStack(OUTPUT_SLOT, stacks.get(0));
+					}
+
+					// Instantly dump contents to neighbours, can't wait
+					super.getSlotConfiguration().update(this);
+				}else{
+					status.add(RigStatus.FULL);
+				}
 
 				}
 			}
@@ -390,6 +396,12 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			return;
 		}
 
+		// Notify server drill for sound // TODO checks
+		DrillHeadBlockEntity entity = (DrillHeadBlockEntity) world.getBlockEntity(drillHead);
+		entity.isActive = value;
+
+
+		// Notify client for animation
 		if (value) {
 			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(true, drillHead, force), this.serverWorld);
 		} else {
@@ -422,8 +434,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 				drillHead = nextDrillPosition;
 				drillDepth++;
 
-				serverWorld.update
-				setActiveMining(true, true);
+				setActiveMining(false);
 				resetMiningCursor();
 				return true;
 			}else{
@@ -526,6 +537,11 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
+	}
+
+	@Override
+	public int slotTransferSpeed() {
+		return 1;
 	}
 
 	@Override
