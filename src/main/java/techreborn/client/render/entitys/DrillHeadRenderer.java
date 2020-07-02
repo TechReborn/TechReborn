@@ -50,7 +50,7 @@ public class DrillHeadRenderer extends BlockEntityRenderer<DrillHeadBlockEntity>
 	@Override
 	public void render(DrillHeadBlockEntity blockEntity, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, int overlay) {
 		Direction facing = Direction.NORTH;
-		int renderLight = WorldRenderer.getLightmapCoordinates(blockEntity.getWorld(), blockEntity.getPos().offset(facing));
+		int renderLight = WorldRenderer.getLightmapCoordinates(blockEntity.getWorld(), blockEntity.getPos());
 
 		final VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(TEXTURE));
 
