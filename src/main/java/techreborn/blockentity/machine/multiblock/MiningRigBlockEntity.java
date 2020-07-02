@@ -396,11 +396,6 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 			return;
 		}
 
-		// Notify server drill for sound // TODO checks
-		DrillHeadBlockEntity entity = (DrillHeadBlockEntity) world.getBlockEntity(drillHead);
-		entity.isActive = value;
-
-
 		// Notify client for animation
 		if (value) {
 			NetworkManager.sendToWorld(ClientboundPackets.createPacketMiningRigSync(true, drillHead, force), this.serverWorld);
