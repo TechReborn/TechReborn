@@ -99,7 +99,6 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 	public static final GuiType<DistillationTowerBlockEntity> DISTILLATION_TOWER = register("distillation_tower", () -> () -> GuiDistillationTower::new);
 	public static final GuiType<ElectricFurnaceBlockEntity> ELECTRIC_FURNACE = register("electric_furnace", () -> () -> GuiElectricFurnace::new);
 	public static final GuiType<ExtractorBlockEntity> EXTRACTOR = register("extractor", () -> () -> GuiExtractor::new);
-	public static final GuiType<TapperBlockEntity> TAPPER = register("tapper", () -> () -> GuiTapper::new);
 	public static final GuiType<FusionControlComputerBlockEntity> FUSION_CONTROLLER = register("fusion_controller", () -> () -> GuiFusionReactor::new);
 	public static final GuiType<GasTurbineBlockEntity> GAS_TURBINE = register("gas_turbine", () -> () -> GuiGasTurbine::new);
 	public static final GuiType<SolidFuelGeneratorBlockEntity> GENERATOR = register("generator", () -> () -> GuiGenerator::new);

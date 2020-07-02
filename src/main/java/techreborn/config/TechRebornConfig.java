@@ -342,12 +342,6 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "extractor", key = "ExtractorMaxEnergy", comment = "Extractor Max Energy (Value in EU)")
 	public static int extractorMaxEnergy = 1_000;
 
-	@Config(config = "machines", category = "extractor", key = "TapperInput", comment = "Tapper Max Input (Value in EU)")
-	public static int tapperMaxInput = 32;
-
-	@Config(config = "machines", category = "extractor", key = "TapperMaxEnergy", comment = "Tapper Max Energy (Value in EU)")
-	public static int tapperMaxEnergy = 1_000;
-
 	@Config(config = "machines", category = "compressor", key = "CompressorInput", comment = "Compressor Max Input (Value in EU)")
 	public static int compressorMaxInput = 32;
 
