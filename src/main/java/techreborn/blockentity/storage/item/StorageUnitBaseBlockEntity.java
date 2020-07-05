@@ -61,7 +61,8 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
 
-	private boolean shouldUpdate = false;
+	private boolean shouldUpdate = true;
+	private int prevCount = -1;
 
 	private ItemStack storeItemStack;
 
@@ -116,6 +117,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 				fillToCapacity();
 				shouldUpdate = true;
 			}
+		}
+
+		// Update for locked item for clients
+		if(isLocked() && prevCount != this.getCurrentCapacity()){
+			prevCount = this.getCurrentCapacity();
+			syncWithAll();
 		}
 
 
@@ -421,12 +428,13 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	}
 
 	public void setLocked(boolean value) {
-		// Only set lockedItem in response to user input
 		if (isLocked() == value) {
 			return;
 		}
 
+		// Only set lockedItem in response to user input
 		lockedItemStack = value ? getStoredStack().copy() : ItemStack.EMPTY;
+		syncWithAll();
 	}
 
 	public boolean canModifyLocking() {
@@ -448,9 +456,16 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 	@Override
 	public boolean isValid(int slot, ItemStack stack) {
+		if (slot == INPUT_SLOT && isLocked()) {
+			return ItemUtils.isItemEqual(lockedItemStack, stack, true, true);
+		}
+
+
 		if (slot == INPUT_SLOT && !(isEmpty() || isSameType(stack))) {
 			return false;
 		}
 		return super.isValid(slot, stack);
 	}
+
+
 }
