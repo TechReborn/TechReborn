@@ -20,11 +20,13 @@ import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.fluid.FluidValue;
 import reborncore.common.network.NetworkManager;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.blockentity.machine.multiblock.structure.DrillHeadBlockEntity;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.items.DrillHeadItem;
@@ -52,7 +54,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// CONSTANTS
 	private final int DRILL_OFFSET = 3; // Position from just inside block at bottom
-	private final int DRILL_MINE_OFFSET = 2; // How far down to begin mining (from drill offset)
+	private final int DRILL_MINE_OFFSET = TechRebornConfig.miningRigDrillOffset; // How far down to begin mining (from drill offset)
 
 	// Inventory slot constants
 	private final int ENERGY_SLOT = 0;
@@ -60,8 +62,8 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	private final int DRILL_HEAD_SLOT = 2;
 	private final int OUTPUT_SLOT = 3;
 
-	// Consume constants TODO move to config
-	private double ENERGY_PER_BLOCK = 150;
+	// Consume constants
+	private final double ENERGY_PER_BLOCK = TechRebornConfig.miningRigEnergyPerBlock;
 
 
 	// State control
@@ -78,12 +80,12 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// Inventory and storage
 	private final RebornInventory<MiningRigBlockEntity> inventory = new RebornInventory<>(4, "MiningRigBlockEntity", 64, this);
-	private final Tank tank = null;
+	private final Tank tank = new Tank("MiningRigBlockEntity", FluidValue.BUCKET.multiply(TechRebornConfig.miningRigTankSize), this);
 
 
 	public MiningRigBlockEntity() {
 		// TODO config these values
-		super(TRBlockEntities.MINING_RIG, "MiningRig", 512, 50000, TRContent.Machine.MINING_RIG.block, 0);
+		super(TRBlockEntities.MINING_RIG, "MiningRig", TechRebornConfig.miningRigMaxInput, TechRebornConfig.miningRigMaxEnergy, TRContent.Machine.MINING_RIG.block, 0);
 	}
 
 	// Set thing sup
@@ -511,17 +513,24 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-		return new ScreenHandlerBuilder("miningrig").player(player.inventory).inventory().hotbar().addInventory().blockEntity(this)
-				.energySlot(0,8,72)
-				.fluidSlot(1,8,72)
-				.slot(2,140, 30, (itemStack -> itemStack.getItem() instanceof DrillHeadItem))
-				.outputSlot(3,140,70)
+		ScreenHandlerBuilder builder = new ScreenHandlerBuilder("miningrig").player(player.inventory).inventory().hotbar().addInventory().blockEntity(this)
 				.syncEnergyValue()
 				.sync(this::getPipeReserveCount, this::setPipeReserveCount)
 				.sync(this::getDrillHead, this::setDrillHead)
 				.sync(this::getStatusNumber, this::setStatusNumber)
-//				.sync(tank)
-				.addInventory().create(this, syncID);
+				.sync(tank)
+				.addInventory();
+
+		// Only add slots when valid
+		if(isMultiblockValid()){
+			builder.blockEntity(this).energySlot(0,8,72)
+					.fluidSlot(1,8,72)
+					.slot(2,140, 30, (itemStack -> itemStack.getItem() instanceof DrillHeadItem))
+					.outputSlot(3,140,70);
+		}
+
+		return builder.create(this,syncID);
+
 	}
 
 	@Override
@@ -544,11 +553,10 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		return inventory;
 	}
 
-	//	@Nullable
-//	@Override
-//	public Tank getTank() {
-//		return tank;
-//	}
+	@Override
+	public Tank getTank() {
+		return tank;
+	}
 
 	@Override
 	public boolean hasSlotConfig() {

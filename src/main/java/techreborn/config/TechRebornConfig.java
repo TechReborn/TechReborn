@@ -546,6 +546,28 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "greenhouse_controller", key = "GreenhouseControllerEnergyPerBonemeal", comment = "Greenhouse Controller Energy Per Bonemeal")
 	public static int greenhouseControllerEnergyPerBonemeal = 50;
 
+	// MINING RIG
+
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigMaxInput", comment = "Mining Rig Max Input")
+	public static int miningRigMaxInput = 512;
+
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigMaxEnergy", comment = "Mining Rig Max Energy")
+	public static int miningRigMaxEnergy = 10_000;
+
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigEnergyPerTick", comment = "Mining Rig Energy Per Block Mined")
+	public static int miningRigEnergyPerBlock = 32;
+
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigDrillOffset", comment = "Ming Rig How Far Down Before Mining (0 - No buffer, 2 - Two blocks (No world holes)")
+	public static int miningRigDrillOffset = 2;
+
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigTankSize", comment = "Mining Rig Internal Tank Storage (Buckets)")
+	public static int miningRigTankSize = 15;
+
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigLiquidPerBlock", comment = "Mining Rig Liquid Per Block (Buckets)")
+	public static float miningRigLiquidPerBlock = 0.5f;
+
+
+
 	// Misc
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;

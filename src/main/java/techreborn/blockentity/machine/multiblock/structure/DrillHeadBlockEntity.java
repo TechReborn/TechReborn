@@ -34,15 +34,29 @@ public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
 	}
 
 	@Override
+	public void markRemoved() {
+		super.markRemoved();
+
+		if (soundInstance != null) {
+			soundManager.stop(soundInstance);
+			soundInstance = null;
+		}
+	}
+
+	@Override
 	public void tick() {
-		if(world.isClient) {
+		if(world != null && world.isClient) {
 			drillAngle += spinSpeed;
 
 			if (isActive) {
 				spinSpeed = Math.min(MAX_SPEED, spinSpeed + SPIN_UP_FACTOR);
 
 				// Play sound
-				if (world.getTime() % 60 == 0 || soundInstance == null) {
+				if (world.getTime() % 55 == 0 || soundInstance == null) {
+					if(soundInstance != null){
+						soundManager.stop(soundInstance);
+						soundInstance = null;
+					}
 
 					// Play drilling sound and record instance
 					float pitch =  0.5f + world.random.nextFloat() * (0.6f - 0.5f);
@@ -52,6 +66,9 @@ public class DrillHeadBlockEntity extends BlockEntity implements Tickable {
 
 					this.client.getSoundManager().play(soundInstance);
 				}
+
+
+
 			} else {
 				spinSpeed = Math.max(0.0f, spinSpeed - SPIN_DOWN_FACTOR);
 

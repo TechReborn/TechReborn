@@ -36,6 +36,8 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		}
 	}
 
+
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
@@ -80,7 +82,10 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		RenderUtil.drawGradientRect(0, 50, 15, 120,  89, 0xFF000000, 0xFF000000);
 
 
-		drawText(matrixStack,new LiteralText("Drill"), 138,19,4210752, layer);
+		drawText(matrixStack, new LiteralText("Drill"), 138,19,4210752, layer);
+		drawText(matrixStack, new LiteralText("Out"), 140,60,4210752, layer);
+
+
 
 		// Status screen
 		matrixStack.push();
@@ -111,7 +116,7 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 			}
 		}
 
-		drawText(matrixStack, new LiteralText("Status: " + status), 87,30,0xFFFFFFFF, layer );
+		drawText(matrixStack, new LiteralText(status), 87,30,0xFFFFFFFF, layer );
 
 		// Y-level reporting
 		BlockPos drillHead = blockEntity.getDrillHead();
@@ -134,14 +139,6 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 		}
 
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
-
-		// Mining progress
-		builder.drawProgressBar(matrixStack, this, tempInt, 100, 143, 49, mouseX, mouseY, GuiBuilder.ProgressDirection.DOWN, layer);
-		tempInt++;
-		if(tempInt > 100){
-			tempInt = 0;
-		}
-
 
 	}
 
