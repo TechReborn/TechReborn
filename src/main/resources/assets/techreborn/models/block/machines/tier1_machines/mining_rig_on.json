@@ -1,0 +1,10 @@
+{
+    "parent": "minecraft:block/orientable",
+    "textures": {
+        "top": "techreborn:block/machines/tier1_machines/mining_rig_top",
+        "front": "techreborn:block/machines/tier1_machines/mining_rig_front_on",
+        "side": "techreborn:block/machines/tier1_machines/mining_rig_side",
+        "bottom": "techreborn:block/machines/tier1_machines/mining_rig_bottom",
+        "back": "techreborn:block/machines/tier1_machines/mining_rig_back"
+    }
+}

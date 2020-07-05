@@ -1,5 +1,12 @@
 {
-    "variants": {
-        "": { "model": "techreborn:block/machines/tier1_machines/mining_rig" }
-    }
+  "variants": {
+	"facing=north,active=false": { "model": "techreborn:block/machines/tier1_machines/mining_rig" },
+	"facing=south,active=false": { "model": "techreborn:block/machines/tier1_machines/mining_rig", "y": 180 },
+	"facing=west,active=false":  { "model": "techreborn:block/machines/tier1_machines/mining_rig", "y": 270 },
+	"facing=east,active=false":  { "model": "techreborn:block/machines/tier1_machines/mining_rig", "y": 90 },
+	"facing=north,active=true": { "model": "techreborn:block/machines/tier1_machines/mining_rig_on" },
+	"facing=south,active=true": { "model": "techreborn:block/machines/tier1_machines/mining_rig_on", "y": 180 },
+	"facing=west,active=true":  { "model": "techreborn:block/machines/tier1_machines/mining_rig_on", "y": 270 },
+	"facing=east,active=true":  { "model": "techreborn:block/machines/tier1_machines/mining_rig_on", "y": 90 }
+  }
 }
