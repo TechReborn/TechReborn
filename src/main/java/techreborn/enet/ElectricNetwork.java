@@ -234,4 +234,10 @@ public final class ElectricNetwork {
 			}
 		}
 	}
+
+	// Debug functions
+
+	public int getCableCount(){
+		return cableBlockEntities.size();
+	}
 }

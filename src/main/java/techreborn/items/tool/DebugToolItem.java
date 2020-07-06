@@ -27,18 +27,23 @@ package techreborn.items.tool;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
+import reborncore.common.network.NetworkManager;
 import reborncore.common.powerSystem.PowerSystem;
 import team.reborn.energy.Energy;
 import techreborn.TechReborn;
+import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.enet.ElectricNetwork;
+import techreborn.enet.ElectricNetworkManager;
 
 import java.util.Map.Entry;
 
@@ -68,14 +73,33 @@ public class DebugToolItem extends Item {
 			if (Energy.valid(blockEntity)) {
 				sendMessage(context, new LiteralText(getRCPower(blockEntity)));
 			}
+
+			// Cable network info
+			if(blockEntity instanceof CableBlockEntity){
+				CableBlockEntity cableEntity = (CableBlockEntity) blockEntity;
+				sendMessage(context, new LiteralText(getElectricNetworkInfo(cableEntity)));
+			}
 		}
 		return ActionResult.SUCCESS;
+	}
+
+	@Override
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+		if(world.isClient) return super.use(world, user, hand);
+
+		sendMessage(user, new LiteralText(getElectricManagerInfo( ElectricNetworkManager.INSTANCE)));
+
+		return super.use(world, user, hand);
 	}
 
 	private void sendMessage(ItemUsageContext context, Text string) {
 		if (!context.getWorld().isClient) {
 			context.getPlayer().sendSystemMessage(string, Util.NIL_UUID);
 		}
+	}
+
+	private void sendMessage(PlayerEntity user, Text string) {
+		user.sendSystemMessage(string, Util.NIL_UUID);
 	}
 
 	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
@@ -117,6 +141,43 @@ public class DebugToolItem extends Item {
 		s += "/";
 		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored());
 		
+		return s;
+	}
+
+	private String getElectricNetworkInfo(CableBlockEntity cableEntity){
+		ElectricNetwork network = cableEntity.getElectricNetwork();
+
+		String s = "";
+
+		s += "------------\n";
+		s += "Network INFO\n";
+		s += "------------";
+
+		if(network != null){
+			s += "\nID: " + Formatting.GOLD + network.hashCode();
+			s += Formatting.WHITE;
+			s += "\nSize: " + Formatting.GOLD + network.getCableCount();
+			s += Formatting.WHITE;
+			s += "\nEnergized: " + Formatting.GOLD + network.isEnergized();
+		}else{
+			s += Formatting.RED + "No network found";
+		}
+
+		return s;
+	}
+
+	private String getElectricManagerInfo(ElectricNetworkManager manager){
+		String s = "";
+		s += "-------------------\n";
+		s += "Network Manager INFO\n";
+		s += "-------------------";
+
+		if(manager == null){
+			s += "\n" + Formatting.RED + "ERROR - This should not happen";
+		}else{
+			s += "\nNetwork count: " + Formatting.GOLD + manager.getNetworkCount();
+		}
+
 		return s;
 	}
 }

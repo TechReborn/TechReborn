@@ -70,4 +70,10 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 
 		return newNetwork;
 	}
+
+	// Debug functions
+
+	public int getNetworkCount(){
+		return electricNetworks.size();
+	}
 }
