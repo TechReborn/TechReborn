@@ -140,11 +140,11 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public void fromTag(CompoundTag compound) {
-		super.fromTag(compound);
+	public void fromTag(BlockState state, CompoundTag tag) {
+		super.fromTag(state, tag);
 
-		if (compound.contains("cover")) {
-			cover = NbtHelper.toBlockState(compound.getCompound("cover"));
+		if (tag.contains("cover")) {
+			cover = NbtHelper.toBlockState(tag.getCompound("cover"));
 		} else {
 			cover = null;
 		}
