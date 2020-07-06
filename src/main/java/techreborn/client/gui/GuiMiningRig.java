@@ -37,7 +37,6 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 	}
 
 
-
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
@@ -107,6 +106,9 @@ public class GuiMiningRig extends GuiBase<BuiltScreenHandler> {
 					break;
 				case NO_HEAD:
 					status = "Missing drill head";
+					break;
+				case NO_FLUID:
+					status = "No fluid";
 					break;
 				case NO_ENERGY:
 					status = "No energy";

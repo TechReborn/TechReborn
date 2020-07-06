@@ -842,18 +842,26 @@ public class TRContent {
 	}
 
 	public enum DrillHeads implements ItemConvertible {
-		IRON(5,1000),
-		STEEL(10,3000),
-		IRIDIUM(16,6000);
+		IRON(5,1000, 100, 50, 10, 1),
+		STEEL(10,3000, 100, 50, 10, 1),
+		IRIDIUM(16,60000, 100, 50, 10, 100),
+		DEBUG(96,100000, 0, 0, 0, 500, false,false,0,true);
 
 		public final String name;
 		public final Item item;
-		public final int radius;
 
-		DrillHeads(int radius, int durability) {
+		DrillHeads(int radius, int durability, double energyPerBlock, int fluidPerBlock, int durabilityPerBlock, double speedFactor) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			item = new DrillHeadItem(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(durability), radius);
-			this.radius = radius;
+			item = new DrillHeadItem(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(durability), radius, energyPerBlock, fluidPerBlock, durabilityPerBlock, speedFactor);
+
+			InitUtils.setup(item, name + "_drill_head");
+		}
+
+		DrillHeads(int radius, int durability, double energyPerBlock, int fluidPerBlock, int durabilityPerBlock, int speedFactor, boolean silkTouch, boolean voidTrash, int fortune, boolean voidAll) {
+			name = this.toString().toLowerCase(Locale.ROOT);
+			item = new DrillHeadItem(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(durability), radius, energyPerBlock, fluidPerBlock, durabilityPerBlock, speedFactor,
+					silkTouch, voidTrash, fortune, voidAll);
+
 			InitUtils.setup(item, name + "_drill_head");
 		}
 

@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameter;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
@@ -57,17 +58,13 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 	// CONSTANTS
 	private final int DRILL_OFFSET = 3; // Position from just inside block at bottom
 	private final int DRILL_MINE_OFFSET = TechRebornConfig.miningRigDrillOffset; // How far down to begin mining (from drill offset)
-	private final boolean DEBUG_MODE = true;
+	private final boolean DEBUG_MODE = false;
 
 	// Inventory slot constants
 	private final int ENERGY_SLOT = 0;
 	private final int TANK_SLOT = 1;
 	private final int DRILL_HEAD_SLOT = 2;
 	private final int OUTPUT_SLOT = 3;
-
-	// Consume constants
-	private final double ENERGY_PER_BLOCK = TechRebornConfig.miningRigEnergyPerBlock;
-	private final int DURABILITY_PER_BLOCK = 10;//TechRebornConfig.miningRigDurabilityPerBlock;
 
 	// State control
 	public Set<RigStatus> status = new HashSet<>(); // Hashset of all issues currently present, that need to be addressed
@@ -113,10 +110,7 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		spawnRadius = server.getSpawnRadius(serverWorld);
 
 		// Loot context for getting drops
-		builder = (new LootContext.Builder(Objects.requireNonNull(world.getServer()).getOverworld()))
-				.random(world.random)
-				.parameter(LootContextParameters.POSITION, pos)
-				.parameter(LootContextParameters.TOOL, new ItemStack(Items.DIAMOND_PICKAXE));
+		builder = getDefaultLootContext();
 	}
 
 	@Override
@@ -125,19 +119,29 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 		if(world == null || world.isClient || !isMultiblockValid()) return;
 
-		// Only proceed if there's no problems
-		if(status.isEmpty()) {
-			this.setActiveMining(true);
 
-			if (world.getTime() % 50 == 0) {
-				verifyIntegrity();
-			}else{
-				// Logic starts here, assume everything is correct in terms of state
-				drill();
+		int amountToRun = 1;
+		if(drillItem != null){
+			amountToRun = (int)drillItem.speedFactor;
+		}
+
+
+		for(int i = 0; i < amountToRun; i++) {
+			// Only proceed if there's no problems
+			if (status.isEmpty()) {
+				this.setActiveMining(true);
+
+				if (world.getTime() % 50 == 0) {
+					verifyIntegrity();
+				} else {
+					// Logic starts here, assume everything is correct in terms of state
+					drill();
+				}
+			} else {
+				//ChatUtils.sendNoSpamMessages(0, new LiteralText(status.iterator().next().name() + " of " + status.size() + " issues")); // DEBUG
+				handleStatus();
+				return;
 			}
-		}else{
-			//ChatUtils.sendNoSpamMessages(0, new LiteralText(status.iterator().next().name() + " of " + status.size() + " issues")); // DEBUG
-			handleStatus();
 		}
 	}
 
@@ -178,19 +182,23 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 				// Conditions to mine and consume, must not be air and not unbreakable
 				if (!minedState.isAir() && minedHardness != -1) {
 					// Checking consume status (Need enough energy, liquid and drill durability
-					if (!this.canUseEnergy(ENERGY_PER_BLOCK)) {
+					if (!this.canUseEnergy(drillItem.energyPerBlock)) {
 						status.add(RigStatus.NO_ENERGY);
 						return;
 					}
-					if (!this.canUseDurability(DURABILITY_PER_BLOCK)) {
+					if (!this.canUseDurability(drillItem.durabilityPerBlock)) {
 						return;
 					}
 
+					if (!this.canUseFluid(drillItem.fluidPerBlock)) {
+						status.add(RigStatus.NO_FLUID);
+						return;
+					}
 
 					// Consume
-					this.useEnergy(ENERGY_PER_BLOCK);
-					this.useDurability(DURABILITY_PER_BLOCK);
-
+					this.useEnergy(drillItem.energyPerBlock);
+					this.useDurability(drillItem.durabilityPerBlock);
+					this.useFluid(drillItem.fluidPerBlock);
 
 					// Mine
 					world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
@@ -198,15 +206,18 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 					// Deposit
 					if (inventory.getStack(OUTPUT_SLOT).isEmpty()) {
-						// TODO add to existing slot instead of waiting for it to be empty
-						world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
+						if(!drillItem.voidAll) {
+							// TODO add to existing slot instead of waiting for it to be empty
+							world.setBlockState(minePosition, Blocks.AIR.getDefaultState());
 
-						List<ItemStack> stacks = minedState.getBlock().getDroppedStacks(minedState, builder);
+							List<ItemStack> stacks = minedState.getBlock().getDroppedStacks(minedState, builder);
 
-						if (stacks.size() == 1) {
-							inventory.setStack(OUTPUT_SLOT, stacks.get(0));
-						} else {
-							// TODO handle stuff that drops multiple items
+							if (stacks.size() == 1) {
+								inventory.setStack(OUTPUT_SLOT, stacks.get(0));
+							} else {
+								// TODO handle stuff that drops multiple items
+							}
+							super.getSlotConfiguration().update(this);
 						}
 					} else {
 						status.add(RigStatus.FULL);
@@ -221,6 +232,12 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 
 	// Attempt to fix and issues and resolve them as a status
 	private void handleStatus(){
+		// Don't need to handle if finished
+		if(status.contains(RigStatus.FINISHED)){
+			this.setActiveMining(false);
+			return;
+		}
+
 		for(RigStatus rigStatus : new ArrayList<>(status)){
 			switch (rigStatus){
 				case FULL:
@@ -242,23 +259,30 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 					}
 					break;
 				case NO_HEAD:
+					this.setActiveMining(false);
 					updateDrillHead();
 					if(drillHead != null){
 						status.remove(RigStatus.NO_HEAD);
 					}
+					break;
+				case NO_FLUID:
+					this.setActiveMining(false);
+					if(this.canUseFluid(drillItem.fluidPerBlock)){
+						status.remove(RigStatus.NO_FLUID);
+					}
+					break;
 				case NO_ENERGY:
 					this.setActiveMining(false);
-					if(this.canUseEnergy(ENERGY_PER_BLOCK)){
+					if(this.canUseEnergy(drillItem.energyPerBlock)){
 						status.remove(RigStatus.NO_ENERGY);
 					}
 					break;
 				case FINISHED_Y:
 					if(!status.contains(RigStatus.NO_HEAD) && advanceDrill()){
 						status.remove(RigStatus.FINISHED_Y);
+					}else{
+						this.setActiveMining(false);
 					}
-					break;
-				case FINISHED:
-					this.setActiveMining(false);
 					break;
 			}
 		}
@@ -400,6 +424,12 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		if(validDrillItem){
 			this.drillItemStack = inventory.getStack(DRILL_HEAD_SLOT);
 			this.drillItem = ((DrillHeadItem)drillItemStack.getItem());
+
+			if(drillItem.fortune != 0){
+				builder = getDefaultLootContext().luck(drillItem.fortune);
+			}else{
+				builder = getDefaultLootContext(); //TODO improve perf
+			}
 		}
 
 		// Only add if no drillhead and have validItem
@@ -463,6 +493,21 @@ public class MiningRigBlockEntity extends GenericMachineBlockEntity implements B
 		}
 
 		return false;
+	}
+
+	private LootContext.Builder getDefaultLootContext(){
+		return (new LootContext.Builder(Objects.requireNonNull(world.getServer()).getOverworld()))
+				.random(world.random)
+				.parameter(LootContextParameters.POSITION, pos)
+				.parameter(LootContextParameters.TOOL, new ItemStack(Items.DIAMOND_PICKAXE));
+	}
+
+	private boolean canUseFluid(int amount) {
+		return this.tank.getFluidAmount().equalOrMoreThan(FluidValue.fromRaw(amount));
+	}
+
+	private void useFluid(int amount) {
+		this.tank.setFluidAmount(this.tank.getFluidAmount().subtract(FluidValue.fromRaw(amount)));
 	}
 
 	private boolean canUseDurability(double durability) {
