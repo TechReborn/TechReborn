@@ -38,7 +38,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
-import org.apache.commons.lang3.tuple.Pair;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.common.network.ClientBoundPackets;
@@ -47,15 +46,15 @@ import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.StringUtils;
 import team.reborn.energy.Energy;
-import team.reborn.energy.EnergySide;
-import team.reborn.energy.EnergyStorage;
-import team.reborn.energy.EnergyTier;
+import techreborn.TechReborn;
 import techreborn.blocks.cable.CableBlock;
+import techreborn.enet.ElectricNetwork;
+import techreborn.enet.ElectricNetworkManager;
+import techreborn.enet.PowerAcceptorBlockEntityFace;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,11 +62,10 @@ import java.util.List;
  */
 
 public class CableBlockEntity extends BlockEntity
-	implements Tickable, IListInfoProvider, IToolDrop, EnergyStorage {
-	
-	private double energy = 0;
+		implements Tickable, IListInfoProvider, IToolDrop {
+
+	private ElectricNetwork electricNetwork;
 	private TRContent.Cables cableType = null;
-	private ArrayList<Direction> sendingFace = new ArrayList<>();
 	private BlockState cover = null;
 
 	public CableBlockEntity() {
@@ -79,7 +77,7 @@ public class CableBlockEntity extends BlockEntity
 		this.cableType = type;
 	}
 
-	private TRContent.Cables getCableType() {
+	public TRContent.Cables getCableType() {
 		if (cableType != null) {
 			return cableType;
 		}
@@ -87,32 +85,64 @@ public class CableBlockEntity extends BlockEntity
 			return TRContent.Cables.COPPER;
 		}
 		Block block = world.getBlockState(pos).getBlock();
-		if(block instanceof CableBlock){
+		if (block instanceof CableBlock) {
 			return ((CableBlock) block).type;
 		}
 		//Something has gone wrong if this happens
 		return TRContent.Cables.COPPER;
 	}
 
-	@Override
-    public CompoundTag toInitialChunkDataTag() {
-        return toTag(new CompoundTag());
-    }
+	public ElectricNetwork getElectricNetwork() {
+		return electricNetwork;
+	}
 
-    @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        CompoundTag nbtTag = new CompoundTag();
-        toTag(nbtTag);
-        return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
-    }
-
-
-    @Override
-    public void fromTag(BlockState blockState, CompoundTag compound) {
-		super.fromTag(blockState, compound);
-		if (compound.contains("energy")) {
-			energy = compound.getDouble("energy");
+	public boolean isEnergized() {
+		if (electricNetwork == null) {
+			return false;
 		}
+
+		return electricNetwork.isEnergized();
+	}
+
+	public void setElectricNetwork(ElectricNetwork value)
+	{
+		if (electricNetwork != null) {
+			electricNetwork.removeBlockEntity(this);
+		}
+
+		if (value != null) {
+			electricNetwork = value;
+			electricNetwork.addBlockEntity(this);
+		}
+	}
+
+	@Override
+	public void markRemoved() {
+		if (electricNetwork != null) {
+			TechReborn.LOGGER.debug("Removing block {} from ENet {}", this.getPos().asLong(), electricNetwork);
+			electricNetwork.removeBlockEntity(this);
+			electricNetwork = null;
+		}
+
+		super.markRemoved();
+	}
+
+	@Override
+	public CompoundTag toInitialChunkDataTag() {
+		return toTag(new CompoundTag());
+	}
+
+	@Override
+	public BlockEntityUpdateS2CPacket toUpdatePacket() {
+		CompoundTag nbtTag = new CompoundTag();
+		toTag(nbtTag);
+		return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
+	}
+
+	@Override
+	public void fromTag(CompoundTag compound) {
+		super.fromTag(compound);
+
 		if (compound.contains("cover")) {
 			cover = NbtHelper.toBlockState(compound.getCompound("cover"));
 		} else {
@@ -120,10 +150,10 @@ public class CableBlockEntity extends BlockEntity
 		}
 	}
 
-    @Override
-    public CompoundTag toTag(CompoundTag compound) {
+	@Override
+	public CompoundTag toTag(CompoundTag compound) {
 		super.toTag(compound);
-		compound.putDouble("energy", energy);
+
 		if (cover != null) {
 			compound.put("cover", NbtHelper.fromBlockState(cover));
 		}
@@ -132,46 +162,17 @@ public class CableBlockEntity extends BlockEntity
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
 
-		sendingFace.clear();
-
-		if(getEnergy() == 0){
-			return;
+		if (electricNetwork == null) {
+			TechReborn.LOGGER.debug("Block Entity has no network in tick() -- assigning a network");
+			this.assignNetwork();
 		}
-
-		ArrayList<Pair<BlockEntity, Direction>> acceptors = new ArrayList<>();
-		for (Direction face : Direction.values()) {
-			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
-
-			if (blockEntity != null && Energy.valid(blockEntity)) {
-				if (blockEntity instanceof CableBlockEntity && energy <= Energy.of(blockEntity).side(face).getEnergy()) {
-					continue;
-				}
-				if(Energy.of(blockEntity).side(face.getOpposite()).getMaxInput() > 0){
-					acceptors.add(Pair.of(blockEntity, face));
-					if (!sendingFace.contains(face)) {
-						sendingFace.add(face);
-					}
-				}
-			}
-		}
-
-		if (acceptors.isEmpty()) {
-			return;
-		}
-		Collections.shuffle(acceptors);
-
-        acceptors.forEach(pair -> {
-	        Energy.of(this)
-		        .into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
-		        .move();
-        });
 	}
 
-    // IListInfoProvider
+	// IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		info.add(
@@ -204,74 +205,64 @@ public class CableBlockEntity extends BlockEntity
 		return new ItemStack(getCableType().block);
 	}
 
-
-	public double getEnergy() {
-		return getStored(EnergySide.UNKNOWN);
-	}
-
-	public void setEnergy(double energy) {
-		setStored(energy);
-	}
-
-	public double useEnergy(double energyOut, boolean simulate) {
-		if (energyOut > energy) {
-			energyOut = energy;
-		}
-		if (!simulate) {
-			setEnergy(energy - energyOut);
-		}
-		return energyOut;
-	}
-
-	public boolean canAcceptEnergy(EnergySide direction) {
-		if (sendingFace.contains(direction)) {
-			return false;
-		}
-		return getMaxStoredPower() != getEnergy();
-	}
-
-	@Override
-	public double getMaxInput(EnergySide side) {
-		if(!canAcceptEnergy(side)) {
-			return 0;
-		}
-		return getCableType().transferRate;
-	}
-
-	@Override
-	public double getMaxOutput(EnergySide side) {
-		return getCableType().transferRate;
-	}
-
-	@Override
-	public double getMaxStoredPower() {
-		return getCableType().transferRate * 4;
-	}
-
-	@Override
-	public EnergyTier getTier() {
-		return PowerAcceptorBlockEntity.getTier(getCableType().transferRate);
-	}
-
-	@Override
-	public double getStored(EnergySide face) {
-		return energy;
-	}
-
-	@Override
-	public void setStored(double amount) {
-		this.energy = amount;
-	}
-
 	public BlockState getCover() {
 		return cover;
 	}
 
 	public void setCover(BlockState cover) {
 		this.cover = cover;
-		if (!world.isClient) {
+
+		if (world != null && !world.isClient) {
 			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 		}
+	}
+
+	public boolean canConnectTo(CableBlockEntity other) {
+		return other != null && other.getCableType().tier == getCableType().tier;
+	}
+
+	public List<PowerAcceptorBlockEntityFace> getConnectedPowerAcceptors() {
+		ArrayList<PowerAcceptorBlockEntityFace> result = new ArrayList<>();
+
+		for (Direction face : Direction.values()) {
+			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
+
+			if (blockEntity != null && Energy.valid(blockEntity) && blockEntity instanceof PowerAcceptorBlockEntity) {
+				result.add(new PowerAcceptorBlockEntityFace((PowerAcceptorBlockEntity) blockEntity, face.getOpposite()));
+			}
+		}
+
+		return result;
+	}
+
+	private void assignNetwork() {
+		if (!hasWorld()) {
+			TechReborn.LOGGER.debug("Attempting to assign an electric network for cable block entity but no World is available");
+			return;
+		}
+
+		ElectricNetwork eligibleNetwork = null;
+
+		for (Direction face : Direction.values()) {
+			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
+
+			if (blockEntity instanceof CableBlockEntity && this.canConnectTo((CableBlockEntity) blockEntity)) {
+				eligibleNetwork = ((CableBlockEntity) blockEntity).getElectricNetwork();
+			}
+
+			if (eligibleNetwork != null) {
+				break;
+			}
+		}
+
+		if (eligibleNetwork == null) {
+			TechReborn.LOGGER.debug("Could not find network to join, creating new one");
+			eligibleNetwork = ElectricNetworkManager.INSTANCE.newNetwork(getCableType().tier);
+		} else {
+			TechReborn.LOGGER.debug("Successfully found another network to join: {}", eligibleNetwork);
+		}
+
+		this.setElectricNetwork(eligibleNetwork);
 	}
 
 }
