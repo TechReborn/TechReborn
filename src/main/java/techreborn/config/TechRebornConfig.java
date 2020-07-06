@@ -566,6 +566,9 @@ public class TechRebornConfig {
 	@Config(config = "machines", category = "mining_rig", key = "MiningRigLiquidPerBlock", comment = "Mining Rig Liquid Per Block (Buckets)")
 	public static float miningRigLiquidPerBlock = 0.5f;
 
+	@Config(config = "machines", category = "mining_rig", key = "MiningRigDurabilityPerBlock", comment = "Mining Rig Durability Per Block")
+	public static int miningRigDurabilityPerBlock = 3;
+
 
 
 	// Misc
