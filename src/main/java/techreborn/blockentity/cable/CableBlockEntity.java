@@ -108,6 +108,7 @@ public class CableBlockEntity extends BlockEntity
 	{
 		if (electricNetwork != null) {
 			electricNetwork.removeBlockEntity(this);
+			this.electricNetwork = null;
 		}
 
 		if (value != null) {
@@ -218,7 +219,8 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	public boolean canConnectTo(CableBlockEntity other) {
-		return other != null && other.getCableType().tier == getCableType().tier;
+		return true;
+		//return other != null && other.getCableType().tier == getCableType().tier;
 	}
 
 	public List<PowerAcceptorBlockEntityFace> getConnectedPowerAcceptors() {
