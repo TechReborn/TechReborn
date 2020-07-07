@@ -50,6 +50,8 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 		// Draw slots
 		drawSlot(matrixStack, 100, 53, layer);
 		drawSlot(matrixStack, 140, 53, layer);
+
+		builder.drawLockButton(matrixStack,this, 150, 4, mouseX, mouseY, layer, storageEntity.isLocked());
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.store"), 10, 20, 4210752);
-			textRenderer.draw(matrixStack, storageEntity.getStoredStack().getName(), 10, 30, 4210752);
+			textRenderer.draw(matrixStack, storageEntity.getDisplayedStack().getName(), 10, 30, 4210752);
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.amount"), 10, 50, 4210752);
 			textRenderer.draw(matrixStack, String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);

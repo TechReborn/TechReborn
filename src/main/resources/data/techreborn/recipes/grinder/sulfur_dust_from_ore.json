@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 220,
+  "ingredients": [
+    {
+      "tag": "c:sulfur_ores"
+    }
+  ],
+  "results": [
+    {
+      "item": "techreborn:sulfur_dust",
+      "count": 2
+    }
+  ],
+  "conditions": {
+	"reborncore:tag": "c:sulfur_ores"
+  }
+}
