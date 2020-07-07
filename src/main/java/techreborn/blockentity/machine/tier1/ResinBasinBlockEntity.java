@@ -75,8 +75,8 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 			pouringTimer--;
 
 			// Play pouring audio
-			if(world.getTime() % 50 == 0){
-				world.playSound(pos.getX(),pos.getY(),pos.getZ(), ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 0.6F, 1F, false);
+			if(world.getTime() % 20 == 0){
+				world.playSound(null, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
 			if(pouringTimer == 0){
