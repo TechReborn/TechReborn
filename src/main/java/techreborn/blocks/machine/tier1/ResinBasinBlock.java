@@ -4,7 +4,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -12,22 +11,13 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.BaseBlockEntityProvider;
-import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.blocks.BlockMachineBase;
-import techreborn.blocks.GenericMachineBlock;
 import techreborn.init.TRContent;
 
 import java.util.function.Supplier;
@@ -49,7 +39,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(0, 0, 0,1,15/16f,1);
+		return VoxelShapes.cuboid(0, 0, 0, 1, 15 / 16f, 1);
 	}
 
 	public void setFacing(Direction facing, World world, BlockPos pos) {
@@ -72,19 +62,17 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
-
-		if(worldIn.isClient) return;
+		if (worldIn.isClient) return;
 
 		Direction facing = placer.getHorizontalFacing().getOpposite();
 		setFacing(facing, worldIn, pos);
 
 		// Drop item if not next to log and yell at user
-		if(worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG){
+		if (worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 			ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this.asBlock()));
 			worldIn.spawnEntity(itemEntity);
-			placer.sendSystemMessage(new LiteralText(new TranslatableText(this.getTranslationKey()).getString() + new TranslatableText("techreborn.tooltip.invalid_basin_placement").getString()),null);
-			return;
+			placer.sendSystemMessage(new LiteralText(new TranslatableText(this.getTranslationKey()).getString() + new TranslatableText("techreborn.tooltip.invalid_basin_placement").getString()), null);
 		}
 	}
 

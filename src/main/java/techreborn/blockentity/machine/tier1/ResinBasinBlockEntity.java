@@ -24,30 +24,23 @@
 
 package techreborn.blockentity.machine.tier1;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
-import reborncore.common.blocks.BlockMachineBase;
-import reborncore.common.util.RebornInventory;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static reborncore.api.items.InventoryUtils.getInventoryAt;
 
@@ -67,19 +60,19 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if(world == null || world.isClient) return;
+		if (world == null || world.isClient) return;
 
 		boolean shouldUpdateState = false;
 
-		if(isPouring){
+		if (isPouring) {
 			pouringTimer--;
 
 			// Play pouring audio
-			if(world.getTime() % 20 == 0){
+			if (world.getTime() % 20 == 0) {
 				world.playSound(null, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
-			if(pouringTimer == 0){
+			if (pouringTimer == 0) {
 				isPouring = false;
 				isFull = true;
 				shouldUpdateState = true;
@@ -87,12 +80,14 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		}
 
 		// Try and deposit
-		if(isFull){
+		if (isFull) {
 			// Find a rubber log
 			Inventory invBelow = getInventoryBelow();
-			if(invBelow != null) {
+			if (invBelow != null) {
+
 				ItemStack out = new ItemStack(TRContent.Parts.SAP, 1);
 				out = HopperBlockEntity.transfer(null, invBelow, out, Direction.UP);
+
 				if (out.isEmpty()) {
 					// Successfully deposited
 					isFull = false;
@@ -101,12 +96,23 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 			}
 		}
 
-		if(!isFull && !isPouring) {
+		boolean readyToHarvest = !isFull && !isPouring;
+
+		// Ensuring it's placed on a log
+		if ((readyToHarvest || world.getTime() % 20 == 0) && !validPlacement()) {
+			// Not placed on log, drop on ground
+			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(TRContent.Machine.RESIN_BASIN));
+			world.spawnEntity(itemEntity);
+			return;
+		}
+
+		if (readyToHarvest) {
 			// Check for rubber
 			if (world.getTime() % TechRebornConfig.checkForSapTime == 0) {
 				BlockPos targetRubber = getLogWithSap();
 
-				if (targetRubber != null){
+				if (targetRubber != null) {
 					// We have a valid sap log, harvest it
 					world.setBlockState(targetRubber, world.getBlockState(targetRubber).with(BlockRubberLog.HAS_SAP, false).with(BlockRubberLog.SAP_SIDE, Direction.fromHorizontal(0)));
 					isPouring = true;
@@ -116,7 +122,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 			}
 		}
 
-		if(shouldUpdateState){
+		if (shouldUpdateState) {
 			setPouringState(isPouring);
 			setFullState(isFull);
 		}
@@ -134,7 +140,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
 		super.fromTag(blockState, tagCompound);
 
-		if(tagCompound.contains("isFull")){
+		if (tagCompound.contains("isFull")) {
 			this.isFull = tagCompound.getBoolean("isFull");
 		}
 	}
@@ -143,7 +149,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	public void onLoad() {
 		super.onLoad();
 
-		if(world == null || world.isClient) return;
+		if (world == null || world.isClient) return;
 
 		// Set facing
 		direction = world.getBlockState(pos).get(ResinBasinBlock.FACING).getOpposite();
@@ -153,17 +159,17 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		return getInventoryAt(this.getWorld(), this.pos.offset(Direction.DOWN));
 	}
 
+	private boolean validPlacement() {
+		return world.getBlockState(this.pos.offset(direction)).getBlock() == TRContent.RUBBER_LOG;
+	}
 
-	private BlockPos getLogWithSap(){
+
+	private BlockPos getLogWithSap() {
 		// Checking origin block
 		BlockPos originPos = this.pos.offset(direction);
 		BlockState originState = world.getBlockState(originPos);
 
-		if(originState.getBlock() != TRContent.RUBBER_LOG){
-			return null;
-		}
-
-		if(originState.get(BlockRubberLog.HAS_SAP)) {
+		if (originState.get(BlockRubberLog.HAS_SAP)) {
 			return originPos;
 		}
 
@@ -171,15 +177,15 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		BlockPos current = originPos;
 
 		// Progress Up
-		while(!shouldExit){
+		while (!shouldExit) {
 			current = current.offset(Direction.UP);
 
 			BlockState state = world.getBlockState(current);
-			if(state.getBlock() == TRContent.RUBBER_LOG){
-				if( state.get(BlockRubberLog.HAS_SAP)){
+			if (state.getBlock() == TRContent.RUBBER_LOG) {
+				if (state.get(BlockRubberLog.HAS_SAP)) {
 					return current;
 				}
-			}else{
+			} else {
 				shouldExit = true;
 			}
 		}
@@ -187,15 +193,15 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		current = originPos;
 		shouldExit = false;
 		// Progress Down
-		while(!shouldExit){
+		while (!shouldExit) {
 			current = current.offset(Direction.DOWN);
 
 			BlockState state = world.getBlockState(current);
-			if(state.getBlock() == TRContent.RUBBER_LOG){
-				if(state.get(BlockRubberLog.HAS_SAP)){
+			if (state.getBlock() == TRContent.RUBBER_LOG) {
+				if (state.get(BlockRubberLog.HAS_SAP)) {
 					return current;
 				}
-			}else{
+			} else {
 				shouldExit = true;
 			}
 		}
@@ -204,14 +210,14 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		return null;
 	}
 
-	private void setPouringState(boolean value){
-		if(world != null){
+	private void setPouringState(boolean value) {
+		if (world != null) {
 			world.setBlockState(pos, world.getBlockState(pos).with(ResinBasinBlock.POURING, value));
 		}
 	}
 
-	private void setFullState(boolean value){
-		if(world != null){
+	private void setFullState(boolean value) {
+		if (world != null) {
 			world.setBlockState(pos, world.getBlockState(pos).with(ResinBasinBlock.FULL, value));
 		}
 	}
