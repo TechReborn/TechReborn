@@ -107,7 +107,7 @@ public class BlockRubberLog extends PillarBlock {
 		if (state.get(HAS_SAP)) {
 			return;
 		}
-		if (true) {
+		if (random.nextInt(50) == 0) {
 			Direction facing = Direction.fromHorizontal(random.nextInt(4));
 			if (worldIn.getBlockState(pos.offset(Direction.DOWN, 1)).getBlock() == this
 					&& worldIn.getBlockState(pos.up()).getBlock() == this) {
