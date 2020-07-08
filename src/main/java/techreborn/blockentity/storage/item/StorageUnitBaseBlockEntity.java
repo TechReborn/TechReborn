@@ -28,12 +28,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -50,19 +53,18 @@ import techreborn.init.TRContent;
 
 import java.util.List;
 
-public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
-		implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
-
+public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 
 	// Inventory constants
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
-	// Client sync variable, how much stored
+
+	// Client sync variables for GUI, what and how much stored
+	public Item storedItem = Items.AIR;
 	public int storedAmount = 0;
+
 	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
-	private boolean shouldUpdate = true;
-	private Item prevItem = null;
 
 	private ItemStack storeItemStack;
 
@@ -113,13 +115,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			}
 		}
 
-		// Update for stored item for clients if out of date
-		if(world.getTime() % 20 == 0) {
-			Item storedItem = this.getStoredStack().getItem();
-			if (!isLocked() && prevItem != storedItem) {
-				prevItem = storedItem;
+		if(inventory.hasChanged()){
+			if(storedItem != getStoredStack().getItem()) {
+				storedItem = getStoredStack().getItem();
 				syncWithAll();
 			}
+			inventory.resetChanged();
 		}
 	}
 
@@ -166,7 +167,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	// Returns the ItemStack to be displayed to the player via UI / model
 	public ItemStack getDisplayedStack() {
 		if (!isLocked()) {
-			return getStoredStack();
+			return inventory.getStack(OUTPUT_SLOT);
 		} else {
 			// Render the locked stack even if the unit is empty
 			return lockedItemStack;
@@ -188,7 +189,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 		boolean isSameStack = isSameType(inputStack);
 
-		if (storeItemStack == ItemStack.EMPTY && (isSameStack || getCurrentCapacity() == 0)) {
+		if (storeItemStack == ItemStack.EMPTY && (isSameStack || (getCurrentCapacity() == 0 && !isLocked()))) {
 			// Check if storage is empty, NOT including the output slot
 			storeItemStack = inputStack.copy();
 
@@ -443,12 +444,12 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		this.storedAmount = storedAmount;
 	}
 
-
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
 		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).slot(0, 100, 53)
-				.outputSlot(1, 140, 53)
+				.blockEntity(this)
+				.slot(INPUT_SLOT, 100, 53)
+				.outputSlot(OUTPUT_SLOT, 140, 53)
 				.sync(this::isLockedInt, this::setLockedInt)
 				.sync(this::getStoredAmount, this::setStoredAmount)
 				.addInventory().create(this, syncID);
