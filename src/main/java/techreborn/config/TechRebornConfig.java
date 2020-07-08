@@ -565,6 +565,12 @@ public class TechRebornConfig {
 	@Config(config = "misc", category = "nuke", key = "enabled", comment = "Should the nuke explode, set to false to prevent block damage")
 	public static boolean nukeEnabled = true;
 
+	@Config(config = "misc", category = "resin_basin", key = "saptime", comment = "How long it takes to harvest one sap (ticks)")
+	public static int sapTimeTicks = 80;
+
+	@Config(config = "misc", category = "resin_basin", key = "SapCheckTime", comment = "How often to check for sap (will check if world time % this number is zero)")
+	public static int checkForSapTime = 50;
+
 	@Config(config = "misc", category = "general", key = "DispenserScrapbox", comment = "Dispensers will open scrapboxes")
 	public static boolean dispenseScrapboxes = true;
 
