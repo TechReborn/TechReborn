@@ -61,7 +61,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
-		if (unitType == TRContent.StorageUnit.CREATIVE) {
+		if (unitType == TRContent.StorageUnit.CREATIVE || worldIn.isClient) {
 			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
 
