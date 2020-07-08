@@ -27,10 +27,8 @@ package techreborn.blockentity.machine.tier1;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
@@ -85,11 +83,11 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 		// Try and deposit
 		if (isFull) {
-			// Find a rubber log
+			// Get inventory
 			Inventory invBelow = getInventoryBelow();
 			if (invBelow != null) {
 
-				ItemStack out = new ItemStack(TRContent.Parts.SAP, 1);
+				ItemStack out = new ItemStack(TRContent.Parts.SAP, (Math.random() <= 0.5) ? 1 : 2);
 				out = HopperBlockEntity.transfer(null, invBelow, out, Direction.UP);
 
 				if (out.isEmpty()) {
@@ -136,8 +134,9 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		super.onBreak(world, playerEntity, blockPos, blockState);
 
 		// Drop a sap if full
-		if(this.isFull){
-			WorldUtils.dropItem(TRContent.Parts.SAP.asItem(), world, pos);
+		if (this.isFull) {
+			ItemStack out = new ItemStack(TRContent.Parts.SAP, (Math.random() <= 0.6) ? 1 : 2);
+			WorldUtils.dropItem(out, world, pos);
 		}
 	}
 

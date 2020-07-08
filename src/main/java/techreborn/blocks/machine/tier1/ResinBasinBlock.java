@@ -2,7 +2,6 @@ package techreborn.blocks.machine.tier1;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -10,7 +9,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -74,7 +72,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		// Drop item if not next to log and yell at user
 		if (worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-			WorldUtils.dropItem(this.asItem(), worldIn,pos);
+			WorldUtils.dropItem(this.asItem(), worldIn, pos);
 			placer.sendSystemMessage(new TranslatableText("techreborn.tooltip.invalid_basin_placement"), UUID.randomUUID());
 		}
 	}
@@ -90,7 +88,7 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	@Override
 	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if(blockEntity instanceof MachineBaseBlockEntity){
+		if (blockEntity instanceof MachineBaseBlockEntity) {
 			((MachineBaseBlockEntity) blockEntity).onBreak(world, player, pos, state);
 		}
 
