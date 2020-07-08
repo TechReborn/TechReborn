@@ -113,14 +113,14 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 			}
 		}
 
-//		// Update for stored item for clients if out of date
-//		if(world.getTime() % 20 == 0) {
-//			Item storedItem = this.getStoredStack().getItem();
-//			if (!isLocked() && prevItem != storedItem) {
-//				prevItem = storedItem;
-//				syncWithAll();
-//			}
-//		}
+		// Update for stored item for clients if out of date
+		if(world.getTime() % 20 == 0) {
+			Item storedItem = this.getStoredStack().getItem();
+			if (!isLocked() && prevItem != storedItem) {
+				prevItem = storedItem;
+				syncWithAll();
+			}
+		}
 	}
 
 	private void populateOutput() {
