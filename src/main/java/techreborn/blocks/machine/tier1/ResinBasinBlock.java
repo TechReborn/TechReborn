@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -18,8 +19,11 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.common.BaseBlockEntityProvider;
+import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.util.WorldUtils;
 import techreborn.init.TRContent;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
@@ -70,9 +74,8 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 		// Drop item if not next to log and yell at user
 		if (worldIn.getBlockState(pos.offset(facing.getOpposite())).getBlock() != TRContent.RUBBER_LOG) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-			ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this.asBlock()));
-			worldIn.spawnEntity(itemEntity);
-			placer.sendSystemMessage(new LiteralText(new TranslatableText(this.getTranslationKey()).getString() + new TranslatableText("techreborn.tooltip.invalid_basin_placement").getString()), null);
+			WorldUtils.dropItem(this.asItem(), worldIn,pos);
+			placer.sendSystemMessage(new TranslatableText("techreborn.tooltip.invalid_basin_placement"), UUID.randomUUID());
 		}
 	}
 
@@ -82,5 +85,15 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 			return null;
 		}
 		return blockEntityClass.get();
+	}
+
+	@Override
+	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+		BlockEntity blockEntity = world.getBlockEntity(pos);
+		if(blockEntity instanceof MachineBaseBlockEntity){
+			((MachineBaseBlockEntity) blockEntity).onBreak(world, player, pos, state);
+		}
+
+		super.onBreak(world, pos, state, player);
 	}
 }

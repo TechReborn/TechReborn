@@ -28,13 +28,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.common.blockentity.MachineBaseBlockEntity;
+import reborncore.common.util.WorldUtils;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
@@ -102,8 +106,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		if ((readyToHarvest || world.getTime() % 20 == 0) && !validPlacement()) {
 			// Not placed on log, drop on ground
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(TRContent.Machine.RESIN_BASIN));
-			world.spawnEntity(itemEntity);
+			WorldUtils.dropItem(TRContent.Machine.RESIN_BASIN.asItem(), world, pos);
 			return;
 		}
 
@@ -125,6 +128,16 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 		if (shouldUpdateState) {
 			setPouringState(isPouring);
 			setFullState(isFull);
+		}
+	}
+
+	@Override
+	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
+		super.onBreak(world, playerEntity, blockPos, blockState);
+
+		// Drop a sap if full
+		if(this.isFull){
+			WorldUtils.dropItem(TRContent.Parts.SAP.asItem(), world, pos);
 		}
 	}
 
