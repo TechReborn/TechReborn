@@ -27,7 +27,9 @@ package techreborn.blocks.storage.item;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -35,7 +37,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
+import reborncore.api.items.InventoryBase;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.util.RebornInventory;
+import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.client.GuiType;
 import techreborn.init.TRContent;
@@ -62,13 +67,14 @@ public class StorageUnitBlock extends BlockMachineBase {
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
 		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
+		Item itemInHand = stackInHand.getItem();
 
-		if (storageEntity != null && storageEntity.isSameType(stackInHand)) {
+		if (storageEntity != null && (storageEntity.isSameType(stackInHand) || (!storageEntity.isLocked() && storageEntity.isEmpty() && !(itemInHand instanceof ToolItem)))) {
 
 			// Add item which is the same type (in users inventory) into storage
 			for (int i = 0; i < playerIn.inventory.size() && !storageEntity.isFull(); i++) {
 				ItemStack curStack = playerIn.inventory.getStack(i);
-				if (storageEntity.isSameType(curStack)) {
+				if (curStack.getItem() == itemInHand) {
 					playerIn.inventory.setStack(i, storageEntity.processInput(curStack));
 				}
 			}
@@ -77,6 +83,35 @@ public class StorageUnitBlock extends BlockMachineBase {
 		}
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
+
+	@Override
+	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+		super.onBlockBreakStart(state, world, pos, player);
+
+		if(world.isClient) return;
+
+		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
+		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
+
+		if (storageEntity != null && (stackInHand.isEmpty() || storageEntity.isSameType(stackInHand)) && !storageEntity.isEmpty()) {
+			RebornInventory<StorageUnitBaseBlockEntity> inventory = storageEntity.getInventory();
+			ItemStack out = inventory.getStack(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
+
+			// Drop stack if sneaking
+			if(player.isSneaking()){
+				WorldUtils.dropItem(new ItemStack(out.getItem()), world, player.getBlockPos());
+				out.decrement(1);
+			}else {
+				WorldUtils.dropItem(out, world, player.getBlockPos());
+				out.setCount(0);
+			}
+
+			inventory.setChanged();
+		}
+
+	}
+
+
 
 	@Override
 	public IMachineGuiHandler getGui() {

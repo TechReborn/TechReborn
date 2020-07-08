@@ -56,11 +56,10 @@ import java.util.List;
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 
 	// Inventory constants
-	private static final int INPUT_SLOT = 0;
-	private static final int OUTPUT_SLOT = 1;
+	public static final int INPUT_SLOT = 0;
+	public static final int OUTPUT_SLOT = 1;
 
 	// Client sync variables for GUI, what and how much stored
-	public Item storedItem = Items.AIR;
 	public int storedAmount = 0;
 
 	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
@@ -116,10 +115,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 
 		if(inventory.hasChanged()){
-			if(storedItem != getStoredStack().getItem()) {
-				storedItem = getStoredStack().getItem();
-				syncWithAll();
-			}
+			syncWithAll();
 			inventory.resetChanged();
 		}
 	}
@@ -167,7 +163,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 	// Returns the ItemStack to be displayed to the player via UI / model
 	public ItemStack getDisplayedStack() {
 		if (!isLocked()) {
-			return inventory.getStack(OUTPUT_SLOT);
+			return getStoredStack();
 		} else {
 			// Render the locked stack even if the unit is empty
 			return lockedItemStack;
@@ -218,6 +214,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			}
 		}
 
+		inventory.setChanged();
 		return inputStack;
 	}
 
@@ -285,6 +282,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			storeItemStack.setCount(Math.min(tagCompound.getInt("storedQuantity"), this.maxCapacity));
 		}
 
+		// Renderer only
+		if (tagCompound.contains("totalStoredAmount")) {
+			storedAmount = tagCompound.getInt("totalStoredAmount");
+		}
+
 		if (tagCompound.contains("lockedItem")) {
 			lockedItemStack = ItemStack.fromTag(tagCompound.getCompound("lockedItem"));
 		}
@@ -308,6 +310,9 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		} else {
 			tagCompound.putInt("storedQuantity", 0);
 		}
+
+		// Renderer only
+		tagCompound.putInt("totalStoredAmount", getCurrentCapacity());
 
 		if (isLocked()) {
 			tagCompound.put("lockedItem", lockedItemStack.toTag(new CompoundTag()));
@@ -444,6 +449,16 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		this.storedAmount = storedAmount;
 	}
 
+	public void setStoredStack(String itemStringID) {
+		storeItemStack = new ItemStack(Registry.ITEM.get(new Identifier(itemStringID)));
+	}
+
+
+
+	public String convertItemStringID() {
+		return Registry.ITEM.getId(getStoredStack().getItem()).toString();
+	}
+
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
 		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
@@ -451,6 +466,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)
 				.sync(this::isLockedInt, this::setLockedInt)
+				.sync(this::convertItemStringID, this::setStoredStack)
 				.sync(this::getStoredAmount, this::setStoredAmount)
 				.addInventory().create(this, syncID);
 
