@@ -25,8 +25,8 @@
 package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
@@ -51,18 +51,18 @@ import techreborn.init.TRContent;
 import java.util.List;
 
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
-	implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
+		implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
 
 
 	// Inventory constants
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
-
+	// Client sync variable, how much stored
+	public int storedAmount = 0;
 	protected RebornInventory<StorageUnitBaseBlockEntity> inventory;
 	private int maxCapacity;
-
 	private boolean shouldUpdate = true;
-	private int prevCount = -1;
+	private Item prevItem = null;
 
 	private ItemStack storeItemStack;
 
@@ -93,46 +93,34 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-		if (world.isClient) {
+		if (world == null || world.isClient) {
 			return;
 		}
-
 
 		// If there is an item in the input AND stored is less than max capacity
 		if (!inventory.getStack(INPUT_SLOT).isEmpty() && !isFull()) {
 			inventory.setStack(INPUT_SLOT, processInput(inventory.getStack(INPUT_SLOT)));
-
-			shouldUpdate = true;
 		}
 
 		// Fill output slot with goodies when stored has items and output count is less than max stack size
 		if (storeItemStack.getCount() > 0 && inventory.getStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
 			populateOutput();
-
-			shouldUpdate = true;
 		}
 
 		if (type == TRContent.StorageUnit.CREATIVE) {
 			if (!isFull() && !isEmpty()) {
 				fillToCapacity();
-				shouldUpdate = true;
 			}
 		}
 
-		// Update for locked item for clients
-		if(isLocked() && prevCount != this.getCurrentCapacity()){
-			prevCount = this.getCurrentCapacity();
-			syncWithAll();
-		}
-
-
-		if (shouldUpdate) {
-			inventory.setChanged();
-			markDirty();
-			syncWithAll();
-
-			shouldUpdate = false;
-		}
+//		// Update for stored item for clients if out of date
+//		if(world.getTime() % 20 == 0) {
+//			Item storedItem = this.getStoredStack().getItem();
+//			if (!isLocked() && prevItem != storedItem) {
+//				prevItem = storedItem;
+//				syncWithAll();
+//			}
+//		}
 	}
 
 	private void populateOutput() {
@@ -171,6 +159,10 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		return storeItemStack.isEmpty() ? inventory.getStack(OUTPUT_SLOT) : storeItemStack;
 	}
 
+	public void setStoredStack(ItemStack itemStack) {
+		storeItemStack = itemStack;
+	}
+
 	// Returns the ItemStack to be displayed to the player via UI / model
 	public ItemStack getDisplayedStack() {
 		if (!isLocked()) {
@@ -190,10 +182,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		}
 
 		return returnStack;
-	}
-
-	public void setStoredStack(ItemStack itemStack) {
-		storeItemStack = itemStack;
 	}
 
 	public ItemStack processInput(ItemStack inputStack) {
@@ -357,9 +345,9 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		if (isReal || hasData) {
 			if (!this.isEmpty()) {
 				info.add(
-					new LiteralText(String.valueOf(this.getCurrentCapacity()))
-						.append(new TranslatableText("techreborn.tooltip.unit.divider"))
-						.append(this.getStoredStack().getName())
+						new LiteralText(String.valueOf(this.getCurrentCapacity()))
+								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
+								.append(this.getStoredStack().getName())
 				);
 			} else {
 				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
@@ -368,14 +356,14 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 
 		info.add(
 				new TranslatableText("techreborn.tooltip.unit.capacity")
-					.formatted(Formatting.GRAY)
-					.append(
-							new LiteralText(String.valueOf(this.getMaxCapacity()))
-							.formatted(Formatting.GOLD)
-							.append(" items (")
-							.append(String.valueOf(this.getMaxCapacity() / 64))
-							.append(")")
-					)
+						.formatted(Formatting.GRAY)
+						.append(
+								new LiteralText(String.valueOf(this.getMaxCapacity()))
+										.formatted(Formatting.GOLD)
+										.append(" items (")
+										.append(String.valueOf(this.getMaxCapacity() / 64))
+										.append(")")
+						)
 		);
 	}
 
@@ -447,11 +435,25 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity
 		return !isEmpty();
 	}
 
+	public int getStoredAmount() {
+		return this.getCurrentCapacity();
+	}
+
+	public void setStoredAmount(int storedAmount) {
+		this.storedAmount = storedAmount;
+	}
+
+
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
 		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
-				.blockEntity(this).slot(0, 100, 53).outputSlot(1, 140, 53)
-				.sync(this::isLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+				.blockEntity(this).slot(0, 100, 53)
+				.outputSlot(1, 140, 53)
+				.sync(this::isLockedInt, this::setLockedInt)
+				.sync(this::getStoredAmount, this::setStoredAmount)
+				.addInventory().create(this, syncID);
+
+		// Note that inventory is synced, and it gets the stack from that
 	}
 
 	@Override
