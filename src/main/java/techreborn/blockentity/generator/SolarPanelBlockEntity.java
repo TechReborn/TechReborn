@@ -26,7 +26,6 @@ package techreborn.blockentity.generator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -151,7 +150,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 	public void tick() {
 		super.tick();
 
-		if (world == null){
+		if (world == null) {
 			return;
 		}
 
@@ -191,7 +190,7 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 	@Override
 	public double getBaseMaxOutput() {
-		if (getPanel() == TRContent.SolarPanels.CREATIVE){
+		if (getPanel() == TRContent.SolarPanels.CREATIVE) {
 			return EnergyTier.INSANE.getMaxOutput();
 		}
 		// Solar panel output will only be limited by the cables the users use
@@ -231,22 +230,22 @@ public class SolarPanelBlockEntity extends PowerAcceptorBlockEntity implements I
 
 		info.add(
 				new TranslatableText("reborncore.tooltip.energy.maxEnergy")
-					.formatted(Formatting.GRAY)
-					.append(": ")
-					.append(
-							new LiteralText(PowerSystem.getLocaliszedPowerFormatted(getMaxPower()))
-								.formatted(Formatting.GOLD)
-					)
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(
+								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(getMaxPower()))
+										.formatted(Formatting.GOLD)
+						)
 		);
 
 		info.add(
 				new TranslatableText("techreborn.tooltip.generationRate.day")
-					.formatted(Formatting.GRAY)
-					.append(": ")
-					.append(
-							new LiteralText(PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD))
-								.formatted(Formatting.GOLD)
-					)
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(
+								new LiteralText(PowerSystem.getLocaliszedPowerFormatted(panel.generationRateD))
+										.formatted(Formatting.GOLD)
+						)
 		);
 
 		info.add(

@@ -42,11 +42,11 @@ public class IDSUManager extends PersistentState {
 	}
 
 	@Nonnull
-	public static IDSUPlayer getPlayer(World world, String uuid){
+	public static IDSUPlayer getPlayer(World world, String uuid) {
 		return get(world).getPlayer(uuid);
 	}
 
-	public static IDSUManager get(World world){
+	public static IDSUManager get(World world) {
 		ServerWorld serverWorld = (ServerWorld) world;
 		return serverWorld.getPersistentStateManager().getOrCreate(IDSUManager::new, KEY);
 	}
@@ -54,13 +54,13 @@ public class IDSUManager extends PersistentState {
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
 
 	@Nonnull
-	public IDSUPlayer getPlayer(String uuid){
+	public IDSUPlayer getPlayer(String uuid) {
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
 	}
 
 	@Override
 	public void fromTag(CompoundTag tag) {
-		for(String uuid : tag.getKeys()){
+		for (String uuid : tag.getKeys()) {
 			playerHashMap.put(uuid, new IDSUPlayer(tag.getCompound(uuid)));
 		}
 	}
@@ -78,7 +78,7 @@ public class IDSUManager extends PersistentState {
 		private IDSUPlayer() {
 		}
 
-		private IDSUPlayer(CompoundTag compoundTag){
+		private IDSUPlayer(CompoundTag compoundTag) {
 			read(compoundTag);
 		}
 

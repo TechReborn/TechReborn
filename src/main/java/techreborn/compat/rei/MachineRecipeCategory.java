@@ -47,63 +47,63 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCategory<MachineRecipeDisplay<R>> {
-	
+
 	private final RebornRecipeType<R> rebornRecipeType;
-	private int recipeLines;
-	
+	private final int recipeLines;
+
 	MachineRecipeCategory(RebornRecipeType<R> rebornRecipeType) {
 		this(rebornRecipeType, 2);
 	}
-	
+
 	MachineRecipeCategory(RebornRecipeType<R> rebornRecipeType, int lines) {
 		this.rebornRecipeType = rebornRecipeType;
 		this.recipeLines = lines;
 	}
-	
+
 	@Override
 	public Identifier getIdentifier() {
 		return rebornRecipeType.getName();
 	}
-	
+
 	@Override
 	public String getCategoryName() {
 		return I18n.translate(rebornRecipeType.getName().toString());
 	}
-	
+
 	@Override
 	public EntryStack getLogo() {
 		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
-	
+
 	@Override
 	public RecipeEntry getSimpleRenderer(MachineRecipeDisplay<R> recipe) {
 		return SimpleRecipeEntry.create(Collections.singletonList(recipe.getInputEntries().get(0)), recipe.getOutputEntries());
 	}
-	
+
 	@Override
 	public List<Widget> setupDisplay(MachineRecipeDisplay<R> machineRecipe, Rectangle bounds) {
 		Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - recipeLines * 12 - 1);
-		
+
 		List<Widget> widgets = new LinkedList<>();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createArrow(new Point(startPoint.x + 26, startPoint.y + 1)).animationDurationTicks(machineRecipe.getTime()));
-		
+
 		int i = 0;
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()) {
 			widgets.add(Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20))).entries(inputs).markInput());
 		}
-		
+
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		Label costLabel;
 		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick));
 		costLabel.shadow(false);
 		costLabel.color(0xFF404040, 0xFFBBBBBB);
-		
+
 		i = 0;
 		for (EntryStack outputs : machineRecipe.getOutputEntries()) {
 			widgets.add(Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 1 + (i++ * 20))).entry(outputs).markInput());
 		}
-		
+
 		int heat = machineRecipe.getHeat();
 		if (heat > 0) {
 			Text neededHeat = new LiteralText(String.valueOf(heat)).append(" ").append(new TranslatableText("techreborn.jei.recipe.heat"));
@@ -112,10 +112,10 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 			heatLabel.shadow(false);
 			heatLabel.color(0xFF404040, 0xFFBBBBBB);
 		}
-		
+
 		return widgets;
 	}
-	
+
 	@Override
 	public int getDisplayHeight() {
 		if (recipeLines == 1) {
@@ -127,5 +127,5 @@ public class MachineRecipeCategory<R extends RebornRecipe> implements RecipeCate
 		}
 		return 60;
 	}
-	
+
 }

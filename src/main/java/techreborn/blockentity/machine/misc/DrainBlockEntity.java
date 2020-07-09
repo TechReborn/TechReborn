@@ -43,7 +43,7 @@ public class DrainBlockEntity extends MachineBaseBlockEntity {
 
 	protected Tank internalTank = new Tank("tank", FluidValue.BUCKET, this);
 
-	public DrainBlockEntity(){
+	public DrainBlockEntity() {
 		this(TRBlockEntities.DRAIN);
 	}
 
@@ -54,13 +54,13 @@ public class DrainBlockEntity extends MachineBaseBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if(world.isClient){
+		if (world.isClient) {
 			return;
 		}
 
 		if (world.getTime() % 10 == 0) {
 
-			if(internalTank.isEmpty()) {
+			if (internalTank.isEmpty()) {
 				tryDrain();
 			}
 		}
@@ -72,7 +72,7 @@ public class DrainBlockEntity extends MachineBaseBlockEntity {
 		return internalTank;
 	}
 
-	private void tryDrain(){
+	private void tryDrain() {
 		// Position above drain
 		BlockPos above = this.getPos().up();
 

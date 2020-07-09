@@ -51,10 +51,10 @@ import java.util.Random;
  */
 public class TRDispenserBehavior {
 
-	public static void init(){
+	public static void init() {
 		if (TechRebornConfig.dispenseScrapboxes) {
 			DispenserBlock.registerBehavior(TRContent.SCRAP_BOX, new ItemDispenserBehavior() {
-				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack){
+				public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 					List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(pointer.getWorld());
 					int random = new Random().nextInt(scrapboxRecipeList.size());
 					ItemStack out = scrapboxRecipeList.get(random).getOutputs().get(0);
@@ -65,20 +65,20 @@ public class TRDispenserBehavior {
 					spawnItem(pointer.getWorld(), out, 6, facing, position);
 					return stack;
 				}
-			} );
+			});
 		}
 
-		DispenserBlock.registerBehavior(TRContent.CELL, new ItemDispenserBehavior(){
+		DispenserBlock.registerBehavior(TRContent.CELL, new ItemDispenserBehavior() {
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				DynamicCellItem cell = (DynamicCellItem)stack.getItem();
+				DynamicCellItem cell = (DynamicCellItem) stack.getItem();
 				WorldAccess iWorld = pointer.getWorld();
 				BlockPos blockPos = pointer.getBlockPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
 				BlockState blockState = iWorld.getBlockState(blockPos);
 				Block block = blockState.getBlock();
-				if (cell.getFluid(stack) == Fluids.EMPTY){
+				if (cell.getFluid(stack) == Fluids.EMPTY) {
 					// fill cell
 					if (block instanceof FluidDrainable) {
-						Fluid fluid = ((FluidDrainable)block).tryDrainFluid(iWorld, blockPos, blockState);
+						Fluid fluid = ((FluidDrainable) block).tryDrainFluid(iWorld, blockPos, blockState);
 						if (!(fluid instanceof FlowableFluid)) {
 							return super.dispenseSilently(pointer, stack);
 						} else {
@@ -87,7 +87,7 @@ public class TRDispenserBehavior {
 								stack = filledCell;
 							} else {
 								stack.decrement(1);
-								if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(filledCell) < 0) {
+								if (((DispenserBlockEntity) pointer.getBlockEntity()).addToFirstFreeSlot(filledCell) < 0) {
 									this.dispense(pointer, filledCell);
 								}
 							}
@@ -96,16 +96,15 @@ public class TRDispenserBehavior {
 					} else {
 						return super.dispenseSilently(pointer, stack);
 					}
-				}
-				else {
+				} else {
 					// drain cell
 					if (cell.placeFluid(null, pointer.getWorld(), blockPos, null, stack)) {
 						ItemStack emptyCell = cell.getEmpty();
-						if(stack.getCount() == 1) {
+						if (stack.getCount() == 1) {
 							stack = emptyCell;
 						} else {
 							stack.decrement(1);
-							if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(emptyCell) < 0) {
+							if (((DispenserBlockEntity) pointer.getBlockEntity()).addToFirstFreeSlot(emptyCell) < 0) {
 								this.dispense(pointer, emptyCell);
 							}
 						}

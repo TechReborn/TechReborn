@@ -45,15 +45,15 @@ public class ManualItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player,
-	                                                final Hand hand) {
-		if(world.isClient){
+											final Hand hand) {
+		if (world.isClient) {
 			openGui(player);
 		}
 		return new TypedActionResult<>(ActionResult.SUCCESS, player.getStackInHand(hand));
 	}
 
 	@Environment(EnvType.CLIENT)
-	private void openGui(PlayerEntity playerEntity){
+	private void openGui(PlayerEntity playerEntity) {
 		MinecraftClient.getInstance().openScreen(new GuiManual(playerEntity));
 	}
 }

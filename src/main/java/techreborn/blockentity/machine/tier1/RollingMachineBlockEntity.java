@@ -59,9 +59,9 @@ import java.util.stream.Collectors;
 //TODO add tick and power bars.
 
 public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
-	public int[] craftingSlots = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	public int[] craftingSlots = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
 	private CraftingInventory craftCache;
 	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this);
 	public boolean isRunning;
@@ -69,7 +69,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Nonnull
 	public ItemStack currentRecipeOutput;
 	public RollingMachineRecipe currentRecipe;
-	private int outputSlot;
+	private final int outputSlot;
 	public boolean locked = false;
 	public int balanceSlot = 0;
 
@@ -177,12 +177,12 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public void setIsActive(boolean active) {
-		if (active == isRunning){
+		if (active == isRunning) {
 			return;
 		}
 		isRunning = active;
 		if (this.getWorld().getBlockState(this.getPos()).getBlock() instanceof BlockMachineBase) {
-			BlockMachineBase blockMachineBase = (BlockMachineBase)this.getWorld().getBlockState(this.getPos()).getBlock();
+			BlockMachineBase blockMachineBase = (BlockMachineBase) this.getWorld().getBlockState(this.getPos()).getBlock();
 			blockMachineBase.setActive(active, this.getWorld(), this.getPos());
 		}
 		this.getWorld().updateListeners(this.getPos(), this.getWorld().getBlockState(this.getPos()), this.getWorld().getBlockState(this.getPos()), 3);
@@ -213,7 +213,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		List<Integer> possibleSlots = new ArrayList<>();
 		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
 			ItemStack stackInSlot = inventory.getStack(s);
-			Ingredient ingredient = (Ingredient) currentRecipe.getPreviewInputs().get(s);
+			Ingredient ingredient = currentRecipe.getPreviewInputs().get(s);
 			if (ingredient != Ingredient.EMPTY && ingredient.test(sourceStack)) {
 				if (stackInSlot.isEmpty()) {
 					possibleSlots.add(s);
@@ -223,32 +223,32 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
-		if(!possibleSlots.isEmpty()){
-			int totalItems =  possibleSlots.stream()
-				.mapToInt(value -> inventory.getStack(value).getCount()).sum();
+		if (!possibleSlots.isEmpty()) {
+			int totalItems = possibleSlots.stream()
+					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
 			//This makes an array of ints with the best possible slot EnvTyperibution
 			int[] split = new int[slots];
 			int remainder = totalItems % slots;
 			Arrays.fill(split, totalItems / slots);
-			while (remainder > 0){
+			while (remainder > 0) {
 				for (int i = 0; i < split.length; i++) {
-					if(remainder > 0){
-						split[i] +=1;
-						remainder --;
+					if (remainder > 0) {
+						split[i] += 1;
+						remainder--;
 					}
 				}
 			}
 
 			List<Integer> slotEnvTyperubution = possibleSlots.stream()
-				.mapToInt(value -> inventory.getStack(value).getCount())
-				.boxed().collect(Collectors.toList());
+					.mapToInt(value -> inventory.getStack(value).getCount())
+					.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
 			for (int i = 0; i < split.length; i++) {
 				int required = split[i];
-				if(slotEnvTyperubution.contains(required)){
+				if (slotEnvTyperubution.contains(required)) {
 					//We need to remove the int, not at the int, this seems to work around that
 					slotEnvTyperubution.remove(new Integer(required));
 				} else {
@@ -276,10 +276,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 		if (bestSlot == null
-			|| bestSlot.getLeft() == balanceSlot
-			|| bestSlot.getRight() == sourceStack.getCount()
-			|| inventory.getStack(bestSlot.getLeft()).isEmpty()
-			|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
+				|| bestSlot.getLeft() == balanceSlot
+				|| bestSlot.getRight() == sourceStack.getCount()
+				|| inventory.getStack(bestSlot.getLeft()).isEmpty()
+				|| !ItemUtils.isItemEqual(sourceStack, inventory.getStack(bestSlot.getLeft()), true, true)) {
 			return Optional.empty();
 		}
 		sourceStack.decrement(1);
@@ -322,13 +322,13 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		return ItemUtils.isItemEqual(stack, output, true, true);
 	}
 
-	public List<RollingMachineRecipe> getAllRecipe(World world){
+	public List<RollingMachineRecipe> getAllRecipe(World world) {
 		return ModRecipes.ROLLING_MACHINE.getRecipes(world);
 	}
 
 	public ItemStack findMatchingRecipeOutput(CraftingInventory inv, World world) {
 		RollingMachineRecipe recipe = findMatchingRecipe(inv, world);
-		if(recipe == null){
+		if (recipe == null) {
 			return ItemStack.EMPTY;
 		}
 		return recipe.getOutput();
@@ -342,7 +342,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 		}
 		return null;
 	}
-	
+
 	@Override
 	public ItemStack getToolDrop(final PlayerEntity entityPlayer) {
 		return TRContent.Machine.ROLLING_MACHINE.getStack();
@@ -379,24 +379,24 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getBurnTimeRemainingScaled(final int scale) {
-		if (tickTime == 0 || Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1) == 0) {
+		if (tickTime == 0 || Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1) == 0) {
 			return 0;
 		}
-		return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1);
+		return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1);
 	}
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("rollingmachine").player(player.inventory)
-			.inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
-			.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
-			.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
-			.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
-			.outputSlot(9, 124, 40)
-			.energySlot(10, 8, 70)
-			.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
+				.inventory().hotbar()
+				.addInventory().blockEntity(this)
+				.slot(0, 30, 22).slot(1, 48, 22).slot(2, 66, 22)
+				.slot(3, 30, 40).slot(4, 48, 40).slot(5, 66, 40)
+				.slot(6, 30, 58).slot(7, 48, 58).slot(8, 66, 58)
+				.onCraft(inv -> this.inventory.setStack(1, findMatchingRecipeOutput(getCraftingMatrix(), this.world)))
+				.outputSlot(9, 124, 40)
+				.energySlot(10, 8, 70)
+				.syncEnergyValue().sync(this::getBurnTime, this::setBurnTime).sync(this::getLockedInt, this::setLockedInt).addInventory().create(this, syncID);
 	}
 
 	//Easyest way to sync back to the client
@@ -409,8 +409,8 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public int getProgressScaled(final int scale) {
-		if (tickTime != 0 && Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1) != 0) {
-			return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime* (1.0 - getSpeedMultiplier())), 1);
+		if (tickTime != 0 && Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1) != 0) {
+			return tickTime * scale / Math.max((int) (TechRebornConfig.rollingMachineRunTime * (1.0 - getSpeedMultiplier())), 1);
 		}
 		return 0;
 	}

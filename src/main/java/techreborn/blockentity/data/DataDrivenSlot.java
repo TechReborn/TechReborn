@@ -41,12 +41,12 @@ import java.util.stream.Collectors;
 
 public class DataDrivenSlot {
 
-	public static List<DataDrivenSlot> read(JsonArray jsonArray){
+	public static List<DataDrivenSlot> read(JsonArray jsonArray) {
 		AtomicInteger idCount = new AtomicInteger();
 		return SerializationUtil.stream(jsonArray)
-			.map(JsonElement::getAsJsonObject)
-			.map(json -> new DataDrivenSlot(idCount.getAndIncrement(), JsonHelper.getInt(json, "x"), JsonHelper.getInt(json, "y"), SlotType.fromString(JsonHelper.getString(json, "type"))))
-			.collect(Collectors.toList());
+				.map(JsonElement::getAsJsonObject)
+				.map(json -> new DataDrivenSlot(idCount.getAndIncrement(), JsonHelper.getInt(json, "x"), JsonHelper.getInt(json, "y"), SlotType.fromString(JsonHelper.getString(json, "type"))))
+				.collect(Collectors.toList());
 	}
 
 	private final int id;
@@ -78,14 +78,14 @@ public class DataDrivenSlot {
 		return type;
 	}
 
-	public void add(BlockEntityScreenHandlerBuilder inventoryBuilder){
+	public void add(BlockEntityScreenHandlerBuilder inventoryBuilder) {
 		type.getSlotBiConsumer().accept(inventoryBuilder, this);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer){
+	public void draw(MatrixStack matrixStack, GuiBase<?> guiBase, GuiBase.Layer layer) {
 		//TODO find a better way to do this
-		if(getType() == SlotType.OUTPUT){
+		if (getType() == SlotType.OUTPUT) {
 			guiBase.drawOutputSlot(matrixStack, getX(), getY(), layer);
 		} else {
 			guiBase.drawSlot(matrixStack, getX(), getY(), layer);

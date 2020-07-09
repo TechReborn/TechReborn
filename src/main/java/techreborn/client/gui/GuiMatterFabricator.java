@@ -46,7 +46,7 @@ public class GuiMatterFabricator extends GuiBase<BuiltScreenHandler> {
 		final Layer layer = Layer.BACKGROUND;
 
 		drawSlot(matrixStack, 8, 72, layer);
-		
+
 		drawSlot(matrixStack, 30, 20, layer);
 		drawSlot(matrixStack, 50, 20, layer);
 		drawSlot(matrixStack, 70, 20, layer);

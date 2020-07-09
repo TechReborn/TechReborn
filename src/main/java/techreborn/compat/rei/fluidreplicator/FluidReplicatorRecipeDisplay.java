@@ -39,14 +39,14 @@ import java.util.List;
  * @author drcrazy
  */
 public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
-	
+
 	private final FluidReplicatorRecipe recipe;
-	private List<List<EntryStack>> inputs;
-	private List<EntryStack> output;
-	private FluidInstance fluidInstance;
+	private final List<List<EntryStack>> inputs;
+	private final List<EntryStack> output;
+	private final FluidInstance fluidInstance;
 	private int energy = 0;
 	private int time = 0;
-	
+
 	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;
 		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), RebornEntryStack::create));
@@ -55,34 +55,34 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 		this.energy = recipe.getPower();
 		this.time = recipe.getTime();
 	}
-	
+
 	public FluidInstance getFluidInstance() {
 		return fluidInstance;
 	}
-	
+
 	public int getEnergy() {
 		return energy;
 	}
-	
+
 	public int getTime() {
 		return time;
 	}
-	
+
 	@Override
 	public List<List<EntryStack>> getInputEntries() {
 		return inputs;
 	}
-	
+
 	@Override
 	public List<EntryStack> getOutputEntries() {
 		return output;
 	}
-	
+
 	@Override
 	public List<List<EntryStack>> getRequiredEntries() {
 		return inputs;
 	}
-	
+
 	@Override
 	public Identifier getRecipeCategory() {
 		return recipe.getRebornRecipeType().getName();

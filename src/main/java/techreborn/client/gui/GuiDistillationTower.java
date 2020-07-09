@@ -41,7 +41,7 @@ public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
-	
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
@@ -58,7 +58,7 @@ public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
 		// JEI Button
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
-	
+
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
@@ -77,7 +77,7 @@ public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
 
 	}
 
-	public void onClick(GuiButtonExtended button, Double x, Double y){
+	public void onClick(GuiButtonExtended button, Double x, Double y) {
 		blockEntity.renderMultiblock ^= !hideGuiElements();
 	}
 }

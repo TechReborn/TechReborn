@@ -33,7 +33,7 @@ import techreborn.client.GuiType;
  * Created by modmuss50 on 14/03/2016.
  */
 public class LowVoltageSUBlock extends EnergyStorageBlock {
-	
+
 	public LowVoltageSUBlock() {
 		super("low_voltage_su", GuiType.LOW_VOLTAGE_SU);
 	}

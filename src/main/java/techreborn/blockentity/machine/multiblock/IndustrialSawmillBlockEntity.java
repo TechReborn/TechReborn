@@ -67,7 +67,7 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState basic = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-		writer	.translate(1, -1, -1)
+		writer.translate(1, -1, -1)
 				.fill(0, 0, 0, 3, 1, 3, basic)
 				.ring(Direction.Axis.Y, 3, 1, 3, (view, pos) -> view.getBlockState(pos) == advanced, advanced, (view, pos) -> view.getBlockState(pos).getMaterial() == Material.WATER, Blocks.WATER.getDefaultState())
 				.fill(0, 2, 0, 3, 3, 3, basic);

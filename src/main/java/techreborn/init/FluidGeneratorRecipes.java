@@ -38,7 +38,7 @@ public class FluidGeneratorRecipes {
 		register(EFluidGenerator.DIESEL, ModFluids.NITROCOAL_FUEL.getFluid(), 48);
 		register(EFluidGenerator.DIESEL, ModFluids.DIESEL.getFluid(), 128);
 		register(EFluidGenerator.DIESEL, ModFluids.NITRO_DIESEL.getFluid(), 400);
-		
+
 		register(EFluidGenerator.SEMIFLUID, ModFluids.SODIUM.getFluid(), 30);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.LITHIUM.getFluid(), 60);
 		register(EFluidGenerator.SEMIFLUID, ModFluids.OIL.getFluid(), 16);
@@ -48,7 +48,7 @@ public class FluidGeneratorRecipes {
 
 		register(EFluidGenerator.GAS, ModFluids.HYDROGEN.getFluid(), 15);
 		register(EFluidGenerator.GAS, ModFluids.METHANE.getFluid(), 45);
-		
+
 		register(EFluidGenerator.PLASMA, ModFluids.HELIUMPLASMA.getFluid(), 8192);
 	}
 

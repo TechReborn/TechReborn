@@ -54,7 +54,7 @@ public class FluidGeneratorRecipe {
 	@Override
 	public String toString() {
 		return "FluidGeneratorRecipe [generatorType=" + generatorType + ", fluid=" + fluid + ", energyPerMb="
-			+ energyPerMb + "]";
+				+ energyPerMb + "]";
 	}
 
 	@Override
@@ -83,8 +83,6 @@ public class FluidGeneratorRecipe {
 				return false;
 		} else if (!FluidUtils.fluidEquals(other.fluid, fluid))
 			return false;
-		if (generatorType != other.generatorType)
-			return false;
-		return true;
+		return generatorType == other.generatorType;
 	}
 }

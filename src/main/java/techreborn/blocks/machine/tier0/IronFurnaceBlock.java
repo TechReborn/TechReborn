@@ -40,11 +40,11 @@ import techreborn.client.GuiType;
 import java.util.Random;
 
 public class IronFurnaceBlock extends GenericMachineBlock {
-	
+
 	public IronFurnaceBlock() {
 		super(GuiType.IRON_FURNACE, IronFurnaceBlockEntity::new);
 	}
-	
+
 	// Block
 	@Environment(EnvType.CLIENT)
 	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -59,7 +59,7 @@ public class IronFurnaceBlock extends GenericMachineBlock {
 			worldIn.playSound(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 		}
 
-		Direction facing = (Direction) stateIn.get(FACING);
+		Direction facing = stateIn.get(FACING);
 		Direction.Axis facing$Axis = facing.getAxis();
 		double double_5 = rand.nextDouble() * 0.6D - 0.3D;
 		double deltaX = facing$Axis == Direction.Axis.X ? (double) facing.getOffsetX() * 0.52D : double_5;

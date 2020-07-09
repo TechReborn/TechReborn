@@ -40,17 +40,17 @@ public class AssemblingMachineBlockEntity extends GenericMachineBlockEntity impl
 
 	public AssemblingMachineBlockEntity() {
 		super(TRBlockEntities.ASSEMBLY_MACHINE, "AssemblingMachine", TechRebornConfig.assemblingMachineMaxInput, TechRebornConfig.assemblingMachineMaxEnergy, TRContent.Machine.ASSEMBLY_MACHINE.block, 3);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "AssemblingMachineBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.ASSEMBLING_MACHINE, this, 2, 2, this.inventory, inputs, outputs);
 	}
-	
+
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("assemblingmachine").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this).slot(0, 55, 35).slot(1, 55, 55).outputSlot(2, 101, 45).energySlot(3, 8, 72)
-			.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+				.addInventory().blockEntity(this).slot(0, 55, 35).slot(1, 55, 55).outputSlot(2, 101, 45).energySlot(3, 8, 72)
+				.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 }

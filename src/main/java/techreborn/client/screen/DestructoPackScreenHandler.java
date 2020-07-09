@@ -34,8 +34,8 @@ import techreborn.init.TRContent;
 
 public class DestructoPackScreenHandler extends ScreenHandler {
 
-	private PlayerEntity player;
-	private RebornInventory<?> inv;
+	private final PlayerEntity player;
+	private final RebornInventory<?> inv;
 
 	public DestructoPackScreenHandler(int syncID, PlayerEntity player) {
 		super(null, syncID);
@@ -51,7 +51,7 @@ public class DestructoPackScreenHandler extends ScreenHandler {
 
 	private void buildContainer() {
 		this.addSlot(
-			new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[] { TRContent.Parts.MACHINE_PARTS.getStack() }));
+				new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[]{TRContent.Parts.MACHINE_PARTS.getStack()}));
 		int i;
 
 		for (i = 0; i < 3; ++i) {

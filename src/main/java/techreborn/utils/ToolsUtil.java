@@ -70,11 +70,12 @@ public class ToolsUtil {
 	}
 
 	/**
-	 *  Fills in set of BlockPos which should be broken by AOE mining
-	 * @param worldIn World reference
-	 * @param pos BlockPos Position of originally broken block
+	 * Fills in set of BlockPos which should be broken by AOE mining
+	 *
+	 * @param worldIn      World reference
+	 * @param pos          BlockPos Position of originally broken block
 	 * @param entityLiving LivingEntity Player who broke block
-	 * @param radius int Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
+	 * @param radius       int Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
 	 * @return Set of BlockPos to process by tool block break logic
 	 */
 	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius) {

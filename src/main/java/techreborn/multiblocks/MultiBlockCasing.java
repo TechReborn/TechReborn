@@ -86,27 +86,27 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
 		if (maxX > 0 && deltaX > maxX) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too large, it may be at most %d blocks in the X dimension", maxX));
+					String.format("Machine is too large, it may be at most %d blocks in the X dimension", maxX));
 		}
 		if (maxY > 0 && deltaY > maxY) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too large, it may be at most %d blocks in the Y dimension", maxY));
+					String.format("Machine is too large, it may be at most %d blocks in the Y dimension", maxY));
 		}
 		if (maxZ > 0 && deltaZ > maxZ) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too large, it may be at most %d blocks in the Z dimension", maxZ));
+					String.format("Machine is too large, it may be at most %d blocks in the Z dimension", maxZ));
 		}
 		if (deltaX < minX) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too small, it must be at least %d blocks in the X dimension", minX));
+					String.format("Machine is too small, it must be at least %d blocks in the X dimension", minX));
 		}
 		if (deltaY < minY) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
+					String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
 		}
 		if (deltaZ < minZ) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too small, it must be at least %d blocks in the Z dimension", minZ));
+					String.format("Machine is too small, it must be at least %d blocks in the Z dimension", minZ));
 		}
 		height = deltaY;
 
@@ -119,7 +119,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
 		if (deltaY < minY) {
 			throw new MultiblockValidationException(
-				String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
+					String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
 		}
 
 		// Now we run a simple check on each block within that volume.
@@ -141,8 +141,8 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 						// cube of this controller's type
 						if (!myClass.equals(part.getMultiblockControllerType())) {
 							throw new MultiblockValidationException(
-								String.format("Part @ %d, %d, %d is incompatible with machines of type %s", x, y, z,
-									myClass.getSimpleName()));
+									String.format("Part @ %d, %d, %d is incompatible with machines of type %s", x, y, z,
+											myClass.getSimpleName()));
 						}
 					} else {
 						// This is permitted so that we can incorporate certain

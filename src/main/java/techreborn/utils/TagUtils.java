@@ -84,9 +84,9 @@ public class TagUtils {
 			} else
 				nameBuilder.append(charAt);
 		}
-		return new String[] {
-			prefixBuilder.toString(),
-			nameBuilder.toString()
+		return new String[]{
+				prefixBuilder.toString(),
+				nameBuilder.toString()
 		};
 	}
 
@@ -112,8 +112,8 @@ public class TagUtils {
 
 	@Deprecated
 	public static boolean isOre(
-		@Nonnull
-			ItemStack stack, String oreName) {
+			@Nonnull
+					ItemStack stack, String oreName) {
 		throw new UnsupportedOperationException("Move to tags");
 	}
 

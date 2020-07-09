@@ -47,7 +47,7 @@ public class TRSwordItem extends SwordItem {
 	@Override
 	public boolean canRepair(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, false,  true);
+			return ItemUtils.isInputEqual(repairOreDict, repair, false, true);
 		}
 		return super.canRepair(toRepair, repair);
 	}

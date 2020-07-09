@@ -219,7 +219,6 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 
 		// Force check every second
 		if (world.getTime() % 20 == 0) {
-			isMultiblockValid();
 			inventory.setChanged();
 		}
 
@@ -347,13 +346,6 @@ public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity 
 		tagCompound.putBoolean("hasActiveRecipe", this.currentRecipe != null);
 		tagCompound.putInt("size", size);
 		return tagCompound;
-	}
-
-	// TileLegacyMachineBase
-	@Override
-	public void onLoad() {
-		super.onLoad();
-		this.isMultiblockValid();
 	}
 
 	@Override

@@ -34,12 +34,11 @@ import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
- *
  */
 public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	/**
-	 *  MFE should store 300k energy with 128 E/t I/O
+	 * MFE should store 300k energy with 128 E/t I/O
 	 */
 	public MediumVoltageSUBlockEntity() {
 		super(TRBlockEntities.MEDIUM_VOLTAGE_SU, "MEDIUM_VOLTAGE_SU", 2, TRContent.Machine.MEDIUM_VOLTAGE_SU.block, EnergyTier.MEDIUM, 300_000);
@@ -48,8 +47,8 @@ public class MediumVoltageSUBlockEntity extends EnergyStorageBlockEntity impleme
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("mfe").player(player.inventory).inventory().hotbar().armor()
-			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().addInventory().create(this, syncID);
+				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+				.syncEnergyValue().addInventory().create(this, syncID);
 	}
 
 }

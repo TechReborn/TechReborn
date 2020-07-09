@@ -42,54 +42,54 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FluidGeneratorRecipeCategory implements RecipeCategory<FluidGeneratorRecipeDisplay> {
-	
-	private TRContent.Machine generator;
-	private Identifier identifier;
-	
+
+	private final TRContent.Machine generator;
+	private final Identifier identifier;
+
 	public FluidGeneratorRecipeCategory(TRContent.Machine generator) {
 		this.generator = generator;
 		this.identifier = new Identifier(TechReborn.MOD_ID, generator.name);
 	}
-	
+
 	@Override
 	public Identifier getIdentifier() {
 		return identifier;
 	}
-	
+
 	@Override
 	public String getCategoryName() {
 		return I18n.translate(identifier.toString());
 	}
-	
+
 	@Override
 	public EntryStack getLogo() {
 		return EntryStack.create(generator);
 	}
-	
+
 	@Override
 	public List<Widget> setupDisplay(FluidGeneratorRecipeDisplay machineRecipe, Rectangle bounds) {
 		Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 13);
-		
+
 		List<Widget> widgets = new LinkedList<>();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createArrow(new Point(startPoint.x + 26, startPoint.y + 1)).animationDurationMS(1000.0));
-		
+
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()) {
 			widgets.add(Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1)).entries(inputs).markInput());
 		}
-		
+
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.generator.total", machineRecipe.getTotalEnergy());
 		Label costLabel;
 		widgets.add(costLabel = Widgets.createLabel(new Point(bounds.getCenterX(), startPoint.y + 20), energyPerTick));
 		costLabel.shadow(false);
 		costLabel.color(0xFF404040, 0xFFBBBBBB);
-		
+
 		return widgets;
 	}
-	
+
 	@Override
 	public int getDisplayHeight() {
 		return 37;
 	}
-	
+
 }

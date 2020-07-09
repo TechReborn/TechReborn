@@ -56,10 +56,10 @@ public class BlockNuke extends BaseBlock {
 
 	public void ignite(World worldIn, BlockPos pos, BlockState state, LivingEntity igniter) {
 		if (!worldIn.isClient) {
-			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
-					(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter);
+			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (float) pos.getX() + 0.5F,
+					pos.getY(), (float) pos.getZ() + 0.5F, igniter);
 			worldIn.spawnEntity(entitynukeprimed);
-			worldIn.playSound((PlayerEntity) null, entitynukeprimed.getX(), entitynukeprimed.getY(), entitynukeprimed.getZ(),
+			worldIn.playSound(null, entitynukeprimed.getX(), entitynukeprimed.getY(), entitynukeprimed.getZ(),
 					SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		}
 	}
@@ -67,8 +67,8 @@ public class BlockNuke extends BaseBlock {
 	@Override
 	public void onDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
 		if (!worldIn.isClient) {
-			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (double) ((float) pos.getX() + 0.5F),
-					(double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getCausingEntity());
+			EntityNukePrimed entitynukeprimed = new EntityNukePrimed(worldIn, (float) pos.getX() + 0.5F,
+					pos.getY(), (float) pos.getZ() + 0.5F, explosionIn.getCausingEntity());
 			entitynukeprimed.setFuse(worldIn.random.nextInt(TechRebornConfig.nukeFuseTime / 4) + TechRebornConfig.nukeFuseTime / 8);
 			worldIn.spawnEntity(entitynukeprimed);
 		}
@@ -105,7 +105,7 @@ public class BlockNuke extends BaseBlock {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
 	}
-	
+
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(OVERLAY);

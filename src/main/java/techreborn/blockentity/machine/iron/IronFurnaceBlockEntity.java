@@ -47,12 +47,12 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 	int inputSlot = 0;
 	int outputSlot = 1;
 	public float experience;
-	
+
 	public IronFurnaceBlockEntity() {
 		super(TRBlockEntities.IRON_FURNACE, 2, TRContent.Machine.IRON_FURNACE.block);
 		this.inventory = new RebornInventory<>(3, "IronFurnaceBlockEntity", 64, this);
 	}
-	
+
 	public void handleGuiInputFromClient(PlayerEntity playerIn) {
 		if (playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
@@ -65,7 +65,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		}
 		experience = 0;
 	}
-	
+
 	private ItemStack getResultFor(ItemStack stack) {
 		ItemStack result = RecipeUtils.getMatchingRecipes(world, RecipeType.SMELTING, stack);
 		if (!result.isEmpty()) {
@@ -81,7 +81,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		}
 		return 0;
 	}
-	
+
 	// AbstractIronMachineBlockEntity
 	@Override
 	protected void smelt() {
@@ -90,7 +90,7 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		}
 		ItemStack inputStack = inventory.getStack(inputSlot);
 		ItemStack resultStack = getResultFor(inputStack);
-		
+
 		if (inventory.getStack(outputSlot).isEmpty()) {
 			inventory.setStack(outputSlot, resultStack.copy());
 		} else if (inventory.getStack(outputSlot).isItemEqualIgnoreDamage(resultStack)) {
@@ -103,12 +103,12 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 			inventory.setStack(inputSlot, ItemStack.EMPTY);
 		}
 	}
-	
+
 	@Override
 	protected boolean canSmelt() {
 		if (inventory.getStack(inputSlot).isEmpty()) {
 			return false;
-		}		
+		}
 		ItemStack outputStack = getResultFor(inventory.getStack(inputSlot));
 		if (outputStack.isEmpty())
 			return false;
@@ -130,19 +130,19 @@ public class IronFurnaceBlockEntity extends AbstractIronMachineBlockEntity imple
 		super.fromTag(blockState, compoundTag);
 		experience = compoundTag.getFloat("Experience");
 	}
-	
+
 	@Override
 	public CompoundTag toTag(CompoundTag compoundTag) {
-		 super.toTag(compoundTag);
-		 compoundTag.putFloat("Experience", experience);
-		 return compoundTag;
+		super.toTag(compoundTag);
+		compoundTag.putFloat("Experience", experience);
+		return compoundTag;
 	}
 
 	// IContainerProvider
 	public float getExperience() {
 		return experience;
 	}
-	
+
 	public void setExperience(float experience) {
 		this.experience = experience;
 	}

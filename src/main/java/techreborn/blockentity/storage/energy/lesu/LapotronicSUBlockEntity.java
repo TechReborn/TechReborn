@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	private int connectedBlocks = 0;
-	private ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
+	private final ArrayList<LesuNetwork> countedNetworks = new ArrayList<>();
 
 	public LapotronicSUBlockEntity() {
 		super(TRBlockEntities.LAPOTRONIC_SU, "LESU", 2, TRContent.Machine.LAPOTRONIC_SU.block, EnergyTier.LOW, TechRebornConfig.lesuStoragePerBlock);
@@ -51,22 +51,20 @@ public class LapotronicSUBlockEntity extends EnergyStorageBlockEntity implements
 		this.maxOutput = TechRebornConfig.lesuBaseOutput;
 	}
 
-	private void setMaxStorage(){
-		maxStorage  = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
+	private void setMaxStorage() {
+		maxStorage = (connectedBlocks + 1) * TechRebornConfig.lesuStoragePerBlock;
 		if (maxStorage < 0 || maxStorage > Integer.MAX_VALUE) {
 			maxStorage = Integer.MAX_VALUE;
 		}
 	}
 
-	private void setIORate(){
-		maxOutput = TechRebornConfig.lesuBaseOutput +  (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock);
+	private void setIORate() {
+		maxOutput = TechRebornConfig.lesuBaseOutput + (connectedBlocks * TechRebornConfig.lesuExtraIOPerBlock);
 		if (connectedBlocks < 32) {
 			return;
-		}
-		else if (connectedBlocks < 128) {
+		} else if (connectedBlocks < 128) {
 			maxInput = EnergyTier.MEDIUM.getMaxInput();
-		}
-		else {
+		} else {
 			maxInput = EnergyTier.HIGH.getMaxInput();
 		}
 	}

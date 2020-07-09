@@ -44,52 +44,52 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplicatorRecipeDisplay> {
-	
+
 	private final RebornRecipeType<FluidReplicatorRecipe> rebornRecipeType;
-	
+
 	public FluidReplicatorRecipeCategory(RebornRecipeType<FluidReplicatorRecipe> recipeType) {
 		this.rebornRecipeType = recipeType;
-		
+
 	}
-	
+
 	@Override
 	public Identifier getIdentifier() {
 		return rebornRecipeType.getName();
 	}
-	
+
 	@Override
 	public String getCategoryName() {
 		return I18n.translate(rebornRecipeType.getName().toString());
 	}
-	
+
 	@Override
 	public EntryStack getLogo() {
 		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
-	
+
 	@Override
 	public List<Widget> setupDisplay(FluidReplicatorRecipeDisplay machineRecipe, Rectangle bounds) {
 		Point startPoint = new Point(bounds.getCenterX() - 41, bounds.getCenterY() - 13);
-		
+
 		List<Widget> widgets = new LinkedList<>();
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(Widgets.createArrow(new Point(startPoint.x + 26, startPoint.y + 1)).animationDurationTicks(machineRecipe.getTime()));
-		
+
 		int i = 0;
 		for (List<EntryStack> inputs : machineRecipe.getInputEntries()) {
 			widgets.add(Widgets.createSlot(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20))).entries(inputs).markInput());
 		}
-		
+
 		Text energyPerTick = new TranslatableText("techreborn.jei.recipe.running.cost", "E", machineRecipe.getEnergy());
 		Label costLabel;
 		widgets.add(costLabel = Widgets.createLabel(new Point(startPoint.x + 1, startPoint.y + 1 + (i++ * 20)), energyPerTick));
 		costLabel.shadow(false);
 		costLabel.color(0xFF404040, 0xFFBBBBBB);
-		
+
 		if (!machineRecipe.getOutputEntries().isEmpty())
 			widgets.add(Widgets.createSlot(new Point(startPoint.x + 61, startPoint.y + 1)).entries(machineRecipe.getOutputEntries()).markInput());
-		
+
 		return widgets;
 	}
-	
+
 }

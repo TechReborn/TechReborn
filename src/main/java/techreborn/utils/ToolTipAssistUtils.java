@@ -68,29 +68,29 @@ public class ToolTipAssistUtils {
 		}
 
 		// Add reminder that they can use shift to calculate the entire stack
-		if(shouldStackCalculate && !shiftHeld){
+		if (shouldStackCalculate && !shiftHeld) {
 			tips.add(new LiteralText(instructColour + "Hold shift for stack calculation"));
 		}
 
 		return tips;
 	}
 
-	public static void addInfo(String inKey, List<Text> list){
+	public static void addInfo(String inKey, List<Text> list) {
 		addInfo(inKey, list, true);
 	}
 
-	public static void addInfo(String inKey, List<Text> list, boolean hidden){
+	public static void addInfo(String inKey, List<Text> list, boolean hidden) {
 		String key = ("techreborn.message.info." + inKey);
 
-		if(I18n.hasTranslation(key)){
-			if(!hidden || Screen.hasShiftDown()){
+		if (I18n.hasTranslation(key)) {
+			if (!hidden || Screen.hasShiftDown()) {
 				String info = I18n.translate(key);
-				String infoLines[] = info.split("\\r?\\n");
+				String[] infoLines = info.split("\\r?\\n");
 
-				for (String infoLine: infoLines) {
+				for (String infoLine : infoLines) {
 					list.add(new LiteralText(infoColour + infoLine));
 				}
-			}else{
+			} else {
 				list.add(new LiteralText(instructColour + "Hold shift for info"));
 			}
 		}

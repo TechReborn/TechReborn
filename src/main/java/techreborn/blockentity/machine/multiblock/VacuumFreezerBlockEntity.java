@@ -31,6 +31,7 @@ import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
 import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
@@ -54,7 +55,7 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 		BlockState industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
 
-		writer	.translate(-1, -3, -1)
+		writer.translate(-1, -3, -1)
 				.fill(0, 0, 0, 3, 1, 3, advanced)
 				.ringWithAir(Direction.Axis.Y, 3, 1, 3, industrial)
 				.fill(0, 2, 0, 3, 3, 3, advanced);
@@ -66,5 +67,14 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 		return new ScreenHandlerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this, syncID);
+	}
+
+	@Override
+	public boolean canCraft(RebornRecipe rebornRecipe) {
+		if (!this.isMultiblockValid()) {
+			return false;
+		}
+
+		return super.canCraft(rebornRecipe);
 	}
 }

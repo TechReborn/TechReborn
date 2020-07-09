@@ -37,20 +37,20 @@ import java.util.function.Supplier;
 
 public enum TRArmorMaterials implements ArmorMaterial {
 
-	BRONZE(17, new int[] { 3, 6, 5,	2 }, 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, () -> {
+	BRONZE(17, new int[]{3, 6, 5, 2}, 8, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Ingots.BRONZE.asItem());
-	}), 
-	RUBY(16, new int[] { 2, 7, 5, 2 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
+	}),
+	RUBY(16, new int[]{2, 7, 5, 2}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.RUBY.asItem());
 	}),
-	SAPPHIRE(19, new int[] { 4, 4, 4, 4 }, 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
-				return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
-			}), 
-	PERIDOT(17, new int[] { 3, 8, 3, 2 }, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
+	SAPPHIRE(19, new int[]{4, 4, 4, 4}, 8, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
+		return Ingredient.ofItems(TRContent.Gems.SAPPHIRE.asItem());
+	}),
+	PERIDOT(17, new int[]{3, 8, 3, 2}, 16, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> {
 		return Ingredient.ofItems(TRContent.Gems.PERIDOT.asItem());
 	}),
-	QUANTUM(75, new int[] { 3, 6, 8, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
-	CLOAKING_DEVICE(5, new int[] { 0, 2, 0, 0 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
+	QUANTUM(75, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 0.0F, () -> Ingredient.EMPTY),
+	CLOAKING_DEVICE(5, new int[]{0, 2, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, () -> Ingredient.EMPTY),
 	LITHIUM_BATPACK(25, new int[]{0, 5, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY),
 	LAPOTRONIC_ORBPACK(33, new int[]{0, 6, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 2.0F, () -> Ingredient.EMPTY);
 

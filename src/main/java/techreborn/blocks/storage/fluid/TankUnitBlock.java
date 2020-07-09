@@ -24,10 +24,24 @@
 
 package techreborn.blocks.storage.fluid;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
+import reborncore.common.fluid.FluidValue;
+import reborncore.common.fluid.container.FluidInstance;
+import reborncore.common.fluid.container.ItemFluidInfo;
+import reborncore.common.util.Tank;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.client.GuiType;
 import techreborn.init.TRContent;
@@ -44,6 +58,44 @@ public class TankUnitBlock extends BlockMachineBase {
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new TankUnitBaseBlockEntity(unitType);
+	}
+
+	@Override
+	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
+		if (unitType == TRContent.TankUnit.CREATIVE || worldIn.isClient) {
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
+		final TankUnitBaseBlockEntity tankUnitEntity = (TankUnitBaseBlockEntity) worldIn.getBlockEntity(pos);
+		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
+		Item itemInHand = stackInHand.getItem();
+
+		// Assuming ItemFluidInfo is 1 BUCKET, for now only allow exact amount or less
+		if (tankUnitEntity != null && itemInHand instanceof ItemFluidInfo) {
+			ItemFluidInfo itemFluid = (ItemFluidInfo) itemInHand;
+			Fluid fluid = itemFluid.getFluid(stackInHand);
+			int amount = stackInHand.getCount();
+
+			FluidValue fluidValue = FluidValue.BUCKET.multiply(amount);
+			Tank tankInstance = tankUnitEntity.getTank();
+
+			if (tankInstance.canFit(fluid, fluidValue)) {
+				if (tankInstance.getFluidInstance().isEmptyFluid()) {
+					tankInstance.setFluidInstance(new FluidInstance(fluid, fluidValue));
+				} else {
+					tankInstance.getFluidInstance().addAmount(fluidValue);
+				}
+
+				ItemStack returnStack = itemFluid.getEmpty();
+				returnStack.setCount(amount);
+				playerIn.setStackInHand(Hand.MAIN_HAND, returnStack);
+			}
+
+			return ActionResult.SUCCESS;
+		}
+
+
+		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 	}
 
 	@Override

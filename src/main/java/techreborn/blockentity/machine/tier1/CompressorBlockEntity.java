@@ -40,12 +40,12 @@ public class CompressorBlockEntity extends GenericMachineBlockEntity implements 
 
 	public CompressorBlockEntity() {
 		super(TRBlockEntities.COMPRESSOR, "Compressor", TechRebornConfig.compressorMaxInput, TechRebornConfig.compressorMaxEnergy, TRContent.Machine.COMPRESSOR.block, 2);
-		final int[] inputs = new int[] { 0 };
-		final int[] outputs = new int[] { 1 };
+		final int[] inputs = new int[]{0};
+		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "CompressorBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.COMPRESSOR, this, 2, 1, this.inventory, inputs, outputs);
 	}
-	
+
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {

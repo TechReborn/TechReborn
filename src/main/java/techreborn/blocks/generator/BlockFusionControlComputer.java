@@ -52,23 +52,23 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn,
 							  Hand hand, BlockHitResult hitResult) {
 		final FusionControlComputerBlockEntity blockEntityFusionControlComputer = (FusionControlComputerBlockEntity) worldIn.getBlockEntity(pos);
-		if(!playerIn.getStackInHand(hand).isEmpty() && (playerIn.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())){
+		if (!playerIn.getStackInHand(hand).isEmpty() && (playerIn.getStackInHand(hand).getItem() == TRContent.Machine.FUSION_COIL.asItem())) {
 			List<BlockPos> coils = Torus.generate(blockEntityFusionControlComputer.getPos(), blockEntityFusionControlComputer.size);
 			boolean placed = false;
-			for(BlockPos coil : coils){
-				if(playerIn.getStackInHand(hand).isEmpty()){
+			for (BlockPos coil : coils) {
+				if (playerIn.getStackInHand(hand).isEmpty()) {
 					return ActionResult.SUCCESS;
 				}
-				if(worldIn.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(playerIn, hand, hitResult)))
-						&& worldIn.getBlockState(pos).getBlock() !=  TRContent.Machine.FUSION_COIL.block) {
+				if (worldIn.getBlockState(coil).canReplace(new ItemPlacementContext(new ItemUsageContext(playerIn, hand, hitResult)))
+						&& worldIn.getBlockState(pos).getBlock() != TRContent.Machine.FUSION_COIL.block) {
 					worldIn.setBlockState(coil, TRContent.Machine.FUSION_COIL.block.getDefaultState());
-					if(!playerIn.isCreative()){
+					if (!playerIn.isCreative()) {
 						playerIn.getStackInHand(hand).decrement(1);
 					}
 					placed = true;
 				}
 			}
-			if(placed){
+			if (placed) {
 				return ActionResult.SUCCESS;
 			}
 
@@ -97,7 +97,7 @@ public class BlockFusionControlComputer extends BlockMachineBase {
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new FusionControlComputerBlockEntity();
 	}
-	
+
 	@Override
 	public boolean isAdvanced() {
 		return true;

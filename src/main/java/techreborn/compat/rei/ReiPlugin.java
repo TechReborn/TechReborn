@@ -60,11 +60,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class ReiPlugin implements REIPluginV0 {
-	
+
 	public static final Identifier PLUGIN = new Identifier(TechReborn.MOD_ID, "techreborn_plugin");
-	
+
 	public static final Map<RebornRecipeType<?>, ItemConvertible> iconMap = new HashMap<>();
-	
+
 	public ReiPlugin() {
 		iconMap.put(ModRecipes.ALLOY_SMELTER, Machine.ALLOY_SMELTER);
 		iconMap.put(ModRecipes.ASSEMBLING_MACHINE, Machine.ASSEMBLY_MACHINE);
@@ -87,12 +87,12 @@ public class ReiPlugin implements REIPluginV0 {
 		iconMap.put(ModRecipes.VACUUM_FREEZER, Machine.VACUUM_FREEZER);
 		iconMap.put(ModRecipes.WIRE_MILL, Machine.WIRE_MILL);
 	}
-	
+
 	@Override
 	public Identifier getPluginIdentifier() {
 		return PLUGIN;
 	}
-	
+
 	@Override
 	public void registerPluginCategories(RecipeHelper recipeHelper) {
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ALLOY_SMELTER));
@@ -115,25 +115,25 @@ public class ReiPlugin implements REIPluginV0 {
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SOLID_CANNING_MACHINE));
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.VACUUM_FREEZER, 1));
 		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.WIRE_MILL, 1));
-		
+
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.THERMAL_GENERATOR));
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.GAS_TURBINE));
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.DIESEL_GENERATOR));
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.SEMI_FLUID_GENERATOR));
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.PLASMA_GENERATOR));
 	}
-	
+
 	@Override
 	public void registerRecipeDisplays(RecipeHelper recipeHelper) {
 		RecipeManager.getRecipeTypes("techreborn").forEach(rebornRecipeType -> registerMachineRecipe(recipeHelper, rebornRecipeType));
-		
+
 		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.THERMAL, Machine.THERMAL_GENERATOR);
 		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.GAS, Machine.GAS_TURBINE);
 		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.DIESEL, Machine.DIESEL_GENERATOR);
 		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.SEMIFLUID, Machine.SEMI_FLUID_GENERATOR);
 		registerFluidGeneratorDisplays(recipeHelper, EFluidGenerator.PLASMA, Machine.PLASMA_GENERATOR);
 	}
-	
+
 	@Override
 	public void registerOthers(RecipeHelper recipeHelper) {
 		recipeHelper.registerWorkingStations(ModRecipes.ALLOY_SMELTER.getName(), EntryStack.create(Machine.ALLOY_SMELTER), EntryStack.create(Machine.IRON_ALLOY_FURNACE));
@@ -161,7 +161,7 @@ public class ReiPlugin implements REIPluginV0 {
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.SEMI_FLUID_GENERATOR.name), EntryStack.create(Machine.SEMI_FLUID_GENERATOR));
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.PLASMA_GENERATOR.name), EntryStack.create(Machine.PLASMA_GENERATOR));
 	}
-	
+
 	@Override
 	public void postRegister() {
 		// Alright we are going to apply check tags to cells, this should not take long at all.
@@ -169,38 +169,38 @@ public class ReiPlugin implements REIPluginV0 {
 		for (EntryStack stack : EntryRegistry.getInstance().getStacksList())
 			applyCellEntry(stack);
 	}
-	
+
 	public static void applyCellEntry(EntryStack stack) {
 		// getItem can be null but this works
 		if (stack.getItem() == TRContent.CELL)
 			stack.addSetting(EntryStack.Settings.CHECK_TAGS, EntryStack.Settings.TRUE);
 	}
-	
+
 	private void registerFluidGeneratorDisplays(RecipeHelper recipeHelper, EFluidGenerator generator, Machine machine) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
 		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe -> {
 			recipeHelper.registerDisplay(new FluidGeneratorRecipeDisplay(recipe, identifier));
 		});
 	}
-	
+
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType) {
 		Function<R, RecipeDisplay> recipeDisplay = r -> new MachineRecipeDisplay<>((RebornRecipe) r);
-		
+
 		if (recipeType == ModRecipes.ROLLING_MACHINE) {
 			recipeDisplay = r -> {
 				RollingMachineRecipe rollingMachineRecipe = (RollingMachineRecipe) r;
 				return new RollingMachineDisplay(rollingMachineRecipe.getShapedRecipe());
 			};
 		}
-		
+
 		if (recipeType == ModRecipes.FLUID_REPLICATOR) {
 			recipeDisplay = r -> {
 				FluidReplicatorRecipe recipe = (FluidReplicatorRecipe) r;
 				return new FluidReplicatorRecipeDisplay(recipe);
 			};
 		}
-		
-		
+
+
 		recipeHelper.registerRecipes(recipeType.getName(), (Predicate<Recipe>) recipe -> {
 			if (recipe instanceof RebornRecipe) {
 				return ((RebornRecipe) recipe).getRebornRecipeType() == recipeType;
@@ -230,7 +230,7 @@ public class ReiPlugin implements REIPluginV0 {
 				}
 				if (height > 0) {
 					int width = 20;
-					return Collections.singletonList(new Rectangle(guiBase.getGuiLeft() - width, guiBase.getGuiTop() + 8, width , height));
+					return Collections.singletonList(new Rectangle(guiBase.getGuiLeft() - width, guiBase.getGuiTop() + 8, width, height));
 				}
 			}
 			return Collections.emptyList();

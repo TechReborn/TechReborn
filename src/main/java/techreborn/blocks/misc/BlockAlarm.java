@@ -55,7 +55,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockAlarm extends BaseBlockEntityProvider {
-	public static DirectionProperty FACING  = Properties.FACING;
+	public static DirectionProperty FACING = Properties.FACING;
 	public static BooleanProperty ACTIVE;
 	protected final VoxelShape[] shape;
 
@@ -65,9 +65,9 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		this.shape = GenCuboidShapes(3, 10);
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
-	
+
 	private VoxelShape[] GenCuboidShapes(double depth, double width) {
-		double culling = (16.0D - width) / 2 ;
+		double culling = (16.0D - width) / 2;
 		VoxelShape[] shapes = {
 				Block.createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
 				Block.createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
@@ -78,13 +78,13 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		};
 		return shapes;
 	}
-	
+
 	public static boolean isActive(BlockState state) {
 		return state.get(ACTIVE);
 	}
 
 	public static Direction getFacing(BlockState state) {
-		return (Direction) state.get(FACING);
+		return state.get(FACING);
 	}
 
 	public static void setFacing(Direction facing, World world, BlockPos pos) {
@@ -96,21 +96,21 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 		BlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
 		world.setBlockState(pos, state, 3);
 	}
-	
+
 	// BaseTileBlock
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new AlarmBlockEntity();
 	}
-	
+
 	// Block
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		ACTIVE = BooleanProperty.of("active");
 		builder.add(FACING, ACTIVE);
 	}
-	
+
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {

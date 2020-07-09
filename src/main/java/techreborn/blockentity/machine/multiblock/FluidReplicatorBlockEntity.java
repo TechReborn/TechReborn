@@ -65,7 +65,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	@Override
 	public void writeMultiblock(MultiblockWriter writer) {
 		BlockState state = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-		writer	.translate(1, 0, -1)
+		writer.translate(1, 0, -1)
 				.ring(Direction.Axis.Y, 3, 0, 3, (v, p) -> v.getBlockState(p) == state, state, null, null);
 	}
 
@@ -87,7 +87,7 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return (RecipeCrafter) crafter;
+		return crafter;
 	}
 
 	// TilePowerAcceptor
