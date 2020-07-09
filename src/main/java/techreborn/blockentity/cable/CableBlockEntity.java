@@ -143,13 +143,27 @@ public class CableBlockEntity extends BlockEntity
 		}
 
 		ArrayList<Pair<BlockEntity, Direction>> acceptors = new ArrayList<>();
+		ArrayList<CableBlockEntity> cables = new ArrayList<>();
+
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
 			if (blockEntity != null && Energy.valid(blockEntity)) {
-				if (blockEntity instanceof CableBlockEntity && energy <= Energy.of(blockEntity).side(face).getEnergy()) {
-					continue;
+				if (blockEntity instanceof CableBlockEntity ) {
+					CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
+
+					if(cableBlockEntity.getTier() == this.getTier()) {
+						// Only need ones with energy stores less than ours
+						if (cableBlockEntity.getEnergy() < this.getEnergy()) {
+							cables.add(cableBlockEntity);
+						}
+
+						continue;
+					}else if(energy <= Energy.of(blockEntity).side(face).getEnergy()){
+						continue;
+					}
 				}
+
 				if(Energy.of(blockEntity).side(face.getOpposite()).getMaxInput() > 0){
 					acceptors.add(Pair.of(blockEntity, face));
 					if (!sendingFace.contains(face)) {
@@ -159,16 +173,27 @@ public class CableBlockEntity extends BlockEntity
 			}
 		}
 
-		if (acceptors.isEmpty()) {
-			return;
-		}
-		Collections.shuffle(acceptors);
+		if (!acceptors.isEmpty()) {
+			Collections.shuffle(acceptors);
 
-        acceptors.forEach(pair -> {
-	        Energy.of(this)
-		        .into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
-		        .move();
-        });
+			acceptors.forEach(pair -> {
+				Energy.of(this)
+						.into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
+						.move();
+			});
+		}
+
+
+        // Distribute energy between cables (TODO DIRTY FIX, until we game network cables)
+
+		if(!cables.isEmpty()) {
+
+			cables.add(this);
+			double energyTotal = cables.stream().mapToDouble(CableBlockEntity::getEnergy).sum();
+			double energyPer = energyTotal / cables.size();
+
+			cables.forEach(cableBlockEntity -> cableBlockEntity.setEnergy(energyPer));
+		}
 	}
 
     // IListInfoProvider
@@ -223,11 +248,34 @@ public class CableBlockEntity extends BlockEntity
 		return energyOut;
 	}
 
+	public double addEnergy(double energyIn) {
+		if(this.isFull()){
+			return energyIn;
+		}
+
+		double maxStore = this.getMaxStoredPower();
+
+		if (energyIn + energy <= maxStore) {
+			setEnergy(energyIn + energy);
+			return 0;
+		}
+
+		// Can't fit energy fully, add part of it
+		double amountCanAdd = (maxStore - energy);
+		setEnergy(amountCanAdd + energy);
+
+		return energyIn - amountCanAdd;
+	}
+
 	public boolean canAcceptEnergy(EnergySide direction) {
 		if (sendingFace.contains(direction)) {
 			return false;
 		}
 		return getMaxStoredPower() != getEnergy();
+	}
+
+	public boolean isFull(){
+		return getMaxStoredPower() == getEnergy();
 	}
 
 	@Override
