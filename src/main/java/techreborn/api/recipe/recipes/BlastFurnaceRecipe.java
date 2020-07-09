@@ -47,7 +47,7 @@ public class BlastFurnaceRecipe extends RebornRecipe {
 		super(type, name, ingredients, outputs, power, time);
 		this.heat = heat;
 	}
-	
+
 	public int getHeat() {
 		return heat;
 	}

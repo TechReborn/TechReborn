@@ -123,7 +123,7 @@ public class DebugToolItem extends Item {
 
 		return s;
 	}
-	
+
 	private String getBlockEntityType(BlockEntity blockEntity) {
 		String s = "" + Formatting.GREEN;
 		s += "Tile Entity: ";
@@ -132,7 +132,7 @@ public class DebugToolItem extends Item {
 
 		return s;
 	}
-	
+
 	private String getRCPower(BlockEntity blockEntity) {
 		String s = "" + Formatting.GREEN;
 		s += "Power: ";
@@ -140,7 +140,7 @@ public class DebugToolItem extends Item {
 		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getEnergy());
 		s += "/";
 		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored());
-		
+
 		return s;
 	}
 

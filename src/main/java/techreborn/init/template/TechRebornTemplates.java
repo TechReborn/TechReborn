@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.registry.Registry;
 import techreborn.init.TRContent;
 
 import java.io.IOException;
@@ -25,16 +24,16 @@ public class TechRebornTemplates {
 	public static void init() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, b) -> dispatcher.register(
 				literal("techreborn")
-					.then(literal("template")
-							.requires(source -> source.hasPermissionLevel(3))
-							.requires(source -> FabricLoader.getInstance().isDevelopmentEnvironment())
-							.then(literal("generate")
-									.then(
-											argument("path", greedyString())
-											.executes(TechRebornTemplates::process)
-									)
-							)
-					)
+						.then(literal("template")
+								.requires(source -> source.hasPermissionLevel(3))
+								.requires(source -> FabricLoader.getInstance().isDevelopmentEnvironment())
+								.then(literal("generate")
+										.then(
+												argument("path", greedyString())
+														.executes(TechRebornTemplates::process)
+										)
+								)
+						)
 		));
 	}
 

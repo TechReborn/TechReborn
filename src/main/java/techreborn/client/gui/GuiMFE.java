@@ -57,15 +57,15 @@ public class GuiMFE extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if(!hideGuiElements()){
+		if (!hideGuiElements()) {
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 1);
 
-			drawCentredText(matrixStack,  new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getEnergy()))
-					.append("/")
-					.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getMaxPower()))
-					.append(" ")
-					.append(PowerSystem.getDisplayPower().abbreviation)
+			drawCentredText(matrixStack, new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getEnergy()))
+							.append("/")
+							.append(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) mfe.getMaxPower()))
+							.append(" ")
+							.append(PowerSystem.getDisplayPower().abbreviation)
 					, 35, 0, 58, layer);
 
 			RenderSystem.popMatrix();

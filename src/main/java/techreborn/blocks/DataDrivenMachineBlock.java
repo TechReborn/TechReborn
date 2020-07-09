@@ -30,13 +30,12 @@ import techreborn.client.GuiType;
 
 /**
  * @author modmuss50
- *
  */
 public class DataDrivenMachineBlock extends GenericMachineBlock {
 
 	private final DataDrivenBEProvider provider;
 
-	public DataDrivenMachineBlock(String ident){
+	public DataDrivenMachineBlock(String ident) {
 		super(GuiType.DATA_DRIVEN, null);
 		provider = DataDrivenBEProvider.create(this, new Identifier(ident));
 		blockEntityClass = provider;

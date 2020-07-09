@@ -24,12 +24,14 @@
 
 package techreborn.blockentity.machine.multiblock;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MultiblockWriter;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
@@ -40,31 +42,23 @@ import techreborn.init.TRContent;
 
 public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public MultiblockChecker multiblockChecker;
-
 	public VacuumFreezerBlockEntity() {
 		super(TRBlockEntities.VACUUM_FREEZER, "VacuumFreezer", TechRebornConfig.vacuumFreezerMaxInput, TechRebornConfig.vacuumFreezerMaxEnergy, TRContent.Machine.VACUUM_FREEZER.block, 2);
-		final int[] inputs = new int[] { 0 };
-		final int[] outputs = new int[] { 1 };
+		final int[] inputs = new int[]{0};
+		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "VacuumFreezerBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.VACUUM_FREEZER, this, 2, 1, this.inventory, inputs, outputs);
 	}
-	
-	public boolean getMultiBlock() {
-		if (multiblockChecker == null) {
-			return false;
-		}
-		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, -2, 0));
-		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.INDUSTRIAL_CASING, new BlockPos(0, -1, 0));
-		return down && chamber && up;
-	}
-	
-	// BlockEntity
+
 	@Override
-	public void cancelRemoval() {
-		super.cancelRemoval();
-		multiblockChecker = new MultiblockChecker(world, pos.offset(Direction.DOWN, 1));
+	public void writeMultiblock(MultiblockWriter writer) {
+		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+		BlockState industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
+
+		writer.translate(-1, -3, -1)
+				.fill(0, 0, 0, 3, 1, 3, advanced)
+				.ringWithAir(Direction.Axis.Y, 3, 1, 3, industrial)
+				.fill(0, 2, 0, 3, 3, 3, advanced);
 	}
 
 	// IContainerProvider
@@ -73,5 +67,14 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 		return new ScreenHandlerBuilder("vacuumfreezer").player(player.inventory).inventory().hotbar().addInventory()
 				.blockEntity(this).slot(0, 55, 45).outputSlot(1, 101, 45).energySlot(2, 8, 72).syncEnergyValue()
 				.syncCrafterValue().addInventory().create(this, syncID);
+	}
+
+	@Override
+	public boolean canCraft(RebornRecipe rebornRecipe) {
+		if (!this.isMultiblockValid()) {
+			return false;
+		}
+
+		return super.canCraft(rebornRecipe);
 	}
 }

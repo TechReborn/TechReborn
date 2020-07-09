@@ -55,7 +55,6 @@ import java.util.List;
 
 /**
  * @author drcrazy
- *
  */
 public class WorldGenerator {
 
@@ -64,7 +63,7 @@ public class WorldGenerator {
 
 	public static TreeFeatureConfig RUBBER_TREE_CONFIG;
 
-	private static List<Biome> checkedBiomes = new ArrayList<>();
+	private static final List<Biome> checkedBiomes = new ArrayList<>();
 
 	public static void initBiomeFeatures() {
 		setupTrees();
@@ -98,56 +97,56 @@ public class WorldGenerator {
 				new RubberTreeFeature.FoliagePlacer(2, 0, 0, 0, 3),
 				new StraightTrunkPlacer(TechRebornConfig.rubberTreeBaseHeight, 3, 0),
 				new TwoLayersFeatureSize(1, 0, 1)
-			).build();
+		).build();
 	}
 
-	private static void addToBiome(Biome biome){
-		if(checkedBiomes.contains(biome)){
+	private static void addToBiome(Biome biome) {
+		if (checkedBiomes.contains(biome)) {
 			//Just to be sure we dont add the stuff twice to the same biome
 			return;
 		}
 		checkedBiomes.add(biome);
 
 		if (biome.getCategory() == Category.NETHER) {
-			if (TechRebornConfig.enableCinnabarOre){
+			if (TechRebornConfig.enableCinnabarOre) {
 				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.CINNABAR);
 			}
-			if (TechRebornConfig.enablePyriteOre){
+			if (TechRebornConfig.enablePyriteOre) {
 				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.PYRITE);
 			}
-			if (TechRebornConfig.enableSphaleriteOre){
+			if (TechRebornConfig.enableSphaleriteOre) {
 				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
 			}
 		} else if (biome.getCategory() == Category.THEEND) {
-			if (TechRebornConfig.enablePeridotOre){
+			if (TechRebornConfig.enablePeridotOre) {
 				addEndOre(biome, TRContent.Ores.PERIDOT);
 			}
-			if (TechRebornConfig.enableSheldoniteOre){
+			if (TechRebornConfig.enableSheldoniteOre) {
 				addEndOre(biome, TRContent.Ores.SHELDONITE);
 			}
-			if (TechRebornConfig.enableSodaliteOre){
+			if (TechRebornConfig.enableSodaliteOre) {
 				addEndOre(biome, TRContent.Ores.SODALITE);
 			}
-			if (TechRebornConfig.enableTungstenOre){
+			if (TechRebornConfig.enableTungstenOre) {
 				addEndOre(biome, TRContent.Ores.TUNGSTEN);
 			}
 		} else {
-			if (TechRebornConfig.enableBauxiteOre){
+			if (TechRebornConfig.enableBauxiteOre) {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
 			}
-			if (TechRebornConfig.enableCopperOre){
+			if (TechRebornConfig.enableCopperOre) {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
 			}
-			if (TechRebornConfig.enableGalenaOre){
+			if (TechRebornConfig.enableGalenaOre) {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.GALENA);
 			}
-			if (TechRebornConfig.enableIridiumOre){
+			if (TechRebornConfig.enableIridiumOre) {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.IRIDIUM);
 			}
-			if (TechRebornConfig.enableLeadOre){
+			if (TechRebornConfig.enableLeadOre) {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.LEAD);
 			}
-			if (TechRebornConfig.enableRubyOre){
+			if (TechRebornConfig.enableRubyOre) {
 				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.RUBY);
 			}
 			if (TechRebornConfig.enableSapphireOre) {

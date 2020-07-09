@@ -24,7 +24,6 @@
 
 package techreborn.client;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
@@ -172,7 +171,7 @@ public final class GuiType<T extends BlockEntity> implements IMachineGuiHandler 
 
 	@Override
 	public void open(PlayerEntity player, BlockPos pos, World world) {
-		if(!world.isClient){
+		if (!world.isClient) {
 			//This is awful
 			player.openHandledScreen(new ExtendedScreenHandlerFactory() {
 				@Override

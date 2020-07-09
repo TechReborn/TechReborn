@@ -57,9 +57,10 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		this.totalCookingTime = (int) (200 / TechRebornConfig.cookingScale);
 		this.toolDrop = toolDrop;
 	}
-	
+
 	/**
 	 * Checks that we have all inputs and can put output into slot
+	 *
 	 * @return
 	 */
 	protected abstract boolean canSmelt();
@@ -73,6 +74,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	/**
 	 * Returns the number of ticks that the supplied fuel item will keep the
 	 * furnace burning, or 0 if the item isn't fuel
+	 *
 	 * @param stack Itemstack of fuel
 	 * @return Integer Number of ticks
 	 */
@@ -82,11 +84,12 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 		}
 		return (int) (AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0) * TechRebornConfig.fuelScale);
 	}
-	
+
 	/**
-	 * Returns remaining fraction of fuel burn time 
+	 * Returns remaining fraction of fuel burn time
+	 *
 	 * @param scale Scale to use for burn time
-	 * @return int scaled remaining fuel burn time 
+	 * @return int scaled remaining fuel burn time
 	 */
 	public int getBurnTimeRemainingScaled(int scale) {
 		if (totalBurnTime == 0) {
@@ -95,11 +98,12 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 		return burnTime * scale / totalBurnTime;
 	}
-	
+
 	/**
-	 * Returns crafting progress 
+	 * Returns crafting progress
+	 *
 	 * @param scale Scale to use for crafting progress
-	 * @return int Scaled crafting progress 
+	 * @return int Scaled crafting progress
 	 */
 	public int getProgressScaled(int scale) {
 		if (totalCookingTime > 0) {
@@ -110,6 +114,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	/**
 	 * Returns true if Iron Machine is burning fuel thus can do work
+	 *
 	 * @return Boolean True if machine is burning
 	 */
 	public boolean isBurning() {
@@ -136,24 +141,24 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 
 	@Override
 	public CompoundTag toTag(CompoundTag compoundTag) {
-		 super.toTag(compoundTag);
-		 compoundTag.putInt("BurnTime", burnTime);
-		 compoundTag.putInt("TotalBurnTime", totalBurnTime);
-		 compoundTag.putInt("Progress", progress);
-		 return compoundTag;
+		super.toTag(compoundTag);
+		compoundTag.putInt("BurnTime", burnTime);
+		compoundTag.putInt("TotalBurnTime", totalBurnTime);
+		compoundTag.putInt("Progress", progress);
+		return compoundTag;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if(world.isClient){
+		if (world.isClient) {
 			return;
 		}
 		boolean isBurning = isBurning();
 		if (isBurning) {
 			--burnTime;
 		}
-		
+
 		if (!isBurning && canSmelt()) {
 			burnTime = totalBurnTime = getItemBurnTime(inventory.getStack(fuelSlot));
 			if (burnTime > 0) {
@@ -168,17 +173,17 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 				}
 			}
 		}
-		
+
 		if (isBurning() && canSmelt()) {
 			++progress;
 			if (progress == totalCookingTime) {
 				progress = 0;
 				smelt();
 			}
-		} else if(!canSmelt()) {
+		} else if (!canSmelt()) {
 			progress = 0;
 		}
-		
+
 		if (isBurning != isBurning()) {
 			inventory.setChanged();
 			updateState();
@@ -198,7 +203,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public RebornInventory<?> getInventory() {
 		return inventory;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
@@ -220,7 +225,7 @@ public abstract class AbstractIronMachineBlockEntity extends MachineBaseBlockEnt
 	public void setTotalBurnTime(int totalBurnTime) {
 		this.totalBurnTime = totalBurnTime;
 	}
-	
+
 	public int getProgress() {
 		return progress;
 	}

@@ -49,19 +49,19 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 		super(TRBlockEntities.ADJUSTABLE_SU, "ADJUSTABLE_SU", 4, TRContent.Machine.ADJUSTABLE_SU.block, EnergyTier.INSANE, TechRebornConfig.aesuMaxEnergy);
 	}
 
-	public int getMaxConfigOutput(){
+	public int getMaxConfigOutput() {
 		int extra = 0;
-		if(superconductors > 0){
+		if (superconductors > 0) {
 			extra = (int) Math.pow(2, (superconductors + 2)) * maxOutput;
 		}
 		return maxOutput + extra;
 	}
 
 	public void handleGuiInputFromClient(int id, boolean shift, boolean ctrl) {
-		if(shift){
+		if (shift) {
 			id *= 4;
 		}
-		if(ctrl){
+		if (ctrl) {
 			id *= 8;
 		}
 
@@ -88,14 +88,14 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public void tick() {
 		super.tick();
-		if (world == null){
+		if (world == null) {
 			return;
 		}
 
 		if (OUTPUT > getMaxConfigOutput()) {
 			OUTPUT = getMaxConfigOutput();
 		}
-		if(world.getTime() % 20 == 0){
+		if (world.getTime() % 20 == 0) {
 			checkTier();
 		}
 	}
@@ -118,7 +118,7 @@ public class AdjustableSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public double getBaseMaxInput() {
 		//If we have super conductors increase the max input of the machine
-		if(getMaxConfigOutput() > maxOutput){
+		if (getMaxConfigOutput() > maxOutput) {
 			return getMaxConfigOutput();
 		}
 		return maxInput;

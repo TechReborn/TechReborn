@@ -57,14 +57,18 @@ public enum TRToolTier implements ToolMaterial {
 	 * against.
 	 */
 	private final float efficiency;
-	/** Damage versus entities. */
+	/**
+	 * Damage versus entities.
+	 */
 	private final float attackDamage;
-	/** Defines the natural enchantability factor of the material. */
+	/**
+	 * Defines the natural enchantability factor of the material.
+	 */
 	private final int enchantability;
 	private final Lazy<Ingredient> repairMaterial;
 
 	TRToolTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn,
-			int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
+			   int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
 		this.harvestLevel = harvestLevelIn;
 		this.maxUses = maxUsesIn;
 		this.efficiency = efficiencyIn;

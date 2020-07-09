@@ -35,9 +35,9 @@ import techreborn.blocks.lighting.BlockLamp;
 import techreborn.init.TRBlockEntities;
 
 public class LampBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop {
+		implements IToolDrop {
 
-	private static int capacity = 33;
+	private static final int capacity = 33;
 
 	public LampBlockEntity() {
 		super(TRBlockEntities.LAMP);
@@ -61,7 +61,7 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 			} else if (BlockLamp.isActive(state)) {
 				BlockLamp.setActive(false, world, pos);
 			}
-		}	
+		}
 	}
 
 	@Override

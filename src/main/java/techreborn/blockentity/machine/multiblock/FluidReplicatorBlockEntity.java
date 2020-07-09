@@ -27,10 +27,11 @@ package techreborn.blockentity.machine.multiblock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.IInventoryAccess;
@@ -47,11 +48,9 @@ import javax.annotation.Nullable;
 
 /**
  * @author drcrazy
- *
  */
 public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public MultiblockChecker multiblockChecker;
 	public static final FluidValue TANK_CAPACITY = FluidValue.BUCKET.multiply(16);
 	public Tank tank;
 	int ticksSinceLastChange;
@@ -59,27 +58,20 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 	public FluidReplicatorBlockEntity() {
 		super(TRBlockEntities.FLUID_REPLICATOR, "FluidReplicator", TechRebornConfig.fluidReplicatorMaxInput, TechRebornConfig.fluidReplicatorMaxEnergy, TRContent.Machine.FLUID_REPLICATOR.block, 3);
 		this.inventory = new RebornInventory<>(4, "FluidReplicatorBlockEntity", 64, this, getInventoryAccess());
-		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[] {0}, null);
+		this.crafter = new RecipeCrafter(ModRecipes.FLUID_REPLICATOR, this, 1, 0, this.inventory, new int[]{0}, null);
 		this.tank = new Tank("FluidReplicatorBlockEntity", FluidReplicatorBlockEntity.TANK_CAPACITY, this);
 	}
 
-	public boolean getMultiBlock() {
-		if (multiblockChecker == null) {
-			return false;
-		}
-		final boolean ring = multiblockChecker.checkRingY(1, 1, MultiblockChecker.ADVANCED_CASING,
-				MultiblockChecker.ZERO_OFFSET);
-		return ring;
+	@Override
+	public void writeMultiblock(MultiblockWriter writer) {
+		BlockState state = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
+		writer.translate(1, 0, -1)
+				.ring(Direction.Axis.Y, 3, 0, 3, (v, p) -> v.getBlockState(p) == state, state, null, null);
 	}
 
 	// TileGenericMachine
 	@Override
 	public void tick() {
-		if (multiblockChecker == null) {
-			final BlockPos downCenter = pos.offset(getFacing().getOpposite(), 2);
-			multiblockChecker = new MultiblockChecker(world, downCenter);
-		}
-
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {
@@ -92,10 +84,10 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		super.tick();
 
 	}
-	
+
 	@Override
 	public RecipeCrafter getRecipeCrafter() {
-		return (RecipeCrafter) crafter;
+		return crafter;
 	}
 
 	// TilePowerAcceptor
@@ -112,9 +104,9 @@ public class FluidReplicatorBlockEntity extends GenericMachineBlockEntity implem
 		return tagCompound;
 	}
 
-	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess(){
+	private static IInventoryAccess<FluidReplicatorBlockEntity> getInventoryAccess() {
 		return (slotID, stack, face, direction, blockEntity) -> {
-			if(slotID == 0){
+			if (slotID == 0) {
 				return stack.isItemEqualIgnoreDamage(TRContent.Parts.UU_MATTER.getStack());
 			}
 			return true;

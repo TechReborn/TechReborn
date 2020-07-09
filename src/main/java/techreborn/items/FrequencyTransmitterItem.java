@@ -95,7 +95,7 @@ public class FrequencyTransmitterItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player,
-	                                                Hand hand) {
+											Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			stack.setTag(null);
@@ -103,12 +103,12 @@ public class FrequencyTransmitterItem extends Item {
 
 				ChatUtils.sendNoSpamMessages(MessageIDs.freqTransmitterID,
 						new TranslatableText("techreborn.message.coordsHaveBeen")
-							.formatted(Formatting.GRAY)
-							.append(" ")
-							.append(
-								new TranslatableText("techreborn.message.cleared")
-									.formatted(Formatting.GOLD)
-							)
+								.formatted(Formatting.GRAY)
+								.append(" ")
+								.append(
+										new TranslatableText("techreborn.message.cleared")
+												.formatted(Formatting.GOLD)
+								)
 				);
 			}
 		}
@@ -128,7 +128,7 @@ public class FrequencyTransmitterItem extends Item {
 				});
 	}
 
-	private static Identifier getDimName(RegistryKey<World> dimensionRegistryKey){
+	private static Identifier getDimName(RegistryKey<World> dimensionRegistryKey) {
 		return dimensionRegistryKey.getValue();
 	}
 

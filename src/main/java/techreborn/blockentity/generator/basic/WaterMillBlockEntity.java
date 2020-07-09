@@ -55,8 +55,7 @@ public class WaterMillBlockEntity extends PowerAcceptorBlockEntity implements IT
 		if (waterblocks > 0) {
 			addEnergy(waterblocks * TechRebornConfig.waterMillEnergyMultiplier);
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-		}
-		else {
+		} else {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}

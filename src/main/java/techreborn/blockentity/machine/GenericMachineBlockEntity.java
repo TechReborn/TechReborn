@@ -38,10 +38,9 @@ import reborncore.common.util.RebornInventory;
 
 /**
  * @author drcrazy
- *
  */
 public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, IRecipeCrafterProvider{
+		implements IToolDrop, InventoryProvider, IRecipeCrafterProvider {
 
 	public String name;
 	public int maxInput;
@@ -50,12 +49,12 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	public int energySlot;
 	public RebornInventory<?> inventory;
 	public RecipeCrafter crafter;
-	
+
 	/**
-	 * @param name String Name for a blockEntity. Do we need it at all?
-	 * @param maxInput int Maximum energy input, value in EU
-	 * @param maxEnergy int Maximum energy buffer, value in EU
-	 * @param toolDrop Block Block to drop with wrench
+	 * @param name       String Name for a blockEntity. Do we need it at all?
+	 * @param maxInput   int Maximum energy input, value in EU
+	 * @param maxEnergy  int Maximum energy buffer, value in EU
+	 * @param toolDrop   Block Block to drop with wrench
 	 * @param energySlot int Energy slot to use to charge machine from battery
 	 */
 	public GenericMachineBlockEntity(BlockEntityType<?> blockEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
@@ -67,7 +66,7 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 		this.energySlot = energySlot;
 		checkTier();
 	}
-	
+
 	public int getProgressScaled(int scale) {
 		if (crafter != null && crafter.currentTickTime != 0) {
 			return crafter.currentTickTime * scale / crafter.currentNeededTicks;
@@ -79,11 +78,11 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isClient) {
+		if (!world.isClient && energySlot != -1) {
 			charge(energySlot);
 		}
 	}
-	
+
 	@Override
 	public double getBaseMaxPower() {
 		return maxEnergy;
@@ -108,19 +107,19 @@ public abstract class GenericMachineBlockEntity extends PowerAcceptorBlockEntity
 	public double getBaseMaxInput() {
 		return maxInput;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity p0) {
 		return new ItemStack(toolDrop, 1);
 	}
-	
+
 	// InventoryProvider
 	@Override
 	public RebornInventory<?> getInventory() {
 		return inventory;
 	}
-	
+
 	// IRecipeCrafterProvider
 	@Override
 	public RecipeCrafter getRecipeCrafter() {

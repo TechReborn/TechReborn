@@ -36,7 +36,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	implements BuiltScreenHandlerProvider {
+public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	int input1 = 0;
 	int input2 = 1;
@@ -84,7 +84,7 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 		if (!inventory.getStack(output).isItemEqualIgnoreDamage(itemstack))
 			return false;
 		int result = inventory.getStack(output).getCount() + itemstack.getCount();
-		return result <= inventory.getStackLimit() && result <= inventory.getStack(output).getMaxCount(); 
+		return result <= inventory.getStackLimit() && result <= inventory.getStack(output).getMaxCount();
 	}
 
 	@Override
@@ -121,28 +121,28 @@ public class IronAlloyFurnaceBlockEntity extends AbstractIronMachineBlockEntity	
 					break;
 				}
 			}
-		}	
+		}
 	}
 
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("alloyfurnace").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.slot(0, 47, 17)
-			.slot(1, 65, 17)
-			.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
-			.sync(this::getBurnTime, this::setBurnTime)
-			.sync(this::getProgress, this::setProgress)
-			.sync(this::getTotalBurnTime, this::setTotalBurnTime)
-			.addInventory().create(this, syncID);
+				.addInventory().blockEntity(this)
+				.slot(0, 47, 17)
+				.slot(1, 65, 17)
+				.outputSlot(2, 116, 35).fuelSlot(3, 56, 53)
+				.sync(this::getBurnTime, this::setBurnTime)
+				.sync(this::getProgress, this::setProgress)
+				.sync(this::getTotalBurnTime, this::setTotalBurnTime)
+				.addInventory().create(this, syncID);
 	}
 
 	@Override
 	public boolean isStackValid(int slotID, ItemStack stack) {
 		return ModRecipes.ALLOY_SMELTER.getRecipes(world).stream()
-			.anyMatch(rebornRecipe -> rebornRecipe.getRebornIngredients().stream()
-				.anyMatch(rebornIngredient -> rebornIngredient.test(stack))
-			);
+				.anyMatch(rebornRecipe -> rebornRecipe.getRebornIngredients().stream()
+						.anyMatch(rebornIngredient -> rebornIngredient.test(stack))
+				);
 	}
 
 	@Override

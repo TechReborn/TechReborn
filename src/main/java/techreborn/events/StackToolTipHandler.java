@@ -59,7 +59,7 @@ import java.util.Map;
 
 public class StackToolTipHandler implements ItemTooltipCallback {
 
-	private static ArrayList<Block> wipBlocks = new ArrayList<>();
+	private static final ArrayList<Block> wipBlocks = new ArrayList<>();
 	public static final Map<Item, Boolean> ITEM_ID = Maps.newHashMap();
 
 	public static void setup() {
@@ -73,23 +73,23 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 	@Override
 	public void getTooltip(ItemStack stack, TooltipContext tooltipContext, List<Text> components) {
 		Item item = stack.getItem();
-		
+
 		if (!ITEM_ID.computeIfAbsent(item, this::isTRItem))
 			return;
-		
+
 		// Machine info and upgrades helper section
 		Block block = Block.getBlockFromItem(item);
 
-		if(wipBlocks.contains(block) || block instanceof WIP){
+		if (wipBlocks.contains(block) || block instanceof WIP) {
 			components.add(new TranslatableText("techreborn.tooltip.wip").formatted(Formatting.RED));
 		}
 
-		if(block instanceof BaseBlockEntityProvider){
+		if (block instanceof BaseBlockEntityProvider) {
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components);
 		}
 
-		if(item instanceof UpgradeItem){
-			UpgradeItem upgrade = (UpgradeItem)item;
+		if (item instanceof UpgradeItem) {
+			UpgradeItem upgrade = (UpgradeItem) item;
 
 			ToolTipAssistUtils.addInfo(item.getTranslationKey(), components, false);
 			components.addAll(ToolTipAssistUtils.getUpgradeStats(TRContent.Upgrades.valueOf(upgrade.name.toUpperCase()), stack.getCount(), Screen.hasShiftDown()));
@@ -136,11 +136,11 @@ public class StackToolTipHandler implements ItemTooltipCallback {
 			}
 		}
 	}
-	
+
 	private boolean isTRItem(Item item) {
 		return Registry.ITEM.getId(item).getNamespace().equals("techreborn");
 	}
-	
+
 	public int percentage(int MaxValue, int CurrentValue) {
 		if (CurrentValue == 0)
 			return 0;

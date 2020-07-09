@@ -12,5 +12,8 @@
       "item": "techreborn:sulfur_dust",
       "count": 2
     }
-  ]
+  ],
+  "conditions": {
+	"reborncore:tag": "c:sulfur_ores"
+  }
 }

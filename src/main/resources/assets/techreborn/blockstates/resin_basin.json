@@ -1,0 +1,20 @@
+{
+    "variants": {
+	  "facing=north,pouring=false,full=false": { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty" },
+	  "facing=south,pouring=false,full=false": { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty", "y": 180 },
+	  "facing=west,pouring=false,full=false":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty", "y": 270 },
+	  "facing=east,pouring=false,full=false":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty", "y": 90 },
+	  "facing=north,pouring=true,full=false": { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty_flowing" },
+	  "facing=south,pouring=true,full=false": { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty_flowing", "y": 180 },
+	  "facing=west,pouring=true,full=false":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty_flowing", "y": 270 },
+	  "facing=east,pouring=true,full=false":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_empty_flowing", "y": 90 },
+	  "facing=north,pouring=false,full=true": { "model": "techreborn:block/machines/tier0_machines/resin_basin_full" },
+	  "facing=south,pouring=false,full=true": { "model": "techreborn:block/machines/tier0_machines/resin_basin_full", "y": 180 },
+	  "facing=west,pouring=false,full=true":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_full", "y": 270 },
+	  "facing=east,pouring=false,full=true":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_full", "y": 90 },
+	  "facing=north,pouring=true,full=true": { "model": "techreborn:block/machines/tier0_machines/resin_basin_full" },
+	  "facing=south,pouring=true,full=true": { "model": "techreborn:block/machines/tier0_machines/resin_basin_full", "y": 180 },
+	  "facing=west,pouring=true,full=true":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_full", "y": 270 },
+	  "facing=east,pouring=true,full=true":  { "model": "techreborn:block/machines/tier0_machines/resin_basin_full", "y": 90 }
+	}
+}

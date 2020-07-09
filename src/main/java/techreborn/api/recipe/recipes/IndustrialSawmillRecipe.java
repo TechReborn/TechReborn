@@ -58,7 +58,7 @@ public class IndustrialSawmillRecipe extends RebornFluidRecipe {
 	@Override
 	public boolean canCraft(BlockEntity be) {
 		IndustrialSawmillBlockEntity blockEntity = (IndustrialSawmillBlockEntity) be;
-		if (!blockEntity.getMutliBlock()) {
+		if (!blockEntity.isMultiblockValid()) {
 			return false;
 		}
 		return super.canCraft(be);

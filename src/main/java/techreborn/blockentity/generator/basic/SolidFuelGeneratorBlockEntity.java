@@ -64,11 +64,11 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	}
 
 	public static int getItemBurnTime(@Nonnull ItemStack stack) {
-        if (stack.isEmpty()){
-            return 0;
-        }
+		if (stack.isEmpty()) {
+			return 0;
+		}
 		Map<Item, Integer> burnMap = AbstractFurnaceBlockEntity.createFuelTimeMap();
-		if(burnMap.containsKey(stack.getItem())){
+		if (burnMap.containsKey(stack.getItem())) {
 			return burnMap.get(stack.getItem()) / 4;
 		}
 		return 0;
@@ -183,9 +183,9 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("generator").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
-			.sync(this::getBurnTime, this::setBurnTime)
-			.sync(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
+				.blockEntity(this).fuelSlot(0, 80, 54).energySlot(1, 8, 72).syncEnergyValue()
+				.sync(this::getBurnTime, this::setBurnTime)
+				.sync(this::getTotalBurnTime, this::setTotalBurnTime).addInventory().create(this, syncID);
 	}
 
 	@Override

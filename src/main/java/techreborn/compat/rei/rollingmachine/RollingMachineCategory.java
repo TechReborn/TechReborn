@@ -34,26 +34,26 @@ import techreborn.api.recipe.recipes.RollingMachineRecipe;
 import techreborn.compat.rei.ReiPlugin;
 
 public class RollingMachineCategory extends DefaultCraftingCategory {
-	
+
 	private final RebornRecipeType<RollingMachineRecipe> rebornRecipeType;
-	
+
 	public RollingMachineCategory(RebornRecipeType<RollingMachineRecipe> rebornRecipeType) {
 		this.rebornRecipeType = rebornRecipeType;
 	}
-	
+
 	@Override
 	public Identifier getIdentifier() {
 		return rebornRecipeType.getName();
 	}
-	
+
 	@Override
 	public String getCategoryName() {
 		return I18n.translate(rebornRecipeType.getName().toString());
 	}
-	
+
 	@Override
 	public EntryStack getLogo() {
 		return EntryStack.create(ReiPlugin.iconMap.getOrDefault(rebornRecipeType, () -> Items.DIAMOND_SHOVEL));
 	}
-	
+
 }

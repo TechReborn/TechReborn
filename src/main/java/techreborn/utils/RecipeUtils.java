@@ -39,21 +39,19 @@ public class RecipeUtils {
 	public static ItemStack getEmptyCell(int stackSize) {
 		return DynamicCellItem.getEmptyCell(stackSize);
 	}
-	
+
 	/**
-	 *
 	 * Used to get the matching output of a recipe type that only has 1 input
-	 *
 	 */
-	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input){
+	public static <T extends Recipe<?>> ItemStack getMatchingRecipes(World world, RecipeType<T> type, ItemStack input) {
 		return getRecipes(world, type).stream()
-			.filter(recipe -> recipe.getPreviewInputs().size() == 1 && recipe.getPreviewInputs().get(0).test(input))
-			.map(Recipe::getOutput)
-			.findFirst()
-			.orElse(ItemStack.EMPTY);
+				.filter(recipe -> recipe.getPreviewInputs().size() == 1 && recipe.getPreviewInputs().get(0).test(input))
+				.map(Recipe::getOutput)
+				.findFirst()
+				.orElse(ItemStack.EMPTY);
 	}
-	
-	public static <T extends Recipe<?>> List<Recipe<?>> getRecipes(World world, RecipeType<T> type){
+
+	public static <T extends Recipe<?>> List<Recipe<?>> getRecipes(World world, RecipeType<T> type) {
 		return world.getRecipeManager().values().stream().filter(iRecipe -> iRecipe.getType() == type).collect(Collectors.toList());
 	}
 }

@@ -64,7 +64,7 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 	public void setFacing(Direction facing, World world, BlockPos pos) {
 		world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
 	}
-	
+
 	public Direction getFacing(BlockState state) {
 		return state.get(FACING);
 	}
@@ -72,7 +72,7 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 	// BaseTileBlock
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
-			ItemStack stack) {
+						 ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
 		Direction facing = placer.getHorizontalFacing().getOpposite();
 		if (placer.pitch < -50) {
@@ -98,7 +98,7 @@ public abstract class BlockTransformer extends BaseBlockEntityProvider {
 		if (blockEntity == null) {
 			return ActionResult.FAIL;
 		}
-	
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (WrenchUtils.handleWrench(stack, worldIn, pos, playerIn, hitResult.getSide())) {
 				return ActionResult.PASS;

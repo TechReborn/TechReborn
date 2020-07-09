@@ -46,7 +46,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	private int amplifier = 0;
 
 	public MatterFabricatorBlockEntity() {
-		super(TRBlockEntities.MATTER_FABRICATOR );
+		super(TRBlockEntities.MATTER_FABRICATOR);
 	}
 
 	private boolean spaceForOutput() {
@@ -61,7 +61,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	private boolean spaceForOutput(int slot) {
 		return inventory.getStack(slot).isEmpty()
 				|| ItemUtils.isItemEqual(inventory.getStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)
-						&& inventory.getStack(slot).getCount() < 64;
+				&& inventory.getStack(slot).getCount() < 64;
 	}
 
 	private void addOutputProducts() {
@@ -76,8 +76,7 @@ public class MatterFabricatorBlockEntity extends PowerAcceptorBlockEntity
 	private void addOutputProducts(int slot) {
 		if (inventory.getStack(slot).isEmpty()) {
 			inventory.setStack(slot, TRContent.Parts.UU_MATTER.getStack());
-		} 
-		else if (ItemUtils.isItemEqual(this.inventory.getStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
+		} else if (ItemUtils.isItemEqual(this.inventory.getStack(slot), TRContent.Parts.UU_MATTER.getStack(), true, true)) {
 			inventory.getStack(slot).setCount((Math.min(64, 1 + inventory.getStack(slot).getCount())));
 		}
 	}

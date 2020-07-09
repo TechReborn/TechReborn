@@ -34,14 +34,13 @@ import java.util.List;
 
 /**
  * @author drcrazy
- *
  */
 public class ScrapboxRecipeCrafter extends RecipeCrafter {
 
 	/**
-	 * @param parent Tile having this crafter
-	 * @param inventory Inventory from parent blockEntity
-	 * @param inputSlots Slot IDs for input
+	 * @param parent      Tile having this crafter
+	 * @param inventory   Inventory from parent blockEntity
+	 * @param inputSlots  Slot IDs for input
 	 * @param outputSlots Slot IDs for output
 	 */
 	public ScrapboxRecipeCrafter(BlockEntity parent, RebornInventory<?> inventory, int[] inputSlots, int[] outputSlots) {
@@ -49,9 +48,9 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 	}
 
 	@Override
-	public void updateCurrentRecipe(){
+	public void updateCurrentRecipe() {
 		List<RebornRecipe> scrapboxRecipeList = ModRecipes.SCRAPBOX.getRecipes(blockEntity.getWorld());
-		if(scrapboxRecipeList.isEmpty()){
+		if (scrapboxRecipeList.isEmpty()) {
 			setCurrentRecipe(null);
 			return;
 		}
@@ -62,4 +61,4 @@ public class ScrapboxRecipeCrafter extends RecipeCrafter {
 		this.currentTickTime = 0;
 		setIsActive();
 	}
- }
+}

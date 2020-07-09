@@ -25,12 +25,7 @@
 package techreborn.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.Block;
-import net.minecraft.block.Material;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.WallBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -66,11 +61,8 @@ import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
 import techreborn.blocks.machine.tier1.BlockPlayerDetector;
-import techreborn.blocks.misc.BlockAlarm;
-import techreborn.blocks.misc.BlockMachineCasing;
-import techreborn.blocks.misc.BlockMachineFrame;
-import techreborn.blocks.misc.BlockStorage;
-import techreborn.blocks.misc.TechRebornStairsBlock;
+import techreborn.blocks.machine.tier1.ResinBasinBlock;
+import techreborn.blocks.misc.*;
 import techreborn.blocks.storage.energy.*;
 import techreborn.blocks.storage.fluid.TankUnitBlock;
 import techreborn.blocks.storage.item.StorageUnitBlock;
@@ -87,11 +79,7 @@ import techreborn.items.armor.QuantumSuitItem;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -435,7 +423,7 @@ public class TRContent {
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
 
-			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block)){
+			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block)) {
 				@Override
 				public String getTranslationKey() {
 					return block.getTranslationKey();
@@ -444,7 +432,7 @@ public class TRContent {
 
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
 
-			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block)){
+			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block)) {
 				@Override
 				public String getTranslationKey() {
 					return block.getTranslationKey();
@@ -453,7 +441,7 @@ public class TRContent {
 
 			InitUtils.setup(slabBlock, name + "_storage_block_slab");
 
-			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block)){
+			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block)) {
 				@Override
 				public String getTranslationKey() {
 					return block.getTranslationKey();
@@ -520,6 +508,7 @@ public class TRContent {
 		COMPRESSOR(new GenericMachineBlock(GuiType.COMPRESSOR, CompressorBlockEntity::new)),
 		DISTILLATION_TOWER(new GenericMachineBlock(GuiType.DISTILLATION_TOWER, DistillationTowerBlockEntity::new)),
 		EXTRACTOR(new GenericMachineBlock(GuiType.EXTRACTOR, ExtractorBlockEntity::new)),
+		RESIN_BASIN(new ResinBasinBlock(ResinBasinBlockEntity::new)),
 		FLUID_REPLICATOR(new GenericMachineBlock(GuiType.FLUID_REPLICATOR, FluidReplicatorBlockEntity::new)),
 		GRINDER(new DataDrivenMachineBlock("techreborn:grinder")),
 		ELECTRIC_FURNACE(new GenericMachineBlock(GuiType.ELECTRIC_FURNACE, ElectricFurnaceBlockEntity::new)),

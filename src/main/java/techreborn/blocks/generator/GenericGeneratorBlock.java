@@ -39,17 +39,17 @@ import java.util.function.Supplier;
  * for generators, like comparator output based on energy.
  */
 public class GenericGeneratorBlock extends GenericMachineBlock {
-    public GenericGeneratorBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
-        super(gui, blockEntityClass);
-    }
+	public GenericGeneratorBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
+		super(gui, blockEntityClass);
+	}
 
-    @Override
-    public boolean hasComparatorOutput(BlockState state) {
-        return true;
-    }
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
 
-    @Override
-    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-        return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
-    }
+	@Override
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		return PowerAcceptorBlockEntity.calculateComparatorOutputFromEnergy(world.getBlockEntity(pos));
+	}
 }

@@ -39,7 +39,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop, InventoryProvider {
+		implements IToolDrop, InventoryProvider {
 
 	public RebornInventory<DragonEggSyphonBlockEntity> inventory = new RebornInventory<>(3, "DragonEggSyphonBlockEntity", 64, this);
 	private long lastOutput = 0;
@@ -47,7 +47,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	public DragonEggSyphonBlockEntity() {
 		super(TRBlockEntities.DRAGON_EGG_SYPHON);
 	}
-	
+
 	private boolean tryAddingEnergy(int amount) {
 		if (this.getMaxPower() - this.getEnergy() >= amount) {
 			addEnergy(amount);
@@ -58,7 +58,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 		}
 		return false;
 	}
-	
+
 	// TilePowerAcceptor
 	@Override
 	public void tick() {
@@ -103,7 +103,7 @@ public class DragonEggSyphonBlockEntity extends PowerAcceptorBlockEntity
 	public double getBaseMaxInput() {
 		return 0;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {

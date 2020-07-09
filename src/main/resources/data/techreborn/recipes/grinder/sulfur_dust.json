@@ -11,5 +11,8 @@
     {
       "item": "techreborn:sulfur_dust"
     }
-  ]
+  ],
+  "conditions": {
+	"reborncore:tag": "c:sulfurs"
+  }
 }

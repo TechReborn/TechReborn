@@ -36,7 +36,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class LSUStorageBlockEntity extends MachineBaseBlockEntity
-	implements IToolDrop {
+		implements IToolDrop {
 
 	public LesuNetwork network;
 
@@ -93,7 +93,7 @@ public class LSUStorageBlockEntity extends MachineBaseBlockEntity
 		} else {
 			if (network.master != null
 					&& network.master.getWorld().getBlockEntity(new BlockPos(network.master.getPos().getX(),
-							network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
+					network.master.getPos().getY(), network.master.getPos().getZ())) != network.master) {
 				network.master = null;
 			}
 		}

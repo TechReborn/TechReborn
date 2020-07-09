@@ -33,7 +33,7 @@ import techreborn.client.GuiType;
  * Created by modmuss50 on 14/03/2016.
  */
 public class HighVoltageSUBlock extends EnergyStorageBlock {
-	
+
 	public HighVoltageSUBlock() {
 		super("high_voltage_su", GuiType.HIGH_VOLTAGE_SU);
 	}

@@ -47,7 +47,7 @@ public class TRPickaxeItem extends PickaxeItem {
 	@Override
 	public boolean canRepair(ItemStack toRepair, ItemStack repair) {
 		if (toRepair.getItem() == this && !repairOreDict.isEmpty()) {
-			return ItemUtils.isInputEqual(repairOreDict, repair, true,  true);
+			return ItemUtils.isInputEqual(repairOreDict, repair, true, true);
 		}
 		return super.canRepair(toRepair, repair);
 	}

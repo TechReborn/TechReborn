@@ -42,20 +42,20 @@ public class IndustrialElectrolyzerBlockEntity extends GenericMachineBlockEntity
 
 	public IndustrialElectrolyzerBlockEntity() {
 		super(TRBlockEntities.INDUSTRIAL_ELECTROLYZER, "IndustrialElectrolyzer", TechRebornConfig.industrialElectrolyzerMaxInput, TechRebornConfig.industrialElectrolyzerMaxEnergy, TRContent.Machine.INDUSTRIAL_ELECTROLYZER.block, 6);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2, 3, 4, 5 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "IndustrialElectrolyzerBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.INDUSTRIAL_ELECTROLYZER, this, 2, 4, this.inventory, inputs, outputs);
 	}
-	
+
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("industrialelectrolyzer").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
-			.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
-			.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
-			.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+				.addInventory().blockEntity(this)
+				.filterSlot(1, 47, 72, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
+				.filterSlot(0, 81, 72, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
+				.outputSlot(2, 51, 24).outputSlot(3, 71, 24).outputSlot(4, 91, 24).outputSlot(5, 111, 24)
+				.energySlot(6, 8, 72).syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 }

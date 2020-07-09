@@ -40,7 +40,6 @@ import java.util.Set;
 
 /**
  * @author drcrazy
- *
  */
 public class RubberTreeFeature extends TreeFeature {
 
@@ -66,21 +65,20 @@ public class RubberTreeFeature extends TreeFeature {
 			BlockPos topPos = null;
 
 			//Limit the scan to 15 blocks
-			while(topPos == null && pos.getY() - startScan < 15) {
+			while (topPos == null && pos.getY() - startScan < 15) {
 				pos = pos.up();
-				if(world.testBlockState(pos, BlockState::isAir)) {
+				if (world.testBlockState(pos, BlockState::isAir)) {
 					topPos = pos;
 				}
 			}
 
-			if(topPos == null) return;
+			if (topPos == null) return;
 
 			for (int i = 0; i < TechRebornConfig.rubberTreeSpireHeight; i++) {
 				world.setBlockState(pos.up(i), TRContent.RUBBER_LEAVES.getDefaultState(), 19);
 			}
 		}
 	}
-
 
 
 }

@@ -81,7 +81,7 @@ public class BlockFusionCoil extends Block {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip,
-			TooltipContext flagIn) {
+							 TooltipContext flagIn) {
 		super.buildTooltip(stack, worldIn, tooltip, flagIn);
 		// TODO: Translate
 		tooltip.add(new LiteralText("Right click Fusion Control computer to auto place"));

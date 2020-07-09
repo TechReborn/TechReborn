@@ -52,7 +52,7 @@ public class WindMillBlockEntity extends PowerAcceptorBlockEntity implements ITo
 
 		boolean generating = pos.getY() > 64;
 
-		if(world.isClient) {
+		if (world.isClient) {
 			bladeAngle += spinSpeed;
 
 			if (generating) {
