@@ -74,7 +74,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 				world.playSound(null, pos, ModSounds.SAP_EXTRACT, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
-			if (pouringTimer == 0) {
+			if (pouringTimer <= 0) {
 				isPouring = false;
 				isFull = true;
 				shouldUpdateState = true;
@@ -143,7 +143,6 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	@Override
 	public CompoundTag toTag(CompoundTag tagCompound) {
 		super.toTag(tagCompound);
-		tagCompound.putBoolean("isFull", isFull);
 
 		return tagCompound;
 	}
@@ -152,8 +151,11 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 	public void fromTag(BlockState blockState, CompoundTag tagCompound) {
 		super.fromTag(blockState, tagCompound);
 
-		if (tagCompound.contains("isFull")) {
-			this.isFull = tagCompound.getBoolean("isFull");
+		this.isFull = blockState.get(ResinBasinBlock.FULL);
+
+		if(blockState.get(ResinBasinBlock.POURING)){
+			this.isPouring = true;
+			pouringTimer = TechRebornConfig.sapTimeTicks;
 		}
 	}
 
