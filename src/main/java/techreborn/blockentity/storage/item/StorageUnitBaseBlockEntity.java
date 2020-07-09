@@ -26,9 +26,7 @@ package techreborn.blockentity.storage.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -114,7 +112,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 			}
 		}
 
-		if(inventory.hasChanged()){
+		if (inventory.hasChanged()) {
 			syncWithAll();
 			inventory.resetChanged();
 		}
@@ -449,14 +447,15 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		this.storedAmount = storedAmount;
 	}
 
-	public void setStoredStack(String itemStringID) {
-		storeItemStack = new ItemStack(Registry.ITEM.get(new Identifier(itemStringID)));
+	public void setStoredStackFromNBT(CompoundTag tag) {
+		storeItemStack = ItemStack.fromTag(tag);
 	}
 
 
-
-	public String convertItemStringID() {
-		return Registry.ITEM.getId(getStoredStack().getItem()).toString();
+	public CompoundTag getStoredStackNBT() {
+		CompoundTag tag = new CompoundTag();
+		getStoredStack().toTag(tag);
+		return tag;
 	}
 
 	@Override
@@ -466,7 +465,7 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 				.slot(INPUT_SLOT, 100, 53)
 				.outputSlot(OUTPUT_SLOT, 140, 53)
 				.sync(this::isLockedInt, this::setLockedInt)
-				.sync(this::convertItemStringID, this::setStoredStack)
+				.sync(this::getStoredStackNBT, this::setStoredStackFromNBT)
 				.sync(this::getStoredAmount, this::setStoredAmount)
 				.addInventory().create(this, syncID);
 
