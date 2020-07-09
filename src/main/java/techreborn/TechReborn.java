@@ -27,6 +27,9 @@ package techreborn;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.server.ServerStartCallback;
+import net.fabricmc.fabric.api.event.server.ServerStopCallback;
+import net.fabricmc.fabric.api.event.server.ServerTickCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -100,7 +103,8 @@ public class TechReborn implements ModInitializer {
 		GuiType.AESU.getIdentifier();
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
-		ElectricNetworkManager.init();
+
+		ServerStartCallback.EVENT.register(ElectricNetworkManager::init);
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 

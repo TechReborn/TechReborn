@@ -41,10 +41,8 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 		ServerTickCallback.EVENT.register(this::tick);
 	}
 
-	public static void init() {
-		if (INSTANCE == null) {
+	public static void init(MinecraftServer server) {
 			INSTANCE = new ElectricNetworkManager();
-		}
 	}
 
 	@Override
