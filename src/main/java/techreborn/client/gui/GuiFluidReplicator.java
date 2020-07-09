@@ -24,26 +24,20 @@
 
 package techreborn.client.gui;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.multiblock.Multiblock;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.machine.multiblock.FluidReplicatorBlockEntity;
-import techreborn.init.TRContent;
 
 /**
  * @author drcrazy
- *
  */
 public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 
-	FluidReplicatorBlockEntity blockEntity;
+	private final FluidReplicatorBlockEntity blockEntity;
 
 	public GuiFluidReplicator(int syncID, final PlayerEntity player, final FluidReplicatorBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
@@ -64,7 +58,7 @@ public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 		drawSlot(matrixStack, 124, 55, layer);
 		// JEI button
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
-		if (blockEntity.getMultiBlock()) {
+		if (blockEntity.isMultiblockValid()) {
 			builder.drawHologramButton(matrixStack, this, 6, 4, mouseX, mouseY, layer);
 		}
 	}
@@ -76,7 +70,7 @@ public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 
 		builder.drawTank(matrixStack, this, 99, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 76, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (blockEntity.getMultiBlock()) {
+		if (blockEntity.isMultiblockValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 		} else {
 			builder.drawMultiblockMissingBar(matrixStack, this, layer);
@@ -87,35 +81,7 @@ public class GuiFluidReplicator extends GuiBase<BuiltScreenHandler> {
 	}
 
 	// GuiScreen
-	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (hideGuiElements()) return;
-		if (blockEntity.renderMultiblock == null) {
-			{
-				// This code here makes a basic multiblock and then sets to the selected one.
-				final Multiblock multiblock = new Multiblock();
-				final BlockState reinforcedCasing = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
-
-				addComponent(1, 0, 0, reinforcedCasing, multiblock);
-				addComponent(0, 0, 1, reinforcedCasing, multiblock);
-				addComponent(-1, 0, 0, reinforcedCasing, multiblock);
-				addComponent(0, 0, -1, reinforcedCasing, multiblock);
-				addComponent(-1, 0, -1, reinforcedCasing, multiblock);
-				addComponent(-1, 0, 1, reinforcedCasing, multiblock);
-				addComponent(1, 0, -1, reinforcedCasing, multiblock);
-				addComponent(1, 0, 1, reinforcedCasing, multiblock);
-
-				blockEntity.renderMultiblock = multiblock;
-			}
-		} else {
-			blockEntity.renderMultiblock = null;
-		}
+	public void onClick(GuiButtonExtended button, Double x, Double y) {
+		blockEntity.renderMultiblock ^= !hideGuiElements();
 	}
-
-	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(
-				x - Direction.byId(this.blockEntity.getFacingInt()).getOffsetX() * 2,
-				y,
-				z - Direction.byId(this.blockEntity.getFacingInt()).getOffsetZ() * 2), blockState);
-	}
-
 }

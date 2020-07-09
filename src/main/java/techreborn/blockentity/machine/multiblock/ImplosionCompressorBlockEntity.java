@@ -25,10 +25,11 @@
 package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
@@ -40,34 +41,20 @@ import techreborn.init.TRContent;
 
 public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
-	public MultiblockChecker multiblockChecker;
-
 	public ImplosionCompressorBlockEntity() {
 		super(TRBlockEntities.IMPLOSION_COMPRESSOR, "ImplosionCompressor", TechRebornConfig.implosionCompressorMaxInput, TechRebornConfig.implosionCompressorMaxEnergy, TRContent.Machine.IMPLOSION_COMPRESSOR.block, 4);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2, 3 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2, 3};
 		this.inventory = new RebornInventory<>(5, "ImplosionCompressorBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.IMPLOSION_COMPRESSOR, this, 2, 2, this.inventory, inputs, outputs);
 	}
-	
-	public boolean getMutliBlock() {
-		if(multiblockChecker == null){
-			return false;
-		}
-		final boolean down = multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, MultiblockChecker.ZERO_OFFSET);
-		final boolean up = multiblockChecker.checkRectY(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 2, 0));
-		final boolean chamber = multiblockChecker.checkRingYHollow(1, 1, MultiblockChecker.ADVANCED_CASING, new BlockPos(0, 1, 0));
-		return down && chamber && up;
-	}
 
-	// TileGenericMachine
 	@Override
-	public void tick() {
-		if (multiblockChecker == null) {
-			multiblockChecker = new MultiblockChecker(world, pos.down(3));
-		}
-
-		super.tick();
+	public void writeMultiblock(MultiblockWriter writer) {
+		writer	.translate(-1, -3, -1)
+				.fill(0, 0, 0, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState())
+				.ringWithAir(Direction.Axis.Y, 3, 1, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState())
+				.fill(0, 2, 0, 3, 3, 3, TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState());
 	}
 
 	// IContainerProvider
@@ -80,6 +67,6 @@ public class ImplosionCompressorBlockEntity extends GenericMachineBlockEntity im
 
 	@Override
 	public boolean canCraft(RebornRecipe rebornRecipe) {
-		return getMutliBlock();
+		return isMultiblockValid();
 	}
 }

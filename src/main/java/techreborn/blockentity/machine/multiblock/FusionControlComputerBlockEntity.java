@@ -33,32 +33,27 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import reborncore.api.IToolDrop;
-import reborncore.api.blockentity.InventoryProvider;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import reborncore.client.screen.builder.ScreenHandlerBuilder;
+import reborncore.common.blockentity.MultiblockWriter;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.ingredient.RebornIngredient;
-import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.ItemUtils;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.StringUtils;
 import reborncore.common.util.Torus;
 import techreborn.api.recipe.recipes.FusionReactorRecipe;
+import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import java.util.List;
-
-public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
-		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+public class FusionControlComputerBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
 	public RebornInventory<FusionControlComputerBlockEntity> inventory;
 
-	public int coilCount = 0;
 	public int crafingTickTime = 0;
 	public int neededPower = 0;
 	public int size = 6;
@@ -73,36 +68,15 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	long lastTick = -1;
 
 	public FusionControlComputerBlockEntity() {
-		super(TRBlockEntities.FUSION_CONTROL_COMPUTER);
+		super(TRBlockEntities.FUSION_CONTROL_COMPUTER, "FusionControlComputer", -1, -1, TRContent.Machine.FUSION_CONTROL_COMPUTER.block, -1);
 		checkOverfill = false;
 		this.inventory = new RebornInventory<>(3, "FusionControlComputerBlockEntity", 64, this);
 	}
 
-	/**
-	 * Check that reactor has all necessary coils in place
-	 * 
-	 * @return boolean Return true if coils are present
-	 */
-	public boolean checkCoils() {
-		List<BlockPos> coils = Torus.generate(pos, size);
-		for(BlockPos coilPos : coils){
-			if (!isCoil(coilPos)) {
-				coilCount = 0;
-				return false;
-			}
-		}
-		coilCount = coils.size();
-		return true;
-	}
-
-	/**
-	 * Checks if block is fusion coil
-	 * 
-	 * @param pos coordinate for block
-	 * @return boolean Returns true if block is fusion coil
-	 */
-	public boolean isCoil(BlockPos pos) {
-		return world.getBlockState(pos).getBlock() == TRContent.Machine.FUSION_COIL.block;
+	@Override
+	public void writeMultiblock(MultiblockWriter writer) {
+		BlockState coil = TRContent.Machine.FUSION_COIL.block.getDefaultState();
+		Torus.generate(BlockPos.ORIGIN, size).forEach(pos -> writer.add(pos.getX(), pos.getY(), pos.getZ(), coil));
 	}
 
 	/**
@@ -118,14 +92,14 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	/**
 	 * Checks that ItemStack could be inserted into slot provided, including check
 	 * for existing item in slot and maximum stack size
-	 * 
+	 *
 	 * @param stack ItemStack ItemStack to insert
-	 * @param slot int Slot ID to check
-	 * @param tags boolean Should we use tags
+	 * @param slot  int Slot ID to check
+	 * @param tags  boolean Should we use tags
 	 * @return boolean Returns true if ItemStack will fit into slot
 	 */
 	public boolean canFitStack(ItemStack stack, int slot, boolean tags) {// Checks to see if it can
-																								// fit the stack
+		// fit the stack
 		if (stack.isEmpty()) {
 			return true;
 		}
@@ -140,7 +114,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	/**
 	 * Returns progress scaled to input value
-	 * 
+	 *
 	 * @param scale int Maximum value for progress
 	 * @return int Scale of progress
 	 */
@@ -166,20 +140,20 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 	}
-	
+
 	/**
 	 * Validates if reactor has all inputs and can output result
-	 * 
+	 *
 	 * @param recipe FusionReactorRecipe Recipe to validate
 	 * @return Boolean True if we have all inputs and can fit output
 	 */
 	private boolean validateRecipe(FusionReactorRecipe recipe) {
-		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs().get(0), outputStackSlot, true);	
+		return hasAllInputs(recipe) && canFitStack(recipe.getOutputs().get(0), outputStackSlot, true);
 	}
-	
+
 	/**
 	 * Check if BlockEntity has all necessary inputs for recipe provided
-	 * 
+	 *
 	 * @param recipeType RebornRecipe Recipe to check inputs
 	 * @return Boolean True if reactor has all inputs for recipe
 	 */
@@ -199,10 +173,10 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Decrease stack size on the given slot according to recipe input
-	 * 
+	 *
 	 * @param slot int Slot number
 	 */
 	private void useInput(int slot) {
@@ -228,7 +202,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		//Move this to here from the nbt read method, as it now requires the world as of 1.14
-		if(checkNBTRecipe) {
+		if (checkNBTRecipe) {
 			checkNBTRecipe = false;
 			for (final RebornRecipe reactorRecipe : ModRecipes.FUSION_REACTOR.getRecipes(getWorld())) {
 				if (validateRecipe((FusionReactorRecipe) reactorRecipe)) {
@@ -237,7 +211,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 			}
 		}
 
-		if(lastTick == world.getTime()){
+		if (lastTick == world.getTime()) {
 			//Prevent tick accerators, blame obstinate for this.
 			return;
 		}
@@ -245,11 +219,10 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 		// Force check every second
 		if (world.getTime() % 20 == 0) {
-			checkCoils();
 			inventory.setChanged();
 		}
 
-		if (coilCount == 0) {
+		if (!isMultiblockValid()) {
 			resetCrafter();
 			return;
 		}
@@ -314,7 +287,7 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public double getPowerMultiplier() {
-		double calc = (1F/2F) * Math.pow(size -5, 1.8);
+		double calc = (1F / 2F) * Math.pow(size - 5, 1.8);
 		return Math.max(Math.round(calc * 100D) / 100D, 1D);
 	}
 
@@ -355,10 +328,10 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.crafingTickTime = tagCompound.getInt("crafingTickTime");
 		this.neededPower = tagCompound.getInt("neededPower");
 		this.hasStartedCrafting = tagCompound.getBoolean("hasStartedCrafting");
-		if(tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null){
+		if (tagCompound.contains("hasActiveRecipe") && tagCompound.getBoolean("hasActiveRecipe") && this.currentRecipe == null) {
 			checkNBTRecipe = true;
 		}
-		if(tagCompound.contains("size")){
+		if (tagCompound.contains("size")) {
 			this.size = tagCompound.getInt("size");
 		}
 		this.size = Math.min(size, TechRebornConfig.fusionControlComputerMaxCoilSize);//Done here to force the samller size, will be useful if people lag out on a large one.
@@ -375,22 +348,9 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		return tagCompound;
 	}
 
-	// TileLegacyMachineBase
-	@Override
-	public void onLoad() {
-		super.onLoad();
-		this.checkCoils();
-	}
-
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(PlayerEntity playerIn) {
-		return TRContent.Machine.FUSION_CONTROL_COMPUTER.getStack();
 	}
 
 	// ItemHandlerProvider
@@ -404,7 +364,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("fusionreactor").player(player.inventory).inventory().hotbar()
 				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).syncEnergyValue()
-				.sync(this::getCoilStatus, this::setCoilStatus)
 				.sync(this::getCrafingTickTime, this::setCrafingTickTime)
 				.sync(this::getSize, this::setSize)
 				.sync(this::getState, this::setState)
@@ -412,14 +371,6 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 				.sync(this::getCurrentRecipeID, this::setCurrentRecipeID)
 				.addInventory()
 				.create(this, syncID);
-	}
-
-	public int getCoilStatus() {
-		return coilCount;
-	}
-
-	public void setCoilStatus(int coilStatus) {
-		this.coilCount = coilStatus;
 	}
 
 	public int getCrafingTickTime() {
@@ -446,61 +397,61 @@ public class FusionControlComputerBlockEntity extends PowerAcceptorBlockEntity
 		this.size = size;
 	}
 
-	public void changeSize(int sizeDelta){
+	public void changeSize(int sizeDelta) {
 		int newSize = size + sizeDelta;
 		this.size = Math.max(6, Math.min(TechRebornConfig.fusionControlComputerMaxCoilSize, newSize));
 	}
 
-	public int getState(){
-		if(currentRecipe == null ){
+	public int getState() {
+		if (currentRecipe == null) {
 			return 0; //No Recipe
 		}
-		if(!hasStartedCrafting){
+		if (!hasStartedCrafting) {
 			return 1; //Waiting on power
 		}
 		return 2; //Crafting
 	}
 
-	public void setState(int state){
+	public void setState(int state) {
 		this.state = state;
 	}
 
 	public Identifier getCurrentRecipeID() {
-		if(currentRecipe == null) {
+		if (currentRecipe == null) {
 			return new Identifier("null", "null");
 		}
 		return currentRecipe.getId();
 	}
 
 	public void setCurrentRecipeID(Identifier currentRecipeID) {
-		if(currentRecipeID.getPath().equals("null")) {
+		if (currentRecipeID.getPath().equals("null")) {
 			currentRecipeID = null;
 		}
 		this.currentRecipeID = currentRecipeID;
 	}
 
 	public FusionReactorRecipe getCurrentRecipeFromID() {
-		if(currentRecipeID == null) return null;
+		if (currentRecipeID == null) return null;
 		return ModRecipes.FUSION_REACTOR.getRecipes(world).stream()
 				.filter(recipe -> recipe.getId().equals(currentRecipeID))
 				.findFirst()
 				.orElse(null);
 	}
 
-	public Text getStateText(){
-		if(state == -1){
+	public Text getStateText() {
+		if (state == -1) {
 			return LiteralText.EMPTY;
-		} else if (state == 0){
+		} else if (state == 0) {
 			return new LiteralText("No recipe");
-		} else if (state == 1){
+		} else if (state == 1) {
 			FusionReactorRecipe r = getCurrentRecipeFromID();
-			if(r == null) {
+			if (r == null) {
 				return new LiteralText("Charging");
 			}
 			int percentage = percentage(r.getStartEnergy(), getEnergy());
 			return new LiteralText("Charging (")
 					.append(StringUtils.getPercentageText(percentage));
-		} else if (state == 2){
+		} else if (state == 2) {
 			return new LiteralText("Crafting");
 		}
 		return LiteralText.EMPTY;

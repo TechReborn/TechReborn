@@ -58,7 +58,7 @@ public class IndustrialGrinderRecipe extends RebornFluidRecipe {
 	@Override
 	public boolean canCraft(BlockEntity be) {
 		IndustrialGrinderBlockEntity blockEntity = (IndustrialGrinderBlockEntity) be;
-		if (!blockEntity.getMultiBlock()) {
+		if (!blockEntity.isMultiblockValid()) {
 			return false;
 		}
 		return super.canCraft(be);
