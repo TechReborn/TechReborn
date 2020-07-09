@@ -29,6 +29,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.ToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -69,7 +70,8 @@ public class StorageUnitBlock extends BlockMachineBase {
 		ItemStack stackInHand = playerIn.getStackInHand(Hand.MAIN_HAND);
 		Item itemInHand = stackInHand.getItem();
 
-		if (storageEntity != null && (storageEntity.isSameType(stackInHand) || (!storageEntity.isLocked() && storageEntity.isEmpty() && !(itemInHand instanceof ToolItem)))) {
+		if (storageEntity != null && itemInHand != Items.AIR && (storageEntity.isSameType(stackInHand) && !storageEntity.isFull() ||
+				(!storageEntity.isLocked() && storageEntity.isEmpty() && (!(itemInHand instanceof ToolItem))))) {
 
 			// Add item which is the same type (in users inventory) into storage
 			for (int i = 0; i < playerIn.inventory.size() && !storageEntity.isFull(); i++) {
