@@ -432,7 +432,9 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		}
 
 		// Only set lockedItem in response to user input
-		lockedItemStack = value ? getStoredStack().copy() : ItemStack.EMPTY;
+		ItemStack stack = getStoredStack().copy();
+		stack.setCount(1);
+		lockedItemStack = value ? stack : ItemStack.EMPTY;
 		syncWithAll();
 	}
 
