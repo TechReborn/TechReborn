@@ -48,29 +48,29 @@ public class IndustrialCentrifugeBlockEntity extends GenericMachineBlockEntity i
 
 	public IndustrialCentrifugeBlockEntity() {
 		super(TRBlockEntities.INDUSTRIAL_CENTRIFUGE, "IndustrialCentrifuge", TechRebornConfig.industrialCentrifugeMaxInput, TechRebornConfig.industrialCentrifugeMaxEnergy, TRContent.Machine.INDUSTRIAL_CENTRIFUGE.block, 6);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2, 3, 4, 5 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2, 3, 4, 5};
 		this.inventory = new RebornInventory<>(7, "IndustrialCentrifugeBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.CENTRIFUGE, this, 2, 4, this.inventory, inputs, outputs);
 	}
-	
+
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("centrifuge").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
-			.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
-			.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
-			.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
-			.syncCrafterValue().addInventory().create(this, syncID);
+				.addInventory().blockEntity(this)
+				.filterSlot(1, 40, 54, stack -> ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
+				.filterSlot(0, 40, 34, stack -> !ItemUtils.isItemEqual(stack, DynamicCellItem.getEmptyCell(1), true, true))
+				.outputSlot(2, 82, 44).outputSlot(3, 101, 25)
+				.outputSlot(4, 120, 44).outputSlot(5, 101, 63).energySlot(6, 8, 72).syncEnergyValue()
+				.syncCrafterValue().addInventory().create(this, syncID);
 	}
-	
+
 	// IListInfoProvider
 	@Override
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		super.addInfo(info, isReal, hasData);
-		if(Screen.hasControlDown()) {
+		if (Screen.hasControlDown()) {
 			info.add(new LiteralText("Round and round it goes"));
 		}
 	}

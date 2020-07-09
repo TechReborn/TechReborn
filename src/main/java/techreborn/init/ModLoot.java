@@ -69,14 +69,13 @@ public class ModLoot {
 		LootPoolEntry industrialFrame = makeEntry(TRContent.MachineBlocks.INDUSTRIAL.frame.asItem());
 		LootPoolEntry industrialCircuit = makeEntry(Parts.INDUSTRIAL_CIRCUIT);
 		LootPoolEntry energyFlowChip = makeEntry(Parts.ENERGY_FLOW_CHIP);
-		
-		
+
 
 		LootPool poolBasic = FabricLootPoolBuilder.builder().withEntry(copperIngot).withEntry(tinIngot)
 				.withEntry(leadIngot).withEntry(silverIngot).withEntry(refinedronIngot).withEntry(advancedalloyIngot)
 				.withEntry(basicFrame).withEntry(basicCircuit).withEntry(rubberSapling).rolls(UniformLootTableRange.between(1.0f, 2.0f))
 				.build();
-		
+
 		LootPool poolAdvanced = FabricLootPoolBuilder.builder().withEntry(aluminumIngot).withEntry(electrumIngot)
 				.withEntry(invarIngot).withEntry(nickelIngot).withEntry(steelIngot).withEntry(zincIngot)
 				.withEntry(advancedFrame).withEntry(advancedCircuit).withEntry(dataStorageChip).rolls(UniformLootTableRange.between(1.0f, 3.0f))
@@ -86,7 +85,7 @@ public class ModLoot {
 				.withEntry(platinumIngot).withEntry(titaniumIngot).withEntry(tungstenIngot).withEntry(tungstensteelIngot)
 				.withEntry(industrialFrame).withEntry(industrialCircuit).withEntry(energyFlowChip).rolls(UniformLootTableRange.between(1.0f, 3.0f))
 				.build();
-		
+
 		LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, ident, supplier, setter) -> {
 			String stringId = ident.toString();
 			if (!stringId.startsWith("minecraft:chests")) {
@@ -95,24 +94,24 @@ public class ModLoot {
 
 			if (TechRebornConfig.enableOverworldLoot) {
 				switch (stringId) {
-				case "minecraft:chests/abandoned_mineshaft":
-                    case "minecraft:chests/desert_pyramid":
-                    case "minecraft:chests/igloo_chest":
-                    case "minecraft:chests/jungle_temple":
-                    case "minecraft:chests/simple_dungeon":
-                    case "minecraft:chests/village/village_weaponsmith":
-                    case "minecraft:chests/village/village_armorer":
-                    case "minecraft:chests/village/village_toolsmith":
-                        supplier.withPool(poolBasic);
-					break;
-                    case "minecraft:chests/stronghold_corridor":
-                    case "minecraft:chests/stronghold_crossing":
-                    case "minecraft:chests/stronghold_library":
-                        supplier.withPool(poolAdvanced);
-					break;
-                    case "minecraft:chests/woodland_mansion":
-					 supplier.withPool(poolIndustrial);
-					break;
+					case "minecraft:chests/abandoned_mineshaft":
+					case "minecraft:chests/desert_pyramid":
+					case "minecraft:chests/igloo_chest":
+					case "minecraft:chests/jungle_temple":
+					case "minecraft:chests/simple_dungeon":
+					case "minecraft:chests/village/village_weaponsmith":
+					case "minecraft:chests/village/village_armorer":
+					case "minecraft:chests/village/village_toolsmith":
+						supplier.withPool(poolBasic);
+						break;
+					case "minecraft:chests/stronghold_corridor":
+					case "minecraft:chests/stronghold_crossing":
+					case "minecraft:chests/stronghold_library":
+						supplier.withPool(poolAdvanced);
+						break;
+					case "minecraft:chests/woodland_mansion":
+						supplier.withPool(poolIndustrial);
+						break;
 				}
 			}
 
@@ -133,7 +132,7 @@ public class ModLoot {
 
 	/**
 	 * Makes loot entry from item provided
-	 * 
+	 *
 	 * @param item Item to include into LootEntry
 	 * @return LootEntry for item provided
 	 */
@@ -144,11 +143,11 @@ public class ModLoot {
 	/**
 	 * Makes loot entry from item provided with weight provided
 	 *
-	 * @param item  Item to include into LootEntry
+	 * @param item   Item to include into LootEntry
 	 * @param weight Weight of that item
 	 * @return LootEntry for item and weight provided
 	 */
-	private static LootPoolEntry makeEntry(ItemConvertible item, int weight){
+	private static LootPoolEntry makeEntry(ItemConvertible item, int weight) {
 		return ItemEntry.builder(item).weight(weight)
 				.apply(SetCountLootFunction.builder(UniformLootTableRange.between(1.0f, 2.0f))).build();
 	}

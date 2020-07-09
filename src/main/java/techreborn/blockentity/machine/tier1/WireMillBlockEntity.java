@@ -39,8 +39,8 @@ public class WireMillBlockEntity extends GenericMachineBlockEntity implements Bu
 
 	public WireMillBlockEntity() {
 		super(TRBlockEntities.WIRE_MILL, "WireMill", 32, 1000, TRContent.Machine.WIRE_MILL.block, 2);
-		final int[] inputs = new int[] { 0 };
-		final int[] outputs = new int[] { 1 };
+		final int[] inputs = new int[]{0};
+		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "WireMillBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.WIRE_MILL, this, 1, 1, this.inventory, inputs, outputs);
 	}
@@ -49,13 +49,13 @@ public class WireMillBlockEntity extends GenericMachineBlockEntity implements Bu
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("wiremill").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.slot(0, 55, 45)
-			.outputSlot(1, 101, 45)
-			.energySlot(2, 8, 72)
-			.syncEnergyValue()
-			.syncCrafterValue()
-			.addInventory()
-			.create(this, syncID);
+				.addInventory().blockEntity(this)
+				.slot(0, 55, 45)
+				.outputSlot(1, 101, 45)
+				.energySlot(2, 8, 72)
+				.syncEnergyValue()
+				.syncCrafterValue()
+				.addInventory()
+				.create(this, syncID);
 	}
 }

@@ -40,7 +40,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
 public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
-	implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
+		implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
 
 	public RebornInventory<ChargeOMatBlockEntity> inventory = new RebornInventory<>(6, "ChargeOMatBlockEntity", 64, this);
 
@@ -53,7 +53,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	public void tick() {
 		super.tick();
 
-		if(world.isClient){
+		if (world.isClient) {
 			return;
 		}
 		for (int i = 0; i < 6; i++) {
@@ -61,11 +61,11 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 
 			if (Energy.valid(stack)) {
 				Energy.of(this)
-					.into(
-						Energy
-							.of(stack)
-					)
-					.move();
+						.into(
+								Energy
+										.of(stack)
+						)
+						.move();
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	public double getBaseMaxInput() {
 		return TechRebornConfig.chargeOMatBMaxInput;
 	}
-	
+
 	// TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {
@@ -117,7 +117,7 @@ public class ChargeOMatBlockEntity extends PowerAcceptorBlockEntity
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("chargebench").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
-			.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create(this, syncID);
+				.blockEntity(this).energySlot(0, 62, 25).energySlot(1, 98, 25).energySlot(2, 62, 45).energySlot(3, 98, 45)
+				.energySlot(4, 62, 65).energySlot(5, 98, 65).syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

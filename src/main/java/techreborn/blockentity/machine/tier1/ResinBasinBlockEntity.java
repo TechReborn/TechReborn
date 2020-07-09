@@ -153,7 +153,7 @@ public class ResinBasinBlockEntity extends MachineBaseBlockEntity {
 
 		this.isFull = blockState.get(ResinBasinBlock.FULL);
 
-		if(blockState.get(ResinBasinBlock.POURING)){
+		if (blockState.get(ResinBasinBlock.POURING)) {
 			this.isPouring = true;
 			pouringTimer = TechRebornConfig.sapTimeTicks;
 		}

@@ -37,10 +37,9 @@ import techreborn.blockentity.machine.multiblock.FusionControlComputerBlockEntit
 
 /**
  * @author drcrazy
- *
  */
 public class FusionReactorRecipe extends RebornRecipe {
-	
+
 	private int startE;
 	private int minSize;
 
@@ -53,11 +52,11 @@ public class FusionReactorRecipe extends RebornRecipe {
 		this.startE = startE;
 		this.minSize = minSize;
 	}
-	
-	public int getStartEnergy () {
+
+	public int getStartEnergy() {
 		return startE;
 	}
-	
+
 	@Override
 	public void deserialize(JsonObject jsonObject) {
 		super.deserialize(jsonObject);
@@ -71,7 +70,7 @@ public class FusionReactorRecipe extends RebornRecipe {
 		jsonObject.addProperty("start-power", startE);
 		jsonObject.addProperty("min-size", minSize);
 	}
-	
+
 	@Override
 	public boolean canCraft(final BlockEntity blockEntity) {
 		if (blockEntity instanceof FusionControlComputerBlockEntity) {

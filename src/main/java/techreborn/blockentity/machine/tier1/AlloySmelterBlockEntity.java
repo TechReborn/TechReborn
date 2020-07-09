@@ -40,8 +40,8 @@ public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implement
 
 	public AlloySmelterBlockEntity() {
 		super(TRBlockEntities.ALLOY_SMELTER, "AlloySmelter", TechRebornConfig.alloySmelterMaxInput, TechRebornConfig.alloySmelterMaxEnergy, TRContent.Machine.ALLOY_SMELTER.block, 3);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "AlloySmelterBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.ALLOY_SMELTER, this, 2, 1, this.inventory, inputs, outputs);
 	}
@@ -50,10 +50,10 @@ public class AlloySmelterBlockEntity extends GenericMachineBlockEntity implement
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("alloysmelter").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.slot(0, 34, 47)
-			.slot(1, 126, 47)
-			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
-			.create(this, syncID);
+				.addInventory().blockEntity(this)
+				.slot(0, 34, 47)
+				.slot(1, 126, 47)
+				.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
+				.create(this, syncID);
 	}
 }

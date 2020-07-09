@@ -28,23 +28,17 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.TntEntity;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import reborncore.common.explosion.RebornExplosion;
-import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.TRBlockEntities;
-import techreborn.init.TRContent;
 
 /**
  * Created by Mark on 13/03/2016.
  */
 public class EntityNukePrimed extends TntEntity {
 
-	public EntityNukePrimed(EntityType<EntityNukePrimed> entityType,  World world) {
+	public EntityNukePrimed(EntityType<EntityNukePrimed> entityType, World world) {
 		super(entityType, world);
 		setFuse(TechRebornConfig.nukeFuseTime);
 	}

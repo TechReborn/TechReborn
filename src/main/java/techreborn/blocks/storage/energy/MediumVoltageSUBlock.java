@@ -33,7 +33,7 @@ import techreborn.client.GuiType;
  * Created by modmuss50 on 14/03/2016.
  */
 public class MediumVoltageSUBlock extends EnergyStorageBlock {
-	
+
 	public MediumVoltageSUBlock() {
 		super("medium_voltage_su", GuiType.MEDIUM_VOLTAGE_SU);
 	}

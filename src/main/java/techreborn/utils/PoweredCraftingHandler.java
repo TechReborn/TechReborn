@@ -64,14 +64,14 @@ public final class PoweredCraftingHandler implements ItemCraftCallback {
 			return;
 		}
 		Map<Enchantment, Integer> map = Maps.newLinkedHashMap();
-		for (int i = 0; i < craftingInventory.size(); i++){
+		for (int i = 0; i < craftingInventory.size(); i++) {
 			ItemStack ingredient = craftingInventory.getStack(i);
-			if (ingredient.isEmpty()){
+			if (ingredient.isEmpty()) {
 				continue;
 			}
 			EnchantmentHelper.get(ingredient).forEach((key, value) -> map.merge(key, value, (v1, v2) -> v1 > v2 ? v1 : v2));
 		}
-		if (!map.isEmpty()){
+		if (!map.isEmpty()) {
 			EnchantmentHelper.set(map, stack);
 		}
 	}

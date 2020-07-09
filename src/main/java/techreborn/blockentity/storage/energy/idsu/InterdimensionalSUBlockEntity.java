@@ -54,7 +54,7 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0.0;
 		}
-		if(world.isClient){
+		if (world.isClient) {
 			return clientEnergy;
 		}
 		return IDSUManager.getPlayer(world, ownerUdid).getEnergy();
@@ -65,19 +65,19 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return;
 		}
-		if(world.isClient){
+		if (world.isClient) {
 			clientEnergy = energy;
 		} else {
 			IDSUManager.getPlayer(world, ownerUdid).setEnergy(energy);
 		}
 	}
-	
+
 	@Override
 	public double useEnergy(double extract, boolean simulate) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return 0.0;
 		}
-		if(world.isClient){
+		if (world.isClient) {
 			throw new UnsupportedOperationException("cannot set energy on the client!");
 		}
 		double energy = IDSUManager.getPlayer(world, ownerUdid).getEnergy();
@@ -89,13 +89,13 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 		}
 		return extract;
 	}
-	
+
 	@Override
 	public boolean canUseEnergy(double input) {
 		if (ownerUdid == null || ownerUdid.isEmpty()) {
 			return false;
 		}
-		if(world.isClient){
+		if (world.isClient) {
 			throw new UnsupportedOperationException("cannot set energy on the client!");
 		}
 		return input <= IDSUManager.getPlayer(world, ownerUdid).getEnergy();
@@ -120,8 +120,8 @@ public class InterdimensionalSUBlockEntity extends EnergyStorageBlockEntity impl
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("idsu").player(player.inventory).inventory().hotbar().armor()
-			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().addInventory().create(this, syncID);
+				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+				.syncEnergyValue().addInventory().create(this, syncID);
 	}
 
 	@Override

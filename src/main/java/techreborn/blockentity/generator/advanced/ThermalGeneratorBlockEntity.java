@@ -60,10 +60,10 @@ public class ThermalGeneratorBlockEntity extends BaseFluidGeneratorBlockEntity i
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("thermalgenerator").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
-			.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
-			.sync(this::getTankAmount, this::setTankAmount)
-			.sync(tank)
-			.addInventory().create(this, syncID);
+				.addInventory().blockEntity(this).slot(0, 25, 35).outputSlot(1, 25, 55).syncEnergyValue()
+				.sync(this::getTicksSinceLastChange, this::setTicksSinceLastChange)
+				.sync(this::getTankAmount, this::setTankAmount)
+				.sync(tank)
+				.addInventory().create(this, syncID);
 	}
 }

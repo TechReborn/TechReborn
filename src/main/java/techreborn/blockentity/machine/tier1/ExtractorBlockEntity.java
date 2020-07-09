@@ -40,12 +40,12 @@ public class ExtractorBlockEntity extends GenericMachineBlockEntity implements B
 
 	public ExtractorBlockEntity() {
 		super(TRBlockEntities.EXTRACTOR, "Extractor", TechRebornConfig.extractorMaxInput, TechRebornConfig.extractorMaxEnergy, TRContent.Machine.EXTRACTOR.block, 2);
-		final int[] inputs = new int[] { 0 };
-		final int[] outputs = new int[] { 1 };
+		final int[] inputs = new int[]{0};
+		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "ExtractorBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.EXTRACTOR, this, 2, 1, this.inventory, inputs, outputs);
 	}
-	
+
 	// IContainerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {

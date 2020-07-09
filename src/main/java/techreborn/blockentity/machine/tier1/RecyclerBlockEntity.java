@@ -61,7 +61,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	public int gaugeProgressScaled(int scale) {
 		return progress * scale / time;
 	}
-	
+
 	public int getProgress() {
 		return progress;
 	}
@@ -69,7 +69,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
-	
+
 	public void recycleItems() {
 		ItemStack itemstack = TRContent.Parts.SCRAP.getStack();
 		final int randomchance = this.world.random.nextInt(chance);
@@ -77,8 +77,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		if (randomchance == 1) {
 			if (inventory.getStack(1).isEmpty()) {
 				inventory.setStack(1, itemstack.copy());
-			}
-			else {
+			} else {
 				inventory.getStack(1).increment(itemstack.getCount());
 			}
 		}
@@ -86,16 +85,13 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	public boolean canRecycle() {
-		return !inventory.getStack(0) .isEmpty() && hasSlotGotSpace(1);
+		return !inventory.getStack(0).isEmpty() && hasSlotGotSpace(1);
 	}
 
 	public boolean hasSlotGotSpace(int slot) {
 		if (inventory.getStack(slot).isEmpty()) {
 			return true;
-		} else if (inventory.getStack(slot).getCount() < inventory.getStack(slot).getMaxCount()) {
-			return true;
-		}
-		return false;
+		} else return inventory.getStack(slot).getCount() < inventory.getStack(slot).getMaxCount();
 	}
 
 	public boolean isBurning() {
@@ -129,13 +125,12 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		boolean updateInventory = false;
 		if (canRecycle() && !isBurning() && getEnergy() != 0) {
 			setBurning(true);
-		}
-		else if (isBurning()) {
+		} else if (isBurning()) {
 			if (useEnergy(getEuPerTick(cost)) != getEuPerTick(cost)) {
 				this.setBurning(false);
 			}
 			progress++;
-			if (progress >= Math.max((int) (time* (1.0 - getSpeedMultiplier())), 1)) {
+			if (progress >= Math.max((int) (time * (1.0 - getSpeedMultiplier())), 1)) {
 				progress = 0;
 				recycleItems();
 				updateInventory = true;
@@ -144,7 +139,7 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 		}
 
 		updateState();
-		
+
 		if (updateInventory) {
 			markDirty();
 		}
@@ -174,13 +169,13 @@ public class RecyclerBlockEntity extends PowerAcceptorBlockEntity
 	public double getBaseMaxInput() {
 		return TechRebornConfig.recyclerMaxInput;
 	}
-	
+
 	// TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {
 		return true;
 	}
-	
+
 	// IToolDrop
 	@Override
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {

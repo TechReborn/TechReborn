@@ -49,14 +49,14 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 	IronFurnaceBlockEntity blockEntity;
 
 	public GuiIronFurnace(int syncID, PlayerEntity player, IronFurnaceBlockEntity furnace) {
-		super(player, furnace,  furnace.createScreenHandler(syncID, player));
+		super(player, furnace, furnace.createScreenHandler(syncID, player));
 		this.blockEntity = furnace;
 	}
-	
-	public void onClick(){
+
+	public void onClick() {
 		NetworkManager.sendToServer(ServerboundPackets.createPacketExperience(blockEntity));
-	}	
-	
+	}
+
 	@Override
 	public void init() {
 		super.init();
@@ -87,7 +87,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 							furnaceExp -= PlayerUtils.getLevelExperience(player.experienceLevel);
 							++levels;
 						}
-						message = message + "+" + String.valueOf(levels) + "L";
+						message = message + "+" + levels + "L";
 					}
 				}
 
@@ -95,17 +95,17 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 				list.add(new LiteralText(message));
 				renderTooltip(matrixStack, list, mouseX, mouseY);
 				GlStateManager.disableLighting();
-				GlStateManager.color4f(1, 1, 1, 1);				
-					
+				GlStateManager.color4f(1, 1, 1, 1);
+
 			}
-			
+
 			@Override
 			public void renderBg(MatrixStack matrixStack, MinecraftClient mc, int mouseX, int mouseY) {
 				mc.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Items.EXPERIENCE_BOTTLE), x, y);
 			}
-		});		
+		});
 	}
-	
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, float lastFrameDuration, int mouseX, int mouseY) {
 		super.drawBackground(matrixStack, lastFrameDuration, mouseX, mouseY);
@@ -118,7 +118,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 
 		drawOutputSlot(matrixStack, 116, 35, layer);
 	}
-	
+
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);

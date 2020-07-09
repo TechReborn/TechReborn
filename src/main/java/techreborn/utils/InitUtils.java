@@ -50,12 +50,12 @@ public class InitUtils {
 		RebornRegistry.registerIdent(block, new Identifier(TechReborn.MOD_ID, name));
 		return block;
 	}
-	
+
 	public static SoundEvent setup(String name) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, name);
 		return Registry.register(Registry.SOUND_EVENT, identifier, new SoundEvent(identifier));
 	}
-	
+
 	public static void initPoweredItems(Item item, DefaultedList<ItemStack> itemList) {
 		ItemStack uncharged = new ItemStack(item);
 		ItemStack charged = new ItemStack(item);

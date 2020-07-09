@@ -46,7 +46,7 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
-	
+
 	public void init() {
 		super.init();
 		addButton(new GuiButtonUpDown(x + 64, y + 40, this, b -> onClick(5), UpDownButtonType.FASTFORWARD));
@@ -56,7 +56,7 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 
 		addButton(new GuiButtonSimple(x + 10, y + 70, 155, 20, new LiteralText("Toggle Loaded Chunks"), b -> ClientChunkManager.toggleLoadedChunks(blockEntity.getPos())));
 	}
-	
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 		super.drawBackground(matrixStack, partialTicks, mouseX, mouseY);
@@ -69,7 +69,7 @@ public class GuiChunkLoader extends GuiBase<BuiltScreenHandler> {
 		drawCentredText(matrixStack, text, 25, 4210752, layer);
 	}
 
-	public void onClick(int amount){
+	public void onClick(int amount) {
 		NetworkManager.sendToServer(ServerboundPackets.createPacketChunkloader(amount, blockEntity, ClientChunkManager.hasChunksForLoader(blockEntity.getPos())));
-	}	
+	}
 }

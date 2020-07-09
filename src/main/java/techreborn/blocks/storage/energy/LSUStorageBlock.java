@@ -67,12 +67,12 @@ public class LSUStorageBlock extends BaseBlockEntityProvider {
 		}
 		super.onStateReplaced(state, worldIn, pos, newState, isMoving);
 	}
-	
+
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new LSUStorageBlockEntity();
 	}
-	
+
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity player, ItemStack itemstack) {
 		super.onPlaced(world, pos, state, player, itemstack);

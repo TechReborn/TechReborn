@@ -79,7 +79,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		super.tick();
 		ticksSinceLastChange++;
 
-		if(world.isClient){
+		if (world.isClient) {
 			return;
 		}
 
@@ -88,9 +88,8 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 			ItemStack inputStack = inventory.getStack(0);
 			if (!inputStack.isEmpty()) {
 				if (FluidUtils.isContainerEmpty(inputStack) && !tank.getFluidAmount().isEmpty()) {
-					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());	
-				}
-				else if (inputStack.getItem() instanceof ItemFluidInfo && getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
+					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());
+				} else if (inputStack.getItem() instanceof ItemFluidInfo && getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
 				}
 			}
@@ -118,14 +117,13 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 
 		if (world.getTime() - lastOutput < 30 && !isActive()) {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, true));
-		}
-		else if (world.getTime() - lastOutput > 30 && isActive()) {
+		} else if (world.getTime() - lastOutput > 30 && isActive()) {
 			world.setBlockState(pos, world.getBlockState(pos).with(BlockMachineBase.ACTIVE, false));
 		}
 	}
-	
+
 	public int getProgressScaled(int scale) {
-		if (isActive()){
+		if (isActive()) {
 			return ticksSinceLastChange * scale;
 		}
 		return 0;
@@ -207,11 +205,11 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		this.ticksSinceLastChange = ticksSinceLastChange;
 	}
 
-	public FluidValue getTankAmount(){
+	public FluidValue getTankAmount() {
 		return tank.getFluidAmount();
 	}
 
-	public void setTankAmount(FluidValue amount){
+	public void setTankAmount(FluidValue amount) {
 		tank.setFluidAmount(amount);
 	}
 

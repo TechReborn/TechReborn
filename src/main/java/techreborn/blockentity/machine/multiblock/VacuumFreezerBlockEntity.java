@@ -25,7 +25,6 @@
 package techreborn.blockentity.machine.multiblock;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Direction;
 import reborncore.client.screen.BuiltScreenHandlerProvider;
@@ -56,7 +55,7 @@ public class VacuumFreezerBlockEntity extends GenericMachineBlockEntity implemen
 		BlockState advanced = TRContent.MachineBlocks.ADVANCED.getCasing().getDefaultState();
 		BlockState industrial = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
 
-		writer	.translate(-1, -3, -1)
+		writer.translate(-1, -3, -1)
 				.fill(0, 0, 0, 3, 1, 3, advanced)
 				.ringWithAir(Direction.Axis.Y, 3, 1, 3, industrial)
 				.fill(0, 2, 0, 3, 3, 3, advanced);

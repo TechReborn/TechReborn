@@ -38,7 +38,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
-import reborncore.api.items.InventoryBase;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.WorldUtils;
@@ -90,7 +89,7 @@ public class StorageUnitBlock extends BlockMachineBase {
 	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
 		super.onBlockBreakStart(state, world, pos, player);
 
-		if(world.isClient) return;
+		if (world.isClient) return;
 
 		final StorageUnitBaseBlockEntity storageEntity = (StorageUnitBaseBlockEntity) world.getBlockEntity(pos);
 		ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
@@ -100,10 +99,10 @@ public class StorageUnitBlock extends BlockMachineBase {
 			ItemStack out = inventory.getStack(StorageUnitBaseBlockEntity.OUTPUT_SLOT);
 
 			// Drop stack if sneaking
-			if(player.isSneaking()){
+			if (player.isSneaking()) {
 				WorldUtils.dropItem(new ItemStack(out.getItem()), world, player.getBlockPos());
 				out.decrement(1);
-			}else {
+			} else {
 				WorldUtils.dropItem(out, world, player.getBlockPos());
 				out.setCount(0);
 			}
@@ -112,7 +111,6 @@ public class StorageUnitBlock extends BlockMachineBase {
 		}
 
 	}
-
 
 
 	@Override

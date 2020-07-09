@@ -28,10 +28,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -41,12 +39,10 @@ import net.minecraft.world.World;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.fluid.RebornBucketItem;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
-import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 import techreborn.client.GuiType;
 import techreborn.init.TRContent;
 
@@ -76,17 +72,17 @@ public class TankUnitBlock extends BlockMachineBase {
 
 		// Assuming ItemFluidInfo is 1 BUCKET, for now only allow exact amount or less
 		if (tankUnitEntity != null && itemInHand instanceof ItemFluidInfo) {
-			ItemFluidInfo itemFluid = (ItemFluidInfo)itemInHand;
+			ItemFluidInfo itemFluid = (ItemFluidInfo) itemInHand;
 			Fluid fluid = itemFluid.getFluid(stackInHand);
 			int amount = stackInHand.getCount();
 
 			FluidValue fluidValue = FluidValue.BUCKET.multiply(amount);
 			Tank tankInstance = tankUnitEntity.getTank();
 
-			if(tankInstance.canFit(fluid, fluidValue)){
-				if(tankInstance.getFluidInstance().isEmptyFluid()){
+			if (tankInstance.canFit(fluid, fluidValue)) {
+				if (tankInstance.getFluidInstance().isEmptyFluid()) {
 					tankInstance.setFluidInstance(new FluidInstance(fluid, fluidValue));
-				}else{
+				} else {
 					tankInstance.getFluidInstance().addAmount(fluidValue);
 				}
 

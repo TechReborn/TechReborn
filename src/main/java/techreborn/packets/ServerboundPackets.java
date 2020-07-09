@@ -59,7 +59,7 @@ public class ServerboundPackets {
 	public static final Identifier REFUND = new Identifier(TechReborn.MOD_ID, "refund");
 	public static final Identifier CHUNKLOADER = new Identifier(TechReborn.MOD_ID, "chunkloader");
 	public static final Identifier EXPERIENCE = new Identifier(TechReborn.MOD_ID, "experience");
-	
+
 	public static void init() {
 		registerPacketHandler(AESU, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
@@ -124,7 +124,7 @@ public class ServerboundPackets {
 		});
 
 		registerPacketHandler(REFUND, (extendedPacketBuffer, context) -> {
-			if(!TechRebornConfig.allowManualRefund){
+			if (!TechRebornConfig.allowManualRefund) {
 				return;
 			}
 			context.getTaskQueue().execute(() -> {
@@ -141,12 +141,12 @@ public class ServerboundPackets {
 			});
 
 		});
-		
+
 		registerPacketHandler(CHUNKLOADER, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
 			int buttonID = extendedPacketBuffer.readInt();
 			boolean sync = extendedPacketBuffer.readBoolean();
-			
+
 			context.getTaskQueue().execute(() -> {
 				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
 				if (blockEntity instanceof ChunkLoaderBlockEntity) {
@@ -154,10 +154,10 @@ public class ServerboundPackets {
 				}
 			});
 		});
-		
+
 		registerPacketHandler(EXPERIENCE, (extendedPacketBuffer, context) -> {
 			BlockPos pos = extendedPacketBuffer.readBlockPos();
-			
+
 			context.getTaskQueue().execute(() -> {
 				BlockEntity blockEntity = context.getPlayer().world.getBlockEntity(pos);
 				if (blockEntity instanceof IronFurnaceBlockEntity) {
@@ -167,7 +167,7 @@ public class ServerboundPackets {
 		});
 	}
 
-	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer){
+	private static void registerPacketHandler(Identifier identifier, BiConsumer<ExtendedPacketBuffer, PacketContext> consumer) {
 		ServerSidePacketRegistry.INSTANCE.register(identifier, (packetContext, packetByteBuf) -> consumer.accept(new ExtendedPacketBuffer(packetByteBuf), packetContext));
 	}
 
@@ -209,12 +209,12 @@ public class ServerboundPackets {
 		});
 	}
 
-	public static Packet<ServerPlayPacketListener> createRefundPacket(){
+	public static Packet<ServerPlayPacketListener> createRefundPacket() {
 		return NetworkManager.createServerBoundPacket(REFUND, extendedPacketBuffer -> {
 
 		});
 	}
-	
+
 	public static Packet<ServerPlayPacketListener> createPacketChunkloader(int buttonID, ChunkLoaderBlockEntity blockEntity, boolean sync) {
 		return NetworkManager.createServerBoundPacket(CHUNKLOADER, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
@@ -222,7 +222,7 @@ public class ServerboundPackets {
 			extendedPacketBuffer.writeBoolean(sync);
 		});
 	}
-	
+
 	public static Packet<ServerPlayPacketListener> createPacketExperience(IronFurnaceBlockEntity blockEntity) {
 		return NetworkManager.createServerBoundPacket(EXPERIENCE, extendedPacketBuffer -> {
 			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());

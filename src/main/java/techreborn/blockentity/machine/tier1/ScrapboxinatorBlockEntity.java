@@ -39,12 +39,12 @@ public class ScrapboxinatorBlockEntity extends GenericMachineBlockEntity impleme
 
 	public ScrapboxinatorBlockEntity() {
 		super(TRBlockEntities.SCRAPBOXINATOR, "Scrapboxinator", TechRebornConfig.scrapboxinatorMaxInput, TechRebornConfig.scrapboxinatorMaxEnergy, TRContent.Machine.SCRAPBOXINATOR.block, 2);
-		final int[] inputs = new int[] { 0 };
-		final int[] outputs = new int[] { 1 };
+		final int[] inputs = new int[]{0};
+		final int[] outputs = new int[]{1};
 		this.inventory = new RebornInventory<>(3, "ScrapboxinatorBlockEntity", 64, this);
 		this.crafter = new ScrapboxRecipeCrafter(this, this.inventory, inputs, outputs);
 	}
-	
+
 	// TileMachineBase
 	@Override
 	public boolean canBeUpgraded() {

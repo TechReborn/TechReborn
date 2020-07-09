@@ -79,7 +79,7 @@ public class IndustrialBlastFurnaceBlockEntity extends GenericMachineBlockEntity
 			return state == lava || state.getBlock() == Blocks.AIR;
 		};
 
-		writer	.translate(1, 0, -1)
+		writer.translate(1, 0, -1)
 				.fill(0, 0, 0, 3, 1, 3, casing, basic)
 				.ring(Direction.Axis.Y, 3, 1, 3, casing, basic, maybeLava, lava)
 				.ring(Direction.Axis.Y, 3, 2, 3, casing, basic, maybeLava, lava)

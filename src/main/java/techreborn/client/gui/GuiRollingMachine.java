@@ -38,7 +38,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 	RollingMachineBlockEntity rollingMachine;
 
 	public GuiRollingMachine(int syncID, final PlayerEntity player, final RollingMachineBlockEntity blockEntityRollingmachine) {
-		super(player, blockEntityRollingmachine,  blockEntityRollingmachine.createScreenHandler(syncID, player));
+		super(player, blockEntityRollingmachine, blockEntityRollingmachine.createScreenHandler(syncID, player));
 		this.rollingMachine = blockEntityRollingmachine;
 	}
 
@@ -62,7 +62,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 		drawOutputSlot(matrixStack, 124, gridYPos + 18, layer);
 
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
-		builder.drawLockButton(matrixStack, this, 130, 4, mouseX, mouseY, layer,rollingMachine.locked);
+		builder.drawLockButton(matrixStack, this, 130, 4, mouseX, mouseY, layer, rollingMachine.locked);
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class GuiRollingMachine extends GuiBase<BuiltScreenHandler> {
 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-		if(isPointInRect(130, 4, 20, 12, mouseX, mouseY)){
+		if (isPointInRect(130, 4, 20, 12, mouseX, mouseY)) {
 			NetworkManager.sendToServer(ServerboundPackets.createPacketRollingMachineLock(rollingMachine, !rollingMachine.locked));
 			return true;
 		}

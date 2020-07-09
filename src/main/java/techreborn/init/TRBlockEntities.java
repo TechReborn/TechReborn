@@ -72,8 +72,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class TRBlockEntities {
-	
-	private static List<BlockEntityType<?>> TYPES = new ArrayList<>();
+
+	private static final List<BlockEntityType<?>> TYPES = new ArrayList<>();
 
 
 	public static final BlockEntityType<StorageUnitBaseBlockEntity> STORAGE_UNIT = register(StorageUnitBaseBlockEntity::new, "storage_unit", TRContent.StorageUnit.values());

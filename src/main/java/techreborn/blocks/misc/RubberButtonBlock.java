@@ -29,7 +29,6 @@ import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
- *
  */
 public class RubberButtonBlock extends WoodButtonBlock {
 

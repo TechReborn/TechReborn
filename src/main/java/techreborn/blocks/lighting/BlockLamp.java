@@ -56,8 +56,8 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	public static BooleanProperty ACTIVE;
 	protected final VoxelShape[] shape;
 
-	private int cost;
-	private static int brightness = 15;
+	private final int cost;
+	private static final int brightness = 15;
 
 	public BlockLamp(int cost, double depth, double width) {
 		super(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(2f, 2f).lightLevel(brightness));
@@ -66,9 +66,9 @@ public class BlockLamp extends BaseBlockEntityProvider {
 		this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(ACTIVE, false));
 		BlockWrenchEventHandler.wrenableBlocks.add(this);
 	}
-	
+
 	private VoxelShape[] genCuboidShapes(double depth, double width) {
-		double culling = (16.0D - width) / 2 ;
+		double culling = (16.0D - width) / 2;
 		return new VoxelShape[]{
 				createCuboidShape(culling, 16.0 - depth, culling, 16.0 - culling, 16.0D, 16.0 - culling),
 				createCuboidShape(culling, 0.0D, culling, 16.0D - culling, depth, 16.0 - culling),
@@ -76,7 +76,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 				createCuboidShape(culling, culling, 0.0D, 16.0 - culling, 16.0 - culling, depth),
 				createCuboidShape(16.0 - depth, culling, culling, 16.0D, 16.0 - culling, 16.0 - culling),
 				createCuboidShape(0.0D, culling, culling, depth, 16.0 - culling, 16.0 - culling)
-			};
+		};
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	}
 
 	public static void setActive(Boolean active, World world, BlockPos pos) {
-		Direction facing = (Direction)world.getBlockState(pos).get(FACING);
+		Direction facing = world.getBlockState(pos).get(FACING);
 		BlockState state = world.getBlockState(pos).with(ACTIVE, active).with(FACING, facing);
 		world.setBlockState(pos, state, 3);
 	}
@@ -105,12 +105,12 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	public int getCost() {
 		return cost;
 	}
-	
+
 	// BaseTileBlock
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new LampBlockEntity();
-	}	
+	}
 
 	// Block
 	@Override
@@ -118,7 +118,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 		ACTIVE = BooleanProperty.of("active");
 		builder.add(FACING, ACTIVE);
 	}
-	
+
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext context) {
@@ -135,7 +135,7 @@ public class BlockLamp extends BaseBlockEntityProvider {
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;
 	}
-	
+
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);

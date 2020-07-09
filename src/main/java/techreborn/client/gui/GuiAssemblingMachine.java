@@ -51,7 +51,7 @@ public class GuiAssemblingMachine extends GuiBase<BuiltScreenHandler> {
 		// Input slots
 		drawSlot(matrixStack, 55, 35, layer);
 		drawSlot(matrixStack, 55, 55, layer);
-		
+
 		drawOutputSlot(matrixStack, 101, 45, layer);
 
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);

@@ -40,7 +40,7 @@ import techreborn.client.GuiType;
 import java.util.Random;
 
 public class IronAlloyFurnaceBlock extends GenericMachineBlock {
-	
+
 	public IronAlloyFurnaceBlock() {
 		super(GuiType.ALLOY_FURNACE, IronAlloyFurnaceBlockEntity::new);
 	}
@@ -59,7 +59,7 @@ public class IronAlloyFurnaceBlock extends GenericMachineBlock {
 			worldIn.playSound(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 		}
 
-		Direction facing = (Direction) stateIn.get(FACING);
+		Direction facing = stateIn.get(FACING);
 		Direction.Axis facing$Axis = facing.getAxis();
 		double double_5 = rand.nextDouble() * 0.6D - 0.3D;
 		double deltaX = facing$Axis == Direction.Axis.X ? (double) facing.getOffsetX() * 0.52D : double_5;

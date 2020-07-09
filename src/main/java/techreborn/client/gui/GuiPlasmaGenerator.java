@@ -35,7 +35,6 @@ import techreborn.blockentity.generator.PlasmaGeneratorBlockEntity;
 
 /**
  * @author drcrazy
- *
  */
 @Environment(EnvType.CLIENT)
 public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
@@ -51,7 +50,7 @@ public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
-	
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
@@ -60,17 +59,17 @@ public class GuiPlasmaGenerator extends GuiBase<BuiltScreenHandler> {
 		drawSlot(matrixStack, 25, 55, layer);
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
-	
-	
+
+
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = GuiBase.Layer.FOREGROUND;
-		
+
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(10), 100, 83, 48, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
 		builder.drawMultiEnergyBar(matrixStack, this, 130, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 		builder.drawTank(matrixStack, this, 44, 25, mouseX, mouseY, blockEntity.tank.getFluidInstance(), blockEntity.tank.getCapacity(), blockEntity.tank.isEmpty(), layer);
-		
+
 	}
 
 }

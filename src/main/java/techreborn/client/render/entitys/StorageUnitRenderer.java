@@ -24,33 +24,19 @@
 
 package techreborn.client.render.entitys;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SignBlock;
-import net.minecraft.block.WallSignBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.StringRenderable;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.Direction;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
-
-import java.util.List;
-
-import static net.minecraft.client.render.block.entity.SignBlockEntityRenderer.getModelTexture;
 
 /**
  * Created by drcrazy on 07-Jan-20 for TechReborn-1.15.
@@ -96,22 +82,22 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		TextRenderer textRenderer = this.dispatcher.getTextRenderer();
 
 
-		switch (storage.getFacing()){
+		switch (storage.getFacing()) {
 			case NORTH:
 				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().getOpposite().asRotation()));
-				matrices.translate(0.5f,0.5,-0.001f);
+				matrices.translate(0.5f, 0.5, -0.001f);
 				break;
 			case SOUTH:
 				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().getOpposite().asRotation()));
-				matrices.translate(-0.5f,0.5,-1.001f);
+				matrices.translate(-0.5f, 0.5, -1.001f);
 				break;
 			case EAST:
 				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().asRotation()));
-				matrices.translate(0.5f,0.5,-1.001f);
+				matrices.translate(0.5f, 0.5, -1.001f);
 				break;
 			case WEST:
 				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().asRotation()));
-				matrices.translate(-0.5f,0.5,-0.001f);
+				matrices.translate(-0.5f, 0.5, -0.001f);
 				break;
 
 		}
@@ -121,12 +107,12 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 
 		// Render item count
 		String count = String.valueOf(storage.storedAmount);
-		xPosition = (float)(-textRenderer.getWidth(count) / 2);
+		xPosition = (float) (-textRenderer.getWidth(count) / 2);
 		textRenderer.draw(count, xPosition, -4f + 40, 0, false, matrices.peek().getModel(), vertexConsumers, false, 0, light);
 
 		// Render name
 		String item = stack.getName().asTruncatedString(18);
-		xPosition = (float)(-textRenderer.getWidth(item) / 2);
+		xPosition = (float) (-textRenderer.getWidth(item) / 2);
 		textRenderer.draw(item, xPosition, -4f - 40, 0, false, matrices.peek().getModel(), vertexConsumers, false, 0, light);
 
 		matrices.pop();

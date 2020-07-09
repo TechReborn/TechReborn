@@ -67,7 +67,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	public NanosaberItem() {
 		super(ToolMaterials.DIAMOND, 1, 1, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 	}
-	
+
 	// SwordItem
 	@Override
 	public boolean postHit(ItemStack stack, LivingEntity entityHit, LivingEntity entityHitter) {
@@ -102,12 +102,14 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 	}
 
 	@Override
-	public boolean isEnchantable(ItemStack stack) { return true; }
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendStacks(
-		ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
+			ItemGroup par2ItemGroup, DefaultedList<ItemStack> itemList) {
 		if (!isIn(par2ItemGroup)) {
 			return;
 		}
@@ -174,7 +176,7 @@ public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabi
 		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 		attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
 
-		if (slot== EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
+		if (slot == EquipmentSlot.MAINHAND && ItemUtils.isActive(stack)) {
 			attributes.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", TechRebornConfig.nanosaberDamage, EntityAttributeModifier.Operation.ADDITION));
 			attributes.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", 3, EntityAttributeModifier.Operation.ADDITION));
 		}
