@@ -34,6 +34,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import reborncore.api.IListInfoProvider;
@@ -49,6 +50,7 @@ import reborncore.common.util.WorldUtils;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
@@ -241,6 +243,11 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public boolean isEmpty() {
 		return getCurrentCapacity() == 0;
+	}
+
+	@Override
+	public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
+		return  super.canInsert(index, stack, direction) && (this.isEmpty() && !isLocked() || isSameType(stack));
 	}
 
 	public int getCurrentCapacity() {
