@@ -35,6 +35,7 @@ import net.minecraft.util.math.Direction;
 import reborncore.RebornRegistry;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
+import techreborn.blocks.conduit.ConduitBlock;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
@@ -101,6 +102,7 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_BUTTON = InitUtils.setup(new RubberButtonBlock(), "rubber_button"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PRESSURE_PLATE = InitUtils.setup(new RubberPressurePlateBlock(), "rubber_pressure_plate"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_DOOR = InitUtils.setup(new RubberDoorBlock(), "rubber_door"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.ITEM_CONDUIT = InitUtils.setup(new ConduitBlock(), "item_conduit"), itemGroup);
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}

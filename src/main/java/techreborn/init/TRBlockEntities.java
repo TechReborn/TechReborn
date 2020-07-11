@@ -65,6 +65,7 @@ import techreborn.blockentity.transformers.EVTransformerBlockEntity;
 import techreborn.blockentity.transformers.HVTransformerBlockEntity;
 import techreborn.blockentity.transformers.LVTransformerBlockEntity;
 import techreborn.blockentity.transformers.MVTransformerBlockEntity;
+import techreborn.blockentity.conduit.ItemConduitBlockEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,6 +92,7 @@ public class TRBlockEntities {
 	public static final BlockEntityType<ChargeOMatBlockEntity> CHARGE_O_MAT = register(ChargeOMatBlockEntity::new, "charge_o_mat", TRContent.Machine.CHARGE_O_MAT);
 	public static final BlockEntityType<PlayerDectectorBlockEntity> PLAYER_DETECTOR = register(PlayerDectectorBlockEntity::new, "player_detector", TRContent.Machine.PLAYER_DETECTOR);
 	public static final BlockEntityType<CableBlockEntity> CABLE = register(CableBlockEntity::new, "cable", TRContent.Cables.values());
+	public static final BlockEntityType<ItemConduitBlockEntity> ITEM_CONDUIT = register(ItemConduitBlockEntity::new, "item_conduit", TRContent.ITEM_CONDUIT);
 	public static final BlockEntityType<MachineCasingBlockEntity> MACHINE_CASINGS = register(MachineCasingBlockEntity::new, "machine_casing", TRContent.MachineBlocks.getCasings());
 	public static final BlockEntityType<DragonEggSyphonBlockEntity> DRAGON_EGG_SYPHON = register(DragonEggSyphonBlockEntity::new, "dragon_egg_syphon", TRContent.Machine.DRAGON_EGG_SYPHON);
 	public static final BlockEntityType<AssemblingMachineBlockEntity> ASSEMBLY_MACHINE = register(AssemblingMachineBlockEntity::new, "assembly_machine", TRContent.Machine.ASSEMBLY_MACHINE);

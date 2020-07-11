@@ -55,6 +55,7 @@ import team.reborn.energy.Energy;
 import techreborn.client.render.DynamicBucketBakedModel;
 import techreborn.client.render.DynamicCellBakedModel;
 import techreborn.client.render.entitys.CableCoverRenderer;
+import techreborn.client.render.entitys.ItemConduitRenderer;
 import techreborn.client.render.entitys.StorageUnitRenderer;
 import techreborn.client.render.entitys.TurbineRenderer;
 import techreborn.events.StackToolTipHandler;
@@ -152,7 +153,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_SAPLING, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.REINFORCED_GLASS, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.Machine.RESIN_BASIN.block, RenderLayer.getCutout());
-
+		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.ITEM_CONDUIT, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TRContent.RUBBER_LEAVES, RenderLayer.getCutoutMipped());
 
 		for (ModFluids fluid : ModFluids.values()) {
@@ -172,6 +173,7 @@ public class TechRebornClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.STORAGE_UNIT, StorageUnitRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.CABLE, CableCoverRenderer::new);
 		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.WIND_MILL, TurbineRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(TRBlockEntities.ITEM_CONDUIT, ItemConduitRenderer::new);
 
 		registerPredicateProvider(
 				BatpackItem.class,

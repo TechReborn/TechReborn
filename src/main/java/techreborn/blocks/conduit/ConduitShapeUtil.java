@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package techreborn.blocks.cable;
+package techreborn.blocks.conduit;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -30,35 +30,35 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
-import techreborn.blocks.cable.CableBlock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public final class CableShapeUtil {
+public final class ConduitShapeUtil {
 
-	private final CableBlock cableBlock;
+	private final ConduitBlock conduitBlock;
 	private final HashMap<BlockState, VoxelShape> shapes;
 
-	public CableShapeUtil(CableBlock cableBlock) {
-		this.cableBlock = cableBlock;
+	public ConduitShapeUtil(ConduitBlock conduitBlock) {
+		this.conduitBlock = conduitBlock;
 		this.shapes = createStateShapeMap();
 	}
 
 	private HashMap<BlockState, VoxelShape> createStateShapeMap() {
-		return Util.make(new HashMap<>(), map -> cableBlock.getStateManager().getStates()
+		return Util.make(new HashMap<>(), map -> conduitBlock.getStateManager().getStates()
 				.forEach(state -> map.put(state, getStateShape(state)))
 		);
 	}
 
 	private VoxelShape getStateShape(BlockState state) {
-		final double size = cableBlock.type != null ? cableBlock.type.cableThickness : 6;
+		final double size = 12;
 		final VoxelShape baseShape = Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size);
 
 		final List<VoxelShape> connections = new ArrayList<>();
+
 		for (Direction dir : Direction.values()) {
-			if (state.get(CableBlock.PROPERTY_MAP.get(dir))) {
+			if (state.get(ConduitBlock.PROPERTY_MAP.get(dir))) {
 				double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
 				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
 				double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;
