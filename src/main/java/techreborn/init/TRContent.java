@@ -423,31 +423,13 @@ public class TRContent {
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
 
-			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block)) {
-				@Override
-				public String getTranslationKey() {
-					return block.getTranslationKey();
-				}
-			};
-
+			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
 
-			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block)) {
-				@Override
-				public String getTranslationKey() {
-					return block.getTranslationKey();
-				}
-			};
-
+			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block));
 			InitUtils.setup(slabBlock, name + "_storage_block_slab");
 
-			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block)) {
-				@Override
-				public String getTranslationKey() {
-					return block.getTranslationKey();
-				}
-			};
-
+			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block));
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
 		}
 
