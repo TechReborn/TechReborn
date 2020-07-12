@@ -34,11 +34,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 import reborncore.common.network.ClientBoundPackets;
 import reborncore.common.network.NetworkManager;
+import reborncore.common.util.IDebuggable;
 import techreborn.init.TRBlockEntities;
 
 import java.util.*;
@@ -47,11 +50,13 @@ import java.util.*;
  * Created by Dimmerworld on 11/07/2321.
  */
 
-public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
+public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDebuggable {
 
 	public List<ItemTransfer> storage = new ArrayList<>();
-
 	private ConduitMode mode = ConduitMode.NONE;
+
+	// Round robin variable
+	private int outputIndex = 0;
 
 	public ItemConduitBlockEntity() {
 		super(TRBlockEntities.ITEM_CONDUIT);
@@ -59,19 +64,19 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (world != null && world.isClient) {
 			return;
 		}
 
 		Map<Direction, ItemConduitBlockEntity> conduits = new HashMap<>();
 
+		// Loop through each face, populating neighbour conduits and performing IO
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
-			if (blockEntity != null) {
-				if (blockEntity instanceof ItemConduitBlockEntity) {
-					conduits.put(face, (ItemConduitBlockEntity) blockEntity);
-				}
+			if (blockEntity instanceof ItemConduitBlockEntity) {
+				conduits.put(face, (ItemConduitBlockEntity) blockEntity);
+				continue; // Don't need to do IO for this direction
 			}
 
 			// Get a item from any inventory
@@ -90,20 +95,19 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 			}
 		}
 
+		// Movement between conduits and progression
 		Iterator<ItemTransfer> iter = storage.iterator();
-
 		while (iter.hasNext()) {
-			ItemTransfer transfer = iter.next();
+			ItemTransfer itemTransfer = iter.next();
+			itemTransfer.progress();
 
-			transfer.progress();
-
-			//
-			if (transfer.isFinished()) {
-				Pair<ItemConduitBlockEntity, Direction> destination = getDestinationConduit(conduits, transfer.from);
+			// If finished, find another conduit to move to
+			if (itemTransfer.isFinished()) {
+				Pair<ItemConduitBlockEntity, Direction> destination = getDestinationConduit(conduits, itemTransfer.getOriginDirection());
 
 				if (destination != null) {
 					// Giving the opposite of the TO direction which is the direction which the new conduit will be facing this entity.
-					boolean didTransfer = destination.getLeft().transferItem(transfer.itemStack, transfer.duration, destination.getRight().getOpposite());
+					boolean didTransfer = destination.getLeft().transferItem(itemTransfer, destination.getRight().getOpposite());
 
 					if (didTransfer) {
 						iter.remove();
@@ -120,9 +124,12 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 	}
 
-	public boolean transferItem(ItemStack itemStack, int duration, Direction from) {
+	public boolean transferItem(ItemTransfer itemTransfer, Direction origin) {
 		if (this.storage.size() == 0) {
-			this.storage.add(new ItemTransfer(itemStack, duration, from));
+			itemTransfer.restartProgress();
+			itemTransfer.setOriginDirection(origin);
+
+			this.storage.add(itemTransfer);
 			return true;
 		}
 
@@ -185,9 +192,9 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 			ItemTransfer transfer = iter.next();
 
 			if(transfer.isFinished()) {
-				transfer.itemStack = HopperBlockEntity.transfer(null, inventory, transfer.itemStack, face.getOpposite());
+				transfer.setItemStack(HopperBlockEntity.transfer(null, inventory, transfer.getItemStack(), face.getOpposite()));
 
-				if (transfer.itemStack.isEmpty()) {
+				if (transfer.isEmpty()) {
 					iter.remove();
 				}
 			}
@@ -205,9 +212,22 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 		// Don't send to where we've received.
 		tempConduit.remove(from);
 
-		// Do roundrobin crap here // TODO
+		// If pipe's changed or round robin round is finished, reset index
+		if(outputIndex >= tempConduit.size()){
+			outputIndex = 0;
+		}
+
+		// Round robin crap
+		int position = 0;
+
 		for (Map.Entry<Direction, ItemConduitBlockEntity> entry : tempConduit.entrySet()) {
-			return new Pair<>(entry.getValue(), entry.getKey());
+			if(position == outputIndex) {
+				outputIndex++;
+				return new Pair<>(entry.getValue(), entry.getKey());
+			}
+
+			// Increment if not right index
+			position++;
 		}
 
 		return null;
@@ -281,6 +301,27 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 		}
 
 		return compound;
+	}
+
+	@Override
+	public String getDebugText() {
+		String s = "";
+		s += IDebuggable.propertyFormat("Mode: ", getModeString() + "\n");
+		s += IDebuggable.propertyFormat("OutputIndex: ", String.valueOf(outputIndex)) + "\n";
+		s += IDebuggable.propertyFormat("Storage size: ", String.valueOf(storage.size()));
+
+		if(storage.size() > 0){
+			s += "\n" + Formatting.YELLOW  + "> Conduit Item INFO" + Formatting.WHITE + "\n";
+			for(ItemTransfer transfer : storage){
+				s += IDebuggable.propertyFormat("Item", transfer.getItemStack().getName().getString()) + "\n";
+				s += IDebuggable.propertyFormat("Progress: ", transfer.getProgressPercent() + "\n");
+				s += IDebuggable.propertyFormat("OriginDir: ", transfer.getOriginDirection() + "\n");
+				s += IDebuggable.propertyFormat("TargetDir: ", transfer.getTargetDirection() + "\n");
+			}
+			s += Formatting.YELLOW  + "> End" + Formatting.WHITE;
+		}
+
+		return s;
 	}
 
 }

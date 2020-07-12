@@ -25,7 +25,6 @@
 package techreborn.client.render.entitys;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
@@ -34,16 +33,11 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
 import techreborn.blockentity.conduit.ItemTransfer;
-import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEntity> {
 	public ItemConduitRenderer(BlockEntityRenderDispatcher dispatcher) {
@@ -65,7 +59,7 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 
 		for(ItemTransfer itemTransfer : transferList) {
 
-			float percent = itemTransfer.getProgress() * 1.2f;
+			float percent = itemTransfer.getProgressPercent() * 1.2f;
 
 			// Item rendering
 			matrices.push();

@@ -27,20 +27,24 @@ package techreborn.items.tool;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
+import reborncore.common.util.IDebuggable;
 import team.reborn.energy.Energy;
 import techreborn.TechReborn;
 
 import java.util.Map.Entry;
+
+import static reborncore.common.util.IDebuggable.propertyFormat;
 
 /**
  * Created by Mark on 20/03/2016.
@@ -55,21 +59,46 @@ public class DebugToolItem extends Item {
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
 		Block block = blockState.getBlock();
+
 		if (block == null) {
 			return ActionResult.FAIL;
 		}
-		sendMessage(context, new LiteralText(getRegistryName(block)));
-		for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
-			sendMessage(context, new LiteralText(getPropertyString(entry)));
+
+		// Name of block
+		sendMessage(context, new LiteralText(Formatting.GOLD + "<<< " + block.getName().getString() + " >>>"));
+
+
+		if(context.getPlayer() != null && context.getPlayer().isSneaking()) {
+			sendMessage(context, new LiteralText(getRegistryName(block)));
+
+			for (Entry<Property<?>, Comparable<?>> entry : blockState.getEntries().entrySet()) {
+				sendMessage(context, new LiteralText(getPropertyString(entry)));
+			}
 		}
+
 		BlockEntity blockEntity = context.getWorld().getBlockEntity(context.getBlockPos());
 		if (blockEntity != null) {
 			sendMessage(context, new LiteralText(getBlockEntityType(blockEntity)));
 			if (Energy.valid(blockEntity)) {
 				sendMessage(context, new LiteralText(getRCPower(blockEntity)));
 			}
+
+			if(blockEntity instanceof IDebuggable){
+				sendMessage(context, new LiteralText(((IDebuggable) blockEntity).getDebugText()));
+			}
+
 		}
 		return ActionResult.SUCCESS;
+	}
+
+	@Override
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+		if(world.isClient) return super.use(world, user, hand);
+
+		// Any right/click functionality here in air or specific
+		//sendMessage(user, new LiteralText(getElectricManagerInfo( ElectricNetworkManager.INSTANCE)));
+
+		return super.use(world, user, hand);
 	}
 
 	private void sendMessage(ItemUsageContext context, Text string) {
@@ -78,7 +107,11 @@ public class DebugToolItem extends Item {
 		}
 	}
 
-	private String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
+	private void sendMessage(PlayerEntity user, Text string) {
+		user.sendSystemMessage(string, Util.NIL_UUID);
+	}
+
+	private static String getPropertyString(Entry<Property<?>, Comparable<?>> entryIn) {
 		Property<?> iproperty = entryIn.getKey();
 		Comparable<?> comparable = entryIn.getValue();
 		String s = Util.getValueAsString(iproperty, comparable);
@@ -92,31 +125,20 @@ public class DebugToolItem extends Item {
 	}
 
 	private String getRegistryName(Block block) {
-		String s = "" + Formatting.GREEN;
-		s += "Block Registry Name: ";
-		s += Formatting.BLUE;
-		s += Registry.BLOCK.getId(block);
-
-		return s;
+		return propertyFormat("Registry Name", Registry.BLOCK.getId(block).toString());
 	}
 
-	private String getBlockEntityType(BlockEntity blockEntity) {
-		String s = "" + Formatting.GREEN;
-		s += "Tile Entity: ";
-		s += Formatting.BLUE;
-		s += blockEntity.getType().toString();
 
-		return s;
+
+	private String getBlockEntityType(BlockEntity blockEntity) {
+		return propertyFormat("Tile Entity", blockEntity.getType().toString());
 	}
 
 	private String getRCPower(BlockEntity blockEntity) {
-		String s = "" + Formatting.GREEN;
-		s += "Power: ";
-		s += Formatting.BLUE;
-		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getEnergy());
-		s += "/";
-		s += PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored());
+		return propertyFormat("Power",
+				PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getEnergy())
+						+ "/"
+						+ PowerSystem.getLocaliszedPower(Energy.of(blockEntity).getMaxStored()));
 
-		return s;
 	}
 }
