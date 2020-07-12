@@ -38,7 +38,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
+import techreborn.blockentity.conduit.ItemTransfer;
 import techreborn.blockentity.storage.item.StorageUnitBaseBlockEntity;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEntity> {
 	public ItemConduitRenderer(BlockEntityRenderDispatcher dispatcher) {
@@ -51,23 +56,29 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 			return;
 		}
 
-		ItemStack itemStack = new ItemStack(Items.IRON_ORE);
-		float progress = 0.5f;
+		List<ItemTransfer> transferList = conduit.storage;
 
-		if (itemStack.isEmpty()) {
+		if (transferList.isEmpty()) {
 			return;
 		}
 
-		// Item rendering
-		matrices.push();
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
-		matrices.scale(0.4F, 0.4F, 0.4F);
-		matrices.translate(1.25f, 1.3, -1.25f);
+
+		for(ItemTransfer itemTransfer : transferList) {
+
+			float percent = itemTransfer.getProgress() * 1.2f;
+
+			// Item rendering
+			matrices.push();
+			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
+			matrices.translate(0.5f, 0.5f, -0.5f);
+			matrices.scale(0.8F * percent, 0.8F * percent, 0.8F * percent);
 
 
-		int lightAbove = WorldRenderer.getLightmapCoordinates(conduit.getWorld(), conduit.getPos());
+			int lightAbove = WorldRenderer.getLightmapCoordinates(conduit.getWorld(), conduit.getPos());
 
-		MinecraftClient.getInstance().getItemRenderer().renderItem(itemStack, ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
-		matrices.pop();
+			MinecraftClient.getInstance().getItemRenderer().renderItem(itemTransfer.getItemStack(), ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+			matrices.pop();
+
+		}
 	}
 }
