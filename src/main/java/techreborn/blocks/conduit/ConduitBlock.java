@@ -26,10 +26,15 @@ package techreborn.blocks.conduit;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -111,6 +116,18 @@ public class ConduitBlock extends BlockWithEntity {
 	private boolean canConnectTo(WorldAccess world, BlockPos pos, Direction facing) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		return blockEntity instanceof ItemConduitBlockEntity;
+	}
+
+	@Override
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		BlockEntity entity = world.getBlockEntity(pos);
+		if(world.isClient() || hand != Hand.MAIN_HAND || !(entity instanceof ItemConduitBlockEntity) || !player.isSneaking()) return super.onUse(state, world, pos, player, hand, hit);
+
+		ItemConduitBlockEntity itemConduitBlockEntity = (ItemConduitBlockEntity)entity;
+		itemConduitBlockEntity.switchMode();
+		player.sendSystemMessage(new LiteralText("Changed item conduit mode to: " + itemConduitBlockEntity.getModeString()), Util.NIL_UUID);
+
+		return ActionResult.SUCCESS;
 	}
 
 	// BlockContainer

@@ -29,6 +29,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -47,8 +48,10 @@ import java.util.*;
  */
 
 public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
+
 	public List<ItemTransfer> storage = new ArrayList<>();
 
+	private ConduitMode mode = ConduitMode.NONE;
 
 	public ItemConduitBlockEntity() {
 		super(TRBlockEntities.ITEM_CONDUIT);
@@ -71,23 +74,17 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 				}
 			}
 
-
 			// Get a item from any inventory
-			if (storage.size() == 0) {
-				Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
-
-				// If inventory exists and isn't empty
-				if (inventory != null && !inventory.isEmpty()) {
-					// Loop through each slot and find an non-empty one
-					for (int i = 0; i < inventory.size(); i++) {
-
-						ItemStack itemStack = inventory.getStack(i);
-
-						if (itemStack != ItemStack.EMPTY) {
-							storage.add(new ItemTransfer(itemStack, 10, face));
-							inventory.removeStack(i);
+			if (mode != ConduitMode.NONE) {
+				// No need to check other conduits
+				if (!conduits.containsKey(face)) {
+					switch (mode){
+						case OUTPUT:
+							push(face);
 							break;
-						}
+						case INPUT:
+							pull(face);
+							break;
 					}
 				}
 			}
@@ -104,7 +101,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 			if (transfer.isFinished()) {
 				Pair<ItemConduitBlockEntity, Direction> destination = getDestinationConduit(conduits, transfer.from);
 
-				if(destination != null) {
+				if (destination != null) {
 					// Giving the opposite of the TO direction which is the direction which the new conduit will be facing this entity.
 					boolean didTransfer = destination.getLeft().transferItem(transfer.itemStack, transfer.duration, destination.getRight().getOpposite());
 
@@ -117,7 +114,6 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 		}
 
 		sync();
-
 	}
 
 	private void sync() {
@@ -131,6 +127,72 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 		}
 
 		return false;
+	}
+
+	public void pull(Direction face) {
+		if(storage.size() != 0) return;
+
+		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
+
+		// If inventory exists and isn't empty
+		if (inventory != null && !inventory.isEmpty()) {
+			ItemStack itemStack = null;
+
+			// Sided if sided otherwise just loop through inventory
+			if (inventory instanceof SidedInventory) {
+				SidedInventory sidedInventory = (SidedInventory) inventory;
+				int[] is = sidedInventory.getAvailableSlots(face.getOpposite());
+
+				for (int value : is) {
+					ItemStack stack = inventory.getStack(value);
+
+
+					if (!stack.isEmpty() && sidedInventory.canExtract(value, stack, face.getOpposite())) {
+						itemStack = stack;
+						break;
+					}
+				}
+			} else {
+				// Loop through each slot and find an non-empty one
+				for (int i = 0; i < inventory.size(); i++) {
+					itemStack = inventory.getStack(i);
+
+					if (!itemStack.isEmpty()) {
+						break;
+					}
+				}
+			}
+
+			// If we have an item, add it to the storage and decrement (1 only)
+			if (itemStack != null) {
+				ItemStack out = itemStack.copy();
+				out.setCount(1);
+				storage.add(new ItemTransfer(out, 5, face));
+				itemStack.decrement(1);
+			}
+		}
+	}
+
+	public void push(Direction face) {
+		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
+
+		// If inventory doesn't exist, can't push
+		if (inventory == null) return;
+
+		Iterator<ItemTransfer> iter = storage.iterator();
+
+		while (iter.hasNext()) {
+			ItemTransfer transfer = iter.next();
+
+			if(transfer.isFinished()) {
+				transfer.itemStack = HopperBlockEntity.transfer(null, inventory, transfer.itemStack, face.getOpposite());
+
+				if (transfer.itemStack.isEmpty()) {
+					iter.remove();
+				}
+			}
+		}
+
 	}
 
 	public Pair<ItemConduitBlockEntity, Direction> getDestinationConduit(Map<Direction, ItemConduitBlockEntity> conduits, Direction from) {
@@ -151,6 +213,27 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 		return null;
 	}
 
+	public void switchMode(){
+		switch (mode){
+			case OUTPUT:
+				mode = ConduitMode.INPUT;
+				break;
+			case INPUT:
+				mode = ConduitMode.NONE;
+				break;
+			case NONE:
+				mode = ConduitMode.OUTPUT;
+				break;
+		}
+	}
+
+	public String getModeString(){
+		String modeText = mode.toString();
+		modeText =  modeText.substring(0, 1).toUpperCase() + modeText.substring(1).toLowerCase();
+
+		return modeText;
+	}
+
 
 	@Override
 	public CompoundTag toInitialChunkDataTag() {
@@ -167,6 +250,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable {
 	@Override
 	public void fromTag(BlockState blockState, CompoundTag compound) {
 		super.fromTag(blockState, compound);
+
 		storage.clear();
 
 		if (compound.contains("storage")) {
