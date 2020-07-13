@@ -27,7 +27,6 @@ package techreborn.blockentity.conduit;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ConduitBlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -57,18 +56,22 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 
 	// IO
 	private final Map<Direction, ConduitMode> IOFaces = new HashMap<>();
+
+	// Neighbouring conduits which are we are connected to
 	private final Map<Direction, ItemConduitBlockEntity> conduits = new HashMap<>();
+
 
 	// Round robin variable
 	private int outputIndex = 0;
 
+	// MISC
 	private int ticktime = 0;
 
 	public ItemConduitBlockEntity() {
 		super(TRBlockEntities.ITEM_CONDUIT);
 	}
 
-	public void onLoad(){
+	private void onLoad(){
 		// Conduits populating if read from NBT
 		for(Direction direction : conduits.keySet()){
 			if(world == null) return;
@@ -100,8 +103,17 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		// Loop through each mode and perform action
 		for (Map.Entry<Direction, ConduitMode> entry : IOFaces.entrySet()) {
 
-			// Get a item from any inventory
-			// TODO IO
+			switch (entry.getValue()){
+				case INPUT:
+					importFace(entry.getKey());
+					break;
+				case OUTPUT:
+					pushFace(entry.getKey());
+					break;
+				case BLOCK:
+					// No functionality
+					break;
+			}
 		}
 
 		// Movement between conduits and progression
@@ -136,7 +148,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
 	}
 
-	public boolean transferItem(ItemTransfer itemTransfer, Direction origin) {
+	private boolean transferItem(ItemTransfer itemTransfer, Direction origin) {
 		if (this.storage.size() == 0) {
 			itemTransfer.restartProgress();
 			itemTransfer.setOriginDirection(origin);
@@ -180,15 +192,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		return true;
 	}
 
-	public void addItemConduit(Direction direction, ItemConduitBlockEntity conduitBlockEntity){
-		conduits.put(direction, conduitBlockEntity);
-	}
-
-	public void removeItemConduit(Direction direction){
-		conduits.remove(direction);
-	}
-
-	public void importFace(Direction face) {
+	private void importFace(Direction face) {
 		if(storage.size() != 0) return;
 
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
@@ -232,7 +236,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		}
 	}
 
-	public void pushFace(Direction face) {
+	private void pushFace(Direction face) {
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
 
 		// If inventory doesn't exist, can't push
@@ -254,7 +258,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 
 	}
 
-	public Pair<ItemConduitBlockEntity, Direction> getDestinationConduit(Map<Direction, ItemConduitBlockEntity> conduits, Direction from) {
+	private Pair<ItemConduitBlockEntity, Direction> getDestinationConduit(Map<Direction, ItemConduitBlockEntity> conduits, Direction from) {
 		if (conduits.isEmpty()) {
 			return null;
 		}
@@ -285,6 +289,17 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		return null;
 	}
 
+	public void addItemConduit(Direction direction, ItemConduitBlockEntity conduitBlockEntity){
+		conduits.put(direction, conduitBlockEntity);
+	}
+
+	public void removeItemConduit(Direction direction){
+		conduits.remove(direction);
+	}
+
+	public Map<Direction, ConduitMode> getIOFaces() {
+		return IOFaces;
+	}
 
 	@Override
 	public CompoundTag toInitialChunkDataTag() {

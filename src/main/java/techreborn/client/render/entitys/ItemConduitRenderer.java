@@ -34,10 +34,12 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.Direction;
+import techreborn.blockentity.conduit.ConduitMode;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
 import techreborn.blockentity.conduit.ItemTransfer;
 
 import java.util.List;
+import java.util.Map;
 
 public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEntity> {
 	public ItemConduitRenderer(BlockEntityRenderDispatcher dispatcher) {
@@ -46,16 +48,27 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 
 	@Override
 	public void render(ItemConduitBlockEntity conduit, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		if (conduit.getWorld() == null) {
+
+
+//		int light = WorldRenderer.getLightmapCoordinates(conduit.getWorld(), conduit.getPos());
+
+		renderIOFaces(conduit.getIOFaces(), matrices, vertexConsumers, light);
+		renderItemMoving(conduit.storage, matrices, vertexConsumers, light);
+
+	}
+
+	private void renderIOFaces(Map<Direction, ConduitMode> IOFaces, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
+		if (IOFaces.isEmpty()) {
 			return;
 		}
 
-		List<ItemTransfer> transferList = conduit.storage;
+		// TODO face rendering here
+	}
 
+	private void renderItemMoving(List<ItemTransfer> transferList, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
 		if (transferList.isEmpty()) {
 			return;
 		}
-
 
 		for(ItemTransfer itemTransfer : transferList) {
 
@@ -68,9 +81,9 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 			matrices.scale(0.8F * percent, 0.8F * percent, 0.8F * percent);
 
 
-			int lightAbove = WorldRenderer.getLightmapCoordinates(conduit.getWorld(), conduit.getPos());
 
-			MinecraftClient.getInstance().getItemRenderer().renderItem(itemTransfer.getItemStack(), ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+
+			MinecraftClient.getInstance().getItemRenderer().renderItem(itemTransfer.getItemStack(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 			matrices.pop();
 
 		}
