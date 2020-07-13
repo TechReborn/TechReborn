@@ -26,8 +26,8 @@ package techreborn.blocks.conduit;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -41,14 +41,13 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
-import reborncore.common.blocks.BlockWrenchEventHandler;
+import techreborn.blockentity.conduit.IConduit;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
-import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Created by DimmerWorld on 12/07/2020.
@@ -73,13 +72,17 @@ public class ConduitBlock extends BlockWithEntity {
 
 	private final ConduitShapeUtil conduitShapeUtil;
 
-	public ConduitBlock() {
+	Class<? extends IConduit> conduitClass;
+	Supplier<BlockEntity> blockEntityClass;
+
+	public ConduitBlock(Supplier<BlockEntity> blockEntityClass, Class<? extends IConduit> conduitClass) {
 		super(Settings.of(Material.STONE).strength(1f, 8f).nonOpaque());
+
+		this.conduitClass = conduitClass;
+		this.blockEntityClass = blockEntityClass;
 
 		setDefaultState(this.getStateManager().getDefaultState().with(EAST, false).with(WEST, false).with(NORTH, false)
 				.with(SOUTH, false).with(UP, false).with(DOWN, false));
-
-		BlockWrenchEventHandler.wrenableBlocks.add(this);
 
 		conduitShapeUtil = new ConduitShapeUtil(this);
 	}
@@ -107,28 +110,29 @@ public class ConduitBlock extends BlockWithEntity {
 		BlockEntity ourBaseEntity = world.getBlockEntity(ourPos);
 		BlockEntity otherBaseEntity = world.getBlockEntity(ourPos.offset(direction));
 
-		if(!(ourBaseEntity instanceof ItemConduitBlockEntity)){
+
+		if(!(conduitClass.isInstance(ourBaseEntity))){
 			return false;
 		}
 
 		// Cast to a variable our entity
 		ItemConduitBlockEntity ourEntity = (ItemConduitBlockEntity)ourBaseEntity;
 
-		if(!(otherBaseEntity instanceof ItemConduitBlockEntity)){
-			ourEntity.removeItemConduit(direction);
+		if(!(conduitClass.isInstance(otherBaseEntity))){
+			ourEntity.canConnect(direction);
 			return false;
 		}
 
-		ItemConduitBlockEntity otherEntity = (ItemConduitBlockEntity)otherBaseEntity;
+		IConduit otherEntity = conduitClass.cast(otherBaseEntity);
 
 		// Can't connect according to entities.
 		if(!ourEntity.canConnect(direction) || !otherEntity.canConnect(direction.getOpposite())){
-			ourEntity.removeItemConduit(direction);
+			ourEntity.removeConduit(direction);
 			return false;
 		}
 
 		// Add to entity as we've connected
-		ourEntity.addItemConduit(direction, otherEntity);
+		ourEntity.addConduit(direction, otherEntity);
 
 		return true;
 	}
@@ -136,7 +140,7 @@ public class ConduitBlock extends BlockWithEntity {
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		BlockEntity entity = world.getBlockEntity(pos);
-		if(world.isClient() || hand != Hand.MAIN_HAND || !(entity instanceof ItemConduitBlockEntity) || !player.isSneaking()) return super.onUse(state, world, pos, player, hand, hit);
+		if(world.isClient() || hand != Hand.MAIN_HAND || !conduitClass.isInstance(entity) || !player.isSneaking()) return super.onUse(state, world, pos, player, hand, hit);
 
 		((ItemConduitBlockEntity) entity).changeMode(hit.getSide());
 
@@ -152,7 +156,10 @@ public class ConduitBlock extends BlockWithEntity {
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
-		return new ItemConduitBlockEntity();
+		if (blockEntityClass == null) {
+			return null;
+		}
+		return blockEntityClass.get();
 	}
 
 	@Override

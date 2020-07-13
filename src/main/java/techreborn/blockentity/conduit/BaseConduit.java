@@ -94,6 +94,14 @@ public abstract class BaseConduit extends BlockEntity implements Tickable, IDebu
 		}
 	}
 
+	public void addConduit(Direction direction, IConduit conduit){
+		conduits.put(direction, conduit);
+	}
+
+	public void removeConduit(Direction direction){
+		conduits.remove(direction);
+	}
+
 	// Returns a direction which is next up for transfer
 	Pair<IConduit, Direction> getDestinationConduit(Direction from) {
 		if (conduits.isEmpty()) {

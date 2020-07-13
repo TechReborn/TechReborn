@@ -157,15 +157,6 @@ public class ItemConduitBlockEntity extends BaseConduit implements IItemConduit 
 			}
 	}
 
-
-	public void addItemConduit(Direction direction, IItemConduit conduitBlockEntity){
-		conduits.put(direction, conduitBlockEntity);
-	}
-
-	public void removeItemConduit(Direction direction){
-		conduits.remove(direction);
-	}
-
 	public ItemTransfer getStored() {
 		return stored;
 	}
