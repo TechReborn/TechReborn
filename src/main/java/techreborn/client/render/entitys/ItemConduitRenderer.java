@@ -36,6 +36,7 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Quaternion;
 import techreborn.blockentity.conduit.ConduitMode;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
 import techreborn.blockentity.conduit.ItemTransfer;
@@ -64,13 +65,48 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 			return;
 		}
 
-		// TODO face rendering here
-		matrices.push();
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
-		matrices.translate(0.5f, 0.5f, -0.5f);
+		for (Map.Entry<Direction, ConduitMode> entry : IOFaces.entrySet()) {
+			Direction facing = entry.getKey();
+			ConduitMode mode = entry.getValue();
 
-		MinecraftClient.getInstance().getItemRenderer().renderItem(Items.BEDROCK.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
-		matrices.pop();
+			matrices.push();
+
+			matrices.translate(0.5, 0.5, 0.5); // Translate center
+
+			matrices.scale(0.45f, 0.45f, 0.45f); // TEMPscale
+
+			// Rotating
+			if(facing.getHorizontal() == -1){
+				int offSet = facing.getOffsetY();
+				matrices.translate(0, offSet * 0.5,0);
+				matrices.multiply(facing.getRotationQuaternion());
+			}else{
+				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+				matrices.translate(0, 0, -0.5);
+
+				Quaternion faceQuaternion = facing.getRotationQuaternion();
+				matrices.multiply(new Quaternion(-faceQuaternion.getX(), faceQuaternion.getY(), faceQuaternion.getZ(), faceQuaternion.getW()));
+			}
+
+			 // Model rendering
+			matrices.translate(0,0.25f,0f);
+			switch (mode){
+				case OUTPUT:
+					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.BEACON.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+					break;
+				case INPUT:
+					matrices.scale(1f,0.7f,4f);
+					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.HOPPER.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+					break;
+				case BLOCK:
+					matrices.scale(1,0.2f,1f);
+					matrices.translate(0,-1,0);
+					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.BEDROCK.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+					break;
+			}
+
+			matrices.pop();
+		}
 	}
 
 	private void renderItemMoving(List<ItemTransfer> transferList, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){

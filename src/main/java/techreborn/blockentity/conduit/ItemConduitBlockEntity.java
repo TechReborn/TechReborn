@@ -209,7 +209,6 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 				for (int value : is) {
 					ItemStack stack = inventory.getStack(value);
 
-
 					if (!stack.isEmpty() && sidedInventory.canExtract(value, stack, face.getOpposite())) {
 						itemStack = stack;
 						break;
