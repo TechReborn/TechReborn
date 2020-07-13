@@ -318,6 +318,8 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		super.fromTag(blockState, compound);
 
 		storage.clear();
+		conduits.clear();
+		IOFaces.clear();
 
 		if (compound.contains("storage")) {
 			ListTag storageList = compound.getList("storage", NbtType.COMPOUND);

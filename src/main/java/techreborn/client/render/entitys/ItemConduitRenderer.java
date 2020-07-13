@@ -33,6 +33,8 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import techreborn.blockentity.conduit.ConduitMode;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
@@ -63,6 +65,12 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 		}
 
 		// TODO face rendering here
+		matrices.push();
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
+		matrices.translate(0.5f, 0.5f, -0.5f);
+
+		MinecraftClient.getInstance().getItemRenderer().renderItem(Items.BEDROCK.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+		matrices.pop();
 	}
 
 	private void renderItemMoving(List<ItemTransfer> transferList, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
