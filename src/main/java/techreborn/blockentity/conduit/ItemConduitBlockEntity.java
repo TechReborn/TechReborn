@@ -27,6 +27,7 @@ package techreborn.blockentity.conduit;
 import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.ConduitBlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -34,7 +35,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Tickable;
@@ -52,14 +52,36 @@ import java.util.*;
 
 public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDebuggable {
 
-	public List<ItemTransfer> storage = new ArrayList<>();
-	private ConduitMode mode = ConduitMode.NONE;
+	// Items currently being moved
+	public final List<ItemTransfer> storage = new ArrayList<>();
+
+	// IO
+	private final Map<Direction, ConduitMode> IOFaces = new HashMap<>();
+	private final Map<Direction, ItemConduitBlockEntity> conduits = new HashMap<>();
 
 	// Round robin variable
 	private int outputIndex = 0;
 
+	private int ticktime = 0;
+
 	public ItemConduitBlockEntity() {
 		super(TRBlockEntities.ITEM_CONDUIT);
+	}
+
+	public void onLoad(){
+		// Conduits populating if read from NBT
+		for(Direction direction : conduits.keySet()){
+			if(world == null) return;
+
+			BlockEntity entity = world.getBlockEntity(this.pos.offset(direction));
+
+			if(entity instanceof ItemConduitBlockEntity){
+				conduits.put(direction, (ItemConduitBlockEntity)entity);
+			}else {
+				conduits.remove(direction);
+			}
+
+		}
 	}
 
 	@Override
@@ -68,41 +90,31 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 			return;
 		}
 
-		Map<Direction, ItemConduitBlockEntity> conduits = new HashMap<>();
+		if(ticktime == 0){
+			onLoad();
+		}
+		ticktime++;
 
-		// Loop through each face, populating neighbour conduits and performing IO
-		for (Direction face : Direction.values()) {
-			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
+		// LOGIC STARTS
 
-			if (blockEntity instanceof ItemConduitBlockEntity) {
-				conduits.put(face, (ItemConduitBlockEntity) blockEntity);
-				continue; // Don't need to do IO for this direction
-			}
+		// Loop through each mode and perform action
+		for (Map.Entry<Direction, ConduitMode> entry : IOFaces.entrySet()) {
 
 			// Get a item from any inventory
-			if (mode != ConduitMode.NONE) {
-				// No need to check other conduits
-				if (!conduits.containsKey(face)) {
-					switch (mode){
-						case OUTPUT:
-							push(face);
-							break;
-						case INPUT:
-							pull(face);
-							break;
-					}
-				}
-			}
+			// TODO IO
 		}
 
 		// Movement between conduits and progression
 		Iterator<ItemTransfer> iter = storage.iterator();
+
 		while (iter.hasNext()) {
 			ItemTransfer itemTransfer = iter.next();
+
 			itemTransfer.progress();
 
 			// If finished, find another conduit to move to
 			if (itemTransfer.isFinished()) {
+
 				Pair<ItemConduitBlockEntity, Direction> destination = getDestinationConduit(conduits, itemTransfer.getOriginDirection());
 
 				if (destination != null) {
@@ -136,7 +148,47 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		return false;
 	}
 
-	public void pull(Direction face) {
+	public void changeMode(Direction face){
+		if(IOFaces.containsKey(face)){
+			ConduitMode prevMode = IOFaces.get(face);
+			IOFaces.remove(face);
+			switch (prevMode){
+				case OUTPUT:
+					IOFaces.put(face, ConduitMode.INPUT);
+					break;
+				case INPUT:
+					IOFaces.put(face, ConduitMode.BLOCK);
+					break;
+				case BLOCK:
+					// Don't do anything, will remove
+					break;
+			}
+
+		}else{
+			IOFaces.put(face,ConduitMode.OUTPUT);
+		}
+
+	}
+
+	public boolean canConnect(Direction direction){
+
+		// Can't connect to direction which has a IO/Block mode
+		if(IOFaces.containsKey(direction)){
+			return false;
+		}
+
+		return true;
+	}
+
+	public void addItemConduit(Direction direction, ItemConduitBlockEntity conduitBlockEntity){
+		conduits.put(direction, conduitBlockEntity);
+	}
+
+	public void removeItemConduit(Direction direction){
+		conduits.remove(direction);
+	}
+
+	public void importFace(Direction face) {
 		if(storage.size() != 0) return;
 
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
@@ -180,7 +232,7 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		}
 	}
 
-	public void push(Direction face) {
+	public void pushFace(Direction face) {
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
 
 		// If inventory doesn't exist, can't push
@@ -233,27 +285,6 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		return null;
 	}
 
-	public void switchMode(){
-		switch (mode){
-			case OUTPUT:
-				mode = ConduitMode.INPUT;
-				break;
-			case INPUT:
-				mode = ConduitMode.NONE;
-				break;
-			case NONE:
-				mode = ConduitMode.OUTPUT;
-				break;
-		}
-	}
-
-	public String getModeString(){
-		String modeText = mode.toString();
-		modeText =  modeText.substring(0, 1).toUpperCase() + modeText.substring(1).toLowerCase();
-
-		return modeText;
-	}
-
 
 	@Override
 	public CompoundTag toInitialChunkDataTag() {
@@ -276,11 +307,33 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 		if (compound.contains("storage")) {
 			ListTag storageList = compound.getList("storage", NbtType.COMPOUND);
 
-			for (int i = 0; i <= storageList.size(); i++) {
+			for (int i = 0; i < storageList.size(); i++) {
 				storage.add(ItemTransfer.fromTag(storageList.getCompound(i)));
 			}
 		}
 
+		if(compound.contains("IO")){
+			ListTag IOList = compound.getList("IO", NbtType.COMPOUND);
+
+			for (int i = 0; i < IOList.size(); i++) {
+				CompoundTag compoundTag = IOList.getCompound(i);
+
+				Direction direction = Direction.byId(compoundTag.getInt("direction"));
+				ConduitMode conduitMode = ConduitMode.values()[compoundTag.getInt("mode")];
+
+				IOFaces.put(direction, conduitMode);
+			}
+		}
+
+		if(compound.contains("conduit")){
+			ListTag conduitList = compound.getList("conduit", NbtType.COMPOUND);
+
+			for (int i = 0; i < conduitList.size(); i++) {
+				CompoundTag compoundTag = conduitList.getCompound(i);
+				conduits.put(Direction.byId(compoundTag.getInt("direction")), null);
+
+			}
+		}
 	}
 
 	@Override
@@ -300,13 +353,52 @@ public class ItemConduitBlockEntity extends BlockEntity implements Tickable, IDe
 			compound.put("storage", storedTag);
 		}
 
+		if(!conduits.isEmpty()){
+			ListTag conduitFacesList= new ListTag();
+
+			int index = 0;
+			for (Map.Entry<Direction, ItemConduitBlockEntity> entry : conduits.entrySet()) {
+				CompoundTag sidedConduit = new CompoundTag();
+				sidedConduit.putInt("direction", entry.getKey().getId());
+
+				conduitFacesList.add(index, sidedConduit);
+
+				index++;
+			}
+
+			compound.put("conduit", conduitFacesList);
+		}
+
+		if(!IOFaces.isEmpty()){
+			ListTag IOFacesList = new ListTag();
+
+			int index = 0;
+			for (Map.Entry<Direction, ConduitMode> entry : IOFaces.entrySet()) {
+				CompoundTag sidedIO = new CompoundTag();
+				sidedIO.putInt("direction", entry.getKey().getId());
+				sidedIO.putInt("mode", entry.getValue().ordinal());
+
+				IOFacesList.add(index, sidedIO);
+
+				index++;
+			}
+
+			compound.put("IO", IOFacesList);
+		}
+
 		return compound;
 	}
 
 	@Override
 	public String getDebugText() {
 		String s = "";
-		s += IDebuggable.propertyFormat("Mode: ", getModeString() + "\n");
+		s += IDebuggable.propertyFormat("Conduit count: ", conduits.size() + "\n");
+		s += IDebuggable.propertyFormat("IO count", IOFaces.size() + "\n");
+
+		if(IOFaces.size() > 0){
+			s += IDebuggable.propertyFormat("IO (0)", IOFaces.values().iterator().next() + "\n");
+		}
+
 		s += IDebuggable.propertyFormat("OutputIndex: ", String.valueOf(outputIndex)) + "\n";
 		s += IDebuggable.propertyFormat("Storage size: ", String.valueOf(storage.size()));
 

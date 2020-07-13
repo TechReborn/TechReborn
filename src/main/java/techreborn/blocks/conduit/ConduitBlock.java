@@ -30,7 +30,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -41,10 +40,13 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.NotNull;
 import reborncore.common.blocks.BlockWrenchEventHandler;
 import techreborn.blockentity.conduit.ItemConduitBlockEntity;
+import techreborn.init.TRContent;
 
 import javax.annotation.Nullable;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,21 +103,34 @@ public class ConduitBlock extends BlockWithEntity {
 		}
 	}
 
-	private BlockState makeConnections(World world, BlockPos pos) {
-		boolean down = canConnectTo(world, pos.offset(Direction.DOWN, 1), Direction.UP);
-		boolean up = canConnectTo(world, pos.up(), Direction.DOWN);
-		boolean north = canConnectTo(world, pos.north(), Direction.SOUTH);
-		boolean east = canConnectTo(world, pos.east(), Direction.WEST);
-		boolean south = canConnectTo(world, pos.south(), Direction.NORTH);
-		boolean west = canConnectTo(world, pos.west(), Direction.WEST);
+	private boolean connectToConduit(@NotNull WorldAccess world, BlockPos ourPos, Direction direction) {
+		BlockEntity ourBaseEntity = world.getBlockEntity(ourPos);
+		BlockEntity otherBaseEntity = world.getBlockEntity(ourPos.offset(direction));
 
-		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
-				.with(SOUTH, south).with(WEST, west);
-	}
+		if(!(ourBaseEntity instanceof ItemConduitBlockEntity)){
+			return false;
+		}
 
-	private boolean canConnectTo(WorldAccess world, BlockPos pos, Direction facing) {
-		BlockEntity blockEntity = world.getBlockEntity(pos);
-		return blockEntity instanceof ItemConduitBlockEntity;
+		// Cast to a variable our entity
+		ItemConduitBlockEntity ourEntity = (ItemConduitBlockEntity)ourBaseEntity;
+
+		if(!(otherBaseEntity instanceof ItemConduitBlockEntity)){
+			ourEntity.removeItemConduit(direction);
+			return false;
+		}
+
+		ItemConduitBlockEntity otherEntity = (ItemConduitBlockEntity)otherBaseEntity;
+
+		// Can't connect according to entities.
+		if(!ourEntity.canConnect(direction) || !otherEntity.canConnect(direction.getOpposite())){
+			ourEntity.removeItemConduit(direction);
+			return false;
+		}
+
+		// Add to entity as we've connected
+		ourEntity.addItemConduit(direction, otherEntity);
+
+		return true;
 	}
 
 	@Override
@@ -123,9 +138,7 @@ public class ConduitBlock extends BlockWithEntity {
 		BlockEntity entity = world.getBlockEntity(pos);
 		if(world.isClient() || hand != Hand.MAIN_HAND || !(entity instanceof ItemConduitBlockEntity) || !player.isSneaking()) return super.onUse(state, world, pos, player, hand, hit);
 
-		ItemConduitBlockEntity itemConduitBlockEntity = (ItemConduitBlockEntity)entity;
-		itemConduitBlockEntity.switchMode();
-		player.sendSystemMessage(new LiteralText("Changed item conduit mode to: " + itemConduitBlockEntity.getModeString()), Util.NIL_UUID);
+		((ItemConduitBlockEntity) entity).changeMode(hit.getSide());
 
 		return ActionResult.SUCCESS;
 	}
@@ -148,15 +161,14 @@ public class ConduitBlock extends BlockWithEntity {
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		return makeConnections(context.getWorld(), context.getBlockPos());
-	}
-
-	@Override
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState,
 			WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
-		boolean value = canConnectTo(worldIn, otherPos, ourFacing.getOpposite());
-		return ourState.with(getProperty(ourFacing), value);
+
+		if(worldIn.isClient()){
+			return super.getStateForNeighborUpdate(ourState, ourFacing, otherState, worldIn, ourPos,otherPos);
+		}
+
+		return ourState.with(getProperty(ourFacing), connectToConduit(worldIn, ourPos, ourFacing));
 	}
 
 	@Override
