@@ -22,9 +22,9 @@ public class ItemTransfer {
 		this.origin = origin;
 	}
 
-	private ItemTransfer(){
+	ItemTransfer(){
 
-	}
+	};
 
 	public void progress(){
 		if(!isFinished()) {

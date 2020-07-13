@@ -27,13 +27,11 @@ package techreborn.client.render.entitys;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
@@ -55,8 +53,8 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 
 //		int light = WorldRenderer.getLightmapCoordinates(conduit.getWorld(), conduit.getPos());
 
-		renderIOFaces(conduit.getIOFaces(), matrices, vertexConsumers, light);
-		renderItemMoving(conduit.storage, matrices, vertexConsumers, light);
+		renderIOFaces(conduit.getFunctionalFaces(), matrices, vertexConsumers, light);
+		renderItemMoving(conduit.getStored(), matrices, vertexConsumers, light);
 
 	}
 
@@ -109,27 +107,24 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 		}
 	}
 
-	private void renderItemMoving(List<ItemTransfer> transferList, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
-		if (transferList.isEmpty()) {
+	private void renderItemMoving(ItemTransfer transferItem, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
+		if (transferItem == null) {
 			return;
 		}
 
-		for(ItemTransfer itemTransfer : transferList) {
+		float percent = transferItem.getProgressPercent() * 1.2f;
 
-			float percent = itemTransfer.getProgressPercent() * 1.2f;
-
-			// Item rendering
-			matrices.push();
-			matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
-			matrices.translate(0.5f, 0.5f, -0.5f);
-			matrices.scale(0.8F * percent, 0.8F * percent, 0.8F * percent);
+		// Item rendering
+		matrices.push();
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
+		matrices.translate(0.5f, 0.5f, -0.5f);
+		matrices.scale(0.8F * percent, 0.8F * percent, 0.8F * percent);
 
 
 
 
-			MinecraftClient.getInstance().getItemRenderer().renderItem(itemTransfer.getItemStack(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
-			matrices.pop();
+		MinecraftClient.getInstance().getItemRenderer().renderItem(transferItem.getItemStack(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+		matrices.pop();
 
-		}
 	}
 }
