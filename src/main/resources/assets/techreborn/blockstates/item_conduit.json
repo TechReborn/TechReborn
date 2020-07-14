@@ -1,31 +1,182 @@
 {
-	"multipart": [
-		{
-			"apply": { "model": "techreborn:block/conduit/conduit_core" }
-		},
-		{
-			"when": { "north": true },
-			"apply": { "model": "techreborn:block/conduit/conduit_side" }
-		},
-		{
-			"when": { "east": true },
-			"apply": { "model": "techreborn:block/conduit/conduit_side", "y": 90 }
-		},
-		{
-			"when": { "south": true},
-			"apply": { "model": "techreborn:block/conduit/conduit_side", "y": 180 }
-		},
-		{
-			"when": { "west": true},
-			"apply": { "model": "techreborn:block/conduit/conduit_side", "y": 270 }
-		},
-		{
-			"when": { "up": true },
-			"apply": { "model": "techreborn:block/conduit/conduit_side", "x": 270}
-		},
-		{
-			"when": { "down": true },
-			"apply": { "model": "techreborn:block/conduit/conduit_side", "x": 90 }
-		}
-	]
+  "multipart": [
+	{
+	  "when": {
+		"OR": [
+		  {
+			"north": "false",
+			"south": "false",
+			"east": "false",
+			"west": "false",
+			"up": "false",
+			"down": "false"
+		  },
+		  {
+			"OR": [
+			  {"north": "true", "east": "true"},
+			  {"north": "true", "west": "true"},
+			  {"north": "true", "up": "true"},
+			  {"north": "true", "down": "true"}
+			]
+		  },
+		  {
+			"OR": [
+			  {"south": "true", "east": "true"},
+			  {"south": "true", "west": "true"},
+			  {"south": "true", "up": "true"},
+			  {"south": "true", "down": "true"}
+			]
+		  },
+		  {
+			"OR": [
+			  {"east": "true", "north": "true"},
+			  {"east": "true", "south": "true"},
+			  {"east": "true", "up": "true"},
+			  {"east": "true", "down": "true"}
+			]
+		  },
+		  {
+			"OR": [
+			  {"west": "true", "north": "true"},
+			  {"west": "true", "south": "true"},
+			  {"west": "true", "up": "true"},
+			  {"west": "true", "down": "true"}
+			]
+		  },
+		  {
+			"OR": [
+			  {"up": "true", "north": "true"},
+			  {"up": "true", "south": "true"},
+			  {"up": "true", "west": "true"},
+			  {"up": "true", "east": "true"}
+			]
+		  },
+		  {
+			"OR": [
+			  {"down": "true", "north": "true"},
+			  {"down": "true", "south": "true"},
+			  {"down": "true", "west": "true"},
+			  {"down": "true", "east": "true"}
+			]
+		  },
+		  {
+			"OR": [
+			  {
+				"north": "true",
+				"south": "false",
+				"east": "false",
+				"west": "false",
+				"up": "false",
+				"down": "false"
+			  },
+			  {
+				"north": "false",
+				"south": "true",
+				"east": "false",
+				"west": "false",
+				"up": "false",
+				"down": "false"
+			  }
+			]
+		  },
+		  {
+			"OR": [
+			  {
+				"north": "false",
+				"south": "false",
+				"east": "true",
+				"west": "false",
+				"up": "false",
+				"down": "false"
+			  },
+			  {
+				"north": "false",
+				"south": "false",
+				"east": "false",
+				"west": "true",
+				"up": "false",
+				"down": "false"
+			  }
+			]
+		  },
+		  {
+			"OR": [
+			  {
+				"north": "false",
+				"south": "false",
+				"east": "false",
+				"west": "false",
+				"up": "true",
+				"down": "false"
+			  },
+			  {
+				"north": "false",
+				"south": "false",
+				"east": "false",
+				"west": "false",
+				"up": "false",
+				"down": "true"
+			  }
+			]
+		  }
+		]
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_core"
+	  }
+	},
+	{
+	  "when": {
+		"north": true
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_side"
+	  }
+	},
+	{
+	  "when": {
+		"east": true
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_side",
+		"y": 90
+	  }
+	},
+	{
+	  "when": {
+		"south": true
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_side",
+		"y": 180
+	  }
+	},
+	{
+	  "when": {
+		"west": true
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_side",
+		"y": 270
+	  }
+	},
+	{
+	  "when": {
+		"up": true
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_side",
+		"x": 270
+	  }
+	},
+	{
+	  "when": {
+		"down": true
+	  },
+	  "apply": {
+		"model": "techreborn:block/conduit/conduit_side",
+		"x": 90
+	  }
+	}
+  ]
 }
