@@ -53,7 +53,7 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
-import techreborn.blocks.conduit.ConduitBlock;
+import reborncore.common.systems.conduit.block.ConduitBlock;
 import techreborn.blocks.generator.BlockFusionCoil;
 import techreborn.blocks.generator.BlockFusionControlComputer;
 import techreborn.blocks.generator.BlockSolarPanel;
@@ -107,7 +107,7 @@ public class TRContent {
 	public static Block RUBBER_WOOD;
 	public static Block STRIPPED_RUBBER_WOOD;
 
-	public static ConduitBlock ITEM_CONDUIT;
+	public static ConduitBlock<ItemStack> ITEM_CONDUIT;
 
 	// Armor
 	public static Item CLOAKING_DEVICE;

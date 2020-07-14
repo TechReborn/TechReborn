@@ -22,80 +22,33 @@
  * SOFTWARE.
  */
 
-package techreborn.blockentity.conduit;
+package techreborn.blockentity.conduit.item;
 
-import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
+import reborncore.common.systems.conduit.BaseConduit;
+import reborncore.common.systems.conduit.IConduit;
 import reborncore.common.util.IDebuggable;
 import techreborn.init.TRBlockEntities;
-
-import java.util.*;
 
 /**
  * Created by Dimmerworld on 11/07/2321.
  */
 
-public class ItemConduitBlockEntity extends BaseConduit implements IItemConduit {
-	// Items currently being moved
-	private ItemTransfer stored = null;
-
+public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 
 	public ItemConduitBlockEntity() {
-		super(TRBlockEntities.ITEM_CONDUIT);
+		super(TRBlockEntities.ITEM_CONDUIT, ItemConduitBlockEntity.class, ItemTransfer.class);
 	}
 
-	@Override
-	protected void serverTick() {
-		super.serverTick();
-
-
-		// Item logic
-		if(stored != null) {
-			// Movement between conduits and progression
-			stored.progress();
-
-			// If finished, find another conduit to move to
-			if (stored.isFinished()) {
-
-				Pair<IConduit, Direction> destination = getDestinationConduit(stored.getOriginDirection());
-
-				if (destination != null) {
-					// Giving the opposite of the TO direction which is the direction which the new conduit will be facing this entity.
-					boolean didTransfer = ((IItemConduit)destination.getLeft()).transferItem(stored, destination.getRight().getOpposite());
-
-					if (didTransfer) {
-						stored = null;
-					}
-				}
-			}
-		}
-
-		sync();
-	}
-
-	public boolean transferItem(ItemTransfer itemTransfer, Direction origin) {
-		if(stored == null) {
-			itemTransfer.restartProgress();
-			itemTransfer.setOriginDirection(origin);
-
-			this.stored = itemTransfer;
-			return true;
-		}
-
-		return false;
-	}
-
-	void importFace(Direction face) {
+	protected void importFace(Direction face) {
 		if(stored != null) return;
 
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
@@ -138,7 +91,7 @@ public class ItemConduitBlockEntity extends BaseConduit implements IItemConduit 
 		}
 	}
 
-	void exportFace(Direction face) {
+	protected void exportFace(Direction face) {
 		// If we have no item, no point
 		if(stored == null) return;
 
@@ -149,7 +102,7 @@ public class ItemConduitBlockEntity extends BaseConduit implements IItemConduit 
 
 
 			if(stored.isFinished()) {
-				stored.setItemStack(HopperBlockEntity.transfer(null, inventory, stored.getItemStack(), face.getOpposite()));
+				stored.setStored(HopperBlockEntity.transfer(null, inventory, stored.getStored(), face.getOpposite()));
 
 				if (stored.isEmpty()) {
 					stored = null;
@@ -157,31 +110,14 @@ public class ItemConduitBlockEntity extends BaseConduit implements IItemConduit 
 			}
 	}
 
-	public ItemTransfer getStored() {
-		return stored;
-	}
-
 	@Override
 	public void fromTag(BlockState blockState, CompoundTag compound) {
 		super.fromTag(blockState, compound);
-
-		stored = null;
-
-		if (compound.contains("stored")) {
-			this.stored = ItemTransfer.fromTag(compound.getCompound("stored"));
-		}
 	}
 
 	@Override
 	public CompoundTag toTag(CompoundTag tag) {
 		super.toTag(tag);
-
-		if (stored != null) {
-			CompoundTag itemTransfer = new CompoundTag();
-			itemTransfer = stored.toTag(itemTransfer);
-
-			tag.put("stored", itemTransfer);
-		}
 
 		return tag;
 	}
@@ -193,7 +129,7 @@ public class ItemConduitBlockEntity extends BaseConduit implements IItemConduit 
 
 		if(stored != null) {
 			s += "\n" + Formatting.YELLOW + "> Conduit Item INFO" + Formatting.WHITE + "\n";
-			s += IDebuggable.propertyFormat("Item", stored.getItemStack().getName().getString()) + "\n";
+			s += IDebuggable.propertyFormat("Item", stored.getStored().getName().getString()) + "\n";
 			s += IDebuggable.propertyFormat("Progress: ", stored.getProgressPercent() + "\n");
 			s += IDebuggable.propertyFormat("OriginDir: ", stored.getOriginDirection() + "\n");
 			s += IDebuggable.propertyFormat("TargetDir: ", stored.getTargetDirection() + "\n");

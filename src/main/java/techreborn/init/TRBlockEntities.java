@@ -65,7 +65,7 @@ import techreborn.blockentity.transformers.EVTransformerBlockEntity;
 import techreborn.blockentity.transformers.HVTransformerBlockEntity;
 import techreborn.blockentity.transformers.LVTransformerBlockEntity;
 import techreborn.blockentity.transformers.MVTransformerBlockEntity;
-import techreborn.blockentity.conduit.ItemConduitBlockEntity;
+import techreborn.blockentity.conduit.item.ItemConduitBlockEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

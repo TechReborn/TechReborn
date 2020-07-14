@@ -25,10 +25,10 @@
 package techreborn.events;
 
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.sound.BlockSoundGroup;
@@ -36,10 +36,8 @@ import net.minecraft.util.math.Direction;
 import reborncore.RebornRegistry;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
-import techreborn.blockentity.conduit.IItemConduit;
-import techreborn.blockentity.conduit.ItemConduitBlockEntity;
-import techreborn.blockentity.machine.tier1.WireMillBlockEntity;
-import techreborn.blocks.conduit.ConduitBlock;
+import techreborn.blockentity.conduit.item.ItemConduitBlockEntity;
+import reborncore.common.systems.conduit.block.ConduitBlock;
 import techreborn.blocks.misc.*;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.*;
@@ -106,7 +104,7 @@ public class ModRegistry {
 		RebornRegistry.registerBlock(TRContent.RUBBER_BUTTON = InitUtils.setup(new RubberButtonBlock(), "rubber_button"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_PRESSURE_PLATE = InitUtils.setup(new RubberPressurePlateBlock(), "rubber_pressure_plate"), itemGroup);
 		RebornRegistry.registerBlock(TRContent.RUBBER_DOOR = InitUtils.setup(new RubberDoorBlock(), "rubber_door"), itemGroup);
-		RebornRegistry.registerBlock(TRContent.ITEM_CONDUIT = InitUtils.setup(new ConduitBlock(ItemConduitBlockEntity::new, IItemConduit.class), "item_conduit"), itemGroup);
+		RebornRegistry.registerBlock(TRContent.ITEM_CONDUIT = InitUtils.setup(new ConduitBlock<>(ItemConduitBlockEntity::new, ItemConduitBlockEntity.class), "item_conduit"), itemGroup);
 
 		TechReborn.LOGGER.debug("TechReborns Blocks Loaded");
 	}

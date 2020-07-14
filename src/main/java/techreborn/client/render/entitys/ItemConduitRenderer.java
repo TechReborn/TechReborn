@@ -32,14 +32,16 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
-import techreborn.blockentity.conduit.ConduitMode;
-import techreborn.blockentity.conduit.ItemConduitBlockEntity;
-import techreborn.blockentity.conduit.ItemTransfer;
+import reborncore.common.systems.conduit.ConduitMode;
+import reborncore.common.systems.conduit.FunctionalFaceStorage;
+import reborncore.common.systems.conduit.IConduitTransfer;
+import techreborn.blockentity.conduit.item.ItemConduitBlockEntity;
 
-import java.util.List;
 import java.util.Map;
 
 public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEntity> {
@@ -58,12 +60,12 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 
 	}
 
-	private void renderIOFaces(Map<Direction, ConduitMode> IOFaces, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
-		if (IOFaces.isEmpty()) {
+	private void renderIOFaces(FunctionalFaceStorage functionalFaceStorage, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
+		if (functionalFaceStorage.isEmpty()) {
 			return;
 		}
 
-		for (Map.Entry<Direction, ConduitMode> entry : IOFaces.entrySet()) {
+		for (Map.Entry<Direction, ConduitMode> entry : functionalFaceStorage.getEntrySet()) {
 			Direction facing = entry.getKey();
 			ConduitMode mode = entry.getValue();
 
@@ -96,6 +98,9 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 					matrices.scale(1f,0.7f,4f);
 					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.HOPPER.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 					break;
+				case ONE_WAY:
+					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.PISTON.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+					break;
 				case BLOCK:
 					matrices.scale(1,0.2f,1f);
 					matrices.translate(0,-1,0);
@@ -107,7 +112,7 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 		}
 	}
 
-	private void renderItemMoving(ItemTransfer transferItem, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
+	private void renderItemMoving(IConduitTransfer<ItemStack> transferItem, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
 		if (transferItem == null) {
 			return;
 		}
@@ -118,12 +123,18 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 		matrices.push();
 		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((Direction.WEST.getHorizontal() - 2) * 90F));
 		matrices.translate(0.5f, 0.5f, -0.5f);
-		matrices.scale(0.8F * percent, 0.8F * percent, 0.8F * percent);
 
+		ItemStack itemStack = transferItem.getStored();
 
+		float multiplier = 0.3f;
 
+		if(itemStack.getItem() instanceof BlockItem){
+			multiplier = 0.5f;
+		}
 
-		MinecraftClient.getInstance().getItemRenderer().renderItem(transferItem.getItemStack(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+		matrices.scale(multiplier * percent, multiplier * percent, multiplier * percent);
+
+		MinecraftClient.getInstance().getItemRenderer().renderItem(itemStack, ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 		matrices.pop();
 
 	}
