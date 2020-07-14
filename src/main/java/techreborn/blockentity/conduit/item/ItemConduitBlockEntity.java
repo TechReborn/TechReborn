@@ -49,7 +49,6 @@ public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 	}
 
 	protected void importFace(Direction face) {
-		if(stored != null) return;
 
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
 
@@ -92,9 +91,6 @@ public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 	}
 
 	protected void exportFace(Direction face) {
-		// If we have no item, no point
-		if(stored == null) return;
-
 		Inventory inventory = HopperBlockEntity.getInventoryAt(world, pos.offset(face));
 
 		// If inventory doesn't exist, can't push
