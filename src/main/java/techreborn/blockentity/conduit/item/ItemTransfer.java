@@ -11,7 +11,7 @@ public class ItemTransfer extends BaseConduitTransfer<ItemStack> {
 		super(stored, duration, origin);
 	}
 
-	public ItemTransfer(){
+	public ItemTransfer() {
 	}
 
 	public void fromTag(CompoundTag tag) {

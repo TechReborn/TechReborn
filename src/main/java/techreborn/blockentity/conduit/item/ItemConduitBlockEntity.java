@@ -43,7 +43,7 @@ import techreborn.init.TRBlockEntities;
 public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 
 	public ItemConduitBlockEntity() {
-		super(TRBlockEntities.ITEM_CONDUIT, ItemConduitBlockEntity.class, ItemTransfer.class);
+		super(TRBlockEntities.ITEM_CONDUIT, ItemConduitBlockEntity.class, ItemTransfer.class, new ConduitItems());
 	}
 
 	protected void importFace(Direction face) {
@@ -95,13 +95,13 @@ public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 		if (inventory == null) return;
 
 
-			if(stored.isFinished()) {
-				stored.setStored(HopperBlockEntity.transfer(null, inventory, stored.getStored(), face.getOpposite()));
+		if (stored.isFinished()) {
+			stored.setStored(HopperBlockEntity.transfer(null, inventory, stored.getStored(), face.getOpposite()));
 
-				if (stored.isEmpty()) {
-					stored = null;
-				}
+			if (stored.isEmpty()) {
+				stored = null;
 			}
+		}
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 		String s = "";
 		s += super.getDebugText();
 
-		if(stored != null) {
+		if (stored != null) {
 			s += "\n" + Formatting.YELLOW + "> Conduit Item INFO" + Formatting.WHITE + "\n";
 			s += IDebuggable.propertyFormat("Item", stored.getStored().getName().getString()) + "\n";
 			s += IDebuggable.propertyFormat("Progress: ", stored.getProgressPercent() + "\n");
