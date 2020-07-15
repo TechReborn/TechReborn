@@ -3,7 +3,7 @@ package techreborn.blockentity.conduit.item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
-import reborncore.common.systems.conduit.BaseConduitTransfer;
+import reborncore.api.systems.conduit.BaseConduitTransfer;
 
 public class ItemTransfer extends BaseConduitTransfer<ItemStack> {
 

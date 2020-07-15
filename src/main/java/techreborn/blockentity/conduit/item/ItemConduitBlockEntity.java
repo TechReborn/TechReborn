@@ -31,10 +31,8 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
-import reborncore.common.systems.conduit.BaseConduit;
-import reborncore.common.systems.conduit.IConduit;
+import reborncore.api.systems.conduit.BaseConduit;
 import reborncore.common.util.IDebuggable;
 import techreborn.init.TRBlockEntities;
 

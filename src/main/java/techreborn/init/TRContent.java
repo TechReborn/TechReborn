@@ -53,7 +53,7 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.blocks.DataDrivenMachineBlock;
 import techreborn.blocks.GenericMachineBlock;
 import techreborn.blocks.cable.CableBlock;
-import reborncore.common.systems.conduit.block.ConduitBlock;
+import reborncore.api.systems.conduit.block.ConduitBlock;
 import techreborn.blocks.generator.BlockFusionCoil;
 import techreborn.blocks.generator.BlockFusionControlComputer;
 import techreborn.blocks.generator.BlockSolarPanel;
@@ -750,6 +750,13 @@ public class TRContent {
 		NAK_COOLANT_CELL_60K,
 		NAK_COOLANT_CELL_180K,
 		NAK_COOLANT_CELL_360K,
+
+
+		// Conduit face items
+		EXPORT_CONDUIT_ITEM,
+		IMPORT_CONDUIT_ITEM,
+		BLOCK_CONDUIT_ITEM,
+		ONE_WAY_CONDUIT_ITEM,
 
 		RUBBER,
 		SAP,

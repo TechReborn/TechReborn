@@ -37,9 +37,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Quaternion;
-import reborncore.common.systems.conduit.ConduitMode;
-import reborncore.common.systems.conduit.FunctionalFaceStorage;
-import reborncore.common.systems.conduit.IConduitTransfer;
+import reborncore.api.systems.conduit.functionalfaces.ConduitFunction;
+import reborncore.api.systems.conduit.functionalfaces.ConduitFunctionalFace;
+import reborncore.api.systems.functionalface.FunctionalFaceStorage;
+import reborncore.api.systems.conduit.IConduitTransfer;
 import techreborn.blockentity.conduit.item.ItemConduitBlockEntity;
 
 import java.util.Map;
@@ -60,14 +61,14 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 
 	}
 
-	private void renderIOFaces(FunctionalFaceStorage functionalFaceStorage, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
+	private void renderIOFaces(FunctionalFaceStorage<ConduitFunctionalFace> functionalFaceStorage, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light){
 		if (functionalFaceStorage.isEmpty()) {
 			return;
 		}
 
-		for (Map.Entry<Direction, ConduitMode> entry : functionalFaceStorage.getEntrySet()) {
+		for (Map.Entry<Direction, ConduitFunctionalFace> entry : functionalFaceStorage.getEntrySet()) {
 			Direction facing = entry.getKey();
-			ConduitMode mode = entry.getValue();
+			ConduitFunction mode = entry.getValue().conduitFunction;
 
 			matrices.push();
 
@@ -91,10 +92,10 @@ public class ItemConduitRenderer extends BlockEntityRenderer<ItemConduitBlockEnt
 			 // Model rendering
 			matrices.translate(0,0.25f,0f);
 			switch (mode){
-				case OUTPUT:
+				case EXPORT:
 					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.BEACON.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 					break;
-				case INPUT:
+				case IMPORT:
 					matrices.scale(1f,0.7f,4f);
 					MinecraftClient.getInstance().getItemRenderer().renderItem(Items.HOPPER.getStackForRender(), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
 					break;
