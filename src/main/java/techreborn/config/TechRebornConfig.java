@@ -547,6 +547,9 @@ public class TechRebornConfig {
 	public static int greenhouseControllerEnergyPerBonemeal = 50;
 
 	// Misc
+	@Config(config = "misc", category = "general", key = "NetworkRange", comment = "How far away a player can be from the centroid of an energy network before dropping it (Unload chunk)")
+	public static int NetworkPlayerRange = 100;
+
 	@Config(config = "misc", category = "general", key = "IC2TransformersStyle", comment = "Input from dots side, output from other sides, like in IC2.")
 	public static boolean IC2TransformersStyle = true;
 

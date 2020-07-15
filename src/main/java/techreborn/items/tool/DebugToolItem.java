@@ -160,7 +160,7 @@ public class DebugToolItem extends Item {
 			s += Formatting.WHITE;
 			s += "\nEnergized: " + Formatting.GOLD + network.isEnergized();
 		}else{
-			s += Formatting.RED + "No network found";
+			s += Formatting.RED + "\nNo network found";
 		}
 
 		return s;

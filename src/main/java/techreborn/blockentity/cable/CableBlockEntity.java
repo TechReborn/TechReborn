@@ -37,6 +37,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Tickable;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
@@ -106,6 +107,10 @@ public class CableBlockEntity extends BlockEntity
 
 	public ElectricNetwork getElectricNetwork() {
 		return electricNetwork;
+	}
+
+	public void clearElectricNetwork() {
+		electricNetwork = null;
 	}
 
 	public boolean isEnergized() {
@@ -210,6 +215,10 @@ public class CableBlockEntity extends BlockEntity
 		return cover;
 	}
 
+	public ChunkPos getChunk(){
+		return this.world.getChunk(this.pos).getPos();
+	}
+
 	public void setCover(BlockState cover) {
 		this.cover = cover;
 
@@ -253,7 +262,7 @@ public class CableBlockEntity extends BlockEntity
 
 		if (eligibleNetwork == null) {
 			TechReborn.LOGGER.debug("Could not find network to join, creating new one");
-			eligibleNetwork = ElectricNetworkManager.INSTANCE.newNetwork(getCableType().tier);
+			eligibleNetwork = ElectricNetworkManager.INSTANCE.newNetwork(this.world.getRegistryKey(), getCableType().tier);
 		} else {
 			TechReborn.LOGGER.debug("Successfully found another network to join: {}", eligibleNetwork);
 		}

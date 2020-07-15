@@ -25,46 +25,62 @@
 package techreborn.enet;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.blockentity.cable.CableBlockEntity;
+import techreborn.config.TechRebornConfig;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class ElectricNetwork {
+
+	private boolean isActive = true;
+	private BlockPos lastCentroid = null;
+
 	private final EnergyTier networkTier;
-	private final Set<CableBlockEntity> cableBlockEntities = new HashSet<>();
+
+	// Chunkpos and cables for a world
+	private final Set<CableBlockEntity> cables = new HashSet<>();
+
+	// World where network is located
+	private final RegistryKey<World> dimension;
+
 	private boolean isDirty;
 	private boolean isEnergized;
 
-	public ElectricNetwork(EnergyTier tier) {
+	public ElectricNetwork(RegistryKey<World> dimension, EnergyTier tier) {
+		this.dimension = dimension;
 		networkTier = tier;
 		isDirty = true;
 	}
 
-	public boolean isEmpty() {
-		return cableBlockEntities.isEmpty();
-	}
+	public void refreshState(MinecraftServer server){
+		ServerWorld serverWorld = server.getWorld(dimension);
 
-	public void addBlockEntity(CableBlockEntity entity) {
-		isDirty = cableBlockEntities.add(entity) || isDirty;
-	}
-
-	public void removeBlockEntity(CableBlockEntity entity) {
-		isDirty = cableBlockEntities.remove(entity) || isDirty;
-	}
-
-	public void tick() {
-		if (isEmpty()) {
+		if(serverWorld == null || cables.size() == 0){
 			return;
 		}
 
+		if(isActive){
+			checkActive(serverWorld, getCentroid());
+		}else{
+			if(lastCentroid != null){
+				checkActive(serverWorld, lastCentroid);
+			}else{
+				checkActive(serverWorld, getCentroid());
+			}
+		}
+	}
+
+	public void tick() {
 		if (isDirty) {
 			TechReborn.LOGGER.debug("Electric Network {} is dirty, checking for network and connection changes", this);
 			walkNetwork();
@@ -75,26 +91,38 @@ public final class ElectricNetwork {
 		distributePower();
 	}
 
+	public boolean isEmpty() {
+		return cables.isEmpty();
+	}
+
+	public void addBlockEntity(CableBlockEntity entity) {
+			isDirty = cables.add(entity) || isDirty;
+	}
+
+	public void removeBlockEntity(CableBlockEntity entity) {
+			isDirty = cables.remove(entity) || isDirty;
+	}
+
 	public boolean isEnergized() {
 		return isEnergized;
 	}
 
 	private void walkNetwork() {
 		// If the network is empty, why bother?
-		if (cableBlockEntities.isEmpty()) {
+		if (cables.isEmpty()) {
 			return;
 		}
 
 		TechReborn.LOGGER.debug("Walking the Electric Network to detect for changes in neighbors...");
 
 		// Keep track of the nodes we've seen and visited
-		HashSet<CableBlockEntity> seenNodes = new HashSet<>();
 		HashSet<CableBlockEntity> visitedNodes = new HashSet<>();
 
 		// "See" the first node in the list
-		CableBlockEntity firstNode = cableBlockEntities.iterator().next();
+		CableBlockEntity firstNode = cables.iterator().next(); // TODO er
 		TechReborn.LOGGER.debug("First node in the walk: {}", firstNode);
-		seenNodes.addAll(visitCableNode(firstNode, visitedNodes));
+
+		HashSet<CableBlockEntity> seenNodes = new HashSet<>(visitCableNode(firstNode, visitedNodes));
 
 		// "remainingNodesToVisit" is our seen nodes, excluding the ones we've visited
 		HashSet<CableBlockEntity> remainingNodesToVisit = new HashSet<>(seenNodes);
@@ -123,10 +151,10 @@ public final class ElectricNetwork {
 
 		TechReborn.LOGGER.debug(
 				"Starting purge of disconnected entities. Have {}, seen {}",
-				cableBlockEntities.size(),
+				getCableCount(),
 				seenNodes.size());
 
-		cableBlockEntities
+			cables
 				.stream()
 				.filter(node -> !seenNodes.contains(node) && node != null)
 				.collect(Collectors.toList())
@@ -138,6 +166,7 @@ public final class ElectricNetwork {
 
 					node.setElectricNetwork(null);
 				});
+
 
 		TechReborn.LOGGER.debug("Finished walking network for cable connection changes.");
 	}
@@ -182,29 +211,39 @@ public final class ElectricNetwork {
 	}
 
 	private void distributePower() {
-		List<PowerAcceptorBlockEntityFace> powerAcceptors = cableBlockEntities
-				.stream()
-				.flatMap(entityFace -> entityFace.getConnectedPowerAcceptors().stream())
-				.collect(Collectors.toList());
+		List<PowerAcceptorBlockEntityFace> powerAcceptors = new ArrayList<>();
 
 		double networkTransferCapacity = Math.min(networkTier.getMaxInput(), networkTier.getMaxOutput());
 
-		List<PowerAcceptorBlockEntityFace> fromList = powerAcceptors
-				.stream()
-				.filter(entityFace -> entityFace.canProvideEnergy() && entityFace.getEnergy() > 0)
-				.sorted(Comparator.comparing(entityFace -> entityFace.canAcceptEnergy() ? 1 : 0))
-				.collect(Collectors.toList());
+		for (CableBlockEntity cableBlockEntity : cables) {
+			powerAcceptors.addAll(cableBlockEntity.getConnectedPowerAcceptors());
+		}
 
-		List<PowerAcceptorBlockEntityFace> toList = powerAcceptors
-				.stream()
-				.filter(entityFace -> entityFace.canAcceptEnergy() &&
-						!entityFace.canProvideEnergy() &&
-						entityFace.hasFreeSpace())
-				.collect(Collectors.toList());
+		List<PowerAcceptorBlockEntityFace> fromList = new ArrayList<>();
+		List<PowerAcceptorBlockEntityFace> toList = new ArrayList<>();
+
+		for (PowerAcceptorBlockEntityFace entityFace : powerAcceptors) {
+
+			// If can provide energy add to FROM list otherwise TO (if conditions are met)
+			if (entityFace.canProvideEnergy()) {
+				// If it actually has energy, add it to FROM
+				if (entityFace.getEnergy() > 0) {
+					fromList.add(entityFace);
+				}
+			} else {
+				// If it can accept energy and have free space, add to the TO list
+				if (entityFace.canAcceptEnergy() && entityFace.hasFreeSpace()) {
+					toList.add(entityFace);
+				}
+			}
+		}
+
+		// Was in original code,
+		fromList.sort(Comparator.comparing(entityFace -> entityFace.canAcceptEnergy() ? 1 : 0));
 
 		isEnergized = fromList
 				.stream()
-				.anyMatch(entityFace -> entityFace.canProvideEnergy());
+				.anyMatch(PowerAcceptorBlockEntityFace::canProvideEnergy);
 
 		transferPower(fromList, toList, networkTransferCapacity);
 	}
@@ -235,9 +274,45 @@ public final class ElectricNetwork {
 		}
 	}
 
+	public boolean isActive(){
+		return isActive;
+	}
+
+	public void drop(){
+		cables.forEach(CableBlockEntity::clearElectricNetwork);
+		cables.clear();
+	}
+
+	// Checks if there is a player near the centroid of the network, this will determine if the network should be chunk loaded
+	public void checkActive(ServerWorld world, BlockPos centroid){
+		boolean playerWithinRange = world.isPlayerInRange(centroid.getX(), centroid.getY(), centroid.getZ(), 500);
+		boolean isCentroidForcedLoaded = world.getForcedChunks().contains(new ChunkPos(centroid).toLong());
+
+		this.isActive = playerWithinRange || isCentroidForcedLoaded;
+	}
+
+	private BlockPos getCentroid()  {
+		int centroidX = 0;
+		int centroidY = 0;
+		int centroidZ = 0;
+
+
+		for(CableBlockEntity cableBlockEntity : cables) {
+			centroidX += cableBlockEntity.getPos().getX();
+			centroidY += cableBlockEntity.getPos().getY();
+			centroidZ +=  cableBlockEntity.getPos().getZ();
+		}
+
+		int size = cables.size();
+
+		lastCentroid = new BlockPos(centroidX / size, centroidY / size, centroidZ / size);
+
+		return lastCentroid;
+	}
+
 	// Debug functions
 
-	public int getCableCount(){
-		return cableBlockEntities.size();
+	public int getCableCount() {
+		return cables.size();
 	}
 }

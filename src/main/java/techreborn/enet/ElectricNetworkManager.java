@@ -26,10 +26,13 @@ package techreborn.enet;
 
 import net.fabricmc.fabric.api.event.server.ServerTickCallback;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public final class ElectricNetworkManager implements ServerTickCallback {
@@ -38,7 +41,7 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 	private final Set<ElectricNetwork> electricNetworks = new HashSet<>();
 
 	private ElectricNetworkManager() {
-		ServerTickCallback.EVENT.register(this::tick);
+		ServerTickCallback.EVENT.register(this);
 	}
 
 	public static void init(MinecraftServer server) {
@@ -47,19 +50,34 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 
 	@Override
 	public void tick(MinecraftServer minecraftServer) {
-		electricNetworks.removeIf(network -> {
-			network.tick();
 
-			if (network.isEmpty()) {
-				TechReborn.LOGGER.debug("Electric Network {} is empty, removed", network);
+		Iterator<ElectricNetwork> iterator = electricNetworks.iterator();
+
+		while(iterator.hasNext()){
+			ElectricNetwork network = iterator.next();
+
+			// Check if network should be loaded/unloaded
+			if(minecraftServer.getTicks() % 100 == 0){
+				network.refreshState(minecraftServer);
 			}
 
-			return network.isEmpty();
-		});
+			if(network.isActive()) {
+				network.tick();
+
+				if(network.isEmpty()) {
+					TechReborn.LOGGER.debug("Electric Network {} is empty, removed", network);
+					iterator.remove();
+				}
+			}else{
+				// If not active, drop the network and stop tracking
+				network.drop();
+				iterator.remove();
+			}
+		}
 	}
 
-	public ElectricNetwork newNetwork(EnergyTier tier) {
-		ElectricNetwork newNetwork = new ElectricNetwork(tier);
+	public ElectricNetwork newNetwork(RegistryKey<World> dimension, EnergyTier tier) {
+		ElectricNetwork newNetwork = new ElectricNetwork(dimension, tier);
 		electricNetworks.add(newNetwork);
 
 		TechReborn.LOGGER.debug(
