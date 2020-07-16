@@ -26,8 +26,10 @@ package techreborn.enet;
 
 import net.fabricmc.fabric.api.event.server.ServerTickCallback;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.WorldChunk;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 
@@ -74,6 +76,14 @@ public final class ElectricNetworkManager implements ServerTickCallback {
 				iterator.remove();
 			}
 		}
+	}
+
+	public static void onChunkLoad(ServerWorld serverWorld, WorldChunk chunk){
+
+	}
+
+	public static void onChunkUnload(ServerWorld serverWorld, WorldChunk chunk){
+
 	}
 
 	public ElectricNetwork newNetwork(RegistryKey<World> dimension, EnergyTier tier) {

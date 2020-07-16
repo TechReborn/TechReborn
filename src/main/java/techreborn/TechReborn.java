@@ -26,6 +26,8 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.server.ServerStartCallback;
 import net.fabricmc.fabric.api.event.server.ServerStopCallback;
@@ -104,7 +106,9 @@ public class TechReborn implements ModInitializer {
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
 
-		ServerStartCallback.EVENT.register(ElectricNetworkManager::init);
+		ServerLifecycleEvents.SERVER_STARTED.register(ElectricNetworkManager::init);
+		ServerChunkEvents.CHUNK_LOAD.register(ElectricNetworkManager::onChunkLoad);
+		ServerChunkEvents.CHUNK_UNLOAD.register(ElectricNetworkManager::onChunkUnload);
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
