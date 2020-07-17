@@ -4,12 +4,12 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "techreborn:wool"
+      "tag": "minecraft:wool"
     }
   ],
   "results": [
     {
-      "item": "techreborn:string",
+      "item": "minecraft:string",
       "count": 4
     }
   ]
