@@ -194,7 +194,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_core"
+		"model": "techreborn:block/conduit/item/conduit_core"
 	  }
 	},
 	{
@@ -227,7 +227,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_connector"
+		"model": "techreborn:block/conduit/item/conduit_connector"
 	  }
 	},
 	{
@@ -260,7 +260,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_connector",
+		"model": "techreborn:block/conduit/item/conduit_connector",
 		"y": 180
 	  }
 	},
@@ -294,7 +294,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_connector",
+		"model": "techreborn:block/conduit/item/conduit_connector",
 		"y": 90
 	  }
 	},
@@ -328,7 +328,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_connector",
+		"model": "techreborn:block/conduit/item/conduit_connector",
 		"y": 270
 	  }
 	},
@@ -362,7 +362,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_connector",
+		"model": "techreborn:block/conduit/item/conduit_connector",
 		"x": 270
 	  }
 	},
@@ -396,7 +396,7 @@
 		]
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_connector",
+		"model": "techreborn:block/conduit/item/conduit_connector",
 		"x": 90
 	  }
 	},
@@ -410,7 +410,7 @@
 		"down": false
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_straight"
+		"model": "techreborn:block/conduit/item/conduit_straight"
 	  }
 	},
 	{
@@ -423,7 +423,7 @@
 		"down": false
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_straight",
+		"model": "techreborn:block/conduit/item/conduit_straight",
 		"y": 90
 	  }
 	},
@@ -437,7 +437,7 @@
 		"down": true
 	  },
 	  "apply": {
-		"model": "techreborn:block/conduit/conduit_straight",
+		"model": "techreborn:block/conduit/item/conduit_straight",
 		"x": 270
 	  }
 	}
