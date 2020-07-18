@@ -772,6 +772,7 @@
   "techreborn.jei.recipe.running.cost": "%s/t: %s",
   "techreborn.jei.recipe.processing.time.1": "Time: %s ticks",
   "techreborn.jei.recipe.processing.time.2": "(%s sec)",
+  "techreborn.jei.recipe.processing.time.3": "%s sec",
   "techreborn.jei.recipe.heat": "Heat",
   "techreborn.jei.recipe.generator.total": "E total: %s",
 
