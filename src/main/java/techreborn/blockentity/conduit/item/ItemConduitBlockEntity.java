@@ -31,8 +31,10 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 import reborncore.api.systems.conduit.BaseConduit;
+import reborncore.api.systems.conduit.IConduit;
 import reborncore.common.util.IDebuggable;
 import techreborn.init.TRBlockEntities;
 
@@ -82,7 +84,10 @@ public class ItemConduitBlockEntity extends BaseConduit<ItemStack> {
 			if (itemStack != null) {
 				ItemStack out = itemStack.copy();
 				out.setCount(1);
-				stored = new ItemTransfer(out, 5, face);
+
+				Direction dest = this.getDestinationDirection(face);
+
+				stored = new ItemTransfer(out, 5, face, dest);
 				itemStack.decrement(1);
 			}
 		}

@@ -7,8 +7,8 @@ import reborncore.api.systems.conduit.BaseConduitTransfer;
 
 public class ItemTransfer extends BaseConduitTransfer<ItemStack> {
 
-	public ItemTransfer(ItemStack stored, int duration, Direction origin) {
-		super(stored, duration, origin);
+	public ItemTransfer(ItemStack stored, int duration, Direction origin, Direction target) {
+		super(stored, duration, origin, target);
 	}
 
 	public ItemTransfer() {
