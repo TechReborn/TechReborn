@@ -80,7 +80,7 @@ dependencies {
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.13.1+build.370-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.5.4")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.10.2")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
 

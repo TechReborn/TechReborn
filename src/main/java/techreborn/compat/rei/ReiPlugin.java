@@ -24,20 +24,41 @@
 
 package techreborn.compat.rei;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.*;
+import me.shedaniel.rei.api.fluid.FluidSupportProvider;
 import me.shedaniel.rei.api.plugins.REIPluginV0;
+import me.shedaniel.rei.api.widgets.Tooltip;
+import me.shedaniel.rei.api.widgets.Widgets;
+import me.shedaniel.rei.gui.widget.EntryWidget;
+import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.rei.impl.RenderingEntry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.IUpgradeable;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.slot.GuiTab;
+import reborncore.client.gui.guibuilder.GuiBuilder;
 import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.crafting.RebornRecipeType;
 import reborncore.common.crafting.RecipeManager;
+import reborncore.common.fluid.container.ItemFluidInfo;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
 import techreborn.api.generator.EFluidGenerator;
 import techreborn.api.generator.GeneratorRecipeHelper;
@@ -47,6 +68,7 @@ import techreborn.compat.rei.fluidgenerator.FluidGeneratorRecipeCategory;
 import techreborn.compat.rei.fluidgenerator.FluidGeneratorRecipeDisplay;
 import techreborn.compat.rei.fluidreplicator.FluidReplicatorRecipeCategory;
 import techreborn.compat.rei.fluidreplicator.FluidReplicatorRecipeDisplay;
+import techreborn.compat.rei.machine.*;
 import techreborn.compat.rei.rollingmachine.RollingMachineCategory;
 import techreborn.compat.rei.rollingmachine.RollingMachineDisplay;
 import techreborn.init.ModRecipes;
@@ -95,26 +117,26 @@ public class ReiPlugin implements REIPluginV0 {
 
 	@Override
 	public void registerPluginCategories(RecipeHelper recipeHelper) {
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ALLOY_SMELTER));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.ASSEMBLING_MACHINE));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.BLAST_FURNACE));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.CENTRIFUGE, 4));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.CHEMICAL_REACTOR));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.COMPRESSOR, 1));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.DISTILLATION_TOWER, 3));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.EXTRACTOR, 1));
+		recipeHelper.registerCategory(new TwoInputsCenterOutputCategory<>(ModRecipes.ALLOY_SMELTER));
+		recipeHelper.registerCategory(new AssemblingMachineCategory<>(ModRecipes.ASSEMBLING_MACHINE));
+		recipeHelper.registerCategory(new BlastFurnaceCategory<>(ModRecipes.BLAST_FURNACE));
+		recipeHelper.registerCategory(new IndustrialCentrifugeCategory<>(ModRecipes.CENTRIFUGE));
+		recipeHelper.registerCategory(new TwoInputsCenterOutputCategory<>(ModRecipes.CHEMICAL_REACTOR));
+		recipeHelper.registerCategory(new OneInputOneOutputCategory<>(ModRecipes.COMPRESSOR));
+		recipeHelper.registerCategory(new DistillationTowerCategory<>(ModRecipes.DISTILLATION_TOWER));
+		recipeHelper.registerCategory(new OneInputOneOutputCategory<>(ModRecipes.EXTRACTOR));
 		recipeHelper.registerCategory(new FluidReplicatorRecipeCategory(ModRecipes.FLUID_REPLICATOR));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.FUSION_REACTOR, 2));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.GRINDER, 1));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.IMPLOSION_COMPRESSOR));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_ELECTROLYZER, 4));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_GRINDER, 3));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.INDUSTRIAL_SAWMILL, 3));
+		recipeHelper.registerCategory(new TwoInputsCenterOutputCategory<>(ModRecipes.FUSION_REACTOR));
+		recipeHelper.registerCategory(new OneInputOneOutputCategory<>(ModRecipes.GRINDER));
+		recipeHelper.registerCategory(new ImplosionCompressorCategory<>(ModRecipes.IMPLOSION_COMPRESSOR));
+		recipeHelper.registerCategory(new ElectrolyzerCategory<>(ModRecipes.INDUSTRIAL_ELECTROLYZER));
+		recipeHelper.registerCategory(new GrinderCategory<>(ModRecipes.INDUSTRIAL_GRINDER));
+		recipeHelper.registerCategory(new SawmillCategory<>(ModRecipes.INDUSTRIAL_SAWMILL));
 		recipeHelper.registerCategory(new RollingMachineCategory(ModRecipes.ROLLING_MACHINE));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SCRAPBOX));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.SOLID_CANNING_MACHINE));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.VACUUM_FREEZER, 1));
-		recipeHelper.registerCategory(new MachineRecipeCategory<>(ModRecipes.WIRE_MILL, 1));
+		recipeHelper.registerCategory(new OneInputOneOutputCategory<>(ModRecipes.SCRAPBOX));
+		recipeHelper.registerCategory(new TwoInputsCenterOutputCategory<>(ModRecipes.SOLID_CANNING_MACHINE));
+		recipeHelper.registerCategory(new OneInputOneOutputCategory<>(ModRecipes.VACUUM_FREEZER));
+		recipeHelper.registerCategory(new OneInputOneOutputCategory<>(ModRecipes.WIRE_MILL));
 
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.THERMAL_GENERATOR));
 		recipeHelper.registerCategory(new FluidGeneratorRecipeCategory(Machine.GAS_TURBINE));
@@ -160,20 +182,37 @@ public class ReiPlugin implements REIPluginV0 {
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.DIESEL_GENERATOR.name), EntryStack.create(Machine.DIESEL_GENERATOR));
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.SEMI_FLUID_GENERATOR.name), EntryStack.create(Machine.SEMI_FLUID_GENERATOR));
 		recipeHelper.registerWorkingStations(new Identifier(TechReborn.MOD_ID, Machine.PLASMA_GENERATOR.name), EntryStack.create(Machine.PLASMA_GENERATOR));
+
+		registerFluidSupport();
+	}
+
+	@SuppressWarnings("UnstableApiUsage")
+	private void registerFluidSupport() {
+		FluidSupportProvider.INSTANCE.registerFluidProvider(new FluidSupportProvider.FluidProvider() {
+			@Override
+			@NotNull
+			public EntryStack itemToFluid(@NotNull EntryStack itemStack) {
+				if (itemStack.getItem() instanceof ItemFluidInfo) {
+					Fluid fluid = ((ItemFluidInfo) itemStack.getItem()).getFluid(itemStack.getItemStack());
+					if (fluid != null)
+						return EntryStack.create(fluid);
+				}
+				return EntryStack.empty();
+			}
+		});
 	}
 
 	@Override
 	public void postRegister() {
 		// Alright we are going to apply check tags to cells, this should not take long at all.
 		// Check Tags will not check the amount of the ItemStack, but will enable checking their tags.
-		for (EntryStack stack : EntryRegistry.getInstance().getStacksList())
-			applyCellEntry(stack);
+		EntryRegistry.getInstance().getEntryStacks().forEach(ReiPlugin::applyCellEntry);
 	}
 
 	public static void applyCellEntry(EntryStack stack) {
 		// getItem can be null but this works
 		if (stack.getItem() == TRContent.CELL)
-			stack.addSetting(EntryStack.Settings.CHECK_TAGS, EntryStack.Settings.TRUE);
+			stack.setting(EntryStack.Settings.CHECK_TAGS, EntryStack.Settings.TRUE);
 	}
 
 	private void registerFluidGeneratorDisplays(RecipeHelper recipeHelper, EFluidGenerator generator, Machine machine) {
@@ -199,7 +238,6 @@ public class ReiPlugin implements REIPluginV0 {
 				return new FluidReplicatorRecipeDisplay(recipe);
 			};
 		}
-
 
 		recipeHelper.registerRecipes(recipeType.getName(), (Predicate<Recipe>) recipe -> {
 			if (recipe instanceof RebornRecipe) {
@@ -235,5 +273,172 @@ public class ReiPlugin implements REIPluginV0 {
 			}
 			return Collections.emptyList();
 		});
+	}
+
+	public static Widget createProgressBar(int x, int y, double animationDuration, GuiBuilder.ProgressDirection direction) {
+		return Widgets.createDrawableWidget((helper, matrices, mouseX, mouseY, delta) -> {
+			MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+			helper.drawTexture(matrices, x, y, direction.x, direction.y, direction.width, direction.height);
+			int j = (int) ((System.currentTimeMillis() / animationDuration) % 1.0 * 16.0);
+			if (j < 0) {
+				j = 0;
+			}
+
+			switch (direction) {
+				case RIGHT:
+					helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, j, 10);
+					break;
+				case LEFT:
+					helper.drawTexture(matrices, x + 16 - j, y, direction.xActive + 16 - j, direction.yActive, j, 10);
+					break;
+				case UP:
+					helper.drawTexture(matrices, x, y + 16 - j, direction.xActive, direction.yActive + 16 - j, 10, j);
+					break;
+				case DOWN:
+					helper.drawTexture(matrices, x, y, direction.xActive, direction.yActive, 10, j);
+					break;
+			}
+		});
+	}
+
+	public static Widget createEnergyDisplay(Rectangle bounds, double energy, EntryAnimation animation, Function<Point, Tooltip> tooltipBuilder) {
+		return new EnergyEntryWidget(bounds, animation).entry(
+				new RenderingEntry() {
+					@Override
+					public void render(MatrixStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {}
+
+					@Override
+					public @Nullable Tooltip getTooltip(Point mouse) {
+						return tooltipBuilder.apply(mouse);
+					}
+				}
+		).notFavoritesInteractable();
+	}
+
+	public static Widget createFluidDisplay(Rectangle bounds, EntryStack fluid, EntryAnimation animation) {
+		return new FluidEntryWidget(bounds, fluid.getFluid(), animation).entry(fluid);
+	}
+
+	private static class EnergyEntryWidget extends EntryWidget {
+		private EntryAnimation animation;
+
+		protected EnergyEntryWidget(Rectangle rectangle, EntryAnimation animation) {
+			super(rectangle.x, rectangle.y);
+			this.getBounds().setBounds(rectangle);
+			this.animation = animation;
+		}
+
+		@Override
+		protected void drawBackground(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+			if (background) {
+				Rectangle bounds = getBounds();
+				int width = bounds.width;
+				int height = bounds.height;
+				int innerHeight = height - 2;
+
+				PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
+				MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+				drawTexture(matrices, bounds.x, bounds.y, displayPower.xBar - 15, displayPower.yBar - 1, width, height);
+				int innerDisplayHeight;
+				if (animation.animationType != EntryAnimationType.NONE) {
+					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight) / 1f);
+					if (animation.animationType == EntryAnimationType.DOWNWARDS)
+						innerDisplayHeight = innerHeight - innerDisplayHeight;
+				} else innerDisplayHeight = innerHeight;
+				drawTexture(matrices, bounds.x + 1, bounds.y + 1 + innerHeight - innerDisplayHeight, displayPower.xBar, innerHeight + displayPower.yBar - innerDisplayHeight, width - 2, innerDisplayHeight);
+			}
+		}
+
+		@Override
+		protected void drawCurrentEntry(MatrixStack matrices, int mouseX, int mouseY, float delta) {}
+	}
+
+	private static class FluidEntryWidget extends EntryWidget {
+		private Fluid fluid;
+		private EntryAnimation animation;
+
+		protected FluidEntryWidget(Rectangle rectangle, Fluid fluid, EntryAnimation animation) {
+			super(rectangle.x, rectangle.y);
+			this.getBounds().setBounds(rectangle);
+			this.fluid = fluid;
+			this.animation = animation;
+		}
+
+		@Override
+		protected void drawBackground(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+			if (background) {
+				Rectangle bounds = getBounds();
+				int width = bounds.width;
+				int height = bounds.height;
+				int innerHeight = height - 2;
+
+				PowerSystem.EnergySystem displayPower = PowerSystem.getDisplayPower();
+				MinecraftClient.getInstance().getTextureManager().bindTexture(GuiBuilder.defaultTextureSheet);
+				drawTexture(matrices, bounds.x - 3, bounds.y - 3, 194, 26, width + 6, height + 6);
+				drawTexture(matrices, bounds.x, bounds.y, 194, 82, width, height);
+				int innerDisplayHeight;
+				if (animation.animationType != EntryAnimationType.NONE) {
+					innerDisplayHeight = MathHelper.ceil((System.currentTimeMillis() / (animation.duration / innerHeight) % innerHeight) / 1f);
+					if (animation.animationType == EntryAnimationType.DOWNWARDS)
+						innerDisplayHeight = innerHeight - innerDisplayHeight;
+				} else innerDisplayHeight = innerHeight;
+				drawFluid(matrices, fluid, innerDisplayHeight, bounds.x + 1, bounds.y + 1, width - 2, innerHeight);
+			}
+		}
+
+		public void drawFluid(MatrixStack matrixStack, Fluid fluid, int drawHeight, int x, int y, int width, int height) {
+			MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
+			y += height;
+			final Sprite sprite = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidSprites(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState())[0];
+			int color = FluidRenderHandlerRegistry.INSTANCE.get(fluid).getFluidColor(MinecraftClient.getInstance().world, BlockPos.ORIGIN, fluid.getDefaultState());
+
+			final int iconHeight = sprite.getHeight();
+			int offsetHeight = drawHeight;
+
+			RenderSystem.color3f((color >> 16 & 255) / 255.0F, (float) (color >> 8 & 255) / 255.0F, (float) (color & 255) / 255.0F);
+
+			int iteration = 0;
+			while (offsetHeight != 0) {
+				final int curHeight = Math.min(offsetHeight, iconHeight);
+
+				DrawableHelper.drawSprite(matrixStack, x, y - offsetHeight, 0, width, curHeight, sprite);
+				offsetHeight -= curHeight;
+				iteration++;
+				if (iteration > 50) {
+					break;
+				}
+			}
+		}
+
+		@Override
+		protected void drawCurrentEntry(MatrixStack matrices, int mouseX, int mouseY, float delta) {}
+	}
+
+	public static class EntryAnimation {
+		private final EntryAnimationType animationType;
+		private final long duration;
+
+		private EntryAnimation(EntryAnimationType animationType, long duration) {
+			this.animationType = animationType;
+			this.duration = duration;
+		}
+
+		public static EntryAnimation upwards(long duration) {
+			return new EntryAnimation(EntryAnimationType.UPWARDS, duration);
+		}
+
+		public static EntryAnimation downwards(long duration) {
+			return new EntryAnimation(EntryAnimationType.DOWNWARDS, duration);
+		}
+
+		public static EntryAnimation none() {
+			return new EntryAnimation(EntryAnimationType.NONE, 0);
+		}
+	}
+
+	public enum EntryAnimationType {
+		UPWARDS,
+		DOWNWARDS,
+		NONE
 	}
 }
