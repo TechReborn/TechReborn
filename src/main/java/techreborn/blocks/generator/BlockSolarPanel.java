@@ -40,14 +40,14 @@ import techreborn.init.TRContent.SolarPanels;
  * Created by modmuss50 on 25/02/2016.
  */
 public class BlockSolarPanel extends BlockMachineBase {
-	
+
 	public final SolarPanels panelType;
 
 	public BlockSolarPanel(SolarPanels panel) {
 		super();
 		this.panelType = panel;
 	}
-	
+
 	@Override
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new SolarPanelBlockEntity(panelType);
@@ -55,7 +55,7 @@ public class BlockSolarPanel extends BlockMachineBase {
 
 	@Override
 	public IMachineGuiHandler getGui() {
-		if(this.panelType == SolarPanels.CREATIVE){
+		if (this.panelType == SolarPanels.CREATIVE) {
 			return null;
 		}
 		return GuiType.SOLAR_PANEL;

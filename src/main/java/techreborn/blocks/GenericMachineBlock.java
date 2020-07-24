@@ -34,11 +34,10 @@ import java.util.function.Supplier;
 
 /**
  * @author drcrazy
- *
  */
 public class GenericMachineBlock extends BlockMachineBase {
 
-	private IMachineGuiHandler gui;
+	private final IMachineGuiHandler gui;
 	Supplier<BlockEntity> blockEntityClass;
 
 	public GenericMachineBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {
@@ -60,7 +59,6 @@ public class GenericMachineBlock extends BlockMachineBase {
 		}
 		return blockEntityClass.get();
 	}
-
 
 
 	@Override

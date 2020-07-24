@@ -52,12 +52,12 @@ public final class CableShapeUtil {
 	}
 
 	private VoxelShape getStateShape(BlockState state) {
-		final double size = cableBlock.type != null ?  cableBlock.type.cableThickness : 6;
+		final double size = cableBlock.type != null ? cableBlock.type.cableThickness : 6;
 		final VoxelShape baseShape = Block.createCuboidShape(size, size, size, 16.0D - size, 16.0D - size, 16.0D - size);
 
 		final List<VoxelShape> connections = new ArrayList<>();
-		for(Direction dir : Direction.values()){
-			if(state.get(CableBlock.PROPERTY_MAP.get(dir))) {
+		for (Direction dir : Direction.values()) {
+			if (state.get(CableBlock.PROPERTY_MAP.get(dir))) {
 				double x = dir == Direction.WEST ? 0 : dir == Direction.EAST ? 16D : size;
 				double z = dir == Direction.NORTH ? 0 : dir == Direction.SOUTH ? 16D : size;
 				double y = dir == Direction.DOWN ? 0 : dir == Direction.UP ? 16D : size;

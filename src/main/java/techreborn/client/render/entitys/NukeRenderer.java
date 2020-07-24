@@ -58,8 +58,8 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 	public void render(EntityNukePrimed entity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
 		matrixStack.push();
 		matrixStack.translate(0.0D, 0.5D, 0.0D);
-		if ((float)entity.getFuseTimer() - g + 1.0F < 10.0F) {
-			float h = 1.0F - ((float)entity.getFuseTimer() - g + 1.0F) / 10.0F;
+		if ((float) entity.getFuseTimer() - g + 1.0F < 10.0F) {
+			float h = 1.0F - ((float) entity.getFuseTimer() - g + 1.0F) / 10.0F;
 			h = MathHelper.clamp(h, 0.0F, 1.0F);
 			h *= h;
 			h *= h;

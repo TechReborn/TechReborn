@@ -42,30 +42,30 @@ import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 public class AlarmBlockEntity extends BlockEntity
-	implements Tickable, IToolDrop {
+		implements Tickable, IToolDrop {
 	private int selectedSound = 1;
 
 	public AlarmBlockEntity() {
 		super(TRBlockEntities.ALARM);
 	}
 
-    public void rightClick() {
-        if (world.isClient) {
-            return;
-        }
+	public void rightClick() {
+		if (world.isClient) {
+			return;
+		}
 
-        if (selectedSound < 3) {
-            selectedSound++;
-        } else {
-            selectedSound = 1;
-        }
+		if (selectedSound < 3) {
+			selectedSound++;
+		} else {
+			selectedSound = 1;
+		}
 
-        ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TranslatableText("techreborn.message.alarm")
+		ChatUtils.sendNoSpamMessages(MessageIDs.alarmID, new TranslatableText("techreborn.message.alarm")
 				.formatted(Formatting.GRAY)
 				.append(" Alarm ")
 				.append(String.valueOf(selectedSound)));
-    }
-	
+	}
+
 	// BlockEntity
 	@Override
 	public CompoundTag toTag(CompoundTag compound) {
@@ -87,12 +87,12 @@ public class AlarmBlockEntity extends BlockEntity
 	// ITickable
 	@Override
 	public void tick() {
-        if (world.isClient()){
-	        return;
-        }
-	    if (world.getTime() % 25 != 0) {
-	        return;
-        }
+		if (world.isClient()) {
+			return;
+		}
+		if (world.getTime() % 25 != 0) {
+			return;
+		}
 		if (world.isReceivingRedstonePower(getPos())) {
 			BlockAlarm.setActive(true, world, pos);
 			switch (selectedSound) {
@@ -106,7 +106,7 @@ public class AlarmBlockEntity extends BlockEntity
 					world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.ALARM_3, SoundCategory.BLOCKS, 4F, 1F);
 					break;
 			}
-		} else  {
+		} else {
 			BlockAlarm.setActive(false, world, pos);
 		}
 	}

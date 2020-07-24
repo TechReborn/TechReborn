@@ -1,0 +1,16 @@
+{
+  "type": "techreborn:grinder",
+  "power": 3,
+  "time": 300,
+  "ingredients": [
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:string",
+      "count": 4
+    }
+  ]
+}

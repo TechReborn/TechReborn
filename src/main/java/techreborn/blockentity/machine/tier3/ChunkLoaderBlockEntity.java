@@ -55,10 +55,10 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	private String ownerUdid;
 
 	public ChunkLoaderBlockEntity() {
-		super(TRBlockEntities.CHUNK_LOADER );
+		super(TRBlockEntities.CHUNK_LOADER);
 		this.radius = 1;
 	}
-	
+
 	public void handleGuiInputFromClient(int buttonID, @Nullable PlayerEntity playerEntity) {
 		radius += buttonID;
 
@@ -71,7 +71,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 		reload();
 
-		if(playerEntity != null){
+		if (playerEntity != null) {
 			ChunkLoaderManager manager = ChunkLoaderManager.get(getWorld());
 			manager.syncChunkLoaderToClient((ServerPlayerEntity) playerEntity, getPos());
 		}
@@ -82,20 +82,20 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		return TRContent.Machine.CHUNK_LOADER.getStack();
 	}
 
-	private void reload(){
+	private void reload() {
 		unloadAll();
 		load();
 	}
 
-	private void load(){
+	private void load() {
 		ChunkLoaderManager manager = ChunkLoaderManager.get(getWorld());
 		ChunkPos rootPos = getChunkPos();
-		int loadRadius = radius -1;
+		int loadRadius = radius - 1;
 		for (int i = -loadRadius; i <= loadRadius; i++) {
 			for (int j = -loadRadius; j <= loadRadius; j++) {
 				ChunkPos loadPos = new ChunkPos(rootPos.x + i, rootPos.z + j);
 
-				if(!manager.isChunkLoaded(getWorld(), loadPos, getPos())){
+				if (!manager.isChunkLoaded(getWorld(), loadPos, getPos())) {
 					manager.loadChunk(getWorld(), loadPos, getPos(), ownerUdid);
 				}
 			}
@@ -105,7 +105,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	@Override
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
-		if(world.isClient){
+		if (world.isClient) {
 			return;
 		}
 		unloadAll();
@@ -114,19 +114,19 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 
 	@Override
 	public void onPlace(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if(world.isClient){
+		if (world.isClient) {
 			return;
 		}
 		ownerUdid = placer.getUuidAsString();
 		reload();
 	}
 
-	private void unloadAll(){
+	private void unloadAll() {
 		ChunkLoaderManager manager = ChunkLoaderManager.get(world);
 		manager.unloadChunkLoader(world, getPos());
 	}
 
-	public ChunkPos getChunkPos(){
+	public ChunkPos getChunkPos() {
 		return new ChunkPos(getPos());
 	}
 
@@ -144,7 +144,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 		super.fromTag(blockState, nbttagcompound);
 		this.radius = nbttagcompound.getInt("radius");
 		this.ownerUdid = nbttagcompound.getString("ownerUdid");
-		if(!StringUtils.isBlank(ownerUdid)){
+		if (!StringUtils.isBlank(ownerUdid)) {
 			nbttagcompound.putString("ownerUdid", this.ownerUdid);
 		}
 		inventory.read(nbttagcompound);
@@ -158,7 +158,7 @@ public class ChunkLoaderBlockEntity extends MachineBaseBlockEntity implements IT
 	public int getRadius() {
 		return radius;
 	}
-	
+
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}

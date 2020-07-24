@@ -47,7 +47,7 @@ public class BlockComputerCube extends BlockMachineBase {
 	public IMachineGuiHandler getGui() {
 		return null;
 	}
-	
+
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 
@@ -63,8 +63,7 @@ public class BlockComputerCube extends BlockMachineBase {
 						worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 					}
 					return ActionResult.SUCCESS;
-				}
-				else {
+				} else {
 					rotate(worldIn.getBlockState(pos), BlockRotation.CLOCKWISE_90);
 					return ActionResult.SUCCESS;
 				}

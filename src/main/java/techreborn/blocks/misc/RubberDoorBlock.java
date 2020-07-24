@@ -29,7 +29,6 @@ import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
- *
  */
 public class RubberDoorBlock extends DoorBlock {
 

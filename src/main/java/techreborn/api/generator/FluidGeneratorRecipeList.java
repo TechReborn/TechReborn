@@ -83,10 +83,7 @@ public class FluidGeneratorRecipeList {
 			return false;
 		FluidGeneratorRecipeList other = (FluidGeneratorRecipeList) obj;
 		if (recipes == null) {
-			if (other.recipes != null)
-				return false;
-		} else if (!recipes.equals(other.recipes))
-			return false;
-		return true;
+			return other.recipes == null;
+		} else return recipes.equals(other.recipes);
 	}
 }

@@ -51,7 +51,7 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 		drawSlot(matrixStack, 100, 53, layer);
 		drawSlot(matrixStack, 140, 53, layer);
 
-		builder.drawLockButton(matrixStack,this, 150, 4, mouseX, mouseY, layer, storageEntity.isLocked());
+		builder.drawLockButton(matrixStack, this, 150, 4, mouseX, mouseY, layer, storageEntity.isLocked());
 	}
 
 	@Override
@@ -59,19 +59,22 @@ public class GuiStorageUnit extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 
 		// Draw in/out labels
-		builder.drawText(matrixStack,this, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
-		builder.drawText(matrixStack,this, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
+		builder.drawText(matrixStack, this, new TranslatableText("gui.techreborn.unit.in"), 100, 43, 4210752);
+		builder.drawText(matrixStack, this, new TranslatableText("gui.techreborn.unit.out"), 140, 43, 4210752);
 
-		if (storageEntity.isEmpty() && !storageEntity.isLocked()) {
+
+		int storedAmount = storageEntity.storedAmount;
+
+		if (storedAmount == 0 && !storageEntity.isLocked()) {
 			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.store"), 10, 20, 4210752);
 			textRenderer.draw(matrixStack, storageEntity.getDisplayedStack().getName(), 10, 30, 4210752);
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.storage.amount"), 10, 50, 4210752);
-			textRenderer.draw(matrixStack, String.valueOf(storageEntity.getCurrentCapacity()), 10, 60, 4210752);
+			textRenderer.draw(matrixStack, String.valueOf(storedAmount), 10, 60, 4210752);
 
-			String percentFilled = String.valueOf((int) ((double) storageEntity.getCurrentCapacity() / (double) storageEntity.getMaxCapacity() * 100));
+			String percentFilled = String.valueOf((int) ((double) storedAmount / (double) storageEntity.getMaxCapacity() * 100));
 
 			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
 

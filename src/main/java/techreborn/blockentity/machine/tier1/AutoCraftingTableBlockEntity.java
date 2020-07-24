@@ -127,7 +127,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				if (ingredient != Ingredient.EMPTY && !(ingredient.test(ItemStack.EMPTY))) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
-						if(checkedSlots.contains(i)) {
+						if (checkedSlots.contains(i)) {
 							continue;
 						}
 						ItemStack stack = inventory.getStack(i);
@@ -150,9 +150,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 				}
 			}
 			if (!missingOutput) {
-				if (hasOutputSpace(recipe.getOutput(), 9)) {
-					return true;
-				}
+				return hasOutputSpace(recipe.getOutput(), 9);
 			}
 			return false;
 		}
@@ -173,9 +171,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			return true;
 		}
 		if (ItemUtils.isItemEqual(stack, output, true, true)) {
-			if (stack.getMaxCount() > stack.getCount() + output.getCount()) {
-				return true;
-			}
+			return stack.getMaxCount() > stack.getCount() + output.getCount();
 		}
 		return false;
 	}
@@ -191,7 +187,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			ItemStack bestSlot = inventory.getStack(i);
 			if (ingredient.test(bestSlot)) {
 				ItemStack remainderStack = getRemainderItem(bestSlot);
-				if(remainderStack.isEmpty()) {
+				if (remainderStack.isEmpty()) {
 					bestSlot.decrement(1);
 				} else {
 					inventory.setStack(i, remainderStack);
@@ -202,7 +198,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					ItemStack stack = inventory.getStack(j);
 					if (ingredient.test(stack)) {
 						ItemStack remainderStack = getRemainderItem(stack);
-						if(remainderStack.isEmpty()) {
+						if (remainderStack.isEmpty()) {
 							stack.decrement(1);
 						} else {
 							inventory.setStack(j, remainderStack);
@@ -223,7 +219,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 	}
 
 	private ItemStack getRemainderItem(ItemStack stack) {
-		if(stack.getItem() instanceof ExtendedRecipeRemainder) {
+		if (stack.getItem() instanceof ExtendedRecipeRemainder) {
 			return ((ExtendedRecipeRemainder) stack.getItem()).getRemainderStack(stack);
 
 		} else if (stack.getItem().hasRecipeRemainder()) {
@@ -310,7 +306,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 		List<Integer> possibleSlots = new ArrayList<>();
 		for (int s = 0; s < currentRecipe.getPreviewInputs().size(); s++) {
 			for (int i = 0; i < 9; i++) {
-				if(possibleSlots.contains(i)) {
+				if (possibleSlots.contains(i)) {
 					continue;
 				}
 				ItemStack stackInSlot = inventory.getStack(i);
@@ -325,8 +321,8 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 
 		}
 
-		if(!possibleSlots.isEmpty()){
-			int totalItems =  possibleSlots.stream()
+		if (!possibleSlots.isEmpty()) {
+			int totalItems = possibleSlots.stream()
 					.mapToInt(value -> inventory.getStack(value).getCount()).sum();
 			int slots = possibleSlots.size();
 
@@ -334,11 +330,11 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			int[] split = new int[slots];
 			int remainder = totalItems % slots;
 			Arrays.fill(split, totalItems / slots);
-			while (remainder > 0){
+			while (remainder > 0) {
 				for (int i = 0; i < split.length; i++) {
-					if(remainder > 0){
-						split[i] +=1;
-						remainder --;
+					if (remainder > 0) {
+						split[i] += 1;
+						remainder--;
 					}
 				}
 			}
@@ -350,7 +346,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			boolean needsBalance = false;
 			for (int i = 0; i < split.length; i++) {
 				int required = split[i];
-				if(slotEnvTyperubution.contains(required)){
+				if (slotEnvTyperubution.contains(required)) {
 					//We need to remove the int, not at the int, this seems to work around that
 					slotEnvTyperubution.remove(new Integer(required));
 				} else {

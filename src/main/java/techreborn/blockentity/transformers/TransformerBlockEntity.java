@@ -76,7 +76,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 		// Should always be 4, except if we're tier MICRO, in which it will be 1.
 		super.setMaxPacketsPerTick(tier.getMaxOutput() / ouputTier.getMaxInput());
 	}
-	
+
 	// TilePowerAcceptor
 	@Override
 	public double getBaseMaxPower() {
@@ -85,15 +85,15 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 
 	@Override
 	public boolean canAcceptEnergy(Direction direction) {
-		if (TechRebornConfig.IC2TransformersStyle){
+		if (TechRebornConfig.IC2TransformersStyle) {
 			return getFacingEnum() == direction;
 		}
 		return getFacingEnum() != direction;
 	}
-	
+
 	@Override
 	public boolean canProvideEnergy(Direction direction) {
-		if (TechRebornConfig.IC2TransformersStyle){
+		if (TechRebornConfig.IC2TransformersStyle) {
 			return getFacingEnum() != direction;
 		}
 		return getFacing() == direction;
@@ -108,7 +108,7 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	public double getBaseMaxInput() {
 		return inputTier.getMaxInput();
 	}
-	
+
 	@Override
 	public EnergyTier getPushingTier() {
 		return ouputTier;
@@ -118,11 +118,11 @@ public class TransformerBlockEntity extends PowerAcceptorBlockEntity
 	public void checkTier() {
 		//Nope
 	}
-	
+
 	// TileMachineBase
 	@Override
 	public Direction getFacingEnum() {
-		if(world == null){
+		if (world == null) {
 			return null;
 		}
 		Block block = world.getBlockState(pos).getBlock();

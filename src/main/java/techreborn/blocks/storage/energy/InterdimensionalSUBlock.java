@@ -36,7 +36,7 @@ import techreborn.blockentity.storage.energy.idsu.InterdimensionalSUBlockEntity;
 import techreborn.client.GuiType;
 
 public class InterdimensionalSUBlock extends EnergyStorageBlock {
-	
+
 	public InterdimensionalSUBlock() {
 		super("IDSU", GuiType.IDSU);
 	}

@@ -40,8 +40,8 @@ public class SoildCanningMachineBlockEntity extends GenericMachineBlockEntity im
 
 	public SoildCanningMachineBlockEntity() {
 		super(TRBlockEntities.SOLID_CANNING_MACHINE, "SolidCanningMachine", TechRebornConfig.solidCanningMachineMaxInput, TechRebornConfig.solidCanningMachineMaxEnergy, TRContent.Machine.SOLID_CANNING_MACHINE.block, 3);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "SolidCanningMachineBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.SOLID_CANNING_MACHINE, this, 2, 1, this.inventory, inputs, outputs);
 	}
@@ -50,10 +50,10 @@ public class SoildCanningMachineBlockEntity extends GenericMachineBlockEntity im
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("solidcanningmachine").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this)
-			.slot(0, 34, 47)
-			.slot(1, 126, 47)
-			.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
-			.create(this, syncID);
+				.addInventory().blockEntity(this)
+				.slot(0, 34, 47)
+				.slot(1, 126, 47)
+				.outputSlot(2, 80, 47).energySlot(3, 8, 72).syncEnergyValue().syncCrafterValue().addInventory()
+				.create(this, syncID);
 	}
 }

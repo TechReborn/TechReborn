@@ -25,28 +25,23 @@
 package techreborn.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder;
-import reborncore.client.multiblock.Multiblock;
 import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.machine.multiblock.DistillationTowerBlockEntity;
-import techreborn.init.TRContent;
 
 public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
-	
-	public DistillationTowerBlockEntity blockEntity;
+
+	private final DistillationTowerBlockEntity blockEntity;
 
 	public GuiDistillationTower(int syncID, final PlayerEntity player, final DistillationTowerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
-	
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
@@ -63,14 +58,14 @@ public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
 		// JEI Button
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
-	
+
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final GuiBase.Layer layer = Layer.FOREGROUND;
 
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 55, 40, mouseX, mouseY, GuiBuilder.ProgressDirection.RIGHT, layer);
-		if (blockEntity.getMutliBlock()) {
+		if (blockEntity.isMultiblockValid()) {
 			addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 			builder.drawHologramButton(matrixStack, this, 6, 4, mouseX, mouseY, layer);
 		} else {
@@ -82,62 +77,7 @@ public class GuiDistillationTower extends GuiBase<BuiltScreenHandler> {
 
 	}
 
-	public void onClick(GuiButtonExtended button, Double x, Double y){
-		if (hideGuiElements()) return;
-		if (blockEntity.renderMultiblock == null) {
-			{
-				// This code here makes a basic multiblock and then sets to the selected one.
-				final Multiblock multiblock = new Multiblock();
-				BlockState industrialCasing = TRContent.MachineBlocks.INDUSTRIAL.getCasing().getDefaultState();
-				BlockState standardCasing = TRContent.MachineBlocks.BASIC.getCasing().getDefaultState();
-
-				addComponent(0, 0, 0, standardCasing, multiblock);
-				addComponent(1, 0, 0, standardCasing, multiblock);
-				addComponent(0, 0, 1, standardCasing, multiblock);
-				addComponent(-1, 0, 0, standardCasing, multiblock);
-				addComponent(0, 0, -1, standardCasing, multiblock);
-				addComponent(-1, 0, -1, standardCasing, multiblock);
-				addComponent(-1, 0, 1, standardCasing, multiblock);
-				addComponent(1, 0, -1, standardCasing, multiblock);
-				addComponent(1, 0, 1, standardCasing, multiblock);
-
-				addComponent(1, 1, 0, industrialCasing, multiblock);
-				addComponent(0, 1, 1, industrialCasing, multiblock);
-				addComponent(-1, 1, 0, industrialCasing, multiblock);
-				addComponent(0, 1, -1, industrialCasing, multiblock);
-				addComponent(-1, 1, -1, industrialCasing, multiblock);
-				addComponent(-1, 1, 1, industrialCasing, multiblock);
-				addComponent(1, 1, -1, industrialCasing, multiblock);
-				addComponent(1, 1, 1, industrialCasing, multiblock);
-
-				addComponent(1, 2, 0, standardCasing, multiblock);
-				addComponent(0, 2, 1, standardCasing, multiblock);
-				addComponent(-1, 2, 0, standardCasing, multiblock);
-				addComponent(0, 2, -1, standardCasing, multiblock);
-				addComponent(-1, 2, -1, standardCasing, multiblock);
-				addComponent(-1, 2, 1, standardCasing, multiblock);
-				addComponent(1, 2, -1, standardCasing, multiblock);
-				addComponent(1, 2, 1, standardCasing, multiblock);
-
-				addComponent(0, 3, 0, industrialCasing, multiblock);
-				addComponent(1, 3, 0, industrialCasing, multiblock);
-				addComponent(0, 3, 1, industrialCasing, multiblock);
-				addComponent(-1, 3, 0, industrialCasing, multiblock);
-				addComponent(0, 3, -1, industrialCasing, multiblock);
-				addComponent(-1, 3, -1, industrialCasing, multiblock);
-				addComponent(-1, 3, 1, industrialCasing, multiblock);
-				addComponent(1, 3, -1, industrialCasing, multiblock);
-				addComponent(1, 3, 1, industrialCasing, multiblock);
-
-				blockEntity.renderMultiblock = multiblock;
-			}
-		} else {
-			blockEntity.renderMultiblock = null;
-		}
+	public void onClick(GuiButtonExtended button, Double x, Double y) {
+		blockEntity.renderMultiblock ^= !hideGuiElements();
 	}
-
-	public void addComponent(final int x, final int y, final int z, final BlockState blockState, final Multiblock multiblock) {
-		multiblock.addComponent(new BlockPos(x - Direction.byId(blockEntity.getFacingInt()).getOffsetX() * 2, y, z - Direction.byId(blockEntity.getFacingInt()).getOffsetZ() * 2), blockState);
-	}
-
 }

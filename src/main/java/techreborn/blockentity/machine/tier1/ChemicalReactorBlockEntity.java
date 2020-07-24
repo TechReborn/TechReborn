@@ -40,8 +40,8 @@ public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implem
 
 	public ChemicalReactorBlockEntity() {
 		super(TRBlockEntities.CHEMICAL_REACTOR, "ChemicalReactor", TechRebornConfig.chemicalReactorMaxInput, TechRebornConfig.chemicalReactorMaxEnergy, TRContent.Machine.CHEMICAL_REACTOR.block, 3);
-		final int[] inputs = new int[] { 0, 1 };
-		final int[] outputs = new int[] { 2 };
+		final int[] inputs = new int[]{0, 1};
+		final int[] outputs = new int[]{2};
 		this.inventory = new RebornInventory<>(4, "ChemicalReactorBlockEntity", 64, this);
 		this.crafter = new RecipeCrafter(ModRecipes.CHEMICAL_REACTOR, this, 2, 2, this.inventory, inputs, outputs);
 	}
@@ -50,7 +50,7 @@ public class ChemicalReactorBlockEntity extends GenericMachineBlockEntity implem
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("chemicalreactor").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
-			.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
+				.addInventory().blockEntity(this).slot(0, 34, 47).slot(1, 126, 47).outputSlot(2, 80, 47).energySlot(3, 8, 72)
+				.syncEnergyValue().syncCrafterValue().addInventory().create(this, syncID);
 	}
 }

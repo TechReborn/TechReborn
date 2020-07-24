@@ -25,6 +25,7 @@
 package techreborn.client.render.entitys;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.WorldRenderer;
@@ -54,6 +55,8 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		if (stack.isEmpty()) {
 			return;
 		}
+
+		// Item rendering
 		matrices.push();
 		Direction direction = storage.getFacing();
 		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((direction.getHorizontal() - 2) * 90F));
@@ -72,6 +75,31 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		}
 		int lightAbove = WorldRenderer.getLightmapCoordinates(storage.getWorld(), storage.getPos().offset(storage.getFacing()));
 		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, lightAbove, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers);
+		matrices.pop();
+
+		// Text rendering
+		matrices.push();
+		TextRenderer textRenderer = this.dispatcher.getTextRenderer();
+		Direction facing = storage.getFacing();
+
+		matrices.translate(0.5, 0.5, 0.5); // Translate center
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+		matrices.translate(0, 0, -0.505); // Translate forward
+
+		matrices.scale(-0.01f, -0.01F, -0.01f);
+
+		float xPosition;
+
+		// Render item count
+		String count = String.valueOf(storage.storedAmount);
+		xPosition = (float) (-textRenderer.getWidth(count) / 2);
+		textRenderer.draw(count, xPosition, -4f + 40, 0, false, matrices.peek().getModel(), vertexConsumers, false, 0, light);
+
+		// Render name
+		String item = stack.getName().asTruncatedString(18);
+		xPosition = (float) (-textRenderer.getWidth(item) / 2);
+		textRenderer.draw(item, xPosition, -4f - 40, 0, false, matrices.peek().getModel(), vertexConsumers, false, 0, light);
+
 		matrices.pop();
 	}
 }

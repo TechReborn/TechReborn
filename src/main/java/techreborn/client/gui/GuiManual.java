@@ -59,9 +59,9 @@ public class GuiManual extends Screen {
 	@Override
 	public void init() {
 		int y = (height / 2) - guiHeight / 2;
-		y+= 40;
+		y += 40;
 		addButton(new GuiButtonExtended((width / 2 - 30), y + 10, 60, 20, new TranslatableText("techreborn.manual.wikibtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
-			if(t){
+			if (t) {
 				Util.getOperatingSystem().open("http://wiki.techreborn.ovh");
 				this.client.openScreen(this);
 			} else {
@@ -69,14 +69,14 @@ public class GuiManual extends Screen {
 			}
 		}, "http://wiki.techreborn.ovh", false))));
 		addButton(new GuiButtonExtended((width / 2 - 30), y + 60, 60, 20, new TranslatableText("techreborn.manual.discordbtn"), var1 -> client.openScreen(new ConfirmChatLinkScreen(t -> {
-			if(t){
+			if (t) {
 				Util.getOperatingSystem().open("https://discord.gg/teamreborn");
 				this.client.openScreen(this);
-			}else {
+			} else {
 				this.client.openScreen(this);
 			}
 		}, "https://discord.gg/teamreborn", false))));
-		if(TechRebornConfig.allowManualRefund){
+		if (TechRebornConfig.allowManualRefund) {
 			addButton(new GuiButtonExtended((width / 2 - 30), y + 110, 60, 20, new TranslatableText("techreborn.manual.refundbtn"), var1 -> {
 				NetworkManager.sendToServer(ServerboundPackets.createRefundPacket());
 				this.client.openScreen(null);

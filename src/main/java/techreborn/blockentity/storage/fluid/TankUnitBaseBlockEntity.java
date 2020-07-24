@@ -25,7 +25,6 @@
 package techreborn.blockentity.storage.fluid;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -81,7 +80,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		}
 
 		if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-			|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
+				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
 
 			if (type == TRContent.TankUnit.CREATIVE) {
 				if (!tank.isEmpty() && !tank.isFull()) {
@@ -137,8 +136,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 			if (!this.tank.getFluidInstance().isEmpty()) {
 				info.add(
 						new LiteralText(String.valueOf(this.tank.getFluidAmount()))
-							.append(new TranslatableText("techreborn.tooltip.unit.divider"))
-							.append(WordUtils.capitalize(FluidUtil.getFluidName(this.tank.getFluid())))
+								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
+								.append(WordUtils.capitalize(FluidUtil.getFluidName(this.tank.getFluid())))
 				);
 			} else {
 				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
@@ -146,14 +145,14 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		}
 		info.add(
 				new TranslatableText("techreborn.tooltip.unit.capacity")
-					.formatted(Formatting.GRAY)
-					.append(
-							new LiteralText(String.valueOf(this.tank.getCapacity()))
-								.formatted(Formatting.GOLD)
-								.append(" (")
-								.append(String.valueOf(this.tank.getCapacity().getRawValue() / 1000))
-								.append(")")
-					)
+						.formatted(Formatting.GRAY)
+						.append(
+								new LiteralText(String.valueOf(this.tank.getCapacity()))
+										.formatted(Formatting.GOLD)
+										.append(" (")
+										.append(String.valueOf(this.tank.getCapacity().getRawValue() / 1000))
+										.append(")")
+						)
 		);
 	}
 
@@ -161,8 +160,8 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("tank").player(player.inventory).inventory().hotbar()
-			.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
-			.sync(tank).addInventory().create(this, syncID);
+				.addInventory().blockEntity(this).fluidSlot(0, 100, 53).outputSlot(1, 140, 53)
+				.sync(tank).addInventory().create(this, syncID);
 	}
 
 	@Nonnull

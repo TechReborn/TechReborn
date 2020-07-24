@@ -44,6 +44,6 @@ public class LowVoltageSUBlockEntity extends EnergyStorageBlockEntity implements
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("batbox").player(player.inventory).inventory().hotbar().addInventory()
-			.blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create(this, syncID);
+				.blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45).syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

@@ -28,63 +28,69 @@ import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeDisplay;
 import me.shedaniel.rei.utils.CollectionUtils;
 import net.minecraft.util.Identifier;
+import reborncore.common.crafting.RebornRecipe;
 import reborncore.common.fluid.container.FluidInstance;
 import techreborn.api.recipe.recipes.FluidReplicatorRecipe;
-import techreborn.compat.rei.RebornEntryStack;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author drcrazy
  */
 public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
-	
+
 	private final FluidReplicatorRecipe recipe;
-	private List<List<EntryStack>> inputs;
-	private List<EntryStack> output;
-	private FluidInstance fluidInstance;
+	private final List<List<EntryStack>> inputs;
+	private final List<EntryStack> output;
+	private final FluidInstance fluidInstance;
 	private int energy = 0;
 	private int time = 0;
-	
+
 	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), RebornEntryStack::create));
+		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryStack.ofItemStacks(ing.getPreviewStacks()));
 		this.fluidInstance = recipe.getFluidInstance();
-		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(RebornEntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
+		this.output = fluidInstance == null ? Collections.emptyList() : Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue()));
 		this.energy = recipe.getPower();
 		this.time = recipe.getTime();
 	}
-	
+
 	public FluidInstance getFluidInstance() {
 		return fluidInstance;
 	}
-	
+
 	public int getEnergy() {
 		return energy;
 	}
-	
+
 	public int getTime() {
 		return time;
 	}
-	
+
 	@Override
 	public List<List<EntryStack>> getInputEntries() {
 		return inputs;
 	}
-	
+
 	@Override
 	public List<EntryStack> getOutputEntries() {
 		return output;
 	}
-	
+
 	@Override
 	public List<List<EntryStack>> getRequiredEntries() {
 		return inputs;
 	}
-	
+
 	@Override
 	public Identifier getRecipeCategory() {
 		return recipe.getRebornRecipeType().getName();
+	}
+
+	@Override
+	public Optional<Identifier> getRecipeLocation() {
+		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
 }

@@ -54,15 +54,17 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 	public void tick() {
 		super.tick();
 
-		if (onStatusHoldTicks > 0) { --onStatusHoldTicks; }
+		if (onStatusHoldTicks > 0) {
+			--onStatusHoldTicks;
+		}
 
 		Block BEBlock = getCachedState().getBlock();
-		if (! (BEBlock instanceof BlockMachineBase)) {
+		if (!(BEBlock instanceof BlockMachineBase)) {
 			return;
 		}
-		
+
 		BlockMachineBase machineBaseBlock = (BlockMachineBase) BEBlock;
-		
+
 		if (onStatusHoldTicks == 0 || getEnergy() <= 0) {
 			machineBaseBlock.setActive(false, world, pos);
 			onStatusHoldTicks = -1;
@@ -83,7 +85,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				lightningBolt.method_29495(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
 
 				if (!world.isClient) {
-					((ServerWorld) world).spawnEntity(lightningBolt);
+					world.spawnEntity(lightningBolt);
 				}
 				addEnergy(TechRebornConfig.lightningRodBaseEnergyStrike * (0.3F + weatherStrength));
 				machineBaseBlock.setActive(true, world, pos);
@@ -110,10 +112,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 
 	public boolean isValidIronFence(int y) {
 		Block block = this.world.getBlockState(new BlockPos(pos.getX(), y, pos.getZ())).getBlock();
-		if(block == TRContent.REFINED_IRON_FENCE){
-			return true;
-		}
-		return false;
+		return block == TRContent.REFINED_IRON_FENCE;
 	}
 
 	@Override

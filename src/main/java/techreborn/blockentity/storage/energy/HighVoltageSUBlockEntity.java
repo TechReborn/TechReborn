@@ -34,12 +34,11 @@ import techreborn.init.TRContent;
 
 /**
  * Created by modmuss50 on 14/03/2016.
- *
  */
 public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implements BuiltScreenHandlerProvider {
 
 	/**
-	 *  MFSU should store 4M Energy with 512 E/t I/O
+	 * MFSU should store 4M Energy with 512 E/t I/O
 	 */
 	public HighVoltageSUBlockEntity() {
 		super(TRBlockEntities.HIGH_VOLTAGE_SU, "HIGH_VOLTAGE_SU", 2, TRContent.Machine.HIGH_VOLTAGE_SU.block, EnergyTier.HIGH, 4_000_000);
@@ -48,7 +47,7 @@ public class HighVoltageSUBlockEntity extends EnergyStorageBlockEntity implement
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity player) {
 		return new ScreenHandlerBuilder("mfsu").player(player.inventory).inventory().hotbar().armor()
-			.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
-			.syncEnergyValue().addInventory().create(this, syncID);
+				.complete(8, 18).addArmor().addInventory().blockEntity(this).energySlot(0, 62, 45).energySlot(1, 98, 45)
+				.syncEnergyValue().addInventory().create(this, syncID);
 	}
 }

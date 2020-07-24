@@ -41,14 +41,14 @@ public enum SlotType {
 		builder.energySlot(slot.getId(), slot.getX(), slot.getY());
 	});
 
-	public static SlotType fromString(String string){
+	public static SlotType fromString(String string) {
 		return Arrays.stream(values())
-			.filter(slotType -> slotType.name().equalsIgnoreCase(string))
-			.findFirst()
-			.orElse(null);
+				.filter(slotType -> slotType.name().equalsIgnoreCase(string))
+				.findFirst()
+				.orElse(null);
 	}
 
-	private BiConsumer<BlockEntityScreenHandlerBuilder, DataDrivenSlot> slotBiConsumer;
+	private final BiConsumer<BlockEntityScreenHandlerBuilder, DataDrivenSlot> slotBiConsumer;
 
 	SlotType(BiConsumer<BlockEntityScreenHandlerBuilder, DataDrivenSlot> slotBiConsumer) {
 		this.slotBiConsumer = slotBiConsumer;

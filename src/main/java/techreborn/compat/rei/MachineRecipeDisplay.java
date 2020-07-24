@@ -38,19 +38,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDisplay {
-	
+
 	private final R recipe;
-	private List<List<EntryStack>> inputs;
-	private List<EntryStack> outputs;
+	private final List<List<EntryStack>> inputs;
+	private final List<EntryStack> outputs;
 	private int energy = 0;
 	private int heat = 0;
 	private int time = 0;
 	private FluidInstance fluidInstance = null;
-	
+
 	public MachineRecipeDisplay(R recipe) {
 		this.recipe = recipe;
-		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> CollectionUtils.map(ing.getPreviewStacks(), RebornEntryStack::create));
-		this.outputs = CollectionUtils.map(recipe.getOutputs(), RebornEntryStack::create);
+		this.inputs = CollectionUtils.map(recipe.getRebornIngredients(), ing -> EntryStack.ofItemStacks(ing.getPreviewStacks()));
+		this.outputs = EntryStack.ofItemStacks(recipe.getOutputs());
 		this.time = recipe.getTime();
 		this.energy = recipe.getPower();
 		if (recipe instanceof BlastFurnaceRecipe) {
@@ -58,7 +58,7 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 		}
 		if (recipe instanceof RebornFluidRecipe) {
 			this.fluidInstance = ((RebornFluidRecipe) recipe).getFluidInstance();
-			inputs.add(Collections.singletonList(RebornEntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
+			inputs.add(Collections.singletonList(EntryStack.create(fluidInstance.getFluid(), fluidInstance.getAmount().getRawValue())));
 		}
 		for (List<EntryStack> entries : inputs)
 			for (EntryStack stack : entries)
@@ -66,43 +66,43 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 		for (EntryStack stack : outputs)
 			ReiPlugin.applyCellEntry(stack);
 	}
-	
+
 	public int getEnergy() {
 		return energy;
 	}
-	
+
 	public int getHeat() {
 		return heat;
 	}
-	
+
 	public int getTime() {
 		return time;
 	}
-	
+
 	public FluidInstance getFluidInstance() {
 		return fluidInstance;
 	}
-	
+
 	@Override
 	public Optional<Identifier> getRecipeLocation() {
 		return Optional.ofNullable(recipe).map(RebornRecipe::getId);
 	}
-	
+
 	@Override
 	public List<List<EntryStack>> getInputEntries() {
 		return inputs;
 	}
-	
+
 	@Override
 	public List<List<EntryStack>> getRequiredEntries() {
 		return inputs;
 	}
-	
+
 	@Override
 	public List<EntryStack> getOutputEntries() {
 		return outputs;
 	}
-	
+
 	@Override
 	public Identifier getRecipeCategory() {
 		return recipe.getRebornRecipeType().getName();

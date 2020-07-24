@@ -57,7 +57,7 @@ public class GuiBatbox extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if(!hideGuiElements()){
+		if (!hideGuiElements()) {
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 5);
 			Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()))

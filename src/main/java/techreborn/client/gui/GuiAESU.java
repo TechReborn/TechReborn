@@ -47,7 +47,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 		super(player, aesu, aesu.createScreenHandler(syncID, player));
 		this.blockEntity = aesu;
 	}
-	
+
 	@Override
 	public void init() {
 		super.init();
@@ -73,7 +73,7 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 		super.drawForeground(matrixStack, mouseX, mouseY);
 		final Layer layer = Layer.FOREGROUND;
 
-		if(!hideGuiElements()){
+		if (!hideGuiElements()) {
 			RenderSystem.pushMatrix();
 			RenderSystem.scaled(0.6, 0.6, 1);
 			Text text = new LiteralText(PowerSystem.getLocaliszedPowerFormattedNoSuffix((int) blockEntity.getEnergy()))
@@ -85,11 +85,11 @@ public class GuiAESU extends GuiBase<BuiltScreenHandler> {
 			drawCentredText(matrixStack, text, 35, 0, 58, layer);
 			RenderSystem.popMatrix();
 		}
-	
+
 		builder.drawMultiEnergyBar(matrixStack, this, 81, 28, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
 
-	public void onClick(int amount){
+	public void onClick(int amount) {
 		NetworkManager.sendToServer(ServerboundPackets.createPacketAesu(amount, Screen.hasShiftDown(), Screen.hasControlDown(), blockEntity));
 	}
 }

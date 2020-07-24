@@ -30,7 +30,7 @@ import techreborn.blockentity.storage.energy.AdjustableSUBlockEntity;
 import techreborn.client.GuiType;
 
 public class AdjustableSUBlock extends EnergyStorageBlock {
-	
+
 	public AdjustableSUBlock() {
 		super("AESU", GuiType.AESU);
 	}

@@ -47,7 +47,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 	public PlayerDectectorBlockEntity() {
 		super(TRBlockEntities.PLAYER_DETECTOR);
 	}
-	
+
 	public boolean isProvidingPower() {
 		return redstone;
 	}
@@ -60,7 +60,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 			boolean lastRedstone = redstone;
 			redstone = false;
 			if (canUseEnergy(TechRebornConfig.playerDetectorEuPerTick)) {
-				for(PlayerEntity player : world.getPlayers()){
+				for (PlayerEntity player : world.getPlayers()) {
 					if (player.distanceTo(player) <= 256.0D) {
 						PlayerDetectorType type = world.getBlockState(pos).get(BlockPlayerDetector.TYPE);
 						if (type == PlayerDetectorType.ALL) {// ALL
@@ -84,7 +84,7 @@ public class PlayerDectectorBlockEntity extends PowerAcceptorBlockEntity impleme
 			}
 		}
 	}
-	
+
 	@Override
 	public double getBaseMaxPower() {
 		return TechRebornConfig.playerDetectorMaxEnergy;

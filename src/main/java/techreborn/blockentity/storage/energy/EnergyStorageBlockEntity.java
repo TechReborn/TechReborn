@@ -84,7 +84,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 			charge(1);
 		}
 	}
-	
+
 	@Override
 	public double getBaseMaxPower() {
 		return maxStorage;
@@ -113,13 +113,15 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	// MachineBaseBlockEntity
 	@Override
 	public void setFacing(Direction enumFacing) {
-		if (world == null) { return; }
+		if (world == null) {
+			return;
+		}
 		world.setBlockState(pos, world.getBlockState(pos).with(EnergyStorageBlock.FACING, enumFacing));
 	}
-	
+
 	@Override
 	public Direction getFacingEnum() {
-		if(world == null){
+		if (world == null) {
 			return null;
 		}
 		Block block = world.getBlockState(pos).getBlock();
@@ -128,7 +130,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 		}
 		return null;
 	}
-	
+
 	@Override
 	public boolean canBeUpgraded() {
 		return false;
@@ -139,7 +141,7 @@ public class EnergyStorageBlockEntity extends PowerAcceptorBlockEntity
 	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
 		return new ItemStack(wrenchDrop);
 	}
-	
+
 	// InventoryProvider
 	@Override
 	public RebornInventory<EnergyStorageBlockEntity> getInventory() {

@@ -58,7 +58,9 @@ import java.util.function.Supplier;
 public abstract class BaseDynamicFluidBakedModel implements BakedModel, FabricBakedModel {
 
 	public abstract ModelIdentifier getBaseModel();
+
 	public abstract ModelIdentifier getBackgroundModel();
+
 	public abstract ModelIdentifier getFluidModel();
 
 	@Override

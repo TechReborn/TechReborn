@@ -63,13 +63,13 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 
 	private final List<DataDrivenSlot> slots;
 
-	public static DataDrivenBEProvider create(Block block, Identifier identifier){
+	public static DataDrivenBEProvider create(Block block, Identifier identifier) {
 		String location = String.format("%s/machines/%s.json", identifier.getNamespace(), identifier.getPath());
 		JsonObject jsonObject;
 		try {
 			jsonObject = SerializationUtil.GSON.fromJson(IOUtils.toString(FabricLauncherBase.getLauncher().getResourceAsStream(location), StandardCharsets.UTF_8), JsonObject.class);
 		} catch (Exception e) {
-			throw new RuntimeException("failed to read json: " + location,  e);
+			throw new RuntimeException("failed to read json: " + location, e);
 		}
 		Identifier id = new Identifier(JsonHelper.getString(jsonObject, "name"));
 		DataDrivenBEProvider provider = new DataDrivenBEProvider(block, jsonObject);
@@ -95,7 +95,7 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 
 	public BuiltScreenHandler createScreenHandler(DataDrivenBlockEntity blockEntity, int syncID, PlayerEntity player) {
 		BlockEntityScreenHandlerBuilder builder = new ScreenHandlerBuilder(identifier.getPath()).player(player.inventory)
-			.inventory().hotbar().addInventory().blockEntity(blockEntity);
+				.inventory().hotbar().addInventory().blockEntity(blockEntity);
 
 		slots.forEach(dataDrivenSlot -> dataDrivenSlot.add(builder));
 
@@ -127,7 +127,7 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 
 		@Override
 		public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
-			return provider.createScreenHandler(this,syncID, player);
+			return provider.createScreenHandler(this, syncID, player);
 		}
 
 		public DataDrivenBEProvider getProvider() {
@@ -139,24 +139,24 @@ public class DataDrivenBEProvider extends BlockEntityType<DataDrivenBEProvider.D
 		return slots.stream().filter(slot -> slot.getType() == SlotType.ENERGY).findFirst().orElse(null).getId();
 	}
 
-	private int countOfSlotType(SlotType type){
+	private int countOfSlotType(SlotType type) {
 		return (int) slots.stream()
-			.filter(slot -> slot.getType() == type)
-			.count();
+				.filter(slot -> slot.getType() == type)
+				.count();
 	}
 
-	private int[] slotIds(SlotType type){
+	private int[] slotIds(SlotType type) {
 		return slots.stream()
-			.filter(slot -> slot.getType() == type)
-			.mapToInt(DataDrivenSlot::getId)
-			.toArray();
+				.filter(slot -> slot.getType() == type)
+				.mapToInt(DataDrivenSlot::getId)
+				.toArray();
 	}
 
 	public List<DataDrivenSlot> getSlots() {
 		return Collections.unmodifiableList(slots);
 	}
 
-	private String getSimpleName(){
+	private String getSimpleName() {
 		return WordUtils.capitalize(identifier.getPath());
 	}
 }

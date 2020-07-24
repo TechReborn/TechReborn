@@ -68,30 +68,30 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	public BlockEntity createBlockEntity(BlockView worldIn) {
 		return new PlayerDectectorBlockEntity();
 	}
-	
+
 	@Override
 	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
-	                            ItemStack stack) {
+						 ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 		if (blockEntity instanceof PlayerDectectorBlockEntity) {
 			((PlayerDectectorBlockEntity) blockEntity).owenerUdid = placer.getUuid().toString();
 		}
 	}
-	
+
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-			
+
 		if (blockEntity == null) {
 			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
 		}
-		
+
 		PlayerDetectorType type = state.get(TYPE);
 		PlayerDetectorType newType = type;
 		Formatting color = Formatting.GREEN;
-		
+
 		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (ToolManager.INSTANCE.handleTool(stack, pos, worldIn, playerIn, hitResult.getSide(), false)) {
 				if (playerIn.isSneaking()) {
@@ -126,22 +126,22 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		if (worldIn.isClient) {
 			ChatUtils.sendNoSpamMessages(MessageIDs.playerDetectorID,
 					new TranslatableText("techreborn.message.detects")
-						.formatted(Formatting.GRAY)
-						.append(" ")
-						.append(
-								new LiteralText(StringUtils.toFirstCapital(newType.asString()))
-										.formatted(color)
-						)
+							.formatted(Formatting.GRAY)
+							.append(" ")
+							.append(
+									new LiteralText(StringUtils.toFirstCapital(newType.asString()))
+											.formatted(color)
+							)
 			);
 		}
 		return ActionResult.SUCCESS;
 	}
-	
+
 	@Override
 	public IMachineGuiHandler getGui() {
 		return null;
 	}
-	
+
 	// Block
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -171,13 +171,13 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		}
 		return 0;
 	}
-	
+
 	public enum PlayerDetectorType implements StringIdentifiable {
 		ALL("all"), OTHERS("others"), YOU("you");
 
 		private final String name;
 
-		private PlayerDetectorType(String name) {
+		PlayerDetectorType(String name) {
 			this.name = name;
 		}
 

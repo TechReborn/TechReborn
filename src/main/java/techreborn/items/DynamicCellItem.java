@@ -72,7 +72,7 @@ import javax.annotation.Nullable;
 public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 	public DynamicCellItem() {
-		super( new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
+		super(new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(16));
 	}
 
 	// Thanks vanilla :)
@@ -97,13 +97,13 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		return new ItemStack(TRContent.CELL, amount);
 	}
 
-	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack){
-		if(!playerEntity.inventory.insertStack(stack)){
+	private void insertOrDropStack(PlayerEntity playerEntity, ItemStack stack) {
+		if (!playerEntity.inventory.insertStack(stack)) {
 			playerEntity.dropStack(stack);
 		}
 	}
 
-	public boolean placeFluid(@Nullable PlayerEntity player, World world, BlockPos pos, @Nullable BlockHitResult hitResult, ItemStack filledCell){
+	public boolean placeFluid(@Nullable PlayerEntity player, World world, BlockPos pos, @Nullable BlockHitResult hitResult, ItemStack filledCell) {
 		Fluid fluid = getFluid(filledCell);
 		if (fluid == Fluids.EMPTY) {
 			return false;
@@ -113,7 +113,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		Material material = blockState.getMaterial();
 		boolean canPlace = blockState.canBucketPlace(fluid);
 
-		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable)blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
+		if (!blockState.isAir() && !canPlace && (!(blockState.getBlock() instanceof FluidFillable) || !((FluidFillable) blockState.getBlock()).canFillWithFluid(world, pos, blockState, fluid))) {
 			return hitResult != null && this.placeFluid(player, world, hitResult.getBlockPos().offset(hitResult.getSide()), null, filledCell);
 		} else {
 			if (world.getDimension().isUltrawarm() && fluid.isIn(FluidTags.WATER)) {
@@ -122,11 +122,11 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				int k = pos.getZ();
 				world.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
 
-				for(int l = 0; l < 8; ++l) {
-					world.addParticle(ParticleTypes.LARGE_SMOKE, (double)i + Math.random(), (double)j + Math.random(), (double)k + Math.random(), 0.0D, 0.0D, 0.0D);
+				for (int l = 0; l < 8; ++l) {
+					world.addParticle(ParticleTypes.LARGE_SMOKE, (double) i + Math.random(), (double) j + Math.random(), (double) k + Math.random(), 0.0D, 0.0D, 0.0D);
 				}
 			} else if (blockState.getBlock() instanceof FluidFillable && fluid == Fluids.WATER) {
-				if (((FluidFillable)blockState.getBlock()).tryFillWithFluid(world, pos, blockState, ((FlowableFluid)fluid).getStill(false))) {
+				if (((FluidFillable) blockState.getBlock()).tryFillWithFluid(world, pos, blockState, ((FlowableFluid) fluid).getStill(false))) {
 					this.playEmptyingSound(player, world, pos, fluid);
 				}
 			} else {
@@ -148,7 +148,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		}
 		subItems.add(getEmptyCell(1));
 		for (Fluid fluid : FluidUtils.getAllFluids()) {
-			if(fluid.isStill(fluid.getDefaultState())){
+			if (fluid.isStill(fluid.getDefaultState())) {
 				subItems.add(getCellWithFluid(fluid));
 			}
 		}
@@ -157,7 +157,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	@Override
 	public Text getName(ItemStack itemStack) {
 		Fluid fluid = getFluid(itemStack);
-		if(fluid != Fluids.EMPTY){
+		if (fluid != Fluids.EMPTY) {
 			//TODO use translation keys for fluid and the cell https://fabric.asie.pl/wiki/tutorial:lang?s[]=translation might be useful
 			return new LiteralText(WordUtils.capitalizeFully(FluidUtil.getFluidName(fluid).replaceAll("_", " ")) + " Cell");
 		}
@@ -175,7 +175,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		} else if (hitResult.getType() != HitResult.Type.BLOCK) {
 			return TypedActionResult.pass(stack);
 		} else {
-			BlockHitResult blockHitResult = (BlockHitResult)hitResult;
+			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
 			BlockPos hitPos = blockHitResult.getBlockPos();
 			BlockState hitState = world.getBlockState(hitPos);
 
@@ -183,10 +183,10 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 			BlockPos placePos = hitPos.offset(side);
 
 			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
-				if(containedFluid == Fluids.EMPTY){
+				if (containedFluid == Fluids.EMPTY) {
 					if (hitState.getBlock() instanceof FluidDrainable) {
-						Fluid drainFluid = ((FluidDrainable)hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
-						if(drainFluid != Fluids.EMPTY){
+						Fluid drainFluid = ((FluidDrainable) hitState.getBlock()).tryDrainFluid(world, hitPos, hitState);
+						if (drainFluid != Fluids.EMPTY) {
 							if (stack.getCount() == 1) {
 								stack = getCellWithFluid(drainFluid, 1);
 							} else {
@@ -201,10 +201,10 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 
 				} else {
 					BlockState placeState = world.getBlockState(placePos);
-					if(placeState.canBucketPlace(containedFluid)){
+					if (placeState.canBucketPlace(containedFluid)) {
 						placeFluid(player, world, placePos, blockHitResult, stack);
 
-						if(stack.getCount() == 1) {
+						if (stack.getCount() == 1) {
 							stack = getEmpty();
 						} else {
 							stack.decrement(1);
@@ -233,7 +233,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 	@Override
 	public Fluid getFluid(ItemStack itemStack) {
 		CompoundTag tag = itemStack.getTag();
-		if(tag != null && tag.contains("fluid")){
+		if (tag != null && tag.contains("fluid")) {
 			return Registry.FLUID.get(new Identifier(tag.getString("fluid")));
 		}
 		return Fluids.EMPTY;

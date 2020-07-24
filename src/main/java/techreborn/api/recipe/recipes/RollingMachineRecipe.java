@@ -58,7 +58,7 @@ public class RollingMachineRecipe extends RebornRecipe {
 
 	@Override
 	public void deserialize(JsonObject jsonObject) {
-		if(jsonObject.has("shaped")) {
+		if (jsonObject.has("shaped")) {
 			JsonObject json = JsonHelper.getObject(jsonObject, "shaped");
 			shapedRecipe = RecipeSerializer.SHAPED.read(getId(), json);
 		} else {

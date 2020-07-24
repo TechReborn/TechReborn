@@ -24,14 +24,15 @@
 
 package techreborn.events;
 
-import net.minecraft.block.*;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.Direction;
 import reborncore.RebornRegistry;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
@@ -209,12 +210,6 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem(), "cell"));
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
-	}
-
-	private static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
-		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> {
-			return blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor;
-		}).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	}
 
 	private static void registerFluids() {

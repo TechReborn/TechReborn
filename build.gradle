@@ -49,7 +49,7 @@ repositories {
 	}
 }
 
-version = "3.4.2"
+version = "3.4.3"
 
 configurations {
 	shade
@@ -80,7 +80,7 @@ dependencies {
 	//Fabric api
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.16.0+build.384-1.16.1"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.5.4")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.10.2")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
 

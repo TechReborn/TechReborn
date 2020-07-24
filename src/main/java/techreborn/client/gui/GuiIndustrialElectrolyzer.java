@@ -32,14 +32,14 @@ import reborncore.client.screen.builder.BuiltScreenHandler;
 import techreborn.blockentity.machine.tier1.IndustrialElectrolyzerBlockEntity;
 
 public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
-	
+
 	IndustrialElectrolyzerBlockEntity blockEntity;
 
 	public GuiIndustrialElectrolyzer(int syncID, final PlayerEntity player, final IndustrialElectrolyzerBlockEntity blockEntity) {
 		super(player, blockEntity, blockEntity.createScreenHandler(syncID, player));
 		this.blockEntity = blockEntity;
 	}
-	
+
 	@Override
 	protected void drawBackground(MatrixStack matrixStack, final float f, final int mouseX, final int mouseY) {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
@@ -54,7 +54,7 @@ public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 		drawOutputSlotBar(matrixStack, 50, 23, 4, layer);
 		builder.drawJEIButton(matrixStack, this, 158, 5, layer);
 	}
-	
+
 	@Override
 	protected void drawForeground(MatrixStack matrixStack, final int mouseX, final int mouseY) {
 		super.drawForeground(matrixStack, mouseX, mouseY);
@@ -63,6 +63,6 @@ public class GuiIndustrialElectrolyzer extends GuiBase<BuiltScreenHandler> {
 		builder.drawProgressBar(matrixStack, this, blockEntity.getProgressScaled(100), 100, 84, 52, mouseX, mouseY, GuiBuilder.ProgressDirection.UP, layer);
 		builder.drawMultiEnergyBar(matrixStack, this, 9, 19, (int) blockEntity.getEnergy(), (int) blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);
 	}
-	
-	
+
+
 }
