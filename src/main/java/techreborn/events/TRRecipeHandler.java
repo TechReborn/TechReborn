@@ -24,7 +24,6 @@
 
 package techreborn.events;
 
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -34,7 +33,6 @@ import techreborn.utils.RecipeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class TRRecipeHandler {
 
