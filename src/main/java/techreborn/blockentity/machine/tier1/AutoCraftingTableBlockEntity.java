@@ -124,7 +124,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
 			List<Integer> checkedSlots = new ArrayList<>();
 			for (Ingredient ingredient : ingredients) {
-				if (ingredient != Ingredient.EMPTY) {
+				if (ingredient != Ingredient.EMPTY && !(ingredient.test(ItemStack.EMPTY))) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
 						if(checkedSlots.contains(i)) {
