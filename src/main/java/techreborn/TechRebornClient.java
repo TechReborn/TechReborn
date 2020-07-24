@@ -47,7 +47,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.util.ItemUtils;
 import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
@@ -141,8 +140,6 @@ public class TechRebornClient implements ClientModInitializer {
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
-
-		StackInfoHUD.registerElement(new FrequencyTransmitterItem.StackInfoFreqTransmitter());
 
 		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.INSTANCE.putBlock(cable.block, RenderLayer.getCutout()));
 

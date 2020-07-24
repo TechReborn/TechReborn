@@ -40,7 +40,6 @@ import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import reborncore.client.hud.StackInfoElement;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
@@ -130,23 +129,5 @@ public class FrequencyTransmitterItem extends Item {
 
 	private static Identifier getDimName(RegistryKey<World> dimensionRegistryKey){
 		return dimensionRegistryKey.getValue();
-	}
-
-	public static class StackInfoFreqTransmitter extends StackInfoElement {
-		public StackInfoFreqTransmitter() {
-			super(TRContent.FREQUENCY_TRANSMITTER);
-		}
-
-		@Override
-		public Text getText(ItemStack stack) {
-			Formatting gold = Formatting.GOLD;
-			Formatting grey = Formatting.GRAY;
-			if (!(stack.getItem() instanceof FrequencyTransmitterItem)) {
-				return LiteralText.EMPTY;
-			}
-			return getPos(stack)
-					.map((Function<GlobalPos, Text>) globalPos -> new LiteralText(grey + "X: " + gold + globalPos.getPos().getX() + grey + " Y: " + gold + globalPos.getPos().getY() + grey + " Z: " + gold + globalPos.getPos().getZ() + grey + " Dim: " + gold + getDimName(globalPos.getDimension()).toString()))
-					.orElse(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
-		}
 	}
 }
