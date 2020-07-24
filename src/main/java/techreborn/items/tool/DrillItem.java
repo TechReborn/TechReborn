@@ -24,6 +24,7 @@
 
 package techreborn.items.tool;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -42,7 +43,7 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge;
 	public final int cost;
@@ -65,7 +66,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		if (Energy.of(stack).getEnergy() < cost) {
-			return 0.5F;
+			return -0.8F;
 		}
 		if (Items.WOODEN_PICKAXE.getMiningSpeedMultiplier(stack, state) > 1.0F
 				|| Items.WOODEN_SHOVEL.getMiningSpeedMultiplier(stack, state) > 1.0F) {
