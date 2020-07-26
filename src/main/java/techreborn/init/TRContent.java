@@ -78,6 +78,7 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
@@ -413,19 +414,6 @@ public class TRContent {
 			return block.asItem();
 		}
 
-		// Just a holder for the mining levels
-		private enum MiningLevel {
-			WOOD(0),
-			STONE(1),
-			IRON(2),
-			DIAMOND(3);
-
-			final int intLevel;
-
-			MiningLevel(int intLevel) {
-				this.intLevel = intLevel;
-			}
-		}
 	}
 
 	public enum StorageBlocks implements ItemConvertible {
