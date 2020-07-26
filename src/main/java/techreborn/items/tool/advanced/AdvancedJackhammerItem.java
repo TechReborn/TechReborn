@@ -27,14 +27,10 @@ package techreborn.items.tool.advanced;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.RedstoneOreBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -42,55 +38,59 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class AdvancedJackhammerItem extends JackhammerItem {
+public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public AdvancedJackhammerItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedJackhammerCharge, EnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.advancedJackhammerCharge, EnergyTier.EXTREME, TechRebornConfig.advancedJackhammerCost, MiningLevel.DIAMOND);
 	}
 
-	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
+	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {
 		if (originalPos.equals(pos)) {
 			return false;
 		}
 		BlockState blockState = worldIn.getBlockState(pos);
-		if (blockState.getMaterial() == Material.AIR) {
-			return false;
-		}
-		if (blockState.getMaterial().isLiquid()) {
-			return false;
-		}
-		if (blockState.getBlock() instanceof OreBlock) {
-			return false;
-		}
-		if (blockState.getBlock() instanceof RedstoneOreBlock) {
-			return false;
-		}
-		return (Items.IRON_PICKAXE.isEffectiveOn(blockState));
+		return (stack.getItem().isEffectiveOn(blockState));
 	}
 
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack)) {
+		if (!ItemUtils.isActive(stack) || !stack.getItem().isEffectiveOn(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1)) {
-			if (shouldBreak(worldIn, pos, additionalPos)) {
+			if (shouldBreak(worldIn, pos, additionalPos, stack)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
 
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+	}
+
+	@Override
+	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
+		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+			return Collections.emptySet();
+		}
+		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)
+				.stream()
+				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
+				.collect(Collectors.toSet());
 	}
 
 	// Item

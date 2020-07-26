@@ -25,11 +25,13 @@
 package techreborn.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.BlockSoundGroup;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -76,6 +78,7 @@ import techreborn.entities.EntityNukePrimed;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
 import javax.annotation.Nullable;
@@ -367,22 +370,22 @@ public class TRContent {
 	}
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(TechRebornConfig.bauxiteVeinSize, TechRebornConfig.bauxiteVeinCount, 10, 60),
-		CINNABAR(TechRebornConfig.cinnabarVeinSize, TechRebornConfig.cinnabarVeinCount, 10, 126),
-		COPPER(TechRebornConfig.copperVeinSize, TechRebornConfig.copperVeinCount, 20, 60),
-		GALENA(TechRebornConfig.galenaVeinSize, TechRebornConfig.galenaVeinCount, 10, 60),
-		IRIDIUM(TechRebornConfig.iridiumVeinSize, TechRebornConfig.iridiumVeinCount, 5, 60),
-		LEAD(TechRebornConfig.leadVeinSize, TechRebornConfig.leadVeinCount, 20, 60),
-		PERIDOT(TechRebornConfig.peridotVeinSize, TechRebornConfig.peridotVeinCount, 10, 250),
-		PYRITE(TechRebornConfig.pyriteVeinSize, TechRebornConfig.pyriteVeinCount, 10, 126),
-		RUBY(TechRebornConfig.rubyVeinSize, TechRebornConfig.rubyVeinCount, 10, 60),
-		SAPPHIRE(TechRebornConfig.sapphireVeinSize, TechRebornConfig.sapphireVeinCount, 10, 60),
-		SHELDONITE(TechRebornConfig.sheldoniteVeinSize, TechRebornConfig.sheldoniteVeinCount, 10, 250),
-		SILVER(TechRebornConfig.silverVeinSize, TechRebornConfig.silverVeinCount, 20, 60),
-		SODALITE(TechRebornConfig.sodaliteVeinSize, TechRebornConfig.sodaliteVeinCount, 10, 250),
-		SPHALERITE(TechRebornConfig.sphaleriteVeinSize, TechRebornConfig.sphaleriteVeinCount, 10, 126),
-		TIN(TechRebornConfig.tinVeinSize, TechRebornConfig.tinVeinCount, 20, 60),
-		TUNGSTEN(TechRebornConfig.tungstenVeinSize, TechRebornConfig.tungstenVeinCount, 10, 250);
+		BAUXITE(TechRebornConfig.bauxiteVeinSize, TechRebornConfig.bauxiteVeinCount, 10, 60, MiningLevel.STONE),
+		CINNABAR(TechRebornConfig.cinnabarVeinSize, TechRebornConfig.cinnabarVeinCount, 10, 126, MiningLevel.IRON),
+		COPPER(TechRebornConfig.copperVeinSize, TechRebornConfig.copperVeinCount, 20, 60, MiningLevel.STONE),
+		GALENA(TechRebornConfig.galenaVeinSize, TechRebornConfig.galenaVeinCount, 10, 60, MiningLevel.IRON),
+		IRIDIUM(TechRebornConfig.iridiumVeinSize, TechRebornConfig.iridiumVeinCount, 5, 60, MiningLevel.DIAMOND),
+		LEAD(TechRebornConfig.leadVeinSize, TechRebornConfig.leadVeinCount, 20, 60, MiningLevel.IRON),
+		PERIDOT(TechRebornConfig.peridotVeinSize, TechRebornConfig.peridotVeinCount, 10, 250, MiningLevel.DIAMOND),
+		PYRITE(TechRebornConfig.pyriteVeinSize, TechRebornConfig.pyriteVeinCount, 10, 126, MiningLevel.DIAMOND),
+		RUBY(TechRebornConfig.rubyVeinSize, TechRebornConfig.rubyVeinCount, 10, 60, MiningLevel.IRON),
+		SAPPHIRE(TechRebornConfig.sapphireVeinSize, TechRebornConfig.sapphireVeinCount, 10, 60, MiningLevel.IRON),
+		SHELDONITE(TechRebornConfig.sheldoniteVeinSize, TechRebornConfig.sheldoniteVeinCount, 10, 250, MiningLevel.DIAMOND),
+		SILVER(TechRebornConfig.silverVeinSize, TechRebornConfig.silverVeinCount, 20, 60, MiningLevel.IRON),
+		SODALITE(TechRebornConfig.sodaliteVeinSize, TechRebornConfig.sodaliteVeinCount, 10, 250, MiningLevel.DIAMOND),
+		SPHALERITE(TechRebornConfig.sphaleriteVeinSize, TechRebornConfig.sphaleriteVeinCount, 10, 126, MiningLevel.IRON),
+		TIN(TechRebornConfig.tinVeinSize, TechRebornConfig.tinVeinCount, 20, 60, MiningLevel.STONE),
+		TUNGSTEN(TechRebornConfig.tungstenVeinSize, TechRebornConfig.tungstenVeinCount, 10, 250, MiningLevel.DIAMOND);
 
 		public final String name;
 		public final Block block;
@@ -391,9 +394,14 @@ public class TRContent {
 		public final int minY;
 		public final int maxY;
 
-		Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
+		Ores(int veinSize, int veinsPerChunk, int minY, int maxY, MiningLevel miningLevel) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new OreBlock(FabricBlockSettings.of(Material.STONE).strength(2f, 2f));
+			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, miningLevel.intLevel)
+					.requiresTool()
+					.sounds(BlockSoundGroup.STONE)
+					.strength(2f, 2f)
+			);
 			this.veinSize = veinSize;
 			this.veinsPerChunk = veinsPerChunk;
 			this.minY = minY;
@@ -405,6 +413,7 @@ public class TRContent {
 		public Item asItem() {
 			return block.asItem();
 		}
+
 	}
 
 	public enum StorageBlocks implements ItemConvertible {

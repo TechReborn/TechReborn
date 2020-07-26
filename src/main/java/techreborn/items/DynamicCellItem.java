@@ -169,17 +169,16 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		ItemStack stack = player.getStackInHand(hand);
 		Fluid containedFluid = getFluid(stack);
 
-		HitResult hitResult = rayTrace(world, player, containedFluid == Fluids.EMPTY ? RayTraceContext.FluidHandling.SOURCE_ONLY : RayTraceContext.FluidHandling.NONE);
+		BlockHitResult hitResult = rayTrace(world, player, containedFluid == Fluids.EMPTY ? RayTraceContext.FluidHandling.SOURCE_ONLY : RayTraceContext.FluidHandling.NONE);
 		if (hitResult.getType() == HitResult.Type.MISS) {
 			return TypedActionResult.pass(stack);
 		} else if (hitResult.getType() != HitResult.Type.BLOCK) {
 			return TypedActionResult.pass(stack);
 		} else {
-			BlockHitResult blockHitResult = (BlockHitResult) hitResult;
-			BlockPos hitPos = blockHitResult.getBlockPos();
+			BlockPos hitPos = hitResult.getBlockPos();
 			BlockState hitState = world.getBlockState(hitPos);
 
-			Direction side = blockHitResult.getSide();
+			Direction side = hitResult.getSide();
 			BlockPos placePos = hitPos.offset(side);
 
 			if (world.canPlayerModifyAt(player, hitPos) && player.canPlaceOn(placePos, side, stack)) {
@@ -202,7 +201,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 				} else {
 					BlockState placeState = world.getBlockState(placePos);
 					if (placeState.canBucketPlace(containedFluid)) {
-						placeFluid(player, world, placePos, blockHitResult, stack);
+						placeFluid(player, world, placePos, hitResult, stack);
 
 						if (stack.getCount() == 1) {
 							stack = getEmpty();

@@ -134,9 +134,7 @@ public class BlockRubberLog extends PillarBlock {
 				if (Energy.valid(stack)) {
 					Energy.of(stack).use(20);
 				} else {
-					stack.damage(1, playerIn, player -> {
-						player.sendToolBreakStatus(hand);
-					});
+					stack.damage(1, playerIn, player -> player.sendToolBreakStatus(hand));
 				}
 				if (!playerIn.inventory.insertStack(TRContent.Parts.SAP.getStack())) {
 					WorldUtils.dropItem(TRContent.Parts.SAP.getStack(), worldIn, pos.offset(hitResult.getSide()));

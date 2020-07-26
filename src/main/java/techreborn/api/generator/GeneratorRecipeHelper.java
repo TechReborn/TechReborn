@@ -74,8 +74,6 @@ public class GeneratorRecipeHelper {
 	public static void removeFluidRecipe(EFluidGenerator generatorType, Fluid fluidType) {
 		FluidGeneratorRecipeList recipeList = getFluidRecipesForGenerator(generatorType);
 		Optional<FluidGeneratorRecipe> recipe = recipeList.getRecipeForFluid(fluidType);
-		if (recipe.isPresent()) {
-			recipeList.removeRecipe(recipe.get());
-		}
+		recipe.ifPresent(recipeList::removeRecipe);
 	}
 }
