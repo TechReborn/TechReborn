@@ -42,6 +42,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
@@ -53,9 +54,12 @@ import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class IndustrialJackhammerItem extends JackhammerItem {
+public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public IndustrialJackhammerItem() {
 		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost, MiningLevel.DIAMOND);
@@ -98,7 +102,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack)) {
+		if (!ItemUtils.isActive(stack) || !stack.getItem().isEffectiveOn(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		int radius = isAOE5(stack) ? 2 : 1;
@@ -109,6 +113,18 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		}
 
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+	}
+
+	@Override
+	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
+		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+			return Collections.emptySet();
+		}
+		int radius = isAOE5(stack) ? 2 : 1;
+		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius, false)
+				.stream()
+				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
+				.collect(Collectors.toSet());
 	}
 
 	// PickaxeItem
