@@ -93,6 +93,8 @@ dependencies {
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
 	modApi 'teamreborn:energy:0.1.0'
+
+    optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
 }
 
 def optionalDependency(String dep) {
