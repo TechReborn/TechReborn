@@ -6,7 +6,7 @@
   "ingredients" : [
     {
       "item": "minecraft:rail",
-	  "count":8
+	  "count":12
     },
     {
       "item": "minecraft:sand"
