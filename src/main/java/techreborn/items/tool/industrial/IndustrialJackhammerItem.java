@@ -51,6 +51,7 @@ import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
@@ -60,7 +61,7 @@ import java.util.List;
 public class IndustrialJackhammerItem extends JackhammerItem {
 
 	public IndustrialJackhammerItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost, MiningLevel.DIAMOND);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
@@ -85,24 +86,12 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		}
 	}
 
-	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
+	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {
 		if (originalPos.equals(pos)) {
 			return false;
 		}
 		BlockState blockState = worldIn.getBlockState(pos);
-		if (blockState.getMaterial() == Material.AIR) {
-			return false;
-		}
-		if (blockState.getMaterial().isLiquid()) {
-			return false;
-		}
-		if (blockState.getBlock() instanceof OreBlock) {
-			return false;
-		}
-		if (blockState.getBlock() instanceof RedstoneOreBlock) {
-			return false;
-		}
-		return (Items.IRON_PICKAXE.isEffectiveOn(blockState));
+		return (stack.getItem().isEffectiveOn(blockState));
 	}
 
 	private boolean isAOE5(ItemStack stack) {
@@ -117,7 +106,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		}
 		int radius = isAOE5(stack) ? 2 : 1;
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius)) {
-			if (shouldBreak(worldIn, pos, additionalPos)) {
+			if (shouldBreak(worldIn, pos, additionalPos, stack)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}

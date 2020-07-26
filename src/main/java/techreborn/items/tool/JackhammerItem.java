@@ -24,12 +24,15 @@
 
 package techreborn.items.tool;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -45,26 +48,38 @@ import techreborn.utils.InitUtils;
 
 import java.util.Random;
 
-public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge;
 	public final int cost;
 	public final EnergyTier tier;
+	public final MiningLevel miningLevel;
 
-	public JackhammerItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost) {
+	public JackhammerItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, MiningLevel miningLevel) {
 		super(material, (int) material.getAttackDamage(), 1F, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.cost = cost;
 		this.tier = tier;
+		this.miningLevel = miningLevel;
 	}
 
 	// PickaxeItem
 	@Override
-	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
-			return miningSpeed;
+	public float getMiningSpeedMultiplier(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
+		if (tag.equals(FabricToolTags.PICKAXES) && stack.getItem().isEffectiveOn(state)) {
+			if (Energy.of(stack).getEnergy() >= cost) {
+				return miningSpeed;
+			}
 		}
-		return 0.5F;
+		return 0;
+	}
+
+	@Override
+	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
+		if (tag.equals(FabricToolTags.PICKAXES)) {
+			return miningLevel.intLevel;
+		}
+		return 0;
 	}
 
 	// MiningToolItem
