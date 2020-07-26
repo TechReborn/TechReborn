@@ -45,8 +45,8 @@ public class FluidReplicatorRecipeDisplay implements RecipeDisplay {
 	private final List<List<EntryStack>> inputs;
 	private final List<EntryStack> output;
 	private final FluidInstance fluidInstance;
-	private int energy = 0;
-	private int time = 0;
+	private final int energy;
+	private final int time;
 
 	public FluidReplicatorRecipeDisplay(FluidReplicatorRecipe recipe) {
 		this.recipe = recipe;

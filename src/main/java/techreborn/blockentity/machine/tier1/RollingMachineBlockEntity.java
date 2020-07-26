@@ -246,11 +246,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 					.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
-			for (int i = 0; i < split.length; i++) {
-				int required = split[i];
+			for (int required : split) {
 				if (slotEnvTyperubution.contains(required)) {
 					//We need to remove the int, not at the int, this seems to work around that
-					slotEnvTyperubution.remove(new Integer(required));
+					slotEnvTyperubution.remove(Integer.valueOf(required));
 				} else {
 					needsBalance = true;
 				}

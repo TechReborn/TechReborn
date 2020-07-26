@@ -217,9 +217,9 @@ public class ReiPlugin implements REIPluginV0 {
 
 	private void registerFluidGeneratorDisplays(RecipeHelper recipeHelper, EFluidGenerator generator, Machine machine) {
 		Identifier identifier = new Identifier(TechReborn.MOD_ID, machine.name);
-		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe -> {
-			recipeHelper.registerDisplay(new FluidGeneratorRecipeDisplay(recipe, identifier));
-		});
+		GeneratorRecipeHelper.getFluidRecipesForGenerator(generator).getRecipes().forEach(recipe ->
+			recipeHelper.registerDisplay(new FluidGeneratorRecipeDisplay(recipe, identifier))
+		);
 	}
 
 	private <R extends RebornRecipe> void registerMachineRecipe(RecipeHelper recipeHelper, RebornRecipeType<R> recipeType) {

@@ -42,9 +42,9 @@ public class MachineRecipeDisplay<R extends RebornRecipe> implements RecipeDispl
 	private final R recipe;
 	private final List<List<EntryStack>> inputs;
 	private final List<EntryStack> outputs;
-	private int energy = 0;
+	private final int energy;
 	private int heat = 0;
-	private int time = 0;
+	private final int time;
 	private FluidInstance fluidInstance = null;
 
 	public MachineRecipeDisplay(R recipe) {

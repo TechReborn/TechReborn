@@ -32,7 +32,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.PillarBlock;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.AxeItem;
@@ -130,12 +129,9 @@ public class TechReborn implements ModInitializer {
 					world.setBlockState(pos, strippedBlock.getDefaultState().with(PillarBlock.AXIS, hitState.get(PillarBlock.AXIS)), 11);
 
 					// Damage axe
-					if (player instanceof LivingEntity) {
-						LivingEntity playerEntity = (LivingEntity) player;
-						stack.damage(1, playerEntity, playerx -> {
-							playerx.sendToolBreakStatus(hand);
-						});
-					}
+					stack.damage(1, player, playerx ->
+						playerx.sendToolBreakStatus(hand)
+					);
 					return ActionResult.SUCCESS;
 				}
 			}

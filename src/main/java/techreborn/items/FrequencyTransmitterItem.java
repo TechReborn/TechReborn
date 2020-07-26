@@ -43,13 +43,11 @@ import net.minecraft.world.World;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class FrequencyTransmitterItem extends Item {
 

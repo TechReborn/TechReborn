@@ -176,11 +176,11 @@ public class CableBlockEntity extends BlockEntity
 		if (!acceptors.isEmpty()) {
 			Collections.shuffle(acceptors);
 
-			acceptors.forEach(pair -> {
+			acceptors.forEach(pair ->
 				Energy.of(this)
 						.into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
-						.move();
-			});
+						.move()
+			);
 		}
 
 
