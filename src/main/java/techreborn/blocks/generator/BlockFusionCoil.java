@@ -47,7 +47,7 @@ import net.minecraft.world.World;
 import reborncore.api.ToolManager;
 import techreborn.init.ModSounds;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BlockFusionCoil extends Block {
@@ -80,9 +80,9 @@ public class BlockFusionCoil extends Block {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip,
+	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip,
 							 TooltipContext flagIn) {
-		super.buildTooltip(stack, worldIn, tooltip, flagIn);
+		super.appendTooltip(stack, worldIn, tooltip, flagIn);
 		// TODO: Translate
 		tooltip.add(new LiteralText("Right click Fusion Control computer to auto place"));
 	}

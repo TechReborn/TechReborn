@@ -48,7 +48,7 @@ import reborncore.common.util.WorldUtils;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {

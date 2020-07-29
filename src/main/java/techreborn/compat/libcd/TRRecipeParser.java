@@ -71,9 +71,9 @@ public class TRRecipeParser {
 				return new FluidIngredient(fluid, Optional.empty(), amount);
 			} else if (in.indexOf('#') == 0) {
 				Identifier id = new Identifier(in.substring(1));
-				Tag<Item> itemTag = ItemTags.getContainer().get(id);
+				Tag<Item> itemTag = ItemTags.getTagGroup().getTag(id);
 				if (itemTag == null) throw new CDSyntaxError("Failed to get item tag for input: " + in);
-				return new TagIngredient(id, ItemTags.getContainer().get(id), amount);
+				return new TagIngredient(id, ItemTags.getTagGroup().getTag(id), amount);
 			} else {
 				ItemStack stack;
 				Optional<CompoundTag> tag = Optional.empty();

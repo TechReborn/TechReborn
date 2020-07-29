@@ -48,7 +48,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
@@ -164,7 +164,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				.sync(tank).addInventory().create(this, syncID);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Tank getTank() {
 		return tank;

@@ -39,7 +39,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import team.reborn.energy.Energy;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;

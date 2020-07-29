@@ -49,7 +49,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +66,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this);
 	public boolean isRunning;
 	public int tickTime;
-	@Nonnull
+	@NotNull
 	public ItemStack currentRecipeOutput;
 	public RollingMachineRecipe currentRecipe;
 	private final int outputSlot;

@@ -29,6 +29,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
+import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
@@ -49,8 +50,8 @@ public class RubberTreeFeature extends TreeFeature {
 
 	public static class FoliagePlacer extends BlobFoliagePlacer {
 
-		public FoliagePlacer(int radius, int randomRadius, int offset, int randomOffset, int height) {
-			super(radius, randomRadius, offset, randomOffset, height);
+		public FoliagePlacer(UniformIntDistribution uniformIntDistribution, UniformIntDistribution uniformIntDistribution2, int height) {
+			super(uniformIntDistribution, uniformIntDistribution2, height);
 		}
 
 		@Override

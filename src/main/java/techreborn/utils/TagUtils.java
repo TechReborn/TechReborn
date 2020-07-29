@@ -28,7 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
-import net.minecraft.tag.TagContainer;
+import net.minecraft.tag.TagGroup;
+import net.minecraft.tag.TagGroupLoader;
 import net.minecraft.world.World;
 
 public class TagUtils {
@@ -37,15 +38,15 @@ public class TagUtils {
 		return tag.contains(type);
 	}
 
-	public static TagContainer<Block> getAllBlockTags(World world) {
-		return world.getTagManager().blocks();
+	public static TagGroup<Block> getAllBlockTags(World world) {
+		return world.getTagManager().getBlocks();
 	}
 
-	public static TagContainer<Item> getAllItemTags(World world) {
-		return world.getTagManager().items();
+	public static TagGroup<Item> getAllItemTags(World world) {
+		return world.getTagManager().getItems();
 	}
 
-	public static TagContainer<Fluid> getAllFluidTags(World world) {
-		return world.getTagManager().fluids();
+	public static TagGroup<Fluid> getAllFluidTags(World world) {
+		return world.getTagManager().getFluids();
 	}
 }

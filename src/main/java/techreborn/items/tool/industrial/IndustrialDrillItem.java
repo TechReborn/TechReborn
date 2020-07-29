@@ -52,7 +52,7 @@ import techreborn.utils.InitUtils;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class IndustrialDrillItem extends DrillItem {

@@ -64,20 +64,20 @@ public class GuiTankUnit extends GuiBase<BuiltScreenHandler> {
 		FluidInstance fluid = tankEntity.getTank().getFluidInstance();
 
 		if (fluid.isEmpty()) {
-			textRenderer.draw(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
+			textRenderer.method_30883(matrixStack, new TranslatableText("techreborn.tooltip.unit.empty"), 10, 20, 4210752);
 		} else {
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.type"), 10, 20, 4210752);
+			textRenderer.method_30883(matrixStack, new TranslatableText("gui.techreborn.tank.type"), 10, 20, 4210752);
 			textRenderer.draw(matrixStack, FluidUtil.getFluidName(fluid).replace("_", " "), 10, 30, 4210752);
 
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.tank.amount"), 10, 50, 4210752);
+			textRenderer.method_30883(matrixStack, new TranslatableText("gui.techreborn.tank.amount"), 10, 50, 4210752);
 			textRenderer.draw(matrixStack, fluid.getAmount().toString(), 10, 60, 4210752);
 
 			String percentFilled = String.valueOf((int) ((double) fluid.getAmount().getRawValue() / (double) tankEntity.getTank().getCapacity().getRawValue() * 100));
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
+			textRenderer.method_30883(matrixStack, new TranslatableText("gui.techreborn.unit.used").append(percentFilled + "%"), 10, 70, 4210752);
 
-			textRenderer.draw(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
+			textRenderer.method_30883(matrixStack, new TranslatableText("gui.techreborn.unit.wrenchtip"), 10, 80, 16711680);
 		}
 	}
 

@@ -74,7 +74,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 						.collect(Collectors.toList());
 
 				matrixStack.push();
-				renderTooltip(matrixStack, list, mouseX, mouseY);
+				method_30901(matrixStack, list, mouseX, mouseY);
 				matrixStack.pop();
 			}
 		}
@@ -97,7 +97,7 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 						.collect(Collectors.toList());
 
 				RenderSystem.pushMatrix();
-				renderTooltip(matrixStack, list, mouseX - getGuiLeft(), mouseY - getGuiTop());
+				method_30901(matrixStack, list, mouseX - getGuiLeft(), mouseY - getGuiTop());
 				RenderSystem.popMatrix();
 			}
 		}

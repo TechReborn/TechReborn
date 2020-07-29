@@ -24,27 +24,25 @@
 
 package techreborn.world;
 
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Blocks;
+import net.minecraft.structure.rule.BlockStateMatchRuleTest;
+import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig.Target;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
-import reborncore.common.world.CustomOreFeature;
-import reborncore.common.world.CustomOreFeatureConfig;
 import techreborn.blocks.misc.BlockRubberLog;
 import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
@@ -52,6 +50,7 @@ import techreborn.init.TRContent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author drcrazy
@@ -60,25 +59,25 @@ public class WorldGenerator {
 
 	public static Feature<TreeFeatureConfig> RUBBER_TREE_FEATURE;
 	public static RubberTreeDecorator RUBBER_TREE_DECORATOR;
-
 	public static TreeFeatureConfig RUBBER_TREE_CONFIG;
+	private static final RuleTest END_STONE = new BlockStateMatchRuleTest(Blocks.END_STONE.getDefaultState());
 
 	private static final List<Biome> checkedBiomes = new ArrayList<>();
 
 	public static void initBiomeFeatures() {
 		setupTrees();
-
-		for (Biome biome : Registry.BIOME) {
-			addToBiome(biome);
-		}
-
-		//Handles modded biomes
-		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> addToBiome(biome));
+//
+//		for (Biome biome : Registry.BIOME) {
+//			addToBiome(biome);
+//		}
+//
+//		//Handles modded biomes
+//		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> addToBiome(biome));
 	}
 
 	private static void setupTrees() {
 		RUBBER_TREE_FEATURE = Registry.register(Registry.FEATURE, new Identifier("techreborn:rubber_tree"), new RubberTreeFeature(TreeFeatureConfig.CODEC));
-		RUBBER_TREE_DECORATOR = Registry.register(Registry.DECORATOR, new Identifier("techreborn:rubber_tree"), new RubberTreeDecorator(ChanceDecoratorConfig.field_24980));
+		RUBBER_TREE_DECORATOR = Registry.register(Registry.DECORATOR, new Identifier("techreborn:rubber_tree"), new RubberTreeDecorator(ChanceDecoratorConfig.CODEC));
 
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
@@ -94,7 +93,7 @@ public class WorldGenerator {
 		RUBBER_TREE_CONFIG = new TreeFeatureConfig.Builder(
 				logProvider,
 				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
-				new RubberTreeFeature.FoliagePlacer(2, 0, 0, 0, 3),
+				new RubberTreeFeature.FoliagePlacer(UniformIntDistribution.of(2, 0), UniformIntDistribution.of(0, 0), 3),
 				new StraightTrunkPlacer(TechRebornConfig.rubberTreeBaseHeight, 3, 0),
 				new TwoLayersFeatureSize(1, 0, 1)
 		).build();
@@ -109,60 +108,60 @@ public class WorldGenerator {
 
 		if (biome.getCategory() == Category.NETHER) {
 			if (TechRebornConfig.enableCinnabarOre) {
-				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.CINNABAR);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.CINNABAR);
 			}
 			if (TechRebornConfig.enablePyriteOre) {
-				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.PYRITE);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.PYRITE);
 			}
 			if (TechRebornConfig.enableSphaleriteOre) {
-				addOre(biome, OreFeatureConfig.Target.NETHERRACK, TRContent.Ores.SPHALERITE);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_NETHER, TRContent.Ores.SPHALERITE);
 			}
 		} else if (biome.getCategory() == Category.THEEND) {
 			if (TechRebornConfig.enablePeridotOre) {
-				addEndOre(biome, TRContent.Ores.PERIDOT);
+				addOre(biome, END_STONE, TRContent.Ores.PERIDOT);
 			}
 			if (TechRebornConfig.enableSheldoniteOre) {
-				addEndOre(biome, TRContent.Ores.SHELDONITE);
+				addOre(biome, END_STONE, TRContent.Ores.SHELDONITE);
 			}
 			if (TechRebornConfig.enableSodaliteOre) {
-				addEndOre(biome, TRContent.Ores.SODALITE);
+				addOre(biome, END_STONE, TRContent.Ores.SODALITE);
 			}
 			if (TechRebornConfig.enableTungstenOre) {
-				addEndOre(biome, TRContent.Ores.TUNGSTEN);
+				addOre(biome, END_STONE, TRContent.Ores.TUNGSTEN);
 			}
 		} else {
 			if (TechRebornConfig.enableBauxiteOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.BAUXITE);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.BAUXITE);
 			}
 			if (TechRebornConfig.enableCopperOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.COPPER);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.COPPER);
 			}
 			if (TechRebornConfig.enableGalenaOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.GALENA);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.GALENA);
 			}
 			if (TechRebornConfig.enableIridiumOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.IRIDIUM);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.IRIDIUM);
 			}
 			if (TechRebornConfig.enableLeadOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.LEAD);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.LEAD);
 			}
 			if (TechRebornConfig.enableRubyOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.RUBY);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.RUBY);
 			}
 			if (TechRebornConfig.enableSapphireOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SAPPHIRE);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SAPPHIRE);
 			}
 			if (TechRebornConfig.enableSilverOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.SILVER);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.SILVER);
 			}
 			if (TechRebornConfig.enableTinOre) {
-				addOre(biome, OreFeatureConfig.Target.NATURAL_STONE, TRContent.Ores.TIN);
+				addOre(biome, OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, TRContent.Ores.TIN);
 			}
 
 			if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA || biome.getCategory() == Category.SWAMP) {
-				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
+				addFeature(biome, GenerationStep.Feature.VEGETAL_DECORATION,
 						RUBBER_TREE_FEATURE.configure(RUBBER_TREE_CONFIG)
-								.createDecoratedFeature(RUBBER_TREE_DECORATOR
+								.decorate(RUBBER_TREE_DECORATOR
 										.configure(new ChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? TechRebornConfig.rubberTreeChance / 3 : TechRebornConfig.rubberTreeChance))
 								)
 				);
@@ -170,15 +169,16 @@ public class WorldGenerator {
 		}
 	}
 
-	private static void addOre(Biome biome, Target canReplaceIn, TRContent.Ores ore) {
-		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, Feature.ORE.configure(
-				new OreFeatureConfig(canReplaceIn, ore.block.getDefaultState(), ore.veinSize)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(
-				new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY))));
+	private static void addOre(Biome biome, RuleTest ruleTest, TRContent.Ores ore) {
+		addFeature(biome,
+				GenerationStep.Feature.UNDERGROUND_ORES,
+				Feature.ORE.configure(
+					new OreFeatureConfig(ruleTest, ore.block.getDefaultState(), ore.veinSize)
+				).method_30377(ore.veinsPerChunk)
+		);
 	}
 
-	private static void addEndOre(Biome biome, TRContent.Ores ore) {
-		biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, CustomOreFeature.CUSTOM_ORE_FEATURE.configure(
-				new CustomOreFeatureConfig(blockState -> blockState.getBlock() == Blocks.END_STONE, ore.block.getDefaultState(), ore.veinSize)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(
-				new RangeDecoratorConfig(ore.veinsPerChunk, ore.minY, ore.minY, ore.maxY))));
+	private static void addFeature(Biome biome, GenerationStep.Feature feature, ConfiguredFeature<?, ?> configuredFeature) {
+		// Nope
 	}
 }

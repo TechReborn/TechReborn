@@ -40,8 +40,8 @@ import reborncore.common.recipes.IUpgradeHandler;
 import techreborn.TechReborn;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class UpgradeItem extends Item implements IUpgrade {
@@ -57,10 +57,10 @@ public class UpgradeItem extends Item implements IUpgrade {
 
 	@Override
 	public void process(
-			@Nonnull MachineBaseBlockEntity blockEntity,
+			@NotNull MachineBaseBlockEntity blockEntity,
 			@Nullable
 					IUpgradeHandler handler,
-			@Nonnull
+			@NotNull
 					ItemStack stack) {
 		behavior.process(blockEntity, handler, stack);
 	}

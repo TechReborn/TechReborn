@@ -36,7 +36,7 @@ import net.minecraft.util.math.MathHelper;
 import techreborn.entities.EntityNukePrimed;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by Mark on 13/03/2016.
@@ -69,7 +69,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 
 		matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrixStack.translate(-0.5D, -0.5D, 0.5D);
-		TntMinecartEntityRenderer.method_23190(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuseTimer() / 5 % 2 == 0);
+		TntMinecartEntityRenderer.renderFlashingBlock(TRContent.NUKE.getDefaultState(), matrixStack, vertexConsumerProvider, i, entity.getFuseTimer() / 5 % 2 == 0);
 		matrixStack.pop();
 		super.render(entity, f, g, matrixStack, vertexConsumerProvider, i);
 	}

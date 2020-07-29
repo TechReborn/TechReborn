@@ -61,7 +61,7 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 

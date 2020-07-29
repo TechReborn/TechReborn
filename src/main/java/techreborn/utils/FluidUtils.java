@@ -37,13 +37,13 @@ import reborncore.common.fluid.container.GenericFluidContainer;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.mixin.common.AccessorFluidBlock;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FluidUtils {
 
-	@Nonnull
+	@NotNull
 	public static Fluid fluidFromBlock(Block block) {
 		if (block instanceof AccessorFluidBlock) {
 			return ((AccessorFluidBlock) block).getFluid();
@@ -133,11 +133,11 @@ public class FluidUtils {
 		return true;
 	}
 
-	public static boolean fluidEquals(@Nonnull Fluid fluid, @Nonnull Fluid fluid1) {
+	public static boolean fluidEquals(@NotNull Fluid fluid, @NotNull Fluid fluid1) {
 		return fluid == fluid1;
 	}
 
-	public static FluidInstance getFluidStackInContainer(@Nonnull ItemStack invStack) {
+	public static FluidInstance getFluidStackInContainer(@NotNull ItemStack invStack) {
 		return null;
 	}
 

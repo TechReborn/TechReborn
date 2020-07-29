@@ -10,7 +10,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.4-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.5-SNAPSHOT"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 	}
@@ -73,14 +73,14 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.1"
-	mappings "net.fabricmc:yarn:1.16.1+build.1:v2"
+	minecraft "com.mojang:minecraft:1.16.2-pre1"
+	mappings "net.fabricmc:yarn:1.16.2-pre1+build.1:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.9.0+build.204"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.16.0+build.384-1.16.1"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.16.1+build.387-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.10.2")
+	disabledOptionalDependency ("me.shedaniel:RoughlyEnoughItems:4.10.2")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
 
@@ -89,8 +89,6 @@ dependencies {
 		exclude group: "net.fabricmc.fabric-api"
 	}
 	include rcVersion
-
-	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
 	modApi 'teamreborn:energy:0.1.0'
 }

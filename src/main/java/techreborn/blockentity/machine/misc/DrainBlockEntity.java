@@ -37,7 +37,7 @@ import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.util.Tank;
 import techreborn.init.TRBlockEntities;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class DrainBlockEntity extends MachineBaseBlockEntity {
 
