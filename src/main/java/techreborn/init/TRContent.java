@@ -32,6 +32,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.structure.rule.RuleTest;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -82,6 +83,9 @@ import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
 import org.jetbrains.annotations.Nullable;
+import techreborn.world.TechRebornOre;
+import techreborn.world.WorldTargetType;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -370,22 +374,22 @@ public class TRContent {
 	}
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(TechRebornConfig.bauxiteVeinSize, TechRebornConfig.bauxiteVeinCount, 10, 60, MiningLevel.STONE),
-		CINNABAR(TechRebornConfig.cinnabarVeinSize, TechRebornConfig.cinnabarVeinCount, 10, 126, MiningLevel.IRON),
-		COPPER(TechRebornConfig.copperVeinSize, TechRebornConfig.copperVeinCount, 20, 60, MiningLevel.STONE),
-		GALENA(TechRebornConfig.galenaVeinSize, TechRebornConfig.galenaVeinCount, 10, 60, MiningLevel.IRON),
-		IRIDIUM(TechRebornConfig.iridiumVeinSize, TechRebornConfig.iridiumVeinCount, 5, 60, MiningLevel.DIAMOND),
-		LEAD(TechRebornConfig.leadVeinSize, TechRebornConfig.leadVeinCount, 20, 60, MiningLevel.IRON),
-		PERIDOT(TechRebornConfig.peridotVeinSize, TechRebornConfig.peridotVeinCount, 10, 250, MiningLevel.DIAMOND),
-		PYRITE(TechRebornConfig.pyriteVeinSize, TechRebornConfig.pyriteVeinCount, 10, 126, MiningLevel.DIAMOND),
-		RUBY(TechRebornConfig.rubyVeinSize, TechRebornConfig.rubyVeinCount, 10, 60, MiningLevel.IRON),
-		SAPPHIRE(TechRebornConfig.sapphireVeinSize, TechRebornConfig.sapphireVeinCount, 10, 60, MiningLevel.IRON),
-		SHELDONITE(TechRebornConfig.sheldoniteVeinSize, TechRebornConfig.sheldoniteVeinCount, 10, 250, MiningLevel.DIAMOND),
-		SILVER(TechRebornConfig.silverVeinSize, TechRebornConfig.silverVeinCount, 20, 60, MiningLevel.IRON),
-		SODALITE(TechRebornConfig.sodaliteVeinSize, TechRebornConfig.sodaliteVeinCount, 10, 250, MiningLevel.DIAMOND),
-		SPHALERITE(TechRebornConfig.sphaleriteVeinSize, TechRebornConfig.sphaleriteVeinCount, 10, 126, MiningLevel.IRON),
-		TIN(TechRebornConfig.tinVeinSize, TechRebornConfig.tinVeinCount, 20, 60, MiningLevel.STONE),
-		TUNGSTEN(TechRebornConfig.tungstenVeinSize, TechRebornConfig.tungstenVeinCount, 10, 250, MiningLevel.DIAMOND);
+		BAUXITE(6, 10, 10, 60, MiningLevel.STONE),
+		CINNABAR(6, 3, 10, 126, MiningLevel.IRON),
+		COPPER(8, 16, 20, 60, MiningLevel.STONE),
+		GALENA(8, 16, 10, 60, MiningLevel.IRON),
+		IRIDIUM(3, 3, 5, 60, MiningLevel.DIAMOND),
+		LEAD(6, 16, 20, 60, MiningLevel.IRON),
+		PERIDOT(6, 3, 10, 250, MiningLevel.DIAMOND),
+		PYRITE(6, 3, 10, 126, MiningLevel.DIAMOND),
+		RUBY(6, 3, 10, 60, MiningLevel.IRON),
+		SAPPHIRE(6, 3, 10, 60, MiningLevel.IRON),
+		SHELDONITE(6, 3, 10, 250, MiningLevel.DIAMOND),
+		SILVER(6, 16, 20, 60, MiningLevel.IRON),
+		SODALITE(6, 3, 10, 250, MiningLevel.DIAMOND),
+		SPHALERITE(6, 3, 10, 126, MiningLevel.IRON),
+		TIN(8, 16, 20, 60, MiningLevel.STONE),
+		TUNGSTEN(6, 3, 10, 250, MiningLevel.DIAMOND);
 
 		public final String name;
 		public final Block block;
@@ -412,6 +416,10 @@ public class TRContent {
 		@Override
 		public Item asItem() {
 			return block.asItem();
+		}
+
+		public TechRebornOre asNewOres(WorldTargetType targetType, RuleTest ruleTest) {
+			return new TechRebornOre(targetType, ruleTest, block.getDefaultState(), maxY, veinSize, veinsPerChunk);
 		}
 
 	}

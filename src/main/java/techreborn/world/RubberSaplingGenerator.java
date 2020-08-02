@@ -27,15 +27,15 @@ package techreborn.world;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
-
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Random;
 
 public class RubberSaplingGenerator extends SaplingGenerator {
 	@Nullable
 	@Override
 	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-		return WorldGenerator.RUBBER_TREE_FEATURE.configure(WorldGenerator.RUBBER_TREE_CONFIG);
+		return WorldGenerator.RUBBER_TREE_FEATURE.configure(WorldGenerator.activeConfig.getRubberTree());
 	}
 
 }
