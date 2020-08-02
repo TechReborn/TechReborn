@@ -74,7 +74,7 @@ configurations.all {
 
 dependencies {
 	minecraft "com.mojang:minecraft:1.16.2-pre1"
-	mappings "net.fabricmc:yarn:1.16.2-pre1+build.1:v2"
+	mappings "net.fabricmc:yarn:1.16.2-pre1+build.13:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.9.0+build.204"
 
 	//Fabric api

@@ -78,9 +78,9 @@ public class FluidReplicatorRecipeCategory implements RecipeCategory<FluidReplic
 		widgets.add(Widgets.createRecipeBase(bounds));
 		widgets.add(ReiPlugin.createEnergyDisplay(new Rectangle(bounds.x + 8, bounds.y + 8, 14, 50), recipeDisplay.getEnergy(), ReiPlugin.EntryAnimation.downwards(5000), point -> {
 			List<Text> list = Lists.newArrayList();
-			list.add(Text.method_30163("Energy"));
+			list.add(Text.of("Energy"));
 			list.add(new TranslatableText("techreborn.jei.recipe.running.cost", "E", recipeDisplay.getEnergy()).formatted(Formatting.GRAY));
-			list.add(Text.method_30163(""));
+			list.add(Text.of(""));
 			list.add(ClientHelper.getInstance().getFormattedModFromIdentifier(new Identifier("techreborn", "")));
 			return Tooltip.create(point, list);
 		}));
