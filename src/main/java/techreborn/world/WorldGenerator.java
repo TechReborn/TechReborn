@@ -24,11 +24,15 @@
 
 package techreborn.world;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
@@ -50,7 +54,7 @@ import techreborn.init.TRContent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.function.Supplier;
 
 /**
  * @author drcrazy
@@ -66,13 +70,13 @@ public class WorldGenerator {
 
 	public static void initBiomeFeatures() {
 		setupTrees();
-//
-//		for (Biome biome : Registry.BIOME) {
-//			addToBiome(biome);
-//		}
-//
-//		//Handles modded biomes
-//		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> addToBiome(biome));
+
+		for (Biome biome : BuiltinRegistries.BIOME) {
+			addToBiome(biome);
+		}
+
+		//Handles modded biomes
+		RegistryEntryAddedCallback.event(BuiltinRegistries.BIOME).register((i, identifier, biome) -> addToBiome(biome));
 	}
 
 	private static void setupTrees() {
@@ -174,11 +178,24 @@ public class WorldGenerator {
 				GenerationStep.Feature.UNDERGROUND_ORES,
 				Feature.ORE.configure(
 					new OreFeatureConfig(ruleTest, ore.block.getDefaultState(), ore.veinSize)
-				).method_30377(ore.veinsPerChunk)
+				).method_30377(ore.maxY).spreadHorizontally().repeat(ore.veinsPerChunk)
 		);
 	}
 
 	private static void addFeature(Biome biome, GenerationStep.Feature feature, ConfiguredFeature<?, ?> configuredFeature) {
-		// Nope
+		List<List<Supplier<ConfiguredFeature<?, ?>>>> features = biome.getGenerationSettings().getFeatures();
+
+		int stepIndex = feature.ordinal();
+
+		while(features.size() <= stepIndex) {
+			features.add(Lists.newArrayList());
+		}
+
+		List<Supplier<ConfiguredFeature<?, ?>>> stepList = features.get(feature.ordinal());
+		if (stepList instanceof ImmutableList) {
+			features.set(feature.ordinal(), stepList = new ArrayList<>(stepList));
+		}
+
+		stepList.add(() -> configuredFeature);
 	}
 }
