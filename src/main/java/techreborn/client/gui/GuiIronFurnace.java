@@ -93,7 +93,7 @@ public class GuiIronFurnace extends GuiBase<BuiltScreenHandler> {
 
 				List<Text> list = new ArrayList<>();
 				list.add(new LiteralText(message));
-				method_30901(matrixStack, list, mouseX, mouseY);
+				renderTooltip(matrixStack, list, mouseX, mouseY);
 				GlStateManager.disableLighting();
 				GlStateManager.color4f(1, 1, 1, 1);
 

@@ -81,7 +81,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				}
 
 				LightningEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world);
-				lightningBolt.method_29495(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
+				lightningBolt.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
 
 				if (!world.isClient) {
 					world.spawnEntity(lightningBolt);

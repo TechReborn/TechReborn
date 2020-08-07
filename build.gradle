@@ -73,12 +73,12 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.2-pre1"
-	mappings "net.fabricmc:yarn:1.16.2-pre1+build.13:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.9.0+build.204"
+	minecraft "com.mojang:minecraft:1.16.2-rc1"
+	mappings "net.fabricmc:yarn:1.16.2-rc1+build.4:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.9.1+build.205"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.16.1+build.387-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.17.0+build.393-1.16"
 
 	disabledOptionalDependency ("me.shedaniel:RoughlyEnoughItems:4.10.2")
 	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
