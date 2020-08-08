@@ -592,7 +592,4 @@ public class TechRebornConfig {
 
 	@Config(config = "world", category = "loot", key = "enableEndLoot", comment = "When true TechReborn will add ingots, machine frames and circuits to The End loot chests.")
 	public static boolean enableEndLoot = true;
-
-	@Config(config = "world", category = "rubber_tree", key = "rubberTreeChance", comment = "Chance to spawn rubber tree")
-	public static int rubberTreeChance = 50;
 }

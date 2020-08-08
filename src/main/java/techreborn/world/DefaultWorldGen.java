@@ -4,7 +4,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.structure.rule.BlockStateMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.UniformIntDistribution;
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -13,6 +16,7 @@ import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.apache.logging.log4j.util.TriConsumer;
 import techreborn.blocks.misc.BlockRubberLog;
+import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 
 import java.util.ArrayList;
@@ -28,7 +32,7 @@ public class DefaultWorldGen {
 		return new WorldGenConfig(getOres(), getRubberTree());
 	}
 
-	private static TreeFeatureConfig getRubberTree() {
+	private static ConfiguredFeature<?, ?> getRubberTree() {
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(TRContent.RUBBER_LOG.getDefaultState(), 10);
 
@@ -40,13 +44,19 @@ public class DefaultWorldGen {
 				)
 				.forEach(state -> logProvider.addState(state, 1));
 
-		return new TreeFeatureConfig.Builder(
-				logProvider,
-				new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
-				new RubberTreeFeature.FoliagePlacer(UniformIntDistribution.of(2, 0), UniformIntDistribution.of(0, 0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
-				new StraightTrunkPlacer(6, 3, 0),
-				new TwoLayersFeatureSize(1, 0, 1)
+		TreeFeatureConfig treeFeatureConfig = new TreeFeatureConfig.Builder(
+			logProvider,
+			new SimpleBlockStateProvider(TRContent.RUBBER_LEAVES.getDefaultState()),
+			new RubberTreeFeature.FoliagePlacer(UniformIntDistribution.of(2, 0), UniformIntDistribution.of(0, 0), 3, 3, TRContent.RUBBER_LEAVES.getDefaultState()),
+			new StraightTrunkPlacer(6, 3, 0),
+			new TwoLayersFeatureSize(1, 0, 1)
 		).build();
+
+
+		return WorldGenerator.RUBBER_TREE_FEATURE.configure(treeFeatureConfig)
+				.decorate(WorldGenerator.RUBBER_TREE_DECORATOR
+						.configure(new ChanceDecoratorConfig(50)
+				));
 	}
 
 	private static List<TechRebornOre> getOres() {

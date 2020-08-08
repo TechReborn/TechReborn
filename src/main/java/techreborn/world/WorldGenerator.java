@@ -94,21 +94,16 @@ public class WorldGenerator {
 
 		for (TechRebornOre ore : config.getOres()) {
 			if (ore.getTargetType().isApplicable(biome.getCategory())) {
-				addFeature(biome, GenerationStep.Feature.UNDERGROUND_ORES, ore.getConfiguredFeature());
+				addFeature(biome, ore.getIdentifier(), GenerationStep.Feature.UNDERGROUND_ORES, ore.getConfiguredFeature());
 			}
 		}
 
 		if (biome.getCategory() == Category.FOREST || biome.getCategory() == Category.TAIGA || biome.getCategory() == Category.SWAMP) {
-			addFeature(biome, GenerationStep.Feature.VEGETAL_DECORATION,
-					RUBBER_TREE_FEATURE.configure(config.getRubberTree())
-							.decorate(RUBBER_TREE_DECORATOR
-									.configure(new ChanceDecoratorConfig(biome.getCategory() == Category.SWAMP ? TechRebornConfig.rubberTreeChance / 3 : TechRebornConfig.rubberTreeChance))
-							)
-			);
+			addFeature(biome, new Identifier("techreborn:rubber_tree"),  GenerationStep.Feature.VEGETAL_DECORATION, config.getRubberTree());
 		}
 	}
 
-	private static void addFeature(Biome biome, GenerationStep.Feature feature, ConfiguredFeature<?, ?> configuredFeature) {
+	private static void addFeature(Biome biome, Identifier identifier, GenerationStep.Feature feature, ConfiguredFeature<?, ?> configuredFeature) {
 		List<List<Supplier<ConfiguredFeature<?, ?>>>> features = biome.getGenerationSettings().getFeatures();
 
 		int stepIndex = feature.ordinal();
@@ -120,6 +115,14 @@ public class WorldGenerator {
 		List<Supplier<ConfiguredFeature<?, ?>>> stepList = features.get(feature.ordinal());
 		if (stepList instanceof ImmutableList) {
 			features.set(feature.ordinal(), stepList = new ArrayList<>(stepList));
+		}
+
+		if (!BuiltinRegistries.CONFIGURED_FEATURE.getKey(configuredFeature).isPresent()) {
+			if (BuiltinRegistries.CONFIGURED_FEATURE.getOrEmpty(identifier).isPresent()) {
+				throw new RuntimeException("Duplicate feature: " + identifier.toString());
+			}
+
+			BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_FEATURE, identifier, configuredFeature);
 		}
 
 		stepList.add(() -> configuredFeature);

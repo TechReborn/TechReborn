@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.structure.rule.RuleTest;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -26,6 +28,7 @@ public class TechRebornOre {
 	private final int maxY;
 	private final int veinSize;
 	private final int veinCount;
+	private final ConfiguredFeature<?, ?> configuredFeature;
 
 	public TechRebornOre(WorldTargetType targetType, RuleTest ruleTest, BlockState blockState, int maxY, int veinSize, int veinCount) {
 		this.targetType = targetType;
@@ -34,15 +37,20 @@ public class TechRebornOre {
 		this.maxY = maxY;
 		this.veinSize = veinSize;
 		this.veinCount = veinCount;
+		this.configuredFeature = Feature.ORE.configure(
+									new OreFeatureConfig(ruleTest, blockState, veinSize)
+								)
+								.method_30377(maxY)
+								.spreadHorizontally()
+								.repeat(veinCount);
 	}
 
 	public ConfiguredFeature<?, ?> getConfiguredFeature() {
-		return Feature.ORE.configure(
-				new OreFeatureConfig(ruleTest, blockState, veinSize)
-		)
-				.method_30377(maxY)
-				.spreadHorizontally()
-				.repeat(veinCount);
+		return configuredFeature;
+	}
+
+	public Identifier getIdentifier() {
+		return new Identifier("techreborn", "ore_" + Registry.BLOCK.getId(blockState.getBlock()).toString().replace(":", "_"));
 	}
 
 	public WorldTargetType getTargetType() {
