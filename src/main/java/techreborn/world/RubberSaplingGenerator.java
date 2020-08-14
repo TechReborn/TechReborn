@@ -26,6 +26,7 @@ package techreborn.world;
 
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +36,9 @@ public class RubberSaplingGenerator extends SaplingGenerator {
 	@Nullable
 	@Override
 	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-		return WorldGenerator.RUBBER_TREE_FEATURE.configure((TreeFeatureConfig) WorldGenerator.activeConfig.getRubberTree().config);
+		DecoratedFeatureConfig decoratedFeatureConfig = (DecoratedFeatureConfig) WorldGenerator.activeConfig.getRubberTree().getConfig();
+		//noinspection unchecked
+		return (ConfiguredFeature<TreeFeatureConfig, ?>) decoratedFeatureConfig.feature.get();
 	}
 
 }
