@@ -152,7 +152,7 @@ task crowdinExport() {
 
 
 task crowdin(type: Download, dependsOn: 'crowdinExport'){
-	src 'https://s.modm.us/TechReborn%20%28translations%29.zip'
+	src 'https://crowdin.com/backend/download/project/techreborn.zip'
 	dest file("build/translations.zip")
 	overwrite true
 }
