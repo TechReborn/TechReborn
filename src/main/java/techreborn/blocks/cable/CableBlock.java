@@ -42,6 +42,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -62,6 +63,7 @@ import techreborn.init.TRContent;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
 import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,17 +105,17 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	public BooleanProperty getProperty(Direction facing) {
 		switch (facing) {
 			case WEST:
-			return WEST;
-		case NORTH:
-			return NORTH;
-		case SOUTH:
-			return SOUTH;
-		case UP:
-			return UP;
-		case DOWN:
-			return DOWN;
-		default:
-			return EAST;
+				return WEST;
+			case NORTH:
+				return NORTH;
+			case SOUTH:
+				return SOUTH;
+			case UP:
+				return UP;
+			case DOWN:
+				return DOWN;
+			default:
+				return EAST;
 		}
 	}
 
@@ -161,11 +163,18 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			return ActionResult.FAIL;
 		}
 
-		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+		if (stack.isEmpty()) {
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
+		if (ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (state.get(COVERED) && !playerIn.isSneaking()) {
 				((CableBlockEntity) blockEntity).setCover(null);
 				worldIn.setBlockState(pos, state.with(COVERED, false));
 				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 0.6F, 1.0F);
+				if (!worldIn.isClient) {
+					ItemScatterer.spawn(worldIn, pos.getX(), pos.getY(), pos.getZ(), TRContent.Plates.WOOD.getStack());
+				}
 				return ActionResult.SUCCESS;
 			}
 
@@ -174,7 +183,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			}
 		}
 
-		if (!stack.isEmpty() && !state.get(COVERED) && !state.get(WATERLOGGED) && !type.canKill
+		if (!state.get(COVERED) && !state.get(WATERLOGGED) && !type.canKill
 				&& stack.getItem() == TRContent.Plates.WOOD.asItem()) {
 			worldIn.setBlockState(pos, state.with(COVERED, true));
 			worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 0.6F, 1.0F);
@@ -201,7 +210,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState,
-			WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
+												WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
 		if (ourState.get(WATERLOGGED)) {
 			worldIn.getFluidTickScheduler().schedule(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 		}
