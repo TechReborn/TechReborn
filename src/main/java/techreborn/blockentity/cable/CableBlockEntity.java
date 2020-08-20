@@ -63,11 +63,11 @@ import java.util.List;
  */
 
 public class CableBlockEntity extends BlockEntity
-	implements Tickable, IListInfoProvider, IToolDrop, EnergyStorage {
-	
+		implements Tickable, IListInfoProvider, IToolDrop, EnergyStorage {
+
 	private double energy = 0;
 	private TRContent.Cables cableType = null;
-	private ArrayList<Direction> sendingFace = new ArrayList<>();
+	private ArrayList<EnergySide> sendingFace = new ArrayList<>();
 	private BlockState cover = null;
 
 	public CableBlockEntity() {
@@ -87,28 +87,54 @@ public class CableBlockEntity extends BlockEntity
 			return TRContent.Cables.COPPER;
 		}
 		Block block = world.getBlockState(pos).getBlock();
-		if(block instanceof CableBlock){
+		if (block instanceof CableBlock) {
 			return ((CableBlock) block).type;
 		}
 		//Something has gone wrong if this happens
 		return TRContent.Cables.COPPER;
 	}
 
+	public BlockState getCover() {
+		return cover;
+	}
+
+	public void setCover(BlockState cover) {
+		this.cover = cover;
+		if (world != null && !world.isClient) {
+			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
+		}
+	}
+
+	public boolean canAcceptEnergy(EnergySide direction) {
+		if (sendingFace.contains(direction)) {
+			return false;
+		}
+		return getMaxStoredPower() != getEnergy();
+	}
+
+	public double getEnergy() {
+		return getStored(EnergySide.UNKNOWN);
+	}
+
+	public void setEnergy(double energy) {
+		setStored(energy);
+	}
+
+	// BlockEntity
 	@Override
-    public CompoundTag toInitialChunkDataTag() {
-        return toTag(new CompoundTag());
-    }
+	public CompoundTag toInitialChunkDataTag() {
+		return toTag(new CompoundTag());
+	}
 
-    @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        CompoundTag nbtTag = new CompoundTag();
-        toTag(nbtTag);
-        return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
-    }
+	@Override
+	public BlockEntityUpdateS2CPacket toUpdatePacket() {
+		CompoundTag nbtTag = new CompoundTag();
+		toTag(nbtTag);
+		return new BlockEntityUpdateS2CPacket(getPos(), 1, nbtTag);
+	}
 
-
-    @Override
-    public void fromTag(BlockState blockState, CompoundTag compound) {
+	@Override
+	public void fromTag(BlockState blockState, CompoundTag compound) {
 		super.fromTag(blockState, compound);
 		if (compound.contains("energy")) {
 			energy = compound.getDouble("energy");
@@ -120,8 +146,8 @@ public class CableBlockEntity extends BlockEntity
 		}
 	}
 
-    @Override
-    public CompoundTag toTag(CompoundTag compound) {
+	@Override
+	public CompoundTag toTag(CompoundTag compound) {
 		super.toTag(compound);
 		compound.putDouble("energy", energy);
 		if (cover != null) {
@@ -130,15 +156,19 @@ public class CableBlockEntity extends BlockEntity
 		return compound;
 	}
 
+	// Tickable
 	@Override
 	public void tick() {
+		if (world == null) {
+			return;
+		}
 		if (world.isClient) {
 			return;
 		}
 
 		sendingFace.clear();
 
-		if(getEnergy() == 0){
+		if (getEnergy() == 0) {
 			return;
 		}
 
@@ -148,26 +178,33 @@ public class CableBlockEntity extends BlockEntity
 		for (Direction face : Direction.values()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos.offset(face));
 
-			if (blockEntity != null && Energy.valid(blockEntity)) {
-				if (blockEntity instanceof CableBlockEntity ) {
-					CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
+			if (blockEntity == null) {
+				continue;
+			}
 
-					if(cableBlockEntity.getTier() == this.getTier()) {
-						// Only need ones with energy stores less than ours
-						if (cableBlockEntity.getEnergy() < this.getEnergy()) {
-							cables.add(cableBlockEntity);
-						}
+			if (!Energy.valid(blockEntity)) {
+				continue;
+			}
 
-						continue;
-					}else if(energy <= Energy.of(blockEntity).side(face).getEnergy()){
-						continue;
-					}
+			if (blockEntity instanceof CableBlockEntity) {
+				CableBlockEntity cableBlockEntity = (CableBlockEntity) blockEntity;
+
+				if (cableBlockEntity.getTier() != this.getTier()) {
+					continue;
+				}
+				// Only need ones with energy stores less than ours
+				if (cableBlockEntity.getEnergy() < this.getEnergy()) {
+					cables.add(cableBlockEntity);
 				}
 
-				if(Energy.of(blockEntity).side(face.getOpposite()).getMaxInput() > 0){
+
+			} else {
+				EnergySide side = EnergySide.fromMinecraft(face);
+
+				if (Energy.of(blockEntity).side(face.getOpposite()).getMaxInput() > 0) {
 					acceptors.add(Pair.of(blockEntity, face));
-					if (!sendingFace.contains(face)) {
-						sendingFace.add(face);
+					if (!sendingFace.contains(side)) {
+						sendingFace.add(side);
 					}
 				}
 			}
@@ -177,16 +214,16 @@ public class CableBlockEntity extends BlockEntity
 			Collections.shuffle(acceptors);
 
 			acceptors.forEach(pair ->
-				Energy.of(this)
-						.into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
-						.move()
+					Energy.of(this)
+							.into(Energy.of(pair.getLeft()).side(pair.getRight().getOpposite()))
+							.move()
 			);
 		}
 
 
-        // Distribute energy between cables (TODO DIRTY FIX, until we game network cables)
+		// Distribute energy between cables (TODO DIRTY FIX, until we game network cables)
 
-		if(!cables.isEmpty()) {
+		if (!cables.isEmpty()) {
 
 			cables.add(this);
 			double energyTotal = cables.stream().mapToDouble(CableBlockEntity::getEnergy).sum();
@@ -196,26 +233,26 @@ public class CableBlockEntity extends BlockEntity
 		}
 	}
 
-    // IListInfoProvider
+	// IListInfoProvider
 	@Override
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		info.add(
 				new TranslatableText("techreborn.tooltip.transferRate")
-				.formatted(Formatting.GRAY)
-				.append(": ")
-				.append(PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate))
-				.formatted(Formatting.GOLD)
-				.append("/t")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate))
+						.formatted(Formatting.GOLD)
+						.append("/t")
 		);
 
 		info.add(
-			new TranslatableText("techreborn.tooltip.tier")
-			.formatted(Formatting.GRAY)
-			.append(": ")
-			.append(
-					new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
-					.formatted(Formatting.GOLD)
-			)
+				new TranslatableText("techreborn.tooltip.tier")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(
+								new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
+										.formatted(Formatting.GOLD)
+						)
 		);
 
 		if (!getCableType().canKill) {
@@ -229,66 +266,15 @@ public class CableBlockEntity extends BlockEntity
 		return new ItemStack(getCableType().block);
 	}
 
-
-	public double getEnergy() {
-		return getStored(EnergySide.UNKNOWN);
-	}
-
-	public void setEnergy(double energy) {
-		setStored(energy);
-	}
-
-	public double useEnergy(double energyOut, boolean simulate) {
-		if (energyOut > energy) {
-			energyOut = energy;
-		}
-		if (!simulate) {
-			setEnergy(energy - energyOut);
-		}
-		return energyOut;
-	}
-
-	public double addEnergy(double energyIn) {
-		if(this.isFull()){
-			return energyIn;
-		}
-
-		double maxStore = this.getMaxStoredPower();
-
-		if (energyIn + energy <= maxStore) {
-			setEnergy(energyIn + energy);
-			return 0;
-		}
-
-		// Can't fit energy fully, add part of it
-		double amountCanAdd = (maxStore - energy);
-		setEnergy(amountCanAdd + energy);
-
-		return energyIn - amountCanAdd;
-	}
-
-	public boolean canAcceptEnergy(EnergySide direction) {
-		if (sendingFace.contains(direction)) {
-			return false;
-		}
-		return getMaxStoredPower() != getEnergy();
-	}
-
-	public boolean isFull(){
-		return getMaxStoredPower() == getEnergy();
+	// EnergyStorage
+	@Override
+	public double getStored(EnergySide face) {
+		return energy;
 	}
 
 	@Override
-	public double getMaxInput(EnergySide side) {
-		if(!canAcceptEnergy(side)) {
-			return 0;
-		}
-		return getCableType().transferRate;
-	}
-
-	@Override
-	public double getMaxOutput(EnergySide side) {
-		return getCableType().transferRate;
+	public void setStored(double amount) {
+		this.energy = amount;
 	}
 
 	@Override
@@ -302,24 +288,15 @@ public class CableBlockEntity extends BlockEntity
 	}
 
 	@Override
-	public double getStored(EnergySide face) {
-		return energy;
+	public double getMaxInput(EnergySide side) {
+		if (!canAcceptEnergy(side)) {
+			return 0;
+		}
+		return getCableType().transferRate;
 	}
 
 	@Override
-	public void setStored(double amount) {
-		this.energy = amount;
+	public double getMaxOutput(EnergySide side) {
+		return getCableType().transferRate;
 	}
-
-	public BlockState getCover() {
-		return cover;
-	}
-
-	public void setCover(BlockState cover) {
-		this.cover = cover;
-		if (!world.isClient) {
-			NetworkManager.sendToTracking(ClientBoundPackets.createCustomDescriptionPacket(this), this);
-		}
-	}
-
 }
