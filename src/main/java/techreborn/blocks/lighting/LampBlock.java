@@ -54,8 +54,8 @@ import java.util.function.ToIntFunction;
 
 public class LampBlock extends BaseBlockEntityProvider {
 
-	public static DirectionProperty FACING = Properties.FACING;
-	public static BooleanProperty ACTIVE;
+	public static final DirectionProperty FACING = Properties.FACING;
+	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 	protected final VoxelShape[] shape;
 
 	private final int cost;
@@ -116,7 +116,6 @@ public class LampBlock extends BaseBlockEntityProvider {
 	// Block
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		ACTIVE = BooleanProperty.of("active");
 		builder.add(FACING, ACTIVE);
 	}
 

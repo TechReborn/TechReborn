@@ -26,9 +26,9 @@ import java.util.function.Supplier;
 
 public class ResinBasinBlock extends BaseBlockEntityProvider {
 
-	public static DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-	public static BooleanProperty POURING = BooleanProperty.of("pouring");
-	public static BooleanProperty FULL = BooleanProperty.of("full");
+	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+	public static final BooleanProperty POURING = BooleanProperty.of("pouring");
+	public static final BooleanProperty FULL = BooleanProperty.of("full");
 	Supplier<BlockEntity> blockEntityClass;
 
 	public ResinBasinBlock(Supplier<BlockEntity> blockEntityClass) {
@@ -51,9 +51,6 @@ public class ResinBasinBlock extends BaseBlockEntityProvider {
 	// Block
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		FACING = DirectionProperty.of("facing", Direction.Type.HORIZONTAL);
-		POURING = BooleanProperty.of("pouring");
-		FULL = BooleanProperty.of("full");
 		builder.add(FACING, POURING, FULL);
 	}
 
