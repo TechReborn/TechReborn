@@ -63,7 +63,7 @@ import techreborn.blocks.generator.GenericGeneratorBlock;
 import techreborn.blocks.lighting.BlockLamp;
 import techreborn.blocks.machine.tier0.IronAlloyFurnaceBlock;
 import techreborn.blocks.machine.tier0.IronFurnaceBlock;
-import techreborn.blocks.machine.tier1.BlockPlayerDetector;
+import techreborn.blocks.machine.tier1.PlayerDetectorBlock;
 import techreborn.blocks.machine.tier1.ResinBasinBlock;
 import techreborn.blocks.misc.*;
 import techreborn.blocks.storage.energy.*;
@@ -560,7 +560,7 @@ public class TRContent {
 		CHUNK_LOADER(new GenericMachineBlock(GuiType.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),
 		LAMP_INCANDESCENT(new BlockLamp(4, 10, 8)),
 		LAMP_LED(new BlockLamp(1, 1, 12)),
-		PLAYER_DETECTOR(new BlockPlayerDetector());
+		PLAYER_DETECTOR(new PlayerDetectorBlock());
 
 		public final String name;
 		public final Block block;
