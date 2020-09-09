@@ -33,10 +33,6 @@ repositories {
 		url = "https://maven.modmuss50.me/"
 	}
 	maven {
-		// LibCD
-		url 'http://server.bbkr.space:8081/artifactory/libs-release'
-	}
-	maven {
 		//Dev Mode
 		url "https://maven.jamieswhiteshirt.com/libs-release/"
 	}
@@ -81,7 +77,6 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.17.2+build.396-1.16"
 
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.2.3")
-	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
