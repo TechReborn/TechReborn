@@ -88,34 +88,30 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		this.type = type;
 	}
 
-	// TileMachineBase
-	@Override
-	public void tick() {
-		super.tick();
-		if (world == null || world.isClient) {
+	public boolean isLocked() {
+		return lockedItemStack != ItemStack.EMPTY;
+	}
+
+	public void setLocked(boolean value) {
+		if (isLocked() == value) {
 			return;
 		}
 
-		// If there is an item in the input AND stored is less than max capacity
-		if (!inventory.getStack(INPUT_SLOT).isEmpty() && !isFull()) {
-			inventory.setStack(INPUT_SLOT, processInput(inventory.getStack(INPUT_SLOT)));
+		// Only set lockedItem in response to user input
+		ItemStack stack = getStoredStack().copy();
+		stack.setCount(1);
+		lockedItemStack = value ? stack : ItemStack.EMPTY;
+		syncWithAll();
+	}
+
+	public boolean canModifyLocking() {
+		// Can always be unlocked
+		if (isLocked()) {
+			return true;
 		}
 
-		// Fill output slot with goodies when stored has items and output count is less than max stack size
-		if (storeItemStack.getCount() > 0 && inventory.getStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
-			populateOutput();
-		}
-
-		if (type == TRContent.StorageUnit.CREATIVE) {
-			if (!isFull() && !isEmpty()) {
-				fillToCapacity();
-			}
-		}
-
-		if (inventory.hasChanged()) {
-			syncWithAll();
-			inventory.resetChanged();
-		}
+		// Can only lock if there is an item to lock
+		return !isEmpty();
 	}
 
 	private void populateOutput() {
@@ -152,10 +148,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 
 	public ItemStack getStoredStack() {
 		return storeItemStack.isEmpty() ? inventory.getStack(OUTPUT_SLOT) : storeItemStack;
-	}
-
-	public void setStoredStack(ItemStack itemStack) {
-		storeItemStack = itemStack;
 	}
 
 	// Returns the ItemStack to be displayed to the player via UI / model
@@ -239,15 +231,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return getCurrentCapacity() == maxCapacity;
 	}
 
-	public boolean isEmpty() {
-		return getCurrentCapacity() == 0;
-	}
-
-	@Override
-	public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
-		return super.canInsert(index, stack, direction) && (this.isEmpty() && !isLocked() || isSameType(stack));
-	}
-
 	public int getCurrentCapacity() {
 		return storeItemStack.getCount() + inventory.getStack(OUTPUT_SLOT).getCount();
 	}
@@ -256,12 +239,46 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return maxCapacity;
 	}
 
-	// Other stuff
+	// MachineBaseBlockEntity
+	@Override
+	public void tick() {
+		super.tick();
+		if (world == null || world.isClient) {
+			return;
+		}
 
+		// If there is an item in the input AND stored is less than max capacity
+		if (!inventory.getStack(INPUT_SLOT).isEmpty() && !isFull()) {
+			inventory.setStack(INPUT_SLOT, processInput(inventory.getStack(INPUT_SLOT)));
+		}
+
+		// Fill output slot with goodies when stored has items and output count is less than max stack size
+		if (storeItemStack.getCount() > 0 && inventory.getStack(OUTPUT_SLOT).getCount() < getStoredStack().getMaxCount()) {
+			populateOutput();
+		}
+
+		if (type == TRContent.StorageUnit.CREATIVE) {
+			if (!isFull() && !isEmpty()) {
+				fillToCapacity();
+			}
+			// void input items for creative storage (#2205)
+			inventory.setStack(INPUT_SLOT, ItemStack.EMPTY);
+		}
+
+		if (inventory.hasChanged()) {
+			syncWithAll();
+			inventory.resetChanged();
+		}
+	}
 
 	@Override
-	public boolean canBeUpgraded() {
-		return false;
+	public boolean isEmpty() {
+		return getCurrentCapacity() == 0;
+	}
+
+	@Override
+	public boolean canInsert(int index, ItemStack stack, @Nullable Direction direction) {
+		return super.canInsert(index, stack, direction) && (this.isEmpty() && !isLocked() || isSameType(stack));
 	}
 
 	@Override
@@ -325,57 +342,6 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		return tagCompound;
 	}
 
-	// ItemHandlerProvider
-	@Override
-	public RebornInventory<StorageUnitBaseBlockEntity> getInventory() {
-		return inventory;
-	}
-
-	// IToolDrop
-	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
-		return getDropWithNBT();
-	}
-
-	public ItemStack getDropWithNBT() {
-		ItemStack dropStack = new ItemStack(getBlockType(), 1);
-		final CompoundTag blockEntity = new CompoundTag();
-
-		this.toTag(blockEntity);
-		dropStack.setTag(new CompoundTag());
-		dropStack.getTag().put("blockEntity", blockEntity);
-
-		return dropStack;
-	}
-
-	// IListInfoProvider
-	@Override
-	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
-		if (isReal || hasData) {
-			if (!this.isEmpty()) {
-				info.add(
-						new LiteralText(String.valueOf(this.getCurrentCapacity()))
-								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
-								.append(this.getStoredStack().getName())
-				);
-			} else {
-				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
-			}
-		}
-
-		info.add(
-				new TranslatableText("techreborn.tooltip.unit.capacity")
-						.formatted(Formatting.GRAY)
-						.append(
-								new LiteralText(String.valueOf(this.getMaxCapacity()))
-										.formatted(Formatting.GOLD)
-										.append(" items (")
-										.append(String.valueOf(this.getMaxCapacity() / 64))
-										.append(")")
-						)
-		);
-	}
-
 	@Override
 	public void onBreak(World world, PlayerEntity playerEntity, BlockPos blockPos, BlockState blockState) {
 		super.onBreak(world, playerEntity, blockPos, blockState);
@@ -411,60 +377,72 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		// Inventory gets dropped automatically
 	}
 
-	// The int methods are only for ContainerBuilder.sync()
-	private int isLockedInt() {
-		return isLocked() ? 1 : 0;
-	}
-
-	private void setLockedInt(int lockedInt) {
-		setLocked(lockedInt == 1);
-	}
-
-	public boolean isLocked() {
-		return lockedItemStack != ItemStack.EMPTY;
-	}
-
-	public void setLocked(boolean value) {
-		if (isLocked() == value) {
-			return;
+	@Override
+	public boolean isValid(int slot, ItemStack stack) {
+		if (slot == INPUT_SLOT && isLocked()) {
+			return ItemUtils.isItemEqual(lockedItemStack, stack, true, true);
 		}
 
-		// Only set lockedItem in response to user input
-		ItemStack stack = getStoredStack().copy();
-		stack.setCount(1);
-		lockedItemStack = value ? stack : ItemStack.EMPTY;
-		syncWithAll();
+
+		if (slot == INPUT_SLOT && !(isEmpty() || isSameType(stack))) {
+			return false;
+		}
+		return super.isValid(slot, stack);
 	}
 
-	public boolean canModifyLocking() {
-		// Can always be unlocked
-		if (isLocked()) {
-			return true;
+	@Override
+	public boolean canBeUpgraded() {
+		return false;
+	}
+
+	// InventoryProvider
+	@Override
+	public RebornInventory<StorageUnitBaseBlockEntity> getInventory() {
+		return inventory;
+	}
+
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+		ItemStack dropStack = new ItemStack(getBlockType(), 1);
+		final CompoundTag blockEntity = new CompoundTag();
+
+		this.toTag(blockEntity);
+		dropStack.setTag(new CompoundTag());
+		dropStack.getOrCreateTag().put("blockEntity", blockEntity);
+
+		return dropStack;
+	}
+
+	// IListInfoProvider
+	@Override
+	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
+		if (isReal || hasData) {
+			if (!this.isEmpty()) {
+				info.add(
+						new LiteralText(String.valueOf(this.getCurrentCapacity()))
+								.append(new TranslatableText("techreborn.tooltip.unit.divider"))
+								.append(this.getStoredStack().getName())
+				);
+			} else {
+				info.add(new TranslatableText("techreborn.tooltip.unit.empty"));
+			}
 		}
 
-		// Can only lock if there is an item to lock
-		return !isEmpty();
+		info.add(
+				new TranslatableText("techreborn.tooltip.unit.capacity")
+						.formatted(Formatting.GRAY)
+						.append(
+								new LiteralText(String.valueOf(this.getMaxCapacity()))
+										.formatted(Formatting.GOLD)
+										.append(" items (")
+										.append(String.valueOf(this.getMaxCapacity() / 64))
+										.append(")")
+						)
+		);
 	}
 
-	public int getStoredAmount() {
-		return this.getCurrentCapacity();
-	}
-
-	public void setStoredAmount(int storedAmount) {
-		this.storedAmount = storedAmount;
-	}
-
-	public void setStoredStackFromNBT(CompoundTag tag) {
-		storeItemStack = ItemStack.fromTag(tag);
-	}
-
-
-	public CompoundTag getStoredStackNBT() {
-		CompoundTag tag = new CompoundTag();
-		getStoredStack().toTag(tag);
-		return tag;
-	}
-
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, final PlayerEntity playerEntity) {
 		return new ScreenHandlerBuilder("chest").player(playerEntity.inventory).inventory().hotbar().addInventory()
@@ -479,18 +457,30 @@ public class StorageUnitBaseBlockEntity extends MachineBaseBlockEntity implement
 		// Note that inventory is synced, and it gets the stack from that
 	}
 
-	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		if (slot == INPUT_SLOT && isLocked()) {
-			return ItemUtils.isItemEqual(lockedItemStack, stack, true, true);
-		}
-
-
-		if (slot == INPUT_SLOT && !(isEmpty() || isSameType(stack))) {
-			return false;
-		}
-		return super.isValid(slot, stack);
+	// The int methods are only for ContainerBuilder.sync()
+	private int isLockedInt() {
+		return isLocked() ? 1 : 0;
 	}
 
+	private void setLockedInt(int lockedInt) {
+		setLocked(lockedInt == 1);
+	}
 
+	public int getStoredAmount() {
+		return this.getCurrentCapacity();
+	}
+
+	public void setStoredAmount(int storedAmount) {
+		this.storedAmount = storedAmount;
+	}
+
+	public CompoundTag getStoredStackNBT() {
+		CompoundTag tag = new CompoundTag();
+		getStoredStack().toTag(tag);
+		return tag;
+	}
+
+	public void setStoredStackFromNBT(CompoundTag tag) {
+		storeItemStack = ItemStack.fromTag(tag);
+	}
 }

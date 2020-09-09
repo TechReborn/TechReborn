@@ -43,6 +43,7 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Tank;
+import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.client.GuiType;
 import techreborn.init.TRContent;
@@ -86,18 +87,46 @@ public class TankUnitBlock extends BlockMachineBase {
 			Tank tankInstance = tankUnitEntity.getTank();
 
 			if(new FluidInstance(fluid).isEmptyFluid()){
+				FluidValue amountInTank = tankInstance.getFluidInstance().getAmount();
 
-				FluidValue fluidValueAmount = FluidValue.BUCKET.multiply(amount);
 				// If tank has content, fill up user's inventory
-				if(tankInstance.getFluidInstance().getAmount().equalOrMoreThan(fluidValueAmount)){
+				if(amountInTank.equalOrMoreThan(FluidValue.BUCKET)){
 
-					// Add to player inventory
-					ItemStack returnStack = itemFluid.getFull(tankInstance.getFluid());
-					returnStack.setCount(amount);
-					playerIn.setStackInHand(Hand.MAIN_HAND, returnStack);
+					// Amount to transfer is whatever is lower (stack count or tank level)
+					int amountTransferBuckets = Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
+
+					// Remove items from player
+					stackInHand.decrement(amountTransferBuckets);
+
+					// Deposit into inventory, one by one (Stupid buckets)
+					for(int i = 0; i < amountTransferBuckets; i++){
+						ItemStack item = itemFluid.getFull(tankInstance.getFluid());
+
+						boolean didInsert;
+
+						ItemStack selectedStack = playerIn.getMainHandStack();
+
+						// Insert to select if it can, otherwise anywhere.
+						if(selectedStack.isEmpty()){
+							playerIn.setStackInHand(Hand.MAIN_HAND, item);
+							didInsert = true;
+						}else if(isSameItemFluid(item, selectedStack) && selectedStack.getCount() < selectedStack.getMaxCount()) {
+							selectedStack.increment(1);
+							didInsert = true;
+						}else {
+							didInsert = playerIn.inventory.insertStack(item);
+						}
+
+
+						// If didn't insert, just drop it.
+						if(!didInsert){
+							WorldUtils.dropItem(item,worldIn,  playerIn.getBlockPos());
+						}
+					}
 
 					// Remove from tank
-					tankInstance.getFluidInstance().setAmount(tankInstance.getFluidAmount().subtract(fluidValueAmount));
+					tankInstance.getFluidInstance().setAmount(tankInstance.getFluidAmount().subtract(
+							FluidValue.BUCKET.multiply(amountTransferBuckets)));
 				}else{
 					return ActionResult.FAIL;
 				}
@@ -122,6 +151,18 @@ public class TankUnitBlock extends BlockMachineBase {
 
 
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+	}
+
+	boolean isSameItemFluid(ItemStack i1, ItemStack i2){
+		// Only care about cells, buckets don't stack
+		if(!(i1.getItem() instanceof DynamicCellItem && i2.getItem() instanceof DynamicCellItem)){
+			return false;
+		}
+
+		DynamicCellItem dc1 = (DynamicCellItem)i1.getItem();
+		DynamicCellItem dc2 = (DynamicCellItem)i2.getItem();
+
+		return  dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
 	}
 
 	@Override
