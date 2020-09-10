@@ -56,6 +56,10 @@ public class FluidUtils {
 	}
 
 	public static boolean drainContainers(GenericFluidContainer<Direction> target, Inventory inventory, int inputSlot, int outputSlot) {
+		return drainContainers(target, inventory, inputSlot, outputSlot, false);
+	}
+
+	public static boolean drainContainers(GenericFluidContainer<Direction> target, Inventory inventory, int inputSlot, int outputSlot, boolean voidFluid) {
 		ItemStack inputStack = inventory.getStack(inputSlot);
 		ItemStack outputStack = inventory.getStack(outputSlot);
 
@@ -76,11 +80,12 @@ public class FluidUtils {
 				}
 			}
 
-			if (freeSpace.equalOrMoreThan(FluidValue.BUCKET)) {
+			if (freeSpace.equalOrMoreThan(FluidValue.BUCKET) || voidFluid) {
 				inputStack.decrement(1);
-				targetFluidInstance.setFluid(itemFluidInfo.getFluid(inputStack));
-				targetFluidInstance.addAmount(FluidValue.BUCKET);
-
+				if (!voidFluid) {
+					targetFluidInstance.setFluid(itemFluidInfo.getFluid(inputStack));
+					targetFluidInstance.addAmount(FluidValue.BUCKET);
+				}
 				if (outputStack.isEmpty()) {
 					inventory.setStack(outputSlot, itemFluidInfo.getEmpty());
 				} else {
@@ -92,7 +97,7 @@ public class FluidUtils {
 		return true;
 	}
 
-	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot, Fluid fluidToFill) {
+	public static boolean fillContainers(GenericFluidContainer<Direction> source, Inventory inventory, int inputSlot, int outputSlot) {
 		ItemStack inputStack = inventory.getStack(inputSlot);
 		ItemStack outputStack = inventory.getStack(outputSlot);
 
@@ -135,10 +140,6 @@ public class FluidUtils {
 
 	public static boolean fluidEquals(@NotNull Fluid fluid, @NotNull Fluid fluid1) {
 		return fluid == fluid1;
-	}
-
-	public static FluidInstance getFluidStackInContainer(@NotNull ItemStack invStack) {
-		return null;
 	}
 
 	public static boolean isContainerEmpty(ItemStack inputStack) {
