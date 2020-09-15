@@ -92,6 +92,11 @@ public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlo
 			return false;
 		}
 		BlockState blockState = worldIn.getBlockState(pos);
+
+		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
+			return false;
+		}
+
 		return (stack.getItem().isEffectiveOn(blockState));
 	}
 

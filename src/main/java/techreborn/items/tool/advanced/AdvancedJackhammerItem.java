@@ -38,6 +38,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.EnergyTier;
@@ -47,7 +48,6 @@ import techreborn.items.tool.MiningLevel;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -63,7 +63,13 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 		if (originalPos.equals(pos)) {
 			return false;
 		}
+
 		BlockState blockState = worldIn.getBlockState(pos);
+
+		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
+			return false;
+		}
+
 		return (stack.getItem().isEffectiveOn(blockState));
 	}
 
