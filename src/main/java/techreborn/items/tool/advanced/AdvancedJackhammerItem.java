@@ -28,6 +28,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -63,13 +64,10 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 		if (originalPos.equals(pos)) {
 			return false;
 		}
-
 		BlockState blockState = worldIn.getBlockState(pos);
-
 		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
 			return false;
 		}
-
 		return (stack.getItem().isEffectiveOn(blockState));
 	}
 
@@ -88,17 +86,6 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 	}
 
-	@Override
-	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
-		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
-			return Collections.emptySet();
-		}
-		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)
-				.stream()
-				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
-				.collect(Collectors.toSet());
-	}
-
 	// Item
 	@Override
 	public TypedActionResult<ItemStack> use(final World world, final PlayerEntity player, final Hand hand) {
@@ -111,7 +98,7 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
 	}
 
@@ -119,5 +106,17 @@ public class AdvancedJackhammerItem extends JackhammerItem implements MultiBlock
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		ItemUtils.buildActiveTooltip(stack, tooltip);
+	}
+
+	// MultiBlockBreakingTool
+	@Override
+	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
+		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+			return Collections.emptySet();
+		}
+		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, 1, false)
+				.stream()
+				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
+				.collect(Collectors.toSet());
 	}
 }

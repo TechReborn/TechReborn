@@ -27,6 +27,7 @@ package techreborn.items.tool;
 import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -64,14 +65,25 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 
 	// PickaxeItem
 	@Override
+	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+		if (state.getMaterial() == Material.STONE && Energy.of(stack).getEnergy() >= cost) {
+			return miningSpeed;
+		} else {
+			return 0.5F;
+		}
+	}
+
+/*
+	Fabric API doesn't allow to have mining speed less then the one from vanilla ToolMaterials
+	@Override
 	public float getMiningSpeedMultiplier(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
 		if (tag.equals(FabricToolTags.PICKAXES) && stack.getItem().isEffectiveOn(state)) {
 			if (Energy.of(stack).getEnergy() >= cost) {
 				return miningSpeed;
 			}
 		}
-		return 0;
-	}
+		return 0.5F;
+	}*/
 
 	@Override
 	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
@@ -96,11 +108,6 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 		return true;
 	}
 
-	@Override
-	public boolean isDamageable() {
-		return false;
-	}
-
 	// ToolItem
 	@Override
 	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
@@ -108,6 +115,11 @@ public class JackhammerItem extends PickaxeItem implements EnergyHolder, ItemDur
 	}
 
 	// Item
+	@Override
+	public boolean isDamageable() {
+		return false;
+	}
+
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
