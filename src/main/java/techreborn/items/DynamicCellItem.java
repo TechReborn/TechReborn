@@ -52,7 +52,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.apache.commons.lang3.Validate;
@@ -169,7 +169,7 @@ public class DynamicCellItem extends Item implements ItemFluidInfo {
 		ItemStack stack = player.getStackInHand(hand);
 		Fluid containedFluid = getFluid(stack);
 
-		BlockHitResult hitResult = rayTrace(world, player, containedFluid == Fluids.EMPTY ? RayTraceContext.FluidHandling.SOURCE_ONLY : RayTraceContext.FluidHandling.NONE);
+		BlockHitResult hitResult = raycast(world, player, containedFluid == Fluids.EMPTY ? RaycastContext.FluidHandling.SOURCE_ONLY : RaycastContext.FluidHandling.NONE);
 		if (hitResult.getType() == HitResult.Type.MISS) {
 			return TypedActionResult.pass(stack);
 		} else if (hitResult.getType() != HitResult.Type.BLOCK) {

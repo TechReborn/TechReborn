@@ -51,7 +51,7 @@ public class NukeRenderer extends EntityRenderer<EntityNukePrimed> {
 	@Nullable
 	@Override
 	public Identifier getTexture(EntityNukePrimed entityNukePrimed) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 	}
 
 	@Override

@@ -102,7 +102,7 @@ public class ToolsUtil {
 			worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
 		}
 
-		HitResult hitResult = playerIn.rayTrace(20D, 0F, false);
+		HitResult hitResult = playerIn.raycast(20D, 0F, false);
 
 		if (placeDummyBlocks) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
