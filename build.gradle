@@ -10,7 +10,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.5-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.5.26"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 	}
@@ -33,15 +33,25 @@ repositories {
 		url = "https://maven.modmuss50.me/"
 	}
 	maven {
-		//Dev Mode
-		url "https://maven.jamieswhiteshirt.com/libs-release/"
+		name = "BuildCraft"
+		url = "https://mod-buildcraft.com/maven"
+		content {
+			includeGroup "alexiil.mc.lib"
+		}
 	}
 	maven {
-		//trinkets
-		url = "https://maven.abusedmaster.xyz/"
+		url = "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 	maven {
 		url = "https://jitpack.io"
+		content {
+			includeGroup "com.github.dexman545"
+			includeGroup "com.github.emilyploszaj"
+			includeGroup "io.github.onyxstudios.Cardinal-Components-API"
+		}
 	}
 }
 
@@ -88,6 +98,11 @@ dependencies {
 	modApi 'teamreborn:energy:0.1.0'
 
     optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
+
+	modRuntime "curse.maven:applied-energistics-2:3060182"
+	modRuntime "alexiil.mc.lib:libblockattributes-core:0.8.0"
+	modRuntime "alexiil.mc.lib:libblockattributes-items:0.8.0"
+	modRuntime "alexiil.mc.lib:libblockattributes-fluids:0.8.0"
 }
 
 def optionalDependency(String dep) {
