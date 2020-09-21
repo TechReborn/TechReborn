@@ -24,7 +24,6 @@
 
 package techreborn.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
@@ -96,9 +95,9 @@ public class GuiGreenhouseController extends GuiBase<BuiltScreenHandler> {
 						.map(LiteralText::new)
 						.collect(Collectors.toList());
 
-				RenderSystem.pushMatrix();
+				matrixStack.push();
 				renderTooltip(matrixStack, list, mouseX - getGuiLeft(), mouseY - getGuiTop());
-				RenderSystem.popMatrix();
+				matrixStack.pop();
 			}
 		}
 

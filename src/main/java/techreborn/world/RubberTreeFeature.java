@@ -25,15 +25,16 @@
 package techreborn.world;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ModifiableTestableWorld;
+import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
-import techreborn.config.TechRebornConfig;
-import techreborn.init.TRContent;
+import net.minecraft.world.gen.foliage.FoliagePlacerType;
 
 import java.util.Random;
 import java.util.Set;
@@ -48,9 +49,22 @@ public class RubberTreeFeature extends TreeFeature {
 	}
 
 	public static class FoliagePlacer extends BlobFoliagePlacer {
+		public static final Codec<FoliagePlacer> CODEC = RecordCodecBuilder.create((instance) -> method_28838(instance)
+				.and(
+						Codec.INT.fieldOf("spireHeight").forGetter(FoliagePlacer::getSpireHeight)
+				)
+				.and(
+						BlockState.CODEC.fieldOf("spireBlockState").forGetter(FoliagePlacer::getSpireBlockState)
+				)
+				.apply(instance, FoliagePlacer::new));
 
-		public FoliagePlacer(int radius, int randomRadius, int offset, int randomOffset, int height) {
-			super(radius, randomRadius, offset, randomOffset, height);
+		private final int spireHeight;
+		private final BlockState spireBlockState;
+
+		public FoliagePlacer(UniformIntDistribution radius, UniformIntDistribution offset, int height, int spireHeight, BlockState spireBlockState) {
+			super(radius, offset, height);
+			this.spireHeight = spireHeight;
+			this.spireBlockState = spireBlockState;
 		}
 
 		@Override
@@ -74,9 +88,22 @@ public class RubberTreeFeature extends TreeFeature {
 
 			if (topPos == null) return;
 
-			for (int i = 0; i < TechRebornConfig.rubberTreeSpireHeight; i++) {
-				world.setBlockState(pos.up(i), TRContent.RUBBER_LEAVES.getDefaultState(), 19);
+			for (int i = 0; i < spireHeight; i++) {
+				world.setBlockState(pos.up(i), spireBlockState, 19);
 			}
+		}
+
+		@Override
+		protected FoliagePlacerType<?> getType() {
+			return WorldGenerator.RUBBER_TREE_FOLIAGE_PLACER_TYPE;
+		}
+
+		public int getSpireHeight() {
+			return spireHeight;
+		}
+
+		public BlockState getSpireBlockState() {
+			return spireBlockState;
 		}
 	}
 

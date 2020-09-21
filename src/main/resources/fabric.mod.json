@@ -22,9 +22,9 @@
     "rei_plugins_v0": [
       "techreborn.compat.rei.ReiPlugin"
     ],
-    "libcd": [
-      "techreborn.compat.libcd.LibCDPlugin"
-    ]
+	"autoswitch": [
+	  "techreborn.compat.autoswitch.AutoSwitchApiImpl"
+	]
   },
   "depends": {
     "fabricloader": ">=0.6.3",

@@ -29,12 +29,14 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.minecraft.client.item.ModelPredicateProvider;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -47,7 +49,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import reborncore.client.gui.builder.GuiBase;
-import reborncore.client.hud.StackInfoHUD;
 import reborncore.client.multiblock.MultiblockRenderer;
 import reborncore.common.util.ItemUtils;
 import reborncore.mixin.client.AccessorModelPredicateProviderRegistry;
@@ -69,7 +70,7 @@ import techreborn.items.armor.BatpackItem;
 import techreborn.items.tool.ChainsawItem;
 import techreborn.items.tool.industrial.NanosaberItem;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -94,6 +95,10 @@ public class TechRebornClient implements ClientModInitializer {
 		ModelLoadingRegistry.INSTANCE.registerVariantProvider(resourceManager -> (modelIdentifier, modelProviderContext) -> {
 			if (modelIdentifier.getNamespace().equals(TechReborn.MOD_ID)) {
 				if (modelIdentifier.getPath().equals("cell")) {
+					if (!RendererAccess.INSTANCE.hasRenderer()) {
+						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"techreborn:item/cell_background\"}}");
+					}
+
 					return new UnbakedModel() {
 						@Override
 						public Collection<Identifier> getModelDependencies() {
@@ -115,6 +120,10 @@ public class TechRebornClient implements ClientModInitializer {
 				}
 				Fluid fluid = Registry.FLUID.get(new Identifier(TechReborn.MOD_ID, modelIdentifier.getPath().split("_bucket")[0]));
 				if (modelIdentifier.getPath().endsWith("_bucket") && fluid != Fluids.EMPTY) {
+					if (!RendererAccess.INSTANCE.hasRenderer()) {
+						return JsonUnbakedModel.deserialize("{\"parent\":\"minecraft:item/generated\",\"textures\":{\"layer0\":\"minecraft:item/bucket\"}}");
+					}
+
 					return new UnbakedModel() {
 						@Override
 						public Collection<Identifier> getModelDependencies() {
@@ -142,8 +151,6 @@ public class TechRebornClient implements ClientModInitializer {
 
 		GuiBase.wrenchStack = new ItemStack(TRContent.WRENCH);
 		GuiBase.fluidCellProvider = DynamicCellItem::getCellWithFluid;
-
-		StackInfoHUD.registerElement(new FrequencyTransmitterItem.StackInfoFreqTransmitter());
 
 		Arrays.stream(TRContent.Cables.values()).forEach(cable -> BlockRenderLayerMap.INSTANCE.putBlock(cable.block, RenderLayer.getCutout()));
 

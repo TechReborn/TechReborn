@@ -48,7 +48,7 @@ import reborncore.common.util.serialization.SerializationUtil;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.init.ModRecipes;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;

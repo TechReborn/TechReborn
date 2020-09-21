@@ -44,7 +44,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider, BuiltScreenHandlerProvider {
@@ -63,7 +63,7 @@ public class SolidFuelGeneratorBlockEntity extends PowerAcceptorBlockEntity impl
 		super(TRBlockEntities.SOLID_FUEL_GENEREATOR);
 	}
 
-	public static int getItemBurnTime(@Nonnull ItemStack stack) {
+	public static int getItemBurnTime(@NotNull ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		}

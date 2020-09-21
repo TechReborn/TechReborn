@@ -1,0 +1,24 @@
+{
+  "type": "techreborn:blast_furnace",
+  "power": 128,
+  "time": 140,
+  "heat": 1000,
+  "ingredients" : [
+    {
+      "item": "minecraft:rail",
+	  "count":12
+    },
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "results" : [
+    {
+      "item": "minecraft:iron_ingot",
+      "count": 3
+    },
+    {
+      "item": "techreborn:dark_ashes_dust"
+    }
+  ]
+}

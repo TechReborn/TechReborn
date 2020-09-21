@@ -1,5 +1,5 @@
 {
-  "type": "techreborn:grinder",
+  "type": "techreborn:extractor",
   "power": 2,
   "time": 200,
   "ingredients" : [

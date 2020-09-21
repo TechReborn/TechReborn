@@ -25,8 +25,7 @@
 package techreborn.utils;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
@@ -39,7 +38,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import team.reborn.energy.Energy;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
@@ -79,16 +78,35 @@ public class ToolsUtil {
 	 * @return Set of BlockPos to process by tool block break logic
 	 */
 	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius) {
+		return getAOEMiningBlocks(worldIn, pos, entityLiving, radius, true);
+	}
+
+	/**
+	 * Fills in set of BlockPos which should be broken by AOE mining
+	 *
+	 * @param worldIn      World reference
+	 * @param pos          BlockPos Position of originally broken block
+	 * @param entityLiving LivingEntity Player who broke block
+	 * @param radius       int Radius of additional blocks to include. E.g. for 3x3 mining radius will be 1
+	 * @return Set of BlockPos to process by tool block break logic
+	 */
+	public static Set<BlockPos> getAOEMiningBlocks(World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving, int radius, boolean placeDummyBlocks) {
 		if (!(entityLiving instanceof PlayerEntity)) {
 			return ImmutableSet.of();
 		}
 		Set<BlockPos> targetBlocks = new HashSet<>();
 		PlayerEntity playerIn = (PlayerEntity) entityLiving;
 
-		//Put a dirt block down to raytrace with to stop it raytracing past the intended block
-		worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
-		HitResult hitResult = playerIn.rayTrace(20D, 0F, false);
-		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+		if (placeDummyBlocks) {
+			//Put a dirt block down to raytrace with to stop it raytracing past the intended block
+			worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState());
+		}
+
+		HitResult hitResult = playerIn.raycast(20D, 0F, false);
+
+		if (placeDummyBlocks) {
+			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+		}
 
 		if (!(hitResult instanceof BlockHitResult)) {
 			return Collections.emptySet();
@@ -148,4 +166,25 @@ public class ToolsUtil {
 		}
 		return targetBlocks;
 	}
+
+	/**
+	 *  Check if JackHammer shouldn't break block. JackHammers should be good on stone, dirt, sand. And shouldn't break ores.
+	 *
+	 * @param blockState BlockState to check
+	 * @return boolean True if block shouldn't be breakable by JackHammer
+	 */
+	public static boolean JackHammerSkippedBlocks(BlockState blockState){
+		if (blockState.getMaterial() == Material.AIR) {
+			return true;
+		}
+		if (blockState.getMaterial().isLiquid()) {
+			return true;
+		}
+		if (blockState.getBlock() instanceof OreBlock) {
+			return true;
+		}
+		return blockState.getBlock() instanceof RedstoneOreBlock;
+	}
 }
+
+

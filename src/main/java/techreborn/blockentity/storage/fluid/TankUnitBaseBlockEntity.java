@@ -33,6 +33,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.NotNull;
 import reborncore.api.IListInfoProvider;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
@@ -48,7 +49,6 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements InventoryProvider, IToolDrop, IListInfoProvider, BuiltScreenHandlerProvider {
@@ -75,12 +75,16 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 	public void tick() {
 		super.tick();
 
+		if (world == null){
+			return;
+		}
+
 		if (world.isClient()) {
 			return;
 		}
 
 		if (FluidUtils.drainContainers(tank, inventory, 0, 1)
-				|| FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid())) {
+				|| FluidUtils.fillContainers(tank, inventory, 0, 1)) {
 
 			if (type == TRContent.TankUnit.CREATIVE) {
 				if (!tank.isEmpty() && !tank.isFull()) {
@@ -88,6 +92,11 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				}
 			}
 			syncWithAll();
+		}
+
+		// Void excessive fluid in creative tank (#2205)
+		if (type == TRContent.TankUnit.CREATIVE && tank.isFull()) {
+			FluidUtils.drainContainers(tank, inventory, 0, 1, true);
 		}
 	}
 
@@ -129,7 +138,9 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 		return this.inventory;
 	}
 
+
 	// IListInfoProvider
+	@SuppressWarnings("deprecation")
 	@Override
 	public void addInfo(final List<Text> info, final boolean isReal, boolean hasData) {
 		if (isReal || hasData) {
@@ -164,7 +175,7 @@ public class TankUnitBaseBlockEntity extends MachineBaseBlockEntity implements I
 				.sync(tank).addInventory().create(this, syncID);
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public Tank getTank() {
 		return tank;

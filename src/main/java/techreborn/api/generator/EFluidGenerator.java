@@ -24,7 +24,7 @@
 
 package techreborn.api.generator;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public enum EFluidGenerator {
 	THERMAL("TechReborn.ThermalGenerator"),
@@ -33,14 +33,14 @@ public enum EFluidGenerator {
 	SEMIFLUID("TechReborn.SemifluidGenerator"),
 	PLASMA("TechReborn.PlasmaGenerator");
 
-	@Nonnull
+	@NotNull
 	private final String recipeID;
 
-	EFluidGenerator(@Nonnull String recipeID) {
+	EFluidGenerator(@NotNull String recipeID) {
 		this.recipeID = recipeID;
 	}
 
-	@Nonnull
+	@NotNull
 	public String getRecipeID() {
 		return recipeID;
 	}

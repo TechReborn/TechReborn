@@ -49,7 +49,7 @@ import techreborn.init.ModRecipes;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +66,7 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 	public RebornInventory<RollingMachineBlockEntity> inventory = new RebornInventory<>(12, "RollingMachineBlockEntity", 64, this);
 	public boolean isRunning;
 	public int tickTime;
-	@Nonnull
+	@NotNull
 	public ItemStack currentRecipeOutput;
 	public RollingMachineRecipe currentRecipe;
 	private final int outputSlot;
@@ -246,11 +246,10 @@ public class RollingMachineBlockEntity extends PowerAcceptorBlockEntity
 					.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
-			for (int i = 0; i < split.length; i++) {
-				int required = split[i];
+			for (int required : split) {
 				if (slotEnvTyperubution.contains(required)) {
 					//We need to remove the int, not at the int, this seems to work around that
-					slotEnvTyperubution.remove(new Integer(required));
+					slotEnvTyperubution.remove(Integer.valueOf(required));
 				} else {
 					needsBalance = true;
 				}

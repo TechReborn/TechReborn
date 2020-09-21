@@ -1,0 +1,27 @@
+{
+  "type": "techreborn:industrial_grinder",
+  "power": 128,
+  "time": 100,
+  "tank": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+  "ingredients": [
+	{
+	  "item": "appliedenergistics2:charged_quartz_ore"
+	}
+  ],
+  "results": [
+	{
+	  "item": "appliedenergistics2:charged_certus_quartz_crystal",
+	  "count": 2
+	},
+	{
+	  "item": "appliedenergistics2:certus_quartz_dust",
+	  "count": 3
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "appliedenergistics2"
+  }
+}

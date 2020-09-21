@@ -26,23 +26,13 @@ package techreborn;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reborncore.common.blockentity.RedstoneConfiguration;
@@ -53,6 +43,7 @@ import techreborn.client.GuiType;
 import techreborn.compat.trinkets.Trinkets;
 import techreborn.config.TechRebornConfig;
 import techreborn.events.ModRegistry;
+import techreborn.events.UseBlockHandler;
 import techreborn.init.*;
 import techreborn.init.template.TechRebornTemplates;
 import techreborn.items.DynamicCellItem;
@@ -92,56 +83,21 @@ public class TechReborn implements ModInitializer {
 			RecipeCrafter.soundHanlder = new ModSounds.SoundHandler();
 		}
 		ModLoot.init();
-		WorldGenerator.initBiomeFeatures();
+		WorldGenerator.initWorldGen();
 		FluidGeneratorRecipes.init();
 		//Force loads the block entities at the right time
+		//noinspection ResultOfMethodCallIgnored
 		TRBlockEntities.THERMAL_GEN.toString();
+		//noinspection ResultOfMethodCallIgnored
 		GuiType.AESU.getIdentifier();
 		TRDispenserBehavior.init();
 		PoweredCraftingHandler.setup();
+		UseBlockHandler.init();
 
 		Torus.genSizeMap(TechRebornConfig.fusionControlComputerMaxCoilSize);
 
 		RedstoneConfiguration.fluidStack = DynamicCellItem.getCellWithFluid(Fluids.LAVA);
 		RedstoneConfiguration.powerStack = new ItemStack(TRContent.RED_CELL_BATTERY);
-
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-			ItemStack stack = player.getStackInHand(hand);
-
-			if (stack.getItem() instanceof AxeItem) {
-				BlockPos pos = hitResult.getBlockPos();
-				BlockState hitState = world.getBlockState(pos);
-				Block hitBlock = hitState.getBlock();
-
-				Block strippedBlock = null;
-				if (hitBlock == TRContent.RUBBER_LOG) {
-					strippedBlock = TRContent.RUBBER_LOG_STRIPPED;
-				} else if (hitBlock == TRContent.RUBBER_WOOD) {
-					strippedBlock = TRContent.STRIPPED_RUBBER_WOOD;
-				}
-
-				if (strippedBlock != null) {
-					// Play stripping sound
-					world.playSound(player, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-					if (world.isClient) {
-						return ActionResult.SUCCESS;
-					}
-
-					world.setBlockState(pos, strippedBlock.getDefaultState().with(PillarBlock.AXIS, hitState.get(PillarBlock.AXIS)), 11);
-
-					// Damage axe
-					if (player instanceof LivingEntity) {
-						LivingEntity playerEntity = (LivingEntity) player;
-						stack.damage(1, playerEntity, playerx -> {
-							playerx.sendToolBreakStatus(hand);
-						});
-					}
-					return ActionResult.SUCCESS;
-				}
-			}
-
-			return ActionResult.PASS;
-		});
 
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.RUBBER_SAPLING.asItem(), 0.3F);
 		ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.put(TRContent.RUBBER_LEAVES.asItem(), 0.3F);

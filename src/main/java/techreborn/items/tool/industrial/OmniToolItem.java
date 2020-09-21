@@ -52,7 +52,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.InitUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class OmniToolItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {

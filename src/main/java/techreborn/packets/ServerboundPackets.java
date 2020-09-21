@@ -224,9 +224,7 @@ public class ServerboundPackets {
 	}
 
 	public static Packet<ServerPlayPacketListener> createPacketExperience(IronFurnaceBlockEntity blockEntity) {
-		return NetworkManager.createServerBoundPacket(EXPERIENCE, extendedPacketBuffer -> {
-			extendedPacketBuffer.writeBlockPos(blockEntity.getPos());
-		});
+		return NetworkManager.createServerBoundPacket(EXPERIENCE, extendedPacketBuffer -> extendedPacketBuffer.writeBlockPos(blockEntity.getPos()));
 	}
 
 }

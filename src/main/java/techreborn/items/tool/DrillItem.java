@@ -24,11 +24,15 @@
 
 package techreborn.items.tool;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -42,44 +46,41 @@ import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
 import techreborn.utils.InitUtils;
 
-public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions {
+public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabilityExtensions, DynamicAttributeTool {
 
 	public final int maxCharge;
 	public final int cost;
 	public final float poweredSpeed;
-	public final Item referencePickaxe;
-	public final Item referenceShovel;
+	public final float unpoweredSpeed;
+	public final int miningLevel;
 	public final EnergyTier tier;
 
-	public DrillItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, Item referencePickaxe, Item referenceShovel) {
+	public DrillItem(ToolMaterials material, int energyCapacity, EnergyTier tier, int cost, float poweredSpeed, float unpoweredSpeed, MiningLevel miningLevel) {
 		super(material, (int) material.getAttackDamage(), unpoweredSpeed, new Item.Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
 		this.maxCharge = energyCapacity;
 		this.cost = cost;
 		this.poweredSpeed = poweredSpeed;
-		this.referencePickaxe = referencePickaxe;
-		this.referenceShovel = referenceShovel;
+		this.unpoweredSpeed = unpoweredSpeed;
+		this.miningLevel = miningLevel.intLevel;
 		this.tier = tier;
 	}
 
-	// PickaxeItem
 	@Override
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-		if (Energy.of(stack).getEnergy() < cost) {
-			return 0.5F;
+		// Going to remain to use this ol reliable function, the fabric one is funky
+
+		if(Energy.of(stack).getEnergy() >= cost ) {
+			if (stack.getItem().isEffectiveOn(state)) {
+				return poweredSpeed;
+			}else{
+				return Math.min(unpoweredSpeed * 10f, poweredSpeed); // Still be faster than unpowered when not effective
+			}
 		}
-		if (Items.WOODEN_PICKAXE.getMiningSpeedMultiplier(stack, state) > 1.0F
-				|| Items.WOODEN_SHOVEL.getMiningSpeedMultiplier(stack, state) > 1.0F) {
-			return poweredSpeed;
-		}
-		return super.getMiningSpeedMultiplier(stack, state);
+
+		return unpoweredSpeed;
 	}
 
 	// MiningToolItem
-	@Override
-	public boolean postHit(ItemStack itemstack, LivingEntity entityliving, LivingEntity entityliving1) {
-		return true;
-	}
-
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState blockIn, BlockPos pos, LivingEntity entityLiving) {
 		if (worldIn.random.nextInt(EnchantmentHelper.getLevel(Enchantments.UNBREAKING, stack) + 1) == 0) {
@@ -114,8 +115,11 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	}
 
 	@Override
-	public boolean isEffectiveOn(BlockState state) {
-		return referencePickaxe.isEffectiveOn(state) || referenceShovel.isEffectiveOn(state);
+	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
+		if (tag.equals(FabricToolTags.PICKAXES)) {
+			return miningLevel;
+		}
+		return 0;
 	}
 
 	// ItemDurabilityExtensions

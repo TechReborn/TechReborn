@@ -28,6 +28,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -42,9 +43,11 @@ import reborncore.common.fluid.FluidValue;
 import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.util.Tank;
+import reborncore.common.util.WorldUtils;
 import techreborn.blockentity.storage.fluid.TankUnitBaseBlockEntity;
 import techreborn.client.GuiType;
 import techreborn.init.TRContent;
+import techreborn.items.DynamicCellItem;
 
 public class TankUnitBlock extends BlockMachineBase {
 
@@ -71,7 +74,11 @@ public class TankUnitBlock extends BlockMachineBase {
 		Item itemInHand = stackInHand.getItem();
 
 		// Assuming ItemFluidInfo is 1 BUCKET, for now only allow exact amount or less
-		if (tankUnitEntity != null && itemInHand instanceof ItemFluidInfo) {
+		// I am only going to trust cells or buckets, they are known to be 1 BUCKET size, too suss of other items not abiding by that.
+		if ((itemInHand instanceof DynamicCellItem || itemInHand instanceof BucketItem)
+				&& tankUnitEntity != null && itemInHand instanceof ItemFluidInfo) {
+
+			// Get fluid information from item
 			ItemFluidInfo itemFluid = (ItemFluidInfo) itemInHand;
 			Fluid fluid = itemFluid.getFluid(stackInHand);
 			int amount = stackInHand.getCount();
@@ -79,16 +86,64 @@ public class TankUnitBlock extends BlockMachineBase {
 			FluidValue fluidValue = FluidValue.BUCKET.multiply(amount);
 			Tank tankInstance = tankUnitEntity.getTank();
 
-			if (tankInstance.canFit(fluid, fluidValue)) {
-				if (tankInstance.getFluidInstance().isEmptyFluid()) {
-					tankInstance.setFluidInstance(new FluidInstance(fluid, fluidValue));
-				} else {
-					tankInstance.getFluidInstance().addAmount(fluidValue);
-				}
+			if(new FluidInstance(fluid).isEmptyFluid()){
+				FluidValue amountInTank = tankInstance.getFluidInstance().getAmount();
 
-				ItemStack returnStack = itemFluid.getEmpty();
-				returnStack.setCount(amount);
-				playerIn.setStackInHand(Hand.MAIN_HAND, returnStack);
+				// If tank has content, fill up user's inventory
+				if(amountInTank.equalOrMoreThan(FluidValue.BUCKET)){
+
+					// Amount to transfer is whatever is lower (stack count or tank level)
+					int amountTransferBuckets = Math.min(amountInTank.getRawValue() / FluidValue.BUCKET.getRawValue(), stackInHand.getCount());
+
+					// Remove items from player
+					stackInHand.decrement(amountTransferBuckets);
+
+					// Deposit into inventory, one by one (Stupid buckets)
+					for(int i = 0; i < amountTransferBuckets; i++){
+						ItemStack item = itemFluid.getFull(tankInstance.getFluid());
+
+						boolean didInsert;
+
+						ItemStack selectedStack = playerIn.getMainHandStack();
+
+						// Insert to select if it can, otherwise anywhere.
+						if(selectedStack.isEmpty()){
+							playerIn.setStackInHand(Hand.MAIN_HAND, item);
+							didInsert = true;
+						}else if(isSameItemFluid(item, selectedStack) && selectedStack.getCount() < selectedStack.getMaxCount()) {
+							selectedStack.increment(1);
+							didInsert = true;
+						}else {
+							didInsert = playerIn.inventory.insertStack(item);
+						}
+
+
+						// If didn't insert, just drop it.
+						if(!didInsert){
+							WorldUtils.dropItem(item,worldIn,  playerIn.getBlockPos());
+						}
+					}
+
+					// Remove from tank
+					tankInstance.getFluidInstance().setAmount(tankInstance.getFluidAmount().subtract(
+							FluidValue.BUCKET.multiply(amountTransferBuckets)));
+				}else{
+					return ActionResult.FAIL;
+				}
+			}else{
+				// If tank can fit fluid and amount, add it
+				if (tankInstance.canFit(fluid, fluidValue)) {
+					if (tankInstance.getFluidInstance().isEmpty()) {
+						tankInstance.setFluidInstance(new FluidInstance(fluid, fluidValue));
+					} else {
+						tankInstance.getFluidInstance().addAmount(fluidValue);
+					}
+
+					// Give players the empty stuff back
+					ItemStack returnStack = itemFluid.getEmpty();
+					returnStack.setCount(amount);
+					playerIn.setStackInHand(Hand.MAIN_HAND, returnStack);
+				}
 			}
 
 			return ActionResult.SUCCESS;
@@ -96,6 +151,18 @@ public class TankUnitBlock extends BlockMachineBase {
 
 
 		return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+	}
+
+	boolean isSameItemFluid(ItemStack i1, ItemStack i2){
+		// Only care about cells, buckets don't stack
+		if(!(i1.getItem() instanceof DynamicCellItem && i2.getItem() instanceof DynamicCellItem)){
+			return false;
+		}
+
+		DynamicCellItem dc1 = (DynamicCellItem)i1.getItem();
+		DynamicCellItem dc2 = (DynamicCellItem)i2.getItem();
+
+		return  dc1.getFluid(i1).matchesType(dc2.getFluid(i2));
 	}
 
 	@Override
