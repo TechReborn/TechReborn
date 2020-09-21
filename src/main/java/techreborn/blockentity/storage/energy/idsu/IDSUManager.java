@@ -30,7 +30,7 @@ import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 import reborncore.common.util.NBTSerializable;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 
 public class IDSUManager extends PersistentState {
@@ -41,7 +41,7 @@ public class IDSUManager extends PersistentState {
 		super(KEY);
 	}
 
-	@Nonnull
+	@NotNull
 	public static IDSUPlayer getPlayer(World world, String uuid) {
 		return get(world).getPlayer(uuid);
 	}
@@ -53,7 +53,7 @@ public class IDSUManager extends PersistentState {
 
 	private final HashMap<String, IDSUPlayer> playerHashMap = new HashMap<>();
 
-	@Nonnull
+	@NotNull
 	public IDSUPlayer getPlayer(String uuid) {
 		return playerHashMap.computeIfAbsent(uuid, s -> new IDSUPlayer());
 	}
@@ -82,7 +82,7 @@ public class IDSUManager extends PersistentState {
 			read(compoundTag);
 		}
 
-		@Nonnull
+		@NotNull
 		@Override
 		public CompoundTag write() {
 			CompoundTag tag = new CompoundTag();
@@ -91,7 +91,7 @@ public class IDSUManager extends PersistentState {
 		}
 
 		@Override
-		public void read(@Nonnull CompoundTag tag) {
+		public void read(@NotNull CompoundTag tag) {
 			energy = tag.getDouble("energy");
 		}
 

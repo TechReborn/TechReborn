@@ -80,27 +80,12 @@ public class StorageUnitRenderer extends BlockEntityRenderer<StorageUnitBaseBloc
 		// Text rendering
 		matrices.push();
 		TextRenderer textRenderer = this.dispatcher.getTextRenderer();
+		Direction facing = storage.getFacing();
 
+		matrices.translate(0.5, 0.5, 0.5); // Translate center
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-facing.rotateYCounterclockwise().asRotation() + 90)); // Rotate depending on face
+		matrices.translate(0, 0, -0.505); // Translate forward
 
-		switch (storage.getFacing()) {
-			case NORTH:
-				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().getOpposite().asRotation()));
-				matrices.translate(0.5f, 0.5, -0.001f);
-				break;
-			case SOUTH:
-				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().getOpposite().asRotation()));
-				matrices.translate(-0.5f, 0.5, -1.001f);
-				break;
-			case EAST:
-				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().asRotation()));
-				matrices.translate(0.5f, 0.5, -1.001f);
-				break;
-			case WEST:
-				matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(storage.getFacing().asRotation()));
-				matrices.translate(-0.5f, 0.5, -0.001f);
-				break;
-
-		}
 		matrices.scale(-0.01f, -0.01F, -0.01f);
 
 		float xPosition;

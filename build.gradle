@@ -10,7 +10,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.fabricmc:fabric-loom:0.4-SNAPSHOT"
+		classpath "net.fabricmc:fabric-loom:0.5.26"
 		classpath "gradle.plugin.net.minecrell:licenser:0.2.1"
 		classpath 'de.undercouch:gradle-download-task:3.4.3'
 	}
@@ -33,23 +33,29 @@ repositories {
 		url = "https://maven.modmuss50.me/"
 	}
 	maven {
-		// LibCD
-		url 'http://server.bbkr.space:8081/artifactory/libs-release'
+		name = "BuildCraft"
+		url = "https://mod-buildcraft.com/maven"
+		content {
+			includeGroup "alexiil.mc.lib"
+		}
 	}
 	maven {
-		//Dev Mode
-		url "https://maven.jamieswhiteshirt.com/libs-release/"
-	}
-	maven {
-		//trinkets
-		url = "https://maven.abusedmaster.xyz/"
+		url = "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 	maven {
 		url = "https://jitpack.io"
+		content {
+			includeGroup "com.github.dexman545"
+			includeGroup "com.github.emilyploszaj"
+			includeGroup "io.github.onyxstudios.Cardinal-Components-API"
+		}
 	}
 }
 
-version = "3.4.3"
+version = "3.5.4"
 
 configurations {
 	shade
@@ -73,15 +79,14 @@ configurations.all {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.16.1"
-	mappings "net.fabricmc:yarn:1.16.1+build.1:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.8.8+build.202"
+	minecraft "com.mojang:minecraft:1.16.3"
+	mappings "net.fabricmc:yarn:1.16.3+build.11:v2"
+	modImplementation "net.fabricmc:fabric-loader:0.9.3+build.207"
 
 	//Fabric api
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.14.1+build.372-1.16"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.21.0+build.407-1.16"
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:4.5.4")
-	disabledOptionalDependency ('io.github.cottonmc:LibCD:2.4.1+1.15.2')
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems:5.2.3")
 	disabledOptionalDependency ('com.github.emilyploszaj:trinkets:2.6.0')
 
 	def rcVersion = 'RebornCore:RebornCore-1.16:+'
@@ -90,9 +95,14 @@ dependencies {
 	}
 	include rcVersion
 
-	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
-
 	modApi 'teamreborn:energy:0.1.0'
+
+    optionalDependency "com.github.dexman545:autoswitch-api:-SNAPSHOT"
+
+	modRuntime "curse.maven:applied-energistics-2:3060182"
+	modRuntime "alexiil.mc.lib:libblockattributes-core:0.8.0"
+	modRuntime "alexiil.mc.lib:libblockattributes-items:0.8.0"
+	modRuntime "alexiil.mc.lib:libblockattributes-fluids:0.8.0"
 }
 
 def optionalDependency(String dep) {

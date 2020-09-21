@@ -45,7 +45,7 @@ import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity implements BuiltScreenHandlerProvider {
 
@@ -76,12 +76,15 @@ public class IndustrialSawmillBlockEntity extends GenericMachineBlockEntity impl
 	// TileGenericMachine
 	@Override
 	public void tick() {
+		if (world == null) {
+			return;
+		}
 		ticksSinceLastChange++;
 		// Check cells input slot 2 time per second
 		if (!world.isClient && ticksSinceLastChange >= 10) {
 			if (!inventory.getStack(1).isEmpty()) {
 				FluidUtils.drainContainers(tank, inventory, 1, 5);
-				FluidUtils.fillContainers(tank, inventory, 1, 5, tank.getFluidInstance().getFluid());
+				FluidUtils.fillContainers(tank, inventory, 1, 5);
 			}
 			ticksSinceLastChange = 0;
 		}

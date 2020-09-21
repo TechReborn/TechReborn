@@ -27,11 +27,11 @@ package techreborn.items;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.datafixer.NbtOps;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -40,17 +40,14 @@ import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import reborncore.client.hud.StackInfoElement;
 import reborncore.common.chunkloading.ChunkLoaderManager;
 import reborncore.common.util.ChatUtils;
 import techreborn.TechReborn;
-import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class FrequencyTransmitterItem extends Item {
 
@@ -130,23 +127,5 @@ public class FrequencyTransmitterItem extends Item {
 
 	private static Identifier getDimName(RegistryKey<World> dimensionRegistryKey) {
 		return dimensionRegistryKey.getValue();
-	}
-
-	public static class StackInfoFreqTransmitter extends StackInfoElement {
-		public StackInfoFreqTransmitter() {
-			super(TRContent.FREQUENCY_TRANSMITTER);
-		}
-
-		@Override
-		public Text getText(ItemStack stack) {
-			Formatting gold = Formatting.GOLD;
-			Formatting grey = Formatting.GRAY;
-			if (!(stack.getItem() instanceof FrequencyTransmitterItem)) {
-				return LiteralText.EMPTY;
-			}
-			return getPos(stack)
-					.map((Function<GlobalPos, Text>) globalPos -> new LiteralText(grey + "X: " + gold + globalPos.getPos().getX() + grey + " Y: " + gold + globalPos.getPos().getY() + grey + " Z: " + gold + globalPos.getPos().getZ() + grey + " Dim: " + gold + getDimName(globalPos.getDimension()).toString()))
-					.orElse(new TranslatableText("techreborn.message.noCoordsSet").formatted(Formatting.GRAY));
-		}
 	}
 }

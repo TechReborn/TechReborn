@@ -24,13 +24,13 @@
 
 package techreborn.blocks.misc;
 
-import net.minecraft.block.WoodButtonBlock;
+import net.minecraft.block.WoodenButtonBlock;
 import techreborn.utils.InitUtils;
 
 /**
  * @author drcrazy
  */
-public class RubberButtonBlock extends WoodButtonBlock {
+public class RubberButtonBlock extends WoodenButtonBlock {
 
 	public RubberButtonBlock() {
 		super(InitUtils.setupRubberBlockSettings(true, 0.5F, 0.5F));

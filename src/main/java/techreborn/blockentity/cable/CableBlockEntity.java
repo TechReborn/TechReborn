@@ -134,6 +134,7 @@ public class CableBlockEntity extends BlockEntity
 		}
 	}
 
+	// Tickable
 	@Override
 	public void markRemoved() {
 		if (electricNetwork != null) {
@@ -183,21 +184,21 @@ public class CableBlockEntity extends BlockEntity
 	public void addInfo(List<Text> info, boolean isReal, boolean hasData) {
 		info.add(
 				new TranslatableText("techreborn.tooltip.transferRate")
-				.formatted(Formatting.GRAY)
-				.append(": ")
-				.append(PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate))
-				.formatted(Formatting.GOLD)
-				.append("/t")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(PowerSystem.getLocaliszedPowerFormatted(getCableType().transferRate))
+						.formatted(Formatting.GOLD)
+						.append("/t")
 		);
 
 		info.add(
-			new TranslatableText("techreborn.tooltip.tier")
-			.formatted(Formatting.GRAY)
-			.append(": ")
-			.append(
-					new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
-					.formatted(Formatting.GOLD)
-			)
+				new TranslatableText("techreborn.tooltip.tier")
+						.formatted(Formatting.GRAY)
+						.append(": ")
+						.append(
+								new LiteralText(StringUtils.toFirstCapitalAllLowercase(getCableType().tier.toString()))
+										.formatted(Formatting.GOLD)
+						)
 		);
 
 		if (!getCableType().canKill) {

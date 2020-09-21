@@ -30,12 +30,12 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.world.World;
 import techreborn.items.DynamicCellItem;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RecipeUtils {
-	@Nonnull
+	@NotNull
 	public static ItemStack getEmptyCell(int stackSize) {
 		return DynamicCellItem.getEmptyCell(stackSize);
 	}

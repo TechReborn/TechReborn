@@ -24,14 +24,15 @@
 
 package techreborn.events;
 
-import net.minecraft.block.*;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Settings;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.Direction;
 import reborncore.RebornRegistry;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
@@ -182,12 +183,12 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.WRENCH = InitUtils.setup(new WrenchItem(), "wrench"));
 		RebornRegistry.registerItem(TRContent.PAINTING_TOOL = InitUtils.setup(new PaintingToolItem(), "painting_tool"));
 
-		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new DrillItem(ToolMaterials.IRON, TechRebornConfig.basicDrillCharge, EnergyTier.MEDIUM, TechRebornConfig.basicDrillCost, 10F, 0.5F, Items.IRON_PICKAXE, Items.IRON_SHOVEL), "basic_drill"));
+		RebornRegistry.registerItem(TRContent.BASIC_DRILL = InitUtils.setup(new DrillItem(ToolMaterials.IRON, TechRebornConfig.basicDrillCharge, EnergyTier.MEDIUM, TechRebornConfig.basicDrillCost, 6F, -.5F, MiningLevel.IRON), "basic_drill"));
 		RebornRegistry.registerItem(TRContent.BASIC_CHAINSAW = InitUtils.setup(new ChainsawItem(ToolMaterials.IRON, TechRebornConfig.basicChainsawCharge, EnergyTier.MEDIUM, TechRebornConfig.basicChainsawCost, 20F, 0.5F, Items.IRON_AXE), "basic_chainsaw"));
-		RebornRegistry.registerItem(TRContent.BASIC_JACKHAMMER = InitUtils.setup(new JackhammerItem(ToolMaterials.DIAMOND, TechRebornConfig.basicJackhammerCharge, EnergyTier.MEDIUM, TechRebornConfig.basicJackhammerCost), "basic_jackhammer"));
+		RebornRegistry.registerItem(TRContent.BASIC_JACKHAMMER = InitUtils.setup(new JackhammerItem(ToolMaterials.DIAMOND, TechRebornConfig.basicJackhammerCharge, EnergyTier.MEDIUM, TechRebornConfig.basicJackhammerCost, MiningLevel.IRON), "basic_jackhammer"));
 		RebornRegistry.registerItem(TRContent.ELECTRIC_TREE_TAP = InitUtils.setup(new ElectricTreetapItem(), "electric_treetap"));
 
-		RebornRegistry.registerItem(TRContent.ADVANCED_DRILL = InitUtils.setup(new DrillItem(ToolMaterials.DIAMOND, TechRebornConfig.advancedDrillCharge, EnergyTier.EXTREME, TechRebornConfig.advancedDrillCost, 12F, 1.0F, Items.DIAMOND_PICKAXE, Items.DIAMOND_SHOVEL), "advanced_drill"));
+		RebornRegistry.registerItem(TRContent.ADVANCED_DRILL = InitUtils.setup(new DrillItem(ToolMaterials.DIAMOND, TechRebornConfig.advancedDrillCharge, EnergyTier.EXTREME, TechRebornConfig.advancedDrillCost, 12F, 0.2F, MiningLevel.DIAMOND), "advanced_drill"));
 		RebornRegistry.registerItem(TRContent.ADVANCED_CHAINSAW = InitUtils.setup(new ChainsawItem(ToolMaterials.DIAMOND, TechRebornConfig.advancedChainsawCharge, EnergyTier.EXTREME, TechRebornConfig.advancedChainsawCost, 20F, 1.0F, Items.DIAMOND_AXE), "advanced_chainsaw"));
 		RebornRegistry.registerItem(TRContent.ADVANCED_JACKHAMMER = InitUtils.setup(new AdvancedJackhammerItem(), "advanced_jackhammer"));
 		RebornRegistry.registerItem(TRContent.ROCK_CUTTER = InitUtils.setup(new RockCutterItem(), "rock_cutter"));
@@ -209,12 +210,6 @@ public class ModRegistry {
 		RebornRegistry.registerItem(TRContent.CELL = InitUtils.setup(new DynamicCellItem(), "cell"));
 
 		TechReborn.LOGGER.debug("TechReborns Items Loaded");
-	}
-
-	private static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
-		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> {
-			return blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor;
-		}).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	}
 
 	private static void registerFluids() {

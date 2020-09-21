@@ -1,0 +1,18 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 300,
+  "ingredients": [
+	{
+	  "item": "appliedenergistics2:fluix_crystal"
+	}
+  ],
+  "results": [
+	{
+	  "item": "appliedenergistics2:fluix_dust"
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "appliedenergistics2"
+  }
+}

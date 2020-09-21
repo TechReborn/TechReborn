@@ -30,11 +30,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.Direction;
 import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.Nullable;
 import reborncore.api.IToolDrop;
 import reborncore.api.blockentity.InventoryProvider;
 import reborncore.common.blocks.BlockMachineBase;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.fluid.container.FluidInstance;
 import reborncore.common.fluid.container.ItemFluidInfo;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
 import reborncore.common.util.RebornInventory;
@@ -44,8 +44,6 @@ import techreborn.api.generator.FluidGeneratorRecipe;
 import techreborn.api.generator.FluidGeneratorRecipeList;
 import techreborn.api.generator.GeneratorRecipeHelper;
 import techreborn.utils.FluidUtils;
-
-import javax.annotation.Nullable;
 
 public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEntity implements IToolDrop, InventoryProvider {
 
@@ -74,9 +72,15 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 		this.ticksSinceLastChange = 0;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void tick() {
 		super.tick();
+
+		if (world == null) {
+			return;
+		}
+
 		ticksSinceLastChange++;
 
 		if (world.isClient) {
@@ -88,7 +92,7 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 			ItemStack inputStack = inventory.getStack(0);
 			if (!inputStack.isEmpty()) {
 				if (FluidUtils.isContainerEmpty(inputStack) && !tank.getFluidAmount().isEmpty()) {
-					FluidUtils.fillContainers(tank, inventory, 0, 1, tank.getFluid());
+					FluidUtils.fillContainers(tank, inventory, 0, 1);
 				} else if (inputStack.getItem() instanceof ItemFluidInfo && getRecipes().getRecipeForFluid(((ItemFluidInfo) inputStack.getItem()).getFluid(inputStack)).isPresent()) {
 					FluidUtils.drainContainers(tank, inventory, 0, 1);
 				}
@@ -138,15 +142,6 @@ public abstract class BaseFluidGeneratorBlockEntity extends PowerAcceptorBlockEn
 			return true;
 		}
 
-		return false;
-	}
-
-	protected boolean acceptFluid() {
-		if (!inventory.getStack(0).isEmpty()) {
-			FluidInstance stack = FluidUtils.getFluidStackInContainer(inventory.getStack(0));
-			if (stack != null)
-				return recipes.getRecipeForFluid(stack.getFluid()).isPresent();
-		}
 		return false;
 	}
 

@@ -7,10 +7,10 @@
   ],
   "key": {
     "B": {
-      "item": "techreborn:bronze_ingot"
+      "tag": "c:bronze_ingots"
     },
     "N": {
-      "item": "techreborn:bronze_nugget"
+      "tag": "c:bronze_nuggets"
     }
   },
   "result": {

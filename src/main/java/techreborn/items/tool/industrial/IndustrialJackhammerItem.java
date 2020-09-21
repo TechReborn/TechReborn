@@ -28,13 +28,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.RedstoneOreBlock;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -45,22 +43,27 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import reborncore.common.misc.MultiBlockBreakingTool;
 import reborncore.common.util.ChatUtils;
 import reborncore.common.util.ItemUtils;
 import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyTier;
 import techreborn.config.TechRebornConfig;
 import techreborn.items.tool.JackhammerItem;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.MessageIDs;
 import techreborn.utils.ToolsUtil;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class IndustrialJackhammerItem extends JackhammerItem {
+public class IndustrialJackhammerItem extends JackhammerItem implements MultiBlockBreakingTool {
 
 	public IndustrialJackhammerItem() {
-		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost);
+		super(ToolMaterials.DIAMOND, TechRebornConfig.industrialJackhammerCharge, EnergyTier.INSANE, TechRebornConfig.industrialJackhammerCost, MiningLevel.DIAMOND);
 	}
 
 	// Cycle Inactive, Active 3*3 and Active 5*5
@@ -85,24 +88,17 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 		}
 	}
 
-	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos) {
+	private boolean shouldBreak(World worldIn, BlockPos originalPos, BlockPos pos, ItemStack stack) {
 		if (originalPos.equals(pos)) {
 			return false;
 		}
 		BlockState blockState = worldIn.getBlockState(pos);
-		if (blockState.getMaterial() == Material.AIR) {
+
+		if (ToolsUtil.JackHammerSkippedBlocks(blockState)){
 			return false;
 		}
-		if (blockState.getMaterial().isLiquid()) {
-			return false;
-		}
-		if (blockState.getBlock() instanceof OreBlock) {
-			return false;
-		}
-		if (blockState.getBlock() instanceof RedstoneOreBlock) {
-			return false;
-		}
-		return (Items.IRON_PICKAXE.isEffectiveOn(blockState));
+
+		return (stack.getItem().isEffectiveOn(blockState));
 	}
 
 	private boolean isAOE5(ItemStack stack) {
@@ -112,17 +108,29 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 	// JackhammerItem
 	@Override
 	public boolean postMine(ItemStack stack, World worldIn, BlockState stateIn, BlockPos pos, LivingEntity entityLiving) {
-		if (!ItemUtils.isActive(stack)) {
+		if (!ItemUtils.isActive(stack) || !stack.getItem().isEffectiveOn(stateIn)) {
 			return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
 		}
 		int radius = isAOE5(stack) ? 2 : 1;
 		for (BlockPos additionalPos : ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius)) {
-			if (shouldBreak(worldIn, pos, additionalPos)) {
+			if (shouldBreak(worldIn, pos, additionalPos, stack)) {
 				ToolsUtil.breakBlock(stack, worldIn, additionalPos, entityLiving, cost);
 			}
 		}
 
 		return super.postMine(stack, worldIn, stateIn, pos, entityLiving);
+	}
+
+	@Override
+	public Set<BlockPos> getBlocksToBreak(ItemStack stack, World worldIn, BlockPos pos, @Nullable LivingEntity entityLiving) {
+		if (!stack.getItem().isEffectiveOn(worldIn.getBlockState(pos))) {
+			return Collections.emptySet();
+		}
+		int radius = isAOE5(stack) ? 2 : 1;
+		return ToolsUtil.getAOEMiningBlocks(worldIn, pos, entityLiving, radius, false)
+				.stream()
+				.filter((blockPos -> shouldBreak(worldIn, pos, blockPos, stack)))
+				.collect(Collectors.toSet());
 	}
 
 	// PickaxeItem
@@ -148,7 +156,7 @@ public class IndustrialJackhammerItem extends JackhammerItem {
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity entity, ItemStack stack, int i) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		ItemUtils.checkActive(stack, cost, entity.world.isClient, MessageIDs.poweredToolID);
 	}
 

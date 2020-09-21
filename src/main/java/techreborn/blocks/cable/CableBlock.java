@@ -42,6 +42,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -61,7 +62,8 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRContent;
 import techreborn.utils.damageSources.ElectrialShockSource;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,36 +104,34 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 	public BooleanProperty getProperty(Direction facing) {
 		switch (facing) {
-		case EAST:
-			return EAST;
-		case WEST:
-			return WEST;
-		case NORTH:
-			return NORTH;
-		case SOUTH:
-			return SOUTH;
-		case UP:
-			return UP;
-		case DOWN:
-			return DOWN;
-		default:
-			return EAST;
+			case WEST:
+				return WEST;
+			case NORTH:
+				return NORTH;
+			case SOUTH:
+				return SOUTH;
+			case UP:
+				return UP;
+			case DOWN:
+				return DOWN;
+			default:
+				return EAST;
 		}
 	}
 
 	private BlockState makeConnections(World world, BlockPos pos) {
-		Boolean down = canConnectTo(world, pos.offset(Direction.DOWN, 1), Direction.UP);
-		Boolean up = canConnectTo(world, pos.up(), Direction.DOWN);
-		Boolean north = canConnectTo(world, pos.north(), Direction.SOUTH);
-		Boolean east = canConnectTo(world, pos.east(), Direction.WEST);
-		Boolean south = canConnectTo(world, pos.south(), Direction.NORTH);
-		Boolean west = canConnectTo(world, pos.west(), Direction.WEST);
+		Boolean down = canConnectTo(world, pos.down());
+		Boolean up = canConnectTo(world, pos.up());
+		Boolean north = canConnectTo(world, pos.north());
+		Boolean east = canConnectTo(world, pos.east());
+		Boolean south = canConnectTo(world, pos.south());
+		Boolean west = canConnectTo(world, pos.west());
 
 		return this.getDefaultState().with(DOWN, down).with(UP, up).with(NORTH, north).with(EAST, east)
 				.with(SOUTH, south).with(WEST, west);
 	}
 
-	private Boolean canConnectTo(WorldAccess world, BlockPos pos, Direction facing) {
+	private Boolean canConnectTo(WorldAccess world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		if (blockEntity != null && (Energy.valid(blockEntity) || blockEntity instanceof CableBlockEntity)) {
 			if (blockEntity instanceof CableBlockEntity && ((CableBlockEntity)blockEntity).getCableType().tier != type.tier) {
@@ -156,6 +156,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 	}
 
 	// Block
+	@SuppressWarnings("deprecation")
 	@Override
 	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hitResult) {
 		ItemStack stack = playerIn.getStackInHand(Hand.MAIN_HAND);
@@ -166,11 +167,18 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			return ActionResult.FAIL;
 		}
 
-		if (!stack.isEmpty() && ToolManager.INSTANCE.canHandleTool(stack)) {
+		if (stack.isEmpty()) {
+			return super.onUse(state, worldIn, pos, playerIn, hand, hitResult);
+		}
+
+		if (ToolManager.INSTANCE.canHandleTool(stack)) {
 			if (state.get(COVERED) && !playerIn.isSneaking()) {
 				((CableBlockEntity) blockEntity).setCover(null);
 				worldIn.setBlockState(pos, state.with(COVERED, false));
 				worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_BREAK, SoundCategory.BLOCKS, 0.6F, 1.0F);
+				if (!worldIn.isClient) {
+					ItemScatterer.spawn(worldIn, pos.getX(), pos.getY(), pos.getZ(), TRContent.Plates.WOOD.getStack());
+				}
 				return ActionResult.SUCCESS;
 			}
 
@@ -179,7 +187,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 			}
 		}
 
-		if (!stack.isEmpty() && !state.get(COVERED) && !state.get(WATERLOGGED) && !type.canKill
+		if (!state.get(COVERED) && !state.get(WATERLOGGED) && !type.canKill
 				&& stack.getItem() == TRContent.Plates.WOOD.asItem()) {
 			worldIn.setBlockState(pos, state.with(COVERED, true));
 			worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 0.6F, 1.0F);
@@ -203,16 +211,18 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 				.with(WATERLOGGED, context.getWorld().getFluidState(context.getBlockPos()).getFluid() == Fluids.WATER);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState ourState, Direction ourFacing, BlockState otherState,
-			WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
+												WorldAccess worldIn, BlockPos ourPos, BlockPos otherPos) {
 		if (ourState.get(WATERLOGGED)) {
 			worldIn.getFluidTickScheduler().schedule(ourPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 		}
-		Boolean value = canConnectTo(worldIn, otherPos, ourFacing.getOpposite());
+		Boolean value = canConnectTo(worldIn, otherPos);
 		return ourState.with(getProperty(ourFacing), value);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext shapeContext) {
 		if (state.get(COVERED)) {
@@ -221,6 +231,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return cableShapeUtil.getShape(state);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
 		super.onEntityCollision(state, worldIn, pos, entityIn);
@@ -248,6 +259,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 				entityIn.setOnFireFor(1);
 			}
 			entityIn.damage(new ElectrialShockSource(), 1F);
+			blockEntityCable.setEnergy(0d);
 		}
 		if (TechRebornConfig.uninsulatedElectrocutionSound) {
 			worldIn.playSound(null, entityIn.getX(), entityIn.getY(), entityIn.getZ(), ModSounds.CABLE_SHOCK, SoundCategory.BLOCKS,
@@ -268,6 +280,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 		return !state.get(COVERED) && Waterloggable.super.canFillWithFluid(view, pos, state, fluid);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public FluidState getFluidState(BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);

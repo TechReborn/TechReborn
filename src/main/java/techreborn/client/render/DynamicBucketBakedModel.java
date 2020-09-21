@@ -40,7 +40,7 @@ public class DynamicBucketBakedModel extends BaseDynamicFluidBakedModel {
 	@Override
 	public Sprite getSprite() {
 		return MinecraftClient.getInstance()
-				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX)
+				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.apply(new Identifier("minecraft:item/bucket"));
 	}
 
