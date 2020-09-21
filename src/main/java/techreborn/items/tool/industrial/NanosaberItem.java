@@ -56,7 +56,7 @@ import techreborn.config.TechRebornConfig;
 import techreborn.init.TRContent;
 import techreborn.utils.MessageIDs;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class NanosaberItem extends SwordItem implements EnergyHolder, ItemDurabilityExtensions, ItemStackModifiers {

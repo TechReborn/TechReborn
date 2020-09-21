@@ -24,7 +24,8 @@
 
 package techreborn.init;
 
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
+
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -94,7 +95,7 @@ public enum ModFluids {
 		flowingFluid = new RebornFluid(false, fluidSettings, () -> block, () -> bucket, () -> flowingFluid, () -> stillFluid) {
 		};
 
-		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing().build());
+		block = new RebornFluidBlock(stillFluid, FabricBlockSettings.of(Material.WATER).noCollision().hardness(100.0F).dropsNothing());
 		bucket = new RebornBucketItem(stillFluid, new Item.Settings().group(TechReborn.ITEMGROUP).recipeRemainder(Items.BUCKET).maxCount(1));
 	}
 

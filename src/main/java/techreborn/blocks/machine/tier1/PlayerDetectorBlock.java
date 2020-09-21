@@ -54,11 +54,11 @@ import reborncore.common.util.StringUtils;
 import techreborn.blockentity.machine.tier1.PlayerDectectorBlockEntity;
 import techreborn.utils.MessageIDs;
 
-public class BlockPlayerDetector extends BlockMachineBase {
+public class PlayerDetectorBlock extends BlockMachineBase {
 
 	public static EnumProperty<PlayerDetectorType> TYPE;
 
-	public BlockPlayerDetector() {
+	public PlayerDetectorBlock() {
 		super(Block.Settings.of(Material.METAL).strength(2f, 2f), true);
 		this.setDefaultState(this.getStateManager().getDefaultState().with(TYPE, PlayerDetectorType.ALL));
 	}
@@ -70,8 +70,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 	}
 
 	@Override
-	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer,
-						 ItemStack stack) {
+	public void onPlaced(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.onPlaced(worldIn, pos, state, placer, stack);
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);
 		if (blockEntity instanceof PlayerDectectorBlockEntity) {
@@ -142,18 +141,20 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		return null;
 	}
 
-	// Block
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		TYPE = EnumProperty.of("type", PlayerDetectorType.class);
 		builder.add(TYPE);
 	}
 
+	// AbstractBlock
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean emitsRedstonePower(BlockState state) {
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
 		BlockEntity entity = blockAccess.getBlockEntity(pos);
@@ -163,6 +164,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
 		return 0;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getStrongRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
 		BlockEntity entity = blockAccess.getBlockEntity(pos);

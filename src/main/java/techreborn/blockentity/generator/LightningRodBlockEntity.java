@@ -29,7 +29,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -82,7 +81,7 @@ public class LightningRodBlockEntity extends PowerAcceptorBlockEntity implements
 				}
 
 				LightningEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world);
-				lightningBolt.method_29495(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
+				lightningBolt.refreshPositionAfterTeleport(Vec3d.ofBottomCenter(world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, getPos())));
 
 				if (!world.isClient) {
 					world.spawnEntity(lightningBolt);

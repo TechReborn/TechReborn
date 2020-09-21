@@ -40,7 +40,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-import reborncore.api.items.ArmorFovHandler;
 import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.api.items.ArmorTickable;
 import reborncore.api.items.ItemStackModifiers;
@@ -53,7 +52,7 @@ import techreborn.TechReborn;
 import techreborn.config.TechRebornConfig;
 import techreborn.utils.InitUtils;
 
-public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, ArmorFovHandler, EnergyHolder {
+public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers, ArmorTickable, ArmorRemoveHandler, EnergyHolder {
 
 	public final double flyCost = TechRebornConfig.quantumSuitFlyingCost;
 	public final double swimCost = TechRebornConfig.quantumSuitSwimmingCost;
@@ -136,14 +135,6 @@ public class QuantumSuitItem extends TRArmourItem implements ItemStackModifiers,
 				playerEntity.abilities.flying = false;
 			}
 		}
-	}
-
-	@Override
-	public float changeFov(float old, ItemStack stack, PlayerEntity playerEntity) {
-		if (this.slot == EquipmentSlot.LEGS && Energy.of(stack).getEnergy() > sprintingCost) {
-			old -= 0.6; //TODO possibly make it better
-		}
-		return old;
 	}
 
 	@Override

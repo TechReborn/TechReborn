@@ -38,7 +38,6 @@ import net.minecraft.world.World;
 import reborncore.common.powerSystem.PowerSystem;
 import reborncore.common.util.ItemDurabilityExtensions;
 import reborncore.common.util.ItemUtils;
-import team.reborn.energy.Energy;
 import team.reborn.energy.EnergyHolder;
 import team.reborn.energy.EnergyTier;
 import techreborn.TechReborn;
@@ -55,25 +54,14 @@ public class BatpackItem extends ArmorItem implements EnergyHolder, ItemDurabili
 		this.tier = tier;
 	}
 
-	private void distributePowerToInventory(World world, PlayerEntity player, ItemStack itemStack, int maxOutput) {
-		if (world.isClient || !Energy.valid(itemStack)) {
-			return;
-		}
-
-		for (int i = 0; i < player.inventory.size(); i++) {
-			if (Energy.valid(player.inventory.getStack(i))) {
-				Energy.of(itemStack)
-						.into(Energy.of(player.inventory.getStack(i)))
-						.move(maxOutput);
-			}
-		}
-	}
-
 	// Item
 	@Override
 	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		if (worldIn.isClient) {
+			return;
+		}
 		if (entityIn instanceof PlayerEntity) {
-			distributePowerToInventory(worldIn, (PlayerEntity) entityIn, stack, tier.getMaxOutput());
+			ItemUtils.distributePowerToInventory((PlayerEntity) entityIn, stack, tier.getMaxOutput());
 		}
 	}
 

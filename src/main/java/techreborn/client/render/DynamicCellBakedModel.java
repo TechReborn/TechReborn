@@ -55,7 +55,7 @@ public class DynamicCellBakedModel extends BaseDynamicFluidBakedModel {
 	@Override
 	public Sprite getSprite() {
 		return MinecraftClient.getInstance()
-				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEX)
+				.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.apply(new Identifier("techreborn:item/cell_base"));
 	}
 

@@ -25,11 +25,14 @@
 package techreborn.init;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.structure.rule.RuleTest;
 import reborncore.api.blockentity.IUpgrade;
 import reborncore.common.fluid.FluidValue;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
@@ -80,9 +83,13 @@ import techreborn.items.DrillHeadItem;
 import techreborn.items.DynamicCellItem;
 import techreborn.items.UpgradeItem;
 import techreborn.items.armor.QuantumSuitItem;
+import techreborn.items.tool.MiningLevel;
 import techreborn.utils.InitUtils;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
+import techreborn.world.TechRebornOre;
+import techreborn.world.WorldTargetType;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -371,22 +378,22 @@ public class TRContent {
 	}
 
 	public enum Ores implements ItemConvertible {
-		BAUXITE(TechRebornConfig.bauxiteVeinSize, TechRebornConfig.bauxiteVeinCount, 10, 60),
-		CINNABAR(TechRebornConfig.cinnabarVeinSize, TechRebornConfig.cinnabarVeinCount, 10, 126),
-		COPPER(TechRebornConfig.copperVeinSize, TechRebornConfig.copperVeinCount, 20, 60),
-		GALENA(TechRebornConfig.galenaVeinSize, TechRebornConfig.galenaVeinCount, 10, 60),
-		IRIDIUM(TechRebornConfig.iridiumVeinSize, TechRebornConfig.iridiumVeinCount, 5, 60),
-		LEAD(TechRebornConfig.leadVeinSize, TechRebornConfig.leadVeinCount, 20, 60),
-		PERIDOT(TechRebornConfig.peridotVeinSize, TechRebornConfig.peridotVeinCount, 10, 250),
-		PYRITE(TechRebornConfig.pyriteVeinSize, TechRebornConfig.pyriteVeinCount, 10, 126),
-		RUBY(TechRebornConfig.rubyVeinSize, TechRebornConfig.rubyVeinCount, 10, 60),
-		SAPPHIRE(TechRebornConfig.sapphireVeinSize, TechRebornConfig.sapphireVeinCount, 10, 60),
-		SHELDONITE(TechRebornConfig.sheldoniteVeinSize, TechRebornConfig.sheldoniteVeinCount, 10, 250),
-		SILVER(TechRebornConfig.silverVeinSize, TechRebornConfig.silverVeinCount, 20, 60),
-		SODALITE(TechRebornConfig.sodaliteVeinSize, TechRebornConfig.sodaliteVeinCount, 10, 250),
-		SPHALERITE(TechRebornConfig.sphaleriteVeinSize, TechRebornConfig.sphaleriteVeinCount, 10, 126),
-		TIN(TechRebornConfig.tinVeinSize, TechRebornConfig.tinVeinCount, 20, 60),
-		TUNGSTEN(TechRebornConfig.tungstenVeinSize, TechRebornConfig.tungstenVeinCount, 10, 250);
+		BAUXITE(6, 10, 10, 60, MiningLevel.STONE),
+		CINNABAR(6, 3, 10, 126, MiningLevel.IRON),
+		COPPER(8, 16, 20, 60, MiningLevel.STONE),
+		GALENA(8, 16, 10, 60, MiningLevel.IRON),
+		IRIDIUM(3, 3, 5, 60, MiningLevel.DIAMOND),
+		LEAD(6, 16, 20, 60, MiningLevel.IRON),
+		PERIDOT(6, 3, 10, 250, MiningLevel.DIAMOND),
+		PYRITE(6, 3, 10, 126, MiningLevel.DIAMOND),
+		RUBY(6, 3, 10, 60, MiningLevel.IRON),
+		SAPPHIRE(6, 3, 10, 60, MiningLevel.IRON),
+		SHELDONITE(6, 3, 10, 250, MiningLevel.DIAMOND),
+		SILVER(6, 16, 20, 60, MiningLevel.IRON),
+		SODALITE(6, 3, 10, 250, MiningLevel.DIAMOND),
+		SPHALERITE(6, 3, 10, 126, MiningLevel.IRON),
+		TIN(8, 16, 20, 60, MiningLevel.STONE),
+		TUNGSTEN(6, 3, 10, 250, MiningLevel.DIAMOND);
 
 		public final String name;
 		public final Block block;
@@ -395,9 +402,14 @@ public class TRContent {
 		public final int minY;
 		public final int maxY;
 
-		Ores(int veinSize, int veinsPerChunk, int minY, int maxY) {
+		Ores(int veinSize, int veinsPerChunk, int minY, int maxY, MiningLevel miningLevel) {
 			name = this.toString().toLowerCase(Locale.ROOT);
-			block = new OreBlock(FabricBlockSettings.of(Material.STONE).strength(2f, 2f));
+			block = new OreBlock(FabricBlockSettings.of(Material.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, miningLevel.intLevel)
+					.requiresTool()
+					.sounds(BlockSoundGroup.STONE)
+					.strength(2f, 2f)
+			);
 			this.veinSize = veinSize;
 			this.veinsPerChunk = veinsPerChunk;
 			this.minY = minY;
@@ -409,6 +421,11 @@ public class TRContent {
 		public Item asItem() {
 			return block.asItem();
 		}
+
+		public TechRebornOre asNewOres(WorldTargetType targetType, RuleTest ruleTest) {
+			return new TechRebornOre(targetType, ruleTest, block.getDefaultState(), maxY, veinSize, veinsPerChunk);
+		}
+
 	}
 
 	public enum StorageBlocks implements ItemConvertible {
@@ -427,31 +444,13 @@ public class TRContent {
 			block = new BlockStorage();
 			InitUtils.setup(block, name + "_storage_block");
 
-			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block)) {
-				@Override
-				public String getTranslationKey() {
-					return block.getTranslationKey();
-				}
-			};
-
+			stairsBlock = new TechRebornStairsBlock(block.getDefaultState(), FabricBlockSettings.copyOf(block));
 			InitUtils.setup(stairsBlock, name + "_storage_block_stairs");
 
-			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block)) {
-				@Override
-				public String getTranslationKey() {
-					return block.getTranslationKey();
-				}
-			};
-
+			slabBlock = new SlabBlock(FabricBlockSettings.copyOf(block));
 			InitUtils.setup(slabBlock, name + "_storage_block_slab");
 
-			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block)) {
-				@Override
-				public String getTranslationKey() {
-					return block.getTranslationKey();
-				}
-			};
-
+			wallBlock = new WallBlock(FabricBlockSettings.copyOf(block));
 			InitUtils.setup(wallBlock, name + "_storage_block_wall");
 		}
 
@@ -568,7 +567,7 @@ public class TRContent {
 		CHUNK_LOADER(new GenericMachineBlock(GuiType.CHUNK_LOADER, ChunkLoaderBlockEntity::new)),
 		LAMP_INCANDESCENT(new BlockLamp(4, 10, 8)),
 		LAMP_LED(new BlockLamp(1, 1, 12)),
-		PLAYER_DETECTOR(new BlockPlayerDetector());
+		PLAYER_DETECTOR(new PlayerDetectorBlock());
 
 		public final String name;
 		public final Block block;

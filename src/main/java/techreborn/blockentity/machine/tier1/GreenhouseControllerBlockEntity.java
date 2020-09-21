@@ -62,55 +62,10 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		super(TRBlockEntities.GREENHOUSE_CONTROLLER);
 	}
 
-	@Override
-	public void writeMultiblock(MultiblockWriter writer) {
-		BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.getDefaultState().with(Properties.FACING, Direction.DOWN);
-		BlockState crop = Blocks.CACTUS.getDefaultState();
-
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				writer.add(i * 3, 3, j * 3, (world, pos) -> BlockLamp.isActive(world.getBlockState(pos)), lamp);
-			}
-		}
-
-		for (int i = -4; i <= 4; i++) {
-			for (int j = -4; j <= 4; j++) {
-				writer.add(i, 0, j, (world, pos) -> true, crop);
-			}
-		}
-	}
-
-	@Override
-	public void tick() {
-		if (multiblockCenter == null) {
-			multiblockCenter = pos.offset(getFacing().getOpposite(), 5);
-		}
-		charge(6);
-		super.tick();
-
-		if (world.isClient) {
-			return;
-		}
-
-		if (useEnergy(getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) != getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
-			return;
-		}
-
-		if (--ticksToNextMultiblockCheck < 0) {
-			growthBoost = isMultiblockValid();
-			ticksToNextMultiblockCheck = 200;
-		}
-
-		if (world.getTime() % 20 == 0) {
-			double cyclesLimit = getSpeedMultiplier() * 4 + 1;
-			while (cyclesLimit-- > 0) {
-				workCycle();
-			}
-		}
-
-	}
-
 	private void workCycle() {
+		if (world == null){
+			return;
+		}
 		BlockPos blockPos = multiblockCenter.add(world.random.nextInt(9) - 4, 0, world.random.nextInt(9) - 4);
 		BlockState blockState = world.getBlockState(blockPos);
 		Block block = blockState.getBlock();
@@ -165,20 +120,28 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 				}
 			}
 		}
-
 	}
 
 	private void processAgedCrop(BlockState blockState, BlockPos blockPos, IntProperty ageProperty, int maxAge, int newAge) {
-		if (blockState.get(ageProperty) >= maxAge) {
-			if (tryHarvestBlock(blockState, blockPos)) {
-				world.setBlockState(blockPos, blockState.with(ageProperty, newAge), 2);
-			}
+		if (world == null) {
+			return;
+		}
+		if (blockState.get(ageProperty) < maxAge) {
+			return;
+		}
+		if (tryHarvestBlock(blockState, blockPos)) {
+			world.setBlockState(blockPos, blockState.with(ageProperty, newAge), 2);
 		}
 	}
 
 	private boolean tryHarvestBlock(BlockState blockState, BlockPos blockPos) {
-		if (canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)
-				&& insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null))) {
+		if (world == null) {
+			return false;
+		}
+		if (!canUseEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest)){
+			return false;
+		}
+		if (insertIntoInv(Block.getDroppedStacks(blockState, (ServerWorld) world, blockPos, null))) {
 			useEnergy(TechRebornConfig.greenhouseControllerEnergyPerHarvest);
 			return true;
 		}
@@ -216,6 +179,39 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		return false;
 	}
 
+	// PowerAcceptorBlockEntity
+	@Override
+	public void tick() {
+		if (world == null){
+			return;
+		}
+		if (multiblockCenter == null) {
+			multiblockCenter = pos.offset(getFacing().getOpposite(), 5);
+		}
+		charge(6);
+		super.tick();
+
+		if (world.isClient) {
+			return;
+		}
+
+		if (useEnergy(getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) != getEuPerTick(TechRebornConfig.greenhouseControllerEnergyPerTick)) {
+			return;
+		}
+
+		if (--ticksToNextMultiblockCheck < 0) {
+			growthBoost = isMultiblockValid();
+			ticksToNextMultiblockCheck = 200;
+		}
+
+		if (world.getTime() % 20 == 0) {
+			double cyclesLimit = getSpeedMultiplier() * 4 + 1;
+			while (cyclesLimit-- > 0) {
+				workCycle();
+			}
+		}
+	}
+
 	@Override
 	public boolean canProvideEnergy(Direction direction) {
 		return false;
@@ -236,14 +232,23 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		return TechRebornConfig.greenhouseControllerMaxInput;
 	}
 
+	// MachineBaseBlockEntity
 	@Override
-	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
-		return TRContent.Machine.GREENHOUSE_CONTROLLER.getStack();
-	}
+	public void writeMultiblock(MultiblockWriter writer) {
+		BlockState lamp = TRContent.Machine.LAMP_INCANDESCENT.block.getDefaultState().with(Properties.FACING, Direction.DOWN);
+		BlockState crop = Blocks.CACTUS.getDefaultState();
 
-	@Override
-	public RebornInventory<GreenhouseControllerBlockEntity> getInventory() {
-		return this.inventory;
+		for (int i = 0; i < 3; i++) {
+			for (int j = -1; j < 2; j++) {
+				writer.add(i * 3 + 2, 3, j * 3, (world, pos) -> BlockLamp.isActive(world.getBlockState(pos)), lamp);
+			}
+		}
+
+		for (int i = 1; i <= 9; i++) {
+			for (int j = -4; j <= 4; j++) {
+				writer.add(i, 0, j, (world, pos) -> true, crop);
+			}
+		}
 	}
 
 	@Override
@@ -251,6 +256,19 @@ public class GreenhouseControllerBlockEntity extends PowerAcceptorBlockEntity
 		return true;
 	}
 
+	// IToolDrop
+	@Override
+	public ItemStack getToolDrop(PlayerEntity entityPlayer) {
+		return TRContent.Machine.GREENHOUSE_CONTROLLER.getStack();
+	}
+
+	// InventoryProvider
+	@Override
+	public RebornInventory<GreenhouseControllerBlockEntity> getInventory() {
+		return this.inventory;
+	}
+
+	// BuiltScreenHandlerProvider
 	@Override
 	public BuiltScreenHandler createScreenHandler(int syncID, PlayerEntity player) {
 		return new ScreenHandlerBuilder("greenhousecontroller").player(player.inventory).inventory().hotbar().addInventory()

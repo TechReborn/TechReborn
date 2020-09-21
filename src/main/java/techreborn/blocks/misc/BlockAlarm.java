@@ -51,7 +51,7 @@ import reborncore.common.blocks.BlockWrenchEventHandler;
 import reborncore.common.util.WrenchUtils;
 import techreborn.blockentity.machine.misc.AlarmBlockEntity;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class BlockAlarm extends BaseBlockEntityProvider {
@@ -161,7 +161,7 @@ public class BlockAlarm extends BaseBlockEntityProvider {
 
 
 	@Override
-	public void buildTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
+	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		tooltip.add(new TranslatableText("techreborn.tooltip.alarm").formatted(Formatting.GRAY));
 	}
 

@@ -1,0 +1,19 @@
+{
+  "type": "techreborn:grinder",
+  "power": 2,
+  "time": 300,
+  "ingredients": [
+	{
+	  "tag": "c:certus_quartz_ores"
+	}
+  ],
+  "results": [
+	{
+	  "item": "appliedenergistics2:certus_quartz_dust",
+	  "count": 5
+	}
+  ],
+  "conditions": {
+	"reborncore:mod": "appliedenergistics2"
+  }
+}

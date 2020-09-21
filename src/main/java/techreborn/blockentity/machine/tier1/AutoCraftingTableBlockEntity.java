@@ -51,7 +51,7 @@ import techreborn.init.ModSounds;
 import techreborn.init.TRBlockEntities;
 import techreborn.init.TRContent;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -124,7 +124,7 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 			DefaultedList<Ingredient> ingredients = recipe.getPreviewInputs();
 			List<Integer> checkedSlots = new ArrayList<>();
 			for (Ingredient ingredient : ingredients) {
-				if (ingredient != Ingredient.EMPTY) {
+				if (ingredient != Ingredient.EMPTY && !(ingredient.test(ItemStack.EMPTY))) {
 					boolean foundIngredient = false;
 					for (int i = 0; i < 9; i++) {
 						if (checkedSlots.contains(i)) {
@@ -344,11 +344,10 @@ public class AutoCraftingTableBlockEntity extends PowerAcceptorBlockEntity
 					.boxed().collect(Collectors.toList());
 
 			boolean needsBalance = false;
-			for (int i = 0; i < split.length; i++) {
-				int required = split[i];
+			for (int required : split) {
 				if (slotEnvTyperubution.contains(required)) {
 					//We need to remove the int, not at the int, this seems to work around that
-					slotEnvTyperubution.remove(new Integer(required));
+					slotEnvTyperubution.remove(Integer.valueOf(required));
 				} else {
 					needsBalance = true;
 				}
