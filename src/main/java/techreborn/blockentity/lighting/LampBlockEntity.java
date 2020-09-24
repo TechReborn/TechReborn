@@ -31,7 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import reborncore.api.IToolDrop;
 import reborncore.common.powerSystem.PowerAcceptorBlockEntity;
-import techreborn.blocks.lighting.BlockLamp;
+import techreborn.blocks.lighting.LampBlock;
 import techreborn.init.TRBlockEntities;
 
 public class LampBlockEntity extends PowerAcceptorBlockEntity
@@ -52,14 +52,14 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 		}
 		BlockState state = world.getBlockState(pos);
 		Block b = state.getBlock();
-		if (b instanceof BlockLamp) {
-			double cost = getEuPerTick(((BlockLamp) b).getCost());
+		if (b instanceof LampBlock) {
+			double cost = getEuPerTick(((LampBlock) b).getCost());
 			if (getEnergy() > cost) {
 				useEnergy(getEuPerTick(cost));
-				if (!BlockLamp.isActive(state))
-					BlockLamp.setActive(true, world, pos);
-			} else if (BlockLamp.isActive(state)) {
-				BlockLamp.setActive(false, world, pos);
+				if (!LampBlock.isActive(state))
+					LampBlock.setActive(true, world, pos);
+			} else if (LampBlock.isActive(state)) {
+				LampBlock.setActive(false, world, pos);
 			}
 		}
 	}
@@ -75,7 +75,7 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity
 			// Blame tooltip for this
 			return true;
 		}
-		Direction me = BlockLamp.getFacing(world.getBlockState(pos)).getOpposite();
+		Direction me = LampBlock.getFacing(world.getBlockState(pos)).getOpposite();
 		return direction == me;
 	}
 
