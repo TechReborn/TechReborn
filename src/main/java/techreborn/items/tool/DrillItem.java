@@ -30,7 +30,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.collection.DefaultedList;
@@ -69,15 +68,31 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 	public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
 		// Going to remain to use this ol reliable function, the fabric one is funky
 
-		if(Energy.of(stack).getEnergy() >= cost ) {
+		if (Energy.of(stack).getEnergy() >= cost) {
 			if (stack.getItem().isEffectiveOn(state)) {
 				return poweredSpeed;
-			}else{
+			} else {
 				return Math.min(unpoweredSpeed * 10f, poweredSpeed); // Still be faster than unpowered when not effective
 			}
 		}
 
 		return unpoweredSpeed;
+	}
+
+	// PickaxeItem
+	@Override
+	public boolean isEffectiveOn(BlockState blockIn) {
+		if (Items.DIAMOND_PICKAXE.isEffectiveOn(blockIn)) {
+			return true;
+		}
+		if (Items.DIAMOND_SHOVEL.isEffectiveOn(blockIn)) {
+			return true;
+		}
+		// More checks to fix #2225
+		if (Items.DIAMOND_SHOVEL.getMiningSpeedMultiplier(null, blockIn) > 1.0f) {
+			return true;
+		}
+		return Items.DIAMOND_PICKAXE.getMiningSpeedMultiplier(null, blockIn) > 1.0f;
 	}
 
 	// MiningToolItem
@@ -116,7 +131,7 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	@Override
 	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
-		if (tag.equals(FabricToolTags.PICKAXES)) {
+		if (tag.equals(FabricToolTags.PICKAXES) || tag.equals(FabricToolTags.SHOVELS)) {
 			return miningLevel;
 		}
 		return 0;
