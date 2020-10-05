@@ -129,14 +129,6 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 		InitUtils.initPoweredItems(this, stacks);
 	}
 
-	@Override
-	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
-		if (tag.equals(FabricToolTags.PICKAXES) || tag.equals(FabricToolTags.SHOVELS)) {
-			return miningLevel;
-		}
-		return 0;
-	}
-
 	// ItemDurabilityExtensions
 	@Override
 	public double getDurability(ItemStack stack) {
@@ -166,6 +158,15 @@ public class DrillItem extends PickaxeItem implements EnergyHolder, ItemDurabili
 
 	@Override
 	public double getMaxOutput(EnergySide side) {
+		return 0;
+	}
+
+	// DynamicAttributeTool
+	@Override
+	public int getMiningLevel(Tag<Item> tag, BlockState state, ItemStack stack, LivingEntity user) {
+		if (tag.equals(FabricToolTags.PICKAXES) || tag.equals(FabricToolTags.SHOVELS)) {
+			return miningLevel;
+		}
 		return 0;
 	}
 }
