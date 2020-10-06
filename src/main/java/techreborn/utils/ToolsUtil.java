@@ -184,10 +184,10 @@ public class ToolsUtil {
 			return true;
 		}
 		if (blockState.isOf(Blocks.OBSIDIAN) || blockState.isOf(Blocks.CRYING_OBSIDIAN)){
-			return false;
+			return true;
 		}
 		if (blockState.isOf(Blocks.ANCIENT_DEBRIS)){
-			return false;
+			return true;
 		}
 		return blockState.getBlock() instanceof RedstoneOreBlock;
 	}
