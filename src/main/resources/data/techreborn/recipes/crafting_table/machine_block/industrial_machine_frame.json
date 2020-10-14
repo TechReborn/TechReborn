@@ -10,7 +10,7 @@
       "item": "techreborn:advanced_machine_frame"
     },
     "C": {
-      "item": "techreborn:chrome_plate"
+      "tag": "c:chrome_plates"
     },
     "T": {
       "tag": "c:titanium_plates"

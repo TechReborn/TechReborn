@@ -4,7 +4,7 @@
   "time": 300,
   "ingredients": [
     {
-      "item": "techreborn:invar_ingot"
+      "tag": "c:invar_ingots"
     }
   ],
   "results": [

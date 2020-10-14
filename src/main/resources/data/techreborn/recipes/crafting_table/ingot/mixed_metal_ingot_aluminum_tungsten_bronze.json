@@ -13,7 +13,7 @@
       "tag": "c:tungsten_ingots"
     },
     "M": {
-      "item": "techreborn:bronze_ingot"
+      "tag": "c:bronze_ingots"
     }
   },
   "result": {

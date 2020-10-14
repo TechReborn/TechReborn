@@ -4,7 +4,7 @@
   "time": 250,
   "ingredients": [
     {
-      "item": "techreborn:quartz_dust"
+      "tag": "c:quartz_dusts"
     }
   ],
   "results": [
