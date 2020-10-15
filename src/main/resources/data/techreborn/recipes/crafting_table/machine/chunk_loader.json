@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+	"BCG",
+	"LFN",
+	"OQR"
+  ],
+  "key": {
+	"B": {
+	  "tag": "c:bronze_plates"
+	},
+	"C": {
+	  "tag": "c:coal_plates"
+	},
+	"G": {
+	  "tag": "c:gold_plates"
+	},
+	"L": {
+	  "tag": "c:lapis_plates"
+	},
+	"F": {
+	  "item": "techreborn:industrial_machine_frame"
+	},
+	"N": {
+	  "tag": "c:nickel_plates"
+	},
+	"O": {
+	  "tag": "c:obsidian_plates"
+	},
+	"Q": {
+	  "tag": "c:quartz_plates"
+	},
+	"R": {
+	  "tag": "c:redstone_plates"
+	}
+  },
+  "result": {
+	"item": "techreborn:chunk_loader"
+  }
+}
