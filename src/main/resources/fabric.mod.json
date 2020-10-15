@@ -24,6 +24,9 @@
     ],
 	"autoswitch": [
 	  "techreborn.compat.autoswitch.AutoSwitchApiImpl"
+	],
+	"libdp": [
+	  "techreborn.compat.libdp.LibDPPlugin"
 	]
   },
   "depends": {
