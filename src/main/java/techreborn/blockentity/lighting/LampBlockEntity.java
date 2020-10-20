@@ -67,18 +67,6 @@ public class LampBlockEntity extends PowerAcceptorBlockEntity implements IToolDr
 		}
 	}
 
-
-
-//	@Override
-//	public boolean canAcceptEnergy(final Direction direction) {
-//		if (world == null) {
-//			// Blame tooltip for this
-//			return true;
-//		}
-//		Direction me = LampBlock.getFacing(world.getBlockState(pos)).getOpposite();
-//		return direction == me;
-//	}
-
 	@Override
 	protected boolean canAcceptEnergy(EnergySide side) {
 		return side == EnergySide.UNKNOWN || getFacing().getOpposite() != Direction.values()[side.ordinal()];

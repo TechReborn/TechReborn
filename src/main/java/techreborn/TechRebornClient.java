@@ -257,5 +257,4 @@ public class TechRebornClient implements ClientModInitializer {
 			return call((T) stack.getItem(), stack, world, entity);
 		}
 	}
-
 }

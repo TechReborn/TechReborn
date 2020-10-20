@@ -54,7 +54,6 @@ public class GuiBlastFurnace extends GuiBase<BuiltScreenHandler> {
 		super.drawBackground(matrixStack, f, mouseX, mouseY);
 		this.hasMultiBlock = this.blockEntity.getCachedHeat() != 0;
 
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		final GuiBase.Layer layer = Layer.BACKGROUND;
 
 		drawSlot(matrixStack, 8, 72, layer);

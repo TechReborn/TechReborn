@@ -113,7 +113,5 @@ public class TechReborn implements ModInitializer {
 		TechRebornTemplates.init();
 
 		LOGGER.info("TechReborn setup done!");
-
 	}
-
 }
